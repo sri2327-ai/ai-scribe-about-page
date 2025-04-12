@@ -19,7 +19,7 @@ export function StarBorder<T extends ElementType = "div">({
   ...props
 }: StarBorderProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof StarBorderProps<T>>) {
   const Component = as || "div"
-  const defaultColor = color || "hsl(var(--foreground))"
+  const defaultColor = color || "#4ECDC4" // Teal blue default
 
   return (
     <Component 

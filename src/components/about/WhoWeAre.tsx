@@ -57,7 +57,7 @@ const WhoWeAre = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="relative w-full"
+              className="relative h-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -65,16 +65,16 @@ const WhoWeAre = () => {
             >
               <StarBorder 
                 as="div" 
-                className="w-full h-full" 
+                className="w-full h-full flex flex-col" 
                 color="#4ECDC4"
                 speed={`${6 + (index % 3)}s`}
               >
-                <div className="p-4 sm:p-6">
+                <div className="p-4 sm:p-6 flex flex-col h-full">
                   <div className="bg-black/60 p-2 rounded-lg mb-3 sm:mb-4 inline-block">
                     {feature.icon}
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor">{feature.description}</p>
+                  <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor flex-grow">{feature.description}</p>
                 </div>
               </StarBorder>
             </motion.div>
