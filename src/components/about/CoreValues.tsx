@@ -56,8 +56,8 @@ const CoreValues = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="relative h-full transition-all duration-300 group-hover:scale-[1.03]">
-                {/* Glow effect that shows on hover */}
+              <div className="relative h-full">
+                {/* Only show the glow effect on hover, no background box */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <GlowingEffect
                     spread={25}

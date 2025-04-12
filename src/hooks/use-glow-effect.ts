@@ -66,8 +66,8 @@ export function useGlowEffect({
         // Only trigger animation effect when hover state changes
         if (isActive && !hoverStateRef.current) {
           // Entry animation - more intense for better visibility
-          element.style.setProperty("--intensity", "2.0"); // Higher intensity for more visibility
-          element.style.setProperty("--spread", "60"); // Wider spread on initial hover
+          element.style.setProperty("--intensity", "2.5"); // Higher intensity for more visibility
+          element.style.setProperty("--spread", "80"); // Wider spread on initial hover
           
           // Reset to normal values after initial effect
           if (pulseTimeoutRef.current) {
@@ -75,8 +75,8 @@ export function useGlowEffect({
           }
           
           pulseTimeoutRef.current = window.setTimeout(() => {
-            element.style.setProperty("--intensity", "1.6");
-            element.style.setProperty("--spread", "40");
+            element.style.setProperty("--intensity", "2.0");
+            element.style.setProperty("--spread", "60");
           }, 400);
           
           hoverStateRef.current = true;
@@ -116,11 +116,11 @@ export function useGlowEffect({
           const pulseIntensity = () => {
             if (!element || !hoverStateRef.current) return;
             
-            const currentIntensity = parseFloat(element.style.getPropertyValue("--intensity") || "1.6");
-            const newIntensity = currentIntensity === 1.6 ? 2.0 : 1.6;
+            const currentIntensity = parseFloat(element.style.getPropertyValue("--intensity") || "2.0");
+            const newIntensity = currentIntensity === 2.0 ? 2.5 : 2.0;
             
             animate(currentIntensity, newIntensity, {
-              duration: 1.2, // Faster pulsing
+              duration: 1.0, // Faster pulsing
               ease: [0.4, 0, 0.6, 1],
               onUpdate: (value) => {
                 element.style.setProperty("--intensity", String(value));
