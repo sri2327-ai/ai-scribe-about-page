@@ -38,15 +38,15 @@ const HeroSection = () => {
         />
       </div>
       
-      {/* Scroll down indicator */}
+      {/* Scroll down indicator - positioned on left side */}
       <motion.div 
-        className="absolute bottom-16 flex flex-col items-center cursor-pointer z-20"
+        className="absolute left-10 bottom-16 flex flex-col items-center cursor-pointer z-20"
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
         onClick={scrollToNextSection}
       >
-        <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll Down</p>
+        <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll</p>
         <ChevronDown className="text-white h-6 w-6" />
       </motion.div>
       

@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Make the stroke style brighter and more visible with higher opacity
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.25)"; // Increased opacity from 0.08 to 0.25
-    ctx.lineWidth = 4; // Increased from 3 to 4 for better visibility
+    // Make the stroke style much more visible with higher opacity and thicker lines
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.4)"; // Increased opacity to 0.4 for better visibility
+    ctx.lineWidth = 6; // Increased to 6px for more prominent lines
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -211,13 +211,14 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
     window.addEventListener("resize", resizeCanvas);
     
     // Trigger animation on initial load with a simulated mouse move
+    // Increased delay to ensure canvas is fully mounted
     setTimeout(() => {
       const initialEvent = new MouseEvent('mousemove', {
         clientX: pos.x,
         clientY: pos.y
       });
       onMousemove(initialEvent);
-    }, 100); // Small delay to ensure canvas is fully mounted
+    }, 300); 
     
     return () => {
       if (ctx) ctx.running = false;

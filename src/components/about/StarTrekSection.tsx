@@ -3,8 +3,19 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import StarBackground from "@/components/about/StarBackground";
+import { ChevronDown } from "lucide-react";
 
 const StarTrekSection = () => {
+  const scrollToNext = () => {
+    // Scroll to the next section smoothly
+    const currentPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    window.scrollTo({
+      top: currentPosition + windowHeight,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <section className="py-20 relative overflow-hidden bg-black min-h-[600px] flex items-center justify-center">
       {/* Star background */}
@@ -32,6 +43,18 @@ const StarTrekSection = () => {
           </div>
         </motion.div>
       </div>
+      
+      {/* Scroll down indicator - positioned on left side */}
+      <motion.div 
+        className="absolute left-10 bottom-16 flex flex-col items-center cursor-pointer z-20"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+        onClick={scrollToNext}
+      >
+        <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll</p>
+        <ChevronDown className="text-white h-6 w-6" />
+      </motion.div>
     </section>
   );
 };

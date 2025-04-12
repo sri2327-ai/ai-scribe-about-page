@@ -3,8 +3,19 @@ import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { LampSection } from "@/components/ui/lamp";
 import { Separator } from "@/components/ui/separator";
+import { ChevronDown } from "lucide-react";
 
 const MissionVision = () => {
+  const scrollToNext = () => {
+    // Scroll to the next section smoothly
+    const currentPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    window.scrollTo({
+      top: currentPosition + windowHeight,
+      behavior: "smooth"
+    });
+  };
+
   return (
     <div className="flex flex-col">
       {/* Mission Section with Lamp Effect */}
@@ -17,6 +28,18 @@ const MissionVision = () => {
         >
           To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
         </motion.p>
+        
+        {/* Scroll down indicator - positioned on left side */}
+        <motion.div 
+          className="absolute left-10 bottom-16 flex flex-col items-center cursor-pointer z-20"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+          onClick={scrollToNext}
+        >
+          <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll</p>
+          <ChevronDown className="text-white h-6 w-6" />
+        </motion.div>
       </LampSection>
       
       {/* Section Divider */}
@@ -31,11 +54,11 @@ const MissionVision = () => {
           <CanvasEffect id="vision-canvas" className="w-full h-full" />
         </div>
         
-        {/* Teal glow effect background for additional atmosphere */}
+        {/* Enhanced teal glow effect background for additional atmosphere */}
         <div 
-          className="absolute w-full h-full mx-auto opacity-20" 
+          className="absolute w-full h-full mx-auto opacity-30" 
           style={{
-            background: "radial-gradient(ellipse at center, rgba(30,174,219,0.15) 0%, rgba(30,174,219,0) 70%)",
+            background: "radial-gradient(ellipse at center, rgba(30,174,219,0.25) 0%, rgba(30,174,219,0) 70%)",
             pointerEvents: "none"
           }}
         />
@@ -59,6 +82,18 @@ const MissionVision = () => {
             We envision a world where clinicians and patients are fully engaged, empowered by AI that automates workflows, enhances EHR usability, and unlocks unparalleled value.
           </motion.p>
         </div>
+        
+        {/* Scroll down indicator - positioned on left side */}
+        <motion.div 
+          className="absolute left-10 bottom-16 flex flex-col items-center cursor-pointer z-20"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+          onClick={scrollToNext}
+        >
+          <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll</p>
+          <ChevronDown className="text-white h-6 w-6" />
+        </motion.div>
       </section>
       
       {/* Section Divider */}
