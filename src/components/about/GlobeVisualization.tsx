@@ -30,7 +30,8 @@ const GlobeVisualization = () => {
     // Set the correct size for the renderer
     const updateSize = () => {
       if (canvasRef.current) {
-        const width = canvasRef.current.clientWidth;
+        // Set width to 85% of screen width for 80-90% coverage
+        const width = window.innerWidth * 0.85;
         const height = canvasRef.current.clientHeight;
         renderer.setSize(width, height);
         camera.aspect = width / height;

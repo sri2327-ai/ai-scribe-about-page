@@ -42,11 +42,11 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container - positioned to show only top 75% */}
+        {/* Globe container - positioned higher up */}
         <div className="absolute w-full flex items-center justify-center" 
              style={{ 
-               top: "calc(50% + 8rem)",
-               height: "700px", // Increased height for larger globe
+               top: "calc(50% + 4rem)", // Moved up from 8rem to 4rem
+               height: "700px", 
                zIndex: 5
              }}>
           <GlobeVisualization />
