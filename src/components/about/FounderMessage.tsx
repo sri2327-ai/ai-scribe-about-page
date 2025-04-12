@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -34,11 +33,8 @@ const TextRotate = ({ texts }: { texts: string[] }) => {
   );
 };
 
-// Meteor component with enhanced diagonal motion
+// Meteor component with better diagonal motion
 const Meteor = ({ delay = 0 }: { delay?: number }) => {
-  // Generate random angle between 30 and 60 degrees for more varied diagonal motion
-  const angle = Math.random() * 30 + 30;
-  
   return (
     <motion.div
       className="absolute h-0.5 w-[100px] md:w-[150px] bg-white opacity-60"
@@ -46,20 +42,23 @@ const Meteor = ({ delay = 0 }: { delay?: number }) => {
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         filter: "blur(1.5px)",
-        transform: `rotate(${angle}deg)`,
+        transform: `rotate(-45deg)`,
+        transformOrigin: "center",
       }}
       initial={{ 
         opacity: 0,
-        translateX: "0%",
-        translateY: "0%" 
+        scale: 0.8,
+        x: 0,
+        y: 0
       }}
       animate={{ 
         opacity: [0, 0.8, 0], 
-        translateX: "120%", 
-        translateY: "120%" 
+        scale: 1,
+        x: "60px",
+        y: "60px"
       }}
       transition={{
-        duration: 1.2,
+        duration: 1.5,
         ease: "easeOut",
         delay,
         repeat: Infinity,
@@ -105,7 +104,7 @@ const FounderMessage = () => {
     <section className="py-24 bg-black relative overflow-hidden">
       {/* Meteor effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 15 }).map((_, i) => (
+        {Array.from({ length: 20 }).map((_, i) => (
           <Meteor key={i} delay={i * 0.6} />
         ))}
       </div>
@@ -119,7 +118,6 @@ const FounderMessage = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold mb-6 text-white">A Message from Our Founder</h2>
-          {/* Removed the underline div that was here */}
         </motion.div>
         
         <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black text-white">
