@@ -1,7 +1,6 @@
 
 import { motion } from "framer-motion";
 import { LampSection } from "@/components/ui/lamp";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const MissionVision = () => {
   return (
