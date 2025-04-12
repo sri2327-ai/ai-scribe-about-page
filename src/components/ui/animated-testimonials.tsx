@@ -4,7 +4,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
 type Testimonial = {
   name: string;
@@ -85,8 +84,8 @@ export const AnimatedTestimonials = ({
                   className="absolute inset-0 origin-bottom bg-black rounded-3xl flex items-center justify-center p-8 border border-white/30"
                 >
                   <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-white mb-6 flex items-center justify-center mx-auto border border-white/30">
-                      <span className="text-2xl font-bold text-black">{testimonial.name.charAt(0)}</span>
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 mb-6 flex items-center justify-center mx-auto border border-white/30">
+                      <span className="text-2xl font-bold text-white">{testimonial.name.charAt(0)}</span>
                     </div>
                     <h3 className="text-2xl font-bold text-white">{testimonial.name}</h3>
                     <p className="text-gray-400 mt-2">{testimonial.title}</p>
@@ -130,15 +129,19 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-12 w-12 rounded-full bg-transparent flex items-center justify-center group/button border border-white"
+              className="h-12 w-12 rounded-full bg-black/50 flex items-center justify-center group/button hover:bg-gray-800 transition-colors border border-white/40"
             >
-              <ArrowLeft className="h-6 w-6 text-white group-hover/button:translate-x-[-2px] transition-transform duration-300" />
+              <svg className="h-6 w-6 text-white group-hover/button:translate-x-[-2px] transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
             </button>
             <button
               onClick={handleNext}
-              className="h-12 w-12 rounded-full bg-transparent flex items-center justify-center group/button border border-white"
+              className="h-12 w-12 rounded-full bg-black/50 flex items-center justify-center group/button hover:bg-gray-800 transition-colors border border-white/40"
             >
-              <ArrowRight className="h-6 w-6 text-white group-hover/button:translate-x-[2px] transition-transform duration-300" />
+              <svg className="h-6 w-6 text-white group-hover/button:translate-x-[2px] transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
             </button>
           </div>
         </div>
