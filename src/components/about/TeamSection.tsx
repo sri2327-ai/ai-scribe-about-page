@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import TeamMember from "./TeamMember";
+import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 const teamMembers = [
   {
@@ -31,21 +31,6 @@ const teamMembers = [
 ];
 
 const TeamSection = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   return (
     <section className="py-24 bg-black">
       <div className="container mx-auto px-4">
@@ -60,27 +45,11 @@ const TeamSection = () => {
           <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
         
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {teamMembers.map((member, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              transition={{ duration: 0.7 }}
-            >
-              <TeamMember 
-                name={member.name} 
-                title={member.title} 
-                company={member.company} 
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        <AnimatedTestimonials 
+          testimonials={teamMembers} 
+          autoplay={true}
+          className="py-0"
+        />
       </div>
     </section>
   );
