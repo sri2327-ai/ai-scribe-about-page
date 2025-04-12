@@ -15,14 +15,10 @@ export function SplineSceneBasic() {
       <div className="flex h-full flex-col md:flex-row">
         {/* Left content */}
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#555555] font-wix-madefor" 
+          <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text font-wix-madefor" 
               style={{
-                color: '#555555',
                 background: 'linear-gradient(180deg, rgba(85,85,85,0.8) 0%, rgba(51,51,51,0.4) 100%)',
                 WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                textFillColor: 'transparent'
               }}>
             Smarter Healthcare Starts Here
           </h1>
