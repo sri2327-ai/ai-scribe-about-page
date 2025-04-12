@@ -1,3 +1,4 @@
+
 "use client";
 
 import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
@@ -187,6 +188,7 @@ const TestimonialCarousel = memo(
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
     const isScreenSizeMd = useMediaQuery("(max-width: 768px)");
     
+    // Adjust cylinder width for better display on different screen sizes
     const cylinderWidth = isScreenSizeXs ? 700 : isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
     const faceCount = cards.length;
     const radius = cylinderWidth / (2 * Math.PI);
@@ -195,6 +197,21 @@ const TestimonialCarousel = memo(
       rotation,
       (value) => `rotate3d(0, 1, 0, ${value}deg)`
     );
+
+    // Adjust the positioning of cards in the carousel
+    useEffect(() => {
+      // Rotate the carousel slightly for better initial view
+      rotation.set(-10);
+      
+      // Automatically rotate the carousel for a more dynamic presentation
+      const interval = setInterval(() => {
+        if (isCarouselActive) {
+          rotation.set(rotation.get() + 5);
+        }
+      }, 3000);
+      
+      return () => clearInterval(interval);
+    }, [isCarouselActive]);
 
     return (
       <div
@@ -345,7 +362,7 @@ function ThreeDTestimonialCarousel() {
 const TrustedBy = () => {
   return (
     <section className="w-full py-8 xs:py-10 sm:py-14 md:py-20 bg-black">
-      <div className="container mx-auto px-4 max-w-full">
+      <div className="container mx-auto px-4 max-w-7xl">
         <motion.div
           className="text-center mb-8 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
