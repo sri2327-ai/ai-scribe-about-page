@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center">
         {/* Main heading with gradient fade effect */}
         <motion.h2
-          className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#d8d8d8] to-[#9F9EA1] text-4xl md:text-6xl lg:text-8xl text-center pointer-events-none"
+          className="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#d8d8d8] to-[#9F9EA1] text-4xl md:text-6xl lg:text-8xl text-center pointer-events-none"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -42,8 +42,8 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container */}
-        <div className="absolute inset-0 mx-auto top-[30%] flex items-center justify-center">
+        {/* Globe container - positioned at top-28 (7rem from top) */}
+        <div className="absolute inset-0 mx-auto top-28 flex items-center justify-center">
           <GlobeVisualization />
         </div>
       </div>

@@ -77,25 +77,40 @@ const GlobeVisualization = () => {
     dots.position.y = 0;
     scene.add(dots);
     
-    // Add highlights with orange color like in the example
+    // Add highlights with orange color like in the provided image
     const highlightGeometry = new THREE.BufferGeometry();
     const highlightMaterial = new THREE.PointsMaterial({
-      color: 0xFF6415, // Orange highlights like in the image
+      color: 0xFB6415, // Orange highlights (#FB6415) as specified
       size: 0.12,
       transparent: true,
       opacity: 1
     });
     
-    // Just a few highlight positions for effect
+    // City marker locations - matching the example
     const highlightPositions = [
-      // India or Middle East region
+      // North America
+      3 * Math.sin(Math.PI * 0.4) * Math.cos(-Math.PI * 0.2),
+      3 * Math.sin(Math.PI * 0.4) * Math.sin(-Math.PI * 0.2),
+      3 * Math.cos(Math.PI * 0.4),
+      
+      // South America
+      3 * Math.sin(Math.PI * 0.6) * Math.cos(-Math.PI * 0.3),
+      3 * Math.sin(Math.PI * 0.6) * Math.sin(-Math.PI * 0.3),
+      3 * Math.cos(Math.PI * 0.6),
+      
+      // Europe
+      3 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.1),
+      3 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.1),
+      3 * Math.cos(Math.PI * 0.3),
+      
+      // Asia
       3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.4),
       3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.4),
       3 * Math.cos(Math.PI * 0.4),
       
-      // South America region
-      3 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.8),
-      3 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.8),
+      // Australia
+      3 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.6),
+      3 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.6),
       3 * Math.cos(Math.PI * 0.6),
     ];
     
@@ -106,7 +121,7 @@ const GlobeVisualization = () => {
     highlights.position.y = 0;
     scene.add(highlights);
     
-    // Create a stronger glow effect like in the reference image
+    // Create a stronger glow effect
     const glowGeometry = new THREE.SphereGeometry(3.2, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
