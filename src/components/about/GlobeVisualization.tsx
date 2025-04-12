@@ -41,8 +41,8 @@ const GlobeVisualization = () => {
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    // Position globe lower to be half-cut
-    globe.position.y = -3;
+    // Position globe lower to be half-cut but slightly higher than before
+    globe.position.y = -2.5;
     scene.add(globe);
     
     // Create dots for the globe surface
@@ -74,7 +74,7 @@ const GlobeVisualization = () => {
     
     const dots = new THREE.Points(dotsGeometry, dotsMaterial);
     dotsRef.current = dots;
-    dots.position.y = -3; // Match globe position
+    dots.position.y = -2.5; // Match globe position
     scene.add(dots);
     
     // Add highlights - teal dots for the theme
@@ -108,7 +108,7 @@ const GlobeVisualization = () => {
     
     const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
     highlightsRef.current = highlights;
-    highlights.position.y = -3; // Match globe position
+    highlights.position.y = -2.5; // Match globe position
     scene.add(highlights);
     
     // Create a light glow effect
@@ -141,7 +141,7 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = -3; // Match globe position
+    glowMesh.position.y = -2.5; // Match globe position
     scene.add(glowMesh);
     
     camera.position.z = 5;
