@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 const teamMembers = [
   {
@@ -50,11 +52,14 @@ export default function TeamSection() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white font-wix-madefor">Meet The Team</h2>
         </motion.div>
         
-        <AnimatedTestimonials 
-          testimonials={teamMembers} 
-          autoplay={true}
-          className="py-0"
-        />
+        {/* Additional padding for mobile view */}
+        <div className="pb-12 xs:pb-16 sm:pb-8">
+          <AnimatedTestimonials 
+            testimonials={teamMembers} 
+            autoplay={true}
+            className="py-0"
+          />
+        </div>
       </div>
     </section>
   );

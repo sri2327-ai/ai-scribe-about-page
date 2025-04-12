@@ -107,31 +107,66 @@ const duration = 0.15;
 const transition = { duration, ease: [0.32, 0.72, 0, 1] };
 const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] };
 
-const MobileTestimonialCard = ({ card }: { card: Testimonial }) => {
-  return (
-    <div className="rounded-xl bg-black border border-gray-800 p-4 flex flex-col items-center text-center space-y-3 shadow-xl m-2 relative">
-      <img
-        src={card.avatar}
-        alt={card.name}
-        className="w-16 h-16 rounded-full border border-gray-700"
-      />
-      <div className="flex flex-col gap-1">
-        <p className="font-semibold text-white text-base">{card.name}</p>
-        <p className="text-xs text-gray-500">{card.title}</p>
-      </div>
-      <blockquote className="italic text-sm text-gray-300">
-        "{card.quote}"
-      </blockquote>
-    </div>
-  );
-};
+const StackedCardView = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
-const MobileTestimonialList = ({ cards }: { cards: Testimonial[] }) => {
   return (
-    <div className="px-3 space-y-4">
-      {cards.slice(0, 3).map((card, index) => (
-        <MobileTestimonialCard key={`mobile-testimonial-${index}`} card={card} />
-      ))}
+    <div className="relative h-[450px] w-full mx-auto max-w-[300px]">
+      {testimonials.map((card, index) => {
+        const isActive = index === activeIndex;
+        const distance = Math.abs(activeIndex - index);
+        const maxToShow = 3;
+        
+        if (distance > maxToShow) return null;
+        
+        const zIndex = testimonials.length - distance;
+        const opacity = isActive ? 1 : 0.7 - (distance * 0.15);
+        const scale = 1 - (distance * 0.05);
+        const y = isActive ? 0 : 30 + (distance * 15);
+        
+        return (
+          <motion.div
+            key={`testimonial-${index}`}
+            className="absolute top-0 left-0 right-0 rounded-xl bg-black border border-gray-800 p-6 flex flex-col items-center text-center space-y-4 shadow-xl"
+            style={{
+              zIndex,
+              opacity,
+              scale,
+              y
+            }}
+            animate={{
+              opacity,
+              scale,
+              y,
+            }}
+            transition={{
+              duration: 0.5,
+              ease: "easeInOut",
+            }}
+            onClick={() => setActiveIndex(index)}
+          >
+            <img
+              src={card.avatar}
+              alt={card.name}
+              className="w-16 h-16 rounded-full border border-gray-700"
+            />
+            <div className="flex flex-col gap-1">
+              <p className="font-semibold text-white text-lg">{card.name}</p>
+              <p className="text-xs text-gray-500">{card.title}</p>
+            </div>
+            <blockquote className="italic text-sm text-gray-300">
+              "{card.quote}"
+            </blockquote>
+          </motion.div>
+        );
+      })}
     </div>
   );
 };
@@ -236,7 +271,7 @@ function ThreeDTestimonialCarousel() {
   const controls = useAnimation();
   const cards = useMemo(() => testimonials, []);
   const isMobile = useIsMobile();
-  const isVerySmallScreen = useMediaQuery("(max-width: 360px)");
+  const isVerySmallScreen = useMediaQuery("(max-width: 480px)");
 
   const handleClick = (card: Testimonial, index: number) => {
     setActiveCard(card);
@@ -250,7 +285,7 @@ function ThreeDTestimonialCarousel() {
   };
 
   if (isVerySmallScreen) {
-    return <MobileTestimonialList cards={cards} />;
+    return <StackedCardView />;
   }
 
   return (
@@ -295,7 +330,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className={`relative ${isMobile ? 'h-[300px] xs:h-[320px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
+      <div className={`relative ${isMobile ? 'h-[350px] xs:h-[370px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
@@ -312,7 +347,7 @@ const TrustedBy = () => {
     <section className="w-full py-8 xs:py-10 sm:py-14 md:py-20 bg-black">
       <div className="container mx-auto px-4 max-w-full">
         <motion.div
-          className="text-center mb-4 sm:mb-8 md:mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -325,7 +360,7 @@ const TrustedBy = () => {
         <ThreeDTestimonialCarousel />
         
         <motion.div 
-          className="flex justify-center mt-8 sm:mt-12 md:mt-16"
+          className="flex justify-center mt-10 sm:mt-12 md:mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
