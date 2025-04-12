@@ -46,7 +46,7 @@ const HeroSection = () => {
         <div className="absolute w-full flex items-center justify-center" 
              style={{ 
                top: "calc(50% + 8rem)",
-               height: "500px",
+               height: "600px", // Increased from 500px to make globe bigger
                zIndex: 5
              }}>
           <GlobeVisualization />

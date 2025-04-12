@@ -40,14 +40,14 @@ const GlobeVisualization = () => {
     
     updateSize();
     
-    // Create a sphere geometry for the globe
-    const sphereGeometry = new THREE.SphereGeometry(3, 64, 64);
+    // Create a sphere geometry for the globe - increased radius from 3 to 4 to make it bigger
+    const sphereGeometry = new THREE.SphereGeometry(4, 64, 64);
     
-    // Create a material with white glow effect
+    // Create a material with white glow effect - increased opacity for more visibility
     const sphereMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+      color: 0xffffff, // #FFFFFF white
       transparent: true,
-      opacity: 0.2
+      opacity: 0.25 // Slightly increased from 0.2
     });
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -58,15 +58,15 @@ const GlobeVisualization = () => {
     // Create dots for the globe surface
     const dotsGeometry = new THREE.BufferGeometry();
     const dotsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.04,
+      color: 0xffffff, // #FFFFFF white
+      size: 0.05, // Slightly increased from 0.04
       transparent: true,
       opacity: 0.8
     });
     
     // Generate random points on the sphere surface
     const positions = [];
-    const radius = 3.01; // Slightly larger than the globe
+    const radius = 4.01; // Slightly larger than the globe (was 3.01)
     
     for (let i = 0; i < 5000; i++) {
       // Create evenly distributed points on a sphere
@@ -91,37 +91,37 @@ const GlobeVisualization = () => {
     const highlightGeometry = new THREE.BufferGeometry();
     const highlightMaterial = new THREE.PointsMaterial({
       color: 0xFB6415, // Orange highlights (#FB6415) as specified
-      size: 0.12,
+      size: 0.15, // Increased from 0.12
       transparent: true,
       opacity: 1
     });
     
-    // City marker locations - matching the example
+    // City marker locations - matching the example but scaled up for larger globe
     const highlightPositions = [
       // North America
-      3 * Math.sin(Math.PI * 0.4) * Math.cos(-Math.PI * 0.2),
-      3 * Math.sin(Math.PI * 0.4) * Math.sin(-Math.PI * 0.2),
-      3 * Math.cos(Math.PI * 0.4),
+      4 * Math.sin(Math.PI * 0.4) * Math.cos(-Math.PI * 0.2),
+      4 * Math.sin(Math.PI * 0.4) * Math.sin(-Math.PI * 0.2),
+      4 * Math.cos(Math.PI * 0.4),
       
       // South America
-      3 * Math.sin(Math.PI * 0.6) * Math.cos(-Math.PI * 0.3),
-      3 * Math.sin(Math.PI * 0.6) * Math.sin(-Math.PI * 0.3),
-      3 * Math.cos(Math.PI * 0.6),
+      4 * Math.sin(Math.PI * 0.6) * Math.cos(-Math.PI * 0.3),
+      4 * Math.sin(Math.PI * 0.6) * Math.sin(-Math.PI * 0.3),
+      4 * Math.cos(Math.PI * 0.6),
       
       // Europe
-      3 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.1),
-      3 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.1),
-      3 * Math.cos(Math.PI * 0.3),
+      4 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.1),
+      4 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.1),
+      4 * Math.cos(Math.PI * 0.3),
       
       // Asia
-      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.4),
-      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.4),
-      3 * Math.cos(Math.PI * 0.4),
+      4 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.4),
+      4 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.4),
+      4 * Math.cos(Math.PI * 0.4),
       
       // Australia
-      3 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.6),
-      3 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.6),
-      3 * Math.cos(Math.PI * 0.6),
+      4 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.6),
+      4 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.6),
+      4 * Math.cos(Math.PI * 0.6),
     ];
     
     highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(highlightPositions, 3));
@@ -131,8 +131,8 @@ const GlobeVisualization = () => {
     highlights.position.y = 0;
     scene.add(highlights);
     
-    // Create a stronger glow effect
-    const glowGeometry = new THREE.SphereGeometry(3.2, 32, 32);
+    // Create a stronger glow effect - increased radius from 3.2 to 4.3
+    const glowGeometry = new THREE.SphereGeometry(4.3, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
         viewVector: { value: new THREE.Vector3(0, 0, 1) }
@@ -150,7 +150,7 @@ const GlobeVisualization = () => {
       fragmentShader: `
         varying float intensity;
         void main() {
-          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity;
+          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity; // White glow (#FFFFFF)
           gl_FragColor = vec4(glow, 1.0);
         }
       `,
@@ -164,7 +164,8 @@ const GlobeVisualization = () => {
     glowMesh.position.y = 0;
     scene.add(glowMesh);
     
-    camera.position.z = 6;
+    // Move camera back to see the bigger globe
+    camera.position.z = 8; // Increased from 6
     
     // Add subtle mouse interaction
     const handleMouseMove = (e: MouseEvent) => {
@@ -223,7 +224,7 @@ const GlobeVisualization = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "700px", maxHeight: "700px" }} />;
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "800px", maxHeight: "800px" }} />;
 };
 
 export default GlobeVisualization;
