@@ -7,46 +7,29 @@ const HeroSection = () => {
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
       {/* Center content container */}
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center">
-        {/* Main heading with gradient fade effect - improved X.ai style */}
+        {/* Main heading with X.ai style gradient text effect */}
         <motion.h2
-          className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#eeeeee] to-[#bbbbbb] text-8xl text-center pointer-events-none"
+          className="font-bold text-8xl text-center pointer-events-none mb-20"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           style={{
-            textShadow: "0px 2px 10px rgba(255, 255, 255, 0.3)",
-            letterSpacing: "-0.5px"
+            background: "linear-gradient(180deg, #ffffff 0%, #8A898C 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            color: "transparent",
+            textShadow: "0px 2px 10px rgba(255, 255, 255, 0.1)",
           }}
         >
-          <motion.span
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ 
-              duration: 1.2,
-              ease: "easeOut"
-            }}
-          >
-            Revolutionizing Healthcare with AI
-          </motion.span>
+          Globe
         </motion.h2>
         
-        {/* Text glow effect */}
-        <div 
-          className="absolute w-full max-w-3xl h-32 mx-auto" 
-          style={{
-            background: "radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)",
-            top: "calc(50% + 3rem)",
-            left: "50%",
-            transform: "translateX(-50%)",
-            pointerEvents: "none"
-          }}
-        />
-        
-        {/* Globe container - positioned to show 50% of the globe */}
-        <div className="absolute w-full flex items-center justify-center" 
+        {/* Globe container - positioned to show only upper half */}
+        <div className="absolute w-full max-w-7xl mx-auto flex items-center justify-center" 
              style={{ 
-               top: "calc(50% + 2rem)", // Moved up to show more of the globe
-               height: "700px", 
+               bottom: "-50%", // Position to show only top 50%
+               height: "100vh",
                zIndex: 5
              }}>
           <GlobeVisualization />
