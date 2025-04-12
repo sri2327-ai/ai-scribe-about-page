@@ -1,67 +1,31 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { animate } from "motion";
 import { Card, CardContent } from "@/components/ui/card";
 
+// Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const interval = setInterval(() => {
+      setCurrentIndex(prevIndex => (prevIndex + 1) % texts.length);
+    }, 3000);
     
-    const wordElements = Array.from(container.children);
-    
-    // Hide all texts initially
-    wordElements.forEach((el, i) => {
-      if (i > 0) {
-        (el as HTMLElement).style.opacity = "0";
-        (el as HTMLElement).style.display = "none";
-      }
-    });
-    
-    const rotateText = () => {
-      const prevIndex = currentIndex;
-      const nextIndex = (currentIndex + 1) % texts.length;
-      setCurrentIndex(nextIndex);
-      
-      // Hide previous word
-      const prevElement = wordElements[prevIndex] as HTMLElement;
-      const animation = animate(
-        prevElement,
-        { y: [-0, -20] },
-        { duration: 0.3, easing: "ease-in-out" }
-      );
-      
-      animation.finished.then(() => {
-        prevElement.style.opacity = "0";
-        prevElement.style.display = "none";
-        
-        // Show next word
-        const nextElement = wordElements[nextIndex] as HTMLElement;
-        nextElement.style.display = "inline-block";
-        nextElement.style.opacity = "1";
-        animate(
-          nextElement,
-          { y: [20, 0] },
-          { duration: 0.3, easing: "ease-in-out" }
-        );
-      });
-    };
-    
-    const interval = setInterval(rotateText, 3000);
     return () => clearInterval(interval);
-  }, [currentIndex, texts]);
+  }, [texts]);
   
   return (
-    <span ref={containerRef} className="inline-block relative">
+    <span className="inline-block relative text-white">
       {texts.map((text, i) => (
         <span 
           key={i} 
-          className={`absolute left-0 ${i === 0 ? "opacity-100" : "opacity-0"}`}
-          style={{ transform: "translateY(0)" }}
+          className="transition-opacity duration-500"
+          style={{
+            position: i === currentIndex ? 'relative' : 'absolute',
+            opacity: i === currentIndex ? 1 : 0,
+            left: 0
+          }}
         >
           {text}
         </span>
@@ -107,8 +71,8 @@ const FounderMessage = () => {
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
@@ -116,13 +80,13 @@ const FounderMessage = () => {
           <div className="w-20 h-1 bg-white/50 mx-auto"></div>
         </motion.div>
         
-        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-white text-black">
+        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black text-white">
           <CardContent className="p-16">
             <div className="flex flex-col space-y-8">
               <motion.p 
                 className="text-2xl leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
@@ -131,8 +95,8 @@ const FounderMessage = () => {
               
               <motion.p 
                 className="text-xl leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
@@ -142,8 +106,8 @@ const FounderMessage = () => {
               <div className="mt-4">
                 <motion.h3 
                   className="text-2xl font-semibold mb-6"
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
                   viewport={{ once: true }}
                 >
@@ -158,13 +122,13 @@ const FounderMessage = () => {
                       style={{ opacity: 0, transform: "translateY(20px)" }}
                     >
                       <div className="flex-shrink-0 mt-1">
-                        <div className="w-4 h-4 bg-black rounded-full flex items-center justify-center">
-                          <span className="text-white text-xs">•</span>
+                        <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                          <span className="text-black text-xs">•</span>
                         </div>
                       </div>
                       <div>
                         <h4 className="text-lg font-semibold mb-2">{point.title}</h4>
-                        <p className="text-gray-700">{point.description}</p>
+                        <p className="text-gray-300">{point.description}</p>
                       </div>
                     </div>
                   ))}
@@ -173,8 +137,8 @@ const FounderMessage = () => {
               
               <motion.p 
                 className="text-xl leading-relaxed mt-6"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
@@ -183,30 +147,30 @@ const FounderMessage = () => {
               
               <motion.p 
                 className="text-xl leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
                 We are shaping a world where doctors focus on care, not clicks, and AI works behind the scenes, making healthcare more <TextRotate texts={["efficient", "accurate", "humane", "intelligent"]} />, and patient-centric.
               </motion.p>
               
-              <div className="mt-8 pt-8 border-t border-gray-200">
+              <div className="mt-8 pt-8 border-t border-gray-800">
                 <motion.div 
                   className="flex items-center space-x-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                   viewport={{ once: true }}
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center overflow-hidden">
-                      <span className="text-xl font-bold text-white">SS</span>
+                    <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                      <span className="text-xl font-bold text-black">SS</span>
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold">Sridharan Sivan</h4>
-                    <p className="text-gray-700">Founder & Chairman, S10.AI Inc.</p>
+                    <h4 className="text-xl font-semibold text-white">Sridharan Sivan</h4>
+                    <p className="text-gray-400">Founder & Chairman, S10.AI Inc.</p>
                   </div>
                 </motion.div>
               </div>
