@@ -37,7 +37,7 @@ const features = [
 
 const WhoWeAre = () => {
   return (
-    <section className="py-24 bg-gradient-to-b from-black to-blue-950">
+    <section className="py-24 bg-black">
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-16"
@@ -47,7 +47,7 @@ const WhoWeAre = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold mb-6 text-white">Who We Are</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+          <div className="w-20 h-1 bg-[#1EAEDB] mx-auto"></div>
         </motion.div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
@@ -60,8 +60,8 @@ const WhoWeAre = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="bg-blue-600/10 p-1 rounded-xl mb-6 inline-block">
-                <div className="bg-blue-600/20 p-3 rounded-lg text-blue-400">
+              <div className="bg-[#1EAEDB]/10 p-1 rounded-xl mb-6 inline-block">
+                <div className="bg-[#1EAEDB]/20 p-3 rounded-lg text-[#1EAEDB]">
                   {feature.icon}
                 </div>
               </div>

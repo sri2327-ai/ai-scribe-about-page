@@ -25,33 +25,83 @@ const HeroSection = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
-    // Create particles
-    const particlesGeometry = new THREE.BufferGeometry();
-    const count = 1500;
+    // Create a sphere geometry for the globe
+    const sphereGeometry = new THREE.SphereGeometry(2, 64, 64);
     
-    const positions = new Float32Array(count * 3);
-    const colors = new Float32Array(count * 3);
+    // Create texture loader
+    const textureLoader = new THREE.TextureLoader();
     
-    for (let i = 0; i < count * 3; i++) {
-      positions[i] = (Math.random() - 0.5) * 15;
-      colors[i] = Math.random();
-    }
-    
-    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-    
-    const particlesMaterial = new THREE.PointsMaterial({
-      size: 0.05,
-      sizeAttenuation: true,
+    // Create a basic material for the globe
+    const sphereMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
       transparent: true,
-      alphaMap: new THREE.TextureLoader().load('/placeholder.svg'),
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-      vertexColors: true
+      opacity: 0.2
     });
     
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
+    const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    scene.add(globe);
+    
+    // Create dots for the globe surface - similar to the reference image
+    const dotsGeometry = new THREE.BufferGeometry();
+    const dotsMaterial = new THREE.PointsMaterial({
+      color: 0x000000,
+      size: 0.03,
+      transparent: true,
+      opacity: 0.8
+    });
+    
+    // Generate random points on the sphere surface
+    const positions = [];
+    const radius = 2.01; // Slightly larger than the globe
+    
+    for (let i = 0; i < 5000; i++) {
+      // Create evenly distributed points on a sphere
+      const phi = Math.acos(-1 + (2 * i) / 5000);
+      const theta = Math.sqrt(5000 * Math.PI) * phi;
+      
+      const x = radius * Math.sin(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi) * Math.sin(theta);
+      const z = radius * Math.cos(phi);
+      
+      positions.push(x, y, z);
+    }
+    
+    dotsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    
+    const dots = new THREE.Points(dotsGeometry, dotsMaterial);
+    scene.add(dots);
+    
+    // Add highlights - orange dots as in the reference
+    const highlightGeometry = new THREE.BufferGeometry();
+    const highlightMaterial = new THREE.PointsMaterial({
+      color: 0xff6600,
+      size: 0.08,
+      transparent: true,
+      opacity: 0.9
+    });
+    
+    // Set a few fixed highlight positions (similar to reference image)
+    const highlightPositions = [
+      // Asia highlights
+      2 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.3),
+      2 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.3),
+      2 * Math.cos(Math.PI * 0.3),
+      
+      // Europe highlight
+      2 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.7),
+      2 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.7),
+      2 * Math.cos(Math.PI * 0.4),
+      
+      // Americas highlight
+      2 * Math.sin(Math.PI * 0.5) * Math.cos(Math.PI * 1.5),
+      2 * Math.sin(Math.PI * 0.5) * Math.sin(Math.PI * 1.5),
+      2 * Math.cos(Math.PI * 0.5)
+    ];
+    
+    highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(highlightPositions, 3));
+    
+    const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
+    scene.add(highlights);
     
     camera.position.z = 5;
     
@@ -59,8 +109,10 @@ const HeroSection = () => {
     const animate = () => {
       requestAnimationFrame(animate);
       
-      particles.rotation.x += 0.0005;
-      particles.rotation.y += 0.0005;
+      // Rotate the globe slowly
+      globe.rotation.y += 0.001;
+      dots.rotation.y += 0.001;
+      highlights.rotation.y += 0.001;
       
       renderer.render(scene, camera);
     };
@@ -83,37 +135,27 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      <canvas ref={canvasRef} className="absolute inset-0 z-0 bg-gradient-to-b from-black to-blue-950" />
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+      <canvas ref={canvasRef} className="absolute inset-0 z-0" />
       
       <div className="container mx-auto px-4 z-10 text-center">
         <motion.h1 
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
+          className="text-6xl md:text-8xl lg:text-9xl font-bold mb-4 bg-gradient-to-r from-gray-500 to-gray-100 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Revolutionizing Healthcare with AI
+          Globe
         </motion.h1>
         
-        <motion.div
-          className="max-w-3xl mx-auto"
-          initial={{ opacity: 0, y: 30 }}
+        <motion.h2
+          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 text-white"
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <p className="text-xl md:text-2xl text-gray-200 mb-8">
-            Transforming clinical experiences through cutting-edge artificial intelligence
-          </p>
-          
-          <motion.button
-            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-full text-lg transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Learn More
-          </motion.button>
-        </motion.div>
+          Revolutionizing Healthcare with AI
+        </motion.h2>
       </div>
     </div>
   );
