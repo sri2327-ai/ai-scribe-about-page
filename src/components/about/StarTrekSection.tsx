@@ -2,6 +2,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import * as THREE from "three";
+import { SparklesCore } from "@/components/ui/sparkles";
 
 const StarTrekSection = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -141,6 +142,19 @@ const StarTrekSection = () => {
         <canvas 
           ref={canvasRef} 
           className="w-full h-full" 
+        />
+      </div>
+      
+      <div className="absolute inset-0 z-0">
+        <SparklesCore
+          id="tsparticles"
+          background="transparent"
+          particleColor="#1EAEDB"
+          particleDensity={100}
+          speed={1}
+          className="w-full h-full"
+          minSize={0.6}
+          maxSize={1.4}
         />
       </div>
       
