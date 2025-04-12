@@ -4,9 +4,9 @@ import { SplineSceneBasic } from "@/components/ui/demo";
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden border-0">
+    <div className="relative min-h-[90vh] flex items-center justify-center bg-black overflow-hidden border-0">
       {/* Center content container */}
-      <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center border-0">
+      <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center border-0 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -28,9 +28,6 @@ const HeroSection = () => {
           }}
         />
       </div>
-      
-      {/* Bottom gradient fade effect */}
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black to-transparent pointer-events-none"></div>
     </div>
   );
 };

@@ -12,7 +12,7 @@ const MissionVision = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-xl md:text-2xl text-white leading-relaxed max-w-2xl mx-auto text-center"
+          className="text-xl md:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center"
         >
           To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
         </motion.p>
@@ -30,7 +30,7 @@ const MissionVision = () => {
             initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold text-white mb-10 text-center"
+            className="text-5xl md:text-6xl font-bold text-white mb-10 text-center font-wix-madefor"
           >
             Our Vision
           </motion.h2>
@@ -39,7 +39,7 @@ const MissionVision = () => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-xl md:text-2xl text-white leading-relaxed max-w-2xl mx-auto text-center"
+            className="text-xl md:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center"
           >
             We envision a world where clinicians and patients are fully engaged, empowered by AI that automates workflows, enhances EHR usability, and unlocks unparalleled value.
           </motion.p>

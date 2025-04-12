@@ -47,7 +47,7 @@ const WhoWeAre = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white">Who We Are</h2>
+          <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">Who We Are</h2>
         </motion.div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
@@ -78,8 +78,8 @@ const WhoWeAre = () => {
                   <div className="bg-black/60 p-2 rounded-lg mb-4 inline-block">
                     {feature.icon}
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-white">{feature.title}</h3>
-                  <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+                  <h3 className="text-2xl font-semibold mb-4 text-white font-wix-madefor">{feature.title}</h3>
+                  <p className="text-gray-300 leading-relaxed font-wix-madefor">{feature.description}</p>
                 </div>
               </div>
             </motion.div>

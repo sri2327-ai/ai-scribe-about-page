@@ -27,12 +27,12 @@ const About = () => {
         <HeroSection />
         <div className="w-full">
           <MissionVision />
-          <TrustedBy />
           <CoreValues />
           <WhoWeAre />
           <StarTrekSection />
           <FounderMessage />
           <TeamSection />
+          <TrustedBy />
         </div>
       </motion.div>
     </main>

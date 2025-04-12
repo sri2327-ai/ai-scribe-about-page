@@ -18,7 +18,7 @@ const StarTrekSection = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-7xl md:text-8xl lg:text-9xl font-normal mb-6 text-white">Like A Star Trek</h2>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-normal mb-6 text-white font-wix-madefor">Like A Star Trek</h2>
           
           {/* White line */}
           <div className="relative h-1 w-full max-w-md mx-auto mb-12">
