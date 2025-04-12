@@ -6,7 +6,7 @@ const GlobeVisualization = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const globeRef = useRef<THREE.Mesh | null>(null);
   const dotsRef = useRef<THREE.Points | null>(null);
-  const hotSpotsRef = useRef<THREE.Points | null>(null);
+  const highlightsRef = useRef<THREE.Points | null>(null);
   const glowMeshRef = useRef<THREE.Mesh | null>(null);
 
   useEffect(() => {
@@ -27,11 +27,11 @@ const GlobeVisualization = () => {
       antialias: true,
     });
     
-    // Set the correct size for the renderer to fill 80-90% of screen width
+    // Set the correct size for the renderer
     const updateSize = () => {
       if (canvasRef.current) {
-        const width = Math.min(window.innerWidth * 0.85, 1200); // 85% of screen width, max 1200px
-        const height = width; // Keep it square for the canvas
+        const width = canvasRef.current.clientWidth;
+        const height = canvasRef.current.clientHeight;
         renderer.setSize(width, height);
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
@@ -40,14 +40,14 @@ const GlobeVisualization = () => {
     
     updateSize();
     
-    // Create a sphere geometry for the globe with radius 7
+    // Create a sphere geometry for the globe - increased radius to 7
     const sphereGeometry = new THREE.SphereGeometry(7, 64, 64);
     
-    // Create a material with white glow effect
+    // Create a material with white glow effect - increased opacity for more visibility
     const sphereMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff, // White (#FFFFFF)
+      color: 0xffffff, // #FFFFFF white
       transparent: true,
-      opacity: 0.2 // Subtle base sphere
+      opacity: 0.25 // Slightly increased from 0.2
     });
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -55,51 +55,29 @@ const GlobeVisualization = () => {
     globe.position.y = 0;
     scene.add(globe);
     
-    // Create uniform black dots for the globe surface
+    // Create dots for the globe surface
     const dotsGeometry = new THREE.BufferGeometry();
     const dotsMaterial = new THREE.PointsMaterial({
-      color: 0x000000, // Black dots
-      size: 0.08,
+      color: 0xffffff, // #FFFFFF white
+      size: 0.07, // Adjusted for larger globe
       transparent: true,
       opacity: 0.8
     });
     
-    // Generate points concentrated to form continent-like patterns
+    // Generate random points on the sphere surface
     const positions = [];
-    const radius = 7.02; // Slightly larger than the globe
+    const radius = 7.01; // Slightly larger than the globe (was 4.01)
     
-    // Helper function to determine if a point should be rendered (for continent effect)
-    const shouldRenderPoint = (lat, lon) => {
-      // Northern America
-      if ((lat > 20 && lat < 60) && (lon > -140 && lon < -60)) return true;
-      // South America
-      if ((lat > -50 && lat < 10) && (lon > -80 && lon < -30)) return true;
-      // Europe & Africa
-      if ((lat > -40 && lat < 60) && (lon > -20 && lon < 40)) return true;
-      // Asia
-      if ((lat > 0 && lat < 70) && (lon > 60 && lon < 150)) return true;
-      // Australia
-      if ((lat > -40 && lat < -10) && (lon > 110 && lon < 160)) return true;
+    for (let i = 0; i < 5000; i++) {
+      // Create evenly distributed points on a sphere
+      const phi = Math.acos(-1 + (2 * i) / 5000);
+      const theta = Math.sqrt(5000 * Math.PI) * phi;
       
-      // Random points for oceans (sparse)
-      return Math.random() > 0.85;
-    };
-    
-    for (let i = 0; i < 8000; i++) {
-      const phi = Math.random() * Math.PI; // latitude
-      const theta = Math.random() * Math.PI * 2; // longitude
+      const x = radius * Math.sin(phi) * Math.cos(theta);
+      const y = radius * Math.sin(phi) * Math.sin(theta);
+      const z = radius * Math.cos(phi);
       
-      // Convert to degrees for easier region checking
-      const latDeg = (phi * 180 / Math.PI) - 90;
-      const lonDeg = (theta * 180 / Math.PI) - 180;
-      
-      if (shouldRenderPoint(latDeg, lonDeg)) {
-        const x = radius * Math.sin(phi) * Math.cos(theta);
-        const y = radius * Math.cos(phi);
-        const z = radius * Math.sin(phi) * Math.sin(theta);
-        
-        positions.push(x, y, z);
-      }
+      positions.push(x, y, z);
     }
     
     dotsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
@@ -109,46 +87,51 @@ const GlobeVisualization = () => {
     dots.position.y = 0;
     scene.add(dots);
     
-    // Add teal blue hotspots
-    const hotspotGeometry = new THREE.BufferGeometry();
-    const hotspotMaterial = new THREE.PointsMaterial({
-      color: 0x00CED1, // Teal blue
-      size: 0.25,
+    // Add highlights with orange color like in the provided image
+    const highlightGeometry = new THREE.BufferGeometry();
+    const highlightMaterial = new THREE.PointsMaterial({
+      color: 0xFB6415, // Orange highlights (#FB6415) as specified
+      size: 0.2, // Increased for larger globe
       transparent: true,
-      opacity: 0.9
+      opacity: 1
     });
     
-    // Hotspot locations 
-    const hotspotPositions = [
-      // North America - Silicon Valley
-      7.1 * Math.sin(Math.PI * 0.3) * Math.cos(-Math.PI * 0.2),
-      7.1 * Math.cos(Math.PI * 0.3),
-      7.1 * Math.sin(Math.PI * 0.3) * Math.sin(-Math.PI * 0.2),
+    // City marker locations - matching the example but scaled up for larger globe
+    const highlightPositions = [
+      // North America
+      7 * Math.sin(Math.PI * 0.4) * Math.cos(-Math.PI * 0.2),
+      7 * Math.sin(Math.PI * 0.4) * Math.sin(-Math.PI * 0.2),
+      7 * Math.cos(Math.PI * 0.4),
       
-      // Europe - London
-      7.1 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.01),
-      7.1 * Math.cos(Math.PI * 0.3),
-      7.1 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.01),
+      // South America
+      7 * Math.sin(Math.PI * 0.6) * Math.cos(-Math.PI * 0.3),
+      7 * Math.sin(Math.PI * 0.6) * Math.sin(-Math.PI * 0.3),
+      7 * Math.cos(Math.PI * 0.6),
       
-      // Asia - Singapore
-      7.1 * Math.sin(Math.PI * 0.5) * Math.cos(Math.PI * 0.55),
-      7.1 * Math.cos(Math.PI * 0.5),
-      7.1 * Math.sin(Math.PI * 0.5) * Math.sin(Math.PI * 0.55),
+      // Europe
+      7 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.1),
+      7 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.1),
+      7 * Math.cos(Math.PI * 0.3),
       
-      // Asia - Tokyo
-      7.1 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.75),
-      7.1 * Math.cos(Math.PI * 0.3),
-      7.1 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.75),
+      // Asia
+      7 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.4),
+      7 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.4),
+      7 * Math.cos(Math.PI * 0.4),
+      
+      // Australia
+      7 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.6),
+      7 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.6),
+      7 * Math.cos(Math.PI * 0.6),
     ];
     
-    hotspotGeometry.setAttribute('position', new THREE.Float32BufferAttribute(hotspotPositions, 3));
+    highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(highlightPositions, 3));
     
-    const hotspots = new THREE.Points(hotspotGeometry, hotspotMaterial);
-    hotSpotsRef.current = hotspots;
-    hotspots.position.y = 0;
-    scene.add(hotspots);
+    const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
+    highlightsRef.current = highlights;
+    highlights.position.y = 0;
+    scene.add(highlights);
     
-    // Create a soft white glow around the top of the globe
+    // Create a stronger glow effect - increased radius to match new sphere size
     const glowGeometry = new THREE.SphereGeometry(7.3, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
@@ -160,15 +143,15 @@ const GlobeVisualization = () => {
         void main() {
           vec3 vNormal = normalize(normalMatrix * normal);
           vec3 vNormel = normalize(normalMatrix * viewVector);
-          intensity = pow(0.7 - dot(vNormal, vNormel), 2.0);
+          intensity = pow(0.6 - dot(vNormal, vNormel), 2.0);
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragmentShader: `
         varying float intensity;
         void main() {
-          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity; // White glow
-          gl_FragColor = vec4(glow, 0.6);
+          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity; // White glow (#FFFFFF)
+          gl_FragColor = vec4(glow, 1.0);
         }
       `,
       side: THREE.BackSide,
@@ -181,23 +164,39 @@ const GlobeVisualization = () => {
     glowMesh.position.y = 0;
     scene.add(glowMesh);
     
-    // Set camera position to see the top 30% of the globe
-    camera.position.z = 14;
-    camera.position.y = -4; // Move camera down to see only top portion
+    // Move camera back to see the bigger globe
+    camera.position.z = 14; // Increased from 8 to accommodate larger globe
     
-    // Subtle rotation animation
+    // Add subtle mouse interaction
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect || !globeRef.current || !dotsRef.current || 
+          !highlightsRef.current || !glowMeshRef.current) return;
+      
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      
+      // Subtle rotation based on mouse position
+      globeRef.current.rotation.y = x * 0.1;
+      dotsRef.current.rotation.y = x * 0.1;
+      highlightsRef.current.rotation.y = x * 0.1;
+      glowMeshRef.current.rotation.y = x * 0.1;
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    // Animation
     const animate = () => {
       requestAnimationFrame(animate);
       
       if (!globeRef.current || !dotsRef.current || 
-          !hotSpotsRef.current || !glowMeshRef.current) return;
+          !highlightsRef.current || !glowMeshRef.current) return;
       
       // Rotate the globe very slowly
-      const rotationSpeed = 0.0005;
-      globeRef.current.rotation.y += rotationSpeed;
-      dotsRef.current.rotation.y += rotationSpeed;
-      hotSpotsRef.current.rotation.y += rotationSpeed;
-      glowMeshRef.current.rotation.y += rotationSpeed;
+      globeRef.current.rotation.y += 0.001;
+      dotsRef.current.rotation.y += 0.001;
+      highlightsRef.current.rotation.y += 0.001;
+      glowMeshRef.current.rotation.y += 0.001;
       
       // Update glow effect
       glowMaterial.uniforms.viewVector.value = new THREE.Vector3(
@@ -219,12 +218,13 @@ const GlobeVisualization = () => {
     window.addEventListener('resize', handleResize);
     
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="w-full h-full" />;
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "1000px", maxHeight: "1000px" }} />;
 };
 
 export default GlobeVisualization;
