@@ -44,18 +44,23 @@ const HeroSection = () => {
         />
         
         {/* Globe container - repositioned higher up, tilted, and 50% visible */}
-        <div className="absolute w-full flex items-center justify-center" 
-             style={{ 
-               top: "calc(50% + 40px)", 
-               height: "800px",
-               width: "100vw", 
-               maxWidth: "100vw",
-               left: "50%",
-               transform: "translateX(-50%)",
-               zIndex: 5
-             }}>
+        <motion.div 
+          className="absolute w-full flex items-center justify-center" 
+          style={{ 
+            top: "calc(50% + 40px)", 
+            height: "800px",
+            width: "100vw", 
+            maxWidth: "100vw",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 5
+          }}
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, delay: 0.8, ease: "easeOut" }}
+        >
           <GlobeVisualization />
-        </div>
+        </motion.div>
       </div>
       
       {/* Bottom gradient fade effect */}
