@@ -1,39 +1,25 @@
 
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
+import { LampSection } from "@/components/ui/lamp";
 
 const MissionVision = () => {
   return (
     <div className="flex flex-col">
-      {/* Mission Section with Canvas Effect */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center bg-black">
-        <div className="absolute inset-0 z-0">
-          <CanvasEffect id="mission-canvas" />
-        </div>
-        
-        <div className="container mx-auto px-4 z-10 relative">
-          <motion.h2
-            initial={{ opacity: 0, y: -50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold text-white mb-10 text-center"
-          >
-            Our Mission
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="text-xl md:text-2xl text-white leading-relaxed max-w-2xl mx-auto text-center"
-          >
-            To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
-          </motion.p>
-        </div>
-      </section>
+      {/* Mission Section with Lamp Effect */}
+      <LampSection title="Our Mission" color="teal">
+        <motion.p
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="text-xl md:text-2xl text-white leading-relaxed max-w-2xl mx-auto text-center"
+        >
+          To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
+        </motion.p>
+      </LampSection>
       
-      {/* Vision Section with Canvas Effect - using a different canvas ID */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center bg-black -mt-20">
+      {/* Vision Section with Canvas Effect */}
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center bg-black">
         <div className="absolute inset-0 z-0">
           <CanvasEffect id="vision-canvas" />
         </div>

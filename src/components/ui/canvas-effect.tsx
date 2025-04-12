@@ -3,10 +3,25 @@
 
 import { useEffect } from 'react';
 
+// Define type for Node to fix TypeScript errors
+interface NodeType {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
+
+// Define position type
+interface Position {
+  x: number;
+  y: number;
+}
+
 // @ts-ignore
 function n(e) {
   this.init(e || {});
 }
+
 n.prototype = {
   init: function (e) {
     this.phase = e.phase || 0;
@@ -102,7 +117,7 @@ function onMousemove(e) {
 }
 
 function render() {
-  if (ctx.running) {
+  if (ctx && ctx.running) {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
@@ -120,14 +135,16 @@ function render() {
 }
 
 function resizeCanvas() {
-  ctx.canvas.width = window.innerWidth - 20;
-  ctx.canvas.height = window.innerHeight;
+  if (ctx && ctx.canvas) {
+    ctx.canvas.width = window.innerWidth - 20;
+    ctx.canvas.height = window.innerHeight;
+  }
 }
 
 var ctx,
   f,
   e = 0,
-  pos = {},
+  pos = { x: 0, y: 0 } as Position,
   lines = [],
   E = {
     debug: true,
@@ -188,7 +205,7 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
     render();
     
     return () => {
-      ctx.running = false;
+      if (ctx) ctx.running = false;
       window.removeEventListener("resize", resizeCanvas);
       window.removeEventListener("mousemove", onMousemove);
       window.removeEventListener("touchstart", onMousemove);
