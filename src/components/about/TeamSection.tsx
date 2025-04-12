@@ -32,13 +32,13 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <section className="pt-16 pb-24 bg-black overflow-hidden">
+    <section className="h-screen flex flex-col justify-center pt-16 pb-24 bg-black overflow-hidden">
       {/* Section Divider at the top */}
       <div className="w-full flex justify-center mb-12">
         <Separator className="w-2/3 max-w-4xl bg-gray-800" />
       </div>
       
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 flex-grow flex flex-col justify-center">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -46,7 +46,7 @@ export default function TeamSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white">Meet The Team</h2>
+          <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">Meet The Team</h2>
         </motion.div>
         
         <AnimatedTestimonials 

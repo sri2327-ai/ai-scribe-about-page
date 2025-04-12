@@ -38,10 +38,10 @@ const features = [
 
 const WhoWeAre = () => {
   return (
-    <section className="py-24 bg-black">
+    <section className="h-screen flex items-center bg-black">
       <div className="container mx-auto px-4">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -50,7 +50,7 @@ const WhoWeAre = () => {
           <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">Who We Are</h2>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
