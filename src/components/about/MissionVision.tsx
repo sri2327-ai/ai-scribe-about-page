@@ -54,14 +54,14 @@ const MissionVision = () => {
       <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
         {/* Canvas Effect Container - with improved visibility */}
         <div className="absolute inset-0 overflow-hidden">
-          <CanvasEffect id="vision-canvas" className="w-full h-full opacity-90" />
+          <CanvasEffect id="vision-canvas" className="w-full h-full opacity-30" />
         </div>
         
         {/* Enhanced teal glow effect background for additional atmosphere */}
         <div 
-          className="absolute w-full h-full mx-auto opacity-40" 
+          className="absolute w-full h-full mx-auto opacity-20" 
           style={{
-            background: "radial-gradient(ellipse at center, rgba(30,174,219,0.3) 0%, rgba(30,174,219,0) 70%)",
+            background: "radial-gradient(ellipse at center, rgba(30,174,219,0.15) 0%, rgba(30,174,219,0) 70%)",
             pointerEvents: "none"
           }}
         />

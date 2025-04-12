@@ -42,7 +42,7 @@ const StarTrekSection = () => {
           
           {/* Interactive flowing line effect - adjusted height for mobile */}
           <div className="relative h-40 sm:h-64 w-full">
-            <CanvasEffect id="trek-canvas" className="opacity-75" />
+            <CanvasEffect id="trek-canvas" className="opacity-30" />
           </div>
         </motion.div>
       </div>
