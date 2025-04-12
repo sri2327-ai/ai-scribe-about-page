@@ -9,7 +9,6 @@ import StarTrekSection from "@/components/about/StarTrekSection";
 import FounderMessage from "@/components/about/FounderMessage";
 import TeamSection from "@/components/about/TeamSection";
 import TrustedBy from "@/components/about/TrustedBy";
-import GlobeVisualization from "@/components/about/GlobeVisualization";
 
 const About = () => {
   useEffect(() => {
@@ -32,7 +31,6 @@ const About = () => {
         <StarTrekSection />
         <FounderMessage />
         <TeamSection />
-        <GlobeVisualization />
       </motion.div>
     </main>
   );
