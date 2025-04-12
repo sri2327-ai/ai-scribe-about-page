@@ -1,4 +1,3 @@
-
 "use client";
 
 import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
@@ -119,7 +118,7 @@ const StackedCardView = () => {
   }, []);
 
   return (
-    <div className="relative h-[450px] w-full mx-auto max-w-[300px]">
+    <div className="relative h-[420px] w-full mx-auto max-w-[300px]">
       {testimonials.map((card, index) => {
         const isActive = index === activeIndex;
         const distance = Math.abs(activeIndex - index);
@@ -188,7 +187,6 @@ const TestimonialCarousel = memo(
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
     const isScreenSizeMd = useMediaQuery("(max-width: 768px)");
     
-    // Adjust cylinder width for better display on different screen sizes
     const cylinderWidth = isScreenSizeXs ? 700 : isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
     const faceCount = cards.length;
     const radius = cylinderWidth / (2 * Math.PI);
@@ -198,12 +196,9 @@ const TestimonialCarousel = memo(
       (value) => `rotate3d(0, 1, 0, ${value}deg)`
     );
 
-    // Adjust the positioning of cards in the carousel
     useEffect(() => {
-      // Rotate the carousel slightly for better initial view
       rotation.set(-10);
       
-      // Automatically rotate the carousel for a more dynamic presentation
       const interval = setInterval(() => {
         if (isCarouselActive) {
           rotation.set(rotation.get() + 5);
@@ -257,7 +252,7 @@ const TestimonialCarousel = memo(
                 transform: `rotateY(${
                   i * (360 / faceCount)
                 }deg) translateZ(${radius}px)`,
-                backfaceVisibility: "hidden", // Prevent back of cards showing through
+                backfaceVisibility: "hidden",
               }}
               onClick={() => handleClick(card, i)}
             >
@@ -271,8 +266,8 @@ const TestimonialCarousel = memo(
                   <p className="font-semibold text-white text-xs xs:text-sm md:text-base">{card.name}</p>
                   <p className="text-[10px] md:text-xs text-gray-500">{card.title}</p>
                 </div>
-                <blockquote className="italic text-xs md:text-sm text-gray-300">
-                  "{card.quote.length > 80 ? card.quote.substring(0, 80) + "..." : card.quote}"
+                <blockquote className="italic text-xs md:text-sm text-gray-300 line-clamp-3">
+                  "{card.quote}"
                 </blockquote>
               </div>
             </motion.div>
@@ -348,7 +343,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className={`relative ${isMobile ? 'h-[350px] xs:h-[370px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
+      <div className={`relative ${isMobile ? 'h-[320px] xs:h-[340px]' : 'h-[320px] sm:h-[350px] md:h-[370px]'} w-full overflow-hidden`}>
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
