@@ -15,11 +15,11 @@ export function SplineSceneBasic() {
 
       <div className="flex h-full flex-col md:flex-row">
         {/* Left content */}
-        <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#1EAEDB] to-[#7CD7F1]">
+        <div className="flex-1 p-4 md:p-8 relative z-10 flex flex-col justify-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#1EAEDB] to-[#7CD7F1]">
             Revolutionizing Healthcare with AI
           </h1>
-          <p className="mt-4 text-[#E6F7FC] max-w-lg">
+          <p className="mt-4 text-base md:text-lg text-[#E6F7FC] max-w-lg">
             We're making life easier for clinicians with intelligent automation and cutting-edge AI technology.
           </p>
         </div>

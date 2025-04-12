@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,41 +31,6 @@ const TextRotate = ({ texts }: { texts: string[] }) => {
         </span>
       ))}
     </span>
-  );
-};
-
-// Meteor component with better diagonal motion
-const Meteor = ({ delay = 0 }: { delay?: number }) => {
-  return (
-    <motion.div
-      className="absolute h-0.5 w-[100px] md:w-[150px] bg-white opacity-60"
-      style={{
-        top: `${Math.random() * 100}%`,
-        left: `${Math.random() * 100}%`,
-        filter: "blur(1.5px)",
-        transform: `rotate(-45deg)`,
-        transformOrigin: "center",
-      }}
-      initial={{ 
-        opacity: 0,
-        scale: 0.8,
-        x: 0,
-        y: 0
-      }}
-      animate={{ 
-        opacity: [0, 0.8, 0], 
-        scale: 1,
-        x: "60px",
-        y: "60px"
-      }}
-      transition={{
-        duration: 1.5,
-        ease: "easeOut",
-        delay,
-        repeat: Infinity,
-        repeatDelay: Math.random() * 7 + 5
-      }}
-    />
   );
 };
 
@@ -102,13 +68,6 @@ const FounderMessage = () => {
   
   return (
     <section className="py-24 bg-black relative overflow-hidden">
-      {/* Meteor effect */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <Meteor key={i} delay={i * 0.6} />
-        ))}
-      </div>
-      
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -121,10 +80,10 @@ const FounderMessage = () => {
         </motion.div>
         
         <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black text-white">
-          <CardContent className="p-16">
+          <CardContent className="p-8 md:p-16">
             <div className="flex flex-col space-y-8">
               <motion.p 
-                className="text-2xl leading-relaxed"
+                className="text-xl md:text-2xl leading-relaxed"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -134,7 +93,7 @@ const FounderMessage = () => {
               </motion.p>
               
               <motion.p 
-                className="text-xl leading-relaxed"
+                className="text-lg md:text-xl leading-relaxed text-gray-300"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -145,7 +104,7 @@ const FounderMessage = () => {
               
               <div className="mt-4">
                 <motion.h3 
-                  className="text-2xl font-semibold mb-6"
+                  className="text-xl md:text-2xl font-semibold mb-6"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
@@ -176,7 +135,7 @@ const FounderMessage = () => {
               </div>
               
               <motion.p 
-                className="text-xl leading-relaxed mt-6"
+                className="text-lg md:text-xl leading-relaxed mt-6 text-gray-300"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -186,7 +145,7 @@ const FounderMessage = () => {
               </motion.p>
               
               <motion.p 
-                className="text-xl leading-relaxed"
+                className="text-lg md:text-xl leading-relaxed text-gray-300"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -197,7 +156,7 @@ const FounderMessage = () => {
               
               <div className="mt-8 pt-8 border-t border-gray-800">
                 <motion.div 
-                  className="flex items-center space-x-6"
+                  className="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-6"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.5 }}

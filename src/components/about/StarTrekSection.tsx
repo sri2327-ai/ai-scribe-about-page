@@ -1,12 +1,11 @@
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import StarBackground from "@/components/about/StarBackground";
 
 const StarTrekSection = () => {
   return (
-    <section className="py-20 relative overflow-hidden bg-black min-h-[600px] flex items-center justify-center">
+    <section className="py-16 md:py-20 relative overflow-hidden bg-black min-h-[500px] flex items-center justify-center">
       {/* Star background */}
       <StarBackground />
       
@@ -18,13 +17,7 @@ const StarTrekSection = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-7xl md:text-8xl lg:text-9xl font-normal mb-6 text-white">Like A Star Trek</h2>
-          
-          {/* White line */}
-          <div className="relative h-1 w-full max-w-md mx-auto mb-12">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
-            <div className="absolute inset-0 bg-white opacity-50 blur-sm"></div>
-          </div>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-normal mb-6 text-white">Like A Star Trek</h2>
           
           {/* Interactive flowing line effect */}
           <div className="relative h-64 w-full">

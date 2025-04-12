@@ -10,8 +10,22 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-center mb-10 max-w-3xl"
+        >
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+            Smarter Healthcare Starts Here
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300">
+            We're simplifying clinical workflows with AI, robotic assistants, and smart agents.
+          </p>
+        </motion.div>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full border-0"
+          className="w-full max-w-4xl border-0"
         >
           <SplineSceneBasic />
         </motion.div>
