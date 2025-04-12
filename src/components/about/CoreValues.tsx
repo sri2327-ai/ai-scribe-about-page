@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const coreValues = [
   {
@@ -69,16 +70,24 @@ const CoreValues = () => {
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
-              <div className="absolute inset-0 border border-blue-800/30 rounded-xl"></div>
-              
-              <div className="relative flex items-start space-x-4">
-                <div className="flex-shrink-0 bg-blue-600 rounded-full p-2">
-                  <Check className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold mb-3 text-white">{value.title}</h3>
-                  <p className="text-gray-300">{value.description}</p>
+              <div className="relative h-full rounded-xl border-[0.75px] border-blue-800/30 overflow-hidden">
+                <GlowingEffect
+                  spread={40}
+                  glow={true}
+                  disabled={false}
+                  proximity={64}
+                  inactiveZone={0.01}
+                  borderWidth={2}
+                />
+                
+                <div className="relative flex items-start space-x-4 p-6 z-10">
+                  <div className="flex-shrink-0 bg-blue-600 rounded-full p-2">
+                    <Check className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-3 text-white">{value.title}</h3>
+                    <p className="text-gray-300">{value.description}</p>
+                  </div>
                 </div>
               </div>
             </motion.div>

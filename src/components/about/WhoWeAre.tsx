@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, BarChart, Shield } from "lucide-react";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const features = [
   {
@@ -60,13 +61,25 @@ const WhoWeAre = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="bg-[#1EAEDB]/10 p-1 rounded-xl mb-6 inline-block">
-                <div className="bg-[#1EAEDB]/20 p-3 rounded-lg text-[#1EAEDB]">
-                  {feature.icon}
+              <div className="relative rounded-xl border border-[#1EAEDB]/20 p-6 h-full">
+                <GlowingEffect
+                  spread={40}
+                  glow={true}
+                  disabled={false}
+                  proximity={64}
+                  inactiveZone={0.01}
+                  borderWidth={2}
+                  variant="white"
+                />
+                
+                <div className="bg-[#1EAEDB]/10 p-1 rounded-xl mb-6 inline-block relative z-10">
+                  <div className="bg-[#1EAEDB]/20 p-3 rounded-lg text-[#1EAEDB]">
+                    {feature.icon}
+                  </div>
                 </div>
+                <h3 className="text-2xl font-semibold mb-4 text-white relative z-10">{feature.title}</h3>
+                <p className="text-gray-300 leading-relaxed relative z-10">{feature.description}</p>
               </div>
-              <h3 className="text-2xl font-semibold mb-4 text-white">{feature.title}</h3>
-              <p className="text-gray-300 leading-relaxed">{feature.description}</p>
             </motion.div>
           ))}
         </div>
