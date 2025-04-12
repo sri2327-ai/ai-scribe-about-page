@@ -1,4 +1,3 @@
-
 "use client";
 
 import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
@@ -108,30 +107,28 @@ const duration = 0.15;
 const transition = { duration, ease: [0.32, 0.72, 0, 1] };
 const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] };
 
-// Mobile testimonial card for small screens
 const MobileTestimonialCard = ({ card }: { card: Testimonial }) => {
   return (
-    <div className="rounded-xl bg-black border border-gray-800 p-4 flex flex-col items-center text-center space-y-3 shadow-xl m-2">
+    <div className="rounded-xl bg-black border border-gray-800 p-4 flex flex-col items-center text-center space-y-3 shadow-xl m-2 relative">
       <img
         src={card.avatar}
         alt={card.name}
-        className="w-12 h-12 rounded-full border border-gray-800"
+        className="w-16 h-16 rounded-full border border-gray-700"
       />
-      <blockquote className="italic text-xs text-gray-300 line-clamp-3">
+      <div className="flex flex-col gap-1">
+        <p className="font-semibold text-white text-base">{card.name}</p>
+        <p className="text-xs text-gray-500">{card.title}</p>
+      </div>
+      <blockquote className="italic text-sm text-gray-300">
         "{card.quote}"
       </blockquote>
-      <div>
-        <p className="font-semibold text-white text-sm">{card.name}</p>
-        <p className="text-[10px] text-gray-500">{card.title}</p>
-      </div>
     </div>
   );
 };
 
-// Mobile testimonial list view for very small screens
 const MobileTestimonialList = ({ cards }: { cards: Testimonial[] }) => {
   return (
-    <div className="flex flex-col gap-4 px-3">
+    <div className="px-3 space-y-4">
       {cards.slice(0, 3).map((card, index) => (
         <MobileTestimonialCard key={`mobile-testimonial-${index}`} card={card} />
       ))}
@@ -155,7 +152,6 @@ const TestimonialCarousel = memo(
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
     const isScreenSizeMd = useMediaQuery("(max-width: 768px)");
     
-    // Adjust cylinder width based on screen size for better mobile experience
     const cylinderWidth = isScreenSizeXs ? 700 : isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
     const faceCount = cards.length;
     const radius = cylinderWidth / (2 * Math.PI);
@@ -212,19 +208,19 @@ const TestimonialCarousel = memo(
               }}
               onClick={() => handleClick(card, i)}
             >
-              <div className="rounded-xl bg-black border border-gray-800 p-3 xs:p-4 md:p-6 flex flex-col items-center text-center space-y-2 xs:space-y-3 md:space-y-4 h-full justify-center shadow-xl hover:border-gray-700 transition-all duration-300">
+              <div className="rounded-xl bg-black border border-gray-800 p-3 xs:p-4 md:p-6 flex flex-col items-center text-center space-y-2 xs:space-y-3 md:space-y-4 h-full justify-between shadow-xl hover:border-gray-700 transition-all duration-300">
                 <img
                   src={card.avatar}
                   alt={card.name}
-                  className="w-10 h-10 xs:w-12 xs:h-12 md:w-16 md:h-16 rounded-full border border-gray-800"
+                  className="w-12 h-12 xs:w-14 xs:h-14 md:w-16 md:h-16 rounded-full border border-gray-800"
                 />
-                <blockquote className="italic text-xs md:text-sm text-gray-300 line-clamp-4 xs:line-clamp-none">
-                  "{card.quote}"
-                </blockquote>
-                <div>
+                <div className="flex flex-col gap-1">
                   <p className="font-semibold text-white text-xs xs:text-sm md:text-base">{card.name}</p>
                   <p className="text-[10px] md:text-xs text-gray-500">{card.title}</p>
                 </div>
+                <blockquote className="italic text-xs md:text-sm text-gray-300">
+                  "{card.quote.length > 80 ? card.quote.substring(0, 80) + "..." : card.quote}"
+                </blockquote>
               </div>
             </motion.div>
           ))}
@@ -253,7 +249,6 @@ function ThreeDTestimonialCarousel() {
     setIsCarouselActive(true);
   };
 
-  // Use list view for very small screens
   if (isVerySmallScreen) {
     return <MobileTestimonialList cards={cards} />;
   }
@@ -300,7 +295,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className={`relative ${isMobile ? 'h-[260px] xs:h-[280px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
+      <div className={`relative ${isMobile ? 'h-[300px] xs:h-[320px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
@@ -329,7 +324,6 @@ const TrustedBy = () => {
         
         <ThreeDTestimonialCarousel />
         
-        {/* Contact Us Button */}
         <motion.div 
           className="flex justify-center mt-8 sm:mt-12 md:mt-16"
           initial={{ opacity: 0, y: 20 }}
@@ -338,7 +332,7 @@ const TrustedBy = () => {
           viewport={{ once: true }}
         >
           <Button 
-            className="rounded-full px-6 py-6 bg-[#0FA0CE] hover:bg-[#1EAEDB] text-white font-semibold text-sm xs:text-base flex items-center gap-2 h-auto"
+            className="rounded-full px-6 py-6 bg-transparent border border-white hover:bg-white/10 text-white font-semibold text-sm xs:text-base flex items-center gap-2 h-auto"
             onClick={() => window.location.href = "/contact"}
           >
             Contact Us <ArrowRight className="ml-1 h-4 w-4" />

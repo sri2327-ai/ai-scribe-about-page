@@ -33,13 +33,13 @@ const teamMembers = [
 
 export default function TeamSection() {
   return (
-    <section className="min-h-screen flex flex-col justify-center py-16 sm:py-20 bg-black overflow-hidden">
+    <section className="py-16 sm:py-20 bg-black overflow-hidden">
       {/* Section Divider at the top */}
       <div className="w-full flex justify-center mb-8 md:mb-12">
         <Separator className="w-2/3 max-w-4xl bg-gray-800" />
       </div>
       
-      <div className="container mx-auto px-4 flex-grow flex flex-col justify-center mb-10">
+      <div className="container mx-auto px-4 mb-10">
         <motion.div
           className="text-center mb-8 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
