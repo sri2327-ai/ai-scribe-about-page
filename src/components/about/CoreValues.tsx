@@ -53,7 +53,7 @@ const CoreValues = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold mb-6 text-white">Our Core Values</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+          <div className="w-20 h-1 bg-[#1EAEDB] mx-auto"></div>
         </motion.div>
         
         <motion.div 
@@ -70,7 +70,7 @@ const CoreValues = () => {
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
-              <div className="relative h-full rounded-xl border-[0.75px] border-blue-800/30 overflow-hidden">
+              <div className="relative h-full rounded-xl border-[0.75px] border-[#1EAEDB]/30 overflow-hidden">
                 <GlowingEffect
                   spread={40}
                   glow={true}
@@ -78,10 +78,11 @@ const CoreValues = () => {
                   proximity={64}
                   inactiveZone={0.01}
                   borderWidth={2}
+                  variant="white"
                 />
                 
                 <div className="relative flex items-start space-x-4 p-6 z-10">
-                  <div className="flex-shrink-0 bg-blue-600 rounded-full p-2">
+                  <div className="flex-shrink-0 bg-[#1EAEDB] rounded-full p-2">
                     <Check className="h-5 w-5 text-white" />
                   </div>
                   <div>
