@@ -7,7 +7,7 @@ import { Spotlight } from "@/components/ui/spotlight"
 export function SplineSceneBasic() {
   // Using the teal blue color from the lamp animation (#1EAEDB)
   return (
-    <div className="w-full h-[500px] bg-black relative overflow-hidden">
+    <div className="w-full h-[500px] bg-black relative overflow-hidden border-0">
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="#1EAEDB"

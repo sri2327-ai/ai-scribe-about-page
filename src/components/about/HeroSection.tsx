@@ -4,14 +4,14 @@ import { SplineSceneBasic } from "@/components/ui/demo";
 
 const HeroSection = () => {
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden border-0">
       {/* Center content container */}
-      <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center">
+      <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center border-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full"
+          className="w-full border-0"
         >
           <SplineSceneBasic />
         </motion.div>
