@@ -34,6 +34,37 @@ const TextRotate = ({ texts }: { texts: string[] }) => {
   );
 };
 
+// Meteor component
+const Meteor = ({ delay = 0 }: { delay?: number }) => {
+  return (
+    <motion.div
+      className="absolute h-0.5 w-[100px] md:w-[150px] bg-white opacity-60 rotate-[30deg]"
+      style={{
+        top: `${Math.random() * 100}%`,
+        left: `${Math.random() * 100}%`,
+        filter: "blur(1.5px)",
+      }}
+      initial={{ 
+        opacity: 0,
+        translateX: "0%",
+        translateY: "0%" 
+      }}
+      animate={{ 
+        opacity: [0, 0.8, 0], 
+        translateX: "100%", 
+        translateY: "100%" 
+      }}
+      transition={{
+        duration: 0.8,
+        ease: "easeOut",
+        delay,
+        repeat: Infinity,
+        repeatDelay: Math.random() * 7 + 5
+      }}
+    />
+  );
+};
+
 const innovationPoints = [
   {
     title: "Medical Knowledge Inference Engine (MKIE)",
@@ -68,6 +99,13 @@ const FounderMessage = () => {
   
   return (
     <section className="py-24 bg-black relative overflow-hidden">
+      {/* Meteor effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 12 }).map((_, i) => (
+          <Meteor key={i} delay={i * 0.8} />
+        ))}
+      </div>
+      
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -77,7 +115,7 @@ const FounderMessage = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold mb-6 text-white">A Message from Our Founder</h2>
-          <div className="w-20 h-1 bg-white/50 mx-auto"></div>
+          {/* Removed the underline div that was here */}
         </motion.div>
         
         <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black text-white">
