@@ -41,7 +41,7 @@ const WhoWeAre = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className={`${isMobile ? 'min-h-screen py-16' : 'h-screen'} flex items-center bg-black`}>
+    <section className={`${isMobile ? 'py-16 pb-24' : 'min-h-screen py-20 pb-32'} flex items-center bg-black`}>
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-8 sm:mb-12"

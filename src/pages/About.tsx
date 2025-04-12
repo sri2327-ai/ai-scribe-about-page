@@ -28,8 +28,10 @@ const About = () => {
         <div className="w-full">
           <MissionVision />
           <CoreValues />
-          <WhoWeAre />
-          <StarTrekSection />
+          <div className="relative">
+            <WhoWeAre />
+            <StarTrekSection />
+          </div>
           <FounderMessage />
           <TeamSection />
           <TrustedBy />

@@ -20,7 +20,7 @@ const StarTrekSection = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 relative overflow-hidden bg-black min-h-[500px] sm:min-h-[600px] flex items-center justify-center">
+    <section className="py-16 sm:py-20 relative overflow-hidden bg-black min-h-[500px] sm:min-h-[600px] flex items-center justify-center mt-16 sm:mt-0">
       {/* Star background */}
       <StarBackground />
       
