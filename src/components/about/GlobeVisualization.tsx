@@ -27,8 +27,18 @@ const GlobeVisualization = () => {
       antialias: true,
     });
     
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Set the correct size for the renderer
+    const updateSize = () => {
+      if (canvasRef.current) {
+        const width = canvasRef.current.clientWidth;
+        const height = canvasRef.current.clientHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+      }
+    };
+    
+    updateSize();
     
     // Create a sphere geometry for the globe
     const sphereGeometry = new THREE.SphereGeometry(3, 64, 64);
@@ -201,18 +211,10 @@ const GlobeVisualization = () => {
     
     // Handle resize
     const handleResize = () => {
-      if (canvasRef.current) {
-        const containerWidth = canvasRef.current.clientWidth;
-        const containerHeight = canvasRef.current.clientHeight;
-        
-        camera.aspect = containerWidth / containerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(containerWidth, containerHeight);
-      }
+      updateSize();
     };
     
     window.addEventListener('resize', handleResize);
-    handleResize();
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -221,7 +223,7 @@ const GlobeVisualization = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "700px", aspectRatio: "1/1" }} />;
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "700px", maxHeight: "700px" }} />;
 };
 
 export default GlobeVisualization;
