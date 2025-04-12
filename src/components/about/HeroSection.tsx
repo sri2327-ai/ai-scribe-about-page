@@ -7,15 +7,15 @@ const HeroSection = () => {
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
       {/* Center content container */}
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center">
-        {/* Main heading with gradient fade effect */}
+        {/* Main heading with gradient fade effect - improved X.ai style */}
         <motion.h2
-          className="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#d8d8d8] to-[#9F9EA1] text-8xl text-center pointer-events-none"
+          className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#eeeeee] to-[#bbbbbb] text-8xl text-center pointer-events-none"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           style={{
             textShadow: "0px 2px 10px rgba(255, 255, 255, 0.3)",
-            letterSpacing: "0.5px"
+            letterSpacing: "-0.5px"
           }}
         >
           <motion.span
@@ -42,10 +42,10 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container - positioned higher up */}
+        {/* Globe container - positioned to show 50% of the globe */}
         <div className="absolute w-full flex items-center justify-center" 
              style={{ 
-               top: "calc(50% + 4rem)", // Moved up from 8rem to 4rem
+               top: "calc(50% + 2rem)", // Moved up to show more of the globe
                height: "700px", 
                zIndex: 5
              }}>

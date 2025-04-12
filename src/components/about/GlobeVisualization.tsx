@@ -30,8 +30,8 @@ const GlobeVisualization = () => {
     // Set the correct size for the renderer
     const updateSize = () => {
       if (canvasRef.current) {
-        // Set width to 85% of screen width for 80-90% coverage
-        const width = window.innerWidth * 0.85;
+        // Set width to 90% of screen width for better coverage
+        const width = window.innerWidth * 0.9;
         const height = canvasRef.current.clientHeight;
         renderer.setSize(width, height);
         camera.aspect = width / height;
@@ -41,42 +41,42 @@ const GlobeVisualization = () => {
     
     updateSize();
     
-    // Create a sphere geometry for the globe - increased radius to 7
-    const sphereGeometry = new THREE.SphereGeometry(7, 64, 64);
+    // Create a sphere geometry for the globe - increased radius to 8 for larger diameter
+    const sphereGeometry = new THREE.SphereGeometry(8, 64, 64);
     
-    // Create a material with white glow effect - increased opacity for more visibility
+    // Create a material with white color for water bodies
     const sphereMaterial = new THREE.MeshBasicMaterial({
-      color: 0xffffff, // #FFFFFF white
+      color: 0xffffff, // Pure white for water bodies
       transparent: true,
-      opacity: 0.25 // Slightly increased from 0.2
+      opacity: 1.0
     });
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    globe.position.y = 0;
+    globe.position.y = -4; // Position to show 50% of the globe (moving it up in the scene)
     scene.add(globe);
     
-    // Create dots for the globe surface
+    // Create black dots for the continents
     const dotsGeometry = new THREE.BufferGeometry();
     const dotsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff, // #FFFFFF white
-      size: 0.07, // Adjusted for larger globe
+      color: 0x000000, // Black dots for the continents
+      size: 0.08,
       transparent: true,
-      opacity: 0.8
+      opacity: 0.9
     });
     
-    // Generate random points on the sphere surface
+    // Generate dots that form continent shapes
     const positions = [];
-    const radius = 7.01; // Slightly larger than the globe (was 4.01)
+    const continentData = generateContinentData();
     
-    for (let i = 0; i < 5000; i++) {
-      // Create evenly distributed points on a sphere
-      const phi = Math.acos(-1 + (2 * i) / 5000);
-      const theta = Math.sqrt(5000 * Math.PI) * phi;
+    for (let i = 0; i < continentData.length; i++) {
+      const { lat, lng } = continentData[i];
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lng + 180) * (Math.PI / 180);
       
-      const x = radius * Math.sin(phi) * Math.cos(theta);
-      const y = radius * Math.sin(phi) * Math.sin(theta);
-      const z = radius * Math.cos(phi);
+      const x = -(8.02 * Math.sin(phi) * Math.cos(theta));
+      const y = (8.02 * Math.cos(phi)) - 4; // Adjusted for globe position
+      const z = (8.02 * Math.sin(phi) * Math.sin(theta));
       
       positions.push(x, y, z);
     }
@@ -85,55 +85,48 @@ const GlobeVisualization = () => {
     
     const dots = new THREE.Points(dotsGeometry, dotsMaterial);
     dotsRef.current = dots;
-    dots.position.y = 0;
     scene.add(dots);
     
-    // Add highlights with orange color like in the provided image
+    // Add teal blue hotspots
     const highlightGeometry = new THREE.BufferGeometry();
     const highlightMaterial = new THREE.PointsMaterial({
-      color: 0xFB6415, // Orange highlights (#FB6415) as specified
-      size: 0.2, // Increased for larger globe
+      color: 0x33C3F0, // Teal blue (#33C3F0) for hotspots
+      size: 0.25,
       transparent: true,
-      opacity: 1
+      opacity: 0.9
     });
     
-    // City marker locations - matching the example but scaled up for larger globe
-    const highlightPositions = [
-      // North America
-      7 * Math.sin(Math.PI * 0.4) * Math.cos(-Math.PI * 0.2),
-      7 * Math.sin(Math.PI * 0.4) * Math.sin(-Math.PI * 0.2),
-      7 * Math.cos(Math.PI * 0.4),
-      
-      // South America
-      7 * Math.sin(Math.PI * 0.6) * Math.cos(-Math.PI * 0.3),
-      7 * Math.sin(Math.PI * 0.6) * Math.sin(-Math.PI * 0.3),
-      7 * Math.cos(Math.PI * 0.6),
-      
-      // Europe
-      7 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.1),
-      7 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.1),
-      7 * Math.cos(Math.PI * 0.3),
-      
-      // Asia
-      7 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.4),
-      7 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.4),
-      7 * Math.cos(Math.PI * 0.4),
-      
-      // Australia
-      7 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.6),
-      7 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.6),
-      7 * Math.cos(Math.PI * 0.6),
+    // Define hotspot locations (major tech/healthcare hubs)
+    const hotspotLocations = [
+      { lat: 37.7749, lng: -122.4194 }, // San Francisco
+      { lat: 51.5074, lng: -0.1278 },   // London
+      { lat: 35.6762, lng: 139.6503 },  // Tokyo
+      { lat: 28.6139, lng: 77.2090 },   // New Delhi
+      { lat: -33.8688, lng: 151.2093 }, // Sydney
     ];
     
-    highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(highlightPositions, 3));
+    const hotspotPositions = [];
+    
+    for (let i = 0; i < hotspotLocations.length; i++) {
+      const { lat, lng } = hotspotLocations[i];
+      const phi = (90 - lat) * (Math.PI / 180);
+      const theta = (lng + 180) * (Math.PI / 180);
+      
+      const x = -(8.1 * Math.sin(phi) * Math.cos(theta));
+      const y = (8.1 * Math.cos(phi)) - 4; // Adjusted for globe position
+      const z = (8.1 * Math.sin(phi) * Math.sin(theta));
+      
+      hotspotPositions.push(x, y, z);
+    }
+    
+    highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(hotspotPositions, 3));
     
     const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
     highlightsRef.current = highlights;
-    highlights.position.y = 0;
     scene.add(highlights);
     
-    // Create a stronger glow effect - increased radius to match new sphere size
-    const glowGeometry = new THREE.SphereGeometry(7.3, 32, 32);
+    // Create a stronger glow effect around the globe
+    const glowGeometry = new THREE.SphereGeometry(8.3, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
         viewVector: { value: new THREE.Vector3(0, 0, 1) }
@@ -162,11 +155,11 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = 0;
+    glowMesh.position.y = -4; // Adjusted for globe position
     scene.add(glowMesh);
     
     // Move camera back to see the bigger globe
-    camera.position.z = 14; // Increased from 8 to accommodate larger globe
+    camera.position.z = 14;
     
     // Add subtle mouse interaction
     const handleMouseMove = (e: MouseEvent) => {
@@ -175,13 +168,13 @@ const GlobeVisualization = () => {
           !highlightsRef.current || !glowMeshRef.current) return;
       
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      // Exclude y rotation for a more subtle effect
       
       // Subtle rotation based on mouse position
-      globeRef.current.rotation.y = x * 0.1;
-      dotsRef.current.rotation.y = x * 0.1;
-      highlightsRef.current.rotation.y = x * 0.1;
-      glowMeshRef.current.rotation.y = x * 0.1;
+      globeRef.current.rotation.y = x * 0.2;
+      dotsRef.current.rotation.y = x * 0.2;
+      highlightsRef.current.rotation.y = x * 0.2;
+      glowMeshRef.current.rotation.y = x * 0.2;
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -225,7 +218,72 @@ const GlobeVisualization = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "1000px", maxHeight: "1000px" }} />;
+  // Helper function to generate continent data
+  const generateContinentData = () => {
+    // This is a simplified representation of continents with latitude/longitude points
+    // We'll create a denser pattern for the main continents
+    const continents = [];
+    
+    // North America
+    for (let lat = 30; lat <= 70; lat += 2) {
+      for (let lng = -170; lng <= -50; lng += 2) {
+        if ((lat > 50 && lng > -140 && lng < -60) || 
+            (lat > 30 && lat < 50 && lng > -130 && lng < -70)) {
+          continents.push({ lat, lng });
+        }
+      }
+    }
+    
+    // South America
+    for (let lat = -55; lat <= 10; lat += 2) {
+      for (let lng = -80; lng <= -35; lng += 2) {
+        if ((lat > -50 && lat < 10 && lng > -80 && lng < -40)) {
+          continents.push({ lat, lng });
+        }
+      }
+    }
+    
+    // Europe
+    for (let lat = 35; lat <= 70; lat += 2) {
+      for (let lng = -10; lng <= 40; lng += 2) {
+        if ((lat > 35 && lat < 70 && lng > -10 && lng < 40)) {
+          continents.push({ lat, lng });
+        }
+      }
+    }
+    
+    // Africa
+    for (let lat = -35; lat <= 35; lat += 2) {
+      for (let lng = -20; lng <= 50; lng += 2) {
+        if ((lat > -35 && lat < 35 && lng > -20 && lng < 50)) {
+          continents.push({ lat, lng });
+        }
+      }
+    }
+    
+    // Asia
+    for (let lat = 0; lat <= 70; lat += 2) {
+      for (let lng = 40; lng <= 150; lng += 2) {
+        if ((lat > 0 && lat < 70 && lng > 40 && lng < 150)) {
+          continents.push({ lat, lng });
+        }
+      }
+    }
+    
+    // Australia
+    for (let lat = -45; lat <= -10; lat += 2) {
+      for (let lng = 110; lng <= 155; lng += 2) {
+        if ((lat > -45 && lat < -10 && lng > 110 && lng < 155)) {
+          continents.push({ lat, lng });
+        }
+      }
+    }
+    
+    // Add some randomness to make the patterns more natural
+    return continents.filter(() => Math.random() > 0.5);
+  };
+
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "1200px", maxHeight: "1200px" }} />;
 };
 
 export default GlobeVisualization;
