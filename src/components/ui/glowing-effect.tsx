@@ -3,6 +3,7 @@
 
 import { memo, useCallback, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { animate } from "framer-motion";
 
 interface GlowingEffectProps {
   blur?: number;
@@ -16,40 +17,6 @@ interface GlowingEffectProps {
   movementDuration?: number;
   borderWidth?: number;
 }
-
-// Helper function to animate values
-const animate = (
-  from: number, 
-  to: number, 
-  options: { 
-    duration: number; 
-    ease: number[]; 
-    onUpdate: (value: number) => void 
-  }
-) => {
-  const startTime = Date.now();
-  const change = to - from;
-  
-  const easeOutExpo = (t: number) => {
-    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-  };
-
-  const animateFrame = () => {
-    const currentTime = Date.now();
-    const elapsed = (currentTime - startTime) / options.duration / 1000;
-    
-    if (elapsed >= 1) {
-      options.onUpdate(to);
-      return;
-    }
-    
-    const value = from + change * easeOutExpo(elapsed);
-    options.onUpdate(value);
-    requestAnimationFrame(animateFrame);
-  };
-  
-  return requestAnimationFrame(animateFrame);
-};
 
 const GlowingEffect = memo(
   ({
@@ -151,40 +118,46 @@ const GlowingEffect = memo(
         document.body.removeEventListener("pointermove", handlePointerMove);
       };
     }, [handleMove, disabled]);
-    
-    // Determine the gradient based on the variant
-    const gradientValue = 
-      variant === "white" 
-        ? `repeating-conic-gradient(
-            from 236.84deg at 50% 50%,
-            var(--black),
-            var(--black) calc(25% / var(--repeating-conic-gradient-times))
-          )` 
-        : variant === "teal" 
-          ? `radial-gradient(circle, #1EAEDB 10%, #1EAEDB00 25%),
-             radial-gradient(circle at 40% 40%, #33C3F0 8%, #33C3F000 20%),
-             radial-gradient(circle at 60% 60%, #1EAEDB 12%, #1EAEDB00 25%), 
-             radial-gradient(circle at 40% 60%, #0FA0CE 10%, #0FA0CE00 22%),
-             repeating-conic-gradient(
-               from 236.84deg at 50% 50%,
-               #1EAEDB 0%,
-               #33C3F0 calc(25% / var(--repeating-conic-gradient-times)),
-               #1EAEDB calc(50% / var(--repeating-conic-gradient-times)), 
-               #0FA0CE calc(75% / var(--repeating-conic-gradient-times)),
-               #1EAEDB calc(100% / var(--repeating-conic-gradient-times))
-             )`
-          : `radial-gradient(circle, #ff007c 5%, #ff007c00 15%),
-             radial-gradient(circle at 30% 40%, #ffdb4d 5%, #ffdb4d00 12%),
-             radial-gradient(circle at 70% 60%, #00ffff 8%, #00ffff00 15%), 
-             radial-gradient(circle at 40% 60%, #4c7894 7%, #4c789400 15%),
-             repeating-conic-gradient(
-               from 236.84deg at 50% 50%,
-               #ff007c 0%,
-               #ffdb4d calc(25% / var(--repeating-conic-gradient-times)),
-               #00ffff calc(50% / var(--repeating-conic-gradient-times)), 
-               #4c7894 calc(75% / var(--repeating-conic-gradient-times)),
-               #ff007c calc(100% / var(--repeating-conic-gradient-times))
-             )`;
+
+    const gradient = (() => {
+      if (variant === "white") {
+        return `repeating-conic-gradient(
+          from 236.84deg at 50% 50%,
+          var(--black),
+          var(--black) calc(25% / var(--repeating-conic-gradient-times))
+        )`;
+      }
+
+      if (variant === "teal") {
+        return `
+          radial-gradient(circle at 50% 50%, #0f766e 10%, #0f766e00 30%),
+          radial-gradient(circle at 40% 40%, #2dd4bf 10%, #2dd4bf00 25%),
+          radial-gradient(circle at 60% 60%, #0f766e 10%, #0f766e00 25%),
+          repeating-conic-gradient(
+            from 0deg,
+            #0f766e 0%,
+            #2dd4bf 25%,
+            #0f766e 50%,
+            #2dd4bf 75%,
+            #0f766e 100%
+          )`;
+      }
+
+      // Default rainbow
+      return `
+        radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
+        radial-gradient(circle at 40% 40%, #d79f1e 5%, #d79f1e00 15%),
+        radial-gradient(circle at 60% 60%, #5a922c 10%, #5a922c00 20%), 
+        radial-gradient(circle at 40% 60%, #4c7894 10%, #4c789400 20%),
+        repeating-conic-gradient(
+          from 236.84deg at 50% 50%,
+          #dd7bbb 0%,
+          #d79f1e 25%,
+          #5a922c 50%, 
+          #4c7894 75%,
+          #dd7bbb 100%
+        )`;
+    })();
 
     return (
       <>
@@ -206,7 +179,7 @@ const GlowingEffect = memo(
               "--active": "0",
               "--glowingeffect-border-width": `${borderWidth}px`,
               "--repeating-conic-gradient-times": "5",
-              "--gradient": gradientValue,
+              "--gradient": gradient,
             } as React.CSSProperties
           }
           className={cn(
