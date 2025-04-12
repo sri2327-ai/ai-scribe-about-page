@@ -17,6 +17,7 @@ const HeroSection = () => {
       0.1,
       1000
     );
+    
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       alpha: true,
@@ -25,8 +26,29 @@ const HeroSection = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
-    // Create a sphere geometry for the globe
-    const sphereGeometry = new THREE.SphereGeometry(2, 64, 64);
+    // Add subtle star background
+    const starsGeometry = new THREE.BufferGeometry();
+    const starsMaterial = new THREE.PointsMaterial({
+      color: 0xffffff,
+      size: 0.02,
+      transparent: true,
+      opacity: 0.6
+    });
+    
+    const starsVertices = [];
+    for (let i = 0; i < 3000; i++) {
+      const x = (Math.random() - 0.5) * 40;
+      const y = (Math.random() - 0.5) * 40;
+      const z = (Math.random() - 0.5) * 20;
+      starsVertices.push(x, y, z);
+    }
+    
+    starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
+    const stars = new THREE.Points(starsGeometry, starsMaterial);
+    scene.add(stars);
+    
+    // Create a sphere geometry for the globe - positioned lower to be half-visible
+    const sphereGeometry = new THREE.SphereGeometry(3, 64, 64);
     
     // Create a material with white glow effect
     const sphereMaterial = new THREE.MeshBasicMaterial({
@@ -36,20 +58,22 @@ const HeroSection = () => {
     });
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    // Position globe lower to be half-cut
+    globe.position.y = -3;
     scene.add(globe);
     
     // Create dots for the globe surface
     const dotsGeometry = new THREE.BufferGeometry();
     const dotsMaterial = new THREE.PointsMaterial({
       color: 0xffffff, // White dots
-      size: 0.03,
+      size: 0.04,
       transparent: true,
       opacity: 0.8
     });
     
     // Generate random points on the sphere surface
     const positions = [];
-    const radius = 2.01; // Slightly larger than the globe
+    const radius = 3.01; // Slightly larger than the globe
     
     for (let i = 0; i < 5000; i++) {
       // Create evenly distributed points on a sphere
@@ -66,6 +90,7 @@ const HeroSection = () => {
     dotsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
     
     const dots = new THREE.Points(dotsGeometry, dotsMaterial);
+    dots.position.y = -3; // Match globe position
     scene.add(dots);
     
     // Add highlights - teal dots for the theme
@@ -80,28 +105,29 @@ const HeroSection = () => {
     // Set a few fixed highlight positions
     const highlightPositions = [
       // Asia highlights
-      2 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.3),
-      2 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.3),
-      2 * Math.cos(Math.PI * 0.3),
+      3 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.3),
+      3 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.3),
+      3 * Math.cos(Math.PI * 0.3),
       
       // Europe highlight
-      2 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.7),
-      2 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.7),
-      2 * Math.cos(Math.PI * 0.4),
+      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.7),
+      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.7),
+      3 * Math.cos(Math.PI * 0.4),
       
       // Americas highlight
-      2 * Math.sin(Math.PI * 0.5) * Math.cos(Math.PI * 1.5),
-      2 * Math.sin(Math.PI * 0.5) * Math.sin(Math.PI * 1.5),
-      2 * Math.cos(Math.PI * 0.5)
+      3 * Math.sin(Math.PI * 0.5) * Math.cos(Math.PI * 1.5),
+      3 * Math.sin(Math.PI * 0.5) * Math.sin(Math.PI * 1.5),
+      3 * Math.cos(Math.PI * 0.5)
     ];
     
     highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(highlightPositions, 3));
     
     const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
+    highlights.position.y = -3; // Match globe position
     scene.add(highlights);
     
     // Create a light glow effect
-    const glowGeometry = new THREE.SphereGeometry(2.1, 32, 32);
+    const glowGeometry = new THREE.SphereGeometry(3.2, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
         viewVector: { value: new THREE.Vector3(0, 0, 1) }
@@ -129,6 +155,7 @@ const HeroSection = () => {
     });
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
+    glowMesh.position.y = -3; // Match globe position
     scene.add(glowMesh);
     
     camera.position.z = 5;
@@ -141,10 +168,29 @@ const HeroSection = () => {
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
       
-      globe.rotation.x = y * 0.1;
-      globe.rotation.z = x * 0.1;
-      glowMesh.rotation.x = y * 0.1;
-      glowMesh.rotation.z = x * 0.1;
+      // Rotate the globe based on mouse position
+      globe.rotation.x = y * 0.2;
+      globe.rotation.z = x * 0.2;
+      dots.rotation.x = y * 0.2;
+      dots.rotation.z = x * 0.2;
+      highlights.rotation.x = y * 0.2;
+      highlights.rotation.z = x * 0.2;
+      glowMesh.rotation.x = y * 0.2;
+      glowMesh.rotation.z = x * 0.2;
+      
+      // Add a slight lift effect when hovering bottom half
+      if (y < 0) {
+        const lift = Math.abs(y) * 0.5;
+        globe.position.y = -3 + lift;
+        dots.position.y = -3 + lift;
+        highlights.position.y = -3 + lift;
+        glowMesh.position.y = -3 + lift;
+      } else {
+        globe.position.y = -3;
+        dots.position.y = -3;
+        highlights.position.y = -3;
+        glowMesh.position.y = -3;
+      }
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -158,6 +204,10 @@ const HeroSection = () => {
       dots.rotation.y += 0.001;
       highlights.rotation.y += 0.001;
       glowMesh.rotation.y += 0.001;
+      
+      // Animate stars with subtle twinkling effect
+      stars.rotation.y += 0.0001;
+      stars.rotation.z += 0.0001;
       
       // Update glow effect
       glowMaterial.uniforms.viewVector.value = new THREE.Vector3(
@@ -189,8 +239,11 @@ const HeroSection = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col justify-between bg-black overflow-hidden">
-      {/* Top content with heading */}
-      <div className="container mx-auto px-4 z-10 text-center pt-24 md:pt-36 pb-12">
+      {/* Top spacing */}
+      <div className="flex-grow" />
+      
+      {/* Middle content with heading - positioned lower */}
+      <div className="container mx-auto px-4 z-10 text-center pb-24 md:pb-36">
         <motion.h2
           className="font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-b from-[#c0c0c0] via-[#d8d8d8] to-[#9F9EA1] text-4xl md:text-6xl lg:text-7xl"
           initial={{ opacity: 0, y: 20 }}
@@ -201,12 +254,24 @@ const HeroSection = () => {
             letterSpacing: "0.5px"
           }}
         >
-          Revolutionizing Healthcare with AI
+          <motion.span
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ 
+              duration: 1.2,
+              ease: "easeOut"
+            }}
+          >
+            Revolutionizing Healthcare with AI
+          </motion.span>
         </motion.h2>
+        
+        {/* Add gradient fade effect at bottom of text */}
+        <div className="w-full h-12 bg-gradient-to-b from-transparent to-black absolute bottom-0 left-0 z-0"></div>
       </div>
       
       {/* Bottom content with globe */}
-      <div className="flex-grow relative flex items-end justify-center">
+      <div className="flex-grow-0 relative h-[400px] md:h-[500px] flex items-end justify-center overflow-hidden">
         <canvas ref={canvasRef} className="absolute inset-0 z-0" />
       </div>
     </div>
