@@ -1,7 +1,7 @@
 
 'use client'
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 // Define type for Node to fix TypeScript errors
 interface NodeType {
@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Further reduced opacity to 0.03 and line width to 5 for an even more subtle effect
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.03)";
-    ctx.lineWidth = 5;
+    // Set to bright blue for Star Trek style line
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.08)";
+    ctx.lineWidth = 3;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -149,7 +149,7 @@ var ctx,
   E = {
     debug: true,
     friction: 0.5,
-    trails: 100,  // Slightly reduced trails for balance
+    trails: 50,
     size: 50,
     dampening: 0.025,
     tension: 0.99,
@@ -168,6 +168,8 @@ interface CanvasEffectProps {
 }
 
 export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProps) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  
   useEffect(() => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
     if (!canvas) {
@@ -226,6 +228,7 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
   return (
     <canvas
       id={id}
+      ref={canvasRef}
       className={`pointer-events-auto absolute inset-0 w-full h-full ${className}`}
     ></canvas>
   );

@@ -38,37 +38,30 @@ const StarBackground = () => {
     
     const starPositions = [];
     const starSizes = [];
-    const starColors = [];
     
-    // Create 3000 stars with varying sizes and slight color variations
-    for (let i = 0; i < 3000; i++) {
+    // Create 2000 stars with varying sizes
+    for (let i = 0; i < 2000; i++) {
       const x = (Math.random() - 0.5) * 100;
       const y = (Math.random() - 0.5) * 100;
       const z = (Math.random() - 0.5) * 50;
       
-      // Add slight randomness to star sizes
-      const size = Math.random() * 0.04 + 0.01;
-      
-      // Add slight color variation (mostly white with hints of blue)
-      const r = 0.9 + Math.random() * 0.1;
-      const g = 0.9 + Math.random() * 0.1;
-      const b = 1.0; // Slight blue tint
+      // Smaller star sizes to match reference image
+      const size = Math.random() * 0.02 + 0.005;
       
       starPositions.push(x, y, z);
       starSizes.push(size);
-      starColors.push(r, g, b);
     }
     
     starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starPositions, 3));
     starsGeometry.setAttribute('size', new THREE.Float32BufferAttribute(starSizes, 1));
-    starsGeometry.setAttribute('color', new THREE.Float32BufferAttribute(starColors, 3));
     
+    // Create a custom shader material for better-looking stars
     const starsMaterial = new THREE.PointsMaterial({
       size: 0.1,
+      color: 0xffffff,
       transparent: true,
       opacity: 0.8,
-      vertexColors: true,
-      sizeAttenuation: true
+      sizeAttenuation: true,
     });
     
     const stars = new THREE.Points(starsGeometry, starsMaterial);
@@ -77,19 +70,19 @@ const StarBackground = () => {
     
     camera.position.z = 5;
     
-    // Animation with twinkling effect
+    // Animation with subtle movement
     const animate = () => {
       if (!sceneRef.current || !cameraRef.current || !rendererRef.current || !starsRef.current) return;
       
       requestAnimationFrame(animate);
       
-      // Subtle rotation of the star field
+      // Very subtle rotation of the star field
       starsRef.current.rotation.y += 0.0001;
-      starsRef.current.rotation.z += 0.0001;
+      starsRef.current.rotation.z += 0.00005;
       
       // Create subtle twinkling effect by modifying opacity slightly
-      if (Math.random() > 0.95) {
-        starsMaterial.opacity = 0.6 + Math.random() * 0.4;
+      if (Math.random() > 0.99) {
+        starsMaterial.opacity = 0.7 + Math.random() * 0.3;
       }
       
       rendererRef.current.render(sceneRef.current, cameraRef.current);
