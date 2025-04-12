@@ -81,7 +81,7 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom bg-gradient-to-r from-blue-800/30 to-blue-900/30 rounded-3xl flex items-center justify-center p-8"
+                  className="absolute inset-0 origin-bottom bg-black rounded-3xl flex items-center justify-center p-8"
                 >
                   <div className="text-center">
                     <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 mb-6 flex items-center justify-center mx-auto">

@@ -42,7 +42,6 @@ const TeamSection = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-4xl font-bold mb-6 text-white">MEET THE TEAM</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
         </motion.div>
         
         <AnimatedTestimonials 
