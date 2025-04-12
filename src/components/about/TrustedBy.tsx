@@ -10,6 +10,8 @@ import {
   useTransform,
 } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -105,6 +107,37 @@ const testimonials: Testimonial[] = [
 const duration = 0.15;
 const transition = { duration, ease: [0.32, 0.72, 0, 1] };
 const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] };
+
+// Mobile testimonial card for small screens
+const MobileTestimonialCard = ({ card }: { card: Testimonial }) => {
+  return (
+    <div className="rounded-xl bg-black border border-gray-800 p-4 flex flex-col items-center text-center space-y-3 shadow-xl m-2">
+      <img
+        src={card.avatar}
+        alt={card.name}
+        className="w-12 h-12 rounded-full border border-gray-800"
+      />
+      <blockquote className="italic text-xs text-gray-300 line-clamp-3">
+        "{card.quote}"
+      </blockquote>
+      <div>
+        <p className="font-semibold text-white text-sm">{card.name}</p>
+        <p className="text-[10px] text-gray-500">{card.title}</p>
+      </div>
+    </div>
+  );
+};
+
+// Mobile testimonial list view for very small screens
+const MobileTestimonialList = ({ cards }: { cards: Testimonial[] }) => {
+  return (
+    <div className="flex flex-col gap-4 px-3">
+      {cards.slice(0, 3).map((card, index) => (
+        <MobileTestimonialCard key={`mobile-testimonial-${index}`} card={card} />
+      ))}
+    </div>
+  );
+};
 
 const TestimonialCarousel = memo(
   ({
@@ -207,6 +240,7 @@ function ThreeDTestimonialCarousel() {
   const controls = useAnimation();
   const cards = useMemo(() => testimonials, []);
   const isMobile = useIsMobile();
+  const isVerySmallScreen = useMediaQuery("(max-width: 360px)");
 
   const handleClick = (card: Testimonial, index: number) => {
     setActiveCard(card);
@@ -218,6 +252,11 @@ function ThreeDTestimonialCarousel() {
     setActiveCard(null);
     setIsCarouselActive(true);
   };
+
+  // Use list view for very small screens
+  if (isVerySmallScreen) {
+    return <MobileTestimonialList cards={cards} />;
+  }
 
   return (
     <motion.div layout className="relative w-full">
@@ -261,7 +300,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className={`relative ${isMobile ? 'h-[300px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
+      <div className={`relative ${isMobile ? 'h-[260px] xs:h-[280px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
@@ -275,10 +314,10 @@ function ThreeDTestimonialCarousel() {
 
 const TrustedBy = () => {
   return (
-    <section className="w-full py-10 xs:py-12 sm:py-16 md:py-20 bg-black">
+    <section className="w-full py-8 xs:py-10 sm:py-14 md:py-20 bg-black">
       <div className="container mx-auto px-4 max-w-full">
         <motion.div
-          className="text-center mb-6 sm:mb-10 md:mb-16"
+          className="text-center mb-4 sm:mb-8 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -289,6 +328,22 @@ const TrustedBy = () => {
         </motion.div>
         
         <ThreeDTestimonialCarousel />
+        
+        {/* Contact Us Button */}
+        <motion.div 
+          className="flex justify-center mt-8 sm:mt-12 md:mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
+          <Button 
+            className="rounded-full px-6 py-6 bg-[#0FA0CE] hover:bg-[#1EAEDB] text-white font-semibold text-sm xs:text-base flex items-center gap-2 h-auto"
+            onClick={() => window.location.href = "/contact"}
+          >
+            Contact Us <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
