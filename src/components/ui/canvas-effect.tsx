@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Make the stroke style much more visible with higher opacity and thicker lines
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.4)"; // Increased opacity to 0.4 for better visibility
-    ctx.lineWidth = 6; // Increased to 6px for more prominent lines
+    // Significantly increased opacity and line width for better visibility
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.6)"; // Much higher opacity (0.6) for better visibility
+    ctx.lineWidth = 8; // Thicker lines (8px) to be more noticeable
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -218,7 +218,37 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
         clientY: pos.y
       });
       onMousemove(initialEvent);
-    }, 300); 
+      
+      // Add additional simulated movements to make canvas effect more visible
+      const simulateMovement = () => {
+        if (ctx && ctx.running) {
+          const newX = pos.x + (Math.random() * 100 - 50);
+          const newY = pos.y + (Math.random() * 100 - 50);
+          
+          const moveEvent = new MouseEvent('mousemove', {
+            clientX: newX,
+            clientY: newY
+          });
+          
+          // Update position
+          pos.x = newX;
+          pos.y = newY;
+          
+          // Redraw lines
+          for (let i = 0; i < lines.length; i++) {
+            lines[i].update();
+          }
+        }
+      };
+      
+      // Simulate some initial movement after loading
+      for (let i = 0; i < 10; i++) {
+        setTimeout(simulateMovement, 300 * i);
+      }
+      
+      // Continue occasional movement simulation
+      setInterval(simulateMovement, 3000);
+    }, 500); 
     
     return () => {
       if (ctx) ctx.running = false;
