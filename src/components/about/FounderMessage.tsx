@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { CanvasEffect } from "@/components/ui/canvas-effect";
 
 // Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
@@ -68,7 +69,12 @@ const FounderMessage = () => {
   
   return (
     <section className="py-24 bg-black relative overflow-hidden">
-      <div className="container mx-auto px-4">
+      {/* Teal Blue Beams Background */}
+      <div className="absolute inset-0 opacity-30">
+        <CanvasEffect id="founder-canvas" className="opacity-60" />
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0 }}
@@ -79,11 +85,11 @@ const FounderMessage = () => {
           <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">A Message from Our Founder</h2>
         </motion.div>
         
-        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black text-white">
+        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black/60 backdrop-blur-sm text-white border border-tealBlueBright/20">
           <CardContent className="p-8 md:p-16">
             <div className="flex flex-col space-y-8">
               <motion.p 
-                className="text-xl md:text-2xl leading-relaxed font-wix-madefor"
+                className="text-xl md:text-2xl leading-relaxed font-wix-madefor text-gray-300"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
@@ -93,7 +99,7 @@ const FounderMessage = () => {
               </motion.p>
               
               <motion.p 
-                className="text-lg md:text-xl leading-relaxed font-wix-madefor"
+                className="text-lg md:text-xl leading-relaxed font-wix-madefor text-gray-400"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -104,7 +110,7 @@ const FounderMessage = () => {
               
               <div className="mt-4">
                 <motion.h3 
-                  className="text-xl md:text-2xl font-semibold mb-6 font-wix-madefor"
+                  className="text-xl md:text-2xl font-semibold mb-6 font-wix-madefor text-tealBlueBright"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
@@ -117,17 +123,17 @@ const FounderMessage = () => {
                   {innovationPoints.map((point, index) => (
                     <div 
                       key={index}
-                      className="flex items-start space-x-4 innovation-item transition-all duration-500"
+                      className="flex items-start space-x-4 innovation-item transition-all duration-500 border-l-2 border-tealBlueBright/50 pl-4"
                       style={{ opacity: 0, transform: "translateY(20px)" }}
                     >
                       <div className="flex-shrink-0 mt-1">
-                        <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center">
+                        <div className="w-4 h-4 bg-tealBlueBright rounded-full flex items-center justify-center">
                           <span className="text-black text-xs">•</span>
                         </div>
                       </div>
                       <div>
-                        <h4 className="text-lg font-semibold mb-2 font-wix-madefor">{point.title}</h4>
-                        <p className="text-gray-300 font-wix-madefor">{point.description}</p>
+                        <h4 className="text-lg font-semibold mb-2 font-wix-madefor text-gray-300">{point.title}</h4>
+                        <p className="text-gray-400 font-wix-madefor">{point.description}</p>
                       </div>
                     </div>
                   ))}
@@ -135,7 +141,7 @@ const FounderMessage = () => {
               </div>
               
               <motion.p 
-                className="text-lg md:text-xl leading-relaxed mt-6 font-wix-madefor"
+                className="text-lg md:text-xl leading-relaxed mt-6 font-wix-madefor text-gray-300"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
@@ -145,7 +151,7 @@ const FounderMessage = () => {
               </motion.p>
               
               <motion.p 
-                className="text-lg md:text-xl leading-relaxed font-wix-madefor"
+                className="text-lg md:text-xl leading-relaxed font-wix-madefor text-gray-400"
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -154,7 +160,7 @@ const FounderMessage = () => {
                 We are shaping a world where doctors focus on care, not clicks, and AI works behind the scenes, making healthcare more <TextRotate texts={["efficient", "accurate", "humane", "intelligent"]} />, and patient-centric.
               </motion.p>
               
-              <div className="mt-8 pt-8 border-t border-gray-800">
+              <div className="mt-8 pt-8 border-t border-tealBlueBright/30">
                 <motion.div 
                   className="flex items-center space-x-6"
                   initial={{ opacity: 0 }}
@@ -163,7 +169,7 @@ const FounderMessage = () => {
                   viewport={{ once: true }}
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                    <div className="w-16 h-16 rounded-full bg-tealBlueBright flex items-center justify-center overflow-hidden">
                       <span className="text-xl font-bold text-black">SS</span>
                     </div>
                   </div>
