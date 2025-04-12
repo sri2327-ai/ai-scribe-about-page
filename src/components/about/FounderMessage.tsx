@@ -110,7 +110,7 @@ const FounderMessage = () => {
               
               <div className="mt-4">
                 <motion.h3 
-                  className="text-xl md:text-2xl font-semibold mb-6 font-wix-madefor text-tealBlueBright"
+                  className="text-xl md:text-2xl font-semibold mb-6 font-wix-madefor text-gray-300"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
@@ -123,11 +123,11 @@ const FounderMessage = () => {
                   {innovationPoints.map((point, index) => (
                     <div 
                       key={index}
-                      className="flex items-start space-x-4 innovation-item transition-all duration-500 border-l-2 border-tealBlueBright/50 pl-4"
+                      className="flex items-start space-x-4 innovation-item transition-all duration-500 border-l-2 border-gray-500 pl-4"
                       style={{ opacity: 0, transform: "translateY(20px)" }}
                     >
                       <div className="flex-shrink-0 mt-1">
-                        <div className="w-4 h-4 bg-tealBlueBright rounded-full flex items-center justify-center">
+                        <div className="w-4 h-4 bg-gray-500 rounded-full flex items-center justify-center">
                           <span className="text-black text-xs">•</span>
                         </div>
                       </div>
@@ -160,7 +160,7 @@ const FounderMessage = () => {
                 We are shaping a world where doctors focus on care, not clicks, and AI works behind the scenes, making healthcare more <TextRotate texts={["efficient", "accurate", "humane", "intelligent"]} />, and patient-centric.
               </motion.p>
               
-              <div className="mt-8 pt-8 border-t border-tealBlueBright/30">
+              <div className="mt-8 pt-8 border-t border-gray-700">
                 <motion.div 
                   className="flex items-center space-x-6"
                   initial={{ opacity: 0 }}
@@ -169,8 +169,8 @@ const FounderMessage = () => {
                   viewport={{ once: true }}
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-tealBlueBright flex items-center justify-center overflow-hidden">
-                      <span className="text-xl font-bold text-black">SS</span>
+                    <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
+                      <span className="text-xl font-bold text-white">SS</span>
                     </div>
                   </div>
                   <div>
