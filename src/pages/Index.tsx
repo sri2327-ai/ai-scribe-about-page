@@ -16,9 +16,12 @@ const Index = () => {
           >
             Learn About Us
           </Link>
-          <button className="bg-transparent border border-blue-500 text-blue-400 hover:bg-blue-900/20 font-medium py-3 px-8 rounded-full text-lg transition-all duration-300">
-            Contact Us
-          </button>
+          <Link 
+            to="/technology" 
+            className="bg-transparent border border-blue-500 text-blue-400 hover:bg-blue-900/20 font-medium py-3 px-8 rounded-full text-lg transition-all duration-300"
+          >
+            Our Technology
+          </Link>
         </div>
       </div>
     </div>
