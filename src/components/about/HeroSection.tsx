@@ -43,11 +43,15 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container - repositioned to show 40% of the globe and prevent text overlap */}
+        {/* Globe container - repositioned to show 50% of the globe and increased width */}
         <div className="absolute w-full flex items-center justify-center" 
              style={{ 
-               top: "calc(50% + 30px)", 
-               height: "700px", 
+               top: "calc(50% + 60px)", 
+               height: "800px",
+               width: "100vw", // Expand to full viewport width
+               maxWidth: "100vw",
+               left: "50%",
+               transform: "translateX(-50%)",
                zIndex: 5
              }}>
           <GlobeVisualization />

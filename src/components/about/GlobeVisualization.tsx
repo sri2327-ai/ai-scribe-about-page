@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -30,8 +29,8 @@ const GlobeVisualization = () => {
     // Set the correct size for the renderer
     const updateSize = () => {
       if (canvasRef.current) {
-        // Set width to 90% of screen width for better coverage
-        const width = window.innerWidth * 0.9;
+        // Set width to 100% of screen width for better coverage
+        const width = window.innerWidth;
         const height = canvasRef.current.clientHeight;
         renderer.setSize(width, height);
         camera.aspect = width / height;
@@ -53,7 +52,7 @@ const GlobeVisualization = () => {
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    globe.position.y = -2; // Position to show ~40% of the globe with adjustment to prevent overlap
+    globe.position.y = -1; // Position to show ~50% of the globe 
     scene.add(globe);
     
     // Create black dots for the continents
@@ -75,7 +74,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.02 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.02 * Math.cos(phi)) - 2; // Adjusted for new globe position
+      const y = (8.02 * Math.cos(phi)) - 1; // Adjusted for new globe position
       const z = (8.02 * Math.sin(phi) * Math.sin(theta));
       
       positions.push(x, y, z);
@@ -113,7 +112,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.1 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.1 * Math.cos(phi)) - 2; // Adjusted for new globe position
+      const y = (8.1 * Math.cos(phi)) - 1; // Adjusted for new globe position
       const z = (8.1 * Math.sin(phi) * Math.sin(theta));
       
       hotspotPositions.push(x, y, z);
@@ -125,8 +124,8 @@ const GlobeVisualization = () => {
     highlightsRef.current = highlights;
     scene.add(highlights);
     
-    // Create a subtler glow effect around the globe by reducing intensity
-    const glowGeometry = new THREE.SphereGeometry(8.2, 32, 32);
+    // Enhanced subtle white glow effect
+    const glowGeometry = new THREE.SphereGeometry(8.5, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
         viewVector: { value: new THREE.Vector3(0, 0, 1) }
@@ -137,15 +136,15 @@ const GlobeVisualization = () => {
         void main() {
           vec3 vNormal = normalize(normalMatrix * normal);
           vec3 vNormel = normalize(normalMatrix * viewVector);
-          intensity = pow(0.6 - dot(vNormal, vNormel), 2.0);
+          intensity = pow(0.5 - dot(vNormal, vNormel), 1.8);
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragmentShader: `
         varying float intensity;
         void main() {
-          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity * 0.7; // Reduced intensity
-          gl_FragColor = vec4(glow, 0.8); // Lower opacity
+          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity * 0.8; // Subtle white glow
+          gl_FragColor = vec4(glow, 0.9); // High opacity for more visible effect
         }
       `,
       side: THREE.BackSide,
@@ -155,7 +154,7 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = -2; // Adjusted for new globe position
+    glowMesh.position.y = -1; // Adjusted for new globe position
     scene.add(glowMesh);
     
     // Move camera back to see the bigger globe
@@ -283,7 +282,7 @@ const GlobeVisualization = () => {
     return continents.filter(() => Math.random() > 0.5);
   };
 
-  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "1200px", maxHeight: "1200px" }} />;
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "2000px", maxHeight: "1200px" }} />;
 };
 
 export default GlobeVisualization;
