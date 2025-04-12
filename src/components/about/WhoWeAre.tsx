@@ -61,20 +61,21 @@ const WhoWeAre = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="relative rounded-xl border border-[#1EAEDB]/50 p-6 h-full bg-black/40">
+              <div className="relative rounded-xl border border-gray-600 hover:border-[#1EAEDB]/70 p-6 h-full bg-black/40 transition-all duration-300 group">
                 <GlowingEffect
-                  spread={80}
+                  spread={100}
                   glow={true}
                   disabled={false}
-                  proximity={100}
+                  proximity={120}
                   inactiveZone={0.01}
-                  borderWidth={3}
+                  borderWidth={4}
                   variant="white"
-                  blur={8}
+                  blur={12}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 
                 <div className="bg-[#1EAEDB]/20 p-1 rounded-xl mb-6 inline-block relative z-10">
-                  <div className="bg-[#1EAEDB]/30 p-3 rounded-lg text-[#1EAEDB]">
+                  <div className="bg-[#1EAEDB]/30 p-3 rounded-lg text-white">
                     {feature.icon}
                   </div>
                 </div>

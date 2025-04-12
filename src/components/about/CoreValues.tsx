@@ -70,16 +70,17 @@ const CoreValues = () => {
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
-              <div className="relative h-full rounded-xl border border-[#1EAEDB]/50 overflow-hidden bg-black/40">
+              <div className="relative h-full rounded-xl border border-gray-600 hover:border-[#1EAEDB]/70 overflow-hidden bg-black/40 transition-all duration-300 group">
                 <GlowingEffect
-                  spread={80}
+                  spread={100}
                   glow={true}
                   disabled={false}
-                  proximity={100}
+                  proximity={120}
                   inactiveZone={0.01}
-                  borderWidth={3}
+                  borderWidth={4}
                   variant="white"
-                  blur={8}
+                  blur={12}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 
                 <div className="relative flex items-start space-x-4 p-6 z-10">
