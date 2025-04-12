@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Reduced opacity to 0.05 and line width to 8 for more subtle effect
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.05)";
-    ctx.lineWidth = 8;
+    // Further reduced opacity to 0.03 and line width to 5 for an even more subtle effect
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.03)";
+    ctx.lineWidth = 5;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
