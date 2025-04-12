@@ -1,8 +1,8 @@
 
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
-import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { StarBorder } from "@/components/ui/star-border";
 
 const features = [
   {
@@ -57,34 +57,26 @@ const WhoWeAre = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="relative"
+              className="relative w-full"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="relative rounded-xl p-4 sm:p-6 h-full bg-black/40 transition-all duration-300 group hover:scale-[1.02]">
-                <GlowingEffect
-                  spread={25}
-                  glow={true}
-                  disabled={false}
-                  proximity={150}
-                  inactiveZone={0}
-                  borderWidth={1}
-                  variant="teal"
-                  blur={15}
-                  dualBorder={true}
-                  className="opacity-70 group-hover:opacity-90 transition-all duration-300"
-                />
-                
-                <div className="relative z-10">
+              <StarBorder 
+                as="div" 
+                className="w-full h-full" 
+                color="#4ECDC4"
+                speed={`${6 + (index % 3)}s`}
+              >
+                <div className="p-4 sm:p-6">
                   <div className="bg-black/60 p-2 rounded-lg mb-3 sm:mb-4 inline-block">
                     {feature.icon}
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
                   <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor">{feature.description}</p>
                 </div>
-              </div>
+              </StarBorder>
             </motion.div>
           ))}
         </div>
