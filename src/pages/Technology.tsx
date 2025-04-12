@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,7 @@ const Technology = () => {
           <div className="absolute inset-0 bg-black">
             <MatrixRain 
               fontSize={16}
-              color="#387E89" 
+              color="#143151" 
               characters="01"
               fadeOpacity={0.05}
               speed={0.8}
@@ -73,7 +74,8 @@ const Technology = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                className="text-4xl md:text-6xl text-metallic"
+                data-text="Advanced AI Innovation & Unbreakable Security"
               >
                 Advanced AI Innovation & Unbreakable Security
               </motion.h1>
