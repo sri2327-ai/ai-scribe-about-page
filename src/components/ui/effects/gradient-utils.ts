@@ -9,18 +9,18 @@ export const getGradient = (variant: "default" | "white" | "teal" = "default", i
   }
 
   if (variant === "teal") {
-    // Enhanced teal gradient with more vibrant colors and animation-friendly structure
+    // Enhanced teal gradient with much more vibrant colors and animation-friendly structure
     return `
-      radial-gradient(circle at 50% 50%, rgba(15, 118, 110, ${0.2 * intensity}) 10%, rgba(15, 118, 110, 0) 30%),
-      radial-gradient(circle at 40% 40%, rgba(45, 212, 191, ${0.3 * intensity}) 10%, rgba(45, 212, 191, 0) 25%),
-      radial-gradient(circle at 60% 60%, rgba(15, 118, 110, ${0.3 * intensity}) 10%, rgba(15, 118, 110, 0) 25%),
+      radial-gradient(circle at 50% 50%, rgba(20, 184, 166, ${0.5 * intensity}) 10%, rgba(20, 184, 166, 0) 40%),
+      radial-gradient(circle at 40% 40%, rgba(56, 226, 208, ${0.7 * intensity}) 10%, rgba(56, 226, 208, 0) 35%),
+      radial-gradient(circle at 60% 60%, rgba(20, 184, 166, ${0.7 * intensity}) 10%, rgba(20, 184, 166, 0) 35%),
       repeating-conic-gradient(
         from 0deg,
-        rgba(15, 118, 110, ${0.7 * intensity}) 0%,
-        rgba(45, 212, 191, ${0.8 * intensity}) 25%,
-        rgba(15, 118, 110, ${0.7 * intensity}) 50%,
-        rgba(45, 212, 191, ${0.8 * intensity}) 75%,
-        rgba(15, 118, 110, ${0.7 * intensity}) 100%
+        rgba(20, 184, 166, ${0.8 * intensity}) 0%,
+        rgba(94, 234, 212, ${0.9 * intensity}) 25%,
+        rgba(20, 184, 166, ${0.8 * intensity}) 50%,
+        rgba(94, 234, 212, ${0.9 * intensity}) 75%,
+        rgba(20, 184, 166, ${0.8 * intensity}) 100%
       )`;
   }
 

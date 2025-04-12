@@ -19,6 +19,7 @@ export function useGlowEffect({
   const lastPosition = useRef({ x: 0, y: 0 });
   const animationFrameRef = useRef<number>(0);
   const pulseTimeoutRef = useRef<number | null>(null);
+  const hoverStateRef = useRef<boolean>(false);
 
   const handleMove = useCallback(
     (e?: MouseEvent | { x: number; y: number }) => {
@@ -49,6 +50,7 @@ export function useGlowEffect({
 
         if (distanceFromCenter < inactiveRadius) {
           element.style.setProperty("--active", "0");
+          hoverStateRef.current = false;
           return;
         }
 
@@ -58,19 +60,34 @@ export function useGlowEffect({
           mouseY > top - proximity &&
           mouseY < top + height + proximity;
 
+        // Set active state
         element.style.setProperty("--active", isActive ? "1" : "0");
         
-        // Add subtle pulse effect when hovering
-        if (isActive) {
+        // Only trigger animation effect when hover state changes
+        if (isActive && !hoverStateRef.current) {
+          // Entry animation
+          element.style.setProperty("--intensity", "1.6"); // Start with high intensity
+          element.style.setProperty("--spread", "40"); // Wider spread on initial hover
+          
+          // Reset to normal values after initial effect
           if (pulseTimeoutRef.current) {
             clearTimeout(pulseTimeoutRef.current);
           }
           
-          // Trigger intensity pulse
-          element.style.setProperty("--intensity", "1.2");
           pulseTimeoutRef.current = window.setTimeout(() => {
-            element.style.setProperty("--intensity", "1");
-          }, 300);
+            element.style.setProperty("--intensity", "1.2");
+            element.style.setProperty("--spread", "25");
+          }, 400);
+          
+          hoverStateRef.current = true;
+        } else if (!isActive && hoverStateRef.current) {
+          // Exit animation cleanup
+          if (pulseTimeoutRef.current) {
+            clearTimeout(pulseTimeoutRef.current);
+          }
+          element.style.setProperty("--intensity", "1");
+          element.style.setProperty("--spread", "20");
+          hoverStateRef.current = false;
         }
 
         if (!isActive) return;
@@ -92,6 +109,30 @@ export function useGlowEffect({
             element.style.setProperty("--start", String(value));
           },
         });
+
+        // Create a continuous subtle pulsing effect while hovering
+        if (isActive && hoverStateRef.current) {
+          const pulseIntensity = () => {
+            if (!element || !hoverStateRef.current) return;
+            
+            const currentIntensity = parseFloat(element.style.getPropertyValue("--intensity") || "1.2");
+            const newIntensity = currentIntensity === 1.2 ? 1.4 : 1.2;
+            
+            animate(currentIntensity, newIntensity, {
+              duration: 1.5,
+              ease: [0.4, 0, 0.6, 1],
+              onUpdate: (value) => {
+                element.style.setProperty("--intensity", String(value));
+              },
+              onComplete: pulseIntensity
+            });
+          };
+          
+          // Start the pulsing effect
+          if (!pulseTimeoutRef.current) {
+            pulseTimeoutRef.current = window.setTimeout(pulseIntensity, 500);
+          }
+        }
       });
     },
     [inactiveZone, proximity, movementDuration, disabled]

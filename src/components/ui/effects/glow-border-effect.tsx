@@ -45,19 +45,19 @@ const GlowBorderEffect = memo(
 
     return (
       <>
-        {/* White border that's always visible */}
+        {/* White border that's always visible - now brighter and more visible */}
         <div
           className={cn(
-            "pointer-events-none absolute -inset-px rounded-[inherit] border border-white/30 transition-opacity duration-300",
+            "pointer-events-none absolute -inset-px rounded-[inherit] border border-white/60 transition-opacity duration-300",
             disabled && "hidden"
           )}
         />
         
-        {/* Second outline for dual border effect */}
+        {/* Second outline for dual border effect - also more visible */}
         {dualBorder && (
           <div
             className={cn(
-              "pointer-events-none absolute -inset-[3px] rounded-[inherit] border border-white/10 transition-opacity duration-300",
+              "pointer-events-none absolute -inset-[3px] rounded-[inherit] border border-white/20 transition-opacity duration-300",
               disabled && "hidden"
             )}
           />
