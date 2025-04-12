@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { StarBorder } from "@/components/ui/star-border";
+import TechHero from "@/components/technology/TechHero";
+import MatrixRain from "@/components/ui/matrix-rain";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -52,18 +54,54 @@ const Technology = () => {
         transition={{ duration: 0.6 }}
         className="flex flex-col w-full"
       >
-        {/* Hero Section */}
-        <section className="w-full bg-gradient-to-b from-blue-950 to-black py-16 md:py-24">
-          <div className="container mx-auto px-4">
+        {/* Matrix Hero Section with AI Innovation & Security */}
+        <section className="relative w-full py-16 md:py-24 overflow-hidden">
+          {/* Matrix Rain Background */}
+          <div className="absolute inset-0 bg-black">
+            <MatrixRain 
+              fontSize={16}
+              color="#1EAEDB" 
+              characters="01"
+              fadeOpacity={0.05}
+              speed={0.8}
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 to-black/80" />
+          </div>
+          
+          <div className="container relative z-10 mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <motion.h1 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
+                className="mb-6"
+              >
+                <StarBorder as="div" className="inline-block" color="#4ECDC4" speed="5s">
+                  <div className="px-6 py-2">
+                    <span className="text-blue-400 text-sm font-semibold tracking-wider">
+                      S10 TECHNOLOGY
+                    </span>
+                  </div>
+                </StarBorder>
+              </motion.div>
+              
+              <motion.h1 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-4xl md:text-6xl font-bold text-white mb-6"
               >
                 Advanced AI Innovation & Unbreakable Security
               </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl"
+              >
+                Our cutting-edge AI solutions combine innovative technology with enterprise-grade security to transform healthcare workflows.
+              </motion.p>
             </div>
           </div>
         </section>
