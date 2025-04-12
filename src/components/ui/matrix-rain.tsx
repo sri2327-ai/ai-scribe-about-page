@@ -15,7 +15,7 @@ interface MatrixRainProps {
 
 const MatrixRain: React.FC<MatrixRainProps> = ({
   fontSize = 20,
-  color = '#387E89',  // Updated color to #387E89
+  color = '#143151',  // Updated color to #143151
   characters = '01',
   fadeOpacity = 0.1,
   speed = 1,

@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,7 @@ const Technology = () => {
           <div className="absolute inset-0 bg-black">
             <MatrixRain 
               fontSize={16}
-              color="#387E89" 
+              color="#143151" 
               characters="01"
               fadeOpacity={0.05}
               speed={0.8}
@@ -69,6 +70,21 @@ const Technology = () => {
           
           <div className="container relative z-10 mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-6"
+              >
+                <StarBorder as="div" className="inline-block" color="#4ECDC4" speed="5s">
+                  <div className="px-6 py-2">
+                    <span className="text-blue-400 text-sm font-semibold tracking-wider">
+                      ADVANCED TECHNOLOGY
+                    </span>
+                  </div>
+                </StarBorder>
+              </motion.div>
+              
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -77,6 +93,15 @@ const Technology = () => {
               >
                 Advanced AI Innovation & Unbreakable Security
               </motion.h1>
+              
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-gray-300 max-w-2xl mx-auto text-lg md:text-xl"
+              >
+                Our innovative AI solutions are transforming the healthcare industry through cutting-edge technology that enables clinicians to focus on what matters most — patient care.
+              </motion.p>
             </div>
           </div>
         </section>
