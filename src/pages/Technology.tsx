@@ -74,7 +74,7 @@ const Technology = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-4xl md:text-6xl text-metallic"
+                className="text-4xl md:text-7xl text-metallic tracking-tight"
                 data-text="Advanced AI Innovation & Unbreakable Security"
               >
                 Advanced AI Innovation & Unbreakable Security
