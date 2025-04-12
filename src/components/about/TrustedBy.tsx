@@ -1,4 +1,6 @@
 
+"use client";
+
 import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import {
   AnimatePresence,
@@ -116,7 +118,8 @@ const TestimonialCarousel = memo(
     isCarouselActive: boolean;
   }) => {
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
-    const cylinderWidth = isScreenSizeSm ? 900 : 1800;
+    const isScreenSizeMd = useMediaQuery("(max-width: 768px)");
+    const cylinderWidth = isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
     const faceCount = cards.length;
     const radius = cylinderWidth / (2 * Math.PI);
     const rotation = useMotionValue(0);
@@ -127,7 +130,7 @@ const TestimonialCarousel = memo(
 
     return (
       <div
-        className="flex h-full items-center justify-center"
+        className="flex h-full items-center justify-center w-full"
         style={{
           perspective: "1000px",
           transformStyle: "preserve-3d",
@@ -164,7 +167,7 @@ const TestimonialCarousel = memo(
           {cards.map((card, i) => (
             <motion.div
               key={`testimonial-${i}`}
-              className="absolute h-full origin-center w-[280px] md:w-[300px] max-w-full p-2 md:p-4"
+              className="absolute h-full origin-center w-[260px] md:w-[300px] max-w-full p-2 md:p-4"
               style={{
                 transform: `rotateY(${
                   i * (360 / faceCount)
@@ -212,7 +215,7 @@ function ThreeDTestimonialCarousel() {
   };
 
   return (
-    <motion.div layout className="relative">
+    <motion.div layout className="relative w-full">
       <AnimatePresence mode="sync">
         {activeCard && (
           <motion.div
@@ -253,7 +256,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className="relative h-[400px] sm:h-[450px] md:h-[500px] w-full overflow-hidden">
+      <div className="relative h-[350px] sm:h-[400px] md:h-[450px] w-full overflow-hidden">
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
@@ -267,8 +270,8 @@ function ThreeDTestimonialCarousel() {
 
 const TrustedBy = () => {
   return (
-    <section className="py-16 md:py-20 bg-black">
-      <div className="container mx-auto px-4">
+    <section className="w-full py-16 md:py-20 bg-black">
+      <div className="container mx-auto px-4 max-w-full">
         <motion.div
           className="text-center mb-10 md:mb-16"
           initial={{ opacity: 0, y: 20 }}

@@ -9,7 +9,6 @@ import StarTrekSection from "@/components/about/StarTrekSection";
 import FounderMessage from "@/components/about/FounderMessage";
 import TeamSection from "@/components/about/TeamSection";
 import TrustedBy from "@/components/about/TrustedBy";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 const About = () => {
   useEffect(() => {
@@ -18,25 +17,23 @@ const About = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black">
+    <main className="bg-black min-h-screen w-full">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col"
+        className="flex flex-col w-full"
       >
         <HeroSection />
-        <ScrollArea className="flex-1 h-full">
-          <div className="flex flex-col space-y-0">
-            <MissionVision />
-            <TrustedBy />
-            <CoreValues />
-            <WhoWeAre />
-            <StarTrekSection />
-            <FounderMessage />
-            <TeamSection />
-          </div>
-        </ScrollArea>
+        <div className="w-full">
+          <MissionVision />
+          <TrustedBy />
+          <CoreValues />
+          <WhoWeAre />
+          <StarTrekSection />
+          <FounderMessage />
+          <TeamSection />
+        </div>
       </motion.div>
     </main>
   );
