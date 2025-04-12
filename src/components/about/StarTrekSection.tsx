@@ -28,7 +28,7 @@ const StarTrekSection = () => {
         </motion.p>
         
         <div className="w-full h-80 relative mt-8">
-          {/* Gradients */}
+          {/* Gradients - Updated to teal blue (#1EAEDB) */}
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-[#1EAEDB] to-transparent h-[2px] w-3/4 blur-sm" />
           <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-[#1EAEDB] to-transparent h-px w-3/4" />
           <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-[#33C3F0] to-transparent h-[5px] w-1/4 blur-sm" />
