@@ -31,7 +31,7 @@ export const LampContainer = ({
   return (
     <div
       className={cn(
-        "relative flex min-h-[40vh] flex-col items-center justify-center overflow-hidden bg-black w-full rounded-md z-0",
+        "relative flex min-h-[80vh] flex-col items-center justify-center overflow-hidden bg-black w-full rounded-md z-0",
         className
       )}
     >
@@ -39,12 +39,12 @@ export const LampContainer = ({
         {/* gradient conic shapes */}
         <motion.div
           initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+          whileInView={{ opacity: 1, width: "40rem" }}
+          transition={{ delay: 0.3, duration: 1.2, ease: "easeInOut" }}
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className={`absolute inset-auto right-1/2 h-56 overflow-visible w-[30rem] bg-gradient-conic ${colorClasses.conic} text-white [--conic-position:from_70deg_at_center_top]`}
+          className={`absolute inset-auto right-1/2 h-72 overflow-visible w-[40rem] bg-gradient-conic ${colorClasses.conic} text-white [--conic-position:from_70deg_at_center_top]`}
         >
           <div className="absolute w-full left-0 bg-black h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
           <div className="absolute w-40 h-full left-0 bg-black bottom-0 z-20 [mask-image:linear-gradient(to_right,white,transparent)]" />
@@ -52,12 +52,12 @@ export const LampContainer = ({
 
         <motion.div
           initial={{ opacity: 0.5, width: "15rem" }}
-          whileInView={{ opacity: 1, width: "30rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
+          whileInView={{ opacity: 1, width: "40rem" }}
+          transition={{ delay: 0.3, duration: 1.2, ease: "easeInOut" }}
           style={{
             backgroundImage: `conic-gradient(var(--conic-position), var(--tw-gradient-stops))`,
           }}
-          className={`absolute inset-auto left-1/2 h-56 w-[30rem] bg-gradient-conic ${colorClasses.conicReverse} text-white [--conic-position:from_290deg_at_center_top]`}
+          className={`absolute inset-auto left-1/2 h-72 w-[40rem] bg-gradient-conic ${colorClasses.conicReverse} text-white [--conic-position:from_290deg_at_center_top]`}
         >
           <div className="absolute w-40 h-full right-0 bg-black bottom-0 z-20 [mask-image:linear-gradient(to_left,white,transparent)]" />
           <div className="absolute w-full right-0 bg-black h-40 bottom-0 z-20 [mask-image:linear-gradient(to_top,white,transparent)]" />
@@ -66,18 +66,18 @@ export const LampContainer = ({
         {/* shadows and glow */}
         <div className="absolute top-1/2 h-48 w-full translate-y-12 scale-x-150 bg-black blur-2xl"></div>
         <div className="absolute top-1/2 z-50 h-48 w-full bg-transparent opacity-10 backdrop-blur-md"></div>
-        <div className={`absolute inset-auto z-50 h-36 w-[28rem] -translate-y-1/2 rounded-full ${colorClasses.glow} opacity-50 blur-3xl`}></div>
+        <div className={`absolute inset-auto z-50 h-40 w-[36rem] -translate-y-1/2 rounded-full ${colorClasses.glow} opacity-50 blur-3xl`}></div>
         <motion.div
           initial={{ width: "8rem" }}
-          whileInView={{ width: "16rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-          className={`absolute inset-auto z-30 h-36 w-64 -translate-y-[6rem] rounded-full ${colorClasses.glow} blur-2xl`}
+          whileInView={{ width: "20rem" }}
+          transition={{ delay: 0.3, duration: 1.2, ease: "easeInOut" }}
+          className={`absolute inset-auto z-30 h-40 w-64 -translate-y-[6rem] rounded-full ${colorClasses.glow} blur-2xl`}
         ></motion.div>
         <motion.div
           initial={{ width: "15rem" }}
-          whileInView={{ width: "30rem" }}
-          transition={{ delay: 0.3, duration: 0.8, ease: "easeInOut" }}
-          className={`absolute inset-auto z-50 h-0.5 w-[30rem] -translate-y-[7rem] ${colorClasses.line}`}
+          whileInView={{ width: "40rem" }}
+          transition={{ delay: 0.3, duration: 1.2, ease: "easeInOut" }}
+          className={`absolute inset-auto z-50 h-0.5 w-[40rem] -translate-y-[7rem] ${colorClasses.line}`}
         ></motion.div>
         <div className="absolute inset-auto z-40 h-44 w-full -translate-y-[12.5rem] bg-black"></div>
       </div>
@@ -108,11 +108,11 @@ export function LampSection({
           duration: 0.8,
           ease: "easeInOut",
         }}
-        className="mt-8 bg-gradient-to-br from-white to-gray-400 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-5xl"
+        className="mt-8 bg-gradient-to-br from-white to-gray-400 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-6xl lg:text-7xl"
       >
         {title}
       </motion.h2>
-      <div className="mt-10 text-center max-w-2xl">
+      <div className="mt-10 text-center max-w-3xl">
         {children}
       </div>
     </LampContainer>
