@@ -3,6 +3,7 @@
 
 import { memo, useCallback, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface GlowingEffectProps {
   blur?: number;
@@ -17,7 +18,7 @@ interface GlowingEffectProps {
   borderWidth?: number;
 }
 
-// Helper function to animate values (simplified version of motion/react's animate)
+// Helper function to animate values (simplified version of framer-motion's animate)
 const animate = (
   from: number, 
   to: number, 
