@@ -21,7 +21,7 @@ const MissionVision = () => {
       {/* Vision Section with Canvas Effect */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center bg-black">
         <div className="absolute inset-0 z-0">
-          <CanvasEffect id="vision-canvas" />
+          <CanvasEffect id="vision-canvas" className="w-full h-full" />
         </div>
         
         <div className="container mx-auto px-4 z-10 relative">

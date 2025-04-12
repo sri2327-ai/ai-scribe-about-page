@@ -136,7 +136,7 @@ function render() {
 
 function resizeCanvas() {
   if (ctx && ctx.canvas) {
-    ctx.canvas.width = window.innerWidth - 20;
+    ctx.canvas.width = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
   }
 }
@@ -188,8 +188,10 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
     resizeCanvas();
     
     // Set initial position to center of screen
-    pos.x = canvas.width / 2;
-    pos.y = canvas.height / 2;
+    if (canvas) {
+      pos.x = canvas.width / 2;
+      pos.y = canvas.height / 2;
+    }
     
     // Initialize lines
     lines = [];
@@ -215,7 +217,7 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
   return (
     <canvas
       id={id}
-      className={`pointer-events-none absolute inset-0 mx-auto ${className}`}
+      className={`pointer-events-none absolute inset-0 w-full h-full ${className}`}
     ></canvas>
   );
 };
