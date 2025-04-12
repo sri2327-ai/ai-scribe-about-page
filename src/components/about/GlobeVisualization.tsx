@@ -42,8 +42,7 @@ const GlobeVisualization = () => {
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    // Position globe to be visible in the lower section but not cut off completely
-    globe.position.y = -2.0;
+    globe.position.y = 0;
     scene.add(globe);
     
     // Create dots for the globe surface
@@ -75,43 +74,28 @@ const GlobeVisualization = () => {
     
     const dots = new THREE.Points(dotsGeometry, dotsMaterial);
     dotsRef.current = dots;
-    dots.position.y = -2.0; // Match globe position
+    dots.position.y = 0;
     scene.add(dots);
     
-    // Add highlights - teal dots for the theme
+    // Add highlights with orange color like in the example
     const highlightGeometry = new THREE.BufferGeometry();
     const highlightMaterial = new THREE.PointsMaterial({
-      color: 0x1EAEDB, // Teal highlights
-      size: 0.08,
+      color: 0xFF6415, // Orange highlights like in the image
+      size: 0.12,
       transparent: true,
-      opacity: 0.9
+      opacity: 1
     });
     
-    // Set a few fixed highlight positions (similar to markers in the sample code)
+    // Just a few highlight positions for effect
     const highlightPositions = [
-      // North America (New York)
-      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 1.2),
-      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 1.2),
+      // India or Middle East region
+      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.4),
+      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.4),
       3 * Math.cos(Math.PI * 0.4),
       
-      // Europe (London)
-      3 * Math.sin(Math.PI * 0.35) * Math.cos(Math.PI * 0.7),
-      3 * Math.sin(Math.PI * 0.35) * Math.sin(Math.PI * 0.7),
-      3 * Math.cos(Math.PI * 0.35),
-      
-      // Asia (Tokyo)
-      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.2),
-      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.2),
-      3 * Math.cos(Math.PI * 0.4),
-      
-      // India (Mumbai)
-      3 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.4),
-      3 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.4),
-      3 * Math.cos(Math.PI * 0.3),
-      
-      // Australia (Sydney)
-      3 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.2),
-      3 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.2),
+      // South America region
+      3 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.8),
+      3 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.8),
       3 * Math.cos(Math.PI * 0.6),
     ];
     
@@ -119,10 +103,10 @@ const GlobeVisualization = () => {
     
     const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
     highlightsRef.current = highlights;
-    highlights.position.y = -2.0; // Match globe position
+    highlights.position.y = 0;
     scene.add(highlights);
     
-    // Create a light glow effect
+    // Create a stronger glow effect like in the reference image
     const glowGeometry = new THREE.SphereGeometry(3.2, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
@@ -134,14 +118,14 @@ const GlobeVisualization = () => {
         void main() {
           vec3 vNormal = normalize(normalMatrix * normal);
           vec3 vNormel = normalize(normalMatrix * viewVector);
-          intensity = pow(0.7 - dot(vNormal, vNormel), 1.5);
+          intensity = pow(0.6 - dot(vNormal, vNormel), 2.0);
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
       fragmentShader: `
         varying float intensity;
         void main() {
-          vec3 glow = vec3(0.8, 0.8, 1.0) * intensity;
+          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity;
           gl_FragColor = vec4(glow, 1.0);
         }
       `,
@@ -152,12 +136,12 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = -2.0; // Match globe position
+    glowMesh.position.y = 0;
     scene.add(glowMesh);
     
-    camera.position.z = 5;
+    camera.position.z = 6;
     
-    // Make it interactive with mouse movement
+    // Add subtle mouse interaction
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvasRef.current?.getBoundingClientRect();
       if (!rect || !globeRef.current || !dotsRef.current || 
@@ -166,15 +150,11 @@ const GlobeVisualization = () => {
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
       
-      // Rotate the globe based on mouse position
-      globeRef.current.rotation.x = y * 0.2;
-      globeRef.current.rotation.z = x * 0.2;
-      dotsRef.current.rotation.x = y * 0.2;
-      dotsRef.current.rotation.z = x * 0.2;
-      highlightsRef.current.rotation.x = y * 0.2;
-      highlightsRef.current.rotation.z = x * 0.2;
-      glowMeshRef.current.rotation.x = y * 0.2;
-      glowMeshRef.current.rotation.z = x * 0.2;
+      // Subtle rotation based on mouse position
+      globeRef.current.rotation.y = x * 0.1;
+      dotsRef.current.rotation.y = x * 0.1;
+      highlightsRef.current.rotation.y = x * 0.1;
+      glowMeshRef.current.rotation.y = x * 0.1;
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -186,7 +166,7 @@ const GlobeVisualization = () => {
       if (!globeRef.current || !dotsRef.current || 
           !highlightsRef.current || !glowMeshRef.current) return;
       
-      // Rotate the globe slowly
+      // Rotate the globe very slowly
       globeRef.current.rotation.y += 0.001;
       dotsRef.current.rotation.y += 0.001;
       highlightsRef.current.rotation.y += 0.001;
@@ -217,7 +197,7 @@ const GlobeVisualization = () => {
     };
     
     window.addEventListener('resize', handleResize);
-    handleResize(); // Call once to set initial size
+    handleResize();
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -226,7 +206,7 @@ const GlobeVisualization = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+  return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "700px", aspectRatio: "1/1" }} />;
 };
 
 export default GlobeVisualization;

@@ -1,19 +1,15 @@
 
 import { motion } from "framer-motion";
-import StarBackground from "./StarBackground";
 import GlobeVisualization from "./GlobeVisualization";
 
 const HeroSection = () => {
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-black overflow-hidden">
-      {/* Star background */}
-      <StarBackground />
-      
       {/* Center content container */}
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center">
-        {/* Main heading with glow effect */}
+        {/* Main heading with gradient fade effect */}
         <motion.h2
-          className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#c0c0c0] via-[#d8d8d8] to-[#9F9EA1] text-4xl md:text-6xl lg:text-7xl text-center mb-4"
+          className="font-bold text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#d8d8d8] to-[#9F9EA1] text-4xl md:text-6xl lg:text-8xl text-center pointer-events-none"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -46,8 +42,8 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container - positioned absolutely to not affect layout */}
-        <div className="relative w-full max-w-3xl mt-16 aspect-[2/1] md:aspect-[3/1]">
+        {/* Globe container */}
+        <div className="absolute inset-0 mx-auto top-[30%] flex items-center justify-center">
           <GlobeVisualization />
         </div>
       </div>
