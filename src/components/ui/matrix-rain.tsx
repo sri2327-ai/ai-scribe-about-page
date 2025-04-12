@@ -15,7 +15,7 @@ interface MatrixRainProps {
 
 const MatrixRain: React.FC<MatrixRainProps> = ({
   fontSize = 20,
-  color = '#143151',  // Updated color to #143151
+  color = '#387E89',  // Updated color to #387E89
   characters = '01',
   fadeOpacity = 0.1,
   speed = 1,
@@ -51,7 +51,6 @@ const MatrixRain: React.FC<MatrixRainProps> = ({
     }
 
     const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
       ctx.fillStyle = `rgba(0, 0, 0, ${fadeOpacity})`;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
