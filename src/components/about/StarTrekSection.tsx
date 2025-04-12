@@ -18,9 +18,9 @@ const StarTrekSection = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-7xl md:text-8xl lg:text-9xl font-bold mb-6 text-white">Like A Star Trek</h2>
+          <h2 className="text-7xl md:text-8xl lg:text-9xl font-medium mb-6 text-white">Like A Star Trek</h2>
           
-          {/* Blue line similar to Star Trek */}
+          {/* Teal blue line similar to Star Trek */}
           <div className="relative h-1 w-full max-w-md mx-auto mb-12">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#1EAEDB] to-transparent animate-pulse"></div>
             <div className="absolute inset-0 bg-[#1EAEDB] opacity-50 blur-sm"></div>
