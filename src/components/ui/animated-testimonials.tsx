@@ -81,7 +81,7 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom bg-black rounded-3xl flex items-center justify-center p-8"
+                  className="absolute inset-0 origin-bottom bg-black rounded-3xl flex items-center justify-center p-8 border border-white/20"
                 >
                   <div className="text-center">
                     <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 mb-6 flex items-center justify-center mx-auto">
@@ -129,17 +129,17 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-12 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-10 w-10 rounded-full bg-blue-800/30 flex items-center justify-center group/button hover:bg-blue-700 transition-colors"
+              className="h-10 w-10 rounded-full bg-blue-800/30 flex items-center justify-center group/button hover:bg-blue-700 transition-colors border border-white/30"
             >
-              <svg className="h-5 w-5 text-blue-300 group-hover/button:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-5 w-5 text-white group-hover/button:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
             <button
               onClick={handleNext}
-              className="h-10 w-10 rounded-full bg-blue-800/30 flex items-center justify-center group/button hover:bg-blue-700 transition-colors"
+              className="h-10 w-10 rounded-full bg-blue-800/30 flex items-center justify-center group/button hover:bg-blue-700 transition-colors border border-white/30"
             >
-              <svg className="h-5 w-5 text-blue-300 group-hover/button:-rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-5 w-5 text-white group-hover/button:-rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
