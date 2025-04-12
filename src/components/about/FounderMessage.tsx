@@ -34,15 +34,19 @@ const TextRotate = ({ texts }: { texts: string[] }) => {
   );
 };
 
-// Meteor component
+// Meteor component with enhanced diagonal motion
 const Meteor = ({ delay = 0 }: { delay?: number }) => {
+  // Generate random angle between 30 and 60 degrees for more varied diagonal motion
+  const angle = Math.random() * 30 + 30;
+  
   return (
     <motion.div
-      className="absolute h-0.5 w-[100px] md:w-[150px] bg-white opacity-60 rotate-[30deg]"
+      className="absolute h-0.5 w-[100px] md:w-[150px] bg-white opacity-60"
       style={{
         top: `${Math.random() * 100}%`,
         left: `${Math.random() * 100}%`,
         filter: "blur(1.5px)",
+        transform: `rotate(${angle}deg)`,
       }}
       initial={{ 
         opacity: 0,
@@ -51,11 +55,11 @@ const Meteor = ({ delay = 0 }: { delay?: number }) => {
       }}
       animate={{ 
         opacity: [0, 0.8, 0], 
-        translateX: "100%", 
-        translateY: "100%" 
+        translateX: "120%", 
+        translateY: "120%" 
       }}
       transition={{
-        duration: 0.8,
+        duration: 1.2,
         ease: "easeOut",
         delay,
         repeat: Infinity,
@@ -101,8 +105,8 @@ const FounderMessage = () => {
     <section className="py-24 bg-black relative overflow-hidden">
       {/* Meteor effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <Meteor key={i} delay={i * 0.8} />
+        {Array.from({ length: 15 }).map((_, i) => (
+          <Meteor key={i} delay={i * 0.6} />
         ))}
       </div>
       
