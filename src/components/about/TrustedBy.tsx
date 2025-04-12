@@ -116,9 +116,8 @@ const TestimonialCarousel = memo(
     isCarouselActive: boolean;
   }) => {
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
-    const cylinderWidth = isScreenSizeSm ? 1100 : 1800;
+    const cylinderWidth = isScreenSizeSm ? 900 : 1800;
     const faceCount = cards.length;
-    const faceWidth = cylinderWidth / faceCount;
     const radius = cylinderWidth / (2 * Math.PI);
     const rotation = useMotionValue(0);
     const transform = useTransform(
@@ -165,7 +164,7 @@ const TestimonialCarousel = memo(
           {cards.map((card, i) => (
             <motion.div
               key={`testimonial-${i}`}
-              className="absolute h-full origin-center w-[300px] max-w-full p-4"
+              className="absolute h-full origin-center w-[280px] md:w-[300px] max-w-full p-2 md:p-4"
               style={{
                 transform: `rotateY(${
                   i * (360 / faceCount)
@@ -173,18 +172,18 @@ const TestimonialCarousel = memo(
               }}
               onClick={() => handleClick(card, i)}
             >
-              <div className="rounded-xl bg-white shadow-xl p-6 flex flex-col items-center text-center space-y-4 h-full justify-center">
+              <div className="rounded-xl bg-black border border-gray-800 p-4 md:p-6 flex flex-col items-center text-center space-y-3 md:space-y-4 h-full justify-center shadow-xl hover:border-gray-700 transition-all duration-300">
                 <img
                   src={card.avatar}
                   alt={card.name}
-                  className="w-16 h-16 rounded-full border"
+                  className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-gray-800"
                 />
-                <blockquote className="italic text-sm text-gray-600">
+                <blockquote className="italic text-xs md:text-sm text-gray-300">
                   "{card.quote}"
                 </blockquote>
                 <div>
-                  <p className="font-semibold">{card.name}</p>
-                  <p className="text-xs text-gray-400">{card.title}</p>
+                  <p className="font-semibold text-white text-sm md:text-base">{card.name}</p>
+                  <p className="text-[10px] md:text-xs text-gray-500">{card.title}</p>
                 </div>
               </div>
             </motion.div>
@@ -222,32 +221,39 @@ function ThreeDTestimonialCarousel() {
             exit={{ opacity: 0, scale: 0 }}
             layoutId={`testimonial-${activeCard.name}`}
             onClick={handleClose}
-            className="fixed inset-0 bg-black bg-opacity-20 flex items-center justify-center z-50 m-5 md:m-36 lg:mx-[15rem] rounded-3xl"
+            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 md:p-8"
             style={{ willChange: "opacity" }}
             transition={transitionOverlay}
           >
             <motion.div
-              className="bg-white rounded-2xl p-8 shadow-xl text-center space-y-4 max-w-md w-full"
+              className="bg-black border border-gray-800 rounded-xl p-6 md:p-8 text-center space-y-4 max-w-md w-full shadow-2xl"
               initial={{ scale: 0.5 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
+              onClick={(e) => e.stopPropagation()}
             >
               <img
                 src={activeCard.avatar}
                 alt={activeCard.name}
-                className="w-20 h-20 rounded-full mx-auto border"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto border border-gray-800"
               />
-              <p className="text-lg italic text-gray-700">"{activeCard.quote}"</p>
+              <p className="text-base md:text-lg italic text-gray-300">"{activeCard.quote}"</p>
               <div>
-                <p className="font-semibold">{activeCard.name}</p>
-                <p className="text-sm text-gray-500">{activeCard.title}</p>
+                <p className="font-semibold text-white">{activeCard.name}</p>
+                <p className="text-xs md:text-sm text-gray-500">{activeCard.title}</p>
               </div>
+              <button 
+                className="mt-4 text-xs border border-gray-700 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:border-gray-600 transition-colors"
+                onClick={handleClose}
+              >
+                Close
+              </button>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="relative h-[500px] w-full overflow-hidden">
+      <div className="relative h-[400px] sm:h-[450px] md:h-[500px] w-full overflow-hidden">
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
@@ -261,17 +267,17 @@ function ThreeDTestimonialCarousel() {
 
 const TrustedBy = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-blue-950">
+    <section className="py-16 md:py-20 bg-black">
       <div className="container mx-auto px-4">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white">Trusted by 1000+ Clinicians</h2>
-          <div className="w-20 h-1 bg-blue-600 mx-auto"></div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-white">Trusted by 1000+ Clinicians</h2>
+          <div className="w-16 md:w-20 h-[1px] bg-gray-700 mx-auto"></div>
         </motion.div>
         
         <ThreeDTestimonialCarousel />
