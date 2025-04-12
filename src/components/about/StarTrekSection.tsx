@@ -17,7 +17,7 @@ const StarTrekSection = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-5xl md:text-7xl lg:text-8xl font-normal mb-6 text-white">Like A Star Trek</h2>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-normal mb-6 text-white font-[Wix_Madefor_Text]">Like A Star Trek</h2>
           
           {/* Interactive flowing line effect */}
           <div className="relative h-64 w-full">

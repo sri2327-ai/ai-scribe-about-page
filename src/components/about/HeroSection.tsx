@@ -13,10 +13,10 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mb-10 max-w-3xl"
         >
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 font-[Wix_Madefor_Text]">
             Smarter Healthcare Starts Here
           </h1>
-          <p className="text-lg md:text-xl text-gray-300">
+          <p className="text-lg md:text-xl text-gray-300 font-[Wix_Madefor_Text]">
             We're simplifying clinical workflows with AI, robotic assistants, and smart agents.
           </p>
         </motion.div>
