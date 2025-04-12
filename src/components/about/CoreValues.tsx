@@ -1,52 +1,38 @@
 
 import { motion } from "framer-motion";
-import { LayoutGrid, Lock, Search, Settings, Star } from "lucide-react";
+import { Zap, Rocket, Layers, Users, Shield } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const coreValues = [
   {
-    icon: <Star className="h-5 w-5 text-white" />,
+    icon: <Layers className="h-7 w-7 text-white" />,
     title: "Informed Decisions",
-    description: "AI-driven insights for better healthcare."
+    description: "AI-driven insights for better healthcare and patient outcomes."
   },
   {
-    icon: <Lock className="h-5 w-5 text-white" />,
+    icon: <Rocket className="h-7 w-7 text-white" />,
     title: "Passion for Innovation",
-    description: "We push boundaries to transform medicine."
+    description: "We push boundaries to transform medicine and clinical practices."
   },
   {
-    icon: <Settings className="h-5 w-5 text-white" />,
+    icon: <Zap className="h-7 w-7 text-white" />,
     title: "Respect for People",
-    description: "Prioritizing the well-being of clinicians and patients."
+    description: "Prioritizing the well-being of clinicians and patients at every step."
   },
   {
-    icon: <Search className="h-5 w-5 text-white" />,
+    icon: <Users className="h-7 w-7 text-white" />,
     title: "Reliability & Responsiveness",
-    description: "Always evolving, always available."
+    description: "Always evolving, always available, consistently dependable."
   },
   {
-    icon: <LayoutGrid className="h-5 w-5 text-white" />,
+    icon: <Shield className="h-7 w-7 text-white" />,
     title: "Community Well-Being",
-    description: "AI that improves lives, not just systems."
+    description: "AI that improves lives, not just systems and processes."
   }
 ];
 
 const CoreValues = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   return (
     <section className="py-20 bg-black">
       <div className="container mx-auto px-4">
@@ -60,45 +46,43 @@ const CoreValues = () => {
           <h2 className="text-4xl font-bold mb-6 text-white">Our Core Values</h2>
         </motion.div>
         
-        <motion.div 
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-800">
           {coreValues.map((value, index) => (
             <motion.div 
               key={index}
-              className="relative"
-              variants={itemVariants}
-              transition={{ duration: 0.6 }}
+              className="relative group px-4 py-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
             >
-              <div className="relative rounded-xl p-6 h-full bg-black/40 transition-all duration-300 group hover:scale-[1.02]">
-                <GlowingEffect
-                  spread={25}
-                  glow={true}
-                  disabled={false}
-                  proximity={150}
-                  inactiveZone={0}
-                  borderWidth={2}
-                  variant="teal"
-                  blur={15}
-                  dualBorder={true}
-                  className="opacity-100 group-hover:opacity-100 transition-all duration-300"
-                />
+              <div className="relative h-full transition-all duration-300 group-hover:scale-[1.03]">
+                {/* Glow effect that shows on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <GlowingEffect
+                    spread={25}
+                    glow={true}
+                    disabled={false}
+                    proximity={150}
+                    inactiveZone={0}
+                    borderWidth={2}
+                    variant="teal"
+                    blur={15}
+                    dualBorder={true}
+                  />
+                </div>
                 
-                <div className="relative z-10">
-                  <div className="bg-black/60 p-2 rounded-lg mb-4 inline-block">
+                <div className="relative z-10 flex flex-col items-center text-center">
+                  <div className="bg-black/80 p-3 rounded-full mb-6 inline-flex items-center justify-center">
                     {value.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 text-white">{value.title}</h3>
-                  <p className="text-gray-300">{value.description}</p>
+                  <h3 className="text-xl font-semibold mb-4 text-white">{value.title}</h3>
+                  <p className="text-gray-300 leading-relaxed">{value.description}</p>
                 </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
