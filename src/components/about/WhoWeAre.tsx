@@ -82,7 +82,7 @@ const WhoWeAre = () => {
                     {feature.icon}
                   </div>
                   <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-wix-madefor">{feature.description}</p>
+                  <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor">{feature.description}</p>
                 </div>
               </div>
             </motion.div>
