@@ -27,13 +27,15 @@ const About = () => {
       >
         <HeroSection />
         <ScrollArea className="flex-1 h-full">
-          <MissionVision />
-          <TrustedBy />
-          <CoreValues />
-          <WhoWeAre />
-          <StarTrekSection />
-          <FounderMessage />
-          <TeamSection />
+          <div className="flex flex-col space-y-0">
+            <MissionVision />
+            <TrustedBy />
+            <CoreValues />
+            <WhoWeAre />
+            <StarTrekSection />
+            <FounderMessage />
+            <TeamSection />
+          </div>
         </ScrollArea>
       </motion.div>
     </main>

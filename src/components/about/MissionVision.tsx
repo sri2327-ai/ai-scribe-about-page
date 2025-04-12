@@ -5,9 +5,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 const MissionVision = () => {
   return (
-    <div className="flex flex-col gap-20">
+    <div className="flex flex-col">
       {/* Mission Section with Lamp Effect */}
-      <section className="relative overflow-hidden min-h-[80vh] flex items-center">
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
         <LampSection title="Our Mission" color="teal">
           <motion.p
             initial={{ opacity: 0, y: 50 }}
@@ -21,7 +21,7 @@ const MissionVision = () => {
       </section>
       
       {/* Vision Section with Lamp Effect - different color */}
-      <section className="relative overflow-hidden min-h-[80vh] flex items-center">
+      <section className="relative overflow-hidden min-h-[90vh] flex items-center -mt-20">
         <LampSection title="Our Vision" color="teal">
           <motion.p
             initial={{ opacity: 0, y: 50 }}
