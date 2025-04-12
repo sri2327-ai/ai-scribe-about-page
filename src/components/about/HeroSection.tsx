@@ -42,10 +42,10 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container - positioned to show 50% of the globe */}
+        {/* Globe container - repositioned to show 40% of the globe */}
         <div className="absolute w-full flex items-center justify-center" 
              style={{ 
-               top: "calc(50% + 2rem)", // Moved up to show more of the globe
+               top: "calc(50% - 2rem)", // Moved up more to show ~40% of the globe
                height: "700px", 
                zIndex: 5
              }}>

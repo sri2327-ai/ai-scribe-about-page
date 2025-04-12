@@ -53,7 +53,7 @@ const GlobeVisualization = () => {
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    globe.position.y = -4; // Position to show 50% of the globe (moving it up in the scene)
+    globe.position.y = 0; // Position to show ~40% of the globe (adjusted from -4 to 0)
     scene.add(globe);
     
     // Create black dots for the continents
@@ -75,7 +75,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.02 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.02 * Math.cos(phi)) - 4; // Adjusted for globe position
+      const y = (8.02 * Math.cos(phi)) + 0; // Adjusted for new globe position
       const z = (8.02 * Math.sin(phi) * Math.sin(theta));
       
       positions.push(x, y, z);
@@ -113,7 +113,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.1 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.1 * Math.cos(phi)) - 4; // Adjusted for globe position
+      const y = (8.1 * Math.cos(phi)) + 0; // Adjusted for new globe position
       const z = (8.1 * Math.sin(phi) * Math.sin(theta));
       
       hotspotPositions.push(x, y, z);
@@ -155,7 +155,7 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = -4; // Adjusted for globe position
+    glowMesh.position.y = 0; // Adjusted for new globe position
     scene.add(glowMesh);
     
     // Move camera back to see the bigger globe
