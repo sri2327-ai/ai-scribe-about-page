@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
@@ -52,10 +53,14 @@ const GlobeVisualization = () => {
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    globe.position.y = -1; // Position to show ~50% of the globe 
+    globe.position.y = -1; // Position to show ~50% of the globe
+    
+    // Tilt the globe to the right by rotating on the z-axis
+    globe.rotation.z = -0.2;
+    
     scene.add(globe);
     
-    // Create black dots for the continents
+    // Create black dots for the continents with more accurate representation
     const dotsGeometry = new THREE.BufferGeometry();
     const dotsMaterial = new THREE.PointsMaterial({
       color: 0x000000, // Black dots for the continents
@@ -64,7 +69,7 @@ const GlobeVisualization = () => {
       opacity: 0.9
     });
     
-    // Generate dots that form continent shapes
+    // Generate dots that form better continent shapes
     const positions = [];
     const continentData = generateContinentData();
     
@@ -74,7 +79,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.02 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.02 * Math.cos(phi)) - 1; // Adjusted for new globe position
+      const y = (8.02 * Math.cos(phi)) - 1; // Adjusted for globe position
       const z = (8.02 * Math.sin(phi) * Math.sin(theta));
       
       positions.push(x, y, z);
@@ -84,44 +89,59 @@ const GlobeVisualization = () => {
     
     const dots = new THREE.Points(dotsGeometry, dotsMaterial);
     dotsRef.current = dots;
+    
+    // Apply the same tilt as the globe
+    dots.rotation.z = -0.2;
+    
     scene.add(dots);
     
     // Add teal blue hotspots
     const highlightGeometry = new THREE.BufferGeometry();
     const highlightMaterial = new THREE.PointsMaterial({
-      color: 0x33C3F0, // Teal blue (#33C3F0) for hotspots
+      color: 0xFF7700, // Changed to a bright orange for better visibility
       size: 0.25,
       transparent: true,
       opacity: 0.9
     });
     
-    // Define hotspot locations (major tech/healthcare hubs)
-    const hotspotLocations = [
+    // Define landmark locations (major cities and medical hubs)
+    const landmarkLocations = [
       { lat: 37.7749, lng: -122.4194 }, // San Francisco
+      { lat: 40.7128, lng: -74.0060 },  // New York
       { lat: 51.5074, lng: -0.1278 },   // London
+      { lat: 48.8566, lng: 2.3522 },    // Paris
       { lat: 35.6762, lng: 139.6503 },  // Tokyo
       { lat: 28.6139, lng: 77.2090 },   // New Delhi
       { lat: -33.8688, lng: 151.2093 }, // Sydney
+      { lat: 55.7558, lng: 37.6173 },   // Moscow
+      { lat: -23.5505, lng: -46.6333 }, // Sao Paulo
+      { lat: 19.4326, lng: -99.1332 },  // Mexico City
+      { lat: 31.2304, lng: 121.4737 },  // Shanghai
+      { lat: 1.3521, lng: 103.8198 }    // Singapore
     ];
     
-    const hotspotPositions = [];
+    const landmarkPositions = [];
     
-    for (let i = 0; i < hotspotLocations.length; i++) {
-      const { lat, lng } = hotspotLocations[i];
+    for (let i = 0; i < landmarkLocations.length; i++) {
+      const { lat, lng } = landmarkLocations[i];
       const phi = (90 - lat) * (Math.PI / 180);
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.1 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.1 * Math.cos(phi)) - 1; // Adjusted for new globe position
+      const y = (8.1 * Math.cos(phi)) - 1; // Adjusted for globe position
       const z = (8.1 * Math.sin(phi) * Math.sin(theta));
       
-      hotspotPositions.push(x, y, z);
+      landmarkPositions.push(x, y, z);
     }
     
-    highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(hotspotPositions, 3));
+    highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(landmarkPositions, 3));
     
     const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
     highlightsRef.current = highlights;
+    
+    // Apply the same tilt as the globe
+    highlights.rotation.z = -0.2;
+    
     scene.add(highlights);
     
     // Enhanced subtle white glow effect
@@ -154,7 +174,11 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = -1; // Adjusted for new globe position
+    glowMesh.position.y = -1; // Adjusted for globe position
+    
+    // Apply the same tilt as the globe
+    glowMesh.rotation.z = -0.2;
+    
     scene.add(glowMesh);
     
     // Move camera back to see the bigger globe
@@ -217,69 +241,140 @@ const GlobeVisualization = () => {
     };
   }, []);
 
-  // Helper function to generate continent data
+  // Helper function to generate better continent data
   const generateContinentData = () => {
-    // This is a simplified representation of continents with latitude/longitude points
-    // We'll create a denser pattern for the main continents
+    // This is a more detailed representation of continents with latitude/longitude points
     const continents = [];
     
-    // North America
-    for (let lat = 30; lat <= 70; lat += 2) {
-      for (let lng = -170; lng <= -50; lng += 2) {
-        if ((lat > 50 && lng > -140 && lng < -60) || 
-            (lat > 30 && lat < 50 && lng > -130 && lng < -70)) {
+    // North America - more accurate shape
+    for (let lat = 25; lat <= 75; lat += 1) {
+      for (let lng = -170; lng <= -50; lng += 1) {
+        // North America mainland
+        if (lat > 30 && lat < 70 && lng > -140 && lng < -60) {
+          // East coast shape
+          if (lat < 50 && lng > -90 && lng < -60 && Math.random() > 0.4) {
+            continents.push({ lat, lng });
+          }
+          // West coast shape
+          else if (lat < 60 && lng < -100 && lng > -130 && Math.random() > 0.4) {
+            continents.push({ lat, lng });
+          }
+          // Central
+          else if (lat > 30 && lat < 60 && lng > -110 && lng < -90 && Math.random() > 0.3) {
+            continents.push({ lat, lng });
+          }
+        }
+        // Canada
+        if (lat > 50 && lat < 70 && lng > -140 && lng < -60 && Math.random() > 0.5) {
+          continents.push({ lat, lng });
+        }
+        // Mexico
+        if (lat > 15 && lat < 30 && lng > -120 && lng < -85 && Math.random() > 0.5) {
           continents.push({ lat, lng });
         }
       }
     }
     
-    // South America
-    for (let lat = -55; lat <= 10; lat += 2) {
-      for (let lng = -80; lng <= -35; lng += 2) {
-        if ((lat > -50 && lat < 10 && lng > -80 && lng < -40)) {
+    // South America - more defined shape
+    for (let lat = -55; lat <= 10; lat += 1) {
+      for (let lng = -85; lng <= -30; lng += 1) {
+        if (lat > -55 && lat < 10) {
+          // Brazil bulge
+          if (lat > -25 && lat < 5 && lng > -70 && lng < -35 && Math.random() > 0.4) {
+            continents.push({ lat, lng });
+          }
+          // Southern cone
+          else if (lat < -25 && lng > -75 && lng < -55 && Math.random() > 0.5) {
+            continents.push({ lat, lng });
+          }
+          // Andes region
+          else if (lng < -65 && lng > -80 && Math.random() > 0.5) {
+            continents.push({ lat, lng });
+          }
+        }
+      }
+    }
+    
+    // Europe - more detailed shape
+    for (let lat = 35; lat <= 70; lat += 1) {
+      for (let lng = -10; lng <= 40; lng += 1) {
+        // Western Europe
+        if (lat > 40 && lat < 60 && lng > -10 && lng < 20 && Math.random() > 0.4) {
+          continents.push({ lat, lng });
+        }
+        // Eastern Europe
+        if (lat > 45 && lat < 65 && lng > 20 && lng < 40 && Math.random() > 0.4) {
+          continents.push({ lat, lng });
+        }
+        // Mediterranean
+        if (lat > 35 && lat < 45 && lng > -5 && lng < 30 && Math.random() > 0.5) {
           continents.push({ lat, lng });
         }
       }
     }
     
-    // Europe
-    for (let lat = 35; lat <= 70; lat += 2) {
-      for (let lng = -10; lng <= 40; lng += 2) {
-        if ((lat > 35 && lat < 70 && lng > -10 && lng < 40)) {
+    // Africa - more accurate shape
+    for (let lat = -35; lat <= 35; lat += 1) {
+      for (let lng = -20; lng <= 50; lng += 1) {
+        // North Africa
+        if (lat > 0 && lat < 35 && lng > -15 && lng < 35 && Math.random() > 0.4) {
+          continents.push({ lat, lng });
+        }
+        // Horn of Africa
+        if (lat > 0 && lat < 15 && lng > 35 && lng < 50 && Math.random() > 0.5) {
+          continents.push({ lat, lng });
+        }
+        // Central Africa
+        if (lat > -15 && lat < 5 && lng > 10 && lng < 35 && Math.random() > 0.4) {
+          continents.push({ lat, lng });
+        }
+        // Southern Africa
+        if (lat > -35 && lat < -15 && lng > 15 && lng < 35 && Math.random() > 0.5) {
           continents.push({ lat, lng });
         }
       }
     }
     
-    // Africa
-    for (let lat = -35; lat <= 35; lat += 2) {
-      for (let lng = -20; lng <= 50; lng += 2) {
-        if ((lat > -35 && lat < 35 && lng > -20 && lng < 50)) {
+    // Asia - more defined regions
+    for (let lat = 0; lat <= 70; lat += 1) {
+      for (let lng = 40; lng <= 150; lng += 1) {
+        // Middle East
+        if (lat > 15 && lat < 40 && lng > 40 && lng < 65 && Math.random() > 0.5) {
+          continents.push({ lat, lng });
+        }
+        // Russia
+        if (lat > 50 && lat < 70 && lng > 40 && lng < 180 && Math.random() > 0.6) {
+          continents.push({ lat, lng });
+        }
+        // India
+        if (lat > 5 && lat < 35 && lng > 65 && lng < 90 && Math.random() > 0.4) {
+          continents.push({ lat, lng });
+        }
+        // China
+        if (lat > 20 && lat < 50 && lng > 90 && lng < 130 && Math.random() > 0.4) {
+          continents.push({ lat, lng });
+        }
+        // Southeast Asia
+        if (lat > 0 && lat < 20 && lng > 90 && lng < 130 && Math.random() > 0.5) {
+          continents.push({ lat, lng });
+        }
+        // Japan
+        if (lat > 30 && lat < 45 && lng > 130 && lng < 145 && Math.random() > 0.6) {
           continents.push({ lat, lng });
         }
       }
     }
     
-    // Asia
-    for (let lat = 0; lat <= 70; lat += 2) {
-      for (let lng = 40; lng <= 150; lng += 2) {
-        if ((lat > 0 && lat < 70 && lng > 40 && lng < 150)) {
+    // Australia - better shape
+    for (let lat = -45; lat <= -10; lat += 1) {
+      for (let lng = 110; lng <= 155; lng += 1) {
+        if (Math.random() > 0.5) {
           continents.push({ lat, lng });
         }
       }
     }
     
-    // Australia
-    for (let lat = -45; lat <= -10; lat += 2) {
-      for (let lng = 110; lng <= 155; lng += 2) {
-        if ((lat > -45 && lat < -10 && lng > 110 && lng < 155)) {
-          continents.push({ lat, lng });
-        }
-      }
-    }
-    
-    // Add some randomness to make the patterns more natural
-    return continents.filter(() => Math.random() > 0.5);
+    return continents;
   };
 
   return <canvas ref={canvasRef} className="w-full h-full" style={{ maxWidth: "2000px", maxHeight: "1200px" }} />;

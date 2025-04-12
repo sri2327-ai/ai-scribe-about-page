@@ -9,7 +9,7 @@ const HeroSection = () => {
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center">
         {/* Main heading with gradient fade effect - X.ai style */}
         <motion.h2
-          className="font-sans text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#eeeeee] to-[#bbbbbb] text-8xl text-center pointer-events-none mt-[-160px]"
+          className="font-sans text-transparent bg-clip-text bg-gradient-to-b from-[#ffffff] via-[#eeeeee] to-[#bbbbbb] text-8xl text-center pointer-events-none mt-[-200px]"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -36,19 +36,19 @@ const HeroSection = () => {
           className="absolute w-full max-w-3xl h-32 mx-auto" 
           style={{
             background: "radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%)",
-            top: "calc(50% - 160px)",
+            top: "calc(50% - 200px)",
             left: "50%",
             transform: "translateX(-50%)",
             pointerEvents: "none"
           }}
         />
         
-        {/* Globe container - repositioned to show 50% of the globe and increased width */}
+        {/* Globe container - repositioned higher up, tilted, and 50% visible */}
         <div className="absolute w-full flex items-center justify-center" 
              style={{ 
-               top: "calc(50% + 60px)", 
+               top: "calc(50% + 40px)", 
                height: "800px",
-               width: "100vw", // Expand to full viewport width
+               width: "100vw", 
                maxWidth: "100vw",
                left: "50%",
                transform: "translateX(-50%)",
