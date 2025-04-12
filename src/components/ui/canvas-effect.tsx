@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Set to bright blue for Star Trek style line
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.08)";
-    ctx.lineWidth = 3;
+    // Make the stroke style brighter and more visible with higher opacity
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.25)"; // Increased opacity from 0.08 to 0.25
+    ctx.lineWidth = 4; // Increased from 3 to 4 for better visibility
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -211,11 +211,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
     window.addEventListener("resize", resizeCanvas);
     
     // Trigger animation on initial load with a simulated mouse move
-    const initialEvent = new MouseEvent('mousemove', {
-      clientX: pos.x,
-      clientY: pos.y
-    });
-    onMousemove(initialEvent);
+    setTimeout(() => {
+      const initialEvent = new MouseEvent('mousemove', {
+        clientX: pos.x,
+        clientY: pos.y
+      });
+      onMousemove(initialEvent);
+    }, 100); // Small delay to ensure canvas is fully mounted
     
     return () => {
       if (ctx) ctx.running = false;
@@ -230,6 +232,7 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       id={id}
       ref={canvasRef}
       className={`pointer-events-auto absolute inset-0 w-full h-full ${className}`}
+      style={{ zIndex: 5 }} // Ensure canvas is above background but below text
     ></canvas>
   );
 };

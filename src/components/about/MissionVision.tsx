@@ -26,10 +26,19 @@ const MissionVision = () => {
       
       {/* Vision Section with Canvas Effect */}
       <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
-        {/* Canvas Effect Container - Ensuring it's visible and functioning */}
-        <div className="absolute inset-0 z-0">
+        {/* Canvas Effect Container - with improved visibility */}
+        <div className="absolute inset-0 overflow-hidden">
           <CanvasEffect id="vision-canvas" className="w-full h-full" />
         </div>
+        
+        {/* Teal glow effect background for additional atmosphere */}
+        <div 
+          className="absolute w-full h-full mx-auto opacity-20" 
+          style={{
+            background: "radial-gradient(ellipse at center, rgba(30,174,219,0.15) 0%, rgba(30,174,219,0) 70%)",
+            pointerEvents: "none"
+          }}
+        />
         
         <div className="container mx-auto px-4 z-10 relative">
           <motion.h2
