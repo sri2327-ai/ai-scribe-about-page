@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Building, Globe, Users, Settings, BarChart, Shield, Star, Lock, Search, LayoutGrid } from "lucide-react";
+import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 const features = [
@@ -67,8 +67,8 @@ const WhoWeAre = () => {
                   disabled={false}
                   proximity={120}
                   inactiveZone={0.01}
-                  borderWidth={4}
-                  variant="default"
+                  borderWidth={2}
+                  variant="teal"
                   blur={20}
                   className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />

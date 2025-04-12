@@ -70,33 +70,29 @@ const CoreValues = () => {
           {coreValues.map((value, index) => (
             <motion.div 
               key={index}
-              className="relative p-8 rounded-xl overflow-hidden"
+              className="relative"
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
-              <div className="relative h-full rounded-xl border border-gray-700 hover:border-transparent overflow-hidden bg-black/40 transition-all duration-300 group">
+              <div className="relative rounded-xl border border-gray-700 hover:border-transparent p-6 h-full bg-black/40 transition-all duration-300 group">
                 <GlowingEffect
                   spread={150}
                   glow={true}
                   disabled={false}
                   proximity={120}
                   inactiveZone={0.01}
-                  borderWidth={4}
-                  variant="default"
+                  borderWidth={2}
+                  variant="teal"
                   blur={20}
                   className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 
-                <div className="relative flex items-start p-6 z-10">
-                  <div className="flex flex-col">
-                    <div className="flex items-center mb-3">
-                      <div className="bg-black/60 p-2 rounded-lg mb-3">
-                        {value.icon}
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-3 text-white">{value.title}</h3>
-                    <p className="text-gray-300">{value.description}</p>
+                <div className="relative z-10">
+                  <div className="bg-black/60 p-2 rounded-lg mb-4 inline-block">
+                    {value.icon}
                   </div>
+                  <h3 className="text-xl font-semibold mb-3 text-white">{value.title}</h3>
+                  <p className="text-gray-300">{value.description}</p>
                 </div>
               </div>
             </motion.div>
