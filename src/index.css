@@ -210,3 +210,34 @@
       0 1px 3px rgba(0, 0, 0, 0.5);
   }
 }
+
+/* Meet IPKO Animation Styles */
+@keyframes dash {
+  to {
+    stroke-dashoffset: 24;
+  }
+}
+
+.animate-dash {
+  animation: dash 2s linear infinite;
+}
+
+@keyframes pulse-glow {
+  0% { filter: drop-shadow(0 0 2px rgba(78, 205, 196, 0.3)); }
+  50% { filter: drop-shadow(0 0 8px rgba(78, 205, 196, 0.6)); }
+  100% { filter: drop-shadow(0 0 2px rgba(78, 205, 196, 0.3)); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.float {
+  animation: float 6s ease-in-out infinite;
+}

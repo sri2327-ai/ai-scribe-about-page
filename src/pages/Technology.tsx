@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { StarBorder } from "@/components/ui/star-border";
 import TechHero from "@/components/technology/TechHero";
 import MatrixRain from "@/components/ui/matrix-rain";
+import { MeetIpkoAnimation } from "@/components/technology/MeetIpkoAnimation";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -79,6 +81,39 @@ const Technology = () => {
                 Advanced AI Innovation & Unbreakable Security
               </motion.h1>
             </div>
+          </div>
+        </section>
+
+        {/* Meet IPKO Animation Section */}
+        <section className="py-16 md:py-24 bg-gradient-to-b from-black to-blue-950">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto mb-12"
+            >
+              <MeetIpkoAnimation 
+                animateText={true}
+                animateLines={true}
+                animateMarkers={true}
+                lineMarkerSize={6}
+              />
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="text-center mt-8"
+            >
+              <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+                IPKO combines powerful AI inference engines to transform healthcare 
+                automation, delivering unmatched security and knowledge engineering.
+              </p>
+            </motion.div>
           </div>
         </section>
 
