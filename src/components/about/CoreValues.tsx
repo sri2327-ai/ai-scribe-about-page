@@ -74,7 +74,7 @@ const CoreValues = () => {
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
-              <div className="relative rounded-xl border border-gray-700 hover:border-transparent p-6 h-full bg-black/40 transition-all duration-300 group">
+              <div className="relative rounded-xl p-6 h-full bg-black/40 transition-all duration-300 group">
                 <GlowingEffect
                   spread={150}
                   glow={true}
@@ -84,7 +84,8 @@ const CoreValues = () => {
                   borderWidth={2}
                   variant="teal"
                   blur={20}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  dualBorder={true}
+                  className="opacity-100 group-hover:opacity-100 transition-opacity duration-300"
                 />
                 
                 <div className="relative z-10">

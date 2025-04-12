@@ -16,6 +16,7 @@ interface GlowingEffectProps {
   disabled?: boolean;
   movementDuration?: number;
   borderWidth?: number;
+  dualBorder?: boolean;
 }
 
 const GlowingEffect = memo(
@@ -30,6 +31,7 @@ const GlowingEffect = memo(
     movementDuration = 2,
     borderWidth = 1,
     disabled = true,
+    dualBorder = false,
   }: GlowingEffectProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const lastPosition = useRef({ x: 0, y: 0 });
@@ -161,14 +163,25 @@ const GlowingEffect = memo(
 
     return (
       <>
+        {/* White border that's always visible */}
         <div
           className={cn(
-            "pointer-events-none absolute -inset-px hidden rounded-[inherit] border opacity-0 transition-opacity",
-            glow && "opacity-100",
-            variant === "white" && "border-white",
-            disabled && "!block"
+            "pointer-events-none absolute -inset-px rounded-[inherit] border border-white/30 transition-opacity",
+            disabled && "hidden"
           )}
         />
+        
+        {/* Second outline for dual border effect */}
+        {dualBorder && (
+          <div
+            className={cn(
+              "pointer-events-none absolute -inset-[3px] rounded-[inherit] border border-white/10 transition-opacity",
+              disabled && "hidden"
+            )}
+          />
+        )}
+        
+        {/* Glowing effect container */}
         <div
           ref={containerRef}
           style={
