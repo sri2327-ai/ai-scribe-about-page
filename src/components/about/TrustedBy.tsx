@@ -1,3 +1,4 @@
+
 "use client";
 
 import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
@@ -118,7 +119,7 @@ const StackedCardView = () => {
   }, []);
 
   return (
-    <div className="relative h-[420px] w-full mx-auto max-w-[300px]">
+    <div className="relative h-[400px] w-full mx-auto max-w-[300px]">
       {testimonials.map((card, index) => {
         const isActive = index === activeIndex;
         const distance = Math.abs(activeIndex - index);
@@ -161,7 +162,7 @@ const StackedCardView = () => {
               <p className="font-semibold text-white text-lg">{card.name}</p>
               <p className="text-xs text-gray-500">{card.title}</p>
             </div>
-            <blockquote className="italic text-sm text-gray-300">
+            <blockquote className="italic text-sm text-gray-300 line-clamp-3">
               "{card.quote}"
             </blockquote>
           </motion.div>
@@ -256,7 +257,7 @@ const TestimonialCarousel = memo(
               }}
               onClick={() => handleClick(card, i)}
             >
-              <div className="rounded-xl bg-black border border-gray-800 p-3 xs:p-4 md:p-6 flex flex-col items-center text-center space-y-2 xs:space-y-3 md:space-y-4 h-full justify-between shadow-xl hover:border-gray-700 transition-all duration-300">
+              <div className="rounded-xl bg-black border border-gray-800 p-3 xs:p-4 md:p-6 flex flex-col items-center text-center justify-between shadow-xl hover:border-gray-700 transition-all duration-300 h-[240px] xs:h-[260px] sm:h-[280px] md:h-[300px]">
                 <img
                   src={card.avatar}
                   alt={card.name}
@@ -266,7 +267,7 @@ const TestimonialCarousel = memo(
                   <p className="font-semibold text-white text-xs xs:text-sm md:text-base">{card.name}</p>
                   <p className="text-[10px] md:text-xs text-gray-500">{card.title}</p>
                 </div>
-                <blockquote className="italic text-xs md:text-sm text-gray-300 line-clamp-3">
+                <blockquote className="italic text-xs md:text-sm text-gray-300 line-clamp-3 overflow-hidden">
                   "{card.quote}"
                 </blockquote>
               </div>
@@ -343,7 +344,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className={`relative ${isMobile ? 'h-[320px] xs:h-[340px]' : 'h-[320px] sm:h-[350px] md:h-[370px]'} w-full overflow-hidden`}>
+      <div className={`relative ${isMobile ? 'h-[300px] xs:h-[320px]' : 'h-[300px] sm:h-[320px] md:h-[340px]'} w-full overflow-hidden`}>
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
