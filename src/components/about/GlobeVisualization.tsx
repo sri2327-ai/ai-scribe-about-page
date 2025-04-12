@@ -53,7 +53,7 @@ const GlobeVisualization = () => {
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    globe.position.y = 0; // Position to show ~40% of the globe (adjusted from -4 to 0)
+    globe.position.y = -2; // Position to show ~40% of the globe with adjustment to prevent overlap
     scene.add(globe);
     
     // Create black dots for the continents
@@ -75,7 +75,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.02 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.02 * Math.cos(phi)) + 0; // Adjusted for new globe position
+      const y = (8.02 * Math.cos(phi)) - 2; // Adjusted for new globe position
       const z = (8.02 * Math.sin(phi) * Math.sin(theta));
       
       positions.push(x, y, z);
@@ -113,7 +113,7 @@ const GlobeVisualization = () => {
       const theta = (lng + 180) * (Math.PI / 180);
       
       const x = -(8.1 * Math.sin(phi) * Math.cos(theta));
-      const y = (8.1 * Math.cos(phi)) + 0; // Adjusted for new globe position
+      const y = (8.1 * Math.cos(phi)) - 2; // Adjusted for new globe position
       const z = (8.1 * Math.sin(phi) * Math.sin(theta));
       
       hotspotPositions.push(x, y, z);
@@ -125,8 +125,8 @@ const GlobeVisualization = () => {
     highlightsRef.current = highlights;
     scene.add(highlights);
     
-    // Create a stronger glow effect around the globe
-    const glowGeometry = new THREE.SphereGeometry(8.3, 32, 32);
+    // Create a subtler glow effect around the globe by reducing intensity
+    const glowGeometry = new THREE.SphereGeometry(8.2, 32, 32);
     const glowMaterial = new THREE.ShaderMaterial({
       uniforms: {
         viewVector: { value: new THREE.Vector3(0, 0, 1) }
@@ -144,8 +144,8 @@ const GlobeVisualization = () => {
       fragmentShader: `
         varying float intensity;
         void main() {
-          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity; // White glow (#FFFFFF)
-          gl_FragColor = vec4(glow, 1.0);
+          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity * 0.7; // Reduced intensity
+          gl_FragColor = vec4(glow, 0.8); // Lower opacity
         }
       `,
       side: THREE.BackSide,
@@ -155,7 +155,7 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = 0; // Adjusted for new globe position
+    glowMesh.position.y = -2; // Adjusted for new globe position
     scene.add(glowMesh);
     
     // Move camera back to see the bigger globe
