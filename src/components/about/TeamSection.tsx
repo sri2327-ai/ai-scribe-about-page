@@ -4,28 +4,28 @@ import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 
 const teamMembers = [
   {
-    name: "SRIDHARAN SIVAN",
-    title: "FOUNDER & CHAIRMAN",
-    company: "S10.AI INC"
+    name: "Sridharan Sivan",
+    title: "Founder & Chairman",
+    company: "S10.AI Inc"
   },
   {
-    name: "SHIVANTHIKA SRIDHARAN",
-    title: "CO-FOUNDER & PRESIDENT",
-    company: "S10.AI INC"
+    name: "Shivanthika Sridharan",
+    title: "Co-Founder & President",
+    company: "S10.AI Inc"
   },
   {
-    name: "DR. SRI",
-    title: "CEO & CHIEF MEDICAL OFFICER",
-    company: "S10.AI INC"
+    name: "Dr. Sri",
+    title: "CEO & Chief Medical Officer",
+    company: "S10.AI Inc"
   },
   {
-    name: "JOHN REECE",
-    title: "BOARD ADVISOR",
+    name: "John Reece",
+    title: "Board Advisor",
     company: ""
   },
   {
-    name: "DV RAVI",
-    title: "INVESTOR AND MANAGING DIRECTOR",
+    name: "DV Ravi",
+    title: "Investor and Managing Director",
     company: "Shriram Capital Ltd"
   }
 ];
@@ -41,7 +41,7 @@ const TeamSection = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white">MEET THE TEAM</h2>
+          <h2 className="text-4xl font-bold mb-6 text-white">Meet The Team</h2>
         </motion.div>
         
         <AnimatedTestimonials 
