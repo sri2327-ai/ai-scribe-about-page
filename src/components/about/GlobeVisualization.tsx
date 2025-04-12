@@ -24,31 +24,32 @@ const GlobeVisualization = () => {
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current,
       alpha: true,
+      antialias: true,
     });
     
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     
-    // Create a sphere geometry for the globe - positioned lower to be half-visible
+    // Create a sphere geometry for the globe
     const sphereGeometry = new THREE.SphereGeometry(3, 64, 64);
     
     // Create a material with white glow effect
     const sphereMaterial = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,
-      opacity: 0.3
+      opacity: 0.2
     });
     
     const globe = new THREE.Mesh(sphereGeometry, sphereMaterial);
     globeRef.current = globe;
-    // Position globe lower to be half-cut but slightly higher than before
-    globe.position.y = -2.5;
+    // Position globe to be visible in the lower section but not cut off completely
+    globe.position.y = -2.0;
     scene.add(globe);
     
     // Create dots for the globe surface
     const dotsGeometry = new THREE.BufferGeometry();
     const dotsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff, // White dots
+      color: 0xffffff,
       size: 0.04,
       transparent: true,
       opacity: 0.8
@@ -74,7 +75,7 @@ const GlobeVisualization = () => {
     
     const dots = new THREE.Points(dotsGeometry, dotsMaterial);
     dotsRef.current = dots;
-    dots.position.y = -2.5; // Match globe position
+    dots.position.y = -2.0; // Match globe position
     scene.add(dots);
     
     // Add highlights - teal dots for the theme
@@ -86,29 +87,39 @@ const GlobeVisualization = () => {
       opacity: 0.9
     });
     
-    // Set a few fixed highlight positions
+    // Set a few fixed highlight positions (similar to markers in the sample code)
     const highlightPositions = [
-      // Asia highlights
-      3 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.3),
-      3 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.3),
-      3 * Math.cos(Math.PI * 0.3),
-      
-      // Europe highlight
-      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.7),
-      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.7),
+      // North America (New York)
+      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 1.2),
+      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 1.2),
       3 * Math.cos(Math.PI * 0.4),
       
-      // Americas highlight
-      3 * Math.sin(Math.PI * 0.5) * Math.cos(Math.PI * 1.5),
-      3 * Math.sin(Math.PI * 0.5) * Math.sin(Math.PI * 1.5),
-      3 * Math.cos(Math.PI * 0.5)
+      // Europe (London)
+      3 * Math.sin(Math.PI * 0.35) * Math.cos(Math.PI * 0.7),
+      3 * Math.sin(Math.PI * 0.35) * Math.sin(Math.PI * 0.7),
+      3 * Math.cos(Math.PI * 0.35),
+      
+      // Asia (Tokyo)
+      3 * Math.sin(Math.PI * 0.4) * Math.cos(Math.PI * 0.2),
+      3 * Math.sin(Math.PI * 0.4) * Math.sin(Math.PI * 0.2),
+      3 * Math.cos(Math.PI * 0.4),
+      
+      // India (Mumbai)
+      3 * Math.sin(Math.PI * 0.3) * Math.cos(Math.PI * 0.4),
+      3 * Math.sin(Math.PI * 0.3) * Math.sin(Math.PI * 0.4),
+      3 * Math.cos(Math.PI * 0.3),
+      
+      // Australia (Sydney)
+      3 * Math.sin(Math.PI * 0.6) * Math.cos(Math.PI * 0.2),
+      3 * Math.sin(Math.PI * 0.6) * Math.sin(Math.PI * 0.2),
+      3 * Math.cos(Math.PI * 0.6),
     ];
     
     highlightGeometry.setAttribute('position', new THREE.Float32BufferAttribute(highlightPositions, 3));
     
     const highlights = new THREE.Points(highlightGeometry, highlightMaterial);
     highlightsRef.current = highlights;
-    highlights.position.y = -2.5; // Match globe position
+    highlights.position.y = -2.0; // Match globe position
     scene.add(highlights);
     
     // Create a light glow effect
@@ -130,7 +141,7 @@ const GlobeVisualization = () => {
       fragmentShader: `
         varying float intensity;
         void main() {
-          vec3 glow = vec3(1.0, 1.0, 1.0) * intensity;
+          vec3 glow = vec3(0.8, 0.8, 1.0) * intensity;
           gl_FragColor = vec4(glow, 1.0);
         }
       `,
@@ -141,7 +152,7 @@ const GlobeVisualization = () => {
     
     const glowMesh = new THREE.Mesh(glowGeometry, glowMaterial);
     glowMeshRef.current = glowMesh;
-    glowMesh.position.y = -2.5; // Match globe position
+    glowMesh.position.y = -2.0; // Match globe position
     scene.add(glowMesh);
     
     camera.position.z = 5;
@@ -164,20 +175,6 @@ const GlobeVisualization = () => {
       highlightsRef.current.rotation.z = x * 0.2;
       glowMeshRef.current.rotation.x = y * 0.2;
       glowMeshRef.current.rotation.z = x * 0.2;
-      
-      // Add a slight lift effect when hovering bottom half
-      if (y < 0) {
-        const lift = Math.abs(y) * 0.5;
-        globeRef.current.position.y = -3 + lift;
-        dotsRef.current.position.y = -3 + lift;
-        highlightsRef.current.position.y = -3 + lift;
-        glowMeshRef.current.position.y = -3 + lift;
-      } else {
-        globeRef.current.position.y = -3;
-        dotsRef.current.position.y = -3;
-        highlightsRef.current.position.y = -3;
-        glowMeshRef.current.position.y = -3;
-      }
     };
     
     window.addEventListener('mousemove', handleMouseMove);
@@ -209,12 +206,18 @@ const GlobeVisualization = () => {
     
     // Handle resize
     const handleResize = () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      if (canvasRef.current) {
+        const containerWidth = canvasRef.current.clientWidth;
+        const containerHeight = canvasRef.current.clientHeight;
+        
+        camera.aspect = containerWidth / containerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(containerWidth, containerHeight);
+      }
     };
     
     window.addEventListener('resize', handleResize);
+    handleResize(); // Call once to set initial size
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
@@ -223,7 +226,7 @@ const GlobeVisualization = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
+  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 };
 
 export default GlobeVisualization;
