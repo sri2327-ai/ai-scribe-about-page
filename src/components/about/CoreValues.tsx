@@ -70,15 +70,16 @@ const CoreValues = () => {
               variants={itemVariants}
               transition={{ duration: 0.6 }}
             >
-              <div className="relative h-full rounded-xl border-[0.75px] border-[#1EAEDB]/30 overflow-hidden">
+              <div className="relative h-full rounded-xl border border-[#1EAEDB]/50 overflow-hidden bg-black/40">
                 <GlowingEffect
-                  spread={40}
+                  spread={80}
                   glow={true}
                   disabled={false}
-                  proximity={64}
+                  proximity={100}
                   inactiveZone={0.01}
-                  borderWidth={2}
+                  borderWidth={3}
                   variant="white"
+                  blur={8}
                 />
                 
                 <div className="relative flex items-start space-x-4 p-6 z-10">
