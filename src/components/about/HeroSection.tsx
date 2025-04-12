@@ -42,9 +42,15 @@ const HeroSection = () => {
           }}
         />
         
-        {/* Globe container - positioned at top-28 (7rem from top) */}
-        <div className="absolute inset-0 mx-auto top-28 flex items-center justify-center">
-          <GlobeVisualization />
+        {/* Globe container - positioned to show only top 75% */}
+        <div className="absolute inset-x-0 mx-auto flex items-center justify-center overflow-hidden" 
+             style={{ 
+               top: "28rem", 
+               height: "450px" 
+             }}>
+          <div className="transform translate-y-[12.5%]">
+            <GlobeVisualization />
+          </div>
         </div>
       </div>
       
