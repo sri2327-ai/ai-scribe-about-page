@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Use teal blue color (#1EAEDB) with higher opacity for visibility
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.15)";
-    ctx.lineWidth = 15;
+    // Reduced opacity to 0.05 and line width to 8 for more subtle effect
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.05)";
+    ctx.lineWidth = 8;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -149,7 +149,7 @@ var ctx,
   E = {
     debug: true,
     friction: 0.5,
-    trails: 120,  // Increase trails for more visible effect
+    trails: 100,  // Slightly reduced trails for balance
     size: 50,
     dampening: 0.025,
     tension: 0.99,
