@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const features = [
   {
@@ -37,20 +38,22 @@ const features = [
 ];
 
 const WhoWeAre = () => {
+  const isMobile = useIsMobile();
+
   return (
-    <section className="h-screen flex items-center bg-black">
+    <section className={`${isMobile ? 'min-h-screen py-16' : 'h-screen'} flex items-center bg-black`}>
       <div className="container mx-auto px-4">
         <motion.div 
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">Who We Are</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white font-wix-madefor">Who We Are</h2>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -60,26 +63,26 @@ const WhoWeAre = () => {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="relative rounded-xl p-6 h-full bg-black/40 transition-all duration-300 group hover:scale-[1.02]">
+              <div className="relative rounded-xl p-4 sm:p-6 h-full bg-black/40 transition-all duration-300 group hover:scale-[1.02]">
                 <GlowingEffect
                   spread={25}
                   glow={true}
                   disabled={false}
                   proximity={150}
                   inactiveZone={0}
-                  borderWidth={1} // Reduced from 2 to 1 for lighter border
+                  borderWidth={1}
                   variant="teal"
                   blur={15}
                   dualBorder={true}
-                  className="opacity-70 group-hover:opacity-90 transition-all duration-300" // Reduced opacity for lighter appearance
+                  className="opacity-70 group-hover:opacity-90 transition-all duration-300"
                 />
                 
                 <div className="relative z-10">
-                  <div className="bg-black/60 p-2 rounded-lg mb-4 inline-block">
+                  <div className="bg-black/60 p-2 rounded-lg mb-3 sm:mb-4 inline-block">
                     {feature.icon}
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4 text-white font-wix-madefor">{feature.title}</h3>
-                  <p className="text-gray-300 leading-relaxed font-wix-madefor">{feature.description}</p>
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-gray-300 leading-relaxed font-wix-madefor">{feature.description}</p>
                 </div>
               </div>
             </motion.div>

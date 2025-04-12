@@ -4,8 +4,11 @@ import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { LampSection } from "@/components/ui/lamp";
 import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const MissionVision = () => {
+  const isMobile = useIsMobile();
+  
   const scrollToNext = () => {
     // Scroll to the next section smoothly
     const currentPosition = window.scrollY;
@@ -24,26 +27,26 @@ const MissionVision = () => {
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-xl md:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center"
+          className="text-lg sm:text-xl md:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center"
         >
           To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
         </motion.p>
         
         {/* Scroll down indicator - positioned on left side */}
         <motion.div 
-          className="absolute left-10 bottom-16 flex flex-col items-center cursor-pointer z-20"
+          className={`absolute ${isMobile ? 'left-4' : 'left-10'} bottom-16 flex flex-col items-center cursor-pointer z-20`}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
           onClick={scrollToNext}
         >
-          <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll</p>
-          <ChevronDown className="text-white h-6 w-6" />
+          <p className="text-gray-400 mb-2 text-xs sm:text-sm font-wix-madefor">Scroll</p>
+          <ChevronDown className="text-white h-5 w-5 sm:h-6 sm:w-6" />
         </motion.div>
       </LampSection>
       
       {/* Section Divider */}
-      <div className="w-full flex justify-center py-12">
+      <div className="w-full flex justify-center py-8 sm:py-12">
         <Separator className="w-2/3 max-w-4xl bg-gray-800" />
       </div>
       
@@ -68,7 +71,7 @@ const MissionVision = () => {
             initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-6xl font-bold text-white mb-10 text-center font-wix-madefor"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sm:mb-10 text-center font-wix-madefor"
           >
             Our Vision
           </motion.h2>
@@ -77,7 +80,7 @@ const MissionVision = () => {
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-xl md:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center px-4"
           >
             We envision a world where clinicians and patients are fully engaged, empowered by AI that automates workflows, enhances EHR usability, and unlocks unparalleled value.
           </motion.p>
@@ -85,19 +88,19 @@ const MissionVision = () => {
         
         {/* Scroll down indicator - positioned on left side */}
         <motion.div 
-          className="absolute left-10 bottom-16 flex flex-col items-center cursor-pointer z-20"
+          className={`absolute ${isMobile ? 'left-4' : 'left-10'} bottom-16 flex flex-col items-center cursor-pointer z-20`}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
           onClick={scrollToNext}
         >
-          <p className="text-gray-400 mb-2 text-sm font-wix-madefor">Scroll</p>
-          <ChevronDown className="text-white h-6 w-6" />
+          <p className="text-gray-400 mb-2 text-xs sm:text-sm font-wix-madefor">Scroll</p>
+          <ChevronDown className="text-white h-5 w-5 sm:h-6 sm:w-6" />
         </motion.div>
       </section>
       
       {/* Section Divider */}
-      <div className="w-full flex justify-center py-12">
+      <div className="w-full flex justify-center py-8 sm:py-12">
         <Separator className="w-2/3 max-w-4xl bg-gray-800" />
       </div>
     </div>
