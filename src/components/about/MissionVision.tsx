@@ -5,6 +5,7 @@ import { LampSection } from "@/components/ui/lamp";
 import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const MissionVision = () => {
   const isMobile = useIsMobile();
@@ -52,6 +53,12 @@ const MissionVision = () => {
       
       {/* Vision Section with Canvas Effect */}
       <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+        {/* Spotlight Effect - Added teal blue spotlight */}
+        <Spotlight
+          className="top-20 left-20 md:top-40 md:left-60"
+          fill="#1EAEDB"
+        />
+        
         {/* Canvas Effect Container - with improved visibility */}
         <div className="absolute inset-0 overflow-hidden">
           <CanvasEffect id="vision-canvas" className="w-full h-full opacity-30" />
