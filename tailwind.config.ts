@@ -19,6 +19,9 @@ export default {
 			}
 		},
 		extend: {
+			screens: {
+				'xs': '480px',
+			},
 			fontFamily: {
 				'wix-madefor': ['"Wix Madefor Text"', 'sans-serif'],
 			},

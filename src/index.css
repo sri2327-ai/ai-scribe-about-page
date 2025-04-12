@@ -103,6 +103,12 @@
   }
 }
 
+/* Responsive height fix for mobile */
+.min-h-screen {
+  min-height: 100vh; /* fallback */
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
 .font-wix-madefor {
   font-family: 'Wix Madefor Text', sans-serif;
 }
@@ -119,5 +125,15 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+/* Mobile text utilities */
+@media (max-width: 480px) {
+  .line-clamp-4 {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 }

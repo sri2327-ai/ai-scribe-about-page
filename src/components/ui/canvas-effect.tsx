@@ -2,6 +2,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Define type for Node to fix TypeScript errors
 interface NodeType {
@@ -121,9 +122,10 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Significantly reduced opacity (0.03) and line width (5px) as requested
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.03)"; 
-    ctx.lineWidth = 5; 
+    // Responsive opacity based on screen width
+    const isMobileView = window.innerWidth < 768;
+    ctx.strokeStyle = `rgba(30, 174, 219, ${isMobileView ? 0.02 : 0.03})`; 
+    ctx.lineWidth = isMobileView ? 3 : 5; 
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -138,6 +140,19 @@ function resizeCanvas() {
   if (ctx && ctx.canvas) {
     ctx.canvas.width = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
+    
+    // Update trail count and size for mobile
+    const isMobileView = window.innerWidth < 768;
+    E.trails = isMobileView ? 30 : 50;
+    E.size = isMobileView ? 30 : 50;
+    
+    // Reinitialize if needed
+    if (lines.length > 0) {
+      lines = [];
+      for (let e = 0; e < E.trails; e++) {
+        lines.push(new Line({ spring: 0.45 + (e / E.trails) * 0.025 }));
+      }
+    }
   }
 }
 
@@ -169,6 +184,7 @@ interface CanvasEffectProps {
 
 export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProps) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
@@ -192,6 +208,12 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       frequency: 0.0015,
       offset: 285,
     });
+    
+    // Update settings for mobile
+    if (isMobile) {
+      E.trails = 30;
+      E.size = 30;
+    }
     
     // Make sure we resize the canvas to the correct dimensions
     canvas.width = window.innerWidth;
@@ -256,7 +278,7 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       document.removeEventListener("mousemove", onMousemove);
       document.removeEventListener("touchstart", onMousemove);
     };
-  }, [id]);
+  }, [id, isMobile]);
 
   return (
     <canvas

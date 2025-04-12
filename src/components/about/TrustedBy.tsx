@@ -9,6 +9,7 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -117,9 +118,12 @@ const TestimonialCarousel = memo(
     cards: Testimonial[];
     isCarouselActive: boolean;
   }) => {
+    const isScreenSizeXs = useMediaQuery("(max-width: 480px)");
     const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
     const isScreenSizeMd = useMediaQuery("(max-width: 768px)");
-    const cylinderWidth = isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
+    
+    // Adjust cylinder width based on screen size for better mobile experience
+    const cylinderWidth = isScreenSizeXs ? 700 : isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
     const faceCount = cards.length;
     const radius = cylinderWidth / (2 * Math.PI);
     const rotation = useMotionValue(0);
@@ -167,7 +171,7 @@ const TestimonialCarousel = memo(
           {cards.map((card, i) => (
             <motion.div
               key={`testimonial-${i}`}
-              className="absolute h-full origin-center w-[260px] md:w-[300px] max-w-full p-2 md:p-4"
+              className="absolute h-full origin-center w-[220px] xs:w-[240px] sm:w-[260px] md:w-[300px] max-w-full p-2 md:p-4"
               style={{
                 transform: `rotateY(${
                   i * (360 / faceCount)
@@ -175,17 +179,17 @@ const TestimonialCarousel = memo(
               }}
               onClick={() => handleClick(card, i)}
             >
-              <div className="rounded-xl bg-black border border-gray-800 p-4 md:p-6 flex flex-col items-center text-center space-y-3 md:space-y-4 h-full justify-center shadow-xl hover:border-gray-700 transition-all duration-300">
+              <div className="rounded-xl bg-black border border-gray-800 p-3 xs:p-4 md:p-6 flex flex-col items-center text-center space-y-2 xs:space-y-3 md:space-y-4 h-full justify-center shadow-xl hover:border-gray-700 transition-all duration-300">
                 <img
                   src={card.avatar}
                   alt={card.name}
-                  className="w-12 h-12 md:w-16 md:h-16 rounded-full border border-gray-800"
+                  className="w-10 h-10 xs:w-12 xs:h-12 md:w-16 md:h-16 rounded-full border border-gray-800"
                 />
-                <blockquote className="italic text-xs md:text-sm text-gray-300">
+                <blockquote className="italic text-xs md:text-sm text-gray-300 line-clamp-4 xs:line-clamp-none">
                   "{card.quote}"
                 </blockquote>
                 <div>
-                  <p className="font-semibold text-white text-sm md:text-base">{card.name}</p>
+                  <p className="font-semibold text-white text-xs xs:text-sm md:text-base">{card.name}</p>
                   <p className="text-[10px] md:text-xs text-gray-500">{card.title}</p>
                 </div>
               </div>
@@ -202,6 +206,7 @@ function ThreeDTestimonialCarousel() {
   const [isCarouselActive, setIsCarouselActive] = useState(true);
   const controls = useAnimation();
   const cards = useMemo(() => testimonials, []);
+  const isMobile = useIsMobile();
 
   const handleClick = (card: Testimonial, index: number) => {
     setActiveCard(card);
@@ -229,7 +234,7 @@ function ThreeDTestimonialCarousel() {
             transition={transitionOverlay}
           >
             <motion.div
-              className="bg-black border border-gray-800 rounded-xl p-6 md:p-8 text-center space-y-4 max-w-md w-full shadow-2xl"
+              className="bg-black border border-gray-800 rounded-xl p-4 xs:p-6 md:p-8 text-center space-y-4 max-w-xs xs:max-w-sm sm:max-w-md w-full shadow-2xl"
               initial={{ scale: 0.5 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -238,11 +243,11 @@ function ThreeDTestimonialCarousel() {
               <img
                 src={activeCard.avatar}
                 alt={activeCard.name}
-                className="w-16 h-16 md:w-20 md:h-20 rounded-full mx-auto border border-gray-800"
+                className="w-14 h-14 xs:w-16 xs:h-16 md:w-20 md:h-20 rounded-full mx-auto border border-gray-800"
               />
-              <p className="text-base md:text-lg italic text-gray-300">"{activeCard.quote}"</p>
+              <p className="text-sm xs:text-base md:text-lg italic text-gray-300">"{activeCard.quote}"</p>
               <div>
-                <p className="font-semibold text-white">{activeCard.name}</p>
+                <p className="font-semibold text-white text-sm xs:text-base">{activeCard.name}</p>
                 <p className="text-xs md:text-sm text-gray-500">{activeCard.title}</p>
               </div>
               <button 
@@ -256,7 +261,7 @@ function ThreeDTestimonialCarousel() {
         )}
       </AnimatePresence>
 
-      <div className="relative h-[350px] sm:h-[400px] md:h-[450px] w-full overflow-hidden">
+      <div className={`relative ${isMobile ? 'h-[300px]' : 'h-[350px] sm:h-[400px] md:h-[450px]'} w-full overflow-hidden`}>
         <TestimonialCarousel
           handleClick={handleClick}
           controls={controls}
@@ -270,17 +275,17 @@ function ThreeDTestimonialCarousel() {
 
 const TrustedBy = () => {
   return (
-    <section className="w-full py-16 md:py-20 bg-black">
+    <section className="w-full py-10 xs:py-12 sm:py-16 md:py-20 bg-black">
       <div className="container mx-auto px-4 max-w-full">
         <motion.div
-          className="text-center mb-10 md:mb-16"
+          className="text-center mb-6 sm:mb-10 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 md:mb-6 text-white">Trusted by 1000+ Clinicians</h2>
-          <div className="w-16 md:w-20 h-[1px] bg-gray-700 mx-auto"></div>
+          <h2 className="text-2xl xs:text-3xl md:text-4xl font-bold mb-3 xs:mb-4 md:mb-6 text-white">Trusted by 1000+ Clinicians</h2>
+          <div className="w-12 xs:w-16 md:w-20 h-[1px] bg-gray-700 mx-auto"></div>
         </motion.div>
         
         <ThreeDTestimonialCarousel />

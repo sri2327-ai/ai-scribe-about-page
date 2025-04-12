@@ -41,19 +41,19 @@ const WhoWeAre = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className={`${isMobile ? 'py-16 pb-24' : 'min-h-screen py-20 pb-32'} flex items-center bg-black`}>
+    <section className={`${isMobile ? 'py-10 pb-16' : 'py-16 pb-24 min-h-0 lg:min-h-screen'} flex items-center bg-black`}>
       <div className="container mx-auto px-4">
         <motion.div 
-          className="text-center mb-8 sm:mb-12"
+          className="text-center mb-6 xs:mb-8 sm:mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white font-wix-madefor">Who We Are</h2>
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-white font-wix-madefor">Who We Are</h2>
         </motion.div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={index}
@@ -69,12 +69,12 @@ const WhoWeAre = () => {
                 color="#4ECDC4"
                 speed={`${6 + (index % 3)}s`}
               >
-                <div className="p-4 sm:p-6 flex flex-col h-full">
-                  <div className="bg-black/60 p-2 rounded-lg mb-3 sm:mb-4 inline-block">
+                <div className="p-3 xs:p-4 sm:p-6 flex flex-col h-full">
+                  <div className="bg-black/60 p-2 rounded-lg mb-2 xs:mb-3 sm:mb-4 inline-block">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor flex-grow">{feature.description}</p>
+                  <h3 className="text-lg xs:text-xl sm:text-2xl font-semibold mb-2 xs:mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
+                  <p className="text-xs xs:text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor flex-grow">{feature.description}</p>
                 </div>
               </StarBorder>
             </motion.div>
