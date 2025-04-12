@@ -1,6 +1,6 @@
 
 import { motion } from "framer-motion";
-import { Building, Globe, Users, Tool, BarChart, Shield } from "lucide-react";
+import { Building, Globe, Users, Settings, BarChart, Shield } from "lucide-react";
 
 const features = [
   {
@@ -19,7 +19,7 @@ const features = [
     description: "A dedicated team of 500+ professionals transforming healthcare AI."
   },
   {
-    icon: <Tool className="h-8 w-8" />,
+    icon: <Settings className="h-8 w-8" />,
     title: "Product",
     description: "The patented Intelligent Physician Knowledge Orchestrator (IPKO), revolutionizing medical documentation."
   },
