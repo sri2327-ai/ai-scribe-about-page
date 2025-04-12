@@ -1,5 +1,5 @@
 
-export const getGradient = (variant: "default" | "white" | "teal" = "default", intensity: number = 1) => {
+export const getGradient = (variant: "default" | "white" | "teal" | "gray" = "default", intensity: number = 1) => {
   if (variant === "white") {
     return `repeating-conic-gradient(
       from 236.84deg at 50% 50%,
@@ -22,6 +22,13 @@ export const getGradient = (variant: "default" | "white" | "teal" = "default", i
         rgba(94, 234, 212, ${1.2 * intensity}) 75%,
         rgba(20, 184, 166, ${1.0 * intensity}) 100%
       )`;
+  }
+  
+  if (variant === "gray") {
+    // X.ai style gray gradient for text
+    return `linear-gradient(180deg, 
+      rgba(85,85,85,${0.8 * intensity}) 0%, 
+      rgba(51,51,51,${0.4 * intensity}) 100%)`;
   }
 
   // Default rainbow gradient
