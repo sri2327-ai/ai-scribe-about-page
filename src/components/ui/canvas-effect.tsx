@@ -121,9 +121,9 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Use teal blue color (#1EAEDB) with low opacity
-    ctx.strokeStyle = "rgba(30, 174, 219, 0.025)";
-    ctx.lineWidth = 10;
+    // Use teal blue color (#1EAEDB) with higher opacity for visibility
+    ctx.strokeStyle = "rgba(30, 174, 219, 0.15)";
+    ctx.lineWidth = 15;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -149,7 +149,7 @@ var ctx,
   E = {
     debug: true,
     friction: 0.5,
-    trails: 80,
+    trails: 120,  // Increase trails for more visible effect
     size: 50,
     dampening: 0.025,
     tension: 0.99,
@@ -170,10 +170,16 @@ interface CanvasEffectProps {
 export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProps) => {
   useEffect(() => {
     const canvas = document.getElementById(id) as HTMLCanvasElement;
-    if (!canvas) return;
+    if (!canvas) {
+      console.error("Canvas element not found");
+      return;
+    }
     
     ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      console.error("Failed to get canvas context");
+      return;
+    }
     
     ctx.running = true;
     ctx.frame = 1;
@@ -185,13 +191,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       offset: 285,
     });
     
-    resizeCanvas();
+    // Make sure we resize the canvas to the correct dimensions
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
     
     // Set initial position to center of screen
-    if (canvas) {
-      pos.x = canvas.width / 2;
-      pos.y = canvas.height / 2;
-    }
+    pos.x = canvas.width / 2;
+    pos.y = canvas.height / 2;
     
     // Initialize lines
     lines = [];
@@ -199,25 +205,28 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       lines.push(new Line({ spring: 0.45 + (e / E.trails) * 0.025 }));
     }
     
+    // Attach event listeners
     window.addEventListener("resize", resizeCanvas);
-    window.addEventListener("mousemove", onMousemove);
-    window.addEventListener("touchstart", onMousemove);
     
-    // Start rendering
-    render();
+    // Trigger animation on initial load with a simulated mouse move
+    const initialEvent = new MouseEvent('mousemove', {
+      clientX: pos.x,
+      clientY: pos.y
+    });
+    onMousemove(initialEvent);
     
     return () => {
       if (ctx) ctx.running = false;
       window.removeEventListener("resize", resizeCanvas);
-      window.removeEventListener("mousemove", onMousemove);
-      window.removeEventListener("touchstart", onMousemove);
+      document.removeEventListener("mousemove", onMousemove);
+      document.removeEventListener("touchstart", onMousemove);
     };
   }, [id]);
 
   return (
     <canvas
       id={id}
-      className={`pointer-events-none absolute inset-0 w-full h-full ${className}`}
+      className={`pointer-events-auto absolute inset-0 w-full h-full ${className}`}
     ></canvas>
   );
 };
