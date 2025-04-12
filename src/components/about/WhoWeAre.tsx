@@ -69,12 +69,12 @@ const WhoWeAre = () => {
                 color="#4ECDC4"
                 speed={`${6 + (index % 3)}s`}
               >
-                <div className="p-3 xs:p-4 sm:p-6 flex flex-col h-[260px] xs:h-[280px] sm:h-[300px]">
+                <div className="p-3 xs:p-4 sm:p-6 flex flex-col h-[220px] xs:h-[240px] sm:h-[260px]">
                   <div className="bg-black/60 p-2 rounded-lg mb-2 xs:mb-3 sm:mb-4 inline-block">
                     {feature.icon}
                   </div>
                   <h3 className="text-lg xs:text-xl sm:text-2xl font-semibold mb-2 xs:mb-3 sm:mb-4 text-white font-wix-madefor">{feature.title}</h3>
-                  <p className="text-xs xs:text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor line-clamp-6">{feature.description}</p>
+                  <p className="text-xs xs:text-sm sm:text-base text-gray-400 leading-relaxed font-wix-madefor line-clamp-5">{feature.description}</p>
                 </div>
               </StarBorder>
             </motion.div>

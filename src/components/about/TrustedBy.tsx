@@ -1,62 +1,18 @@
 
 "use client";
 
-import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react";
-import {
-  AnimatePresence,
-  motion,
-  useAnimation,
-  useMotionValue,
-  useTransform,
-} from "framer-motion";
+import { memo, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
-
-type UseMediaQueryOptions = {
-  defaultValue?: boolean;
-  initializeWithValue?: boolean;
-};
-
-const IS_SERVER = typeof window === "undefined";
-
-function useMediaQuery(
-  query: string,
-  {
-    defaultValue = false,
-    initializeWithValue = true,
-  }: UseMediaQueryOptions = {}
-): boolean {
-  const getMatches = (query: string): boolean => {
-    if (IS_SERVER) {
-      return defaultValue;
-    }
-    return window.matchMedia(query).matches;
-  };
-
-  const [matches, setMatches] = useState<boolean>(() => {
-    if (initializeWithValue) {
-      return getMatches(query);
-    }
-    return defaultValue;
-  });
-
-  const handleChange = () => {
-    setMatches(getMatches(query));
-  };
-
-  useIsomorphicLayoutEffect(() => {
-    const matchMedia = window.matchMedia(query);
-    handleChange();
-    matchMedia.addEventListener("change", handleChange);
-    return () => matchMedia.removeEventListener("change", handleChange);
-  }, [query]);
-
-  return matches;
-}
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 type Testimonial = {
   name: string;
@@ -104,38 +60,44 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-const duration = 0.15;
-const transition = { duration, ease: [0.32, 0.72, 0, 1] };
-const transitionOverlay = { duration: 0.5, ease: [0.32, 0.72, 0, 1] };
-
-const StackedCardView = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+// Stacked Card View Component - reused for mobile and modal
+const StackedCardView = ({ 
+  displayCount = 3, 
+  initialActiveIndex = 0,
+  testimonials = [], 
+  className = "",
+  cardHeight = "h-[200px]",
+  autoRotate = true,
+  onClick = undefined
+}) => {
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
   
   useEffect(() => {
+    if (!autoRotate) return;
+    
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % testimonials.length);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [autoRotate, testimonials.length]);
 
   return (
-    <div className="relative h-[400px] w-full mx-auto max-w-[300px]">
+    <div className={`relative w-full mx-auto ${className}`}>
       {testimonials.map((card, index) => {
         const isActive = index === activeIndex;
         const distance = Math.abs(activeIndex - index);
-        const maxToShow = 3;
         
-        if (distance > maxToShow) return null;
+        if (distance > displayCount) return null;
         
         const zIndex = testimonials.length - distance;
         const opacity = isActive ? 1 : 0.7 - (distance * 0.15);
         const scale = 1 - (distance * 0.05);
-        const y = isActive ? 0 : 30 + (distance * 15);
+        const y = isActive ? 0 : 20 + (distance * 10);
         
         return (
           <motion.div
             key={`testimonial-${index}`}
-            className="absolute top-0 left-0 right-0 rounded-xl bg-black border border-gray-800 p-6 flex flex-col items-center text-center space-y-4 shadow-xl"
+            className={`absolute top-0 left-0 right-0 rounded-xl bg-black border border-gray-800 p-4 sm:p-5 flex flex-col items-center text-center shadow-xl ${cardHeight}`}
             style={{
               zIndex,
               opacity,
@@ -151,18 +113,21 @@ const StackedCardView = () => {
               duration: 0.5,
               ease: "easeInOut",
             }}
-            onClick={() => setActiveIndex(index)}
+            onClick={() => {
+              if (onClick) onClick(card);
+              else setActiveIndex(index);
+            }}
           >
             <img
               src={card.avatar}
               alt={card.name}
-              className="w-16 h-16 rounded-full border border-gray-700"
+              className="w-14 h-14 sm:w-16 sm:h-16 rounded-full border border-gray-700 mb-3"
             />
-            <div className="flex flex-col gap-1">
-              <p className="font-semibold text-white text-lg">{card.name}</p>
+            <div className="flex flex-col gap-1 mb-2">
+              <p className="font-semibold text-white text-sm sm:text-base">{card.name}</p>
               <p className="text-xs text-gray-500">{card.title}</p>
             </div>
-            <blockquote className="italic text-sm text-gray-300 line-clamp-3">
+            <blockquote className="italic text-xs sm:text-sm text-gray-300 line-clamp-3 overflow-hidden">
               "{card.quote}"
             </blockquote>
           </motion.div>
@@ -172,191 +137,45 @@ const StackedCardView = () => {
   );
 };
 
-const TestimonialCarousel = memo(
-  ({
-    handleClick,
-    controls,
-    cards,
-    isCarouselActive,
-  }: {
-    handleClick: (card: Testimonial, index: number) => void;
-    controls: any;
-    cards: Testimonial[];
-    isCarouselActive: boolean;
-  }) => {
-    const isScreenSizeXs = useMediaQuery("(max-width: 480px)");
-    const isScreenSizeSm = useMediaQuery("(max-width: 640px)");
-    const isScreenSizeMd = useMediaQuery("(max-width: 768px)");
-    
-    const cylinderWidth = isScreenSizeXs ? 700 : isScreenSizeSm ? 900 : isScreenSizeMd ? 1200 : 1800;
-    const faceCount = cards.length;
-    const radius = cylinderWidth / (2 * Math.PI);
-    const rotation = useMotionValue(0);
-    const transform = useTransform(
-      rotation,
-      (value) => `rotate3d(0, 1, 0, ${value}deg)`
-    );
-
-    useEffect(() => {
-      rotation.set(-10);
-      
-      const interval = setInterval(() => {
-        if (isCarouselActive) {
-          rotation.set(rotation.get() + 5);
-        }
-      }, 3000);
-      
-      return () => clearInterval(interval);
-    }, [isCarouselActive, rotation]);
-
-    return (
-      <div
-        className="flex h-full items-center justify-center w-full"
-        style={{
-          perspective: "1000px",
-          transformStyle: "preserve-3d",
-          willChange: "transform",
-        }}
-      >
-        <motion.div
-          drag={isCarouselActive ? "x" : false}
-          className="relative flex h-full origin-center cursor-grab justify-center active:cursor-grabbing"
-          style={{
-            transform,
-            rotateY: rotation,
-            width: cylinderWidth,
-            transformStyle: "preserve-3d",
-          }}
-          onDrag={(_, info) =>
-            isCarouselActive &&
-            rotation.set(rotation.get() + info.offset.x * 0.05)
-          }
-          onDragEnd={(_, info) =>
-            isCarouselActive &&
-            controls.start({
-              rotateY: rotation.get() + info.velocity.x * 0.05,
-              transition: {
-                type: "spring",
-                stiffness: 100,
-                damping: 30,
-                mass: 0.1,
-              },
-            })
-          }
-          animate={controls}
-        >
-          {cards.map((card, i) => (
-            <motion.div
-              key={`testimonial-${i}`}
-              className="absolute h-full origin-center w-[220px] xs:w-[240px] sm:w-[260px] md:w-[300px] max-w-full p-2 md:p-4"
-              style={{
-                transform: `rotateY(${
-                  i * (360 / faceCount)
-                }deg) translateZ(${radius}px)`,
-                backfaceVisibility: "hidden",
-              }}
-              onClick={() => handleClick(card, i)}
-            >
-              <div className="rounded-xl bg-black border border-gray-800 p-3 xs:p-4 md:p-6 flex flex-col items-center text-center justify-between shadow-xl hover:border-gray-700 transition-all duration-300 h-[240px] xs:h-[260px] sm:h-[280px] md:h-[300px]">
-                <img
-                  src={card.avatar}
-                  alt={card.name}
-                  className="w-12 h-12 xs:w-14 xs:h-14 md:w-16 md:h-16 rounded-full border border-gray-800"
-                />
-                <div className="flex flex-col gap-1">
-                  <p className="font-semibold text-white text-xs xs:text-sm md:text-base">{card.name}</p>
-                  <p className="text-[10px] md:text-xs text-gray-500">{card.title}</p>
-                </div>
-                <blockquote className="italic text-xs md:text-sm text-gray-300 line-clamp-3 overflow-hidden">
-                  "{card.quote}"
-                </blockquote>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    );
-  }
-);
-
-function ThreeDTestimonialCarousel() {
-  const [activeCard, setActiveCard] = useState<Testimonial | null>(null);
-  const [isCarouselActive, setIsCarouselActive] = useState(true);
-  const controls = useAnimation();
-  const cards = useMemo(() => testimonials, []);
-  const isMobile = useIsMobile();
-  const isVerySmallScreen = useMediaQuery("(max-width: 480px)");
-
-  const handleClick = (card: Testimonial, index: number) => {
-    setActiveCard(card);
-    setIsCarouselActive(false);
-    controls.stop();
-  };
-
-  const handleClose = () => {
-    setActiveCard(null);
-    setIsCarouselActive(true);
-  };
-
-  if (isVerySmallScreen) {
-    return <StackedCardView />;
-  }
-
+// Desktop Carousel using ShadCN Carousel
+const TestimonialDesktopCarousel = ({ testimonials, onSelect }) => {
   return (
-    <motion.div layout className="relative w-full">
-      <AnimatePresence mode="sync">
-        {activeCard && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0 }}
-            layoutId={`testimonial-${activeCard.name}`}
-            onClick={handleClose}
-            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4 md:p-8"
-            style={{ willChange: "opacity" }}
-            transition={transitionOverlay}
-          >
-            <motion.div
-              className="bg-black border border-gray-800 rounded-xl p-4 xs:p-6 md:p-8 text-center space-y-4 max-w-xs xs:max-w-sm sm:max-w-md w-full shadow-2xl"
-              initial={{ scale: 0.5 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              onClick={(e) => e.stopPropagation()}
+    <Carousel className="w-full max-w-5xl mx-auto">
+      <CarouselContent>
+        {testimonials.map((testimonial, index) => (
+          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 p-1">
+            <div 
+              className="rounded-xl bg-black border border-gray-800 p-4 sm:p-5 flex flex-col items-center text-center h-[220px] justify-between shadow-xl hover:border-gray-700 transition-all duration-300 cursor-pointer"
+              onClick={() => onSelect(testimonial)}
             >
               <img
-                src={activeCard.avatar}
-                alt={activeCard.name}
-                className="w-14 h-14 xs:w-16 xs:h-16 md:w-20 md:h-20 rounded-full mx-auto border border-gray-800"
+                src={testimonial.avatar}
+                alt={testimonial.name}
+                className="w-14 h-14 rounded-full border border-gray-700"
               />
-              <p className="text-sm xs:text-base md:text-lg italic text-gray-300">"{activeCard.quote}"</p>
-              <div>
-                <p className="font-semibold text-white text-sm xs:text-base">{activeCard.name}</p>
-                <p className="text-xs md:text-sm text-gray-500">{activeCard.title}</p>
+              <div className="flex flex-col gap-1">
+                <p className="font-semibold text-white text-sm sm:text-base">{testimonial.name}</p>
+                <p className="text-xs text-gray-500">{testimonial.title}</p>
               </div>
-              <button 
-                className="mt-4 text-xs border border-gray-700 px-4 py-2 rounded-full text-gray-400 hover:text-white hover:border-gray-600 transition-colors"
-                onClick={handleClose}
-              >
-                Close
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className={`relative ${isMobile ? 'h-[300px] xs:h-[320px]' : 'h-[300px] sm:h-[320px] md:h-[340px]'} w-full overflow-hidden`}>
-        <TestimonialCarousel
-          handleClick={handleClick}
-          controls={controls}
-          cards={cards}
-          isCarouselActive={isCarouselActive}
-        />
+              <blockquote className="italic text-xs sm:text-sm text-gray-300 line-clamp-3 overflow-hidden">
+                "{testimonial.quote}"
+              </blockquote>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex items-center justify-center gap-2 mt-4">
+        <CarouselPrevious className="relative static transform-none mx-1" />
+        <CarouselNext className="relative static transform-none mx-1" />
       </div>
-    </motion.div>
+    </Carousel>
   );
-}
+};
 
 const TrustedBy = () => {
+  const [activeTestimonial, setActiveTestimonial] = useState<Testimonial | null>(null);
+  const isMobile = useIsMobile();
+  
   return (
     <section className="w-full py-8 xs:py-10 sm:py-14 md:py-20 bg-black">
       <div className="container mx-auto px-4 max-w-7xl">
@@ -371,10 +190,68 @@ const TrustedBy = () => {
           <div className="w-12 xs:w-16 md:w-20 h-[1px] bg-gray-700 mx-auto"></div>
         </motion.div>
         
-        <ThreeDTestimonialCarousel />
+        <div className="relative w-full">
+          {/* Mobile View: Stacked Cards */}
+          {isMobile ? (
+            <div className="h-[280px] mb-4">
+              <StackedCardView 
+                testimonials={testimonials} 
+                className="max-w-[300px]"
+                cardHeight="h-[220px]"
+                onClick={(testimonial) => setActiveTestimonial(testimonial)}
+              />
+            </div>
+          ) : (
+            /* Desktop View: Carousel */
+            <TestimonialDesktopCarousel 
+              testimonials={testimonials} 
+              onSelect={(testimonial) => setActiveTestimonial(testimonial)}
+            />
+          )}
+          
+          {/* Testimonial Modal */}
+          <AnimatePresence>
+            {activeTestimonial && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+                onClick={() => setActiveTestimonial(null)}
+              >
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.9, opacity: 0 }}
+                  className="bg-black border border-gray-800 rounded-xl p-6 max-w-md w-full"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <img
+                      src={activeTestimonial.avatar}
+                      alt={activeTestimonial.name}
+                      className="w-20 h-20 rounded-full border border-gray-700 mb-4"
+                    />
+                    <h3 className="text-lg font-semibold text-white mb-1">{activeTestimonial.name}</h3>
+                    <p className="text-sm text-gray-500 mb-4">{activeTestimonial.title}</p>
+                    <blockquote className="italic text-gray-300 mb-5">
+                      "{activeTestimonial.quote}"
+                    </blockquote>
+                    <button
+                      className="text-sm border border-gray-700 rounded-full px-4 py-2 text-gray-400 hover:text-white hover:border-gray-500"
+                      onClick={() => setActiveTestimonial(null)}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
         
         <motion.div 
-          className="flex justify-center mt-10 sm:mt-12 md:mt-16"
+          className="flex justify-center mt-8 sm:mt-10 md:mt-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
