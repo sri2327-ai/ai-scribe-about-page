@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import StarBackground from "@/components/about/StarBackground";
@@ -8,17 +8,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 const StarTrekSection = () => {
   const isMobile = useIsMobile();
-  const [activeWord, setActiveWord] = useState(0);
-  const words = ["Understand", "Explore", "Discover", "The Universe"];
-  
-  useEffect(() => {
-    // Rotate through words every 3 seconds
-    const interval = setInterval(() => {
-      setActiveWord((prev) => (prev + 1) % words.length);
-    }, 3000);
-    
-    return () => clearInterval(interval);
-  }, []);
   
   const scrollToNext = () => {
     // Scroll to the next section smoothly
@@ -39,30 +28,6 @@ const StarTrekSection = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col h-full relative">
-          {/* Left positioned word - animated */}
-          <motion.div
-            className="absolute top-0 left-0 md:left-10 lg:left-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <h2 className="text-5xl md:text-7xl lg:text-9xl font-normal text-white font-wix-madefor opacity-80">
-              {words[0]}
-            </h2>
-          </motion.div>
-          
-          {/* Right positioned word - animated */}
-          <motion.div
-            className="absolute bottom-0 right-0 md:right-10 lg:right-20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.5 }}
-          >
-            <h2 className="text-5xl md:text-7xl lg:text-9xl font-normal text-white font-wix-madefor opacity-80">
-              {words[words.length - 1]}
-            </h2>
-          </motion.div>
-          
           {/* Center content */}
           <motion.div
             className="flex-1 flex items-center justify-center min-h-[300px] sm:min-h-[400px] md:min-h-[500px]"

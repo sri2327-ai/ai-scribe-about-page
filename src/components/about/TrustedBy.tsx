@@ -211,7 +211,7 @@ const TestimonialCarousel = memo(
       }, 3000);
       
       return () => clearInterval(interval);
-    }, [isCarouselActive]);
+    }, [isCarouselActive, rotation]);
 
     return (
       <div
@@ -257,6 +257,7 @@ const TestimonialCarousel = memo(
                 transform: `rotateY(${
                   i * (360 / faceCount)
                 }deg) translateZ(${radius}px)`,
+                backfaceVisibility: "hidden", // Prevent back of cards showing through
               }}
               onClick={() => handleClick(card, i)}
             >
