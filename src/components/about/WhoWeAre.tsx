@@ -67,11 +67,11 @@ const WhoWeAre = () => {
                   disabled={false}
                   proximity={150}
                   inactiveZone={0}
-                  borderWidth={2}
+                  borderWidth={1} // Reduced from 2 to 1 for lighter border
                   variant="teal"
                   blur={15}
                   dualBorder={true}
-                  className="opacity-100 group-hover:opacity-100 transition-all duration-300"
+                  className="opacity-70 group-hover:opacity-90 transition-all duration-300" // Reduced opacity for lighter appearance
                 />
                 
                 <div className="relative z-10">

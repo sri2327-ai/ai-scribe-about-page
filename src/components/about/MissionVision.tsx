@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { LampSection } from "@/components/ui/lamp";
+import { Separator } from "@/components/ui/separator";
 
 const MissionVision = () => {
   return (
@@ -17,6 +18,11 @@ const MissionVision = () => {
           To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
         </motion.p>
       </LampSection>
+      
+      {/* Section Divider */}
+      <div className="w-full flex justify-center py-12">
+        <Separator className="w-2/3 max-w-4xl bg-gray-800" />
+      </div>
       
       {/* Vision Section with Canvas Effect */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center bg-black">
@@ -45,6 +51,11 @@ const MissionVision = () => {
           </motion.p>
         </div>
       </section>
+      
+      {/* Section Divider */}
+      <div className="w-full flex justify-center py-12">
+        <Separator className="w-2/3 max-w-4xl bg-gray-800" />
+      </div>
     </div>
   );
 };

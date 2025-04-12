@@ -1,6 +1,6 @@
-
 import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { Separator } from "@/components/ui/separator";
 
 const teamMembers = [
   {
@@ -30,9 +30,14 @@ const teamMembers = [
   }
 ];
 
-const TeamSection = () => {
+export default function TeamSection() {
   return (
-    <section className="py-24 bg-black">
+    <section className="pt-16 pb-24 bg-black overflow-hidden">
+      {/* Section Divider at the top */}
+      <div className="w-full flex justify-center mb-12">
+        <Separator className="w-2/3 max-w-4xl bg-gray-800" />
+      </div>
+      
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -52,6 +57,4 @@ const TeamSection = () => {
       </div>
     </section>
   );
-};
-
-export default TeamSection;
+}
