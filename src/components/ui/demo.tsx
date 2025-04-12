@@ -17,7 +17,7 @@ export function SplineSceneBasic() {
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text font-wix-madefor" 
               style={{
-                background: 'linear-gradient(180deg, rgba(85,85,85,0.8) 0%, rgba(51,51,51,0.4) 100%)',
+                background: 'linear-gradient(90deg, rgba(170,170,170,0.9) 0%, rgba(85,85,85,0.8) 50%, rgba(51,51,51,0.5) 100%)',
                 WebkitBackgroundClip: 'text',
               }}>
             Smarter Healthcare Starts Here
