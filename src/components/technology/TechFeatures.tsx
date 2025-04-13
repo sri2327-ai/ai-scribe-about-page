@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from "react"
@@ -180,31 +179,31 @@ const TechFeaturesContent = () => {
       step: 'Step 1',
       title: 'Real-Time, 24/7 Automation',
       content: 'Always available, no downtime. Our AI systems work around the clock providing continuous service and support.',
-      icon: <Brain className="w-full h-full stroke-[1] text-white" />
+      icon: <Brain className="w-full h-full stroke-[1] text-white" strokeWidth={0.5} />
     },
     {
       step: 'Step 2',
       title: 'Unmatched Accuracy',
       content: 'AI-driven precision for documentation & workflows, ensuring clinical details are captured with exceptional fidelity.',
-      icon: <Workflow className="w-full h-full stroke-[1] text-white" />
+      icon: <Workflow className="w-full h-full stroke-[1] text-white" strokeWidth={0.5} />
     },
     {
       step: 'Step 3',
       title: 'Cost-Effective Efficiency',
       content: 'Reduces overhead without sacrificing quality, allowing healthcare providers to allocate resources more effectively.',
-      icon: <BarChart3 className="w-full h-full stroke-[1] text-white" />
+      icon: <BarChart3 className="w-full h-full stroke-[1] text-white" strokeWidth={0.5} />
     },
     {
       step: 'Step 4',
       title: 'Enhanced Patient Care',
       content: 'AI automation for faster, better decision-making, enabling clinicians to focus more on direct patient care.',
-      icon: <HeartPulse className="w-full h-full stroke-[1] text-white" />
+      icon: <HeartPulse className="w-full h-full stroke-[1] text-white" strokeWidth={0.5} />
     },
     {
       step: 'Step 5',
       title: 'Autonomous Operations',
       content: 'AI-powered staffing, scribing & clinical support that works intelligently alongside your team.',
-      icon: <Bot className="w-full h-full stroke-[1] text-white" />
+      icon: <Bot className="w-full h-full stroke-[1] text-white" strokeWidth={0.5} />
     },
   ]
 

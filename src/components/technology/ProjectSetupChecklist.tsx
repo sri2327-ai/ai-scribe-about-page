@@ -1,6 +1,4 @@
 
-"use client";
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Shield, Lock, FileCheck, UserCheck } from "lucide-react";
@@ -67,7 +65,10 @@ const ProjectSetupChecklist = () => {
                   return (
                     <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/1 lg:basis-1/2">
                       <div className="p-1">
-                        <div className="bg-black border border-white/20 rounded-xl p-6 h-[280px] flex flex-col justify-between transition-all duration-300 hover:border-white/40">
+                        <div 
+                          className="bg-black border border-white/20 rounded-2xl p-6 h-[280px] flex flex-col justify-between transition-all duration-300 
+                          hover:border-white hover:shadow-lg hover:rounded-3xl"
+                        >
                           <div className="flex items-center gap-3 mb-4">
                             <span className="relative inline-block rounded-full bg-black p-3 border border-white">
                               <Icon className="h-6 w-6 text-white" strokeWidth={1.5} />

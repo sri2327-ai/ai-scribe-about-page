@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -45,7 +44,7 @@ const Technology = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="bg-black text-white border-white hover:bg-white hover:text-black transition-all duration-300"
+                className="bg-black text-white border-white hover:bg-white hover:text-black transition-all duration-300 rounded-3xl"
               >
                 Request A Demo
                 <ArrowRight className="ml-2 h-4 w-4" />
