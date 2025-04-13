@@ -2,19 +2,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
-import StarParticles from "@/components/ui/star-particles";
 
-// Company Logos Components
 const companyLogos = [
   {
     id: 1,
     name: "MedCare Health",
     Component: () => (
       <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
           <span className="text-2xl font-bold text-white">M</span>
         </div>
-        <p className="mt-2 text-sm text-white">MedCare Health</p>
+        <p className="mt-2 text-sm text-gray-300">MedCare Health</p>
       </div>
     )
   },
@@ -23,10 +21,10 @@ const companyLogos = [
     name: "HealthTech",
     Component: () => (
       <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
           <span className="text-2xl font-bold text-white">H</span>
         </div>
-        <p className="mt-2 text-sm text-white">HealthTech</p>
+        <p className="mt-2 text-sm text-gray-300">HealthTech</p>
       </div>
     )
   },
@@ -35,10 +33,10 @@ const companyLogos = [
     name: "Cascade Medical",
     Component: () => (
       <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
           <span className="text-2xl font-bold text-white">C</span>
         </div>
-        <p className="mt-2 text-sm text-white">Cascade Medical</p>
+        <p className="mt-2 text-sm text-gray-300">Cascade Medical</p>
       </div>
     )
   },
@@ -47,10 +45,10 @@ const companyLogos = [
     name: "Novant Health",
     Component: () => (
       <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-400 to-violet-600 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
           <span className="text-2xl font-bold text-white">N</span>
         </div>
-        <p className="mt-2 text-sm text-white">Novant Health</p>
+        <p className="mt-2 text-sm text-gray-300">Novant Health</p>
       </div>
     )
   },
@@ -59,10 +57,10 @@ const companyLogos = [
     name: "Cedar Clinic",
     Component: () => (
       <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-rose-400 to-pink-600 flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
           <span className="text-2xl font-bold text-white">C</span>
         </div>
-        <p className="mt-2 text-sm text-white">Cedar Clinic</p>
+        <p className="mt-2 text-sm text-gray-300">Cedar Clinic</p>
       </div>
     )
   },
@@ -88,7 +86,7 @@ const TrustedByExperts = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-5xl font-normal mb-4 text-white">
-            <span className="text-indigo-200">Trusted by experts.</span>
+            <span className="text-gray-300">Trusted by experts.</span>
             <br />
             <span>Used by the leaders.</span>
           </h2>
