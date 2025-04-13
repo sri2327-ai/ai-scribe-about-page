@@ -34,7 +34,20 @@ const companyLogos = [
 const TrustedByExperts = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#121212] to-black opacity-90" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#121212] to-black opacity-90">
+        {/* Teal blue gradient overlay */}
+        <div 
+          className="absolute inset-0 opacity-20" 
+          style={{
+            background: `radial-gradient(
+              circle at bottom center, 
+              rgba(30, 174, 219, 0.2) 0%, 
+              rgba(30, 174, 219, 0.05) 50%, 
+              transparent 70%
+            )`
+          }} 
+        />
+      </div>
       
       <motion.div
         initial={{ opacity: 0 }}
@@ -64,12 +77,25 @@ const TrustedByExperts = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: logo.id * 0.1 }}
-                className="flex flex-col items-center"
+                className="flex flex-col items-center group"
               >
-                <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">{logo.letter}</span>
+                <div className="w-16 h-16 rounded-full bg-black border border-teal-500/30 flex items-center justify-center 
+                  relative overflow-hidden group-hover:border-teal-500/60 transition-all duration-300">
+                  <div 
+                    className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300" 
+                    style={{
+                      background: `radial-gradient(
+                        circle at center, 
+                        rgba(30, 174, 219, 0.2) 0%, 
+                        transparent 70%
+                      )`
+                    }}
+                  />
+                  <span className="text-2xl font-bold text-white relative z-10">{logo.letter}</span>
                 </div>
-                <p className="mt-2 text-sm text-gray-300">{logo.name}</p>
+                <p className="mt-2 text-sm text-gray-300 group-hover:text-teal-300 transition-colors duration-300">
+                  {logo.name}
+                </p>
               </motion.div>
             ))}
           </div>
