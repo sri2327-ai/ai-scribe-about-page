@@ -55,7 +55,7 @@ function DisplayCard({
             }}
           >
             <motion.div 
-              className="w-full max-w-md bg-black/90 border border-blue-500/20 rounded-xl p-6 text-left -skew-y-[3deg]"
+              className="w-full max-w-md bg-black border border-blue-500/20 rounded-xl p-6 text-left -skew-y-[3deg]"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}

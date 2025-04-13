@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from "react"
@@ -95,7 +96,10 @@ export function TechFeatures({
                   whileHover={{ scale: 1.1 }}
                 >
                   {index <= currentFeature ? (
-                    <span className="text-lg font-bold">✓</span>
+                    <span className={cn(
+                      "text-lg font-bold",
+                      index === currentFeature ? "text-gray-900" : "text-gray-400"
+                    )}>✓</span>
                   ) : (
                     <span className="text-lg font-semibold">{index + 1}</span>
                   )}

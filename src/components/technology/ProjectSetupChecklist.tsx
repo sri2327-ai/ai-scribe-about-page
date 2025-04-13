@@ -1,5 +1,7 @@
 
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
 import { motion } from "framer-motion";
 import { Shield, Lock, FileCheck, UserCheck } from "lucide-react";
 import DisplayCards from "@/components/ui/display-cards";
@@ -38,7 +40,7 @@ const ProjectSetupChecklist = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-black to-blue-950/30 border-t border-white/10">
+    <section className="py-16 md:py-24 bg-black border-t border-white/10">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
