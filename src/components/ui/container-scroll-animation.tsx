@@ -81,7 +81,7 @@ export const Card = ({
         rotateX: rotate,
         scale,
       }}
-      className="max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full"
+      className="max-w-5xl -mt-12 mx-auto h-auto min-h-[30rem] md:min-h-[40rem] w-full"
     >
       <div className="h-full w-full overflow-hidden flex items-center justify-center">
         {children}

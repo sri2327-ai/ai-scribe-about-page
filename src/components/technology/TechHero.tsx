@@ -37,16 +37,13 @@ const TechHero = () => {
           </motion.div>
         }
       >
-        <div className="w-full h-full flex justify-center items-center">
-          <div className="relative w-full h-full max-w-5xl flex justify-center items-center">
-            {/* Image without any glowing effect */}
-            <div className="relative w-full h-full flex justify-center items-center">
-              <img
-                src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-                alt="S10.AI Healthcare Platform"
-                className="w-full h-full object-contain z-10 relative"
-              />
-            </div>
+        <div className="w-full h-full flex justify-center items-center p-4 md:p-8">
+          <div className="w-full max-w-5xl aspect-[16/9] flex justify-center items-center">
+            <img
+              src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+              alt="S10.AI Healthcare Platform"
+              className="w-full h-full object-contain z-10"
+            />
           </div>
         </div>
       </ContainerScroll>

@@ -18,7 +18,7 @@ import TechHero from "@/components/technology/TechHero";
 import TechInnovation from "@/components/technology/TechInnovation";
 import TechSolutions from "@/components/technology/TechSolutions";
 import TechArchitecture from "@/components/technology/TechArchitecture";
-import MeetIpkoPulseBeams from "@/components/technology/MeetIpkoPulseBeams";
+import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -60,8 +60,8 @@ const Technology = () => {
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
 
-        {/* Meet IPKO Animation Section - Pulse Beams */}
-        <MeetIpkoPulseBeams />
+        {/* Meet IPKO Section with Timeline */}
+        <MeetIpkoTimeline />
 
         {/* Technology Components */}
         <TechSolutions />
