@@ -41,17 +41,17 @@ const innovationPoints = [
   {
     title: "Medical Knowledge Inference Engine (MKIE)",
     description: "Generates accurate medical concepts for documentation improvement.",
-    icon: <Brain className="h-6 w-6 text-tealBlueBright" />
+    icon: <Brain className="h-6 w-6 text-white" />
   },
   {
     title: "Cross-lingual Conversation Inference Engine (CCIE)",
     description: "A Star Trek-inspired Universal Translator for seamless doctor-patient interactions.",
-    icon: <Globe className="h-6 w-6 text-tealBlueBright" />
+    icon: <Globe className="h-6 w-6 text-white" />
   },
   {
     title: "Intuitive Interface Inference Engine (IIIE)",
     description: "Breaks integration barriers, making AI effortlessly interact with existing systems.",
-    icon: <Layers className="h-6 w-6 text-tealBlueBright" />
+    icon: <Layers className="h-6 w-6 text-white" />
   }
 ];
 
@@ -87,7 +87,7 @@ const FounderMessage = () => {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">A Message from Our Founder</h2>
+          <h2 className="text-4xl font-normal mb-6 text-white font-wix-madefor">A Message from Our Founder</h2>
         </motion.div>
         
         <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black/60 backdrop-blur-sm text-white border border-tealBlueBright/20 relative">
@@ -121,7 +121,7 @@ const FounderMessage = () => {
               
               <div className="mt-4">
                 <motion.h3 
-                  className="text-xl md:text-2xl font-semibold mb-6 font-wix-madefor text-gray-300"
+                  className="text-xl md:text-2xl font-normal mb-6 font-wix-madefor text-gray-300"
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
@@ -146,7 +146,7 @@ const FounderMessage = () => {
                         </div>
                         <div>
                           <motion.h4 
-                            className="text-lg font-semibold mb-2 font-wix-madefor text-gray-300"
+                            className="text-lg font-normal mb-2 font-wix-madefor text-gray-300"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3, delay: 0.1 + index * 0.2 }}
@@ -198,11 +198,11 @@ const FounderMessage = () => {
                 >
                   <div className="flex-shrink-0">
                     <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
-                      <span className="text-xl font-bold text-white">SS</span>
+                      <span className="text-xl font-normal text-white">SS</span>
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-white font-wix-madefor">Sridharan Sivan</h4>
+                    <h4 className="text-xl font-normal text-white font-wix-madefor">Sridharan Sivan</h4>
                     <p className="text-gray-400 font-wix-madefor">Founder & Chairman, S10.AI Inc.</p>
                   </div>
                 </motion.div>
