@@ -7,7 +7,6 @@ import { Clock, CheckCircle, DollarSign, Heart, Cpu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Progress } from "@/components/ui/progress"
 
 interface Feature {
   step: string
@@ -72,12 +71,11 @@ export function TechFeatures({
         </motion.div>
 
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
-          {/* Left side - Only headings */}
           <div className="order-2 lg:order-1 space-y-6">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className="cursor-pointer"
+                className="flex items-start gap-6"
                 initial={{ opacity: 0.5 }}
                 animate={{ 
                   opacity: index === currentFeature ? 1 : 0.5,
@@ -89,17 +87,40 @@ export function TechFeatures({
                   setProgress(0)
                 }}
               >
-                <h3 className={cn(
-                  "text-xl md:text-2xl font-semibold",
-                  index === currentFeature ? "text-white" : "text-white/50"
-                )}>
-                  {feature.title}
-                </h3>
+                <motion.div
+                  className={cn(
+                    "mt-1 w-10 h-10 rounded-full flex items-center justify-center border",
+                    index === currentFeature
+                      ? "bg-white border-white text-black"
+                      : "bg-black border-white/20 text-white/60",
+                  )}
+                  whileHover={{ scale: 1.1 }}
+                >
+                  {index <= currentFeature ? (
+                    <span className="text-lg font-bold">✓</span>
+                  ) : (
+                    <span className="text-lg font-semibold">{index + 1}</span>
+                  )}
+                </motion.div>
+
+                <div className="flex-1">
+                  <h3 className={cn(
+                    "text-xl font-semibold mb-2",
+                    index === currentFeature ? "text-white" : "text-white/70"
+                  )}>
+                    {feature.title}
+                  </h3>
+                  <p className={cn(
+                    "text-base",
+                    index === currentFeature ? "text-gray-300" : "text-gray-400"
+                  )}>
+                    {feature.content}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Right side - Icon, description and loader */}
           <div className="order-1 lg:order-2 bg-black backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-10 relative overflow-hidden">
             {/* Abstract geometric design with white outlines */}
             <div className="absolute inset-0 w-full h-full opacity-10">
@@ -134,51 +155,26 @@ export function TechFeatures({
                         {feature.icon}
                       </div>
                     </div>
-                    <p className="text-center text-gray-300 max-w-md mb-8">{feature.content}</p>
+                    <h3 className="text-2xl md:text-3xl font-normal text-white mb-4">{feature.title}</h3>
+                    <p className="text-center text-gray-300 max-w-md">{feature.content}</p>
                     
-                    {/* Custom gradient progress bar */}
-                    <div className="w-full h-[3px] bg-white/10 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-white/40 via-white to-white/40"
-                        style={{ width: `${progress}%`, transition: 'width 0.1s linear' }}
+                    {/* Custom elegant progress bar */}
+                    <div className="w-full mt-8 h-[2px] bg-white/10 rounded-full overflow-hidden">
+                      <motion.div 
+                        className="h-full bg-white"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progress}%` }}
+                        transition={{ duration: 0.1, ease: "linear" }}
                       />
                     </div>
                     
                     {loading && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-20">
-                        {/* Modern geometric loader */}
-                        <div className="relative">
-                          <svg width="80" height="80" viewBox="0 0 80 80">
-                            <circle 
-                              className="opacity-20" 
-                              cx="40" cy="40" r="34" 
-                              fill="none" 
-                              stroke="white" 
-                              strokeWidth="2"
-                            />
-                            <circle 
-                              className="animate-spin origin-center" 
-                              cx="40" cy="40" r="34" 
-                              fill="none" 
-                              stroke="white" 
-                              strokeWidth="4"
-                              strokeDasharray="40 170"
-                              style={{ animationDuration: '2s' }}
-                            />
-                            <circle 
-                              className="animate-ping" 
-                              cx="40" cy="40" r="5" 
-                              fill="white"
-                              style={{ animationDuration: '1.5s' }}
-                            />
-                            <path 
-                              className="animate-pulse" 
-                              d="M30,40 L50,40 M40,30 L40,50" 
-                              stroke="white" 
-                              strokeWidth="1"
-                              style={{ animationDuration: '1s' }}
-                            />
-                          </svg>
+                        <div className="relative w-12 h-12">
+                          <div className="absolute inset-0 border-t-2 border-r-2 border-white/80 rounded-full animate-spin"></div>
+                          <div className="absolute inset-1 border-t-2 border-l-2 border-white/40 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+                          <div className="absolute inset-2 border-b-2 border-r-2 border-white/20 rounded-full animate-spin" style={{ animationDuration: '2s' }}></div>
+                          <div className="absolute inset-3 border-l-2 border-b-2 border-white/10 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '2.5s' }}></div>
                         </div>
                       </div>
                     )}
