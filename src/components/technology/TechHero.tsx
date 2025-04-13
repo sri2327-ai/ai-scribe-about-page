@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -355,12 +356,12 @@ const TechHero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="px-4 py-16 bg-black text-white text-center"
+        className="px-4 py-8 bg-black text-white text-center" // Reduced py from 16 to 8
       >
-        <h2 className="text-3xl md:text-4xl font-normal mb-6">
+        <h2 className="text-3xl md:text-4xl font-normal mb-4">
           Everything You Need for AI-Powered Clinical Excellence
         </h2>
-        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
           Advanced Intelligence. Seamless Automation. Unbreakable Security.
         </p>
         <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm md:text-base">
@@ -386,3 +387,4 @@ const TechHero = () => {
 };
 
 export default TechHero;
+
