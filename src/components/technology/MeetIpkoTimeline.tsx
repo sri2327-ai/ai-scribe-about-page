@@ -1,30 +1,22 @@
-
 import React, { useRef, useEffect, useState } from "react";
 import { Timeline } from "@/components/ui/timeline";
 import { Zap, MessageSquare, Users, Cog } from "lucide-react";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // Separate component for each timeline item with parallax effect
 const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
-  // Precalculate y offset values to avoid conditional hooks
-  const yOffsets = [
+  // Create transform values for each timeline item
+  const yOffset = useTransform(
+    scrollYProgress,
     [0, 1],
-    [0 * 100, -0 * 50],
-    [1 * 100, -1 * 50],
-    [2 * 100, -2 * 50],
-    [3 * 100, -3 * 50],
-  ];
+    [index * 100, -index * 50]
+  );
   
   return (
     <motion.div
       key={index}
-      style={{ 
-        y: scrollYProgress.to(
-          [0, 1],
-          [yOffsets[index][0], yOffsets[index][1]]
-        ) 
-      }}
+      style={{ y: yOffset }}
       className="mb-12 last:mb-0"
     >
       <div className="flex items-center gap-3 mb-3">
