@@ -23,24 +23,32 @@ const TechHero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="w-full px-4 md:px-0"
+            className="w-full px-4 md:px-0 text-center"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-[6rem] font-bold mb-6 leading-tight text-[#555555] font-wix-madefor"
+              className="text-4xl md:text-[6rem] font-bold mb-6 leading-tight font-wix-madefor"
+              style={{
+                background: 'linear-gradient(to left, rgba(51,51,51,0.9) 30%, rgba(85,85,85,1) 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent'
+              }}
             >
-              Advanced AI Innovation & Unbreakable Security
+              AI Innovation with Unbreakable Security
             </motion.h1>
           </motion.div>
         }
       >
-        <img
-          src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-          alt="S10.AI Healthcare Platform"
-          className="w-full h-full object-cover"
-        />
+        <div className="w-full h-full flex justify-center items-center">
+          <img
+            src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+            alt="S10.AI Healthcare Platform"
+            className="w-full h-full object-contain"
+          />
+        </div>
       </ContainerScroll>
     </section>
   );
