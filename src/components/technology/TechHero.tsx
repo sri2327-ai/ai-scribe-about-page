@@ -2,21 +2,20 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
 
   return (
     <section className="relative w-full overflow-hidden">
-      {/* Teal blue semi-circle gradient on black background */}
-      <div 
-        className="absolute inset-0 z-0 bg-black" 
-        style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(30, 174, 219, 0.25) 0%, rgba(18, 105, 132, 0.1) 30%, rgba(0, 0, 0, 0) 70%)',
-          width: '100vw',
-          left: '50%',
-          transform: 'translateX(-50%)',
-        }}
+      {/* Animated gradient background */}
+      <AnimatedGradientBackground 
+        gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
+        gradientStops={[0, 30, 60, 100]}
+        Breathing={true}
+        breathingRange={10}
+        animationSpeed={0.03}
       />
       
       <ContainerScroll
