@@ -72,9 +72,9 @@ export const MeetIpkoPulseBeams = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
       <div className="h-[80vh] min-h-[600px] relative w-full">
-        {/* Added GradientTracing components for background - only render client-side */}
+        {/* Gradient Tracing Background - Positioned properly with z-index to show behind content */}
         {isMounted && (
-          <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute inset-0 z-0">
             <GradientTracing
               width={width}
               height={200}
@@ -82,7 +82,7 @@ export const MeetIpkoPulseBeams = () => {
               gradientColors={["#4ECDC4", "#1EAEDB", "#4ECDC4"]}
               animationDuration={5}
               strokeWidth={3}
-              className="absolute top-[20%]"
+              className="absolute top-[20%] left-0"
             />
             <GradientTracing
               width={width}
@@ -91,7 +91,7 @@ export const MeetIpkoPulseBeams = () => {
               gradientColors={["#1EAEDB", "#9E00FF", "#1EAEDB"]}
               animationDuration={7}
               strokeWidth={3}
-              className="absolute top-[60%]"
+              className="absolute top-[50%] left-0"
             />
             <GradientTracing
               width={width}
@@ -100,7 +100,7 @@ export const MeetIpkoPulseBeams = () => {
               gradientColors={["#9E00FF", "#4ECDC4", "#9E00FF"]}
               animationDuration={6}
               strokeWidth={3}
-              className="absolute top-[40%]"
+              className="absolute top-[80%] left-0"
             />
           </div>
         )}
@@ -111,7 +111,7 @@ export const MeetIpkoPulseBeams = () => {
           className="absolute inset-0 !h-full"
           background={
             <div className="absolute inset-0 bg-black">
-              {/* Black background as requested */}
+              {/* Pure black background as requested */}
             </div>
           }
         >
