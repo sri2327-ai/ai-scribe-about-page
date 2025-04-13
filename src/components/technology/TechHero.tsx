@@ -3,9 +3,15 @@ import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
+import { useGlowEffect } from "@/hooks/use-glow-effect";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
+  const glowContainerRef = useGlowEffect({
+    inactiveZone: 0,
+    proximity: 150,
+    movementDuration: 1.5,
+  });
 
   return (
     <section className="relative w-full bg-black overflow-hidden">
@@ -43,11 +49,39 @@ const TechHero = () => {
         }
       >
         <div className="w-full h-full flex justify-center items-center">
-          <img
-            src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-            alt="S10.AI Healthcare Platform"
-            className="w-full h-full object-contain"
-          />
+          <div 
+            ref={glowContainerRef} 
+            className="relative w-full h-full max-w-5xl flex justify-center items-center"
+            style={{
+              '--active': '1',
+              '--intensity': '2',
+              '--spread': '60',
+              '--start': '0',
+            } as React.CSSProperties}
+          >
+            {/* Glow effect */}
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `
+                  conic-gradient(
+                    from calc(var(--start) * 1deg) at 50% 50%,
+                    rgba(30, 174, 219, 0),
+                    rgba(30, 174, 219, calc(var(--active) * var(--intensity) * 0.4)),
+                    rgba(30, 174, 219, 0)
+                  )
+                `,
+                opacity: 'var(--active)',
+                filter: `blur(calc(var(--spread) * 1px))`,
+              }}
+            />
+            
+            <img
+              src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+              alt="S10.AI Healthcare Platform"
+              className="w-full h-full object-contain z-10 relative"
+            />
+          </div>
         </div>
       </ContainerScroll>
     </section>
