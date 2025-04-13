@@ -48,15 +48,6 @@ const TimelineCard = ({ item }) => {
         <h3 className="text-xl font-bold text-white">{item.title}</h3>
       </div>
       
-      <div className="flex items-start gap-3 mb-3">
-        {item.icon && (
-          <div className="p-2 border border-white/40 rounded-full flex-shrink-0">
-            <item.icon className="w-5 h-5 text-white stroke-1" />
-          </div>
-        )}
-        <h4 className="text-lg font-normal text-white">{item.subtitle}</h4>
-      </div>
-      
       <p className="text-gray-400 text-sm">{item.description}</p>
     </div>
   );
@@ -76,13 +67,9 @@ const MeetIpkoTimeline = () => {
       title: "CCIE",
       subtitle: "Cross-Lingual Conversation Inference Engine",
       description: "Our advanced language processing system enables seamless multilingual communication with 16-language capabilities.",
-      icon: MessageSquare,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 border border-white rounded-full">
-              <MessageSquare className="w-6 h-6 text-white stroke-1" />
-            </div>
             <h4 className="text-xl font-normal text-white">Cross-Lingual Conversation Inference Engine</h4>
           </div>
           <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
@@ -105,13 +92,9 @@ const MeetIpkoTimeline = () => {
       title: "PKIE",
       subtitle: "Physician Knowledge Inference Engine",
       description: "PKIE learns and mimics physician workflows for personalized AI scribing and documentation.",
-      icon: Users,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 border border-white rounded-full">
-              <Users className="w-6 h-6 text-white stroke-1" />
-            </div>
             <h4 className="text-xl font-normal text-white">Physician Knowledge Inference Engine</h4>
           </div>
           <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
@@ -134,13 +117,9 @@ const MeetIpkoTimeline = () => {
       title: "MKIE",
       subtitle: "Medical Knowledge Inference Engine",
       description: "AI-driven clinical pathways for precise documentation improvement and medical validation.",
-      icon: Zap,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 border border-white rounded-full">
-              <Zap className="w-6 h-6 text-white stroke-1" />
-            </div>
             <h4 className="text-xl font-normal text-white">Medical Knowledge Inference Engine</h4>
           </div>
           <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
@@ -163,13 +142,9 @@ const MeetIpkoTimeline = () => {
       title: "IIIE",
       subtitle: "Intuitive Interface Inference Engine",
       description: "Breaks integration barriers for effortless deployment across all healthcare platforms.",
-      icon: Cog,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
-            <div className="p-3 border border-white rounded-full">
-              <Cog className="w-6 h-6 text-white stroke-1" />
-            </div>
             <h4 className="text-xl font-normal text-white">Intuitive Interface Inference Engine</h4>
           </div>
           <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
