@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
-import Image from "next/image";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
@@ -42,13 +41,11 @@ const TechHero = () => {
           <div className="relative w-full h-full max-w-5xl flex justify-center items-center">
             {/* Image without any glowing effect */}
             <div className="relative w-full h-full flex justify-center items-center">
-              <Image
+              <img
                 src="/lovable-uploads/ac240693-c55f-4eca-b8c6-edf937838f40.png"
                 alt="S10.AI Healthcare Platform"
-                layout="fill"
-                objectFit="contain"
-                priority
-                className="z-10 relative"
+                className="w-full h-full object-contain z-10 relative"
+                loading="eager"
               />
             </div>
           </div>
