@@ -34,10 +34,10 @@ export const AnimatedIconTooltip = ({
   };
 
   return (
-    <div className={cn("flex flex-wrap items-center justify-center gap-6", className)}>
+    <div className={cn("flex flex-wrap items-center justify-center gap-8", className)}>
       {items.map((item) => (
         <div
-          className="relative group"
+          className="relative group text-center"
           key={item.id}
           onMouseEnter={() => setHoveredIndex(item.id)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -60,16 +60,12 @@ export const AnimatedIconTooltip = ({
                 style={{
                   translateX: translateX,
                   rotate: rotate,
-                  whiteSpace: "normal",
                 }}
-                className="absolute -top-20 left-1/2 -translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black/30 backdrop-blur-sm text-white z-50 shadow-xl px-4 py-2 max-w-[180px] border border-white/10"
+                className="absolute -top-20 left-1/2 -translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black/30 backdrop-blur-sm text-white z-50 shadow-xl px-4 py-2 w-44 h-20 border border-white/10"
               >
                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px" />
                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px" />
-                <div className="font-bold text-white relative z-30 text-base">
-                  {item.name}
-                </div>
-                <div className="text-gray-300 text-xs text-center mt-1">
+                <div className="text-gray-300 text-xs text-center">
                   {item.description}
                 </div>
               </motion.div>
@@ -77,12 +73,15 @@ export const AnimatedIconTooltip = ({
           </AnimatePresence>
           <div 
             onMouseMove={handleMouseMove}
-            className="bg-black text-white p-4 rounded-full cursor-pointer hover:bg-gray-900 group-hover:scale-105 group-hover:z-30 transition duration-300 border border-gray-800"
+            className="bg-black text-white p-4 rounded-full cursor-pointer hover:bg-gray-900 group-hover:scale-105 group-hover:z-30 transition duration-300 border border-gray-800 mb-2"
           >
             {React.createElement(item.icon, { 
               size: 24,
               className: "text-white" 
             })}
+          </div>
+          <div className="text-sm text-white font-medium mt-2">
+            {item.name}
           </div>
         </div>
       ))}

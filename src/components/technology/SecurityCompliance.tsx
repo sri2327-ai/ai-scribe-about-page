@@ -79,7 +79,7 @@ const SecurityCompliance = () => {
           </h2>
           <p className="text-gray-400 max-w-3xl mx-auto">
             Our platform is built with security-first architecture, ensuring your medical data 
-            is protected by the highest standards in the industry. Hover over each icon to learn more.
+            is protected by the highest standards in the industry.
           </p>
         </motion.div>
         
