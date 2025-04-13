@@ -7,8 +7,16 @@ const TechHero = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="relative w-full bg-black overflow-hidden">
-      {/* Plain black background - no effects */}
+    <section className="relative w-full overflow-hidden">
+      {/* Teal blue gradient on black background */}
+      <div 
+        className="absolute inset-0 z-0" 
+        style={{
+          background: 'linear-gradient(to bottom, rgba(30, 174, 219, 0.15) 0%, rgba(18, 105, 132, 0.05) 50%, rgba(0, 0, 0, 0) 100%)',
+          backgroundBlendMode: 'overlay'
+        }}
+      />
+      
       <ContainerScroll
         titleComponent={
           <motion.div
