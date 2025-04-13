@@ -1,44 +1,39 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { 
-  Shield, 
-  Lock, 
-  FileCheck, 
-  UserCheck
-} from "lucide-react";
+import { Shield, Lock, FileCheck, UserCheck } from "lucide-react";
 import DisplayCards from "@/components/ui/display-cards";
 
 const ProjectSetupChecklist = () => {
   // Define the security cards
   const securityCards = [
     {
-      icon: <Lock className="h-5 w-5 text-blue-400" />,
+      icon: <Lock className="h-5 w-5 text-blue-300" />,
       title: "Encrypted by Default",
       description: "All data is protected with end-to-end encryption—whether at rest or in transit.",
       titleClassName: "text-white",
-      className: "[grid-area:stack] hover:-translate-y-6 transition-all duration-300",
+      className: "[grid-area:stack] hover:-translate-y-6 transition-all duration-300 cursor-pointer",
     },
     {
-      icon: <FileCheck className="h-5 w-5 text-blue-400" />,
+      icon: <FileCheck className="h-5 w-5 text-blue-300" />,
       title: "Built for Compliance",
       description: "Follows HIPAA, GDPR, PIPEDA standards with secure, certified infrastructure.",
       titleClassName: "text-white",
-      className: "[grid-area:stack] translate-x-10 translate-y-8 hover:-translate-y-1 transition-all duration-300",
+      className: "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 transition-all duration-300 cursor-pointer",
     },
     {
-      icon: <UserCheck className="h-5 w-5 text-blue-400" />,
+      icon: <UserCheck className="h-5 w-5 text-blue-300" />,
       title: "Access Control",
       description: "Only you can access your data. Our team sees it only if you ask for help.",
       titleClassName: "text-white",
-      className: "[grid-area:stack] translate-x-20 translate-y-16 hover:translate-y-8 transition-all duration-300",
+      className: "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 transition-all duration-300 cursor-pointer",
     },
     {
-      icon: <Shield className="h-5 w-5 text-blue-400" />,
+      icon: <Shield className="h-5 w-5 text-blue-300" />,
       title: "Privacy-First Processing",
       description: "Personal details are stripped before processing to keep data anonymous.",
       titleClassName: "text-white",
-      className: "[grid-area:stack] translate-x-30 translate-y-24 hover:translate-y-18 transition-all duration-300",
+      className: "[grid-area:stack] translate-x-36 translate-y-30 hover:translate-y-20 transition-all duration-300 cursor-pointer",
     }
   ];
 
@@ -67,7 +62,7 @@ const ProjectSetupChecklist = () => {
           viewport={{ once: true }}
           className="flex justify-center"
         >
-          <div className="min-h-[450px] w-full max-w-3xl">
+          <div className="min-h-[550px] w-full max-w-3xl relative">
             <DisplayCards cards={securityCards} />
           </div>
         </motion.div>
