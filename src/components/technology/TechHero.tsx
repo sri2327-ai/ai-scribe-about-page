@@ -1,4 +1,3 @@
-
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
@@ -8,6 +7,7 @@ import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Shield, ShieldCheck, FileCheck, CheckCircle, Lock, Server, Database, UserCheck } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
 const FloatingSecurityItem = ({ icon: Icon, label, description, position }) => {
   return (
@@ -72,18 +72,15 @@ const TechHero = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Canvas Effect positioned as background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <CanvasEffect id="tech-canvas" className="opacity-40" />
       </div>
       
-      {/* Spotlight effect */}
       <Spotlight
         className="-top-40 left-0 z-10"
         fill="#1EAEDB"
       />
       
-      {/* Floating security icons that appear on hover */}
       {isHovering && (
         <>
           <SecurityIcon icon={Shield} delay={100} />
@@ -127,7 +124,6 @@ const TechHero = () => {
               <p className="text-sm text-[#1EAEDB] font-medium">Secure & HIPAA Compliant</p>
             </motion.div>
             
-            {/* Security Icons with Glassmorphism */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -210,12 +206,20 @@ const TechHero = () => {
         }
       >
         <div className="w-full h-full flex justify-center items-center p-4 md:p-8 relative z-20">
-          <div className="w-full max-w-5xl aspect-[16/9] flex justify-center items-center">
-            <img
-              src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-              alt="S10.AI Healthcare Platform"
-              className="w-full h-full object-contain z-10"
-            />
+          <div className="w-full max-w-5xl aspect-[16/9] flex justify-center items-center relative">
+            <GlowBorderEffect
+              variant="teal"
+              className="absolute inset-0 z-10 pointer-events-none"
+              blur={10}
+              proximity={150}
+              spread={50}
+            >
+              <img
+                src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+                alt="S10.AI Healthcare Platform"
+                className="w-full h-full object-contain z-10 relative"
+              />
+            </GlowBorderEffect>
           </div>
         </div>
       </ContainerScroll>
