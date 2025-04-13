@@ -2,81 +2,39 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
-import { getGradient } from "@/components/ui/effects/gradient-utils";
 
 const companyLogos = [
   {
     id: 1,
     name: "MedCare Health",
-    Component: () => (
-      <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">M</span>
-        </div>
-        <p className="mt-2 text-sm text-gray-300">MedCare Health</p>
-      </div>
-    )
+    letter: "M"
   },
   {
     id: 2,
     name: "HealthTech",
-    Component: () => (
-      <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">H</span>
-        </div>
-        <p className="mt-2 text-sm text-gray-300">HealthTech</p>
-      </div>
-    )
+    letter: "H"
   },
   {
     id: 3,
     name: "Cascade Medical",
-    Component: () => (
-      <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">C</span>
-        </div>
-        <p className="mt-2 text-sm text-gray-300">Cascade Medical</p>
-      </div>
-    )
+    letter: "C"
   },
   {
     id: 4,
     name: "Novant Health",
-    Component: () => (
-      <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">N</span>
-        </div>
-        <p className="mt-2 text-sm text-gray-300">Novant Health</p>
-      </div>
-    )
+    letter: "N"
   },
   {
     id: 5,
     name: "Cedar Clinic",
-    Component: () => (
-      <div className="flex flex-col items-center justify-center">
-        <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-          <span className="text-2xl font-bold text-white">C</span>
-        </div>
-        <p className="mt-2 text-sm text-gray-300">Cedar Clinic</p>
-      </div>
-    )
+    letter: "C"
   },
 ];
 
 const TrustedByExperts = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
-      <div 
-        className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#4F46E5,transparent_70%)] before:opacity-40" 
-        style={{
-          background: getGradient('teal', 0.8)
-        }}
-      />
-      <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-zinc-900/20 dark:border-white/20 bg-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#121212] to-black opacity-90" />
       
       <motion.div
         initial={{ opacity: 0 }}
@@ -106,8 +64,12 @@ const TrustedByExperts = () => {
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: logo.id * 0.1 }}
+                className="flex flex-col items-center"
               >
-                <logo.Component />
+                <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
+                  <span className="text-2xl font-bold text-white">{logo.letter}</span>
+                </div>
+                <p className="mt-2 text-sm text-gray-300">{logo.name}</p>
               </motion.div>
             ))}
           </div>
