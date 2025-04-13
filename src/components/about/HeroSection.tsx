@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { SplineSceneBasic } from "@/components/ui/demo";
 import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const HeroSection = () => {
   const scrollToNextSection = () => {
@@ -14,6 +15,12 @@ const HeroSection = () => {
 
   return (
     <div className="relative h-screen flex flex-col items-center justify-center bg-black overflow-hidden border-0">
+      {/* Spotlight effect */}
+      <Spotlight
+        className="inset-0 z-0"
+        fill="#1EAEDB"
+      />
+      
       {/* Center content container */}
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center border-0 w-full">
         <motion.div
