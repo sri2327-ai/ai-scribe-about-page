@@ -2,20 +2,17 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="relative w-full overflow-hidden">
-      {/* Animated gradient background */}
-      <AnimatedGradientBackground 
-        gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
-        gradientStops={[0, 30, 60, 100]}
-        Breathing={true}
-        breathingRange={10}
-        animationSpeed={0.03}
+    <section className="relative w-full overflow-hidden bg-black">
+      {/* Spotlight effect */}
+      <Spotlight
+        className="-top-40 left-0"
+        fill="#1EAEDB"
       />
       
       <ContainerScroll
