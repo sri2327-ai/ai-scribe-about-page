@@ -45,62 +45,70 @@ const GlowBorderEffect = memo(
 
     return (
       <>
-        {/* Visible border that's always present - higher opacity for better visibility */}
+        {/* Transparent base that follows image contours without visible background */}
         <div
           className={cn(
-            "pointer-events-none absolute -inset-px rounded-[inherit] border-[3px] border-tealBlueBright/50 transition-opacity duration-300",
+            "pointer-events-none absolute inset-0 -m-[2px]",
             disabled && "hidden"
           )}
-        />
-        
-        {/* Second outline for dual border effect - more visible */}
-        {dualBorder && (
+        >
+          {/* Single glowing border that follows image - no black background */}
           <div
             className={cn(
-              "pointer-events-none absolute -inset-[5px] rounded-[inherit] border-[2px] border-tealBlueBright/30 transition-opacity duration-300",
+              "pointer-events-none absolute inset-0 rounded-[inherit] border-[3px] border-tealBlueBright/50 transition-opacity duration-300",
               disabled && "hidden"
             )}
           />
-        )}
-        
-        {/* Glowing effect container */}
-        <div
-          ref={containerRef}
-          style={
-            {
-              "--blur": `${blur}px`,
-              "--spread": spread,
-              "--start": "0",
-              "--active": "1", // Always active
-              "--intensity": "2.5", // Higher intensity
-              "--glowingeffect-border-width": `${borderWidth}px`,
-              "--repeating-conic-gradient-times": "5",
-              "--gradient": gradient,
-            } as React.CSSProperties
-          }
-          className={cn(
-            "pointer-events-none absolute inset-0 rounded-[inherit] opacity-100 transition-all duration-300",
-            glow && "opacity-100",
-            blur > 0 && "blur-[var(--blur)]",
-            className,
-            disabled && "!hidden"
+          
+          {/* Second outline for dual border effect - more visible */}
+          {dualBorder && (
+            <div
+              className={cn(
+                "pointer-events-none absolute -inset-[2px] rounded-[inherit] border-[1px] border-tealBlueBright/30 transition-opacity duration-300",
+                disabled && "hidden"
+              )}
+            />
           )}
-        >
+          
+          {/* Glowing effect container */}
           <div
+            ref={containerRef}
+            style={
+              {
+                "--blur": `${blur}px`,
+                "--spread": spread,
+                "--start": "0",
+                "--active": "1", // Always active
+                "--intensity": "2.5", // Higher intensity
+                "--glowingeffect-border-width": `${borderWidth}px`,
+                "--repeating-conic-gradient-times": "5",
+                "--gradient": gradient,
+              } as React.CSSProperties
+            }
             className={cn(
-              "glow",
-              "rounded-[inherit]",
-              'after:content-[""] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))]',
-              "after:[border:var(--glowingeffect-border-width)_solid_transparent]",
-              "after:[background:var(--gradient)]",
-              "after:opacity-[var(--active)]", 
-              "after:transition-all after:duration-300",
-              "after:[mask-clip:padding-box,border-box]",
-              "after:[mask-composite:intersect]",
-              "after:scale-[var(--intensity)]",
-              "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
+              "pointer-events-none absolute inset-0 rounded-[inherit] opacity-100 transition-all duration-300",
+              glow && "opacity-100",
+              blur > 0 && "blur-[var(--blur)]",
+              className,
+              disabled && "!hidden"
             )}
-          />
+          >
+            <div
+              className={cn(
+                "glow",
+                "rounded-[inherit]",
+                'after:content-[""] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))]',
+                "after:[border:var(--glowingeffect-border-width)_solid_transparent]",
+                "after:[background:var(--gradient)]",
+                "after:opacity-[var(--active)]", 
+                "after:transition-all after:duration-300",
+                "after:[mask-clip:padding-box,border-box]",
+                "after:[mask-composite:intersect]",
+                "after:scale-[var(--intensity)]",
+                "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
+              )}
+            />
+          </div>
         </div>
       </>
     );
