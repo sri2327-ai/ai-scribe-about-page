@@ -7,30 +7,38 @@ import {
   FileCheck, 
   UserCheck
 } from "lucide-react";
-import SecurityStackedCards from "@/components/ui/security-stacked-cards";
+import DisplayCards from "@/components/ui/display-cards";
 
 const ProjectSetupChecklist = () => {
-  // Define the security items for the stacked cards
+  // Define the security cards
   const securityCards = [
     {
-      icon: Lock,
+      icon: <Lock className="h-5 w-5 text-blue-400" />,
       title: "Encrypted by Default",
-      description: "All data is protected with end-to-end encryption—whether at rest or in transit."
+      description: "All data is protected with end-to-end encryption—whether at rest or in transit.",
+      titleClassName: "text-white",
+      className: "[grid-area:stack] hover:-translate-y-6 transition-all duration-300",
     },
     {
-      icon: FileCheck,
+      icon: <FileCheck className="h-5 w-5 text-blue-400" />,
       title: "Built for Compliance",
-      description: "Follows HIPAA, GDPR, PIPEDA standards with secure, certified infrastructure."
+      description: "Follows HIPAA, GDPR, PIPEDA standards with secure, certified infrastructure.",
+      titleClassName: "text-white",
+      className: "[grid-area:stack] translate-x-10 translate-y-8 hover:-translate-y-1 transition-all duration-300",
     },
     {
-      icon: UserCheck,
+      icon: <UserCheck className="h-5 w-5 text-blue-400" />,
       title: "Access Control",
-      description: "Only you can access your data. Our team sees it only if you ask for help."
+      description: "Only you can access your data. Our team sees it only if you ask for help.",
+      titleClassName: "text-white",
+      className: "[grid-area:stack] translate-x-20 translate-y-16 hover:translate-y-8 transition-all duration-300",
     },
     {
-      icon: Shield,
+      icon: <Shield className="h-5 w-5 text-blue-400" />,
       title: "Privacy-First Processing",
-      description: "Personal details are stripped before processing to keep data anonymous."
+      description: "Personal details are stripped before processing to keep data anonymous.",
+      titleClassName: "text-white",
+      className: "[grid-area:stack] translate-x-30 translate-y-24 hover:translate-y-18 transition-all duration-300",
     }
   ];
 
@@ -44,7 +52,7 @@ const ProjectSetupChecklist = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             How S10.AI Keeps Your Data Safe
           </h2>
           <p className="text-blue-100/80 max-w-3xl mx-auto">
@@ -57,9 +65,11 @@ const ProjectSetupChecklist = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="flex justify-center mb-12"
+          className="flex justify-center"
         >
-          <SecurityStackedCards cards={securityCards} />
+          <div className="min-h-[450px] w-full max-w-3xl">
+            <DisplayCards cards={securityCards} />
+          </div>
         </motion.div>
       </div>
     </section>
