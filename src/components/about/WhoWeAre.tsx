@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Card, CardContent } from "@/components/ui/card";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
 const features = [
@@ -69,9 +68,9 @@ const WhoWeAre = () => {
               onMouseLeave={() => setHoveredIndex(null)}
             >
               <div 
-                className="relative rounded-lg border border-neutral-800 bg-black overflow-hidden transition-all duration-300 h-[260px] flex flex-col group"
+                className="relative rounded-lg border border-neutral-700/50 bg-black overflow-hidden transition-all duration-300 h-[260px] flex flex-col group"
                 style={{
-                  borderColor: hoveredIndex === index ? 'rgba(120, 120, 120, 0.4)' : 'rgba(80, 80, 80, 0.2)'
+                  borderColor: hoveredIndex === index ? 'rgba(120, 120, 120, 0.6)' : 'rgba(80, 80, 80, 0.4)'
                 }}
               >
                 {/* Glow effect on hover */}
@@ -105,14 +104,6 @@ const WhoWeAre = () => {
                       {feature.description}
                     </p>
                   </div>
-                  
-                  {/* Visual indicator for hover state */}
-                  <div 
-                    className="h-1 w-0 bg-gradient-to-r from-neutral-400 to-neutral-600 transition-all duration-500 mt-4 group-hover:w-full"
-                    style={{ 
-                      width: hoveredIndex === index ? '100%' : '0%'
-                    }}
-                  />
                 </div>
               </div>
             </motion.div>
