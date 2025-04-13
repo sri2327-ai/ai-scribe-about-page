@@ -15,25 +15,25 @@ export function SplineSceneBasic() {
           >
             <span className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: `linear-gradient(90deg, rgba(200,200,200,0.9) 0%, rgba(220,220,220,1) 100%)`,
+                backgroundImage: `linear-gradient(90deg, rgba(100,100,100,0.2) 0%, rgba(120,120,120,0.7) 50%, rgba(80,80,80,0.9) 100%)`,
                 backgroundSize: "100%",
               }}
             >Smarter</span>{" "}
             <span className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: `linear-gradient(90deg, rgba(220,220,220,0.9) 0%, rgba(240,240,240,1) 100%)`,
+                backgroundImage: `linear-gradient(90deg, rgba(120,120,120,0.7) 0%, rgba(140,140,140,0.8) 50%, rgba(100,100,100,0.9) 100%)`,
                 backgroundSize: "100%",
               }}
             >Healthcare</span>{" "}
             <span className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: `linear-gradient(90deg, rgba(200,200,200,0.9) 0%, rgba(220,220,220,1) 100%)`,
+                backgroundImage: `linear-gradient(90deg, rgba(100,100,100,0.2) 0%, rgba(120,120,120,0.7) 50%, rgba(80,80,80,0.9) 100%)`,
                 backgroundSize: "100%",
               }}
             >Starts</span>{" "}
             <span className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: `linear-gradient(90deg, rgba(220,220,220,0.9) 0%, rgba(240,240,240,1) 100%)`,
+                backgroundImage: `linear-gradient(90deg, rgba(120,120,120,0.7) 0%, rgba(140,140,140,0.8) 50%, rgba(100,100,100,0.9) 100%)`,
                 backgroundSize: "100%",
               }}
             >Here</span>
