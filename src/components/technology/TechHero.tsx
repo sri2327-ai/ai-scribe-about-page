@@ -22,7 +22,7 @@ import {
   Bot,
   Network,
   Layers,
-  Chip,
+  Terminal,  // Replace Chip with Terminal as a placeholder
   Cloud,
   CloudCog,
   ShieldAlert
@@ -164,7 +164,7 @@ const TechHero = () => {
       }
     },
     {
-      icon: Chip,
+      icon: Terminal,  // Changed from Chip to Terminal
       position: { top: "65%", right: "20%" },
       delay: 1100,
       tooltip: {
