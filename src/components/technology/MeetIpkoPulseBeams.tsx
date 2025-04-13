@@ -72,35 +72,35 @@ export const MeetIpkoPulseBeams = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
       <div className="h-[80vh] min-h-[600px] relative w-full">
-        {/* Gradient Tracing Background - Positioned properly with z-index to show behind content */}
+        {/* Gradient Tracing Background - Full width with animation across entire screen */}
         {isMounted && (
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 w-full overflow-hidden">
             <GradientTracing
-              width={width}
+              width={width || window.innerWidth}
               height={200}
-              path={`M0,100 C${width * 0.3},50 ${width * 0.7},150 ${width},100`}
+              path={`M0,100 C${(width || window.innerWidth) * 0.3},50 ${(width || window.innerWidth) * 0.7},150 ${width || window.innerWidth},100`}
               gradientColors={["#4ECDC4", "#1EAEDB", "#4ECDC4"]}
-              animationDuration={5}
+              animationDuration={15}
               strokeWidth={3}
-              className="absolute top-[20%] left-0"
+              className="absolute top-[20%] left-0 w-full"
             />
             <GradientTracing
-              width={width}
+              width={width || window.innerWidth}
               height={200}
-              path={`M0,100 C${width * 0.4},180 ${width * 0.6},20 ${width},100`}
+              path={`M0,100 C${(width || window.innerWidth) * 0.4},180 ${(width || window.innerWidth) * 0.6},20 ${width || window.innerWidth},100`}
               gradientColors={["#1EAEDB", "#9E00FF", "#1EAEDB"]}
-              animationDuration={7}
+              animationDuration={18}
               strokeWidth={3}
-              className="absolute top-[50%] left-0"
+              className="absolute top-[50%] left-0 w-full"
             />
             <GradientTracing
-              width={width}
+              width={width || window.innerWidth}
               height={200}
-              path={`M0,100 C${width * 0.2},20 ${width * 0.8},180 ${width},100`}
+              path={`M0,100 C${(width || window.innerWidth) * 0.2},20 ${(width || window.innerWidth) * 0.8},180 ${width || window.innerWidth},100`}
               gradientColors={["#9E00FF", "#4ECDC4", "#9E00FF"]}
-              animationDuration={6}
+              animationDuration={20}
               strokeWidth={3}
-              className="absolute top-[80%] left-0"
+              className="absolute top-[80%] left-0 w-full"
             />
           </div>
         )}

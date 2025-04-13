@@ -34,6 +34,7 @@ export const GradientTracing: React.FC<GradientTracingProps> = ({
         height={height}
         viewBox={`0 0 ${width} ${height}`}
         fill="none"
+        preserveAspectRatio="xMinYMid meet"
       >
         <path
           d={path}
@@ -57,12 +58,13 @@ export const GradientTracing: React.FC<GradientTracingProps> = ({
               duration: animationDuration,
               repeat: Infinity,
               ease: "linear",
+              repeatType: "loop"
             }}
             id={gradientId}
             gradientUnits="userSpaceOnUse"
           >
             <stop stopColor={gradientColors[0]} stopOpacity="0" />
-            <stop stopColor={gradientColors[1]} />
+            <stop offset="0.5" stopColor={gradientColors[1]} />
             <stop offset="1" stopColor={gradientColors[2]} stopOpacity="0" />
           </motion.linearGradient>
         </defs>
