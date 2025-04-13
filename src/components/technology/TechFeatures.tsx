@@ -3,10 +3,9 @@
 
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Clock, CheckCircle, DollarSign, Heart, Cpu } from "lucide-react"
+import { Brain, Workflow, BarChart3, HeartPulse, Bot } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { Skeleton } from "@/components/ui/skeleton"
 
 interface Feature {
   step: string
@@ -149,17 +148,35 @@ export function TechFeatures({
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                   >
-                    <div className="border-2 border-white p-8 rounded-full mb-8 relative">
-                      <div className="absolute inset-0 rounded-full blur-sm bg-white/5"></div>
-                      <div className="w-16 h-16 flex items-center justify-center text-white relative z-10">
-                        {feature.icon}
+                    {/* Large icon in center of the card with intricate white outline design */}
+                    <div className="w-full h-full flex items-center justify-center">
+                      <div className="relative">
+                        {/* Decorative elements - circular rings */}
+                        <div className="absolute -inset-8 border-2 border-white/20 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
+                        <div className="absolute -inset-16 border border-white/10 rounded-full animate-pulse" style={{ animationDuration: '4s' }}></div>
+                        <div className="absolute -inset-24 border border-white/5 rounded-full animate-pulse" style={{ animationDuration: '5s' }}></div>
+                        
+                        {/* Connected lines */}
+                        <svg className="absolute -inset-32 w-[calc(100%+256px)] h-[calc(100%+256px)]" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                          <g fill="none" stroke="white" strokeWidth="1" opacity="0.2">
+                            <path d="M200,50 L200,350" />
+                            <path d="M50,200 L350,200" />
+                            <path d="M80,80 L320,320" />
+                            <path d="M320,80 L80,320" />
+                          </g>
+                        </svg>
+                        
+                        {/* Main icon circle */}
+                        <div className="relative w-48 h-48 rounded-full bg-black border-4 border-white flex items-center justify-center">
+                          <div className="w-32 h-32 text-white">
+                            {feature.icon}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <h3 className="text-2xl md:text-3xl font-normal text-white mb-4">{feature.title}</h3>
-                    <p className="text-center text-gray-300 max-w-md">{feature.content}</p>
                     
-                    {/* Custom elegant progress bar */}
-                    <div className="w-full mt-8 h-[2px] bg-white/10 rounded-full overflow-hidden">
+                    {/* Custom elegant progress bar at bottom */}
+                    <div className="absolute bottom-6 left-0 right-0 w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
                       <motion.div 
                         className="h-full bg-white"
                         initial={{ width: 0 }}
@@ -170,11 +187,16 @@ export function TechFeatures({
                     
                     {loading && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-20">
-                        <div className="relative w-12 h-12">
+                        <div className="relative w-16 h-16">
+                          {/* Geometric loader with white outlines */}
                           <div className="absolute inset-0 border-t-2 border-r-2 border-white/80 rounded-full animate-spin"></div>
-                          <div className="absolute inset-1 border-t-2 border-l-2 border-white/40 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
-                          <div className="absolute inset-2 border-b-2 border-r-2 border-white/20 rounded-full animate-spin" style={{ animationDuration: '2s' }}></div>
-                          <div className="absolute inset-3 border-l-2 border-b-2 border-white/10 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '2.5s' }}></div>
+                          <div className="absolute inset-4 border-b-2 border-l-2 border-white/60 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
+                          <div className="absolute inset-0 w-full h-full flex items-center justify-center">
+                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                          </div>
+                          {/* Cross lines */}
+                          <div className="absolute h-[1px] w-full top-1/2 -translate-y-1/2 bg-white/30 animate-pulse"></div>
+                          <div className="absolute w-[1px] h-full left-1/2 -translate-x-1/2 bg-white/30 animate-pulse"></div>
                         </div>
                       </div>
                     )}
@@ -195,31 +217,31 @@ const TechFeaturesContent = () => {
       step: 'Step 1',
       title: 'Real-Time, 24/7 Automation',
       content: 'Always available, no downtime. Our AI systems work around the clock providing continuous service and support.',
-      icon: <Clock className="w-10 h-10 stroke-[1.5] text-white" />
+      icon: <Brain className="w-full h-full stroke-[1] text-white" />
     },
     {
       step: 'Step 2',
       title: 'Unmatched Accuracy',
       content: 'AI-driven precision for documentation & workflows, ensuring clinical details are captured with exceptional fidelity.',
-      icon: <CheckCircle className="w-10 h-10 stroke-[1.5] text-white" />
+      icon: <Workflow className="w-full h-full stroke-[1] text-white" />
     },
     {
       step: 'Step 3',
       title: 'Cost-Effective Efficiency',
       content: 'Reduces overhead without sacrificing quality, allowing healthcare providers to allocate resources more effectively.',
-      icon: <DollarSign className="w-10 h-10 stroke-[1.5] text-white" />
+      icon: <BarChart3 className="w-full h-full stroke-[1] text-white" />
     },
     {
       step: 'Step 4',
       title: 'Enhanced Patient Care',
       content: 'AI automation for faster, better decision-making, enabling clinicians to focus more on direct patient care.',
-      icon: <Heart className="w-10 h-10 stroke-[1.5] text-white" />
+      icon: <HeartPulse className="w-full h-full stroke-[1] text-white" />
     },
     {
       step: 'Step 5',
       title: 'Autonomous Operations',
       content: 'AI-powered staffing, scribing & clinical support that works intelligently alongside your team.',
-      icon: <Cpu className="w-10 h-10 stroke-[1.5] text-white" />
+      icon: <Bot className="w-full h-full stroke-[1] text-white" />
     },
   ]
 
