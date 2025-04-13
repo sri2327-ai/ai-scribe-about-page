@@ -61,7 +61,7 @@ export const MeetIpkoPulseBeams = () => {
   ];
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 overflow-hidden bg-black">
       <div className="h-[80vh] min-h-[600px] relative w-full">
         <PulseBeams 
           beams={ipkoBeams}
@@ -75,6 +75,7 @@ export const MeetIpkoPulseBeams = () => {
                 Breathing={true}
                 breathingRange={15}
                 animationSpeed={0.03}
+                startingGap={150}
               />
             </div>
           }

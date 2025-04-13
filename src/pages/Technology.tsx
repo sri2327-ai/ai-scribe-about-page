@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,7 @@ const Technology = () => {
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
 
-        {/* Meet IPKO Animation Section - Replaced with Pulse Beams */}
+        {/* Meet IPKO Animation Section - Pulse Beams */}
         <MeetIpkoPulseBeams />
 
         {/* Technology Components */}

@@ -169,5 +169,4 @@ const defaultBeams = [
       y2: "50%",
     },
   },
-  // Add more beams as needed for different effects
 ];
