@@ -41,7 +41,7 @@ const ProjectSetupChecklist = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+          <h2 className="text-3xl md:text-4xl font-normal mb-4 text-white">
             How S10.AI Keeps Your Data Safe
           </h2>
         </motion.div>
