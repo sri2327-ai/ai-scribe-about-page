@@ -1,4 +1,3 @@
-
 "use client";
 
 import { memo, useEffect, useState } from "react";
@@ -60,7 +59,6 @@ const testimonials: Testimonial[] = [
   },
 ];
 
-// Stacked Card View Component - reused for mobile and modal
 const StackedCardView = ({ 
   displayCount = 3, 
   initialActiveIndex = 0,
@@ -137,7 +135,6 @@ const StackedCardView = ({
   );
 };
 
-// Desktop Carousel using ShadCN Carousel
 const TestimonialDesktopCarousel = ({ testimonials, onSelect }) => {
   return (
     <Carousel className="w-full max-w-5xl mx-auto">
@@ -186,12 +183,11 @@ const TrustedBy = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl xs:text-3xl md:text-4xl font-bold mb-3 xs:mb-4 md:mb-6 text-white">Trusted by 1000+ Clinicians</h2>
+          <h2 className="text-2xl xs:text-3xl md:text-4xl font-normal mb-3 xs:mb-4 md:mb-6 text-white">Trusted by 1000+ Clinicians</h2>
           <div className="w-12 xs:w-16 md:w-20 h-[1px] bg-gray-700 mx-auto"></div>
         </motion.div>
         
         <div className="relative w-full">
-          {/* Mobile View: Stacked Cards */}
           {isMobile ? (
             <div className="h-[280px] mb-4">
               <StackedCardView 
@@ -202,14 +198,12 @@ const TrustedBy = () => {
               />
             </div>
           ) : (
-            /* Desktop View: Carousel */
             <TestimonialDesktopCarousel 
               testimonials={testimonials} 
               onSelect={(testimonial) => setActiveTestimonial(testimonial)}
             />
           )}
           
-          {/* Testimonial Modal */}
           <AnimatePresence>
             {activeTestimonial && (
               <motion.div
@@ -258,7 +252,7 @@ const TrustedBy = () => {
           viewport={{ once: true }}
         >
           <Button 
-            className="rounded-full px-6 py-6 bg-transparent border border-white hover:bg-white/10 text-white font-semibold text-sm xs:text-base flex items-center gap-2 h-auto"
+            className="rounded-full px-6 py-6 bg-transparent border border-white hover:bg-white/10 text-white font-normal text-sm xs:text-base flex items-center gap-2 h-auto"
             onClick={() => window.location.href = "/contact"}
           >
             Contact Us <ArrowRight className="ml-1 h-4 w-4" />

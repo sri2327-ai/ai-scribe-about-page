@@ -49,7 +49,7 @@ export default function TeamSection() {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white font-wix-madefor">Meet The Team</h2>
+          <h2 className="text-3xl md:text-4xl font-normal mb-6 text-white font-wix-madefor">Meet The Team</h2>
         </motion.div>
         
         {/* Additional padding for mobile view */}

@@ -78,7 +78,7 @@ const MissionVision = () => {
             initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sm:mb-10 text-center font-wix-madefor"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6 sm:mb-10 text-center font-wix-madefor"
           >
             Our Vision
           </motion.h2>

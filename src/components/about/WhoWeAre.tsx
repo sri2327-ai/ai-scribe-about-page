@@ -52,7 +52,7 @@ const WhoWeAre = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold mb-4 sm:mb-6 text-white font-wix-madefor">Who We Are</h2>
+          <h2 className="text-2xl xs:text-3xl sm:text-4xl font-normal mb-4 sm:mb-6 text-white font-wix-madefor">Who We Are</h2>
         </motion.div>
         
         <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-6 lg:gap-8">
@@ -91,7 +91,7 @@ const WhoWeAre = () => {
                       })}
                     </div>
                     
-                    <h3 className="text-2xl font-semibold mb-3 text-white font-wix-madefor">
+                    <h3 className="text-2xl font-normal mb-3 text-white font-wix-madefor">
                       {feature.title}
                     </h3>
                     
@@ -117,4 +117,3 @@ const WhoWeAre = () => {
 };
 
 export default WhoWeAre;
-

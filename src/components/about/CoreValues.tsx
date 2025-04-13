@@ -43,7 +43,7 @@ const CoreValues = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-4xl font-bold mb-6 text-white">Our Core Values</h2>
+          <h2 className="text-4xl font-normal mb-6 text-white">Our Core Values</h2>
         </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-0 divide-y md:divide-y-0 md:divide-x divide-gray-800">
@@ -62,7 +62,7 @@ const CoreValues = () => {
                   <div className="bg-black/80 p-3 rounded-full mb-6 inline-flex items-center justify-center">
                     {value.icon}
                   </div>
-                  <h3 className="text-xl font-semibold mb-4 text-white">{value.title}</h3>
+                  <h3 className="text-xl font-normal mb-4 text-white">{value.title}</h3>
                   <p className="text-gray-400 leading-relaxed">{value.description}</p>
                 </div>
               </div>
