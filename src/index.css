@@ -138,7 +138,7 @@
   }
 }
 
-/* Enhanced Metallic 3D text effect */
+/* Enhanced Metallic 3D text effect - Improved for huly.io style */
 .text-metallic {
   background: linear-gradient(180deg, 
     #ffffff 0%, 
@@ -154,7 +154,8 @@
     0 0 3px rgba(255, 255, 255, 0.5),
     0 1px 2px rgba(0, 0, 0, 0.4),
     0 2px 5px rgba(0, 0, 0, 0.5),
-    0 5px 10px rgba(0, 0, 0, 0.25);
+    0 5px 10px rgba(0, 0, 0, 0.25),
+    0 10px 20px rgba(78, 85, 219, 0.2);
   position: relative;
   font-weight: 700;
   letter-spacing: -0.03em;
@@ -211,6 +212,19 @@
   }
 }
 
+/* Huly.io inspired animations and styles */
+.huly-card {
+  @apply bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300;
+}
+
+.huly-gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400;
+}
+
+.huly-button {
+  @apply bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20;
+}
+
 /* Meet IPKO Animation Styles */
 @keyframes dash {
   to {
@@ -240,4 +254,38 @@
 
 .float {
   animation: float 6s ease-in-out infinite;
+}
+
+/* Huly.io inspiration: Glowing element effect */
+.glow {
+  position: relative;
+}
+
+.glow::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #4F46E5, #A855F7, #3B82F6);
+  border-radius: inherit;
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow:hover::before {
+  opacity: 0.7;
+}
+
+/* Huly.io inspiration: Card hover effect */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(78, 85, 219, 0.2);
 }

@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import { Code, Database, Cpu, Server, Layers, Shield } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { StarBorder } from "@/components/ui/star-border";
 
 const solutions = [
   {
@@ -41,7 +40,7 @@ const TechSolutions = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className={`${isMobile ? 'py-12' : 'py-20'} bg-black`}>
+    <section className={`${isMobile ? 'py-12' : 'py-20'} bg-gradient-to-br from-black via-blue-950/20 to-purple-950/20`}>
       <div className="container mx-auto px-4">
         <motion.div 
           className="text-center mb-12"
@@ -50,8 +49,8 @@ const TechSolutions = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white font-wix-madefor">Our Technology Solutions</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400 font-wix-madefor">Our Technology Solutions</h2>
+          <p className="text-blue-100/90 max-w-2xl mx-auto">
             Delivering intelligent systems that enhance medical workflow efficiency and accuracy through innovative technology.
           </p>
         </motion.div>
@@ -60,26 +59,19 @@ const TechSolutions = () => {
           {solutions.map((solution, index) => (
             <motion.div
               key={index}
-              className="relative h-full"
+              className="relative h-full card-hover"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <StarBorder 
-                as="div" 
-                className="w-full h-full flex flex-col" 
-                color="#4ECDC4"
-                speed={`${5 + (index % 3)}s`}
-              >
-                <div className="p-6 flex flex-col h-[240px]">
-                  <div className="bg-blue-950/30 p-3 rounded-lg mb-4 inline-block w-fit">
-                    {solution.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold mb-3 text-white font-wix-madefor">{solution.title}</h3>
-                  <p className="text-gray-400 leading-relaxed font-wix-madefor line-clamp-4">{solution.description}</p>
+              <div className="p-6 h-full bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+                <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-3 rounded-lg mb-4 inline-block w-fit">
+                  {solution.icon}
                 </div>
-              </StarBorder>
+                <h3 className="text-xl font-semibold mb-3 text-blue-300 font-wix-madefor">{solution.title}</h3>
+                <p className="text-gray-300 leading-relaxed font-wix-madefor">{solution.description}</p>
+              </div>
             </motion.div>
           ))}
         </div>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LampSection } from "@/components/ui/lamp";
-import { Shield, Clock, CheckCircle, DollarSign, Users, ExternalLink } from "lucide-react";
+import { Shield, Clock, CheckCircle, DollarSign, Users, ExternalLink, ArrowRight } from "lucide-react";
 import { 
   Carousel,
   CarouselContent,
@@ -17,6 +17,9 @@ import { StarBorder } from "@/components/ui/star-border";
 import TechHero from "@/components/technology/TechHero";
 import MatrixRain from "@/components/ui/matrix-rain";
 import { MeetIpkoAnimation } from "@/components/technology/MeetIpkoAnimation";
+import TechInnovation from "@/components/technology/TechInnovation";
+import TechSolutions from "@/components/technology/TechSolutions";
+import TechArchitecture from "@/components/technology/TechArchitecture";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -66,7 +69,7 @@ const Technology = () => {
               fadeOpacity={0.05}
               speed={0.8}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 to-black/80" />
+            <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 via-purple-900/30 to-black/80" />
           </div>
           
           <div className="container relative z-10 mx-auto px-4">
@@ -85,7 +88,7 @@ const Technology = () => {
         </section>
 
         {/* Meet IPKO Animation Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-black to-blue-950">
+        <section className="py-16 md:py-24 bg-gradient-to-b from-black via-blue-950/40 to-purple-950/30">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -117,8 +120,8 @@ const Technology = () => {
           </div>
         </section>
 
-        {/* IPKO Section */}
-        <section className="py-16 md:py-24 bg-black">
+        {/* IPKO Section - Redesigned with Huly.io style */}
+        <section className="py-16 md:py-28 bg-gradient-to-br from-black via-blue-950/20 to-purple-950/20">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -127,10 +130,10 @@ const Technology = () => {
               viewport={{ once: true }}
               className="max-w-4xl mx-auto text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                 Meet IPKO – The Intelligent Physician Knowledge Orchestrator
               </h2>
-              <p className="text-xl text-blue-100">
+              <p className="text-xl text-blue-100/90">
                 IPKO, built on S10's patented AI, leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
               </p>
             </motion.div>
@@ -146,17 +149,10 @@ const Technology = () => {
                     viewport={{ once: true }}
                     className="w-full"
                   >
-                    <StarBorder 
-                      as="div" 
-                      className="w-full" 
-                      color="#4ECDC4"
-                      speed={`${5 + (index % 3)}s`}
-                    >
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-3 text-white">{card.title}</h3>
-                        <p className="text-gray-300">{card.description}</p>
-                      </div>
-                    </StarBorder>
+                    <div className="p-6 bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+                      <h3 className="text-xl font-semibold mb-3 text-blue-300">{card.title}</h3>
+                      <p className="text-gray-300">{card.description}</p>
+                    </div>
                   </motion.div>
                 ))}
               </div>
@@ -175,32 +171,30 @@ const Technology = () => {
                         viewport={{ once: true }}
                         className="h-full"
                       >
-                        <StarBorder 
-                          as="div" 
-                          className="h-full" 
-                          color="#4ECDC4"
-                          speed={`${5 + (index % 3)}s`}
-                        >
-                          <div className="p-6 h-48">
-                            <h3 className="text-xl font-semibold mb-3 text-white">{card.title}</h3>
-                            <p className="text-gray-300 line-clamp-3">{card.description}</p>
-                          </div>
-                        </StarBorder>
+                        <div className="p-6 h-48 bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+                          <h3 className="text-xl font-semibold mb-3 text-blue-300">{card.title}</h3>
+                          <p className="text-gray-300 line-clamp-3">{card.description}</p>
+                        </div>
                       </motion.div>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
                 <div className="flex justify-center mt-8 gap-4">
-                  <CarouselPrevious className="relative static" />
-                  <CarouselNext className="relative static" />
+                  <CarouselPrevious className="relative static border-blue-500/50 hover:bg-blue-500/20 text-blue-300" />
+                  <CarouselNext className="relative static border-blue-500/50 hover:bg-blue-500/20 text-blue-300" />
                 </div>
               </Carousel>
             )}
           </div>
         </section>
 
-        {/* Technology That Delivers Section */}
-        <section className="py-16 md:py-24 bg-blue-950">
+        {/* Technology Components */}
+        <TechSolutions />
+        <TechArchitecture />
+        <TechInnovation />
+
+        {/* Technology That Delivers Section - Huly.io style */}
+        <section className="py-16 md:py-28 bg-gradient-to-br from-blue-950/40 via-indigo-950/30 to-purple-950/20">
           <div className="container mx-auto px-4">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -209,7 +203,7 @@ const Technology = () => {
               viewport={{ once: true }}
               className="max-w-4xl mx-auto text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
                 Technology That Delivers
               </h2>
             </motion.div>
@@ -222,14 +216,14 @@ const Technology = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="border border-blue-400/30 rounded-lg p-6 bg-blue-900/20"
+                  className="rounded-2xl p-6 backdrop-blur-sm bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300"
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="bg-blue-500 p-2 rounded-lg">
+                    <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-2 rounded-lg">
                       {feature.icon}
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
+                      <h3 className="text-xl font-semibold text-blue-300 mb-2">{feature.title}</h3>
                       <p className="text-blue-100/80">{feature.description}</p>
                     </div>
                   </div>
@@ -241,54 +235,76 @@ const Technology = () => {
               <p className="text-2xl font-semibold text-white mb-6">
                 AI That Works—So You Can Focus on Care.
               </p>
-              <Button variant="default" size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
                 Request A Demo
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Security Section */}
-        <LampSection title="Uncompromising Security & Compliance" color="teal">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8"
-          >
-            {securityFeatures.map((feature, index) => (
-              <div key={index} className="flex items-start gap-4 text-left">
-                <div className="text-2xl text-white">🔒</div>
-                <div>
-                  <p className="text-gray-100">
-                    <span className="font-semibold">{feature.title}</span> – {feature.description}
-                  </p>
+        {/* Security Section - Huly.io style */}
+        <section className="py-16 md:py-28 bg-gradient-to-br from-indigo-950/30 via-purple-950/20 to-black">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto text-center mb-16"
+            >
+              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                Uncompromising Security & Compliance
+              </h2>
+              <p className="text-xl text-blue-100/90 max-w-3xl mx-auto">
+                Our state-of-the-art security ensures your data remains protected at all times.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+            >
+              {securityFeatures.map((feature, index) => (
+                <div key={index} className="p-6 backdrop-blur-sm bg-gradient-to-br from-blue-900/20 to-purple-900/10 rounded-2xl border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300">
+                  <div className="flex items-start gap-4 text-left">
+                    <div className="text-2xl text-blue-400">🔒</div>
+                    <div>
+                      <h3 className="font-semibold text-blue-300 mb-2">{feature.title}</h3>
+                      <p className="text-gray-300">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="mt-10 text-center"
-          >
-            <p className="text-lg text-teal-200 mb-6">
-              <span className="text-2xl">💡</span> S10.AI ensures data security, privacy, and compliance—so you can trust every interaction.
-            </p>
+              ))}
+            </motion.div>
             
-            <p className="text-2xl font-semibold text-white mb-8">
-              High-Powered AI. Rock-Solid Security. Future-Ready Healthcare.
-            </p>
-            
-            <Button variant="default" size="lg" className="bg-teal-600 hover:bg-teal-700">
-              Request A Demo
-            </Button>
-          </motion.div>
-        </LampSection>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="mt-16 text-center"
+            >
+              <p className="text-lg text-blue-300 mb-6">
+                <span className="text-2xl">💡</span> S10.AI ensures data security, privacy, and compliance—so you can trust every interaction.
+              </p>
+              
+              <p className="text-2xl font-semibold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                High-Powered AI. Rock-Solid Security. Future-Ready Healthcare.
+              </p>
+              
+              <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
+                Request A Demo
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </motion.div>
+          </div>
+        </section>
       </motion.div>
     </main>
   );
