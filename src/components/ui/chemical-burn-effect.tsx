@@ -48,65 +48,6 @@ export function ChemicalBurnEffect({
 
     let animationFrameId: number
     let time = 0
-
-    const renderBurnEffect = () => {
-      if (!canvas || !ctx) return
-      
-      // Clear canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      
-      // Create radial gradients for each color
-      colors.forEach((color, i) => {
-        const radius = canvas.width * (0.4 + 0.2 * Math.sin(time + i * 2))
-        const centerX = canvas.width / 2 + Math.sin(time * 0.5 + i) * canvas.width * 0.1
-        const centerY = canvas.height / 2 + Math.cos(time * 0.7 + i) * canvas.height * 0.1
-        
-        const gradient = ctx.createRadialGradient(
-          centerX, 
-          centerY, 
-          0, 
-          centerX, 
-          centerY, 
-          radius
-        )
-        
-        // Fix: Convert intensity to proper rgba format instead of appending hex digits
-        const alpha1 = Math.floor(intensity * 80) / 100;
-        const alpha2 = Math.floor(intensity * 20) / 100;
-        
-        // Convert hex to rgba with proper alpha values
-        const colorRgba1 = hexToRgba(color, alpha1);
-        const colorRgba2 = hexToRgba(color, alpha2);
-        
-        gradient.addColorStop(0, colorRgba1)
-        gradient.addColorStop(0.5, colorRgba2)
-        gradient.addColorStop(1, 'transparent')
-        
-        ctx.globalCompositeOperation = i === 0 ? 'source-over' : 'screen'
-        ctx.fillStyle = gradient
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-      })
-      
-      // Add some noise effect
-      ctx.globalCompositeOperation = 'overlay'
-      for (let i = 0; i < 20; i++) {
-        const x = Math.random() * canvas.width
-        const y = Math.random() * canvas.height
-        const radius = Math.random() * (isMobile ? 30 : 60)
-        
-        const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius)
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.1)')
-        gradient.addColorStop(1, 'transparent')
-        
-        ctx.fillStyle = gradient
-        ctx.beginPath()
-        ctx.arc(x, y, radius, 0, Math.PI * 2)
-        ctx.fill()
-      }
-      
-      time += speed || 0.005
-      animationFrameId = requestAnimationFrame(renderBurnEffect)
-    }
     
     // Helper function to convert hex color to rgba
     const hexToRgba = (hex: string, alpha: number): string => {
@@ -137,6 +78,65 @@ export function ChemicalBurnEffect({
       // Return rgba string
       return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     };
+
+    const renderBurnEffect = () => {
+      if (!canvas || !ctx) return
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      
+      // Create radial gradients for each color
+      colors.forEach((color, i) => {
+        const radius = canvas.width * (0.4 + 0.2 * Math.sin(time + i * 2))
+        const centerX = canvas.width / 2 + Math.sin(time * 0.5 + i) * canvas.width * 0.1
+        const centerY = canvas.height / 2 + Math.cos(time * 0.7 + i) * canvas.height * 0.1
+        
+        const gradient = ctx.createRadialGradient(
+          centerX, 
+          centerY, 
+          0, 
+          centerX, 
+          centerY, 
+          radius
+        )
+        
+        // Calculate alpha values
+        const alpha1 = Math.min(0.8, intensity * 0.8);
+        const alpha2 = Math.min(0.2, intensity * 0.2);
+        
+        // Convert hex to rgba with proper alpha values
+        const colorRgba1 = hexToRgba(color, alpha1);
+        const colorRgba2 = hexToRgba(color, alpha2);
+        
+        gradient.addColorStop(0, colorRgba1)
+        gradient.addColorStop(0.5, colorRgba2)
+        gradient.addColorStop(1, 'rgba(0,0,0,0)')
+        
+        ctx.globalCompositeOperation = i === 0 ? 'source-over' : 'screen'
+        ctx.fillStyle = gradient
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+      })
+      
+      // Add some noise effect
+      ctx.globalCompositeOperation = 'overlay'
+      for (let i = 0; i < 20; i++) {
+        const x = Math.random() * canvas.width
+        const y = Math.random() * canvas.height
+        const radius = Math.random() * (isMobile ? 30 : 60)
+        
+        const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius)
+        gradient.addColorStop(0, 'rgba(255, 255, 255, 0.1)')
+        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)')
+        
+        ctx.fillStyle = gradient
+        ctx.beginPath()
+        ctx.arc(x, y, radius, 0, Math.PI * 2)
+        ctx.fill()
+      }
+      
+      time += speed || 0.005
+      animationFrameId = requestAnimationFrame(renderBurnEffect)
+    }
 
     renderBurnEffect()
     
