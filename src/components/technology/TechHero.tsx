@@ -1,4 +1,3 @@
-
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
@@ -23,7 +22,7 @@ import {
   Bot,
   Network,
   Layers,
-  ChipIcon,
+  Chip,
   Cloud,
   CloudCog,
   ShieldAlert
@@ -90,7 +89,6 @@ const SecurityIcon = ({ icon: Icon, delay, className = "", tooltip = "" }) => {
   ) : null;
 };
 
-// AI Technology icons with description tooltips
 const AiTechIcon = ({ icon: Icon, delay, position, tooltip }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -137,7 +135,6 @@ const TechHero = () => {
     controls.start({ opacity: 1, y: 0 });
   }, [controls]);
 
-  // Predefined AI tech icons with fixed positions and descriptions
   const aiTechIcons = [
     {
       icon: BrainCircuit,
@@ -167,7 +164,7 @@ const TechHero = () => {
       }
     },
     {
-      icon: ChipIcon,
+      icon: Chip,
       position: { top: "65%", right: "20%" },
       delay: 1100,
       tooltip: {
@@ -192,18 +189,15 @@ const TechHero = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Canvas Effect positioned as background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <CanvasEffect id="tech-canvas" className="opacity-40" />
       </div>
       
-      {/* Spotlight effect */}
       <Spotlight
         className="-top-40 left-0 z-10"
         fill="#1EAEDB"
       />
       
-      {/* Floating security icons that appear on hover */}
       {isHovering && (
         <>
           <SecurityIcon icon={Shield} delay={100} tooltip="Zero Trust Architecture" />
@@ -220,7 +214,6 @@ const TechHero = () => {
           <SecurityIcon icon={ShieldAlert} delay={2300} tooltip="Threat Detection System" />
           <SecurityIcon icon={Brain} delay={2500} tooltip="AI-powered Security" />
           
-          {/* AI Technology icons with fixed positions */}
           {aiTechIcons.map((item, index) => (
             <AiTechIcon 
               key={index}
@@ -263,7 +256,6 @@ const TechHero = () => {
               <p className="text-sm text-[#1EAEDB] font-medium">Secure & HIPAA Compliant</p>
             </motion.div>
             
-            {/* Security Icons with Glassmorphism */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
