@@ -3,21 +3,75 @@ import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import { Shield, ShieldCheck, FileCheck, CheckCircle } from "lucide-react";
+import { Shield, ShieldCheck, FileCheck, CheckCircle, Lock, Server, Database, UserCheck } from "lucide-react";
+import { Card } from "@/components/ui/card";
+
+const FloatingSecurityItem = ({ icon: Icon, label, description, position }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="absolute"
+      style={position}
+    >
+      <Card className="w-48 md:w-56 backdrop-blur-md bg-black/40 border border-blue-500/20 shadow-lg text-white p-3 text-xs">
+        <div className="flex items-center gap-2 mb-1">
+          <Icon size={12} className="text-blue-400" />
+          <p className="font-semibold">{label}</p>
+        </div>
+        <p className="text-[10px] text-gray-300">{description}</p>
+      </Card>
+    </motion.div>
+  );
+};
+
+const SecurityIcon = ({ icon: Icon, delay }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  return isVisible ? (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 0.4 }}
+      whileHover={{ opacity: 1 }}
+      className="absolute text-blue-400/30 hover:text-blue-400 transition-all duration-300"
+      style={{
+        top: `${Math.random() * 80 + 10}%`,
+        left: `${Math.random() * 80 + 10}%`,
+        transform: `scale(${Math.random() * 0.5 + 0.8})`,
+      }}
+    >
+      <Icon size={24} />
+    </motion.div>
+  ) : null;
+};
 
 const TechHero = () => {
   const isMobile = useIsMobile();
   const controls = useAnimation();
+  const [isHovering, setIsHovering] = useState(false);
   
   useEffect(() => {
     controls.start({ opacity: 1, y: 0 });
   }, [controls]);
 
   return (
-    <section className="relative w-full overflow-hidden bg-black">
+    <section 
+      className="relative w-full overflow-hidden bg-black"
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+    >
       {/* Canvas Effect positioned as background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <CanvasEffect id="tech-canvas" className="opacity-40" />
@@ -28,6 +82,20 @@ const TechHero = () => {
         className="-top-40 left-0 z-10"
         fill="#1EAEDB"
       />
+      
+      {/* Floating security icons that appear on hover */}
+      {isHovering && (
+        <>
+          <SecurityIcon icon={Shield} delay={100} />
+          <SecurityIcon icon={ShieldCheck} delay={300} />
+          <SecurityIcon icon={Lock} delay={500} />
+          <SecurityIcon icon={FileCheck} delay={700} />
+          <SecurityIcon icon={Server} delay={900} />
+          <SecurityIcon icon={Database} delay={1100} />
+          <SecurityIcon icon={UserCheck} delay={1300} />
+          <SecurityIcon icon={CheckCircle} delay={1500} />
+        </>
+      )}
       
       <ContainerScroll
         titleComponent={
