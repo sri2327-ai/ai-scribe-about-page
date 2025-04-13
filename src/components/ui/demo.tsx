@@ -6,12 +6,11 @@ import { SplineScene } from "@/components/ui/splite";
 export function SplineSceneBasic() {
   return (
     <div className="w-full h-[500px] relative overflow-hidden border-0">
-      {/* Teal blue gradient on black background */}
+      {/* Teal blue semi-circle gradient on black background */}
       <div 
         className="absolute inset-0 bg-black" 
         style={{
-          background: 'linear-gradient(to bottom, rgba(30, 174, 219, 0.15) 0%, rgba(18, 105, 132, 0.05) 50%, rgba(0, 0, 0, 0) 100%)',
-          backgroundBlendMode: 'overlay'
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(30, 174, 219, 0.25) 0%, rgba(18, 105, 132, 0.1) 50%, rgba(0, 0, 0, 0) 70%)',
         }}
       />
       
