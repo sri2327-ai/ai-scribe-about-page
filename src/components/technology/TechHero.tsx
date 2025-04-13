@@ -1,8 +1,8 @@
+import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
-import { useEffect, useState } from "react";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { 
@@ -22,7 +22,7 @@ import {
   Bot,
   Network,
   Layers,
-  Terminal,  // Replace Chip with Terminal as a placeholder
+  Terminal,
   Cloud,
   CloudCog,
   ShieldAlert
@@ -340,17 +340,6 @@ const TechHero = () => {
         <div className="w-full h-full flex justify-center items-center p-4 md:p-8 relative z-20">
           <div className="w-full max-w-5xl aspect-[16/9] flex justify-center items-center relative">
             <div className="relative w-full h-full">
-              <div className="absolute inset-0">
-                <GlowBorderEffect 
-                  variant="teal" 
-                  blur={12}
-                  proximity={150}
-                  spread={80}
-                  borderWidth={3}
-                  movementDuration={3}
-                  className="w-full h-full"
-                />
-              </div>
               <img
                 src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
                 alt="S10.AI Healthcare Platform"
