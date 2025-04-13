@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
-import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
@@ -45,26 +44,13 @@ const TechHero = () => {
       >
         <div className="w-full h-full flex justify-center items-center">
           <div className="relative w-full h-full max-w-5xl flex justify-center items-center">
-            {/* Image with glowing border effect - removed black background */}
+            {/* Image without any glowing effect */}
             <div className="relative w-full h-full flex justify-center items-center">
-              <div className="relative">
-                <img
-                  src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-                  alt="S10.AI Healthcare Platform"
-                  className="w-full h-full object-contain z-10 relative"
-                />
-                {/* Multi-color glowing border effect positioned to follow image contours */}
-                <GlowBorderEffect 
-                  variant="teal" 
-                  blur={20}
-                  spread={20}
-                  glow={true}
-                  disabled={false}
-                  borderWidth={2}
-                  movementDuration={3}
-                  className="opacity-100"
-                />
-              </div>
+              <img
+                src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+                alt="S10.AI Healthcare Platform"
+                className="w-full h-full object-contain z-10 relative"
+              />
             </div>
           </div>
         </div>
