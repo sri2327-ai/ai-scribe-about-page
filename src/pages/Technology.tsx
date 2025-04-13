@@ -5,6 +5,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import TechHero from "@/components/technology/TechHero";
 import TechInnovation from "@/components/technology/TechInnovation";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
+import TechFeatures from "@/components/technology/TechFeatures";
 import { ArrowRight } from "lucide-react";
 
 const Technology = () => {
@@ -23,6 +24,9 @@ const Technology = () => {
 
         {/* Meet IPKO Section with Timeline */}
         <MeetIpkoTimeline />
+
+        {/* Technology Features Section */}
+        <TechFeatures />
 
         {/* Tech Innovation Section */}
         <TechInnovation />
