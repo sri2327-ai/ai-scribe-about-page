@@ -13,15 +13,15 @@ export function SplineSceneBasic() {
           <h1 
             className="text-4xl md:text-5xl font-bold font-wix-madefor tracking-tight"
             style={{
-              background: getGradient("gray", 1.2),
+              background: getGradient("gray", 1.5), // Increased intensity for darker effect
               WebkitBackgroundClip: "text",
               backgroundClip: "text",
               color: "transparent",
-              backgroundPosition: "left", // Position gradient to be darker on right, lighter on left
+              backgroundPosition: "left", 
               backgroundSize: "200%"
             }}
           >
-            Smarter Healthcare Starts Here
+            <span style={{ opacity: 0.6 }}>Smarter</span> Healthcare <span style={{ opacity: 0.6 }}>Starts</span> Here
           </h1>
           <p className="mt-4 text-gray-400 max-w-lg font-wix-madefor">
             We're simplifying clinical workflows with AI, robotic assistants, and smart agents.
