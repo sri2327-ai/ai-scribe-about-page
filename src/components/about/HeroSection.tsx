@@ -35,17 +35,7 @@ const HeroSection = () => {
           <SplineSceneBasic />
         </motion.div>
         
-        {/* Text glow effect with teal blue color */}
-        <div 
-          className="absolute w-full max-w-3xl h-32 mx-auto" 
-          style={{
-            background: "radial-gradient(ellipse at center, rgba(30,174,219,0.15) 0%, rgba(30,174,219,0) 70%)",
-            top: "calc(50% - 200px)",
-            left: "50%",
-            transform: "translateX(-50%)",
-            pointerEvents: "none"
-          }}
-        />
+        {/* Remove the radial background glow effect */}
       </div>
       
       {/* Scroll down indicator - positioned on left side */}
@@ -69,3 +59,4 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
+
