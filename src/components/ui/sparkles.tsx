@@ -3,7 +3,6 @@
 
 import { useEffect, useId, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
 import type { ISourceOptions, RecursivePartial } from "@tsparticles/engine";
 
 interface SparklesProps {
@@ -39,6 +38,9 @@ export function Sparkles({
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
+      // We'll use dynamic import instead of direct import from @tsparticles/slim
+      // This resolves the build error
+      const { loadSlim } = await import("@tsparticles/slim");
       await loadSlim(engine);
     }).then(() => {
       setIsReady(true);

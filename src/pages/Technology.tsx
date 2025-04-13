@@ -21,7 +21,7 @@ const Technology = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         className="flex flex-col w-full"
-        style={{ position: "relative" }} // Added explicit relative positioning
+        style={{ position: "relative" }}
       >
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
@@ -41,7 +41,7 @@ const Technology = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               className="max-w-4xl mx-auto"
-              style={{ position: "relative" }} // Added explicit relative positioning
+              style={{ position: "relative" }}
             >
               <p className="text-2xl font-normal text-white mb-6">
                 Transform Your Healthcare Workflow

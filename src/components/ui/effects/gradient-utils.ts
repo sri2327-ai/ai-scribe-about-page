@@ -31,9 +31,9 @@ export const getGradient = (variant: "default" | "white" | "teal" | "gray" | "x-
       rgba(80,80,80,${0.9 * intensity}) 100%)`;
   }
 
-  // Default rainbow gradient
+  // Default rainbow gradient - updated syntax for repeating-conic-gradient
   return `
-    radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
+    radial-gradient(circle at center, #dd7bbb 10%, #dd7bbb00 20%),
     radial-gradient(circle at 40% 40%, #d79f1e 5%, #d79f1e00 15%),
     radial-gradient(circle at 60% 60%, #5a922c 10%, #5a922c00 20%), 
     radial-gradient(circle at 40% 60%, #4c7894 10%, #4c789400 20%),
