@@ -36,13 +36,11 @@ const TechHero = () => {
           </motion.div>
         }
       >
-        <div className="w-full h-full bg-black">
-          <img
-            src="/lovable-uploads/07df9c3e-1723-46ff-8323-46d9db8674c0.png"
-            alt="S10.AI Healthcare Platform"
-            className="w-full h-full object-contain"
-          />
-        </div>
+        <img
+          src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+          alt="S10.AI Healthcare Platform"
+          className="w-full h-full object-cover object-center rounded-lg"
+        />
       </ContainerScroll>
     </section>
   );
