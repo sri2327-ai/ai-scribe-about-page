@@ -57,26 +57,35 @@ const ProjectSetupChecklist = () => {
           viewport={{ once: true }}
           className="flex justify-center"
         >
-          <div className="w-full max-w-3xl relative">
+          <div className="w-full max-w-5xl relative">
             <Carousel className="w-full">
               <CarouselContent>
                 {securityCards.map((card, index) => {
                   const Icon = card.icon;
                   return (
-                    <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/1 lg:basis-1/2">
-                      <div className="p-1">
+                    <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/2 lg:basis-1/3 p-2">
+                      <div 
+                        className="group relative transition duration-300 h-full hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
+                      >
                         <div 
-                          className="bg-black border border-white/20 rounded-2xl p-6 h-[280px] flex flex-col justify-between transition-all duration-300 
-                          hover:border-white hover:shadow-lg hover:rounded-3xl"
+                          className="relative h-full w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md 
+                          overflow-hidden transition-all duration-300 hover:border-white/20 hover:bg-white/10 p-6"
                         >
-                          <div className="flex items-center gap-3 mb-4">
-                            <span className="relative inline-block rounded-full bg-black p-3 border border-white">
-                              <Icon className="h-6 w-6 text-white" strokeWidth={1.5} />
-                            </span>
-                            <h3 className="text-xl font-normal text-white">{card.title}</h3>
+                          {/* Background icon (faded) */}
+                          <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
+                            <Icon className="w-40 h-40 text-white" strokeWidth={0.5} />
                           </div>
-                          <div className="mb-4">
-                            <p className="text-gray-300 leading-relaxed">{card.description}</p>
+                          
+                          <div className="relative z-10">
+                            <div className="flex items-center gap-3 mb-4">
+                              <span className="relative inline-block rounded-full bg-black p-3 border border-white/40">
+                                <Icon className="h-6 w-6 text-white" strokeWidth={1.5} />
+                              </span>
+                              <h3 className="text-xl font-normal text-white">{card.title}</h3>
+                            </div>
+                            <div className="mb-6">
+                              <p className="text-gray-300 leading-relaxed">{card.description}</p>
+                            </div>
                           </div>
                         </div>
                       </div>

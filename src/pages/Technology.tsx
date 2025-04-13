@@ -45,7 +45,7 @@ const Technology = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="bg-black text-white border-white hover:bg-white hover:text-black transition-all duration-300 rounded-3xl"
+                className="bg-black text-white border-white hover:bg-white hover:text-black transition-all duration-300 rounded-full"
               >
                 Request A Demo
                 <ArrowRight className="ml-2 h-4 w-4" />
