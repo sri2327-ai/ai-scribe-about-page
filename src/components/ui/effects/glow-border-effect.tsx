@@ -11,7 +11,7 @@ interface GlowBorderEffectProps {
   inactiveZone?: number;
   proximity?: number;
   spread?: number;
-  variant?: "default" | "white" | "teal";
+  variant?: "default" | "white" | "teal" | "gray";
   glow?: boolean;
   className?: string;
   disabled?: boolean;
@@ -30,9 +30,9 @@ const GlowBorderEffect = memo(
     glow = true,
     className,
     movementDuration = 3,
-    borderWidth = 3,
+    borderWidth = 2,
     disabled = false,
-    dualBorder = true,
+    dualBorder = false,
   }: GlowBorderEffectProps) => {
     const containerRef = useGlowEffect({
       inactiveZone,
@@ -41,21 +41,24 @@ const GlowBorderEffect = memo(
       disabled,
     });
 
-    const gradient = getGradient(variant, 1.5); // Increased intensity
+    // X.ai style uses more subtle gradients with gray/white tones
+    const gradient = variant === "gray" || variant === "white" 
+      ? `linear-gradient(90deg, rgba(120,120,120,0.5) 0%, rgba(180,180,180,0.8) 50%, rgba(120,120,120,0.5) 100%)`
+      : getGradient(variant, 1.0);
 
     return (
       <>
-        {/* Transparent base that follows image contours without visible background */}
+        {/* Transparent base that follows image contours */}
         <div
           className={cn(
-            "pointer-events-none absolute inset-0 -m-[2px]",
+            "pointer-events-none absolute inset-0 -m-[1px]",
             disabled && "hidden"
           )}
         >
-          {/* Single glowing border that follows image - no black background */}
+          {/* Subtle border that follows the X.ai style */}
           <div
             className={cn(
-              "pointer-events-none absolute inset-0 rounded-[inherit] border-[3px] border-tealBlueBright/50 transition-opacity duration-300",
+              "pointer-events-none absolute inset-0 rounded-[inherit] border-[1px] border-gray-600/30 transition-opacity duration-300",
               disabled && "hidden"
             )}
           />
@@ -64,7 +67,7 @@ const GlowBorderEffect = memo(
           {dualBorder && (
             <div
               className={cn(
-                "pointer-events-none absolute -inset-[2px] rounded-[inherit] border-[1px] border-tealBlueBright/30 transition-opacity duration-300",
+                "pointer-events-none absolute -inset-[1px] rounded-[inherit] border-[1px] border-gray-500/20 transition-opacity duration-300",
                 disabled && "hidden"
               )}
             />
@@ -78,8 +81,8 @@ const GlowBorderEffect = memo(
                 "--blur": `${blur}px`,
                 "--spread": spread,
                 "--start": "0",
-                "--active": "1", // Always active
-                "--intensity": "2.5", // Higher intensity
+                "--active": "1", 
+                "--intensity": variant === "white" ? "1.2" : "1.5", 
                 "--glowingeffect-border-width": `${borderWidth}px`,
                 "--repeating-conic-gradient-times": "5",
                 "--gradient": gradient,
@@ -105,7 +108,7 @@ const GlowBorderEffect = memo(
                 "after:[mask-clip:padding-box,border-box]",
                 "after:[mask-composite:intersect]",
                 "after:scale-[var(--intensity)]",
-                "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
+                "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
               )}
             />
           </div>

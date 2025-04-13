@@ -49,7 +49,7 @@ export function useGlowEffect({
         const inactiveRadius = 0.5 * Math.min(width, height) * inactiveZone;
 
         if (distanceFromCenter < inactiveRadius) {
-          element.style.setProperty("--active", "1"); // Always keep active
+          element.style.setProperty("--active", "1");
           hoverStateRef.current = true;
           return;
         }
@@ -60,14 +60,14 @@ export function useGlowEffect({
           mouseY > top - proximity &&
           mouseY < top + height + proximity;
 
-        // Set active state
-        element.style.setProperty("--active", "1"); // Always active for better visibility
+        // X.ai style glow should be very subtle - set active to 1 but with lower intensity
+        element.style.setProperty("--active", isActive ? "1" : "0.7");
         
         // Only trigger animation effect when hover state changes
         if (isActive && !hoverStateRef.current) {
-          // Entry animation - more intense for better visibility
-          element.style.setProperty("--intensity", "2.5"); // Higher intensity for more visibility
-          element.style.setProperty("--spread", "80"); // Wider spread on initial hover
+          // Entry animation - subtle for the X.ai style
+          element.style.setProperty("--intensity", "1.2");
+          element.style.setProperty("--spread", "40"); // Narrower spread for X.ai style
           
           // Reset to normal values after initial effect
           if (pulseTimeoutRef.current) {
@@ -75,9 +75,9 @@ export function useGlowEffect({
           }
           
           pulseTimeoutRef.current = window.setTimeout(() => {
-            element.style.setProperty("--intensity", "2.0");
-            element.style.setProperty("--spread", "60");
-          }, 400);
+            element.style.setProperty("--intensity", "1.0");
+            element.style.setProperty("--spread", "30");
+          }, 300);
           
           hoverStateRef.current = true;
         } else if (!isActive && hoverStateRef.current) {
@@ -85,21 +85,20 @@ export function useGlowEffect({
           if (pulseTimeoutRef.current) {
             clearTimeout(pulseTimeoutRef.current);
           }
-          element.style.setProperty("--intensity", "1.5"); // Keep some intensity
-          element.style.setProperty("--spread", "40"); // Keep some spread
+          element.style.setProperty("--intensity", "0.8");
+          element.style.setProperty("--spread", "20");
           hoverStateRef.current = false;
         }
 
         if (!isActive) return;
 
+        // Calculate and set the angle for the glow effect
         const currentAngle =
           parseFloat(element.style.getPropertyValue("--start")) || 0;
         let targetAngle =
-          (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) /
-            Math.PI +
-          90;
+          (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
 
-        // Make the angle change more dramatic for visibility
+        // Make the angle change more subtle for X.ai style
         const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
         const newAngle = currentAngle + angleDiff;
 
@@ -110,30 +109,6 @@ export function useGlowEffect({
             element.style.setProperty("--start", String(value));
           },
         });
-
-        // Create a more pronounced pulsing effect while hovering
-        if (isActive && hoverStateRef.current) {
-          const pulseIntensity = () => {
-            if (!element || !hoverStateRef.current) return;
-            
-            const currentIntensity = parseFloat(element.style.getPropertyValue("--intensity") || "2.0");
-            const newIntensity = currentIntensity === 2.0 ? 2.5 : 2.0;
-            
-            animate(currentIntensity, newIntensity, {
-              duration: 1.0, // Faster pulsing
-              ease: [0.4, 0, 0.6, 1],
-              onUpdate: (value) => {
-                element.style.setProperty("--intensity", String(value));
-              },
-              onComplete: pulseIntensity
-            });
-          };
-          
-          // Start the pulsing effect sooner
-          if (!pulseTimeoutRef.current) {
-            pulseTimeoutRef.current = window.setTimeout(pulseIntensity, 300);
-          }
-        }
       });
     },
     [inactiveZone, proximity, movementDuration, disabled]

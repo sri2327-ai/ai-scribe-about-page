@@ -19,8 +19,8 @@ export const getGradient = (variant: "default" | "white" | "teal" | "gray" | "x-
   if (variant === "gray") {
     // X.ai style gray gradient for text
     return `linear-gradient(180deg, 
-      rgba(85,85,85,${0.8 * intensity}) 0%, 
-      rgba(51,51,51,${0.4 * intensity}) 100%)`;
+      rgba(120,120,120,${0.8 * intensity}) 0%, 
+      rgba(80,80,80,${0.5 * intensity}) 100%)`;
   }
 
   if (variant === "x-gray") {
