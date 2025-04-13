@@ -2,18 +2,19 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { Spotlight } from "@/components/ui/spotlight";
+import { ChemicalBurnEffect } from "@/components/ui/chemical-burn-effect";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
 
   return (
     <section className="relative w-full bg-black overflow-hidden">
-      {/* Background with Spotlight effect */}
+      {/* Background with Chemical Burn effect */}
       <div className="absolute inset-0 z-0">
-        <Spotlight
-          className="-top-40 left-0"
-          fill="#1EAEDB"
+        <ChemicalBurnEffect 
+          colors={['#1EAEDB', '#D946EF', '#8B5CF6']}
+          intensity={0.3}
+          speed={0.003}
         />
       </div>
 
