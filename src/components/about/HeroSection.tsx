@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { SplineSceneBasic } from "@/components/ui/demo";
 import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
-import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 
 const HeroSection = () => {
   const scrollToNextSection = () => {
@@ -15,15 +14,6 @@ const HeroSection = () => {
 
   return (
     <div className="relative h-screen flex flex-col items-center justify-center bg-black overflow-hidden border-0">
-      {/* Animated gradient background */}
-      <AnimatedGradientBackground 
-        gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
-        gradientStops={[0, 30, 60, 100]}
-        Breathing={true}
-        breathingRange={10}
-        animationSpeed={0.03}
-      />
-      
       {/* Center content container */}
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center border-0 w-full">
         <motion.div
