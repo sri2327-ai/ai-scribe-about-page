@@ -4,6 +4,13 @@ import { Timeline } from "@/components/ui/timeline";
 import { Zap, MessageSquare, Users, Cog } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Separate component for each timeline item with parallax effect
 const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
@@ -18,7 +25,7 @@ const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
     <motion.div
       key={index}
       style={{ y: yOffset }}
-      className="mb-16 last:mb-0"
+      className="mb-8 last:mb-0"
     >
       <div className="flex items-center gap-3 mb-4">
         <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center border border-tealBlueBright">
@@ -28,6 +35,31 @@ const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
       </div>
       {item.content}
     </motion.div>
+  );
+};
+
+// Compact card for mobile carousel view
+const TimelineCard = ({ item }) => {
+  return (
+    <div className="bg-black p-4 rounded-xl border border-white/20 h-full">
+      <div className="flex items-center gap-3 mb-3">
+        <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center border border-tealBlueBright">
+          <div className="h-3 w-3 rounded-full bg-tealBlueBright" />
+        </div>
+        <h3 className="text-xl font-bold text-white">{item.title}</h3>
+      </div>
+      
+      <div className="flex items-start gap-3 mb-3">
+        {item.icon && (
+          <div className="p-2 border border-white/40 rounded-full flex-shrink-0">
+            <item.icon className="w-5 h-5 text-white stroke-1" />
+          </div>
+        )}
+        <h4 className="text-lg font-normal text-white">{item.subtitle}</h4>
+      </div>
+      
+      <p className="text-gray-400 text-sm">{item.description}</p>
+    </div>
   );
 };
 
@@ -43,6 +75,9 @@ const MeetIpkoTimeline = () => {
   const timelineData = [
     {
       title: "CCIE",
+      subtitle: "Cross-Lingual Conversation Inference Engine",
+      description: "Our advanced language processing system enables seamless multilingual communication with 16-language capabilities.",
+      icon: MessageSquare,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
@@ -69,6 +104,9 @@ const MeetIpkoTimeline = () => {
     },
     {
       title: "PKIE",
+      subtitle: "Physician Knowledge Inference Engine",
+      description: "PKIE learns and mimics physician workflows for personalized AI scribing and documentation.",
+      icon: Users,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
@@ -95,6 +133,9 @@ const MeetIpkoTimeline = () => {
     },
     {
       title: "MKIE",
+      subtitle: "Medical Knowledge Inference Engine",
+      description: "AI-driven clinical pathways for precise documentation improvement and medical validation.",
+      icon: Zap,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
@@ -121,6 +162,9 @@ const MeetIpkoTimeline = () => {
     },
     {
       title: "IIIE",
+      subtitle: "Intuitive Interface Inference Engine",
+      description: "Breaks integration barriers for effortless deployment across all healthcare platforms.",
+      icon: Cog,
       content: (
         <div className="bg-black p-6 rounded-xl border border-white/20">
           <div className="flex items-center gap-4 mb-4">
@@ -155,27 +199,43 @@ const MeetIpkoTimeline = () => {
     >
       <div className="container mx-auto pt-8 md:pt-16">
         {isMobile ? (
-          // Mobile view with parallax effect
-          <div className="px-4 py-10">
+          // Mobile view with carousel to save space
+          <div className="px-4 py-8">
             <h2 className="text-2xl md:text-4xl mb-4 text-white max-w-4xl">
               Meet IPKO – The Intelligent Physician Knowledge Orchestrator
             </h2>
-            <p className="text-gray-400 text-sm md:text-base max-w-sm mb-12">
-              IPKO, built on S10's patented AI, leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
+            <p className="text-gray-400 text-sm mb-6">
+              IPKO leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
             </p>
             
-            <div className="relative min-h-[150vh]">
-              {timelineData.map((item, index) => (
-                <ParallaxTimelineItem 
-                  key={index}
-                  item={item}
-                  index={index}
-                  scrollYProgress={scrollYProgress}
-                />
-              ))}
-              
-              {/* Vertical timeline line */}
-              <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-tealBlueBright to-transparent" />
+            <div className="mb-2 text-gray-300 text-sm">Swipe to explore IPKO's engines →</div>
+            
+            <Carousel className="w-full mb-8">
+              <CarouselContent>
+                {timelineData.map((item, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <TimelineCard item={item} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="flex justify-center mt-4 gap-4">
+                <CarouselPrevious className="relative static left-0 translate-y-0 bg-black border-white/40 text-white hover:bg-white/10" />
+                <CarouselNext className="relative static right-0 translate-y-0 bg-black border-white/40 text-white hover:bg-white/10" />
+              </div>
+            </Carousel>
+            
+            {/* Visual timeline connection */}
+            <div className="relative h-20 my-8 flex justify-center">
+              <div className="absolute h-full w-[2px] bg-gradient-to-b from-transparent via-tealBlueBright to-transparent"></div>
+              <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full border-2 border-tealBlueBright bg-black"></div>
+            </div>
+            
+            {/* Bottom message */}
+            <div className="text-center mb-8">
+              <h3 className="text-xl font-semibold text-white mb-2">Seamless Integration</h3>
+              <p className="text-gray-400 text-sm">
+                All four engines work together to create a powerful, unified system that revolutionizes healthcare documentation.
+              </p>
             </div>
           </div>
         ) : (

@@ -10,7 +10,6 @@ import {
   Users, 
   Globe 
 } from "lucide-react";
-import { AnimatedIconTooltip } from "@/components/ui/animated-icon-tooltip";
 import StarParticles from "@/components/ui/star-particles";
 
 const securityItems = [
@@ -88,7 +87,7 @@ const SecurityCompliance = () => {
           </p>
         </motion.div>
         
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {securityItems.map((item) => (
             <motion.div
               key={item.id}
@@ -97,8 +96,8 @@ const SecurityCompliance = () => {
               transition={{ duration: 0.5, delay: item.id * 0.1 }}
               className="flex flex-col items-center"
             >
-              <div className="w-full max-w-[240px] aspect-[2/1] rounded-full bg-black border border-tealBlueBright/30 flex items-center justify-center mb-4">
-                <item.icon size={24} className="text-white" />
+              <div className="w-full aspect-square max-w-[80px] rounded-full bg-black border border-tealBlueBright/30 flex items-center justify-center mb-4">
+                <item.icon size={32} className="text-white" />
               </div>
               <h3 className="text-white text-lg font-normal text-center">{item.name}</h3>
               <p className="text-gray-400 text-sm text-center mt-1">{item.description}</p>
