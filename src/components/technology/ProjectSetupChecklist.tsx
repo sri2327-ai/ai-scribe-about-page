@@ -10,7 +10,8 @@ import {
   Code,
   Package,
   Wrench,
-  AlertCircle
+  AlertCircle,
+  LucideIcon
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,34 @@ const ProjectSetupChecklist = () => {
       description: "npm install lucide-react",
       icon: GitBranch,
     },
+  ];
+
+  // Define the security items with proper typing for the icons
+  const securityItems = [
+    {
+      id: 1,
+      name: "Encrypted by Default",
+      description: "All data is protected with end-to-end encryption—whether at rest or in transit.",
+      icon: Code,
+    },
+    {
+      id: 2,
+      name: "Built for Compliance",
+      description: "Follows HIPAA, GDPR, PIPEDA standards with secure, certified infrastructure.",
+      icon: FileText,
+    },
+    {
+      id: 3,
+      name: "Access Control",
+      description: "Only you can access your data. Our team sees it only if you ask for help.",
+      icon: Check,
+    },
+    {
+      id: 4,
+      name: "Privacy-First Processing",
+      description: "Personal details are stripped before processing to keep data anonymous.",
+      icon: AlertCircle,
+    }
   ];
 
   return (
@@ -190,35 +219,7 @@ const ProjectSetupChecklist = () => {
           
           <div className="flex justify-center">
             <div className="max-w-4xl w-full">
-              <AnimatedIconTooltip 
-                items={[
-                  {
-                    id: 1,
-                    name: "Encrypted by Default",
-                    description: "All data is protected with end-to-end encryption—whether at rest or in transit.",
-                    icon: (props) => <Code {...props} />
-                  },
-                  {
-                    id: 2,
-                    name: "Built for Compliance",
-                    description: "Follows HIPAA, GDPR, PIPEDA standards with secure, certified infrastructure.",
-                    icon: (props) => <FileText {...props} />
-                  },
-                  {
-                    id: 3,
-                    name: "Access Control",
-                    description: "Only you can access your data. Our team sees it only if you ask for help.",
-                    icon: (props) => <Code {...props} />
-                  },
-                  {
-                    id: 4,
-                    name: "Privacy-First Processing",
-                    description: "Personal details are stripped before processing to keep data anonymous.",
-                    icon: (props) => <Code {...props} />
-                  }
-                ]}
-                className="mb-10"
-              />
+              <AnimatedIconTooltip items={securityItems} className="mb-10" />
             </div>
           </div>
         </motion.div>
