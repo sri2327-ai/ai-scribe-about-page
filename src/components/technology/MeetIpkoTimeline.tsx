@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useState } from "react";
 import { Timeline } from "@/components/ui/timeline";
 import { Zap, MessageSquare, Users, Cog } from "lucide-react";
@@ -228,14 +227,6 @@ const MeetIpkoTimeline = () => {
             <div className="relative h-20 my-8 flex justify-center">
               <div className="absolute h-full w-[2px] bg-gradient-to-b from-transparent via-tealBlueBright to-transparent"></div>
               <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full border-2 border-tealBlueBright bg-black"></div>
-            </div>
-            
-            {/* Bottom message */}
-            <div className="text-center mb-8">
-              <h3 className="text-xl font-semibold text-white mb-2">Seamless Integration</h3>
-              <p className="text-gray-400 text-sm">
-                All four engines work together to create a powerful, unified system that revolutionizes healthcare documentation.
-              </p>
             </div>
           </div>
         ) : (
