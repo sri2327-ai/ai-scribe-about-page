@@ -88,15 +88,23 @@ const SecurityCompliance = () => {
           </p>
         </motion.div>
         
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto"
-        >
-          <AnimatedIconTooltip items={securityItems} />
-        </motion.div>
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+          {securityItems.map((item) => (
+            <motion.div
+              key={item.id}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: item.id * 0.1 }}
+              className="flex flex-col items-center"
+            >
+              <div className="w-full max-w-[240px] aspect-[2/1] rounded-full bg-black border border-tealBlueBright/30 flex items-center justify-center mb-4">
+                <item.icon size={24} className="text-white" />
+              </div>
+              <h3 className="text-white text-lg font-normal text-center">{item.name}</h3>
+              <p className="text-gray-400 text-sm text-center mt-1">{item.description}</p>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

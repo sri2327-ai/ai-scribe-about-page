@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect, useState } from "react";
 import { Timeline } from "@/components/ui/timeline";
 import { Zap, MessageSquare, Users, Cog } from "lucide-react";
@@ -10,20 +11,20 @@ const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
   const yOffset = useTransform(
     scrollYProgress,
     [0, 1],
-    [index * 100, -index * 50]
+    [index % 2 === 0 ? 100 : 50, index % 2 === 0 ? -50 : -100]
   );
   
   return (
     <motion.div
       key={index}
       style={{ y: yOffset }}
-      className="mb-12 last:mb-0"
+      className="mb-16 last:mb-0"
     >
-      <div className="flex items-center gap-3 mb-3">
-        <div className="h-6 w-6 rounded-full bg-black flex items-center justify-center border border-blue-500">
-          <div className="h-2 w-2 rounded-full bg-blue-500" />
+      <div className="flex items-center gap-3 mb-4">
+        <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center border border-tealBlueBright">
+          <div className="h-3 w-3 rounded-full bg-tealBlueBright" />
         </div>
-        <h3 className="text-xl font-bold text-white">{item.title}</h3>
+        <h3 className="text-2xl font-bold text-white">{item.title}</h3>
       </div>
       {item.content}
     </motion.div>
@@ -33,13 +34,7 @@ const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
 const MeetIpkoTimeline = () => {
   const isMobile = useIsMobile();
   const containerRef = useRef(null);
-  const [parallaxEnabled, setParallaxEnabled] = useState(false);
   
-  useEffect(() => {
-    // Update using the isMobile value
-    setParallaxEnabled(isMobile);
-  }, [isMobile]);
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -156,27 +151,32 @@ const MeetIpkoTimeline = () => {
     <section 
       className="relative w-full overflow-hidden bg-black"
       ref={containerRef}
-      style={{ position: "relative" }} // Add position relative to fix framer-motion warning
+      style={{ position: "relative" }}
     >
       <div className="container mx-auto pt-8 md:pt-16">
-        {parallaxEnabled ? (
+        {isMobile ? (
           // Mobile view with parallax effect
-          <div className="px-4 py-6">
+          <div className="px-4 py-10">
             <h2 className="text-2xl md:text-4xl mb-4 text-white max-w-4xl">
               Meet IPKO – The Intelligent Physician Knowledge Orchestrator
             </h2>
-            <p className="text-gray-400 text-sm md:text-base max-w-sm mb-8">
+            <p className="text-gray-400 text-sm md:text-base max-w-sm mb-12">
               IPKO, built on S10's patented AI, leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
             </p>
             
-            {timelineData.map((item, index) => (
-              <ParallaxTimelineItem 
-                key={index}
-                item={item}
-                index={index}
-                scrollYProgress={scrollYProgress}
-              />
-            ))}
+            <div className="relative min-h-[150vh]">
+              {timelineData.map((item, index) => (
+                <ParallaxTimelineItem 
+                  key={index}
+                  item={item}
+                  index={index}
+                  scrollYProgress={scrollYProgress}
+                />
+              ))}
+              
+              {/* Vertical timeline line */}
+              <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-tealBlueBright to-transparent" />
+            </div>
           </div>
         ) : (
           // Desktop view with regular timeline
