@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LampSection } from "@/components/ui/lamp";
-import { Shield, Clock, CheckCircle, DollarSign, Users, ExternalLink, ArrowRight } from "lucide-react";
+import { Shield, Clock, CheckCircle, DollarSign, Users, ExternalLink, ArrowRight, Zap } from "lucide-react";
 import { 
   Carousel,
   CarouselContent,

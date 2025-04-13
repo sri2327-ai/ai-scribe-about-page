@@ -1,4 +1,3 @@
-
 import { PulseBeams } from "@/components/ui/pulse-beams";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import { useWindowSize } from "@/hooks/use-window-size";
 import { useEffect, useState } from "react";
 import { FeatureCard } from "@/components/ui/feature-card";
 import ParallaxSection from "@/components/ui/parallax-section";
-import { Cpu, Database, Network, Lightning } from "lucide-react";
+import { Cpu, Database, Network, Zap } from "lucide-react";
 
 export const MeetIpkoPulseBeams = () => {
   const { width } = useWindowSize();
@@ -18,7 +17,6 @@ export const MeetIpkoPulseBeams = () => {
     setIsMounted(true);
   }, []);
 
-  // Custom beam patterns specifically for IPKO section
   const ipkoBeams = [
     {
       path: "M500,200 C600,100 800,300 900,200 C950,150 950,50 900,0",
@@ -76,7 +74,7 @@ export const MeetIpkoPulseBeams = () => {
     <Network key="network" className="h-6 w-6" />,
     <Cpu key="cpu" className="h-6 w-6" />,
     <Database key="database" className="h-6 w-6" />,
-    <Lightning key="lightning" className="h-6 w-6" />
+    <Zap key="zap" className="h-6 w-6" />
   ];
 
   const colors = ['blue', 'purple', 'cyan', 'indigo'];
@@ -84,7 +82,6 @@ export const MeetIpkoPulseBeams = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
       <div className="h-[90vh] min-h-[600px] relative w-full">
-        {/* Gradient Tracing Background - Full width with animation across entire screen */}
         {isMounted && (
           <div className="absolute inset-0 z-0 w-full overflow-hidden">
             <GradientTracing
@@ -123,7 +120,6 @@ export const MeetIpkoPulseBeams = () => {
           className="absolute inset-0 !h-full"
           background={
             <div className="absolute inset-0 bg-black">
-              {/* Pure black background as requested */}
             </div>
           }
         >
@@ -182,7 +178,6 @@ export const MeetIpkoPulseBeams = () => {
   );
 };
 
-// Features for the IPKO section
 const ipkoFeatures = [
   {
     title: "Cross-Lingual Conversation Engine",
