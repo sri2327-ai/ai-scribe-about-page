@@ -5,6 +5,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import TechHero from "@/components/technology/TechHero";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import TechFeatures from "@/components/technology/TechFeatures";
+import SecurityCompliance from "@/components/technology/SecurityCompliance";
 import { ArrowRight } from "lucide-react";
 
 const Technology = () => {
@@ -51,6 +52,9 @@ const Technology = () => {
             </motion.div>
           </div>
         </section>
+
+        {/* Security & Compliance Section */}
+        <SecurityCompliance />
       </motion.div>
     </main>
   );
