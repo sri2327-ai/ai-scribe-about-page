@@ -4,8 +4,11 @@ import { SplineSceneBasic } from "@/components/ui/demo";
 import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
+import { useEffect, useRef } from "react";
 
 const HeroSection = () => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
   const scrollToNextSection = () => {
     window.scrollTo({
       top: window.innerHeight,
@@ -13,9 +16,28 @@ const HeroSection = () => {
     });
   };
 
+  // Add a spotlight inside the card
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!cardRef.current) return;
+
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      cardRef.current.style.setProperty('--x', `${x}px`);
+      cardRef.current.style.setProperty('--y', `${y}px`);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
   return (
     <div className="relative h-screen flex flex-col items-center justify-center bg-black overflow-hidden border-0">
-      {/* Spotlight effect */}
+      {/* Background Spotlight effect */}
       <Spotlight
         className="inset-0 z-0"
         fill="#1EAEDB"
@@ -24,11 +46,24 @@ const HeroSection = () => {
       {/* Center content container */}
       <div className="container relative mx-auto px-4 z-10 flex flex-col items-center justify-center border-0 w-full">
         <motion.div
+          ref={cardRef}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full border-0"
+          className="w-full border-0 relative overflow-hidden"
+          style={{
+            '--x': '50%',
+            '--y': '50%',
+          } as React.CSSProperties}
         >
+          {/* Inner card spotlight effect */}
+          <div 
+            className="absolute inset-0 pointer-events-none z-0"
+            style={{
+              background: `radial-gradient(circle at var(--x) var(--y), rgba(30,174,219,0.15), transparent 70%)`,
+              opacity: 0.8,
+            }}
+          />
           <SplineSceneBasic />
         </motion.div>
       </div>

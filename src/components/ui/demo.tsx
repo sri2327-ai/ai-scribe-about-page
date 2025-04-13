@@ -21,7 +21,7 @@ export function SplineSceneBasic() {
               backgroundSize: "200%"
             }}
           >
-            <span style={{ opacity: 0.6 }}>Smarter</span> Healthcare <span style={{ opacity: 0.6 }}>Starts</span> Here
+            <span className="text-gray-500">Smarter</span> Healthcare <span className="text-gray-500">Starts</span> Here
           </h1>
           <p className="mt-4 text-gray-400 max-w-lg font-wix-madefor">
             We're simplifying clinical workflows with AI, robotic assistants, and smart agents.
