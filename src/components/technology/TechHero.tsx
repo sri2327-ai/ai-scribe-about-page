@@ -39,7 +39,7 @@ const TechHero = () => {
         <img
           src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
           alt="S10.AI Healthcare Platform"
-          className="w-full h-full object-cover object-center rounded-lg"
+          className="w-full h-full object-cover"
         />
       </ContainerScroll>
     </section>
