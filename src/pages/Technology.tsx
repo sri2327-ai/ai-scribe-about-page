@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import TechHero from "@/components/technology/TechHero";
 import TechInnovation from "@/components/technology/TechInnovation";
-import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import TechFeatures from "@/components/technology/TechFeatures";
 import { ArrowRight } from "lucide-react";
 
@@ -21,9 +20,6 @@ const Technology = () => {
       >
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
-
-        {/* Meet IPKO Section with Timeline */}
-        <MeetIpkoTimeline />
 
         {/* Technology Features Section */}
         <TechFeatures />
@@ -42,7 +38,7 @@ const Technology = () => {
               className="max-w-4xl mx-auto"
             >
               <p className="text-2xl font-normal text-white mb-6">
-                AI That Works—So You Can Focus on Care.
+                Transform Your Healthcare Workflow
               </p>
               <Button 
                 variant="outline" 
