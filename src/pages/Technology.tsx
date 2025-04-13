@@ -17,7 +17,7 @@ import TechHero from "@/components/technology/TechHero";
 import TechInnovation from "@/components/technology/TechInnovation";
 import TechSolutions from "@/components/technology/TechSolutions";
 import TechArchitecture from "@/components/technology/TechArchitecture";
-import { MeetIpkoAnimation } from "@/components/technology/MeetIpkoAnimation";
+import MeetIpkoPulseBeams from "@/components/technology/MeetIpkoPulseBeams";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -59,106 +59,8 @@ const Technology = () => {
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
 
-        {/* Meet IPKO Animation Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-black via-blue-950/40 to-purple-950/30">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto mb-12"
-            >
-              <MeetIpkoAnimation 
-                animateText={true}
-                animateLines={true}
-                animateMarkers={true}
-                lineMarkerSize={6}
-              />
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="text-center mt-8"
-            >
-              <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-                IPKO combines powerful AI inference engines to transform healthcare 
-                automation, delivering unmatched security and knowledge engineering.
-              </p>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* IPKO Section - Redesigned with Huly.io style */}
-        <section className="py-16 md:py-28 bg-gradient-to-br from-black via-blue-950/20 to-purple-950/20">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Meet IPKO – The Intelligent Physician Knowledge Orchestrator
-              </h2>
-              <p className="text-xl text-blue-100/90">
-                IPKO, built on S10's patented AI, leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
-              </p>
-            </motion.div>
-
-            {isMobile ? (
-              <div className="space-y-6">
-                {ipkoCards.map((card, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="w-full"
-                  >
-                    <div className="p-6 bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
-                      <h3 className="text-xl font-semibold mb-3 text-blue-300">{card.title}</h3>
-                      <p className="text-gray-300">{card.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            ) : (
-              <Carousel
-                opts={{ align: "start", loop: true }}
-                className="w-full"
-              >
-                <CarouselContent>
-                  {ipkoCards.map((card, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                        viewport={{ once: true }}
-                        className="h-full"
-                      >
-                        <div className="p-6 h-48 bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm rounded-2xl border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
-                          <h3 className="text-xl font-semibold mb-3 text-blue-300">{card.title}</h3>
-                          <p className="text-gray-300 line-clamp-3">{card.description}</p>
-                        </div>
-                      </motion.div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex justify-center mt-8 gap-4">
-                  <CarouselPrevious className="relative static border-blue-500/50 hover:bg-blue-500/20 text-blue-300" />
-                  <CarouselNext className="relative static border-blue-500/50 hover:bg-blue-500/20 text-blue-300" />
-                </div>
-              </Carousel>
-            )}
-          </div>
-        </section>
+        {/* Meet IPKO Animation Section - Replaced with Pulse Beams */}
+        <MeetIpkoPulseBeams />
 
         {/* Technology Components */}
         <TechSolutions />
