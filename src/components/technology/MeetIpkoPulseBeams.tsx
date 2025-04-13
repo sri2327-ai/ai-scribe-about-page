@@ -6,6 +6,9 @@ import { ArrowRight } from "lucide-react";
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { useWindowSize } from "@/hooks/use-window-size";
 import { useEffect, useState } from "react";
+import { FeatureCard } from "@/components/ui/feature-card";
+import ParallaxSection from "@/components/ui/parallax-section";
+import { Cpu, Database, Network, Lightning } from "lucide-react";
 
 export const MeetIpkoPulseBeams = () => {
   const { width } = useWindowSize();
@@ -69,9 +72,18 @@ export const MeetIpkoPulseBeams = () => {
     },
   ];
 
+  const icons = [
+    <Network key="network" className="h-6 w-6" />,
+    <Cpu key="cpu" className="h-6 w-6" />,
+    <Database key="database" className="h-6 w-6" />,
+    <Lightning key="lightning" className="h-6 w-6" />
+  ];
+
+  const colors = ['blue', 'purple', 'cyan', 'indigo'];
+
   return (
     <section className="relative py-24 overflow-hidden bg-black">
-      <div className="h-[80vh] min-h-[600px] relative w-full">
+      <div className="h-[90vh] min-h-[600px] relative w-full">
         {/* Gradient Tracing Background - Full width with animation across entire screen */}
         {isMounted && (
           <div className="absolute inset-0 z-0 w-full overflow-hidden">
@@ -115,55 +127,55 @@ export const MeetIpkoPulseBeams = () => {
             </div>
           }
         >
-          <div className="flex flex-col items-center justify-center text-center px-4 max-w-4xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-12"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Meet IPKO – The Intelligent Physician Knowledge Orchestrator
-              </h2>
-              <p className="text-xl text-blue-100/90 max-w-3xl mx-auto">
-                IPKO, built on S10's patented AI, leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
-              </p>
-            </motion.div>
+          <ParallaxSection speed={0.2} direction="up" className="h-full">
+            <div className="flex flex-col items-center justify-center text-center px-4 max-w-4xl mx-auto pt-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="mb-12"
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Meet IPKO – The Intelligent Physician Knowledge Orchestrator
+                </h2>
+                <p className="text-xl text-blue-100/90 max-w-3xl mx-auto">
+                  IPKO, built on S10's patented AI, leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
+                </p>
+              </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="p-6 rounded-lg border border-white bg-black/80 backdrop-blur-sm max-w-2xl"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {ipkoFeatures.map((feature, index) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                    className="p-4 rounded-lg border border-white/20 bg-black hover:bg-black/30 transition-all duration-300"
-                  >
-                    <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                    <p className="text-sm text-blue-100/80">{feature.description}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="w-full max-w-4xl mx-auto"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {ipkoFeatures.map((feature, index) => (
+                    <FeatureCard
+                      key={index}
+                      title={feature.title}
+                      description={feature.description}
+                      index={index}
+                      icon={icons[index]}
+                      color={colors[index % colors.length]}
+                    />
+                  ))}
+                </div>
+              </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.9 }}
-              className="mt-8"
-            >
-              <Button variant="default" size="lg" className="bg-white text-black hover:bg-gray-200 border border-white">
-                Learn More
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
+                className="mt-12"
+              >
+                <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white border-none shadow-lg shadow-indigo-900/20">
+                  Learn More
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </motion.div>
+            </div>
+          </ParallaxSection>
         </PulseBeams>
       </div>
     </section>

@@ -19,6 +19,7 @@ import TechInnovation from "@/components/technology/TechInnovation";
 import TechSolutions from "@/components/technology/TechSolutions";
 import TechArchitecture from "@/components/technology/TechArchitecture";
 import MeetIpkoPulseBeams from "@/components/technology/MeetIpkoPulseBeams";
+import ParallaxSection from "@/components/ui/parallax-section";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -63,123 +64,135 @@ const Technology = () => {
         {/* Meet IPKO Animation Section - Pulse Beams */}
         <MeetIpkoPulseBeams />
 
-        {/* Technology Components */}
-        <TechSolutions />
-        <TechArchitecture />
-        <TechInnovation />
+        {/* Technology Components with Parallax */}
+        <ParallaxSection speed={0.3} direction="up" className="w-full">
+          <TechSolutions />
+        </ParallaxSection>
+        
+        <ParallaxSection speed={0.2} direction="down" className="w-full">
+          <TechArchitecture />
+        </ParallaxSection>
 
-        {/* Technology That Delivers Section - Huly.io style */}
-        <section className="py-16 md:py-28 bg-gradient-to-br from-blue-950/40 via-indigo-950/30 to-purple-950/20">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Technology That Delivers
-              </h2>
-            </motion.div>
+        <ParallaxSection speed={0.1} direction="up" className="w-full">
+          <TechInnovation />
+        </ParallaxSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {technologyFeatures.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  className="rounded-2xl p-6 backdrop-blur-sm bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300"
-                >
-                  <div className="flex items-start space-x-4">
-                    <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-2 rounded-lg">
-                      {feature.icon}
+        {/* Technology That Delivers Section - With Parallax */}
+        <ParallaxSection speed={0.15} direction="up" className="w-full">
+          <section className="py-16 md:py-28 bg-gradient-to-br from-blue-950/40 via-indigo-950/30 to-purple-950/20">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="max-w-4xl mx-auto text-center mb-16"
+              >
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                  Technology That Delivers
+                </h2>
+              </motion.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {technologyFeatures.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    className="rounded-2xl p-6 backdrop-blur-sm bg-gradient-to-br from-blue-900/20 to-purple-900/10 border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300"
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className="bg-gradient-to-br from-blue-500 to-purple-500 p-2 rounded-lg">
+                        {feature.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-blue-300 mb-2">{feature.title}</h3>
+                        <p className="text-blue-100/80">{feature.description}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-xl font-semibold text-blue-300 mb-2">{feature.title}</h3>
-                      <p className="text-blue-100/80">{feature.description}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="text-center mt-16">
+                <p className="text-2xl font-semibold text-white mb-6">
+                  AI That Works—So You Can Focus on Care.
+                </p>
+                <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
+                  Request A Demo
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </section>
+        </ParallaxSection>
+
+        {/* Security Section - With Parallax */}
+        <ParallaxSection speed={0.1} direction="up" className="w-full">
+          <section className="py-16 md:py-28 bg-gradient-to-br from-indigo-950/30 via-purple-950/20 to-black">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                viewport={{ once: true }}
+                className="max-w-4xl mx-auto text-center mb-16"
+              >
+                <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                  Uncompromising Security & Compliance
+                </h2>
+                <p className="text-xl text-blue-100/90 max-w-3xl mx-auto">
+                  Our state-of-the-art security ensures your data remains protected at all times.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
+              >
+                {securityFeatures.map((feature, index) => (
+                  <div key={index} className="p-6 backdrop-blur-sm bg-gradient-to-br from-blue-900/20 to-purple-900/10 rounded-2xl border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300">
+                    <div className="flex items-start gap-4 text-left">
+                      <div className="text-2xl text-blue-400">🔒</div>
+                      <div>
+                        <h3 className="font-semibold text-blue-300 mb-2">{feature.title}</h3>
+                        <p className="text-gray-300">
+                          {feature.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="text-center mt-16">
-              <p className="text-2xl font-semibold text-white mb-6">
-                AI That Works—So You Can Focus on Care.
-              </p>
-              <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
-                Request A Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Security Section - Huly.io style */}
-        <section className="py-16 md:py-28 bg-gradient-to-br from-indigo-950/30 via-purple-950/20 to-black">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="max-w-4xl mx-auto text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                Uncompromising Security & Compliance
-              </h2>
-              <p className="text-xl text-blue-100/90 max-w-3xl mx-auto">
-                Our state-of-the-art security ensures your data remains protected at all times.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"
-            >
-              {securityFeatures.map((feature, index) => (
-                <div key={index} className="p-6 backdrop-blur-sm bg-gradient-to-br from-blue-900/20 to-purple-900/10 rounded-2xl border border-blue-500/20 hover:border-blue-500/30 transition-all duration-300">
-                  <div className="flex items-start gap-4 text-left">
-                    <div className="text-2xl text-blue-400">🔒</div>
-                    <div>
-                      <h3 className="font-semibold text-blue-300 mb-2">{feature.title}</h3>
-                      <p className="text-gray-300">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              viewport={{ once: true }}
-              className="mt-16 text-center"
-            >
-              <p className="text-lg text-blue-300 mb-6">
-                <span className="text-2xl">💡</span> S10.AI ensures data security, privacy, and compliance—so you can trust every interaction.
-              </p>
+                ))}
+              </motion.div>
               
-              <p className="text-2xl font-semibold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                High-Powered AI. Rock-Solid Security. Future-Ready Healthcare.
-              </p>
-              
-              <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
-                Request A Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </motion.div>
-          </div>
-        </section>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
+                className="mt-16 text-center"
+              >
+                <p className="text-lg text-blue-300 mb-6">
+                  <span className="text-2xl">💡</span> S10.AI ensures data security, privacy, and compliance—so you can trust every interaction.
+                </p>
+                
+                <p className="text-2xl font-semibold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                  High-Powered AI. Rock-Solid Security. Future-Ready Healthcare.
+                </p>
+                
+                <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
+                  Request A Demo
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </motion.div>
+            </div>
+          </section>
+        </ParallaxSection>
       </motion.div>
     </main>
   );
