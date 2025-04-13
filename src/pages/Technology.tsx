@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useIsMobile } from "@/hooks/use-mobile";
 import TechHero from "@/components/technology/TechHero";
-import TechInnovation from "@/components/technology/TechInnovation";
+import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import TechFeatures from "@/components/technology/TechFeatures";
 import { ArrowRight } from "lucide-react";
 
@@ -21,11 +21,11 @@ const Technology = () => {
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
 
+        {/* Meet IPKO Section with Timeline */}
+        <MeetIpkoTimeline />
+
         {/* Technology Features Section */}
         <TechFeatures />
-
-        {/* Tech Innovation Section */}
-        <TechInnovation />
 
         {/* Call to Action Section */}
         <section className="py-16 md:py-28 bg-black border-t border-white/10">
