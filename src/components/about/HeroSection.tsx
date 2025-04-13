@@ -34,8 +34,6 @@ const HeroSection = () => {
         >
           <SplineSceneBasic />
         </motion.div>
-        
-        {/* Remove the radial background glow effect */}
       </div>
       
       {/* Scroll down indicator - positioned on left side */}
@@ -59,4 +57,3 @@ const HeroSection = () => {
 };
 
 export default HeroSection;
-
