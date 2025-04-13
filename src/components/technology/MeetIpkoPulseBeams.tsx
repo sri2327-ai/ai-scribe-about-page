@@ -3,8 +3,18 @@ import { PulseBeams } from "@/components/ui/pulse-beams";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { GradientTracing } from "@/components/ui/gradient-tracing";
+import { useWindowSize } from "@/hooks/use-window-size";
+import { useEffect, useState } from "react";
 
 export const MeetIpkoPulseBeams = () => {
+  const { width } = useWindowSize();
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   // Custom beam patterns specifically for IPKO section
   const ipkoBeams = [
     {
@@ -62,13 +72,46 @@ export const MeetIpkoPulseBeams = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
       <div className="h-[80vh] min-h-[600px] relative w-full">
+        {/* Added GradientTracing components for background - only render client-side */}
+        {isMounted && (
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <GradientTracing
+              width={width}
+              height={200}
+              path={`M0,100 C${width * 0.3},50 ${width * 0.7},150 ${width},100`}
+              gradientColors={["#4ECDC4", "#1EAEDB", "#4ECDC4"]}
+              animationDuration={5}
+              strokeWidth={3}
+              className="absolute top-[20%]"
+            />
+            <GradientTracing
+              width={width}
+              height={200}
+              path={`M0,100 C${width * 0.4},180 ${width * 0.6},20 ${width},100`}
+              gradientColors={["#1EAEDB", "#9E00FF", "#1EAEDB"]}
+              animationDuration={7}
+              strokeWidth={3}
+              className="absolute top-[60%]"
+            />
+            <GradientTracing
+              width={width}
+              height={200}
+              path={`M0,100 C${width * 0.2},20 ${width * 0.8},180 ${width},100`}
+              gradientColors={["#9E00FF", "#4ECDC4", "#9E00FF"]}
+              animationDuration={6}
+              strokeWidth={3}
+              className="absolute top-[40%]"
+            />
+          </div>
+        )}
+
         <PulseBeams 
           beams={ipkoBeams}
           gradientColors={["#4ECDC4", "#1EAEDB"]}
           className="absolute inset-0 !h-full"
           background={
             <div className="absolute inset-0 bg-black">
-              {/* Removed the animated gradient background */}
+              {/* Black background as requested */}
             </div>
           }
         >
