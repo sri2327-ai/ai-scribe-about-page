@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from "react"
@@ -121,22 +120,6 @@ export function TechFeatures({
           </div>
 
           <div className="order-1 lg:order-2 bg-black backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-10 relative overflow-hidden">
-            {/* Abstract geometric design with white outlines */}
-            <div className="absolute inset-0 w-full h-full opacity-10">
-              <svg width="100%" height="100%" viewBox="0 0 800 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <g fill="none" stroke="white" strokeWidth="1">
-                  <circle cx="400" cy="300" r="250" strokeOpacity="0.4" />
-                  <circle cx="400" cy="300" r="200" strokeOpacity="0.3" />
-                  <circle cx="400" cy="300" r="150" strokeOpacity="0.2" />
-                  <path d="M100,100 L700,100 L700,500 L100,500 Z" strokeOpacity="0.5" />
-                  <path d="M150,150 L650,150 L650,450 L150,450 Z" strokeOpacity="0.3" />
-                  <path d="M200,200 L600,200 L600,400 L200,400 Z" strokeOpacity="0.2" />
-                  <line x1="100" y1="100" x2="700" y2="500" strokeOpacity="0.1" />
-                  <line x1="700" y1="100" x2="100" y2="500" strokeOpacity="0.1" />
-                </g>
-              </svg>
-            </div>
-
             <AnimatePresence mode="wait">
               {features.map((feature, index) =>
                 index === currentFeature ? (
@@ -148,34 +131,12 @@ export function TechFeatures({
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                   >
-                    {/* Large icon in center of the card with intricate white outline design */}
                     <div className="w-full h-full flex items-center justify-center">
-                      <div className="relative">
-                        {/* Decorative elements - circular rings */}
-                        <div className="absolute -inset-8 border-2 border-white/20 rounded-full animate-pulse" style={{ animationDuration: '3s' }}></div>
-                        <div className="absolute -inset-16 border border-white/10 rounded-full animate-pulse" style={{ animationDuration: '4s' }}></div>
-                        <div className="absolute -inset-24 border border-white/5 rounded-full animate-pulse" style={{ animationDuration: '5s' }}></div>
-                        
-                        {/* Connected lines */}
-                        <svg className="absolute -inset-32 w-[calc(100%+256px)] h-[calc(100%+256px)]" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                          <g fill="none" stroke="white" strokeWidth="1" opacity="0.2">
-                            <path d="M200,50 L200,350" />
-                            <path d="M50,200 L350,200" />
-                            <path d="M80,80 L320,320" />
-                            <path d="M320,80 L80,320" />
-                          </g>
-                        </svg>
-                        
-                        {/* Main icon circle */}
-                        <div className="relative w-48 h-48 rounded-full bg-black border-4 border-white flex items-center justify-center">
-                          <div className="w-32 h-32 text-white">
-                            {feature.icon}
-                          </div>
-                        </div>
+                      <div className="w-64 h-64 text-white">
+                        {feature.icon}
                       </div>
                     </div>
                     
-                    {/* Custom elegant progress bar at bottom */}
                     <div className="absolute bottom-6 left-0 right-0 w-full h-[2px] bg-white/10 rounded-full overflow-hidden">
                       <motion.div 
                         className="h-full bg-white"
@@ -188,13 +149,11 @@ export function TechFeatures({
                     {loading && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-20">
                         <div className="relative w-16 h-16">
-                          {/* Geometric loader with white outlines */}
                           <div className="absolute inset-0 border-t-2 border-r-2 border-white/80 rounded-full animate-spin"></div>
                           <div className="absolute inset-4 border-b-2 border-l-2 border-white/60 rounded-full animate-spin" style={{ animationDirection: 'reverse', animationDuration: '1.5s' }}></div>
                           <div className="absolute inset-0 w-full h-full flex items-center justify-center">
                             <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                           </div>
-                          {/* Cross lines */}
                           <div className="absolute h-[1px] w-full top-1/2 -translate-y-1/2 bg-white/30 animate-pulse"></div>
                           <div className="absolute w-[1px] h-full left-1/2 -translate-x-1/2 bg-white/30 animate-pulse"></div>
                         </div>
