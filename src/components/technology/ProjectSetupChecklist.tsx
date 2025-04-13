@@ -4,7 +4,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Shield, Lock, FileCheck, UserCheck } from "lucide-react";
-import SecurityStackedCards from "@/components/ui/security-stacked-cards";
+import { 
+  Carousel, 
+  CarouselContent, 
+  CarouselItem, 
+  CarouselPrevious, 
+  CarouselNext 
+} from "@/components/ui/carousel";
 
 const ProjectSetupChecklist = () => {
   // Define the security cards
@@ -53,8 +59,35 @@ const ProjectSetupChecklist = () => {
           viewport={{ once: true }}
           className="flex justify-center"
         >
-          <div className="min-h-[550px] w-full max-w-3xl relative">
-            <SecurityStackedCards cards={securityCards} />
+          <div className="w-full max-w-3xl relative">
+            <Carousel className="w-full">
+              <CarouselContent>
+                {securityCards.map((card, index) => {
+                  const Icon = card.icon;
+                  return (
+                    <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/1 lg:basis-1/2">
+                      <div className="p-1">
+                        <div className="bg-black border border-white/20 rounded-xl p-6 h-[280px] flex flex-col justify-between transition-all duration-300 hover:border-white/40">
+                          <div className="flex items-center gap-3 mb-4">
+                            <span className="relative inline-block rounded-full bg-black p-3 border border-white">
+                              <Icon className="h-6 w-6 text-white" strokeWidth={1.5} />
+                            </span>
+                            <h3 className="text-xl font-normal text-white">{card.title}</h3>
+                          </div>
+                          <div className="mb-4">
+                            <p className="text-gray-300 leading-relaxed">{card.description}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselContent>
+              <div className="flex justify-center gap-2 mt-6">
+                <CarouselPrevious className="relative static border border-white/20 text-white bg-black hover:bg-black/80 hover:text-white" />
+                <CarouselNext className="relative static border border-white/20 text-white bg-black hover:bg-black/80 hover:text-white" />
+              </div>
+            </Carousel>
           </div>
         </motion.div>
       </div>

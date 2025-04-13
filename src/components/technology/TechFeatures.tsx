@@ -90,7 +90,7 @@ export function TechFeatures({
                   className={cn(
                     "mt-1 w-10 h-10 rounded-full flex items-center justify-center border",
                     index === currentFeature
-                      ? "bg-white border-white text-black"
+                      ? "bg-black border-white text-white"
                       : "bg-black border-white/20 text-white/60",
                   )}
                   whileHover={{ scale: 1.1 }}
@@ -98,7 +98,7 @@ export function TechFeatures({
                   {index <= currentFeature ? (
                     <span className={cn(
                       "text-lg font-bold",
-                      index === currentFeature ? "text-gray-900" : "text-gray-400"
+                      index === currentFeature ? "text-white" : "text-gray-400"
                     )}>✓</span>
                   ) : (
                     <span className="text-lg font-semibold">{index + 1}</span>
