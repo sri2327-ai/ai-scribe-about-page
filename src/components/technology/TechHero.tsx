@@ -8,7 +8,7 @@ const TechHero = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section className="relative w-full overflow-hidden">
       {/* Animated gradient background */}
       <AnimatedGradientBackground 
         gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
@@ -42,10 +42,9 @@ const TechHero = () => {
             {/* Image without any glowing effect */}
             <div className="relative w-full h-full flex justify-center items-center">
               <img
-                src="/lovable-uploads/ac240693-c55f-4eca-b8c6-edf937838f40.png"
+                src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
                 alt="S10.AI Healthcare Platform"
                 className="w-full h-full object-contain z-10 relative"
-                loading="eager"
               />
             </div>
           </div>
