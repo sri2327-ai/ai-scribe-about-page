@@ -29,9 +29,9 @@ const TechHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-[6rem] font-bold mb-6 leading-tight font-wix-madefor"
+              className="text-3xl md:text-[4.5rem] font-bold mb-6 leading-tight font-wix-madefor"
               style={{
-                background: 'linear-gradient(to left, rgba(51,51,51,0.9) 30%, rgba(85,85,85,1) 100%)',
+                background: 'linear-gradient(to right, rgba(85,85,85,0.4) 0%, rgba(51,51,51,0.95) 100%)',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
                 color: 'transparent'
