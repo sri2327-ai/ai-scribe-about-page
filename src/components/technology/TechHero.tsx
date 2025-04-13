@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -239,7 +238,7 @@ const TechHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl md:text-[4.5rem] font-bold mb-6 leading-tight font-wix-madefor text-white"
+              className="text-3xl md:text-[4.5rem] font-light mb-6 leading-tight font-wix-madefor text-white"
             >
               AI Innovation with Unbreakable Security
             </motion.h1>
@@ -251,10 +250,10 @@ const TechHero = () => {
               className="flex items-center justify-center gap-2 mb-4"
             >
               <span className="relative flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1EAEDB] opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#1EAEDB]"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-white"></span>
               </span>
-              <p className="text-sm text-[#1EAEDB] font-medium">Secure & HIPAA Compliant</p>
+              <p className="text-sm text-white font-medium">Secure & HIPAA Compliant</p>
             </motion.div>
             
             <motion.div 
@@ -356,7 +355,7 @@ const TechHero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="px-4 py-8 bg-black text-white text-center" // Reduced py from 16 to 8
+        className="px-4 py-4 bg-black text-white text-center"
       >
         <h2 className="text-3xl md:text-4xl font-normal mb-4">
           Everything You Need for AI-Powered Clinical Excellence
@@ -387,4 +386,3 @@ const TechHero = () => {
 };
 
 export default TechHero;
-
