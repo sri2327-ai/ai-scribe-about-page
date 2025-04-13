@@ -2,21 +2,12 @@
 'use client'
 
 import { SplineScene } from "@/components/ui/splite";
-import { ChemicalBurnEffect } from "@/components/ui/chemical-burn-effect";
 
 export function SplineSceneBasic() {
   return (
     <div className="w-full h-[500px] bg-black relative overflow-hidden border-0">
-      {/* Replace Spotlight with ChemicalBurnEffect */}
-      <div className="absolute inset-0">
-        <ChemicalBurnEffect
-          colors={['#8B5CF6', '#D946EF', '#1EAEDB']}
-          intensity={0.7}
-          speed={1.2}
-          particleCount={200}
-        />
-      </div>
-
+      {/* Plain black background - removed ChemicalBurnEffect */}
+      
       <div className="flex h-full flex-col md:flex-row">
         {/* Left content */}
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">

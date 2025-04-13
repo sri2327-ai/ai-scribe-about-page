@@ -2,23 +2,13 @@
 import { motion } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { ChemicalBurnEffect } from "@/components/ui/chemical-burn-effect";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
 
   return (
     <section className="relative w-full bg-black overflow-hidden">
-      {/* Background with Chemical Burn effect */}
-      <div className="absolute inset-0 z-0">
-        <ChemicalBurnEffect 
-          colors={['#8B5CF6', '#D946EF', '#1EAEDB']}
-          intensity={0.7}
-          speed={1.2}
-          particleCount={isMobile ? 150 : 300}
-        />
-      </div>
-
+      {/* Plain black background - no effects */}
       <ContainerScroll
         titleComponent={
           <motion.div
