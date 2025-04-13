@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -15,11 +14,10 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import { StarBorder } from "@/components/ui/star-border";
 import TechHero from "@/components/technology/TechHero";
-import MatrixRain from "@/components/ui/matrix-rain";
-import { MeetIpkoAnimation } from "@/components/technology/MeetIpkoAnimation";
 import TechInnovation from "@/components/technology/TechInnovation";
 import TechSolutions from "@/components/technology/TechSolutions";
 import TechArchitecture from "@/components/technology/TechArchitecture";
+import { MeetIpkoAnimation } from "@/components/technology/MeetIpkoAnimation";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -58,34 +56,8 @@ const Technology = () => {
         transition={{ duration: 0.6 }}
         className="flex flex-col w-full"
       >
-        {/* Matrix Hero Section with AI Innovation & Security */}
-        <section className="relative w-full h-screen flex items-center justify-center overflow-hidden">
-          {/* Matrix Rain Background */}
-          <div className="absolute inset-0 bg-black">
-            <MatrixRain 
-              fontSize={16}
-              color="#143151" 
-              characters="01"
-              fadeOpacity={0.05}
-              speed={0.8}
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-blue-950/50 via-purple-900/30 to-black/80" />
-          </div>
-          
-          <div className="container relative z-10 mx-auto px-4">
-            <div className="max-w-5xl mx-auto text-center">
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-4xl md:text-7xl text-metallic tracking-tight leading-tight"
-                data-text="Advanced AI Innovation & Unbreakable Security"
-              >
-                Advanced AI Innovation & Unbreakable Security
-              </motion.h1>
-            </div>
-          </div>
-        </section>
+        {/* Hero Section with AI Innovation & Security */}
+        <TechHero />
 
         {/* Meet IPKO Animation Section */}
         <section className="py-16 md:py-24 bg-gradient-to-b from-black via-blue-950/40 to-purple-950/30">
