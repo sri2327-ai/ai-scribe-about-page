@@ -4,7 +4,6 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { 
   Shield, 
   ShieldCheck, 
@@ -164,7 +163,7 @@ const TechHero = () => {
       }
     },
     {
-      icon: Terminal,  // Changed from Chip to Terminal
+      icon: Terminal,
       position: { top: "65%", right: "20%" },
       delay: 1100,
       tooltip: {
@@ -349,6 +348,38 @@ const TechHero = () => {
           </div>
         </div>
       </ContainerScroll>
+
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        className="px-4 py-16 bg-black text-white text-center"
+      >
+        <h2 className="text-3xl md:text-4xl font-normal mb-6">
+          Everything You Need for AI-Powered Clinical Excellence
+        </h2>
+        <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          Advanced Intelligence. Seamless Automation. Unbreakable Security.
+        </p>
+        <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm md:text-base">
+          {[
+            'AI Clinical Scribing',
+            'Workflow Optimization',
+            'Intelligent Triage',
+            'Patient Insights',
+            'Secure Collaboration',
+            'Predictive Analytics'
+          ].map((item, index) => (
+            <span 
+              key={index} 
+              className="px-4 py-2 bg-white/10 border border-white/20 rounded-full"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </motion.section>
     </section>
   );
 };
