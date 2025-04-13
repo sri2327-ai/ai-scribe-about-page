@@ -8,7 +8,6 @@ import TechFeatures from "@/components/technology/TechFeatures";
 import SecurityCompliance from "@/components/technology/SecurityCompliance";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
 import S10AISafetyFAQs from "@/components/technology/S10AISafetyFAQs";
-import TechSetupInstructions from "@/components/technology/TechSetupInstructions";
 import { ArrowRight } from "lucide-react";
 
 const Technology = () => {
@@ -64,9 +63,6 @@ const Technology = () => {
 
         {/* S10.AI Safety FAQs Section */}
         <S10AISafetyFAQs />
-        
-        {/* Technology Setup Instructions Section */}
-        <TechSetupInstructions />
       </motion.div>
     </main>
   );
