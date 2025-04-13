@@ -22,17 +22,17 @@ interface GlowBorderEffectProps {
 
 const GlowBorderEffect = memo(
   ({
-    blur = 0,
-    inactiveZone = 0.7,
-    proximity = 0,
-    spread = 20,
-    variant = "default",
-    glow = false,
+    blur = 10,
+    inactiveZone = 0,
+    proximity = 150,
+    spread = 50,
+    variant = "teal",
+    glow = true,
     className,
-    movementDuration = 2,
-    borderWidth = 1,
-    disabled = true,
-    dualBorder = false,
+    movementDuration = 3,
+    borderWidth = 3,
+    disabled = false,
+    dualBorder = true,
   }: GlowBorderEffectProps) => {
     const containerRef = useGlowEffect({
       inactiveZone,
@@ -41,14 +41,14 @@ const GlowBorderEffect = memo(
       disabled,
     });
 
-    const gradient = getGradient(variant);
+    const gradient = getGradient(variant, 1.5); // Increased intensity
 
     return (
       <>
-        {/* White border that's always visible - brighter for better visibility */}
+        {/* Visible border that's always present - higher opacity for better visibility */}
         <div
           className={cn(
-            "pointer-events-none absolute -inset-px rounded-[inherit] border-2 border-white/70 transition-opacity duration-300",
+            "pointer-events-none absolute -inset-px rounded-[inherit] border-[3px] border-tealBlueBright/50 transition-opacity duration-300",
             disabled && "hidden"
           )}
         />
@@ -57,7 +57,7 @@ const GlowBorderEffect = memo(
         {dualBorder && (
           <div
             className={cn(
-              "pointer-events-none absolute -inset-[3px] rounded-[inherit] border-2 border-white/30 transition-opacity duration-300",
+              "pointer-events-none absolute -inset-[5px] rounded-[inherit] border-[2px] border-tealBlueBright/30 transition-opacity duration-300",
               disabled && "hidden"
             )}
           />
@@ -71,8 +71,8 @@ const GlowBorderEffect = memo(
               "--blur": `${blur}px`,
               "--spread": spread,
               "--start": "0",
-              "--active": "0",
-              "--intensity": "1",
+              "--active": "1", // Always active
+              "--intensity": "2.5", // Higher intensity
               "--glowingeffect-border-width": `${borderWidth}px`,
               "--repeating-conic-gradient-times": "5",
               "--gradient": gradient,
@@ -92,8 +92,9 @@ const GlowBorderEffect = memo(
               "rounded-[inherit]",
               'after:content-[""] after:rounded-[inherit] after:absolute after:inset-[calc(-1*var(--glowingeffect-border-width))]',
               "after:[border:var(--glowingeffect-border-width)_solid_transparent]",
-              "after:[background:var(--gradient)] after:[background-attachment:fixed]",
-              "after:opacity-[var(--active)] after:transition-all after:duration-300",
+              "after:[background:var(--gradient)]",
+              "after:opacity-[var(--active)]", 
+              "after:transition-all after:duration-300",
               "after:[mask-clip:padding-box,border-box]",
               "after:[mask-composite:intersect]",
               "after:scale-[var(--intensity)]",

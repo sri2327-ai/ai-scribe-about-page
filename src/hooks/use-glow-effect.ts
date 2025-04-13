@@ -49,8 +49,8 @@ export function useGlowEffect({
         const inactiveRadius = 0.5 * Math.min(width, height) * inactiveZone;
 
         if (distanceFromCenter < inactiveRadius) {
-          element.style.setProperty("--active", "0");
-          hoverStateRef.current = false;
+          element.style.setProperty("--active", "1"); // Always keep active
+          hoverStateRef.current = true;
           return;
         }
 
@@ -61,7 +61,7 @@ export function useGlowEffect({
           mouseY < top + height + proximity;
 
         // Set active state
-        element.style.setProperty("--active", isActive ? "1" : "0");
+        element.style.setProperty("--active", "1"); // Always active for better visibility
         
         // Only trigger animation effect when hover state changes
         if (isActive && !hoverStateRef.current) {
@@ -85,8 +85,8 @@ export function useGlowEffect({
           if (pulseTimeoutRef.current) {
             clearTimeout(pulseTimeoutRef.current);
           }
-          element.style.setProperty("--intensity", "1");
-          element.style.setProperty("--spread", "20");
+          element.style.setProperty("--intensity", "1.5"); // Keep some intensity
+          element.style.setProperty("--spread", "40"); // Keep some spread
           hoverStateRef.current = false;
         }
 
