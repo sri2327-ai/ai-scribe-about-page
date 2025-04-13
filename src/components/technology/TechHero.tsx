@@ -1,11 +1,18 @@
 
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
+import { useEffect, useRef } from "react";
+import { CanvasEffect } from "@/components/ui/canvas-effect";
 
 const TechHero = () => {
   const isMobile = useIsMobile();
+  const controls = useAnimation();
+  
+  useEffect(() => {
+    controls.start({ opacity: 1, y: 0 });
+  }, [controls]);
 
   return (
     <section className="relative w-full overflow-hidden bg-black">
@@ -14,6 +21,9 @@ const TechHero = () => {
         className="-top-40 left-0"
         fill="#1EAEDB"
       />
+      
+      {/* Canvas Effect */}
+      <CanvasEffect id="tech-canvas" className="opacity-60" />
       
       <ContainerScroll
         titleComponent={
@@ -31,6 +41,19 @@ const TechHero = () => {
             >
               AI Innovation with Unbreakable Security
             </motion.h1>
+            
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={controls}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="flex items-center justify-center gap-2 mb-4"
+            >
+              <span className="relative flex h-3 w-3">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#1EAEDB] opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#1EAEDB]"></span>
+              </span>
+              <p className="text-sm text-[#1EAEDB] font-medium">Secure & HIPAA Compliant</p>
+            </motion.div>
           </motion.div>
         }
       >
