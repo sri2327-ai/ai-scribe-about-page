@@ -15,9 +15,8 @@ export function SplineSceneBasic() {
           >
             <span className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: getGradient("x-gray", 1.2),
+                backgroundImage: `linear-gradient(90deg, rgba(200,200,200,0.9) 0%, rgba(220,220,220,1) 100%)`,
                 backgroundSize: "100%",
-                backgroundPosition: "center",
               }}
             >Smarter</span>{" "}
             <span className="text-transparent bg-clip-text"
@@ -28,9 +27,8 @@ export function SplineSceneBasic() {
             >Healthcare</span>{" "}
             <span className="text-transparent bg-clip-text"
               style={{
-                backgroundImage: getGradient("x-gray", 1.2),
+                backgroundImage: `linear-gradient(90deg, rgba(200,200,200,0.9) 0%, rgba(220,220,220,1) 100%)`,
                 backgroundSize: "100%",
-                backgroundPosition: "center",
               }}
             >Starts</span>{" "}
             <span className="text-transparent bg-clip-text"
