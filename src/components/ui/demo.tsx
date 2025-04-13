@@ -19,10 +19,10 @@ export function SplineSceneBasic() {
       <div className="flex h-full flex-col md:flex-row">
         {/* Left content */}
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white font-wix-madefor">
+          <h1 className="text-4xl md:text-5xl font-bold text-white font-wix-madefor tracking-tight">
             Smarter Healthcare Starts Here
           </h1>
-          <p className="mt-4 text-[#999999] max-w-lg font-wix-madefor">
+          <p className="mt-4 text-gray-400 max-w-lg font-wix-madefor">
             We're simplifying clinical workflows with AI, robotic assistants, and smart agents.
           </p>
         </div>
