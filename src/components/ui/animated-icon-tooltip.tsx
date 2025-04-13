@@ -62,14 +62,14 @@ export const AnimatedIconTooltip = ({
                   rotate: rotate,
                   whiteSpace: "normal",
                 }}
-                className="absolute -top-24 left-1/2 -translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-white text-black z-50 shadow-xl px-4 py-2 max-w-[200px]"
+                className="absolute -top-20 left-1/2 -translate-x-1/2 flex text-xs flex-col items-center justify-center rounded-md bg-black/30 backdrop-blur-sm text-white z-50 shadow-xl px-4 py-2 max-w-[180px] border border-white/10"
               >
                 <div className="absolute inset-x-10 z-30 w-[20%] -bottom-px bg-gradient-to-r from-transparent via-emerald-500 to-transparent h-px" />
                 <div className="absolute left-10 w-[40%] z-30 -bottom-px bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px" />
-                <div className="font-bold text-black relative z-30 text-base">
+                <div className="font-bold text-white relative z-30 text-base">
                   {item.name}
                 </div>
-                <div className="text-gray-600 text-xs text-center mt-1">
+                <div className="text-gray-300 text-xs text-center mt-1">
                   {item.description}
                 </div>
               </motion.div>
@@ -77,7 +77,7 @@ export const AnimatedIconTooltip = ({
           </AnimatePresence>
           <div 
             onMouseMove={handleMouseMove}
-            className="bg-black text-white p-4 rounded-full cursor-pointer hover:bg-gray-900 group-hover:scale-105 group-hover:z-30 transition duration-300"
+            className="bg-black text-white p-4 rounded-full cursor-pointer hover:bg-gray-900 group-hover:scale-105 group-hover:z-30 transition duration-300 border border-gray-800"
           >
             {React.createElement(item.icon, { 
               size: 24,

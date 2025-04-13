@@ -15,51 +15,57 @@ import { AnimatedIconTooltip } from "@/components/ui/animated-icon-tooltip";
 const securityItems = [
   {
     id: 1,
-    name: "HIPAA, GDPR, & PIPEDA Compliant",
-    description: "Meets global healthcare data standards.",
-    icon: ShieldCheck,
-  },
-  {
-    id: 2,
-    name: "ISO 27001 Certified",
-    description: "Industry-leading information security management.",
+    name: "HIPAA Compliant",
+    description: "Meets US healthcare standards",
     icon: Shield,
   },
   {
-    id: 3,
-    name: "SOC-2 Audit in Progress",
-    description: "Ensuring AICPA compliance for trust & transparency.",
+    id: 2,
+    name: "GDPR Compliant",
+    description: "European data protection standards",
     icon: ShieldAlert,
   },
   {
+    id: 3,
+    name: "PIPEDA Compliant",
+    description: "Canadian privacy regulations",
+    icon: ShieldCheck,
+  },
+  {
     id: 4,
-    name: "No Data Storage",
-    description: "Real-time transcription with automatic erasure.",
-    icon: Database,
+    name: "ISO 27001 Certified",
+    description: "Information security management",
+    icon: Shield,
   },
   {
     id: 5,
-    name: "Multi-Factor Authentication",
-    description: "Secured access at every level with encryption.",
-    icon: Lock,
+    name: "No Data Storage",
+    description: "Automatic data erasure",
+    icon: Database,
   },
   {
     id: 6,
-    name: "Risk Management",
-    description: "Only authorized personnel can view data.",
-    icon: Users,
+    name: "Multi-Factor Authentication",
+    description: "Secured access protocols",
+    icon: Lock,
   },
   {
     id: 7,
-    name: "Hosted in the US & Canada",
-    description: "Complies with federal & state regulations.",
+    name: "Risk Management",
+    description: "Authorized personnel only",
+    icon: Users,
+  },
+  {
+    id: 8,
+    name: "Hosted in US & Canada",
+    description: "Regional regulation compliance",
     icon: Globe,
   },
 ];
 
 const SecurityCompliance = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-gray-900">
+    <section className="py-20 bg-gradient-to-b from-black to-gray-900 relative">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
