@@ -11,6 +11,7 @@ import {
   Globe 
 } from "lucide-react";
 import { AnimatedIconTooltip } from "@/components/ui/animated-icon-tooltip";
+import StarParticles from "@/components/ui/star-particles";
 
 const securityItems = [
   {
@@ -65,8 +66,12 @@ const securityItems = [
 
 const SecurityCompliance = () => {
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-gray-900 relative">
-      <div className="container mx-auto px-4">
+    <section className="py-20 relative overflow-hidden">
+      {/* Star particles background */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#111_0%,_#000_100%)] z-0"></div>
+      <StarParticles starCount={150} />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
