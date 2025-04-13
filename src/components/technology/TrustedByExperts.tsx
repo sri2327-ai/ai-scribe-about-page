@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
+import { getGradient } from "@/components/ui/effects/gradient-utils";
 
 const companyLogos = [
   {
@@ -69,7 +70,12 @@ const companyLogos = [
 const TrustedByExperts = () => {
   return (
     <section className="relative py-24 overflow-hidden bg-black">
-      <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#8350e8,transparent_70%)] before:opacity-40" />
+      <div 
+        className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#4F46E5,transparent_70%)] before:opacity-40" 
+        style={{
+          background: getGradient('teal', 0.8)
+        }}
+      />
       <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-zinc-900/20 dark:border-white/20 bg-black" />
       
       <motion.div
