@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
+import { Spotlight } from "@/components/ui/spotlight";
+import { Brain, Globe, Layers } from "lucide-react";
 
 // Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
@@ -38,15 +40,18 @@ const TextRotate = ({ texts }: { texts: string[] }) => {
 const innovationPoints = [
   {
     title: "Medical Knowledge Inference Engine (MKIE)",
-    description: "Generates accurate medical concepts for documentation improvement."
+    description: "Generates accurate medical concepts for documentation improvement.",
+    icon: <Brain className="h-6 w-6 text-tealBlueBright" />
   },
   {
     title: "Cross-lingual Conversation Inference Engine (CCIE)",
-    description: "A Star Trek-inspired Universal Translator for seamless doctor-patient interactions."
+    description: "A Star Trek-inspired Universal Translator for seamless doctor-patient interactions.",
+    icon: <Globe className="h-6 w-6 text-tealBlueBright" />
   },
   {
     title: "Intuitive Interface Inference Engine (IIIE)",
-    description: "Breaks integration barriers, making AI effortlessly interact with existing systems."
+    description: "Breaks integration barriers, making AI effortlessly interact with existing systems.",
+    icon: <Layers className="h-6 w-6 text-tealBlueBright" />
   }
 ];
 
@@ -85,8 +90,14 @@ const FounderMessage = () => {
           <h2 className="text-4xl font-bold mb-6 text-white font-wix-madefor">A Message from Our Founder</h2>
         </motion.div>
         
-        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black/60 backdrop-blur-sm text-white border border-tealBlueBright/20">
-          <CardContent className="p-8 md:p-16">
+        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black/60 backdrop-blur-sm text-white border border-tealBlueBright/20 relative">
+          {/* Add spotlight effect inside the card */}
+          <Spotlight
+            className="inset-0 z-0"
+            fill="#1EAEDB"
+          />
+          
+          <CardContent className="p-8 md:p-16 relative z-10">
             <div className="flex flex-col space-y-8">
               <motion.p 
                 className="text-xl md:text-2xl leading-relaxed font-wix-madefor text-gray-300"
@@ -121,21 +132,38 @@ const FounderMessage = () => {
                 
                 <div className="space-y-6" ref={listRef}>
                   {innovationPoints.map((point, index) => (
-                    <div 
+                    <motion.div 
                       key={index}
-                      className="flex items-start space-x-4 innovation-item transition-all duration-500 border-l-2 border-gray-500 pl-4"
-                      style={{ opacity: 0, transform: "translateY(20px)" }}
+                      className="innovation-item transition-all duration-500 border-l-2 border-tealBlueBright/40 pl-4"
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
+                      viewport={{ once: true }}
                     >
-                      <div className="flex-shrink-0 mt-1">
-                        <div className="w-4 h-4 bg-gray-500 rounded-full flex items-center justify-center">
-                          <span className="text-black text-xs">•</span>
+                      <div className="flex items-start space-x-4">
+                        <div className="flex-shrink-0 mt-1 pulse-glow">
+                          {point.icon}
+                        </div>
+                        <div>
+                          <motion.h4 
+                            className="text-lg font-semibold mb-2 font-wix-madefor text-gray-300"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.1 + index * 0.2 }}
+                          >
+                            {point.title}
+                          </motion.h4>
+                          <motion.p 
+                            className="text-gray-400 font-wix-madefor"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3, delay: 0.2 + index * 0.2 }}
+                          >
+                            {point.description}
+                          </motion.p>
                         </div>
                       </div>
-                      <div>
-                        <h4 className="text-lg font-semibold mb-2 font-wix-madefor text-gray-300">{point.title}</h4>
-                        <p className="text-gray-400 font-wix-madefor">{point.description}</p>
-                      </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
