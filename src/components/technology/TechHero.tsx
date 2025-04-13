@@ -3,7 +3,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 
 const TechHero = () => {
@@ -16,14 +16,16 @@ const TechHero = () => {
 
   return (
     <section className="relative w-full overflow-hidden bg-black">
+      {/* Canvas Effect positioned as background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <CanvasEffect id="tech-canvas" className="opacity-40" />
+      </div>
+      
       {/* Spotlight effect */}
       <Spotlight
-        className="-top-40 left-0"
+        className="-top-40 left-0 z-10"
         fill="#1EAEDB"
       />
-      
-      {/* Canvas Effect */}
-      <CanvasEffect id="tech-canvas" className="opacity-60" />
       
       <ContainerScroll
         titleComponent={
@@ -31,7 +33,7 @@ const TechHero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="w-full px-4 md:px-0 text-center"
+            className="w-full px-4 md:px-0 text-center relative z-20"
           >
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -57,7 +59,7 @@ const TechHero = () => {
           </motion.div>
         }
       >
-        <div className="w-full h-full flex justify-center items-center p-4 md:p-8">
+        <div className="w-full h-full flex justify-center items-center p-4 md:p-8 relative z-20">
           <div className="w-full max-w-5xl aspect-[16/9] flex justify-center items-center">
             <img
               src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
