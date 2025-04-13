@@ -11,17 +11,9 @@ export const getGradient = (variant: "default" | "white" | "teal" | "gray" = "de
   if (variant === "teal") {
     // Enhanced teal gradient with much more vibrant colors and animation-friendly structure
     return `
-      radial-gradient(circle at 50% 50%, rgba(20, 184, 166, ${0.9 * intensity}) 10%, rgba(20, 184, 166, 0) 40%),
-      radial-gradient(circle at 40% 40%, rgba(56, 226, 208, ${1.0 * intensity}) 10%, rgba(56, 226, 208, 0) 35%),
-      radial-gradient(circle at 60% 60%, rgba(20, 184, 166, ${1.0 * intensity}) 10%, rgba(20, 184, 166, 0) 35%),
-      repeating-conic-gradient(
-        from 0deg,
-        rgba(20, 184, 166, ${1.0 * intensity}) 0%,
-        rgba(94, 234, 212, ${1.2 * intensity}) 25%,
-        rgba(20, 184, 166, ${1.0 * intensity}) 50%,
-        rgba(94, 234, 212, ${1.2 * intensity}) 75%,
-        rgba(20, 184, 166, ${1.0 * intensity}) 100%
-      )`;
+      radial-gradient(ellipse at 50% 0%, rgba(30, 174, 219, ${0.25 * intensity}) 0%, rgba(18, 105, 132, ${0.1 * intensity}) 30%, rgba(0, 0, 0, 0) 70%),
+      radial-gradient(circle at 40% 40%, rgba(56, 226, 208, ${0.05 * intensity}) 10%, rgba(56, 226, 208, 0) 35%),
+      radial-gradient(circle at 60% 60%, rgba(20, 184, 166, ${0.05 * intensity}) 10%, rgba(20, 184, 166, 0) 35%)`;
   }
   
   if (variant === "gray") {

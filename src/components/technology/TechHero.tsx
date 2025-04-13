@@ -12,7 +12,10 @@ const TechHero = () => {
       <div 
         className="absolute inset-0 z-0 bg-black" 
         style={{
-          background: 'radial-gradient(ellipse at 50% 0%, rgba(30, 174, 219, 0.25) 0%, rgba(18, 105, 132, 0.1) 50%, rgba(0, 0, 0, 0) 70%)',
+          background: 'radial-gradient(ellipse at 50% 0%, rgba(30, 174, 219, 0.25) 0%, rgba(18, 105, 132, 0.1) 30%, rgba(0, 0, 0, 0) 70%)',
+          width: '100vw',
+          left: '50%',
+          transform: 'translateX(-50%)',
         }}
       />
       
