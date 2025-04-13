@@ -15,12 +15,13 @@ const Technology = () => {
   const isMobile = useIsMobile();
 
   return (
-    <main className="bg-black min-h-screen w-full overflow-x-hidden">
+    <main className="bg-black min-h-screen w-full overflow-x-hidden" style={{ position: "relative" }}>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         className="flex flex-col w-full"
+        style={{ position: "relative" }} // Added explicit relative positioning
       >
         {/* Hero Section with AI Innovation & Security */}
         <TechHero />
@@ -32,7 +33,7 @@ const Technology = () => {
         <TechFeatures />
 
         {/* Call to Action Section */}
-        <section className="py-16 md:py-28 bg-black border-t border-white/10">
+        <section className="py-16 md:py-28 bg-black border-t border-white/10" style={{ position: "relative" }}>
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -40,6 +41,7 @@ const Technology = () => {
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
               className="max-w-4xl mx-auto"
+              style={{ position: "relative" }} // Added explicit relative positioning
             >
               <p className="text-2xl font-normal text-white mb-6">
                 Transform Your Healthcare Workflow

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -186,6 +187,7 @@ const TechHero = () => {
   return (
     <section 
       className="relative w-full overflow-hidden bg-black"
+      style={{ position: "relative" }} // Added explicit relative positioning to fix framer-motion warning
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
@@ -356,6 +358,7 @@ const TechHero = () => {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
         className="px-4 py-4 bg-black text-white text-center"
+        style={{ position: "relative" }} // Added explicit relative positioning to fix framer-motion warning
       >
         <h2 className="text-3xl md:text-4xl font-normal mb-4">
           Everything You Need for AI-Powered Clinical Excellence

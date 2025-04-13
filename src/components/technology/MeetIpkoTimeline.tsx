@@ -1,6 +1,6 @@
+
 import React, { useRef, useEffect, useState } from "react";
 import { Timeline } from "@/components/ui/timeline";
-import { Zap, MessageSquare, Users, Cog } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -169,7 +169,7 @@ const MeetIpkoTimeline = () => {
     <section 
       className="relative w-full overflow-hidden bg-black"
       ref={containerRef}
-      style={{ position: "relative" }}
+      style={{ position: "relative" }} // Added explicit relative positioning to fix framer-motion warning
     >
       <div className="container mx-auto pt-8 md:pt-16">
         {isMobile ? (

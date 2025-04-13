@@ -51,7 +51,7 @@ export function TechFeatures({
   }, [progress, features.length, autoPlayInterval])
 
   return (
-    <section className={cn("py-16 md:py-24 bg-black", className)}>
+    <section className={cn("py-16 md:py-24 bg-black", className)} style={{ position: "relative" }}>
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -59,6 +59,7 @@ export function TechFeatures({
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
+          style={{ position: "relative" }}
         >
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal mb-4 text-white font-wix-madefor">
             {title}
@@ -69,7 +70,7 @@ export function TechFeatures({
         </motion.div>
 
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
-          <div className="order-2 lg:order-1 space-y-6">
+          <div className="order-2 lg:order-1 space-y-6" style={{ position: "relative" }}>
             {features.map((feature, index) => (
               <motion.div
                 key={index}
@@ -122,7 +123,8 @@ export function TechFeatures({
             ))}
           </div>
 
-          <div className="order-1 lg:order-2 bg-black backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-10 relative overflow-hidden">
+          <div className="order-1 lg:order-2 bg-black backdrop-blur-sm rounded-2xl border border-white/10 p-6 md:p-10 relative overflow-hidden"
+            style={{ position: "relative" }}>
             <AnimatePresence mode="wait">
               {features.map((feature, index) =>
                 index === currentFeature ? (
