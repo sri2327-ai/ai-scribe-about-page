@@ -3,7 +3,6 @@ import { PulseBeams } from "@/components/ui/pulse-beams";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 
 export const MeetIpkoPulseBeams = () => {
   // Custom beam patterns specifically for IPKO section
@@ -68,15 +67,8 @@ export const MeetIpkoPulseBeams = () => {
           gradientColors={["#4ECDC4", "#1EAEDB"]}
           className="absolute inset-0 !h-full"
           background={
-            <div className="absolute inset-0 bg-black bg-opacity-95">
-              <AnimatedGradientBackground 
-                gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
-                gradientStops={[0, 30, 60, 100]}
-                Breathing={true}
-                breathingRange={15}
-                animationSpeed={0.03}
-                startingGap={150}
-              />
+            <div className="absolute inset-0 bg-black">
+              {/* Removed the animated gradient background */}
             </div>
           }
         >
@@ -156,4 +148,3 @@ const ipkoFeatures = [
 ];
 
 export default MeetIpkoPulseBeams;
-
