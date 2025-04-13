@@ -12,9 +12,10 @@ const TechHero = () => {
       {/* Background with Chemical Burn effect */}
       <div className="absolute inset-0 z-0">
         <ChemicalBurnEffect 
-          colors={['#1EAEDB', '#D946EF', '#8B5CF6']}
-          intensity={0.3}
-          speed={0.003}
+          colors={['#8B5CF6', '#D946EF', '#1EAEDB']}
+          intensity={0.7}
+          speed={1.2}
+          particleCount={isMobile ? 150 : 300}
         />
       </div>
 
@@ -30,13 +31,7 @@ const TechHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl md:text-[4.5rem] font-bold mb-6 leading-tight font-wix-madefor"
-              style={{
-                background: 'linear-gradient(to right, rgba(85,85,85,0.4) 0%, rgba(51,51,51,0.95) 100%)',
-                WebkitBackgroundClip: 'text',
-                backgroundClip: 'text',
-                color: 'transparent'
-              }}
+              className="text-3xl md:text-[4.5rem] font-bold mb-6 leading-tight font-wix-madefor text-white"
             >
               AI Innovation with Unbreakable Security
             </motion.h1>
