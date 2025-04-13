@@ -63,7 +63,7 @@ const CoreValues = () => {
                     {value.icon}
                   </div>
                   <h3 className="text-xl font-normal mb-4 text-white">{value.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{value.description}</p>
+                  <p className="text-gray-400 leading-relaxed font-normal">{value.description}</p>
                 </div>
               </div>
             </motion.div>

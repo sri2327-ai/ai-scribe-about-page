@@ -38,7 +38,7 @@ export function SplineSceneBasic() {
               }}
             >Here</span>
           </h1>
-          <p className="mt-4 text-gray-400 max-w-lg font-wix-madefor">
+          <p className="mt-4 text-gray-400 max-w-lg font-normal font-wix-madefor">
             We're simplifying clinical workflows with AI, robotic assistants, and smart agents.
           </p>
         </div>

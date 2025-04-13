@@ -96,7 +96,7 @@ const WhoWeAre = () => {
                     </h3>
                     
                     <p 
-                      className="text-gray-400 leading-relaxed font-wix-madefor text-sm"
+                      className="text-gray-400 leading-relaxed font-wix-madefor text-sm font-normal"
                       style={{
                         opacity: hoveredIndex === index ? '1' : '0.7',
                         transform: hoveredIndex === index ? 'translateY(0)' : 'translateY(0)',

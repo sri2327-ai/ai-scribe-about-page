@@ -13,19 +13,19 @@ const MeetIpkoTimeline = () => {
             <div className="p-3 border border-white rounded-full">
               <MessageSquare className="w-6 h-6 text-white stroke-1" />
             </div>
-            <h4 className="text-xl font-bold text-white">Cross-Lingual Conversation Inference Engine</h4>
+            <h4 className="text-xl font-normal text-white">Cross-Lingual Conversation Inference Engine</h4>
           </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6">
+          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
             Our advanced language processing system enables seamless multilingual communication with 16-language diarization capabilities, breaking down language barriers in healthcare.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Multilingual Support</h5>
-              <p className="text-gray-400 text-sm">Supports 16 languages with real-time translation and diarization</p>
+              <h5 className="text-white font-normal mb-2">Multilingual Support</h5>
+              <p className="text-gray-400 text-sm font-normal">Supports 16 languages with real-time translation and diarization</p>
             </div>
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Contextual Understanding</h5>
-              <p className="text-gray-400 text-sm">Maintains context across languages for accurate communication</p>
+              <h5 className="text-white font-normal mb-2">Contextual Understanding</h5>
+              <p className="text-gray-400 text-sm font-normal">Maintains context across languages for accurate communication</p>
             </div>
           </div>
         </div>
@@ -39,19 +39,19 @@ const MeetIpkoTimeline = () => {
             <div className="p-3 border border-white rounded-full">
               <Users className="w-6 h-6 text-white stroke-1" />
             </div>
-            <h4 className="text-xl font-bold text-white">Physician Knowledge Inference Engine</h4>
+            <h4 className="text-xl font-normal text-white">Physician Knowledge Inference Engine</h4>
           </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6">
+          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
             PKIE learns and mimics physician workflows for personalized AI scribing, adapting to each doctor's unique documentation style and preferences.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Adaptive Learning</h5>
-              <p className="text-gray-400 text-sm">Continuously improves by learning from physician interactions</p>
+              <h5 className="text-white font-normal mb-2">Adaptive Learning</h5>
+              <p className="text-gray-400 text-sm font-normal">Continuously improves by learning from physician interactions</p>
             </div>
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Workflow Integration</h5>
-              <p className="text-gray-400 text-sm">Seamlessly fits into existing clinical documentation processes</p>
+              <h5 className="text-white font-normal mb-2">Workflow Integration</h5>
+              <p className="text-gray-400 text-sm font-normal">Seamlessly fits into existing clinical documentation processes</p>
             </div>
           </div>
         </div>
@@ -65,19 +65,19 @@ const MeetIpkoTimeline = () => {
             <div className="p-3 border border-white rounded-full">
               <Zap className="w-6 h-6 text-white stroke-1" />
             </div>
-            <h4 className="text-xl font-bold text-white">Medical Knowledge Inference Engine</h4>
+            <h4 className="text-xl font-normal text-white">Medical Knowledge Inference Engine</h4>
           </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6">
+          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
             MKIE powers AI-driven clinical pathways for precise documentation improvement, ensuring accuracy and completeness in medical records.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Clinical Pathways</h5>
-              <p className="text-gray-400 text-sm">Evidence-based workflows for comprehensive documentation</p>
+              <h5 className="text-white font-normal mb-2">Clinical Pathways</h5>
+              <p className="text-gray-400 text-sm font-normal">Evidence-based workflows for comprehensive documentation</p>
             </div>
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Medical Validation</h5>
-              <p className="text-gray-400 text-sm">Ensures clinical accuracy and completeness of documentation</p>
+              <h5 className="text-white font-normal mb-2">Medical Validation</h5>
+              <p className="text-gray-400 text-sm font-normal">Ensures clinical accuracy and completeness of documentation</p>
             </div>
           </div>
         </div>
@@ -91,19 +91,19 @@ const MeetIpkoTimeline = () => {
             <div className="p-3 border border-white rounded-full">
               <Cog className="w-6 h-6 text-white stroke-1" />
             </div>
-            <h4 className="text-xl font-bold text-white">Intuitive Interface Inference Engine</h4>
+            <h4 className="text-xl font-normal text-white">Intuitive Interface Inference Engine</h4>
           </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6">
+          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
             IIIE breaks integration barriers for effortless deployment across platforms, making our AI technology accessible to any healthcare system.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Seamless Integration</h5>
-              <p className="text-gray-400 text-sm">Works with existing EMR systems without complex setup</p>
+              <h5 className="text-white font-normal mb-2">Seamless Integration</h5>
+              <p className="text-gray-400 text-sm font-normal">Works with existing EMR systems without complex setup</p>
             </div>
             <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-semibold mb-2">Cross-Platform</h5>
-              <p className="text-gray-400 text-sm">Functions across web, mobile, and desktop environments</p>
+              <h5 className="text-white font-normal mb-2">Cross-Platform</h5>
+              <p className="text-gray-400 text-sm font-normal">Functions across web, mobile, and desktop environments</p>
             </div>
           </div>
         </div>
@@ -121,4 +121,3 @@ const MeetIpkoTimeline = () => {
 };
 
 export default MeetIpkoTimeline;
-

@@ -37,7 +37,7 @@ const Technology = () => {
               viewport={{ once: true }}
               className="max-w-4xl mx-auto"
             >
-              <p className="text-2xl font-semibold text-white mb-6">
+              <p className="text-2xl font-normal text-white mb-6">
                 AI That Works—So You Can Focus on Care.
               </p>
               <Button 
@@ -57,4 +57,3 @@ const Technology = () => {
 };
 
 export default Technology;
-
