@@ -1,4 +1,3 @@
-
 'use client'
 
 import { SplineScene } from "@/components/ui/splite";
@@ -11,7 +10,7 @@ export function SplineSceneBasic() {
         {/* Left content */}
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
           <h1 
-            className="text-4xl md:text-5xl font-bold font-wix-madefor tracking-tight"
+            className="text-5xl md:text-7xl font-bold font-wix-madefor tracking-tight leading-[1.2]"
           >
             <span className="text-transparent bg-clip-text"
               style={{
