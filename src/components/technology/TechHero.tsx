@@ -39,13 +39,13 @@ const TechHero = () => {
       >
         <div className="w-full h-full flex justify-center items-center">
           <div className="relative w-full h-full max-w-5xl flex justify-center items-center">
-            {/* Container with proper aspect ratio and positioning */}
-            <div className="relative w-full h-full flex justify-center items-center px-4 md:px-8">
-              <div className="relative w-full md:w-[90%] aspect-[16/9] max-h-[70vh]">
+            {/* Improved container for better image display */}
+            <div className="relative w-full flex justify-center items-center px-4 md:px-8" style={{ height: "auto" }}>
+              <div className="w-full md:w-[80%] flex justify-center" style={{ maxHeight: "65vh" }}>
                 <img
                   src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
                   alt="S10.AI Healthcare Platform"
-                  className="w-full h-full object-contain z-10"
+                  className="object-contain max-h-full max-w-full z-10"
                   loading="eager"
                 />
               </div>
