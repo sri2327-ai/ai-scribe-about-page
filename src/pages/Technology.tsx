@@ -7,6 +7,7 @@ import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import TechFeatures from "@/components/technology/TechFeatures";
 import SecurityCompliance from "@/components/technology/SecurityCompliance";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
+import S10AISafetyFAQs from "@/components/technology/S10AISafetyFAQs";
 import { ArrowRight } from "lucide-react";
 
 const Technology = () => {
@@ -59,6 +60,9 @@ const Technology = () => {
         
         {/* Project Setup Checklist Section */}
         <ProjectSetupChecklist />
+
+        {/* S10.AI Safety FAQs Section */}
+        <S10AISafetyFAQs />
       </motion.div>
     </main>
   );
