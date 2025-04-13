@@ -85,8 +85,10 @@ const WhoWeAre = () => {
                 <div className="p-6 flex flex-col h-full justify-between z-10">
                   {/* Top section with icon */}
                   <div className="flex flex-col">
-                    <div className="bg-gradient-to-br from-neutral-800 to-neutral-900 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                      {feature.icon}
+                    <div className="mb-4">
+                      {React.cloneElement(feature.icon, {
+                        className: "h-7 w-7 text-white"
+                      })}
                     </div>
                     
                     <h3 className="text-2xl font-semibold mb-3 text-white font-wix-madefor">
@@ -115,3 +117,4 @@ const WhoWeAre = () => {
 };
 
 export default WhoWeAre;
+
