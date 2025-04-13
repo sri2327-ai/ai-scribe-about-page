@@ -29,8 +29,7 @@ const TechHero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-4xl md:text-[6rem] font-bold mb-6 leading-tight text-metallic font-wix-madefor"
-              data-text="Advanced AI Innovation & Unbreakable Security"
+              className="text-4xl md:text-[6rem] font-bold mb-6 leading-tight text-[#555555] font-wix-madefor"
             >
               Advanced AI Innovation & Unbreakable Security
             </motion.h1>
