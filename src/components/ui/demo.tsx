@@ -12,16 +12,33 @@ export function SplineSceneBasic() {
         <div className="flex-1 p-8 relative z-10 flex flex-col justify-center">
           <h1 
             className="text-4xl md:text-5xl font-bold font-wix-madefor tracking-tight"
-            style={{
-              background: getGradient("gray", 1.5), // Increased intensity for darker effect
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-              backgroundPosition: "left", 
-              backgroundSize: "200%"
-            }}
           >
-            <span className="text-gray-500">Smarter</span> Healthcare <span className="text-gray-500">Starts</span> Here
+            <span className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage: getGradient("x-gray", 1.2),
+                backgroundSize: "100%",
+                backgroundPosition: "center",
+              }}
+            >Smarter</span>{" "}
+            <span className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage: `linear-gradient(90deg, rgba(220,220,220,0.9) 0%, rgba(240,240,240,1) 100%)`,
+                backgroundSize: "100%",
+              }}
+            >Healthcare</span>{" "}
+            <span className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage: getGradient("x-gray", 1.2),
+                backgroundSize: "100%",
+                backgroundPosition: "center",
+              }}
+            >Starts</span>{" "}
+            <span className="text-transparent bg-clip-text"
+              style={{
+                backgroundImage: `linear-gradient(90deg, rgba(220,220,220,0.9) 0%, rgba(240,240,240,1) 100%)`,
+                backgroundSize: "100%",
+              }}
+            >Here</span>
           </h1>
           <p className="mt-4 text-gray-400 max-w-lg font-wix-madefor">
             We're simplifying clinical workflows with AI, robotic assistants, and smart agents.

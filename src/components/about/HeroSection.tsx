@@ -5,9 +5,15 @@ import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
 import { useEffect, useRef } from "react";
+import { useGlowEffect } from "@/hooks/use-glow-effect";
 
 const HeroSection = () => {
-  const cardRef = useRef<HTMLDivElement>(null);
+  // Use the glow effect hook for better interactivity
+  const cardRef = useGlowEffect({ 
+    inactiveZone: 0.5,
+    proximity: 200,
+    movementDuration: 2 
+  });
   
   const scrollToNextSection = () => {
     window.scrollTo({
@@ -15,25 +21,6 @@ const HeroSection = () => {
       behavior: "smooth"
     });
   };
-
-  // Add a spotlight inside the card
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!cardRef.current) return;
-
-      const rect = cardRef.current.getBoundingClientRect();
-      const x = event.clientX - rect.left;
-      const y = event.clientY - rect.top;
-
-      cardRef.current.style.setProperty('--x', `${x}px`);
-      cardRef.current.style.setProperty('--y', `${y}px`);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
 
   return (
     <div className="relative h-screen flex flex-col items-center justify-center bg-black overflow-hidden border-0">
@@ -50,18 +37,27 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full border-0 relative overflow-hidden"
+          className="w-full border-0 relative overflow-hidden rounded-lg"
           style={{
-            '--x': '50%',
-            '--y': '50%',
+            '--active': '1',
+            '--intensity': '2',
+            '--spread': '60',
+            '--start': '0',
           } as React.CSSProperties}
         >
-          {/* Inner card spotlight effect */}
+          {/* Inner card spotlight effect - enhanced for better visibility */}
           <div 
             className="absolute inset-0 pointer-events-none z-0"
             style={{
-              background: `radial-gradient(circle at var(--x) var(--y), rgba(30,174,219,0.15), transparent 70%)`,
-              opacity: 0.8,
+              background: `
+                radial-gradient(
+                  circle at var(--x, 50%) var(--y, 50%), 
+                  rgba(30,174,219,0.20), 
+                  transparent 60%
+                )
+              `,
+              opacity: 'var(--active, 1)',
+              transform: 'translate3d(0, 0, 0)',
             }}
           />
           <SplineSceneBasic />
