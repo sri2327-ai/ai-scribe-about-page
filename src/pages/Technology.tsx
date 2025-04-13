@@ -32,7 +32,7 @@ const Technology = () => {
         <TechInnovation />
 
         {/* Call to Action Section */}
-        <section className="py-16 md:py-28 bg-gradient-to-br from-blue-950/40 via-indigo-950/30 to-purple-950/20">
+        <section className="py-16 md:py-28 bg-black border-t border-white/10">
           <div className="container mx-auto px-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -45,9 +45,9 @@ const Technology = () => {
                 AI That Works—So You Can Focus on Care.
               </p>
               <Button 
-                variant="default" 
+                variant="outline" 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20"
+                className="bg-black text-white border-white hover:bg-white hover:text-black transition-all duration-300"
               >
                 Request A Demo
                 <ArrowRight className="ml-2 h-4 w-4" />
