@@ -87,7 +87,7 @@ export const MeetIpkoPulseBeams = () => {
               transition={{ duration: 0.8 }}
               className="mb-12"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
                 Meet IPKO – The Intelligent Physician Knowledge Orchestrator
               </h2>
               <p className="text-xl text-blue-100/90 max-w-3xl mx-auto">
@@ -99,7 +99,7 @@ export const MeetIpkoPulseBeams = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="p-6 rounded-lg bg-gradient-to-br from-blue-900/30 to-purple-900/20 backdrop-blur-sm border border-blue-500/20 max-w-2xl"
+              className="p-6 rounded-lg border border-white bg-black/80 backdrop-blur-sm max-w-2xl"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {ipkoFeatures.map((feature, index) => (
@@ -108,9 +108,9 @@ export const MeetIpkoPulseBeams = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
-                    className="p-4 rounded-lg bg-blue-900/20 backdrop-blur-sm hover:bg-blue-900/30 transition-all duration-300"
+                    className="p-4 rounded-lg border border-white/20 bg-black hover:bg-black/30 transition-all duration-300"
                   >
-                    <h3 className="text-lg font-semibold text-blue-300 mb-2">{feature.title}</h3>
+                    <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
                     <p className="text-sm text-blue-100/80">{feature.description}</p>
                   </motion.div>
                 ))}
@@ -123,7 +123,7 @@ export const MeetIpkoPulseBeams = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="mt-8"
             >
-              <Button variant="default" size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 border-none shadow-lg shadow-purple-900/20">
+              <Button variant="default" size="lg" className="bg-white text-black hover:bg-gray-200 border border-white">
                 Learn More
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -156,3 +156,4 @@ const ipkoFeatures = [
 ];
 
 export default MeetIpkoPulseBeams;
+
