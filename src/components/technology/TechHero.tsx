@@ -39,16 +39,14 @@ const TechHero = () => {
       >
         <div className="w-full h-full flex justify-center items-center">
           <div className="relative w-full h-full max-w-5xl flex justify-center items-center">
-            {/* Improved container for better image display */}
-            <div className="relative w-full flex justify-center items-center px-4 md:px-8" style={{ height: "auto" }}>
-              <div className="w-full md:w-[80%] flex justify-center" style={{ maxHeight: "65vh" }}>
-                <img
-                  src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-                  alt="S10.AI Healthcare Platform"
-                  className="object-contain max-h-full max-w-full z-10"
-                  loading="eager"
-                />
-              </div>
+            {/* Image without any glowing effect */}
+            <div className="relative w-full h-full flex justify-center items-center">
+              <img
+                src="/lovable-uploads/ac240693-c55f-4eca-b8c6-edf937838f40.png"
+                alt="S10.AI Healthcare Platform"
+                className="w-full h-full object-contain z-10 relative"
+                loading="eager"
+              />
             </div>
           </div>
         </div>
