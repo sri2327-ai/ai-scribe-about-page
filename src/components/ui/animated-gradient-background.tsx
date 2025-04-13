@@ -14,12 +14,12 @@ interface AnimatedGradientBackgroundProps {
 }
 
 const AnimatedGradientBackground = ({
-  startingGap = 110,
+  startingGap = 300, // Increased from 110 to 300 to make the black area larger
   Breathing = true,
   gradientColors = ["#000", "#1EAEDB", "#0FA0CE", "#000"],
   gradientStops = [0, 30, 60, 100],
-  animationSpeed = 0.05,
-  breathingRange = 8,
+  animationSpeed = 0.03,
+  breathingRange = 20, // Increased from 8 to 20 to allow more breathing effect
 }: AnimatedGradientBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>(0);
@@ -65,7 +65,7 @@ const AnimatedGradientBackground = ({
         breathingRef.current, 
         canvas.width / 2, 
         0, 
-        canvas.width
+        canvas.width * 1.5 // Increased radius to cover more of the screen
       );
 
       // Add colors to gradient
