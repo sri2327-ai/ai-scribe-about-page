@@ -8,6 +8,7 @@ import { useState } from "react";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Index from "./pages/Index";
+import Resources from "./pages/Resources";
 import About from "./pages/About";
 import Technology from "./pages/Technology";
 import NotFound from "./pages/NotFound";
@@ -36,8 +37,18 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout><Index /></Layout>} />
+            
+            {/* Resources parent route */}
+            <Route path="/resources" element={<Layout><Resources /></Layout>} />
+            
+            {/* Nested routes under Resources */}
+            <Route path="/resources/about" element={<Layout><About /></Layout>} />
+            <Route path="/resources/technology" element={<Layout><Technology /></Layout>} />
+            
+            {/* Original routes as fallbacks */}
             <Route path="/about" element={<Layout><About /></Layout>} />
             <Route path="/technology" element={<Layout><Technology /></Layout>} />
+            
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<Layout><NotFound /></Layout>} />
           </Routes>

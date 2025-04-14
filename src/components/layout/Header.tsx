@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 
-// This is a placeholder Header component - replace with your existing header code
 const Header = () => {
   return (
     <header className="bg-black border-b border-gray-800 fixed w-full z-50">
@@ -12,8 +11,9 @@ const Header = () => {
         
         <nav className="hidden md:flex items-center space-x-8">
           <Link to="/" className="text-white hover:text-blue-400 transition-colors">Home</Link>
-          <Link to="/about" className="text-white hover:text-blue-400 transition-colors">About</Link>
-          <Link to="/technology" className="text-white hover:text-blue-400 transition-colors">Technology</Link>
+          <Link to="/resources" className="text-white hover:text-blue-400 transition-colors">Resources</Link>
+          <Link to="/resources/about" className="text-white hover:text-blue-400 transition-colors">About</Link>
+          <Link to="/resources/technology" className="text-white hover:text-blue-400 transition-colors">Technology</Link>
           {/* Add your other navigation links here */}
         </nav>
         
