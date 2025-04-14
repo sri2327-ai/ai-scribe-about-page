@@ -131,7 +131,7 @@ const HeroSection = () => {
         >
           Scroll
         </Typography>
-        <ChevronDown sx={{ color: 'white', height: 24, width: 24 }} />
+        <ChevronDown color="white" height={24} width={24} />
       </Box>
       
       {/* Section Divider */}

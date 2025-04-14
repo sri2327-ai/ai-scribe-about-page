@@ -177,11 +177,11 @@ const StarTrekSection = () => {
         >
           Scroll
         </Typography>
-        <ChevronDown style={{ 
-          color: 'white', 
-          height: isMobile ? 20 : 24, 
-          width: isMobile ? 20 : 24 
-        }} />
+        <ChevronDown 
+          color="white" 
+          height={isMobile ? 20 : 24} 
+          width={isMobile ? 20 : 24} 
+        />
       </Box>
     </Box>
   );
