@@ -1,9 +1,9 @@
 
-'use client';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-export default function ThirdSection() {
+const ThirdSection = () => {
   const [isMounted, setIsMounted] = useState(false);
   
   useEffect(() => {
@@ -57,14 +57,14 @@ export default function ThirdSection() {
                 </p>
               </div>
               
-              <button className="mt-6 bg-tealBlue hover:bg-tealBlueBright text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all duration-300 mx-auto">
+              <Link to="/solutions/crush" className="mt-6 bg-tealBlue hover:bg-tealBlueBright text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all duration-300 mx-auto">
                 <span className="flex items-center justify-center w-7 h-7 rounded-full border-2 border-white transition-all duration-300 group-hover:rotate-[-270deg]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                   </svg>
                 </span>
                 <span className="text-lg font-medium">View More</span>
-              </button>
+              </Link>
             </motion.div>
             
             {/* BRAVO Card */}
@@ -98,29 +98,33 @@ export default function ThirdSection() {
                 </p>
               </div>
               
-              <button className="mt-6 bg-tealBlue hover:bg-tealBlueBright text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all duration-300 mx-auto">
+              <Link to="/solutions/bravo" className="mt-6 bg-tealBlue hover:bg-tealBlueBright text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 transition-all duration-300 mx-auto">
                 <span className="flex items-center justify-center w-7 h-7 rounded-full border-2 border-white transition-all duration-300 group-hover:rotate-[-270deg]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
                   </svg>
                 </span>
                 <span className="text-lg font-medium">View More</span>
-              </button>
+              </Link>
             </motion.div>
           </div>
           
           <div className="text-center mt-12">
-            <motion.button
-              initial={isMounted ? { y: 20, opacity: 0 } : false}
-              animate={isMounted ? { y: 0, opacity: 1 } : false}
-              transition={{ duration: 0.5, delay: 0.6, ease: 'easeOut' }}
-              className="bg-white hover:bg-gray-100 text-tealBlue border-2 border-tealBlue px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 shadow-sm"
-            >
-              Book A Demo
-            </motion.button>
+            <Link to="/contactus">
+              <motion.button
+                initial={isMounted ? { y: 20, opacity: 0 } : false}
+                animate={isMounted ? { y: 0, opacity: 1 } : false}
+                transition={{ duration: 0.5, delay: 0.6, ease: 'easeOut' }}
+                className="bg-white hover:bg-gray-100 text-tealBlue border-2 border-tealBlue px-8 py-3 rounded-full text-lg font-medium transition-all duration-300 shadow-sm"
+              >
+                Book A Demo
+              </motion.button>
+            </Link>
           </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default ThirdSection;
