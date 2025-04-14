@@ -1,14 +1,13 @@
 
-import FirstSection from "../components/Homepage/FirstSection";
-import SecondSection from "../components/Homepage/SecondSection";
-import ThirdSection from "../components/Homepage/ThirdSection";
+import React from 'react';
+import FirstSection from '../components/Homepage/FirstSection';
+import SecondSection from '../components/Homepage/SecondSection';
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div>
       <FirstSection />
       <SecondSection />
-      <ThirdSection />
     </div>
   );
 };
