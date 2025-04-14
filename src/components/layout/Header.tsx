@@ -10,7 +10,6 @@ const Header = () => {
         <Link to="/" className="text-white text-2xl font-bold">S10.AI</Link>
         
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-white hover:text-blue-400 transition-colors">Home</Link>
           <Link to="/resources" className="text-white hover:text-blue-400 transition-colors">Resources</Link>
           <Link to="/resources/about" className="text-white hover:text-blue-400 transition-colors">About</Link>
           <Link to="/resources/technology" className="text-white hover:text-blue-400 transition-colors">Technology</Link>
