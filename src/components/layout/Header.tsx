@@ -1,13 +1,19 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const toggleResourcesMenu = () => {
+    setResourcesOpen(!resourcesOpen);
   };
 
   return (
@@ -23,35 +29,57 @@ const Header = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="/" className="text-gray-700 hover:text-tealBlue transition-colors">
+          <Link 
+            to="/" 
+            className={`transition-colors ${location.pathname === '/' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+          >
             Home
           </Link>
-          <Link to="/solutions/crush" className="text-gray-700 hover:text-tealBlue transition-colors">
+          <Link 
+            to="/solutions/crush" 
+            className={`transition-colors ${location.pathname === '/solutions/crush' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+          >
             CRUSH
           </Link>
-          <Link to="/solutions/bravo" className="text-gray-700 hover:text-tealBlue transition-colors">
+          <Link 
+            to="/solutions/bravo" 
+            className={`transition-colors ${location.pathname === '/solutions/bravo' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+          >
             BRAVO
           </Link>
           <div className="relative group">
-            <Link to="/resources" className="text-gray-700 hover:text-tealBlue transition-colors flex items-center">
+            <Link 
+              to="/resources" 
+              className={`transition-colors flex items-center ${location.pathname.includes('/resources') ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+            >
               Resources
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
+              <ChevronDown className="w-4 h-4 ml-1" />
             </Link>
             <div className="absolute hidden group-hover:block top-full left-0 bg-white shadow-md rounded-md mt-1 py-2 w-48 z-50">
-              <Link to="/resources/blog" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+              <Link 
+                to="/resources/blog" 
+                className={`block px-4 py-2 ${location.pathname === '/resources/blog' ? 'text-tealBlue' : 'text-gray-700 hover:bg-gray-100'}`}
+              >
                 Blog
               </Link>
-              <Link to="/resources/faq" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+              <Link 
+                to="/resources/faq" 
+                className={`block px-4 py-2 ${location.pathname === '/resources/faq' ? 'text-tealBlue' : 'text-gray-700 hover:bg-gray-100'}`}
+              >
                 FAQ
               </Link>
-              <Link to="/resources/casestudies" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+              <Link 
+                to="/resources/casestudies" 
+                className={`block px-4 py-2 ${location.pathname === '/resources/casestudies' ? 'text-tealBlue' : 'text-gray-700 hover:bg-gray-100'}`}
+              >
                 Case Studies
               </Link>
             </div>
           </div>
-          <Link to="/about" className="text-gray-700 hover:text-tealBlue transition-colors">
+          <Link 
+            to="/about" 
+            className={`transition-colors ${location.pathname === '/about' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+          >
             About
           </Link>
         </nav>
@@ -85,59 +113,65 @@ const Header = () => {
           <nav className="flex flex-col space-y-4">
             <Link 
               to="/" 
-              className="text-gray-700 hover:text-tealBlue transition-colors"
+              className={`transition-colors ${location.pathname === '/' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Home
             </Link>
             <Link 
               to="/solutions/crush" 
-              className="text-gray-700 hover:text-tealBlue transition-colors"
+              className={`transition-colors ${location.pathname === '/solutions/crush' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               CRUSH
             </Link>
             <Link 
               to="/solutions/bravo" 
-              className="text-gray-700 hover:text-tealBlue transition-colors"
+              className={`transition-colors ${location.pathname === '/solutions/bravo' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               BRAVO
             </Link>
-            <details className="group">
-              <summary className="flex justify-between items-center text-gray-700 hover:text-tealBlue transition-colors cursor-pointer">
+            
+            <div>
+              <button 
+                className={`flex justify-between items-center w-full ${location.pathname.includes('/resources') ? 'text-tealBlue' : 'text-gray-700'}`}
+                onClick={toggleResourcesMenu}
+              >
                 Resources
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </summary>
-              <div className="mt-2 pl-4 border-l-2 border-gray-200 flex flex-col space-y-2">
-                <Link 
-                  to="/resources/blog" 
-                  className="text-gray-700 hover:text-tealBlue transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Blog
-                </Link>
-                <Link 
-                  to="/resources/faq" 
-                  className="text-gray-700 hover:text-tealBlue transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  FAQ
-                </Link>
-                <Link 
-                  to="/resources/casestudies" 
-                  className="text-gray-700 hover:text-tealBlue transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Case Studies
-                </Link>
-              </div>
-            </details>
+                <ChevronDown className={`w-4 h-4 transform transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {resourcesOpen && (
+                <div className="mt-2 pl-4 border-l-2 border-gray-200 flex flex-col space-y-2">
+                  <Link 
+                    to="/resources/blog" 
+                    className={`transition-colors ${location.pathname === '/resources/blog' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Blog
+                  </Link>
+                  <Link 
+                    to="/resources/faq" 
+                    className={`transition-colors ${location.pathname === '/resources/faq' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    FAQ
+                  </Link>
+                  <Link 
+                    to="/resources/casestudies" 
+                    className={`transition-colors ${location.pathname === '/resources/casestudies' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    Case Studies
+                  </Link>
+                </div>
+              )}
+            </div>
+            
             <Link 
               to="/about" 
-              className="text-gray-700 hover:text-tealBlue transition-colors"
+              className={`transition-colors ${location.pathname === '/about' ? 'text-tealBlue' : 'text-gray-700 hover:text-tealBlue'}`}
               onClick={() => setMobileMenuOpen(false)}
             >
               About
