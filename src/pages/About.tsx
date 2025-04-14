@@ -61,7 +61,43 @@ const About = () => {
         <HeroSection />
         <Box sx={{ width: '100%' }}>
           <MissionVision />
+          <Box 
+            component="section"
+            sx={{ 
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              py: { xs: 2, md: 4 }
+            }}
+          >
+            <Box 
+              sx={{
+                width: '80%',
+                maxWidth: '1200px',
+                height: '1px',
+                bgcolor: 'grey.800'
+              }}
+            />
+          </Box>
           <CoreValues />
+          <Box 
+            component="section"
+            sx={{ 
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              py: { xs: 2, md: 4 }
+            }}
+          >
+            <Box 
+              sx={{
+                width: '80%',
+                maxWidth: '1200px',
+                height: '1px',
+                bgcolor: 'grey.800'
+              }}
+            />
+          </Box>
           <Box sx={{ position: 'relative' }}>
             <WhoWeAre />
             <StarTrekSection />

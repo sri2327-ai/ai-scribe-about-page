@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Box, Typography, Grid, Paper } from "@mui/material";
+import { Box, Typography, Grid, Paper, Container } from "@mui/material";
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -47,20 +47,14 @@ const WhoWeAre = () => {
     <Box
       component="section"
       sx={{
-        py: isMobile ? '40px 64px' : '64px 96px',
+        py: { xs: 6, md: 10 },
         minHeight: isMobile ? 'auto' : { lg: '100vh' },
         display: 'flex',
         alignItems: 'center',
         bgcolor: 'black'
       }}
     >
-      <Box
-        sx={{
-          maxWidth: 'lg',
-          mx: 'auto',
-          px: 4
-        }}
-      >
+      <Container maxWidth="lg">
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -69,7 +63,7 @@ const WhoWeAre = () => {
           viewport={{ once: true }}
           sx={{
             textAlign: 'center',
-            mb: { xs: 3, sm: 4, md: 6 }
+            mb: { xs: 4, sm: 5, md: 6 }
           }}
         >
           <Typography
@@ -86,9 +80,18 @@ const WhoWeAre = () => {
           </Typography>
         </Box>
         
-        <Grid container spacing={{ xs: 1.5, sm: 2, md: 3, lg: 4 }}>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
           {features.map((feature, index) => (
-            <Grid key={index} sx={{ gridColumn: { xs: 'span 12', sm: 'span 6', lg: 'span 4' } }}>
+            <Grid 
+              key={index} 
+              sx={{ 
+                gridColumn: { 
+                  xs: 'span 12', 
+                  sm: 'span 6', 
+                  lg: 'span 4' 
+                } 
+              }}
+            >
               <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: 30 }}
@@ -97,7 +100,7 @@ const WhoWeAre = () => {
                 viewport={{ once: true }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                sx={{ position: 'relative' }}
+                sx={{ position: 'relative', height: '100%' }}
               >
                 <Paper 
                   elevation={0}
@@ -109,7 +112,8 @@ const WhoWeAre = () => {
                     bgcolor: 'black',
                     overflow: 'hidden',
                     transition: 'all 0.3s',
-                    height: '260px',
+                    height: '100%',
+                    minHeight: '260px',
                     display: 'flex',
                     flexDirection: 'column'
                   }}
@@ -175,7 +179,7 @@ const WhoWeAre = () => {
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Container>
     </Box>
   );
 };

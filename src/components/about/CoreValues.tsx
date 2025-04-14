@@ -37,11 +37,12 @@ const CoreValues = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: 10, 
-        bgcolor: 'black'
+        py: { xs: 8, md: 10 }, 
+        bgcolor: 'black',
+        maxWidth: '100vw'
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -50,13 +51,13 @@ const CoreValues = () => {
           viewport={{ once: true }}
           sx={{
             textAlign: 'center',
-            mb: '4rem'
+            mb: { xs: 6, md: '4rem' }
           }}
         >
           <Typography 
             variant="h3"
             sx={{
-              fontSize: '2.25rem',
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
               fontWeight: 'normal',
               mb: 3,
               color: 'white'
@@ -67,7 +68,9 @@ const CoreValues = () => {
         </Box>
         
         <Grid container spacing={0} sx={{ 
-          '& .MuiGrid-root': {
+          display: 'flex',
+          justifyContent: 'center',
+          '& > .MuiGrid-root': {
             borderRight: { 
               xs: 'none', 
               md: '1px solid rgba(31, 41, 55, 1)' 
@@ -82,7 +85,17 @@ const CoreValues = () => {
           }
         }}>
           {coreValues.map((value, index) => (
-            <Grid key={index} sx={{ gridColumn: { xs: 'span 12', md: 'span 4', lg: 'span 2.4' } }}>
+            <Grid 
+              key={index} 
+              sx={{ 
+                gridColumn: { 
+                  xs: 'span 12', 
+                  sm: 'span 6',
+                  md: 'span 4', 
+                  lg: 'span 2.4' 
+                } 
+              }}
+            >
               <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
@@ -91,7 +104,7 @@ const CoreValues = () => {
                 viewport={{ once: true }}
                 sx={{
                   position: 'relative',
-                  padding: '2rem 1rem'
+                  padding: { xs: '1.5rem 1rem', md: '2rem 1rem' }
                 }}
               >
                 <Box sx={{ position: 'relative', height: '100%' }}>
@@ -121,7 +134,7 @@ const CoreValues = () => {
                     <Typography 
                       variant="h5"
                       sx={{ 
-                        fontSize: '1.25rem',
+                        fontSize: { xs: '1.125rem', md: '1.25rem' },
                         fontWeight: 'normal',
                         mb: 2,
                         color: 'white'
@@ -133,7 +146,8 @@ const CoreValues = () => {
                       sx={{ 
                         color: 'rgba(156, 163, 175, 1)',
                         lineHeight: 1.7,
-                        fontWeight: 'normal'
+                        fontWeight: 'normal',
+                        fontSize: { xs: '0.875rem', md: '1rem' }
                       }}
                     >
                       {value.description}
