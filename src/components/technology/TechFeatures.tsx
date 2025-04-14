@@ -96,9 +96,9 @@ export function TechFeatures({
         </Box>
 
         <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
-          {/* Order swapped to put text content first on desktop */}
+          {/* Text content panel on the left for desktop */}
           <Grid 
-            container item 
+            item 
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 2, lg: 1 } }}
@@ -188,9 +188,9 @@ export function TechFeatures({
             </Box>
           </Grid>
 
-          {/* Animation panel now on the right side for desktop */}
+          {/* Animation panel on the right side for desktop */}
           <Grid 
-            container item 
+            item 
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 1, lg: 2 } }}
