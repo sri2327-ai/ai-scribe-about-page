@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, Grid, Paper, CircularProgress } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -97,6 +98,8 @@ export function TechFeatures({
         <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
           {/* Text content panel on the left for desktop */}
           <Grid 
+            item
+            component="div" 
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 2, lg: 1 } }}
@@ -188,6 +191,8 @@ export function TechFeatures({
 
           {/* Animation panel on the right side for desktop */}
           <Grid 
+            item
+            component="div" 
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 1, lg: 2 } }}
