@@ -18,7 +18,7 @@ const SixthSection = () => {
     { name: 'Pediatrics', description: 'Age-appropriate documentation for children of all ages' },
     { name: 'Dermatology', description: 'Visual findings and treatment protocols properly documented' },
     { name: 'Neurology', description: 'Complex neurological assessments captured accurately' },
-    { name: 'OB/GYN', description: "Specialized women's health documentation and terminology" }
+    { name: "OB/GYN", description: "Specialized women's health documentation and terminology" }
   ];
 
   return (
