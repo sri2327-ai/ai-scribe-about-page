@@ -97,8 +97,13 @@ export function TechFeatures({
 
         <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
           {/* Order swapped to put text content first on desktop */}
-          <Grid item xs={12} lg={6} sx={{ order: { xs: 2, lg: 1 } }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Grid 
+            container item 
+            xs={12} 
+            lg={6} 
+            sx={{ order: { xs: 2, lg: 1 } }}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}>
               {features.map((feature, index) => (
                 <Box
                   component={motion.div}
@@ -184,7 +189,12 @@ export function TechFeatures({
           </Grid>
 
           {/* Animation panel now on the right side for desktop */}
-          <Grid item xs={12} lg={6} sx={{ order: { xs: 1, lg: 2 } }}>
+          <Grid 
+            container item 
+            xs={12} 
+            lg={6} 
+            sx={{ order: { xs: 1, lg: 2 } }}
+          >
             <Paper
               elevation={0}
               sx={{
@@ -194,7 +204,8 @@ export function TechFeatures({
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 p: { xs: 3, md: 5 },
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                width: '100%'
               }}
             >
               <AnimatePresence mode="wait">
