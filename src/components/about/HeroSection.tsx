@@ -97,12 +97,11 @@ const HeroSection = () => {
         </Box>
       </Container>
       
-      {/* Scroll down indicator - positioned on left side */}
+      {/* Central Scroll Indicator */}
       <Box
         component={motion.div}
         sx={{
           position: 'absolute',
-          left: '40px',
           bottom: '64px',
           display: 'flex',
           flexDirection: 'column',
@@ -131,7 +130,19 @@ const HeroSection = () => {
         >
           Scroll
         </Typography>
-        <ChevronDown color="white" height={24} width={24} />
+        <Box 
+          sx={{
+            p: 1,
+            borderRadius: '50%',
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            animation: 'pulse 2s infinite'
+          }}
+        >
+          <ChevronDown color="white" size={24} />
+        </Box>
       </Box>
       
       {/* Section Divider */}
@@ -153,6 +164,24 @@ const HeroSection = () => {
           }}
         />
       </Box>
+
+      {/* Add keyframes for the pulse animation */}
+      <style jsx global>{`
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </Box>
   );
 };

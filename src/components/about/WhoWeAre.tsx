@@ -80,105 +80,94 @@ const WhoWeAre = () => {
           </Typography>
         </Box>
         
-        <Grid container spacing={{ xs: 2, md: 3 }}>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
+          gap: { xs: 2, md: 3 } 
+        }}>
           {features.map((feature, index) => (
-            <Grid 
-              key={index} 
-              sx={{ 
-                gridColumn: { 
-                  xs: 'span 12', 
-                  sm: 'span 6', 
-                  lg: 'span 4' 
-                } 
-              }}
+            <Box
+              key={index}
+              component={motion.div}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              sx={{ position: 'relative', height: '100%' }}
             >
-              <Box
-                component={motion.div}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                sx={{ position: 'relative', height: '100%' }}
+              <Paper 
+                elevation={0}
+                sx={{
+                  position: 'relative',
+                  borderRadius: '8px',
+                  border: '1px solid',
+                  borderColor: hoveredIndex === index ? 'rgba(120, 120, 120, 0.6)' : 'rgba(80, 80, 80, 0.4)',
+                  bgcolor: 'black',
+                  overflow: 'hidden',
+                  transition: 'all 0.3s',
+                  height: '100%',
+                  minHeight: '260px',
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
               >
-                <Paper 
-                  elevation={0}
-                  sx={{
-                    position: 'relative',
-                    borderRadius: '8px',
-                    border: '1px solid',
-                    borderColor: hoveredIndex === index ? 'rgba(120, 120, 120, 0.6)' : 'rgba(80, 80, 80, 0.4)',
-                    bgcolor: 'black',
-                    overflow: 'hidden',
-                    transition: 'all 0.3s',
+                {/* Glow effect on hover */}
+                {hoveredIndex === index && (
+                  <GlowBorderEffect 
+                    variant="white"
+                    glow={true}
+                    className="opacity-70"
+                  />
+                )}
+                
+                <Box 
+                  sx={{ 
+                    p: 3, 
+                    display: 'flex', 
+                    flexDirection: 'column', 
                     height: '100%',
-                    minHeight: '260px',
-                    display: 'flex',
-                    flexDirection: 'column'
+                    zIndex: 10 
                   }}
                 >
-                  {/* Glow effect on hover */}
-                  {hoveredIndex === index && (
-                    <GlowBorderEffect 
-                      variant="white"
-                      glow={true}
-                      className="opacity-70"
-                    />
-                  )}
+                  <Box sx={{ mb: 2 }}>
+                    {React.cloneElement(feature.icon, {
+                      style: { height: 28, width: 28, color: "white" }
+                    })}
+                  </Box>
                   
-                  <Box 
+                  <Typography 
+                    variant="h3" 
                     sx={{ 
-                      p: 3, 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      height: '100%', 
-                      justifyContent: 'space-between',
-                      zIndex: 10 
+                      fontSize: '1.5rem',
+                      fontWeight: 'normal',
+                      mb: 1.5, 
+                      color: 'white',
+                      fontFamily: '"Wix Madefor Text", sans-serif'
                     }}
                   >
-                    {/* Top section with icon */}
-                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                      <Box sx={{ mb: 2 }}>
-                        {React.cloneElement(feature.icon, {
-                          style: { height: 28, width: 28, color: "white" }
-                        })}
-                      </Box>
-                      
-                      <Typography 
-                        variant="h3" 
-                        sx={{ 
-                          fontSize: '1.5rem',
-                          fontWeight: 'normal',
-                          mb: 1.5, 
-                          color: 'white',
-                          fontFamily: '"Wix Madefor Text", sans-serif'
-                        }}
-                      >
-                        {feature.title}
-                      </Typography>
-                      
-                      <Typography 
-                        sx={{
-                          color: 'grey.400',
-                          lineHeight: 1.75,
-                          fontFamily: '"Wix Madefor Text", sans-serif',
-                          fontSize: '0.875rem',
-                          fontWeight: 'normal',
-                          opacity: hoveredIndex === index ? 1 : 0.7,
-                          transform: hoveredIndex === index ? 'translateY(0)' : 'translateY(0)',
-                          transition: 'opacity 0.3s ease, transform 0.3s ease'
-                        }}
-                      >
-                        {feature.description}
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Paper>
-              </Box>
-            </Grid>
+                    {feature.title}
+                  </Typography>
+                  
+                  <Typography 
+                    sx={{
+                      color: 'grey.400',
+                      lineHeight: 1.75,
+                      fontFamily: '"Wix Madefor Text", sans-serif',
+                      fontSize: '0.875rem',
+                      fontWeight: 'normal',
+                      opacity: hoveredIndex === index ? 1 : 0.7,
+                      transition: 'opacity 0.3s ease'
+                    }}
+                  >
+                    {feature.description}
+                  </Typography>
+                </Box>
+              </Paper>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );
