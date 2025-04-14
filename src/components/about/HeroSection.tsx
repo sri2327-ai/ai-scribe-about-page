@@ -165,8 +165,9 @@ const HeroSection = () => {
         />
       </Box>
 
-      {/* Add keyframes for the pulse animation */}
-      <style jsx global>{`
+      {/* Add keyframes for the pulse animation - Fixed to use standard style without jsx/global props */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes pulse {
           0% {
             transform: scale(1);
@@ -181,7 +182,8 @@ const HeroSection = () => {
             opacity: 1;
           }
         }
-      `}</style>
+        `
+      }} />
     </Box>
   );
 };
