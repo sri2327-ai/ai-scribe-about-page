@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
@@ -81,7 +82,7 @@ const CoreValues = () => {
           }
         }}>
           {coreValues.map((value, index) => (
-            <Grid item xs={12} md={4} lg={2.4} key={index}>
+            <Grid key={index} sx={{ gridColumn: { xs: 'span 12', md: 'span 4', lg: 'span 2.4' } }}>
               <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}

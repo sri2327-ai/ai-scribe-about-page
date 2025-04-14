@@ -79,7 +79,7 @@ const ProjectSetupChecklist = () => {
               {securityCards.map((card, index) => {
                 const Icon = card.icon;
                 return (
-                  <Grid xs={12} sm={6} md={4} key={index}>
+                  <Grid key={index} sx={{ gridColumn: { xs: 'span 12', sm: 'span 6', md: 'span 4' } }}>
                     <Card
                       sx={{
                         height: '100%',

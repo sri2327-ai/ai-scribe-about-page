@@ -167,7 +167,7 @@ const MeetIpkoTimeline = () => {
             Our advanced language processing system enables seamless multilingual communication with 16-language diarization capabilities, breaking down language barriers in healthcare.
           </Typography>
           <Grid container spacing={2}>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="multilingual">
               <Paper
                 elevation={0}
                 sx={{
@@ -199,7 +199,7 @@ const MeetIpkoTimeline = () => {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="contextual">
               <Paper
                 elevation={0}
                 sx={{
@@ -272,7 +272,7 @@ const MeetIpkoTimeline = () => {
             PKIE learns and mimics physician workflows for personalized AI scribing, adapting to each doctor's unique documentation style and preferences.
           </Typography>
           <Grid container spacing={2}>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="adaptive">
               <Paper
                 elevation={0}
                 sx={{
@@ -304,7 +304,7 @@ const MeetIpkoTimeline = () => {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="workflow">
               <Paper
                 elevation={0}
                 sx={{
@@ -377,7 +377,7 @@ const MeetIpkoTimeline = () => {
             MKIE powers AI-driven clinical pathways for precise documentation improvement, ensuring accuracy and completeness in medical records.
           </Typography>
           <Grid container spacing={2}>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="clinical">
               <Paper
                 elevation={0}
                 sx={{
@@ -409,7 +409,7 @@ const MeetIpkoTimeline = () => {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="medical">
               <Paper
                 elevation={0}
                 sx={{
@@ -482,7 +482,7 @@ const MeetIpkoTimeline = () => {
             IIIE breaks integration barriers for effortless deployment across platforms, making our AI technology accessible to any healthcare system.
           </Typography>
           <Grid container spacing={2}>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="seamless">
               <Paper
                 elevation={0}
                 sx={{
@@ -514,7 +514,7 @@ const MeetIpkoTimeline = () => {
                 </Typography>
               </Paper>
             </Grid>
-            <Grid xs={12} md={6}>
+            <Grid sx={{ gridColumn: { xs: 'span 12', md: 'span 6' } }} key="cross">
               <Paper
                 elevation={0}
                 sx={{
@@ -600,7 +600,7 @@ const MeetIpkoTimeline = () => {
             
             <Grid container spacing={2} sx={{ mb: 4 }}>
               {timelineData.map((item, index) => (
-                <Grid xs={12} sm={6} key={index}>
+                <Grid sx={{ gridColumn: { xs: 'span 12', sm: 'span 6' } }} key={index}>
                   <TimelineCard item={item} />
                 </Grid>
               ))}
