@@ -1,4 +1,4 @@
-
+import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Zap, Rocket, Layers, Users, Shield } from "lucide-react";
@@ -81,7 +81,7 @@ const CoreValues = () => {
           }
         }}>
           {coreValues.map((value, index) => (
-            <Grid xs={12} md={4} lg={12/5} key={index}>
+            <Grid item xs={12} md={4} lg={2.4} key={index}>
               <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
