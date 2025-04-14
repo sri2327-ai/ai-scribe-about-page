@@ -1,6 +1,5 @@
 
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Linkedin, Instagram, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -16,23 +15,6 @@ const Footer = () => {
             <p className="text-gray-400 mb-6">
               AI-powered healthcare solutions that streamline clinical documentation and patient care.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://twitter.com/s10aiscribe" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="https://www.facebook.com/profile.php?id=100086008459597" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="https://www.linkedin.com/company/s10-ai/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a href="https://instagram.com/s10.ai" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="https://www.youtube.com/channel/UCSaWPSJyic-OURNS_w-49Ow" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white">
-                <Youtube className="h-5 w-5" />
-              </a>
-            </div>
           </div>
           
           <div>
@@ -81,11 +63,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/technology" className="text-gray-400 hover:text-white transition-colors">
-                  Trust & Technology
-                </Link>
-              </li>
-              <li>
                 <Link to="/contactus" className="text-gray-400 hover:text-white transition-colors">
                   Contact
                 </Link>
@@ -105,16 +82,9 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="md:flex md:justify-between">
-            <p className="text-center md:text-left text-gray-500">
-              © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
-            </p>
-            <p className="text-center md:text-right text-gray-500 mt-2 md:mt-0">
-              <a href="mailto:support@s10.ai" className="hover:text-white">support@s10.ai</a>
-              <span className="mx-2">|</span>
-              <span>Tel: +1 631 4886 390</span>
-            </p>
-          </div>
+          <p className="text-center text-gray-500">
+            © {new Date().getFullYear()} S10.AI. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

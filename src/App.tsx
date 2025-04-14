@@ -59,11 +59,8 @@ const App = () => {
             {/* Original routes as fallbacks */}
             <Route path="/about" element={<Layout><About /></Layout>} />
             <Route path="/technology" element={<Layout><Technology /></Layout>} />
-            <Route path="/contactus" element={<Layout><NotFound /></Layout>} />
-            <Route path="/privacypolicy" element={<Layout><NotFound /></Layout>} />
-            <Route path="/termsandcondition" element={<Layout><NotFound /></Layout>} />
             
-            {/* Catch-all route */}
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<Layout><NotFound /></Layout>} />
           </Routes>
         </BrowserRouter>
