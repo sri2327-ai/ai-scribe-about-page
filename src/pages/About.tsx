@@ -1,5 +1,6 @@
 
 import { useEffect } from "react";
+import { Box, Container } from "@mui/material";
 import { motion } from "framer-motion";
 import HeroSection from "@/components/about/HeroSection";
 import MissionVision from "@/components/about/MissionVision";
@@ -38,27 +39,39 @@ const About = () => {
   }, []);
 
   return (
-    <main className="bg-black min-h-screen w-full overflow-x-hidden">
+    <Box 
+      component="main" 
+      sx={{ 
+        bgcolor: 'black', 
+        minHeight: '100vh', 
+        width: '100%', 
+        overflow: 'hidden'
+      }}
+    >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="flex flex-col w-full"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '100%'
+        }}
       >
         <HeroSection />
-        <div className="w-full">
+        <Box sx={{ width: '100%' }}>
           <MissionVision />
           <CoreValues />
-          <div className="relative">
+          <Box sx={{ position: 'relative' }}>
             <WhoWeAre />
             <StarTrekSection />
-          </div>
+          </Box>
           <FounderMessage />
           <TeamSection />
           <TrustedBy />
-        </div>
+        </Box>
       </motion.div>
-    </main>
+    </Box>
   );
 };
 

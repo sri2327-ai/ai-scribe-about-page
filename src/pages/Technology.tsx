@@ -1,6 +1,6 @@
 
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { Box, Typography, Button, Container, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
+import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import TechHero from "@/components/technology/TechHero";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
@@ -9,13 +9,23 @@ import SecurityCompliance from "@/components/technology/SecurityCompliance";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
 import S10AISafetyFAQs from "@/components/technology/S10AISafetyFAQs";
 import TrustedByExperts from "@/components/technology/TrustedByExperts";
-import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Technology = () => {
   const isMobile = useIsMobile();
+  const theme = useTheme();
 
   return (
-    <main className="bg-black min-h-screen w-full overflow-x-hidden" style={{ position: "relative" }}>
+    <Box 
+      component="main" 
+      sx={{ 
+        bgcolor: 'black',
+        minHeight: '100vh',
+        width: '100%',
+        overflow: 'hidden',
+        position: 'relative'
+      }}
+    >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -33,30 +43,61 @@ const Technology = () => {
         <TechFeatures />
 
         {/* Call to Action Section */}
-        <section className="py-16 md:py-28 bg-black border-t border-white/10" style={{ position: "relative" }}>
-          <div className="container mx-auto px-4 text-center">
+        <Box 
+          component="section"
+          sx={{
+            py: { xs: 8, md: 14 },
+            bgcolor: 'black',
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            position: 'relative'
+          }}
+        >
+          <Container>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="max-w-4xl mx-auto"
-              style={{ position: "relative" }}
+              style={{
+                maxWidth: '64rem',
+                margin: '0 auto',
+                position: 'relative'
+              }}
             >
-              <p className="text-2xl font-normal text-white mb-6">
+              <Typography 
+                variant="h4"
+                sx={{
+                  fontSize: { xs: '1.5rem', md: '2rem' },
+                  fontWeight: 'normal',
+                  mb: 3,
+                  color: 'white'
+                }}
+              >
                 Transform Your Healthcare Workflow
-              </p>
+              </Typography>
               <Button 
-                variant="outline" 
-                size="lg" 
-                className="bg-black text-white border-white hover:bg-white hover:text-black transition-all duration-300 rounded-full"
+                variant="outlined"
+                size="large"
+                sx={{
+                  bgcolor: 'black',
+                  color: 'white',
+                  borderColor: 'white',
+                  '&:hover': {
+                    bgcolor: 'white',
+                    color: 'black',
+                  },
+                  transition: 'all 0.3s',
+                  borderRadius: '9999px',
+                  px: 4,
+                  py: 1.5
+                }}
+                endIcon={<ArrowRight />}
               >
                 Request A Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </motion.div>
-          </div>
-        </section>
+          </Container>
+        </Box>
 
         {/* Security & Compliance Section */}
         <SecurityCompliance />
@@ -70,7 +111,7 @@ const Technology = () => {
         {/* Trusted by Experts Section */}
         <TrustedByExperts />
       </motion.div>
-    </main>
+    </Box>
   );
 };
 

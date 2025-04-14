@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Box, Container, Typography, Grid, Avatar } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 
@@ -33,60 +34,122 @@ const companyLogos = [
 
 const TrustedByExperts = () => {
   return (
-    <section className="relative py-24 overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#121212] to-black opacity-90" />
+    <Box
+      component="section"
+      sx={{
+        position: 'relative',
+        py: 12,
+        overflow: 'hidden',
+        bgcolor: 'black'
+      }}
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, #121212, black)',
+          opacity: 0.9
+        }}
+      />
       
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        className="container mx-auto px-4 relative z-20"
+        style={{
+          position: 'relative',
+          zIndex: 20
+        }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl md:text-5xl font-normal mb-4 text-white">
-            <span className="text-gray-300">Trusted by experts.</span>
-            <br />
-            <span>Used by the leaders.</span>
-          </h2>
-        </motion.div>
-        
-        <div className="relative mx-auto max-w-4xl">
-          <div className="mx-auto mt-14 grid grid-cols-2 md:grid-cols-5 gap-8 text-white relative z-20">
-            {companyLogos.map((logo) => (
-              <motion.div
-                key={logo.id}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: logo.id * 0.1 }}
-                className="flex flex-col items-center"
-              >
-                <div className="w-16 h-16 rounded-full bg-black border border-white/30 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">{logo.letter}</span>
-                </div>
-                <p className="mt-2 text-sm text-gray-300">{logo.name}</p>
-              </motion.div>
-            ))}
-          </div>
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            sx={{
+              textAlign: 'center',
+              mb: 8
+            }}
+          >
+            <Typography
+              variant="h3"
+              sx={{
+                fontSize: { xs: '1.875rem', md: '3rem' },
+                fontWeight: 'normal',
+                mb: 2,
+                color: 'white'
+              }}
+            >
+              <Box component="span" sx={{ color: 'rgba(209, 213, 219, 1)' }}>
+                Trusted by experts.
+              </Box>
+              <br />
+              <Box component="span">
+                Used by the leaders.
+              </Box>
+            </Typography>
+          </motion.div>
           
-          <div className="relative -mt-32 h-96 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
-            <Sparkles
-              density={1200}
-              className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
-              color="#ffffff"
-              background="transparent"
-              size={1.2}
-              speed={0.5}
-            />
-          </div>
-        </div>
+          <Box sx={{ position: 'relative', mx: 'auto', maxWidth: '64rem' }}>
+            <Grid container spacing={4} sx={{ mt: 7, position: 'relative', zIndex: 20 }}>
+              {companyLogos.map((logo) => (
+                <Grid item xs={6} md={2.4} key={logo.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: logo.id * 0.1 }}
+                    viewport={{ once: true }}
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <Avatar
+                      sx={{
+                        width: 64,
+                        height: 64,
+                        bgcolor: 'black',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
+                        fontSize: '1.5rem',
+                        fontWeight: 'bold',
+                        color: 'white'
+                      }}
+                    >
+                      {logo.letter}
+                    </Avatar>
+                    <Typography sx={{ mt: 1, fontSize: '0.875rem', color: 'rgba(209, 213, 219, 1)' }}>
+                      {logo.name}
+                    </Typography>
+                  </motion.div>
+                </Grid>
+              ))}
+            </Grid>
+            
+            <Box
+              sx={{
+                position: 'relative',
+                mt: -16,
+                height: 384,
+                width: '100%',
+                overflow: 'hidden',
+                maskImage: 'radial-gradient(50% 50%, white, transparent)'
+              }}
+            >
+              <Sparkles
+                density={1200}
+                className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
+                color="#ffffff"
+                background="transparent"
+                size={1.2}
+                speed={0.5}
+              />
+            </Box>
+          </Box>
+        </Container>
       </motion.div>
-    </section>
+    </Box>
   );
 };
 
