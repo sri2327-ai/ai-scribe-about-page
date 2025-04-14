@@ -103,10 +103,6 @@ export default {
 					'0%': { transform: 'translateX(0%)' },
 					'50%': { transform: 'translateX(-75%)' },
 					'100%': { transform: 'translateX(0%)' },
-				},
-				marquee: {
-					'0%': { transform: 'translateX(0)' },
-					'100%': { transform: 'translateX(-100%)' },
 				}
 			},
 			animation: {
@@ -114,7 +110,6 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'star-movement-top': 'star-movement-top 6s linear infinite',
 				'star-movement-bottom': 'star-movement-bottom 6s linear infinite',
-				marquee: 'marquee 25s linear infinite',
 			}
 		}
 	},
