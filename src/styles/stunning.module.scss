@@ -1,0 +1,404 @@
+// .carouselWrapper {
+//     background-color: #fde2e4;
+//     padding: 1rem;
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
+//   }
+  
+//   .row {
+//     overflow: hidden;
+//     white-space: nowrap;
+//   }
+  
+//   .track {
+//     display: inline-flex;
+//     gap: 16px;
+//   }
+  
+//   .card {
+//     width: 280px;
+//     min-width: 280px;
+//     height: 160px;
+//     background-color: #fff;
+//     border-radius: 12px;
+//     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+//     flex-shrink: 0;
+//   }
+  
+//   .header {
+//     display: flex;
+//     align-items: center;
+//     gap: 0.5rem;
+//   }
+  
+//   /* Scroll left to right */
+//   .scrollLeft .track {
+//     animation: scrollLeft 40s linear infinite;
+//   }
+  
+//   /* Scroll right to left */
+//   .scrollRight .track {
+//     animation: scrollRight 40s linear infinite;
+//   }
+  
+//   @keyframes scrollLeft {
+//     0% {
+//       transform: translateX(0%);
+//     }
+//     100% {
+//       transform: translateX(-50%);
+//     }
+//   }
+  
+//   @keyframes scrollRight {
+//     0% {
+//       transform: translateX(-50%);
+//     }
+//     100% {
+//       transform: translateX(0%);
+//     }
+//   }
+  
+
+.carouselWrapper {
+    
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .row {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .track {
+    display: inline-flex;
+    gap: 20px;
+  }
+  
+  .card {
+    width: 450px;
+    min-width: 450px;
+    height: 120px;
+    max-height: 120px;
+    background-color: #045d75;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    color: #fff;
+    overflow: hidden; /* Ensures inner content doesn't exceed */
+  }
+  .heading{
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .cardContent {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    height: 100%;
+  }
+  
+  .avatar {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+  }
+  
+  .cardTextBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+   
+  }
+
+  
+.cardText {
+  overflow: hidden;
+  white-space: normal;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* show max 3 lines */
+  -webkit-box-orient: vertical;
+  max-height: 3.6em; /* adjust based on font-size and line-height */
+  line-height: 1.2em;
+}
+.cardRating {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.cardName {
+  font-weight: bold;
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+ 
+}
+  /* Scroll left to right */
+  .scrollLeft .track {
+    animation: scrollLeft 40s linear infinite;
+  }
+  
+  /* Scroll right to left */
+  .scrollRight .track {
+    animation: scrollRight 40s linear infinite;
+  }
+  
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  @keyframes scrollRight {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
+  }
+  
+  // Section 3
+
+  .banner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Left-align content
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+    color: #fff;
+    height: 300px;
+    max-width: 1000px;
+    gap: 5px;
+    
+   max-height: 100%;
+  }
+  
+  .text {
+    color: black;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  
+  .addressContainer {
+    position: absolute;
+    bottom: 16px;
+    left: 24px;
+    text-align: left;
+    padding-top: 20px;
+  }
+  
+  .address {
+  
+    color: #333;
+  }
+
+  // case study
+
+.wrapper {
+  align-items: center;
+  justify-items: center;
+  }
+
+  .featuredCard {
+    display: flex;
+    align-items: center;
+    background: #f8fbff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-bottom: 30px;
+    
+  }
+
+  .featuredContent {
+    flex: 1;
+ 
+  }
+  
+  .featuredImage {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+      }
+    }
+  
+
+.container {
+    display: flex;
+    flex-wrap: wrap;  
+    gap: 20px;        
+
+   
+  }
+  
+  .casecard {
+  width: 363px;  /* Fixed width */
+  height: 350px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+  
+
+  .image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .content {
+    padding: 20px;
+    height: 60%;  /* Remaining height for text */
+ 
+  }
+  .title {
+    
+    margin-bottom: 10px;
+  }
+  .description {
+   
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  // Logo Scroll
+
+  .logoScrollerSection {
+    background: white;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+  
+  .logoHeading {
+    margin-bottom: 1.5rem;
+    color: #004466;
+    font-weight: 600;
+  }
+  
+  .logoWrapper {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 10%;
+  }
+  
+  .logoTrack {
+    display: flex;
+    width: fit-content;
+    animation: scrollLeft 25s linear infinite;
+    gap: 60px;
+  }
+  
+  .logoItem {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logoItem img {
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+  }
+  
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  // Last scroll
+  
+  .herocontainer {
+    display: flex;
+    justify-content: center;
+    padding: 60px 20px;
+    
+  }
+  
+  .herocard {
+    max-width: 1200px;
+  margin: 2rem auto;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(to right, #a8d0e6, #045d75);
+  }
+  
+    .herotitle {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 40px;
+    flex-direction: row;
+    margin-top: 40px;
+  }
+  
+  .feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 180px;
+  }
+  
+  .icon {
+   font-size: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .label {
+    text-align: center;
+  }
+  
+  .ctatext {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .ctacontainer {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }

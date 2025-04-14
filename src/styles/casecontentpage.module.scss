@@ -1,0 +1,70 @@
+.casestudycontainer {
+    align-items: center;
+    justify-items: center;
+  }
+  
+  // Featured Card
+  .bannerCard {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .bannerContent {
+    flex: 1;
+  }
+  
+  // Max Read Time with Clock Icon
+  .readTime {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #777;
+    margin-bottom: 8px;
+    gap: 5px;
+  }
+  
+  .clockIcon {
+    font-size: 18px;
+    color: #777;
+  }
+  
+  // Social Icons
+  .socialIcons {
+    margin-top: 100px;
+    display: flex;
+    gap: 12px;
+  }
+  
+  .icon {
+    color: #777; // Default LinkedIn color
+    cursor: pointer;
+    transition: all 0.3s ease;
+  background-color: #fff;
+
+    &:hover {
+      color: #005582;
+    }
+  }
+  
+  .bannerImage {
+    flex: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+    }
+  }
+
+  
+  .list{
+    list-style-position: inside;
+  }
