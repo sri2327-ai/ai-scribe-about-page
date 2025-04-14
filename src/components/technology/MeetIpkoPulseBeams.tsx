@@ -158,9 +158,14 @@ export const MeetIpkoPulseBeams = () => {
               transition={{ duration: 0.6, delay: 0.9 }}
               className="mt-8"
             >
-              <Button variant="default" size="lg" className="bg-white text-black hover:bg-gray-200 border border-white">
+              <Button 
+                variant="default" 
+                size="lg" 
+                className="bg-white text-black hover:bg-gray-200 border border-white"
+                iconPosition="right"
+              >
                 Learn More
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight />
               </Button>
             </motion.div>
           </div>

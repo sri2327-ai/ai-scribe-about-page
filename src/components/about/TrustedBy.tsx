@@ -1,3 +1,4 @@
+
 "use client";
 
 import { memo, useEffect, useState } from "react";
@@ -162,8 +163,8 @@ const TestimonialDesktopCarousel = ({ testimonials, onSelect }) => {
         ))}
       </CarouselContent>
       <div className="flex items-center justify-center gap-2 mt-4">
-        <CarouselPrevious className="relative static transform-none mx-1" />
-        <CarouselNext className="relative static transform-none mx-1" />
+        <CarouselPrevious className="static transform-none mx-1 bg-transparent border border-white text-white hover:bg-white/10" />
+        <CarouselNext className="static transform-none mx-1 bg-transparent border border-white text-white hover:bg-white/10" />
       </div>
     </Carousel>
   );
@@ -254,8 +255,9 @@ const TrustedBy = () => {
           <Button 
             className="rounded-full px-6 py-6 bg-transparent border border-white hover:bg-white/10 text-white font-normal text-sm xs:text-base flex items-center gap-2 h-auto"
             onClick={() => window.location.href = "/contact"}
+            iconPosition="right"
           >
-            Contact Us <ArrowRight className="ml-1 h-4 w-4" />
+            Contact Us <ArrowRight />
           </Button>
         </motion.div>
       </div>

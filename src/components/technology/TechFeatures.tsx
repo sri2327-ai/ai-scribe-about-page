@@ -96,11 +96,8 @@ export function TechFeatures({
         </Box>
 
         <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
-          <Grid sx={{ 
-            gridColumn: { xs: 'span 12', lg: 'span 6' },
-            order: { xs: 2, lg: 1 },
-            position: 'relative'
-          }}>
+          {/* Order swapped to put text content first on desktop */}
+          <Grid item xs={12} lg={6} sx={{ order: { xs: 2, lg: 1 } }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {features.map((feature, index) => (
                 <Box
@@ -186,11 +183,8 @@ export function TechFeatures({
             </Box>
           </Grid>
 
-          <Grid sx={{ 
-            gridColumn: { xs: 'span 12', lg: 'span 6' },
-            order: { xs: 1, lg: 2 },
-            position: 'relative'
-          }}>
+          {/* Animation panel now on the right side for desktop */}
+          <Grid item xs={12} lg={6} sx={{ order: { xs: 1, lg: 2 } }}>
             <Paper
               elevation={0}
               sx={{

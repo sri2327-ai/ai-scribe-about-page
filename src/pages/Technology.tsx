@@ -1,5 +1,5 @@
 
-import { Box, Typography, Button, Container, Grid, Paper, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, Container, Grid, Paper, useTheme } from "@mui/material";
 import { ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import TechHero from "@/components/technology/TechHero";
@@ -10,6 +10,7 @@ import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist
 import S10AISafetyFAQs from "@/components/technology/S10AISafetyFAQs";
 import TrustedByExperts from "@/components/technology/TrustedByExperts";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 const Technology = () => {
   const isMobile = useIsMobile();
@@ -75,25 +76,13 @@ const Technology = () => {
               >
                 Transform Your Healthcare Workflow
               </Typography>
+              
               <Button 
-                variant="outlined"
-                size="large"
-                sx={{
-                  bgcolor: 'black',
-                  color: 'white',
-                  borderColor: 'white',
-                  '&:hover': {
-                    bgcolor: 'white',
-                    color: 'black',
-                  },
-                  transition: 'all 0.3s',
-                  borderRadius: '9999px',
-                  px: 4,
-                  py: 1.5
-                }}
-                endIcon={<ArrowRight />}
+                className="bg-black text-white border border-white hover:bg-white hover:text-black transition-all rounded-full px-6 py-4"
+                iconPosition="right"
               >
                 Request A Demo
+                <ArrowRight />
               </Button>
             </motion.div>
           </Container>
