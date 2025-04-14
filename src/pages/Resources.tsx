@@ -12,11 +12,11 @@ const Resources = () => {
           Explore our collection of resources, case studies, and information about our technology and company.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Card */}
           <Card className="bg-black/50 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-white">About Us</CardTitle>
+              <CardTitle className="text-white">S10 Story</CardTitle>
               <CardDescription className="text-gray-300">Learn more about our company's mission and vision</CardDescription>
             </CardHeader>
             <CardContent className="text-gray-400">
@@ -34,7 +34,7 @@ const Resources = () => {
           {/* Technology Card */}
           <Card className="bg-black/50 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
             <CardHeader>
-              <CardTitle className="text-white">Our Technology</CardTitle>
+              <CardTitle className="text-white">Trust & Technology</CardTitle>
               <CardDescription className="text-gray-300">Explore the technology behind our solutions</CardDescription>
             </CardHeader>
             <CardContent className="text-gray-400">
@@ -42,6 +42,24 @@ const Resources = () => {
             </CardContent>
             <CardFooter>
               <Link to="/resources/technology">
+                <Button variant="outline" className="bg-transparent border-blue-500 text-blue-400 hover:bg-blue-900/20">
+                  Explore
+                </Button>
+              </Link>
+            </CardFooter>
+          </Card>
+
+          {/* Blog Card */}
+          <Card className="bg-black/50 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+            <CardHeader>
+              <CardTitle className="text-white">Blog</CardTitle>
+              <CardDescription className="text-gray-300">Latest insights and updates</CardDescription>
+            </CardHeader>
+            <CardContent className="text-gray-400">
+              <p>Stay up-to-date with the latest trends, insights, and updates about AI in healthcare from our expert team.</p>
+            </CardContent>
+            <CardFooter>
+              <Link to="/resources/blog">
                 <Button variant="outline" className="bg-transparent border-blue-500 text-blue-400 hover:bg-blue-900/20">
                   Explore
                 </Button>

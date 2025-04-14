@@ -44,6 +44,17 @@ const App = () => {
             {/* Nested routes under Resources */}
             <Route path="/resources/about" element={<Layout><About /></Layout>} />
             <Route path="/resources/technology" element={<Layout><Technology /></Layout>} />
+            <Route path="/resources/blog" element={<Layout><NotFound /></Layout>} />
+            <Route path="/resources/faq" element={<Layout><NotFound /></Layout>} />
+            <Route path="/resources/customers" element={<Layout><NotFound /></Layout>} />
+            <Route path="/resources/casestudies" element={<Layout><NotFound /></Layout>} />
+            
+            {/* Solutions routes */}
+            <Route path="/solutions/crush" element={<Layout><NotFound /></Layout>} />
+            <Route path="/solutions/bravo" element={<Layout><NotFound /></Layout>} />
+            
+            {/* Integrations route */}
+            <Route path="/integrations" element={<Layout><NotFound /></Layout>} />
             
             {/* Original routes as fallbacks */}
             <Route path="/about" element={<Layout><About /></Layout>} />
