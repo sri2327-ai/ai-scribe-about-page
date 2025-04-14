@@ -1,8 +1,8 @@
 
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { LampSection } from "@/components/ui/lamp";
-import { Separator } from "@/components/ui/separator";
 import { ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Spotlight } from "@/components/ui/spotlight";
@@ -21,38 +21,105 @@ const MissionVision = () => {
   };
 
   return (
-    <div className="flex flex-col">
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       {/* Mission Section with Lamp Effect */}
       <LampSection title="Our Mission" color="teal">
-        <motion.p
+        <Box
+          component={motion.p}
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="text-lg sm:text-xl md:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center"
+          sx={{
+            typography: {
+              fontSize: {
+                xs: '1.125rem',
+                sm: '1.25rem',
+                md: '1.5rem'
+              },
+              color: 'white',
+              fontFamily: '"Wix Madefor Text", sans-serif',
+              lineHeight: 1.75,
+              maxWidth: '2xl',
+              mx: 'auto',
+              textAlign: 'center'
+            }
+          }}
         >
           To make life easy for clinicians by eliminating administrative burdens with intelligent automation.
-        </motion.p>
+        </Box>
         
         {/* Scroll down indicator - positioned on left side */}
-        <motion.div 
-          className={`absolute ${isMobile ? 'left-4' : 'left-10'} bottom-16 flex flex-col items-center cursor-pointer z-20`}
+        <Box
+          component={motion.div}
+          sx={{
+            position: 'absolute',
+            left: { xs: '16px', sm: '40px' },
+            bottom: '64px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            cursor: 'pointer',
+            zIndex: 20
+          }}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+          transition={{ 
+            duration: 0.8, 
+            delay: 1, 
+            repeat: Infinity, 
+            repeatType: "reverse" 
+          }}
           onClick={scrollToNext}
         >
-          <p className="text-gray-400 mb-2 text-xs sm:text-sm font-wix-madefor">Scroll</p>
-          <ChevronDown className="text-white h-5 w-5 sm:h-6 sm:w-6" />
-        </motion.div>
+          <Typography 
+            sx={{ 
+              color: 'grey.400', 
+              mb: 1, 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              fontFamily: '"Wix Madefor Text", sans-serif'
+            }}
+          >
+            Scroll
+          </Typography>
+          <ChevronDown sx={{ 
+            color: 'white', 
+            height: { xs: 20, sm: 24 }, 
+            width: { xs: 20, sm: 24 } 
+          }} />
+        </Box>
       </LampSection>
       
       {/* Section Divider */}
-      <div className="w-full flex justify-center py-8 sm:py-12">
-        <Separator className="w-2/3 max-w-4xl bg-gray-800" />
-      </div>
+      <Box 
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          py: { xs: 4, sm: 6 }
+        }}
+      >
+        <Box 
+          sx={{
+            width: '66.666667%',
+            maxWidth: '4xl',
+            height: '1px',
+            bgcolor: 'grey.800'
+          }}
+        />
+      </Box>
       
       {/* Vision Section with Canvas Effect */}
-      <section className="relative h-screen flex items-center justify-center bg-black overflow-hidden">
+      <Box 
+        sx={{ 
+          position: 'relative', 
+          height: '100vh', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          bgcolor: 'black', 
+          overflow: 'hidden' 
+        }}
+      >
         {/* Spotlight Effect - Added teal blue spotlight */}
         <Spotlight
           className="top-20 left-20 md:top-40 md:left-60"
@@ -60,57 +127,144 @@ const MissionVision = () => {
         />
         
         {/* Canvas Effect Container - with improved visibility */}
-        <div className="absolute inset-0 overflow-hidden">
+        <Box 
+          sx={{ 
+            position: 'absolute', 
+            inset: 0, 
+            overflow: 'hidden' 
+          }}
+        >
           <CanvasEffect id="vision-canvas" className="w-full h-full opacity-30" />
-        </div>
+        </Box>
         
         {/* Enhanced teal glow effect background for additional atmosphere */}
-        <div 
-          className="absolute w-full h-full mx-auto opacity-20" 
-          style={{
+        <Box 
+          sx={{
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            mx: 'auto',
+            opacity: 0.2,
             background: "radial-gradient(ellipse at center, rgba(30,174,219,0.15) 0%, rgba(30,174,219,0) 70%)",
             pointerEvents: "none"
           }}
         />
         
-        <div className="container mx-auto px-4 z-10 relative">
-          <motion.h2
+        <Container 
+          sx={{ 
+            mx: 'auto', 
+            px: 4, 
+            zIndex: 10, 
+            position: 'relative' 
+          }}
+        >
+          <Typography
+            component={motion.h2}
             initial={{ opacity: 0, y: -50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal text-white mb-6 sm:mb-10 text-center font-wix-madefor"
+            sx={{
+              fontSize: {
+                xs: '1.875rem',
+                sm: '2.25rem',
+                md: '3rem',
+                lg: '3.75rem'
+              },
+              fontWeight: 'normal',
+              color: 'white',
+              mb: { xs: 3, sm: 5 },
+              textAlign: 'center',
+              fontFamily: '"Wix Madefor Text", sans-serif'
+            }}
           >
             Our Vision
-          </motion.h2>
+          </Typography>
           
-          <motion.p
+          <Typography
+            component={motion.p}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-white font-wix-madefor leading-relaxed max-w-2xl mx-auto text-center px-4"
+            sx={{
+              fontSize: {
+                xs: '1rem',
+                sm: '1.125rem',
+                md: '1.25rem',
+                lg: '1.5rem'
+              },
+              color: 'white',
+              fontFamily: '"Wix Madefor Text", sans-serif',
+              lineHeight: 1.75,
+              maxWidth: '2xl',
+              mx: 'auto',
+              textAlign: 'center',
+              px: 4
+            }}
           >
             We envision a world where clinicians and patients are fully engaged, empowered by AI that automates workflows, enhances EHR usability, and unlocks unparalleled value.
-          </motion.p>
-        </div>
+          </Typography>
+        </Container>
         
         {/* Scroll down indicator - positioned on left side */}
-        <motion.div 
-          className={`absolute ${isMobile ? 'left-4' : 'left-10'} bottom-16 flex flex-col items-center cursor-pointer z-20`}
+        <Box
+          component={motion.div}
+          sx={{
+            position: 'absolute',
+            left: { xs: '16px', sm: '40px' },
+            bottom: '64px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            cursor: 'pointer',
+            zIndex: 20
+          }}
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+          transition={{ 
+            duration: 0.8, 
+            delay: 1, 
+            repeat: Infinity, 
+            repeatType: "reverse" 
+          }}
           onClick={scrollToNext}
         >
-          <p className="text-gray-400 mb-2 text-xs sm:text-sm font-wix-madefor">Scroll</p>
-          <ChevronDown className="text-white h-5 w-5 sm:h-6 sm:w-6" />
-        </motion.div>
-      </section>
+          <Typography 
+            sx={{ 
+              color: 'grey.400', 
+              mb: 1, 
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              fontFamily: '"Wix Madefor Text", sans-serif'
+            }}
+          >
+            Scroll
+          </Typography>
+          <ChevronDown sx={{ 
+            color: 'white', 
+            height: { xs: 20, sm: 24 }, 
+            width: { xs: 20, sm: 24 } 
+          }} />
+        </Box>
+      </Box>
       
       {/* Section Divider */}
-      <div className="w-full flex justify-center py-8 sm:py-12">
-        <Separator className="w-2/3 max-w-4xl bg-gray-800" />
-      </div>
-    </div>
+      <Box 
+        sx={{
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center',
+          py: { xs: 4, sm: 6 }
+        }}
+      >
+        <Box 
+          sx={{
+            width: '66.666667%',
+            maxWidth: '4xl',
+            height: '1px',
+            bgcolor: 'grey.800'
+          }}
+        />
+      </Box>
+    </Box>
   );
 };
 

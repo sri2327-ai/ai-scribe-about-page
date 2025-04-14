@@ -1,11 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
+import { Box, Typography, Container, Grid, Paper, Button } from '@mui/material';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { 
   Shield, 
   ShieldCheck, 
@@ -19,7 +18,7 @@ import {
   BrainCircuit,
   Cpu,
   Fingerprint,
-  AtomIcon,
+  Atom as AtomIcon,
   Bot,
   Network,
   Layers,
@@ -28,30 +27,45 @@ import {
   CloudCog,
   ShieldAlert
 } from "lucide-react";
-import { Card } from "@/components/ui/card";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
+
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
 const FloatingSecurityItem = ({ icon: Icon, label, description, position }) => {
   return (
-    <motion.div
+    <Box
+      component={motion.div}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="absolute"
-      style={position}
+      sx={{
+        position: 'absolute',
+        ...position
+      }}
     >
-      <Card className="w-48 md:w-56 backdrop-blur-md bg-black/40 border border-blue-500/20 shadow-lg text-white p-3 text-xs">
-        <div className="flex items-center gap-2 mb-1">
-          <Icon size={12} className="text-blue-400" />
-          <p className="font-semibold">{label}</p>
-        </div>
-        <p className="text-[10px] text-gray-300">{description}</p>
-      </Card>
-    </motion.div>
+      <Paper 
+        sx={{ 
+          width: { xs: '192px', md: '224px' },
+          backdropFilter: 'blur(8px)',
+          bgcolor: 'rgba(0,0,0,0.4)',
+          border: '1px solid rgba(59, 130, 246, 0.2)',
+          boxShadow: 'lg',
+          color: 'white',
+          p: 1.5,
+          fontSize: '0.75rem'
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
+          <Icon size={12} sx={{ color: 'blue.400' }} />
+          <Typography sx={{ fontWeight: 600 }}>{label}</Typography>
+        </Box>
+        <Typography sx={{ fontSize: '10px', color: 'grey.300' }}>{description}</Typography>
+      </Paper>
+    </Box>
   );
 };
 
-const SecurityIcon = ({ icon: Icon, delay, className = "", tooltip = "" }) => {
+const SecurityIcon = ({ icon: Icon, delay, sx = {}, tooltip = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -65,25 +79,30 @@ const SecurityIcon = ({ icon: Icon, delay, className = "", tooltip = "" }) => {
   return isVisible ? (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.4 }}
           whileHover={{ opacity: 1, scale: 1.2 }}
-          className={`absolute text-blue-400/30 hover:text-blue-400 transition-all duration-300 ${className}`}
-          style={{
+          sx={{
+            position: 'absolute',
+            color: 'rgba(96, 165, 250, 0.3)',
+            '&:hover': { color: 'rgb(96, 165, 250)' },
+            transition: 'all 0.3s',
             top: `${Math.random() * 80 + 10}%`,
             left: `${Math.random() * 80 + 10}%`,
             transform: `scale(${Math.random() * 0.5 + 0.8})`,
+            ...sx
           }}
         >
           <Icon size={24} />
-        </motion.div>
+        </Box>
       </HoverCardTrigger>
       {tooltip && (
         <HoverCardContent className="w-52 bg-black/80 border border-blue-500/30 text-xs">
-          <div className="flex flex-col gap-1">
-            <p className="text-white/90">{tooltip}</p>
-          </div>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+            <Typography sx={{ color: 'rgba(255, 255, 255, 0.9)' }}>{tooltip}</Typography>
+          </Box>
         </HoverCardContent>
       )}
     </HoverCard>
@@ -104,24 +123,30 @@ const AiTechIcon = ({ icon: Icon, delay, position, tooltip }) => {
   return isVisible ? (
     <HoverCard>
       <HoverCardTrigger asChild>
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.5 }}
           whileHover={{ opacity: 1, scale: 1.1 }}
-          className="absolute backdrop-blur-sm bg-black/20 border border-tealBlueBright/30 rounded-full p-2.5"
-          style={{
-            ...position,
-            boxShadow: "0 0 15px rgba(30, 174, 219, 0.2)",
+          sx={{
+            position: 'absolute',
+            backdropFilter: 'blur(4px)',
+            bgcolor: 'rgba(0, 0, 0, 0.2)',
+            border: '1px solid rgba(30, 174, 219, 0.3)',
+            borderRadius: '50%',
+            p: 1.25,
+            boxShadow: '0 0 15px rgba(30, 174, 219, 0.2)',
+            ...position
           }}
         >
-          <Icon size={20} className="text-tealBlueBright" />
-        </motion.div>
+          <Icon size={20} style={{ color: "#1EAEDB" }} />
+        </Box>
       </HoverCardTrigger>
       <HoverCardContent className="w-56 bg-black/80 border border-tealBlueBright/30">
-        <div className="flex flex-col gap-2">
-          <h4 className="text-sm font-semibold text-white">{tooltip.title}</h4>
-          <p className="text-xs text-white/70">{tooltip.description}</p>
-        </div>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>{tooltip.title}</Typography>
+          <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>{tooltip.description}</Typography>
+        </Box>
       </HoverCardContent>
     </HoverCard>
   ) : null;
@@ -185,15 +210,27 @@ const TechHero = () => {
   ];
 
   return (
-    <section 
-      className="relative w-full overflow-hidden bg-black"
-      style={{ position: "relative" }} // Added explicit relative positioning to fix framer-motion warning
+    <Box 
+      component="section"
+      sx={{
+        position: "relative",
+        width: "100%",
+        overflow: "hidden",
+        bgcolor: "black"
+      }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <Box 
+        sx={{ 
+          position: 'absolute', 
+          inset: 0, 
+          zIndex: 0, 
+          pointerEvents: 'none' 
+        }}
+      >
         <CanvasEffect id="tech-canvas" className="opacity-40" />
-      </div>
+      </Box>
       
       <Spotlight
         className="-top-40 left-0 z-10"
@@ -230,143 +267,333 @@ const TechHero = () => {
       
       <ContainerScroll
         titleComponent={
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6 }}
-            className="w-full px-4 md:px-0 text-center relative z-20"
+            sx={{
+              width: '100%',
+              px: { xs: 2, md: 0 },
+              textAlign: 'center',
+              position: 'relative',
+              zIndex: 20
+            }}
           >
-            <motion.h1
+            <Typography
+              component={motion.h1}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl md:text-[4.5rem] font-light mb-6 leading-tight font-wix-madefor text-white"
+              sx={{
+                fontSize: { xs: '1.875rem', md: '4.5rem' },
+                fontWeight: 'light',
+                mb: 3,
+                lineHeight: 'tight',
+                fontFamily: '"Wix Madefor Text", sans-serif',
+                color: 'white'
+              }}
             >
               AI Innovation with Unbreakable Security
-            </motion.h1>
+            </Typography>
             
-            <motion.div 
+            <Box
+              component={motion.div}
               initial={{ opacity: 0 }}
               animate={controls}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex items-center justify-center gap-2 mb-4"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 1,
+                mb: 2
+              }}
             >
-              <span className="relative flex h-3 w-3">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-white"></span>
-              </span>
-              <p className="text-sm text-white font-medium">Secure & HIPAA Compliant</p>
-            </motion.div>
+              <Box sx={{ position: 'relative', display: 'flex', height: 12, width: 12 }}>
+                <Box 
+                  sx={{ 
+                    position: 'absolute', 
+                    display: 'inline-flex', 
+                    height: '100%', 
+                    width: '100%', 
+                    animation: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+                    borderRadius: '50%',
+                    bgcolor: 'white',
+                    opacity: 0.75
+                  }}
+                />
+                <Box 
+                  sx={{ 
+                    position: 'relative', 
+                    display: 'inline-flex', 
+                    height: 8, 
+                    width: 8, 
+                    borderRadius: '50%',
+                    bgcolor: 'white'
+                  }}
+                />
+              </Box>
+              <Typography 
+                sx={{ 
+                  fontSize: '0.875rem', 
+                  color: 'white', 
+                  fontWeight: 500 
+                }}
+              >
+                Secure & HIPAA Compliant
+              </Typography>
+            </Box>
             
-            <motion.div 
+            <Box
+              component={motion.div}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex items-center justify-center gap-4 mt-4"
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 2,
+                mt: 2
+              }}
             >
-              <div className="relative group">
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="w-10 h-10 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 cursor-pointer group-hover:bg-white/20">
-                      <Shield size={20} />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                    <div className="flex flex-col gap-2">
-                      <h4 className="text-sm font-semibold text-white">HIPAA Compliant</h4>
-                      <p className="text-xs text-white/70">
-                        Health Insurance Portability and Accountability Act compliance for healthcare data protection.
-                      </p>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Box 
+                    sx={{ 
+                      width: 40, 
+                      height: 40, 
+                      backdropFilter: 'blur(8px)', 
+                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                      border: '1px solid rgba(255, 255, 255, 0.2)', 
+                      borderRadius: 2,
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      '&:hover': { 
+                        color: 'white', 
+                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                      },
+                      transition: 'all 0.3s',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <Shield size={20} />
+                  </Box>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                      HIPAA Compliant
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                      Health Insurance Portability and Accountability Act compliance for healthcare data protection.
+                    </Typography>
+                  </Box>
+                </HoverCardContent>
+              </HoverCard>
               
-              <div className="relative group">
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="w-10 h-10 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 cursor-pointer group-hover:bg-white/20">
-                      <ShieldCheck size={20} />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                    <div className="flex flex-col gap-2">
-                      <h4 className="text-sm font-semibold text-white">PIPEDA Compliant</h4>
-                      <p className="text-xs text-white/70">
-                        Personal Information Protection and Electronic Documents Act compliance for Canadian privacy standards.
-                      </p>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Box 
+                    sx={{ 
+                      width: 40, 
+                      height: 40, 
+                      backdropFilter: 'blur(8px)', 
+                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                      border: '1px solid rgba(255, 255, 255, 0.2)', 
+                      borderRadius: 2,
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      '&:hover': { 
+                        color: 'white', 
+                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                      },
+                      transition: 'all 0.3s',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <ShieldCheck size={20} />
+                  </Box>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                      PIPEDA Compliant
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                      Personal Information Protection and Electronic Documents Act compliance for Canadian privacy standards.
+                    </Typography>
+                  </Box>
+                </HoverCardContent>
+              </HoverCard>
               
-              <div className="relative group">
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="w-10 h-10 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 cursor-pointer group-hover:bg-white/20">
-                      <FileCheck size={20} />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                    <div className="flex flex-col gap-2">
-                      <h4 className="text-sm font-semibold text-white">GDPR Compliant</h4>
-                      <p className="text-xs text-white/70">
-                        General Data Protection Regulation compliance for EU data protection and privacy standards.
-                      </p>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Box 
+                    sx={{ 
+                      width: 40, 
+                      height: 40, 
+                      backdropFilter: 'blur(8px)', 
+                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                      border: '1px solid rgba(255, 255, 255, 0.2)', 
+                      borderRadius: 2,
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      '&:hover': { 
+                        color: 'white', 
+                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                      },
+                      transition: 'all 0.3s',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <FileCheck size={20} />
+                  </Box>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                      GDPR Compliant
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                      General Data Protection Regulation compliance for EU data protection and privacy standards.
+                    </Typography>
+                  </Box>
+                </HoverCardContent>
+              </HoverCard>
               
-              <div className="relative group">
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="w-10 h-10 backdrop-blur-md bg-white/10 border border-white/20 rounded-xl flex items-center justify-center text-white/70 hover:text-white transition-all duration-300 cursor-pointer group-hover:bg-white/20">
-                      <CheckCircle size={20} />
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                    <div className="flex flex-col gap-2">
-                      <h4 className="text-sm font-semibold text-white">ISO 27001 Certified</h4>
-                      <p className="text-xs text-white/70">
-                        International standard for information security management systems and best practices.
-                      </p>
-                    </div>
-                  </HoverCardContent>
-                </HoverCard>
-              </div>
-            </motion.div>
-          </motion.div>
+              <HoverCard>
+                <HoverCardTrigger asChild>
+                  <Box 
+                    sx={{ 
+                      width: 40, 
+                      height: 40, 
+                      backdropFilter: 'blur(8px)', 
+                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                      border: '1px solid rgba(255, 255, 255, 0.2)', 
+                      borderRadius: 2,
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      '&:hover': { 
+                        color: 'white', 
+                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                      },
+                      transition: 'all 0.3s',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <CheckCircle size={20} />
+                  </Box>
+                </HoverCardTrigger>
+                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                      ISO 27001 Certified
+                    </Typography>
+                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                      International standard for information security management systems and best practices.
+                    </Typography>
+                  </Box>
+                </HoverCardContent>
+              </HoverCard>
+            </Box>
+          </Box>
         }
       >
-        <div className="w-full h-full flex justify-center items-center p-4 md:p-8 relative z-20">
-          <div className="w-full max-w-5xl aspect-[16/9] flex justify-center items-center relative">
-            <div className="relative w-full h-full">
-              <img
+        <Box 
+          sx={{ 
+            width: '100%', 
+            height: '100%', 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            p: { xs: 2, md: 4 }, 
+            position: 'relative', 
+            zIndex: 20 
+          }}
+        >
+          <Box 
+            sx={{ 
+              width: '100%', 
+              maxWidth: '5xl', 
+              aspectRatio: '16/9', 
+              display: 'flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              position: 'relative' 
+            }}
+          >
+            <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Box
+                component="img"
                 src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
                 alt="S10.AI Healthcare Platform"
-                className="w-full h-full object-contain z-10 relative"
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  zIndex: 10,
+                  position: 'relative'
+                }}
               />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
       </ContainerScroll>
 
-      <motion.section
+      <Box
+        component={motion.section}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="px-4 py-4 bg-black text-white text-center"
-        style={{ position: "relative" }} // Added explicit relative positioning to fix framer-motion warning
+        sx={{
+          px: 2,
+          py: 2,
+          bgcolor: 'black',
+          color: 'white',
+          textAlign: 'center',
+          position: 'relative'
+        }}
       >
-        <h2 className="text-3xl md:text-4xl font-normal mb-4">
+        <Typography 
+          variant="h2" 
+          sx={{ 
+            fontSize: { xs: '1.875rem', md: '2.25rem' }, 
+            mb: 2 
+          }}
+        >
           Everything You Need for AI-Powered Clinical Excellence
-        </h2>
-        <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
+        </Typography>
+        <Typography 
+          sx={{ 
+            fontSize: { xs: '1.25rem' }, 
+            color: 'grey.300', 
+            mb: 3, 
+            maxWidth: '3xl', 
+            mx: 'auto' 
+          }}
+        >
           Advanced Intelligence. Seamless Automation. Unbreakable Security.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm md:text-base">
+        </Typography>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap', 
+            justifyContent: 'center', 
+            gap: { xs: 2, md: 3 }, 
+            fontSize: { xs: '0.875rem', md: '1rem' } 
+          }}
+        >
           {[
             'AI Clinical Scribing',
             'Workflow Optimization',
@@ -375,16 +602,22 @@ const TechHero = () => {
             'Secure Collaboration',
             'Predictive Analytics'
           ].map((item, index) => (
-            <span 
+            <Box 
               key={index} 
-              className="px-4 py-2 bg-white/10 border border-white/20 rounded-full"
+              sx={{ 
+                px: 2, 
+                py: 1, 
+                bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                border: '1px solid rgba(255, 255, 255, 0.2)', 
+                borderRadius: '9999px' 
+              }}
             >
               {item}
-            </span>
+            </Box>
           ))}
-        </div>
-      </motion.section>
-    </section>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

@@ -1,5 +1,6 @@
 
 import { useEffect, useRef } from "react";
+import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import StarBackground from "@/components/about/StarBackground";
@@ -20,58 +21,169 @@ const StarTrekSection = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 relative overflow-hidden bg-black min-h-[500px] sm:min-h-[600px] lg:min-h-screen flex items-center justify-center mt-16 sm:mt-0">
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, sm: 10 },
+        position: 'relative',
+        overflow: 'hidden',
+        bgcolor: 'black',
+        minHeight: { xs: '500px', sm: '600px', lg: '100vh' },
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        mt: { xs: 8, sm: 0 }
+      }}
+    >
       {/* Interactive Star background */}
-      <div className="absolute inset-0 z-0">
+      <Box 
+        sx={{ 
+          position: 'absolute', 
+          inset: 0, 
+          zIndex: 0 
+        }}
+      >
         <StarBackground interactive={true} />
-      </div>
+      </Box>
       
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col h-full relative">
+      <Box 
+        sx={{ 
+          maxWidth: 'lg', 
+          mx: 'auto', 
+          px: 4, 
+          position: 'relative', 
+          zIndex: 10 
+        }}
+      >
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            height: '100%', 
+            position: 'relative' 
+          }}
+        >
           {/* Center content */}
-          <motion.div
-            className="flex-1 flex items-center justify-center min-h-[300px] sm:min-h-[400px] md:min-h-[500px]"
+          <Box
+            component={motion.div}
+            sx={{
+              flex: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: { xs: '300px', sm: '400px', md: '500px' }
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="relative">
+            <Box sx={{ position: 'relative' }}>
               {/* Interactive flowing line effect */}
-              <div className="absolute inset-0 -z-10">
+              <Box 
+                sx={{ 
+                  position: 'absolute', 
+                  inset: 0, 
+                  zIndex: -10 
+                }}
+              >
                 <CanvasEffect id="trek-canvas" className="opacity-50" />
-              </div>
+              </Box>
               
-              <motion.h2
-                className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-normal text-white font-wix-madefor text-center"
+              <Typography
+                component={motion.h2}
+                sx={{
+                  fontSize: {
+                    xs: '1.875rem',
+                    sm: '3rem',
+                    md: '4.5rem',
+                    lg: '6rem'
+                  },
+                  fontWeight: 'normal',
+                  color: 'white',
+                  fontFamily: '"Wix Madefor Text", sans-serif',
+                  textAlign: 'center'
+                }}
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
                 Like A Star Trek
-              </motion.h2>
+              </Typography>
               
               {/* White line */}
-              <div className="relative h-1 w-full max-w-md mx-auto my-8">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
-                <div className="absolute inset-0 bg-white opacity-50 blur-sm"></div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+              <Box 
+                sx={{ 
+                  position: 'relative', 
+                  height: '4px', 
+                  width: '100%', 
+                  maxWidth: '25rem', 
+                  mx: 'auto', 
+                  my: 4 
+                }}
+              >
+                <Box 
+                  sx={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    background: 'linear-gradient(to right, transparent, white, transparent)',
+                    animation: 'pulse 2s infinite'
+                  }}
+                />
+                <Box 
+                  sx={{ 
+                    position: 'absolute', 
+                    inset: 0, 
+                    bgcolor: 'white', 
+                    opacity: 0.5, 
+                    filter: 'blur(4px)' 
+                  }}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      </Box>
       
       {/* Scroll down indicator - positioned on left side */}
-      <motion.div 
-        className={`absolute ${isMobile ? 'left-4' : 'left-10'} bottom-16 flex flex-col items-center cursor-pointer z-20`}
+      <Box
+        component={motion.div}
+        sx={{
+          position: 'absolute',
+          left: isMobile ? '16px' : '40px',
+          bottom: '64px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          cursor: 'pointer',
+          zIndex: 20
+        }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+        transition={{ 
+          duration: 0.8, 
+          delay: 1, 
+          repeat: Infinity, 
+          repeatType: "reverse" 
+        }}
         onClick={scrollToNext}
       >
-        <p className="text-gray-400 mb-2 text-xs sm:text-sm font-wix-madefor">Scroll</p>
-        <ChevronDown className="text-white h-5 w-5 sm:h-6 sm:w-6" />
-      </motion.div>
-    </section>
+        <Typography 
+          sx={{ 
+            color: 'grey.400', 
+            mb: 1, 
+            fontSize: { xs: '0.75rem', sm: '0.875rem' },
+            fontFamily: '"Wix Madefor Text", sans-serif'
+          }}
+        >
+          Scroll
+        </Typography>
+        <ChevronDown style={{ 
+          color: 'white', 
+          height: isMobile ? 20 : 24, 
+          width: isMobile ? 20 : 24 
+        }} />
+      </Box>
+    </Box>
   );
 };
 

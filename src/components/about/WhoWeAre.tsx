@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { Box, Typography, Grid, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -7,32 +8,32 @@ import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
 const features = [
   {
-    icon: <Building className="h-6 w-6 text-white" />,
+    icon: <Building style={{ height: 24, width: 24, color: "white" }} />,
     title: "Company",
     description: "S10.AI Inc. & S10 Technologies, a major investor in virtual medical scribing, supporting 1,000+ physicians in the U.S."
   },
   {
-    icon: <Globe className="h-6 w-6 text-white" />,
+    icon: <Globe style={{ height: 24, width: 24, color: "white" }} />,
     title: "Operations",
     description: "Offices in the U.S. with three offshore delivery & support centers."
   },
   {
-    icon: <Users className="h-6 w-6 text-white" />,
+    icon: <Users style={{ height: 24, width: 24, color: "white" }} />,
     title: "People",
     description: "A dedicated team of 500+ professionals transforming healthcare AI."
   },
   {
-    icon: <Settings className="h-6 w-6 text-white" />,
+    icon: <Settings style={{ height: 24, width: 24, color: "white" }} />,
     title: "Product",
     description: "The patented Intelligent Physician Knowledge Orchestrator (IPKO), revolutionizing medical documentation."
   },
   {
-    icon: <Star className="h-6 w-6 text-white" />,
+    icon: <Star style={{ height: 24, width: 24, color: "white" }} />,
     title: "User Satisfaction",
     description: "Rapid adoption, phenomenal feedback, and growing demand prove its impact."
   },
   {
-    icon: <Shield className="h-6 w-6 text-white" />,
+    icon: <Shield style={{ height: 24, width: 24, color: "white" }} />,
     title: "Certifications",
     description: "ISO 27001, HIPAA & PIPEDA compliance, cybersecurity audits, and penetration testing."
   }
@@ -43,76 +44,139 @@ const WhoWeAre = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className={`${isMobile ? 'py-10 pb-16' : 'py-16 pb-24 min-h-0 lg:min-h-screen'} flex items-center bg-black`}>
-      <div className="container mx-auto px-4">
-        <motion.div 
-          className="text-center mb-6 xs:mb-8 sm:mb-12"
+    <Box
+      component="section"
+      sx={{
+        py: isMobile ? '40px 64px' : '64px 96px',
+        minHeight: isMobile ? 'auto' : { lg: '100vh' },
+        display: 'flex',
+        alignItems: 'center',
+        bgcolor: 'black'
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: 'lg',
+          mx: 'auto',
+          px: 4
+        }}
+      >
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          sx={{
+            textAlign: 'center',
+            mb: { xs: 3, sm: 4, md: 6 }
+          }}
         >
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl font-normal mb-4 sm:mb-6 text-white font-wix-madefor">Who We Are</h2>
-        </motion.div>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem' },
+              fontWeight: 'normal',
+              mb: { xs: 2, sm: 3 },
+              color: 'white',
+              fontFamily: '"Wix Madefor Text", sans-serif'
+            }}
+          >
+            Who We Are
+          </Typography>
+        </Box>
         
-        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-3 xs:gap-4 sm:gap-6 lg:gap-8">
+        <Grid container spacing={{ xs: 1.5, sm: 2, md: 3, lg: 4 }}>
           {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              className="relative"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <div 
-                className="relative rounded-lg border border-neutral-700/50 bg-black overflow-hidden transition-all duration-300 h-[260px] flex flex-col group"
-                style={{
-                  borderColor: hoveredIndex === index ? 'rgba(120, 120, 120, 0.6)' : 'rgba(80, 80, 80, 0.4)'
-                }}
+            <Grid item xs={12} sm={6} lg={4} key={index}>
+              <Box
+                component={motion.div}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                sx={{ position: 'relative' }}
               >
-                {/* Glow effect on hover */}
-                {hoveredIndex === index && (
-                  <GlowBorderEffect 
-                    variant="white"
-                    glow={true}
-                    className="opacity-70"
-                  />
-                )}
-                
-                <div className="p-6 flex flex-col h-full justify-between z-10">
-                  {/* Top section with icon */}
-                  <div className="flex flex-col">
-                    <div className="mb-4">
-                      {React.cloneElement(feature.icon, {
-                        className: "h-7 w-7 text-white"
-                      })}
-                    </div>
-                    
-                    <h3 className="text-2xl font-normal mb-3 text-white font-wix-madefor">
-                      {feature.title}
-                    </h3>
-                    
-                    <p 
-                      className="text-gray-400 leading-relaxed font-wix-madefor text-sm font-normal"
-                      style={{
-                        opacity: hoveredIndex === index ? '1' : '0.7',
-                        transform: hoveredIndex === index ? 'translateY(0)' : 'translateY(0)',
-                        transition: 'opacity 0.3s ease, transform 0.3s ease'
-                      }}
-                    >
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
+                <Paper 
+                  elevation={0}
+                  sx={{
+                    position: 'relative',
+                    borderRadius: '8px',
+                    border: '1px solid',
+                    borderColor: hoveredIndex === index ? 'rgba(120, 120, 120, 0.6)' : 'rgba(80, 80, 80, 0.4)',
+                    bgcolor: 'black',
+                    overflow: 'hidden',
+                    transition: 'all 0.3s',
+                    height: '260px',
+                    display: 'flex',
+                    flexDirection: 'column'
+                  }}
+                >
+                  {/* Glow effect on hover */}
+                  {hoveredIndex === index && (
+                    <GlowBorderEffect 
+                      variant="white"
+                      glow={true}
+                      className="opacity-70"
+                    />
+                  )}
+                  
+                  <Box 
+                    sx={{ 
+                      p: 3, 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      height: '100%', 
+                      justifyContent: 'space-between',
+                      zIndex: 10 
+                    }}
+                  >
+                    {/* Top section with icon */}
+                    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                      <Box sx={{ mb: 2 }}>
+                        {React.cloneElement(feature.icon, {
+                          style: { height: 28, width: 28, color: "white" }
+                        })}
+                      </Box>
+                      
+                      <Typography 
+                        variant="h3" 
+                        sx={{ 
+                          fontSize: '1.5rem',
+                          fontWeight: 'normal',
+                          mb: 1.5, 
+                          color: 'white',
+                          fontFamily: '"Wix Madefor Text", sans-serif'
+                        }}
+                      >
+                        {feature.title}
+                      </Typography>
+                      
+                      <Typography 
+                        sx={{
+                          color: 'grey.400',
+                          lineHeight: 1.75,
+                          fontFamily: '"Wix Madefor Text", sans-serif',
+                          fontSize: '0.875rem',
+                          fontWeight: 'normal',
+                          opacity: hoveredIndex === index ? 1 : 0.7,
+                          transform: hoveredIndex === index ? 'translateY(0)' : 'translateY(0)',
+                          transition: 'opacity 0.3s ease, transform 0.3s ease'
+                        }}
+                      >
+                        {feature.description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </Paper>
+              </Box>
+            </Grid>
           ))}
-        </div>
-      </div>
-    </section>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 
