@@ -1,59 +1,103 @@
-'use client'
-import { Box, Typography } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 
-export default function Section1(...args: []) {
-  const theme = useTheme();
+'use client';
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
-  return(
-    <section className="witOutSp" style={{ backgroundColor: theme.palette.primary.main }}>
-      <Typography variant="h1">HEADING - h1</Typography>
-      <Typography variant="h2">HEADING - h2</Typography>
-      <Typography variant="h3">HEADING - h3</Typography>
-      <Typography variant="h4">HEADING - h4</Typography>
-      <Typography variant="h5">HEADING - h5</Typography>
-      <Typography variant="h6">HEADING - h6</Typography>
-      <Typography variant="subtitle1">SUBTITLE1 - subtitle1</Typography>
-      <Typography variant="subtitle2">SUBTITLE2 - subtitle2</Typography>
-      <Typography variant="body1">BODY1 - body1</Typography>
-      <Typography variant="body2">BODY2 -body2</Typography>
-      <Typography variant="button">BUTTON - button</Typography>
-      <Typography variant="caption">CAPTION - caption</Typography>
-      <Typography variant="overline">OVERLINE - overline</Typography>
-      <Box sx={{position: 'relative', padding: "0px", bgcolor: 'red', width: '1000px', height: '200px'}}>
-        <Box sx={{position: 'relative', top:0, right: 10, bgcolor: 'green', width: '50px', height: '100px'}}>
-          Hello World
-        </Box>
-      </Box>
-      <Box sx={{ position: 'relative', background: 'lightgray', p: 2, borderRadius: 2 }}>
-        {/* Top-Right Corner Content */}
-        <Box sx={{ position: 'relative', top: 10, right: 10 }}>
-          <Typography variant="h6">Hello World</Typography>
-        </Box>
+export default function Section1() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const companyLogos = [
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+    "/HeaderLogo.png",
+  ];
 
-        <Box sx={{ display: 'flex' }}>
-          <Typography variant="body1">
-            HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-          </Typography>
-        </Box>
-      </Box>
-      <Box>
-        <Box sx={{ float: 'right',  background: theme.palette.grey['300']}}>
-          <img
-          src={"/circleIcon.png"}
-          style={{ width:'100px', height: 'auto'}}
-          />
-        </Box>
-        <Typography variant="body1">
-          HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-          HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-          HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-          HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-          HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-          HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world HEllo world
-        </Typography>
-      </Box>
-
+  return (
+    <section className="py-12 px-4 bg-gradient-to-br from-white to-blue-200">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8">
+        <div className="flex flex-col md:flex-row gap-8">
+          <motion.div
+            initial={{ x: -25, y: 50, opacity: 0 }}
+            animate={{ x: 0, y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="flex-1"
+          >
+            <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-bold">
+              Innovative<br />
+              Ambient AI<br />
+              <span className="text-blue-500">
+                Solutions<br />
+                For Healthcare
+              </span>
+            </h1>
+          </motion.div>
+          
+          <motion.div
+            initial={{ x: 25, y: 50, opacity: 0 }}
+            animate={{ x: 0, y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="flex-1 bg-gray-100 rounded-xl p-6 shadow"
+          >
+            <div className="float-right bg-white flex items-center rounded-xl ml-4">
+              <img
+                src="/circleIcon.png"
+                alt="circleIcon"
+                width="90"
+                height="90"
+                className="rounded-full"
+              />
+            </div>
+            <p className="text-lg text-gray-700">
+              From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered 
+              solutions that streamline clinical documentation, minimize administrative burdens, 
+              reduce burnout, and save you time—so you can focus on patient care and enhance 
+              healthcare automation.
+            </p>
+          </motion.div>
+        </div>
+        
+        <div className="flex flex-wrap bg-gray-100 p-6 rounded-2xl rounded-tl-[40px] items-start">
+          <motion.div
+            initial={{ x: 25, y: 30, opacity: 0 }}
+            animate={{ x: 0, y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="relative flex bg-white -mt-2 -ml-2 p-4 rounded-br-[40px] rounded-tl-[40px]"
+          >
+            <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 shadow">
+              <span className="flex items-center justify-center w-7 h-7 rounded-full border-2 border-white transition-all duration-300 group-hover:rotate-[-270deg]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right">
+                  <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                </svg>
+              </span>
+              <span className="text-lg font-medium">Book A Demo</span>
+            </button>
+            <div className="absolute w-0 h-0 top-0 right-[-25px] border-r-[25px] border-r-transparent border-t-[15px] border-t-white"></div>
+          </motion.div>
+          
+          <div className="ml-4">
+            <p className="text-lg font-medium max-w-[250px]">S10.AI Is Recommended by</p>
+          </div>
+          
+          <div className="flex-1 flex flex-row overflow-hidden ml-4 animate-marquee">
+            {companyLogos.map((logo, index) => (
+              <div key={index} className="mx-4">
+                <img
+                  src={logo}
+                  alt={`logo-${index}`}
+                  width="150"
+                  height="auto"
+                  className="max-w-full h-auto"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </section>
-  )    
+  );
 }
