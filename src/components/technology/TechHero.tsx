@@ -517,7 +517,10 @@ const TechHero = () => {
             </Box>
           </Box>
         }
-      />
+      >
+        {/* Add children content here */}
+        <Box sx={{ height: "50vh" }} />
+      </ContainerScroll>
     </Box>
   );
 };
