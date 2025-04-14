@@ -60,14 +60,15 @@ export function TechFeatures({
       }}
     >
       <Container>
-        <motion.div 
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          style={{
+          sx={{
             textAlign: 'center',
-            marginBottom: { xs: '3rem', md: '4rem' },
+            mb: { xs: '3rem', md: '4rem' },
             position: 'relative'
           }}
         >
@@ -92,13 +93,14 @@ export function TechFeatures({
           >
             {subtitle}
           </Typography>
-        </motion.div>
+        </Box>
 
         <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
           <Grid item xs={12} lg={6} sx={{ order: { xs: 2, lg: 1 }, position: 'relative' }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {features.map((feature, index) => (
-                <motion.div
+                <Box
+                  component={motion.div}
                   key={index}
                   initial={{ opacity: 0.5 }}
                   animate={{ 
@@ -110,14 +112,16 @@ export function TechFeatures({
                     setCurrentFeature(index);
                     setProgress(0);
                   }}
-                  style={{
+                  sx={{
                     display: 'flex',
                     alignItems: 'flex-start',
                     gap: '1.5rem',
                     cursor: 'pointer'
                   }}
                 >
-                  <motion.div
+                  <Box
+                    component={motion.div}
+                    whileHover={{ scale: 1.1 }}
                     sx={{
                       mt: 0.25,
                       width: 40,
@@ -134,7 +138,6 @@ export function TechFeatures({
                         ? 'white'
                         : 'rgba(255, 255, 255, 0.6)'
                     }}
-                    whileHover={{ scale: 1.1 }}
                   >
                     {index <= currentFeature ? (
                       <Typography
@@ -151,7 +154,7 @@ export function TechFeatures({
                         {index + 1}
                       </Typography>
                     )}
-                  </motion.div>
+                  </Box>
 
                   <Box sx={{ flex: 1 }}>
                     <Typography
@@ -174,7 +177,7 @@ export function TechFeatures({
                       {feature.content}
                     </Typography>
                   </Box>
-                </motion.div>
+                </Box>
               ))}
             </Box>
           </Grid>
@@ -195,13 +198,14 @@ export function TechFeatures({
               <AnimatePresence mode="wait">
                 {features.map((feature, index) =>
                   index === currentFeature ? (
-                    <motion.div
+                    <Box
+                      component={motion.div}
                       key={index}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.5, ease: "easeInOut" }}
-                      style={{
+                      sx={{
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -234,15 +238,16 @@ export function TechFeatures({
                         borderRadius: '9999px',
                         overflow: 'hidden'
                       }}>
-                        <motion.div 
-                          style={{
+                        <Box
+                          component={motion.div}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${progress}%` }}
+                          transition={{ duration: 0.1, ease: "linear" }}
+                          sx={{
                             height: '100%',
                             backgroundColor: 'white',
                             width: `${progress}%`
                           }}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${progress}%` }}
-                          transition={{ duration: 0.1, ease: "linear" }}
                         />
                       </Box>
                       
@@ -312,7 +317,7 @@ export function TechFeatures({
                           </Box>
                         </Box>
                       )}
-                    </motion.div>
+                    </Box>
                   ) : null
                 )}
               </AnimatePresence>

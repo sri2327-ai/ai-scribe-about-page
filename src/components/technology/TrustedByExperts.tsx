@@ -52,17 +52,19 @@ const TrustedByExperts = () => {
         }}
       />
       
-      <motion.div
+      <Box
+        component={motion.div}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
-        style={{
+        sx={{
           position: 'relative',
           zIndex: 20
         }}
       >
         <Container>
-          <motion.div
+          <Box
+            component={motion.div}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -89,18 +91,19 @@ const TrustedByExperts = () => {
                 Used by the leaders.
               </Box>
             </Typography>
-          </motion.div>
+          </Box>
           
           <Box sx={{ position: 'relative', mx: 'auto', maxWidth: '64rem' }}>
             <Grid container spacing={4} sx={{ mt: 7, position: 'relative', zIndex: 20 }}>
               {companyLogos.map((logo) => (
                 <Grid item xs={6} md={2.4} key={logo.id}>
-                  <motion.div
+                  <Box
+                    component={motion.div}
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: logo.id * 0.1 }}
                     viewport={{ once: true }}
-                    style={{
+                    sx={{
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center'
@@ -122,7 +125,7 @@ const TrustedByExperts = () => {
                     <Typography sx={{ mt: 1, fontSize: '0.875rem', color: 'rgba(209, 213, 219, 1)' }}>
                       {logo.name}
                     </Typography>
-                  </motion.div>
+                  </Box>
                 </Grid>
               ))}
             </Grid>
@@ -148,7 +151,7 @@ const TrustedByExperts = () => {
             </Box>
           </Box>
         </Container>
-      </motion.div>
+      </Box>
     </Box>
   );
 };

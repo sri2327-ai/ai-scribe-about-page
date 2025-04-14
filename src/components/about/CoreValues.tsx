@@ -1,31 +1,31 @@
 
-import { Box, Container, Typography, Grid, Paper } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Zap, Rocket, Layers, Users, Shield } from "lucide-react";
 
 const coreValues = [
   {
-    icon: <Layers sx={{ height: 28, width: 28, color: 'white' }} />,
+    icon: <Layers size={28} color="white" />,
     title: "Informed Decisions",
     description: "AI-driven insights for better healthcare and patient outcomes."
   },
   {
-    icon: <Rocket sx={{ height: 28, width: 28, color: 'white' }} />,
+    icon: <Rocket size={28} color="white" />,
     title: "Passion for Innovation",
     description: "We push boundaries to transform medicine and clinical practices."
   },
   {
-    icon: <Zap sx={{ height: 28, width: 28, color: 'white' }} />,
+    icon: <Zap size={28} color="white" />,
     title: "Respect for People",
     description: "Prioritizing the well-being of clinicians and patients at every step."
   },
   {
-    icon: <Users sx={{ height: 28, width: 28, color: 'white' }} />,
+    icon: <Users size={28} color="white" />,
     title: "Reliability & Responsiveness",
     description: "Always evolving, always available, consistently dependable."
   },
   {
-    icon: <Shield sx={{ height: 28, width: 28, color: 'white' }} />,
+    icon: <Shield size={28} color="white" />,
     title: "Community Well-Being",
     description: "AI that improves lives, not just systems and processes."
   }
@@ -41,15 +41,15 @@ const CoreValues = () => {
       }}
     >
       <Container>
-        <motion.div 
-          className="text-center mb-16"
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          style={{
+          sx={{
             textAlign: 'center',
-            marginBottom: '4rem'
+            mb: '4rem'
           }}
         >
           <Typography 
@@ -63,7 +63,7 @@ const CoreValues = () => {
           >
             Our Core Values
           </Typography>
-        </motion.div>
+        </Box>
         
         <Grid container spacing={0} sx={{ 
           '& .MuiGrid-item': {
@@ -82,12 +82,13 @@ const CoreValues = () => {
         }}>
           {coreValues.map((value, index) => (
             <Grid item xs={12} md={4} lg={12/5} key={index}>
-              <motion.div 
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                style={{
+                sx={{
                   position: 'relative',
                   padding: '2rem 1rem'
                 }}
@@ -138,7 +139,7 @@ const CoreValues = () => {
                     </Typography>
                   </Box>
                 </Box>
-              </motion.div>
+              </Box>
             </Grid>
           ))}
         </Grid>
