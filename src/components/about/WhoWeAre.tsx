@@ -88,7 +88,7 @@ const WhoWeAre = () => {
         
         <Grid container spacing={{ xs: 1.5, sm: 2, md: 3, lg: 4 }}>
           {features.map((feature, index) => (
-            <Grid item xs={12} sm={6} lg={4} key={index}>
+            <Grid xs={12} sm={6} lg={4} key={index}>
               <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: 30 }}

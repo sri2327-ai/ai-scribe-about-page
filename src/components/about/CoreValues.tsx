@@ -66,7 +66,7 @@ const CoreValues = () => {
         </Box>
         
         <Grid container spacing={0} sx={{ 
-          '& .MuiGrid-item': {
+          '& .MuiGrid-root': {
             borderRight: { 
               xs: 'none', 
               md: '1px solid rgba(31, 41, 55, 1)' 
@@ -81,7 +81,7 @@ const CoreValues = () => {
           }
         }}>
           {coreValues.map((value, index) => (
-            <Grid item xs={12} md={4} lg={12/5} key={index}>
+            <Grid xs={12} md={4} lg={12/5} key={index}>
               <Box
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}

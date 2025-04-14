@@ -1,8 +1,7 @@
 
-import { Box, Typography, Button, Container, Divider } from "@mui/material";
+import { Box, Typography, Container, Divider } from "@mui/material";
 import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
-import { ArrowRight } from "lucide-react";
 
 const teamMembers = [
   {
