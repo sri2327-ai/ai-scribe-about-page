@@ -1,13 +1,8 @@
 
 import React from "react";
+import { Box, Container, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 const faqItems = [
   {
@@ -62,53 +57,106 @@ const faqItems = [
 
 const S10AISafetyFAQs = () => {
   return (
-    <section className="py-16 md:py-24 bg-black border-t border-white/10">
-      <div className="container mx-auto px-4">
-        <motion.div
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, md: 12 },
+        bgcolor: 'black',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+      }}
+    >
+      <Container>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          sx={{
+            textAlign: 'center',
+            mb: 6
+          }}
         >
-          <h2 className="text-3xl md:text-4xl font-normal mb-4 text-white">
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.875rem', md: '2.25rem' },
+              fontWeight: 'normal',
+              mb: 2,
+              color: 'white'
+            }}
+          >
             S10.AI Safety FAQs
-          </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: '1.125rem',
+              color: 'grey.400',
+              maxWidth: '2xl',
+              mx: 'auto'
+            }}
+          >
             Common questions about our security and compliance standards
-          </p>
-        </motion.div>
+          </Typography>
+        </Box>
 
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="flex justify-center"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
         >
-          <div className="w-full max-w-3xl">
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item) => (
-                <AccordionItem
-                  key={item.id}
-                  value={item.id}
-                  className="border-b border-white/10 last:border-0"
+          <Box sx={{ width: '100%', maxWidth: '3xl' }}>
+            {faqItems.map((item) => (
+              <Accordion 
+                key={item.id}
+                sx={{ 
+                  mb: 1,
+                  bgcolor: 'transparent', 
+                  color: 'white',
+                  boxShadow: 'none',
+                  '&:before': {
+                    display: 'none',
+                  },
+                  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                  '&:last-child': {
+                    borderBottom: 0
+                  }
+                }}
+              >
+                <AccordionSummary
+                  expandIcon={<ChevronDown color="white" />}
+                  sx={{ 
+                    py: 2.5,
+                    color: 'white',
+                    '& .MuiAccordionSummary-content': {
+                      my: 0
+                    }
+                  }}
                 >
-                  <AccordionTrigger 
-                    className="py-5 text-white text-left font-normal text-lg hover:no-underline"
+                  <Typography 
+                    sx={{ 
+                      fontSize: '1.125rem',
+                      fontWeight: 'normal' 
+                    }}
                   >
                     {item.title}
-                  </AccordionTrigger>
-                  <AccordionContent className="pb-5 text-gray-300">
-                    {item.content}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+                  </Typography>
+                </AccordionSummary>
+                <AccordionDetails sx={{ pb: 2.5, color: 'gray.300' }}>
+                  <Typography>{item.content}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

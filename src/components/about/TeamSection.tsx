@@ -1,8 +1,7 @@
 
+import { Box, Typography, Button, Container, Divider } from "@mui/material";
 import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
 const teamMembers = [
@@ -33,34 +32,81 @@ const teamMembers = [
   }
 ];
 
-export default function TeamSection() {
+const TeamSection = () => {
   return (
-    <section className="py-16 sm:py-20 bg-black overflow-hidden">
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, sm: 10 },
+        bgcolor: 'black',
+        overflow: 'hidden'
+      }}
+    >
       {/* Section Divider at the top */}
-      <div className="w-full flex justify-center mb-8 md:mb-12">
-        <Separator className="w-2/3 max-w-4xl bg-gray-800" />
-      </div>
+      <Box 
+        sx={{ 
+          width: '100%', 
+          display: 'flex', 
+          justifyContent: 'center', 
+          mb: { xs: 4, md: 6 } 
+        }}
+      >
+        <Divider 
+          sx={{ 
+            width: '66.666667%', 
+            maxWidth: '4xl', 
+            bgcolor: 'grey.800' 
+          }} 
+        />
+      </Box>
       
-      <div className="container mx-auto px-4 mb-10">
-        <motion.div
-          className="text-center mb-8 md:mb-16"
+      <Container 
+        sx={{ 
+          mx: 'auto', 
+          px: 2, 
+          mb: 5 
+        }}
+      >
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
+          sx={{
+            textAlign: 'center',
+            mb: { xs: 4, md: 8 }
+          }}
         >
-          <h2 className="text-3xl md:text-4xl font-normal mb-6 text-white font-wix-madefor">Meet The Team</h2>
-        </motion.div>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.875rem', md: '2.25rem' },
+              fontWeight: 'normal',
+              mb: 3,
+              color: 'white',
+              fontFamily: '"Wix Madefor Text", sans-serif'
+            }}
+          >
+            Meet The Team
+          </Typography>
+        </Box>
         
         {/* Additional padding for mobile view */}
-        <div className="pb-12 xs:pb-16 sm:pb-8">
+        <Box 
+          sx={{ 
+            pb: { xs: 6, sm: 8, md: 4 } 
+          }}
+        >
           <AnimatedTestimonials 
             testimonials={teamMembers} 
             autoplay={true}
             className="py-0"
           />
-        </div>
-      </div>
-    </section>
+        </Box>
+      </Container>
+    </Box>
   );
-}
+};
+
+export default TeamSection;

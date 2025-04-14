@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Box, Container, Typography, Grid, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import { 
   Shield, 
@@ -65,47 +66,126 @@ const securityItems = [
 
 const SecurityCompliance = () => {
   return (
-    <section className="py-20 relative overflow-hidden">
+    <Box
+      component="section"
+      sx={{
+        py: 10,
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
       {/* Star particles background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_#111_0%,_#000_100%)] z-0"></div>
+      <Box 
+        sx={{ 
+          position: 'absolute', 
+          inset: 0, 
+          background: 'radial-gradient(ellipse at center, #111 0%, #000 100%)', 
+          zIndex: 0 
+        }}
+      />
       <StarParticles starCount={150} />
       
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
+      <Container sx={{ position: 'relative', zIndex: 10 }}>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          sx={{
+            textAlign: 'center',
+            mb: 8
+          }}
         >
-          <h2 className="text-3xl md:text-4xl font-normal text-white mb-4">
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.875rem', md: '2.25rem' },
+              fontWeight: 'normal',
+              mb: 2,
+              color: 'white'
+            }}
+          >
             Uncompromising Security & Compliance
-          </h2>
-          <p className="text-gray-400 max-w-3xl mx-auto">
+          </Typography>
+          <Typography
+            sx={{
+              color: 'grey.400',
+              maxWidth: '3xl',
+              mx: 'auto'
+            }}
+          >
             Our platform is built with security-first architecture, ensuring your medical data 
             is protected by the highest standards in the industry.
-          </p>
-        </motion.div>
+          </Typography>
+        </Box>
         
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {securityItems.map((item) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: item.id * 0.1 }}
-              className="flex flex-col items-center"
-            >
-              <div className="w-full aspect-square max-w-[80px] rounded-full bg-black border border-tealBlueBright/30 flex items-center justify-center mb-4">
-                <item.icon size={32} className="text-white" />
-              </div>
-              <h3 className="text-white text-lg font-normal text-center">{item.name}</h3>
-              <p className="text-gray-400 text-sm text-center mt-1">{item.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
+        <Box 
+          sx={{ 
+            maxWidth: '5xl', 
+            mx: 'auto'
+          }}
+        >
+          <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
+            {securityItems.map((item) => (
+              <Grid item xs={6} md={3} key={item.id}>
+                <Box
+                  component={motion.div}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: item.id * 0.1 }}
+                  viewport={{ once: true }}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Box 
+                    sx={{ 
+                      width: '100%', 
+                      aspectRatio: '1/1', 
+                      maxWidth: '80px', 
+                      borderRadius: '50%', 
+                      bgcolor: 'black', 
+                      border: '1px solid', 
+                      borderColor: 'rgba(30, 174, 219, 0.3)', 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'center', 
+                      mb: 2 
+                    }}
+                  >
+                    <item.icon size={32} color="white" />
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: 'white',
+                      fontSize: '1.125rem',
+                      fontWeight: 'normal',
+                      textAlign: 'center'
+                    }}
+                  >
+                    {item.name}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: 'grey.400',
+                      fontSize: '0.875rem',
+                      textAlign: 'center',
+                      mt: 0.5
+                    }}
+                  >
+                    {item.description}
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

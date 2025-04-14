@@ -1,14 +1,8 @@
 
 import React from "react";
+import { Box, Container, Typography, Card, CardContent, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Shield, Lock, FileCheck, UserCheck } from "lucide-react";
-import { 
-  Carousel, 
-  CarouselContent, 
-  CarouselItem, 
-  CarouselPrevious, 
-  CarouselNext 
-} from "@/components/ui/carousel";
 
 const ProjectSetupChecklist = () => {
   // Define the security cards
@@ -36,72 +30,134 @@ const ProjectSetupChecklist = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-black border-t border-white/10">
-      <div className="container mx-auto px-4">
-        <motion.div
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, md: 12 },
+        bgcolor: 'black',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+      }}
+    >
+      <Container>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          sx={{
+            textAlign: 'center',
+            mb: 6
+          }}
         >
-          <h2 className="text-3xl md:text-4xl font-normal mb-4 text-white">
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.875rem', md: '2.25rem' },
+              fontWeight: 'normal',
+              mb: 2,
+              color: 'white'
+            }}
+          >
             How S10.AI Keeps Your Data Safe
-          </h2>
-        </motion.div>
+          </Typography>
+        </Box>
 
-        <motion.div
+        <Box
+          component={motion.div}
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="flex justify-center"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}
         >
-          <div className="w-full max-w-5xl relative">
-            <Carousel className="w-full">
-              <CarouselContent>
-                {securityCards.map((card, index) => {
-                  const Icon = card.icon;
-                  return (
-                    <CarouselItem key={index} className="sm:basis-1/2 md:basis-1/2 lg:basis-1/3 p-2">
-                      <div 
-                        className="group relative transition duration-300 h-full hover:shadow-[0_0_40px_rgba(255,255,255,0.05)]"
-                      >
-                        <div 
-                          className="relative h-full w-full rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md 
-                          overflow-hidden transition-all duration-300 hover:border-white/20 hover:bg-white/10 p-6"
+          <Box sx={{ width: '100%', maxWidth: '5xl', position: 'relative' }}>
+            <Grid container spacing={2}>
+              {securityCards.map((card, index) => {
+                const Icon = card.icon;
+                return (
+                  <Grid item xs={12} sm={6} md={4} key={index}>
+                    <Card
+                      sx={{
+                        height: '100%',
+                        transition: 'all 300ms',
+                        bgcolor: 'transparent',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        borderRadius: '1rem',
+                        backdropFilter: 'blur(12px)',
+                        overflow: 'hidden',
+                        '&:hover': {
+                          boxShadow: '0 0 40px rgba(255,255,255,0.05)',
+                          bgcolor: 'rgba(255, 255, 255, 0.05)',
+                          borderColor: 'rgba(255, 255, 255, 0.2)'
+                        }
+                      }}
+                    >
+                      <CardContent sx={{ position: 'relative', height: '100%', p: 3 }}>
+                        {/* Background icon (faded) */}
+                        <Box 
+                          sx={{ 
+                            position: 'absolute', 
+                            inset: 0, 
+                            opacity: 0.05, 
+                            pointerEvents: 'none', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center' 
+                          }}
                         >
-                          {/* Background icon (faded) */}
-                          <div className="absolute inset-0 opacity-5 pointer-events-none flex items-center justify-center">
-                            <Icon className="w-40 h-40 text-white" strokeWidth={0.5} />
-                          </div>
-                          
-                          <div className="relative z-10">
-                            <div className="flex items-center gap-3 mb-4">
-                              <span className="relative inline-block rounded-full bg-black p-3 border border-white/40">
-                                <Icon className="h-6 w-6 text-white" strokeWidth={1.5} />
-                              </span>
-                              <h3 className="text-xl font-normal text-white">{card.title}</h3>
-                            </div>
-                            <div className="mb-6">
-                              <p className="text-gray-300 leading-relaxed">{card.description}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  );
-                })}
-              </CarouselContent>
-              <div className="flex justify-center gap-2 mt-6">
-                <CarouselPrevious className="relative static border border-white/20 text-white bg-black hover:bg-black/80 hover:text-white" />
-                <CarouselNext className="relative static border border-white/20 text-white bg-black hover:bg-black/80 hover:text-white" />
-              </div>
-            </Carousel>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+                          <Icon style={{ width: 160, height: 160, color: 'white', strokeWidth: 0.5 }} />
+                        </Box>
+                        
+                        <Box sx={{ position: 'relative', zIndex: 10 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+                            <Box 
+                              sx={{ 
+                                position: 'relative', 
+                                display: 'inline-block', 
+                                borderRadius: '50%', 
+                                bgcolor: 'black', 
+                                p: 1.5, 
+                                border: '1px solid rgba(255, 255, 255, 0.4)' 
+                              }}
+                            >
+                              <Icon style={{ height: 24, width: 24, color: 'white' }} strokeWidth={1.5} />
+                            </Box>
+                            <Typography
+                              variant="h6"
+                              sx={{
+                                fontSize: '1.25rem',
+                                fontWeight: 'normal',
+                                color: 'white'
+                              }}
+                            >
+                              {card.title}
+                            </Typography>
+                          </Box>
+                          <Box sx={{ mb: 3 }}>
+                            <Typography
+                              sx={{
+                                color: 'gray.300',
+                                lineHeight: 1.6
+                              }}
+                            >
+                              {card.description}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

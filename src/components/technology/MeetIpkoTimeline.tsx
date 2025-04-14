@@ -1,15 +1,9 @@
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
+import { Box, Container, Typography, Paper, Grid } from "@mui/material";
 import { Timeline } from "@/components/ui/timeline";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
 
 // Separate component for each timeline item with parallax effect
 const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
@@ -21,35 +15,108 @@ const ParallaxTimelineItem = ({ item, index, scrollYProgress }) => {
   );
   
   return (
-    <motion.div
+    <Box
+      component={motion.div}
       key={index}
       style={{ y: yOffset }}
-      className="mb-8 last:mb-0"
+      sx={{ mb: 4, '&:last-child': { mb: 0 } }}
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center border border-tealBlueBright">
-          <div className="h-3 w-3 rounded-full bg-tealBlueBright" />
-        </div>
-        <h3 className="text-2xl font-bold text-white">{item.title}</h3>
-      </div>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
+        <Box 
+          sx={{ 
+            height: 32, 
+            width: 32, 
+            borderRadius: '50%', 
+            bgcolor: 'black', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            border: '1px solid', 
+            borderColor: 'tealBlueBright' 
+          }}
+        >
+          <Box 
+            sx={{ 
+              height: 12, 
+              width: 12, 
+              borderRadius: '50%', 
+              bgcolor: 'tealBlueBright' 
+            }}
+          />
+        </Box>
+        <Typography 
+          variant="h3"
+          sx={{
+            fontSize: '1.5rem',
+            fontWeight: 'bold',
+            color: 'white'
+          }}
+        >
+          {item.title}
+        </Typography>
+      </Box>
       {item.content}
-    </motion.div>
+    </Box>
   );
 };
 
 // Compact card for mobile carousel view
 const TimelineCard = ({ item }) => {
   return (
-    <div className="bg-black p-4 rounded-xl border border-white/20 h-full">
-      <div className="flex items-center gap-3 mb-3">
-        <div className="h-8 w-8 rounded-full bg-black flex items-center justify-center border border-tealBlueBright">
-          <div className="h-3 w-3 rounded-full bg-tealBlueBright" />
-        </div>
-        <h3 className="text-xl font-bold text-white">{item.title}</h3>
-      </div>
+    <Paper
+      elevation={0}
+      sx={{
+        bgcolor: 'black',
+        p: 2,
+        borderRadius: '0.75rem',
+        border: '1px solid rgba(255, 255, 255, 0.2)',
+        height: '100%'
+      }}
+    >
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+        <Box 
+          sx={{ 
+            height: 32, 
+            width: 32, 
+            borderRadius: '50%', 
+            bgcolor: 'black', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            border: '1px solid', 
+            borderColor: 'tealBlueBright' 
+          }}
+        >
+          <Box 
+            sx={{ 
+              height: 12, 
+              width: 12, 
+              borderRadius: '50%', 
+              bgcolor: 'tealBlueBright' 
+            }}
+          />
+        </Box>
+        <Typography 
+          variant="h6"
+          sx={{
+            fontSize: '1.25rem',
+            fontWeight: 'bold',
+            color: 'white'
+          }}
+        >
+          {item.title}
+        </Typography>
+      </Box>
       
-      <p className="text-gray-400 text-sm">{item.description}</p>
-    </div>
+      <Typography
+        sx={{
+          color: 'gray.400',
+          fontSize: '0.875rem'
+        }}
+      >
+        {item.description}
+      </Typography>
+    </Paper>
   );
 };
 
@@ -68,24 +135,104 @@ const MeetIpkoTimeline = () => {
       subtitle: "Cross-Lingual Conversation Inference Engine",
       description: "Our advanced language processing system enables seamless multilingual communication with 16-language capabilities.",
       content: (
-        <div className="bg-black p-6 rounded-xl border border-white/20">
-          <div className="flex items-center gap-4 mb-4">
-            <h4 className="text-xl font-normal text-white">Cross-Lingual Conversation Inference Engine</h4>
-          </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: 'black',
+            p: 3,
+            borderRadius: '0.75rem',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: '1.25rem',
+                fontWeight: 'normal',
+                color: 'white'
+              }}
+            >
+              Cross-Lingual Conversation Inference Engine
+            </Typography>
+          </Box>
+          <Typography
+            sx={{
+              color: 'gray.400',
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              mb: 3,
+              fontWeight: 'normal'
+            }}
+          >
             Our advanced language processing system enables seamless multilingual communication with 16-language diarization capabilities, breaking down language barriers in healthcare.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Multilingual Support</h5>
-              <p className="text-gray-400 text-sm font-normal">Supports 16 languages with real-time translation and diarization</p>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Contextual Understanding</h5>
-              <p className="text-gray-400 text-sm font-normal">Maintains context across languages for accurate communication</p>
-            </div>
-          </div>
-        </div>
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Multilingual Support
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Supports 16 languages with real-time translation and diarization
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Contextual Understanding
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Maintains context across languages for accurate communication
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Paper>
       ),
     },
     {
@@ -93,24 +240,104 @@ const MeetIpkoTimeline = () => {
       subtitle: "Physician Knowledge Inference Engine",
       description: "PKIE learns and mimics physician workflows for personalized AI scribing and documentation.",
       content: (
-        <div className="bg-black p-6 rounded-xl border border-white/20">
-          <div className="flex items-center gap-4 mb-4">
-            <h4 className="text-xl font-normal text-white">Physician Knowledge Inference Engine</h4>
-          </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: 'black',
+            p: 3,
+            borderRadius: '0.75rem',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: '1.25rem',
+                fontWeight: 'normal',
+                color: 'white'
+              }}
+            >
+              Physician Knowledge Inference Engine
+            </Typography>
+          </Box>
+          <Typography
+            sx={{
+              color: 'gray.400',
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              mb: 3,
+              fontWeight: 'normal'
+            }}
+          >
             PKIE learns and mimics physician workflows for personalized AI scribing, adapting to each doctor's unique documentation style and preferences.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Adaptive Learning</h5>
-              <p className="text-gray-400 text-sm font-normal">Continuously improves by learning from physician interactions</p>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Workflow Integration</h5>
-              <p className="text-gray-400 text-sm font-normal">Seamlessly fits into existing clinical documentation processes</p>
-            </div>
-          </div>
-        </div>
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Adaptive Learning
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Continuously improves by learning from physician interactions
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Workflow Integration
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Seamlessly fits into existing clinical documentation processes
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Paper>
       ),
     },
     {
@@ -118,24 +345,104 @@ const MeetIpkoTimeline = () => {
       subtitle: "Medical Knowledge Inference Engine",
       description: "AI-driven clinical pathways for precise documentation improvement and medical validation.",
       content: (
-        <div className="bg-black p-6 rounded-xl border border-white/20">
-          <div className="flex items-center gap-4 mb-4">
-            <h4 className="text-xl font-normal text-white">Medical Knowledge Inference Engine</h4>
-          </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: 'black',
+            p: 3,
+            borderRadius: '0.75rem',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: '1.25rem',
+                fontWeight: 'normal',
+                color: 'white'
+              }}
+            >
+              Medical Knowledge Inference Engine
+            </Typography>
+          </Box>
+          <Typography
+            sx={{
+              color: 'gray.400',
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              mb: 3,
+              fontWeight: 'normal'
+            }}
+          >
             MKIE powers AI-driven clinical pathways for precise documentation improvement, ensuring accuracy and completeness in medical records.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Clinical Pathways</h5>
-              <p className="text-gray-400 text-sm font-normal">Evidence-based workflows for comprehensive documentation</p>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Medical Validation</h5>
-              <p className="text-gray-400 text-sm font-normal">Ensures clinical accuracy and completeness of documentation</p>
-            </div>
-          </div>
-        </div>
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Clinical Pathways
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Evidence-based workflows for comprehensive documentation
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Medical Validation
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Ensures clinical accuracy and completeness of documentation
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Paper>
       ),
     },
     {
@@ -143,73 +450,200 @@ const MeetIpkoTimeline = () => {
       subtitle: "Intuitive Interface Inference Engine",
       description: "Breaks integration barriers for effortless deployment across all healthcare platforms.",
       content: (
-        <div className="bg-black p-6 rounded-xl border border-white/20">
-          <div className="flex items-center gap-4 mb-4">
-            <h4 className="text-xl font-normal text-white">Intuitive Interface Inference Engine</h4>
-          </div>
-          <p className="text-gray-400 text-sm md:text-base mb-6 font-normal">
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: 'black',
+            p: 3,
+            borderRadius: '0.75rem',
+            border: '1px solid rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontSize: '1.25rem',
+                fontWeight: 'normal',
+                color: 'white'
+              }}
+            >
+              Intuitive Interface Inference Engine
+            </Typography>
+          </Box>
+          <Typography
+            sx={{
+              color: 'gray.400',
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              mb: 3,
+              fontWeight: 'normal'
+            }}
+          >
             IIIE breaks integration barriers for effortless deployment across platforms, making our AI technology accessible to any healthcare system.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Seamless Integration</h5>
-              <p className="text-gray-400 text-sm font-normal">Works with existing EMR systems without complex setup</p>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-white/20">
-              <h5 className="text-white font-normal mb-2">Cross-Platform</h5>
-              <p className="text-gray-400 text-sm font-normal">Functions across web, mobile, and desktop environments</p>
-            </div>
-          </div>
-        </div>
+          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Seamless Integration
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Works with existing EMR systems without complex setup
+                </Typography>
+              </Paper>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Paper
+                elevation={0}
+                sx={{
+                  bgcolor: 'black',
+                  p: 2,
+                  borderRadius: '0.5rem',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: '1rem',
+                    fontWeight: 'normal',
+                    color: 'white',
+                    mb: 1
+                  }}
+                >
+                  Cross-Platform
+                </Typography>
+                <Typography
+                  sx={{
+                    color: 'gray.400',
+                    fontSize: '0.875rem',
+                    fontWeight: 'normal'
+                  }}
+                >
+                  Functions across web, mobile, and desktop environments
+                </Typography>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Paper>
       ),
     },
   ];
 
   return (
-    <section 
-      className="relative w-full overflow-hidden bg-black"
+    <Box
+      component="section"
+      sx={{
+        position: "relative",
+        width: "100%",
+        overflow: "hidden",
+        bgcolor: "black"
+      }}
       ref={containerRef}
-      style={{ position: "relative" }} // Added explicit relative positioning to fix framer-motion warning
     >
-      <div className="container mx-auto pt-8 md:pt-16">
+      <Container sx={{ pt: { xs: 4, md: 8 } }}>
         {isMobile ? (
           // Mobile view with carousel to save space
-          <div className="px-4 py-8">
-            <h2 className="text-2xl md:text-4xl mb-4 text-white max-w-4xl">
+          <Box sx={{ px: 2, py: 4 }}>
+            <Typography
+              variant="h2"
+              sx={{
+                fontSize: { xs: '1.5rem', md: '2.25rem' },
+                mb: 2,
+                color: 'white',
+                maxWidth: '4xl'
+              }}
+            >
               Meet IPKO – The Intelligent Physician Knowledge Orchestrator
-            </h2>
-            <p className="text-gray-400 text-sm mb-6">
+            </Typography>
+            <Typography
+              sx={{
+                color: 'gray.400',
+                fontSize: '0.875rem',
+                mb: 3
+              }}
+            >
               IPKO leverages powerful AI inference engines for unmatched automation, security, and knowledge engineering.
-            </p>
+            </Typography>
             
-            <div className="mb-2 text-gray-300 text-sm">Swipe to explore IPKO's engines →</div>
+            <Typography
+              sx={{
+                mb: 1,
+                color: 'gray.300',
+                fontSize: '0.875rem'
+              }}
+            >
+              Swipe to explore IPKO's engines →
+            </Typography>
             
-            <Carousel className="w-full mb-8">
-              <CarouselContent>
-                {timelineData.map((item, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <TimelineCard item={item} />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center mt-4 gap-4">
-                <CarouselPrevious className="relative static left-0 translate-y-0 bg-black border-white/40 text-white hover:bg-white/10" />
-                <CarouselNext className="relative static right-0 translate-y-0 bg-black border-white/40 text-white hover:bg-white/10" />
-              </div>
-            </Carousel>
+            <Grid container spacing={2} sx={{ mb: 4 }}>
+              {timelineData.map((item, index) => (
+                <Grid item xs={12} sm={6} key={index}>
+                  <TimelineCard item={item} />
+                </Grid>
+              ))}
+            </Grid>
             
             {/* Visual timeline connection */}
-            <div className="relative h-20 my-8 flex justify-center">
-              <div className="absolute h-full w-[2px] bg-gradient-to-b from-transparent via-tealBlueBright to-transparent"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 h-4 w-4 rounded-full border-2 border-tealBlueBright bg-black"></div>
-            </div>
-          </div>
+            <Box
+              sx={{
+                position: 'relative',
+                height: 80,
+                my: 4,
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  height: '100%',
+                  width: 2,
+                  background: 'linear-gradient(to bottom, transparent, rgba(30, 174, 219, 1), transparent)'
+                }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  height: 16,
+                  width: 16,
+                  borderRadius: '50%',
+                  border: '2px solid rgba(30, 174, 219, 1)',
+                  bgcolor: 'black'
+                }}
+              />
+            </Box>
+          </Box>
         ) : (
           // Desktop view with regular timeline
           <Timeline data={timelineData} />
         )}
-      </div>
-    </section>
+      </Container>
+    </Box>
   );
 };
 

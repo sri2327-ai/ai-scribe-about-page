@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Grid, Paper, Button } from '@mui/material';
 import { motion, useAnimation } from "framer-motion";
@@ -56,7 +57,7 @@ const FloatingSecurityItem = ({ icon: Icon, label, description, position }) => {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
-          <Icon size={12} sx={{ color: 'blue.400' }} />
+          <Icon size={12} />
           <Typography sx={{ fontWeight: 600 }}>{label}</Typography>
         </Box>
         <Typography sx={{ fontSize: '10px', color: 'grey.300' }}>{description}</Typography>
@@ -360,10 +361,12 @@ const TechHero = () => {
             >
               <HoverCard>
                 <HoverCardTrigger asChild>
-                  <Box 
+                  <Button
+                    disableRipple
                     sx={{ 
                       width: 40, 
                       height: 40, 
+                      minWidth: 'auto',
                       backdropFilter: 'blur(8px)', 
                       bgcolor: 'rgba(255, 255, 255, 0.1)', 
                       border: '1px solid rgba(255, 255, 255, 0.2)', 
@@ -377,11 +380,11 @@ const TechHero = () => {
                         bgcolor: 'rgba(255, 255, 255, 0.2)' 
                       },
                       transition: 'all 0.3s',
-                      cursor: 'pointer'
+                      p: 0
                     }}
                   >
                     <Shield size={20} />
-                  </Box>
+                  </Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -397,10 +400,12 @@ const TechHero = () => {
               
               <HoverCard>
                 <HoverCardTrigger asChild>
-                  <Box 
+                  <Button
+                    disableRipple
                     sx={{ 
                       width: 40, 
                       height: 40, 
+                      minWidth: 'auto',
                       backdropFilter: 'blur(8px)', 
                       bgcolor: 'rgba(255, 255, 255, 0.1)', 
                       border: '1px solid rgba(255, 255, 255, 0.2)', 
@@ -414,11 +419,11 @@ const TechHero = () => {
                         bgcolor: 'rgba(255, 255, 255, 0.2)' 
                       },
                       transition: 'all 0.3s',
-                      cursor: 'pointer'
+                      p: 0
                     }}
                   >
                     <ShieldCheck size={20} />
-                  </Box>
+                  </Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -434,10 +439,12 @@ const TechHero = () => {
               
               <HoverCard>
                 <HoverCardTrigger asChild>
-                  <Box 
+                  <Button
+                    disableRipple
                     sx={{ 
                       width: 40, 
                       height: 40, 
+                      minWidth: 'auto',
                       backdropFilter: 'blur(8px)', 
                       bgcolor: 'rgba(255, 255, 255, 0.1)', 
                       border: '1px solid rgba(255, 255, 255, 0.2)', 
@@ -451,11 +458,11 @@ const TechHero = () => {
                         bgcolor: 'rgba(255, 255, 255, 0.2)' 
                       },
                       transition: 'all 0.3s',
-                      cursor: 'pointer'
+                      p: 0
                     }}
                   >
                     <FileCheck size={20} />
-                  </Box>
+                  </Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -471,10 +478,12 @@ const TechHero = () => {
               
               <HoverCard>
                 <HoverCardTrigger asChild>
-                  <Box 
+                  <Button
+                    disableRipple
                     sx={{ 
                       width: 40, 
                       height: 40, 
+                      minWidth: 'auto',
                       backdropFilter: 'blur(8px)', 
                       bgcolor: 'rgba(255, 255, 255, 0.1)', 
                       border: '1px solid rgba(255, 255, 255, 0.2)', 
@@ -488,11 +497,11 @@ const TechHero = () => {
                         bgcolor: 'rgba(255, 255, 255, 0.2)' 
                       },
                       transition: 'all 0.3s',
-                      cursor: 'pointer'
+                      p: 0
                     }}
                   >
                     <CheckCircle size={20} />
-                  </Box>
+                  </Button>
                 </HoverCardTrigger>
                 <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -508,115 +517,7 @@ const TechHero = () => {
             </Box>
           </Box>
         }
-      >
-        <Box 
-          sx={{ 
-            width: '100%', 
-            height: '100%', 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            p: { xs: 2, md: 4 }, 
-            position: 'relative', 
-            zIndex: 20 
-          }}
-        >
-          <Box 
-            sx={{ 
-              width: '100%', 
-              maxWidth: '5xl', 
-              aspectRatio: '16/9', 
-              display: 'flex', 
-              justifyContent: 'center', 
-              alignItems: 'center', 
-              position: 'relative' 
-            }}
-          >
-            <Box sx={{ position: 'relative', width: '100%', height: '100%' }}>
-              <Box
-                component="img"
-                src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
-                alt="S10.AI Healthcare Platform"
-                sx={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'contain',
-                  zIndex: 10,
-                  position: 'relative'
-                }}
-              />
-            </Box>
-          </Box>
-        </Box>
-      </ContainerScroll>
-
-      <Box
-        component={motion.section}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-        sx={{
-          px: 2,
-          py: 2,
-          bgcolor: 'black',
-          color: 'white',
-          textAlign: 'center',
-          position: 'relative'
-        }}
-      >
-        <Typography 
-          variant="h2" 
-          sx={{ 
-            fontSize: { xs: '1.875rem', md: '2.25rem' }, 
-            mb: 2 
-          }}
-        >
-          Everything You Need for AI-Powered Clinical Excellence
-        </Typography>
-        <Typography 
-          sx={{ 
-            fontSize: { xs: '1.25rem' }, 
-            color: 'grey.300', 
-            mb: 3, 
-            maxWidth: '3xl', 
-            mx: 'auto' 
-          }}
-        >
-          Advanced Intelligence. Seamless Automation. Unbreakable Security.
-        </Typography>
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            flexWrap: 'wrap', 
-            justifyContent: 'center', 
-            gap: { xs: 2, md: 3 }, 
-            fontSize: { xs: '0.875rem', md: '1rem' } 
-          }}
-        >
-          {[
-            'AI Clinical Scribing',
-            'Workflow Optimization',
-            'Intelligent Triage',
-            'Patient Insights',
-            'Secure Collaboration',
-            'Predictive Analytics'
-          ].map((item, index) => (
-            <Box 
-              key={index} 
-              sx={{ 
-                px: 2, 
-                py: 1, 
-                bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                border: '1px solid rgba(255, 255, 255, 0.2)', 
-                borderRadius: '9999px' 
-              }}
-            >
-              {item}
-            </Box>
-          ))}
-        </Box>
-      </Box>
+      />
     </Box>
   );
 };

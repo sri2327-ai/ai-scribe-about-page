@@ -262,59 +262,7 @@ export function TechFeatures({
                           backdropFilter: 'blur(4px)',
                           zIndex: 20
                         }}>
-                          <Box sx={{ position: 'relative', width: 64, height: 64 }}>
-                            <Box sx={{
-                              position: 'absolute',
-                              inset: 0,
-                              borderTop: '2px solid rgba(255, 255, 255, 0.8)',
-                              borderRight: '2px solid rgba(255, 255, 255, 0.8)',
-                              borderRadius: '50%',
-                              animation: 'spin 1s linear infinite'
-                            }}></Box>
-                            <Box sx={{
-                              position: 'absolute',
-                              inset: 16,
-                              borderBottom: '2px solid rgba(255, 255, 255, 0.6)',
-                              borderLeft: '2px solid rgba(255, 255, 255, 0.6)',
-                              borderRadius: '50%',
-                              animation: 'spin 1.5s linear infinite reverse'
-                            }}></Box>
-                            <Box sx={{
-                              position: 'absolute',
-                              inset: 0,
-                              width: '100%',
-                              height: '100%',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center'
-                            }}>
-                              <Box sx={{
-                                width: 8,
-                                height: 8,
-                                bgcolor: 'white',
-                                borderRadius: '50%',
-                                animation: 'pulse 1s ease infinite'
-                              }}></Box>
-                            </Box>
-                            <Box sx={{
-                              position: 'absolute',
-                              height: 1,
-                              width: '100%',
-                              top: '50%',
-                              transform: 'translateY(-50%)',
-                              bgcolor: 'rgba(255, 255, 255, 0.3)',
-                              animation: 'pulse 1s ease infinite'
-                            }}></Box>
-                            <Box sx={{
-                              position: 'absolute',
-                              width: 1,
-                              height: '100%',
-                              left: '50%',
-                              transform: 'translateX(-50%)',
-                              bgcolor: 'rgba(255, 255, 255, 0.3)',
-                              animation: 'pulse 1s ease infinite'
-                            }}></Box>
-                          </Box>
+                          <CircularProgress size={40} sx={{ color: 'white' }} />
                         </Box>
                       )}
                     </Box>

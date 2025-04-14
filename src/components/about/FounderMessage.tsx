@@ -1,7 +1,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { Box, Typography, Container, Paper, Grid } from "@mui/material";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Brain, Globe, Layers } from "lucide-react";
@@ -19,21 +19,22 @@ const TextRotate = ({ texts }: { texts: string[] }) => {
   }, [texts]);
   
   return (
-    <span className="inline-block relative text-white">
+    <Box component="span" sx={{ display: 'inline-block', position: 'relative', color: 'white' }}>
       {texts.map((text, i) => (
-        <span 
+        <Box
+          component="span" 
           key={i} 
-          className="transition-opacity duration-500"
-          style={{
+          sx={{
+            transition: 'opacity 500ms',
             position: i === currentIndex ? 'relative' : 'absolute',
             opacity: i === currentIndex ? 1 : 0,
             left: 0
           }}
         >
           {text}
-        </span>
+        </Box>
       ))}
-    </span>
+    </Box>
   );
 };
 
@@ -41,17 +42,17 @@ const innovationPoints = [
   {
     title: "Medical Knowledge Inference Engine (MKIE)",
     description: "Generates accurate medical concepts for documentation improvement.",
-    icon: <Brain className="h-6 w-6 text-white" />
+    icon: <Brain size={24} color="white" />
   },
   {
     title: "Cross-lingual Conversation Inference Engine (CCIE)",
     description: "A Star Trek-inspired Universal Translator for seamless doctor-patient interactions.",
-    icon: <Globe className="h-6 w-6 text-white" />
+    icon: <Globe size={24} color="white" />
   },
   {
     title: "Intuitive Interface Inference Engine (IIIE)",
     description: "Breaks integration barriers, making AI effortlessly interact with existing systems.",
-    icon: <Layers className="h-6 w-6 text-white" />
+    icon: <Layers size={24} color="white" />
   }
 ];
 
@@ -73,145 +74,327 @@ const FounderMessage = () => {
   }, []);
   
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <Box
+      component="section"
+      sx={{
+        py: 12,
+        bgcolor: 'black',
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
       {/* Teal Blue Beams Background */}
-      <div className="absolute inset-0 opacity-30">
+      <Box 
+        sx={{ 
+          position: 'absolute', 
+          inset: 0, 
+          opacity: 0.3 
+        }}
+      >
         <CanvasEffect id="founder-canvas" className="opacity-60" />
-      </div>
+      </Box>
       
-      <div className="container mx-auto px-4 relative z-10">
-        <motion.div
-          className="text-center mb-16"
+      <Container sx={{ position: 'relative', zIndex: 10 }}>
+        <Box
+          component={motion.div}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
+          sx={{
+            textAlign: 'center',
+            mb: 8
+          }}
         >
-          <h2 className="text-4xl font-normal mb-6 text-white font-wix-madefor">A Message from Our Founder</h2>
-        </motion.div>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: '2.25rem',
+              fontWeight: 'normal',
+              mb: 3,
+              color: 'white',
+              fontFamily: '"Wix Madefor Text", sans-serif'
+            }}
+          >
+            A Message from Our Founder
+          </Typography>
+        </Box>
         
-        <Card className="border-0 rounded-xl overflow-hidden w-full mx-auto max-w-6xl bg-black/60 backdrop-blur-sm text-white border border-tealBlueBright/20 relative">
+        <Paper
+          elevation={0}
+          sx={{
+            bgcolor: 'transparent',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '0.75rem',
+            overflow: 'hidden',
+            width: '100%',
+            mx: 'auto',
+            maxWidth: '6xl',
+            border: '1px solid rgba(30, 174, 219, 0.2)',
+            position: 'relative'
+          }}
+        >
           {/* Add spotlight effect inside the card */}
           <Spotlight
             className="inset-0 z-0"
             fill="#1EAEDB"
           />
           
-          <CardContent className="p-8 md:p-16 relative z-10">
-            <div className="flex flex-col space-y-8">
-              <motion.p 
-                className="text-xl md:text-2xl leading-relaxed font-wix-madefor text-gray-300"
+          <Box 
+            sx={{ 
+              p: { xs: 4, md: 8 }, 
+              position: 'relative', 
+              zIndex: 10 
+            }}
+          >
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 viewport={{ once: true }}
               >
-                In 2017, inspired by Star Trek's mission to "<TextRotate texts={["boldly go", "explore", "discover", "innovate"]} /> where no one has gone before," we set out to revolutionize AI in healthcare.
-              </motion.p>
+                <Typography 
+                  variant="h4"
+                  sx={{
+                    fontSize: { xs: '1.25rem', md: '1.5rem' },
+                    lineHeight: 1.5,
+                    fontWeight: 'normal',
+                    color: 'rgba(209, 213, 219, 1)',
+                    fontFamily: '"Wix Madefor Text", sans-serif'
+                  }}
+                >
+                  In 2017, inspired by Star Trek's mission to "<TextRotate texts={["boldly go", "explore", "discover", "innovate"]} /> where no one has gone before," we set out to revolutionize AI in healthcare.
+                </Typography>
+              </Box>
               
-              <motion.p 
-                className="text-lg md:text-xl leading-relaxed font-wix-madefor text-gray-400"
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
               >
-                Breakthroughs like AlphaGo and GPT-2 revealed AI's potential—yet also its limitations in bias and accuracy. Our focus became truth-first AI that enhances clinical decision-making.
-              </motion.p>
+                <Typography 
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.125rem' },
+                    lineHeight: 1.7,
+                    fontWeight: 'normal',
+                    color: 'rgba(156, 163, 175, 1)',
+                    fontFamily: '"Wix Madefor Text", sans-serif'
+                  }}
+                >
+                  Breakthroughs like AlphaGo and GPT-2 revealed AI's potential—yet also its limitations in bias and accuracy. Our focus became truth-first AI that enhances clinical decision-making.
+                </Typography>
+              </Box>
               
-              <div className="mt-4">
-                <motion.h3 
-                  className="text-xl md:text-2xl font-normal mb-6 font-wix-madefor text-gray-300"
+              <Box sx={{ mt: 2 }}>
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  The Innovation Behind S10.AI
-                </motion.h3>
+                  <Typography 
+                    variant="h5"
+                    sx={{
+                      fontSize: { xs: '1.125rem', md: '1.25rem' },
+                      fontWeight: 'normal',
+                      mb: 3,
+                      color: 'rgba(209, 213, 219, 1)',
+                      fontFamily: '"Wix Madefor Text", sans-serif'
+                    }}
+                  >
+                    The Innovation Behind S10.AI
+                  </Typography>
+                </Box>
                 
-                <div className="space-y-6" ref={listRef}>
+                <Box 
+                  ref={listRef}
+                  sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}
+                >
                   {innovationPoints.map((point, index) => (
-                    <motion.div 
+                    <Box
+                      component={motion.div}
                       key={index}
-                      className="innovation-item transition-all duration-500 border-l-2 border-tealBlueBright/40 pl-4"
+                      className="innovation-item"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.5, delay: 0.2 + index * 0.2 }}
                       viewport={{ once: true }}
+                      sx={{
+                        transition: 'all 500ms',
+                        borderLeft: '2px solid rgba(30, 174, 219, 0.4)',
+                        pl: 2
+                      }}
                     >
-                      <div className="flex items-start space-x-4">
-                        <div className="flex-shrink-0 mt-1 pulse-glow">
+                      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                        <Box 
+                          sx={{ 
+                            flexShrink: 0, 
+                            mt: 0.5,
+                            animation: 'pulse 2s infinite'
+                          }}
+                        >
                           {point.icon}
-                        </div>
-                        <div>
-                          <motion.h4 
-                            className="text-lg font-normal mb-2 font-wix-madefor text-gray-300"
+                        </Box>
+                        <Box>
+                          <Box
+                            component={motion.div}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3, delay: 0.1 + index * 0.2 }}
                           >
-                            {point.title}
-                          </motion.h4>
-                          <motion.p 
-                            className="text-gray-400 font-wix-madefor"
+                            <Typography 
+                              variant="h6"
+                              sx={{
+                                fontSize: '1.125rem',
+                                fontWeight: 'normal',
+                                mb: 1,
+                                color: 'rgba(209, 213, 219, 1)',
+                                fontFamily: '"Wix Madefor Text", sans-serif'
+                              }}
+                            >
+                              {point.title}
+                            </Typography>
+                          </Box>
+                          <Box
+                            component={motion.div}
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.3, delay: 0.2 + index * 0.2 }}
                           >
-                            {point.description}
-                          </motion.p>
-                        </div>
-                      </div>
-                    </motion.div>
+                            <Typography 
+                              sx={{
+                                color: 'rgba(156, 163, 175, 1)',
+                                fontFamily: '"Wix Madefor Text", sans-serif'
+                              }}
+                            >
+                              {point.description}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
                   ))}
-                </div>
-              </div>
+                </Box>
+              </Box>
               
-              <motion.p 
-                className="text-lg md:text-xl leading-relaxed mt-6 font-wix-madefor text-gray-300"
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
               >
-                S10.AI is more than an AI—it's the future of human + machine synergy in medicine.
-              </motion.p>
+                <Typography 
+                  variant="h5"
+                  sx={{
+                    fontSize: { xs: '1.125rem', md: '1.25rem' },
+                    lineHeight: 1.7,
+                    mt: 3,
+                    fontWeight: 'normal',
+                    color: 'rgba(209, 213, 219, 1)',
+                    fontFamily: '"Wix Madefor Text", sans-serif'
+                  }}
+                >
+                  S10.AI is more than an AI—it's the future of human + machine synergy in medicine.
+                </Typography>
+              </Box>
               
-              <motion.p 
-                className="text-lg md:text-xl leading-relaxed font-wix-madefor text-gray-400"
+              <Box
+                component={motion.div}
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
               >
-                We are shaping a world where doctors focus on care, not clicks, and AI works behind the scenes, making healthcare more <TextRotate texts={["efficient", "accurate", "humane", "intelligent"]} />, and patient-centric.
-              </motion.p>
+                <Typography 
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.125rem' },
+                    lineHeight: 1.7,
+                    fontWeight: 'normal',
+                    color: 'rgba(156, 163, 175, 1)',
+                    fontFamily: '"Wix Madefor Text", sans-serif'
+                  }}
+                >
+                  We are shaping a world where doctors focus on care, not clicks, and AI works behind the scenes, making healthcare more <TextRotate texts={["efficient", "accurate", "humane", "intelligent"]} />, and patient-centric.
+                </Typography>
+              </Box>
               
-              <div className="mt-8 pt-8 border-t border-gray-700">
-                <motion.div 
-                  className="flex items-center space-x-6"
+              <Box 
+                sx={{ 
+                  mt: 4, 
+                  pt: 4, 
+                  borderTop: '1px solid rgba(75, 85, 99, 1)' 
+                }}
+              >
+                <Box
+                  component={motion.div}
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.5 }}
                   viewport={{ once: true }}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 3
+                  }}
                 >
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center overflow-hidden">
-                      <span className="text-xl font-normal text-white">SS</span>
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-normal text-white font-wix-madefor">Sridharan Sivan</h4>
-                    <p className="text-gray-400 font-wix-madefor">Founder & Chairman, S10.AI Inc.</p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </section>
+                  <Box sx={{ flexShrink: 0 }}>
+                    <Box 
+                      sx={{ 
+                        width: 64, 
+                        height: 64, 
+                        borderRadius: '50%', 
+                        bgcolor: 'rgba(75, 85, 99, 1)', 
+                        display: 'flex', 
+                        alignItems: 'center', 
+                        justifyContent: 'center',
+                        overflow: 'hidden'
+                      }}
+                    >
+                      <Typography 
+                        sx={{
+                          fontSize: '1.25rem',
+                          fontWeight: 'normal',
+                          color: 'white'
+                        }}
+                      >
+                        SS
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box>
+                    <Typography 
+                      variant="h6"
+                      sx={{
+                        fontSize: '1.25rem',
+                        fontWeight: 'normal',
+                        color: 'white',
+                        fontFamily: '"Wix Madefor Text", sans-serif'
+                      }}
+                    >
+                      Sridharan Sivan
+                    </Typography>
+                    <Typography 
+                      sx={{
+                        color: 'rgba(156, 163, 175, 1)',
+                        fontFamily: '"Wix Madefor Text", sans-serif'
+                      }}
+                    >
+                      Founder & Chairman, S10.AI Inc.
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Paper>
+      </Container>
+    </Box>
   );
 };
 
