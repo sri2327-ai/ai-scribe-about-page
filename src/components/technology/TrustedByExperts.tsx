@@ -96,7 +96,7 @@ const TrustedByExperts = () => {
           <Box sx={{ position: 'relative', mx: 'auto', maxWidth: '64rem' }}>
             <Grid container spacing={4} sx={{ mt: 7, position: 'relative', zIndex: 20 }}>
               {companyLogos.map((logo) => (
-                <Grid item xs={6} md={2.4} key={logo.id}>
+                <Grid sx={{ gridColumn: { xs: 'span 6', md: 'span 2.4' } }} key={logo.id}>
                   <Box
                     component={motion.div}
                     initial={{ opacity: 0, y: 10 }}

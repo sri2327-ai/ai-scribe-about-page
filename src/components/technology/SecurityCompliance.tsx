@@ -128,7 +128,7 @@ const SecurityCompliance = () => {
         >
           <Grid container spacing={3} sx={{ justifyContent: 'center' }}>
             {securityItems.map((item) => (
-              <Grid item xs={6} md={3} key={item.id}>
+              <Grid sx={{ gridColumn: { xs: 'span 6', md: 'span 3' } }} key={item.id}>
                 <Box
                   component={motion.div}
                   initial={{ opacity: 0, y: 10 }}
