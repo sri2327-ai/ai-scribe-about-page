@@ -1,6 +1,7 @@
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const FirstSection = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -9,96 +10,75 @@ const FirstSection = () => {
     setIsMounted(true);
   }, []);
 
-  const companyLogos = [
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-    "/HeaderLogo.png",
-  ];
-
   return (
-    <section className="py-12 px-4 bg-gradient-to-br from-white to-blue-200">
-      <div className="max-w-7xl mx-auto flex flex-col gap-8">
-        <div className="flex flex-col md:flex-row gap-8">
-          <motion.div
-            initial={{ x: -25, y: 50, opacity: 0 }}
-            animate={{ x: 0, y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="flex-1"
+    <section className="relative pt-24 md:pt-32 pb-16 md:pb-24 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-indigo-50 z-0" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="flex flex-col-reverse lg:flex-row items-center">
+          <motion.div 
+            className="lg:w-1/2 pt-8 lg:pt-0 lg:pr-12"
+            initial={{ opacity: 0, x: -50 }}
+            animate={isMounted ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl font-bold">
-              Innovative<br />
-              Ambient AI<br />
-              <span className="text-blue-500">
-                Solutions<br />
-                For Healthcare
-              </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+              AI Medical Scribe for <span className="text-blue-600">Healthcare Professionals</span>
             </h1>
-          </motion.div>
-          
-          <motion.div
-            initial={{ x: 25, y: 50, opacity: 0 }}
-            animate={{ x: 0, y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="flex-1 bg-gray-100 rounded-xl p-6 shadow"
-          >
-            <div className="float-right bg-white flex items-center rounded-xl ml-4">
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="90"
-                className="rounded-full"
-              />
-            </div>
-            <p className="text-lg text-gray-700">
-              From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered 
-              solutions that streamline clinical documentation, minimize administrative burdens, 
-              reduce burnout, and save you time—so you can focus on patient care and enhance 
-              healthcare automation.
+            <p className="text-lg md:text-xl text-gray-700 mb-8">
+              Convert patient-provider conversations into accurate clinical notes in real-time. 
+              Reduce documentation time by 60% and focus more on patient care.
             </p>
-          </motion.div>
-        </div>
-        
-        <div className="flex flex-wrap bg-gray-100 p-6 rounded-2xl rounded-tl-[40px] items-start">
-          <motion.div
-            initial={{ x: 25, y: 30, opacity: 0 }}
-            animate={{ x: 0, y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="relative flex bg-white -mt-2 -ml-2 p-4 rounded-br-[40px] rounded-tl-[40px]"
-          >
-            <button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full flex items-center gap-2 transition-all duration-300 shadow">
-              <span className="flex items-center justify-center w-7 h-7 rounded-full border-2 border-white transition-all duration-300 group-hover:rotate-[-270deg]">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right">
-                  <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
-                </svg>
-              </span>
-              <span className="text-lg font-medium">Book A Demo</span>
-            </button>
-            <div className="absolute w-0 h-0 top-0 right-[-25px] border-r-[25px] border-r-transparent border-t-[15px] border-t-white"></div>
-          </motion.div>
-          
-          <div className="ml-4">
-            <p className="text-lg font-medium max-w-[250px]">S10.AI Is Recommended by</p>
-          </div>
-          
-          <div className="flex-1 flex flex-row overflow-hidden ml-4 animate-marquee">
-            {companyLogos.map((logo, index) => (
-              <div key={index} className="mx-4">
-                <img
-                  src={logo}
-                  alt={`logo-${index}`}
-                  width="150"
-                  height="auto"
-                  className="max-w-full h-auto"
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link to="/contactus" className="inline-block">
+                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-full transition-colors shadow-sm">
+                  Request a Demo
+                </button>
+              </Link>
+              <Link to="/solutions/crush" className="inline-block">
+                <button className="w-full bg-white hover:bg-gray-50 text-blue-600 font-medium py-3 px-6 rounded-full border border-blue-600 transition-colors">
+                  Learn More
+                </button>
+              </Link>
+            </div>
+            
+            <div className="mt-8 flex items-center">
+              <div className="flex -space-x-2">
+                <img 
+                  src="/Dr-Lisbeth-Roy.png" 
+                  alt="Healthcare professional" 
+                  className="w-10 h-10 rounded-full border-2 border-white"
+                />
+                <img 
+                  src="/Humera.jpeg" 
+                  alt="Healthcare professional" 
+                  className="w-10 h-10 rounded-full border-2 border-white"
+                />
+                <img 
+                  src="/Harold.jpg" 
+                  alt="Healthcare professional" 
+                  className="w-10 h-10 rounded-full border-2 border-white"
                 />
               </div>
-            ))}
-          </div>
+              <p className="ml-4 text-sm text-gray-600">
+                Trusted by <span className="font-semibold">1,000+</span> healthcare providers
+              </p>
+            </div>
+          </motion.div>
+          
+          <motion.div 
+            className="lg:w-1/2"
+            initial={{ opacity: 0, x: 50 }}
+            animate={isMounted ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.4 }}
+          >
+            <img 
+              src="/ImprovePatientCare.webp" 
+              alt="S10.AI Medical Scribe in action" 
+              className="w-full h-auto rounded-lg shadow-xl"
+            />
+          </motion.div>
         </div>
       </div>
     </section>

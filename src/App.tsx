@@ -38,34 +38,31 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Layout><Index /></Layout>} />
             
-            {/* Resources parent route */}
-            <Route path="/resources" element={<Layout><Resources /></Layout>} />
+            {/* Solutions routes */}
+            <Route path="/solutions/crush" element={<Layout><NotFound /></Layout>} />
+            <Route path="/solutions/bravo" element={<Layout><NotFound /></Layout>} />
             
-            {/* Nested routes under Resources */}
-            <Route path="/resources/about" element={<Layout><About /></Layout>} />
-            <Route path="/resources/technology" element={<Layout><Technology /></Layout>} />
+            {/* About routes */}
+            <Route path="/about" element={<Layout><About /></Layout>} />
+            <Route path="/technology" element={<Layout><Technology /></Layout>} />
+            <Route path="/integrations" element={<Layout><NotFound /></Layout>} />
+            <Route path="/specialties" element={<Layout><NotFound /></Layout>} />
+            
+            {/* Resources parent and nested routes */}
+            <Route path="/resources" element={<Layout><Resources /></Layout>} />
             <Route path="/resources/blog" element={<Layout><NotFound /></Layout>} />
             <Route path="/resources/faq" element={<Layout><NotFound /></Layout>} />
             <Route path="/resources/customers" element={<Layout><NotFound /></Layout>} />
             <Route path="/resources/casestudies" element={<Layout><NotFound /></Layout>} />
             
-            {/* Solutions routes */}
-            <Route path="/solutions" element={<Layout><NotFound /></Layout>} />
-            <Route path="/solutions/crush" element={<Layout><NotFound /></Layout>} />
-            <Route path="/solutions/bravo" element={<Layout><NotFound /></Layout>} />
-            
-            {/* Integrations route */}
-            <Route path="/integrations" element={<Layout><NotFound /></Layout>} />
-            <Route path="/specialties" element={<Layout><NotFound /></Layout>} />
+            {/* Contact us */}
             <Route path="/contactus" element={<Layout><NotFound /></Layout>} />
+            
+            {/* Legal pages */}
             <Route path="/privacypolicy" element={<Layout><NotFound /></Layout>} />
             <Route path="/termsandcondition" element={<Layout><NotFound /></Layout>} />
             
-            {/* Original routes as fallbacks */}
-            <Route path="/about" element={<Layout><About /></Layout>} />
-            <Route path="/technology" element={<Layout><Technology /></Layout>} />
-            
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            {/* Catch-all route for 404 */}
             <Route path="*" element={<Layout><NotFound /></Layout>} />
           </Routes>
         </BrowserRouter>

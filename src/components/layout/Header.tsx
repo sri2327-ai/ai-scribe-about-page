@@ -1,303 +1,203 @@
 
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ChevronDown } from "lucide-react";
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { ChevronDown } from 'lucide-react';
 
 const Header = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [resourcesOpen, setResourcesOpen] = useState(false);
-  const [solutionsOpen, setSolutionsOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
   const location = useLocation();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  const toggleSubmenu = (menu: string) => {
-    if (menu === "resources") {
-      setResourcesOpen(!resourcesOpen);
-      setSolutionsOpen(false);
-      setAboutOpen(false);
-    } else if (menu === "solutions") {
-      setSolutionsOpen(!solutionsOpen);
-      setResourcesOpen(false); 
-      setAboutOpen(false);
-    } else if (menu === "about") {
-      setAboutOpen(!aboutOpen);
-      setResourcesOpen(false);
-      setSolutionsOpen(false);
-    }
+  const toggleDropdown = (dropdown: string) => {
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
   };
 
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
+
+  const isActiveParent = (paths: string[]) => {
+    return paths.some(path => location.pathname.startsWith(path));
+  };
+
+  const menuItems = [
+    {
+      title: 'Solutions',
+      dropdown: true,
+      active: isActiveParent(['/solutions']),
+      items: [
+        { title: 'CRUSH - AI Medical Scribe Assistant', path: '/solutions/crush' },
+        { title: 'BRAVO - AI Patient Care Agent', path: '/solutions/bravo' }
+      ]
+    },
+    {
+      title: 'About',
+      dropdown: true,
+      active: isActiveParent(['/about', '/technology', '/integrations']),
+      items: [
+        { title: 'S10 Story', path: '/about' },
+        { title: 'Trust & Technology', path: '/technology' },
+        { title: 'Integrations', path: '/integrations' }
+      ]
+    },
+    {
+      title: 'Resources',
+      dropdown: true,
+      active: isActiveParent(['/resources']),
+      items: [
+        { title: 'Blog', path: '/resources/blog' },
+        { title: 'FAQs', path: '/resources/faq' },
+        { title: 'Customers', path: '/resources/customers' },
+        { title: 'Case Studies', path: '/resources/casestudies' }
+      ]
+    },
+    {
+      title: 'Contact Us',
+      path: '/contactus',
+      dropdown: false,
+      active: isActive('/contactus')
+    }
+  ];
+
   return (
-    <header className="fixed w-full bg-white shadow-sm z-50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
-        <Link to="/" className="flex items-center">
-          <img
-            src="/HeaderLogo.png"
-            alt="S10.AI Logo"
-            className="h-10"
-          />
-        </Link>
-        
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
-          <Link 
-            to="/" 
-            className={`transition-colors ${location.pathname === '/' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-          >
-            Home
+    <header className="fixed top-0 left-0 w-full bg-white shadow-sm z-50">
+      <div className="container mx-auto px-4">
+        <div className="flex justify-between items-center h-16">
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/HeaderLogo.png" 
+              alt="S10.AI Logo" 
+              className="h-8"
+            />
           </Link>
-          
-          {/* Solutions Dropdown */}
-          <div className="relative group">
-            <Link 
-              to="/solutions" 
-              className={`transition-colors flex items-center ${location.pathname.includes('/solutions') ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-            >
-              Solutions
-              <ChevronDown className="w-4 h-4 ml-1" />
-            </Link>
-            <div className="absolute hidden group-hover:block top-full left-0 bg-white shadow-md rounded-md mt-1 py-2 w-64 z-50">
-              <Link 
-                to="/solutions/crush" 
-                className={`block px-4 py-2 ${location.pathname === '/solutions/crush' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                CRUSH - AI Medical Scribe Assistant
-              </Link>
-              <Link 
-                to="/solutions/bravo" 
-                className={`block px-4 py-2 ${location.pathname === '/solutions/bravo' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                BRAVO - AI Patient Care Agent
-              </Link>
-            </div>
-          </div>
-          
-          {/* About Dropdown */}
-          <div className="relative group">
-            <Link 
-              to="/about" 
-              className={`transition-colors flex items-center ${location.pathname.includes('/about') || location.pathname.includes('/technology') || location.pathname.includes('/integrations') ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-            >
-              About
-              <ChevronDown className="w-4 h-4 ml-1" />
-            </Link>
-            <div className="absolute hidden group-hover:block top-full left-0 bg-white shadow-md rounded-md mt-1 py-2 w-48 z-50">
-              <Link 
-                to="/about" 
-                className={`block px-4 py-2 ${location.pathname === '/about' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                S10 Story
-              </Link>
-              <Link 
-                to="/technology" 
-                className={`block px-4 py-2 ${location.pathname === '/technology' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                Trust & Technology
-              </Link>
-              <Link 
-                to="/integrations" 
-                className={`block px-4 py-2 ${location.pathname === '/integrations' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                Integrations
-              </Link>
-            </div>
-          </div>
-          
-          {/* Resources Dropdown */}
-          <div className="relative group">
-            <Link 
-              to="/resources" 
-              className={`transition-colors flex items-center ${location.pathname.includes('/resources') ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-            >
-              Resources
-              <ChevronDown className="w-4 h-4 ml-1" />
-            </Link>
-            <div className="absolute hidden group-hover:block top-full left-0 bg-white shadow-md rounded-md mt-1 py-2 w-48 z-50">
-              <Link 
-                to="/resources/blog" 
-                className={`block px-4 py-2 ${location.pathname === '/resources/blog' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                Blog
-              </Link>
-              <Link 
-                to="/resources/faq" 
-                className={`block px-4 py-2 ${location.pathname === '/resources/faq' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                FAQs
-              </Link>
-              <Link 
-                to="/resources/customers" 
-                className={`block px-4 py-2 ${location.pathname === '/resources/customers' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                Customers
-              </Link>
-              <Link 
-                to="/resources/casestudies" 
-                className={`block px-4 py-2 ${location.pathname === '/resources/casestudies' ? 'text-blue-500' : 'text-gray-700 hover:bg-gray-100'}`}
-              >
-                Case Studies
-              </Link>
-            </div>
-          </div>
-        </nav>
-        
-        {/* Call to Action Button */}
-        <div className="flex items-center space-x-4">
-          <Link 
-            to="/contactus" 
-            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full text-sm transition-colors"
-          >
-            Contact Us
-          </Link>
-          
-          {/* Mobile Menu Button */}
+
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item, index) => (
+              <div key={index} className="relative group">
+                {item.dropdown ? (
+                  <div>
+                    <button 
+                      className={`flex items-center space-x-1 font-medium ${item.active ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
+                      onMouseEnter={() => setActiveDropdown(item.title)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <span>{item.title}</span>
+                      <ChevronDown className="w-4 h-4" />
+                    </button>
+                    
+                    {(activeDropdown === item.title) && (
+                      <div 
+                        className="absolute left-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 z-10"
+                        onMouseEnter={() => setActiveDropdown(item.title)}
+                        onMouseLeave={() => setActiveDropdown(null)}
+                      >
+                        {item.items?.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`block px-4 py-2 text-sm ${isActive(subItem.path) ? 'text-blue-600 bg-gray-50' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'}`}
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path as string}
+                    className={`font-medium ${item.active ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
+                  >
+                    {item.title}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+
+          {/* Mobile menu button */}
           <button 
-            className="md:hidden text-gray-700" 
+            className="md:hidden flex items-center p-2"
             onClick={toggleMobileMenu}
           >
-            {mobileMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            <svg
+              className="w-6 h-6 text-gray-700"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              {mobileMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
           </button>
         </div>
       </div>
-      
-      {/* Mobile Navigation */}
+
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white px-4 py-4 shadow-md">
-          <nav className="flex flex-col space-y-4">
-            <Link 
-              to="/" 
-              className={`transition-colors ${location.pathname === '/' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            
-            {/* Solutions Mobile Dropdown */}
-            <div>
-              <button 
-                className={`flex justify-between items-center w-full ${location.pathname.includes('/solutions') ? 'text-blue-500' : 'text-gray-700'}`}
-                onClick={() => toggleSubmenu('solutions')}
-              >
-                Solutions
-                <ChevronDown className={`w-4 h-4 transform transition-transform ${solutionsOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {solutionsOpen && (
-                <div className="mt-2 pl-4 border-l-2 border-gray-200 flex flex-col space-y-2">
-                  <Link 
-                    to="/solutions/crush" 
-                    className={`transition-colors ${location.pathname === '/solutions/crush' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
+        <div className="md:hidden bg-white shadow-lg">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            {menuItems.map((item, index) => (
+              <div key={index} className="py-1">
+                {item.dropdown ? (
+                  <div>
+                    <button 
+                      className={`w-full flex justify-between items-center px-3 py-2 rounded-md ${item.active ? 'text-blue-600 font-medium' : 'text-gray-700'}`}
+                      onClick={() => toggleDropdown(item.title)}
+                    >
+                      <span>{item.title}</span>
+                      <ChevronDown 
+                        className={`w-4 h-4 transition-transform ${activeDropdown === item.title ? 'rotate-180' : ''}`} 
+                      />
+                    </button>
+                    
+                    {activeDropdown === item.title && (
+                      <div className="pl-4 mt-1 space-y-1">
+                        {item.items?.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className={`block px-3 py-2 rounded-md text-sm ${isActive(subItem.path) ? 'text-blue-600 bg-gray-50' : 'text-gray-600 hover:bg-gray-50 hover:text-blue-600'}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path as string}
+                    className={`block px-3 py-2 rounded-md ${item.active ? 'text-blue-600 font-medium' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'}`}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    CRUSH - AI Medical Scribe Assistant
+                    {item.title}
                   </Link>
-                  <Link 
-                    to="/solutions/bravo" 
-                    className={`transition-colors ${location.pathname === '/solutions/bravo' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    BRAVO - AI Patient Care Agent
-                  </Link>
-                </div>
-              )}
-            </div>
-            
-            {/* About Mobile Dropdown */}
-            <div>
-              <button 
-                className={`flex justify-between items-center w-full ${location.pathname.includes('/about') || location.pathname.includes('/technology') || location.pathname.includes('/integrations') ? 'text-blue-500' : 'text-gray-700'}`}
-                onClick={() => toggleSubmenu('about')}
-              >
-                About
-                <ChevronDown className={`w-4 h-4 transform transition-transform ${aboutOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {aboutOpen && (
-                <div className="mt-2 pl-4 border-l-2 border-gray-200 flex flex-col space-y-2">
-                  <Link 
-                    to="/about" 
-                    className={`transition-colors ${location.pathname === '/about' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    S10 Story
-                  </Link>
-                  <Link 
-                    to="/technology" 
-                    className={`transition-colors ${location.pathname === '/technology' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Trust & Technology
-                  </Link>
-                  <Link 
-                    to="/integrations" 
-                    className={`transition-colors ${location.pathname === '/integrations' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Integrations
-                  </Link>
-                </div>
-              )}
-            </div>
-            
-            {/* Resources Mobile Dropdown */}
-            <div>
-              <button 
-                className={`flex justify-between items-center w-full ${location.pathname.includes('/resources') ? 'text-blue-500' : 'text-gray-700'}`}
-                onClick={() => toggleSubmenu('resources')}
-              >
-                Resources
-                <ChevronDown className={`w-4 h-4 transform transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} />
-              </button>
-              
-              {resourcesOpen && (
-                <div className="mt-2 pl-4 border-l-2 border-gray-200 flex flex-col space-y-2">
-                  <Link 
-                    to="/resources/blog" 
-                    className={`transition-colors ${location.pathname === '/resources/blog' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Blog
-                  </Link>
-                  <Link 
-                    to="/resources/faq" 
-                    className={`transition-colors ${location.pathname === '/resources/faq' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    FAQs
-                  </Link>
-                  <Link 
-                    to="/resources/customers" 
-                    className={`transition-colors ${location.pathname === '/resources/customers' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Customers
-                  </Link>
-                  <Link 
-                    to="/resources/casestudies" 
-                    className={`transition-colors ${location.pathname === '/resources/casestudies' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    Case Studies
-                  </Link>
-                </div>
-              )}
-            </div>
-            
-            <Link 
-              to="/contactus" 
-              className={`transition-colors ${location.pathname === '/contactus' ? 'text-blue-500' : 'text-gray-700 hover:text-blue-500'}`}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Contact Us
-            </Link>
-          </nav>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </header>
