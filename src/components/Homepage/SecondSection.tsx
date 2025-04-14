@@ -32,7 +32,7 @@ export default function SecondSection() {
   ];
   
   return (
-    <section className="py-10 px-4 bg-white">
+    <section className="py-16 px-4 bg-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-10">
           Trusted By Leading Healthcare Organisations
@@ -45,7 +45,7 @@ export default function SecondSection() {
               initial={isMounted ? { y: 30, opacity: 0 } : false}
               animate={isMounted ? { y: 0, opacity: 1 } : false}
               transition={{ duration: 0.5, delay: index * 0.2, ease: 'easeOut' }}
-              className="border border-gray-300 transition-all hover:shadow-lg"
+              className="border border-gray-300 rounded-lg overflow-hidden transition-all hover:shadow-lg"
             >
               <div className="cursor-pointer">
                 <div className="w-full h-64 overflow-hidden">
@@ -55,7 +55,7 @@ export default function SecondSection() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="p-6 flex flex-col justify-between min-h-[180px]">
+                <div className="p-6 flex flex-col justify-between min-h-[200px]">
                   <p className="text-center text-gray-700 mb-4">{testimonial.docReview}</p>
                   <p className="text-center font-semibold">{testimonial.docNm}</p>
                 </div>
