@@ -1,9 +1,10 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Zap, RefreshCw, FileCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Grid from '@mui/material/Grid';
 
 export const EhrIntegrationSection = () => {
   return (
@@ -66,7 +67,7 @@ export const EhrIntegrationSection = () => {
               icon: <FileCheck size={36} className="text-black" />
             }
           ].map((item, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Grid item xs={12} md={4} component="div" key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -144,9 +145,9 @@ export const EhrIntegrationSection = () => {
               flexWrap: 'wrap'
             }}
           >
-            {[1, 2, 3, 4, 5].map((item) => (
+            {["Practice Fusion", "athenahealth", "eClinicalWorks", "DrChrono", "Epic"].map((item, index) => (
               <Box 
-                key={item}
+                key={index}
                 sx={{
                   width: 120,
                   height: 60,
@@ -159,7 +160,7 @@ export const EhrIntegrationSection = () => {
                 }}
               >
                 <Typography variant="body2" sx={{ color: '#9e9e9e' }}>
-                  EHR Logo {item}
+                  {item}
                 </Typography>
               </Box>
             ))}
