@@ -30,6 +30,9 @@ const Header = () => {
   const pathname = location.pathname;
   const isMobTabHead = useMediaQuery("(max-width:800px)");
 
+  const highlightColor = "#1EAEDB";
+  const hoverTealLight = "rgba(30, 174, 219, 0.1)";
+
   const tabMenus = {
     "Solutions": [
       { 'label': "CRUSH - AI Medical Scribe Assistant", 'path': "/solution/medical-scribe" },
@@ -75,8 +78,6 @@ const Header = () => {
     setAnchorEl(null);
     setCurrentMenu(null);
   };
-
-  const highlightColor = "#1EAEDB";
 
   return (
     <main className={styles.header_main}>
@@ -363,7 +364,12 @@ const Header = () => {
                             sx={{ 
                               textTransform: "capitalize", 
                               color: theme.palette.text.primary,
-                              background: isCurMenu ? 'rgba(30, 174, 219, 0.2)' : 'transparent',
+                              background: isCurMenu ? hoverTealLight : 'transparent',
+                              borderRadius: "50px",
+                              transition: "background-color 0.3s ease",
+                              "&:hover": {
+                                backgroundColor: hoverTealLight,
+                              }
                             }}
                             startIcon={
                               <Box
@@ -403,10 +409,9 @@ const Header = () => {
                             id={`${key}-popup`}
                             sx={{ 
                               pointerEvents: 'none',
-                              "&:hover": {
-                                [`.${key}-button`]: {
-                                  background: 'rgba(30, 174, 219, 0.2)',
-                                },
+                              "& .MuiPaper-root": {
+                                overflow: "visible",
+                                mt: 1,
                               },
                             }}
                             open={currentMenu === key}
@@ -439,7 +444,12 @@ const Header = () => {
                                       color: isCurSubMenu ? highlightColor : theme.palette.text.primary,
                                       "&:hover": {
                                           color: highlightColor,
+                                          backgroundColor: hoverTealLight,
+                                          borderRadius: "6px",
                                       },
+                                      borderRadius: "6px",
+                                      m: 0.5,
+                                      py: 1,
                                     }}
                                   ><Typography variant='subtitle1' fontWeight="semiBold">{values.label}</Typography>
                                   </MenuItem>
