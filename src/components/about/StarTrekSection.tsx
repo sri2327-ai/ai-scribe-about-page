@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import StarBackground from "@/components/about/StarBackground";
-import { ChevronDown, MousePointer } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const StarTrekSection = () => {
@@ -110,32 +110,6 @@ const StarTrekSection = () => {
                 Like A Star Trek
               </Typography>
               
-              {/* Interaction hint */}
-              <Box
-                component={motion.div}
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 1,
-                  mt: 2,
-                  color: 'rgba(255,255,255,0.7)'
-                }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 1 }}
-              >
-                <MousePointer size={16} />
-                <Typography 
-                  sx={{ 
-                    fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                    fontFamily: '"Wix Madefor Text", sans-serif'
-                  }}
-                >
-                  Click stars or move cursor to interact
-                </Typography>
-              </Box>
-              
               {/* White line */}
               <Box 
                 sx={{ 
@@ -209,6 +183,26 @@ const StarTrekSection = () => {
           width={isMobile ? 20 : 24} 
         />
       </Box>
+      
+      {/* Add keyframes for the pulse animation - Fixed to use standard style without jsx/global props */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+        `
+      }} />
     </Box>
   );
 };
