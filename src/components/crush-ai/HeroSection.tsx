@@ -4,10 +4,9 @@ import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import { ArrowRight, Info } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
-import { CheckCircle } from "lucide-react";
 import { 
   Tooltip, 
   TooltipContent, 
@@ -15,11 +14,6 @@ import {
   TooltipTrigger 
 } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { 
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card";
 
 export const HeroSection = () => {
   // Auto-trigger the first tooltip to show users they can hover
@@ -43,7 +37,7 @@ export const HeroSection = () => {
 
   const renderLetterPopover = (letter: string, title: string, description: string, isFirst: boolean = false) => {
     return (
-      <Popover open={isFirst && showTooltipHint ? true : undefined}>
+      <Popover>
         <PopoverTrigger asChild>
           <Box 
             component="span" 
@@ -61,25 +55,49 @@ export const HeroSection = () => {
               }
             }}
           >
+            {isFirst ? (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Box 
+                      sx={{
+                        position: 'absolute',
+                        top: '-40px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        zIndex: 10,
+                        animation: 'pulse 2s infinite',
+                        '@keyframes pulse': {
+                          '0%': { opacity: 0.5, transform: 'translateX(-50%) scale(0.95)' },
+                          '50%': { opacity: 1, transform: 'translateX(-50%) scale(1.05)' },
+                          '100%': { opacity: 0.5, transform: 'translateX(-50%) scale(0.95)' },
+                        }
+                      }}
+                    >
+                      <Heart 
+                        size={24} 
+                        fill="#000000" 
+                        stroke="#000000" 
+                        className="hover:scale-110 transition-transform"
+                      />
+                    </Box>
+                  </TooltipTrigger>
+                  <TooltipContent 
+                    side="top"
+                    className="bg-black/75 backdrop-blur-md border-none text-white"
+                    style={{
+                      borderRadius: '10px',
+                      padding: '10px',
+                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)'
+                    }}
+                  >
+                    Hover to explore CRUSH details
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ) : null}
             <strong>{letter}</strong>
-            {isFirst && (
-              <Box 
-                sx={{ 
-                  position: 'absolute', 
-                  top: '-18px',
-                  right: '-14px',
-                  fontSize: '12px',
-                  animation: showTooltipHint ? 'pulse 2s infinite' : 'none',
-                  '@keyframes pulse': {
-                    '0%': { opacity: 0.5, transform: 'scale(0.95)' },
-                    '50%': { opacity: 1, transform: 'scale(1.05)' },
-                    '100%': { opacity: 0.5, transform: 'scale(0.95)' },
-                  }
-                }}
-              >
-                <Info size={16} />
-              </Box>
-            )}
           </Box>
         </PopoverTrigger>
         <PopoverContent 
