@@ -5,8 +5,6 @@ import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "lucide-react";
 import { 
   Stethoscope, 
   ClipboardList, 
@@ -61,7 +59,7 @@ const BentoCard = ({
     className={cn(
       "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 h-full",
       "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
-      "border border-gray-100 hover:border-purple-100 transition-all duration-300",
+      "border border-gray-100 hover:border-purple-100 transition-all duration-300 hover:-translate-y-1",
       className,
     )}
   >
@@ -75,17 +73,7 @@ const BentoCard = ({
       <p className="text-gray-600">{description}</p>
     </div>
     
-    <div
-      className={cn(
-        "pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
-      )}
-    >
-      <Button variant="ghost" size="sm" className="pointer-events-auto">
-        Learn more
-        <ArrowRightIcon className="ml-2 h-4 w-4" />
-      </Button>
-    </div>
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03]" />
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.02]" />
   </div>
 );
 
@@ -114,19 +102,7 @@ const FeatureSubsection = ({
               fontWeight: 600, 
               mb: 1,
               color: "#000",
-              fontSize: { xs: "1.5rem", md: "1.75rem" },
-              position: "relative",
-              display: "inline-block",
-              "&::after": {
-                content: '""',
-                position: "absolute",
-                bottom: "-8px",
-                left: "0",
-                width: "60px",
-                height: "3px",
-                backgroundColor: "rgba(155,135,245,0.7)",
-                borderRadius: "2px"
-              }
+              fontSize: { xs: "1.5rem", md: "1.75rem" }
             }}
           >
             {title}
@@ -254,35 +230,13 @@ export const ClinicalWorkflowSection = () => {
               variant="h3" 
               sx={{ 
                 fontWeight: 700, 
-                mb: 2,
-                background: "linear-gradient(135deg, #9b87f5 0%, #1EAEDB 100%)",
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
+                mb: 4,
+                color: "#000000",
                 textAlign: "center",
                 fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
               }}
             >
-              More Than Just an AI Scribe
-            </Typography>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <Typography 
-              variant="h4" 
-              sx={{ 
-                fontWeight: 600, 
-                mb: 3,
-                color: "#000",
-                fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" }
-              }}
-            >
-              CRUSH Automates Clinical Workflows
+              More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
             </Typography>
           </motion.div>
           
