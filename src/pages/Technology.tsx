@@ -7,6 +7,7 @@ import S10AISafetyFAQs from "@/components/technology/S10AISafetyFAQs";
 import TrustedByExperts from "@/components/technology/TrustedByExperts";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
+import TechFeaturesContent from "@/components/technology/TechFeatures";
 
 const Technology = () => {
   return (
@@ -17,6 +18,9 @@ const Technology = () => {
       <Box sx={{ position: "relative", overflow: "hidden" }}>
         <MeetIpkoTimeline />
       </Box>
+      
+      {/* Technology That Delivers section */}
+      <TechFeaturesContent />
       
       <Container>
         {/* Third scroll section - SecurityCompliance */}
