@@ -8,6 +8,7 @@ import { useState } from "react";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Technology from "./pages/Technology";
+import CrushAI from "./pages/CrushAI";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
             <Route path="/technology" element={<Technology />} />
+            <Route path="/crush-ai" element={<CrushAI />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
