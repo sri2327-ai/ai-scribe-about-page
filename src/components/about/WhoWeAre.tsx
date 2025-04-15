@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Box, Typography, Grid, Paper, Container } from "@mui/material";
+import { Box, Typography, Paper, Container } from "@mui/material";
 import { motion } from "framer-motion";
 import { Building, Globe, Users, Settings, Star, Shield } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -38,6 +38,40 @@ const features = [
     description: "ISO 27001, HIPAA & PIPEDA compliance, cybersecurity audits, and penetration testing."
   }
 ];
+
+// Icon animation variants
+const iconVariants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: { 
+    scale: 1.2, 
+    rotate: [0, -10, 10, -5, 5, 0],
+    transition: {
+      rotate: {
+        duration: 0.5,
+        ease: "easeInOut",
+        times: [0, 0.2, 0.4, 0.6, 0.8, 1]
+      },
+      scale: {
+        duration: 0.3,
+        ease: "easeOut"
+      }
+    }
+  }
+};
+
+// Floating animation for icons
+const floatingIconVariants = {
+  initial: { y: 0 },
+  animate: {
+    y: [0, -5, 0, 5, 0],
+    transition: {
+      duration: 3,
+      ease: "easeInOut",
+      repeat: Infinity,
+      repeatType: "loop" as const
+    }
+  }
+};
 
 const WhoWeAre = () => {
   const isMobile = useIsMobile();
@@ -132,9 +166,29 @@ const WhoWeAre = () => {
                   }}
                 >
                   <Box sx={{ mb: 2 }}>
-                    {React.cloneElement(feature.icon, {
-                      style: { height: 28, width: 28, color: "white" }
-                    })}
+                    <motion.div
+                      variants={iconVariants}
+                      initial="initial"
+                      whileHover="hover"
+                      animate={hoveredIndex === index ? "hover" : "initial"}
+                      custom={index}
+                    >
+                      <motion.div
+                        variants={floatingIconVariants}
+                        initial="initial"
+                        animate="animate"
+                        custom={index}
+                      >
+                        {React.cloneElement(feature.icon, {
+                          style: { 
+                            height: 28, 
+                            width: 28, 
+                            color: hoveredIndex === index ? "#1EAEDB" : "white",
+                            transition: "color 0.3s ease"
+                          }
+                        })}
+                      </motion.div>
+                    </motion.div>
                   </Box>
                   
                   <Typography 

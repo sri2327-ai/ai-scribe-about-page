@@ -2,6 +2,7 @@
 import { Box, Typography, Container, Divider } from "@mui/material";
 import { motion } from "framer-motion";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import ShootingStars from "@/components/ui/shooting-stars";
 
 const teamMembers = [
   {
@@ -38,16 +39,29 @@ const TeamSection = () => {
       sx={{
         py: { xs: 8, sm: 10 },
         bgcolor: 'black',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        position: 'relative'
       }}
     >
+      {/* Interactive shooting stars background */}
+      <Box sx={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <ShootingStars 
+          starCount={25} 
+          colors={["#ffffff", "#1EAEDB", "#33C3F0"]}
+          interactive={true}
+          className="opacity-70"
+        />
+      </Box>
+      
       {/* Section Divider at the top */}
       <Box 
         sx={{ 
           width: '100%', 
           display: 'flex', 
           justifyContent: 'center', 
-          mb: { xs: 4, md: 6 } 
+          mb: { xs: 4, md: 6 },
+          position: 'relative',
+          zIndex: 1
         }}
       >
         <Divider 
@@ -63,7 +77,9 @@ const TeamSection = () => {
         sx={{ 
           mx: 'auto', 
           px: 2, 
-          mb: 5 
+          mb: 5,
+          position: 'relative',
+          zIndex: 1
         }}
       >
         <Box
