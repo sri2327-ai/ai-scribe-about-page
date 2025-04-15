@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography, Paper, CircularProgress } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2"; // Using the new Grid component
+import { Box, Container, Typography, Paper, CircularProgress, Grid } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Brain, Workflow, BarChart3, HeartPulse, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -99,6 +98,7 @@ export function TechFeatures({
         <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
           {/* Text content panel on the left for desktop */}
           <Grid 
+            item
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 2, lg: 1 } }}
@@ -190,6 +190,7 @@ export function TechFeatures({
 
           {/* Animation panel on the right side for desktop */}
           <Grid 
+            item
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 1, lg: 2 } }}
