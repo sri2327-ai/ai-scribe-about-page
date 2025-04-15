@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import Grid from '@mui/material/Unstable_Grid2'; // Using the correct Grid import
+import { Box, Typography, Grid } from '@mui/material';
 
 export interface TechFeatureProps {
   title: string;
@@ -15,7 +14,7 @@ const TechFeatures: React.FC<TechFeatureProps> = ({ title, description, imageSrc
     <Box sx={{ py: 8 }}>
       <Grid container spacing={4}>
         {/* First section */}
-        <Grid xs={12} lg={6}>
+        <Grid item xs={12} lg={6}>
           <Box>
             <Typography variant="h4">{title}</Typography>
             <Typography variant="body1">{description}</Typography>
@@ -28,7 +27,7 @@ const TechFeatures: React.FC<TechFeatureProps> = ({ title, description, imageSrc
         </Grid>
         
         {/* Second section (image) */}
-        <Grid xs={12} lg={6} 
+        <Grid item xs={12} lg={6} 
           sx={{ 
             display: "flex",
             justifyContent: "center",
