@@ -11,7 +11,6 @@ import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsB
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
 import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowSection";
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
-import { BeforeAfterSlider } from "@/components/crush-ai/BeforeAfterSlider";
 
 const CrushAI = () => {
   return (
@@ -31,8 +30,8 @@ const CrushAI = () => {
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
       
-      {/* Before/After Slider Comparison */}
-      <BeforeAfterSlider />
+      {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
+      <WorkflowAutomationSection />
       
       {/* Testimonial with Text Generate Effect */}
       <TestimonialGenerateSection />
@@ -42,9 +41,6 @@ const CrushAI = () => {
       
       {/* Loved by Clinicians Section */}
       <ClinicianTestimonialsSection />
-
-      {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
-      <WorkflowAutomationSection />
 
       {/* Testimonials & Benefits Section */}
       <TestimonialsBenefitsSection />

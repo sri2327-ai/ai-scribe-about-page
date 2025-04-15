@@ -19,7 +19,13 @@ const Slider = React.forwardRef<
     <SliderPrimitive.Track className="relative h-[1px] w-full grow overflow-hidden bg-neutral-200 dark:bg-neutral-800">
       <SliderPrimitive.Range className="absolute h-full bg-neutral-900 dark:bg-neutral-100" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border border-neutral-200 bg-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300" />
+    <SliderPrimitive.Thumb className="block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center">
+      <div className="grid grid-cols-3 gap-[2px]">
+        {Array.from({ length: 9 }).map((_, index) => (
+          <div key={index} className="w-[2px] h-[2px] rounded-full bg-white/70"></div>
+        ))}
+      </div>
+    </SliderPrimitive.Thumb>
   </SliderPrimitive.Root>
 ))
 Slider.displayName = SliderPrimitive.Root.displayName
