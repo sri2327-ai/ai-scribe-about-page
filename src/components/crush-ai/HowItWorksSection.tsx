@@ -366,7 +366,7 @@ export const HowItWorksSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#fafafa", // Light gray background similar to X.ai
+        bgcolor: "#ffffff", // Keeping white background
         position: "relative",
         overflow: "hidden"
       }}
@@ -386,7 +386,7 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: "#222" // Darker text color
+              color: "#333" // Darker text for contrast on white
             }}
           >
             How CRUSH Works
@@ -408,7 +408,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555", // Using gray instead of blue
+              color: "#555", // Using gray for better contrast on white
               fontWeight: 600,
               fontSize: "1.2rem"
             }}
@@ -421,7 +421,7 @@ export const HowItWorksSection = () => {
           sx={{ 
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
-            gap: 5, // Increased gap for better spacing
+            gap: 5,
             mb: 6,
             mx: 'auto',
             maxWidth: 1200
@@ -444,8 +444,8 @@ export const HowItWorksSection = () => {
                   p: 4,
                   borderRadius: '12px',
                   border: '1px solid',
-                  borderColor: isActive ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.08)',
-                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.08)' : '0 4px 6px rgba(0, 0, 0, 0.02)',
+                  borderColor: isActive ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.05)' : '0 4px 6px rgba(0, 0, 0, 0.01)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -459,8 +459,8 @@ export const HowItWorksSection = () => {
                   overflow: 'hidden',
                   "&:hover": {
                     transform: 'translateY(-5px)',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08)',
-                    borderColor: 'rgba(0, 0, 0, 0.2)'
+                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
+                    borderColor: 'rgba(0, 0, 0, 0.1)'
                   }
                 }}
               >
@@ -480,7 +480,7 @@ export const HowItWorksSection = () => {
                 
                 <Box 
                   sx={{ 
-                    bgcolor: 'rgba(0, 0, 0, 0.03)',
+                    bgcolor: 'rgba(0, 0, 0, 0.02)',
                     borderRadius: '50%',
                     p: 2.5,
                     display: 'flex',
@@ -488,10 +488,10 @@ export const HowItWorksSection = () => {
                     justifyContent: 'center',
                     mb: 3,
                     transition: 'all 0.3s ease',
-                    border: '1px solid rgba(0,0,0,0.08)'
+                    border: '1px solid rgba(0,0,0,0.05)'
                   }}
                 >
-                  <Box sx={{ color: 'black' }}>
+                  <Box sx={{ color: '#333' }}>
                     {step.icon}
                   </Box>
                 </Box>
@@ -501,7 +501,7 @@ export const HowItWorksSection = () => {
                   sx={{ 
                     fontWeight: 600, 
                     mb: 2,
-                    color: "#222",
+                    color: "#333",
                     transition: 'all 0.3s ease',
                   }}
                 >
@@ -546,15 +546,15 @@ export const HowItWorksSection = () => {
                                 mb: 2,
                                 p: 1.5,
                                 borderRadius: 2,
-                                bgcolor: 'rgba(0,0,0,0.02)',
+                                bgcolor: 'rgba(0,0,0,0.01)',
                                 textAlign: 'left',
-                                border: '1px solid rgba(0,0,0,0.04)'
+                                border: '1px solid rgba(0,0,0,0.03)'
                               }}
                             >
                               <Box sx={{ 
                                 mr: 1.5, 
                                 mt: 0.5,
-                                color: '#000'
+                                color: '#333'
                               }}>
                                 {detail.icon}
                               </Box>
@@ -592,16 +592,16 @@ export const HowItWorksSection = () => {
             whileTap={{ scale: 0.95 }}
             variant="contained"
             sx={{
-              bgcolor: '#222',
+              bgcolor: '#333',
               color: 'white',
               py: 1.5,
               px: 4,
               fontSize: '1rem',
               fontWeight: 600,
               borderRadius: 2,
-              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.2)',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
               '&:hover': {
-                bgcolor: '#000'
+                bgcolor: '#222'
               }
             }}
           >
