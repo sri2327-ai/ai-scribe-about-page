@@ -1,9 +1,8 @@
 
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import Grid from '@mui/material/Grid';
 
 export const CompetitionSection = () => {
   return (

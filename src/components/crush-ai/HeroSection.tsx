@@ -1,12 +1,11 @@
 
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
-import Grid from '@mui/material/Grid';
 
 export const HeroSection = () => {
   return (
@@ -34,7 +33,7 @@ export const HeroSection = () => {
               <Typography 
                 variant="h1" 
                 sx={{ 
-                  fontSize: { xs: '2rem', md: '2.8rem' }, 
+                  fontSize: { xs: '1.8rem', md: '2.5rem' }, 
                   fontWeight: 800,
                   mb: 2,
                   color: '#000000',

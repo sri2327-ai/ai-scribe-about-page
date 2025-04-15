@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   FileText, HardDrive, Send, CheckCircle, 
-  ClipboardList, TestTube, Mail, Mic
+  ClipboardList, TestTube, Mail, Mic, 
+  Clock, Heart, Battery
 } from "lucide-react";
 import { Box, Typography } from "@mui/material";
 
@@ -370,7 +371,74 @@ const workflowSteps = [
     title: "Encounter Complete",
     icon: <CheckCircle size={30} className="text-black" />,
     description: "Time Saved, Burnout Crushed, Patients Soaring!",
-    detailContent: null
+    detailContent: (
+      <Box sx={{ mt: 2 }}>
+        <Box 
+          component={motion.div}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          sx={{ 
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 2,
+            p: 2
+          }}
+        >
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
+            <Box 
+              component={motion.div}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            >
+              <Clock size={28} className="text-green-600 mb-1" />
+              <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
+                Time Saved
+              </Typography>
+            </Box>
+            <Box 
+              component={motion.div}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            >
+              <Heart size={28} className="text-red-500 mb-1" />
+              <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
+                Burnout Crushed
+              </Typography>
+            </Box>
+            <Box 
+              component={motion.div}
+              animate={{ y: [0, -5, 0] }}
+              transition={{ repeat: Infinity, duration: 2, delay: 1 }}
+              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+            >
+              <Battery size={28} className="text-blue-500 mb-1" />
+              <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
+                Patients Soaring
+              </Typography>
+            </Box>
+          </Box>
+          <Typography 
+            component={motion.p}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            sx={{ 
+              fontSize: '0.75rem', 
+              color: '#555',
+              textAlign: 'center',
+              fontStyle: 'italic'
+            }}
+          >
+            Your clinical documentation is complete! 
+            <br/>Finish your workday on time, every time.
+          </Typography>
+        </Box>
+      </Box>
+    )
   }
 ];
 
@@ -380,7 +448,7 @@ export function AnimatedWorkflow() {
   const [completed, setCompleted] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number | null>(null);
 
-  // Auto demo mode with seamless transitions
+  // Auto demo mode with slower transitions
   useEffect(() => {
     if (isRecording) {
       const intervalId = setInterval(() => {
@@ -392,7 +460,7 @@ export function AnimatedWorkflow() {
           }
           return prev + 1;
         });
-      }, 3500); // Slightly longer to allow animations to play
+      }, 5000); // Increased from 3500 to 5000 for slower transitions
 
       return () => clearInterval(intervalId);
     }
@@ -407,8 +475,8 @@ export function AnimatedWorkflow() {
         // Auto-restart the animation cycle after completion
         setTimeout(() => {
           setIsRecording(true);
-        }, 1000);
-      }, 4000);
+        }, 2000);
+      }, 6000); // Increased from 4000 to 6000
 
       return () => clearTimeout(timeout);
     }
@@ -418,7 +486,7 @@ export function AnimatedWorkflow() {
   useEffect(() => {
     const startTimeout = setTimeout(() => {
       setIsRecording(true);
-    }, 1000);
+    }, 1500); // Give a bit more time before starting
     
     return () => clearTimeout(startTimeout);
   }, []);
@@ -450,9 +518,58 @@ export function AnimatedWorkflow() {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        border: "1px solid rgba(0, 0, 0, 0.08)"
+        border: "1px solid rgba(0, 0, 0, 0.08)",
+        maxWidth: "450px", 
+        margin: "0 auto"
       }}
     >
+      <Box 
+        sx={{ 
+          display: "flex",
+          justifyContent: "space-between",
+          mb: 2
+        }}
+      >
+        <Typography variant="subtitle1" sx={{ fontWeight: 600, fontSize: "1rem" }}>
+          Workflow Demo
+        </Typography>
+        <Box sx={{ display: "flex", gap: 1 }}>
+          {isRecording ? (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={handleStop}
+              style={{
+                border: "none",
+                background: "rgba(239, 68, 68, 0.1)",
+                color: "#ef4444",
+                borderRadius: "4px",
+                padding: "4px 8px",
+                fontSize: "0.75rem",
+                cursor: "pointer"
+              }}
+            >
+              Pause
+            </motion.button>
+          ) : (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={handleStart}
+              style={{
+                border: "none",
+                background: "rgba(16, 185, 129, 0.1)",
+                color: "#10b981",
+                borderRadius: "4px",
+                padding: "4px 8px",
+                fontSize: "0.75rem",
+                cursor: "pointer"
+              }}
+            >
+              Auto Play
+            </motion.button>
+          )}
+        </Box>
+      </Box>
+      
       <Box 
         sx={{ 
           flex: 1,
@@ -493,7 +610,7 @@ export function AnimatedWorkflow() {
                 alignItems: "flex-start",
                 p: 1.5,
                 borderRadius: 1.5,
-                cursor: isRecording ? "default" : "pointer",
+                cursor: "pointer", // Always make it clickable
                 bgcolor: isActive ? "rgba(0, 0, 0, 0.03)" : "transparent",
                 border: isActive ? "1px solid rgba(0, 0, 0, 0.1)" : "1px solid transparent",
                 flexDirection: "column"
