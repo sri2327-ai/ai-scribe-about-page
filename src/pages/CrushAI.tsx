@@ -28,7 +28,7 @@ const CrushAI = () => {
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
 
-      {/* More Than Just a Scribe Section */}
+      {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />
 
       {/* Testimonials & Benefits Section */}

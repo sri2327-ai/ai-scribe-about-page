@@ -16,11 +16,30 @@ export const HeroSection = () => {
       sx={{ 
         py: { xs: 8, md: 12 }, 
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        height: { xs: 'auto', md: '100vh' }
       }}
     >
-      <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4 }}>
+      {/* Background Horizontal Scroll */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          opacity: 0.05
+        }}
+      >
+        <TiltedScroll autoplay speed={0.1} />
+      </Box>
+      
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: { xs: 'column', md: 'row' }, 
+          alignItems: 'center', 
+          gap: 4,
+          height: '100%'
+        }}>
           <Box 
             sx={{ 
               width: { xs: '100%', md: '50%' },
@@ -49,11 +68,11 @@ export const HeroSection = () => {
                 }}
               >
                 <Box component="span" sx={{ color: '#000000' }}>
-                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>C</Box>.
-                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>R</Box>.
-                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>U</Box>.
-                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>S</Box>.
-                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>H</Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}><strong>C</strong></Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}><strong>R</strong></Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}><strong>U</strong></Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}><strong>S</strong></Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}><strong>H</strong></Box>.
                 </Box> : The AI Medical Scribe That Works for You
               </Typography>
               <Typography 
@@ -85,7 +104,10 @@ export const HeroSection = () => {
               width: { xs: '100%', md: '50%' },
               order: { xs: 1, md: 2 },
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              height: { md: '100%' },
+              alignItems: 'center',
+              maxHeight: { xs: '500px', md: '100%' }
             }}
           >
             <Box 
@@ -98,7 +120,9 @@ export const HeroSection = () => {
                 justifyContent: 'center',
                 position: 'relative',
                 width: '100%',
-                height: '100%'
+                height: '100%',
+                maxWidth: '550px',
+                maxHeight: { xs: '500px', md: '80vh' }
               }}
             >
               <AnimatedWorkflow />

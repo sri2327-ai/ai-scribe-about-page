@@ -6,6 +6,16 @@ import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const TrustedBySection = () => {
+  // Sample data for avatars
+  const clinicians = [
+    { initials: "JD", image: null },
+    { initials: "SP", image: null },
+    { initials: "MR", image: null },
+    { initials: "AK", image: null },
+    { initials: "VL", image: null },
+    { initials: "TS", image: null },
+  ];
+
   return (
     <Box 
       component="section" 
@@ -95,9 +105,15 @@ export const TrustedBySection = () => {
                   justifyContent: { xs: 'center', md: 'flex-start' }
                 }}
               >
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Avatar key={index} className="border border-gray-200">
-                    <AvatarFallback>MD</AvatarFallback>
+                {clinicians.map((clinician, index) => (
+                  <Avatar key={index} className="border border-gray-200 h-12 w-12">
+                    {clinician.image ? (
+                      <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
+                    ) : (
+                      <AvatarFallback className="bg-gray-100 text-gray-600 font-medium">
+                        {clinician.initials}
+                      </AvatarFallback>
+                    )}
                   </Avatar>
                 ))}
               </Box>

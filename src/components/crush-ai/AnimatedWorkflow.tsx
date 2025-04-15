@@ -452,85 +452,6 @@ const workflowSteps = [
         </Box>
       </Box>
     )
-  },
-  {
-    id: "complete",
-    title: "Encounter Complete",
-    icon: <CheckCircle size={30} className="text-black" />,
-    description: "Time Saved, Burnout Crushed, Patients Soaring!",
-    detailContent: (
-      <Box sx={{ mt: 2 }}>
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          sx={{ 
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 2,
-            p: 2
-          }}
-        >
-          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 3 }}>
-            <Box 
-              component={motion.div}
-              animate={{ y: [0, -5, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-            >
-              <Clock size={28} className="text-green-600 mb-1" />
-              <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
-                Time Saved
-              </Typography>
-            </Box>
-            <Box 
-              component={motion.div}
-              animate={{ y: [0, -5, 0] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-            >
-              <Heart size={28} className="text-red-500 mb-1" />
-              <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
-                Burnout Crushed
-              </Typography>
-            </Box>
-            <Box 
-              component={motion.div}
-              animate={{ y: [0, -5, 0] }}
-              transition={{ repeat: Infinity, duration: 2, delay: 1 }}
-              sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
-            >
-              <motion.div 
-                animate={{ rotate: [0, 10, 0, -10, 0] }}
-                transition={{ repeat: Infinity, duration: 2.5 }}
-              >
-                <span role="img" aria-label="patient care" style={{ fontSize: '24px' }}>🚀</span>
-              </motion.div>
-              <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
-                Patients Soaring
-              </Typography>
-            </Box>
-          </Box>
-          <Typography 
-            component={motion.p}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            sx={{ 
-              fontSize: '0.75rem', 
-              color: '#555',
-              textAlign: 'center',
-              fontStyle: 'italic'
-            }}
-          >
-            Your clinical documentation is complete! 
-            <br/>Finish your workday on time, every time.
-          </Typography>
-        </Box>
-      </Box>
-    )
   }
 ];
 
@@ -626,6 +547,74 @@ export function AnimatedWorkflow() {
         backdropFilter: "blur(10px)",
       }}
     >
+      {/* Show "Encounter Complete" overlay when all steps are completed */}
+      {completed && (
+        <Box 
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          sx={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            zIndex: 50,
+            borderRadius: 2,
+            p: 4
+          }}
+        >
+          <Box 
+            component={motion.div}
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 15 }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: 3,
+              textAlign: "center"
+            }}
+          >
+            <CheckCircle size={60} className="text-green-500" />
+            <Typography variant="h5" sx={{ fontWeight: 700, color: "#10b981" }}>
+              Encounter Complete
+            </Typography>
+            <Typography variant="body1" sx={{ color: "#666", maxWidth: "350px" }}>
+              Time Saved, Burnout Crushed, Patients Soaring!
+            </Typography>
+            
+            <Box sx={{ display: "flex", justifyContent: "center", gap: 6, mt: 2 }}>
+              <Box 
+                component={motion.div}
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 2 }}
+                sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+              >
+                <Clock size={32} className="text-green-600 mb-1" />
+                <Typography sx={{ fontSize: "0.8rem", fontWeight: "bold", color: "#333" }}>
+                  Time Saved
+                </Typography>
+              </Box>
+              <Box 
+                component={motion.div}
+                animate={{ y: [0, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
+                sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+              >
+                <Heart size={32} className="text-red-500 mb-1" />
+                <Typography sx={{ fontSize: "0.8rem", fontWeight: "bold", color: "#333" }}>
+                  Burnout Crushed
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      )}
+      
       <Box 
         sx={{ 
           flex: 1,
@@ -744,29 +733,6 @@ export function AnimatedWorkflow() {
           );
         })}
       </Box>
-
-      {completed && (
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          sx={{ 
-            mt: 3, 
-            p: 2, 
-            bgcolor: "rgba(16, 185, 129, 0.08)",
-            borderRadius: 1.5,
-            border: "1px solid rgba(16, 185, 129, 0.2)",
-            textAlign: "center"
-          }}
-        >
-          <Typography variant="subtitle1" sx={{ color: "#10b981", fontWeight: 600, fontSize: "0.95rem" }}>
-            Time Saved, Burnout Crushed, Patients Soaring!
-          </Typography>
-          <Typography variant="body2" sx={{ color: "#666666", fontSize: "0.85rem" }}>
-            Documentation is ready in the EHR system.
-          </Typography>
-        </Box>
-      )}
 
       {/* Add animations */}
       <style dangerouslySetInnerHTML={{
