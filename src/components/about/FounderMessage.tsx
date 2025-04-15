@@ -1,11 +1,12 @@
+
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Box, Typography, Container, Paper, Grid } from "@mui/material";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Brain, Globe, Layers } from "lucide-react";
-import { SignatureAnimation } from "@/components/ui/signature-animation";
 
+// Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
@@ -82,6 +83,7 @@ const FounderMessage = () => {
         overflow: 'hidden'
       }}
     >
+      {/* Teal Blue Beams Background */}
       <Box 
         sx={{ 
           position: 'absolute', 
@@ -132,6 +134,7 @@ const FounderMessage = () => {
             position: 'relative'
           }}
         >
+          {/* Add spotlight effect inside the card */}
           <Spotlight
             className="inset-0 z-0"
             fill="#1EAEDB"
@@ -336,8 +339,7 @@ const FounderMessage = () => {
                   viewport={{ once: true }}
                   sx={{
                     display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    alignItems: { xs: 'center', sm: 'flex-start' },
+                    alignItems: 'center',
                     gap: 3
                   }}
                 >
@@ -347,7 +349,7 @@ const FounderMessage = () => {
                         width: 64, 
                         height: 64, 
                         borderRadius: '50%', 
-                        bgcolor: 'rgba(30, 30, 30, 0.6)', 
+                        bgcolor: 'rgba(75, 85, 99, 1)', 
                         display: 'flex', 
                         alignItems: 'center', 
                         justifyContent: 'center',
@@ -365,11 +367,7 @@ const FounderMessage = () => {
                       </Typography>
                     </Box>
                   </Box>
-                  <Box sx={{ 
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: { xs: 'center', sm: 'flex-start' },
-                  }}>
+                  <Box>
                     <Typography 
                       variant="h6"
                       sx={{
@@ -384,28 +382,11 @@ const FounderMessage = () => {
                     <Typography 
                       sx={{
                         color: 'rgba(156, 163, 175, 1)',
-                        fontFamily: '"Wix Madefor Text", sans-serif',
-                        mb: 2
+                        fontFamily: '"Wix Madefor Text", sans-serif'
                       }}
                     >
                       Founder & Chairman, S10.AI Inc.
                     </Typography>
-                    
-                    <Box sx={{ 
-                      width: '100%', 
-                      display: 'flex', 
-                      justifyContent: { xs: 'center', sm: 'flex-start' },
-                      mt: 1
-                    }}>
-                      <SignatureAnimation 
-                        width={280} 
-                        height={100} 
-                        color="#1EAEDB" 
-                        strokeWidth={3}
-                        speed={0.8}
-                        className="mt-0"
-                      />
-                    </Box>
                   </Box>
                 </Box>
               </Box>
