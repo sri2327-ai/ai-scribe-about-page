@@ -1,9 +1,10 @@
 
-"use client";
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FileText, Database, Send, CheckCircle, FileCheck, ClipboardList, Flask, Activity } from "lucide-react";
+import { 
+  FileText, Database, Send, CheckCircle, FileCheck, 
+  ClipboardList, Activity, TestTube  // Replace Flask with TestTube
+} from "lucide-react";
 import { AIVoiceInput } from "./AIVoiceInput";
 import { Box, Typography } from "@mui/material";
 
@@ -29,7 +30,7 @@ const workflowSteps = [
   {
     id: "labs",
     title: "Process Lab Orders",
-    icon: <Flask size={30} className="text-black" />,
+    icon: <TestTube size={30} className="text-black" />, // Changed from Flask
     description: "Submitting necessary lab work..."
   },
   {
