@@ -53,7 +53,7 @@ const CrushAI = () => {
               color: "#000000"
             }}
           >
-            More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
+            CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
           </Typography>
           <Button 
             size="lg" 
