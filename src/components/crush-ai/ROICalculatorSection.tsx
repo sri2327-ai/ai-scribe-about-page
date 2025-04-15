@@ -4,7 +4,6 @@ import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@m
 import { motion, useAnimation } from "framer-motion";
 import { Info, BarChart2, DollarSign, Users, Magnet } from "lucide-react";
 import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, ResponsiveContainer, BarChart } from "recharts";
-import { ChartContainer } from "@/components/ui/chart";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -15,10 +14,24 @@ interface Particle {
 }
 
 export const ROICalculatorSection = () => {
+  // Input state values
+  const [providersInput, setProvidersInput] = useState<string>("3");
+  const [costPerProviderInput, setCostPerProviderInput] = useState<string>("99");
+  const [patientsPerDayInput, setPatientsPerDayInput] = useState<string>("20");
+  
+  // Calculated values that will be updated on button click
   const [providers, setProviders] = useState<number>(3);
   const [costPerProvider, setCostPerProvider] = useState<number>(99);
   const [patientsPerDay, setPatientsPerDay] = useState<number>(20);
-  const [savingsData, setSavingsData] = useState<Array<{ name: string; value: number }>>([]);
+  const [savings, setSavings] = useState<number>(5703);
+  
+  // Chart data
+  const [savingsData, setSavingsData] = useState<Array<{ name: string; value: number }>>([
+    { name: "Human Scribe", value: 6000 },
+    { name: "Crush AI", value: 297 }
+  ]);
+  
+  // Animation state
   const [isAttracting, setIsAttracting] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
   const particlesControl = useAnimation();
@@ -61,16 +74,38 @@ export const ROICalculatorSection = () => {
     }));
   };
   
-  // Calculate savings data
-  useEffect(() => {
-    const humanScribeCost = providers * 2000;
-    const crushAICost = providers * costPerProvider;
+  // Calculate savings on button click
+  const calculateSavings = () => {
+    // Convert input values to numbers
+    const providersNum = parseInt(providersInput) || 1;
+    const costPerProviderNum = parseInt(costPerProviderInput) || 99;
+    const patientsPerDayNum = parseInt(patientsPerDayInput) || 1;
     
+    // Update state values used for calculations
+    setProviders(providersNum);
+    setCostPerProvider(costPerProviderNum);
+    setPatientsPerDay(patientsPerDayNum);
+    
+    // Calculate the costs
+    const humanScribeCost = providersNum * 2000;
+    const crushAICost = providersNum * costPerProviderNum;
+    const calculatedSavings = humanScribeCost - crushAICost;
+    
+    // Update the savings and chart data
+    setSavings(calculatedSavings);
     setSavingsData([
       { name: "Human Scribe", value: humanScribeCost },
       { name: "Crush AI", value: crushAICost }
     ]);
-  }, [providers, costPerProvider, patientsPerDay]);
+    
+    // Trigger the attraction animation
+    handleInteractionStart();
+    
+    // End the animation after 2 seconds
+    setTimeout(() => {
+      handleInteractionEnd();
+    }, 2000);
+  };
 
   return (
     <Box
@@ -142,8 +177,8 @@ export const ROICalculatorSection = () => {
               <TextField
                 label="Number of Providers"
                 type="number"
-                value={providers}
-                onChange={(e) => setProviders(Number(e.target.value) || 1)}
+                value={providersInput}
+                onChange={(e) => setProvidersInput(e.target.value)}
                 fullWidth
                 InputProps={{
                   startAdornment: (
@@ -176,8 +211,8 @@ export const ROICalculatorSection = () => {
               <TextField
                 label="Monthly Cost per Provider"
                 type="number"
-                value={costPerProvider}
-                onChange={(e) => setCostPerProvider(Number(e.target.value) || 99)}
+                value={costPerProviderInput}
+                onChange={(e) => setCostPerProviderInput(e.target.value)}
                 fullWidth
                 InputProps={{
                   startAdornment: (
@@ -220,8 +255,8 @@ export const ROICalculatorSection = () => {
               <TextField
                 label="Patients per Day per Provider"
                 type="number"
-                value={patientsPerDay}
-                onChange={(e) => setPatientsPerDay(Number(e.target.value) || 1)}
+                value={patientsPerDayInput}
+                onChange={(e) => setPatientsPerDayInput(e.target.value)}
                 fullWidth
                 InputProps={{
                   startAdornment: (
@@ -263,7 +298,7 @@ export const ROICalculatorSection = () => {
                   color: 'black'
                 }}
               >
-                ${(providers * 2000 - providers * costPerProvider).toLocaleString()}
+                ${savings.toLocaleString()}
               </Typography>
               <Typography variant="body2" sx={{ color: 'rgba(0,0,0,0.6)', textAlign: 'center', mt: 1 }}>
                 Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
@@ -279,6 +314,7 @@ export const ROICalculatorSection = () => {
                   "border border-black/20",
                   "transition-all duration-300"
                 )}
+                onClick={calculateSavings}
                 onMouseEnter={handleInteractionStart}
                 onMouseLeave={handleInteractionEnd}
                 onTouchStart={handleInteractionStart}
