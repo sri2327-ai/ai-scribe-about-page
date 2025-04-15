@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -43,7 +44,7 @@ const steps = [
         >
           <motion.div
             animate={active ? { 
-              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(0,120,255,0.3)', '0px 0px 0px rgba(0,0,0,0)'],
+              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(0,0,0,0.3)', '0px 0px 0px rgba(0,0,0,0)'],
             } : {}}
             transition={{ 
               repeat: Infinity, 
@@ -52,13 +53,13 @@ const steps = [
             style={{
               padding: 12,
               borderRadius: 12,
-              border: '2px solid #000',
+              border: '2px solid #333',
               background: 'white'
             }}
           >
             <Stethoscope size={32} className="text-black" />
           </motion.div>
-          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#1a73e8' : '#666' }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#333' : '#666' }}>
             Patient Database
           </Typography>
           {active && (
@@ -128,8 +129,8 @@ const steps = [
               style={{
                 padding: 16,
                 borderRadius: '50%',
-                border: '2px solid #000',
-                background: active ? 'rgba(255, 59, 48, 0.1)' : 'white'
+                border: '2px solid #333',
+                background: active ? 'rgba(0, 0, 0, 0.05)' : 'white'
               }}
             >
               <Mic size={36} className="text-black" />
@@ -153,7 +154,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: '2px solid rgba(255, 59, 48, 0.5)'
+                      border: '2px solid rgba(0, 0, 0, 0.5)'
                     }}
                   />
                 </Box>
@@ -174,7 +175,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: '2px solid rgba(255, 59, 48, 0.3)'
+                      border: '2px solid rgba(0, 0, 0, 0.3)'
                     }}
                   />
                 </Box>
@@ -182,7 +183,7 @@ const steps = [
             )}
           </Box>
           
-          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? 'red' : '#666' }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#333' : '#666' }}>
             {active ? 'Recording...' : 'Ready to record'}
           </Typography>
           
@@ -194,7 +195,7 @@ const steps = [
                 transition={{ duration: 8, repeat: Infinity }}
                 style={{
                   height: 4,
-                  background: 'linear-gradient(90deg, #f3f3f3 0%, #ff3b30 100%)',
+                  background: 'linear-gradient(90deg, #f3f3f3 0%, #333 100%)',
                   borderRadius: 2
                 }}
               />
@@ -251,7 +252,7 @@ const steps = [
             style={{
               padding: 12,
               borderRadius: 8,
-              border: '2px solid #000',
+              border: '2px solid #333',
               background: 'white',
               position: 'relative'
             }}
@@ -365,7 +366,7 @@ export const HowItWorksSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#ffffff",
+        bgcolor: "#fafafa", // Light gray background similar to X.ai
         position: "relative",
         overflow: "hidden"
       }}
@@ -385,7 +386,7 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: "#000000"
+              color: "#222" // Darker text color
             }}
           >
             How CRUSH Works
@@ -395,7 +396,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#403E43",
+              color: "#555", // Medium gray for body text
               fontWeight: 400,
               mb: 2
             }}
@@ -407,7 +408,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#1a73e8",
+              color: "#555", // Using gray instead of blue
               fontWeight: 600,
               fontSize: "1.2rem"
             }}
@@ -418,11 +419,12 @@ export const HowItWorksSection = () => {
 
         <Box 
           sx={{ 
-            display: 'flex', 
-            flexDirection: { xs: 'column', md: 'row' },
-            gap: 4,
-            justifyContent: 'center',
-            mb: 6
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+            gap: 5, // Increased gap for better spacing
+            mb: 6,
+            mx: 'auto',
+            maxWidth: 1200
           }}
         >
           {steps.map((step, index) => {
@@ -439,53 +441,54 @@ export const HowItWorksSection = () => {
                 viewport={{ once: true }}
                 onClick={() => setActiveStep(isActive ? null : index)}
                 sx={{
-                  width: { xs: '100%', md: '33%' },
                   p: 4,
-                  borderRadius: 3,
-                  border: '2px solid',
-                  borderColor: isActive ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.12)',
-                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.1)' : '0 4px 6px rgba(0, 0, 0, 0.05)',
+                  borderRadius: '12px',
+                  border: '1px solid',
+                  borderColor: isActive ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.08)',
+                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.08)' : '0 4px 6px rgba(0, 0, 0, 0.02)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
                   position: 'relative',
                   zIndex: 1,
-                  bgcolor: isActive ? 'rgba(0, 0, 0, 0.02)' : 'white',
+                  bgcolor: 'white',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   minHeight: 320,
                   overflow: 'hidden',
                   "&:hover": {
                     transform: 'translateY(-5px)',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-                    borderColor: 'rgba(0, 0, 0, 0.3)'
+                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08)',
+                    borderColor: 'rgba(0, 0, 0, 0.2)'
                   }
                 }}
               >
-                <Box 
+                <Typography 
                   sx={{ 
                     position: 'absolute', 
-                    top: 16, 
-                    left: 16, 
+                    top: 20, 
+                    left: 20, 
                     fontWeight: 'bold', 
-                    fontSize: '2rem', 
-                    color: '#666' 
+                    fontSize: '1.75rem', 
+                    color: '#333',
+                    opacity: 0.8
                   }}
                 >
                   {stepNumber}
-                </Box>
+                </Typography>
                 
                 <Box 
                   sx={{ 
-                    bgcolor: 'rgba(0, 0, 0, 0.04)',
+                    bgcolor: 'rgba(0, 0, 0, 0.03)',
                     borderRadius: '50%',
-                    p: 2,
+                    p: 2.5,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    mb: 2,
+                    mb: 3,
                     transition: 'all 0.3s ease',
+                    border: '1px solid rgba(0,0,0,0.08)'
                   }}
                 >
                   <Box sx={{ color: 'black' }}>
@@ -497,8 +500,8 @@ export const HowItWorksSection = () => {
                   variant="h6" 
                   sx={{ 
                     fontWeight: 600, 
-                    mb: 1.5,
-                    color: "#333",
+                    mb: 2,
+                    color: "#222",
                     transition: 'all 0.3s ease',
                   }}
                 >
@@ -508,9 +511,10 @@ export const HowItWorksSection = () => {
                 <Typography 
                   variant="body2"
                   sx={{ 
-                    color: '#666',
+                    color: '#555',
                     mb: 3,
                     transition: 'all 0.3s ease',
+                    lineHeight: 1.6
                   }}
                 >
                   {step.description}
@@ -540,10 +544,11 @@ export const HowItWorksSection = () => {
                                 display: 'flex',
                                 alignItems: 'flex-start',
                                 mb: 2,
-                                p: 1,
-                                borderRadius: 1,
+                                p: 1.5,
+                                borderRadius: 2,
                                 bgcolor: 'rgba(0,0,0,0.02)',
-                                textAlign: 'left'
+                                textAlign: 'left',
+                                border: '1px solid rgba(0,0,0,0.04)'
                               }}
                             >
                               <Box sx={{ 
@@ -554,10 +559,10 @@ export const HowItWorksSection = () => {
                                 {detail.icon}
                               </Box>
                               <Box>
-                                <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
+                                <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: '#333' }}>
                                   {detail.title}
                                 </Typography>
-                                <Typography variant="caption" sx={{ color: '#555' }}>
+                                <Typography variant="caption" sx={{ color: '#555', lineHeight: 1.5 }}>
                                   {detail.description}
                                 </Typography>
                               </Box>
@@ -587,16 +592,16 @@ export const HowItWorksSection = () => {
             whileTap={{ scale: 0.95 }}
             variant="contained"
             sx={{
-              bgcolor: '#1a73e8',
+              bgcolor: '#222',
               color: 'white',
               py: 1.5,
               px: 4,
               fontSize: '1rem',
               fontWeight: 600,
               borderRadius: 2,
-              boxShadow: '0 4px 14px rgba(26, 115, 232, 0.4)',
+              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.2)',
               '&:hover': {
-                bgcolor: '#0d47a1'
+                bgcolor: '#000'
               }
             }}
           >
