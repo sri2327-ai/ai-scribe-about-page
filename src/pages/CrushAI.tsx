@@ -10,6 +10,7 @@ import { WorkflowAutomationSection } from "@/components/crush-ai/WorkflowAutomat
 import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
 import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowSection";
+import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 
 const CrushAI = () => {
   return (
@@ -34,6 +35,9 @@ const CrushAI = () => {
       
       {/* Clinical Workflow Section */}
       <ClinicalWorkflowSection />
+      
+      {/* Loved by Clinicians Section */}
+      <ClinicianTestimonialsSection />
 
       {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />
