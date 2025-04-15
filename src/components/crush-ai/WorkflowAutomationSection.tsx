@@ -48,12 +48,16 @@ export const WorkflowAutomationSection = () => {
                 }
               }}
               whileHover={{ 
-                scale: 1.02,
-                transition: { duration: 0.2 }
+                scale: 1.05,
+                transition: { 
+                  duration: 0.2,
+                  type: "spring",
+                  stiffness: 300
+                }
               }}
             >
               <Badge 
-                className="bg-black text-white hover:bg-black/90 border border-black/10 py-1.5 px-3"
+                className="bg-black text-white hover:bg-black/90 border border-black/10 py-1.5 px-3 text-xs font-medium tracking-wider"
               />
             </motion.div>
           </Box>
