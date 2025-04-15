@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid as MuiGrid, Paper } from "@mui/material";
+import { Box, Container, Typography, Grid as MuiGrid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
@@ -8,6 +8,8 @@ import { ArrowRight, Check, Zap, Users, Calendar, MessageCircle, FileCheck, Refr
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import ShootingStars from "@/components/ui/shooting-stars";
+import { FeatureHighlights } from "@/components/crush-ai/FeatureHighlights";
+import { Spotlight } from "@/components/ui/spotlight";
 
 const CrushAI = () => {
   return (
@@ -35,9 +37,11 @@ const CrushAI = () => {
                   variant="h1" 
                   sx={{ 
                     fontSize: { xs: '2.5rem', md: '3.5rem' }, 
-                    fontWeight: 'bold',
+                    fontWeight: 800,
                     mb: 2,
-                    color: '#000000'
+                    color: '#000000',
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.1
                   }}
                 >
                   C.R.U.S.H : The AI Medical Scribe That Works for You
@@ -47,47 +51,20 @@ const CrushAI = () => {
                   sx={{ 
                     mb: 4, 
                     color: '#403E43',
-                    fontSize: { xs: '1rem', md: '1.2rem' }
+                    fontSize: { xs: '1rem', md: '1.2rem' },
+                    fontWeight: 400
                   }}
                 >
                   AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
                   Workflows—So You Can Focus on Patient Care!
                 </Typography>
-                <MuiGrid container spacing={2} sx={{ mb: 6, justifyContent: { xs: 'center', md: 'flex-start' } }}>
-                  {[
-                    "Customizable – Control note content & formatting.",
-                    "Real-Time EHR Sync – Instantly integrates with any system.",
-                    "Universal Coding – Supports ICD-10, E/M, CPT, HCC for compliance & revenue.",
-                    "Smart AI Assistance – Context-aware AI for accurate documentation.",
-                    "Healthcare Automation – Handles prescriptions, referrals, labs & more."
-                  ].map((item, index) => (
-                    <MuiGrid item xs={12} sm={6} key={index}>
-                      <Box 
-                        component={motion.div}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.1 }}
-                        sx={{ 
-                          display: 'flex', 
-                          alignItems: 'flex-start', 
-                          gap: 1.5,
-                          textAlign: 'left'
-                        }}
-                      >
-                        <Check size={20} className="text-tealBlueBright mt-1 flex-shrink-0" />
-                        <Typography variant="body1" sx={{ color: '#403E43' }}>
-                          {item}
-                        </Typography>
-                      </Box>
-                    </MuiGrid>
-                  ))}
-                </MuiGrid>
+
                 <ShadcnButton 
                   size="lg" 
-                  className="bg-tealBlueBright hover:bg-tealBlue"
+                  className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
                 >
                   REQUEST A DEMO
-                  <ArrowRight size={16} />
+                  <ArrowRight size={16} className="ml-2" />
                 </ShadcnButton>
               </Box>
             </MuiGrid>
@@ -107,7 +84,8 @@ const CrushAI = () => {
                 <Sparkles 
                   className="absolute inset-0 pointer-events-none" 
                   size={1.5}
-                  color="#1EAEDB"
+                  color="#000000"
+                  opacity={0.3}
                   background="transparent"
                 />
               </Box>
@@ -116,12 +94,15 @@ const CrushAI = () => {
         </Container>
       </Box>
 
+      {/* Feature Highlights Section */}
+      <FeatureHighlights />
+
       {/* EHR Integration Section */}
       <Box 
         component="section" 
         sx={{ 
           py: { xs: 8, md: 12 },
-          bgcolor: '#f8f9fa'
+          bgcolor: '#ffffff'
         }}
       >
         <Container maxWidth="lg">
@@ -137,9 +118,10 @@ const CrushAI = () => {
               variant="h2" 
               sx={{ 
                 fontSize: { xs: '2rem', md: '2.75rem' },
-                fontWeight: 'bold',
+                fontWeight: 800,
                 mb: 3,
-                color: '#000000'
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               Seamless EHR Integration
@@ -149,7 +131,8 @@ const CrushAI = () => {
               sx={{ 
                 maxWidth: 800,
                 mx: 'auto',
-                color: '#403E43'
+                color: '#403E43',
+                fontWeight: 400
               }}
             >
               CRUSH syncs effortlessly with any EHR system, eliminating copy-pasting and manual entry.
@@ -161,50 +144,62 @@ const CrushAI = () => {
               {
                 title: "Works on Any Device",
                 description: "Desktop, laptop, tablet, or mobile.",
-                icon: <Zap size={36} className="text-tealBlueBright" />
+                icon: <Zap size={36} className="text-black" />
               },
               {
                 title: "Instant Sync",
                 description: "AI-generated notes go directly into your EHR.",
-                icon: <RefreshCw size={36} className="text-tealBlueBright" />
+                icon: <RefreshCw size={36} className="text-black" />
               },
               {
                 title: "Automated Updates",
                 description: "Lab results, prescriptions, and referrals auto-sync.",
-                icon: <FileCheck size={36} className="text-tealBlueBright" />
+                icon: <FileCheck size={36} className="text-black" />
               }
             ].map((item, index) => (
               <MuiGrid item xs={12} md={4} key={index}>
-                <Card className="h-full card-hover">
-                  <CardContent className="flex flex-col items-center text-center p-6">
-                    <Box 
-                      component={motion.div}
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      viewport={{ once: true }}
-                      sx={{ mb: 2 }}
-                    >
-                      {item.icon}
-                    </Box>
-                    <Typography 
-                      variant="h5" 
-                      sx={{ 
-                        mb: 1.5,
-                        fontWeight: 'medium',
-                        color: '#000000'
-                      }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography 
-                      variant="body1"
-                      sx={{ color: '#8A898C' }}
-                    >
-                      {item.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                >
+                  <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300">
+                    <CardContent className="flex flex-col items-center text-center p-6">
+                      <Box 
+                        sx={{ 
+                          mb: 3,
+                          p: 2,
+                          borderRadius: '50%',
+                          bgcolor: 'rgba(0, 0, 0, 0.03)',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
+                        }}
+                      >
+                        {item.icon}
+                      </Box>
+                      <Typography 
+                        variant="h5" 
+                        sx={{ 
+                          mb: 1.5,
+                          fontWeight: 600,
+                          color: '#000000',
+                          fontSize: '1.25rem'
+                        }}
+                      >
+                        {item.title}
+                      </Typography>
+                      <Typography 
+                        variant="body1"
+                        sx={{ color: '#666666', fontSize: '0.95rem' }}
+                      >
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </MuiGrid>
             ))}
           </MuiGrid>
@@ -246,11 +241,12 @@ const CrushAI = () => {
                   sx={{
                     width: 120,
                     height: 60,
-                    bgcolor: '#e0e0e0',
+                    bgcolor: '#f5f5f5',
                     borderRadius: 1,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    border: '1px solid rgba(0, 0, 0, 0.06)'
                   }}
                 >
                   <Typography variant="body2" sx={{ color: '#9e9e9e' }}>
@@ -268,7 +264,8 @@ const CrushAI = () => {
         component="section" 
         sx={{ 
           py: { xs: 8, md: 12 },
-          bgcolor: 'white'
+          bgcolor: '#fafafa',
+          position: 'relative'
         }}
       >
         <Container maxWidth="lg">
@@ -284,9 +281,10 @@ const CrushAI = () => {
               variant="h2" 
               sx={{ 
                 fontSize: { xs: '2rem', md: '2.75rem' },
-                fontWeight: 'bold',
+                fontWeight: 800,
                 mb: 3,
-                color: '#000000'
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               How CRUSH Works – AI Charting in 3 Simple Steps
@@ -409,18 +407,19 @@ const CrushAI = () => {
               variant="h4" 
               sx={{ 
                 mb: 4,
-                fontWeight: 'medium',
-                color: '#000000'
+                fontWeight: 700,
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               AI-Generated Notes in Under 1 Minute – No More Manual Charting!
             </Typography>
             <ShadcnButton 
               size="lg" 
-              className="bg-tealBlueBright hover:bg-tealBlue"
+              className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
             >
               REQUEST A DEMO
-              <ArrowRight size={16} />
+              <ArrowRight size={16} className="ml-2" />
             </ShadcnButton>
           </Box>
         </Container>
@@ -431,7 +430,7 @@ const CrushAI = () => {
         component="section" 
         sx={{ 
           py: { xs: 8, md: 12 },
-          bgcolor: '#f0f7fa'
+          bgcolor: '#ffffff'
         }}
       >
         <Container maxWidth="lg">
@@ -447,9 +446,10 @@ const CrushAI = () => {
               variant="h2" 
               sx={{ 
                 fontSize: { xs: '2rem', md: '2.75rem' },
-                fontWeight: 'bold',
+                fontWeight: 800,
                 mb: 3,
-                color: '#000000'
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               Why C.R.U.S.H. Crushes the Competition
@@ -459,7 +459,8 @@ const CrushAI = () => {
               sx={{ 
                 maxWidth: 900,
                 mx: 'auto',
-                color: '#403E43'
+                color: '#403E43',
+                fontWeight: 400
               }}
             >
               Other AI scribes talk a big game, but they're basically glorified typewriters. C.R.U.S.H. (Customizable, Real-time, Universal, Smart Healthcare) is in a league of its own, and we've got the edge to prove it.
@@ -516,8 +517,9 @@ const CrushAI = () => {
               textAlign: 'center',
               p: 4,
               borderRadius: 2,
-              bgcolor: 'white',
-              boxShadow: 1,
+              bgcolor: '#fafafa',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
               maxWidth: 900,
               mx: 'auto'
             }}
@@ -525,9 +527,10 @@ const CrushAI = () => {
             <Typography 
               variant="h6" 
               sx={{ 
-                fontWeight: 'medium',
+                fontWeight: 600,
                 color: '#000000',
-                fontStyle: 'italic'
+                fontStyle: 'italic',
+                fontSize: '1.1rem'
               }}
             >
               C.R.U.S.H. doesn't just outshine other scribes—it redefines what an AI scribe can do. With human-backed customization, we're here for you, not just your dictation. Demo us and kiss the wannabes goodbye.
@@ -541,7 +544,7 @@ const CrushAI = () => {
         component="section" 
         sx={{ 
           py: { xs: 8, md: 12 },
-          bgcolor: 'white'
+          bgcolor: '#fafafa'
         }}
       >
         <Container maxWidth="lg">
@@ -557,9 +560,10 @@ const CrushAI = () => {
               variant="h2" 
               sx={{ 
                 fontSize: { xs: '2rem', md: '2.75rem' },
-                fontWeight: 'bold',
+                fontWeight: 800,
                 mb: 3,
-                color: '#000000'
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
@@ -716,16 +720,14 @@ const CrushAI = () => {
         component="section" 
         sx={{ 
           py: { xs: 8, md: 12 },
-          bgcolor: '#f8f9fa',
+          bgcolor: '#ffffff',
           position: 'relative',
           overflow: 'hidden'
         }}
       >
-        <ShootingStars 
-          starCount={30}
+        <Spotlight
           className="absolute inset-0"
-          colors={["#ffffff", "#1EAEDB"]}
-          interactive={true}
+          fill="rgba(0, 0, 0, 0.03)"
         />
         
         <Container maxWidth="lg">
@@ -741,9 +743,10 @@ const CrushAI = () => {
               variant="h2" 
               sx={{ 
                 fontSize: { xs: '2rem', md: '2.75rem' },
-                fontWeight: 'bold',
+                fontWeight: 800,
                 mb: 3,
-                color: '#000000'
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               Talk to Patients, Not Screens – CRUSH Handles the Rest
@@ -826,10 +829,11 @@ const CrushAI = () => {
             sx={{ 
               mt: 8, 
               textAlign: 'center',
-              p: 4,
+              p: 5,
               borderRadius: 2,
-              bgcolor: 'white',
-              boxShadow: 2,
+              bgcolor: '#fafafa',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
               maxWidth: 900,
               mx: 'auto',
               position: 'relative',
@@ -850,18 +854,19 @@ const CrushAI = () => {
               variant="h4" 
               sx={{ 
                 mb: 4,
-                fontWeight: 'medium',
-                color: '#000000'
+                fontWeight: 700,
+                color: '#000000',
+                letterSpacing: '-0.02em'
               }}
             >
               Automate Documentation. Improve Patient Care. Reduce Burnout.
             </Typography>
             <ShadcnButton 
               size="lg" 
-              className="bg-tealBlueBright hover:bg-tealBlue"
+              className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
             >
               REQUEST A DEMO
-              <ArrowRight size={16} />
+              <ArrowRight size={16} className="ml-2" />
             </ShadcnButton>
           </Box>
         </Container>
