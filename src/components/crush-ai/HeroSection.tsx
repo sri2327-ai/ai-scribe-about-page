@@ -14,6 +14,7 @@ import {
   TooltipTrigger 
 } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import ShootingStars from "@/components/ui/shooting-stars";
 
 export const HeroSection = () => {
   // Auto-trigger the first tooltip to show users they can hover
@@ -62,7 +63,7 @@ export const HeroSection = () => {
                     <Box 
                       sx={{
                         position: 'absolute',
-                        top: '-40px',
+                        top: '-30px',
                         left: '50%',
                         transform: 'translateX(-50%)',
                         zIndex: 10,
@@ -75,7 +76,7 @@ export const HeroSection = () => {
                       }}
                     >
                       <Heart 
-                        size={24} 
+                        size={22} 
                         fill="#000000" 
                         stroke="#000000" 
                         className="hover:scale-110 transition-transform"
@@ -134,6 +135,15 @@ export const HeroSection = () => {
         height: { xs: 'auto', md: '100vh' }
       }}
     >
+      {/* Voice Animation Background Effect */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        <ShootingStars 
+          starCount={30}
+          colors={["#2EB9DF", "#D946EF", "#2EB9DF"]}
+          interactive={false}
+        />
+      </div>
+      
       {/* Background Horizontal Scroll */}
       <Box
         sx={{
