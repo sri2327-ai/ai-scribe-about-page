@@ -20,18 +20,21 @@ export const HeroSection = () => {
     >
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={6} component="div">
+          <Grid item xs={12} md={6}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              sx={{ textAlign: { xs: 'center', md: 'left' } }}
+              sx={{ 
+                textAlign: 'left',
+                pr: { md: 4 }
+              }}
             >
               <Typography 
                 variant="h1" 
                 sx={{ 
-                  fontSize: { xs: '2.5rem', md: '3.5rem' }, 
+                  fontSize: { xs: '2rem', md: '2.8rem' }, 
                   fontWeight: 800,
                   mb: 2,
                   color: '#000000',
@@ -46,8 +49,9 @@ export const HeroSection = () => {
                 sx={{ 
                   mb: 4, 
                   color: '#403E43',
-                  fontSize: { xs: '1rem', md: '1.2rem' },
-                  fontWeight: 400
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontWeight: 400,
+                  lineHeight: 1.5
                 }}
               >
                 AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
@@ -63,7 +67,7 @@ export const HeroSection = () => {
               </ShadcnButton>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6} component="div">
+          <Grid item xs={12} md={6}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, scale: 0.9 }}

@@ -2,10 +2,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  FileText, Database, Send, CheckCircle, 
-  ClipboardList, Activity, TestTube, Mail
+  FileText, HardDrive, Send, CheckCircle, 
+  ClipboardList, Flask, Mail, Mic
 } from "lucide-react";
-import { AIVoiceInput } from "./AIVoiceInput";
 import { Box, Typography } from "@mui/material";
 
 const workflowSteps = [
@@ -16,25 +15,55 @@ const workflowSteps = [
     description: "Recording patient conversation...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
-        <Typography variant="body2" sx={{ fontStyle: 'italic', fontSize: '0.85rem', color: '#666' }}>
-          Listening to patient-doctor conversation...
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 1, mt: 1, flexWrap: 'wrap' }}>
-          {["Abdominal pain", "Fever", "Nausea", "Vomiting"].map((keyword, i) => (
-            <Box 
-              key={i}
-              sx={{ 
-                bgcolor: 'rgba(0,0,0,0.05)', 
-                px: 1, 
-                py: 0.5, 
-                borderRadius: 1,
-                fontSize: '0.7rem',
-                animation: `fadeIn 0.5s ${i * 0.3}s both`
-              }}
-            >
-              {keyword}
-            </Box>
-          ))}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 1,
+            py: 2
+          }}
+        >
+          <Mic size={36} className="text-gray-600" />
+          <Typography 
+            sx={{ 
+              color: '#666',
+              fontSize: '0.875rem', 
+              textAlign: 'center'
+            }}
+          >
+            00:00
+          </Typography>
+          <Box 
+            sx={{ 
+              width: '100%', 
+              display: 'flex', 
+              justifyContent: 'center', 
+              gap: 0.5 
+            }}
+          >
+            {Array(20).fill(0).map((_, i) => (
+              <Box 
+                key={i}
+                sx={{ 
+                  width: '2px', 
+                  height: '8px', 
+                  borderRadius: '1px',
+                  bgcolor: 'rgba(0,0,0,0.2)',
+                  animation: i % 2 === 0 ? 'pulse 1.5s infinite' : 'none'
+                }}
+              />
+            ))}
+          </Box>
+          <Typography 
+            sx={{ 
+              color: '#666',
+              fontSize: '0.875rem', 
+              mt: 1
+            }}
+          >
+            Click to speak
+          </Typography>
         </Box>
       </Box>
     )
@@ -43,7 +72,7 @@ const workflowSteps = [
     id: "notes",
     title: "Generate Clinical Notes",
     icon: <FileText size={30} className="text-black" />,
-    description: "Creating comprehensive documentation...",
+    description: "Creating comprehensive documentation using your preferred templates...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
@@ -175,9 +204,9 @@ const workflowSteps = [
   },
   {
     id: "labs",
-    title: "Process Lab Orders",
-    icon: <TestTube size={30} className="text-black" />,
-    description: "Submitting necessary lab work...",
+    title: "Process Lab & Prescription Orders",
+    icon: <Flask size={30} className="text-black" />,
+    description: "Submitting necessary lab work and prescriptions...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -227,7 +256,7 @@ const workflowSteps = [
   {
     id: "instructions",
     title: "Generate Patient Instructions",
-    icon: <Activity size={30} className="text-black" />,
+    icon: <Mail size={30} className="text-black" />,
     description: "Creating personalized care instructions...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
@@ -264,7 +293,7 @@ const workflowSteps = [
               animation: 'fadeIn 0.5s 0.3s both'
             }}
           >
-            Thank you for choosing Medical Center for your care. Below are your instructions:
+            Thank you for choosing Medical Center for your care. Below are your instructions following your appendectomy on April 14, 2025:
           </Typography>
           <Box sx={{ fontSize: '0.75rem', pl: 2 }}>
             <Typography 
@@ -294,12 +323,12 @@ const workflowSteps = [
   {
     id: "ehr",
     title: "Push Notes to EHR",
-    icon: <Database size={30} className="text-black" />,
+    icon: <HardDrive size={30} className="text-black" />,
     description: "Syncing with electronic health record...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center' }}>
-          All documents successfully pushed to:
+          All documents pushed to your preferred fields in your EHR
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
           {[
@@ -340,7 +369,7 @@ const workflowSteps = [
     id: "complete",
     title: "Encounter Complete",
     icon: <CheckCircle size={30} className="text-black" />,
-    description: "All tasks completed successfully",
+    description: "Time Saved, Burnout Crushed, Patients Soaring!",
     detailContent: null
   }
 ];
@@ -424,13 +453,6 @@ export function AnimatedWorkflow() {
         border: "1px solid rgba(0, 0, 0, 0.08)"
       }}
     >
-      <AIVoiceInput 
-        onStart={handleStart}
-        onStop={handleStop}
-        demoMode={false} // Don't use the component's demo mode since we're controlling it
-        className="mb-4"
-      />
-
       <Box 
         sx={{ 
           flex: 1,
@@ -565,7 +587,7 @@ export function AnimatedWorkflow() {
           }}
         >
           <Typography variant="subtitle1" sx={{ color: "#10b981", fontWeight: 600, fontSize: "0.95rem" }}>
-            All tasks completed successfully!
+            Time Saved, Burnout Crushed, Patients Soaring!
           </Typography>
           <Typography variant="body2" sx={{ color: "#666666", fontSize: "0.85rem" }}>
             Documentation is ready in the EHR system.
@@ -592,6 +614,20 @@ export function AnimatedWorkflow() {
           to { 
             transform: translateX(0);
             opacity: 1;
+          }
+        }
+        @keyframes pulse {
+          0% {
+            transform: scaleY(1);
+            opacity: 0.5;
+          }
+          50% {
+            transform: scaleY(1.5);
+            opacity: 1;
+          }
+          100% {
+            transform: scaleY(1);
+            opacity: 0.5;
           }
         }
         `
