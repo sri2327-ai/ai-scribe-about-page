@@ -7,7 +7,7 @@ import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight, Check, Zap, Users, Calendar, MessageCircle, FileCheck, RefreshCw, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
-import { ShootingStars } from "@/components/ui/shooting-stars";
+import ShootingStars from "@/components/ui/shooting-stars";
 
 const CrushAI = () => {
   return (
