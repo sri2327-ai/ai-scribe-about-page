@@ -2,164 +2,171 @@
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import { Zap, RefreshCw, FileCheck } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { DeviceDesktop, Smartphone, Tablet, RotateCw, RefreshCw } from "lucide-react";
 
 export const EhrIntegrationSection = () => {
+  const logos = [
+    { name: "Epic", logo: "https://www.epic.com/favicon.ico" },
+    { name: "Cerner", logo: "https://www.cerner.com/favicon.ico" },
+    { name: "Allscripts", logo: "https://www.allscripts.com/favicon.ico" },
+    { name: "eClinicalWorks", logo: "https://www.eclinicalworks.com/favicon.ico" },
+    { name: "NextGen", logo: "https://www.nextgen.com/favicon.ico" },
+    { name: "Athenahealth", logo: "https://www.athenahealth.com/favicon.ico" },
+  ];
+
+  const features = [
+    {
+      icon: <DeviceDesktop size={28} className="text-blue-600" />,
+      title: "Works on Any Device",
+      description: "Desktop, laptop, tablet, or mobile."
+    },
+    {
+      icon: <RefreshCw size={28} className="text-blue-600" />,
+      title: "Instant Sync",
+      description: "AI-generated notes go directly into your EHR."
+    },
+    {
+      icon: <RotateCw size={28} className="text-blue-600" />,
+      title: "Automated Updates",
+      description: "Lab results, prescriptions, and referrals auto-sync."
+    }
+  ];
+
   return (
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 8, md: 12 },
-        bgcolor: '#ffffff'
+        py: { xs: 6, md: 8 },
+        bgcolor: '#f5f7f9'
       }}
     >
       <Container maxWidth="lg">
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          sx={{ mb: 6, textAlign: 'center' }}
-        >
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography 
-            variant="h2" 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            variant="h3" 
             sx={{ 
-              fontSize: { xs: '2rem', md: '2.75rem' },
-              fontWeight: 800,
-              mb: 3,
+              fontWeight: 700,
               color: '#000000',
-              letterSpacing: '-0.02em'
+              mb: 2
             }}
           >
             Seamless EHR Integration
           </Typography>
           <Typography 
-            variant="h6" 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            variant="body1" 
             sx={{ 
-              maxWidth: 800,
-              mx: 'auto',
-              color: '#403E43',
-              fontWeight: 400,
-              mb: 5
+              color: '#666666',
+              maxWidth: '800px',
+              mx: 'auto'
             }}
           >
-            CRUSH syncs effortlessly with any EHR system, eliminating copy-pasting and manual entry.
+            CRUSH AI connects with all major electronic health record systems, ensuring a smooth workflow.
           </Typography>
         </Box>
 
-        {/* EHR Logos at the top */}
+        {/* EHR Logos */}
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
           sx={{ 
             display: 'flex',
             justifyContent: 'center',
             flexWrap: 'wrap',
-            gap: 3,
+            gap: 4,
             mb: 6
           }}
         >
-          {["Epic", "Cerner", "Meditech", "NextGen"].map((item, index) => (
+          {logos.map((logo, index) => (
             <Box 
               key={index}
-              sx={{
-                width: { xs: 100, md: 120 },
-                height: { xs: 50, md: 60 },
-                bgcolor: '#f5f5f5',
-                borderRadius: 1,
+              component={motion.div}
+              whileHover={{ scale: 1.05 }}
+              sx={{ 
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1px solid rgba(0, 0, 0, 0.06)'
+                p: 2,
+                width: '100px',
+                height: '100px',
+                bgcolor: 'white',
+                borderRadius: 2,
+                boxShadow: '0 4px 8px rgba(0,0,0,0.05)',
+                border: '1px solid #e0e0e0',
               }}
             >
-              <Typography variant="body2" sx={{ color: '#9e9e9e' }}>
-                {item}
+              <img 
+                src={logo.logo} 
+                alt={logo.name} 
+                style={{ 
+                  width: '40px', 
+                  height: '40px',
+                  objectFit: 'contain',
+                  marginBottom: '8px'
+                }} 
+              />
+              <Typography variant="body2" sx={{ fontWeight: 500, color: '#333' }}>
+                {logo.name}
               </Typography>
             </Box>
           ))}
         </Box>
 
-        {/* Horizontal scrolling cards */}
-        <ScrollArea className="w-full whitespace-nowrap pb-4">
-          <Box 
-            sx={{ 
-              display: 'flex',
-              gap: 3,
-              pb: 2,
-              px: 0.5,
-            }}
-          >
-            {[
-              {
-                title: "Works on Any Device",
-                description: "Desktop, laptop, tablet, or mobile.",
-                icon: <Zap size={36} className="text-black" />
-              },
-              {
-                title: "Instant Sync",
-                description: "AI-generated notes go directly into your EHR.",
-                icon: <RefreshCw size={36} className="text-black" />
-              },
-              {
-                title: "Automated Updates",
-                description: "Lab results, prescriptions, and referrals auto-sync.",
-                icon: <FileCheck size={36} className="text-black" />
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                style={{ minWidth: '300px' }}
-              >
-                <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300">
-                  <CardContent className="flex flex-col items-center text-center p-6">
-                    <Box 
-                      sx={{ 
-                        mb: 3,
-                        p: 2,
-                        borderRadius: '50%',
-                        bgcolor: 'rgba(0, 0, 0, 0.03)',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                      }}
-                    >
-                      {item.icon}
-                    </Box>
-                    <Typography 
-                      variant="h5" 
-                      sx={{ 
-                        mb: 1.5,
-                        fontWeight: 600,
-                        color: '#000000',
-                        fontSize: '1.25rem'
-                      }}
-                    >
-                      {item.title}
-                    </Typography>
-                    <Typography 
-                      variant="body1"
-                      sx={{ color: '#666666', fontSize: '0.95rem' }}
-                    >
-                      {item.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </Box>
-        </ScrollArea>
+        {/* Horizontal scrolling features */}
+        <Box 
+          sx={{ 
+            display: 'flex',
+            overflowX: 'auto',
+            gap: 3,
+            py: 2,
+            px: 1,
+            mb: 3,
+            scrollbarWidth: 'none',
+            '&::-webkit-scrollbar': {
+              display: 'none'
+            }
+          }}
+        >
+          {features.map((feature, index) => (
+            <Box 
+              key={index}
+              component={motion.div}
+              initial={{ opacity: 0, x: 30 * index }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 * index }}
+              sx={{ 
+                minWidth: { xs: '280px', md: '320px' },
+                p: 3,
+                bgcolor: 'white',
+                borderRadius: 2,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                border: '1px solid #e0e0e0',
+                flex: 1,
+                height: '100%'
+              }}
+            >
+              <Box sx={{ mb: 2, color: 'primary.main' }}>
+                {feature.icon}
+              </Box>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: '#000000', mb: 1 }}>
+                {feature.title}
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#666666' }}>
+                {feature.description}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );

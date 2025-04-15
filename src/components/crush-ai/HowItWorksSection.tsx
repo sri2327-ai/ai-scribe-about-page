@@ -1,35 +1,25 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Typography, Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowRight, Users, MessageCircle, FileCheck } from "lucide-react";
-import { Button as ShadcnButton } from "@/components/ui/button";
+import { MicrophoneIcon, BrainCircuitIcon, ClipboardIcon } from "lucide-react";
 
 export const HowItWorksSection = () => {
   const steps = [
     {
-      step: "1️⃣ Select a Patient",
-      details: ["Launch CRUSH on any device and instantly access patient data."],
-      icon: <Users size={48} className="text-tealBlueBright" />
+      icon: <MicrophoneIcon size={32} className="text-blue-600" />,
+      title: "You Speak Naturally",
+      description: "Simply talk to your patient as you normally would. CRUSH actively listens in the background.",
     },
     {
-      step: "2️⃣ Start Speaking",
-      details: [
-        "Speak naturally in any supported language, and Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time for accuracy and transcription accuracy.",
-        "AI Context Awareness – Pulls past visit history for highly accurate documentation.",
-        "Telemedicine-Ready – Works for in-person, video, chat, or phone consultations."
-      ],
-      icon: <MessageCircle size={48} className="text-tealBlueBright" />
+      icon: <BrainCircuitIcon size={32} className="text-blue-600" />,
+      title: "CRUSH Processes",
+      description: "Our AI analyzes your conversation in real-time, extracting clinical information and patient data.",
     },
     {
-      step: "3️⃣ Review & Sign Off",
-      details: [
-        "Instantly generates EHR-ready medical notes with AI-powered insights.",
-        "Smart Workflow Automation – Auto-handles prescriptions, referrals, labs, follow-ups.",
-        "After-Visit Summaries – Auto-generated in the patient's preferred language.",
-        "AI-Powered Coding – Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
-      ],
-      icon: <FileCheck size={48} className="text-tealBlueBright" />
+      icon: <ClipboardIcon size={32} className="text-blue-600" />,
+      title: "Documentation Generated",
+      description: "Complete clinical notes are created and formatted to your specifications, ready for your review.",
     }
   ];
 
@@ -37,139 +27,147 @@ export const HowItWorksSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 8, md: 12 },
-        bgcolor: '#fafafa',
-        position: 'relative'
+        py: { xs: 6, md: 8 },
+        bgcolor: 'white'
       }}
     >
       <Container maxWidth="lg">
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          sx={{ mb: 8, textAlign: 'center' }}
-        >
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography 
-            variant="h2" 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            variant="h3" 
             sx={{ 
-              fontSize: { xs: '2rem', md: '2.75rem' },
-              fontWeight: 800,
-              mb: 3,
+              fontWeight: 700,
               color: '#000000',
-              letterSpacing: '-0.02em'
+              mb: 2
             }}
           >
-            How CRUSH Works – AI Charting in 3 Simple Steps
+            How CRUSH Works
+          </Typography>
+          <Typography 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            variant="body1" 
+            sx={{ 
+              color: '#666666',
+              maxWidth: '800px',
+              mx: 'auto'
+            }}
+          >
+            Our powerful AI assistant simplifies your workflow by handling the documentation so you can focus on patient care.
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid 
+          container 
+          spacing={4} 
+          sx={{ mt: 2 }}
+        >
           {steps.map((step, index) => (
-            <Grid item xs={12} key={index}>
+            <Grid item xs={12} sm={4} key={index}>
               <Box 
                 component={motion.div}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                sx={{
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * index }}
+                sx={{ 
+                  height: '100%',
                   display: 'flex',
-                  flexDirection: { xs: 'column', sm: 'row' },
-                  gap: 4,
-                  alignItems: { xs: 'flex-start', sm: 'center' },
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  textAlign: 'center',
                   p: 3,
-                  borderRadius: 2,
-                  boxShadow: index === 1 ? 3 : 0,
-                  bgcolor: index === 1 ? '#f0f7fa' : 'transparent'
+                  position: 'relative'
                 }}
               >
                 <Box 
                   sx={{ 
+                    mb: 2,
+                    p: 2,
+                    borderRadius: '50%',
+                    bgcolor: 'rgba(30, 174, 219, 0.1)',
                     display: 'flex',
-                    flexDirection: 'column',
                     alignItems: 'center',
-                    width: { xs: '100%', sm: 100 },
-                    flexShrink: 0
+                    justifyContent: 'center'
                   }}
                 >
                   {step.icon}
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
-                      fontWeight: 'bold',
-                      mt: 2,
-                      color: '#000000'
-                    }}
-                  >
-                    {step.step.split(' ')[0]}
-                  </Typography>
                 </Box>
-                <Box>
-                  <Typography 
-                    variant="h5" 
+
+                <Typography 
+                  variant="h5" 
+                  sx={{ 
+                    fontWeight: 600,
+                    mb: 2,
+                    color: '#000000'
+                  }}
+                >
+                  {step.title}
+                </Typography>
+
+                <Typography 
+                  variant="body1" 
+                  sx={{ 
+                    color: '#666666'
+                  }}
+                >
+                  {step.description}
+                </Typography>
+
+                {index < steps.length - 1 && (
+                  <Box 
                     sx={{ 
-                      mb: 2,
-                      fontWeight: 'medium',
-                      color: '#000000'
+                      position: { xs: 'static', sm: 'absolute' },
+                      right: { sm: '-25px' },
+                      top: { sm: '30%' },
+                      transform: { xs: 'rotate(90deg)', sm: 'rotate(0deg)' },
+                      display: { xs: 'none', sm: 'block' },
+                      zIndex: 1
                     }}
                   >
-                    {step.step.split(' ').slice(1).join(' ')}
-                  </Typography>
-                  <Box component="ul" sx={{ pl: 2 }}>
-                    {step.details.map((detail, i) => (
-                      <Box 
-                        component="li" 
-                        key={i}
-                        sx={{
-                          mb: 1.5,
-                          color: '#403E43'
-                        }}
-                      >
-                        <Typography variant="body1">
-                          {detail}
-                        </Typography>
-                      </Box>
-                    ))}
+                    <Typography sx={{ fontWeight: 'bold', fontSize: '24px', color: '#CCCCCC' }}>→</Typography>
                   </Box>
-                </Box>
+                )}
               </Box>
             </Grid>
           ))}
         </Grid>
 
-        <Box
+        <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           sx={{ 
-            mt: 8, 
-            textAlign: 'center',
-            maxWidth: 800,
-            mx: 'auto'
+            mt: 6,
+            p: 4,
+            bgcolor: '#f8f9fa',
+            borderRadius: 2,
+            border: '1px solid #e0e0e0',
+            textAlign: 'center'
           }}
         >
-          <Typography 
-            variant="h4" 
-            sx={{ 
-              mb: 4,
-              fontWeight: 700,
-              color: '#000000',
-              letterSpacing: '-0.02em'
-            }}
-          >
-            AI-Generated Notes in Under 1 Minute – No More Manual Charting!
+          <Typography variant="h6" sx={{ fontWeight: 600, color: '#000000', mb: 2 }}>
+            Ready to see CRUSH in action?
           </Typography>
-          <ShadcnButton 
-            size="lg" 
-            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+          <Typography variant="body1" sx={{ color: '#666666', mb: 3 }}>
+            Book a demonstration to see how CRUSH can transform your clinical workflow.
+          </Typography>
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            REQUEST A DEMO
-            <ArrowRight size={16} className="ml-2" />
-          </ShadcnButton>
+            <button 
+              className="bg-black hover:bg-black/90 text-white rounded-full px-6 py-3 font-semibold transition-colors duration-300"
+            >
+              Request a Demo
+            </button>
+          </motion.div>
         </Box>
       </Container>
     </Box>

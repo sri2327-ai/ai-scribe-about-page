@@ -6,102 +6,67 @@ import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const TrustedBySection = () => {
+  // Array of avatar initials for healthcare professionals
+  const avatarInitials = ["MD", "DO", "RN", "PA", "NP"];
+  
   return (
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 4, md: 6 },
+        py: { xs: 4, md: 5 },
         bgcolor: '#f9f9f9'
       }}
     >
       <Container maxWidth="lg">
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 2 }}>
+        <Box 
+          component={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          sx={{ 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            mb: 1
+          }}
+        >
           <Box 
             sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: { xs: 'center', md: 'flex-end' },
-              textAlign: { xs: 'center', md: 'right' },
-              width: { xs: '100%', md: '33%' }
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              p: 2,
+              border: '1px solid rgba(0,0,0,0.1)',
+              borderRadius: 50,
+              bgcolor: 'white',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+              maxWidth: 'fit-content'
             }}
           >
-            <Box 
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+            <Box sx={{ display: 'flex', mr: 2 }}>
+              {avatarInitials.map((initial, index) => (
+                <Avatar 
+                  key={index} 
+                  className={`border-2 border-white ${index > 0 ? '-ml-3' : ''}`}
+                  style={{ zIndex: 5 - index }}
+                >
+                  <AvatarFallback>{initial}</AvatarFallback>
+                </Avatar>
+              ))}
+            </Box>
+            
+            <Typography 
+              variant="h6" 
               sx={{ 
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: { xs: 'center', md: 'flex-end' }
+                fontWeight: 600,
+                color: '#333333',
+                fontSize: { xs: '1rem', md: '1.1rem' },
+                display: 'flex',
+                alignItems: 'center'
               }}
             >
-              <Users size={36} className="text-blue-600 mr-3" />
-              <Typography 
-                variant="h4" 
-                sx={{ 
-                  fontWeight: 700,
-                  color: '#000000',
-                  fontSize: { xs: '1.5rem', md: '1.75rem' }
-                }}
-              >
-                1000+
-              </Typography>
-            </Box>
-          </Box>
-          
-          <Box 
-            sx={{ 
-              width: { xs: '100%', md: '67%' }
-            }}
-          >
-            <Box 
-              component={motion.div}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Typography 
-                variant="h5" 
-                sx={{ 
-                  fontWeight: 600,
-                  color: '#333333',
-                  fontSize: { xs: '1.25rem', md: '1.5rem' },
-                  textAlign: { xs: 'center', md: 'left' }
-                }}
-              >
-                Trusted by Clinicians Nationwide
-              </Typography>
-              <Typography 
-                variant="body1"
-                sx={{ 
-                  color: '#666666', 
-                  fontSize: '0.95rem', 
-                  mt: 1,
-                  textAlign: { xs: 'center', md: 'left' }
-                }}
-              >
-                Join thousands of healthcare professionals who have increased their efficiency and improved patient care with CRUSH.
-              </Typography>
-              
-              <Box 
-                sx={{ 
-                  display: 'flex', 
-                  flexWrap: 'wrap', 
-                  gap: 2, 
-                  mt: 2,
-                  justifyContent: { xs: 'center', md: 'flex-start' }
-                }}
-              >
-                {Array.from({ length: 5 }).map((_, index) => (
-                  <Avatar key={index} className="border border-gray-200">
-                    <AvatarFallback>MD</AvatarFallback>
-                  </Avatar>
-                ))}
-              </Box>
-            </Box>
+              Trusted by <span style={{ fontWeight: 700, color: '#000', marginLeft: '4px', marginRight: '4px' }}>1000+</span> Clinicians
+            </Typography>
           </Box>
         </Box>
       </Container>

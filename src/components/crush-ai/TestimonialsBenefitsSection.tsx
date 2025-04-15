@@ -2,110 +2,107 @@
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Button as ShadcnButton } from "@/components/ui/button";
-import { Spotlight } from "@/components/ui/spotlight";
+import { ArrowRight, Clock, PieChart, Stethoscope, DollarSign, Heart } from "lucide-react";
 
 export const TestimonialsBenefitsSection = () => {
+  const benefits = [
+    {
+      icon: <Clock size={28} className="text-blue-600" />,
+      title: "Save Time",
+      description: "Reduce documentation time by up to 70%, giving you more time for patients and your life."
+    },
+    {
+      icon: <PieChart size={28} className="text-blue-600" />,
+      title: "Increase Revenue",
+      description: "See more patients and optimize coding for better reimbursement."
+    },
+    {
+      icon: <Stethoscope size={28} className="text-blue-600" />,
+      title: "Improve Care",
+      description: "Focus more on patients, less on paperwork. Enhance clinical decision-making."
+    },
+    {
+      icon: <DollarSign size={28} className="text-blue-600" />,
+      title: "Reduce Costs",
+      description: "Lower transcription costs and eliminate the need for traditional scribes."
+    },
+    {
+      icon: <Heart size={28} className="text-blue-600" />,
+      title: "Prevent Burnout",
+      description: "Reduce administrative burden that contributes to physician burnout."
+    }
+  ];
+
   return (
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 8, md: 12 },
-        bgcolor: '#ffffff',
-        position: 'relative',
-        overflow: 'hidden'
+        py: { xs: 6, md: 10 },
+        bgcolor: '#F8FAFC'
       }}
     >
-      <Spotlight
-        className="absolute inset-0"
-        fill="rgba(0, 0, 0, 0.03)"
-      />
-      
       <Container maxWidth="lg">
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          sx={{ mb: 8, textAlign: 'center', position: 'relative', zIndex: 1 }}
-        >
+        <Box sx={{ textAlign: 'center', mb: 8 }}>
           <Typography 
-            variant="h2" 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            variant="h3" 
             sx={{ 
-              fontSize: { xs: '2rem', md: '2.75rem' },
-              fontWeight: 800,
-              mb: 3,
+              fontWeight: 700,
               color: '#000000',
-              letterSpacing: '-0.02em'
+              mb: 2
             }}
           >
-            Talk to Patients, Not Screens – CRUSH Handles the Rest
+            The Benefits of CRUSH AI
           </Typography>
           <Typography 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             variant="body1" 
             sx={{ 
-              maxWidth: 900,
-              mx: 'auto',
-              color: '#403E43',
-              fontSize: '1.1rem'
+              color: '#666666',
+              maxWidth: '800px',
+              mx: 'auto'
             }}
           >
-            Clinicians love CRUSH because it restores patient focus, reduces admin workload, and increases revenue.
+            See why healthcare professionals nationwide are switching to CRUSH AI for their documentation needs.
           </Typography>
         </Box>
 
-        <Grid container spacing={5}>
-          {[
-            {
-              title: "Restore Focus",
-              description: "No more typing, maintain eye contact, and reduce cognitive overload."
-            },
-            {
-              title: "Save Time",
-              description: "Auto-generates accurate notes in seconds, cutting charting time to less than 1.6 minutes, making it time-saving."
-            },
-            {
-              title: "Cut Burnout & Boost Revenue",
-              description: "No more pajama time—Instant chart closure and streamlined billing, optimized RAF scoring for higher reimbursements, and eased administrative burdens."
-            }
-          ].map((item, index) => (
+        <Grid container spacing={3}>
+          {benefits.map((benefit, index) => (
             <Grid item xs={12} md={4} key={index}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                sx={{
-                  p: 4,
+                transition={{ duration: 0.4, delay: 0.1 * index }}
+                sx={{ 
+                  p: 3,
                   height: '100%',
                   borderRadius: 2,
                   bgcolor: 'white',
-                  boxShadow: 1,
-                  display: 'flex',
-                  flexDirection: 'column'
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+                  border: '1px solid #e0e0e0',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 12px 20px rgba(0,0,0,0.1)'
+                  }
                 }}
               >
-                <Typography 
-                  variant="h5" 
-                  sx={{ 
-                    mb: 2,
-                    fontWeight: 'medium',
-                    color: '#000000'
-                  }}
-                >
-                  {item.title}
+                <Box sx={{ mb: 2, color: 'primary.main' }}>
+                  {benefit.icon}
+                </Box>
+                <Typography variant="h6" sx={{ color: '#000000', mb: 1, fontWeight: 600 }}>
+                  {benefit.title}
                 </Typography>
-                <Typography 
-                  variant="body1"
-                  sx={{ 
-                    color: '#403E43',
-                    flex: 1
-                  }}
-                >
-                  {item.description}
+                <Typography variant="body2" sx={{ color: '#666666' }}>
+                  {benefit.description}
                 </Typography>
               </Box>
             </Grid>
@@ -116,50 +113,22 @@ export const TestimonialsBenefitsSection = () => {
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
           sx={{ 
-            mt: 8, 
-            textAlign: 'center',
-            p: 5,
-            borderRadius: 2,
-            bgcolor: '#fafafa',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04)',
-            border: '1px solid rgba(0, 0, 0, 0.06)',
-            maxWidth: 900,
-            mx: 'auto',
-            position: 'relative',
-            zIndex: 1
+            mt: 6,
+            display: 'flex',
+            justifyContent: 'center'
           }}
         >
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              mb: 3,
-              color: '#403E43',
-              fontStyle: 'italic'
-            }}
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400, damping: 10 }}
           >
-            Boost organization-wide productivity and ensure secure data with SOC 2, HITECH, and HIPAA compliance.
-          </Typography>
-          <Typography 
-            variant="h4" 
-            sx={{ 
-              mb: 4,
-              fontWeight: 700,
-              color: '#000000',
-              letterSpacing: '-0.02em'
-            }}
-          >
-            Automate Documentation. Improve Patient Care. Reduce Burnout.
-          </Typography>
-          <ShadcnButton 
-            size="lg" 
-            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
-          >
-            REQUEST A DEMO
-            <ArrowRight size={16} className="ml-2" />
-          </ShadcnButton>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 py-3 font-semibold transition-colors duration-300 flex items-center">
+              See All Benefits
+              <ArrowRight size={16} className="ml-2" />
+            </button>
+          </motion.div>
         </Box>
       </Container>
     </Box>
