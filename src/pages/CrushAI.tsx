@@ -30,9 +30,6 @@ const CrushAI = () => {
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
       
-      {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
-      <WorkflowAutomationSection />
-      
       {/* Testimonial with Text Generate Effect */}
       <TestimonialGenerateSection />
       
@@ -41,6 +38,9 @@ const CrushAI = () => {
       
       {/* Loved by Clinicians Section */}
       <ClinicianTestimonialsSection />
+      
+      {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
+      <WorkflowAutomationSection />
 
       {/* Testimonials & Benefits Section */}
       <TestimonialsBenefitsSection />

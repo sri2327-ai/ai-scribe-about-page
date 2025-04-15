@@ -2,8 +2,9 @@
 import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { GripVertical, Monitor, Users, Mic, Clock } from "lucide-react";
+import { Monitor, Users, Mic, Clock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 
 export const WorkflowAutomationSection = () => {
   const [sliderPosition, setSliderPosition] = useState<number>(50);
@@ -48,48 +49,6 @@ export const WorkflowAutomationSection = () => {
     >
       <Container maxWidth="lg">
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-          <Box>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{ 
-                opacity: 1, 
-                scale: 1,
-                transition: {
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 20
-                }
-              }}
-              whileHover={{ 
-                scale: 1.05,
-                transition: { 
-                  duration: 0.2,
-                  type: "spring",
-                  stiffness: 300
-                }
-              }}
-            >
-              <Badge 
-                className="bg-black text-white py-2 px-4 text-xs font-medium tracking-wider rounded-full"
-              >
-                <motion.span
-                  animate={{
-                    rotate: [0, 5, 0, -5, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                  className="mr-1.5"
-                >
-                  🔥
-                </motion.span>
-                NEW COMPARISON
-              </Badge>
-            </motion.div>
-          </Box>
-          
           <Box 
             component={motion.div}
             initial={{ opacity: 0, y: 20 }}
@@ -149,11 +108,7 @@ export const WorkflowAutomationSection = () => {
                     className="h-full bg-black text-white flex items-center justify-center relative overflow-hidden"
                     style={{ width: `${sliderPosition}%` }}
                   >
-                    <div className="absolute inset-0 bg-[url('/public/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png')] bg-center bg-no-repeat bg-cover opacity-5"></div>
                     <div className="z-10 max-w-md p-8">
-                      <div className="mb-4">
-                        <Badge className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</Badge>
-                      </div>
                       <h2 className="text-3xl md:text-4xl font-bold mb-4">The old way of documentation</h2>
                       <p className="text-gray-300 text-base md:text-lg mb-6">
                         Managing patient documentation is tedious and time-consuming. 
@@ -181,11 +136,7 @@ export const WorkflowAutomationSection = () => {
                     className="h-full bg-white text-black flex items-center justify-center relative overflow-hidden"
                     style={{ width: `${100 - sliderPosition}%` }}
                   >
-                    <div className="absolute inset-0 bg-[url('/public/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png')] bg-center bg-no-repeat bg-cover opacity-3"></div>
                     <div className="z-10 max-w-md p-8">
-                      <div className="mb-4">
-                        <Badge className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</Badge>
-                      </div>
                       <h2 className="text-3xl md:text-4xl font-bold mb-4">Focus on what matters</h2>
                       <p className="text-gray-600 text-base md:text-lg mb-6">
                         Our goal is to streamline clinical documentation, making it easier and faster than ever.
@@ -265,6 +216,17 @@ export const WorkflowAutomationSection = () => {
                   <span className="text-gray-800 font-medium">Patient-Focused Care</span>
                   <Users className="text-gray-800 ml-2" size={20} />
                 </div>
+              </div>
+              
+              {/* CTA Button */}
+              <div className="mt-8 flex justify-center">
+                <Button 
+                  size="lg" 
+                  className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                >
+                  REQUEST A DEMO
+                  <ArrowRight size={16} className="ml-2" />
+                </Button>
               </div>
             </div>
           </Box>
