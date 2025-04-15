@@ -11,17 +11,15 @@ interface AnimatedGradientBackgroundProps {
   gradientStops?: number[];
   animationSpeed?: number;
   breathingRange?: number;
-  direction?: 'top' | 'bottom';
 }
 
 const AnimatedGradientBackground = ({
-  startingGap = 300,
+  startingGap = 300, // Increased from 110 to 300 to make the black area larger
   Breathing = true,
   gradientColors = ["#000", "#1EAEDB", "#0FA0CE", "#000"],
   gradientStops = [0, 30, 60, 100],
   animationSpeed = 0.03,
-  breathingRange = 20,
-  direction = 'bottom',
+  breathingRange = 20, // Increased from 8 to 20 to allow more breathing effect
 }: AnimatedGradientBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>(0);
@@ -63,11 +61,11 @@ const AnimatedGradientBackground = ({
       // Create gradient
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
-        direction === 'top' ? 0 : canvas.height, 
+        0, 
         breathingRef.current, 
         canvas.width / 2, 
-        direction === 'top' ? 0 : canvas.height, 
-        canvas.width * 1.5
+        0, 
+        canvas.width * 1.5 // Increased radius to cover more of the screen
       );
 
       // Add colors to gradient
@@ -89,7 +87,7 @@ const AnimatedGradientBackground = ({
       cancelAnimationFrame(requestRef.current);
       previousTimeRef.current = 0;
     };
-  }, [startingGap, Breathing, gradientColors, gradientStops, animationSpeed, breathingRange, direction]);
+  }, [startingGap, Breathing, gradientColors, gradientStops, animationSpeed, breathingRange]);
 
   return (
     <motion.canvas
