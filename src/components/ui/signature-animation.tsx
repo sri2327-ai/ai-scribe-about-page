@@ -19,7 +19,7 @@ interface SignatureAnimationProps {
 export const SignatureAnimation = ({
   className = "",
   width = 300,
-  height?: number,
+  height = undefined,
   color = "#1EAEDB",
   strokeWidth = 3, // Increased stroke width for better visibility
   speed = 0.8, // Slowed down animation for better visibility
