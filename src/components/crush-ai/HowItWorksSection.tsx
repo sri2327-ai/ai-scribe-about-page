@@ -1,175 +1,153 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowRight, Users, MessageCircle, FileCheck } from "lucide-react";
-import { Button as ShadcnButton } from "@/components/ui/button";
+import { Mic, FileText, Upload, CheckCircle2 } from "lucide-react";
+
+const steps = [
+  {
+    icon: <Mic className="h-6 w-6 text-blue-500" />,
+    title: "Voice Input",
+    description: "Simply speak during your patient encounter. CRUSH listens and captures every detail."
+  },
+  {
+    icon: <FileText className="h-6 w-6 text-blue-500" />,
+    title: "Smart Documentation",
+    description: "AI processes speech in real-time, creating structured clinical notes with proper medical terminology."
+  },
+  {
+    icon: <Upload className="h-6 w-6 text-blue-500" />,
+    title: "EHR Integration",
+    description: "Notes are automatically formatted and uploaded to your EHR system with a single click."
+  },
+  {
+    icon: <CheckCircle2 className="h-6 w-6 text-blue-500" />,
+    title: "Review & Finalize",
+    description: "Quickly review AI-generated notes, make any tweaks, and finalize with confidence."
+  }
+];
 
 export const HowItWorksSection = () => {
-  const steps = [
-    {
-      step: "1️⃣ Select a Patient",
-      details: ["Launch CRUSH on any device and instantly access patient data."],
-      icon: <Users size={48} className="text-tealBlueBright" />
-    },
-    {
-      step: "2️⃣ Start Speaking",
-      details: [
-        "Speak naturally in any supported language, and Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time for accuracy and transcription accuracy.",
-        "AI Context Awareness – Pulls past visit history for highly accurate documentation.",
-        "Telemedicine-Ready – Works for in-person, video, chat, or phone consultations."
-      ],
-      icon: <MessageCircle size={48} className="text-tealBlueBright" />
-    },
-    {
-      step: "3️⃣ Review & Sign Off",
-      details: [
-        "Instantly generates EHR-ready medical notes with AI-powered insights.",
-        "Smart Workflow Automation – Auto-handles prescriptions, referrals, labs, follow-ups.",
-        "After-Visit Summaries – Auto-generated in the patient's preferred language.",
-        "AI-Powered Coding – Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
-      ],
-      icon: <FileCheck size={48} className="text-tealBlueBright" />
-    }
-  ];
-
   return (
-    <Box 
-      component="section" 
-      sx={{ 
+    <Box
+      component="section"
+      sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: '#fafafa',
-        position: 'relative'
+        bgcolor: "#ffffff"
       }}
     >
       <Container maxWidth="lg">
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          sx={{ mb: 8, textAlign: 'center' }}
-        >
-          <Typography 
-            variant="h2" 
-            sx={{ 
-              fontSize: { xs: '2rem', md: '2.75rem' },
-              fontWeight: 800,
-              mb: 3,
-              color: '#000000',
-              letterSpacing: '-0.02em'
-            }}
-          >
-            How CRUSH Works – AI Charting in 3 Simple Steps
-          </Typography>
-        </Box>
-
-        <Grid container spacing={3}>
-          {steps.map((step, index) => (
-            <Grid item xs={12} key={index}>
-              <Box 
-                component={motion.div}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', sm: 'row' },
-                  gap: 4,
-                  alignItems: { xs: 'flex-start', sm: 'center' },
-                  p: 3,
-                  borderRadius: 2,
-                  boxShadow: index === 1 ? 3 : 0,
-                  bgcolor: index === 1 ? '#f0f7fa' : 'transparent'
-                }}
-              >
-                <Box 
-                  sx={{ 
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    width: { xs: '100%', sm: 100 },
-                    flexShrink: 0
-                  }}
-                >
-                  {step.icon}
-                  <Typography 
-                    variant="h6" 
-                    sx={{ 
-                      fontWeight: 'bold',
-                      mt: 2,
-                      color: '#000000'
-                    }}
-                  >
-                    {step.step.split(' ')[0]}
-                  </Typography>
-                </Box>
-                <Box>
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
-                      mb: 2,
-                      fontWeight: 'medium',
-                      color: '#000000'
-                    }}
-                  >
-                    {step.step.split(' ').slice(1).join(' ')}
-                  </Typography>
-                  <Box component="ul" sx={{ pl: 2 }}>
-                    {step.details.map((detail, i) => (
-                      <Box 
-                        component="li" 
-                        key={i}
-                        sx={{
-                          mb: 1.5,
-                          color: '#403E43'
-                        }}
-                      >
-                        <Typography variant="body1">
-                          {detail}
-                        </Typography>
-                      </Box>
-                    ))}
-                  </Box>
-                </Box>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          sx={{ 
-            mt: 8, 
-            textAlign: 'center',
-            maxWidth: 800,
-            mx: 'auto'
-          }}
+          sx={{ mb: 6, textAlign: "center" }}
         >
-          <Typography 
-            variant="h4" 
-            sx={{ 
-              mb: 4,
-              fontWeight: 700,
-              color: '#000000',
-              letterSpacing: '-0.02em'
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: "2rem", md: "2.75rem" },
+              fontWeight: 800,
+              mb: 3,
+              color: "#000000"
             }}
           >
-            AI-Generated Notes in Under 1 Minute – No More Manual Charting!
+            How CRUSH Works
           </Typography>
-          <ShadcnButton 
-            size="lg" 
-            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+          <Typography
+            variant="h6"
+            sx={{
+              maxWidth: 800,
+              mx: "auto",
+              color: "#403E43",
+              fontWeight: 400
+            }}
           >
-            REQUEST A DEMO
-            <ArrowRight size={16} className="ml-2" />
-          </ShadcnButton>
+            Experience the simplicity and power of CRUSH in your clinical workflow
+          </Typography>
+        </Box>
+
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexWrap: 'wrap',
+            gap: 4,
+            justifyContent: 'center'
+          }}
+        >
+          {steps.map((step, index) => (
+            <Box 
+              key={index}
+              component={motion.div}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              sx={{
+                width: { xs: '100%', sm: 'calc(50% - 16px)', md: 'calc(25% - 16px)' },
+                p: 3,
+                borderRadius: 2,
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center',
+                position: 'relative',
+                zIndex: 1
+              }}
+            >
+              {index < steps.length - 1 && (
+                <Box 
+                  sx={{ 
+                    display: { xs: 'none', md: 'block' },
+                    position: 'absolute',
+                    top: '30%',
+                    right: '-8%',
+                    width: '15%',
+                    height: '2px',
+                    bgcolor: 'rgba(0, 0, 0, 0.1)',
+                    zIndex: 0
+                  }}
+                />
+              )}
+              
+              <Box 
+                sx={{ 
+                  bgcolor: 'rgba(30, 174, 219, 0.1)', 
+                  borderRadius: '50%',
+                  p: 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 2
+                }}
+              >
+                {step.icon}
+              </Box>
+              
+              <Typography 
+                variant="h6" 
+                sx={{ 
+                  fontWeight: 600, 
+                  mb: 1 
+                }}
+              >
+                {step.title}
+              </Typography>
+              
+              <Typography 
+                variant="body2"
+                sx={{ 
+                  color: '#666' 
+                }}
+              >
+                {step.description}
+              </Typography>
+            </Box>
+          ))}
         </Box>
       </Container>
     </Box>

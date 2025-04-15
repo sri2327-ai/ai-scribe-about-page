@@ -29,7 +29,7 @@ export const HeroSection = () => {
           opacity: 0.05
         }}
       >
-        <TiltedScroll autoplay speed={0.1} />
+        <TiltedScroll />
       </Box>
       
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
@@ -105,9 +105,9 @@ export const HeroSection = () => {
               order: { xs: 1, md: 2 },
               display: 'flex',
               justifyContent: 'center',
-              height: { md: '100%' },
               alignItems: 'center',
-              maxHeight: { xs: '500px', md: '100%' }
+              maxHeight: { xs: '500px', md: '80vh' },
+              px: { xs: 2, md: 0 }
             }}
           >
             <Box 
@@ -121,8 +121,7 @@ export const HeroSection = () => {
                 position: 'relative',
                 width: '100%',
                 height: '100%',
-                maxWidth: '550px',
-                maxHeight: { xs: '500px', md: '80vh' }
+                maxWidth: '550px'
               }}
             >
               <AnimatedWorkflow />
