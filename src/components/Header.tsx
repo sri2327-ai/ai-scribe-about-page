@@ -31,6 +31,10 @@ const Header = () => {
   const pathname = location.pathname;
   const isMobTabHead = useMediaQuery("(max-width:800px)");
 
+  // Teal blue highlight color
+  const highlightColor = "#1EAEDB";
+  const highlightColorHover = "rgba(30, 174, 219, 0.15)";
+
   const tabMenus = {
     "Solutions": [
       { 'label': "CRUSH - AI Medical Scribe Assistant", 'path': "/solution/medical-scribe" },
@@ -76,9 +80,6 @@ const Header = () => {
     setAnchorEl(null);
     setCurrentMenu(null);
   };
-
-  // Define the teal blue highlight color
-  const highlightColor = "#1EAEDB";
 
   return (
     <main className={styles.header_main}>
@@ -405,6 +406,24 @@ const Header = () => {
                             id={`${key}-popup`}
                             sx={{ 
                               pointerEvents: 'none',
+                              mt: 1,
+                              "& .MuiPaper-root": {
+                                overflow: "visible",
+                                "&::before": {
+                                  content: '""',
+                                  display: "block",
+                                  position: "absolute",
+                                  top: -8,
+                                  left: "calc(50% - 8px)",
+                                  width: 16,
+                                  height: 16,
+                                  bgcolor: "rgba(22, 22, 22, 0.85)",
+                                  transform: "rotate(45deg)",
+                                  zIndex: 0,
+                                  borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+                                  borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
+                                },
+                              },
                               "&:hover": {
                                 [`.${key}-button`]: {
                                   background: 'rgba(30, 174, 219, 0.2)',
@@ -427,7 +446,7 @@ const Header = () => {
                             }}
                           >
                             <MenuList
-                              sx={{ pointerEvents: 'auto' }}
+                              sx={{ pointerEvents: 'auto', p: 1 }}
                               onMouseEnter={() => { setAnchorEl(anchorEl); setCurrentMenu(key); }}
                               onMouseLeave={handleMenuClose}
                             >
@@ -436,8 +455,12 @@ const Header = () => {
                               return(
                                 <Link key={index} to={values.path} className={styles.header_link}>
                                   <MenuItem 
+                                    className={styles.dropdown_item_hover}
                                     onClick={handleMenuClose}
                                     sx={{
+                                      px: 2,
+                                      py: 1.5,
+                                      borderRadius: "8px",
                                       color: isCurSubMenu ? highlightColor : theme.palette.text.primary,
                                       "&:hover": {
                                           color: highlightColor,
