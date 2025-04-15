@@ -20,8 +20,8 @@ export function TiltedScroll({
 }: TiltedScrollProps) {
   return (
     <div className={cn("flex items-center justify-center", className)}>
-      <div className="relative overflow-hidden">
-        <div className="grid h-[250px] w-[300px] gap-5 grid-cols-1">
+      <div className="relative overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,black_5rem),linear-gradient(to_left,transparent,black_5rem),linear-gradient(to_bottom,transparent,black_5rem),linear-gradient(to_top,transparent,black_5rem)]">
+        <div className="grid h-[250px] w-[300px] gap-5 animate-skew-scroll grid-cols-1">
           {items.map((item) => (
             <div
               key={item.id}
@@ -29,7 +29,12 @@ export function TiltedScroll({
             >
               <CheckCircle className="h-6 w-6 mr-2 stroke-foreground/40 transition-colors group-hover:stroke-foreground" />
               <p className="text-foreground/80 transition-colors group-hover:text-foreground">
-                {item.text}
+                {item.id === "1" ? (<><strong>C</strong>ustomizable: Tailored to your specific clinical workflow</>) : 
+                 item.id === "2" ? (<><strong>R</strong>eal-time: Instant documentation as you speak</>) : 
+                 item.id === "3" ? (<><strong>U</strong>niversal: Works with any EHR system</>) : 
+                 item.id === "4" ? (<><strong>S</strong>mart: Clinical intelligence with coding assistance</>) : 
+                 item.id === "5" ? (<><strong>H</strong>ealthcare-focused: Built specifically for medical practitioners</>) : 
+                 item.text}
               </p>
             </div>
           ))}

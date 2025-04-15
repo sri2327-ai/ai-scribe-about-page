@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Monitor, ShieldCheck, BarChart3 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -66,9 +66,14 @@ export const FeatureHighlights = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={4}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
           {features.map((feature, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Box
+              key={index}
+              sx={{
+                width: { xs: '100%', md: `calc(33.333% - ${4 * 8/3}px)` }
+              }}
+            >
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -111,9 +116,9 @@ export const FeatureHighlights = () => {
                   </CardContent>
                 </Card>
               </motion.div>
-            </Grid>
+            </Box>
           ))}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );

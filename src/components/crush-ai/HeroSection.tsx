@@ -1,32 +1,39 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
+import { TiltedScroll } from "@/components/ui/tilted-scroll";
+import { CheckCircle } from "lucide-react";
 
 export const HeroSection = () => {
   return (
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 10, md: 14 }, 
+        py: { xs: 8, md: 12 }, 
         position: 'relative',
         overflow: 'hidden'
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={6}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 4 }}>
+          <Box 
+            sx={{ 
+              width: { xs: '100%', md: '50%' },
+              order: { xs: 2, md: 1 }
+            }}
+          >
             <Box 
               component={motion.div}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               sx={{ 
-                textAlign: 'left',
+                textAlign: { xs: 'center', md: 'left' },
                 pr: { md: 4 }
               }}
             >
@@ -41,7 +48,13 @@ export const HeroSection = () => {
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: '#1EAEDB' }}>C</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>R</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>U</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>S</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>H</Box> : The AI Medical Scribe That Works for You
+                <Box component="span" sx={{ color: '#000000' }}>
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>C</Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>R</Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>U</Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>S</Box>.
+                  <Box component="span" sx={{ color: '#000000', fontWeight: 900 }}>H</Box>.
+                </Box> : The AI Medical Scribe That Works for You
               </Typography>
               <Typography 
                 variant="h6" 
@@ -65,9 +78,16 @@ export const HeroSection = () => {
                 <ArrowRight size={16} className="ml-2" />
               </ShadcnButton>
             </Box>
-          </Grid>
+          </Box>
           
-          <Grid item xs={12} md={6}>
+          <Box 
+            sx={{ 
+              width: { xs: '100%', md: '50%' },
+              order: { xs: 1, md: 2 },
+              display: 'flex',
+              justifyContent: 'center'
+            }}
+          >
             <Box 
               component={motion.div}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -90,8 +110,8 @@ export const HeroSection = () => {
                 background="transparent"
               />
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );

@@ -1,21 +1,30 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Users } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const TrustedBySection = () => {
   return (
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 6, md: 8 },
+        py: { xs: 4, md: 6 },
         bgcolor: '#f9f9f9'
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={2} alignItems="center" justifyContent="center">
-          <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'center', md: 'right' } }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, alignItems: 'center', gap: 2 }}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: { xs: 'center', md: 'flex-end' },
+              textAlign: { xs: 'center', md: 'right' },
+              width: { xs: '100%', md: '33%' }
+            }}
+          >
             <Box 
               component={motion.div}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -40,9 +49,13 @@ export const TrustedBySection = () => {
                 1000+
               </Typography>
             </Box>
-          </Grid>
+          </Box>
           
-          <Grid item xs={12} md={8}>
+          <Box 
+            sx={{ 
+              width: { xs: '100%', md: '67%' }
+            }}
+          >
             <Box 
               component={motion.div}
               initial={{ opacity: 0, x: -20 }}
@@ -72,9 +85,25 @@ export const TrustedBySection = () => {
               >
                 Join thousands of healthcare professionals who have increased their efficiency and improved patient care with CRUSH.
               </Typography>
+              
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: 2, 
+                  mt: 2,
+                  justifyContent: { xs: 'center', md: 'flex-start' }
+                }}
+              >
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <Avatar key={index} className="border border-gray-200">
+                    <AvatarFallback>MD</AvatarFallback>
+                  </Avatar>
+                ))}
+              </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );
