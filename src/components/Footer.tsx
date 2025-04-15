@@ -101,7 +101,7 @@ export default function Footer() {
         <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
-          gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
+          gradientColors={["#000", "#33C3F0", "#1EAEDB", "#000"]} // Lighter teal blue gradient
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
