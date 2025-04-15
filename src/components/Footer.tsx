@@ -99,12 +99,12 @@ export default function Footer() {
         zIndex: 1
       }}>
         <AnimatedGradientBackground 
-          startingGap={300}
+          startingGap={500}
           Breathing={true}
           gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
-          gradientStops={[0, 30, 60, 100]}
-          animationSpeed={0.03}
-          breathingRange={20}
+          gradientStops={[0, 15, 30, 100]}
+          animationSpeed={0.02}
+          breathingRange={15}
         />
         
         <Box sx={{ 
@@ -296,7 +296,7 @@ export default function Footer() {
             <GradientTracing 
               width={1200} 
               height={2} 
-              baseColor="rgba(255, 255, 255, 0.2)" 
+              baseColor="rgba(255, 255, 255, 0.1)" 
               gradientColors={["#1EAEDB", "#1EAEDB", "#0FA0CE"]}
               animationDuration={4}
               strokeWidth={1}

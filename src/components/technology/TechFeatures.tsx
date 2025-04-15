@@ -100,6 +100,7 @@ export function TechFeatures({
             item 
             xs={12} 
             lg={6} 
+            component="div"
             sx={{ order: { xs: 2, lg: 1 } }}
           >
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, width: '100%' }}>
@@ -192,6 +193,7 @@ export function TechFeatures({
             item
             xs={12} 
             lg={6} 
+            component="div"
             sx={{ order: { xs: 1, lg: 2 } }}
           >
             <Paper
