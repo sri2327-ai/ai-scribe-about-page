@@ -13,16 +13,23 @@ const Technology = () => {
     <Box>
       <TechHero />
       
-      <Container>
-        <SecurityCompliance />
-        <S10AISafetyFAQs />
-        <TrustedByExperts />
-        <ProjectSetupChecklist />
-      </Container>
-      
+      {/* Second scroll section - MeetIpkoTimeline */}
       <Box sx={{ position: "relative", overflow: "hidden" }}>
         <MeetIpkoTimeline />
       </Box>
+      
+      <Container>
+        {/* Third scroll section - SecurityCompliance */}
+        <SecurityCompliance />
+        
+        {/* Fourth scroll section - ProjectSetupChecklist */}
+        <ProjectSetupChecklist />
+        
+        {/* Fifth scroll section - S10AISafetyFAQs */}
+        <S10AISafetyFAQs />
+        
+        <TrustedByExperts />
+      </Container>
     </Box>
   );
 };
