@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { GripVertical, Monitor, Mic, FileText } from "lucide-react";
+import { GripVertical, Monitor, Mic, FileText, CheckCircle, MoreVertical } from "lucide-react";
 
 export const WorkflowAutomationSection = () => {
   const [inset, setInset] = useState<number>(50);
@@ -52,13 +52,46 @@ export const WorkflowAutomationSection = () => {
                 transition: { 
                   duration: 0.2,
                   type: "spring",
-                  stiffness: 300
+                  stiffness: 400
                 }
               }}
             >
               <Badge 
-                className="bg-black text-white hover:bg-black/90 border border-black/10 py-1.5 px-3 text-xs font-medium tracking-wider"
-              />
+                className="relative bg-black text-white hover:bg-black/90 border border-black/10 py-2 px-4 text-sm font-medium tracking-wider flex items-center"
+              >
+                <Box 
+                  component={motion.div}
+                  className="relative mr-2 w-5 h-5 flex items-center justify-center"
+                  animate={{ 
+                    rotate: [0, 180],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse", 
+                    ease: "easeInOut"
+                  }}
+                >
+                  <Box className="absolute inset-0 bg-white/10 rounded-full" 
+                    component={motion.div}
+                    animate={{ scale: [1, 1.4, 1] }}
+                    transition={{ 
+                      duration: 2, 
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  />
+                  <MoreVertical size={16} className="text-white" />
+                </Box>
+                <motion.span
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  AI-Powered
+                </motion.span>
+              </Badge>
             </motion.div>
           </Box>
           
@@ -114,13 +147,15 @@ export const WorkflowAutomationSection = () => {
                 onTouchEnd={() => setOnMouseDown(false)}
               >
                 <div
-                  className="bg-white h-full w-1 absolute z-20 top-0 -ml-[0.5px] select-none"
+                  className="bg-gradient-to-r from-white/50 via-white to-white/50 h-full w-1.5 absolute z-20 top-0 -ml-[0.75px] select-none shadow-[0_0_15px_5px_rgba(255,255,255,0.5)]"
                   style={{
                     left: inset + "%",
                   }}
                 >
-                  <button
-                    className="bg-white border border-black/10 rounded-full hover:scale-110 transition-all w-10 h-10 select-none -translate-y-1/2 absolute top-1/2 -ml-4 z-30 cursor-ew-resize flex justify-center items-center shadow-md"
+                  <motion.button
+                    className="bg-white border border-black/10 rounded-full hover:scale-110 transition-all w-12 h-12 select-none -translate-y-1/2 absolute top-1/2 -ml-6 z-30 cursor-ew-resize flex justify-center items-center shadow-md"
+                    whileHover={{ boxShadow: "0px 0px 15px 5px rgba(255,255,255,0.5)" }}
+                    whileTap={{ scale: 0.95 }}
                     onTouchStart={(e) => {
                       setOnMouseDown(true);
                       onMouseMove(e);
@@ -133,7 +168,7 @@ export const WorkflowAutomationSection = () => {
                     onMouseUp={() => setOnMouseDown(false)}
                   >
                     <GripVertical className="h-5 w-5 text-black select-none" />
-                  </button>
+                  </motion.button>
                 </div>
                 
                 <div
@@ -150,7 +185,7 @@ export const WorkflowAutomationSection = () => {
                     <div className="flex-1 flex items-center justify-center p-8">
                       <div className="max-w-md mx-auto text-center">
                         <motion.div 
-                          className="bg-white p-6 rounded-lg shadow-md mb-4"
+                          className="bg-white p-6 rounded-lg shadow-md mb-4 relative"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5 }}
@@ -176,6 +211,19 @@ export const WorkflowAutomationSection = () => {
                           <div className="flex items-center justify-center text-sm">
                             <span className="inline-block bg-red-100 text-red-800 px-2 py-1 rounded">8+ hours of documentation daily</span>
                           </div>
+                          
+                          {/* Clinician illustration */}
+                          <div className="absolute -right-10 bottom-0 opacity-70">
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 1, delay: 0.5 }}
+                            >
+                              <div className="w-24 h-24 bg-contain bg-no-repeat bg-bottom" style={{ 
+                                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50,30 C60,30 65,40 65,50 C65,60 60,75 50,75 C40,75 35,60 35,50 C35,40 40,30 50,30 Z" fill="%23ddd"/><rect x="42" y="15" width="16" height="15" rx="8" fill="%23ddd"/><rect x="35" y="40" width="30" height="20" rx="2" fill="%23f9f9f9"/></svg>')` 
+                              }}></div>
+                            </motion.div>
+                          </div>
                         </motion.div>
                       </div>
                     </div>
@@ -191,7 +239,7 @@ export const WorkflowAutomationSection = () => {
                     <div className="flex-1 flex items-center justify-center p-8">
                       <div className="max-w-md mx-auto text-center">
                         <motion.div 
-                          className="bg-white p-6 rounded-lg shadow-md mb-4"
+                          className="bg-white p-6 rounded-lg shadow-md mb-4 relative"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5 }}
@@ -228,6 +276,19 @@ export const WorkflowAutomationSection = () => {
                             >
                               Notes complete in &lt;60 seconds
                             </motion.span>
+                          </div>
+                          
+                          {/* Clinician and patient illustration */}
+                          <div className="absolute -right-10 bottom-0 opacity-70">
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 1, delay: 0.5 }}
+                            >
+                              <div className="w-24 h-24 bg-contain bg-no-repeat bg-bottom" style={{ 
+                                backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,40 C37,40 40,48 40,55 C40,62 37,70 30,70 C23,70 20,62 20,55 C20,48 23,40 30,40 Z" fill="%23ddd"/><rect x="25" y="30" width="10" height="10" rx="5" fill="%23ddd"/><path d="M70,40 C77,40 80,48 80,55 C80,62 77,70 70,70 C63,70 60,62 60,55 C60,48 63,40 70,40 Z" fill="%23ddd"/><rect x="65" y="30" width="10" height="10" rx="5" fill="%23ddd"/><path d="M40,50 Q50,40 60,50" stroke="%23bbb" fill="transparent" stroke-width="2"/></svg>')` 
+                              }}></div>
+                            </motion.div>
                           </div>
                         </motion.div>
                       </div>
