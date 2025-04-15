@@ -73,7 +73,7 @@ const workflowSteps = [
     id: "previous",
     title: "Previous Visit Context",
     icon: <History size={30} className="text-black" />,
-    description: "During the previous visit, the patient reported mild chest discomfort and fatigue. Lab tests were ordered, and a short-term prescription was provided for symptom relief. Follow-up was recommended to review test results and assess response to treatment.",
+    description: "Reviewing patient history for context...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
@@ -117,7 +117,7 @@ const workflowSteps = [
               overflow: 'hidden'
             }}
           >
-            <span className="font-semibold">Symptoms:</span> Chest discomfort, fatigue
+            <span className="font-semibold">Symptoms:</span> Recurring headaches, vision changes
           </Typography>
           <Typography 
             component="div" 
@@ -132,7 +132,7 @@ const workflowSteps = [
               overflow: 'hidden'
             }}
           >
-            <span className="font-semibold">Plan:</span> Lab tests, symptom relief Rx, follow-up
+            <span className="font-semibold">Plan:</span> MRI ordered, follow-up in two weeks
           </Typography>
         </Box>
       </Box>
@@ -409,7 +409,7 @@ const workflowSteps = [
     id: "ehr",
     title: "Push Notes to EHR",
     icon: <Database size={30} className="text-black" />,
-    description: "Syncing with electronic health record...",
+    description: "Secure integration with all EHR systems",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center' }}>
@@ -447,7 +447,7 @@ const workflowSteps = [
               color: '#555'
             }}
           >
-            Secure integration with all major EHR systems
+            Secure integration with all EHR systems
           </Typography>
         </Box>
       </Box>
@@ -564,7 +564,7 @@ export function AnimatedWorkflow() {
           }
           return prev + 1;
         });
-      }, 6000); // Increased to 6 seconds for even slower transitions
+      }, 6000); // 6 seconds for slower transitions
 
       return () => clearInterval(intervalId);
     }
@@ -621,7 +621,9 @@ export function AnimatedWorkflow() {
         flexDirection: "column",
         border: "1px solid rgba(0, 0, 0, 0.08)",
         maxWidth: "450px", 
-        margin: "0 auto"
+        margin: "0 auto",
+        backgroundImage: "linear-gradient(to bottom, rgba(249, 250, 251, 0.8), rgba(244, 245, 246, 0.5))",
+        backdropFilter: "blur(10px)",
       }}
     >
       <Box 
@@ -799,6 +801,17 @@ export function AnimatedWorkflow() {
           100% {
             transform: scaleY(1);
             opacity: 0.5;
+          }
+        }
+        .animate-skew-scroll {
+          animation: skewScroll 20s linear infinite;
+        }
+        @keyframes skewScroll {
+          0% {
+            transform: translateY(0) rotate(0deg);
+          }
+          100% {
+            transform: translateY(calc(-50% - 10px)) rotate(0deg);
           }
         }
         `

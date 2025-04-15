@@ -6,6 +6,7 @@ import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
+import { TiltedScroll } from "@/components/ui/tilted-scroll";
 
 export const HeroSection = () => {
   return (
@@ -18,7 +19,7 @@ export const HeroSection = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4} alignItems="center">
+        <Grid container spacing={4} alignItems="center" direction={{ xs: 'column-reverse', md: 'row' }}>
           <Grid item xs={12} md={6}>
             <Box 
               component={motion.div}
@@ -56,6 +57,10 @@ export const HeroSection = () => {
                 AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
                 Workflows—So You Can Focus on Patient Care!
               </Typography>
+
+              <Box sx={{ mb: 4 }}>
+                <TiltedScroll />
+              </Box>
 
               <ShadcnButton 
                 size="lg" 
