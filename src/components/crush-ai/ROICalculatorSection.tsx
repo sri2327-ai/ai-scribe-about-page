@@ -1,25 +1,70 @@
 
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
-import { motion } from "framer-motion";
-import { Info, BarChart2, DollarSign, Users } from "lucide-react";
+import { motion, useAnimation } from "framer-motion";
+import { Info, BarChart2, DollarSign, Users, Magnet } from "lucide-react";
 import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, ResponsiveContainer, BarChart } from "recharts";
 import { ChartContainer } from "@/components/ui/chart";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+}
 
 export const ROICalculatorSection = () => {
   const [providers, setProviders] = useState<number>(3);
   const [costPerProvider, setCostPerProvider] = useState<number>(99);
   const [patientsPerDay, setPatientsPerDay] = useState<number>(20);
   const [savingsData, setSavingsData] = useState<Array<{ name: string; value: number }>>([]);
+  const [isAttracting, setIsAttracting] = useState(false);
+  const [particles, setParticles] = useState<Particle[]>([]);
+  const particlesControl = useAnimation();
+  
+  // Initialize particles
+  useEffect(() => {
+    const particleCount = 12;
+    const newParticles = Array.from({ length: particleCount }, (_, i) => ({
+      id: i,
+      x: Math.random() * 360 - 180,
+      y: Math.random() * 360 - 180,
+    }));
+    setParticles(newParticles);
+  }, []);
+
+  // Handle magnetize button interactions
+  const handleInteractionStart = async () => {
+    setIsAttracting(true);
+    await particlesControl.start({
+      x: 0,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 50,
+        damping: 10,
+      },
+    });
+  };
+
+  const handleInteractionEnd = async () => {
+    setIsAttracting(false);
+    await particlesControl.start((i) => ({
+      x: particles[i].x,
+      y: particles[i].y,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      },
+    }));
+  };
   
   // Calculate savings data
   useEffect(() => {
     const humanScribeCost = providers * 2000;
     const crushAICost = providers * costPerProvider;
-    const monthlySavings = humanScribeCost - crushAICost;
     
     setSavingsData([
       { name: "Human Scribe", value: humanScribeCost },
@@ -66,7 +111,7 @@ export const ROICalculatorSection = () => {
                 fontSize: { xs: "1rem", md: "1.1rem" }
               }}
             >
-              Crush AI starts at just $99/month. Trusted by 90+ providers to reduce burnout, save time, and cut costs.
+              Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
             </Typography>
           </motion.div>
         </Box>
@@ -224,6 +269,46 @@ export const ROICalculatorSection = () => {
                 Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
               </Typography>
             </div>
+            
+            {/* Magnetize Button */}
+            <div className="flex justify-center mt-2">
+              <Button
+                className={cn(
+                  "min-w-40 relative touch-none",
+                  "bg-black hover:bg-black/90 text-white",
+                  "border border-black/20",
+                  "transition-all duration-300"
+                )}
+                onMouseEnter={handleInteractionStart}
+                onMouseLeave={handleInteractionEnd}
+                onTouchStart={handleInteractionStart}
+                onTouchEnd={handleInteractionEnd}
+              >
+                {particles.map((_, index) => (
+                  <motion.div
+                    key={index}
+                    custom={index}
+                    initial={{ x: particles[index].x, y: particles[index].y }}
+                    animate={particlesControl}
+                    className={cn(
+                      "absolute w-1.5 h-1.5 rounded-full",
+                      "bg-yellow-400",
+                      "transition-opacity duration-300",
+                      isAttracting ? "opacity-100" : "opacity-40"
+                    )}
+                  />
+                ))}
+                <span className="relative w-full flex items-center justify-center gap-2">
+                  <Magnet
+                    className={cn(
+                      "w-4 h-4 transition-transform duration-300",
+                      isAttracting && "scale-110"
+                    )}
+                  />
+                  {isAttracting ? "Magnetizing Savings" : "Magnetize Savings"}
+                </span>
+              </Button>
+            </div>
           </div>
           
           {/* Chart Section */}
@@ -243,49 +328,36 @@ export const ROICalculatorSection = () => {
             </Typography>
             
             <ResponsiveContainer width="100%" height={300}>
-              <ChartContainer
-                className="w-full"
-                config={{
-                  "Human Scribe": { 
-                    color: "#000000" 
-                  },
-                  "Crush AI": { 
-                    color: "#333333" 
-                  }
-                }}
+              <BarChart
+                data={savingsData}
+                margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
               >
-                <BarChart
-                  data={savingsData}
-                  margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="name"
-                    tick={{ fill: '#000000' }}
-                    axisLine={{ stroke: '#000000' }}
-                  />
-                  <YAxis
-                    tickFormatter={(value) => `$${value}`}
-                    tick={{ fill: '#000000' }}
-                    axisLine={{ stroke: '#000000' }}
-                  />
-                  <RechartsTooltip
-                    formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
-                    contentStyle={{ 
-                      backgroundColor: '#fff', 
-                      border: '1px solid #000',
-                      borderRadius: '4px'
-                    }}
-                  />
-                  <Bar
-                    dataKey="value"
-                    fill="currentColor"
-                    radius={[8, 8, 0, 0]}
-                    className="fill-[var(--color-Human-Scribe,#000)]"
-                    name="Cost"
-                  />
-                </BarChart>
-              </ChartContainer>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="name"
+                  tick={{ fill: '#000000' }}
+                  axisLine={{ stroke: '#000000' }}
+                />
+                <YAxis
+                  tickFormatter={(value) => `$${value}`}
+                  tick={{ fill: '#000000' }}
+                  axisLine={{ stroke: '#000000' }}
+                />
+                <RechartsTooltip
+                  formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
+                  contentStyle={{ 
+                    backgroundColor: '#fff', 
+                    border: '1px solid #000',
+                    borderRadius: '4px'
+                  }}
+                />
+                <Bar
+                  dataKey="value"
+                  fill="#000000"
+                  radius={[8, 8, 0, 0]}
+                  name="Cost"
+                />
+              </BarChart>
             </ResponsiveContainer>
             
             <Button 
