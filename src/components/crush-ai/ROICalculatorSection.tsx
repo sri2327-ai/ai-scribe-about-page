@@ -285,18 +285,23 @@ export const ROICalculatorSection = () => {
                 onTouchEnd={handleInteractionEnd}
               >
                 {particles.map((_, index) => (
-                  <motion.div
+                  <motion.span
                     key={index}
                     custom={index}
                     initial={{ x: particles[index].x, y: particles[index].y }}
                     animate={particlesControl}
                     className={cn(
-                      "absolute w-1.5 h-1.5 rounded-full",
-                      "bg-yellow-400",
+                      "absolute text-xs font-bold",
                       "transition-opacity duration-300",
                       isAttracting ? "opacity-100" : "opacity-40"
                     )}
-                  />
+                    style={{
+                      color: "#FFD700", // Gold color for dollar signs
+                    }}
+                  >
+                    {/* Use dollar symbol or randomize between $ and numbers */}
+                    {index % 3 === 0 ? "$" : index % 3 === 1 ? "💰" : "💵"}
+                  </motion.span>
                 ))}
                 <span className="relative w-full flex items-center justify-center gap-2">
                   <Magnet
