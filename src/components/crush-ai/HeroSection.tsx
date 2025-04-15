@@ -7,6 +7,7 @@ import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
+import { CheckCircle } from "lucide-react";
 
 export const HeroSection = () => {
   return (
@@ -97,8 +98,7 @@ export const HeroSection = () => {
                 justifyContent: 'center',
                 position: 'relative',
                 width: '100%',
-                height: '100%',
-                maxHeight: { xs: '350px', md: '450px' }
+                height: '100%'
               }}
             >
               <AnimatedWorkflow />
@@ -113,24 +113,6 @@ export const HeroSection = () => {
           </Box>
         </Box>
       </Container>
-      
-      {/* Background TiltedScroll */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          width: '100%',
-          height: '100%',
-          opacity: 0.04,
-          pointerEvents: 'none',
-          zIndex: -1,
-          transform: 'scale(1.5) rotate(-5deg)',
-          overflow: 'hidden'
-        }}
-      >
-        <TiltedScroll />
-      </Box>
     </Box>
   );
 };
