@@ -17,7 +17,8 @@ import {
   LineChart,
   Stethoscope,
   Workflow,
-  TestTube
+  TestTube,
+  ArrowRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -26,28 +27,41 @@ interface BentoCardProps {
   title: string;
   description: string;
   className?: string;
+  href?: string;
 }
 
-const BentoCard = ({ icon: Icon, title, description, className }: BentoCardProps) => (
+const BentoCard = ({ icon: Icon, title, description, className, href = "#" }: BentoCardProps) => (
   <div
     className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6",
+      "group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-xl",
+      // light styles
       "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+      // dark styles
+      "transform-gpu dark:bg-black dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       "border border-gray-100 hover:border-purple-100 transition-all duration-300",
       className
     )}
   >
-    <div className="flex flex-col gap-3 z-10">
-      <div className="bg-gray-50 w-12 h-12 rounded-lg flex items-center justify-center">
+    <div className="flex flex-col gap-3 p-6 z-10">
+      <div className="bg-gray-50 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
         <Icon size={24} className="text-black" />
       </div>
       
-      <div>
+      <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
         <h3 className="text-xl font-semibold text-black mb-2">
           {title}
         </h3>
         <p className="text-gray-600">{description}</p>
       </div>
+    </div>
+    
+    <div className="pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+      <Button variant="ghost" asChild size="sm" className="pointer-events-auto">
+        <a href={href}>
+          Learn more
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </a>
+      </Button>
     </div>
     
     <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.02]" />
@@ -245,35 +259,36 @@ export const ClinicalWorkflowSection = () => {
           </Box>
           
           <div className="grid grid-cols-12 gap-4">
+            {/* Bento grid layout for Clinical Features */}
             <BentoCard 
               icon={clinicalFeatures[0].icon}
               title={clinicalFeatures[0].title}
               description={clinicalFeatures[0].description}
-              className="col-span-12 md:col-span-6 min-h-[180px]"
+              className="col-span-12 md:col-span-6 min-h-[220px]"
             />
             <BentoCard 
               icon={clinicalFeatures[1].icon}
               title={clinicalFeatures[1].title}
               description={clinicalFeatures[1].description}
-              className="col-span-12 md:col-span-6 min-h-[180px]"
+              className="col-span-12 md:col-span-6 min-h-[220px]"
             />
             <BentoCard 
               icon={clinicalFeatures[2].icon}
               title={clinicalFeatures[2].title}
               description={clinicalFeatures[2].description}
-              className="col-span-12 md:col-span-5 min-h-[180px]"
+              className="col-span-12 md:col-span-4 min-h-[220px]"
             />
             <BentoCard 
               icon={clinicalFeatures[3].icon}
               title={clinicalFeatures[3].title}
               description={clinicalFeatures[3].description}
-              className="col-span-12 md:col-span-3 min-h-[180px]"
+              className="col-span-12 md:col-span-4 min-h-[220px]"
             />
             <BentoCard 
               icon={clinicalFeatures[4].icon}
               title={clinicalFeatures[4].title}
               description={clinicalFeatures[4].description}
-              className="col-span-12 md:col-span-4 min-h-[180px]"
+              className="col-span-12 md:col-span-4 min-h-[220px]"
             />
           </div>
         </Box>
