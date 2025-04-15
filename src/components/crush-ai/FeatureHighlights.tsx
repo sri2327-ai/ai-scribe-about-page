@@ -79,7 +79,7 @@ export function FeatureHighlights() {
 
         <Grid container spacing={4}>
           {features.map((feature, index) => (
-            <Grid xs={12} md={index < 2 ? 6 : 4} key={index}>
+            <Grid item xs={12} md={index < 2 ? 6 : 4} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
