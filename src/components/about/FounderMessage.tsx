@@ -392,12 +392,12 @@ const FounderMessage = () => {
                     </Typography>
                     
                     <SignatureAnimation 
-                      width={220} 
-                      height={100} 
+                      width={250} 
+                      height={120} 
                       color="#1EAEDB" 
                       className="mt-2" 
                       strokeWidth={2.5}
-                      speed={1.2}
+                      speed={1}
                     />
                   </Box>
                 </Box>
