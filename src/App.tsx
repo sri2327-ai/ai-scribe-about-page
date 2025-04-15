@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Technology from "./pages/Technology";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -20,6 +21,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />

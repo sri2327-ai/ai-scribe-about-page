@@ -1,0 +1,28 @@
+
+/* Header Styles */
+.header_main {
+  position: relative;
+  z-index: 100;
+}
+
+.header_logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header_logo_img {
+  height: 40px;
+  width: auto;
+}
+
+.header_link {
+  text-decoration: none;
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .header_logo_img {
+    height: 32px;
+  }
+}
