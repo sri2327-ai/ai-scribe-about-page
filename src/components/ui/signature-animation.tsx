@@ -4,9 +4,8 @@
 import { useEffect, useRef } from "react";
 import { motion, useInView, useAnimation } from "framer-motion";
 
-// Updated path data to more accurately match the provided signature image
-// This represents a more precise path data for "Sridhar" signature based on the uploaded image
-const pathData = "M25,70 C35,30 50,20 60,35 C65,45 70,60 70,80 C70,95 65,110 65,120 M70,70 C80,50 90,45 100,50 C110,60 110,75 95,90 M100,50 C115,50 125,55 130,70 C130,85 120,95 110,90 M130,70 C140,50 150,50 155,60 C160,70 155,80 145,90 M160,65 C170,50 175,45 180,55 C185,65 180,80 175,85 M185,45 C195,60 195,80 195,90 M205,45 C215,65 210,85 205,90";
+// Simplified path data for "Sridar" handwritten signature
+const pathData = "M25,70 C35,40 45,30 60,40 C70,50 65,70 60,90 M70,60 C80,40 90,40 100,50 C110,60 105,80 95,90 M110,50 C120,40 130,40 140,50 C145,60 140,75 130,85 M155,40 C160,50 165,70 165,90 M175,40 C180,50 185,60 190,70 C195,80 180,85 175,75 M195,40 C200,60 200,80 200,90";
 
 interface SignatureAnimationProps {
   className?: string;
@@ -65,7 +64,7 @@ export const SignatureAnimation = ({
     const path = new Path2D(pathData);
     
     // Animation properties
-    const length = 1800; // Increased length to match the longer path
+    const length = 1600; // Adjusted length for the simpler path
     let progress = 0;
     
     // Handle window resize
