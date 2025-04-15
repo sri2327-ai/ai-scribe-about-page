@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -30,13 +29,17 @@ export const WorkflowAutomationSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#f9f9f9"
+        bgcolor: "white"
       }}
     >
       <Container maxWidth="lg">
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <Box>
-            <Badge className="bg-blue-500 text-white hover:bg-blue-600">Workflow</Badge>
+            <Badge 
+              className="bg-black text-white hover:bg-black/90 border border-black/10"
+            >
+              Workflow
+            </Badge>
           </Box>
           
           <Box 
@@ -113,7 +116,6 @@ export const WorkflowAutomationSection = () => {
                   </button>
                 </div>
                 
-                {/* Before - Traditional Documentation */}
                 <div
                   className="absolute left-0 top-0 z-10 w-full h-full rounded-xl select-none border overflow-hidden"
                   style={{
@@ -144,7 +146,6 @@ export const WorkflowAutomationSection = () => {
                   </div>
                 </div>
                 
-                {/* After - CRUSH Documentation */}
                 <div className="absolute left-0 top-0 w-full h-full aspect-video rounded-xl select-none border overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-blue-100 flex flex-col">
                     <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 flex items-center">
