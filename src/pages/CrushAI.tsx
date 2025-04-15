@@ -9,6 +9,7 @@ import { CompetitionSection } from "@/components/crush-ai/CompetitionSection";
 import { WorkflowAutomationSection } from "@/components/crush-ai/WorkflowAutomationSection";
 import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowSection";
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
+import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "lucide-react";
 import { Container, Typography } from "@mui/material";
@@ -70,6 +71,9 @@ const CrushAI = () => {
       
       {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />
+      
+      {/* ROI Calculator Section */}
+      <ROICalculatorSection />
     </Box>
   );
 };
