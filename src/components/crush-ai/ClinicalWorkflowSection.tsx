@@ -2,9 +2,11 @@
 "use client";
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { CanvasEffect } from "@/components/ui/canvas-effect";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { ArrowRightIcon } from "lucide-react";
 import { 
   Stethoscope, 
   ClipboardList, 
@@ -23,77 +25,69 @@ import {
   Clock 
 } from "lucide-react";
 
-// Feature Item Component
-const FeatureItem = ({ 
-  icon: Icon, 
-  title, 
-  description 
-}: { 
-  icon: React.FC<any>; 
-  title: string; 
-  description: string;
+// BentoGrid Component
+const BentoGrid = ({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
 }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-      className="p-4"
+    <div
+      className={cn(
+        "grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4",
+        className,
+      )}
     >
-      <Box sx={{ 
-        display: "flex", 
-        flexDirection: "column",
-        height: "100%", 
-        p: 3, 
-        borderRadius: "16px",
-        border: "1px solid rgba(155,135,245,0.2)",
-        background: "linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(250,250,252,0.95) 100%)",
-        boxShadow: "0 4px 20px rgba(155,135,245,0.1)",
-        transition: "transform 0.3s ease, box-shadow 0.3s ease",
-        "&:hover": {
-          transform: "translateY(-5px)",
-          boxShadow: "0 10px 25px rgba(155,135,245,0.2)",
-        }
-      }}>
-        <Box sx={{ mb: 2, display: "flex", alignItems: "center" }}>
-          <Box sx={{ 
-            borderRadius: "12px",
-            p: 1.5,
-            mr: 2,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(155,135,245,0.1)",
-            border: "1px solid rgba(155,135,245,0.3)"
-          }}>
-            <Icon size={22} strokeWidth={2} className="text-purple-500" />
-          </Box>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontWeight: 600, 
-              fontSize: "1.1rem",
-              color: "#333"
-            }}
-          >
-            {title}
-          </Typography>
-        </Box>
-        <Typography 
-          variant="body2" 
-          sx={{ 
-            color: "#555",
-            flex: 1,
-            lineHeight: 1.6
-          }}
-        >
-          {description}
-        </Typography>
-      </Box>
-    </motion.div>
+      {children}
+    </div>
   );
 };
+
+// BentoCard Component
+const BentoCard = ({
+  icon: Icon,
+  title,
+  description,
+  className,
+}: {
+  icon: React.FC<any>;
+  title: string;
+  description: string;
+  className?: string;
+}) => (
+  <div
+    className={cn(
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 h-full",
+      "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+      "border border-gray-100 hover:border-purple-100 transition-all duration-300",
+      className,
+    )}
+  >
+    <div className="flex flex-col gap-3">
+      <div className="bg-gray-50 w-12 h-12 rounded-lg flex items-center justify-center">
+        <Icon size={24} className="text-black" />
+      </div>
+      <h3 className="text-xl font-semibold text-black">
+        {title}
+      </h3>
+      <p className="text-gray-600">{description}</p>
+    </div>
+    
+    <div
+      className={cn(
+        "pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
+      )}
+    >
+      <Button variant="ghost" size="sm" className="pointer-events-auto">
+        Learn more
+        <ArrowRightIcon className="ml-2 h-4 w-4" />
+      </Button>
+    </div>
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03]" />
+  </div>
+);
 
 // Subsection Component
 const FeatureSubsection = ({ 
@@ -107,7 +101,7 @@ const FeatureSubsection = ({
 }) => {
   return (
     <Box sx={{ mb: 8 }}>
-      <Box sx={{ mb: 4, textAlign: "left" }}>
+      <Box sx={{ mb: 6, textAlign: "left" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +113,7 @@ const FeatureSubsection = ({
             sx={{ 
               fontWeight: 600, 
               mb: 1,
-              color: "#333",
+              color: "#000",
               fontSize: { xs: "1.5rem", md: "1.75rem" },
               position: "relative",
               display: "inline-block",
@@ -158,17 +152,16 @@ const FeatureSubsection = ({
         </motion.div>
       </Box>
       
-      <Grid container spacing={3}>
+      <BentoGrid>
         {features.map((feature, index) => (
-          <Grid xs={12} sm={6} md={4} key={index}>
-            <FeatureItem 
-              icon={feature.icon} 
-              title={feature.title} 
-              description={feature.description} 
-            />
-          </Grid>
+          <BentoCard 
+            key={index}
+            icon={feature.icon} 
+            title={feature.title} 
+            description={feature.description} 
+          />
         ))}
-      </Grid>
+      </BentoGrid>
     </Box>
   );
 };
@@ -247,14 +240,8 @@ export const ClinicalWorkflowSection = () => {
         py: { xs: 8, md: 12 },
         bgcolor: "#FFFFFF",
         position: "relative",
-        overflow: "hidden"
       }}
     >
-      {/* Background effect */}
-      <Box sx={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
-        <CanvasEffect id="workflow-canvas" />
-      </Box>
-      
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5 }}>
         <Box sx={{ textAlign: "center", mb: 8 }}>
           <motion.div
@@ -291,7 +278,7 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 600, 
                 mb: 3,
-                color: "#333",
+                color: "#000",
                 fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" }
               }}
             >
