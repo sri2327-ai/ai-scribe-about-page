@@ -99,12 +99,13 @@ export default function Footer() {
         zIndex: 1
       }}>
         <AnimatedGradientBackground 
-          startingGap={500}
+          startingGap={400}
           Breathing={true}
-          gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
-          gradientStops={[0, 15, 30, 100]}
+          gradientColors={["#1EAEDB", "#0FA0CE", "#000", "#000"]}
+          gradientStops={[0, 10, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
+          direction="top"
         />
         
         <Box sx={{ 
