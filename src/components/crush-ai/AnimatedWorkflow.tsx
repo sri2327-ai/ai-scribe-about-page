@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   FileText, HardDrive, Send, CheckCircle, 
-  ClipboardList, Flask, Mail, Mic
+  ClipboardList, TestTube, Mail, Mic
 } from "lucide-react";
 import { Box, Typography } from "@mui/material";
 
@@ -205,7 +205,7 @@ const workflowSteps = [
   {
     id: "labs",
     title: "Process Lab & Prescription Orders",
-    icon: <Flask size={30} className="text-black" />,
+    icon: <TestTube size={30} className="text-black" />,
     description: "Submitting necessary lab work and prescriptions...",
     detailContent: (
       <Box sx={{ mt: 2 }}>

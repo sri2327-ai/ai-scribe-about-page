@@ -59,7 +59,7 @@ export const CompetitionSection = () => {
             "Burnout? What's That?: Charts done in under a minute, no late-night edits. Better RAF scores mean more revenue, too. Other scribes keep you slaving.",
             "Security That's Ironclad: HIPAA, SOC 2, HITECH—your data's untouchable. Unlike those sketchy scribes with security as flimsy as a paper chart."
           ].map((item, index) => (
-            <Grid item xs={12} md={6} component="div" key={index}>
+            <Grid item xs={12} md={6} key={index}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, y: 10 }}

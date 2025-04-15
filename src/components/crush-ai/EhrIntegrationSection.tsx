@@ -67,7 +67,7 @@ export const EhrIntegrationSection = () => {
               icon: <FileCheck size={36} className="text-black" />
             }
           ].map((item, index) => (
-            <Grid item xs={12} md={4} component="div" key={index}>
+            <Grid item xs={12} md={4} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
