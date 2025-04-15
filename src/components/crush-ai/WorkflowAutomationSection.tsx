@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -35,11 +36,15 @@ export const WorkflowAutomationSection = () => {
       <Container maxWidth="lg">
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
           <Box>
-            <Badge 
-              className="bg-black text-white hover:bg-black/90 border border-black/10"
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
             >
-              Workflow
-            </Badge>
+              <Badge 
+                className="bg-black text-white hover:bg-black/90 border border-black/10"
+              />
+            </motion.div>
           </Box>
           
           <Box 
