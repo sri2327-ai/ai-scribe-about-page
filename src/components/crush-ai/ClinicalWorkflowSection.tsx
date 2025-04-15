@@ -1,6 +1,4 @@
 
-"use client";
-
 import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -34,26 +32,22 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
     transition={{ duration: 0.5 }}
     viewport={{ once: true, margin: "-50px" }}
     className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6",
-      "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
-      "border border-gray-100 hover:border-purple-100 transition-all duration-300",
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-black/10 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md",
       className
     )}
   >
     <div className="flex flex-col gap-3 z-10">
-      <div className="bg-gradient-to-br from-purple-50 to-purple-100 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
-        <Icon size={24} className="text-purple-700" />
+      <div className="bg-black/5 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
+        <Icon size={24} className="text-black stroke-[1.5]" />
       </div>
       
       <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
+        <h3 className="text-xl font-semibold text-black mb-2">
           {title}
         </h3>
-        <p className="text-gray-600">{description}</p>
+        <p className="text-gray-700">{description}</p>
       </div>
     </div>
-    
-    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-purple-50/[.05]" />
   </motion.div>
 );
 
@@ -121,7 +115,7 @@ export const ClinicalWorkflowSection = () => {
       component="section"
       sx={{
         py: { xs: 4, md: 6 },
-        bgcolor: "#f8f9ff",
+        bgcolor: "#ffffff",
         position: "relative",
         overflow: "hidden"
       }}
@@ -170,26 +164,20 @@ export const ClinicalWorkflowSection = () => {
           </motion.div>
         </Box>
         
-        <Tabs defaultValue="admin" className="w-full mb-8" onValueChange={setActiveTab}>
+        <Tabs defaultValue="admin" className="w-full" onValueChange={setActiveTab}>
           <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-            <TabsList className="w-auto bg-gradient-to-r from-purple-100/80 to-blue-100/80 p-1.5 shadow-md">
-              <TabsTrigger value="admin" className="relative py-2.5 transition-all">
-                <motion.span 
-                  className="font-medium z-10 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  Automate Staffing & Admin Work
-                </motion.span>
+            <TabsList className="w-auto bg-black/5 p-1.5 rounded-full shadow-sm">
+              <TabsTrigger 
+                value="admin" 
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
+              >
+                Automate Staffing & Admin Work
               </TabsTrigger>
-              <TabsTrigger value="clinical" className="relative py-2.5 transition-all">
-                <motion.span 
-                  className="font-medium z-10 relative"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                >
-                  AI Assistance for Physicians
-                </motion.span>
+              <TabsTrigger 
+                value="clinical" 
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
+              >
+                AI Assistance for Physicians
               </TabsTrigger>
             </TabsList>
           </Box>
@@ -206,13 +194,13 @@ export const ClinicalWorkflowSection = () => {
                     fontSize: { xs: "1.5rem", md: "1.75rem" }
                   }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-blue-600">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
                     Automate Staffing & Cut Admin Work
                   </span>
                 </Typography>
               }
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
                 {adminFeatures.map((feature, index) => (
                   <FeatureCard
                     key={index}
@@ -238,13 +226,13 @@ export const ClinicalWorkflowSection = () => {
                     fontSize: { xs: "1.5rem", md: "1.75rem" }
                   }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-700">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
                     AI Assistance for Physicians – Smarter, More Accurate Decisions
                   </span>
                 </Typography>
               }
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 md:p-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
                 {clinicalFeatures.map((feature, index) => (
                   <FeatureCard
                     key={index}
