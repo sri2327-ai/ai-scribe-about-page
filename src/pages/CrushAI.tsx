@@ -8,6 +8,7 @@ import { HowItWorksSection } from "@/components/crush-ai/HowItWorksSection";
 import { CompetitionSection } from "@/components/crush-ai/CompetitionSection";
 import { WorkflowAutomationSection } from "@/components/crush-ai/WorkflowAutomationSection";
 import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
+import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
 
 const CrushAI = () => {
   return (
@@ -26,6 +27,9 @@ const CrushAI = () => {
 
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
+
+      {/* Testimonial with Text Generate Effect */}
+      <TestimonialGenerateSection />
 
       {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />
