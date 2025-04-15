@@ -1,16 +1,20 @@
-
 import React, { useState } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload } from "lucide-react";
 
-// Simplified to just 3 main steps
 const steps = [
   {
     id: "select-patient",
-    icon: <Stethoscope className="h-8 w-8" />,
-    title: "1️⃣ Select a Patient",
+    title: "Select a Patient",
     description: "Launch CRUSH on any device and instantly access patient data.",
+    icon: <Stethoscope className="h-8 w-8" />,
+    details: [
+      {
+        title: "Patient Database",
+        description: "Instant access to comprehensive patient information"
+      }
+    ],
     animation: (active) => (
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -89,9 +93,9 @@ const steps = [
   },
   {
     id: "start-speaking",
-    icon: <Mic className="h-8 w-8" />,
-    title: "2️⃣ Start Speaking",
+    title: "Start Speaking",
     description: "Speak naturally in any supported language. Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time.",
+    icon: <Mic className="h-8 w-8" />,
     details: [
       {
         icon: <History className="h-6 w-6" />,
@@ -213,9 +217,9 @@ const steps = [
   },
   {
     id: "review-sign",
-    icon: <FileCheck className="h-8 w-8" />,
-    title: "3️⃣ Review & Sign Off",
+    title: "Review & Sign Off",
     description: "Instantly generates EHR-ready medical notes with AI-powered insights.",
+    icon: <FileCheck className="h-8 w-8" />,
     details: [
       {
         icon: <Upload className="h-6 w-6" />,
@@ -412,7 +416,6 @@ export const HowItWorksSection = () => {
           </Typography>
         </Box>
 
-        {/* Interactive Workflow Steps - Only 3 Main Cards */}
         <Box 
           sx={{ 
             display: 'flex', 
@@ -424,6 +427,7 @@ export const HowItWorksSection = () => {
         >
           {steps.map((step, index) => {
             const isActive = activeStep === index;
+            const stepNumber = index + 1;
             
             return (
               <Box 
@@ -439,15 +443,15 @@ export const HowItWorksSection = () => {
                   p: 4,
                   borderRadius: 3,
                   border: '2px solid',
-                  borderColor: isActive ? '#1a73e8' : 'rgba(0, 0, 0, 0.12)',
-                  boxShadow: isActive ? '0 8px 30px rgba(0, 120, 255, 0.12)' : '0 4px 6px rgba(0, 0, 0, 0.05)',
+                  borderColor: isActive ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.12)',
+                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.1)' : '0 4px 6px rgba(0, 0, 0, 0.05)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
                   position: 'relative',
                   zIndex: 1,
-                  bgcolor: isActive ? 'rgba(240, 249, 255, 0.8)' : 'white',
+                  bgcolor: isActive ? 'rgba(0, 0, 0, 0.02)' : 'white',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   minHeight: 320,
@@ -455,13 +459,26 @@ export const HowItWorksSection = () => {
                   "&:hover": {
                     transform: 'translateY(-5px)',
                     boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
-                    borderColor: 'rgba(0, 120, 255, 0.3)'
+                    borderColor: 'rgba(0, 0, 0, 0.3)'
                   }
                 }}
               >
                 <Box 
                   sx={{ 
-                    bgcolor: isActive ? 'rgba(26, 115, 232, 0.1)' : 'rgba(0, 0, 0, 0.04)',
+                    position: 'absolute', 
+                    top: 16, 
+                    left: 16, 
+                    fontWeight: 'bold', 
+                    fontSize: '2rem', 
+                    color: '#666' 
+                  }}
+                >
+                  {stepNumber}
+                </Box>
+                
+                <Box 
+                  sx={{ 
+                    bgcolor: 'rgba(0, 0, 0, 0.04)',
                     borderRadius: '50%',
                     p: 2,
                     display: 'flex',
@@ -481,7 +498,7 @@ export const HowItWorksSection = () => {
                   sx={{ 
                     fontWeight: 600, 
                     mb: 1.5,
-                    color: "#000",
+                    color: "#333",
                     transition: 'all 0.3s ease',
                   }}
                 >
@@ -491,7 +508,7 @@ export const HowItWorksSection = () => {
                 <Typography 
                   variant="body2"
                   sx={{ 
-                    color: '#333',
+                    color: '#666',
                     mb: 3,
                     transition: 'all 0.3s ease',
                   }}
@@ -499,10 +516,8 @@ export const HowItWorksSection = () => {
                   {step.description}
                 </Typography>
 
-                {/* Interactive Animation Section */}
                 {step.animation(isActive)}
                 
-                {/* Details that show on active */}
                 <AnimatePresence>
                   {isActive && step.details && (
                     <motion.div
