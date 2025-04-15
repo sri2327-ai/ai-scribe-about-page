@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Box, Typography, Container, Paper, Grid } from "@mui/material";
@@ -7,7 +6,6 @@ import { Spotlight } from "@/components/ui/spotlight";
 import { Brain, Globe, Layers } from "lucide-react";
 import { SignatureAnimation } from "@/components/ui/signature-animation";
 
-// Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   
@@ -84,7 +82,6 @@ const FounderMessage = () => {
         overflow: 'hidden'
       }}
     >
-      {/* Teal Blue Beams Background */}
       <Box 
         sx={{ 
           position: 'absolute', 
@@ -135,7 +132,6 @@ const FounderMessage = () => {
             position: 'relative'
           }}
         >
-          {/* Add spotlight effect inside the card */}
           <Spotlight
             className="inset-0 z-0"
             fill="#1EAEDB"
@@ -395,12 +391,13 @@ const FounderMessage = () => {
                       Founder & Chairman, S10.AI Inc.
                     </Typography>
                     
-                    {/* Animated Signature */}
                     <SignatureAnimation 
-                      width={180} 
-                      height={60} 
+                      width={220} 
+                      height={100} 
                       color="#1EAEDB" 
                       className="mt-2" 
+                      strokeWidth={2.5}
+                      speed={1.2}
                     />
                   </Box>
                 </Box>
