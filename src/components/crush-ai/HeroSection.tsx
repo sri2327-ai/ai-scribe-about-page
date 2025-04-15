@@ -1,9 +1,10 @@
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
 import { CheckCircle } from "lucide-react";
@@ -14,8 +15,97 @@ import {
   TooltipTrigger 
 } from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { 
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 export const HeroSection = () => {
+  // Auto-trigger the first tooltip to show users they can hover
+  const [showTooltipHint, setShowTooltipHint] = useState(false);
+  
+  useEffect(() => {
+    // Show the tooltip hint after the page loads
+    const timer = setTimeout(() => {
+      setShowTooltipHint(true);
+    }, 1500);
+    
+    const hideTimer = setTimeout(() => {
+      setShowTooltipHint(false);
+    }, 4000);
+    
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(hideTimer);
+    };
+  }, []);
+
+  const renderLetterPopover = (letter: string, title: string, description: string, isFirst: boolean = false) => {
+    return (
+      <Popover open={isFirst && showTooltipHint ? true : undefined}>
+        <PopoverTrigger asChild>
+          <Box 
+            component="span" 
+            sx={{ 
+              color: '#000000', 
+              fontWeight: 900,
+              position: 'relative',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              '&:hover': {
+                textDecoration: 'underline',
+                textDecorationThickness: '2px',
+                textUnderlineOffset: '4px'
+              }
+            }}
+          >
+            <strong>{letter}</strong>
+            {isFirst && (
+              <Box 
+                sx={{ 
+                  position: 'absolute', 
+                  top: '-18px',
+                  right: '-14px',
+                  fontSize: '12px',
+                  animation: showTooltipHint ? 'pulse 2s infinite' : 'none',
+                  '@keyframes pulse': {
+                    '0%': { opacity: 0.5, transform: 'scale(0.95)' },
+                    '50%': { opacity: 1, transform: 'scale(1.05)' },
+                    '100%': { opacity: 0.5, transform: 'scale(0.95)' },
+                  }
+                }}
+              >
+                <Info size={16} />
+              </Box>
+            )}
+          </Box>
+        </PopoverTrigger>
+        <PopoverContent 
+          className="p-0 border-0 shadow-xl" 
+          sideOffset={5}
+          style={{
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(10px)',
+            borderRadius: '10px',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)'
+          }}
+        >
+          <Box sx={{ p: 3, color: '#fff' }}>
+            <Typography sx={{ fontWeight: 700, fontSize: '1.1rem', mb: 1 }}>
+              {title}
+            </Typography>
+            <Typography sx={{ fontSize: '0.9rem', opacity: 0.9, lineHeight: 1.5 }}>
+              {description}
+            </Typography>
+          </Box>
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
   return (
     <Box 
       component="section" 
@@ -74,170 +164,15 @@ export const HeroSection = () => {
                 }}
               >
                 <Box component="span" sx={{ color: '#000000' }}>
-                  <TooltipProvider>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Box 
-                          component="span" 
-                          sx={{ 
-                            color: '#000000', 
-                            fontWeight: 900,
-                            position: 'relative',
-                            cursor: 'pointer',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationThickness: '2px',
-                              textUnderlineOffset: '4px'
-                            }
-                          }}
-                        >
-                          <strong>C</strong>
-                        </Box>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 border-2 border-black" sideOffset={5}>
-                        <Box sx={{ p: 2, bgcolor: '#000', color: '#fff' }}>
-                          <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>
-                            Customizable
-                          </Typography>
-                          <Typography sx={{ fontSize: '0.8rem', mt: 1 }}>
-                            Tailor the AI scribe to your specialty and workflow needs
-                          </Typography>
-                        </Box>
-                      </PopoverContent>
-                    </Popover>
-                  </TooltipProvider>
+                  {renderLetterPopover('C', 'Customizable', 'Tailor the AI scribe to your specialty and workflow needs', true)}
                   .
-                  <TooltipProvider>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Box 
-                          component="span" 
-                          sx={{ 
-                            color: '#000000', 
-                            fontWeight: 900,
-                            position: 'relative',
-                            cursor: 'pointer',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationThickness: '2px',
-                              textUnderlineOffset: '4px'
-                            }
-                          }}
-                        >
-                          <strong>R</strong>
-                        </Box>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 border-2 border-black" sideOffset={5}>
-                        <Box sx={{ p: 2, bgcolor: '#000', color: '#fff' }}>
-                          <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>
-                            Real-time EHR Integration
-                          </Typography>
-                          <Typography sx={{ fontSize: '0.8rem', mt: 1 }}>
-                            Seamlessly connects with your existing electronic health record system
-                          </Typography>
-                        </Box>
-                      </PopoverContent>
-                    </Popover>
-                  </TooltipProvider>
+                  {renderLetterPopover('R', 'Real-time EHR Integration', 'Seamlessly connects with your existing electronic health record system')}
                   .
-                  <TooltipProvider>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Box 
-                          component="span" 
-                          sx={{ 
-                            color: '#000000', 
-                            fontWeight: 900,
-                            position: 'relative',
-                            cursor: 'pointer',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationThickness: '2px',
-                              textUnderlineOffset: '4px'
-                            }
-                          }}
-                        >
-                          <strong>U</strong>
-                        </Box>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 border-2 border-black" sideOffset={5}>
-                        <Box sx={{ p: 2, bgcolor: '#000', color: '#fff' }}>
-                          <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>
-                            Universal Coding
-                          </Typography>
-                          <Typography sx={{ fontSize: '0.8rem', mt: 1 }}>
-                            Supports ICD-10, CPT, and HCC coding standards automatically
-                          </Typography>
-                        </Box>
-                      </PopoverContent>
-                    </Popover>
-                  </TooltipProvider>
+                  {renderLetterPopover('U', 'Universal Coding', 'Supports ICD-10, CPT, and HCC coding standards automatically')}
                   .
-                  <TooltipProvider>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Box 
-                          component="span" 
-                          sx={{ 
-                            color: '#000000', 
-                            fontWeight: 900,
-                            position: 'relative',
-                            cursor: 'pointer',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationThickness: '2px',
-                              textUnderlineOffset: '4px'
-                            }
-                          }}
-                        >
-                          <strong>S</strong>
-                        </Box>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 border-2 border-black" sideOffset={5}>
-                        <Box sx={{ p: 2, bgcolor: '#000', color: '#fff' }}>
-                          <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>
-                            Seamless Multilingual Support
-                          </Typography>
-                          <Typography sx={{ fontSize: '0.8rem', mt: 1 }}>
-                            Communicate with patients in their preferred language
-                          </Typography>
-                        </Box>
-                      </PopoverContent>
-                    </Popover>
-                  </TooltipProvider>
+                  {renderLetterPopover('S', 'Seamless Multilingual Support', 'Communicate with patients in their preferred language')}
                   .
-                  <TooltipProvider>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Box 
-                          component="span" 
-                          sx={{ 
-                            color: '#000000', 
-                            fontWeight: 900,
-                            position: 'relative',
-                            cursor: 'pointer',
-                            '&:hover': {
-                              textDecoration: 'underline',
-                              textDecorationThickness: '2px',
-                              textUnderlineOffset: '4px'
-                            }
-                          }}
-                        >
-                          <strong>H</strong>
-                        </Box>
-                      </PopoverTrigger>
-                      <PopoverContent className="p-0 border-2 border-black" sideOffset={5}>
-                        <Box sx={{ p: 2, bgcolor: '#000', color: '#fff' }}>
-                          <Typography sx={{ fontWeight: 700, fontSize: '1rem' }}>
-                            Healthcare Automation
-                          </Typography>
-                          <Typography sx={{ fontSize: '0.8rem', mt: 1 }}>
-                            Streamlines clinical workflows and administrative tasks
-                          </Typography>
-                        </Box>
-                      </PopoverContent>
-                    </Popover>
-                  </TooltipProvider>
+                  {renderLetterPopover('H', 'Healthcare Automation', 'Streamlines clinical workflows and administrative tasks')}
                 </Box> : The AI Medical Scribe That Works for You
               </Typography>
 
