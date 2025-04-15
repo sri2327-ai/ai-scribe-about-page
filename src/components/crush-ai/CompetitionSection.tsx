@@ -1,121 +1,157 @@
-
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { CheckCircle, X } from "lucide-react";
+import Grid from '@mui/material/Unstable_Grid2';
+
+const featuresData = [
+  {
+    title: "AI-Powered Automation",
+    crush: "✓",
+    competition: "X"
+  },
+  {
+    title: "Seamless EHR Integration",
+    crush: "✓",
+    competition: "X"
+  },
+  {
+    title: "Customizable Templates",
+    crush: "✓",
+    competition: "X"
+  },
+  {
+    title: "Real-Time Documentation",
+    crush: "✓",
+    competition: "X"
+  },
+  {
+    title: "Coding Assistance",
+    crush: "✓",
+    competition: "X"
+  },
+  {
+    title: "Referral Automation",
+    crush: "✓",
+    competition: "X"
+  }
+];
 
 export const CompetitionSection = () => {
   return (
-    <Box 
-      component="section" 
-      sx={{ 
+    <Box
+      component="section"
+      sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: '#ffffff'
+        bgcolor: "#ffffff"
       }}
     >
       <Container maxWidth="lg">
-        <Box 
-          component={motion.div}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          sx={{ mb: 6, textAlign: 'center' }}
-        >
-          <Typography 
-            variant="h2" 
-            sx={{ 
-              fontSize: { xs: '2rem', md: '2.75rem' },
-              fontWeight: 800,
-              mb: 3,
-              color: '#000000',
-              letterSpacing: '-0.02em'
-            }}
-          >
-            Why C.R.U.S.H. Crushes the Competition
-          </Typography>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              maxWidth: 900,
-              mx: 'auto',
-              color: '#403E43',
-              fontWeight: 400
-            }}
-          >
-            Other AI scribes talk a big game, but they're basically glorified typewriters. C.R.U.S.H. (Customizable, Real-time, Universal, Smart Healthcare) is in a league of its own, and we've got the edge to prove it.
-          </Typography>
-        </Box>
-
-        <Grid container spacing={3}>
-          {[
-            "Pinpoint Accuracy, No Nonsense: Our AI nails every detail of your medical jargon. No fixing botched notes like with those other scribes that churn out fiction.",
-            "EHR Sync That's Actually Seamless: Plugs into any EHR—Epic, Cerner, or your clinic's quirky setup. Notes, labs, prescriptions? Instant. Others? Stuck in copy-paste purgatory.",
-            "Multilingual Mastery: English, Spanish, French, you name it—C.R.U.S.H. gets it right. Other scribes fumble anything beyond basic English.",
-            "Customization with Humans in the Loop: We don't just hand you templates and ghost you. Our human experts work with you to tailor notes and workflows to your exact needs—something those faceless AI scribes can't touch.",
-            "Automation That Runs Your Life: Referrals, prescriptions, screenings? C.R.U.S.H. handles it all. Other scribes? They're still learning to spell \"referral.\"",
-            "Clinical Smarts on Tap: Real-time tips, HCC tracking, and preventive care flags. It's your brainy co-pilot, not a glorified stenographer.",
-            "Burnout? What's That?: Charts done in under a minute, no late-night edits. Better RAF scores mean more revenue, too. Other scribes keep you slaving.",
-            "Security That's Ironclad: HIPAA, SOC 2, HITECH—your data's untouchable. Unlike those sketchy scribes with security as flimsy as a paper chart."
-          ].map((item, index) => (
-            <Grid item key={index} xs={12} md={6}>
-              <Box 
-                component={motion.div}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                sx={{ 
-                  display: 'flex', 
-                  gap: 2,
-                  alignItems: 'flex-start'
-                }}
-              >
-                <Check 
-                  size={24} 
-                  className="text-tealBlueBright mt-1 flex-shrink-0"
-                />
-                <Typography 
-                  variant="body1" 
-                  sx={{ color: '#403E43' }}
-                >
-                  {item}
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
-        </Grid>
-
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          sx={{ 
-            mt: 6, 
-            textAlign: 'center',
-            p: 4,
-            borderRadius: 2,
-            bgcolor: '#fafafa',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04)',
-            border: '1px solid rgba(0, 0, 0, 0.06)',
-            maxWidth: 900,
-            mx: 'auto'
-          }}
+          sx={{ mb: 6, textAlign: "center" }}
         >
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontWeight: 600,
-              color: '#000000',
-              fontStyle: 'italic',
-              fontSize: '1.1rem'
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: "2rem", md: "2.75rem" },
+              fontWeight: 800,
+              mb: 3,
+              color: "#000000",
+              letterSpacing: "-0.02em"
             }}
           >
-            C.R.U.S.H. doesn't just outshine other scribes—it redefines what an AI scribe can do. With human-backed customization, we're here for you, not just your dictation. Demo us and kiss the wannabes goodbye.
+            Why CRUSH Crushes the Competition
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              maxWidth: 800,
+              mx: "auto",
+              color: "#403E43",
+              fontWeight: 400
+            }}
+          >
+            See why CRUSH stands out as the superior AI medical scribe compared to
+            traditional methods and other solutions.
           </Typography>
         </Box>
+
+        <Grid container spacing={3} sx={{ mt: 5 }}>
+          {featuresData.map((feature, index) => (
+            <Grid xs={12} md={4} key={index}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              >
+                <Box
+                  sx={{
+                    p: 3,
+                    borderRadius: 2,
+                    border: "1px solid rgba(0, 0, 0, 0.08)",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.04)",
+                    textAlign: "center",
+                    height: "100%"
+                  }}
+                >
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      mb: 2,
+                      fontWeight: 600,
+                      color: "#000000",
+                      fontSize: "1.1rem"
+                    }}
+                  >
+                    {feature.title}
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-around",
+                      alignItems: "center",
+                      mt: 3
+                    }}
+                  >
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ color: "#1EAEDB", fontWeight: 600, mb: 1 }}
+                      >
+                        CRUSH
+                      </Typography>
+                      {feature.crush === "✓" ? (
+                        <CheckCircle size={24} className="text-green-500" />
+                      ) : (
+                        <X size={24} className="text-red-500" />
+                      )}
+                    </Box>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <Typography
+                        variant="subtitle2"
+                        sx={{ color: "#8A898C", fontWeight: 600, mb: 1 }}
+                      >
+                        Competition
+                      </Typography>
+                      {feature.competition === "✓" ? (
+                        <CheckCircle size={24} className="text-green-500" />
+                      ) : (
+                        <X size={24} className="text-red-500" />
+                      )}
+                    </Box>
+                  </Box>
+                </Box>
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );

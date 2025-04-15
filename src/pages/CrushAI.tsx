@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import { HeroSection } from "@/components/crush-ai/HeroSection";
 import { FeatureHighlights } from "@/components/crush-ai/FeatureHighlights";
 import { EhrIntegrationSection } from "@/components/crush-ai/EhrIntegrationSection";
+import { TrustedBySection } from "@/components/crush-ai/TrustedBySection";
 import { HowItWorksSection } from "@/components/crush-ai/HowItWorksSection";
 import { CompetitionSection } from "@/components/crush-ai/CompetitionSection";
 import { WorkflowAutomationSection } from "@/components/crush-ai/WorkflowAutomationSection";
@@ -15,11 +16,11 @@ const CrushAI = () => {
       {/* Hero Section */}
       <HeroSection />
 
-      {/* Feature Highlights Section */}
-      <FeatureHighlights />
-
       {/* EHR Integration Section */}
       <EhrIntegrationSection />
+
+      {/* Trusted By Section */}
+      <TrustedBySection />
 
       {/* How It Works Section */}
       <HowItWorksSection />

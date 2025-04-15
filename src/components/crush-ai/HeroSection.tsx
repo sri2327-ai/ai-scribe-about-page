@@ -1,12 +1,12 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
-import { TiltedScroll } from "@/components/ui/tilted-scroll";
+import Grid from '@mui/material/Unstable_Grid2';
 
 export const HeroSection = () => {
   return (
@@ -19,8 +19,8 @@ export const HeroSection = () => {
       }}
     >
       <Container maxWidth="lg">
-        <Grid container spacing={4} alignItems="center" direction={{ xs: 'column-reverse', md: 'row' }}>
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={4} alignItems="center">
+          <Grid xs={12} md={6}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, y: 20 }}
@@ -42,7 +42,7 @@ export const HeroSection = () => {
                   lineHeight: 1.1
                 }}
               >
-                C.R.U.S.H : The AI Medical Scribe That Works for You
+                <Box component="span" sx={{ color: '#1EAEDB' }}>C</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>R</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>U</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>S</Box>.<Box component="span" sx={{ color: '#1EAEDB' }}>H</Box> : The AI Medical Scribe That Works for You
               </Typography>
               <Typography 
                 variant="h6" 
@@ -58,10 +58,6 @@ export const HeroSection = () => {
                 Workflows—So You Can Focus on Patient Care!
               </Typography>
 
-              <Box sx={{ mb: 4 }}>
-                <TiltedScroll />
-              </Box>
-
               <ShadcnButton 
                 size="lg" 
                 className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
@@ -72,7 +68,7 @@ export const HeroSection = () => {
             </Box>
           </Grid>
           
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, scale: 0.9 }}

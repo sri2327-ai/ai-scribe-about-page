@@ -619,10 +619,10 @@ export function AnimatedWorkflow() {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        border: "1px solid rgba(0, 0, 0, 0.08)",
+        border: "1px solid rgba(0, 0, 0, 0.04)",
         maxWidth: "450px", 
         margin: "0 auto",
-        backgroundImage: "linear-gradient(to bottom, rgba(249, 250, 251, 0.8), rgba(244, 245, 246, 0.5))",
+        background: "rgba(255, 255, 255, 0.5)",
         backdropFilter: "blur(10px)",
       }}
     >

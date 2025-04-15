@@ -1,49 +1,35 @@
-
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Box, Typography, Container } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { 
-  Sliders, Link, BadgeCheck, Brain, Cog 
-} from 'lucide-react';
+import React from "react";
+import { Box, Container, Typography } from "@mui/material";
+import { motion } from "framer-motion";
+import { Monitor, ShieldCheck, BarChart3 } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import Grid from '@mui/material/Unstable_Grid2';
 
 const features = [
   {
-    title: "Customizable Documentation",
-    description: "Control note content & formatting to match your exact preferences",
-    icon: <Sliders size={40} className="text-black" />
+    title: "AI-Powered Efficiency",
+    description: "Automate clinical documentation, referrals, and prescriptions.",
+    icon: <Monitor size={36} className="text-blue-600" />
   },
   {
-    title: "Real-Time EHR Sync",
-    description: "Instantly integrates with any EHR system",
-    icon: <Link size={40} className="text-black" />
+    title: "Enhanced Security",
+    description: "Ensure HIPAA compliance with secure data handling.",
+    icon: <ShieldCheck size={36} className="text-blue-600" />
   },
   {
-    title: "Universal Coding Support",
-    description: "Supports ICD-10, E/M, CPT, HCC for compliance & revenue",
-    icon: <BadgeCheck size={40} className="text-black" />
-  },
-  {
-    title: "Smart AI Assistance",
-    description: "Context-aware AI for accurate documentation",
-    icon: <Brain size={40} className="text-black" />
-  },
-  {
-    title: "Healthcare Automation",
-    description: "Handles prescriptions, referrals, labs & more",
-    icon: <Cog size={40} className="text-black" />
+    title: "Actionable Insights",
+    description: "Gain valuable insights with comprehensive data analytics.",
+    icon: <BarChart3 size={36} className="text-blue-600" />
   }
 ];
 
-export function FeatureHighlights() {
+export const FeatureHighlights = () => {
   return (
     <Box 
       component="section" 
       sx={{ 
         py: { xs: 8, md: 12 },
-        bgcolor: '#fafafa',
-        borderTop: '1px solid rgba(0, 0, 0, 0.05)',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.05)'
+        bgcolor: '#f5f5f5'
       }}
     >
       <Container maxWidth="lg">
@@ -59,28 +45,30 @@ export function FeatureHighlights() {
             variant="h2" 
             sx={{ 
               fontSize: { xs: '2rem', md: '2.75rem' },
-              fontWeight: 'bold',
+              fontWeight: 800,
               mb: 3,
-              color: '#000000'
+              color: '#000000',
+              letterSpacing: '-0.02em'
             }}
           >
-            Built for Healthcare Professionals
+            Key Features
           </Typography>
           <Typography 
             variant="h6" 
             sx={{ 
               maxWidth: 800,
               mx: 'auto',
-              color: '#403E43'
+              color: '#403E43',
+              fontWeight: 400
             }}
           >
-            Powerful features designed to streamline your clinical workflow
+            Explore the core features that make CRUSH the ultimate AI medical scribe.
           </Typography>
         </Box>
 
         <Grid container spacing={4}>
           {features.map((feature, index) => (
-            <Grid item xs={12} md={index < 2 ? 6 : 4} key={index}>
+            <Grid xs={12} md={4} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -88,54 +76,40 @@ export function FeatureHighlights() {
                 viewport={{ once: true }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <Box
-                  sx={{
-                    p: 4,
-                    borderRadius: 2,
-                    bgcolor: 'white',
-                    height: '100%',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.04)',
-                    border: '1px solid rgba(0, 0, 0, 0.06)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    textAlign: 'center'
-                  }}
-                >
-                  <Box 
-                    sx={{ 
-                      mb: 3,
-                      p: 2,
-                      borderRadius: '50%',
-                      bgcolor: 'rgba(0, 0, 0, 0.03)',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center'
-                    }}
-                  >
-                    {feature.icon}
-                  </Box>
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
-                      mb: 1.5,
-                      fontWeight: 600,
-                      color: '#000000',
-                      fontSize: '1.25rem'
-                    }}
-                  >
-                    {feature.title}
-                  </Typography>
-                  <Typography 
-                    variant="body1"
-                    sx={{ 
-                      color: '#666666',
-                      fontSize: '0.95rem'
-                    }}
-                  >
-                    {feature.description}
-                  </Typography>
-                </Box>
+                <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300">
+                  <CardContent className="flex flex-col items-center text-center p-6">
+                    <Box 
+                      sx={{ 
+                        mb: 3,
+                        p: 2,
+                        borderRadius: '50%',
+                        bgcolor: 'rgba(0, 0, 0, 0.03)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {feature.icon}
+                    </Box>
+                    <Typography 
+                      variant="h5" 
+                      sx={{ 
+                        mb: 1.5,
+                        fontWeight: 600,
+                        color: '#000000',
+                        fontSize: '1.25rem'
+                      }}
+                    >
+                      {feature.title}
+                    </Typography>
+                    <Typography 
+                      variant="body1"
+                      sx={{ color: '#666666', fontSize: '0.95rem' }}
+                    >
+                      {feature.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
               </motion.div>
             </Grid>
           ))}
@@ -143,4 +117,4 @@ export function FeatureHighlights() {
       </Container>
     </Box>
   );
-}
+};

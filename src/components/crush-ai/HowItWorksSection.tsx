@@ -1,11 +1,38 @@
-
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowRight, Users, MessageCircle, FileCheck } from "lucide-react";
 import { Button as ShadcnButton } from "@/components/ui/button";
+import Grid from '@mui/material/Unstable_Grid2';
 
 export const HowItWorksSection = () => {
+  const steps = [
+    {
+      step: "1️⃣ Select a Patient",
+      details: ["Launch CRUSH on any device and instantly access patient data."],
+      icon: <Users size={48} className="text-tealBlueBright" />
+    },
+    {
+      step: "2️⃣ Start Speaking",
+      details: [
+        "Speak naturally in any supported language, and Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time for accuracy and transcription accuracy.",
+        "AI Context Awareness – Pulls past visit history for highly accurate documentation.",
+        "Telemedicine-Ready – Works for in-person, video, chat, or phone consultations."
+      ],
+      icon: <MessageCircle size={48} className="text-tealBlueBright" />
+    },
+    {
+      step: "3️⃣ Review & Sign Off",
+      details: [
+        "Instantly generates EHR-ready medical notes with AI-powered insights.",
+        "Smart Workflow Automation – Auto-handles prescriptions, referrals, labs, follow-ups.",
+        "After-Visit Summaries – Auto-generated in the patient's preferred language.",
+        "AI-Powered Coding – Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
+      ],
+      icon: <FileCheck size={48} className="text-tealBlueBright" />
+    }
+  ];
+
   return (
     <Box 
       component="section" 
@@ -38,34 +65,9 @@ export const HowItWorksSection = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={6}>
-          {[
-            {
-              step: "1️⃣ Select a Patient",
-              details: ["Launch CRUSH on any device and instantly access patient data."],
-              icon: <Users size={48} className="text-tealBlueBright" />
-            },
-            {
-              step: "2️⃣ Start Speaking",
-              details: [
-                "Speak naturally in any supported language, and Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time for accuracy and transcription accuracy.",
-                "AI Context Awareness – Pulls past visit history for highly accurate documentation.",
-                "Telemedicine-Ready – Works for in-person, video, chat, or phone consultations."
-              ],
-              icon: <MessageCircle size={48} className="text-tealBlueBright" />
-            },
-            {
-              step: "3️⃣ Review & Sign Off",
-              details: [
-                "Instantly generates EHR-ready medical notes with AI-powered insights.",
-                "Smart Workflow Automation – Auto-handles prescriptions, referrals, labs, follow-ups.",
-                "After-Visit Summaries – Auto-generated in the patient's preferred language.",
-                "AI-Powered Coding – Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
-              ],
-              icon: <FileCheck size={48} className="text-tealBlueBright" />
-            }
-          ].map((item, index) => (
-            <Grid item xs={12} key={index}>
+        <Grid container spacing={3}>
+          {steps.map((step, index) => (
+            <Grid xs={12} key={index}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, x: -20 }}
@@ -92,7 +94,7 @@ export const HowItWorksSection = () => {
                     flexShrink: 0
                   }}
                 >
-                  {item.icon}
+                  {step.icon}
                   <Typography 
                     variant="h6" 
                     sx={{ 
@@ -101,7 +103,7 @@ export const HowItWorksSection = () => {
                       color: '#000000'
                     }}
                   >
-                    {item.step.split(' ')[0]}
+                    {step.step.split(' ')[0]}
                   </Typography>
                 </Box>
                 <Box>
@@ -113,10 +115,10 @@ export const HowItWorksSection = () => {
                       color: '#000000'
                     }}
                   >
-                    {item.step.split(' ').slice(1).join(' ')}
+                    {step.step.split(' ').slice(1).join(' ')}
                   </Typography>
                   <Box component="ul" sx={{ pl: 2 }}>
-                    {item.details.map((detail, i) => (
+                    {step.details.map((detail, i) => (
                       <Box 
                         component="li" 
                         key={i}

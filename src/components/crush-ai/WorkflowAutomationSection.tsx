@@ -1,8 +1,8 @@
-
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Calendar, Brain, Check } from "lucide-react";
+import Grid from '@mui/material/Unstable_Grid2';
 
 export const WorkflowAutomationSection = () => {
   return (
@@ -47,9 +47,8 @@ export const WorkflowAutomationSection = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={6}>
-          {/* Automate Staffing Section */}
-          <Grid item xs={12} md={6}>
+        <Grid container spacing={5} alignItems="center">
+          <Grid xs={12} md={6}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, x: -20 }}
@@ -113,8 +112,7 @@ export const WorkflowAutomationSection = () => {
             </Box>
           </Grid>
 
-          {/* AI Assistance Section */}
-          <Grid item xs={12} md={6}>
+          <Grid xs={12} md={6}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, x: 20 }}

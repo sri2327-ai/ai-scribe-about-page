@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
@@ -56,7 +55,7 @@ export const TestimonialsBenefitsSection = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={4} sx={{ position: 'relative', zIndex: 1 }}>
+        <Grid container spacing={5}>
           {[
             {
               title: "Restore Focus",
