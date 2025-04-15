@@ -347,7 +347,7 @@ const FounderMessage = () => {
                         width: 64, 
                         height: 64, 
                         borderRadius: '50%', 
-                        bgcolor: 'rgba(75, 85, 99, 1)', 
+                        bgcolor: 'rgba(30, 30, 30, 0.6)', 
                         display: 'flex', 
                         alignItems: 'center', 
                         justifyContent: 'center',
@@ -391,14 +391,21 @@ const FounderMessage = () => {
                       Founder & Chairman, S10.AI Inc.
                     </Typography>
                     
-                    <SignatureAnimation 
-                      width={250} 
-                      height={120} 
-                      color="#1EAEDB" 
-                      className="mt-2" 
-                      strokeWidth={2.5}
-                      speed={1}
-                    />
+                    <Box sx={{ 
+                      width: '100%', 
+                      display: 'flex', 
+                      justifyContent: { xs: 'center', sm: 'flex-start' },
+                      mt: 1
+                    }}>
+                      <SignatureAnimation 
+                        width={280} 
+                        height={100} 
+                        color="#1EAEDB" 
+                        strokeWidth={3}
+                        speed={0.8}
+                        className="mt-0"
+                      />
+                    </Box>
                   </Box>
                 </Box>
               </Box>
