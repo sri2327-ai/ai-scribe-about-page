@@ -1,10 +1,8 @@
-
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography, Paper, CircularProgress } from "@mui/material";
-import Grid from "@mui/material/Grid";
-import { motion, AnimatePresence } from "framer-motion";
+import { Box, Container, Typography, Paper, CircularProgress, Grid as MuiGrid } from "@mui/material";
 import { Brain, Workflow, BarChart3, HeartPulse, Bot } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Feature {
   step: string;
@@ -96,11 +94,10 @@ export function TechFeatures({
           </Typography>
         </Box>
 
-        <Grid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
+        <MuiGrid container spacing={4} sx={{ maxWidth: '7xl', mx: 'auto' }}>
           {/* Text content panel on the left for desktop */}
-          <Grid 
-            item
-            component="div"
+          <MuiGrid 
+            item 
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 2, lg: 1 } }}
@@ -188,12 +185,11 @@ export function TechFeatures({
                 </Box>
               ))}
             </Box>
-          </Grid>
+          </MuiGrid>
 
           {/* Animation panel on the right side for desktop */}
-          <Grid 
+          <MuiGrid 
             item
-            component="div"
             xs={12} 
             lg={6} 
             sx={{ order: { xs: 1, lg: 2 } }}
@@ -286,8 +282,8 @@ export function TechFeatures({
                 )}
               </AnimatePresence>
             </Paper>
-          </Grid>
-        </Grid>
+          </MuiGrid>
+        </MuiGrid>
       </Container>
     </Box>
   );

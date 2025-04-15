@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import About from "./pages/About";
 import Technology from "./pages/Technology";
 import NotFound from "./pages/NotFound";
+import Footer from "./components/Footer";
 
 const App = () => {
   const [queryClient] = useState(() => new QueryClient());
@@ -26,6 +27,7 @@ const App = () => {
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>
