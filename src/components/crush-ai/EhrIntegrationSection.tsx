@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import { DeviceDesktop, Smartphone, Tablet, RotateCw, RefreshCw } from "lucide-react";
+import { Monitor, Smartphone, Tablet, RotateCw, RefreshCw } from "lucide-react";
 
 export const EhrIntegrationSection = () => {
   const logos = [
@@ -16,7 +16,7 @@ export const EhrIntegrationSection = () => {
 
   const features = [
     {
-      icon: <DeviceDesktop size={28} className="text-blue-600" />,
+      icon: <Monitor size={28} className="text-blue-600" />,
       title: "Works on Any Device",
       description: "Desktop, laptop, tablet, or mobile."
     },

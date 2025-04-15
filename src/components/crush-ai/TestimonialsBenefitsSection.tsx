@@ -75,7 +75,7 @@ export const TestimonialsBenefitsSection = () => {
 
         <Grid container spacing={3}>
           {benefits.map((benefit, index) => (
-            <Grid item xs={12} md={4} key={index}>
+            <Grid xs={12} md={4} key={index}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}

@@ -109,7 +109,7 @@ export const CompetitionSection = () => {
         <Grid container spacing={3} sx={{ mt: 4 }}>
           {/* Success stories */}
           {[1, 2, 3].map((item) => (
-            <Grid item xs={12} md={4} key={item}>
+            <Grid xs={12} md={4} key={item}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}

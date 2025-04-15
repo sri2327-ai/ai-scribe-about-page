@@ -2,22 +2,22 @@
 import React from "react";
 import { Box, Typography, Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import { MicrophoneIcon, BrainCircuitIcon, ClipboardIcon } from "lucide-react";
+import { Mic, BrainCircuit, ClipboardCheck } from "lucide-react";
 
 export const HowItWorksSection = () => {
   const steps = [
     {
-      icon: <MicrophoneIcon size={32} className="text-blue-600" />,
+      icon: <Mic size={32} className="text-blue-600" />,
       title: "You Speak Naturally",
       description: "Simply talk to your patient as you normally would. CRUSH actively listens in the background.",
     },
     {
-      icon: <BrainCircuitIcon size={32} className="text-blue-600" />,
+      icon: <BrainCircuit size={32} className="text-blue-600" />,
       title: "CRUSH Processes",
       description: "Our AI analyzes your conversation in real-time, extracting clinical information and patient data.",
     },
     {
-      icon: <ClipboardIcon size={32} className="text-blue-600" />,
+      icon: <ClipboardCheck size={32} className="text-blue-600" />,
       title: "Documentation Generated",
       description: "Complete clinical notes are created and formatted to your specifications, ready for your review.",
     }
@@ -69,7 +69,7 @@ export const HowItWorksSection = () => {
           sx={{ mt: 2 }}
         >
           {steps.map((step, index) => (
-            <Grid item xs={12} sm={4} key={index}>
+            <Grid key={index} xs={12} sm={4} sx={{ display: 'flex' }}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, y: 30 }}

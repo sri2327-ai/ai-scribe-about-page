@@ -2,212 +2,176 @@
 import React from "react";
 import { Box, Typography, Container, Grid } from "@mui/material";
 import { motion } from "framer-motion";
-import { FileText, Users, Pill, Phone, ClipboardCheck } from "lucide-react";
+import { BrainCircuit, ClipboardCheck, ArrowRight } from "lucide-react";
 
 export const WorkflowAutomationSection = () => {
+  const features = [
+    {
+      icon: <BrainCircuit className="text-blue-600" size={24} />,
+      title: "AI-Powered Workflow Automation",
+      description: "Streamline repetitive tasks and save time with smart automation."
+    },
+    {
+      icon: <ClipboardCheck className="text-blue-600" size={24} />,
+      title: "Complete Clinical Documentation",
+      description: "Effortlessly generate comprehensive patient notes and reports."
+    }
+  ];
+
   return (
-    <Box 
-      component="section" 
-      sx={{ 
-        py: { xs: 6, md: 10 },
-        bgcolor: '#f9f9f9'
-      }}
-    >
+    <Box component="section" sx={{ py: { xs: 6, md: 10 }, bgcolor: 'white' }}>
       <Container maxWidth="lg">
-        <Grid container spacing={5} alignItems="center">
-          <Grid item xs={12} md={6}>
-            <Box 
-              component={motion.div}
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              sx={{ pr: { md: 4 } }}
-            >
-              <Typography 
-                variant="h3" 
-                sx={{ 
-                  fontWeight: 700,
-                  color: '#000000',
-                  mb: 2
-                }}
-              >
-                More Than Just a Scribe
-              </Typography>
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  color: '#666666',
-                  mb: 4
-                }}
-              >
-                CRUSH AI doesn't just document—it enhances your entire clinical workflow through intelligent automation.
-              </Typography>
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            variant="h3" 
+            sx={{ 
+              fontWeight: 700,
+              color: '#000000',
+              mb: 2
+            }}
+          >
+            More Than Just a Scribe
+          </Typography>
+          <Typography 
+            component={motion.div}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            variant="body1" 
+            sx={{ 
+              color: '#666666',
+              maxWidth: '800px',
+              mx: 'auto'
+            }}
+          >
+            CRUSH AI goes beyond simple documentation to help you manage your entire clinical workflow.
+          </Typography>
+        </Box>
 
+        <Grid container spacing={4} sx={{ mb: 6 }}>
+          {features.map((feature, index) => (
+            <Grid xs={12} md={6} key={index}>
+              <Box 
+                component={motion.div}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 * index }}
+                sx={{ 
+                  p: 4,
+                  height: '100%',
+                  borderRadius: 2,
+                  bgcolor: '#f8f9fa',
+                  border: '1px solid #e0e0e0'
+                }}
+              >
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                  <Box 
+                    sx={{ 
+                      mr: 2,
+                      p: 1.5,
+                      borderRadius: '50%',
+                      bgcolor: 'rgba(0,0,0,0.05)',
+                      display: 'flex'
+                    }}
+                  >
+                    {feature.icon}
+                  </Box>
+                  <Typography variant="h5" sx={{ color: '#000000', fontWeight: 600 }}>
+                    {feature.title}
+                  </Typography>
+                </Box>
+                <Typography variant="body1" sx={{ color: '#666666' }}>
+                  {feature.description}
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box 
+          component={motion.div}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          sx={{ 
+            bgcolor: '#f0f4f8',
+            borderRadius: 3,
+            overflow: 'hidden',
+            border: '1px solid #e0e0e0',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+          }}
+        >
+          <Grid container sx={{ flexDirection: { xs: 'column', md: 'row' } }}>
+            <Grid xs={12} md={6}>
               <Box 
                 sx={{ 
-                  p: 3, 
-                  border: '1px solid #e0e0e0',
-                  borderRadius: 2,
-                  bgcolor: 'white',
-                  mb: 3,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+                  p: { xs: 4, md: 6 },
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  height: '100%'
                 }}
               >
                 <Typography 
-                  variant="h6" 
+                  variant="h4" 
                   sx={{ 
-                    fontWeight: 600, 
+                    fontWeight: 700,
                     color: '#000000',
-                    mb: 1,
-                    display: 'flex',
-                    alignItems: 'center'
+                    mb: 2
                   }}
                 >
-                  <FileText size={20} className="mr-2 text-blue-600" />
-                  Smart Documentation
+                  Ready to transform your clinical workflow?
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#666666' }}>
-                  Automatically generates comprehensive, personalized clinical notes in your preferred format and style.
-                </Typography>
-              </Box>
-
-              <Box 
-                sx={{ 
-                  p: 3, 
-                  border: '1px solid #e0e0e0',
-                  borderRadius: 2,
-                  bgcolor: 'white',
-                  mb: 3,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
-                }}
-              >
                 <Typography 
-                  variant="h6" 
+                  variant="body1" 
                   sx={{ 
-                    fontWeight: 600, 
-                    color: '#000000',
-                    mb: 1,
-                    display: 'flex',
-                    alignItems: 'center'
+                    color: '#666666',
+                    mb: 4
                   }}
                 >
-                  <Users size={20} className="mr-2 text-blue-600" />
-                  Referral Management
+                  Join thousands of healthcare professionals who are saving time and improving patient care with CRUSH AI.
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#666666' }}>
-                  Simplifies the referral process by auto-generating referral letters with relevant patient information.
-                </Typography>
-              </Box>
-
-              <Box 
-                sx={{ 
-                  p: 3, 
-                  border: '1px solid #e0e0e0',
-                  borderRadius: 2,
-                  bgcolor: 'white',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
-                }}
-              >
-                <Typography 
-                  variant="h6" 
-                  sx={{ 
-                    fontWeight: 600, 
-                    color: '#000000',
-                    mb: 1,
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}
+                <motion.div 
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
                 >
-                  <Pill size={20} className="mr-2 text-blue-600" />
-                  Prescription Assistance
-                </Typography>
-                <Typography variant="body2" sx={{ color: '#666666' }}>
-                  Suggests appropriate medications based on diagnosis and prepares prescriptions for your approval.
-                </Typography>
+                  <button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 py-3 font-semibold transition-colors duration-300 flex items-center max-w-fit">
+                    Get Started
+                    <ArrowRight size={16} className="ml-2" />
+                  </button>
+                </motion.div>
               </Box>
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Box 
-              component={motion.div}
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-            >
+            </Grid>
+            <Grid xs={12} md={6}>
               <Box 
                 sx={{ 
-                  border: '1px solid #e0e0e0',
-                  borderRadius: 2,
-                  overflow: 'hidden',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
-                  bgcolor: 'white'
+                  bgcolor: '#e6ecf4',
+                  p: 4,
+                  height: '100%',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
               >
                 <Box 
+                  component="img"
+                  src="/lovable-uploads/8f4a5ae2-aa8a-426f-8eff-90fdba4055a1.png"
+                  alt="CRUSH AI workflow"
                   sx={{ 
-                    bgcolor: '#f0f4f8',
-                    p: 3,
-                    borderBottom: '1px solid #e0e0e0',
-                    display: 'flex',
-                    alignItems: 'center'
+                    maxWidth: '100%',
+                    height: 'auto',
+                    borderRadius: 2,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
                   }}
-                >
-                  <Phone size={24} className="mr-2 text-blue-600" />
-                  <Typography variant="h6" sx={{ fontWeight: 600, color: '#000000' }}>
-                    Talk to Patients, Not Screens
-                  </Typography>
-                </Box>
-                <Box sx={{ p: 4 }}>
-                  <Typography variant="body1" sx={{ color: '#333333', mb: 4 }}>
-                    With CRUSH AI, you can maintain eye contact and focus on your patients instead of typing notes. Our system works in the background to:
-                  </Typography>
-
-                  <Box 
-                    sx={{ 
-                      mb: 3,
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 2
-                    }}
-                  >
-                    <ClipboardCheck className="text-green-500 flex-shrink-0 mt-1" />
-                    <Typography variant="body2" sx={{ color: '#555555' }}>
-                      <strong>Capture all relevant clinical information</strong> from your patient conversations
-                    </Typography>
-                  </Box>
-
-                  <Box 
-                    sx={{ 
-                      mb: 3,
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 2
-                    }}
-                  >
-                    <ClipboardCheck className="text-green-500 flex-shrink-0 mt-1" />
-                    <Typography variant="body2" sx={{ color: '#555555' }}>
-                      <strong>Structure the information</strong> according to medical best practices
-                    </Typography>
-                  </Box>
-
-                  <Box 
-                    sx={{ 
-                      display: 'flex',
-                      alignItems: 'flex-start',
-                      gap: 2
-                    }}
-                  >
-                    <ClipboardCheck className="text-green-500 flex-shrink-0 mt-1" />
-                    <Typography variant="body2" sx={{ color: '#555555' }}>
-                      <strong>Format documentation</strong> to your specific preferences and EHR requirements
-                    </Typography>
-                  </Box>
-                </Box>
+                />
               </Box>
-            </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );
