@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Box, Typography, Container, Grid as MuiGrid } from '@mui/material';
+import { Box, Typography, Container, Grid } from '@mui/material';
 import { 
   Sliders, Link, BadgeCheck, Brain, Cog 
 } from 'lucide-react';
@@ -77,9 +77,9 @@ export function FeatureHighlights() {
           </Typography>
         </Box>
 
-        <MuiGrid container spacing={4}>
+        <Grid container spacing={4}>
           {features.map((feature, index) => (
-            <MuiGrid item xs={12} md={index < 2 ? 6 : 4} key={index}>
+            <Grid xs={12} md={index < 2 ? 6 : 4} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -136,9 +136,9 @@ export function FeatureHighlights() {
                   </Typography>
                 </Box>
               </motion.div>
-            </MuiGrid>
+            </Grid>
           ))}
-        </MuiGrid>
+        </Grid>
       </Container>
     </Box>
   );
