@@ -8,7 +8,6 @@ import TrustedByExperts from "@/components/technology/TrustedByExperts";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import MeetIpkoAnimation from "@/components/technology/MeetIpkoAnimation";
-import MeetIpkoPulseBeams from "@/components/technology/MeetIpkoPulseBeams";
 
 const Technology = () => {
   return (
@@ -25,7 +24,6 @@ const Technology = () => {
       <Box sx={{ position: "relative", overflow: "hidden" }}>
         <MeetIpkoTimeline />
         <MeetIpkoAnimation />
-        <MeetIpkoPulseBeams />
       </Box>
     </Box>
   );
