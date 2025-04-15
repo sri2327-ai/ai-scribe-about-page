@@ -1,6 +1,7 @@
+
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -9,36 +10,37 @@ import {
   ClipboardList, 
   FileSpreadsheet, 
   Database, 
-  BrainCircuit, 
+  Workflow,
+  Stethoscope,
   ShieldCheck, 
   FileText, 
   AlertTriangle, 
-  LineChart,
-  Stethoscope,
-  Workflow,
-  TestTube
+  LineChart
 } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
-interface BentoCardProps {
+interface FeatureCardProps {
   icon: React.ElementType;
   title: string;
   description: string;
   className?: string;
 }
 
-const BentoCard = ({ icon: Icon, title, description, className }: BentoCardProps) => (
-  <div
+const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardProps) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    viewport={{ once: true, margin: "-50px" }}
     className={cn(
-      "group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-xl",
-      // light styles
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6",
       "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
-      // dark styles
-      "transform-gpu dark:bg-black dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]",
       "border border-gray-100 hover:border-purple-100 transition-all duration-300",
       className
     )}
   >
-    <div className="flex flex-col gap-3 p-6 z-10">
+    <div className="flex flex-col gap-3 z-10">
       <div className="bg-gray-50 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
         <Icon size={24} className="text-black" />
       </div>
@@ -52,10 +54,12 @@ const BentoCard = ({ icon: Icon, title, description, className }: BentoCardProps
     </div>
     
     <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.02]" />
-  </div>
+  </motion.div>
 );
 
 export const ClinicalWorkflowSection = () => {
+  const [activeTab, setActiveTab] = useState("admin");
+
   const adminFeatures = [
     {
       icon: Pill,
@@ -116,13 +120,14 @@ export const ClinicalWorkflowSection = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: 8, md: 12 },
+        py: { xs: 8, md: 10 },
         bgcolor: "#FFFFFF",
         position: "relative",
+        overflow: "hidden"
       }}
     >
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5 }}>
-        <Box sx={{ textAlign: "center", mb: 8 }}>
+        <Box sx={{ textAlign: "center", mb: 6 }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -133,11 +138,10 @@ export const ClinicalWorkflowSection = () => {
               variant="h3" 
               sx={{ 
                 fontWeight: 700, 
-                mb: 4,
+                mb: 3,
                 color: "#000000",
                 textAlign: "center",
                 fontSize: { xs: "2rem", sm: "2.5rem", md: "2.75rem" },
-                whiteSpace: "nowrap"
               }}
             >
               More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
@@ -160,125 +164,82 @@ export const ClinicalWorkflowSection = () => {
                 fontSize: { xs: "1rem", md: "1.1rem" }
               }}
             >
-              Crush is more than an AI medical scribe—it streamlines healthcare workflows, 
-              automates tasks, and enhances patient care, transforming how clinics operate, 
-              including for specialty visits.
+              CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, 
+              automates tasks, and enhances patient care, transforming how clinics operate.
             </Typography>
           </motion.div>
         </Box>
         
-        <Box sx={{ mb: 8 }}>
-          <Box sx={{ mb: 4, textAlign: "left" }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <Typography 
-                variant="h5" 
-                sx={{ 
-                  fontWeight: 600, 
-                  mb: 1,
-                  color: "#000",
-                  fontSize: { xs: "1.5rem", md: "1.75rem" }
-                }}
-              >
-                Automate Staffing & Cut Admin Work
-              </Typography>
-            </motion.div>
-          </Box>
+        <Tabs defaultValue="admin" className="w-full mb-8" onValueChange={setActiveTab}>
+          <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsTrigger value="admin" className="py-3">
+              <span className="font-semibold">Automate Staffing & Admin Work</span>
+            </TabsTrigger>
+            <TabsTrigger value="clinical" className="py-3">
+              <span className="font-semibold">AI Assistance for Physicians</span>
+            </TabsTrigger>
+          </TabsList>
           
-          <div className="grid grid-cols-12 gap-4 mb-12">
-            <BentoCard 
-              icon={adminFeatures[0].icon}
-              title={adminFeatures[0].title}
-              description={adminFeatures[0].description}
-              className="col-span-12 md:col-span-7 min-h-[180px]"
-            />
-            <BentoCard 
-              icon={adminFeatures[1].icon}
-              title={adminFeatures[1].title}
-              description={adminFeatures[1].description}
-              className="col-span-12 md:col-span-5 min-h-[180px]"
-            />
-            <BentoCard 
-              icon={adminFeatures[2].icon}
-              title={adminFeatures[2].title}
-              description={adminFeatures[2].description}
-              className="col-span-12 md:col-span-4 min-h-[180px]"
-            />
-            <BentoCard 
-              icon={adminFeatures[3].icon}
-              title={adminFeatures[3].title}
-              description={adminFeatures[3].description}
-              className="col-span-12 md:col-span-4 min-h-[180px]"
-            />
-            <BentoCard 
-              icon={adminFeatures[4].icon}
-              title={adminFeatures[4].title}
-              description={adminFeatures[4].description}
-              className="col-span-12 md:col-span-4 min-h-[180px]"
-            />
-          </div>
-        </Box>
-        
-        <Box sx={{ mb: 8 }}>
-          <Box sx={{ mb: 4, textAlign: "left" }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
+          <TabsContent value="admin" className="mt-0">
+            <ContainerScroll
+              titleComponent={
+                <Typography 
+                  variant="h4" 
+                  sx={{ 
+                    fontWeight: 600, 
+                    mb: 2,
+                    color: "#000",
+                    fontSize: { xs: "1.5rem", md: "1.75rem" }
+                  }}
+                >
+                  Automate Staffing & Cut Admin Work
+                </Typography>
+              }
             >
-              <Typography 
-                variant="h5" 
-                sx={{ 
-                  fontWeight: 600, 
-                  mb: 1,
-                  color: "#000",
-                  fontSize: { xs: "1.5rem", md: "1.75rem" }
-                }}
-              >
-                AI Assistance for Physicians – Smarter, More Accurate Decisions
-              </Typography>
-            </motion.div>
-          </Box>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                {adminFeatures.map((feature, index) => (
+                  <FeatureCard
+                    key={index}
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    className="h-full"
+                  />
+                ))}
+              </div>
+            </ContainerScroll>
+          </TabsContent>
           
-          <div className="grid grid-cols-12 gap-4">
-            {/* Bento grid layout for Clinical Features */}
-            <BentoCard 
-              icon={clinicalFeatures[0].icon}
-              title={clinicalFeatures[0].title}
-              description={clinicalFeatures[0].description}
-              className="col-span-12 md:col-span-6 min-h-[220px]"
-            />
-            <BentoCard 
-              icon={clinicalFeatures[1].icon}
-              title={clinicalFeatures[1].title}
-              description={clinicalFeatures[1].description}
-              className="col-span-12 md:col-span-6 min-h-[220px]"
-            />
-            <BentoCard 
-              icon={clinicalFeatures[2].icon}
-              title={clinicalFeatures[2].title}
-              description={clinicalFeatures[2].description}
-              className="col-span-12 md:col-span-4 min-h-[220px]"
-            />
-            <BentoCard 
-              icon={clinicalFeatures[3].icon}
-              title={clinicalFeatures[3].title}
-              description={clinicalFeatures[3].description}
-              className="col-span-12 md:col-span-4 min-h-[220px]"
-            />
-            <BentoCard 
-              icon={clinicalFeatures[4].icon}
-              title={clinicalFeatures[4].title}
-              description={clinicalFeatures[4].description}
-              className="col-span-12 md:col-span-4 min-h-[220px]"
-            />
-          </div>
-        </Box>
+          <TabsContent value="clinical" className="mt-0">
+            <ContainerScroll
+              titleComponent={
+                <Typography 
+                  variant="h4" 
+                  sx={{ 
+                    fontWeight: 600, 
+                    mb: 2,
+                    color: "#000",
+                    fontSize: { xs: "1.5rem", md: "1.75rem" }
+                  }}
+                >
+                  AI Assistance for Physicians – Smarter, More Accurate Decisions
+                </Typography>
+              }
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4">
+                {clinicalFeatures.map((feature, index) => (
+                  <FeatureCard
+                    key={index}
+                    icon={feature.icon}
+                    title={feature.title}
+                    description={feature.description}
+                    className="h-full"
+                  />
+                ))}
+              </div>
+            </ContainerScroll>
+          </TabsContent>
+        </Tabs>
       </Container>
     </Box>
   );
