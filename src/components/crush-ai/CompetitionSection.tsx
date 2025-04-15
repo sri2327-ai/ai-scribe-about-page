@@ -71,7 +71,7 @@ export const CompetitionSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#ffffff",
+        bgcolor: "#000000",
         overflow: "hidden"
       }}
     >
@@ -88,8 +88,8 @@ export const CompetitionSection = () => {
             <SparklesText 
               text="Why CRUSH Crushes the Competition" 
               className="text-4xl md:text-5xl font-bold text-center mb-6"
-              colors={{ first: "#1EAEDB", second: "#8B5CF6" }}
-              sparklesCount={15}
+              colors={{ first: "#9b87f5", second: "#D6BCFA" }}
+              sparklesCount={20}
             />
           </Box>
           <Typography
@@ -97,7 +97,7 @@ export const CompetitionSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#403E43",
+              color: "#8E9196",
               fontWeight: 400,
               mb: 4
             }}
@@ -107,12 +107,11 @@ export const CompetitionSection = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 4 }}>
+        <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 6 }}>
           {/* Feature List */}
           <Box
             sx={{
               width: { xs: "100%", md: "40%" },
-              borderRight: { md: "1px solid rgba(0,0,0,0.1)" },
               pr: { md: 4 }
             }}
           >
@@ -126,18 +125,28 @@ export const CompetitionSection = () => {
                   p: 2,
                   cursor: "pointer",
                   borderRadius: 1,
-                  mb: 1,
-                  bgcolor: activeFeature === feature.id ? "rgba(30,174,219,0.1)" : "transparent",
-                  borderLeft: activeFeature === feature.id ? "3px solid #1EAEDB" : "3px solid transparent",
+                  mb: 1.5,
+                  bgcolor: activeFeature === feature.id ? "rgba(155,135,245,0.1)" : "transparent",
+                  borderLeft: activeFeature === feature.id ? "2px solid #9b87f5" : "2px solid transparent",
                   transition: "all 0.2s ease"
                 }}
                 onClick={() => setActiveFeature(feature.id)}
               >
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  <Typography 
+                    variant="subtitle1" 
+                    sx={{ 
+                      fontWeight: 500, 
+                      color: activeFeature === feature.id ? "#fff" : "#8E9196",
+                      letterSpacing: "0.01em"
+                    }}
+                  >
                     {feature.title}
                   </Typography>
-                  <ChevronRight size={16} className={activeFeature === feature.id ? "text-blue-500" : "text-gray-400"} />
+                  <ChevronRight 
+                    size={16} 
+                    className={activeFeature === feature.id ? "text-purple-400" : "text-gray-500"} 
+                  />
                 </Box>
               </Box>
             ))}
@@ -147,10 +156,11 @@ export const CompetitionSection = () => {
           <Box
             sx={{
               width: { xs: "100%", md: "60%" },
-              bgcolor: "rgba(250,250,250,0.8)",
+              bgcolor: "rgba(26,31,44,0.5)",
               borderRadius: 2,
               p: 4,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
+              border: "1px solid rgba(155,135,245,0.2)",
+              backdropFilter: "blur(10px)"
             }}
           >
             {comparisonFeatures.map((feature) => (
@@ -165,33 +175,34 @@ export const CompetitionSection = () => {
                 }}
                 transition={{ duration: 0.4 }}
               >
-                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                  <Trophy size={24} className="text-yellow-500 mr-2" />
-                  <Typography variant="h5" sx={{ fontWeight: 700, color: "#1EAEDB" }}>
+                <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
+                  <Trophy size={22} className="text-purple-400 mr-2" />
+                  <Typography variant="h5" sx={{ fontWeight: 600, color: "#fff", letterSpacing: "0.02em" }}>
                     {feature.title}
                   </Typography>
                 </Box>
 
                 <Box sx={{ mb: 4 }}>
-                  <Box sx={{ display: "flex", mb: 3, alignItems: "flex-start", gap: 2 }}>
+                  <Box sx={{ display: "flex", mb: 4, alignItems: "flex-start", gap: 2 }}>
                     <Box 
                       sx={{ 
-                        bgcolor: "#f0f9ff", 
+                        bgcolor: "rgba(155,135,245,0.1)", 
                         p: 1, 
                         borderRadius: "50%", 
                         display: "flex", 
                         alignItems: "center",
                         justifyContent: "center",
-                        flexShrink: 0
+                        flexShrink: 0,
+                        border: "1px solid rgba(155,135,245,0.3)"
                       }}
                     >
-                      <CheckCircle size={20} className="text-green-600" />
+                      <CheckCircle size={20} className="text-purple-400" />
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#fff" }}>
                         C.R.U.S.H.
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#444" }}>
+                      <Typography variant="body2" sx={{ color: "#8E9196", lineHeight: 1.6, letterSpacing: "0.01em" }}>
                         {feature.crushDescription}
                       </Typography>
                     </Box>
@@ -200,22 +211,23 @@ export const CompetitionSection = () => {
                   <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
                     <Box 
                       sx={{ 
-                        bgcolor: "#fff1f2", 
+                        bgcolor: "rgba(255,100,100,0.1)", 
                         p: 1, 
                         borderRadius: "50%", 
                         display: "flex", 
                         alignItems: "center",
                         justifyContent: "center",
-                        flexShrink: 0
+                        flexShrink: 0,
+                        border: "1px solid rgba(255,100,100,0.3)"
                       }}
                     >
-                      <XCircle size={20} className="text-red-500" />
+                      <XCircle size={20} className="text-red-400" />
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#fff" }}>
                         Other AI Scribes
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#444" }}>
+                      <Typography variant="body2" sx={{ color: "#8E9196", lineHeight: 1.6, letterSpacing: "0.01em" }}>
                         {feature.competitionDescription}
                       </Typography>
                     </Box>
