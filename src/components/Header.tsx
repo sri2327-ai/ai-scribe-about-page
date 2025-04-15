@@ -93,7 +93,7 @@ const Header = () => {
           <Toolbar disableGutters sx={{ display: 'flex', minHeight: '10vh !important', paddingTop: '.5vh', paddingBottom:'.5vh', flexGrow:1, justifyContent:"space-between" }} >
             <Box sx={{ display: 'flex' }}>
               <Link to="/" className={styles.header_logo}>
-                <img src="/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png" alt="Logo" className={styles.header_logo_img}/>
+                <img src="/lovable-uploads/2436c039-5cf6-44b1-a411-5f30b5a683a4.png" alt="Logo" className={styles.header_logo_img}/>
               </Link>
             </Box>
             {isMobTabHead ? 
