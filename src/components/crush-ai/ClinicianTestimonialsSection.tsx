@@ -108,9 +108,9 @@ export function ClinicianTestimonialsSection({
     <section
       ref={sectionRef}
       id="testimonials-alt"
-      className={cn("py-16 md:py-24 relative overflow-hidden flex justify-center bg-black text-white", className)}
+      className={cn("py-16 md:py-24 relative overflow-hidden flex justify-center bg-white text-black", className)}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/90 to-black z-0"></div>
+      <div className="absolute inset-0 border-b border-black/10 z-0"></div>
       
       <div className="container items-center px-4 md:px-6 relative z-10">
         <motion.div
@@ -119,10 +119,10 @@ export function ClinicianTestimonialsSection({
           variants={containerVariants}
           className="text-center mb-12 space-y-4"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-white">
+          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
             {title}
           </motion.h2>
-          <motion.p variants={itemVariants} className="text-gray-400 max-w-[700px] mx-auto md:text-xl/relaxed">
+          <motion.p variants={itemVariants} className="text-black/70 max-w-[700px] mx-auto md:text-xl/relaxed">
             {subtitle}
           </motion.p>
         </motion.div>
@@ -135,7 +135,7 @@ export function ClinicianTestimonialsSection({
         >
           <motion.div variants={itemVariants} className="relative">
             <div className="absolute -top-6 -left-6 z-10">
-              <Quote className="h-12 w-12 text-purple-400/50" strokeWidth={1} />
+              <Quote className="h-12 w-12 text-black/20 stroke-black" strokeWidth={1} />
             </div>
 
             {/* Testimonial cards */}
@@ -144,39 +144,39 @@ export function ClinicianTestimonialsSection({
                 <Card
                   key={testimonial.id}
                   className={cn(
-                    "absolute inset-0 transition-all duration-500 border border-gray-800 bg-black",
+                    "absolute inset-0 transition-all duration-500 border border-black/10",
                     index === activeIndex
-                      ? "opacity-100 translate-x-0 shadow-[0_0_15px_rgba(155,135,245,0.2)]"
+                      ? "opacity-100 translate-x-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]"
                       : "opacity-0 translate-x-[100px] pointer-events-none",
                   )}
                 >
                   <CardContent className="p-6 md:p-8 h-full flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center gap-4">
-                        <Avatar className="h-12 w-12 border-2 border-purple-500/20">
+                        <Avatar className="h-12 w-12 border-2 border-black/10">
                           <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                          <AvatarFallback className="bg-purple-950 text-purple-200">{testimonial.name.charAt(0)}</AvatarFallback>
+                          <AvatarFallback className="bg-black/10 text-black">{testimonial.name.charAt(0)}</AvatarFallback>
                         </Avatar>
                         <div className="text-left">
-                          <h4 className="font-semibold text-white">{testimonial.name}</h4>
-                          <p className="text-sm text-gray-400">
+                          <h4 className="font-semibold text-black">{testimonial.name}</h4>
+                          <p className="text-sm text-black/60">
                             {testimonial.role}, {testimonial.company}
                           </p>
                         </div>
                       </div>
                       <div className="flex">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 fill-purple-500 text-purple-500" />
+                          <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
                         ))}
                       </div>
                     </div>
 
-                    <Separator className="my-4 bg-gray-800" />
+                    <Separator className="my-4 bg-black/10" />
 
-                    <p className="flex-1 italic text-base/relaxed text-gray-300">"{testimonial.content}"</p>
+                    <p className="flex-1 italic text-base/relaxed text-black/80">"{testimonial.content}"</p>
 
                     {showVerifiedBadge && (
-                      <div className="mt-4 text-xs text-right text-gray-500">Verified Healthcare Provider</div>
+                      <div className="mt-4 text-xs text-right text-black/50">Verified Healthcare Provider</div>
                     )}
                   </CardContent>
                 </Card>
@@ -190,10 +190,10 @@ export function ClinicianTestimonialsSection({
               variant="outline"
               size="icon"
               onClick={handlePrev}
-              className="rounded-full h-10 w-10 border-gray-700 bg-black hover:bg-gray-900 hover:border-purple-500/50"
+              className="rounded-full h-10 w-10 border-black/20 bg-white hover:bg-black/5 hover:border-black/30"
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="h-4 w-4 text-gray-400" />
+              <ChevronLeft className="h-4 w-4 text-black/60" />
             </Button>
 
             <div className="flex md:flex-col gap-2 items-center justify-center">
@@ -202,7 +202,7 @@ export function ClinicianTestimonialsSection({
                   key={index}
                   className={cn(
                     "w-2 h-2 rounded-full transition-colors",
-                    index === activeIndex ? "bg-purple-500" : "bg-gray-700",
+                    index === activeIndex ? "bg-yellow-500" : "bg-black/20",
                   )}
                   role="button"
                   tabIndex={0}
@@ -221,21 +221,21 @@ export function ClinicianTestimonialsSection({
               variant="outline"
               size="icon"
               onClick={handleNext}
-              className="rounded-full h-10 w-10 border-gray-700 bg-black hover:bg-gray-900 hover:border-purple-500/50"
+              className="rounded-full h-10 w-10 border-black/20 bg-white hover:bg-black/5 hover:border-black/30"
               aria-label="Next testimonial"
             >
-              <ChevronRight className="h-4 w-4 text-gray-400" />
+              <ChevronRight className="h-4 w-4 text-black/60" />
             </Button>
           </motion.div>
         </motion.div>
 
         {/* Logo cloud */}
         {trustedCompanies.length > 0 && (
-          <motion.div variants={itemVariants} className="mt-20 pt-10 border-t border-gray-800">
-            <h3 className="text-sm font-medium text-gray-400 text-center mb-8">{trustedCompaniesTitle}</h3>
+          <motion.div variants={itemVariants} className="mt-20 pt-10 border-t border-black/10">
+            <h3 className="text-sm font-medium text-black/60 text-center mb-8">{trustedCompaniesTitle}</h3>
             <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
               {trustedCompanies.map((company) => (
-                <div key={company} className="text-2xl font-semibold text-gray-600">
+                <div key={company} className="text-2xl font-semibold text-black/40">
                   {company}
                 </div>
               ))}
