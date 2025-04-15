@@ -1,9 +1,9 @@
+
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowRight, Users, MessageCircle, FileCheck } from "lucide-react";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import Grid from '@mui/material/Unstable_Grid2';
 
 export const HowItWorksSection = () => {
   const steps = [
@@ -67,7 +67,7 @@ export const HowItWorksSection = () => {
 
         <Grid container spacing={3}>
           {steps.map((step, index) => (
-            <Grid xs={12} key={index}>
+            <Grid item xs={12} key={index}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, x: -20 }}

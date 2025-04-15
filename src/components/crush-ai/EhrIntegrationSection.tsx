@@ -1,11 +1,10 @@
 
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Zap, RefreshCw, FileCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Grid from '@mui/material/Unstable_Grid2';
 
 export const EhrIntegrationSection = () => {
   return (
@@ -66,7 +65,7 @@ export const EhrIntegrationSection = () => {
             mb: 6
           }}
         >
-          {["athenahealth", "eClinicalWorks", "DrChrono", "Epic"].map((item, index) => (
+          {["Epic", "Cerner", "Meditech", "NextGen"].map((item, index) => (
             <Box 
               key={index}
               sx={{

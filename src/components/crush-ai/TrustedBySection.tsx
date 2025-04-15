@@ -1,9 +1,8 @@
 
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { Users } from "lucide-react";
-import Grid from '@mui/material/Unstable_Grid2';
 
 export const TrustedBySection = () => {
   return (
@@ -16,7 +15,7 @@ export const TrustedBySection = () => {
     >
       <Container maxWidth="lg">
         <Grid container spacing={2} alignItems="center" justifyContent="center">
-          <Grid xs={12} md={4} sx={{ textAlign: { xs: 'center', md: 'right' } }}>
+          <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'center', md: 'right' } }}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -43,7 +42,7 @@ export const TrustedBySection = () => {
             </Box>
           </Grid>
           
-          <Grid xs={12} md={8}>
+          <Grid item xs={12} md={8}>
             <Box 
               component={motion.div}
               initial={{ opacity: 0, x: -20 }}

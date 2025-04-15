@@ -1,8 +1,8 @@
+
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
 import { CheckCircle, X } from "lucide-react";
-import Grid from '@mui/material/Unstable_Grid2';
 
 const featuresData = [
   {
@@ -83,7 +83,7 @@ export const CompetitionSection = () => {
 
         <Grid container spacing={3} sx={{ mt: 5 }}>
           {featuresData.map((feature, index) => (
-            <Grid xs={12} md={4} key={index}>
+            <Grid item xs={12} md={4} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
