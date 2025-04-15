@@ -1,4 +1,3 @@
-
 'use client'
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
@@ -37,8 +36,8 @@ const Header = () => {
       { 'label': "BRAVO - AI Patient Care Agent", 'path': "/solution/patient-engagement" },
     ],
     "About": [
-      { 'label': "S10 Story", 'path': "/about" },
-      { 'label': "Trust & Technology", 'path': "/technology" },
+      { 'label': "S10 Story", 'path': "/about/s10-story" },
+      { 'label': "Trust & Technology", 'path': "/about/trust-and-technology" },
       { 'label': "Integrations", 'path': "/integrations" },
       { 'label': "Specialties", 'path': "/specialties" },
     ],
@@ -77,7 +76,6 @@ const Header = () => {
     setCurrentMenu(null);
   };
 
-  // Define the teal blue highlight color
   const highlightColor = "#1EAEDB";
 
   return (
