@@ -1,11 +1,13 @@
 
 import React from "react";
-import { Box, Container, Typography, Button, Grid, Paper } from "@mui/material";
+import { Box, Container, Typography, Grid as MuiGrid, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight, Check, Zap, Users, Calendar, MessageCircle, FileCheck, RefreshCw, Brain } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
+import { ShootingStars } from "@/components/ui/shooting-stars";
 
 const CrushAI = () => {
   return (
@@ -20,8 +22,8 @@ const CrushAI = () => {
         }}
       >
         <Container maxWidth="lg">
-          <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={6}>
+          <MuiGrid container spacing={4} alignItems="center">
+            <MuiGrid item xs={12} md={6}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, y: 20 }}
@@ -51,7 +53,7 @@ const CrushAI = () => {
                   AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
                   Workflows—So You Can Focus on Patient Care!
                 </Typography>
-                <Grid container spacing={2} sx={{ mb: 6, justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                <MuiGrid container spacing={2} sx={{ mb: 6, justifyContent: { xs: 'center', md: 'flex-start' } }}>
                   {[
                     "Customizable – Control note content & formatting.",
                     "Real-Time EHR Sync – Instantly integrates with any system.",
@@ -59,7 +61,7 @@ const CrushAI = () => {
                     "Smart AI Assistance – Context-aware AI for accurate documentation.",
                     "Healthcare Automation – Handles prescriptions, referrals, labs & more."
                   ].map((item, index) => (
-                    <Grid item xs={12} sm={6} key={index}>
+                    <MuiGrid item xs={12} sm={6} key={index}>
                       <Box 
                         component={motion.div}
                         initial={{ opacity: 0, x: -10 }}
@@ -77,9 +79,9 @@ const CrushAI = () => {
                           {item}
                         </Typography>
                       </Box>
-                    </Grid>
+                    </MuiGrid>
                   ))}
-                </Grid>
+                </MuiGrid>
                 <ShadcnButton 
                   size="lg" 
                   className="bg-tealBlueBright hover:bg-tealBlue"
@@ -88,8 +90,8 @@ const CrushAI = () => {
                   <ArrowRight size={16} />
                 </ShadcnButton>
               </Box>
-            </Grid>
-            <Grid item xs={12} md={6}>
+            </MuiGrid>
+            <MuiGrid item xs={12} md={6}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -101,18 +103,7 @@ const CrushAI = () => {
                   position: 'relative'
                 }}
               >
-                <Box
-                  component="img"
-                  src="/placeholder.svg"
-                  alt="CRUSH AI Interface"
-                  sx={{
-                    width: '100%',
-                    maxWidth: 500,
-                    height: 'auto',
-                    borderRadius: 2,
-                    boxShadow: 3
-                  }}
-                />
+                <AnimatedWorkflow />
                 <Sparkles 
                   className="absolute inset-0 pointer-events-none" 
                   size={1.5}
@@ -120,8 +111,8 @@ const CrushAI = () => {
                   background="transparent"
                 />
               </Box>
-            </Grid>
-          </Grid>
+            </MuiGrid>
+          </MuiGrid>
         </Container>
       </Box>
 
@@ -165,7 +156,7 @@ const CrushAI = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={4} justifyContent="center">
+          <MuiGrid container spacing={4} justifyContent="center">
             {[
               {
                 title: "Works on Any Device",
@@ -183,7 +174,7 @@ const CrushAI = () => {
                 icon: <FileCheck size={36} className="text-tealBlueBright" />
               }
             ].map((item, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <MuiGrid item xs={12} md={4} key={index}>
                 <Card className="h-full card-hover">
                   <CardContent className="flex flex-col items-center text-center p-6">
                     <Box 
@@ -214,9 +205,9 @@ const CrushAI = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Grid>
+              </MuiGrid>
             ))}
-          </Grid>
+          </MuiGrid>
 
           <Box 
             component={motion.div}
@@ -302,7 +293,7 @@ const CrushAI = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={6}>
+          <MuiGrid container spacing={6}>
             {[
               {
                 step: "1️⃣ Select a Patient",
@@ -329,7 +320,7 @@ const CrushAI = () => {
                 icon: <FileCheck size={48} className="text-tealBlueBright" />
               }
             ].map((item, index) => (
-              <Grid item xs={12} key={index}>
+              <MuiGrid item xs={12} key={index}>
                 <Box 
                   component={motion.div}
                   initial={{ opacity: 0, x: -20 }}
@@ -397,9 +388,9 @@ const CrushAI = () => {
                     </Box>
                   </Box>
                 </Box>
-              </Grid>
+              </MuiGrid>
             ))}
-          </Grid>
+          </MuiGrid>
 
           <Box
             component={motion.div}
@@ -475,7 +466,7 @@ const CrushAI = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={3}>
+          <MuiGrid container spacing={3}>
             {[
               "Pinpoint Accuracy, No Nonsense: Our AI nails every detail of your medical jargon. No fixing botched notes like with those other scribes that churn out fiction.",
               "EHR Sync That's Actually Seamless: Plugs into any EHR—Epic, Cerner, or your clinic's quirky setup. Notes, labs, prescriptions? Instant. Others? Stuck in copy-paste purgatory.",
@@ -486,7 +477,7 @@ const CrushAI = () => {
               "Burnout? What's That?: Charts done in under a minute, no late-night edits. Better RAF scores mean more revenue, too. Other scribes keep you slaving.",
               "Security That's Ironclad: HIPAA, SOC 2, HITECH—your data's untouchable. Unlike those sketchy scribes with security as flimsy as a paper chart."
             ].map((item, index) => (
-              <Grid item xs={12} md={6} key={index}>
+              <MuiGrid item xs={12} md={6} key={index}>
                 <Box 
                   component={motion.div}
                   initial={{ opacity: 0, y: 10 }}
@@ -510,9 +501,9 @@ const CrushAI = () => {
                     {item}
                   </Typography>
                 </Box>
-              </Grid>
+              </MuiGrid>
             ))}
-          </Grid>
+          </MuiGrid>
 
           <Box
             component={motion.div}
@@ -586,9 +577,9 @@ const CrushAI = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={6}>
+          <MuiGrid container spacing={6}>
             {/* Automate Staffing Section */}
-            <Grid item xs={12} md={6}>
+            <MuiGrid item xs={12} md={6}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, x: -20 }}
@@ -650,10 +641,10 @@ const CrushAI = () => {
                   ))}
                 </Box>
               </Box>
-            </Grid>
+            </MuiGrid>
 
             {/* AI Assistance Section */}
-            <Grid item xs={12} md={6}>
+            <MuiGrid item xs={12} md={6}>
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, x: 20 }}
@@ -715,8 +706,8 @@ const CrushAI = () => {
                   ))}
                 </Box>
               </Box>
-            </Grid>
-          </Grid>
+            </MuiGrid>
+          </MuiGrid>
         </Container>
       </Box>
 
@@ -725,9 +716,18 @@ const CrushAI = () => {
         component="section" 
         sx={{ 
           py: { xs: 8, md: 12 },
-          bgcolor: '#f8f9fa'
+          bgcolor: '#f8f9fa',
+          position: 'relative',
+          overflow: 'hidden'
         }}
       >
+        <ShootingStars 
+          starCount={30}
+          className="absolute inset-0"
+          colors={["#ffffff", "#1EAEDB"]}
+          interactive={true}
+        />
+        
         <Container maxWidth="lg">
           <Box 
             component={motion.div}
@@ -735,7 +735,7 @@ const CrushAI = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
-            sx={{ mb: 8, textAlign: 'center' }}
+            sx={{ mb: 8, textAlign: 'center', position: 'relative', zIndex: 1 }}
           >
             <Typography 
               variant="h2" 
@@ -761,7 +761,7 @@ const CrushAI = () => {
             </Typography>
           </Box>
 
-          <Grid container spacing={4}>
+          <MuiGrid container spacing={4} sx={{ position: 'relative', zIndex: 1 }}>
             {[
               {
                 title: "Restore Focus",
@@ -776,7 +776,7 @@ const CrushAI = () => {
                 description: "No more pajama time—Instant chart closure and streamlined billing, optimized RAF scoring for higher reimbursements, and eased administrative burdens."
               }
             ].map((item, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <MuiGrid item xs={12} md={4} key={index}>
                 <Box 
                   component={motion.div}
                   initial={{ opacity: 0, y: 20 }}
@@ -813,9 +813,9 @@ const CrushAI = () => {
                     {item.description}
                   </Typography>
                 </Box>
-              </Grid>
+              </MuiGrid>
             ))}
-          </Grid>
+          </MuiGrid>
 
           <Box 
             component={motion.div}
@@ -831,7 +831,9 @@ const CrushAI = () => {
               bgcolor: 'white',
               boxShadow: 2,
               maxWidth: 900,
-              mx: 'auto'
+              mx: 'auto',
+              position: 'relative',
+              zIndex: 1
             }}
           >
             <Typography 
