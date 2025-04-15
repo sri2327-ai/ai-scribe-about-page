@@ -5,6 +5,7 @@ import { Box, Typography, Container, Paper, Grid } from "@mui/material";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Brain, Globe, Layers } from "lucide-react";
+import { SignatureAnimation } from "@/components/ui/signature-animation";
 
 // Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
@@ -387,6 +388,14 @@ const FounderMessage = () => {
                     >
                       Founder & Chairman, S10.AI Inc.
                     </Typography>
+                    
+                    {/* Signature animation */}
+                    <SignatureAnimation 
+                      width={200} 
+                      className="mt-2" 
+                      color="#1EAEDB"
+                      strokeWidth={3}
+                    />
                   </Box>
                 </Box>
               </Box>
