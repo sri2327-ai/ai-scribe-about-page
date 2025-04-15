@@ -1,11 +1,12 @@
 
 import React from "react";
-import { Box, Container, Typography, Grid } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
+import Grid from '@mui/material/Grid';
 
 export const HeroSection = () => {
   return (
@@ -19,7 +20,7 @@ export const HeroSection = () => {
     >
       <Container maxWidth="lg">
         <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} component="div">
             <Box 
               component={motion.div}
               initial={{ opacity: 0, y: 20 }}
@@ -62,7 +63,7 @@ export const HeroSection = () => {
               </ShadcnButton>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={6} component="div">
             <Box 
               component={motion.div}
               initial={{ opacity: 0, scale: 0.9 }}

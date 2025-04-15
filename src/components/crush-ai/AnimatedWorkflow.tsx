@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  FileText, Database, Send, CheckCircle, FileCheck, 
-  ClipboardList, Activity, TestTube  // Replace Flask with TestTube
+  FileText, Database, Send, CheckCircle, 
+  ClipboardList, Activity, TestTube
 } from "lucide-react";
 import { AIVoiceInput } from "./AIVoiceInput";
 import { Box, Typography } from "@mui/material";
@@ -30,7 +30,7 @@ const workflowSteps = [
   {
     id: "labs",
     title: "Process Lab Orders",
-    icon: <TestTube size={30} className="text-black" />, // Changed from Flask
+    icon: <TestTube size={30} className="text-black" />,
     description: "Submitting necessary lab work..."
   },
   {
@@ -59,7 +59,7 @@ export function AnimatedWorkflow() {
   const [completed, setCompleted] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number | null>(null);
 
-  // Auto demo mode
+  // Auto demo mode with seamless transitions
   useEffect(() => {
     if (isRecording) {
       const intervalId = setInterval(() => {
@@ -71,23 +71,36 @@ export function AnimatedWorkflow() {
           }
           return prev + 1;
         });
-      }, 2500);
+      }, 2000); // Reduced interval for faster transitions
 
       return () => clearInterval(intervalId);
     }
   }, [isRecording]);
 
-  // Reset after completion
+  // Reset after completion with a delay
   useEffect(() => {
     if (completed) {
       const timeout = setTimeout(() => {
         setCurrentStep(0);
         setCompleted(false);
-      }, 5000);
+        // Auto-restart the animation cycle after completion
+        setTimeout(() => {
+          setIsRecording(true);
+        }, 1000);
+      }, 4000);
 
       return () => clearTimeout(timeout);
     }
   }, [completed]);
+
+  // Auto-start on component mount
+  useEffect(() => {
+    const startTimeout = setTimeout(() => {
+      setIsRecording(true);
+    }, 1000);
+    
+    return () => clearTimeout(startTimeout);
+  }, []);
 
   const handleStart = () => {
     setIsRecording(true);
@@ -119,24 +132,11 @@ export function AnimatedWorkflow() {
         border: "1px solid rgba(0, 0, 0, 0.08)"
       }}
     >
-      <Typography 
-        variant="h5" 
-        sx={{ 
-          mb: 3, 
-          textAlign: "center",
-          fontWeight: 600,
-          color: "#000000"
-        }}
-      >
-        AI Workflow Automation
-      </Typography>
-
       <AIVoiceInput 
         onStart={handleStart}
         onStop={handleStop}
-        demoMode={true}
-        demoInterval={15000}
-        className="mb-6"
+        demoMode={false} // Don't use the component's demo mode since we're controlling it
+        className="mb-4"
       />
 
       <Box 
