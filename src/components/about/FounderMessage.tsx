@@ -5,6 +5,7 @@ import { Box, Typography, Container, Paper, Grid } from "@mui/material";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Brain, Globe, Layers } from "lucide-react";
+import { SignatureAnimation } from "@/components/ui/signature-animation";
 
 // Simpler text rotate without animations that were causing errors
 const TextRotate = ({ texts }: { texts: string[] }) => {
@@ -339,7 +340,8 @@ const FounderMessage = () => {
                   viewport={{ once: true }}
                   sx={{
                     display: 'flex',
-                    alignItems: 'center',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: { xs: 'center', sm: 'flex-start' },
                     gap: 3
                   }}
                 >
@@ -367,7 +369,11 @@ const FounderMessage = () => {
                       </Typography>
                     </Box>
                   </Box>
-                  <Box>
+                  <Box sx={{ 
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: { xs: 'center', sm: 'flex-start' },
+                  }}>
                     <Typography 
                       variant="h6"
                       sx={{
@@ -382,11 +388,20 @@ const FounderMessage = () => {
                     <Typography 
                       sx={{
                         color: 'rgba(156, 163, 175, 1)',
-                        fontFamily: '"Wix Madefor Text", sans-serif'
+                        fontFamily: '"Wix Madefor Text", sans-serif',
+                        mb: 2
                       }}
                     >
                       Founder & Chairman, S10.AI Inc.
                     </Typography>
+                    
+                    {/* Animated Signature */}
+                    <SignatureAnimation 
+                      width={180} 
+                      height={60} 
+                      color="#1EAEDB" 
+                      className="mt-2" 
+                    />
                   </Box>
                 </Box>
               </Box>
