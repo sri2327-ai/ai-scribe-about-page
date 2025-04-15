@@ -8,7 +8,7 @@ import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { 
   Stethoscope, 
   ClipboardList, 
-  Pills, 
+  Pill, 
   FileSpreadsheet, 
   FileCheck, 
   ScanLine, 
@@ -160,7 +160,7 @@ const FeatureSubsection = ({
       
       <Grid container spacing={3}>
         {features.map((feature, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid xs={12} sm={6} md={4} key={index}>
             <FeatureItem 
               icon={feature.icon} 
               title={feature.title} 
@@ -176,7 +176,7 @@ const FeatureSubsection = ({
 export const ClinicalWorkflowSection = () => {
   const adminFeatures = [
     {
-      icon: Pills,
+      icon: Pill,
       title: "Prescription Refills",
       description: "Automates refill requests & pharmacy submissions, saving time and reducing errors."
     },
