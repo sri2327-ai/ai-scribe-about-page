@@ -33,7 +33,7 @@ export const HeroSection = () => {
               <Typography 
                 variant="h1" 
                 sx={{ 
-                  fontSize: { xs: '1.8rem', md: '2.5rem' }, 
+                  fontSize: { xs: '1.7rem', md: '2.3rem' }, 
                   fontWeight: 800,
                   mb: 2,
                   color: '#000000',
@@ -48,7 +48,7 @@ export const HeroSection = () => {
                 sx={{ 
                   mb: 4, 
                   color: '#403E43',
-                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontSize: { xs: '0.85rem', md: '0.95rem' },
                   fontWeight: 400,
                   lineHeight: 1.5
                 }}
@@ -66,6 +66,7 @@ export const HeroSection = () => {
               </ShadcnButton>
             </Box>
           </Grid>
+          
           <Grid item xs={12} md={6}>
             <Box 
               component={motion.div}
@@ -75,7 +76,9 @@ export const HeroSection = () => {
               sx={{ 
                 display: 'flex',
                 justifyContent: 'center',
-                position: 'relative'
+                position: 'relative',
+                width: '100%',
+                height: '100%'
               }}
             >
               <AnimatedWorkflow />

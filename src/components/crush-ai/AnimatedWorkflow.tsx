@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { 
   FileText, HardDrive, Send, CheckCircle, 
   ClipboardList, TestTube, Mail, Mic, 
-  Clock, Heart, Battery
+  Clock, Heart, Database, History
 } from "lucide-react";
 import { Box, Typography } from "@mui/material";
 
@@ -70,6 +70,75 @@ const workflowSteps = [
     )
   },
   {
+    id: "previous",
+    title: "Previous Visit Context",
+    icon: <History size={30} className="text-black" />,
+    description: "During the previous visit, the patient reported mild chest discomfort and fatigue. Lab tests were ordered, and a short-term prescription was provided for symptom relief. Follow-up was recommended to review test results and assess response to treatment.",
+    detailContent: (
+      <Box sx={{ mt: 2 }}>
+        <Box 
+          sx={{ 
+            border: '1px solid rgba(0,0,0,0.1)', 
+            p: 1.5, 
+            borderRadius: 1,
+            bgcolor: 'rgba(0,0,0,0.02)',
+            fontSize: '0.75rem',
+            fontFamily: 'monospace',
+            position: 'relative',
+            height: '80px',
+            overflow: 'hidden'
+          }}
+        >
+          <Typography 
+            component="div" 
+            sx={{ 
+              position: 'absolute',
+              top: '8px',
+              left: '12px',
+              fontSize: '0.75rem',
+              fontFamily: 'monospace',
+              animation: 'typing 2s steps(40, end)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden'
+            }}
+          >
+            <span className="font-semibold">Visit Date:</span> March 12, 2025
+          </Typography>
+          <Typography 
+            component="div" 
+            sx={{ 
+              position: 'absolute',
+              top: '28px',
+              left: '12px',
+              fontSize: '0.75rem',
+              fontFamily: 'monospace',
+              animation: 'typing 2s 0.5s steps(40, end)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden'
+            }}
+          >
+            <span className="font-semibold">Symptoms:</span> Chest discomfort, fatigue
+          </Typography>
+          <Typography 
+            component="div" 
+            sx={{ 
+              position: 'absolute',
+              top: '48px',
+              left: '12px',
+              fontSize: '0.75rem',
+              fontFamily: 'monospace',
+              animation: 'typing 2s 1s steps(40, end)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden'
+            }}
+          >
+            <span className="font-semibold">Plan:</span> Lab tests, symptom relief Rx, follow-up
+          </Typography>
+        </Box>
+      </Box>
+    )
+  },
+  {
     id: "notes",
     title: "Generate Clinical Notes",
     icon: <FileText size={30} className="text-black" />,
@@ -85,7 +154,7 @@ const workflowSteps = [
             fontSize: '0.75rem',
             fontFamily: 'monospace',
             position: 'relative',
-            height: '80px',
+            height: '100px',
             overflow: 'hidden'
           }}
         >
@@ -132,7 +201,22 @@ const workflowSteps = [
               overflow: 'hidden'
             }}
           >
-            <span className="font-semibold">ASSESSMENT:</span> Acute appendicitis...
+            <span className="font-semibold">ICD-10:</span> K35.80 (Unspecified acute appendicitis)
+          </Typography>
+          <Typography 
+            component="div" 
+            sx={{ 
+              position: 'absolute',
+              top: '68px',
+              left: '12px',
+              fontSize: '0.75rem',
+              fontFamily: 'monospace',
+              animation: 'typing 2s 1.5s steps(40, end)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden'
+            }}
+          >
+            <span className="font-semibold">CPT/E&M:</span> 99203 (New patient, detailed exam)
           </Typography>
         </Box>
       </Box>
@@ -324,44 +408,47 @@ const workflowSteps = [
   {
     id: "ehr",
     title: "Push Notes to EHR",
-    icon: <HardDrive size={30} className="text-black" />,
+    icon: <Database size={30} className="text-black" />,
     description: "Syncing with electronic health record...",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center' }}>
           All documents pushed to your preferred fields in your EHR
         </Typography>
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
-          {[
-            { name: "Practice Fusion", icon: "PF" },
-            { name: "athenahealth", icon: "AH" },
-            { name: "eClinicalWorks", icon: "eCW" },
-            { name: "DrChrono", icon: "DC" }
-          ].map((ehr, i) => (
-            <Box 
-              key={i}
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: i * 0.2 }}
-              sx={{ 
-                width: 50,
-                height: 50,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid rgba(0,0,0,0.15)',
-                borderRadius: 1,
-                bgcolor: 'white',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.05)',
-                fontSize: '0.75rem',
-                fontWeight: 'bold',
-                color: '#333'
-              }}
-            >
-              {ehr.icon}
-            </Box>
-          ))}
+        <Box 
+          component={motion.div}
+          initial={{ opacity: 0, y: 5 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          sx={{ 
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            p: 2,
+            bgcolor: 'rgba(0,0,0,0.03)',
+            borderRadius: 1,
+            border: '1px dashed rgba(0,0,0,0.1)'
+          }}
+        >
+          <Typography
+            component={motion.div}
+            animate={{ 
+              opacity: [0.5, 1, 0.5],
+              scale: [0.98, 1, 0.98]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 2
+            }}
+            sx={{ 
+              fontSize: '0.8rem',
+              textAlign: 'center',
+              fontStyle: 'italic',
+              color: '#555'
+            }}
+          >
+            Secure integration with all major EHR systems
+          </Typography>
         </Box>
       </Box>
     )
@@ -415,7 +502,12 @@ const workflowSteps = [
               transition={{ repeat: Infinity, duration: 2, delay: 1 }}
               sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
             >
-              <Battery size={28} className="text-blue-500 mb-1" />
+              <motion.div 
+                animate={{ rotate: [0, 10, 0, -10, 0] }}
+                transition={{ repeat: Infinity, duration: 2.5 }}
+              >
+                <span role="img" aria-label="patient care" style={{ fontSize: '24px' }}>🚀</span>
+              </motion.div>
               <Typography sx={{ fontSize: '0.7rem', fontWeight: 'bold', color: '#333' }}>
                 Patients Soaring
               </Typography>
@@ -446,11 +538,23 @@ export function AnimatedWorkflow() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [completed, setCompleted] = useState<boolean>(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number | null>(null);
+
+  // Start auto demo mode on component mount
+  useEffect(() => {
+    const startTimeout = setTimeout(() => {
+      setIsRecording(true);
+      setIsAutoPlaying(true);
+    }, 1000);
+    
+    return () => clearTimeout(startTimeout);
+  }, []);
 
   // Auto demo mode with slower transitions
   useEffect(() => {
-    if (isRecording) {
+    if (isRecording && isAutoPlaying) {
       const intervalId = setInterval(() => {
         setCurrentStep((prev) => {
           if (prev >= workflowSteps.length - 1) {
@@ -460,11 +564,11 @@ export function AnimatedWorkflow() {
           }
           return prev + 1;
         });
-      }, 5000); // Increased from 3500 to 5000 for slower transitions
+      }, 6000); // Increased to 6 seconds for even slower transitions
 
       return () => clearInterval(intervalId);
     }
-  }, [isRecording]);
+  }, [isRecording, isAutoPlaying]);
 
   // Reset after completion with a delay
   useEffect(() => {
@@ -472,39 +576,36 @@ export function AnimatedWorkflow() {
       const timeout = setTimeout(() => {
         setCurrentStep(0);
         setCompleted(false);
-        // Auto-restart the animation cycle after completion
-        setTimeout(() => {
-          setIsRecording(true);
-        }, 2000);
-      }, 6000); // Increased from 4000 to 6000
+        
+        // Only auto-restart if user hasn't interacted
+        if (!userInteracted) {
+          setTimeout(() => {
+            setIsRecording(true);
+            setIsAutoPlaying(true);
+          }, 2000);
+        }
+      }, 7000); // Longer delay before restarting
 
       return () => clearTimeout(timeout);
     }
-  }, [completed]);
+  }, [completed, userInteracted]);
 
-  // Auto-start on component mount
-  useEffect(() => {
-    const startTimeout = setTimeout(() => {
-      setIsRecording(true);
-    }, 1500); // Give a bit more time before starting
-    
-    return () => clearTimeout(startTimeout);
-  }, []);
-
-  const handleStart = () => {
-    setIsRecording(true);
-    setCurrentStep(0);
-    setCompleted(false);
-  };
-
-  const handleStop = () => {
-    setIsRecording(false);
-  };
-
+  // Detect if user has clicked on any step and switch to interactive mode
   const handleStepClick = (index: number) => {
-    if (!isRecording) {
-      setCurrentStep(index);
-    }
+    setUserInteracted(true);
+    setIsAutoPlaying(false);
+    setIsRecording(false);
+    setCurrentStep(index);
+    
+    // If user stops interacting for 15 seconds, switch back to auto mode
+    const inactivityTimer = setTimeout(() => {
+      if (!completed) {
+        setIsAutoPlaying(true);
+        setIsRecording(true);
+      }
+    }, 15000);
+    
+    return () => clearTimeout(inactivityTimer);
   };
 
   return (
@@ -523,53 +624,6 @@ export function AnimatedWorkflow() {
         margin: "0 auto"
       }}
     >
-      <Box 
-        sx={{ 
-          display: "flex",
-          justifyContent: "space-between",
-          mb: 2
-        }}
-      >
-        <Typography variant="subtitle1" sx={{ fontWeight: 600, fontSize: "1rem" }}>
-          Workflow Demo
-        </Typography>
-        <Box sx={{ display: "flex", gap: 1 }}>
-          {isRecording ? (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={handleStop}
-              style={{
-                border: "none",
-                background: "rgba(239, 68, 68, 0.1)",
-                color: "#ef4444",
-                borderRadius: "4px",
-                padding: "4px 8px",
-                fontSize: "0.75rem",
-                cursor: "pointer"
-              }}
-            >
-              Pause
-            </motion.button>
-          ) : (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={handleStart}
-              style={{
-                border: "none",
-                background: "rgba(16, 185, 129, 0.1)",
-                color: "#10b981",
-                borderRadius: "4px",
-                padding: "4px 8px",
-                fontSize: "0.75rem",
-                cursor: "pointer"
-              }}
-            >
-              Auto Play
-            </motion.button>
-          )}
-        </Box>
-      </Box>
-      
       <Box 
         sx={{ 
           flex: 1,
@@ -610,7 +664,7 @@ export function AnimatedWorkflow() {
                 alignItems: "flex-start",
                 p: 1.5,
                 borderRadius: 1.5,
-                cursor: "pointer", // Always make it clickable
+                cursor: "pointer", 
                 bgcolor: isActive ? "rgba(0, 0, 0, 0.03)" : "transparent",
                 border: isActive ? "1px solid rgba(0, 0, 0, 0.1)" : "1px solid transparent",
                 flexDirection: "column"
