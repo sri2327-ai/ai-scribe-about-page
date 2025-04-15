@@ -14,7 +14,7 @@ interface CpuArchitectureSvgProps {
   animateMarkers?: boolean;
 }
 
-export const MeetIpkoAnimation = ({
+const MeetIpkoAnimation = ({
   className,
   width = "100%",
   height = "100%",
@@ -441,3 +441,5 @@ export const MeetIpkoAnimation = ({
     </div>
   );
 };
+
+export default MeetIpkoAnimation;
