@@ -1,7 +1,7 @@
 
 /* Footer Styles */
 .footer {
-  background-color: #1A1F2C;
+  background-color: #000000;
   color: #fff;
   padding: 4rem 2rem 2rem 2rem;
   width: 100%;
@@ -12,22 +12,22 @@
 .footer::before {
   content: '';
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
   height: 40%;
-  background: linear-gradient(to top, rgba(15, 160, 206, 0.15), transparent);
+  background: radial-gradient(ellipse at top, rgba(15, 160, 206, 0.3), transparent);
   z-index: 0;
   animation: gradientPulse 8s ease-in-out infinite;
 }
 
 @keyframes gradientPulse {
   0%, 100% {
-    opacity: 0.1;
-    transform: translateY(10%);
+    opacity: 0.2;
+    transform: translateY(-5%);
   }
   50% {
-    opacity: 0.2;
+    opacity: 0.3;
     transform: translateY(0);
   }
 }

@@ -1,4 +1,3 @@
-
 'use client'
 import { useTheme } from "@mui/material/styles";
 import { Box, Typography, IconButton, Button } from "@mui/material";
@@ -88,10 +87,10 @@ export default function Footer() {
     <Box component="footer" sx={{ 
       width: '100%', 
       position: 'relative',
-      overflow: 'hidden' 
+      overflow: 'hidden', 
+      backgroundColor: '#000'
     }}>
       <Box sx={{ 
-        backgroundColor: '#1A1F2C',
         color: '#fff',
         padding: '4rem 2rem 2rem 2rem',
         width: '100%',
@@ -99,12 +98,13 @@ export default function Footer() {
         zIndex: 1
       }}>
         <AnimatedGradientBackground 
-          startingGap={500}
+          startingGap={450}
           Breathing={true}
-          gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
-          gradientStops={[0, 15, 30, 100]}
-          animationSpeed={0.02}
-          breathingRange={15}
+          gradientColors={["#1EAEDB", "#0FA0CE", "#000", "#000"]}
+          gradientStops={[0, 20, 40, 100]}
+          animationSpeed={0.015}
+          breathingRange={30}
+          position="top"
         />
         
         <Box sx={{ 
@@ -235,7 +235,6 @@ export default function Footer() {
               </Box>
             </Box>
             
-            {/* Right Section */}
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -291,7 +290,6 @@ export default function Footer() {
             </Box>
           </Box>
 
-          {/* Divider Line with Gradient Tracing Animation */}
           <Box sx={{ my: 4, position: 'relative' }}>
             <GradientTracing 
               width={1200} 
@@ -310,7 +308,6 @@ export default function Footer() {
             gap: '2rem',
             marginTop: '2rem'
           }}>
-            {/* Left Section */}
             <Box sx={{ flex: 1 }}>
               <Typography>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: '#fff' }}>support@s10.ai</a>
@@ -318,7 +315,6 @@ export default function Footer() {
               <Typography sx={{ my: 1 }}>Tel: +1 631 4886 390</Typography>
               <Typography>NJ, Princeton - Carnegie Center, <br /> United States.</Typography>
 
-              {/* Social Media Icons */}
               <Box sx={{ 
                 display: 'flex', 
                 gap: '1rem', 
@@ -399,7 +395,6 @@ export default function Footer() {
               </Box>
             </Box>
             
-            {/* Right Section */}
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -453,7 +448,6 @@ export default function Footer() {
           </Box>
         </Box>
         
-        {/* Copyright Section */}
         <Typography sx={{ 
           textAlign: 'center', 
           marginTop: '2rem', 

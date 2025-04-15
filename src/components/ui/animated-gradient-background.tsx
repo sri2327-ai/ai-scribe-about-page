@@ -11,15 +11,17 @@ interface AnimatedGradientBackgroundProps {
   gradientStops?: number[];
   animationSpeed?: number;
   breathingRange?: number;
+  position?: "top" | "bottom";
 }
 
 const AnimatedGradientBackground = ({
-  startingGap = 300, // Increased from 110 to 300 to make the black area larger
+  startingGap = 300,
   Breathing = true,
   gradientColors = ["#000", "#1EAEDB", "#0FA0CE", "#000"],
   gradientStops = [0, 30, 60, 100],
   animationSpeed = 0.03,
-  breathingRange = 20, // Increased from 8 to 20 to allow more breathing effect
+  breathingRange = 20,
+  position = "top", // Added position parameter
 }: AnimatedGradientBackgroundProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number>(0);
@@ -58,20 +60,31 @@ const AnimatedGradientBackground = ({
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Create gradient
+      // Create radial gradient - adjust the position based on the position prop
+      const centerY = position === "top" ? 0 : canvas.height;
+      
       const gradient = ctx.createRadialGradient(
         canvas.width / 2, 
-        0, 
+        centerY, 
         breathingRef.current, 
         canvas.width / 2, 
-        0, 
-        canvas.width * 1.5 // Increased radius to cover more of the screen
+        centerY, 
+        canvas.width * 1.2
       );
 
-      // Add colors to gradient
-      gradientColors.forEach((color, index) => {
-        gradient.addColorStop(gradientStops[index] / 100, color);
-      });
+      // Add colors to gradient (with adjusted order if position is bottom)
+      if (position === "top") {
+        gradientColors.forEach((color, index) => {
+          gradient.addColorStop(gradientStops[index] / 100, color);
+        });
+      } else {
+        // For bottom position, reverse the gradient
+        const reversedColors = [...gradientColors].reverse();
+        const reversedStops = gradientStops.map(stop => 100 - stop).sort((a, b) => a - b);
+        reversedColors.forEach((color, index) => {
+          gradient.addColorStop(reversedStops[index] / 100, color);
+        });
+      }
 
       // Draw gradient
       ctx.fillStyle = gradient;
@@ -87,7 +100,7 @@ const AnimatedGradientBackground = ({
       cancelAnimationFrame(requestRef.current);
       previousTimeRef.current = 0;
     };
-  }, [startingGap, Breathing, gradientColors, gradientStops, animationSpeed, breathingRange]);
+  }, [startingGap, Breathing, gradientColors, gradientStops, animationSpeed, breathingRange, position]);
 
   return (
     <motion.canvas
