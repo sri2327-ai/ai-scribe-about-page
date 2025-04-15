@@ -21,63 +21,33 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// BentoGrid Component with custom sizing
-const BentoGrid = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div
-      className={cn(
-        "grid w-full gap-4 grid-cols-12",
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
-};
-
-// BentoCard Component with flexible sizing
-const BentoCard = ({
-  icon: Icon,
-  title,
-  description,
-  className,
-  colSpan = 4,
-  rowSpan = 1,
-}: {
-  icon: React.FC<any>;
+interface BentoCardProps {
+  icon: React.ElementType;
   title: string;
   description: string;
   className?: string;
-  colSpan?: number;
-  rowSpan?: number;
-}) => (
+}
+
+const BentoCard = ({ icon: Icon, title, description, className }: BentoCardProps) => (
   <div
     className={cn(
       "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6",
       "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
       "border border-gray-100 hover:border-purple-100 transition-all duration-300",
-      `col-span-${colSpan}`,
-      rowSpan > 1 ? `row-span-${rowSpan}` : "",
-      className,
+      className
     )}
-    style={{ 
-      minHeight: rowSpan === 1 ? '220px' : `${220 * rowSpan}px`,
-    }}
   >
     <div className="flex flex-col gap-3 z-10">
       <div className="bg-gray-50 w-12 h-12 rounded-lg flex items-center justify-center">
         <Icon size={24} className="text-black" />
       </div>
-      <h3 className="text-xl font-semibold text-black">
-        {title}
-      </h3>
-      <p className="text-gray-600">{description}</p>
+      
+      <div>
+        <h3 className="text-xl font-semibold text-black mb-2">
+          {title}
+        </h3>
+        <p className="text-gray-600">{description}</p>
+      </div>
     </div>
     
     <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.02]" />
@@ -90,36 +60,26 @@ export const ClinicalWorkflowSection = () => {
       icon: Pill,
       title: "Prescription Refills & Lab Management",
       description: "Automates refill requests, lab order submissions, and updates lab results in patient charts—saving time and reducing errors.",
-      colSpan: 7,
-      rowSpan: 1,
     },
     {
       icon: ClipboardList,
       title: "Smart Screening & Assessments",
       description: "Conducts PHQ-9, GAD-7, PCL-5, AUDIT, and CSSRS assessments automatically, and prepares results for clinical use.",
-      colSpan: 5,
-      rowSpan: 1,
     },
     {
       icon: FileSpreadsheet,
       title: "Pre-Charting & Referral Automation",
       description: "Prepares charts, retrieves history, uploads patient documents, and drafts referral letters with intelligent patient insights.",
-      colSpan: 4,
-      rowSpan: 1,
     },
     {
       icon: Database,
       title: "CRM Sync & Patient Demographics",
       description: "Seamlessly transfers patient demographics and pre-visit data into your CRM system for streamlined workflows.",
-      colSpan: 4,
-      rowSpan: 1,
     },
     {
       icon: Workflow,
       title: "Centralized Care Automation",
       description: "Integrates chart prep, referrals, labs, and CRM updates into a unified flow—enhancing care coordination and reducing manual work.",
-      colSpan: 4,
-      rowSpan: 1,
     }
   ];
 
@@ -128,36 +88,26 @@ export const ClinicalWorkflowSection = () => {
       icon: Stethoscope,
       title: "Clinical Decision & Documentation Support",
       description: "Delivers instant medical guidelines, clarifies jargon, and ensures accurate, structured, and compliant documentation at the point of care.",
-      colSpan: 6,
-      rowSpan: 1,
     },
     {
       icon: ShieldCheck,
       title: "HCC Tracking & Compliance",
       description: "Monitors MEAT criteria for HCC coding, supports risk adjustments, and maintains documentation standards for better outcomes and audit readiness.",
-      colSpan: 6,
-      rowSpan: 1,
     },
     {
       icon: FileText,
       title: "Personalized & Auto-Generated Treatment Plans",
       description: "Creates SMART-based, personalized care plans tailored to each patient's unique needs, enhancing treatment precision and engagement.",
-      colSpan: 5,
-      rowSpan: 1,
     },
     {
       icon: AlertTriangle,
       title: "Preventive Screening & Risk Insights",
       description: "Proactively flags preventive care needs and risk patterns to enable early interventions and improve long-term patient outcomes.",
-      colSpan: 3,
-      rowSpan: 1,
     },
     {
       icon: LineChart,
       title: "Longitudinal Intelligence & Continuity of Care",
       description: "Captures and leverages historical patient data across visits to inform better clinical decisions and ensure seamless continuity of care.",
-      colSpan: 4,
-      rowSpan: 1,
     }
   ];
 
@@ -238,18 +188,38 @@ export const ClinicalWorkflowSection = () => {
             </motion.div>
           </Box>
           
-          <BentoGrid className="mb-12">
-            {adminFeatures.map((feature, index) => (
-              <BentoCard 
-                key={index}
-                icon={feature.icon} 
-                title={feature.title} 
-                description={feature.description}
-                colSpan={feature.colSpan}
-                rowSpan={feature.rowSpan}
-              />
-            ))}
-          </BentoGrid>
+          <div className="grid grid-cols-12 gap-4 mb-12">
+            <BentoCard 
+              icon={adminFeatures[0].icon}
+              title={adminFeatures[0].title}
+              description={adminFeatures[0].description}
+              className="col-span-12 md:col-span-7 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={adminFeatures[1].icon}
+              title={adminFeatures[1].title}
+              description={adminFeatures[1].description}
+              className="col-span-12 md:col-span-5 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={adminFeatures[2].icon}
+              title={adminFeatures[2].title}
+              description={adminFeatures[2].description}
+              className="col-span-12 md:col-span-4 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={adminFeatures[3].icon}
+              title={adminFeatures[3].title}
+              description={adminFeatures[3].description}
+              className="col-span-12 md:col-span-4 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={adminFeatures[4].icon}
+              title={adminFeatures[4].title}
+              description={adminFeatures[4].description}
+              className="col-span-12 md:col-span-4 min-h-[180px]"
+            />
+          </div>
         </Box>
         
         <Box sx={{ mb: 8 }}>
@@ -274,18 +244,38 @@ export const ClinicalWorkflowSection = () => {
             </motion.div>
           </Box>
           
-          <BentoGrid>
-            {clinicalFeatures.map((feature, index) => (
-              <BentoCard 
-                key={index}
-                icon={feature.icon} 
-                title={feature.title} 
-                description={feature.description}
-                colSpan={feature.colSpan}
-                rowSpan={feature.rowSpan}
-              />
-            ))}
-          </BentoGrid>
+          <div className="grid grid-cols-12 gap-4">
+            <BentoCard 
+              icon={clinicalFeatures[0].icon}
+              title={clinicalFeatures[0].title}
+              description={clinicalFeatures[0].description}
+              className="col-span-12 md:col-span-6 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={clinicalFeatures[1].icon}
+              title={clinicalFeatures[1].title}
+              description={clinicalFeatures[1].description}
+              className="col-span-12 md:col-span-6 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={clinicalFeatures[2].icon}
+              title={clinicalFeatures[2].title}
+              description={clinicalFeatures[2].description}
+              className="col-span-12 md:col-span-5 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={clinicalFeatures[3].icon}
+              title={clinicalFeatures[3].title}
+              description={clinicalFeatures[3].description}
+              className="col-span-12 md:col-span-3 min-h-[180px]"
+            />
+            <BentoCard 
+              icon={clinicalFeatures[4].icon}
+              title={clinicalFeatures[4].title}
+              description={clinicalFeatures[4].description}
+              className="col-span-12 md:col-span-4 min-h-[180px]"
+            />
+          </div>
         </Box>
       </Container>
     </Box>
