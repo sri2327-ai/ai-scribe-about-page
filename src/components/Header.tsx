@@ -15,17 +15,21 @@ import {
   MenuList, 
   Popover, 
   Typography, 
-  Toolbar 
+  Toolbar, 
+  useMediaQuery 
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import styles from "../styles/header.module.css";
 
 const Header = () => {
   const theme = useTheme();
   const location = useLocation();
   const pathname = location.pathname;
-  const isMobTabHead = window.matchMedia("(max-width:800px)").matches;
+  const isMobTabHead = useMediaQuery("(max-width:800px)");
 
   const tabMenus = {
     "Solutions": [
@@ -73,19 +77,23 @@ const Header = () => {
     setCurrentMenu(null);
   };
 
+  // Define the teal blue highlight color
+  const highlightColor = "#1EAEDB";
+
   return (
-    <main className="header-main">
+    <main className={styles.header_main}>
       <AppBar 
         position="fixed"
         sx={{
-          backgroundColor: theme.palette.background.default,
+          backgroundColor: "transparent",
+          boxShadow: "none",
         }} 
       >
         <Container maxWidth="xl" sx={{ display: 'flex', minHeight: '10vh' }}>
           <Toolbar disableGutters sx={{ display: 'flex', minHeight: '10vh !important', paddingTop: '.5vh', paddingBottom:'.5vh', flexGrow:1, justifyContent:"space-between" }} >
             <Box sx={{ display: 'flex' }}>
-              <Link to="/" className="header-logo">
-                <img src="/HeaderLogo.png" alt="Logo" className="header-logo-img"/>
+              <Link to="/" className={styles.header_logo}>
+                <img src="/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png" alt="Logo" className={styles.header_logo_img}/>
               </Link>
             </Box>
             {isMobTabHead ? 
@@ -104,16 +112,16 @@ const Header = () => {
                       width: 35,
                       height: 35,
                       borderRadius: 2, 
-                      color: theme.palette.primary.light,
-                      border: `1px solid ${theme.palette.primary.light}`,
+                      color: highlightColor,
+                      border: `1px solid ${highlightColor}`,
                       "&:hover": {
                         border: "1px solid transparent",
-                        backgroundColor: theme.palette.primary.light,
+                        backgroundColor: highlightColor,
                         color: theme.palette.text.secondary
                       },
                     }}
                   >
-                    {menuStatus ? <X size={20} /> : <Menu size={20} />}
+                    {menuStatus ? <CloseIcon /> : <MenuIcon />}
                   </IconButton>
                   <Popover
                     id={'tab-menu-popup'}
@@ -133,7 +141,9 @@ const Header = () => {
                           maxWidth: "unset",
                           borderRadius: 0,
                           py: 3,
-                          px: 2
+                          px: 2,
+                          backgroundColor: "rgba(18, 18, 18, 0.9)",
+                          backdropFilter: "blur(10px)",
                         },
                       },
                     }}
@@ -150,7 +160,7 @@ const Header = () => {
                             py: 1,
                             "&:hover": {
                               [`.${key}-button`]: {
-                                background: theme.palette.primary.light,
+                                background: highlightColor,
                                 color: theme.palette.text.secondary,
                                 border: 'none',
                               }, 
@@ -171,7 +181,7 @@ const Header = () => {
                             className={`${key}-button`}
                             sx={{ 
                               color: theme.palette.text.primary,
-                              background: isCurMenu ? 'none' : theme.palette.grey.A200,
+                              background: isCurMenu ? 'none' : 'rgba(255, 255, 255, 0.08)',
                               border: isCurMenu ? `1px solid ${theme.palette.text.primary}` : 'none',
                               display: 'flex',
                               flexDirection: 'row',
@@ -209,20 +219,20 @@ const Header = () => {
                                 transform: "rotate(0deg)",
                               }}
                             >
-                              <ChevronDown size={20} />
+                              <ExpandMoreIcon />
                             </Box>
                           </ListSubheader>
                           {
                             currentAcco === key && Object.values(value).map((values, index) => {
                               let isCurSubMenu = values.path === pathname;
                               return(
-                                <Link key={index} to={values.path} className="header-link">
+                                <Link key={index} to={values.path} className={styles.header_link}>
                                   <MenuItem 
                                     onClick={handleCloseNavMenu}
                                     sx={{
-                                      color: isCurSubMenu ? theme.palette.primary.light : theme.palette.text.primary,
+                                      color: isCurSubMenu ? highlightColor : theme.palette.text.primary,
                                       "&:hover": {
-                                          color: theme.palette.primary.light,
+                                          color: highlightColor,
                                       },
                                     }}
                                   ><Typography variant='subtitle1' fontWeight="semiBold" sx={{ ml: 1 }}>{values.label}</Typography>
@@ -251,11 +261,11 @@ const Header = () => {
                           textTransform: "capitalize",
                           "&:hover .icon-box": {
                             transform: "rotate(-270deg)",
-                            color: theme.palette.primary.light,
-                            borderColor: theme.palette.primary.light,
+                            color: highlightColor,
+                            borderColor: highlightColor,
                           },
                           "&:hover .button-text": {
-                            color: theme.palette.primary.light,
+                            color: highlightColor,
                           },
                         }}
                         startIcon={
@@ -275,7 +285,7 @@ const Header = () => {
                               mr: 1
                             }}
                           >
-                            <ArrowRight size={16} />
+                            <ArrowForwardIcon fontSize="small" />
                           </Box>
                         }
                       >
@@ -304,12 +314,11 @@ const Header = () => {
                     size="large"
                     aria-label="Large button group"
                     disableElevation
+                    className={styles.glassmorphism}
                     sx={{
                       display: 'flex',
                       gap: 1,
-                      backgroundColor : theme.palette.grey.A200,
                       padding: "6px 12px",
-                      borderRadius: "50px",
                       "& .MuiButtonGroup-firstButton": {
                         border: "none",
                         borderRadius: "50px",
@@ -331,7 +340,7 @@ const Header = () => {
                           sx={{
                             "&:hover": {
                               [`.${key}-button`]: {
-                                background: theme.palette.primary.light,
+                                background: highlightColor,
                                 color: theme.palette.text.secondary,
                               }, 
                               [`.${key}-arrow`]: {
@@ -356,7 +365,7 @@ const Header = () => {
                             sx={{ 
                               textTransform: "capitalize", 
                               color: theme.palette.text.primary,
-                              background: isCurMenu ? theme.palette.background.default : 'none',
+                              background: isCurMenu ? 'rgba(30, 174, 219, 0.2)' : 'transparent',
                             }}
                             startIcon={
                               <Box
@@ -386,7 +395,7 @@ const Header = () => {
                                   transform: "rotate(0deg)",
                                 }}
                               >
-                                <ChevronDown size={16} />
+                                <ExpandMoreIcon fontSize="small" />
                               </Box>
                             }
                           >
@@ -398,7 +407,7 @@ const Header = () => {
                               pointerEvents: 'none',
                               "&:hover": {
                                 [`.${key}-button`]: {
-                                  background: theme.palette.background.default,
+                                  background: 'rgba(30, 174, 219, 0.2)',
                                 },
                               },
                             }}
@@ -411,6 +420,11 @@ const Header = () => {
                             disablePortal
                             disableScrollLock
                             disableEnforceFocus
+                            slotProps={{
+                              paper: {
+                                className: styles.glassmorphism_dropdown,
+                              }
+                            }}
                           >
                             <MenuList
                               sx={{ pointerEvents: 'auto' }}
@@ -420,13 +434,13 @@ const Header = () => {
                             {Object.values(value).map((values, index) => {
                               let isCurSubMenu = values.path === pathname;
                               return(
-                                <Link key={index} to={values.path} className="header-link">
+                                <Link key={index} to={values.path} className={styles.header_link}>
                                   <MenuItem 
                                     onClick={handleMenuClose}
                                     sx={{
-                                      color: isCurSubMenu ? theme.palette.primary.light : theme.palette.text.primary,
+                                      color: isCurSubMenu ? highlightColor : theme.palette.text.primary,
                                       "&:hover": {
-                                          color: theme.palette.primary.light,
+                                          color: highlightColor,
                                       },
                                     }}
                                   ><Typography variant='subtitle1' fontWeight="semiBold">{values.label}</Typography>
@@ -452,11 +466,11 @@ const Header = () => {
                     textTransform: "capitalize",
                     "&:hover .icon-box": {
                       transform: "rotate(-270deg)",
-                      color: theme.palette.primary.light,
-                      borderColor: theme.palette.primary.light,
+                      color: highlightColor,
+                      borderColor: highlightColor,
                     },
                     "&:hover .button-text": {
-                      color: theme.palette.primary.light,
+                      color: highlightColor,
                     },
                   }}
                   startIcon={
@@ -476,7 +490,7 @@ const Header = () => {
                         mr: 1
                       }}
                     >
-                      <ArrowRight size={16} />
+                      <ArrowForwardIcon fontSize="small" />
                     </Box>
                   }
                 >
