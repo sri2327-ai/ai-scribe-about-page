@@ -43,7 +43,7 @@ const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="text-white opacity-0"
+              className="text-gray-800 opacity-0"
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}
@@ -59,7 +59,7 @@ const TextGenerateEffect = ({
   return (
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className="text-white text-xl md:text-2xl leading-snug tracking-wide">
+        <div className="text-gray-800 text-xl md:text-2xl leading-snug tracking-wide">
           {renderWords()}
         </div>
       </div>
@@ -73,7 +73,7 @@ export const TestimonialGenerateSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#000000",
+        bgcolor: "#FFFFFF",
         position: "relative",
         overflow: "hidden"
       }}
@@ -117,9 +117,10 @@ export const TestimonialGenerateSection = () => {
                 alignItems: "center",
                 justifyContent: "center",
                 border: "1px solid rgba(155,135,245,0.3)",
+                boxShadow: "0px 4px 15px rgba(155,135,245,0.2)"
               }}
             >
-              <QuoteIcon size={32} className="text-purple-400" />
+              <QuoteIcon size={32} className="text-purple-400" stroke="#000000" strokeWidth={2} />
             </Box>
           </Box>
           
@@ -155,7 +156,7 @@ export const TestimonialGenerateSection = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: "#fff",
+                  color: "#333333",
                   mb: 1
                 }}
               >
@@ -165,7 +166,7 @@ export const TestimonialGenerateSection = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: "#8E9196",
+                  color: "#666666",
                   fontWeight: 500
                 }}
               >
@@ -184,7 +185,7 @@ export const TestimonialGenerateSection = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          background: "radial-gradient(circle at 50% 50%, rgba(155,135,245,0.03) 0%, rgba(0,0,0,0) 50%)",
+          background: "radial-gradient(circle at 50% 50%, rgba(155,135,245,0.03) 0%, rgba(255,255,255,0) 50%)",
           zIndex: 1
         }}
       >
@@ -216,6 +217,7 @@ export const TestimonialGenerateSection = () => {
               height: Math.random() * 4 + 1,
               borderRadius: "50%",
               backgroundColor: "rgba(155,135,245,0.4)",
+              border: "0.5px solid rgba(0,0,0,0.2)",
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}

@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -71,7 +70,7 @@ export const CompetitionSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#000000",
+        bgcolor: "#FFFFFF",
         overflow: "hidden"
       }}
     >
@@ -97,7 +96,7 @@ export const CompetitionSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#8E9196",
+              color: "#333333",
               fontWeight: 400,
               mb: 4
             }}
@@ -108,7 +107,6 @@ export const CompetitionSection = () => {
         </Box>
 
         <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 6 }}>
-          {/* Feature List */}
           <Box
             sx={{
               width: { xs: "100%", md: "40%" },
@@ -137,7 +135,7 @@ export const CompetitionSection = () => {
                     variant="subtitle1" 
                     sx={{ 
                       fontWeight: 500, 
-                      color: activeFeature === feature.id ? "#fff" : "#8E9196",
+                      color: activeFeature === feature.id ? "#333333" : "#8E9196",
                       letterSpacing: "0.01em"
                     }}
                   >
@@ -146,21 +144,21 @@ export const CompetitionSection = () => {
                   <ChevronRight 
                     size={16} 
                     className={activeFeature === feature.id ? "text-purple-400" : "text-gray-500"} 
+                    strokeWidth={2}
                   />
                 </Box>
               </Box>
             ))}
           </Box>
 
-          {/* Comparison Details */}
           <Box
             sx={{
               width: { xs: "100%", md: "60%" },
-              bgcolor: "rgba(26,31,44,0.5)",
+              bgcolor: "rgba(249,250,252,0.8)",
               borderRadius: 2,
               p: 4,
-              border: "1px solid rgba(155,135,245,0.2)",
-              backdropFilter: "blur(10px)"
+              border: "1px solid rgba(155,135,245,0.3)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
             }}
           >
             {comparisonFeatures.map((feature) => (
@@ -176,8 +174,8 @@ export const CompetitionSection = () => {
                 transition={{ duration: 0.4 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-                  <Trophy size={22} className="text-purple-400 mr-2" />
-                  <Typography variant="h5" sx={{ fontWeight: 600, color: "#fff", letterSpacing: "0.02em" }}>
+                  <Trophy size={22} className="text-purple-400 mr-2" stroke="#000000" strokeWidth={1.5} />
+                  <Typography variant="h5" sx={{ fontWeight: 600, color: "#333333", letterSpacing: "0.02em" }}>
                     {feature.title}
                   </Typography>
                 </Box>
@@ -196,13 +194,13 @@ export const CompetitionSection = () => {
                         border: "1px solid rgba(155,135,245,0.3)"
                       }}
                     >
-                      <CheckCircle size={20} className="text-purple-400" />
+                      <CheckCircle size={20} className="text-purple-400" stroke="#000000" strokeWidth={1.5} />
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#fff" }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#333333" }}>
                         C.R.U.S.H.
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#8E9196", lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      <Typography variant="body2" sx={{ color: "#555555", lineHeight: 1.6, letterSpacing: "0.01em" }}>
                         {feature.crushDescription}
                       </Typography>
                     </Box>
@@ -221,13 +219,13 @@ export const CompetitionSection = () => {
                         border: "1px solid rgba(255,100,100,0.3)"
                       }}
                     >
-                      <XCircle size={20} className="text-red-400" />
+                      <XCircle size={20} className="text-red-400" stroke="#000000" strokeWidth={1.5} />
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#fff" }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#333333" }}>
                         Other AI Scribes
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#8E9196", lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      <Typography variant="body2" sx={{ color: "#555555", lineHeight: 1.6, letterSpacing: "0.01em" }}>
                         {feature.competitionDescription}
                       </Typography>
                     </Box>

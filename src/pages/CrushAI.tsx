@@ -27,7 +27,7 @@ const CrushAI = () => {
 
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
-
+      
       {/* Testimonial with Text Generate Effect */}
       <TestimonialGenerateSection />
 
