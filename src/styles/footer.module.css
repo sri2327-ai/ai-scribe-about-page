@@ -16,7 +16,7 @@
   left: 0;
   right: 0;
   height: 40%;
-  background: linear-gradient(to top, rgba(15, 160, 206, 0.15), transparent);
+  background: linear-gradient(to top, rgba(211, 228, 253, 0.15), transparent);
   z-index: 0;
   animation: gradientPulse 8s ease-in-out infinite;
 }
@@ -69,12 +69,18 @@
 
 .footerLeft {
   flex: 1;
+  background-color: rgba(0,0,0,0.3);
+  padding: 1rem;
+  border-radius: 4px;
 }
 
 .footerRight {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  background-color: rgba(0,0,0,0.3);
+  padding: 1rem;
+  border-radius: 4px;
 }
 
 .footerMenu {
@@ -89,6 +95,8 @@
   transition: color 0.3s ease;
   display: block;
   padding: 0.25rem 0;
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  font-weight: 500;
 }
 
 .link:hover {
@@ -108,11 +116,22 @@
   margin-top: 1.5rem;
 }
 
+.socialIcons a {
+  background-color: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .copyright {
   text-align: center;
   margin-top: 2rem;
   font-size: 0.875rem;
-  color: #8E9196;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  font-weight: 500;
 }
 
 /* Social Icon Colors */

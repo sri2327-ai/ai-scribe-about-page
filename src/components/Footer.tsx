@@ -101,7 +101,7 @@ export default function Footer() {
         <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
-          gradientColors={["#000", "#33C3F0", "#1EAEDB", "#000"]} // Lighter teal blue gradient
+          gradientColors={["#000", "#D3E4FD", "#C8C8C9", "#000"]} // More subtle teal blue gradient
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
@@ -128,7 +128,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     CRUSH - AI Medical Scribe Assistant
                   </Typography>
@@ -139,7 +140,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     BRAVO - AI Patient Care Agent
                   </Typography>
@@ -150,7 +152,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     S10 Story
                   </Typography>
@@ -161,7 +164,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     Trust & Technology
                   </Typography>
@@ -172,7 +176,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     Integrations
                   </Typography>
@@ -183,7 +188,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     Specialties
                   </Typography>
@@ -194,7 +200,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     Blog
                   </Typography>
@@ -205,7 +212,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     FAQs
                   </Typography>
@@ -216,7 +224,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     Case Studies
                   </Typography>
@@ -227,7 +236,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#1EAEDB' },
                     display: 'block',
-                    padding: '0.25rem 0'
+                    padding: '0.25rem 0',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}>
                     Customers
                   </Typography>
@@ -254,6 +264,10 @@ export default function Footer() {
                   "&:hover .button-text": {
                     color: theme.palette.primary.main,
                   },
+                  // Added background for button visibility
+                  backgroundColor: 'rgba(0,0,0,0.3)',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '4px',
                 }}
                 startIcon={
                   <Box
@@ -265,8 +279,8 @@ export default function Footer() {
                       width: 25,
                       height: 25,
                       borderRadius: "50%", 
-                      color: theme.palette.text.primary,
-                      border: `2px solid ${theme.palette.text.primary}`,
+                      color: "#fff",
+                      border: `2px solid #fff`,
                       transition: "transform 0.3s ease",
                       transform: "rotate(0deg)",
                       mr: 1
@@ -281,8 +295,9 @@ export default function Footer() {
                   variant='h6' 
                   fontWeight="500" 
                   sx={{
-                    color: theme.palette.text.primary,
-                    transition: "color 0.3s ease"
+                    color: "#fff",
+                    transition: "color 0.3s ease",
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
                   }}
                 >
                   Contact Us
@@ -296,8 +311,8 @@ export default function Footer() {
             <GradientTracing 
               width={1200} 
               height={2} 
-              baseColor="rgba(255, 255, 255, 0.1)" 
-              gradientColors={["#1EAEDB", "#1EAEDB", "#0FA0CE"]}
+              baseColor="rgba(255, 255, 255, 0.2)" // Made more visible
+              gradientColors={["#33C3F0", "#33C3F0", "#1EAEDB"]}
               animationDuration={4}
               strokeWidth={1}
             />
@@ -311,12 +326,31 @@ export default function Footer() {
             marginTop: '2rem'
           }}>
             {/* Left Section */}
-            <Box sx={{ flex: 1 }}>
-              <Typography>
+            <Box sx={{ 
+              flex: 1,
+              backgroundColor: 'rgba(0,0,0,0.3)', // Added background for address visibility
+              padding: '1rem',
+              borderRadius: '4px',
+            }}>
+              <Typography sx={{ 
+                textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                fontWeight: 'medium'
+              }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: '#fff' }}>support@s10.ai</a>
               </Typography>
-              <Typography sx={{ my: 1 }}>Tel: +1 631 4886 390</Typography>
-              <Typography>NJ, Princeton - Carnegie Center, <br /> United States.</Typography>
+              <Typography sx={{ 
+                my: 1,
+                textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                fontWeight: 'medium'
+              }}>
+                Tel: +1 631 4886 390
+              </Typography>
+              <Typography sx={{ 
+                textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                fontWeight: 'medium'
+              }}>
+                NJ, Princeton - Carnegie Center, <br /> United States.
+              </Typography>
 
               {/* Social Media Icons */}
               <Box sx={{ 
@@ -331,7 +365,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1DA1F2' }
+                    '&:hover': { color: '#1DA1F2' },
+                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
                   }}
                 >
                   <XIcon />
@@ -343,7 +378,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#4267B2' }
+                    '&:hover': { color: '#4267B2' },
+                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
                   }}
                 >
                   <FacebookIcon />
@@ -355,7 +391,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0077B5' }
+                    '&:hover': { color: '#0077B5' },
+                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
                   }}
                 >
                   <LinkedInIcon />
@@ -367,7 +404,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#E1306C' }
+                    '&:hover': { color: '#E1306C' },
+                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
                   }}
                 >
                   <InstagramIcon />
@@ -379,7 +417,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#FF0000' }
+                    '&:hover': { color: '#FF0000' },
+                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
                   }}
                 >
                   <YouTubeIcon />
@@ -391,7 +430,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#69C9D0' }
+                    '&:hover': { color: '#69C9D0' },
+                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
                   }}
                 >
                   <TikTokIcon />
@@ -403,14 +443,19 @@ export default function Footer() {
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '1rem'
+              gap: '1rem',
+              backgroundColor: 'rgba(0,0,0,0.3)', // Added background for better visibility
+              padding: '1rem',
+              borderRadius: '4px',
             }}>
               <Typography>
                 <Link to="#" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
                     color: '#fff', 
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' }
+                    '&:hover': { color: '#1EAEDB' },
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    fontWeight: 'medium'
                   }}>
                     Site Map
                   </Box>
@@ -421,7 +466,9 @@ export default function Footer() {
                   <Box component="span" sx={{ 
                     color: '#fff', 
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' }
+                    '&:hover': { color: '#1EAEDB' },
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    fontWeight: 'medium'
                   }}>
                     Terms & Condition
                   </Box>
@@ -432,7 +479,9 @@ export default function Footer() {
                   <Box component="span" sx={{ 
                     color: '#fff', 
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' }
+                    '&:hover': { color: '#1EAEDB' },
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    fontWeight: 'medium'
                   }}>
                     Privacy Policy
                   </Box>
@@ -443,7 +492,9 @@ export default function Footer() {
                   <Box component="span" sx={{ 
                     color: '#fff', 
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' }
+                    '&:hover': { color: '#1EAEDB' },
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    fontWeight: 'medium'
                   }}>
                     Status
                   </Box>
@@ -458,7 +509,9 @@ export default function Footer() {
           textAlign: 'center', 
           marginTop: '2rem', 
           fontSize: '0.875rem', 
-          color: '#8E9196' 
+          color: '#fff',
+          textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+          fontWeight: 'medium'
         }}>
           © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
         </Typography>
