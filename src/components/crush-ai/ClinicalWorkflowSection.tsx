@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -17,20 +16,17 @@ import {
   LineChart,
   Stethoscope,
   Workflow,
-  TestTube,
-  ArrowRight
+  TestTube
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface BentoCardProps {
   icon: React.ElementType;
   title: string;
   description: string;
   className?: string;
-  href?: string;
 }
 
-const BentoCard = ({ icon: Icon, title, description, className, href = "#" }: BentoCardProps) => (
+const BentoCard = ({ icon: Icon, title, description, className }: BentoCardProps) => (
   <div
     className={cn(
       "group relative col-span-1 flex flex-col justify-between overflow-hidden rounded-xl",
@@ -53,15 +49,6 @@ const BentoCard = ({ icon: Icon, title, description, className, href = "#" }: Be
         </h3>
         <p className="text-gray-600">{description}</p>
       </div>
-    </div>
-    
-    <div className="pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-      <Button variant="ghost" asChild size="sm" className="pointer-events-auto">
-        <a href={href}>
-          Learn more
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </a>
-      </Button>
     </div>
     
     <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.02]" />
