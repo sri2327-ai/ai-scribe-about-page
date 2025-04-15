@@ -16,7 +16,7 @@ interface AnimatedGradientBackgroundProps {
 const AnimatedGradientBackground = ({
   startingGap = 300,
   Breathing = true,
-  gradientColors = ["#000", "#D3E4FD", "#C8C8C9", "#000"], // More subtle teal blue colors
+  gradientColors = ["#000", "#0FA0CE", "#0E86A3", "#000"], // More subtle teal blue colors
   gradientStops = [0, 30, 60, 100],
   animationSpeed = 0.03,
   breathingRange = 20,

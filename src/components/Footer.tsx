@@ -1,4 +1,3 @@
-
 'use client'
 import { useTheme } from "@mui/material/styles";
 import { Box, Typography, IconButton, Button } from "@mui/material";
@@ -7,7 +6,6 @@ import { Link } from "react-router-dom";
 import AnimatedGradientBackground from "./ui/animated-gradient-background";
 import { GradientTracing } from "./ui/gradient-tracing";
 
-// Social icons
 export const XIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +62,7 @@ export const LinkedInIcon = () => (
     fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878 1.216 0s.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
   </svg>
 );
 
@@ -101,7 +99,7 @@ export default function Footer() {
         <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
-          gradientColors={["#000", "#D3E4FD", "#C8C8C9", "#000"]} // More subtle teal blue gradient
+          gradientColors={["#000", "#0FA0CE", "#0E86A3", "#000"]} // More subtle teal blue gradient
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
@@ -245,7 +243,6 @@ export default function Footer() {
               </Box>
             </Box>
             
-            {/* Right Section */}
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -264,7 +261,6 @@ export default function Footer() {
                   "&:hover .button-text": {
                     color: theme.palette.primary.main,
                   },
-                  // Added background for button visibility
                   backgroundColor: 'rgba(0,0,0,0.3)',
                   padding: '0.5rem 1rem',
                   borderRadius: '4px',
@@ -306,7 +302,6 @@ export default function Footer() {
             </Box>
           </Box>
 
-          {/* Divider Line with Gradient Tracing Animation */}
           <Box sx={{ my: 4, position: 'relative' }}>
             <GradientTracing 
               width={1200} 
@@ -325,7 +320,6 @@ export default function Footer() {
             gap: '2rem',
             marginTop: '2rem'
           }}>
-            {/* Left Section */}
             <Box sx={{ 
               flex: 1,
               backgroundColor: 'rgba(0,0,0,0.3)', // Added background for address visibility
@@ -352,7 +346,6 @@ export default function Footer() {
                 NJ, Princeton - Carnegie Center, <br /> United States.
               </Typography>
 
-              {/* Social Media Icons */}
               <Box sx={{ 
                 display: 'flex', 
                 gap: '1rem', 
@@ -365,8 +358,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1DA1F2' },
-                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
+                    '&:hover': { color: '#0FA0CE' }, // Teal blue hover
+                    backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <XIcon />
@@ -378,8 +371,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#4267B2' },
-                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
+                    '&:hover': { color: '#0FA0CE' }, // Teal blue hover
+                    backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <FacebookIcon />
@@ -391,8 +384,8 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0077B5' },
-                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
+                    '&:hover': { color: '#0FA0CE' }, // Teal blue hover
+                    backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <LinkedInIcon />
@@ -405,7 +398,7 @@ export default function Footer() {
                     color: '#fff',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#E1306C' },
-                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
+                    backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <InstagramIcon />
@@ -418,7 +411,7 @@ export default function Footer() {
                     color: '#fff',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#FF0000' },
-                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
+                    backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <YouTubeIcon />
@@ -431,7 +424,7 @@ export default function Footer() {
                     color: '#fff',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: '#69C9D0' },
-                    backgroundColor: 'rgba(0,0,0,0.2)', // Added background for better visibility
+                    backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <TikTokIcon />
@@ -439,7 +432,6 @@ export default function Footer() {
               </Box>
             </Box>
             
-            {/* Right Section */}
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
@@ -504,7 +496,6 @@ export default function Footer() {
           </Box>
         </Box>
         
-        {/* Copyright Section */}
         <Typography sx={{ 
           textAlign: 'center', 
           marginTop: '2rem', 
