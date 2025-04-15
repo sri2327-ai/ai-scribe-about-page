@@ -99,7 +99,7 @@ export default function Footer() {
         <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
-          gradientColors={["#000", "#0FA0CE", "#0E86A3", "#000"]} // More subtle teal blue gradient
+          gradientColors={["#000", "#0A7A8C", "#0E86A3", "#000"]} // More subtle teal blue gradient
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
@@ -358,7 +358,7 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0FA0CE' }, // Teal blue hover
+                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
@@ -371,7 +371,7 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0FA0CE' }, // Teal blue hover
+                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
@@ -384,7 +384,7 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0FA0CE' }, // Teal blue hover
+                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
@@ -397,7 +397,7 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#E1306C' },
+                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
@@ -410,7 +410,7 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#FF0000' },
+                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
@@ -423,7 +423,7 @@ export default function Footer() {
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#69C9D0' },
+                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
