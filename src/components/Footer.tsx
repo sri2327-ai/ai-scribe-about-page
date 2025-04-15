@@ -4,6 +4,8 @@ import { useTheme } from "@mui/material/styles";
 import { Box, Typography, IconButton, Button } from "@mui/material";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import AnimatedGradientBackground from "./ui/animated-gradient-background";
+import { GradientTracing } from "./ui/gradient-tracing";
 
 // Social icons
 export const XIcon = () => (
@@ -79,125 +81,167 @@ export const TikTokIcon = () => (
   </svg>
 );
 
-// Create styles for the footer
-const footerStyles = {
-  footer: {
-    backgroundColor: '#1A1F2C',
-    color: '#fff',
-    padding: '4rem 2rem 2rem 2rem',
-    width: '100%',
-  },
-  footerContainer: {
-    maxWidth: '1200px',
-    margin: '0 auto',
-  },
-  footertop: {
-    display: 'flex',
-    flexDirection: { xs: 'column', md: 'row' },
-    justifyContent: 'space-between',
-    gap: '2rem',
-    marginBottom: '2rem',
-  },
-  footerbottom: {
-    display: 'flex',
-    flexDirection: { xs: 'column', md: 'row' },
-    justifyContent: 'space-between',
-    gap: '2rem',
-    marginTop: '2rem',
-  },
-  footerLeft: {
-    flex: 1,
-  },
-  footerRight: {
-    display: 'flex',
-    flexDirection: { xs: 'column', md: 'column' },
-    gap: '1rem',
-  },
-  footerMenu: {
-    display: 'grid',
-    gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' },
-    gap: '1rem',
-  },
-  link: {
-    color: '#fff',
-    textDecoration: 'none',
-    transition: 'color 0.3s ease',
-    '&:hover': {
-      color: '#1EAEDB',
-    },
-  },
-  footerDivider: {
-    width: '100%',
-    height: '1px',
-    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-    margin: '2rem 0',
-  },
-  socialIcons: {
-    display: 'flex',
-    gap: '1rem',
-    marginTop: '1.5rem',
-  },
-  copyright: {
-    textAlign: 'center',
-    marginTop: '2rem',
-    fontSize: '0.875rem',
-    color: '#8E9196',
-  },
-  icon: {
-    color: '#fff',
-    transition: 'color 0.3s ease',
-    '&:hover': {
-      color: '#1EAEDB',
-    },
-  },
-};
-
 export default function Footer() {
   const theme = useTheme();
   
   return (
-    <Box component="footer" sx={{ width: '100%' }}>
-      <Box sx={footerStyles.footer}>
-        <Box sx={footerStyles.footerContainer}>
-          
-          <Box sx={footerStyles.footertop}>
-            <Box sx={footerStyles.footerLeft}>
-              <Box sx={footerStyles.footerMenu}>
+    <Box component="footer" sx={{ 
+      width: '100%', 
+      position: 'relative',
+      overflow: 'hidden' 
+    }}>
+      <Box sx={{ 
+        backgroundColor: '#1A1F2C',
+        color: '#fff',
+        padding: '4rem 2rem 2rem 2rem',
+        width: '100%',
+        position: 'relative',
+        zIndex: 1
+      }}>
+        <AnimatedGradientBackground 
+          startingGap={300}
+          Breathing={true}
+          gradientColors={["#000", "#1EAEDB", "#0FA0CE", "#000"]}
+          gradientStops={[0, 30, 60, 100]}
+          animationSpeed={0.03}
+          breathingRange={20}
+        />
+        
+        <Box sx={{ 
+          maxWidth: '1200px', 
+          margin: '0 auto',
+          position: 'relative',
+          zIndex: 2
+        }}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: 'space-between',
+            gap: '2rem',
+            marginBottom: '2rem'
+          }}>
+            <Box sx={{ flex: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>CRUSH - AI Medical Scribe Assistant</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    CRUSH - AI Medical Scribe Assistant
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>BRAVO - AI Patient Care Agent</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    BRAVO - AI Patient Care Agent
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>S10 Story</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    S10 Story
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>Trust & Technology</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    Trust & Technology
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>Integrations</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    Integrations
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>Specialties</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    Specialties
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>Blog</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    Blog
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>FAQs</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    FAQs
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>Case Studies</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    Case Studies
+                  </Typography>
                 </Link>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={footerStyles.link}>Customers</Typography>
+                  <Typography sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' },
+                    display: 'block',
+                    padding: '0.25rem 0'
+                  }}>
+                    Customers
+                  </Typography>
                 </Link>
               </Box>
             </Box>
             
             {/* Right Section */}
-            <Box sx={footerStyles.footerRight}>
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem',
+              marginTop: { xs: '2rem', md: 0 }
+            }}>
               <Button 
                 variant="text" 
                 sx={{ 
@@ -247,12 +291,27 @@ export default function Footer() {
             </Box>
           </Box>
 
-          {/* Divider Line */}
-          <Box sx={footerStyles.footerDivider}></Box>
+          {/* Divider Line with Gradient Tracing Animation */}
+          <Box sx={{ my: 4, position: 'relative' }}>
+            <GradientTracing 
+              width={1200} 
+              height={2} 
+              baseColor="rgba(255, 255, 255, 0.2)" 
+              gradientColors={["#1EAEDB", "#1EAEDB", "#0FA0CE"]}
+              animationDuration={4}
+              strokeWidth={1}
+            />
+          </Box>
 
-          <Box sx={footerStyles.footerbottom}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: { xs: 'column', md: 'row' },
+            justifyContent: 'space-between',
+            gap: '2rem',
+            marginTop: '2rem'
+          }}>
             {/* Left Section */}
-            <Box sx={footerStyles.footerLeft}>
+            <Box sx={{ flex: 1 }}>
               <Typography>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: '#fff' }}>support@s10.ai</a>
               </Typography>
@@ -260,48 +319,134 @@ export default function Footer() {
               <Typography>NJ, Princeton - Carnegie Center, <br /> United States.</Typography>
 
               {/* Social Media Icons */}
-              <Box sx={footerStyles.socialIcons}>
-                <IconButton component="a" href="https://x.com/s10aiscribe" target="_blank" sx={footerStyles.icon}>
+              <Box sx={{ 
+                display: 'flex', 
+                gap: '1rem', 
+                marginTop: '1.5rem' 
+              }}>
+                <IconButton 
+                  component="a" 
+                  href="https://x.com/s10aiscribe" 
+                  target="_blank" 
+                  sx={{ 
+                    color: '#fff',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1DA1F2' }
+                  }}
+                >
                   <XIcon />
                 </IconButton>
-                <IconButton component="a" href="https://www.facebook.com/profile.php?id=100086008459597" target="_blank" sx={footerStyles.icon}>
+                <IconButton 
+                  component="a" 
+                  href="https://www.facebook.com/profile.php?id=100086008459597" 
+                  target="_blank" 
+                  sx={{ 
+                    color: '#fff',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#4267B2' }
+                  }}
+                >
                   <FacebookIcon />
                 </IconButton>
-                <IconButton component="a" href="https://www.linkedin.com/company/s10-ai/" target="_blank" sx={footerStyles.icon}>
+                <IconButton 
+                  component="a" 
+                  href="https://www.linkedin.com/company/s10-ai/" 
+                  target="_blank" 
+                  sx={{ 
+                    color: '#fff',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#0077B5' }
+                  }}
+                >
                   <LinkedInIcon />
                 </IconButton>
-                <IconButton component="a" href="https://instagram.com/s10.ai" target="_blank" sx={footerStyles.icon}>
+                <IconButton 
+                  component="a" 
+                  href="https://instagram.com/s10.ai" 
+                  target="_blank" 
+                  sx={{ 
+                    color: '#fff',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#E1306C' }
+                  }}
+                >
                   <InstagramIcon />
                 </IconButton>
-                <IconButton component="a" href="https://www.youtube.com/channel/UCSaWPSJyic-OURNS_w-49Ow" target="_blank" sx={footerStyles.icon}>
+                <IconButton 
+                  component="a" 
+                  href="https://www.youtube.com/channel/UCSaWPSJyic-OURNS_w-49Ow" 
+                  target="_blank" 
+                  sx={{ 
+                    color: '#fff',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#FF0000' }
+                  }}
+                >
                   <YouTubeIcon />
                 </IconButton>
-                <IconButton component="a" href="https://www.tiktok.com/@s10robotmedicalscribe" target="_blank" sx={footerStyles.icon}>
+                <IconButton 
+                  component="a" 
+                  href="https://www.tiktok.com/@s10robotmedicalscribe" 
+                  target="_blank" 
+                  sx={{ 
+                    color: '#fff',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#69C9D0' }
+                  }}
+                >
                   <TikTokIcon />
                 </IconButton>
               </Box>
             </Box>
             
             {/* Right Section */}
-            <Box sx={footerStyles.footerRight}>
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1rem'
+            }}>
               <Typography>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Box component="span" sx={footerStyles.link}>Site Map</Box>
+                  <Box component="span" sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' }
+                  }}>
+                    Site Map
+                  </Box>
                 </Link>
               </Typography>
               <Typography>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
-                  <Box component="span" sx={footerStyles.link}>Terms & Condition</Box>
+                  <Box component="span" sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' }
+                  }}>
+                    Terms & Condition
+                  </Box>
                 </Link>
               </Typography>
               <Typography>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
-                  <Box component="span" sx={footerStyles.link}>Privacy Policy</Box>
+                  <Box component="span" sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' }
+                  }}>
+                    Privacy Policy
+                  </Box>
                 </Link>
               </Typography>
               <Typography>
                 <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Box component="span" sx={footerStyles.link}>Status</Box>
+                  <Box component="span" sx={{ 
+                    color: '#fff', 
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: '#1EAEDB' }
+                  }}>
+                    Status
+                  </Box>
                 </Link>
               </Typography>
             </Box>
@@ -309,7 +454,12 @@ export default function Footer() {
         </Box>
         
         {/* Copyright Section */}
-        <Typography sx={footerStyles.copyright}>
+        <Typography sx={{ 
+          textAlign: 'center', 
+          marginTop: '2rem', 
+          fontSize: '0.875rem', 
+          color: '#8E9196' 
+        }}>
           © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
         </Typography>
       </Box>
