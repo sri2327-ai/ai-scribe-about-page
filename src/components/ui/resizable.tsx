@@ -1,3 +1,4 @@
+
 import { GripVertical } from "lucide-react"
 import * as ResizablePrimitive from "react-resizable-panels"
 
@@ -27,14 +28,23 @@ const ResizableHandle = ({
 }) => (
   <ResizablePrimitive.PanelResizeHandle
     className={cn(
-      "relative flex w-px items-center justify-center bg-border after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90",
+      "relative flex w-px items-center justify-center bg-neutral-200 after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 focus-visible:ring-offset-1 data-[panel-group-direction=vertical]:h-px data-[panel-group-direction=vertical]:w-full data-[panel-group-direction=vertical]:after:left-0 data-[panel-group-direction=vertical]:after:h-1 data-[panel-group-direction=vertical]:after:w-full data-[panel-group-direction=vertical]:after:-translate-y-1/2 data-[panel-group-direction=vertical]:after:translate-x-0 [&[data-panel-group-direction=vertical]>div]:rotate-90 dark:bg-neutral-800 dark:focus-visible:ring-neutral-300",
       className
     )}
     {...props}
   >
     {withHandle && (
-      <div className="z-10 flex h-4 w-3 items-center justify-center rounded-sm border bg-border">
-        <GripVertical className="h-2.5 w-2.5" />
+      <div className="z-10 flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white shadow-md transition-transform hover:scale-110 dark:border-neutral-800 dark:bg-neutral-950">
+        <div className="flex flex-col gap-[3px]">
+          <div className="flex gap-[3px]">
+            <div className="w-[3px] h-[3px] rounded-full bg-neutral-400 dark:bg-neutral-600"></div>
+            <div className="w-[3px] h-[3px] rounded-full bg-neutral-400 dark:bg-neutral-600"></div>
+          </div>
+          <div className="flex gap-[3px]">
+            <div className="w-[3px] h-[3px] rounded-full bg-neutral-400 dark:bg-neutral-600"></div>
+            <div className="w-[3px] h-[3px] rounded-full bg-neutral-400 dark:bg-neutral-600"></div>
+          </div>
+        </div>
       </div>
     )}
   </ResizablePrimitive.PanelResizeHandle>

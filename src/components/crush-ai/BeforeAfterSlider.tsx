@@ -1,179 +1,189 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { GripVertical } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export const BeforeAfterSlider = () => {
-  const [inset, setInset] = useState<number>(50);
-  const [onMouseDown, setOnMouseDown] = useState<boolean>(false);
-
-  const onMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!onMouseDown) return;
-
-    const rect = e.currentTarget.getBoundingClientRect();
-    let x = 0;
-
-    if ("touches" in e && e.touches.length > 0) {
-      x = e.touches[0].clientX - rect.left;
-    } else if ("clientX" in e) {
-      x = e.clientX - rect.left;
-    }
+  const [sliderPosition, setSliderPosition] = useState<number>(50);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  
+  // Motion values for smooth animations
+  const x = useMotionValue(0);
+  const percent = useTransform(x, [-150, 150], [0, 100]);
+  
+  useEffect(() => {
+    const unsubscribe = percent.onChange((latest) => {
+      setSliderPosition(Math.min(Math.max(latest, 0), 100));
+    });
     
-    const percentage = (x / rect.width) * 100;
-    setInset(percentage);
+    // Initial animation
+    animate(x, 0, { duration: 0.5 });
+    
+    return () => unsubscribe();
+  }, [percent, x]);
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+  
+  const handleDragEnd = () => {
+    setIsDragging(false);
   };
 
   return (
     <Box sx={{ width: "100%", py: { xs: 4, md: 6 } }}>
-      <Box sx={{ maxWidth: "1200px", mx: "auto" }}>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-            <Badge className="bg-blue-600 text-white">Before vs. After CRUSH</Badge>
+      <Box sx={{ maxWidth: "1200px", mx: "auto", px: { xs: 2, md: 4 } }}>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+            <Badge className="bg-black text-white py-1.5 px-3 rounded-full">
+              Before vs. After CRUSH
+            </Badge>
           </Box>
           
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, textAlign: "center", mb: 3 }}>
-            <Typography variant="h5" sx={{ fontWeight: 600 }}>
+            <Typography variant="h4" sx={{ fontWeight: 700, color: "black" }}>
               See the CRUSH Difference
             </Typography>
-            <Typography variant="body2" sx={{ color: "#666666", maxWidth: "700px", mx: "auto" }}>
-              Drag the slider to compare the clinical experience before and after implementing CRUSH AI
+            <Typography variant="body1" sx={{ 
+              color: "#666", 
+              maxWidth: "700px", 
+              mx: "auto",
+              fontSize: "1.1rem"
+            }}>
+              Drag the slider to compare clinical experience before and after CRUSH AI
             </Typography>
           </Box>
           
-          <Box
-            component={motion.div}
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            sx={{ pt: 2, width: "100%" }}
+            style={{ width: "100%" }}
           >
-            <Box
-              className="relative aspect-video w-full overflow-hidden rounded-xl select-none border border-gray-200 shadow-md"
-              onMouseMove={onMouseMove}
-              onMouseUp={() => setOnMouseDown(false)}
-              onTouchMove={onMouseMove}
-              onTouchEnd={() => setOnMouseDown(false)}
-              sx={{ 
-                height: { xs: "250px", sm: "300px", md: "400px" },
-                backgroundImage: "url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80')",
-                backgroundSize: "cover",
-                backgroundPosition: "center"
-              }}
-            >
-              <Box
-                className="bg-white h-full w-1 absolute z-20 top-0 select-none"
-                sx={{
-                  left: `${inset}%`,
-                  ml: "-1px"
-                }}
-              >
-                <Box
-                  component="button"
-                  className="bg-white rounded-full hover:scale-110 transition-all select-none absolute z-30 cursor-ew-resize flex justify-center items-center"
-                  sx={{
-                    width: "40px",
-                    height: "40px",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
-                    border: "2px solid #fff"
-                  }}
-                  onTouchStart={(e) => {
-                    setOnMouseDown(true);
-                    onMouseMove(e);
-                  }}
-                  onMouseDown={(e) => {
-                    setOnMouseDown(true);
-                    onMouseMove(e);
-                  }}
-                  onTouchEnd={() => setOnMouseDown(false)}
-                  onMouseUp={() => setOnMouseDown(false)}
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl">
+              {/* Main container with black and white sides */}
+              <div className="absolute inset-0 flex items-stretch">
+                {/* Black side (Before) */}
+                <div 
+                  className="h-full bg-black text-white flex items-center justify-center relative overflow-hidden"
+                  style={{ width: `${sliderPosition}%` }}
                 >
-                  <GripVertical className="h-5 w-5 text-gray-600" />
-                </Box>
-              </Box>
+                  <div className="absolute inset-0 bg-[url('/public/lovable-uploads/5737eb5e-abd2-4c80-b961-6676d913887e.png')] bg-center bg-no-repeat bg-cover opacity-10"></div>
+                  <div className="z-10 max-w-md p-8">
+                    <div className="mb-4">
+                      <Badge className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</Badge>
+                    </div>
+                    <h2 className="text-4xl font-bold mb-4">The old way of documentation</h2>
+                    <p className="text-gray-300 text-lg mb-6">
+                      Managing patient documentation is already tedious and time-consuming. 
+                      Avoid further complications by ditching outdated, screen-focused methods.
+                    </p>
+                    <ul className="space-y-2 text-gray-300">
+                      <li className="flex items-start gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>Hours of typing after each visit</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>Constantly looking at screens instead of patients</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>Increased clinician burnout and stress</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                {/* White side (After) */}
+                <div 
+                  className="h-full bg-white text-black flex items-center justify-center relative overflow-hidden"
+                  style={{ width: `${100 - sliderPosition}%` }}
+                >
+                  <div className="absolute inset-0 bg-gray-50"></div>
+                  <div className="z-10 max-w-md p-8">
+                    <div className="mb-4">
+                      <Badge className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</Badge>
+                    </div>
+                    <h2 className="text-4xl font-bold mb-4">Focus on what matters</h2>
+                    <p className="text-gray-600 text-lg mb-6">
+                      Our goal is to streamline clinical documentation, making it easier and faster than ever.
+                      Let AI handle the administrative work.
+                    </p>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-start gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>Documentation completed during the visit</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>Full attention on your patients, not screens</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-gray-400">•</span>
+                        <span>Leave work on time with notes completed</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
               
-              {/* Before side */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  bgcolor: "rgba(255,255,255,0.95)",
-                  clipPath: `inset(0 ${100 - inset}% 0 0)`,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  p: 4
+              {/* Slider divider */}
+              <motion.div 
+                className="absolute top-0 bottom-0 w-px bg-white z-20"
+                style={{ 
+                  left: `${sliderPosition}%`,
+                  x: x
                 }}
+                drag="x"
+                dragConstraints={{ left: -150, right: 150 }}
+                dragElastic={0.1}
+                dragMomentum={false}
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
               >
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: "#d32f2f" }}>
-                  BEFORE CRUSH
-                </Typography>
-                <Box sx={{ maxWidth: "400px", textAlign: "center" }}>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#666" }}>
-                    • Hours spent on documentation after each patient
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#666" }}>
-                    • Screen time taking away from patient care
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#666" }}>
-                    • Clinical burnout and stress
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#666" }}>
-                    • Late nights completing notes and referrals
-                  </Typography>
-                </Box>
-              </Box>
+                {/* Slider handle */}
+                <div 
+                  className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                >
+                  <div className="flex flex-col gap-[3px]">
+                    <div className="flex gap-[3px]">
+                      <div className="w-[3px] h-[3px] rounded-full bg-gray-400"></div>
+                      <div className="w-[3px] h-[3px] rounded-full bg-gray-400"></div>
+                    </div>
+                    <div className="flex gap-[3px]">
+                      <div className="w-[3px] h-[3px] rounded-full bg-gray-400"></div>
+                      <div className="w-[3px] h-[3px] rounded-full bg-gray-400"></div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
               
-              {/* After side */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  width: "100%",
-                  height: "100%",
-                  bgcolor: "rgba(255,255,255,0.95)",
-                  clipPath: `inset(0 0 0 ${inset}%)`,
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  p: 4
-                }}
-              >
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: "#2e7d32" }}>
-                  AFTER CRUSH
-                </Typography>
-                <Box sx={{ maxWidth: "400px", textAlign: "center" }}>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#666" }}>
-                    • Documentation completed during the visit
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#666" }}>
-                    • Focus entirely on the patient
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 1, color: "#666" }}>
-                    • Reduced admin burden and stress
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "#666" }}>
-                    • Leave work on time with notes complete
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
+              {/* Navigation indicators */}
+              <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
+                <div className={`flex items-center gap-2 ${sliderPosition < 15 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                  <ArrowRight className="h-4 w-4 rotate-180 text-white" />
+                  <span className="text-sm text-white font-medium">Without CRUSH</span>
+                </div>
+                <div className={`flex items-center gap-2 ${sliderPosition > 85 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                  <span className="text-sm text-black font-medium">With CRUSH</span>
+                  <ArrowRight className="h-4 w-4 text-black" />
+                </div>
+              </div>
+            </div>
             
-            <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-              <Typography variant="body2" sx={{ fontWeight: 600, color: "#d32f2f" }}>Without CRUSH</Typography>
-              <Typography variant="body2" sx={{ fontWeight: 600, color: "#2e7d32" }}>With CRUSH</Typography>
-            </Box>
-          </Box>
+            {/* Bottom labels */}
+            <div className="flex justify-between mt-6 px-4">
+              <div className="flex items-center">
+                <span className="text-gray-700 font-medium">Screen-Focused Care</span>
+              </div>
+              <div className="flex items-center">
+                <span className="text-gray-700 font-medium">Patient-Focused Care</span>
+              </div>
+            </div>
+          </motion.div>
         </Box>
       </Box>
     </Box>
