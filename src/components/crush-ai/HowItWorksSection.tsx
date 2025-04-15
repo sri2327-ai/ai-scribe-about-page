@@ -366,7 +366,7 @@ export const HowItWorksSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#ffffff", // Keeping white background
+        bgcolor: "#ffffff", // Pure white background
         position: "relative",
         overflow: "hidden"
       }}
