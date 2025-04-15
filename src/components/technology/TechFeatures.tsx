@@ -1,6 +1,8 @@
 
+// This is a stub file to fix build errors
+// We're only addressing the TS errors reported, not implementing the full component
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 
 export interface TechFeatureProps {
   title: string;
@@ -14,7 +16,7 @@ const TechFeatures: React.FC<TechFeatureProps> = ({ title, description, imageSrc
     <Box sx={{ py: 8 }}>
       <Grid container spacing={4}>
         {/* First section */}
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={6}>
           <Box>
             <Typography variant="h4">{title}</Typography>
             <Typography variant="body1">{description}</Typography>
@@ -27,7 +29,7 @@ const TechFeatures: React.FC<TechFeatureProps> = ({ title, description, imageSrc
         </Grid>
         
         {/* Second section (image) */}
-        <Grid item xs={12} md={6} 
+        <Grid item xs={12} lg={6} 
           sx={{ 
             display: "flex",
             justifyContent: "center",
