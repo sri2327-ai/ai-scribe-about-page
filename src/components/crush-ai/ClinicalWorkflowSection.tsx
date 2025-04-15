@@ -18,12 +18,12 @@ import {
   FileText, 
   AlertTriangle, 
   Clock,
-  Flask,
   Users,
   LineChart,
   Stethoscope,
   Workflow,
-  Database
+  Database,
+  TestTube
 } from "lucide-react";
 
 // Root BentoGrid Component
@@ -37,7 +37,7 @@ const BentoGrid = ({
   return (
     <div
       className={cn(
-        "grid w-full grid-cols-12 gap-4 auto-rows-[minmax(180px,auto)]",
+        "grid w-full grid-cols-12 gap-4",
         className,
       )}
     >
@@ -64,14 +64,15 @@ const BentoCard = ({
 }) => (
   <div
     className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6",
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 h-full",
       "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
-      "border border-gray-100 hover:border-purple-100 transition-all duration-300 hover:-translate-y-1",
-      `col-span-${colSpan} row-span-${rowSpan}`,
+      "border border-gray-100 hover:border-purple-100 transition-all duration-300",
+      `col-span-${colSpan}`,
       className,
     )}
+    style={{ minHeight: '220px' }}
   >
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 z-10">
       <div className="bg-gray-50 w-12 h-12 rounded-lg flex items-center justify-center">
         <Icon size={24} className="text-black" />
       </div>
@@ -91,36 +92,31 @@ export const ClinicalWorkflowSection = () => {
       icon: Pill,
       title: "Prescription Refills & Lab Management",
       description: "Automates refill requests, lab order submissions, and updates lab results in patient charts—saving time and reducing errors.",
-      colSpan: 8,
-      rowSpan: 1
+      colSpan: 5,
     },
     {
       icon: ClipboardList,
       title: "Smart Screening & Assessments",
       description: "Conducts PHQ-9, GAD-7, PCL-5, AUDIT, and CSSRS assessments automatically, and prepares results for clinical use.",
-      colSpan: 4,
-      rowSpan: 1
+      colSpan: 3,
     },
     {
       icon: FileSpreadsheet,
       title: "Pre-Charting & Referral Automation",
       description: "Prepares charts, retrieves history, uploads patient documents, and drafts referral letters with intelligent patient insights.",
       colSpan: 4,
-      rowSpan: 1
     },
     {
       icon: Database,
       title: "CRM Sync & Patient Demographics",
       description: "Seamlessly transfers patient demographics and pre-visit data into your CRM system for streamlined workflows.",
-      colSpan: 4,
-      rowSpan: 1
+      colSpan: 6,
     },
     {
       icon: Workflow,
       title: "Centralized Care Automation",
       description: "Integrates chart prep, referrals, labs, and CRM updates into a unified flow—enhancing care coordination and reducing manual work.",
-      colSpan: 4,
-      rowSpan: 1
+      colSpan: 6,
     }
   ];
 
@@ -130,35 +126,30 @@ export const ClinicalWorkflowSection = () => {
       title: "Clinical Decision & Documentation Support",
       description: "Delivers instant medical guidelines, clarifies jargon, and ensures accurate, structured, and compliant documentation at the point of care.",
       colSpan: 4,
-      rowSpan: 1
     },
     {
       icon: ShieldCheck,
       title: "HCC Tracking & Compliance",
       description: "Monitors MEAT criteria for HCC coding, supports risk adjustments, and maintains documentation standards for better outcomes and audit readiness.",
       colSpan: 4,
-      rowSpan: 1
     },
     {
       icon: FileText,
       title: "Personalized & Auto-Generated Treatment Plans",
       description: "Creates SMART-based, personalized care plans tailored to each patient's unique needs, enhancing treatment precision and engagement.",
-      colSpan: 8,
-      rowSpan: 1
+      colSpan: 4,
     },
     {
       icon: AlertTriangle,
       title: "Preventive Screening & Risk Insights",
       description: "Proactively flags preventive care needs and risk patterns to enable early interventions and improve long-term patient outcomes.",
-      colSpan: 6,
-      rowSpan: 1
+      colSpan: 7,
     },
     {
       icon: LineChart,
       title: "Longitudinal Intelligence & Continuity of Care",
       description: "Captures and leverages historical patient data across visits to inform better clinical decisions and ensure seamless continuity of care.",
-      colSpan: 6,
-      rowSpan: 1
+      colSpan: 5,
     }
   ];
 
@@ -186,7 +177,7 @@ export const ClinicalWorkflowSection = () => {
                 mb: 4,
                 color: "#000000",
                 textAlign: "center",
-                fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
+                fontSize: { xs: "2rem", sm: "2.5rem", md: "2.75rem" }
               }}
             >
               More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
@@ -217,7 +208,7 @@ export const ClinicalWorkflowSection = () => {
         </Box>
         
         <Box sx={{ mb: 8 }}>
-          <Box sx={{ mb: 6, textAlign: "left" }}>
+          <Box sx={{ mb: 4, textAlign: "left" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -236,27 +227,9 @@ export const ClinicalWorkflowSection = () => {
                 Automate Staffing & Cut Admin Work
               </Typography>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  color: "#555", 
-                  maxWidth: "800px",
-                  mt: 3,
-                  lineHeight: 1.7
-                }}
-              >
-                CRUSH eliminates repetitive tasks so you can focus on patient care, not paperwork.
-              </Typography>
-            </motion.div>
           </Box>
           
-          <BentoGrid>
+          <BentoGrid className="mb-12">
             {adminFeatures.map((feature, index) => (
               <BentoCard 
                 key={index}
@@ -264,14 +237,13 @@ export const ClinicalWorkflowSection = () => {
                 title={feature.title} 
                 description={feature.description}
                 colSpan={feature.colSpan}
-                rowSpan={feature.rowSpan}
               />
             ))}
           </BentoGrid>
         </Box>
         
         <Box sx={{ mb: 8 }}>
-          <Box sx={{ mb: 6, textAlign: "left" }}>
+          <Box sx={{ mb: 4, textAlign: "left" }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -290,24 +262,6 @@ export const ClinicalWorkflowSection = () => {
                 AI Assistance for Physicians – Smarter, More Accurate Decisions
               </Typography>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  color: "#555", 
-                  maxWidth: "800px",
-                  mt: 3,
-                  lineHeight: 1.7
-                }}
-              >
-                CRUSH isn't just a scribe—it's an AI-driven clinical assistant that enhances decision-making, compliance, and patient care.
-              </Typography>
-            </motion.div>
           </Box>
           
           <BentoGrid>
@@ -318,7 +272,6 @@ export const ClinicalWorkflowSection = () => {
                 title={feature.title} 
                 description={feature.description}
                 colSpan={feature.colSpan}
-                rowSpan={feature.rowSpan}
               />
             ))}
           </BentoGrid>
