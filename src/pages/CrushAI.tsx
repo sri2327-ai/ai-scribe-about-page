@@ -481,7 +481,7 @@ const CrushAI = () => {
               "EHR Sync That's Actually Seamless: Plugs into any EHR—Epic, Cerner, or your clinic's quirky setup. Notes, labs, prescriptions? Instant. Others? Stuck in copy-paste purgatory.",
               "Multilingual Mastery: English, Spanish, French, you name it—C.R.U.S.H. gets it right. Other scribes fumble anything beyond basic English.",
               "Customization with Humans in the Loop: We don't just hand you templates and ghost you. Our human experts work with you to tailor notes and workflows to your exact needs—something those faceless AI scribes can't touch.",
-              "Automation That Runs Your Life: Referrals, prescriptions, screenings? C.R.U.S.H. handles it all. Other scribes? They're still learning to spell "referral."",
+              "Automation That Runs Your Life: Referrals, prescriptions, screenings? C.R.U.S.H. handles it all. Other scribes? They're still learning to spell \"referral.\"",
               "Clinical Smarts on Tap: Real-time tips, HCC tracking, and preventive care flags. It's your brainy co-pilot, not a glorified stenographer.",
               "Burnout? What's That?: Charts done in under a minute, no late-night edits. Better RAF scores mean more revenue, too. Other scribes keep you slaving.",
               "Security That's Ironclad: HIPAA, SOC 2, HITECH—your data's untouchable. Unlike those sketchy scribes with security as flimsy as a paper chart."
