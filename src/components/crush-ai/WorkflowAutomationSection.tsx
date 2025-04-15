@@ -1,12 +1,30 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
-import { Computer, Mic, Users, ClipboardList, Clock } from "lucide-react";
-import { SplitView } from "@/components/ui/split-view";
+import { GripVertical, Monitor, Mic, FileText, Computer, Users, ClipboardList, Clock } from "lucide-react";
 
 export const WorkflowAutomationSection = () => {
+  const [inset, setInset] = useState<number>(50);
+  const [onMouseDown, setOnMouseDown] = useState<boolean>(false);
+
+  const onMouseMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!onMouseDown) return;
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    let x = 0;
+
+    if ("touches" in e && e.touches.length > 0) {
+      x = e.touches[0].clientX - rect.left;
+    } else if ("clientX" in e) {
+      x = e.clientX - rect.left;
+    }
+    
+    const percentage = (x / rect.width) * 100;
+    setInset(percentage);
+  };
+
   return (
     <Box
       component="section"
@@ -103,8 +121,44 @@ export const WorkflowAutomationSection = () => {
             viewport={{ once: true }}
           >
             <div className="w-full">
-              <SplitView
-                leftContent={
+              <div
+                className="relative aspect-video w-full h-full overflow-hidden rounded-xl select-none shadow-xl bg-white"
+                onMouseMove={onMouseMove}
+                onMouseUp={() => setOnMouseDown(false)}
+                onTouchMove={onMouseMove}
+                onTouchEnd={() => setOnMouseDown(false)}
+              >
+                {/* Interactive Slider Divider */}
+                <div
+                  className="bg-gradient-to-b from-gray-200 via-white to-gray-200 h-full w-2 absolute z-20 top-0 -ml-[1px] select-none shadow-md"
+                  style={{
+                    left: inset + "%",
+                  }}
+                >
+                  <button
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 border border-white/50 rounded-full hover:scale-110 transition-all w-12 h-12 select-none -translate-y-1/2 absolute top-1/2 -ml-5 z-30 cursor-ew-resize flex justify-center items-center shadow-xl"
+                    onTouchStart={(e) => {
+                      setOnMouseDown(true);
+                      onMouseMove(e);
+                    }}
+                    onMouseDown={(e) => {
+                      setOnMouseDown(true);
+                      onMouseMove(e);
+                    }}
+                    onTouchEnd={() => setOnMouseDown(false)}
+                    onMouseUp={() => setOnMouseDown(false)}
+                  >
+                    <GripVertical className="h-6 w-6 text-white select-none" />
+                  </button>
+                </div>
+                
+                {/* Without CRUSH Side */}
+                <div
+                  className="absolute left-0 top-0 z-10 w-full h-full rounded-xl select-none border border-black/10 overflow-hidden"
+                  style={{
+                    clipPath: "inset(0 0 0 " + inset + "%)",
+                  }}
+                >
                   <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-200 flex flex-col">
                     <div className="bg-gradient-to-r from-gray-700 to-gray-800 p-4 flex items-center">
                       <Computer className="text-white mr-2" size={20} />
@@ -118,6 +172,33 @@ export const WorkflowAutomationSection = () => {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5 }}
                         >
+                          {/* Illustration of doctor focused on screen */}
+                          <div className="relative mb-6 mx-auto w-64 h-40 bg-gray-100 rounded-lg overflow-hidden">
+                            <motion.div 
+                              className="absolute inset-0 flex items-center justify-center"
+                              animate={{
+                                opacity: [0.8, 1, 0.8],
+                              }}
+                              transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }}
+                            >
+                              <div className="relative w-full h-full flex items-center justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 opacity-80"></div>
+                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-20 h-16 bg-gray-700 rounded-md shadow-md"></div>
+                                <div className="absolute bottom-2 right-8 w-10 h-10 rounded-full bg-gray-400 shadow-md flex items-center justify-center">
+                                  <div className="w-8 h-8 rounded-full bg-gray-300"></div>
+                                </div>
+                                <div className="absolute top-6 left-8 w-16 h-10 rounded-md bg-gray-400 shadow-md"></div>
+                                <div className="absolute top-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+                                  <Monitor className="h-12 w-12 text-gray-800" />
+                                </div>
+                              </div>
+                            </motion.div>
+                          </div>
+
                           <div className="flex items-center justify-center mb-4">
                             <motion.div 
                               className="p-3 bg-red-100 rounded-full"
@@ -147,8 +228,10 @@ export const WorkflowAutomationSection = () => {
                       </div>
                     </div>
                   </div>
-                }
-                rightContent={
+                </div>
+                
+                {/* With CRUSH Side */}
+                <div className="absolute left-0 top-0 w-full h-full aspect-video rounded-xl select-none border border-black/10 overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
                     <div className="bg-gradient-to-r from-blue-600 to-indigo-700 p-4 flex items-center">
                       <Users className="text-white mr-2" size={20} />
@@ -162,6 +245,65 @@ export const WorkflowAutomationSection = () => {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5 }}
                         >
+                          {/* Illustration of doctor focused on patient */}
+                          <div className="relative mb-6 mx-auto w-64 h-40 bg-blue-50 rounded-lg overflow-hidden">
+                            <motion.div 
+                              className="absolute inset-0 flex items-center justify-center"
+                              animate={{
+                                opacity: [0.9, 1, 0.9],
+                              }}
+                              transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }}
+                            >
+                              <div className="relative w-full h-full flex items-center justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 opacity-70"></div>
+                                
+                                {/* Doctor and patient figures */}
+                                <div className="absolute bottom-2 left-10 w-10 h-14 rounded-t-full bg-blue-400 shadow-md"></div>
+                                <div className="absolute bottom-2 left-10 w-6 h-6 rounded-full bg-blue-500 shadow-md transform translate-x-2 -translate-y-10"></div>
+                                
+                                <div className="absolute bottom-2 right-10 w-10 h-12 rounded-t-full bg-indigo-300 shadow-md"></div>
+                                <div className="absolute bottom-2 right-10 w-6 h-6 rounded-full bg-indigo-400 shadow-md transform translate-x-2 -translate-y-8"></div>
+                                
+                                {/* Sound waves */}
+                                <motion.div 
+                                  className="absolute top-5 left-1/2 transform -translate-x-1/2"
+                                  animate={{
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.5, 0.8, 0.5]
+                                  }}
+                                  transition={{
+                                    duration: 2,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                  }}
+                                >
+                                  <Mic className="h-8 w-8 text-blue-500" />
+                                </motion.div>
+                                
+                                {/* Document being generated */}
+                                <motion.div 
+                                  className="absolute top-20 right-6"
+                                  animate={{
+                                    opacity: [0, 1, 1],
+                                    y: [0, -5, -5],
+                                    x: [0, 5, 5]
+                                  }}
+                                  transition={{
+                                    duration: 3,
+                                    repeat: Infinity,
+                                    ease: "easeInOut"
+                                  }}
+                                >
+                                  <ClipboardList className="h-6 w-6 text-indigo-600" />
+                                </motion.div>
+                              </div>
+                            </motion.div>
+                          </div>
+
                           <div className="flex items-center justify-center mb-4">
                             <motion.div 
                               className="p-3 bg-blue-100 rounded-full"
@@ -201,23 +343,19 @@ export const WorkflowAutomationSection = () => {
                       </div>
                     </div>
                   </div>
-                }
-                leftLabel={
-                  <div className="flex items-center">
-                    <Computer className="text-gray-800 mr-2" size={20} />
-                    <span className="text-gray-800 font-medium">Screen-Focused Care</span>
-                  </div>
-                }
-                rightLabel={
-                  <div className="flex items-center">
-                    <span className="text-gray-800 font-medium">Patient-Focused Care</span>
-                    <Users className="text-blue-500 ml-2" size={20} />
-                  </div>
-                }
-                className="aspect-video h-full rounded-xl shadow-xl overflow-hidden"
-                dividerClassName="backdrop-blur-sm bg-gradient-to-b from-blue-500/40 via-purple-500/40 to-blue-500/40"
-                handleClassName="bg-gradient-to-r from-blue-500 to-purple-600 shadow-xl"
-              />
+                </div>
+              </div>
+              
+              <div className="flex justify-between mt-6 px-4">
+                <div className="flex items-center">
+                  <Computer className="text-gray-800 mr-2" size={20} />
+                  <span className="text-gray-800 font-medium">Screen-Focused Care</span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-gray-800 font-medium">Patient-Focused Care</span>
+                  <Users className="text-blue-500 ml-2" size={20} />
+                </div>
+              </div>
             </div>
           </Box>
         </Box>
