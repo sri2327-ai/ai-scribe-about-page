@@ -321,7 +321,9 @@ export const BeforeAfterSlider = () => {
         </Box>
       </Box>
 
-      <style jsx>{`
+      {/* Fix: Use proper style tag without jsx attribute */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes bounce-left {
           0%, 100% { transform: translateX(0); }
           50% { transform: translateX(10px); }
@@ -349,7 +351,7 @@ export const BeforeAfterSlider = () => {
         .animate-bounce-subtle {
           animation: bounce-subtle 0.5s;
         }
-      `}</style>
+      `}}/>
     </Box>
   );
 };

@@ -1,8 +1,13 @@
 
 import * as React from 'react';
-import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { TooltipProps } from '@mui/material/Tooltip';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
+
+// Create a type that extends TooltipProps
+interface StyledTooltipProps extends Omit<TooltipProps, 'classes'> {
+  className?: string;
+}
 
 const StyledButton = styled(Button)(({ theme }) => ({
   padding: '12px 24px',
@@ -21,9 +26,12 @@ const StyledButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const StyledTooltip = styled(({ className, ...props }) => (
-  <Tooltip {...props} classes={{ popper: className }} />
-))(({ theme }) => ({
+// Properly type the styled component
+const StyledTooltip = styled(
+  ({ className, ...props }: StyledTooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  )
+)(({ theme }) => ({
   '& .MuiTooltip-tooltip': {
     animation: 'glow 2s infinite alternate',
     transformOrigin: 'center',
@@ -38,7 +46,13 @@ const StyledTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-export default function CustomTooltip({ title, children }) {
+// Add proper typing for the component props
+interface CustomTooltipProps {
+  title: React.ReactNode;
+  children?: React.ReactNode;
+}
+
+export default function CustomTooltip({ title, children }: CustomTooltipProps) {
   return (
     <StyledTooltip title={title} arrow placement="top">
       {children || <StyledButton>Hover me!</StyledButton>}
