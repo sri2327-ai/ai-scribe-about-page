@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation } from "framer-motion";
@@ -6,6 +5,7 @@ import { Info, BarChart2, DollarSign, Users, Magnet } from "lucide-react";
 import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, ResponsiveContainer, BarChart } from "recharts";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface Particle {
   id: number;
@@ -14,29 +14,24 @@ interface Particle {
 }
 
 export const ROICalculatorSection = () => {
-  // Input state values
   const [providersInput, setProvidersInput] = useState<string>("3");
   const [costPerProviderInput, setCostPerProviderInput] = useState<string>("99");
   const [patientsPerDayInput, setPatientsPerDayInput] = useState<string>("20");
   
-  // Calculated values that will be updated on button click
   const [providers, setProviders] = useState<number>(3);
   const [costPerProvider, setCostPerProvider] = useState<number>(99);
   const [patientsPerDay, setPatientsPerDay] = useState<number>(20);
   const [savings, setSavings] = useState<number>(5703);
   
-  // Chart data
   const [savingsData, setSavingsData] = useState<Array<{ name: string; value: number }>>([
     { name: "Human Scribe", value: 6000 },
     { name: "Crush AI", value: 297 }
   ]);
   
-  // Animation state
   const [isAttracting, setIsAttracting] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
   const particlesControl = useAnimation();
   
-  // Initialize particles
   useEffect(() => {
     const particleCount = 12;
     const newParticles = Array.from({ length: particleCount }, (_, i) => ({
@@ -47,7 +42,6 @@ export const ROICalculatorSection = () => {
     setParticles(newParticles);
   }, []);
 
-  // Handle magnetize button interactions
   const handleInteractionStart = async () => {
     setIsAttracting(true);
     await particlesControl.start({
@@ -74,34 +68,27 @@ export const ROICalculatorSection = () => {
     }));
   };
   
-  // Calculate savings on button click
   const calculateSavings = () => {
-    // Convert input values to numbers
     const providersNum = parseInt(providersInput) || 1;
     const costPerProviderNum = parseInt(costPerProviderInput) || 99;
     const patientsPerDayNum = parseInt(patientsPerDayInput) || 1;
     
-    // Update state values used for calculations
     setProviders(providersNum);
     setCostPerProvider(costPerProviderNum);
     setPatientsPerDay(patientsPerDayNum);
     
-    // Calculate the costs
     const humanScribeCost = providersNum * 2000;
     const crushAICost = providersNum * costPerProviderNum;
     const calculatedSavings = humanScribeCost - crushAICost;
     
-    // Update the savings and chart data
     setSavings(calculatedSavings);
     setSavingsData([
       { name: "Human Scribe", value: humanScribeCost },
       { name: "Crush AI", value: crushAICost }
     ]);
     
-    // Trigger the attraction animation
     handleInteractionStart();
     
-    // End the animation after 2 seconds
     setTimeout(() => {
       handleInteractionEnd();
     }, 2000);
@@ -130,7 +117,8 @@ export const ROICalculatorSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 2,
-                fontSize: { xs: "1.75rem", md: "2.5rem" }
+                fontSize: { xs: "1.75rem", md: "2.5rem" },
+                color: crushAIColors.primary
               }}
             >
               Save $1,800+/month per provider. Automate Notes with AI.
@@ -139,7 +127,7 @@ export const ROICalculatorSection = () => {
             <Typography 
               variant="body1" 
               sx={{
-                color: "rgba(0,0,0,0.7)",
+                color: crushAIColors.text.secondary,
                 mb: 4,
                 maxWidth: "700px",
                 mx: "auto",
@@ -158,7 +146,6 @@ export const ROICalculatorSection = () => {
           viewport={{ once: true }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
         >
-          {/* Calculator Section */}
           <div className="flex flex-col gap-6 p-6 border border-black/10 rounded-xl shadow-sm">
             <Typography 
               variant="h5" 
@@ -166,10 +153,11 @@ export const ROICalculatorSection = () => {
                 fontWeight: 600,
                 display: "flex",
                 alignItems: "center",
-                gap: 1
+                gap: 1,
+                color: crushAIColors.primary
               }}
             >
-              <BarChart2 size={24} className="stroke-black" />
+              <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
               Calculate Your Savings
             </Typography>
             
@@ -183,7 +171,7 @@ export const ROICalculatorSection = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Users size={20} className="stroke-black" />
+                      <Users size={20} className={`text-[${crushAIColors.primary}]`} />
                     </InputAdornment>
                   ),
                 }}
@@ -193,16 +181,16 @@ export const ROICalculatorSection = () => {
                       borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.5)',
+                      borderColor: crushAIColors.primary,
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black',
+                      borderColor: crushAIColors.primary,
                     },
                   },
                   '& .MuiFormLabel-root': {
                     color: 'rgba(0, 0, 0, 0.6)',
                     '&.Mui-focused': {
-                      color: 'black',
+                      color: crushAIColors.primary,
                     },
                   },
                 }}
@@ -217,14 +205,14 @@ export const ROICalculatorSection = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <DollarSign size={20} className="stroke-black" />
+                      <DollarSign size={20} className={`text-[${crushAIColors.primary}]`} />
                     </InputAdornment>
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
                       <div className="relative group">
-                        <Info size={18} className="stroke-black cursor-help" />
-                        <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-black text-white text-xs rounded-md shadow-lg z-10">
+                        <Info size={18} className={`text-[${crushAIColors.primary}] cursor-help`} />
+                        <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
                           Starting price of $99/month per provider
                         </div>
                       </div>
@@ -237,16 +225,16 @@ export const ROICalculatorSection = () => {
                       borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.5)',
+                      borderColor: crushAIColors.primary,
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black',
+                      borderColor: crushAIColors.primary,
                     },
                   },
                   '& .MuiFormLabel-root': {
                     color: 'rgba(0, 0, 0, 0.6)',
                     '&.Mui-focused': {
-                      color: 'black',
+                      color: crushAIColors.primary,
                     },
                   },
                 }}
@@ -261,7 +249,7 @@ export const ROICalculatorSection = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Users size={20} className="stroke-black" />
+                      <Users size={20} className={`text-[${crushAIColors.primary}]`} />
                     </InputAdornment>
                   ),
                 }}
@@ -271,47 +259,46 @@ export const ROICalculatorSection = () => {
                       borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.5)',
+                      borderColor: crushAIColors.primary,
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: 'black',
+                      borderColor: crushAIColors.primary,
                     },
                   },
                   '& .MuiFormLabel-root': {
                     color: 'rgba(0, 0, 0, 0.6)',
                     '&.Mui-focused': {
-                      color: 'black',
+                      color: crushAIColors.primary,
                     },
                   },
                 }}
               />
             </Stack>
             
-            <div className="flex flex-col items-center justify-center mt-4 p-4 rounded-lg bg-black/5">
-              <Typography variant="subtitle1" sx={{ color: 'rgba(0,0,0,0.7)' }}>
+            <div className="flex flex-col items-center justify-center mt-4 p-4 rounded-lg bg-[#F5F9FF]">
+              <Typography variant="subtitle1" sx={{ color: crushAIColors.text.secondary }}>
                 Your Monthly Savings:
               </Typography>
               <Typography 
                 variant="h4" 
                 sx={{ 
                   fontWeight: 700,
-                  color: 'black'
+                  color: crushAIColors.primary
                 }}
               >
                 ${savings.toLocaleString()}
               </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(0,0,0,0.6)', textAlign: 'center', mt: 1 }}>
+              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, textAlign: 'center', mt: 1 }}>
                 Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
               </Typography>
             </div>
             
-            {/* Magnetize Button */}
             <div className="flex justify-center mt-2">
               <Button
                 className={cn(
                   "min-w-40 relative touch-none",
-                  "bg-black hover:bg-black/90 text-white",
-                  "border border-black/20",
+                  "bg-[#143151] hover:bg-[#143151]/90 text-white",
+                  "border border-[#143151]/20",
                   "transition-all duration-300"
                 )}
                 onClick={calculateSavings}
@@ -332,10 +319,9 @@ export const ROICalculatorSection = () => {
                       isAttracting ? "opacity-100" : "opacity-40"
                     )}
                     style={{
-                      color: "#FFD700", // Gold color for dollar signs
+                      color: "#FFD700",
                     }}
                   >
-                    {/* Use dollar symbol or randomize between $ and numbers */}
                     {index % 3 === 0 ? "$" : index % 3 === 1 ? "💰" : "💵"}
                   </motion.span>
                 ))}
@@ -352,7 +338,6 @@ export const ROICalculatorSection = () => {
             </div>
           </div>
           
-          {/* Chart Section */}
           <div className="border border-black/10 rounded-xl p-6 shadow-sm">
             <Typography 
               variant="h5" 
@@ -361,10 +346,11 @@ export const ROICalculatorSection = () => {
                 mb: 3,
                 display: "flex",
                 alignItems: "center",
-                gap: 1
+                gap: 1,
+                color: crushAIColors.primary
               }}
             >
-              <BarChart2 size={24} className="stroke-black" />
+              <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
               Monthly Cost Comparison
             </Typography>
             
@@ -376,25 +362,25 @@ export const ROICalculatorSection = () => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: '#000000' }}
-                  axisLine={{ stroke: '#000000' }}
+                  tick={{ fill: crushAIColors.text.primary }}
+                  axisLine={{ stroke: crushAIColors.text.primary }}
                 />
                 <YAxis
                   tickFormatter={(value) => `$${value}`}
-                  tick={{ fill: '#000000' }}
-                  axisLine={{ stroke: '#000000' }}
+                  tick={{ fill: crushAIColors.text.primary }}
+                  axisLine={{ stroke: crushAIColors.text.primary }}
                 />
                 <RechartsTooltip
                   formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
                   contentStyle={{ 
                     backgroundColor: '#fff', 
-                    border: '1px solid #000',
+                    border: `1px solid ${crushAIColors.primary}`,
                     borderRadius: '4px'
                   }}
                 />
                 <Bar
                   dataKey="value"
-                  fill="#000000"
+                  fill={crushAIColors.primary}
                   radius={[8, 8, 0, 0]}
                   name="Cost"
                 />
@@ -402,7 +388,7 @@ export const ROICalculatorSection = () => {
             </ResponsiveContainer>
             
             <Button 
-              className="w-full mt-6 bg-black hover:bg-black/90 text-white rounded-md py-2"
+              className="w-full mt-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2"
             >
               Book A Demo
             </Button>

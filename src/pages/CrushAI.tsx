@@ -21,7 +21,7 @@ import { GradientSection } from "@/components/ui/gradient-section";
 const CrushAI = () => {
   return (
     <Box sx={{ bgcolor: crushAIColors.background.white, color: crushAIColors.text.primary }}>
-      {/* Hero Section - Now using GradientSection component */}
+      {/* Hero Section - Already using GradientSection component */}
       <HeroSection />
 
       {/* EHR Integration Section - With Gradient Background */}
@@ -43,10 +43,15 @@ const CrushAI = () => {
         <HowItWorksSection />
       </GradientSection>
 
-      {/* Why CRUSH Crushes Competition */}
-      <CompetitionSection />
+      {/* Why CRUSH Crushes Competition - Now with gradient background */}
+      <GradientSection 
+        variant="radial"
+        intensity="light"
+      >
+        <CompetitionSection />
+      </GradientSection>
       
-      {/* Testimonial Generate Section (new placement after Competition) - Already has gradient */}
+      {/* Testimonial Generate Section - Already has gradient */}
       <TestimonialGenerateSection />
       
       {/* Clinical Workflow Section - With Gradient Background */}
@@ -83,7 +88,7 @@ const CrushAI = () => {
           </Typography>
           <Button 
             size="lg" 
-            className={`bg-[${crushAIColors.primary}] hover:bg-[${crushAIColors.primary}]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg`}
+            className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO

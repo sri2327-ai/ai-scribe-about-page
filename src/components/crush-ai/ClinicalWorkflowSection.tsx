@@ -39,15 +39,15 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
     )}
   >
     <div className="flex flex-col gap-3 z-10">
-      <div className="bg-black/5 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
-        <Icon size={24} className="text-black stroke-[1.5]" />
+      <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
+        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
       </div>
       
       <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 className="text-xl font-semibold text-black mb-2">
+        <h3 className={`text-xl font-semibold text-[${crushAIColors.primary}] mb-2`}>
           {title}
         </h3>
-        <p className="text-gray-700">{description}</p>
+        <p className={`text-[${crushAIColors.text.secondary}]`}>{description}</p>
       </div>
     </div>
   </motion.div>
@@ -146,11 +146,11 @@ export const ClinicalWorkflowSection = () => {
           sx={{ 
             fontWeight: 600, 
             mb: 1,
-            color: "#000",
+            color: crushAIColors.primary,
             fontSize: { xs: "1.5rem", md: "1.75rem" }
           }}
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#143151] to-[#5192AE]">
             {activeTab === "admin" ? "Automate Staffing & Cut Admin Work" : "AI Assistance for Physicians – Smarter, More Accurate Decisions"}
           </span>
         </Typography>
@@ -176,11 +176,11 @@ export const ClinicalWorkflowSection = () => {
       "flex flex-col p-6 border border-black/10 rounded-xl shadow-sm bg-white",
       className
     )}>
-      <div className="bg-black/5 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-        <Icon size={24} className="text-black stroke-[1.5]" />
+      <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
       </div>
-      <h3 className="text-lg font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-gray-700">{description}</p>
+      <h3 className={`text-lg font-semibold mb-2 text-[${crushAIColors.primary}]`}>{title}</h3>
+      <p className={`text-sm text-[${crushAIColors.text.secondary}]`}>{description}</p>
     </div>
   );
 
@@ -207,7 +207,7 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 3,
-                color: crushAIColors.text.primary,
+                color: crushAIColors.primary,
                 textAlign: "center",
                 fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
               }}
@@ -225,7 +225,7 @@ export const ClinicalWorkflowSection = () => {
             <Typography 
               variant="body1" 
               sx={{ 
-                color: "#555", 
+                color: crushAIColors.text.secondary, 
                 maxWidth: "800px",
                 mx: "auto",
                 lineHeight: 1.8,
@@ -243,13 +243,13 @@ export const ClinicalWorkflowSection = () => {
             <TabsList className="w-auto bg-black/5 p-1.5 rounded-full shadow-sm">
               <TabsTrigger 
                 value="admin" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-[#143151] data-[state=active]:text-white hover:bg-[#143151]/10"
               >
                 {isMobile ? "Admin" : "Automate Staffing & Admin Work"}
               </TabsTrigger>
               <TabsTrigger 
                 value="clinical" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-[#143151] data-[state=active]:text-white hover:bg-[#143151]/10"
               >
                 {isMobile ? "Clinical" : "AI Assistance for Physicians"}
               </TabsTrigger>

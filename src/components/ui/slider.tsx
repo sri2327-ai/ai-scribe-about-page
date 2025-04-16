@@ -60,7 +60,7 @@ const Slider = React.forwardRef<
       onPointerCancel={() => setIsDragging(false)}
     >
       <SliderPrimitive.Track className="relative h-[1px] w-full grow overflow-hidden bg-neutral-200 dark:bg-neutral-800">
-        <SliderPrimitive.Range className={`absolute h-full bg-[${crushAIColors.primary}] dark:bg-neutral-100`} />
+        <SliderPrimitive.Range className="absolute h-full bg-[#143151] dark:bg-neutral-100" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb 
         className={cn(

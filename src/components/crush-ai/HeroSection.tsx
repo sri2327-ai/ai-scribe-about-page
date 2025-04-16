@@ -75,12 +75,12 @@ export const HeroSection = () => {
                   fontSize: { xs: '1.7rem', sm: '2rem' }, 
                   fontWeight: 800,
                   mb: 2,
-                  color: crushAIColors.text.primary,
+                  color: crushAIColors.primary,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: "black" }}>
+                <Box component="span" sx={{ color: crushAIColors.primary }}>
                   <Box component="span" sx={{ display: 'inline-block' }}>
                     <CustomTooltip title={tooltipContent.C}>
                       <Box component="span" className="inline-block">C</Box>
@@ -122,7 +122,7 @@ export const HeroSection = () => {
 
               <ShadcnButton 
                 size="lg" 
-                className={`bg-[${crushAIColors.primary}] hover:bg-[${crushAIColors.primary}]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg`}
+                className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
               >
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
@@ -192,12 +192,12 @@ export const HeroSection = () => {
                     fontSize: '2.3rem', 
                     fontWeight: 800,
                     mb: 2,
-                    color: crushAIColors.text.primary,
+                    color: crushAIColors.primary,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.1
                   }}
                 >
-                  <Box component="span" sx={{ color: "black" }}>
+                  <Box component="span" sx={{ color: crushAIColors.primary }}>
                     <Box component="span" sx={{ display: 'inline-block' }}>
                       <CustomTooltip title={tooltipContent.C}>
                         <Box component="span" className="inline-block">C</Box>

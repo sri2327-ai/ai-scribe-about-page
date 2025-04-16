@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload, ArrowRight } from "lucide-react";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const steps = [
   {
@@ -475,7 +476,7 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: "#333"
+              color: crushAIColors.primary
             }}
           >
             How CRUSH Works
@@ -485,7 +486,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555",
+              color: crushAIColors.text.secondary,
               fontWeight: 400,
               mb: 2
             }}
@@ -497,7 +498,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555",
+              color: crushAIColors.text.secondary,
               fontWeight: 600,
               fontSize: "1.2rem"
             }}
@@ -820,7 +821,7 @@ export const HowItWorksSection = () => {
             whileTap={{ scale: 0.95 }}
             variant="contained"
             sx={{
-              bgcolor: '#333',
+              bgcolor: crushAIColors.primary,
               color: 'white',
               py: { xs: 1, md: 1.5 },
               px: { xs: 3, md: 4 },
@@ -829,7 +830,7 @@ export const HowItWorksSection = () => {
               borderRadius: 2,
               boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
               '&:hover': {
-                bgcolor: '#222'
+                bgcolor: `${crushAIColors.primary}e6`
               }
             }}
           >

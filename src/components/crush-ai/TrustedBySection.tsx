@@ -57,13 +57,13 @@ export const TrustedBySection = () => {
                   mr: 2
                 }}
               >
-                <Users size={28} className="text-[#143151]" />
+                <Users size={28} className={`text-[${crushAIColors.primary}]`} />
               </Box>
               <Typography 
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: crushAIColors.text.primary,
+                  color: crushAIColors.primary,
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -74,7 +74,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: crushAIColors.text.primary,
+                color: crushAIColors.primary,
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
