@@ -190,162 +190,163 @@ export const CompetitionSection = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {comparisonFeatures.map((feature, index) => (
-                    <TableRow 
-                      key={feature.id}
-                      component={motion.tr}
-                      custom={index}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true, amount: 0.1 }}
-                      variants={tableRowVariants}
-                      className="hover:bg-blue-50 border-b border-blue-50"
-                    >
-                      <TableCell 
-                        className="font-medium tracking-tight"
-                        style={{ color: crushAIColors.text.primary }}
+                  {comparisonFeatures.map((feature, index) => {
+                    return (
+                      <motion.tr
+                        key={feature.id}
+                        custom={index}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.1 }}
+                        variants={tableRowVariants}
+                        className="hover:bg-blue-50 border-b border-blue-50"
                       >
-                        {feature.title}
-                      </TableCell>
-                      <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                          <Box 
-                            sx={{ 
-                              bgcolor: `rgba(165,204,243,0.2)`, 
-                              p: 0.8, 
-                              borderRadius: "50%", 
-                              mt: 0.5,
-                              display: "flex", 
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0
-                            }}
-                          >
-                            <CheckCircle size={16} color={crushAIColors.primary} />
+                        <TableCell 
+                          className="font-medium tracking-tight"
+                          style={{ color: crushAIColors.text.primary }}
+                        >
+                          {feature.title}
+                        </TableCell>
+                        <TableCell>
+                          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                            <Box 
+                              sx={{ 
+                                bgcolor: `rgba(165,204,243,0.2)`, 
+                                p: 0.8, 
+                                borderRadius: "50%", 
+                                mt: 0.5,
+                                display: "flex", 
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0
+                              }}
+                            >
+                              <CheckCircle size={16} color={crushAIColors.primary} />
+                            </Box>
+                            <Typography 
+                              variant="body2" 
+                              sx={{ color: crushAIColors.text.secondary, lineHeight: 1.6 }}
+                            >
+                              {feature.crushDescription}
+                            </Typography>
                           </Box>
-                          <Typography 
-                            variant="body2" 
-                            sx={{ color: crushAIColors.text.secondary, lineHeight: 1.6 }}
-                          >
-                            {feature.crushDescription}
-                          </Typography>
-                        </Box>
 
-                        {feature.id === "template-builder" && !isTablet && (
-                          <Box 
-                            component={motion.div}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            sx={{ 
-                              mt: 2, 
-                              display: "grid", 
-                              gridTemplateColumns: "1fr 1fr", 
-                              gap: 1.5 
-                            }}
-                          >
-                            {[
-                              { icon: <FilePlus size={14} />, text: "Create from scratch" },
-                              { icon: <Copy size={14} />, text: "Generate from instructions" },
-                              { icon: <Import size={14} />, text: "Import templates" },
-                              { icon: <Users size={14} />, text: "Browse community" }
-                            ].map((item, idx) => (
-                              <Box 
-                                key={idx}
-                                component={motion.div}
-                                initial={{ opacity: 0, y: 5 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.3 + (idx * 0.1) }}
-                                sx={{ 
-                                  display: "flex", 
-                                  alignItems: "center", 
-                                  gap: 1,
-                                  p: 1,
-                                  borderRadius: 1,
-                                  bgcolor: `rgba(165,204,243,0.05)`,
-                                  border: `1px solid rgba(165,204,243,0.1)`
-                                }}
-                              >
-                                <Box sx={{ 
-                                  color: crushAIColors.primary,
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center"
-                                }}>
-                                  {item.icon}
+                          {feature.id === "template-builder" && !isTablet && (
+                            <Box 
+                              component={motion.div}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.3 }}
+                              sx={{ 
+                                mt: 2, 
+                                display: "grid", 
+                                gridTemplateColumns: "1fr 1fr", 
+                                gap: 1.5 
+                              }}
+                            >
+                              {[
+                                { icon: <FilePlus size={14} />, text: "Create from scratch" },
+                                { icon: <Copy size={14} />, text: "Generate from instructions" },
+                                { icon: <Import size={14} />, text: "Import templates" },
+                                { icon: <Users size={14} />, text: "Browse community" }
+                              ].map((item, idx) => (
+                                <Box 
+                                  key={idx}
+                                  component={motion.div}
+                                  initial={{ opacity: 0, y: 5 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: 0.3 + (idx * 0.1) }}
+                                  sx={{ 
+                                    display: "flex", 
+                                    alignItems: "center", 
+                                    gap: 1,
+                                    p: 1,
+                                    borderRadius: 1,
+                                    bgcolor: `rgba(165,204,243,0.05)`,
+                                    border: `1px solid rgba(165,204,243,0.1)`
+                                  }}
+                                >
+                                  <Box sx={{ 
+                                    color: crushAIColors.primary,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center"
+                                  }}>
+                                    {item.icon}
+                                  </Box>
+                                  <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontSize: "0.75rem" }}>
+                                    {item.text}
+                                  </Typography>
                                 </Box>
-                                <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontSize: "0.75rem" }}>
-                                  {item.text}
-                                </Typography>
-                              </Box>
-                            ))}
-                          </Box>
-                        )}
+                              ))}
+                            </Box>
+                          )}
 
-                        {feature.id === "specialty" && !isTablet && (
-                          <Box 
-                            component={motion.div}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3 }}
-                            sx={{ 
-                              mt: 2,
-                              display: "flex",
-                              flexWrap: "wrap",
-                              gap: 0.8
-                            }}
-                          >
-                            {[
-                              "Cardiology", "Dermatology", "Orthopedics", 
-                              "Pediatrics", "Psychiatry", "+ More"
-                            ].map((specialty, idx) => (
-                              <Box 
-                                key={idx}
-                                component={motion.div}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ delay: 0.3 + (idx * 0.05) }}
-                                sx={{ 
-                                  px: 1.2,
-                                  py: 0.4,
-                                  borderRadius: 5,
-                                  bgcolor: `rgba(165,204,243,0.1)`,
-                                  border: `1px solid rgba(165,204,243,0.2)`,
-                                  fontSize: "0.7rem",
-                                  fontWeight: 500,
-                                  color: crushAIColors.text.primary
-                                }}
-                              >
-                                {specialty}
-                              </Box>
-                            ))}
+                          {feature.id === "specialty" && !isTablet && (
+                            <Box 
+                              component={motion.div}
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.3 }}
+                              sx={{ 
+                                mt: 2,
+                                display: "flex",
+                                flexWrap: "wrap",
+                                gap: 0.8
+                              }}
+                            >
+                              {[
+                                "Cardiology", "Dermatology", "Orthopedics", 
+                                "Pediatrics", "Psychiatry", "+ More"
+                              ].map((specialty, idx) => (
+                                <Box 
+                                  key={idx}
+                                  component={motion.div}
+                                  initial={{ opacity: 0, scale: 0.9 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ delay: 0.3 + (idx * 0.05) }}
+                                  sx={{ 
+                                    px: 1.2,
+                                    py: 0.4,
+                                    borderRadius: 5,
+                                    bgcolor: `rgba(165,204,243,0.1)`,
+                                    border: `1px solid rgba(165,204,243,0.2)`,
+                                    fontSize: "0.7rem",
+                                    fontWeight: 500,
+                                    color: crushAIColors.text.primary
+                                  }}
+                                >
+                                  {specialty}
+                                </Box>
+                              ))}
+                            </Box>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
+                            <Box 
+                              sx={{ 
+                                bgcolor: "rgba(255,100,100,0.1)", 
+                                p: 0.8, 
+                                borderRadius: "50%", 
+                                mt: 0.5,
+                                display: "flex", 
+                                alignItems: "center",
+                                justifyContent: "center",
+                                flexShrink: 0,
+                                border: "1px solid rgba(255,100,100,0.2)"
+                              }}
+                            >
+                              <XCircle size={16} className="text-red-400" />
+                            </Box>
+                            <Typography variant="body2" sx={{ color: '#444', lineHeight: 1.6 }}>
+                              {feature.competitionDescription}
+                            </Typography>
                           </Box>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
-                          <Box 
-                            sx={{ 
-                              bgcolor: "rgba(255,100,100,0.1)", 
-                              p: 0.8, 
-                              borderRadius: "50%", 
-                              mt: 0.5,
-                              display: "flex", 
-                              alignItems: "center",
-                              justifyContent: "center",
-                              flexShrink: 0,
-                              border: "1px solid rgba(255,100,100,0.2)"
-                            }}
-                          >
-                            <XCircle size={16} className="text-red-400" />
-                          </Box>
-                          <Typography variant="body2" sx={{ color: '#444', lineHeight: 1.6 }}>
-                            {feature.competitionDescription}
-                          </Typography>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                        </TableCell>
+                      </motion.tr>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </Box>

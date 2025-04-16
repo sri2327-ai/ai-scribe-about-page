@@ -32,6 +32,15 @@ const CrushAI = () => {
 
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
+      
+      {/* Moved ClinicianTestimonialsSection up, right after EhrIntegrationSection */}
+      <GradientSection 
+        variant="radial"
+        intensity="light"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
+      >
+        <ClinicianTestimonialsSection />
+      </GradientSection>
 
       <TrustedBySection />
 
@@ -91,14 +100,6 @@ const CrushAI = () => {
           </Container>
         </Box>
       </WaveBackground>
-      
-      <GradientSection 
-        variant="radial"
-        intensity="light"
-        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
-      >
-        <ClinicianTestimonialsSection />
-      </GradientSection>
       
       <WorkflowAutomationSection />
       
