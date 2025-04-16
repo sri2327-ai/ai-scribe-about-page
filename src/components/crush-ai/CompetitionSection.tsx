@@ -159,31 +159,32 @@ export const CompetitionSection = () => {
                 display: { xs: 'none', sm: 'block' },
                 overflow: 'hidden',
                 borderRadius: 2,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.08)",
-                border: `1px solid rgba(165,204,243,0.2)`,
-                backgroundColor: 'rgba(255,255,255,0.9)'
+                boxShadow: "0 6px 24px rgba(0,0,0,0.12)",
+                border: `1px solid rgba(165,204,243,0.3)`,
+                backgroundColor: 'rgba(255,255,255,0.95)'
               }}
             >
               <Table>
                 <TableHeader>
-                  <TableRow className="bg-gradient-to-r from-blue-50 to-white border-b-2 border-blue-100">
+                  <TableRow className="bg-gradient-to-r from-blue-100 to-white border-b-2 border-blue-200">
                     <TableHead 
-                      className="w-1/5 text-blue-700 font-semibold tracking-tight text-base"
+                      className="w-1/5 font-semibold tracking-tight text-base py-4"
                       style={{ color: crushAIColors.primary }}
                     >
                       Feature
                     </TableHead>
                     <TableHead 
-                      className="w-2/5 text-blue-700 font-semibold tracking-tight text-base"
+                      className="w-2/5 font-semibold tracking-tight text-base py-4"
                       style={{ color: crushAIColors.primary }}
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Trophy size={16} color={crushAIColors.primary} />
+                        <Trophy size={18} color={crushAIColors.primary} />
                         C.R.U.S.H.
                       </Box>
                     </TableHead>
                     <TableHead 
-                      className="w-2/5 text-red-500 font-semibold tracking-tight text-base"
+                      className="w-2/5 font-semibold tracking-tight text-base py-4"
+                      style={{ color: "#e53935" }}
                     >
                       Other AI Scribes
                     </TableHead>
@@ -199,15 +200,15 @@ export const CompetitionSection = () => {
                       whileInView="visible"
                       viewport={{ once: true, amount: 0.1 }}
                       variants={tableRowVariants}
-                      className="hover:bg-blue-50 border-b border-blue-50"
+                      className="hover:bg-blue-50 transition-colors duration-200 border-b border-blue-100"
                     >
                       <TableCell 
-                        className="font-medium tracking-tight"
+                        className="font-medium tracking-tight py-4"
                         style={{ color: crushAIColors.text.primary }}
                       >
                         {feature.title}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="py-4">
                         <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
                           <Box 
                             sx={{ 
@@ -322,7 +323,7 @@ export const CompetitionSection = () => {
                           </Box>
                         )}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="py-4">
                         <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2 }}>
                           <Box 
                             sx={{ 
@@ -337,7 +338,7 @@ export const CompetitionSection = () => {
                               border: "1px solid rgba(255,100,100,0.2)"
                             }}
                           >
-                            <XCircle size={16} className="text-red-400" />
+                            <XCircle size={16} className="text-red-500" />
                           </Box>
                           <Typography variant="body2" sx={{ color: '#444', lineHeight: 1.6 }}>
                             {feature.competitionDescription}
@@ -621,7 +622,7 @@ export const CompetitionSection = () => {
                             border: "1px solid rgba(255,100,100,0.3)"
                           }}
                         >
-                          <XCircle size={24} className="text-red-400" />
+                          <XCircle size={24} className="text-red-500" />
                         </Box>
                         <Box>
                           <Typography 
