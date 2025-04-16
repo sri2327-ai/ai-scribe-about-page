@@ -41,7 +41,7 @@ export const EHRBackground = () => {
         bottom: 0,
         overflow: 'hidden',
         zIndex: 0,
-        opacity: 0.7,
+        opacity: 0.9, // Increased opacity from 0.7 to 0.9
       }}
     >
       {/* Animated lines */}
@@ -53,7 +53,7 @@ export const EHRBackground = () => {
             left: `${position}%`,
             width: '1px',
             height: '100%',
-            background: 'rgba(255, 255, 255, 0.2)', // Increased white opacity
+            background: 'rgba(255, 255, 255, 0.4)', // Increased white opacity from 0.2 to 0.4
             animation: `moveLine 10s linear infinite ${idx * 2}s`,
             '@keyframes moveLine': {
               '0%': {
@@ -76,7 +76,7 @@ export const EHRBackground = () => {
         <Box
           key={`circle-${idx}`}
           ref={(el) => {
-            circleRefs.current[idx] = el;
+            circleRefs.current[idx] = el as HTMLDivElement | null;
           }}
           sx={{
             position: 'absolute',
@@ -85,7 +85,7 @@ export const EHRBackground = () => {
             width: `${circle.size}px`,
             height: `${circle.size}px`,
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.3)', // White with increased opacity
+            backgroundColor: 'rgba(255, 255, 255, 0.5)', // Increased opacity from 0.3 to 0.5
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -96,11 +96,11 @@ export const EHRBackground = () => {
             '@keyframes pulse': {
               '0%, 100%': {
                 transform: 'scale(1)',
-                opacity: 0.3,
+                opacity: 0.5, // Increased from 0.3 to 0.5
               },
               '50%': {
                 transform: 'scale(1.5)',
-                opacity: 0.6,
+                opacity: 0.8, // Increased from 0.6 to 0.8
               },
             },
           }}
@@ -116,11 +116,11 @@ export const EHRBackground = () => {
           initial={{ 
             x: Math.random() * 100 + '%', 
             y: -20, 
-            opacity: 0.8 
+            opacity: 0.9 // Increased from 0.8 to 0.9
           }}
           animate={{ 
             y: '120%',
-            opacity: [0.8, 0.4, 0.8],
+            opacity: [0.9, 0.6, 0.9], // Increased values from [0.8, 0.4, 0.8]
             scale: [1, 1.1, 1]
           }}
           transition={{ 
@@ -134,7 +134,7 @@ export const EHRBackground = () => {
             width: '6px',
             height: '6px',
             borderRadius: '2px',
-            backgroundColor: 'white', // Changed to white
+            backgroundColor: 'white',
           }}
         />
       ))}
