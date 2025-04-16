@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -13,7 +12,6 @@ import {
 } from "@/components/ui/carousel";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
-import { EHRBackground } from "./EHRBackground";
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
@@ -51,9 +49,6 @@ export const EhrIntegrationSection = () => {
           zIndex: 1
         }}
       >
-        {/* Add our EHR Background component */}
-        <EHRBackground />
-        
         <Container maxWidth="lg">
           <Box 
             component={motion.div}
@@ -89,7 +84,6 @@ export const EhrIntegrationSection = () => {
             </Typography>
           </Box>
 
-          {/* EHR Logos at the top */}
           <Box 
             component={motion.div}
             initial={{ opacity: 0, y: 20 }}
@@ -128,7 +122,6 @@ export const EhrIntegrationSection = () => {
             ))}
           </Box>
 
-          {/* Mobile: Carousel, Tablet/Desktop: Horizontal scrolling cards */}
           {isMobile ? (
             <Carousel className="w-full max-w-sm mx-auto">
               <CarouselContent>

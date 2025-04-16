@@ -96,8 +96,6 @@ const CrushAI = () => {
       <WaveBackground baseColor={crushAIColors.secondary} intensity="light">
         <ROICalculatorSection />
       </WaveBackground>
-
-      {/* Removed the TestimonialsBenefitsSection component */}
     </Box>
   );
 };
