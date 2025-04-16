@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -46,12 +45,11 @@ export const ROICalculatorSection = () => {
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
   const chartHeight = useTransform(scrollYProgress, [0.2, 0.7], ["90%", "100%"]);
   
-  // Adjust container animation to go to 100% width and 0 border radius
-  const containerWidth = useTransform(scrollYProgress, [0.1, 0.7], ["85%", "100%"]);
-  const containerBorderRadius = useTransform(scrollYProgress, [0.1, 0.7], ["1rem", "0rem"]);
+  const containerWidth = useTransform(scrollYProgress, [0.1, 0.5], ["85%", "100%"]);
+  const containerBorderRadius = useTransform(scrollYProgress, [0.1, 0.5], ["1.5rem", "0rem"]);
+  const containerHeight = useTransform(scrollYProgress, [0.4, 0.7], ["auto", "100vh"]);
   
-  // Make background fully transparent when scrolled
-  const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.7], [0.7, 0]);
+  const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.4], [0.8, 0]);
   const gradientProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   
   useEffect(() => {
@@ -146,6 +144,7 @@ export const ROICalculatorSection = () => {
           borderRadius: containerBorderRadius,
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+          height: containerHeight,
         }}
       >
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5, py: 4 }}>
