@@ -5,26 +5,16 @@ import { motion } from "framer-motion";
 import { Zap, RefreshCw, FileCheck } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { GoogleGeminiEffect, useGeminiPaths } from "@/components/ui/google-gemini-effect";
 
 export const EhrIntegrationSection = () => {
-  const pathLengths = useGeminiPaths();
-  
   return (
     <Box 
       component="section" 
       sx={{ 
         py: { xs: 8, md: 12 },
-        bgcolor: '#ffffff',
-        position: 'relative',
-        overflow: 'hidden'
+        bgcolor: '#ffffff'
       }}
     >
-      <GoogleGeminiEffect 
-        pathLengths={pathLengths} 
-        className="opacity-30" // Increased opacity from 0.1 to 0.3
-      />
-      
       <Container maxWidth="lg">
         <Box 
           component={motion.div}
@@ -41,9 +31,7 @@ export const EhrIntegrationSection = () => {
               fontWeight: 800,
               mb: 3,
               color: '#000000',
-              letterSpacing: '-0.02em',
-              position: 'relative',
-              zIndex: 1
+              letterSpacing: '-0.02em'
             }}
           >
             Seamless EHR Integration
@@ -55,15 +43,14 @@ export const EhrIntegrationSection = () => {
               mx: 'auto',
               color: '#403E43',
               fontWeight: 400,
-              mb: 5,
-              position: 'relative',
-              zIndex: 1
+              mb: 5
             }}
           >
             CRUSH syncs effortlessly with any EHR system, eliminating copy-pasting and manual entry.
           </Typography>
         </Box>
 
+        {/* EHR Logos at the top */}
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -75,9 +62,7 @@ export const EhrIntegrationSection = () => {
             justifyContent: 'center',
             flexWrap: 'wrap',
             gap: 3,
-            mb: 6,
-            position: 'relative',
-            zIndex: 1
+            mb: 6
           }}
         >
           {["Epic", "Cerner", "Meditech", "NextGen"].map((item, index) => (
@@ -101,7 +86,8 @@ export const EhrIntegrationSection = () => {
           ))}
         </Box>
 
-        <ScrollArea className="w-full whitespace-nowrap pb-4 relative z-10">
+        {/* Horizontal scrolling cards */}
+        <ScrollArea className="w-full whitespace-nowrap pb-4">
           <Box 
             sx={{ 
               display: 'flex',

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -8,7 +7,6 @@ import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import VoiceWaves from "@/components/ui/voice-waves";
-import { ChemicalBurnEffect } from "@/components/ui/chemical-burn-effect";
 
 export const HeroSection = () => {
   const renderLetterPopover = (letter: string, title: string, description: string) => {
@@ -68,18 +66,11 @@ export const HeroSection = () => {
         height: { xs: 'auto', md: '100vh' }
       }}
     >
-      {/* Chemical Burn Effect with more prominent colors */}
-      <ChemicalBurnEffect 
-        colors={['#1EAEDB', '#D946EF']} // Bright teal and vibrant pink
-        intensity={0.5} // Increased intensity
-        className="opacity-30" // More visible
-      />
-      
       {/* Voice Waves Animation Background Effect */}
-      <div className="absolute inset-0 z-0 opacity-30">
+      <div className="absolute inset-0 z-0 opacity-20">
         <VoiceWaves 
           colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
-          opacity={0.3}
+          opacity={0.2}
         />
       </div>
       
