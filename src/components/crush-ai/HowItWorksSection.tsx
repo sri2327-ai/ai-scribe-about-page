@@ -53,13 +53,13 @@ const steps = [
             style={{
               padding: 12,
               borderRadius: 12,
-              border: '2px solid #333',
+              border: '2px solid #387E89',
               background: 'white'
             }}
           >
-            <Stethoscope size={32} className="text-black" />
+            <Stethoscope size={32} className="text-teal" />
           </motion.div>
-          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#333' : '#666' }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#143151' : 'rgba(20, 49, 81, 0.6)' }}>
             Patient Database
           </Typography>
           {active && (
@@ -74,15 +74,15 @@ const steps = [
                 alignItems: 'center', 
                 p: 1, 
                 borderRadius: 1,
-                bgcolor: 'rgba(0,0,0,0.05)'
+                bgcolor: 'rgba(56, 126, 137, 0.1)'
               }}>
                 <Box sx={{ 
                   width: 6, 
                   height: 6, 
                   borderRadius: '50%', 
-                  bgcolor: 'green' 
+                  bgcolor: '#387E89' 
                 }} />
-                <Typography variant="caption" sx={{ fontSize: '0.7rem' }}>
+                <Typography variant="caption" sx={{ fontSize: '0.7rem', color: '#143151' }}>
                   Connected to EHR
                 </Typography>
               </Box>
@@ -129,11 +129,11 @@ const steps = [
               style={{
                 padding: 16,
                 borderRadius: '50%',
-                border: '2px solid #333',
-                background: active ? 'rgba(0, 0, 0, 0.05)' : 'white'
+                border: '2px solid #387E89',
+                background: active ? 'rgba(56, 126, 137, 0.1)' : 'white'
               }}
             >
-              <Mic size={36} className="text-black" />
+              <Mic size={36} className="text-teal" />
             </motion.div>
             
             {active && (
@@ -154,7 +154,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: '2px solid rgba(0, 0, 0, 0.5)'
+                      border: '2px solid rgba(56, 126, 137, 0.5)'
                     }}
                   />
                 </Box>
@@ -175,7 +175,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: '2px solid rgba(0, 0, 0, 0.3)'
+                      border: '2px solid rgba(56, 126, 137, 0.3)'
                     }}
                   />
                 </Box>
@@ -183,7 +183,7 @@ const steps = [
             )}
           </Box>
           
-          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#333' : '#666' }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? '#143151' : 'rgba(20, 49, 81, 0.6)' }}>
             {active ? 'Recording...' : 'Ready to record'}
           </Typography>
           
@@ -195,7 +195,7 @@ const steps = [
                 transition={{ duration: 8, repeat: Infinity }}
                 style={{
                   height: 4,
-                  background: 'linear-gradient(90deg, #f3f3f3 0%, #333 100%)',
+                  background: 'linear-gradient(90deg, #A5CCF3 0%, #387E89 100%)',
                   borderRadius: 2
                 }}
               />
@@ -205,7 +205,7 @@ const steps = [
                 justifyContent: 'space-between', 
                 mt: 0.5,
                 fontSize: '0.7rem',
-                color: '#666'
+                color: 'rgba(20, 49, 81, 0.7)'
               }}>
                 <span>0:00</span>
                 <span>Recording...</span>
@@ -252,20 +252,20 @@ const steps = [
             style={{
               padding: 12,
               borderRadius: 8,
-              border: '2px solid #333',
+              border: '2px solid #387E89',
               background: 'white',
               position: 'relative'
             }}
           >
             <Box sx={{ mb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="caption" sx={{ fontWeight: 600 }}>Medical Note</Typography>
+              <Typography variant="caption" sx={{ fontWeight: 600, color: '#143151' }}>Medical Note</Typography>
               {active && (
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 1 }}
                 >
-                  <CheckCircle size={16} className="text-green-600" />
+                  <CheckCircle size={16} className="text-teal" />
                 </motion.div>
               )}
             </Box>
@@ -289,14 +289,15 @@ const steps = [
                         <Typography sx={{ 
                           fontWeight: 600, 
                           mr: 1,
-                          fontSize: '0.7rem'
+                          fontSize: '0.7rem',
+                          color: '#143151'
                         }}>
                           {section}
                         </Typography>
                         <Box sx={{ 
                           height: 3, 
                           flex: 1, 
-                          bgcolor: 'rgba(0,0,0,0.1)',
+                          bgcolor: 'rgba(56, 126, 137, 0.2)',
                           borderRadius: 1
                         }} />
                       </Box>
@@ -315,10 +316,10 @@ const steps = [
                     alignItems: 'center'
                   }}
                 >
-                  <Typography sx={{ fontSize: '0.65rem', color: '#666' }}>
+                  <Typography sx={{ fontSize: '0.65rem', color: 'rgba(20, 49, 81, 0.7)' }}>
                     ICD-10: J45.909
                   </Typography>
-                  <Typography sx={{ fontSize: '0.65rem', color: '#666' }}>
+                  <Typography sx={{ fontSize: '0.65rem', color: 'rgba(20, 49, 81, 0.7)' }}>
                     CPT: 99214
                   </Typography>
                 </motion.div>
@@ -330,7 +331,7 @@ const steps = [
                 alignItems: 'center', 
                 justifyContent: 'center' 
               }}>
-                <Typography variant="caption" sx={{ color: '#999', fontStyle: 'italic' }}>
+                <Typography variant="caption" sx={{ color: 'rgba(20, 49, 81, 0.5)', fontStyle: 'italic' }}>
                   Waiting for consultation...
                 </Typography>
               </Box>
@@ -347,7 +348,7 @@ const steps = [
                 textAlign: 'center'
               }}
             >
-              <Typography variant="caption" sx={{ color: 'green', fontWeight: 600 }}>
+              <Typography variant="caption" sx={{ color: '#387E89', fontWeight: 600 }}>
                 Generated in under 1 minute
               </Typography>
             </motion.div>
@@ -366,7 +367,7 @@ export const HowItWorksSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#ffffff", // Pure white background
+        bgcolor: "#FFFFFF", // Pure white background
         position: "relative",
         overflow: "hidden"
       }}
@@ -386,7 +387,7 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: "#333" // Darker text for contrast on white
+              color: "#143151" // Deep Navy
             }}
           >
             How CRUSH Works
@@ -396,7 +397,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555", // Medium gray for body text
+              color: "rgba(20, 49, 81, 0.8)", // Semi-transparent Deep Navy
               fontWeight: 400,
               mb: 2
             }}
@@ -408,7 +409,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555", // Using gray for better contrast on white
+              color: "rgba(20, 49, 81, 0.9)", // Using gray for better contrast on white
               fontWeight: 600,
               fontSize: "1.2rem"
             }}
@@ -444,8 +445,8 @@ export const HowItWorksSection = () => {
                   p: 4,
                   borderRadius: '12px',
                   border: '1px solid',
-                  borderColor: isActive ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.05)' : '0 4px 6px rgba(0, 0, 0, 0.01)',
+                  borderColor: isActive ? 'rgba(56, 126, 137, 0.3)' : 'rgba(56, 126, 137, 0.1)',
+                  boxShadow: isActive ? '0 8px 30px rgba(56, 126, 137, 0.1)' : '0 4px 6px rgba(56, 126, 137, 0.05)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -459,8 +460,8 @@ export const HowItWorksSection = () => {
                   overflow: 'hidden',
                   "&:hover": {
                     transform: 'translateY(-5px)',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
-                    borderColor: 'rgba(0, 0, 0, 0.1)'
+                    boxShadow: '0 10px 25px rgba(56, 126, 137, 0.1)',
+                    borderColor: 'rgba(56, 126, 137, 0.3)'
                   }
                 }}
               >
@@ -471,8 +472,7 @@ export const HowItWorksSection = () => {
                     left: 20, 
                     fontWeight: 'bold', 
                     fontSize: '1.75rem', 
-                    color: '#333',
-                    opacity: 0.8
+                    color: 'rgba(56, 126, 137, 0.2)',
                   }}
                 >
                   {stepNumber}
@@ -480,7 +480,7 @@ export const HowItWorksSection = () => {
                 
                 <Box 
                   sx={{ 
-                    bgcolor: 'rgba(0, 0, 0, 0.02)',
+                    bgcolor: 'rgba(56, 126, 137, 0.1)',
                     borderRadius: '50%',
                     p: 2.5,
                     display: 'flex',
@@ -488,10 +488,10 @@ export const HowItWorksSection = () => {
                     justifyContent: 'center',
                     mb: 3,
                     transition: 'all 0.3s ease',
-                    border: '1px solid rgba(0,0,0,0.05)'
+                    border: '1px solid rgba(56, 126, 137, 0.2)'
                   }}
                 >
-                  <Box sx={{ color: '#333' }}>
+                  <Box sx={{ color: '#387E89' }}>
                     {step.icon}
                   </Box>
                 </Box>
@@ -501,7 +501,7 @@ export const HowItWorksSection = () => {
                   sx={{ 
                     fontWeight: 600, 
                     mb: 2,
-                    color: "#333",
+                    color: "#143151",
                     transition: 'all 0.3s ease',
                   }}
                 >
@@ -511,7 +511,7 @@ export const HowItWorksSection = () => {
                 <Typography 
                   variant="body2"
                   sx={{ 
-                    color: '#555',
+                    color: 'rgba(20, 49, 81, 0.7)',
                     mb: 3,
                     transition: 'all 0.3s ease',
                     lineHeight: 1.6
@@ -546,23 +546,23 @@ export const HowItWorksSection = () => {
                                 mb: 2,
                                 p: 1.5,
                                 borderRadius: 2,
-                                bgcolor: 'rgba(0,0,0,0.01)',
+                                bgcolor: 'rgba(56, 126, 137, 0.05)',
                                 textAlign: 'left',
-                                border: '1px solid rgba(0,0,0,0.03)'
+                                border: '1px solid rgba(56, 126, 137, 0.1)'
                               }}
                             >
                               <Box sx={{ 
                                 mr: 1.5, 
                                 mt: 0.5,
-                                color: '#333'
+                                color: '#387E89'
                               }}>
                                 {detail.icon}
                               </Box>
                               <Box>
-                                <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: '#333' }}>
+                                <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: '#143151' }}>
                                   {detail.title}
                                 </Typography>
-                                <Typography variant="caption" sx={{ color: '#555', lineHeight: 1.5 }}>
+                                <Typography variant="caption" sx={{ color: 'rgba(20, 49, 81, 0.7)', lineHeight: 1.5 }}>
                                   {detail.description}
                                 </Typography>
                               </Box>
@@ -592,16 +592,16 @@ export const HowItWorksSection = () => {
             whileTap={{ scale: 0.95 }}
             variant="contained"
             sx={{
-              bgcolor: '#333',
+              bgcolor: '#387E89',
               color: 'white',
               py: 1.5,
               px: 4,
               fontSize: '1rem',
               fontWeight: 600,
               borderRadius: 2,
-              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 4px 14px rgba(56, 126, 137, 0.2)',
               '&:hover': {
-                bgcolor: '#222'
+                bgcolor: '#2A6068'
               }
             }}
           >

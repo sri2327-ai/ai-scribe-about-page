@@ -14,12 +14,17 @@ import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGen
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
+import { FeatureHighlights } from "@/components/crush-ai/FeatureHighlights";
+import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 
 const CrushAI = () => {
   return (
-    <Box sx={{ bgcolor: "white", color: "#143151" }}> {/* Updated text color to navy */}
+    <Box sx={{ bgcolor: "white", color: "#143151" }}> {/* Deep Navy text color */}
       {/* Hero Section */}
       <HeroSection />
+
+      {/* Feature Highlights */}
+      <FeatureHighlights />
 
       {/* EHR Integration Section */}
       <EhrIntegrationSection />
@@ -75,6 +80,9 @@ const CrushAI = () => {
       
       {/* Loved by Clinicians Section */}
       <ClinicianTestimonialsSection />
+      
+      {/* Testimonials & Benefits */}
+      <TestimonialsBenefitsSection />
       
       {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />

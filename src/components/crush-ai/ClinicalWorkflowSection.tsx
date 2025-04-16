@@ -32,20 +32,20 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
     transition={{ duration: 0.5 }}
     viewport={{ once: true, margin: "-50px" }}
     className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-black/10 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md",
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-teal/10 hover:border-teal/20 transition-all duration-300 shadow-sm hover:shadow-md",
       className
     )}
   >
     <div className="flex flex-col gap-3 z-10">
-      <div className="bg-black/5 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
-        <Icon size={24} className="text-black stroke-[1.5]" />
+      <div className="bg-teal/10 w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
+        <Icon size={24} className="text-teal stroke-[1.5]" />
       </div>
       
       <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 className="text-xl font-semibold text-black mb-2">
+        <h3 className="text-xl font-semibold text-navy mb-2">
           {title}
         </h3>
-        <p className="text-gray-700">{description}</p>
+        <p className="text-navy/70">{description}</p>
       </div>
     </div>
   </motion.div>
@@ -115,7 +115,7 @@ export const ClinicalWorkflowSection = () => {
       component="section"
       sx={{
         py: { xs: 4, md: 6 },
-        bgcolor: "#ffffff",
+        bgcolor: "#FFFFFF",
         position: "relative",
         overflow: "hidden"
       }}
@@ -133,7 +133,7 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 3,
-                color: "#000000",
+                color: "#143151",
                 textAlign: "center",
                 fontSize: { xs: "2rem", sm: "2.5rem", md: "2.75rem" },
               }}
@@ -151,7 +151,7 @@ export const ClinicalWorkflowSection = () => {
             <Typography 
               variant="body1" 
               sx={{ 
-                color: "#555", 
+                color: "rgba(20, 49, 81, 0.8)", 
                 maxWidth: "800px",
                 mx: "auto",
                 lineHeight: 1.8,
@@ -166,16 +166,16 @@ export const ClinicalWorkflowSection = () => {
         
         <Tabs defaultValue="admin" className="w-full" onValueChange={setActiveTab}>
           <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-            <TabsList className="w-auto bg-black/5 p-1.5 rounded-full shadow-sm">
+            <TabsList className="w-auto bg-navy/5 p-1.5 rounded-full shadow-sm">
               <TabsTrigger 
                 value="admin" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-navy data-[state=active]:text-white hover:bg-navy/10"
               >
                 Automate Staffing & Admin Work
               </TabsTrigger>
               <TabsTrigger 
                 value="clinical" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-navy data-[state=active]:text-white hover:bg-navy/10"
               >
                 AI Assistance for Physicians
               </TabsTrigger>
@@ -190,11 +190,11 @@ export const ClinicalWorkflowSection = () => {
                   sx={{ 
                     fontWeight: 600, 
                     mb: 1,
-                    color: "#000",
+                    color: "#143151",
                     fontSize: { xs: "1.5rem", md: "1.75rem" }
                   }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-navy to-teal">
                     Automate Staffing & Cut Admin Work
                   </span>
                 </Typography>
@@ -222,11 +222,11 @@ export const ClinicalWorkflowSection = () => {
                   sx={{ 
                     fontWeight: 600, 
                     mb: 1,
-                    color: "#000",
+                    color: "#143151",
                     fontSize: { xs: "1.5rem", md: "1.75rem" }
                   }}
                 >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-navy to-teal">
                     AI Assistance for Physicians – Smarter, More Accurate Decisions
                   </span>
                 </Typography>

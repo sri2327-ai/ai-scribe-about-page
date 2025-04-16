@@ -23,7 +23,7 @@ export const TrustedBySection = () => {
       component="section" 
       sx={{ 
         py: { xs: 6, md: 10 },
-        bgcolor: '#f9f9f9'
+        bgcolor: '#FFFFFF'
       }}
     >
       <Container maxWidth="lg">
@@ -45,12 +45,12 @@ export const TrustedBySection = () => {
             sx={{ mb: 5 }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-              <Users size={28} className="text-blue-600 mr-2" />
+              <Users size={28} className="text-turquoise mr-2" />
               <Typography 
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: '#000000',
+                  color: '#143151',
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -61,7 +61,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: '#333333',
+                color: '#143151',
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -71,7 +71,7 @@ export const TrustedBySection = () => {
             <Typography 
               variant="body1"
               sx={{ 
-                color: '#666666', 
+                color: 'rgba(20, 49, 81, 0.8)', 
                 fontSize: '1rem', 
                 maxWidth: '600px',
                 mx: 'auto'
@@ -109,7 +109,7 @@ export const TrustedBySection = () => {
                   {clinician.image ? (
                     <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
                   ) : (
-                    <AvatarFallback className="bg-gray-100 text-gray-600 font-medium">
+                    <AvatarFallback className="bg-lightBlue/10 text-navy font-medium">
                       {clinician.initials}
                     </AvatarFallback>
                   )}
@@ -120,12 +120,12 @@ export const TrustedBySection = () => {
               sx={{ 
                 width: '100%',
                 pt: 2,
-                borderTop: '1px solid #e5e7eb',
+                borderTop: '1px solid rgba(81, 146, 174, 0.2)',
                 display: 'flex',
                 justifyContent: 'center'
               }}
             >
-              <Typography variant="body2" sx={{ color: '#666666', fontSize: '0.875rem' }}>
+              <Typography variant="body2" sx={{ color: 'rgba(20, 49, 81, 0.7)', fontSize: '0.875rem' }}>
                 + Thousands more clinicians making better use of their time
               </Typography>
             </Box>
