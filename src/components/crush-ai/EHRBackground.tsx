@@ -7,8 +7,8 @@ import { crushAIColors } from '@/theme/crush-ai-theme';
 
 export const EHRBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Fix: Specify the correct type for the array ref
-  const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Fix: Create a properly typed ref array for the circles
+  const circleRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -77,7 +77,7 @@ export const EHRBackground = () => {
         <Box
           key={`circle-${idx}`}
           ref={(el) => {
-            // Fix: Properly set the ref in the array
+            // Properly set the ref in the array with correct typing
             circleRefs.current[idx] = el;
           }}
           sx={{
