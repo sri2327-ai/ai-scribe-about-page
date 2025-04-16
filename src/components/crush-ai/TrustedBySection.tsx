@@ -1,7 +1,7 @@
 
-import React from "react";
+import React, { useRef } from "react";
 import { Box, Container, Typography } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -19,12 +19,29 @@ export const TrustedBySection = () => {
     { initials: "RH", image: null },
   ];
 
+  // Refs for scroll animations
+  const sectionRef = useRef(null);
+  
+  // For scroll-based animations
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  
+  // Transform scroll progress to different values for various animations
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.3], [30, 0]);
+
   return (
     <Box 
       component="section" 
+      ref={sectionRef}
       sx={{ 
         py: { xs: 6, md: 10 },
-        bgcolor: crushAIColors.background.light
+        bgcolor: crushAIColors.background.light,
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
       <Container maxWidth="lg">
@@ -39,10 +56,7 @@ export const TrustedBySection = () => {
         >
           <Box
             component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
+            style={{ scale, opacity, y }}
             sx={{ mb: 5 }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
@@ -96,10 +110,11 @@ export const TrustedBySection = () => {
           
           <Box 
             component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
+            style={{ 
+              scale: useTransform(scrollYProgress, [0.1, 0.6], [0.9, 1.05]),
+              opacity: useTransform(scrollYProgress, [0.1, 0.5], [0.7, 1]),
+              y: useTransform(scrollYProgress, [0.1, 0.5], [20, 0])
+            }}
             sx={{ 
               display: 'flex', 
               flexWrap: 'wrap',
@@ -118,15 +133,27 @@ export const TrustedBySection = () => {
               }}
             >
               {clinicians.map((clinician, index) => (
-                <Avatar key={index} className="border border-gray-200 h-12 w-12 transition-all hover:scale-110">
-                  {clinician.image ? (
-                    <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
-                  ) : (
-                    <AvatarFallback className="bg-gray-100 text-[#143151] font-medium">
-                      {clinician.initials}
-                    </AvatarFallback>
-                  )}
-                </Avatar>
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: 0.1 * index,
+                    type: "spring",
+                    stiffness: 100 
+                  }}
+                >
+                  <Avatar className="border border-gray-200 h-12 w-12 transition-all hover:scale-110">
+                    {clinician.image ? (
+                      <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
+                    ) : (
+                      <AvatarFallback className="bg-gray-100 text-[#143151] font-medium">
+                        {clinician.initials}
+                      </AvatarFallback>
+                    )}
+                  </Avatar>
+                </motion.div>
               ))}
             </Box>
             <Box 
