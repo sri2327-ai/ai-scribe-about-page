@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -13,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { EhrIconCloud } from "./EhrIconCloud";
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
@@ -80,40 +80,16 @@ export const EhrIntegrationSection = () => {
           </Typography>
         </Box>
 
-        {/* EHR Logos at the top */}
+        {/* EHR Icon Cloud replacing the static logos */}
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          sx={{ 
-            display: 'flex',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: 3,
-            mb: 6
-          }}
+          sx={{ mb: 6 }}
         >
-          {["Epic", "Cerner", "Meditech", "NextGen"].map((item, index) => (
-            <Box 
-              key={index}
-              sx={{
-                width: { xs: 80, md: 120 },
-                height: { xs: 40, md: 60 },
-                bgcolor: '#f5f5f5',
-                borderRadius: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '1px solid rgba(0, 0, 0, 0.06)'
-              }}
-            >
-              <Typography variant="body2" sx={{ color: '#9e9e9e' }}>
-                {item}
-              </Typography>
-            </Box>
-          ))}
+          <EhrIconCloud />
         </Box>
 
         {/* Mobile: Carousel, Tablet/Desktop: Horizontal scrolling cards */}
