@@ -8,56 +8,27 @@ import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SparklesText } from "@/components/ui/sparkles-text";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import CustomTooltip from "@/components/ui/custom-tooltip";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
-  const renderLetterPopover = (letter: string, title: string, description: string) => {
+  // C.R.U.S.H tooltip content
+  const tooltipContent = {
+    C: "Customizable – Control note content & formatting",
+    R: "Real-Time EHR Sync",
+    U: "Universal Coding",
+    S: "Smart AI Assistance",
+    H: "Healthcare Automation"
+  };
+
+  const renderLetterWithTooltip = (letter: string) => {
     return (
-      <Popover>
-        <PopoverTrigger asChild>
-          <Box 
-            component="span" 
-            sx={{ 
-              color: crushAIColors.text.primary,
-              fontWeight: 900,
-              position: 'relative',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              '&:hover': {
-                textDecoration: 'underline',
-                textDecorationThickness: '2px',
-                textUnderlineOffset: '4px'
-              }
-            }}
-          >
-            <strong>{letter}</strong>
-          </Box>
-        </PopoverTrigger>
-        <PopoverContent 
-          className="p-0 border-0 shadow-xl" 
-          sideOffset={5}
-          style={{
-            background: 'rgba(0, 0, 0, 0.75)',
-            backdropFilter: 'blur(10px)',
-            borderRadius: '10px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)'
-          }}
-        >
-          <Box sx={{ p: 3, color: '#fff' }}>
-            <Typography sx={{ fontWeight: 700, fontSize: '1.1rem', mb: 1 }}>
-              {title}
-            </Typography>
-            <Typography sx={{ fontSize: '0.9rem', opacity: 0.9, lineHeight: 1.5 }}>
-              {description}
-            </Typography>
-          </Box>
-        </PopoverContent>
-      </Popover>
+      <CustomTooltip title={tooltipContent[letter]}>
+        <span>{letter}</span>
+      </CustomTooltip>
     );
   };
 
@@ -65,12 +36,12 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 6, sm: 10, md: 16 }, // Reduced padding for mobile
+        py: { xs: 6, sm: 10, md: 16 },
         position: 'relative',
         overflow: 'hidden',
-        height: 'auto', // Changed to auto for all screen sizes
-        minHeight: { xs: 'auto', md: '90vh' }, // Reduced minimum height
-        mt: { xs: 6, sm: 8, md: 0 } // Added more top margin for mobile
+        height: 'auto',
+        minHeight: { xs: 'auto', md: '90vh' },
+        mt: { xs: 6, sm: 8, md: 0 }
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
@@ -108,13 +79,27 @@ export const HeroSection = () => {
                 }}
               >
                 <Box component="span" sx={{ color: "black" }}>
-                  <SparklesText 
-                    text="C.R.U.S.H"
-                    className="text-3xl md:text-4xl font-bold inline-block"
-                    colors={{ first: "#0EA5E9", second: "#D946EF" }}
-                    sparklesCount={15}
-                    textColor="black"
-                  />
+                  <Box component="span" sx={{ display: 'inline-block' }}>
+                    <CustomTooltip title={tooltipContent.C}>
+                      <Box component="span" className="inline-block">C</Box>
+                    </CustomTooltip>
+                    .
+                    <CustomTooltip title={tooltipContent.R}>
+                      <Box component="span" className="inline-block">R</Box>
+                    </CustomTooltip>
+                    .
+                    <CustomTooltip title={tooltipContent.U}>
+                      <Box component="span" className="inline-block">U</Box>
+                    </CustomTooltip>
+                    .
+                    <CustomTooltip title={tooltipContent.S}>
+                      <Box component="span" className="inline-block">S</Box>
+                    </CustomTooltip>
+                    .
+                    <CustomTooltip title={tooltipContent.H}>
+                      <Box component="span" className="inline-block">H</Box>
+                    </CustomTooltip>
+                  </Box>
                   : The AI Medical Scribe That Works for You
                 </Box>
               </Typography>
@@ -149,9 +134,9 @@ export const HeroSection = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: { xs: '300px', sm: '350px' }, // Fixed height for mobile
-                maxWidth: { xs: '320px', sm: '400px' }, // Controlled width
-                mx: 'auto' // Center it
+                height: { xs: '300px', sm: '350px' },
+                maxWidth: { xs: '320px', sm: '400px' },
+                mx: 'auto'
               }}
             >
               <Box 
@@ -211,13 +196,27 @@ export const HeroSection = () => {
                   }}
                 >
                   <Box component="span" sx={{ color: "black" }}>
-                    <SparklesText 
-                      text="C.R.U.S.H"
-                      className="text-4xl font-bold inline-block"
-                      colors={{ first: "#0EA5E9", second: "#D946EF" }}
-                      sparklesCount={15}
-                      textColor="black"
-                    />
+                    <Box component="span" sx={{ display: 'inline-block' }}>
+                      <CustomTooltip title={tooltipContent.C}>
+                        <Box component="span" className="inline-block">C</Box>
+                      </CustomTooltip>
+                      .
+                      <CustomTooltip title={tooltipContent.R}>
+                        <Box component="span" className="inline-block">R</Box>
+                      </CustomTooltip>
+                      .
+                      <CustomTooltip title={tooltipContent.U}>
+                        <Box component="span" className="inline-block">U</Box>
+                      </CustomTooltip>
+                      .
+                      <CustomTooltip title={tooltipContent.S}>
+                        <Box component="span" className="inline-block">S</Box>
+                      </CustomTooltip>
+                      .
+                      <CustomTooltip title={tooltipContent.H}>
+                        <Box component="span" className="inline-block">H</Box>
+                      </CustomTooltip>
+                    </Box>
                     : The AI Medical Scribe That Works for You
                   </Box>
                 </Typography>

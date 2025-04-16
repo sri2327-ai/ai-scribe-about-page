@@ -6,7 +6,7 @@ import {
   ClipboardList, TestTube, Mail, Mic, 
   Clock, Heart, Database, History
 } from "lucide-react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 const workflowSteps = [
   {
@@ -56,15 +56,6 @@ const workflowSteps = [
               />
             ))}
           </Box>
-          <Typography 
-            sx={{ 
-              color: '#666',
-              fontSize: '0.875rem', 
-              mt: 1
-            }}
-          >
-            Click to speak
-          </Typography>
         </Box>
       </Box>
     )
@@ -462,9 +453,15 @@ export function AnimatedWorkflow() {
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number | null>(null);
+  
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
-  // Fix for mobile view - ensure all steps are visible
-  const mobileSteps = [0, 2, 5, 6]; // Make sure to include step 6 (Push Notes to EHR)
+  // Make sure to include all necessary steps for mobile view
+  // Update mobileSteps to include all steps (0-6) - especially for final step Push to EHR
+  const mobileSteps = isMobile ? [0, 2, 5, 6] : [0, 1, 2, 3, 4, 5, 6];
+  
   const isMobileStepVisible = (index: number) => {
     return mobileSteps.includes(index);
   };
@@ -482,18 +479,30 @@ export function AnimatedWorkflow() {
     if (isRecording && isAutoPlaying) {
       const intervalId = setInterval(() => {
         setCurrentStep((prev) => {
-          if (prev >= workflowSteps.length - 1) {
-            setIsRecording(false);
-            setCompleted(true);
-            return prev;
+          // For mobile view, make sure we're only navigating through visible steps
+          if (isMobile) {
+            const currentMobileIndex = mobileSteps.indexOf(prev);
+            if (currentMobileIndex >= mobileSteps.length - 1) {
+              setIsRecording(false);
+              setCompleted(true);
+              return prev;
+            }
+            return mobileSteps[currentMobileIndex + 1];
+          } else {
+            // Default behavior for non-mobile
+            if (prev >= workflowSteps.length - 1) {
+              setIsRecording(false);
+              setCompleted(true);
+              return prev;
+            }
+            return prev + 1;
           }
-          return prev + 1;
         });
       }, 6000);
 
       return () => clearInterval(intervalId);
     }
-  }, [isRecording, isAutoPlaying]);
+  }, [isRecording, isAutoPlaying, isMobile, mobileSteps]);
 
   useEffect(() => {
     if (completed) {
@@ -529,22 +538,26 @@ export function AnimatedWorkflow() {
     return () => clearTimeout(inactivityTimer);
   };
 
-  // This function helps ensure we have a next step to go to in mobile view
+  // Find the next step based on current step in mobileSteps
   const getNextMobileStep = (currentIndex: number) => {
-    const currentMobileIndex = mobileSteps.indexOf(currentIndex);
-    if (currentMobileIndex !== -1 && currentMobileIndex < mobileSteps.length - 1) {
-      return mobileSteps[currentMobileIndex + 1];
+    if (isMobile) {
+      const currentMobileIndex = mobileSteps.indexOf(currentIndex);
+      if (currentMobileIndex !== -1 && currentMobileIndex < mobileSteps.length - 1) {
+        return mobileSteps[currentMobileIndex + 1];
+      }
+      return 0; // Reset to beginning if at end
     }
+    
+    // Default for non-mobile
     return currentIndex < workflowSteps.length - 1 ? currentIndex + 1 : 0;
   };
 
-  // Fixed function to handle navigation to next step
   const handleNextStep = () => {
     const nextStep = getNextMobileStep(currentStep);
     setCurrentStep(nextStep);
     
-    // If we've completed all steps, reset
-    if (nextStep === 0) {
+    // If we've gone through all steps, show completion
+    if ((isMobile && nextStep === 0) || (!isMobile && nextStep === 0)) {
       setCompleted(true);
     }
   };
@@ -553,7 +566,7 @@ export function AnimatedWorkflow() {
     <Box 
       sx={{
         position: "relative",
-        p: { xs: 2, sm: 4 }, 
+        p: { xs: 1.5, sm: 2, md: 4 }, 
         bgcolor: "#ffffff",
         borderRadius: 2,
         boxShadow: "0 4px 32px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.06)",
@@ -562,7 +575,7 @@ export function AnimatedWorkflow() {
         flexDirection: "column",
         border: "1px solid rgba(0, 0, 0, 0.04)",
         width: "100%",
-        maxWidth: { xs: "100%", md: "450px" }, 
+        maxWidth: { xs: "100%", sm: "100%", md: "450px" }, 
         margin: "0 auto",
         background: "rgba(255, 255, 255, 0.5)",
         backdropFilter: "blur(10px)",
@@ -633,7 +646,6 @@ export function AnimatedWorkflow() {
               </Box>
             </Box>
             
-            {/* Added explicit button to restart the workflow */}
             <Box 
               component={motion.div}
               whileHover={{ scale: 1.05 }}
@@ -669,7 +681,9 @@ export function AnimatedWorkflow() {
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          gap: 1
+          gap: 1,
+          overflowY: "auto",
+          maxHeight: { xs: "450px", sm: "500px" }
         }}
       >
         {workflowSteps.map((step, index) => {
@@ -678,7 +692,9 @@ export function AnimatedWorkflow() {
           const isHovered = hovered === index;
           
           // Enhanced logic for mobile view display
-          const shouldShowOnMobile = isMobileStepVisible(index);
+          const shouldDisplay = isMobile ? isMobileStepVisible(index) : true;
+          
+          if (!shouldDisplay) return null;
           
           return (
             <Box
@@ -703,20 +719,17 @@ export function AnimatedWorkflow() {
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
               sx={{
-                display: {
-                  xs: shouldShowOnMobile ? "flex" : "none",
-                  md: "flex"
-                },
+                display: "flex",
+                flexDirection: "column",
                 alignItems: "flex-start",
                 p: { xs: 1, sm: 1.5 },
                 borderRadius: 1.5,
                 cursor: "pointer", 
                 bgcolor: isActive ? "rgba(0, 0, 0, 0.03)" : "transparent",
                 border: isActive ? "1px solid rgba(0, 0, 0, 0.1)" : "1px solid transparent",
-                flexDirection: "column",
                 mb: 0.5,
-                position: "relative", // Added for better positioning of action buttons
-                overflow: "visible" // Ensure children can overflow
+                position: "relative",
+                overflow: "visible"
               }}
             >
               <Box sx={{ display: 'flex', width: '100%', alignItems: 'flex-start' }}>
@@ -791,12 +804,12 @@ export function AnimatedWorkflow() {
                 )}
               </AnimatePresence>
               
-              {/* Add a "Next" button for mobile steps when active */}
-              {isActive && shouldShowOnMobile && (
+              {/* Mobile-focused: Show Next button for the active step */}
+              {isActive && isMobile && index < workflowSteps.length - 1 && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 2 }}
+                  transition={{ delay: 1 }}
                   style={{ 
                     marginTop: 16, 
                     alignSelf: 'center',
@@ -823,7 +836,44 @@ export function AnimatedWorkflow() {
                       }
                     }}
                   >
-                    {index === workflowSteps.length - 1 ? 'Complete' : 'Next Step'}
+                    Next Step
+                  </Box>
+                </motion.div>
+              )}
+              
+              {/* Show Complete button for the last step */}
+              {isActive && index === workflowSteps.length - 1 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1 }}
+                  style={{ 
+                    marginTop: 16, 
+                    alignSelf: 'center',
+                    zIndex: 20
+                  }}
+                >
+                  <Box
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setCompleted(true);
+                    }}
+                    sx={{
+                      py: 1,
+                      px: 3,
+                      bgcolor: '#10b981',
+                      color: 'white',
+                      borderRadius: 'full',
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      fontWeight: 'medium',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                      '&:hover': {
+                        bgcolor: '#0d9488'
+                      }
+                    }}
+                  >
+                    Complete Encounter
                   </Box>
                 </motion.div>
               )}
@@ -864,17 +914,6 @@ export function AnimatedWorkflow() {
           100% {
             transform: scaleY(1);
             opacity: 0.5;
-          }
-        }
-        .animate-skew-scroll {
-          animation: skewScroll 20s linear infinite;
-        }
-        @keyframes skewScroll {
-          0% {
-            transform: translateY(0) rotate(0deg);
-          }
-          100% {
-            transform: translateY(calc(-50% - 10px)) rotate(0deg);
           }
         }
         `

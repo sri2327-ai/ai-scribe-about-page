@@ -10,21 +10,31 @@ const Slider = React.forwardRef<
 >(({ className, ...props }, ref) => {
   // Track if we're currently dragging to prevent slider from disappearing
   const [isDragging, setIsDragging] = React.useState(false);
-
+  const [bounceActive, setBounceActive] = React.useState(false);
+  
   // Fixed minimum/maximum values to prevent slider from disappearing
   const safeThumbPosition = (value: number[]) => {
     // Ensure the slider thumb is always visible by clamping to 3-97% range
     const safeValue = [...value];
     if (safeValue.length > 0) {
+      const originalValue = safeValue[0];
       safeValue[0] = Math.max(3, Math.min(97, safeValue[0]));
+      
+      // Trigger bounce animation if we hit the boundaries
+      if (originalValue < 3 || originalValue > 97) {
+        setBounceActive(true);
+        setTimeout(() => setBounceActive(false), 500);
+      }
     }
     return safeValue;
   };
   
   // Get the current value or default to [0]
-  const currentValue = props.value ? safeThumbPosition(props.value as number[]) : 
-                      props.defaultValue ? safeThumbPosition(props.defaultValue as number[]) : 
-                      [0];
+  const currentValue = props.value 
+    ? safeThumbPosition(props.value as number[]) 
+    : props.defaultValue 
+      ? safeThumbPosition(props.defaultValue as number[]) 
+      : [0];
   
   return (
     <SliderPrimitive.Root
@@ -52,7 +62,10 @@ const Slider = React.forwardRef<
         <SliderPrimitive.Range className="absolute h-full bg-neutral-900 dark:bg-neutral-100" />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb 
-        className="block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center"
+        className={cn(
+          "block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center",
+          bounceActive && "animate-bounce-subtle"
+        )}
         style={{ 
           touchAction: 'none',
           opacity: 1, // Force the thumb to always be visible

@@ -3,7 +3,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Badge } from "@/components/ui/badge";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 
 export const BeforeAfterSlider = () => {
   // Create a ref for the slider container
@@ -18,10 +20,25 @@ export const BeforeAfterSlider = () => {
   const x = useMotionValue(0);
   const percent = useTransform(x, [-150, 150], [0, 100]);
   
+  // State to trigger bounce animation when hitting edges
+  const [bounceLeftActive, setBounceLeftActive] = useState(false);
+  const [bounceRightActive, setBounceRightActive] = useState(false);
+  
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
       // Clamp the value between 5 and 95 to prevent disappearing at the edges
-      setSliderPosition(Math.min(Math.max(latest, 5), 95));
+      const safeValue = Math.min(Math.max(latest, 5), 95);
+      
+      // Trigger bounce animation if we hit the boundaries
+      if (latest < 5) {
+        setBounceLeftActive(true);
+        setTimeout(() => setBounceLeftActive(false), 500);
+      } else if (latest > 95) {
+        setBounceRightActive(true);
+        setTimeout(() => setBounceRightActive(false), 500);
+      }
+      
+      setSliderPosition(safeValue);
     });
     
     // Initial animation
@@ -62,7 +79,21 @@ export const BeforeAfterSlider = () => {
     
     const position = ((clientX - rect.left) / rect.width) * 100;
     // Clamp the value between 5 and 95 to prevent disappearing at the edges
-    setSliderPosition(Math.max(5, Math.min(95, position)));
+    const safePosition = Math.max(5, Math.min(95, position));
+    setSliderPosition(safePosition);
+  };
+  
+  // Helper buttons to move the slider when it gets stuck
+  const moveSliderLeft = () => {
+    const newPosition = Math.max(10, sliderPosition - 10);
+    setSliderPosition(newPosition);
+    animate(x, (newPosition - 50) * 3, { duration: 0.3 });
+  };
+  
+  const moveSliderRight = () => {
+    const newPosition = Math.min(90, sliderPosition + 10);
+    setSliderPosition(newPosition);
+    animate(x, (newPosition - 50) * 3, { duration: 0.3 });
   };
 
   return (
@@ -173,13 +204,17 @@ export const BeforeAfterSlider = () => {
               
               {/* Slider divider - prevent it from fully disappearing by limiting drag boundaries */}
               <motion.div 
-                className="absolute top-0 bottom-0 w-1 bg-white z-20"
+                className={cn(
+                  "absolute top-0 bottom-0 w-1 bg-white z-20",
+                  bounceLeftActive && "animate-bounce-left",
+                  bounceRightActive && "animate-bounce-right"
+                )}
                 style={{ 
                   left: `${sliderPosition}%`,
                   x: x,
                 }}
                 drag="x"
-                dragConstraints={{ left: -120, right: 120 }} // Limited drag boundaries
+                dragConstraints={{ left: -150, right: 150 }} // Limited drag boundaries
                 dragElastic={0.05} // Less elastic to prevent edge disappearance
                 dragMomentum={false} // Disable momentum to prevent overshooting
                 onDragStart={handleDragStart}
@@ -219,6 +254,41 @@ export const BeforeAfterSlider = () => {
                   <ArrowRight className="h-4 w-4 text-black" />
                 </div>
               </div>
+              
+              {/* Helper buttons that appear when the slider gets close to the edges */}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <motion.button
+                      className={`absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-40 shadow-lg ${sliderPosition > 15 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                      onClick={moveSliderRight}
+                      animate={sliderPosition < 15 ? { scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] } : {}}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      <ArrowRight className="h-5 w-5 rotate-180" />
+                    </motion.button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Move slider right</p>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <motion.button
+                      className={`absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-40 shadow-lg ${sliderPosition < 85 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                      onClick={moveSliderLeft}
+                      animate={sliderPosition > 85 ? { scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] } : {}}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      <ArrowRight className="h-5 w-5" />
+                    </motion.button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Move slider left</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             
             {/* Bottom labels */}
@@ -230,9 +300,60 @@ export const BeforeAfterSlider = () => {
                 <span className={`text-gray-700 font-medium ${isMobile ? 'text-xs' : 'text-sm'}`}>Patient-Focused Care</span>
               </div>
             </div>
+
+            {/* Mobile helper: alternate control for mobile devices */}
+            {isMobile && (
+              <div className="mt-4 px-6">
+                <Slider 
+                  value={[sliderPosition]}
+                  min={5}
+                  max={95}
+                  step={1}
+                  onValueChange={(values) => {
+                    setSliderPosition(values[0]);
+                    animate(x, (values[0] - 50) * 3, { duration: 0.1 });
+                  }}
+                  className="pt-2 pb-4"
+                />
+              </div>
+            )}
           </motion.div>
         </Box>
       </Box>
+
+      <style jsx>{`
+        @keyframes bounce-left {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(10px); }
+        }
+        
+        @keyframes bounce-right {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(-10px); }
+        }
+        
+        .animate-bounce-left {
+          animation: bounce-left 0.5s;
+        }
+        
+        .animate-bounce-right {
+          animation: bounce-right 0.5s;
+        }
+        
+        /* Additional keyframe needed for subtle bounce */
+        @keyframes bounce-subtle {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); }
+          50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        .animate-bounce-subtle {
+          animation: bounce-subtle 0.5s;
+        }
+      `}</style>
     </Box>
   );
 };
+
+function cn(...classes: (string | undefined | null | false | 0)[]) {
+  return classes.filter(Boolean).join(" ");
+}
