@@ -46,9 +46,12 @@ export const ROICalculatorSection = () => {
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
   const chartHeight = useTransform(scrollYProgress, [0.2, 0.7], ["90%", "100%"]);
   
+  // Adjust container animation to go to 100% width and 0 border radius
   const containerWidth = useTransform(scrollYProgress, [0.1, 0.7], ["85%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0.1, 0.7], ["1rem", "0rem"]);
-  const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.7], [0.7, 1]);
+  
+  // Make background fully transparent when scrolled
+  const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.7], [0.7, 0]);
   const gradientProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   
   useEffect(() => {
