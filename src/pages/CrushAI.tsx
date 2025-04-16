@@ -18,7 +18,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const CrushAI = () => {
   return (
-    <Box sx={{ bgcolor: "white", color: "#333" }}>
+    <Box sx={{ bgcolor: crushAIColors.background.white, color: crushAIColors.text.primary }}>
       {/* Hero Section */}
       <HeroSection />
 
@@ -63,7 +63,7 @@ const CrushAI = () => {
           </Typography>
           <Button 
             size="lg" 
-            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO

@@ -3,25 +3,26 @@ import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Clock, DollarSign, Heart, Shield } from "lucide-react";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const benefits = [
   {
-    icon: <Clock className="h-6 w-6 text-blue-500" />,
+    icon: <Clock className="h-6 w-6 text-[#5192AE]" />,
     title: "Save 2+ Hours Daily",
     description: "Eliminate documentation time with real-time AI note generation."
   },
   {
-    icon: <DollarSign className="h-6 w-6 text-green-500" />,
+    icon: <DollarSign className="h-6 w-6 text-[#5192AE]" />,
     title: "Increase Revenue",
     description: "Better coding and more patient visits means higher practice revenue."
   },
   {
-    icon: <Heart className="h-6 w-6 text-red-500" />,
+    icon: <Heart className="h-6 w-6 text-[#5192AE]" />,
     title: "Reduce Burnout",
     description: "Focus on patients instead of paperwork and regain work-life balance."
   },
   {
-    icon: <Shield className="h-6 w-6 text-purple-500" />,
+    icon: <Shield className="h-6 w-6 text-[#5192AE]" />,
     title: "Improve Quality",
     description: "Comprehensive, accurate documentation for better patient care."
   }
@@ -33,7 +34,7 @@ export const TestimonialsBenefitsSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#ffffff"
+        bgcolor: crushAIColors.background.white
       }}
     >
       <Container maxWidth="lg">
@@ -55,7 +56,7 @@ export const TestimonialsBenefitsSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: "#000000"
+              color: crushAIColors.text.primary
             }}
           >
             Benefits That Transform Practice
@@ -65,7 +66,7 @@ export const TestimonialsBenefitsSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#403E43",
+              color: crushAIColors.text.secondary,
               fontWeight: 400,
               mb: 6
             }}
@@ -115,10 +116,10 @@ export const TestimonialsBenefitsSection = () => {
                 >
                   {benefit.icon}
                 </Box>
-                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: crushAIColors.text.primary }}>
                   {benefit.title}
                 </Typography>
-                <Typography variant="body2" sx={{ color: '#666', textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, textAlign: 'center' }}>
                   {benefit.description}
                 </Typography>
               </Box>
@@ -139,7 +140,7 @@ export const TestimonialsBenefitsSection = () => {
             sx={{
               p: 5,
               borderRadius: 4,
-              bgcolor: "#f5f9ff",
+              bgcolor: crushAIColors.background.light,
               maxWidth: 900,
               mx: "auto",
               boxShadow: "0 10px 30px rgba(0, 0, 0, 0.05)",
@@ -154,7 +155,7 @@ export const TestimonialsBenefitsSection = () => {
                 left: 0,
                 width: "100%",
                 height: "5px",
-                background: "linear-gradient(to right, #1EAEDB, #8B5CF6)"
+                background: `linear-gradient(to right, ${crushAIColors.secondary}, ${crushAIColors.tertiary})`
               }}
             />
             <Typography
@@ -162,7 +163,7 @@ export const TestimonialsBenefitsSection = () => {
               sx={{
                 fontSize: { xs: "2.5rem", md: "3.5rem" },
                 fontWeight: 800,
-                color: "#1EAEDB",
+                color: crushAIColors.secondary,
                 mb: 3
               }}
             >
@@ -174,16 +175,16 @@ export const TestimonialsBenefitsSection = () => {
                 fontWeight: 500,
                 mb: 4,
                 fontStyle: "italic",
-                color: "#333"
+                color: crushAIColors.text.primary
               }}
             >
               CRUSH has completely transformed how I practice medicine. I've gained back at least 2 hours each day, and my notes are more thorough than ever. It's like having a medical assistant, scribe, and coding expert all in one.
             </Typography>
             <Box sx={{ mb: 2 }}>
-              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, color: crushAIColors.text.primary }}>
                 Dr. Sarah Johnson
               </Typography>
-              <Typography variant="body2" sx={{ color: "#666" }}>
+              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary }}>
                 Family Medicine, Boston Medical Center
               </Typography>
             </Box>

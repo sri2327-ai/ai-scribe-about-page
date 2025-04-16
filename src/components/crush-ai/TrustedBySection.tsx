@@ -4,6 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export const TrustedBySection = () => {
   // Sample data for avatars
@@ -23,7 +24,7 @@ export const TrustedBySection = () => {
       component="section" 
       sx={{ 
         py: { xs: 6, md: 10 },
-        bgcolor: '#f9f9f9'
+        bgcolor: crushAIColors.background.light
       }}
     >
       <Container maxWidth="lg">
@@ -49,20 +50,20 @@ export const TrustedBySection = () => {
                 sx={{
                   p: 1.5,
                   borderRadius: '50%',
-                  border: '2px solid #000',
+                  border: `2px solid ${crushAIColors.primary}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   mr: 2
                 }}
               >
-                <Users size={28} className="text-black" />
+                <Users size={28} className="text-[#143151]" />
               </Box>
               <Typography 
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: '#000000',
+                  color: crushAIColors.text.primary,
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -73,7 +74,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: '#333333',
+                color: crushAIColors.text.primary,
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -83,7 +84,7 @@ export const TrustedBySection = () => {
             <Typography 
               variant="body1"
               sx={{ 
-                color: '#666666', 
+                color: crushAIColors.text.secondary, 
                 fontSize: '1rem', 
                 maxWidth: '600px',
                 mx: 'auto'
@@ -121,7 +122,7 @@ export const TrustedBySection = () => {
                   {clinician.image ? (
                     <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
                   ) : (
-                    <AvatarFallback className="bg-gray-100 text-gray-600 font-medium">
+                    <AvatarFallback className="bg-gray-100 text-[#143151] font-medium">
                       {clinician.initials}
                     </AvatarFallback>
                   )}
@@ -137,7 +138,7 @@ export const TrustedBySection = () => {
                 justifyContent: 'center'
               }}
             >
-              <Typography variant="body2" sx={{ color: '#666666', fontSize: '0.875rem' }}>
+              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, fontSize: '0.875rem' }}>
                 + Thousands more clinicians making better use of their time
               </Typography>
             </Box>
