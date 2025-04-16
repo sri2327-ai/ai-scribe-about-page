@@ -7,7 +7,6 @@ import { crushAIColors } from '@/theme/crush-ai-theme';
 
 export const EHRBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  // Fix: Create a properly typed ref array for the circles
   const circleRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export const EHRBackground = () => {
             left: `${position}%`,
             width: '1px',
             height: '100%',
-            background: 'rgba(255, 255, 255, 0.05)',
+            background: 'rgba(255, 255, 255, 0.2)', // Increased white opacity
             animation: `moveLine 10s linear infinite ${idx * 2}s`,
             '@keyframes moveLine': {
               '0%': {
@@ -70,14 +69,13 @@ export const EHRBackground = () => {
 
       {/* Pulsing circles */}
       {[
-        { top: '30%', left: '20%', size: 20, icon: <Database size={12} /> },
-        { top: '50%', left: '60%', size: 15, icon: <Cloud size={10} /> },
-        { top: '70%', left: '40%', size: 25, icon: <Link2 size={14} /> },
+        { top: '30%', left: '20%', size: 20, icon: <Database size={12} color="white" /> },
+        { top: '50%', left: '60%', size: 15, icon: <Cloud size={10} color="white" /> },
+        { top: '70%', left: '40%', size: 25, icon: <Link2 size={14} color="white" /> },
       ].map((circle, idx) => (
         <Box
           key={`circle-${idx}`}
           ref={(el) => {
-            // Properly set the ref in the array with correct typing
             circleRefs.current[idx] = el;
           }}
           sx={{
@@ -87,22 +85,22 @@ export const EHRBackground = () => {
             width: `${circle.size}px`,
             height: `${circle.size}px`,
             borderRadius: '50%',
-            backgroundColor: `${crushAIColors.secondary}20`,
+            backgroundColor: 'rgba(255, 255, 255, 0.3)', // White with increased opacity
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: `${crushAIColors.secondary}90`,
+            color: 'white',
             animation: 'pulse 6s ease-in-out infinite',
             transition: 'transform 0.2s ease-out',
             willChange: 'transform',
             '@keyframes pulse': {
               '0%, 100%': {
                 transform: 'scale(1)',
-                opacity: 0.2,
+                opacity: 0.3,
               },
               '50%': {
                 transform: 'scale(1.5)',
-                opacity: 0.4,
+                opacity: 0.6,
               },
             },
           }}
@@ -136,7 +134,7 @@ export const EHRBackground = () => {
             width: '6px',
             height: '6px',
             borderRadius: '2px',
-            backgroundColor: crushAIColors.secondary,
+            backgroundColor: 'white', // Changed to white
           }}
         />
       ))}
