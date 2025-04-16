@@ -9,6 +9,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { SparklesText } from "@/components/ui/sparkles-text";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import CustomTooltip from "@/components/ui/custom-tooltip";
+import { GradientSection } from "@/components/ui/gradient-section";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
@@ -33,8 +34,9 @@ export const HeroSection = () => {
   };
 
   return (
-    <Box 
-      component="section" 
+    <GradientSection 
+      intensity="light"
+      variant="radial"
       sx={{ 
         py: { xs: 6, sm: 10, md: 16 },
         position: 'relative',
@@ -120,7 +122,7 @@ export const HeroSection = () => {
 
               <ShadcnButton 
                 size="lg" 
-                className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                className={`bg-[${crushAIColors.primary}] hover:bg-[${crushAIColors.primary}]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg`}
               >
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
@@ -237,7 +239,7 @@ export const HeroSection = () => {
 
                 <ShadcnButton 
                   size="lg" 
-                  className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                  className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
                 >
                   <ArrowRight size={16} className="mr-2" />
                   REQUEST A DEMO
@@ -274,6 +276,6 @@ export const HeroSection = () => {
           </Box>
         )}
       </Container>
-    </Box>
+    </GradientSection>
   );
 };

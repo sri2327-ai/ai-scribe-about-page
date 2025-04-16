@@ -16,67 +16,32 @@ import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { FeatureHighlights } from "@/components/crush-ai/FeatureHighlights";
+import { GradientSection } from "@/components/ui/gradient-section";
 
 const CrushAI = () => {
   return (
     <Box sx={{ bgcolor: crushAIColors.background.white, color: crushAIColors.text.primary }}>
-      {/* Hero Section */}
+      {/* Hero Section - Now using GradientSection component */}
       <HeroSection />
 
       {/* EHR Integration Section - With Gradient Background */}
-      <Box 
-        sx={{ 
-          background: `radial-gradient(
-            circle at 50% 50%,
-            rgba(165, 204, 243, 0.3) 0%, 
-            rgba(81, 146, 174, 0.2) 50%, 
-            rgba(255, 255, 255, 0.1) 100%
-          ), #FFFFFF`,
-          position: "relative",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.05,
-            pointerEvents: "none",
-            zIndex: 0
-          }
-        }}
+      <GradientSection 
+        variant="radial"
+        intensity="medium"
       >
         <EhrIntegrationSection />
-      </Box>
+      </GradientSection>
 
       {/* Trusted By Section */}
       <TrustedBySection />
 
       {/* How It Works Section - With Gradient Background */}
-      <Box 
-        sx={{ 
-          background: `radial-gradient(
-            circle at 50% 50%,
-            rgba(165, 204, 243, 0.3) 0%, 
-            rgba(81, 146, 174, 0.2) 50%, 
-            rgba(255, 255, 255, 0.1) 100%
-          ), #FFFFFF`,
-          position: "relative",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.05,
-            pointerEvents: "none",
-            zIndex: 0
-          }
-        }}
+      <GradientSection 
+        variant="radial"
+        intensity="medium"
       >
         <HowItWorksSection />
-      </Box>
+      </GradientSection>
 
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
@@ -85,30 +50,12 @@ const CrushAI = () => {
       <TestimonialGenerateSection />
       
       {/* Clinical Workflow Section - With Gradient Background */}
-      <Box 
-        sx={{ 
-          background: `radial-gradient(
-            circle at 50% 50%,
-            rgba(165, 204, 243, 0.3) 0%, 
-            rgba(81, 146, 174, 0.2) 50%, 
-            rgba(255, 255, 255, 0.1) 100%
-          ), #FFFFFF`,
-          position: "relative",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.05,
-            pointerEvents: "none",
-            zIndex: 0
-          }
-        }}
+      <GradientSection 
+        variant="radial"
+        intensity="medium"
       >
         <ClinicalWorkflowSection />
-      </Box>
+      </GradientSection>
       
       {/* Feature Highlights Section */}
       <FeatureHighlights />
@@ -136,7 +83,7 @@ const CrushAI = () => {
           </Typography>
           <Button 
             size="lg" 
-            className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            className={`bg-[${crushAIColors.primary}] hover:bg-[${crushAIColors.primary}]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg`}
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO
@@ -145,59 +92,23 @@ const CrushAI = () => {
       </Box>
       
       {/* Loved by Clinicians Section - With Gradient Background */}
-      <Box 
-        sx={{ 
-          background: `radial-gradient(
-            circle at 50% 50%,
-            rgba(165, 204, 243, 0.3) 0%, 
-            rgba(81, 146, 174, 0.2) 50%, 
-            rgba(255, 255, 255, 0.1) 100%
-          ), #FFFFFF`,
-          position: "relative",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.05,
-            pointerEvents: "none",
-            zIndex: 0
-          }
-        }}
+      <GradientSection 
+        variant="radial"
+        intensity="medium"
       >
         <ClinicianTestimonialsSection />
-      </Box>
+      </GradientSection>
       
       {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />
       
       {/* ROI Calculator Section - With Gradient Background */}
-      <Box 
-        sx={{ 
-          background: `radial-gradient(
-            circle at 50% 50%,
-            rgba(165, 204, 243, 0.3) 0%, 
-            rgba(81, 146, 174, 0.2) 50%, 
-            rgba(255, 255, 255, 0.1) 100%
-          ), #FFFFFF`,
-          position: "relative",
-          "&::before": {
-            content: '""',
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            opacity: 0.05,
-            pointerEvents: "none",
-            zIndex: 0
-          }
-        }}
+      <GradientSection 
+        variant="radial"
+        intensity="medium"
       >
         <ROICalculatorSection />
-      </Box>
+      </GradientSection>
     </Box>
   );
 };
