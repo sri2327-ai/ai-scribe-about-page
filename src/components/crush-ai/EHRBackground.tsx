@@ -76,7 +76,10 @@ export const EHRBackground = () => {
       ].map((circle, idx) => (
         <Box
           key={`circle-${idx}`}
-          ref={(el) => (circleRefs.current[idx] = el)}
+          ref={(el) => {
+            // Fix: Properly set the ref in the array
+            circleRefs.current[idx] = el;
+          }}
           sx={{
             position: 'absolute',
             top: circle.top,
