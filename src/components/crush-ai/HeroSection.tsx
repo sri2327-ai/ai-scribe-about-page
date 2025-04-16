@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -67,10 +69,9 @@ export const HeroSection = () => {
       }}
     >
       {/* Voice Waves Animation Background Effect */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 opacity-20">
         <VoiceWaves 
-          colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
-          opacity={1} // Set opacity to 1
+          colors={["#2EB9DF", "#D946EF", "#2EB9DF"]}
         />
       </div>
       
@@ -155,22 +156,6 @@ export const HeroSection = () => {
                 REQUEST A DEMO
                 <ArrowRight size={16} className="ml-2" />
               </ShadcnButton>
-
-              <Box 
-                sx={{ 
-                  position: 'relative', 
-                  width: '100%', 
-                  height: '100px', 
-                  mt: 4, 
-                  overflow: 'hidden' 
-                }}
-              >
-                <VoiceWaves 
-                  colors={["#333333", "#221F26"]} // Even darker colors for the bottom section
-                  opacity={0.2}
-                  className="absolute bottom-0 left-0 right-0"
-                />
-              </Box>
             </Box>
           </Box>
           
@@ -200,27 +185,17 @@ export const HeroSection = () => {
               }}
             >
               <AnimatedWorkflow />
+              <Sparkles 
+                className="absolute inset-0 pointer-events-none" 
+                size={1.5}
+                color="#000000"
+                opacity={0.3}
+                background="transparent"
+              />
             </Box>
           </Box>
         </Box>
       </Container>
-      
-      {/* Bottom Voice Waves */}
-      <Box 
-        sx={{ 
-          position: 'relative', 
-          width: '100%', 
-          height: '100px', 
-          mt: 4, 
-          overflow: 'hidden' 
-        }}
-      >
-        <VoiceWaves 
-          colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
-          opacity={1} // Set opacity to 1
-          className="absolute bottom-0 left-0 right-0"
-        />
-      </Box>
     </Box>
   );
 };

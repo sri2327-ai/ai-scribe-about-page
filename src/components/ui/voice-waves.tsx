@@ -6,13 +6,11 @@ import React, { useEffect, useRef } from 'react';
 interface VoiceWavesProps {
   className?: string;
   colors?: string[];
-  opacity?: number;
 }
 
 const VoiceWaves: React.FC<VoiceWavesProps> = ({ 
   className = "",
-  colors = ["#2EB9DF", "#D946EF"], // Teal blue and pink
-  opacity = 0.1 // Very subtle
+  colors = ["#1EAEDB", "#D946EF", "#1EAEDB"]
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
@@ -35,8 +33,8 @@ const VoiceWaves: React.FC<VoiceWavesProps> = ({
     // Set canvas dimensions
     const setCanvasDimensions = () => {
       if (canvas) {
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         
         // Reinitialize wave points when dimensions change
         initializeWavePoints();
@@ -45,17 +43,18 @@ const VoiceWaves: React.FC<VoiceWavesProps> = ({
 
     const initializeWavePoints = () => {
       const points = [];
-      const numberOfWaves = 3; // Reduced number of waves
+      const numberOfWaves = 12;
       const canvasHeight = canvas.height;
       
       for (let i = 0; i < numberOfWaves; i++) {
+        // Create horizontal waves at different heights
         points.push({
           x: 0,
-          y: canvasHeight * (0.4 + (i / numberOfWaves) * 0.2), // More constrained vertical distribution
-          amplitude: Math.random() * 15 + 5, // Smaller amplitude
-          speed: Math.random() * 0.02 + 0.01, // Slower speed
-          color: colors[i % colors.length],
-          phase: Math.random() * Math.PI * 2
+          y: canvasHeight * (0.2 + (i / numberOfWaves) * 0.6), // Distribute across middle 60% of canvas
+          amplitude: Math.random() * 40 + 15, // Random amplitude between 15-55
+          speed: Math.random() * 0.03 + 0.01, // Random speed
+          color: colors[i % colors.length], // Alternate colors
+          phase: Math.random() * Math.PI * 2 // Random starting phase
         });
       }
       
@@ -69,33 +68,38 @@ const VoiceWaves: React.FC<VoiceWavesProps> = ({
     const animateWaves = () => {
       if (!ctx || !canvas) return;
       
-      // Clear canvas with slight fade effect
-      ctx.fillStyle = `rgba(255, 255, 255, ${1 - opacity})`;
+      // Clear canvas with slight fade effect for trail
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       
       const width = canvas.width;
       
       wavePointsRef.current.forEach(wave => {
+        // Update wave phase for animation
         wave.phase += wave.speed;
         
+        // Draw the wave
         ctx.beginPath();
         
-        // Soft gradient for each wave
+        // Define the gradient for each wave
         const gradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, wave.y + wave.amplitude);
-        gradient.addColorStop(0, `${wave.color}20`); // Very transparent at top
-        gradient.addColorStop(0.5, `${wave.color}40`); // Slightly more opaque in middle
-        gradient.addColorStop(1, `${wave.color}20`); // Very transparent at bottom
+        gradient.addColorStop(0, `${wave.color}40`); // 25% opacity at top
+        gradient.addColorStop(0.5, wave.color); // Full color in middle
+        gradient.addColorStop(1, `${wave.color}40`); // 25% opacity at bottom
         
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.5;
         
+        // Start drawing from left edge
         ctx.moveTo(0, wave.y);
         
+        // Draw the wave across the canvas width
         for (let x = 0; x < width; x += 5) {
-          const frequency = 0.01;
+          // Create a sine wave with varying frequency
+          const frequency = 0.01; // Base frequency
           const y = wave.y + 
                     Math.sin(x * frequency + wave.phase) * wave.amplitude * 0.5 + 
-                    Math.sin(x * frequency * 0.6 + wave.phase * 0.7) * wave.amplitude * 0.3; 
+                    Math.sin(x * frequency * 0.6 + wave.phase * 0.7) * wave.amplitude; 
           
           ctx.lineTo(x, y);
         }
@@ -114,13 +118,13 @@ const VoiceWaves: React.FC<VoiceWavesProps> = ({
       cancelAnimationFrame(animationRef.current);
       window.removeEventListener('resize', setCanvasDimensions);
     };
-  }, [colors, opacity]);
+  }, [colors]);
 
   return (
     <canvas
       ref={canvasRef}
-      className={`absolute inset-0 w-full h-full pointer-events-none ${className}`}
-      style={{ zIndex: 0, opacity: 0.2 }}
+      className={`absolute inset-0 w-full h-full ${className}`}
+      style={{ zIndex: 0 }}
     />
   );
 };
