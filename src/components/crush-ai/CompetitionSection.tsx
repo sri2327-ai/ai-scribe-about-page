@@ -241,7 +241,7 @@ export const CompetitionSection = () => {
                         >
                           {[
                             { icon: <FilePlus size={16} />, text: "Create a template from scratch" },
-                            { icon: <Copy size={16} />, text: "Generate from your instructions" },
+                            { icon: <Copy size={16} />, text: "Generate content from your instructions or paste previous notes" },
                             { icon: <Import size={16} />, text: "Import current templates" },
                             { icon: <Users size={16} />, text: "Browse template community" }
                           ].map((item, idx) => (

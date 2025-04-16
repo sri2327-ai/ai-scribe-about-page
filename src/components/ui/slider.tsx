@@ -93,9 +93,12 @@ const Slider = React.forwardRef<
       onPointerLeave={() => setIsDragging(false)}
       onPointerCancel={() => setIsDragging(false)}
       onTouchStart={(e) => {
+        setIsDragging(true);
         handleRootClick(e);
         if (props.onTouchStart) props.onTouchStart(e);
       }}
+      onTouchEnd={() => setIsDragging(false)}
+      onClick={handleRootClick} // Add click handler for direct track clicks
     >
       <SliderPrimitive.Track 
         className="relative h-[1px] w-full grow overflow-hidden"

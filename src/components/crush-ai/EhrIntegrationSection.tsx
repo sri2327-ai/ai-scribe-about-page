@@ -23,17 +23,17 @@ export const EhrIntegrationSection = () => {
     {
       title: "Works on Any Device",
       description: "Desktop, laptop, tablet, or mobile.",
-      icon: <Zap size={36} className="text-black" />
+      icon: <Zap size={36} style={{ color: crushAIColors.primary }} />
     },
     {
       title: "Instant Sync",
       description: "AI-generated notes go directly into your EHR.",
-      icon: <RefreshCw size={36} className="text-black" />
+      icon: <RefreshCw size={36} style={{ color: crushAIColors.primary }} />
     },
     {
       title: "Automated Updates",
       description: "Lab results, prescriptions, and referrals auto-sync.",
-      icon: <FileCheck size={36} className="text-black" />
+      icon: <FileCheck size={36} style={{ color: crushAIColors.primary }} />
     }
   ];
 
@@ -130,7 +130,7 @@ export const EhrIntegrationSection = () => {
                             mb: 3,
                             p: 2,
                             borderRadius: '50%',
-                            bgcolor: 'rgba(0, 0, 0, 0.03)',
+                            bgcolor: `${crushAIColors.tertiary}20`,
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -198,7 +198,7 @@ export const EhrIntegrationSection = () => {
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(0, 0, 0, 0.03)',
+                        bgcolor: `${crushAIColors.tertiary}20`,
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
