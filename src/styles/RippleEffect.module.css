@@ -13,9 +13,9 @@
   height: 300px;
   background: radial-gradient(
     circle,
-    rgba(30, 174, 219, 0.25) 0%,
-    rgba(30, 174, 219, 0.15) 50%,
-    rgba(30, 174, 219, 0) 100%
+    rgba(0, 175, 185, 0.25) 0%, 
+    rgba(0, 175, 185, 0.15) 50%, 
+    rgba(0, 175, 185, 0) 100%
   );
   border-radius: 50%;
   animation: ripple 8s infinite cubic-bezier(0.65, 0, 0.35, 1);
