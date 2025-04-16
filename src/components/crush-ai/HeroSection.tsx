@@ -1,8 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
@@ -69,7 +67,7 @@ export const HeroSection = () => {
       }}
     >
       {/* Voice Waves Animation Background Effect */}
-      <div className="absolute inset-0 z-0 opacity-20">
+      <div className="absolute inset-0 z-0 opacity-100">
         <VoiceWaves 
           colors={["#2EB9DF", "#D946EF", "#2EB9DF"]}
         />
@@ -153,8 +151,8 @@ export const HeroSection = () => {
                 size="lg" 
                 className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
               >
+                <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
-                <ArrowRight size={16} className="ml-2" />
               </ShadcnButton>
             </Box>
           </Box>
@@ -185,13 +183,6 @@ export const HeroSection = () => {
               }}
             >
               <AnimatedWorkflow />
-              <Sparkles 
-                className="absolute inset-0 pointer-events-none" 
-                size={1.5}
-                color="#000000"
-                opacity={0.3}
-                background="transparent"
-              />
             </Box>
           </Box>
         </Box>

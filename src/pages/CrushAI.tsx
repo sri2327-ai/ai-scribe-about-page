@@ -11,7 +11,7 @@ import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowS
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 
 const CrushAI = () => {
@@ -60,7 +60,7 @@ const CrushAI = () => {
             size="lg" 
             className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
           >
-            <Calendar className="mr-2" />
+            <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO
           </Button>
         </Container>

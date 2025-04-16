@@ -46,12 +46,17 @@ const VoiceWaves: React.FC<VoiceWavesProps> = ({
       const numberOfWaves = 12;
       const canvasHeight = canvas.height;
       
+      // For mobile devices, use different parameters
+      const isMobile = window.innerWidth < 768;
+      const baseAmplitude = isMobile ? 20 : 40;
+      const minAmplitude = isMobile ? 10 : 15;
+      
       for (let i = 0; i < numberOfWaves; i++) {
         // Create horizontal waves at different heights
         points.push({
           x: 0,
           y: canvasHeight * (0.2 + (i / numberOfWaves) * 0.6), // Distribute across middle 60% of canvas
-          amplitude: Math.random() * 40 + 15, // Random amplitude between 15-55
+          amplitude: Math.random() * baseAmplitude + minAmplitude, // Responsive amplitude
           speed: Math.random() * 0.03 + 0.01, // Random speed
           color: colors[i % colors.length], // Alternate colors
           phase: Math.random() * Math.PI * 2 // Random starting phase
@@ -83,18 +88,20 @@ const VoiceWaves: React.FC<VoiceWavesProps> = ({
         
         // Define the gradient for each wave
         const gradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, wave.y + wave.amplitude);
-        gradient.addColorStop(0, `${wave.color}40`); // 25% opacity at top
+        gradient.addColorStop(0, `${wave.color}80`); // 50% opacity at top (increased from 40%)
         gradient.addColorStop(0.5, wave.color); // Full color in middle
-        gradient.addColorStop(1, `${wave.color}40`); // 25% opacity at bottom
+        gradient.addColorStop(1, `${wave.color}80`); // 50% opacity at bottom (increased from 40%)
         
         ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1.8; // Slightly thicker lines for better visibility
         
         // Start drawing from left edge
         ctx.moveTo(0, wave.y);
         
         // Draw the wave across the canvas width
-        for (let x = 0; x < width; x += 5) {
+        // Use smaller step size for higher resolution waves
+        const stepSize = window.innerWidth < 768 ? 3 : 5;
+        for (let x = 0; x < width; x += stepSize) {
           // Create a sine wave with varying frequency
           const frequency = 0.01; // Base frequency
           const y = wave.y + 

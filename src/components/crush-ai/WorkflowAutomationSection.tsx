@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -10,7 +9,6 @@ export const WorkflowAutomationSection = () => {
   const [sliderPosition, setSliderPosition] = useState<number>(50);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   
-  // Motion values for smooth animations
   const handleDragStart = () => {
     setIsDragging(true);
   };
@@ -101,9 +99,7 @@ export const WorkflowAutomationSection = () => {
                 onTouchMove={handleDrag}
                 onTouchEnd={handleDragEnd}
               >
-                {/* Main container with black and white sides */}
                 <div className="absolute inset-0 flex items-stretch">
-                  {/* Black side (Before) */}
                   <div 
                     className="h-full bg-black text-white flex items-center justify-center relative overflow-hidden"
                     style={{ width: `${sliderPosition}%` }}
@@ -131,7 +127,6 @@ export const WorkflowAutomationSection = () => {
                     </div>
                   </div>
                   
-                  {/* White side (After) */}
                   <div 
                     className="h-full bg-white text-black flex items-center justify-center relative overflow-hidden"
                     style={{ width: `${100 - sliderPosition}%` }}
@@ -160,7 +155,6 @@ export const WorkflowAutomationSection = () => {
                   </div>
                 </div>
                 
-                {/* Slider divider */}
                 <motion.div 
                   className="absolute top-0 bottom-0 w-px bg-white/50 z-20 cursor-ew-resize"
                   style={{ 
@@ -169,7 +163,6 @@ export const WorkflowAutomationSection = () => {
                   onMouseDown={handleDragStart}
                   onTouchStart={handleDragStart}
                 >
-                  {/* Slider handle */}
                   <div 
                     className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-black border border-white/20 shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                   >
@@ -181,7 +174,6 @@ export const WorkflowAutomationSection = () => {
                   </div>
                 </motion.div>
                 
-                {/* Navigation indicators */}
                 <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
                   <div className={`flex items-center gap-2 ${sliderPosition < 15 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                     <Monitor className="h-4 w-4 text-white" />
@@ -193,7 +185,6 @@ export const WorkflowAutomationSection = () => {
                   </div>
                 </div>
                 
-                {/* Time indicators */}
                 <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
                   <div className={`flex items-center gap-2 p-2 bg-black/80 rounded-full ${sliderPosition < 15 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                     <Clock className="h-3 w-3 text-white" />
@@ -206,7 +197,6 @@ export const WorkflowAutomationSection = () => {
                 </div>
               </div>
               
-              {/* Bottom labels */}
               <div className="flex justify-between mt-6 px-4">
                 <div className="flex items-center">
                   <Monitor className="text-gray-800 mr-2" size={20} />
@@ -218,14 +208,13 @@ export const WorkflowAutomationSection = () => {
                 </div>
               </div>
               
-              {/* CTA Button */}
               <div className="mt-8 flex justify-center">
                 <Button 
                   size="lg" 
                   className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
                 >
+                  <ArrowRight size={16} className="mr-2" />
                   REQUEST A DEMO
-                  <ArrowRight size={16} className="ml-2" />
                 </Button>
               </div>
             </div>
