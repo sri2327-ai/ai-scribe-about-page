@@ -1,8 +1,8 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload } from "lucide-react";
+import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload, ArrowRight } from "lucide-react";
 
 const steps = [
   {
@@ -16,7 +16,7 @@ const steps = [
         description: "Instant access to comprehensive patient information"
       }
     ],
-    animation: (active) => (
+    animation: (active, onNext) => (
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ 
@@ -39,8 +39,10 @@ const steps = [
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: 1
+            gap: 1,
+            cursor: active ? 'pointer' : 'default'
           }}
+          onClick={active ? onNext : undefined}
         >
           <motion.div
             animate={active ? { 
@@ -86,6 +88,28 @@ const steps = [
                   Connected to EHR
                 </Typography>
               </Box>
+              {active && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1 }}
+                  className="mt-4 flex justify-center"
+                >
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: 'blue', 
+                      fontWeight: 600, 
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      textDecoration: 'underline' 
+                    }}
+                    onClick={onNext}
+                  >
+                    Click to continue →
+                  </Typography>
+                </motion.div>
+              )}
             </motion.div>
           )}
         </Box>
@@ -109,13 +133,22 @@ const steps = [
         description: "Works for in-person, video, chat, or phone consultations."
       }
     ],
-    animation: (active) => (
+    animation: (active, onNext) => (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex items-center justify-center h-32 w-full"
       >
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            gap: 1,
+            cursor: active ? 'pointer' : 'default'
+          }}
+          onClick={active ? onNext : undefined}
+        >
           <Box sx={{ position: 'relative' }}>
             <motion.div
               initial={{ scale: 1 }}
@@ -192,7 +225,7 @@ const steps = [
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: '100%' }}
-                transition={{ duration: 8, repeat: Infinity }}
+                transition={{ duration: 8 }}
                 style={{
                   height: 4,
                   background: 'linear-gradient(90deg, #f3f3f3 0%, #333 100%)',
@@ -210,6 +243,29 @@ const steps = [
                 <span>0:00</span>
                 <span>Recording...</span>
               </Box>
+              
+              {active && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 4 }}
+                  className="mt-4 flex justify-center"
+                >
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: 'blue', 
+                      fontWeight: 600, 
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      textDecoration: 'underline' 
+                    }}
+                    onClick={onNext}
+                  >
+                    Complete recording →
+                  </Typography>
+                </motion.div>
+              )}
             </Box>
           )}
         </Box>
@@ -238,13 +294,20 @@ const steps = [
         description: "Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
       }
     ],
-    animation: (active) => (
+    animation: (active, onNext) => (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         className="flex items-center justify-center h-32 w-full"
       >
-        <Box sx={{ width: '100%', maxWidth: { xs: 220, sm: 280 } }}>
+        <Box 
+          sx={{ 
+            width: '100%', 
+            maxWidth: { xs: 220, sm: 280 },
+            cursor: active ? 'pointer' : 'default'
+          }}
+          onClick={active ? onNext : undefined}
+        >
           <motion.div
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -322,6 +385,26 @@ const steps = [
                     CPT: 99214
                   </Typography>
                 </motion.div>
+                
+                {active && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 2 }}
+                    className="mt-4 flex justify-center"
+                  >
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        color: 'green', 
+                        fontWeight: 600, 
+                        fontSize: '0.75rem'
+                      }}
+                    >
+                      Generated in under 1 minute
+                    </Typography>
+                  </motion.div>
+                )}
               </Box>
             ) : (
               <Box sx={{ 
@@ -341,14 +424,21 @@ const steps = [
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 2 }}
-              style={{
-                marginTop: 12,
-                textAlign: 'center'
-              }}
+              transition={{ delay: 2.5 }}
+              className="mt-4 flex justify-center"
             >
-              <Typography variant="caption" sx={{ color: 'green', fontWeight: 600, fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
-                Generated in under 1 minute
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  color: 'blue', 
+                  fontWeight: 600, 
+                  cursor: 'pointer',
+                  fontSize: '0.75rem',
+                  textDecoration: 'underline' 
+                }}
+                onClick={onNext}
+              >
+                Start over →
               </Typography>
             </motion.div>
           )}
@@ -359,7 +449,35 @@ const steps = [
 ];
 
 export const HowItWorksSection = () => {
-  const [activeStep, setActiveStep] = useState<number | null>(null);
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [isAnimating, setIsAnimating] = useState<boolean>(true);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Function to move to the next step
+  const handleNextStep = () => {
+    if (activeStep < steps.length - 1) {
+      setCompletedSteps(prev => [...prev, activeStep]);
+      setActiveStep(activeStep + 1);
+    } else {
+      // Reset the animation if we're at the last step
+      setCompletedSteps([]);
+      setActiveStep(0);
+    }
+  };
+  
+  // Auto advance to first step when component mounts
+  useEffect(() => {
+    // Start with step 0 active
+    setActiveStep(0);
+    
+    // Clean up any timers on unmount
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, []);
   
   return (
     <Box
@@ -417,171 +535,307 @@ export const HowItWorksSection = () => {
           </Typography>
         </Box>
 
+        {/* Interactive Workflow Animation */}
         <Box 
           sx={{ 
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' },
-            gap: { xs: 3, md: 5 },
+            display: 'flex',
+            flexDirection: { xs: 'column', md: 'row' },
+            gap: { xs: 4, md: 6 },
+            alignItems: 'stretch',
             mb: 6,
             mx: 'auto',
             maxWidth: 1200
           }}
         >
-          {steps.map((step, index) => {
-            const isActive = activeStep === index;
-            const stepNumber = index + 1;
-            
-            return (
-              <Box 
-                key={index}
-                component={motion.div}
+          {/* Left side - Steps Navigation */}
+          <Box
+            sx={{
+              width: { xs: '100%', md: '30%' },
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2
+            }}
+          >
+            {steps.map((step, index) => {
+              const isActive = activeStep === index;
+              const isCompleted = completedSteps.includes(index);
+              
+              return (
+                <Box
+                  key={index}
+                  component={motion.div}
+                  initial={{ opacity: 0.8, x: -10 }}
+                  animate={{ 
+                    opacity: isActive || isCompleted ? 1 : 0.7,
+                    x: 0,
+                    backgroundColor: isActive ? 'rgba(0, 0, 0, 0.03)' : 'transparent'
+                  }}
+                  whileHover={{ 
+                    scale: 1.02,
+                    backgroundColor: 'rgba(0, 0, 0, 0.02)' 
+                  }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => setActiveStep(index)}
+                  sx={{
+                    p: 2,
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: isActive ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)',
+                    boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.05)' : 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 2,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      borderRadius: '50%',
+                      bgcolor: isCompleted ? '#10b981' : isActive ? 'rgba(0, 0, 0, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      border: isActive && !isCompleted ? '1px solid rgba(0, 0, 0, 0.1)' : 'none'
+                    }}
+                  >
+                    {isCompleted ? (
+                      <CheckCircle size={20} className="text-white" />
+                    ) : (
+                      <Typography sx={{ fontWeight: 600, color: '#333' }}>
+                        {index + 1}
+                      </Typography>
+                    )}
+                  </Box>
+                  
+                  <Box>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{
+                        fontWeight: isActive ? 600 : 500,
+                        color: isActive ? '#000' : '#333',
+                        fontSize: { xs: '0.9rem', sm: '1rem' }
+                      }}
+                    >
+                      {step.title}
+                    </Typography>
+                    
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: '#666',
+                        fontSize: { xs: '0.75rem', sm: '0.8rem' },
+                        display: { xs: 'none', sm: 'block' },
+                        mt: 0.5
+                      }}
+                    >
+                      {step.description.length > 60 
+                        ? `${step.description.substring(0, 60)}...` 
+                        : step.description
+                      }
+                    </Typography>
+                  </Box>
+                  
+                  {isActive && (
+                    <Box 
+                      component={motion.div}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      sx={{ ml: 'auto' }}
+                    >
+                      <Box 
+                        sx={{ 
+                          width: 8, 
+                          height: 8, 
+                          borderRadius: '50%', 
+                          bgcolor: '#000' 
+                        }}
+                        component={motion.div}
+                        animate={{ 
+                          scale: [1, 1.3, 1],
+                          opacity: [0.5, 1, 0.5] 
+                        }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 1.5
+                        }}
+                      />
+                    </Box>
+                  )}
+                </Box>
+              );
+            })}
+          </Box>
+          
+          {/* Right side - Animation Display */}
+          <Box
+            sx={{
+              width: { xs: '100%', md: '70%' },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 4,
+              bgcolor: 'rgba(0, 0, 0, 0.01)',
+              border: '1px solid rgba(0, 0, 0, 0.05)',
+              p: { xs: 2, sm: 4 },
+              minHeight: 400
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
                 initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                viewport={{ once: true }}
-                onClick={() => setActiveStep(isActive ? null : index)}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.3 }}
+                style={{ width: '100%' }}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 4
+                  }}
+                >
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      fontWeight: 700,
+                      color: '#333',
+                      textAlign: 'center',
+                      fontSize: { xs: '1.5rem', sm: '1.75rem' }
+                    }}
+                  >
+                    {steps[activeStep].title}
+                  </Typography>
+                  
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: '#555',
+                      textAlign: 'center',
+                      maxWidth: 600,
+                      mb: 2,
+                      fontSize: { xs: '0.9rem', sm: '1rem' }
+                    }}
+                  >
+                    {steps[activeStep].description}
+                  </Typography>
+                  
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      p: 2
+                    }}
+                  >
+                    {steps[activeStep].animation(true, handleNextStep)}
+                  </Box>
+                  
+                  <AnimatePresence>
+                    {steps[activeStep].details && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        style={{ width: '100%', overflow: 'hidden' }}
+                      >
+                        <Box
+                          sx={{
+                            display: 'grid',
+                            gridTemplateColumns: { xs: '1fr', sm: 'repeat(auto-fit, minmax(250px, 1fr))' },
+                            gap: 2,
+                            width: '100%',
+                            mt: 2
+                          }}
+                        >
+                          {steps[activeStep].details.map((detail, i) => (
+                            <motion.div
+                              key={i}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: i * 0.1 + 0.3 }}
+                            >
+                              <Box 
+                                sx={{ 
+                                  display: 'flex',
+                                  alignItems: 'flex-start',
+                                  p: 2,
+                                  borderRadius: 2,
+                                  bgcolor: 'rgba(0,0,0,0.02)',
+                                  border: '1px solid rgba(0,0,0,0.05)',
+                                  height: '100%'
+                                }}
+                              >
+                                {detail.icon && (
+                                  <Box sx={{ 
+                                    mr: 1.5, 
+                                    mt: 0.5,
+                                    color: '#333',
+                                    flexShrink: 0
+                                  }}>
+                                    {detail.icon}
+                                  </Box>
+                                )}
+                                <Box>
+                                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: '#333' }}>
+                                    {detail.title}
+                                  </Typography>
+                                  <Typography variant="body2" sx={{ color: '#555', fontSize: '0.8rem' }}>
+                                    {detail.description}
+                                  </Typography>
+                                </Box>
+                              </Box>
+                            </motion.div>
+                          ))}
+                        </Box>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Box>
+              </motion.div>
+            </AnimatePresence>
+            
+            <Box
+              sx={{
+                mt: 4,
+                display: 'flex',
+                gap: 2,
+                justifyContent: 'center'
+              }}
+            >
+              <Button
+                component={motion.button}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                variant="outlined"
+                onClick={handleNextStep}
                 sx={{
-                  p: { xs: 3, sm: 4 },
-                  borderRadius: '12px',
-                  border: '1px solid',
-                  borderColor: isActive ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                  boxShadow: isActive ? '0 8px 30px rgba(0, 0, 0, 0.05)' : '0 4px 6px rgba(0, 0, 0, 0.01)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  position: 'relative',
-                  zIndex: 1,
-                  bgcolor: 'white',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  minHeight: { xs: 280, sm: 320 },
-                  overflow: 'hidden',
-                  "&:hover": {
-                    transform: 'translateY(-5px)',
-                    boxShadow: '0 10px 25px rgba(0, 0, 0, 0.05)',
-                    borderColor: 'rgba(0, 0, 0, 0.1)'
+                  borderColor: '#333',
+                  color: '#333',
+                  py: 1,
+                  px: 3,
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  borderRadius: 1.5,
+                  '&:hover': {
+                    borderColor: '#000',
+                    bgcolor: 'rgba(0, 0, 0, 0.05)'
                   }
                 }}
               >
-                <Typography 
-                  sx={{ 
-                    position: 'absolute', 
-                    top: 20, 
-                    left: 20, 
-                    fontWeight: 'bold', 
-                    fontSize: { xs: '1.5rem', sm: '1.75rem' }, 
-                    color: '#333',
-                    opacity: 0.8
-                  }}
-                >
-                  {stepNumber}
-                </Typography>
-                
-                <Box 
-                  sx={{ 
-                    bgcolor: 'rgba(0, 0, 0, 0.02)',
-                    borderRadius: '50%',
-                    p: 2.5,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    mb: 3,
-                    transition: 'all 0.3s ease',
-                    border: '1px solid rgba(0,0,0,0.05)'
-                  }}
-                >
-                  <Box sx={{ color: '#333' }}>
-                    {step.icon}
-                  </Box>
-                </Box>
-                
-                <Typography 
-                  variant="h6" 
-                  sx={{ 
-                    fontWeight: 600, 
-                    mb: 2,
-                    color: "#333",
-                    transition: 'all 0.3s ease',
-                    fontSize: { xs: '1rem', sm: '1.25rem' }
-                  }}
-                >
-                  {step.title}
-                </Typography>
-                
-                <Typography 
-                  variant="body2"
-                  sx={{ 
-                    color: '#555',
-                    mb: 3,
-                    transition: 'all 0.3s ease',
-                    lineHeight: 1.6,
-                    fontSize: { xs: '0.8rem', sm: '0.875rem' }
-                  }}
-                >
-                  {step.description}
-                </Typography>
-
-                {step.animation(isActive)}
-                
-                <AnimatePresence>
-                  {isActive && step.details && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      style={{ width: '100%', overflow: 'hidden' }}
-                    >
-                      <Box sx={{ mt: 2 }}>
-                        {step.details.map((detail, i) => (
-                          <motion.div
-                            key={i}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: i * 0.1 + 0.2 }}
-                          >
-                            <Box 
-                              sx={{ 
-                                display: 'flex',
-                                alignItems: 'flex-start',
-                                mb: 2,
-                                p: 1.5,
-                                borderRadius: 2,
-                                bgcolor: 'rgba(0,0,0,0.01)',
-                                textAlign: 'left',
-                                border: '1px solid rgba(0,0,0,0.03)',
-                                fontSize: { xs: '0.75rem', sm: '0.875rem' }
-                              }}
-                            >
-                              {detail.icon && (
-                                <Box sx={{ 
-                                  mr: 1.5, 
-                                  mt: 0.5,
-                                  color: '#333',
-                                  flexShrink: 0
-                                }}>
-                                  {detail.icon}
-                                </Box>
-                              )}
-                              <Box>
-                                <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: '#333', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                                  {detail.title}
-                                </Typography>
-                                <Typography variant="caption" sx={{ color: '#555', lineHeight: 1.5, fontSize: { xs: '0.7rem', sm: '0.75rem' } }}>
-                                  {detail.description}
-                                </Typography>
-                              </Box>
-                            </Box>
-                          </motion.div>
-                        ))}
-                      </Box>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Box>
-            );
-          })}
+                {activeStep === steps.length - 1 ? 'Start Over' : 'Next Step'}
+                <ArrowRight size={16} className="ml-1" />
+              </Button>
+            </Box>
+          </Box>
         </Box>
         
         <Box
