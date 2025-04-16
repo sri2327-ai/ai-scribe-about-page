@@ -8,7 +8,6 @@ import TrustedByExperts from "@/components/technology/TrustedByExperts";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import TechFeaturesContent from "@/components/technology/TechFeatures";
-import TechSolutions from "@/components/technology/TechSolutions";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -31,28 +30,36 @@ const Technology = () => {
         sx={{
           py: 8,
           bgcolor: "#000000",
-          textAlign: "left"
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center"
         }}
       >
         <Container maxWidth="md">
           <Typography
             variant="h3"
             sx={{
-              fontSize: { xs: "1.75rem", md: "2.25rem" },
+              fontSize: { xs: "2rem", md: "3rem" },
               fontWeight: 700,
-              mb: 3,
-              color: "#ffffff"
+              mb: 4,
+              color: "#ffffff",
+              textAlign: "center"
             }}
           >
-            Transform Your Healthcare Workflow.
+            Transform Your Healthcare Workflow
           </Typography>
-          <Button 
-            size="lg" 
-            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
-          >
-            <ArrowRight size={16} className="mr-2" />
-            REQUEST A DEMO
-          </Button>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <Button 
+              variant="outline"
+              size="lg" 
+              className="bg-transparent border-white/20 text-white hover:bg-white/10 rounded-full px-8 py-6 text-lg"
+            >
+              Request A Demo
+              <ArrowRight size={16} className="ml-2" />
+            </Button>
+          </Box>
         </Container>
       </Box>
       
@@ -73,3 +80,4 @@ const Technology = () => {
 };
 
 export default Technology;
+
