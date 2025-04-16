@@ -7,6 +7,7 @@ import { crushAIColors } from '@/theme/crush-ai-theme';
 
 export const EHRBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  // Fix: Specify the correct type for the array ref
   const circleRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
