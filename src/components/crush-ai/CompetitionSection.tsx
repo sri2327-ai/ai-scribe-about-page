@@ -1,9 +1,9 @@
 
 import React from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { CheckCircle, XCircle, Trophy, ChevronRight, FilePlus, Copy, Import, Users } from "lucide-react";
-import { SparklesText } from "@/components/ui/sparkles-text";
+import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
 
@@ -79,6 +79,8 @@ const comparisonFeatures: ComparisonFeature[] = [
 
 export const CompetitionSection = () => {
   const [activeFeature, setActiveFeature] = React.useState<string>("accuracy");
+  const muiTheme = useMuiTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
 
   return (
     <WaveBackground 
@@ -102,13 +104,13 @@ export const CompetitionSection = () => {
             viewport={{ once: true }}
             sx={{ mb: 6, textAlign: "center" }}
           >
-            <Box sx={{ mb: 2 }}>
-              <SparklesText 
+            <Box sx={{ mb: 2, position: "relative" }}>
+              {/* Replace SparklesText with SparklesTextAdvanced */}
+              <SparklesTextAdvanced 
                 text="Why CRUSH Crushes the Competition" 
-                className="text-4xl md:text-5xl font-bold text-center mb-6"
-                colors={{ first: crushAIColors.primary, second: crushAIColors.secondary }}
+                className="text-4xl md:text-5xl font-bold text-center mb-6 text-white"
+                colors={{ first: "#FFFFFF", second: "#EEEEEE" }}
                 sparklesCount={20}
-                textColor={crushAIColors.text.primary}
               />
             </Box>
             <Typography
