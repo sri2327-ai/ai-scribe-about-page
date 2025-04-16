@@ -1,153 +1,101 @@
-
-"use client";
-
-import { CSSProperties, ReactElement, useEffect, useState } from "react";
-import { motion } from "framer-motion";
-
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useAnimationControls } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface Sparkle {
-  id: string;
-  x: string;
-  y: string;
-  color: string;
-  delay: number;
-  scale: number;
-  lifespan: number;
-}
-
 interface SparklesTextProps {
-  /**
-   * @default <div />
-   * @type ReactElement
-   * @description
-   * The component to be rendered as the text
-   * */
-  as?: ReactElement;
-
-  /**
-   * @default ""
-   * @type string
-   * @description
-   * The className of the text
-   */
-  className?: string;
-
-  /**
-   * @required
-   * @type string
-   * @description
-   * The text to be displayed
-   * */
   text: string;
-
-  /**
-   * @default 10
-   * @type number
-   * @description
-   * The count of sparkles
-   * */
-  sparklesCount?: number;
-
-  /**
-   * @default "{first: '#9E7AFF', second: '#FE8BBB'}"
-   * @type string
-   * @description
-   * The colors of the sparkles
-   * */
+  className?: string;
   colors?: {
     first: string;
     second: string;
   };
+  sparklesCount?: number;
 }
 
-const SparklesText: React.FC<SparklesTextProps> = ({
+export const SparklesText: React.FC<SparklesTextProps> = ({
   text,
-  colors = { first: "#9E7AFF", second: "#FE8BBB" },
   className,
-  sparklesCount = 10,
-  ...props
+  colors = { first: "#FF0080", second: "#7928CA" },
+  sparklesCount = 20,
 }) => {
-  const [sparkles, setSparkles] = useState<Sparkle[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number; size: number; delay: number }>>([]);
+  const controls = useAnimationControls();
 
+  // Generate sparkles with reduced count and better positioning
   useEffect(() => {
-    const generateStar = (): Sparkle => {
-      const starX = `${Math.random() * 100}%`;
-      const starY = `${Math.random() * 100}%`;
-      const color = Math.random() > 0.5 ? colors.first : colors.second;
-      const delay = Math.random() * 2;
-      const scale = Math.random() * 1 + 0.3;
-      const lifespan = Math.random() * 10 + 5;
-      const id = `${starX}-${starY}-${Date.now()}`;
-      return { id, x: starX, y: starY, color, delay, scale, lifespan };
-    };
-
-    const initializeStars = () => {
-      const newSparkles = Array.from({ length: sparklesCount }, generateStar);
+    if (containerRef.current) {
+      const container = containerRef.current;
+      const rect = container.getBoundingClientRect();
+      
+      // Generate sparkles around the text
+      const newSparkles = Array.from({ length: sparklesCount }, (_, i) => ({
+        id: i,
+        // Keep sparkles closer to the text for better readability
+        x: Math.random() * rect.width * 0.8 + rect.width * 0.1,
+        y: Math.random() * rect.height * 0.8 + rect.height * 0.1,
+        size: Math.random() * 4 + 2,
+        delay: Math.random() * 0.5,
+      }));
+      
       setSparkles(newSparkles);
-    };
+    }
+  }, [containerRef, sparklesCount]);
 
-    const updateStars = () => {
-      setSparkles((currentSparkles) =>
-        currentSparkles.map((star) => {
-          if (star.lifespan <= 0) {
-            return generateStar();
-          } else {
-            return { ...star, lifespan: star.lifespan - 0.1 };
-          }
-        }),
-      );
-    };
-
-    initializeStars();
-    const interval = setInterval(updateStars, 100);
-
-    return () => clearInterval(interval);
-  }, [colors.first, colors.second, sparklesCount]);
+  // Create gradient text effect
+  const textVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } },
+  };
 
   return (
-    <div
-      className={cn("text-6xl font-bold", className)}
-      {...props}
-      style={
-        {
-          "--sparkles-first-color": `${colors.first}`,
-          "--sparkles-second-color": `${colors.second}`,
-        } as CSSProperties
-      }
+    <motion.div
+      ref={containerRef}
+      className={cn("relative inline-block", className)}
+      initial="hidden"
+      animate="visible"
+      variants={textVariants}
     >
-      <span className="relative inline-block">
-        {sparkles.map((sparkle) => (
-          <Sparkle key={sparkle.id} {...sparkle} />
-        ))}
-        <strong>{text}</strong>
-      </span>
-    </div>
+      {/* Background sparkles */}
+      {sparkles.map((sparkle) => (
+        <motion.div
+          key={sparkle.id}
+          className="absolute pointer-events-none"
+          style={{
+            top: sparkle.y,
+            left: sparkle.x,
+            width: sparkle.size,
+            height: sparkle.size,
+            borderRadius: "50%",
+            background: sparkle.id % 2 === 0 ? colors.first : colors.second,
+            zIndex: -1,
+          }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 0.8, 0],
+            scale: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2,
+            delay: sparkle.delay,
+            repeat: Infinity,
+            repeatDelay: Math.random() * 4 + 3, // Slower repeats for less distracting animation
+          }}
+        />
+      ))}
+
+      {/* Text with gradient background */}
+      <motion.span
+        className="relative bg-clip-text text-transparent"
+        style={{
+          backgroundImage: `linear-gradient(90deg, ${colors.first}, ${colors.second})`,
+          fontWeight: "inherit",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        {text}
+      </motion.span>
+    </motion.div>
   );
 };
-
-const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
-  return (
-    <motion.svg
-      key={id}
-      className="pointer-events-none absolute z-20"
-      initial={{ opacity: 0, left: x, top: y }}
-      animate={{
-        opacity: [0, 1, 0],
-        scale: [0, scale, 0],
-        rotate: [75, 120, 150],
-      }}
-      transition={{ duration: 0.8, repeat: Infinity, delay }}
-      width="21"
-      height="21"
-      viewBox="0 0 21 21"
-    >
-      <path
-        d="M9.82531 0.843845C10.0553 0.215178 10.9446 0.215178 11.1746 0.843845L11.8618 2.72026C12.4006 4.19229 12.3916 6.39157 13.5 7.5C14.6084 8.60843 16.8077 8.59935 18.2797 9.13822L20.1561 9.82534C20.7858 10.0553 20.7858 10.9447 20.1561 11.1747L18.2797 11.8618C16.8077 12.4007 14.6084 12.3916 13.5 13.5C12.3916 14.6084 12.4006 16.8077 11.8618 18.2798L11.1746 20.1562C10.9446 20.7858 10.0553 20.7858 9.82531 20.1562L9.13819 18.2798C8.59932 16.8077 8.60843 14.6084 7.5 13.5C6.39157 12.3916 4.19225 12.4007 2.72023 11.8618L0.843814 11.1747C0.215148 10.9447 0.215148 10.0553 0.843814 9.82534L2.72023 9.13822C4.19225 8.59935 6.39157 8.60843 7.5 7.5C8.60843 6.39157 8.59932 4.19229 9.13819 2.72026L9.82531 0.843845Z"
-        fill={color}
-      />
-    </motion.svg>
-  );
-};
-
-export { SparklesText };

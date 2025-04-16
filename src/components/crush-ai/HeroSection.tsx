@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
@@ -8,8 +8,12 @@ import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SparklesText } from "@/components/ui/sparkles-text";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export const HeroSection = () => {
+  const muiTheme = useMuiTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+
   const renderLetterPopover = (letter: string, title: string, description: string) => {
     return (
       <Popover>
@@ -17,7 +21,7 @@ export const HeroSection = () => {
           <Box 
             component="span" 
             sx={{ 
-              color: '#000000', 
+              color: crushAIColors.text.primary,
               fontWeight: 900,
               position: 'relative',
               cursor: 'pointer',
@@ -61,11 +65,11 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 8, md: 12 }, 
+        py: { xs: 6, md: 12 }, 
         position: 'relative',
         overflow: 'hidden',
         height: { xs: 'auto', md: '100vh' },
-        minHeight: { xs: '800px', md: '100vh' }
+        minHeight: { xs: 'auto', md: '100vh' }
       }}
     >
       {/* Background Horizontal Scroll */}
@@ -85,14 +89,15 @@ export const HeroSection = () => {
           display: 'flex', 
           flexDirection: { xs: 'column', md: 'row' }, 
           alignItems: 'center', 
-          gap: 4,
+          gap: { xs: 2, md: 4 },
           height: '100%',
           justifyContent: 'center'
         }}>
           <Box 
             sx={{ 
               width: { xs: '100%', md: '50%' },
-              order: { xs: 2, md: 1 }
+              order: { xs: 1, md: 1 },
+              mb: { xs: 4, md: 0 }
             }}
           >
             <Box 
@@ -111,17 +116,17 @@ export const HeroSection = () => {
                   fontSize: { xs: '1.7rem', md: '2.3rem' }, 
                   fontWeight: 800,
                   mb: 2,
-                  color: '#000000',
+                  color: crushAIColors.text.primary,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: '#000000' }}>
+                <Box component="span" sx={{ color: crushAIColors.text.primary }}>
                   <SparklesText 
                     text="C.R.U.S.H"
                     className="text-3xl md:text-4xl font-bold inline-block"
                     colors={{ first: "#0EA5E9", second: "#D946EF" }}
-                    sparklesCount={15}
+                    sparklesCount={7} // Reduced sparkles for better readability
                   />
                   : The AI Medical Scribe That Works for You
                 </Box>
@@ -131,7 +136,7 @@ export const HeroSection = () => {
                 variant="h6" 
                 sx={{ 
                   mb: 4, 
-                  color: '#403E43',
+                  color: crushAIColors.text.secondary,
                   fontSize: { xs: '0.85rem', md: '0.95rem' },
                   fontWeight: 400,
                   lineHeight: 1.5
@@ -154,13 +159,13 @@ export const HeroSection = () => {
           <Box 
             sx={{ 
               width: { xs: '100%', md: '50%' },
-              order: { xs: 1, md: 2 },
+              order: { xs: 2, md: 2 },
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              maxHeight: { xs: '400px', md: '80vh' },
+              maxHeight: { xs: '350px', md: '80vh' },
               px: { xs: 2, md: 0 },
-              mt: { xs: 4, md: 0 }
+              mt: { xs: 0, md: 0 }
             }}
           >
             <Box 
@@ -174,7 +179,7 @@ export const HeroSection = () => {
                 position: 'relative',
                 width: '100%',
                 height: '100%',
-                maxWidth: { xs: '350px', md: '550px' }
+                maxWidth: { xs: '300px', md: '550px' }
               }}
             >
               <AnimatedWorkflow />

@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { 
@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface FeatureCardProps {
   icon: React.ElementType;
@@ -53,6 +55,8 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
 
 export const ClinicalWorkflowSection = () => {
   const [activeTab, setActiveTab] = useState("admin");
+  const muiTheme = useMuiTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
 
   const adminFeatures = [
     {
@@ -110,12 +114,82 @@ export const ClinicalWorkflowSection = () => {
     }
   ];
 
+  // Render functions for desktop and mobile views
+  const renderFeaturesMobile = (features: any[]) => (
+    <Carousel className="w-full">
+      <CarouselContent>
+        {features.map((feature, index) => (
+          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+            <div className="p-1">
+              <Card 
+                icon={feature.icon} 
+                title={feature.title} 
+                description={feature.description} 
+                className="h-full"
+              />
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <div className="flex justify-center mt-4 gap-2">
+        <CarouselPrevious className="relative static left-auto translate-y-0" />
+        <CarouselNext className="relative static right-auto translate-y-0" />
+      </div>
+    </Carousel>
+  );
+
+  const renderFeaturesDesktop = (features: any[]) => (
+    <ContainerScroll
+      titleComponent={
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            fontWeight: 600, 
+            mb: 1,
+            color: "#000",
+            fontSize: { xs: "1.5rem", md: "1.75rem" }
+          }}
+        >
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
+            {activeTab === "admin" ? "Automate Staffing & Cut Admin Work" : "AI Assistance for Physicians – Smarter, More Accurate Decisions"}
+          </span>
+        </Typography>
+      }
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+        {features.map((feature, index) => (
+          <FeatureCard
+            key={index}
+            icon={feature.icon}
+            title={feature.title}
+            description={feature.description}
+            className="h-full"
+          />
+        ))}
+      </div>
+    </ContainerScroll>
+  );
+
+  // Card component for mobile view
+  const Card = ({ icon: Icon, title, description, className }: FeatureCardProps) => (
+    <div className={cn(
+      "flex flex-col p-6 border border-black/10 rounded-xl shadow-sm bg-white",
+      className
+    )}>
+      <div className="bg-black/5 w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+        <Icon size={24} className="text-black stroke-[1.5]" />
+      </div>
+      <h3 className="text-lg font-semibold mb-2">{title}</h3>
+      <p className="text-sm text-gray-700">{description}</p>
+    </div>
+  );
+
   return (
     <Box
       component="section"
       sx={{
         py: { xs: 4, md: 6 },
-        bgcolor: "#ffffff",
+        bgcolor: crushAIColors.background.white,
         position: "relative",
         overflow: "hidden"
       }}
@@ -133,9 +207,9 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 3,
-                color: "#000000",
+                color: crushAIColors.text.primary,
                 textAlign: "center",
-                fontSize: { xs: "2rem", sm: "2.5rem", md: "2.75rem" },
+                fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
               }}
             >
               More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
@@ -155,7 +229,7 @@ export const ClinicalWorkflowSection = () => {
                 maxWidth: "800px",
                 mx: "auto",
                 lineHeight: 1.8,
-                fontSize: { xs: "1rem", md: "1.1rem" }
+                fontSize: { xs: "0.95rem", md: "1.1rem" }
               }}
             >
               CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, 
@@ -171,79 +245,29 @@ export const ClinicalWorkflowSection = () => {
                 value="admin" 
                 className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
               >
-                Automate Staffing & Admin Work
+                {isMobile ? "Admin" : "Automate Staffing & Admin Work"}
               </TabsTrigger>
               <TabsTrigger 
                 value="clinical" 
                 className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-black data-[state=active]:text-white hover:bg-black/10"
               >
-                AI Assistance for Physicians
+                {isMobile ? "Clinical" : "AI Assistance for Physicians"}
               </TabsTrigger>
             </TabsList>
           </Box>
           
           <TabsContent value="admin" className="mt-0">
-            <ContainerScroll
-              titleComponent={
-                <Typography 
-                  variant="h4" 
-                  sx={{ 
-                    fontWeight: 600, 
-                    mb: 1,
-                    color: "#000",
-                    fontSize: { xs: "1.5rem", md: "1.75rem" }
-                  }}
-                >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
-                    Automate Staffing & Cut Admin Work
-                  </span>
-                </Typography>
-              }
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-                {adminFeatures.map((feature, index) => (
-                  <FeatureCard
-                    key={index}
-                    icon={feature.icon}
-                    title={feature.title}
-                    description={feature.description}
-                    className="h-full"
-                  />
-                ))}
-              </div>
-            </ContainerScroll>
+            {isMobile 
+              ? renderFeaturesMobile(adminFeatures) 
+              : renderFeaturesDesktop(adminFeatures)
+            }
           </TabsContent>
           
           <TabsContent value="clinical" className="mt-0">
-            <ContainerScroll
-              titleComponent={
-                <Typography 
-                  variant="h4" 
-                  sx={{ 
-                    fontWeight: 600, 
-                    mb: 1,
-                    color: "#000",
-                    fontSize: { xs: "1.5rem", md: "1.75rem" }
-                  }}
-                >
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-black to-gray-700">
-                    AI Assistance for Physicians – Smarter, More Accurate Decisions
-                  </span>
-                </Typography>
-              }
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-                {clinicalFeatures.map((feature, index) => (
-                  <FeatureCard
-                    key={index}
-                    icon={feature.icon}
-                    title={feature.title}
-                    description={feature.description}
-                    className="h-full"
-                  />
-                ))}
-              </div>
-            </ContainerScroll>
+            {isMobile 
+              ? renderFeaturesMobile(clinicalFeatures) 
+              : renderFeaturesDesktop(clinicalFeatures)
+            }
           </TabsContent>
         </Tabs>
       </Container>

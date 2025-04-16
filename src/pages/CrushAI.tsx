@@ -14,6 +14,7 @@ import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGen
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const CrushAI = () => {
   return (
@@ -44,7 +45,7 @@ const CrushAI = () => {
         component="section"
         sx={{
           py: 8,
-          bgcolor: "#f5f9ff",
+          bgcolor: crushAIColors.background.light,
           textAlign: "center"
         }}
       >
@@ -55,7 +56,7 @@ const CrushAI = () => {
               fontSize: { xs: "1.75rem", md: "2.25rem" },
               fontWeight: 700,
               mb: 3,
-              color: "#000000"
+              color: crushAIColors.text.primary
             }}
           >
             CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
