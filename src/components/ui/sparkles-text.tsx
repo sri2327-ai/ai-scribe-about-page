@@ -11,6 +11,7 @@ interface SparklesTextProps {
     second: string;
   };
   sparklesCount?: number;
+  textColor?: string;
 }
 
 export const SparklesText: React.FC<SparklesTextProps> = ({
@@ -18,6 +19,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
   className,
   colors = { first: "#FF0080", second: "#7928CA" },
   sparklesCount = 20,
+  textColor = "black"
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number; size: number; delay: number }>>([]);
@@ -34,7 +36,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
         id: i,
         x: Math.random() * rect.width,
         y: Math.random() * rect.height,
-        size: Math.random() * 4 + 1,
+        size: Math.random() * 3 + 1,
         delay: Math.random() * 0.5,
       }));
       
@@ -72,7 +74,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
           }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{
-            opacity: [0, 0.7, 0],
+            opacity: [0, 0.8, 0],
             scale: [0, 1, 0],
           }}
           transition={{
@@ -84,11 +86,11 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
         />
       ))}
 
-      {/* Text with gradient background */}
+      {/* Text */}
       <motion.span
-        className="relative bg-clip-text text-transparent"
+        className="relative"
         style={{
-          backgroundImage: `linear-gradient(90deg, ${colors.first}, ${colors.second})`,
+          color: textColor,
           fontWeight: "inherit",
           position: "relative",
           zIndex: 1,

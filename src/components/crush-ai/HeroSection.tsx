@@ -13,6 +13,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
   const renderLetterPopover = (letter: string, title: string, description: string) => {
     return (
@@ -65,12 +66,12 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 8, md: 12 }, // Increased top padding for mobile
+        py: { xs: 10, sm: 12, md: 12 }, // Increased top padding for mobile and tablet
         position: 'relative',
         overflow: 'hidden',
         height: { xs: 'auto', md: '100vh' },
         minHeight: { xs: 'auto', md: '100vh' },
-        mt: { xs: 2, md: 0 } // Added top margin on mobile to give space from header
+        mt: { xs: 4, sm: 4, md: 0 } // Added more top margin on mobile/tablet to give space from header
       }}
     >
       {/* Background Tilted Scroll with increased opacity */}
@@ -79,8 +80,8 @@ export const HeroSection = () => {
           position: 'absolute',
           inset: 0,
           zIndex: 0,
-          opacity: 0.35, // Increased opacity to 0.35 as requested
-          display: { xs: 'block', md: 'block' } // Show on all devices
+          opacity: 0.35, // Opacity set to 0.35 as requested
+          display: { xs: 'block', sm: 'block', md: 'block' } // Show on all devices
         }}
       >
         <TiltedScroll />
@@ -91,7 +92,7 @@ export const HeroSection = () => {
           display: 'flex', 
           flexDirection: { xs: 'column', md: 'row' }, 
           alignItems: 'center', 
-          gap: { xs: 4, md: 4 }, // Increased gap on mobile
+          gap: { xs: 4, md: 4 }, 
           height: '100%',
           justifyContent: 'center'
         }}>
@@ -100,7 +101,7 @@ export const HeroSection = () => {
               width: { xs: '100%', md: '50%' },
               order: { xs: 1, md: 1 },
               mb: { xs: 4, md: 0 },
-              textAlign: { xs: 'center', md: 'left' }
+              textAlign: { xs: 'center', md: 'left' } // Center align on mobile/tablet
             }}
           >
             <Box 
@@ -128,7 +129,8 @@ export const HeroSection = () => {
                     text="C.R.U.S.H"
                     className="text-3xl md:text-4xl font-bold inline-block"
                     colors={{ first: "#0EA5E9", second: "#D946EF" }}
-                    sparklesCount={15} // Reverted to original settings
+                    sparklesCount={15}
+                    textColor="black"
                   />
                   : The AI Medical Scribe That Works for You
                 </Box>
@@ -182,7 +184,7 @@ export const HeroSection = () => {
               alignItems: 'center',
               maxHeight: { xs: '320px', md: '80vh' },
               px: { xs: 2, md: 0 },
-              mt: { xs: 2, md: 0 } // Added more space on mobile
+              mt: { xs: 3, md: 0 } // Added more space on mobile
             }}
           >
             <Box 

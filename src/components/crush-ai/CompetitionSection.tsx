@@ -89,6 +89,7 @@ export const CompetitionSection = () => {
               className="text-4xl md:text-5xl font-bold text-center mb-6"
               colors={{ first: "#0EA5E9", second: "#1EAEDB" }}
               sparklesCount={20}
+              textColor="black"
             />
           </Box>
           <Typography
