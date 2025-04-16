@@ -4,39 +4,14 @@ import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Sparkles } from "@/components/ui/sparkles";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
-import { 
-  Tooltip, 
-  TooltipContent, 
-  TooltipProvider, 
-  TooltipTrigger 
-} from "@/components/ui/tooltip";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import ShootingStars from "@/components/ui/shooting-stars";
+import VoiceWaves from "@/components/ui/voice-waves";
 
 export const HeroSection = () => {
-  // Auto-trigger the first tooltip to show users they can hover
-  const [showTooltipHint, setShowTooltipHint] = useState(false);
-  
-  useEffect(() => {
-    // Show the tooltip hint after the page loads
-    const timer = setTimeout(() => {
-      setShowTooltipHint(true);
-    }, 1500);
-    
-    const hideTimer = setTimeout(() => {
-      setShowTooltipHint(false);
-    }, 4000);
-    
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(hideTimer);
-    };
-  }, []);
-
-  const renderLetterPopover = (letter: string, title: string, description: string, isFirst: boolean = false) => {
+  const renderLetterPopover = (letter: string, title: string, description: string) => {
     return (
       <Popover>
         <PopoverTrigger asChild>
@@ -56,48 +31,6 @@ export const HeroSection = () => {
               }
             }}
           >
-            {isFirst ? (
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Box 
-                      sx={{
-                        position: 'absolute',
-                        top: '-30px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        zIndex: 10,
-                        animation: 'pulse 2s infinite',
-                        '@keyframes pulse': {
-                          '0%': { opacity: 0.5, transform: 'translateX(-50%) scale(0.95)' },
-                          '50%': { opacity: 1, transform: 'translateX(-50%) scale(1.05)' },
-                          '100%': { opacity: 0.5, transform: 'translateX(-50%) scale(0.95)' },
-                        }
-                      }}
-                    >
-                      <Heart 
-                        size={22} 
-                        fill="#000000" 
-                        stroke="#000000" 
-                        className="hover:scale-110 transition-transform"
-                      />
-                    </Box>
-                  </TooltipTrigger>
-                  <TooltipContent 
-                    side="top"
-                    className="bg-black/75 backdrop-blur-md border-none text-white"
-                    style={{
-                      borderRadius: '10px',
-                      padding: '10px',
-                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)'
-                    }}
-                  >
-                    Hover to explore CRUSH details
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            ) : null}
             <strong>{letter}</strong>
           </Box>
         </PopoverTrigger>
@@ -135,12 +68,10 @@ export const HeroSection = () => {
         height: { xs: 'auto', md: '100vh' }
       }}
     >
-      {/* Voice Animation Background Effect */}
+      {/* Voice Waves Animation Background Effect */}
       <div className="absolute inset-0 z-0 opacity-20">
-        <ShootingStars 
-          starCount={30}
+        <VoiceWaves 
           colors={["#2EB9DF", "#D946EF", "#2EB9DF"]}
-          interactive={false}
         />
       </div>
       
@@ -192,7 +123,7 @@ export const HeroSection = () => {
                 }}
               >
                 <Box component="span" sx={{ color: '#000000' }}>
-                  {renderLetterPopover('C', 'Customizable', 'Tailor the AI scribe to your specialty and workflow needs', true)}
+                  {renderLetterPopover('C', 'Customizable', 'Tailor the AI scribe to your specialty and workflow needs')}
                   .
                   {renderLetterPopover('R', 'Real-time EHR Integration', 'Seamlessly connects with your existing electronic health record system')}
                   .
