@@ -92,11 +92,19 @@ const CrushAI = () => {
         </Box>
       </WaveBackground>
       
-      <ClinicianTestimonialsSection />
+      <GradientSection 
+        variant="radial"
+        intensity="light"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
+      >
+        <ClinicianTestimonialsSection />
+      </GradientSection>
       
       <WorkflowAutomationSection />
       
-      <ROICalculatorSection />
+      <WaveBackground baseColor={crushAIColors.secondary} intensity="light">
+        <ROICalculatorSection />
+      </WaveBackground>
     </Box>
   );
 };

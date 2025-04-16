@@ -40,13 +40,13 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.99, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.99, 1]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
   
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["99%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["99%", "100%"]);
-  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["0.75rem", "0rem"]);
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
+  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -160,20 +160,18 @@ export const ROICalculatorSection = () => {
           sx={{ 
             position: "relative", 
             zIndex: 5, 
-            py: { xs: 6, md: 8 },
+            py: { xs: 4, md: 6 },
             px: { xs: 2, md: 4 },
             height: "100%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            overflow: "auto",
           }}
         >
           <Box sx={{ 
-            mb: { xs: 4, md: 5 }, 
+            mb: { xs: 3, md: 5 }, 
             textAlign: "center", 
-            width: "100%",
-            pt: { xs: 2, md: 0 },
+            width: "100%"
           }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -188,9 +186,7 @@ export const ROICalculatorSection = () => {
                   fontWeight: 700, 
                   mb: 2,
                   fontSize: { xs: "1.75rem", md: "2.5rem" },
-                  color: crushAIColors.primary,
-                  width: "100%",
-                  overflowWrap: "break-word",
+                  color: crushAIColors.primary
                 }}
               >
                 Save $1,800+/month per provider. Automate Notes with AI.
@@ -200,7 +196,7 @@ export const ROICalculatorSection = () => {
                 variant="body1" 
                 sx={{
                   color: crushAIColors.text.secondary,
-                  mb: 2,
+                  mb: 4,
                   maxWidth: "700px",
                   mx: "auto",
                   fontSize: { xs: "1rem", md: "1.1rem" }
@@ -219,7 +215,7 @@ export const ROICalculatorSection = () => {
             style={{ 
               scale: cardScale,
               opacity: cardOpacity,
-              width: "100%",
+              width: "100%"
             }}
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start"
           >

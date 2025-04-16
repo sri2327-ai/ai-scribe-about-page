@@ -10,7 +10,6 @@ import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
 import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { Box } from "@mui/material";
 
 export interface Testimonial {
   id: number
@@ -48,7 +47,6 @@ export function ClinicianTestimonialsSection({
 
   // Refs for scroll animations
   const sectionRef = useRef(null)
-  const containerRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
   const controls = useAnimation()
   
@@ -59,16 +57,10 @@ export function ClinicianTestimonialsSection({
   })
   
   // Transform scroll progress to different values for various animations
-  const cardScale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1])
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.7, 1])
-  const titleY = useTransform(scrollYProgress, [0, 0.3], [20, 0])
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1])
-
-  // Container animation properties for sticky scroll effect
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["99%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["99%", "100%"]);
-  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1rem", "0rem"]);
-  const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1])
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
+  const titleY = useTransform(scrollYProgress, [0, 0.3], [50, 0])
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1])
 
   // Automatically cycle through testimonials
   useEffect(() => {
@@ -126,246 +118,207 @@ export function ClinicianTestimonialsSection({
   }
 
   return (
-    <Box
-      component="section"
+    <section
       ref={sectionRef}
       id="testimonials-alt"
-      className="py-0 md:py-0 relative overflow-hidden flex justify-center text-black min-h-screen"
-      sx={{
-        position: "relative",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      className={cn("py-16 md:py-24 relative overflow-hidden flex justify-center bg-white text-black", className)}
     >
-      {/* Gradient background that fades out on scroll */}
-      <motion.div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          background: `linear-gradient(135deg, 
-            ${crushAIColors.primary}, 
-            ${crushAIColors.secondary}, 
-            ${crushAIColors.tertiary})`,
-          opacity: containerBgOpacity,
-        }}
-      />
+      <div className="absolute inset-0 border-b border-black/10 z-0"></div>
       
-      {/* Main container with scroll animation */}
-      <motion.div
-        ref={containerRef}
-        className="overflow-hidden shadow-lg z-10"
-        style={{
-          width: containerWidth,
-          height: containerHeight,
-          borderRadius: containerBorderRadius,
-          backgroundColor: "#ffffff",
-          boxShadow: "0 10px 30px rgba(0, 0, 0, 0.05)",
-          position: "absolute",
-          inset: 0,
-          margin: "auto",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <div className="w-full items-center px-4 md:px-6 relative z-10 py-8 md:py-12">
-          <div className="absolute inset-0 border-b border-black/10 z-0"></div>
-          
-          <motion.div
-            style={{ y: titleY, opacity: titleOpacity }}
-            className="text-center mb-12 space-y-4"
+      <div className="container items-center px-4 md:px-6 relative z-10">
+        <motion.div
+          style={{ y: titleY, opacity: titleOpacity }}
+          className="text-center mb-12 space-y-4"
+        >
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+            style={{ color: crushAIColors.primary }}
           >
-            <motion.h2 
-              variants={itemVariants} 
-              className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
-              style={{ color: crushAIColors.primary }}
-            >
-              {title}
-            </motion.h2>
-            <motion.p 
-              variants={itemVariants} 
-              className="max-w-[700px] mx-auto md:text-xl/relaxed"
-              style={{ color: crushAIColors.text.secondary }}
-            >
-              {subtitle}
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            animate={controls}
-            variants={containerVariants}
-            className="md:grid md:grid-cols-[1fr_auto] gap-8 items-center max-w-[1200px] mx-auto"
+            {title}
+          </motion.h2>
+          <motion.p 
+            variants={itemVariants} 
+            className="max-w-[700px] mx-auto md:text-xl/relaxed"
+            style={{ color: crushAIColors.text.secondary }}
           >
-            <motion.div 
-              variants={itemVariants} 
-              style={{ scale: cardScale, opacity: cardOpacity }}
-              className="relative"
-            >
-              <div className="absolute -top-6 -left-6 z-10">
-                <Quote className="h-12 w-12" style={{ color: `${crushAIColors.tertiary}33` }} strokeWidth={1} />
-              </div>
+            {subtitle}
+          </motion.p>
+        </motion.div>
 
-              {/* Testimonial cards */}
-              <div className="relative h-[320px] md:h-[280px]">
-                {testimonials.map((testimonial, index) => (
-                  <Card
-                    key={testimonial.id}
-                    className={cn(
-                      "absolute inset-0 transition-all duration-500 border",
-                      index === activeIndex
-                        ? "opacity-100 translate-x-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]"
-                        : "opacity-0 translate-x-[100px] pointer-events-none",
-                    )}
-                    style={{ 
-                      borderColor: index === activeIndex ? `${crushAIColors.tertiary}33` : 'transparent'
-                    }}
-                  >
-                    <CardContent className="p-6 md:p-8 h-full flex flex-col">
-                      <div className="flex justify-between items-start mb-4">
-                        <div className="flex items-center gap-4">
-                          <Avatar className="h-12 w-12 border-2" style={{ borderColor: `${crushAIColors.tertiary}33` }}>
-                            <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                            <AvatarFallback 
-                              className="text-white"
-                              style={{ backgroundColor: crushAIColors.primary }}
-                            >
-                              {testimonial.name.charAt(0)}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="text-left">
-                            <h4 
-                              className="font-semibold"
-                              style={{ color: crushAIColors.text.primary }}
-                            >
-                              {testimonial.name}
-                            </h4>
-                            <p 
-                              className="text-sm"
-                              style={{ color: crushAIColors.text.secondary }}
-                            >
-                              {testimonial.role}, {testimonial.company}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex">
-                          {[...Array(testimonial.rating)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
-                          ))}
+        <motion.div
+          initial="hidden"
+          animate={controls}
+          variants={containerVariants}
+          className="md:grid md:grid-cols-[1fr_auto] gap-8 items-center max-w-[1200px] mx-auto"
+        >
+          <motion.div 
+            variants={itemVariants} 
+            style={{ scale: cardScale, opacity: cardOpacity }}
+            className="relative"
+          >
+            <div className="absolute -top-6 -left-6 z-10">
+              <Quote className="h-12 w-12" style={{ color: `${crushAIColors.tertiary}33` }} strokeWidth={1} />
+            </div>
+
+            {/* Testimonial cards */}
+            <div className="relative h-[320px] md:h-[280px]">
+              {testimonials.map((testimonial, index) => (
+                <Card
+                  key={testimonial.id}
+                  className={cn(
+                    "absolute inset-0 transition-all duration-500 border",
+                    index === activeIndex
+                      ? "opacity-100 translate-x-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]"
+                      : "opacity-0 translate-x-[100px] pointer-events-none",
+                  )}
+                  style={{ 
+                    borderColor: index === activeIndex ? `${crushAIColors.tertiary}33` : 'transparent'
+                  }}
+                >
+                  <CardContent className="p-6 md:p-8 h-full flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex items-center gap-4">
+                        <Avatar className="h-12 w-12 border-2" style={{ borderColor: `${crushAIColors.tertiary}33` }}>
+                          <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
+                          <AvatarFallback 
+                            className="text-white"
+                            style={{ backgroundColor: crushAIColors.primary }}
+                          >
+                            {testimonial.name.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="text-left">
+                          <h4 
+                            className="font-semibold"
+                            style={{ color: crushAIColors.text.primary }}
+                          >
+                            {testimonial.name}
+                          </h4>
+                          <p 
+                            className="text-sm"
+                            style={{ color: crushAIColors.text.secondary }}
+                          >
+                            {testimonial.role}, {testimonial.company}
+                          </p>
                         </div>
                       </div>
+                      <div className="flex">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                        ))}
+                      </div>
+                    </div>
 
-                      <Separator className="my-4" style={{ backgroundColor: `${crushAIColors.tertiary}33` }} />
+                    <Separator className="my-4" style={{ backgroundColor: `${crushAIColors.tertiary}33` }} />
 
-                      <p 
-                        className="flex-1 italic text-base/relaxed"
-                        style={{ color: crushAIColors.text.secondary }}
+                    <p 
+                      className="flex-1 italic text-base/relaxed"
+                      style={{ color: crushAIColors.text.secondary }}
+                    >
+                      "{testimonial.content}"
+                    </p>
+
+                    {showVerifiedBadge && (
+                      <div 
+                        className="mt-4 text-xs text-right"
+                        style={{ color: crushAIColors.text.light }}
                       >
-                        "{testimonial.content}"
-                      </p>
-
-                      {showVerifiedBadge && (
-                        <div 
-                          className="mt-4 text-xs text-right"
-                          style={{ color: crushAIColors.text.light }}
-                        >
-                          Verified Healthcare Provider
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Navigation buttons */}
-            <motion.div variants={itemVariants} className="flex md:flex-col gap-4 justify-center mt-8 md:mt-0">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={handlePrev}
-                className="rounded-full h-10 w-10 hover:border-black/30"
-                style={{ 
-                  borderColor: `${crushAIColors.primary}33`,
-                  backgroundColor: "white"
-                }}
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
-              </Button>
-
-              <div className="flex md:flex-col gap-2 items-center justify-center">
-                {testimonials.map((_, index) => (
-                  <div
-                    key={index}
-                    className={cn(
-                      "w-2 h-2 rounded-full transition-colors",
-                      index === activeIndex ? "" : "",
+                        Verified Healthcare Provider
+                      </div>
                     )}
-                    style={{ 
-                      backgroundColor: index === activeIndex 
-                        ? crushAIColors.primary 
-                        : `${crushAIColors.tertiary}33`
-                    }}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setActiveIndex(index)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        setActiveIndex(index)
-                      }
-                    }}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                  />
-                ))}
-              </div>
-
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={handleNext}
-                className="rounded-full h-10 w-10 hover:border-black/30"
-                style={{ 
-                  borderColor: `${crushAIColors.primary}33`,
-                  backgroundColor: "white"
-                }}
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
-              </Button>
-            </motion.div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </motion.div>
 
-          {/* Logo cloud */}
-          {trustedCompanies.length > 0 && (
-            <motion.div 
-              variants={itemVariants} 
-              className="mt-20 pt-10 border-t" 
-              style={{ borderColor: `${crushAIColors.tertiary}33` }}
+          {/* Navigation buttons */}
+          <motion.div variants={itemVariants} className="flex md:flex-col gap-4 justify-center mt-8 md:mt-0">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handlePrev}
+              className="rounded-full h-10 w-10 hover:border-black/30"
+              style={{ 
+                borderColor: `${crushAIColors.primary}33`,
+                backgroundColor: "white"
+              }}
+              aria-label="Previous testimonial"
             >
-              <h3 
-                className="text-sm font-medium text-center mb-8"
-                style={{ color: crushAIColors.text.light }}
-              >
-                {trustedCompaniesTitle}
-              </h3>
-              <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
-                {trustedCompanies.map((company) => (
-                  <div 
-                    key={company} 
-                    className="text-2xl font-semibold"
-                    style={{ color: `${crushAIColors.text.light}80` }}
-                  >
-                    {company}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </div>
-      </motion.div>
-    </Box>
+              <ChevronLeft className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
+            </Button>
+
+            <div className="flex md:flex-col gap-2 items-center justify-center">
+              {testimonials.map((_, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-colors",
+                    index === activeIndex ? "" : "",
+                  )}
+                  style={{ 
+                    backgroundColor: index === activeIndex 
+                      ? crushAIColors.primary 
+                      : `${crushAIColors.tertiary}33`
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setActiveIndex(index)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      setActiveIndex(index)
+                    }
+                  }}
+                  aria-label={`Go to testimonial ${index + 1}`}
+                />
+              ))}
+            </div>
+
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleNext}
+              className="rounded-full h-10 w-10 hover:border-black/30"
+              style={{ 
+                borderColor: `${crushAIColors.primary}33`,
+                backgroundColor: "white"
+              }}
+              aria-label="Next testimonial"
+            >
+              <ChevronRight className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
+            </Button>
+          </motion.div>
+        </motion.div>
+
+        {/* Logo cloud */}
+        {trustedCompanies.length > 0 && (
+          <motion.div 
+            variants={itemVariants} 
+            className="mt-20 pt-10 border-t" 
+            style={{ borderColor: `${crushAIColors.tertiary}33` }}
+          >
+            <h3 
+              className="text-sm font-medium text-center mb-8"
+              style={{ color: crushAIColors.text.light }}
+            >
+              {trustedCompaniesTitle}
+            </h3>
+            <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
+              {trustedCompanies.map((company) => (
+                <div 
+                  key={company} 
+                  className="text-2xl font-semibold"
+                  style={{ color: `${crushAIColors.text.light}80` }}
+                >
+                  {company}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </section>
   )
 }
 
