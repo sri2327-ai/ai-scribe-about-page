@@ -1,7 +1,8 @@
+
 import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { CheckCircle, XCircle, Trophy, ChevronRight } from "lucide-react";
+import { CheckCircle, XCircle, Trophy, ChevronRight, FilePlus, Copy, Import, Users } from "lucide-react";
 import { SparklesText } from "@/components/ui/sparkles-text";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
