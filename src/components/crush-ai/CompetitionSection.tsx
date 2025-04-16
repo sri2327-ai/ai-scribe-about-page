@@ -3,7 +3,6 @@ import React from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { MagicStarEffect } from "@/components/ui/magic-star-effect";
 import { ChemicalBurnEffect } from "@/components/ui/chemical-burn-effect";
 
 export const CompetitionSection = () => {
@@ -51,21 +50,19 @@ export const CompetitionSection = () => {
             mb: 6
           }}
         >
-          <MagicStarEffect color="white" count={30}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                fontSize: { xs: '1.75rem', md: '2.75rem' },
-                fontWeight: 800,
-                mb: 3,
-                color: crushAIColors.text.primary,
-                position: 'relative',
-                display: 'inline-block'
-              }}
-            >
-              Why CRUSH Crushes the Competition
-            </Typography>
-          </MagicStarEffect>
+          <Typography 
+            variant="h2" 
+            sx={{ 
+              fontSize: { xs: '1.75rem', md: '2.75rem' },
+              fontWeight: 800,
+              mb: 3,
+              color: crushAIColors.text.primary,
+              position: 'relative',
+              display: 'inline-block'
+            }}
+          >
+            Why CRUSH Crushes the Competition
+          </Typography>
           
           <Typography 
             variant="body1" 

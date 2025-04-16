@@ -11,6 +11,7 @@ import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowS
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
+import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
@@ -97,7 +98,8 @@ const CrushAI = () => {
         <ROICalculatorSection />
       </WaveBackground>
 
-      {/* Removed TestimonialsBenefitsSection as requested */}
+      {/* Re-adding the TestimonialsBenefitsSection as requested */}
+      <TestimonialsBenefitsSection />
     </Box>
   );
 };
