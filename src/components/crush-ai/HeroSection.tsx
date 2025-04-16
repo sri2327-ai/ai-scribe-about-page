@@ -11,7 +11,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
   const renderLetterPopover = (letter: string, title: string, description: string) => {
@@ -65,44 +65,41 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 12, sm: 14, md: 16 }, // Increased top padding for mobile and tablet
+        py: { xs: 6, sm: 10, md: 16 }, // Reduced padding for mobile
         position: 'relative',
         overflow: 'hidden',
-        height: { xs: 'auto', md: '100vh' },
-        minHeight: { xs: 'auto', md: '100vh' },
-        mt: { xs: 8, sm: 10, md: 0 } // Added more top margin on mobile/tablet to give space from header
+        height: 'auto', // Changed to auto for all screen sizes
+        minHeight: { xs: 'auto', md: '90vh' }, // Reduced minimum height
+        mt: { xs: 6, sm: 8, md: 0 } // Added more top margin for mobile
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', md: 'row' }, 
-          alignItems: 'center', 
-          gap: { xs: 8, md: 4 }, // Increased gap on mobile to prevent overlap
-          height: '100%',
-          justifyContent: 'center'
-        }}>
-          <Box 
-            sx={{ 
-              width: { xs: '100%', md: '50%' },
-              order: { xs: 1, md: 1 },
-              mb: { xs: 4, md: 0 },
-              textAlign: { xs: 'center', md: 'left' } // Center align on mobile/tablet
-            }}
-          >
+        {/* Mobile/Tablet Layout: Stack Vertically with Text First, Animation Second */}
+        {(isMobile || isTablet) && (
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center',
+            gap: 6,
+            mb: 4
+          }}>
+            {/* Text Section */}
             <Box 
               component={motion.div}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               sx={{ 
-                pr: { md: 4 }
+                width: '100%',
+                px: { xs: 2, sm: 4 }
               }}
             >
               <Typography 
                 variant="h1" 
                 sx={{ 
-                  fontSize: { xs: '1.7rem', md: '2.3rem' }, 
+                  fontSize: { xs: '1.7rem', sm: '2rem' }, 
                   fontWeight: 800,
                   mb: 2,
                   color: crushAIColors.text.primary,
@@ -127,7 +124,7 @@ export const HeroSection = () => {
                 sx={{ 
                   mb: 4, 
                   color: crushAIColors.text.secondary,
-                  fontSize: { xs: '0.85rem', md: '0.95rem' },
+                  fontSize: { xs: '0.85rem', sm: '0.95rem' },
                   fontWeight: 400,
                   lineHeight: 1.5
                 }}
@@ -144,38 +141,139 @@ export const HeroSection = () => {
                 REQUEST A DEMO
               </ShadcnButton>
             </Box>
-          </Box>
-          
-          <Box 
-            sx={{ 
-              width: { xs: '100%', md: '50%' },
-              order: { xs: 2, md: 2 },
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              maxHeight: { xs: '280px', sm: '320px', md: '80vh' }, // Reduced height on mobile to prevent overlap
-              px: { xs: 2, md: 0 },
-              mt: { xs: 0, md: 0 } // Adjusted margin to prevent overlap with text section
-            }}
-          >
+
+            {/* Animation Section - Now completely separate from text */}
             <Box 
-              component={motion.div}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
               sx={{ 
+                width: '100%',
                 display: 'flex',
                 justifyContent: 'center',
-                position: 'relative',
-                width: '100%',
-                height: '100%',
-                maxWidth: { xs: '280px', sm: '320px', md: '550px' } // Reduced max width on mobile
+                alignItems: 'center',
+                height: { xs: '300px', sm: '350px' }, // Fixed height for mobile
+                maxWidth: { xs: '320px', sm: '400px' }, // Controlled width
+                mx: 'auto' // Center it
               }}
             >
-              <AnimatedWorkflow />
+              <Box 
+                component={motion.div}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                sx={{ 
+                  display: 'flex',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%'
+                }}
+              >
+                <AnimatedWorkflow />
+              </Box>
             </Box>
           </Box>
-        </Box>
+        )}
+
+        {/* Desktop Layout: Side by Side */}
+        {!isMobile && !isTablet && (
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'row', 
+            alignItems: 'center', 
+            gap: 4,
+            height: '100%',
+            justifyContent: 'center'
+          }}>
+            <Box 
+              sx={{ 
+                width: '50%',
+                mb: 0,
+                textAlign: 'left'
+              }}
+            >
+              <Box 
+                component={motion.div}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                sx={{ 
+                  pr: 4
+                }}
+              >
+                <Typography 
+                  variant="h1" 
+                  sx={{ 
+                    fontSize: '2.3rem', 
+                    fontWeight: 800,
+                    mb: 2,
+                    color: crushAIColors.text.primary,
+                    letterSpacing: '-0.02em',
+                    lineHeight: 1.1
+                  }}
+                >
+                  <Box component="span" sx={{ color: "black" }}>
+                    <SparklesText 
+                      text="C.R.U.S.H"
+                      className="text-4xl font-bold inline-block"
+                      colors={{ first: "#0EA5E9", second: "#D946EF" }}
+                      sparklesCount={15}
+                      textColor="black"
+                    />
+                    : The AI Medical Scribe That Works for You
+                  </Box>
+                </Typography>
+
+                <Typography 
+                  variant="h6" 
+                  sx={{ 
+                    mb: 4, 
+                    color: crushAIColors.text.secondary,
+                    fontSize: '0.95rem',
+                    fontWeight: 400,
+                    lineHeight: 1.5
+                  }}
+                >
+                  AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
+                  Workflows—So You Can Focus on Patient Care!
+                </Typography>
+
+                <ShadcnButton 
+                  size="lg" 
+                  className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                >
+                  <ArrowRight size={16} className="mr-2" />
+                  REQUEST A DEMO
+                </ShadcnButton>
+              </Box>
+            </Box>
+            
+            <Box 
+              sx={{ 
+                width: '50%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                maxHeight: '80vh'
+              }}
+            >
+              <Box 
+                component={motion.div}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                sx={{ 
+                  display: 'flex',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: '550px'
+                }}
+              >
+                <AnimatedWorkflow />
+              </Box>
+            </Box>
+          </Box>
+        )}
       </Container>
     </Box>
   );

@@ -22,8 +22,8 @@ export const WorkflowAutomationSection = () => {
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
-      // Clamp the value between 5 and 95 to prevent disappearing at the edges
-      setSliderPosition(Math.min(Math.max(latest, 5), 95));
+      // Clamp the value between 10 and 90 to ensure the slider never disappears at edges
+      setSliderPosition(Math.min(Math.max(latest, 10), 90));
     });
     
     return () => unsubscribe();
@@ -37,10 +37,10 @@ export const WorkflowAutomationSection = () => {
     setIsDragging(false);
     
     // Prevent the slider from getting too close to the edges
-    if (sliderPosition < 10) {
-      animate(x, -140, { duration: 0.3 }); // This will set sliderPosition to ~10%
-    } else if (sliderPosition > 90) {
-      animate(x, 140, { duration: 0.3 }); // This will set sliderPosition to ~90%
+    if (sliderPosition < 20) {
+      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~20%
+    } else if (sliderPosition > 80) {
+      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~80%
     }
   };
   
@@ -60,8 +60,8 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
-    // Clamp the value between 5 and 95 to prevent disappearing at the edges
-    setSliderPosition(Math.max(5, Math.min(95, position)));
+    // Clamp the value between 10 and 90 to ensure the slider is always visible
+    setSliderPosition(Math.max(10, Math.min(90, position)));
   };
 
   return (
@@ -205,7 +205,7 @@ export const WorkflowAutomationSection = () => {
                       ))}
                     </div>
                     {/* Increased the size of the invisible touch target */}
-                    <div className="absolute w-16 h-16 rounded-full touch-none"></div>
+                    <div className="absolute w-16 h-16 rounded-full touch-none cursor-grab"></div>
                   </div>
                 </motion.div>
                 
