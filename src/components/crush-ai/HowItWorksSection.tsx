@@ -3,6 +3,8 @@ import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload, ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import rippleStyles from "@/styles/RippleEffect.module.css";
+import { Button as ShadcnButton } from "@/components/ui/button";
 
 const steps = [
   {
@@ -462,6 +464,12 @@ export const HowItWorksSection = () => {
         overflow: "hidden"
       }}
     >
+      <div className={rippleStyles.rippleBackground}>
+        <div className={rippleStyles.ripple}></div>
+        <div className={rippleStyles.ripple}></div>
+        <div className={rippleStyles.ripple}></div>
+      </div>
+      
       <Container maxWidth="lg">
         <Box
           component={motion.div}
@@ -469,7 +477,7 @@ export const HowItWorksSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          sx={{ mb: 8, textAlign: "center" }}
+          sx={{ mb: 8, textAlign: "center", position: "relative", zIndex: 1 }}
         >
           <Typography
             variant="h2"
@@ -516,7 +524,9 @@ export const HowItWorksSection = () => {
             alignItems: 'stretch',
             mb: 6,
             mx: 'auto',
-            maxWidth: 1200
+            maxWidth: 1200,
+            position: "relative",
+            zIndex: 1
           }}
         >
           <Box
@@ -576,7 +586,7 @@ export const HowItWorksSection = () => {
                     {isCompleted ? (
                       <CheckCircle size={20} className="text-white" />
                     ) : (
-                      <Typography sx={{ fontWeight: 600, color: '#333' }}>
+                      <Typography sx={{ fontWeight: 600, color: crushAIColors.primary }}>
                         {index + 1}
                       </Typography>
                     )}
@@ -587,7 +597,7 @@ export const HowItWorksSection = () => {
                       variant="subtitle1"
                       sx={{
                         fontWeight: isActive ? 600 : 500,
-                        color: isActive ? '#000' : '#333',
+                        color: crushAIColors.primary,
                         fontSize: { xs: '0.9rem', sm: '1rem' }
                       }}
                     >
@@ -597,7 +607,7 @@ export const HowItWorksSection = () => {
                     <Typography
                       variant="body2"
                       sx={{
-                        color: '#666',
+                        color: crushAIColors.text.secondary,
                         fontSize: { xs: '0.75rem', sm: '0.8rem' },
                         display: { xs: 'none', sm: 'block' },
                         mt: 0.5
@@ -622,7 +632,7 @@ export const HowItWorksSection = () => {
                           width: 8, 
                           height: 8, 
                           borderRadius: '50%', 
-                          bgcolor: '#000' 
+                          bgcolor: crushAIColors.primary 
                         }}
                         component={motion.div}
                         animate={{ 
@@ -652,7 +662,9 @@ export const HowItWorksSection = () => {
               bgcolor: 'rgba(0, 0, 0, 0.01)',
               border: '1px solid rgba(0, 0, 0, 0.05)',
               p: { xs: 2, sm: 4 },
-              minHeight: 400
+              minHeight: 400,
+              position: 'relative',
+              overflow: 'hidden'
             }}
           >
             <AnimatePresence mode="wait">
@@ -676,7 +688,7 @@ export const HowItWorksSection = () => {
                     variant="h4"
                     sx={{
                       fontWeight: 700,
-                      color: '#333',
+                      color: crushAIColors.primary,
                       textAlign: 'center',
                       fontSize: { xs: '1.5rem', sm: '1.75rem' }
                     }}
@@ -687,7 +699,7 @@ export const HowItWorksSection = () => {
                   <Typography
                     variant="body1"
                     sx={{
-                      color: '#555',
+                      color: crushAIColors.text.secondary,
                       textAlign: 'center',
                       maxWidth: 600,
                       mb: 2,
@@ -748,17 +760,17 @@ export const HowItWorksSection = () => {
                                   <Box sx={{ 
                                     mr: 1.5, 
                                     mt: 0.5,
-                                    color: '#333',
+                                    color: crushAIColors.primary,
                                     flexShrink: 0
                                   }}>
                                     {detail.icon}
                                   </Box>
                                 )}
                                 <Box>
-                                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: '#333' }}>
+                                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: crushAIColors.primary }}>
                                     {detail.title}
                                   </Typography>
-                                  <Typography variant="body2" sx={{ color: '#555', fontSize: '0.8rem' }}>
+                                  <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, fontSize: '0.8rem' }}>
                                     {detail.description}
                                   </Typography>
                                 </Box>
@@ -788,15 +800,15 @@ export const HowItWorksSection = () => {
                 variant="outlined"
                 onClick={handleNextStep}
                 sx={{
-                  borderColor: '#333',
-                  color: '#333',
+                  borderColor: crushAIColors.primary,
+                  color: crushAIColors.primary,
                   py: 1,
                   px: 3,
                   fontSize: '0.875rem',
                   fontWeight: 600,
                   borderRadius: 1.5,
                   '&:hover': {
-                    borderColor: '#000',
+                    borderColor: crushAIColors.primary,
                     bgcolor: 'rgba(0, 0, 0, 0.05)'
                   }
                 }}
@@ -814,29 +826,16 @@ export const HowItWorksSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
           viewport={{ once: true }}
-          sx={{ textAlign: 'center' }}
+          sx={{ textAlign: 'center', position: "relative", zIndex: 1 }}
         >
-          <Button
-            component={motion.button}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            variant="contained"
-            sx={{
-              bgcolor: crushAIColors.primary,
-              color: 'white',
-              py: { xs: 1, md: 1.5 },
-              px: { xs: 3, md: 4 },
-              fontSize: { xs: '0.875rem', md: '1rem' },
-              fontWeight: 600,
-              borderRadius: 2,
-              boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)',
-              '&:hover': {
-                bgcolor: `${crushAIColors.primary}e6`
-              }
-            }}
+          <ShadcnButton 
+            size="lg" 
+            className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            onClick={() => {}}
           >
+            <ArrowRight size={16} className="mr-2" />
             REQUEST A DEMO
-          </Button>
+          </ShadcnButton>
         </Box>
       </Container>
     </Box>
