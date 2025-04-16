@@ -9,17 +9,17 @@ const features = [
   {
     title: "AI-Powered Efficiency",
     description: "Automate clinical documentation, referrals, and prescriptions.",
-    icon: <Monitor size={36} className="text-blue-600" />
+    icon: <Monitor size={36} className="text-teal" />
   },
   {
     title: "Enhanced Security",
     description: "Ensure HIPAA compliance with secure data handling.",
-    icon: <ShieldCheck size={36} className="text-blue-600" />
+    icon: <ShieldCheck size={36} className="text-teal" />
   },
   {
     title: "Actionable Insights",
     description: "Gain valuable insights with comprehensive data analytics.",
-    icon: <BarChart3 size={36} className="text-blue-600" />
+    icon: <BarChart3 size={36} className="text-teal" />
   }
 ];
 
@@ -29,7 +29,7 @@ export const FeatureHighlights = () => {
       component="section" 
       sx={{ 
         py: { xs: 8, md: 12 },
-        bgcolor: '#f5f5f5'
+        bgcolor: '#FFFFFF'
       }}
     >
       <Container maxWidth="lg">
@@ -47,7 +47,7 @@ export const FeatureHighlights = () => {
               fontSize: { xs: '2rem', md: '2.75rem' },
               fontWeight: 800,
               mb: 3,
-              color: '#000000',
+              color: '#143151', // Updated to brand navy color
               letterSpacing: '-0.02em'
             }}
           >
@@ -58,7 +58,7 @@ export const FeatureHighlights = () => {
             sx={{ 
               maxWidth: 800,
               mx: 'auto',
-              color: '#403E43',
+              color: 'rgba(20, 49, 81, 0.8)', // Updated to semi-transparent navy
               fontWeight: 400
             }}
           >
@@ -88,7 +88,7 @@ export const FeatureHighlights = () => {
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(0, 0, 0, 0.03)',
+                        bgcolor: 'rgba(56, 126, 137, 0.1)', // Updated to semi-transparent teal
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -101,7 +101,7 @@ export const FeatureHighlights = () => {
                       sx={{ 
                         mb: 1.5,
                         fontWeight: 600,
-                        color: '#000000',
+                        color: '#143151', // Updated to brand navy color
                         fontSize: '1.25rem'
                       }}
                     >
@@ -109,7 +109,7 @@ export const FeatureHighlights = () => {
                     </Typography>
                     <Typography 
                       variant="body1"
-                      sx={{ color: '#666666', fontSize: '0.95rem' }}
+                      sx={{ color: 'rgba(20, 49, 81, 0.8)', fontSize: '0.95rem' }} // Updated to semi-transparent navy
                     >
                       {feature.description}
                     </Typography>

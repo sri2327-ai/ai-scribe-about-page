@@ -1,7 +1,7 @@
 
 import { createTheme } from '@mui/material/styles';
 
-// Create a theme instance
+// Create a theme instance with the CRUSH AI brand colors
 const theme = createTheme({
   palette: {
     mode: 'light',

@@ -30,7 +30,7 @@ export const EhrIntegrationSection = () => {
               fontSize: { xs: '2rem', md: '2.75rem' },
               fontWeight: 800,
               mb: 3,
-              color: '#000000',
+              color: '#143151', // Updated to brand navy color
               letterSpacing: '-0.02em'
             }}
           >
@@ -41,7 +41,7 @@ export const EhrIntegrationSection = () => {
             sx={{ 
               maxWidth: 800,
               mx: 'auto',
-              color: '#403E43',
+              color: 'rgba(20, 49, 81, 0.8)', // Updated to semi-transparent navy
               fontWeight: 400,
               mb: 5
             }}
@@ -71,15 +71,15 @@ export const EhrIntegrationSection = () => {
               sx={{
                 width: { xs: 100, md: 120 },
                 height: { xs: 50, md: 60 },
-                bgcolor: '#f5f5f5',
+                bgcolor: 'rgba(165, 204, 243, 0.1)', // Updated to semi-transparent light blue
                 borderRadius: 1,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                border: '1px solid rgba(0, 0, 0, 0.06)'
+                border: '1px solid rgba(56, 126, 137, 0.1)' // Updated to semi-transparent teal
               }}
             >
-              <Typography variant="body2" sx={{ color: '#9e9e9e' }}>
+              <Typography variant="body2" sx={{ color: '#143151' }}> {/* Updated to brand navy color */}
                 {item}
               </Typography>
             </Box>
@@ -100,17 +100,17 @@ export const EhrIntegrationSection = () => {
               {
                 title: "Works on Any Device",
                 description: "Desktop, laptop, tablet, or mobile.",
-                icon: <Zap size={36} className="text-black" />
+                icon: <Zap size={36} className="text-teal" stroke="#387E89" strokeWidth={1.5} /> // Updated to brand teal
               },
               {
                 title: "Instant Sync",
                 description: "AI-generated notes go directly into your EHR.",
-                icon: <RefreshCw size={36} className="text-black" />
+                icon: <RefreshCw size={36} className="text-teal" stroke="#387E89" strokeWidth={1.5} /> // Updated to brand teal
               },
               {
                 title: "Automated Updates",
                 description: "Lab results, prescriptions, and referrals auto-sync.",
-                icon: <FileCheck size={36} className="text-black" />
+                icon: <FileCheck size={36} className="text-teal" stroke="#387E89" strokeWidth={1.5} /> // Updated to brand teal
               }
             ].map((item, index) => (
               <motion.div
@@ -129,7 +129,7 @@ export const EhrIntegrationSection = () => {
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(0, 0, 0, 0.03)',
+                        bgcolor: 'rgba(56, 126, 137, 0.1)', // Updated to semi-transparent teal
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -142,7 +142,7 @@ export const EhrIntegrationSection = () => {
                       sx={{ 
                         mb: 1.5,
                         fontWeight: 600,
-                        color: '#000000',
+                        color: '#143151', // Updated to brand navy color
                         fontSize: '1.25rem'
                       }}
                     >
@@ -150,7 +150,7 @@ export const EhrIntegrationSection = () => {
                     </Typography>
                     <Typography 
                       variant="body1"
-                      sx={{ color: '#666666', fontSize: '0.95rem' }}
+                      sx={{ color: 'rgba(20, 49, 81, 0.8)', fontSize: '0.95rem' }} // Updated to semi-transparent navy
                     >
                       {item.description}
                     </Typography>
