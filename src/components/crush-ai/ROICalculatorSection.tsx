@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -41,19 +40,15 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  // Modified scroll transformations to fully expand the container
-  const cardScale = useTransform(scrollYProgress, [0, 0.6], [0.8, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.4], [0.4, 1]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
-  const chartHeight = useTransform(scrollYProgress, [0.2, 0.7], ["90%", "100%"]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
   
-  // Adjust container to fully expand horizontally and vertically on scroll
-  const containerWidth = useTransform(scrollYProgress, [0.1, 0.5], ["90%", "100%"]);
-  const containerBorderRadius = useTransform(scrollYProgress, [0.1, 0.5], ["1.5rem", "0rem"]);
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
+  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
   
-  // Control the background disappearance
-  const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.4], [1, 0]);
-  const gradientProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
   useEffect(() => {
     const particleCount = 12;
@@ -122,38 +117,42 @@ export const ROICalculatorSection = () => {
       component="section"
       ref={sectionRef}
       sx={{
-        py: { xs: 6, md: 8 },
+        py: { xs: 0, md: 0 },
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      {/* Background gradient that fades away when scrolled */}
       <motion.div
         className="absolute inset-0 w-full h-full z-0"
         style={{
           background: `linear-gradient(135deg, 
-            ${crushAIColors.primary} ${gradientProgress}%, 
-            ${crushAIColors.secondary} ${gradientProgress.get() + 50}%, 
+            ${crushAIColors.primary}, 
+            ${crushAIColors.secondary}, 
             ${crushAIColors.tertiary})`,
-          opacity: containerBgOpacity
+          opacity: containerBgOpacity,
         }}
       />
       
-      {/* Main white container that expands to full width/height */}
       <motion.div
         ref={containerRef}
-        className="mx-auto overflow-hidden shadow-xl z-10"
+        className="overflow-hidden shadow-xl z-10"
         style={{
           width: containerWidth,
+          height: containerHeight,
           borderRadius: containerBorderRadius,
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
-          position: "relative",
-          minHeight: "90vh",
+          position: "absolute",
+          inset: 0,
+          margin: "auto",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         <Container 
@@ -161,13 +160,19 @@ export const ROICalculatorSection = () => {
           sx={{ 
             position: "relative", 
             zIndex: 5, 
-            py: 6,
+            py: { xs: 4, md: 6 },
+            px: { xs: 2, md: 4 },
             height: "100%",
             display: "flex",
             flexDirection: "column",
+            justifyContent: "center",
           }}
         >
-          <Box sx={{ mb: 5, textAlign: "center" }}>
+          <Box sx={{ 
+            mb: { xs: 3, md: 5 }, 
+            textAlign: "center", 
+            width: "100%"
+          }}>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -209,12 +214,12 @@ export const ROICalculatorSection = () => {
             viewport={{ once: true }}
             style={{ 
               scale: cardScale,
-              opacity: cardOpacity
+              opacity: cardOpacity,
+              width: "100%"
             }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start"
           >
-            {/* Calculator Card */}
-            <div className="flex flex-col gap-6 p-6 border border-black/10 rounded-xl shadow-sm bg-white">
+            <div className="flex flex-col gap-4 md:gap-6 p-4 md:p-6 border border-black/10 rounded-xl shadow-sm bg-white h-full">
               <Typography 
                 variant="h5" 
                 sx={{ 
@@ -343,8 +348,7 @@ export const ROICalculatorSection = () => {
                 />
               </Stack>
               
-              {/* Savings Display Box - Improved spacing and alignment */}
-              <div className="flex flex-col items-center justify-center mt-4 p-6 rounded-lg bg-[#F5F9FF]">
+              <div className="flex flex-col items-center justify-center mt-2 md:mt-4 p-4 md:p-6 rounded-lg bg-[#F5F9FF]">
                 <Typography variant="subtitle1" sx={{ color: crushAIColors.text.secondary }}>
                   Your Monthly Savings:
                 </Typography>
@@ -363,7 +367,6 @@ export const ROICalculatorSection = () => {
                 </Typography>
               </div>
               
-              {/* Calculate Button */}
               <div className="flex justify-center mt-2">
                 <Button
                   className={cn(
@@ -410,11 +413,7 @@ export const ROICalculatorSection = () => {
               </div>
             </div>
             
-            {/* Chart Card */}
-            <motion.div 
-              className="border border-black/10 rounded-xl p-6 shadow-sm bg-white h-full flex flex-col"
-              style={{ height: chartHeight }}
-            >
+            <div className="border border-black/10 rounded-xl p-4 md:p-6 shadow-sm bg-white h-full flex flex-col">
               <Typography 
                 variant="h5" 
                 sx={{ 
@@ -430,8 +429,7 @@ export const ROICalculatorSection = () => {
                 Monthly Cost Comparison
               </Typography>
               
-              {/* Chart with fixed height */}
-              <div className="flex-1 min-h-[300px]">
+              <div className="flex-1 min-h-[250px] md:min-h-[300px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={savingsData}
@@ -466,13 +464,12 @@ export const ROICalculatorSection = () => {
                 </ResponsiveContainer>
               </div>
               
-              {/* Book Demo Button */}
               <Button 
-                className="w-full mt-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2.5"
+                className="w-full mt-4 md:mt-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2.5"
               >
                 Book A Demo
               </Button>
-            </motion.div>
+            </div>
           </motion.div>
         </Container>
       </motion.div>
