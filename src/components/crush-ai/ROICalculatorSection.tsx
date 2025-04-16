@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -45,7 +46,8 @@ export const ROICalculatorSection = () => {
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
   const chartHeight = useTransform(scrollYProgress, [0.2, 0.7], ["90%", "100%"]);
   
-  const containerWidth = useTransform(scrollYProgress, [0.1, 0.5], ["85%", "95%"]);
+  const containerWidth = useTransform(scrollYProgress, [0.1, 0.7], ["85%", "100%"]);
+  const containerBorderRadius = useTransform(scrollYProgress, [0.1, 0.7], ["1rem", "0rem"]);
   const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.7], [0.7, 1]);
   const gradientProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   
@@ -135,9 +137,10 @@ export const ROICalculatorSection = () => {
       
       <motion.div
         ref={containerRef}
-        className="sticky top-24 mx-auto rounded-2xl overflow-hidden shadow-xl z-10"
+        className="sticky top-24 mx-auto overflow-hidden shadow-xl z-10"
         style={{
           width: containerWidth,
+          borderRadius: containerBorderRadius,
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
         }}
