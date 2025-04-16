@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Container, Typography, Grid } from "@mui/material";
 import { motion } from "framer-motion";
@@ -19,7 +20,10 @@ export const EhrIntegrationSection = () => {
         overflow: 'hidden'
       }}
     >
-      <GoogleGeminiEffect pathLengths={pathLengths} className="opacity-10" />
+      <GoogleGeminiEffect 
+        pathLengths={pathLengths} 
+        className="opacity-30" // Increased opacity from 0.1 to 0.3
+      />
       
       <Container maxWidth="lg">
         <Box 
