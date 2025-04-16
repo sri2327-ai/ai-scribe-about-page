@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -6,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { TiltedScroll } from "@/components/ui/tilted-scroll";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import VoiceWaves from "@/components/ui/voice-waves";
+import { SparklesText } from "@/components/ui/sparkles-text";
 
 export const HeroSection = () => {
   const renderLetterPopover = (letter: string, title: string, description: string) => {
@@ -66,13 +67,6 @@ export const HeroSection = () => {
         height: { xs: 'auto', md: '100vh' }
       }}
     >
-      {/* Voice Waves Animation Background Effect */}
-      <div className="absolute inset-0 z-0 opacity-100">
-        <VoiceWaves 
-          colors={["#2EB9DF", "#D946EF", "#2EB9DF"]}
-        />
-      </div>
-      
       {/* Background Horizontal Scroll */}
       <Box
         sx={{
@@ -121,16 +115,14 @@ export const HeroSection = () => {
                 }}
               >
                 <Box component="span" sx={{ color: '#000000' }}>
-                  {renderLetterPopover('C', 'Customizable', 'Tailor the AI scribe to your specialty and workflow needs')}
-                  .
-                  {renderLetterPopover('R', 'Real-time EHR Integration', 'Seamlessly connects with your existing electronic health record system')}
-                  .
-                  {renderLetterPopover('U', 'Universal Coding', 'Supports ICD-10, CPT, and HCC coding standards automatically')}
-                  .
-                  {renderLetterPopover('S', 'Seamless Multilingual Support', 'Communicate with patients in their preferred language')}
-                  .
-                  {renderLetterPopover('H', 'Healthcare Automation', 'Streamlines clinical workflows and administrative tasks')}
-                </Box> : The AI Medical Scribe That Works for You
+                  <SparklesText 
+                    text="C.R.U.S.H"
+                    className="text-3xl md:text-4xl font-bold inline-block"
+                    colors={{ first: "#0EA5E9", second: "#D946EF" }}
+                    sparklesCount={15}
+                  />
+                  : The AI Medical Scribe That Works for You
+                </Box>
               </Typography>
 
               <Typography 

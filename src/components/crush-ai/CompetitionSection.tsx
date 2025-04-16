@@ -87,7 +87,7 @@ export const CompetitionSection = () => {
             <SparklesText 
               text="Why CRUSH Crushes the Competition" 
               className="text-4xl md:text-5xl font-bold text-center mb-6"
-              colors={{ first: "#9b87f5", second: "#D6BCFA" }}
+              colors={{ first: "#0EA5E9", second: "#1EAEDB" }}
               sparklesCount={20}
             />
           </Box>

@@ -10,6 +10,7 @@ import { WorkflowAutomationSection } from "@/components/crush-ai/WorkflowAutomat
 import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowSection";
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
+import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
@@ -32,8 +33,14 @@ const CrushAI = () => {
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
       
+      {/* Testimonial Generate Section (new placement after Competition) */}
+      <TestimonialGenerateSection />
+      
       {/* Clinical Workflow Section */}
       <ClinicalWorkflowSection />
+      
+      {/* Testimonial Generate Section (new placement before Workflow Automation) */}
+      <TestimonialGenerateSection />
       
       {/* Book A Demo CTA */}
       <Box 
