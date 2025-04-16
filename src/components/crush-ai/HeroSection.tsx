@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -11,6 +10,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import CustomTooltip from "@/components/ui/custom-tooltip";
 import { GradientSection } from "@/components/ui/gradient-section";
 import rippleStyles from "@/styles/RippleEffect.module.css";
+import { CrushTooltip } from "@/components/crush-ai/CrushTooltip";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
@@ -18,21 +18,13 @@ export const HeroSection = () => {
   const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
   // C.R.U.S.H tooltip content
-  const tooltipContent = {
-    C: "Customizable – Control note content & formatting",
-    R: "Real-Time EHR Sync",
-    U: "Universal Coding",
-    S: "Smart AI Assistance",
-    H: "Healthcare Automation"
-  };
-
-  const renderLetterWithTooltip = (letter: string) => {
-    return (
-      <CustomTooltip title={tooltipContent[letter]}>
-        <span>{letter}</span>
-      </CustomTooltip>
-    );
-  };
+  const tooltipData = [
+    { letter: 'C', content: 'Customizable – Control note content & formatting' },
+    { letter: 'R', content: 'Real-Time EHR Sync' },
+    { letter: 'U', content: 'Universal Coding' },
+    { letter: 'S', content: 'Smart AI Assistance' },
+    { letter: 'H', content: 'Healthcare Automation' }
+  ];
 
   return (
     <GradientSection 
@@ -82,27 +74,7 @@ export const HeroSection = () => {
                 }}
               >
                 <Box component="span" sx={{ color: crushAIColors.primary }}>
-                  <Box component="span" sx={{ display: 'inline-block' }}>
-                    <CustomTooltip title={tooltipContent.C}>
-                      <Box component="span" className="inline-block">C</Box>
-                    </CustomTooltip>
-                    .
-                    <CustomTooltip title={tooltipContent.R}>
-                      <Box component="span" className="inline-block">R</Box>
-                    </CustomTooltip>
-                    .
-                    <CustomTooltip title={tooltipContent.U}>
-                      <Box component="span" className="inline-block">U</Box>
-                    </CustomTooltip>
-                    .
-                    <CustomTooltip title={tooltipContent.S}>
-                      <Box component="span" className="inline-block">S</Box>
-                    </CustomTooltip>
-                    .
-                    <CustomTooltip title={tooltipContent.H}>
-                      <Box component="span" className="inline-block">H</Box>
-                    </CustomTooltip>
-                  </Box>
+                  <CrushTooltip data={tooltipData} />
                   : The AI Medical Scribe That Works for You
                 </Box>
               </Typography>
@@ -208,27 +180,7 @@ export const HeroSection = () => {
                   }}
                 >
                   <Box component="span" sx={{ color: crushAIColors.primary }}>
-                    <Box component="span" sx={{ display: 'inline-block' }}>
-                      <CustomTooltip title={tooltipContent.C}>
-                        <Box component="span" className="inline-block">C</Box>
-                      </CustomTooltip>
-                      .
-                      <CustomTooltip title={tooltipContent.R}>
-                        <Box component="span" className="inline-block">R</Box>
-                      </CustomTooltip>
-                      .
-                      <CustomTooltip title={tooltipContent.U}>
-                        <Box component="span" className="inline-block">U</Box>
-                      </CustomTooltip>
-                      .
-                      <CustomTooltip title={tooltipContent.S}>
-                        <Box component="span" className="inline-block">S</Box>
-                      </CustomTooltip>
-                      .
-                      <CustomTooltip title={tooltipContent.H}>
-                        <Box component="span" className="inline-block">H</Box>
-                      </CustomTooltip>
-                    </Box>
+                    <CrushTooltip data={tooltipData} />
                     : The AI Medical Scribe That Works for You
                   </Box>
                 </Typography>
