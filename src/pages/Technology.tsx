@@ -30,8 +30,8 @@ const Technology = () => {
         component="section"
         sx={{
           py: 8,
-          bgcolor: "#f5f9ff",
-          textAlign: "center"
+          bgcolor: "#000000",
+          textAlign: "left"
         }}
       >
         <Container maxWidth="md">
@@ -41,10 +41,10 @@ const Technology = () => {
               fontSize: { xs: "1.75rem", md: "2.25rem" },
               fontWeight: 700,
               mb: 3,
-              color: "#000000"
+              color: "#ffffff"
             }}
           >
-            Transform Your Healthcare Workflow. Schedule a Demo Today.
+            Transform Your Healthcare Workflow.
           </Typography>
           <Button 
             size="lg" 

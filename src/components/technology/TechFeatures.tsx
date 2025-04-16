@@ -195,7 +195,8 @@ export function TechFeatures({
                 p: { xs: 3, md: 5 },
                 position: 'relative',
                 overflow: 'hidden',
-                width: '100%'
+                width: '100%',
+                height: { xs: '300px', sm: '350px', md: '400px' } // Fixed height for better responsiveness
               }}
             >
               <AnimatePresence mode="wait">
@@ -225,7 +226,11 @@ export function TechFeatures({
                         alignItems: 'center',
                         justifyContent: 'center'
                       }}>
-                        <Box sx={{ width: 256, height: 256, color: 'white' }}>
+                        <Box sx={{ 
+                          width: { xs: '180px', sm: '220px', md: '256px' }, 
+                          height: { xs: '180px', sm: '220px', md: '256px' }, 
+                          color: 'white' 
+                        }}>
                           {feature.icon}
                         </Box>
                       </Box>
