@@ -109,16 +109,16 @@ export const HeroSection = () => {
                   fontSize: { xs: '1.7rem', md: '2.3rem' }, 
                   fontWeight: 800,
                   mb: 2,
-                  color: '#143151', // Updated to brand navy color
+                  color: '#000000',
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: '#143151' }}> {/* Updated to brand navy color */}
+                <Box component="span" sx={{ color: '#000000' }}>
                   <SparklesText 
                     text="C.R.U.S.H"
                     className="text-3xl md:text-4xl font-bold inline-block"
-                    colors={{ first: "#387E89", second: "#5192AE" }} // Updated to brand teal and turquoise
+                    colors={{ first: "#0EA5E9", second: "#D946EF" }}
                     sparklesCount={15}
                   />
                   : The AI Medical Scribe That Works for You
@@ -129,7 +129,7 @@ export const HeroSection = () => {
                 variant="h6" 
                 sx={{ 
                   mb: 4, 
-                  color: 'rgba(20, 49, 81, 0.8)', // Updated to semi-transparent navy
+                  color: '#403E43',
                   fontSize: { xs: '0.85rem', md: '0.95rem' },
                   fontWeight: 400,
                   lineHeight: 1.5
@@ -141,7 +141,7 @@ export const HeroSection = () => {
 
               <ShadcnButton 
                 size="lg" 
-                className="bg-navy hover:bg-navy/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
               >
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO

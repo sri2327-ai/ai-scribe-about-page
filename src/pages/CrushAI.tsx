@@ -14,17 +14,12 @@ import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGen
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
-import { FeatureHighlights } from "@/components/crush-ai/FeatureHighlights";
-import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 
 const CrushAI = () => {
   return (
-    <Box sx={{ bgcolor: "white", color: "#143151" }}> {/* Deep Navy text color */}
+    <Box sx={{ bgcolor: "white", color: "#333" }}>
       {/* Hero Section */}
       <HeroSection />
-
-      {/* Feature Highlights */}
-      <FeatureHighlights />
 
       {/* EHR Integration Section */}
       <EhrIntegrationSection />
@@ -38,13 +33,13 @@ const CrushAI = () => {
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
       
-      {/* Testimonial Generate Section (after Competition) */}
+      {/* Testimonial Generate Section (new placement after Competition) */}
       <TestimonialGenerateSection />
       
       {/* Clinical Workflow Section */}
       <ClinicalWorkflowSection />
       
-      {/* Testimonial Generate Section (before Workflow Automation) */}
+      {/* Testimonial Generate Section (new placement before Workflow Automation) */}
       <TestimonialGenerateSection />
       
       {/* Book A Demo CTA */}
@@ -52,7 +47,7 @@ const CrushAI = () => {
         component="section"
         sx={{
           py: 8,
-          bgcolor: "rgba(165, 204, 243, 0.1)", // Updated to light blue with transparency
+          bgcolor: "#f5f9ff",
           textAlign: "center"
         }}
       >
@@ -63,14 +58,14 @@ const CrushAI = () => {
               fontSize: { xs: "1.75rem", md: "2.25rem" },
               fontWeight: 700,
               mb: 3,
-              color: "#143151" // Updated to navy
+              color: "#000000"
             }}
           >
             CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
           </Typography>
           <Button 
             size="lg" 
-            className="bg-navy hover:bg-navy/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO
@@ -80,9 +75,6 @@ const CrushAI = () => {
       
       {/* Loved by Clinicians Section */}
       <ClinicianTestimonialsSection />
-      
-      {/* Testimonials & Benefits */}
-      <TestimonialsBenefitsSection />
       
       {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />

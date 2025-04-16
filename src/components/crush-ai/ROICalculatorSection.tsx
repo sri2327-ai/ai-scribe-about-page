@@ -112,8 +112,8 @@ export const ROICalculatorSection = () => {
       component="section"
       sx={{
         py: { xs: 6, md: 8 },
-        bgcolor: "#FFFFFF",
-        color: "#143151",
+        bgcolor: "#fff",
+        color: "#000",
         position: "relative"
       }}
     >
@@ -130,7 +130,6 @@ export const ROICalculatorSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 2,
-                color: "#143151",
                 fontSize: { xs: "1.75rem", md: "2.5rem" }
               }}
             >
@@ -140,7 +139,7 @@ export const ROICalculatorSection = () => {
             <Typography 
               variant="body1" 
               sx={{
-                color: "rgba(20, 49, 81, 0.7)",
+                color: "rgba(0,0,0,0.7)",
                 mb: 4,
                 maxWidth: "700px",
                 mx: "auto",
@@ -160,18 +159,17 @@ export const ROICalculatorSection = () => {
           className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
         >
           {/* Calculator Section */}
-          <div className="flex flex-col gap-6 p-6 border border-teal/10 rounded-xl shadow-sm">
+          <div className="flex flex-col gap-6 p-6 border border-black/10 rounded-xl shadow-sm">
             <Typography 
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
-                color: "#143151"
+                gap: 1
               }}
             >
-              <BarChart2 size={24} className="stroke-teal" />
+              <BarChart2 size={24} className="stroke-black" />
               Calculate Your Savings
             </Typography>
             
@@ -185,26 +183,26 @@ export const ROICalculatorSection = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Users size={20} className="stroke-teal" />
+                      <Users size={20} className="stroke-black" />
                     </InputAdornment>
                   ),
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                      borderColor: 'rgba(56, 126, 137, 0.23)',
+                      borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'rgba(56, 126, 137, 0.5)',
+                      borderColor: 'rgba(0, 0, 0, 0.5)',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: '#387E89',
+                      borderColor: 'black',
                     },
                   },
                   '& .MuiFormLabel-root': {
-                    color: 'rgba(20, 49, 81, 0.6)',
+                    color: 'rgba(0, 0, 0, 0.6)',
                     '&.Mui-focused': {
-                      color: '#387E89',
+                      color: 'black',
                     },
                   },
                 }}
@@ -219,14 +217,14 @@ export const ROICalculatorSection = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <DollarSign size={20} className="stroke-teal" />
+                      <DollarSign size={20} className="stroke-black" />
                     </InputAdornment>
                   ),
                   endAdornment: (
                     <InputAdornment position="end">
                       <div className="relative group">
-                        <Info size={18} className="stroke-teal cursor-help" />
-                        <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-navy text-white text-xs rounded-md shadow-lg z-10">
+                        <Info size={18} className="stroke-black cursor-help" />
+                        <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-black text-white text-xs rounded-md shadow-lg z-10">
                           Starting price of $99/month per provider
                         </div>
                       </div>
@@ -236,19 +234,19 @@ export const ROICalculatorSection = () => {
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                      borderColor: 'rgba(56, 126, 137, 0.23)',
+                      borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'rgba(56, 126, 137, 0.5)',
+                      borderColor: 'rgba(0, 0, 0, 0.5)',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: '#387E89',
+                      borderColor: 'black',
                     },
                   },
                   '& .MuiFormLabel-root': {
-                    color: 'rgba(20, 49, 81, 0.6)',
+                    color: 'rgba(0, 0, 0, 0.6)',
                     '&.Mui-focused': {
-                      color: '#387E89',
+                      color: 'black',
                     },
                   },
                 }}
@@ -263,46 +261,46 @@ export const ROICalculatorSection = () => {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <Users size={20} className="stroke-teal" />
+                      <Users size={20} className="stroke-black" />
                     </InputAdornment>
                   ),
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
                     '& fieldset': {
-                      borderColor: 'rgba(56, 126, 137, 0.23)',
+                      borderColor: 'rgba(0, 0, 0, 0.23)',
                     },
                     '&:hover fieldset': {
-                      borderColor: 'rgba(56, 126, 137, 0.5)',
+                      borderColor: 'rgba(0, 0, 0, 0.5)',
                     },
                     '&.Mui-focused fieldset': {
-                      borderColor: '#387E89',
+                      borderColor: 'black',
                     },
                   },
                   '& .MuiFormLabel-root': {
-                    color: 'rgba(20, 49, 81, 0.6)',
+                    color: 'rgba(0, 0, 0, 0.6)',
                     '&.Mui-focused': {
-                      color: '#387E89',
+                      color: 'black',
                     },
                   },
                 }}
               />
             </Stack>
             
-            <div className="flex flex-col items-center justify-center mt-4 p-4 rounded-lg bg-teal/5">
-              <Typography variant="subtitle1" sx={{ color: 'rgba(20, 49, 81, 0.7)' }}>
+            <div className="flex flex-col items-center justify-center mt-4 p-4 rounded-lg bg-black/5">
+              <Typography variant="subtitle1" sx={{ color: 'rgba(0,0,0,0.7)' }}>
                 Your Monthly Savings:
               </Typography>
               <Typography 
                 variant="h4" 
                 sx={{ 
                   fontWeight: 700,
-                  color: '#387E89'
+                  color: 'black'
                 }}
               >
                 ${savings.toLocaleString()}
               </Typography>
-              <Typography variant="body2" sx={{ color: 'rgba(20, 49, 81, 0.6)', textAlign: 'center', mt: 1 }}>
+              <Typography variant="body2" sx={{ color: 'rgba(0,0,0,0.6)', textAlign: 'center', mt: 1 }}>
                 Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
               </Typography>
             </div>
@@ -312,8 +310,8 @@ export const ROICalculatorSection = () => {
               <Button
                 className={cn(
                   "min-w-40 relative touch-none",
-                  "bg-teal hover:bg-teal/90 text-white",
-                  "border border-teal/20",
+                  "bg-black hover:bg-black/90 text-white",
+                  "border border-black/20",
                   "transition-all duration-300"
                 )}
                 onClick={calculateSavings}
@@ -355,7 +353,7 @@ export const ROICalculatorSection = () => {
           </div>
           
           {/* Chart Section */}
-          <div className="border border-teal/10 rounded-xl p-6 shadow-sm">
+          <div className="border border-black/10 rounded-xl p-6 shadow-sm">
             <Typography 
               variant="h5" 
               sx={{ 
@@ -363,11 +361,10 @@ export const ROICalculatorSection = () => {
                 mb: 3,
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
-                color: "#143151"
+                gap: 1
               }}
             >
-              <BarChart2 size={24} className="stroke-teal" />
+              <BarChart2 size={24} className="stroke-black" />
               Monthly Cost Comparison
             </Typography>
             
@@ -376,28 +373,28 @@ export const ROICalculatorSection = () => {
                 data={savingsData}
                 margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
               >
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(56, 126, 137, 0.1)" />
+                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: '#143151' }}
-                  axisLine={{ stroke: 'rgba(56, 126, 137, 0.2)' }}
+                  tick={{ fill: '#000000' }}
+                  axisLine={{ stroke: '#000000' }}
                 />
                 <YAxis
                   tickFormatter={(value) => `$${value}`}
-                  tick={{ fill: '#143151' }}
-                  axisLine={{ stroke: 'rgba(56, 126, 137, 0.2)' }}
+                  tick={{ fill: '#000000' }}
+                  axisLine={{ stroke: '#000000' }}
                 />
                 <RechartsTooltip
                   formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
                   contentStyle={{ 
                     backgroundColor: '#fff', 
-                    border: '1px solid #387E89',
+                    border: '1px solid #000',
                     borderRadius: '4px'
                   }}
                 />
                 <Bar
                   dataKey="value"
-                  fill="#387E89"
+                  fill="#000000"
                   radius={[8, 8, 0, 0]}
                   name="Cost"
                 />
@@ -405,7 +402,7 @@ export const ROICalculatorSection = () => {
             </ResponsiveContainer>
             
             <Button 
-              className="w-full mt-6 bg-teal hover:bg-teal/90 text-white rounded-md py-2"
+              className="w-full mt-6 bg-black hover:bg-black/90 text-white rounded-md py-2"
             >
               Book A Demo
             </Button>

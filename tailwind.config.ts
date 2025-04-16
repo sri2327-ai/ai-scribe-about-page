@@ -31,12 +31,6 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
-				// Brand colors
-				teal: '#387E89',
-				navy: '#143151',
-				lightBlue: '#A5CCF3',
-				turquoise: '#5192AE',
-				// Legacy colors kept for compatibility
 				tealBlue: '#0FA0CE',
 				tealBlueBright: '#1EAEDB',
 				primary: {
