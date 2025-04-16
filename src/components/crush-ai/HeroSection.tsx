@@ -69,8 +69,8 @@ export const HeroSection = () => {
       {/* Voice Waves Animation Background Effect */}
       <div className="absolute inset-0 z-0 opacity-20">
         <VoiceWaves 
-          colors={["#2EB9DF", "#D946EF"]} // Restored pink and teal blue
-          opacity={0.1}
+          colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
+          opacity={0.2}
         />
       </div>
       
@@ -216,7 +216,7 @@ export const HeroSection = () => {
         }}
       >
         <VoiceWaves 
-          colors={["#2EB9DF", "#D946EF"]} // Restored pink and teal blue
+          colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
           opacity={0.2}
           className="absolute bottom-0 left-0 right-0"
         />
