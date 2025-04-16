@@ -126,59 +126,59 @@ export const CompetitionSection = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 6 }}>
+          <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 4 }}>
+            {/* Left side feature navigation - updated to match reference UI */}
             <Box
               sx={{
                 width: { xs: "100%", md: "40%" },
-                pr: { md: 4 }
+                pr: { md: 2 },
+                borderRadius: 2,
+                overflow: "hidden"
               }}
             >
               {comparisonFeatures.map((feature) => (
                 <Box
                   key={feature.id}
                   component={motion.div}
-                  initial={{ opacity: 0.7 }}
                   whileHover={{ x: 5 }}
                   sx={{
-                    p: 2,
+                    p: 2.5,
                     cursor: "pointer",
                     borderRadius: 1,
-                    mb: 1.5,
-                    bgcolor: activeFeature === feature.id ? `rgba(255,255,255,0.6)` : "rgba(255,255,255,0.25)",
-                    borderLeft: activeFeature === feature.id 
-                      ? `2px solid ${crushAIColors.primary}` 
-                      : "2px solid transparent",
+                    mb: 1,
+                    bgcolor: activeFeature === feature.id 
+                      ? `rgba(255,255,255,0.8)` 
+                      : "rgba(255,255,255,0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
                     transition: "all 0.2s ease"
                   }}
                   onClick={() => setActiveFeature(feature.id)}
                 >
-                  <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <Typography 
-                      variant="subtitle1" 
-                      sx={{ 
-                        fontWeight: 500, 
-                        color: crushAIColors.text.primary,
-                        letterSpacing: "0.01em"
-                      }}
-                    >
-                      {feature.title}
-                    </Typography>
-                    <ChevronRight 
-                      size={16} 
-                      className={activeFeature === feature.id 
-                        ? `text-[${crushAIColors.primary}]` 
-                        : `text-[${crushAIColors.text.light}]`} 
-                      strokeWidth={2}
-                    />
-                  </Box>
+                  <Typography 
+                    variant="subtitle1" 
+                    sx={{ 
+                      fontWeight: 500, 
+                      color: crushAIColors.text.primary,
+                      fontSize: { xs: '0.95rem', md: '1rem' }
+                    }}
+                  >
+                    {feature.title}
+                  </Typography>
+                  <ChevronRight 
+                    size={20} 
+                    color={crushAIColors.primary}
+                  />
                 </Box>
               ))}
             </Box>
 
+            {/* Right side content panel - updated to match reference UI */}
             <Box
               sx={{
                 width: { xs: "100%", md: "60%" },
-                bgcolor: "rgba(255,255,255,0.85)",
+                bgcolor: "rgba(255,255,255,0.9)",
                 borderRadius: 2,
                 p: 4,
                 border: `1px solid rgba(165,204,243,0.3)`,
@@ -198,36 +198,90 @@ export const CompetitionSection = () => {
                   transition={{ duration: 0.4 }}
                 >
                   <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-                    <Trophy size={22} className={`text-[${crushAIColors.primary}] mr-2`} stroke={crushAIColors.primary} strokeWidth={1.5} />
-                    <Typography variant="h5" sx={{ fontWeight: 600, color: crushAIColors.text.primary, letterSpacing: "0.02em" }}>
+                    <Box 
+                      sx={{ 
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        bgcolor: 'rgba(240, 245, 250, 0.95)',
+                        p: 1.5,
+                        borderRadius: 1,
+                        mr: 2
+                      }}
+                    >
+                      <Trophy size={24} color={crushAIColors.primary} />
+                    </Box>
+                    <Typography 
+                      variant="h5" 
+                      sx={{ 
+                        fontWeight: 600, 
+                        color: crushAIColors.text.primary, 
+                        letterSpacing: "0.02em"
+                      }}
+                    >
                       {feature.title}
                     </Typography>
                   </Box>
 
-                  <Box sx={{ mb: 4 }}>
-                    <Box sx={{ display: "flex", mb: 4, alignItems: "flex-start", gap: 2 }}>
+                  <Box sx={{ mb: 5 }}>
+                    {/* CRUSH Section */}
+                    <Box 
+                      sx={{ 
+                        display: "flex", 
+                        mb: 4, 
+                        alignItems: "flex-start", 
+                        gap: 3, 
+                        bgcolor: 'rgba(240, 245, 250, 0.5)',
+                        p: 3,
+                        borderRadius: 2,
+                        border: '1px solid rgba(165,204,243,0.2)'
+                      }}
+                    >
                       <Box 
                         sx={{ 
-                          bgcolor: `rgba(165,204,243,0.1)`, 
-                          p: 1, 
+                          bgcolor: `rgba(165,204,243,0.2)`, 
+                          p: 1.5, 
                           borderRadius: "50%", 
                           display: "flex", 
                           alignItems: "center",
                           justifyContent: "center",
-                          flexShrink: 0,
-                          border: `1px solid rgba(165,204,243,0.3)`
+                          flexShrink: 0
                         }}
                       >
-                        <CheckCircle size={20} className={`text-[${crushAIColors.primary}]`} stroke={crushAIColors.primary} strokeWidth={1.5} />
+                        <CheckCircle size={24} color={crushAIColors.primary} />
                       </Box>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: crushAIColors.text.primary }}>
+                        <Typography 
+                          variant="subtitle1" 
+                          sx={{ 
+                            fontWeight: 600, 
+                            mb: 1, 
+                            color: crushAIColors.primary,
+                            bgcolor: 'rgba(240, 245, 250, 0.8)',
+                            display: 'inline-block',
+                            px: 2,
+                            py: 0.5,
+                            borderRadius: 1
+                          }}
+                        >
                           C.R.U.S.H.
                         </Typography>
-                        <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            color: crushAIColors.text.secondary, 
+                            lineHeight: 1.6,
+                            bgcolor: 'rgba(240, 245, 250, 0.8)',
+                            display: 'inline-block',
+                            px: 2,
+                            py: 0.5,
+                            borderRadius: 1
+                          }}
+                        >
                           {feature.crushDescription}
                         </Typography>
                         
+                        {/* Additional template builder UI elements when active */}
                         {feature.id === "template-builder" && (
                           <Box 
                             component={motion.div}
@@ -279,6 +333,7 @@ export const CompetitionSection = () => {
                           </Box>
                         )}
                         
+                        {/* Additional specialty UI elements when active */}
                         {feature.id === "specialty" && (
                           <Box 
                             component={motion.div}
@@ -322,11 +377,22 @@ export const CompetitionSection = () => {
                       </Box>
                     </Box>
 
-                    <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
+                    {/* Competition Section */}
+                    <Box 
+                      sx={{ 
+                        display: "flex", 
+                        alignItems: "flex-start", 
+                        gap: 3,
+                        bgcolor: 'rgba(255, 240, 240, 0.3)',
+                        p: 3,
+                        borderRadius: 2,
+                        border: '1px solid rgba(255, 200, 200, 0.2)'
+                      }}
+                    >
                       <Box 
                         sx={{ 
                           bgcolor: "rgba(255,100,100,0.1)", 
-                          p: 1, 
+                          p: 1.5, 
                           borderRadius: "50%", 
                           display: "flex", 
                           alignItems: "center",
@@ -335,13 +401,36 @@ export const CompetitionSection = () => {
                           border: "1px solid rgba(255,100,100,0.3)"
                         }}
                       >
-                        <XCircle size={20} className="text-red-400" stroke="#000000" strokeWidth={1.5} />
+                        <XCircle size={24} className="text-red-400" />
                       </Box>
                       <Box>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: crushAIColors.text.primary }}>
+                        <Typography 
+                          variant="subtitle1" 
+                          sx={{ 
+                            fontWeight: 600, 
+                            mb: 1, 
+                            color: '#444',
+                            bgcolor: 'rgba(255, 240, 240, 0.7)',
+                            display: 'inline-block',
+                            px: 2,
+                            py: 0.5,
+                            borderRadius: 1
+                          }}
+                        >
                           Other AI Scribes
                         </Typography>
-                        <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                        <Typography 
+                          variant="body1" 
+                          sx={{ 
+                            color: '#444', 
+                            lineHeight: 1.6,
+                            bgcolor: 'rgba(255, 240, 240, 0.7)',
+                            display: 'inline-block',
+                            px: 2,
+                            py: 0.5,
+                            borderRadius: 1
+                          }}
+                        >
                           {feature.competitionDescription}
                         </Typography>
                       </Box>

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -73,9 +74,19 @@ export const HeroSection = () => {
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: crushAIColors.primary, display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
+                <Box 
+                  component="span" 
+                  sx={{ 
+                    color: crushAIColors.primary, 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center',
+                    flexWrap: 'wrap' 
+                  }}
+                >
                   <CrushTooltip data={tooltipData} />
-                  <Box component="span" sx={{ ml: 1 }}>: The AI Medical Scribe That Works for You</Box>
+                  <Box component="span">:</Box>
+                  <Box component="span" sx={{ ml: 1 }}>The AI Medical Scribe That Works for You</Box>
                 </Box>
               </Typography>
 
@@ -179,9 +190,18 @@ export const HeroSection = () => {
                     lineHeight: 1.1
                   }}
                 >
-                  <Box component="span" sx={{ color: crushAIColors.primary, display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <Box 
+                    component="span" 
+                    sx={{ 
+                      color: crushAIColors.primary, 
+                      display: 'flex', 
+                      alignItems: 'center',
+                      flexWrap: 'wrap' 
+                    }}
+                  >
                     <CrushTooltip data={tooltipData} />
-                    <Box component="span" sx={{ ml: 1 }}>: The AI Medical Scribe That Works for You</Box>
+                    <Box component="span">:</Box>
+                    <Box component="span" sx={{ ml: 1 }}>The AI Medical Scribe That Works for You</Box>
                   </Box>
                 </Typography>
 

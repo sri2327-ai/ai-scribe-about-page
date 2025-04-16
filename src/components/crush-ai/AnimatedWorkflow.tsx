@@ -8,6 +8,9 @@ import {
 } from "lucide-react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
+// Define primary color for consistency
+const primaryColor = "#143151";
+
 const workflowSteps = [
   {
     id: "start",
@@ -594,7 +597,7 @@ export function AnimatedWorkflow() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            backgroundColor: "rgba(255, 255, 255, 0.95)",
             zIndex: 50,
             borderRadius: 2,
             p: 4
@@ -610,26 +613,29 @@ export function AnimatedWorkflow() {
               flexDirection: "column",
               alignItems: "center",
               gap: 3,
-              textAlign: "center"
+              textAlign: "center",
+              width: "100%",
+              maxWidth: "320px",
+              mx: "auto"
             }}
           >
-            <CheckCircle size={60} className="text-green-500" />
-            <Typography variant="h5" sx={{ fontWeight: 700, color: "#10b981", fontSize: { xs: "1.25rem", sm: "1.5rem" } }}>
+            <CheckCircle size={60} color={primaryColor} />
+            <Typography variant="h5" sx={{ fontWeight: 700, color: primaryColor, fontSize: { xs: "1.25rem", sm: "1.5rem" } }}>
               Encounter Complete
             </Typography>
-            <Typography variant="body1" sx={{ color: "#666", maxWidth: "350px", fontSize: { xs: "0.875rem", sm: "1rem" } }}>
+            <Typography variant="body1" sx={{ color: primaryColor, maxWidth: "350px", fontSize: { xs: "0.875rem", sm: "1rem" } }}>
               Time Saved, Burnout Crushed, Patients Soaring!
             </Typography>
             
-            <Box sx={{ display: "flex", justifyContent: "center", gap: { xs: 3, sm: 6 }, mt: 2 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: { xs: 3, sm: 6 }, mt: 2, width: "100%" }}>
               <Box 
                 component={motion.div}
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Clock size={28} className="text-green-600 mb-1" />
-                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: "#333" }}>
+                <Clock size={28} color={primaryColor} className="mb-1" />
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
                   Time Saved
                 </Typography>
               </Box>
@@ -640,7 +646,7 @@ export function AnimatedWorkflow() {
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
                 <Heart size={28} className="text-red-500 mb-1" />
-                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: "#333" }}>
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
                   Burnout Crushed
                 </Typography>
               </Box>
@@ -662,12 +668,14 @@ export function AnimatedWorkflow() {
                 mt: 2,
                 py: 1.5,
                 px: 4,
-                bgcolor: "#10b981",
+                bgcolor: primaryColor,
                 color: "white",
                 borderRadius: "full",
                 cursor: "pointer",
                 fontSize: { xs: "0.8rem", sm: "0.9rem" },
-                fontWeight: "medium"
+                fontWeight: "medium",
+                width: "80%",
+                textAlign: "center"
               }}
             >
               Start New Encounter
@@ -737,7 +745,7 @@ export function AnimatedWorkflow() {
                   sx={{ 
                     mr: { xs: 1, sm: 2 },
                     opacity: isActive || isComplete ? 1 : 0.7,
-                    color: isComplete ? "#10b981" : "#000000",
+                    color: isComplete ? primaryColor : primaryColor,
                     transition: "transform 0.2s ease",
                     transform: isActive ? "scale(1.1)" : "scale(1)",
                     mt: 0.5,
@@ -747,14 +755,17 @@ export function AnimatedWorkflow() {
                     flexShrink: 0
                   }}
                 >
-                  {isComplete ? <CheckCircle size={20} /> : React.cloneElement(step.icon as React.ReactElement, { size: 20 })}
+                  {isComplete ? 
+                    <CheckCircle size={20} color={primaryColor} /> : 
+                    React.cloneElement(step.icon as React.ReactElement, { size: 20, color: primaryColor })
+                  }
                 </Box>
                 <Box sx={{ flex: 1 }}>
                   <Typography 
                     variant="subtitle1" 
                     sx={{ 
                       fontWeight: isActive ? 600 : 500,
-                      color: isActive ? "#000000" : "#333333",
+                      color: primaryColor,
                       fontSize: { xs: "0.85rem", sm: "0.95rem" }
                     }}
                   >
@@ -768,7 +779,7 @@ export function AnimatedWorkflow() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         variant="body2" 
-                        sx={{ color: "#666666", fontSize: { xs: "0.75rem", sm: "0.85rem" } }}
+                        sx={{ color: primaryColor, fontSize: { xs: "0.75rem", sm: "0.85rem" } }}
                       >
                         {step.description}
                       </Typography>
@@ -783,9 +794,10 @@ export function AnimatedWorkflow() {
                     animate={{ opacity: 1 }}
                   >
                     <motion.div 
-                      className="w-3 h-3 rounded-full bg-black animate-pulse"
+                      className="w-3 h-3 rounded-full animate-pulse"
                       animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
                       transition={{ repeat: Infinity, duration: 1.5 }}
+                      style={{ backgroundColor: primaryColor }}
                     />
                   </Box>
                 )}
@@ -824,7 +836,7 @@ export function AnimatedWorkflow() {
                     sx={{
                       py: 1,
                       px: 3,
-                      bgcolor: '#10b981',
+                      bgcolor: primaryColor,
                       color: 'white',
                       borderRadius: 'full',
                       cursor: 'pointer',
@@ -832,7 +844,8 @@ export function AnimatedWorkflow() {
                       fontWeight: 'medium',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                       '&:hover': {
-                        bgcolor: '#0d9488'
+                        bgcolor: primaryColor,
+                        opacity: 0.9
                       }
                     }}
                   >
@@ -861,7 +874,7 @@ export function AnimatedWorkflow() {
                     sx={{
                       py: 1,
                       px: 3,
-                      bgcolor: '#10b981',
+                      bgcolor: primaryColor,
                       color: 'white',
                       borderRadius: 'full',
                       cursor: 'pointer',
@@ -869,7 +882,8 @@ export function AnimatedWorkflow() {
                       fontWeight: 'medium',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                       '&:hover': {
-                        bgcolor: '#0d9488'
+                        bgcolor: primaryColor,
+                        opacity: 0.9
                       }
                     }}
                   >
