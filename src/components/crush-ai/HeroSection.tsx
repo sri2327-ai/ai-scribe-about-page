@@ -10,6 +10,7 @@ import { SparklesText } from "@/components/ui/sparkles-text";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import CustomTooltip from "@/components/ui/custom-tooltip";
 import { GradientSection } from "@/components/ui/gradient-section";
+import rippleStyles from "@/styles/RippleEffect.module.css";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
@@ -129,7 +130,7 @@ export const HeroSection = () => {
               </ShadcnButton>
             </Box>
 
-            {/* Animation Section - Now completely separate from text */}
+            {/* Animation Section with Ripple Background */}
             <Box 
               sx={{ 
                 width: '100%',
@@ -138,9 +139,17 @@ export const HeroSection = () => {
                 alignItems: 'center',
                 height: { xs: '300px', sm: '350px' },
                 maxWidth: { xs: '320px', sm: '400px' },
-                mx: 'auto'
+                mx: 'auto',
+                position: 'relative'
               }}
             >
+              {/* Ripple effect background */}
+              <div className={rippleStyles.rippleBackground}>
+                <div className={rippleStyles.ripple}></div>
+                <div className={rippleStyles.ripple}></div>
+                <div className={rippleStyles.ripple}></div>
+              </div>
+              
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -151,7 +160,8 @@ export const HeroSection = () => {
                   justifyContent: 'center',
                   position: 'relative',
                   width: '100%',
-                  height: '100%'
+                  height: '100%',
+                  zIndex: 1
                 }}
               >
                 <AnimatedWorkflow />
@@ -253,9 +263,17 @@ export const HeroSection = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                maxHeight: '80vh'
+                maxHeight: '80vh',
+                position: 'relative'
               }}
             >
+              {/* Ripple effect background */}
+              <div className={rippleStyles.rippleBackground}>
+                <div className={rippleStyles.ripple}></div>
+                <div className={rippleStyles.ripple}></div>
+                <div className={rippleStyles.ripple}></div>
+              </div>
+              
               <Box 
                 component={motion.div}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -267,7 +285,8 @@ export const HeroSection = () => {
                   position: 'relative',
                   width: '100%',
                   height: '100%',
-                  maxWidth: '550px'
+                  maxWidth: '550px',
+                  zIndex: 1
                 }}
               >
                 <AnimatedWorkflow />

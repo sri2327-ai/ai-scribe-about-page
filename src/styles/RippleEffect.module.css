@@ -1,0 +1,58 @@
+
+.rippleBackground {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ripple {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(
+    circle,
+    rgba(30, 174, 219, 0.25) 0%,
+    rgba(30, 174, 219, 0.15) 50%,
+    rgba(30, 174, 219, 0) 100%
+  );
+  border-radius: 50%;
+  animation: ripple 8s infinite cubic-bezier(0.65, 0, 0.35, 1);
+  opacity: 0;
+}
+
+.ripple:nth-child(1) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 0s;
+}
+
+.ripple:nth-child(2) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 2.6s;
+}
+
+.ripple:nth-child(3) {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: 5.2s;
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
