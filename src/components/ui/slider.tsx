@@ -10,6 +10,21 @@ const Slider = React.forwardRef<
 >(({ className, ...props }, ref) => {
   // Track if we're currently dragging to prevent slider from disappearing
   const [isDragging, setIsDragging] = React.useState(false);
+
+  // Fixed minimum/maximum values to prevent slider from disappearing
+  const safeThumbPosition = (value: number[]) => {
+    // Ensure the slider thumb is always visible by clamping to 3-97% range
+    const safeValue = [...value];
+    if (safeValue.length > 0) {
+      safeValue[0] = Math.max(3, Math.min(97, safeValue[0]));
+    }
+    return safeValue;
+  };
+  
+  // Get the current value or default to [0]
+  const currentValue = props.value ? safeThumbPosition(props.value as number[]) : 
+                      props.defaultValue ? safeThumbPosition(props.defaultValue as number[]) : 
+                      [0];
   
   return (
     <SliderPrimitive.Root
@@ -18,7 +33,16 @@ const Slider = React.forwardRef<
         "relative flex w-full touch-none select-none items-center",
         className
       )}
+      onValueChange={(val) => {
+        if (props.onValueChange) {
+          // Apply safety bounds before passing to user callback
+          props.onValueChange(safeThumbPosition(val));
+        }
+      }}
       {...props}
+      // Apply safety bounds to value/defaultValue
+      value={props.value ? safeThumbPosition(props.value as number[]) : undefined}
+      defaultValue={props.defaultValue ? safeThumbPosition(props.defaultValue as number[]) : undefined}
       onPointerDown={() => setIsDragging(true)}
       onPointerUp={() => setIsDragging(false)}
       onPointerLeave={() => setIsDragging(false)}

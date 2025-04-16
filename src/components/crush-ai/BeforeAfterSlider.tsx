@@ -20,8 +20,8 @@ export const BeforeAfterSlider = () => {
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
-      // Clamp the value between 10 and 90 to prevent disappearing at the edges
-      setSliderPosition(Math.min(Math.max(latest, 10), 90));
+      // Clamp the value between 5 and 95 to prevent disappearing at the edges
+      setSliderPosition(Math.min(Math.max(latest, 5), 95));
     });
     
     // Initial animation
@@ -38,10 +38,10 @@ export const BeforeAfterSlider = () => {
     setIsDragging(false);
     
     // Prevent the slider from getting too close to the edges
-    if (sliderPosition < 20) {
-      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~20%
-    } else if (sliderPosition > 80) {
-      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~80%
+    if (sliderPosition < 15) {
+      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~15%
+    } else if (sliderPosition > 85) {
+      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~85%
     }
   };
   
@@ -61,8 +61,8 @@ export const BeforeAfterSlider = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
-    // Clamp the value between 10 and 90 to prevent disappearing at the edges
-    setSliderPosition(Math.max(10, Math.min(90, position)));
+    // Clamp the value between 5 and 95 to prevent disappearing at the edges
+    setSliderPosition(Math.max(5, Math.min(95, position)));
   };
 
   return (
@@ -179,9 +179,9 @@ export const BeforeAfterSlider = () => {
                   x: x,
                 }}
                 drag="x"
-                dragConstraints={{ left: -120, right: 120 }} // Limit how far it can go
-                dragElastic={0.05} // Make it less elastic to avoid edges
-                dragMomentum={false}
+                dragConstraints={{ left: -120, right: 120 }} // Limited drag boundaries
+                dragElastic={0.05} // Less elastic to prevent edge disappearance
+                dragMomentum={false} // Disable momentum to prevent overshooting
                 onDragStart={handleDragStart}
                 onDragEnd={handleDragEnd}
               >
@@ -203,12 +203,12 @@ export const BeforeAfterSlider = () => {
                       </div>
                     </div>
                   </div>
-                  {/* Invisible larger touch area for better mobile interaction */}
-                  <div className="absolute w-20 h-20 rounded-full touch-none cursor-grab"></div>
+                  {/* Larger invisible touch area for better mobile interaction */}
+                  <div className="absolute w-24 h-24 rounded-full touch-none cursor-grab"></div>
                 </div>
               </motion.div>
               
-              {/* Navigation indicators */}
+              {/* Navigation indicators - only show if not too close to edge */}
               <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
                 <div className={`flex items-center gap-2 ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                   <ArrowRight className="h-4 w-4 rotate-180 text-white" />

@@ -22,8 +22,8 @@ export const WorkflowAutomationSection = () => {
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
-      // Clamp the value between 10 and 90 to ensure the slider never disappears at edges
-      setSliderPosition(Math.min(Math.max(latest, 10), 90));
+      // Clamp the value between 5 and 95 to ensure the slider never disappears at edges
+      setSliderPosition(Math.min(Math.max(latest, 5), 95));
     });
     
     return () => unsubscribe();
@@ -36,11 +36,11 @@ export const WorkflowAutomationSection = () => {
   const handleDragEnd = () => {
     setIsDragging(false);
     
-    // Prevent the slider from getting too close to the edges
-    if (sliderPosition < 20) {
-      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~20%
-    } else if (sliderPosition > 80) {
-      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~80%
+    // Bounce back from edges to ensure visibility
+    if (sliderPosition < 15) {
+      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~15%
+    } else if (sliderPosition > 85) {
+      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~85%
     }
   };
   
@@ -60,8 +60,8 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
-    // Clamp the value between 10 and 90 to ensure the slider is always visible
-    setSliderPosition(Math.max(10, Math.min(90, position)));
+    // Ensure the slider always stays within viewable area
+    setSliderPosition(Math.max(5, Math.min(95, position)));
   };
 
   return (
@@ -190,7 +190,7 @@ export const WorkflowAutomationSection = () => {
                     x: x
                   }}
                   drag="x"
-                  dragConstraints={{ left: -150, right: 150 }}
+                  dragConstraints={{ left: -120, right: 120 }}
                   dragElastic={0.05} // Reduced elasticity to prevent overshooting
                   dragMomentum={false}
                   onDragStart={handleDragStart}
@@ -205,29 +205,29 @@ export const WorkflowAutomationSection = () => {
                       ))}
                     </div>
                     {/* Increased the size of the invisible touch target */}
-                    <div className="absolute w-16 h-16 rounded-full touch-none cursor-grab"></div>
+                    <div className="absolute w-20 h-20 rounded-full touch-none cursor-grab"></div>
                   </div>
                 </motion.div>
                 
                 {!isMobile && (
                   <>
                     <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
-                      <div className={`flex items-center gap-2 ${sliderPosition < 15 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                      <div className={`flex items-center gap-2 ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <Monitor className="h-4 w-4 text-white" />
                         <span className="text-sm text-white font-medium">Screen-Focused</span>
                       </div>
-                      <div className={`flex items-center gap-2 ${sliderPosition > 85 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                      <div className={`flex items-center gap-2 ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <span className="text-sm text-black font-medium">Patient-Focused</span>
                         <Users className="h-4 w-4 text-black" />
                       </div>
                     </div>
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
-                      <div className={`flex items-center gap-2 p-2 bg-black/80 rounded-full ${sliderPosition < 15 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                      <div className={`flex items-center gap-2 p-2 bg-black/80 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <Clock className="h-3 w-3 text-white" />
                         <span className="text-xs text-white font-medium">Hours of documentation</span>
                       </div>
-                      <div className={`flex items-center gap-2 p-2 bg-white/80 rounded-full ${sliderPosition > 85 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                      <div className={`flex items-center gap-2 p-2 bg-white/80 rounded-full ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <Clock className="h-3 w-3 text-black" />
                         <span className="text-xs text-black font-medium">Notes in &lt;60 seconds</span>
                       </div>

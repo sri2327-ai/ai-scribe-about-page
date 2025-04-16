@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   FileText, HardDrive, Send, CheckCircle, 
@@ -462,6 +463,12 @@ export function AnimatedWorkflow() {
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number | null>(null);
 
+  // Fix for mobile view - ensure all steps are visible
+  const mobileSteps = [0, 2, 5, 6]; // Make sure to include step 6 (Push Notes to EHR)
+  const isMobileStepVisible = (index: number) => {
+    return mobileSteps.includes(index);
+  };
+
   useEffect(() => {
     const startTimeout = setTimeout(() => {
       setIsRecording(true);
@@ -520,6 +527,26 @@ export function AnimatedWorkflow() {
     }, 15000);
     
     return () => clearTimeout(inactivityTimer);
+  };
+
+  // This function helps ensure we have a next step to go to in mobile view
+  const getNextMobileStep = (currentIndex: number) => {
+    const currentMobileIndex = mobileSteps.indexOf(currentIndex);
+    if (currentMobileIndex !== -1 && currentMobileIndex < mobileSteps.length - 1) {
+      return mobileSteps[currentMobileIndex + 1];
+    }
+    return currentIndex < workflowSteps.length - 1 ? currentIndex + 1 : 0;
+  };
+
+  // Fixed function to handle navigation to next step
+  const handleNextStep = () => {
+    const nextStep = getNextMobileStep(currentStep);
+    setCurrentStep(nextStep);
+    
+    // If we've completed all steps, reset
+    if (nextStep === 0) {
+      setCompleted(true);
+    }
   };
 
   return (
@@ -605,6 +632,34 @@ export function AnimatedWorkflow() {
                 </Typography>
               </Box>
             </Box>
+            
+            {/* Added explicit button to restart the workflow */}
+            <Box 
+              component={motion.div}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              onClick={() => {
+                setCurrentStep(0);
+                setCompleted(false);
+                setIsRecording(true);
+              }}
+              sx={{
+                mt: 2,
+                py: 1.5,
+                px: 4,
+                bgcolor: "#10b981",
+                color: "white",
+                borderRadius: "full",
+                cursor: "pointer",
+                fontSize: { xs: "0.8rem", sm: "0.9rem" },
+                fontWeight: "medium"
+              }}
+            >
+              Start New Encounter
+            </Box>
           </Box>
         </Box>
       )}
@@ -622,7 +677,8 @@ export function AnimatedWorkflow() {
           const isComplete = currentStep > index;
           const isHovered = hovered === index;
           
-          const shouldShowOnMobile = index === 0 || index === 2 || index === 5 || index === 6;
+          // Enhanced logic for mobile view display
+          const shouldShowOnMobile = isMobileStepVisible(index);
           
           return (
             <Box
@@ -658,7 +714,9 @@ export function AnimatedWorkflow() {
                 bgcolor: isActive ? "rgba(0, 0, 0, 0.03)" : "transparent",
                 border: isActive ? "1px solid rgba(0, 0, 0, 0.1)" : "1px solid transparent",
                 flexDirection: "column",
-                mb: 0.5
+                mb: 0.5,
+                position: "relative", // Added for better positioning of action buttons
+                overflow: "visible" // Ensure children can overflow
               }}
             >
               <Box sx={{ display: 'flex', width: '100%', alignItems: 'flex-start' }}>
@@ -732,6 +790,43 @@ export function AnimatedWorkflow() {
                   </motion.div>
                 )}
               </AnimatePresence>
+              
+              {/* Add a "Next" button for mobile steps when active */}
+              {isActive && shouldShowOnMobile && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 2 }}
+                  style={{ 
+                    marginTop: 16, 
+                    alignSelf: 'center',
+                    zIndex: 20
+                  }}
+                >
+                  <Box
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNextStep();
+                    }}
+                    sx={{
+                      py: 1,
+                      px: 3,
+                      bgcolor: '#10b981',
+                      color: 'white',
+                      borderRadius: 'full',
+                      cursor: 'pointer',
+                      fontSize: '0.75rem',
+                      fontWeight: 'medium',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                      '&:hover': {
+                        bgcolor: '#0d9488'
+                      }
+                    }}
+                  >
+                    {index === workflowSteps.length - 1 ? 'Complete' : 'Next Step'}
+                  </Box>
+                </motion.div>
+              )}
             </Box>
           );
         })}
