@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { ContainerScroll } from "../ui/container-scroll-animation";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { SparklesTextAdvanced } from "../ui/sparkles-text-advanced";
 
 export const CompetitionSection = () => {
   const theme = useTheme();
@@ -92,22 +93,11 @@ export const CompetitionSection = () => {
     >
       <Container maxWidth="lg">
         <Box sx={{ textAlign: "center", mb: 8 }}>
-          <Typography
-            variant="h3"
-            component={motion.h2}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            sx={{
-              fontWeight: 700,
-              fontSize: { xs: "1.75rem", md: "2.5rem" },
-              mb: 2,
-              color: crushAIColors.text.primary
-            }}
-          >
-            Why CRUSH Crushes the Competition
-          </Typography>
+          <SparklesTextAdvanced
+            text="Why CRUSH Crushes the Competition"
+            className="text-3xl md:text-4xl font-bold mb-2"
+            colors={{ first: "#ffffff", second: "#ffffff" }}
+          />
           <Typography
             variant="body1"
             component={motion.p}

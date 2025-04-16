@@ -64,9 +64,9 @@ export function ClinicianTestimonialsSection({
   const titleY = useTransform(scrollYProgress, [0, 0.3], [20, 0])
   const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1])
 
-  // Add container animation properties for sticky scroll effect
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["95%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["95%", "100%"]);
+  // Container animation properties for sticky scroll effect
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["99%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["99%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1rem", "0rem"]);
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
 
@@ -144,9 +144,9 @@ export function ClinicianTestimonialsSection({
         className="absolute inset-0 w-full h-full z-0"
         style={{
           background: `linear-gradient(135deg, 
-            ${crushAIColors.tertiary}40, 
-            ${crushAIColors.secondary}30, 
-            ${crushAIColors.tertiary}20)`,
+            ${crushAIColors.primary}, 
+            ${crushAIColors.secondary}, 
+            ${crushAIColors.tertiary})`,
           opacity: containerBgOpacity,
         }}
       />
