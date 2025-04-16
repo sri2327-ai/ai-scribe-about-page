@@ -600,7 +600,7 @@ export function AnimatedWorkflow() {
             backgroundColor: "rgba(255, 255, 255, 0.95)",
             zIndex: 50,
             borderRadius: 2,
-            p: 4
+            p: { xs: 2, sm: 4 }
           }}
         >
           <Box 
@@ -612,29 +612,54 @@ export function AnimatedWorkflow() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: 3,
+              gap: { xs: 2, sm: 3 },
               textAlign: "center",
               width: "100%",
               maxWidth: "320px",
               mx: "auto"
             }}
           >
-            <CheckCircle size={60} color={primaryColor} />
-            <Typography variant="h5" sx={{ fontWeight: 700, color: primaryColor, fontSize: { xs: "1.25rem", sm: "1.5rem" } }}>
+            <CheckCircle size={isMobile ? 50 : 60} color={primaryColor} />
+            
+            <Typography 
+              variant="h5" 
+              sx={{ 
+                fontWeight: 700, 
+                color: primaryColor, 
+                fontSize: { xs: "1.25rem", sm: "1.5rem" } 
+              }}
+            >
               Encounter Complete
             </Typography>
-            <Typography variant="body1" sx={{ color: primaryColor, maxWidth: "350px", fontSize: { xs: "0.875rem", sm: "1rem" } }}>
+            
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                color: primaryColor, 
+                maxWidth: "350px", 
+                fontSize: { xs: "0.875rem", sm: "1rem" },
+                mb: { xs: 1, sm: 2 }
+              }}
+            >
               Time Saved, Burnout Crushed, Patients Soaring!
             </Typography>
             
-            <Box sx={{ display: "flex", justifyContent: "center", gap: { xs: 3, sm: 6 }, mt: 2, width: "100%" }}>
+            <Box 
+              sx={{ 
+                display: "flex", 
+                justifyContent: "center", 
+                gap: { xs: 3, sm: 6 }, 
+                mt: { xs: 0, sm: 2 }, 
+                width: "100%" 
+              }}
+            >
               <Box 
                 component={motion.div}
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Clock size={28} color={primaryColor} className="mb-1" />
+                <Clock size={28} color={primaryColor} style={{ marginBottom: "4px" }} />
                 <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
                   Time Saved
                 </Typography>
@@ -645,7 +670,7 @@ export function AnimatedWorkflow() {
                 transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Heart size={28} className="text-red-500 mb-1" />
+                <Heart size={28} className="text-red-500" style={{ marginBottom: "4px" }} />
                 <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
                   Burnout Crushed
                 </Typography>
@@ -665,16 +690,16 @@ export function AnimatedWorkflow() {
                 setIsRecording(true);
               }}
               sx={{
-                mt: 2,
+                mt: { xs: 3, sm: 4 },
                 py: 1.5,
                 px: 4,
                 bgcolor: primaryColor,
                 color: "white",
-                borderRadius: "full",
+                borderRadius: "9999px",
                 cursor: "pointer",
                 fontSize: { xs: "0.8rem", sm: "0.9rem" },
                 fontWeight: "medium",
-                width: "80%",
+                width: { xs: "90%", sm: "80%" },
                 textAlign: "center"
               }}
             >
@@ -838,7 +863,7 @@ export function AnimatedWorkflow() {
                       px: 3,
                       bgcolor: primaryColor,
                       color: 'white',
-                      borderRadius: 'full',
+                      borderRadius: '9999px',
                       cursor: 'pointer',
                       fontSize: '0.75rem',
                       fontWeight: 'medium',
@@ -876,7 +901,7 @@ export function AnimatedWorkflow() {
                       px: 3,
                       bgcolor: primaryColor,
                       color: 'white',
-                      borderRadius: 'full',
+                      borderRadius: '9999px',
                       cursor: 'pointer',
                       fontSize: '0.75rem',
                       fontWeight: 'medium',

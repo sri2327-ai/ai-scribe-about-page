@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
+// Define the new blue color for the slider
+const sliderBlueColor = "#5192AE";
+
 export const WorkflowAutomationSection = () => {
   // Create a ref for the slider container
   const sliderContainerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +18,7 @@ export const WorkflowAutomationSection = () => {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
   
   // Motion values for smooth animations
   const x = useMotionValue(0);
@@ -155,8 +159,12 @@ export const WorkflowAutomationSection = () => {
               >
                 <div className="absolute inset-0 flex items-stretch">
                   <div 
-                    className="h-full bg-black text-white flex items-center justify-center relative overflow-hidden"
-                    style={{ width: `${sliderPosition}%` }}
+                    className="h-full flex items-center justify-center relative overflow-hidden"
+                    style={{ 
+                      width: `${sliderPosition}%`,
+                      backgroundColor: sliderBlueColor, // Change from black to blue color
+                      color: 'white'
+                    }}
                   >
                     <div className={`z-10 p-4 ${isMobile ? 'max-w-[90%]' : 'max-w-md p-8'}`}>
                       <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4`}>The old way of documentation</h2>
@@ -272,7 +280,9 @@ export const WorkflowAutomationSection = () => {
                     </div>
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
-                      <div className={`flex items-center gap-2 p-2 bg-black/80 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+                      <div className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+                        style={{ backgroundColor: `${sliderBlueColor}CC` }} // Updated color for the clock indicator
+                      >
                         <Clock className="h-3 w-3 text-white" />
                         <span className="text-xs text-white font-medium">Hours of documentation</span>
                       </div>

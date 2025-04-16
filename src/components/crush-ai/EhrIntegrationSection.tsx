@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/carousel";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
+import { EHRBackground } from "./EHRBackground";
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
@@ -50,6 +51,9 @@ export const EhrIntegrationSection = () => {
           zIndex: 1
         }}
       >
+        {/* Add our EHR Background component */}
+        <EHRBackground />
+        
         <Container maxWidth="lg">
           <Box 
             component={motion.div}
@@ -112,7 +116,9 @@ export const EhrIntegrationSection = () => {
                   alignItems: 'center',
                   justifyContent: 'center',
                   border: '1px solid rgba(0, 0, 0, 0.06)',
-                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                  zIndex: 2,
+                  position: 'relative'
                 }}
               >
                 <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontWeight: 600 }}>
@@ -181,7 +187,9 @@ export const EhrIntegrationSection = () => {
                 gap: { xs: 2, sm: 2, md: 3 },
                 width: '100%',
                 px: 2,
-                overflow: 'visible'
+                overflow: 'visible',
+                position: 'relative',
+                zIndex: 2
               }}
             >
               {features.map((item, index) => (
