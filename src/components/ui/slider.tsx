@@ -31,7 +31,7 @@ const Slider = React.forwardRef<
         className="block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center"
         style={{ 
           touchAction: 'none',
-          opacity: '1 !important', // Force the thumb to always be visible
+          opacity: 1, // Force the thumb to always be visible
           position: 'relative',
           zIndex: 50, // Ensure a high z-index so it's always on top
           minWidth: '24px',
@@ -50,14 +50,15 @@ const Slider = React.forwardRef<
         <div 
           style={{
             position: 'absolute',
-            width: '40px',
-            height: '40px',
+            width: '44px', // Increased touch target size
+            height: '44px',
             borderRadius: '50%',
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
             zIndex: -1,
-            cursor: isDragging ? 'grabbing' : 'grab'
+            cursor: isDragging ? 'grabbing' : 'grab',
+            backgroundColor: 'rgba(0,0,0,0.001)' // Nearly invisible but helps with touch events
           }}
         />
       </SliderPrimitive.Thumb>

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -463,7 +462,6 @@ export function AnimatedWorkflow() {
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const [hovered, setHovered] = useState<number | null>(null);
 
-  // Start auto demo mode on component mount
   useEffect(() => {
     const startTimeout = setTimeout(() => {
       setIsRecording(true);
@@ -473,7 +471,6 @@ export function AnimatedWorkflow() {
     return () => clearTimeout(startTimeout);
   }, []);
 
-  // Auto demo mode with slower transitions
   useEffect(() => {
     if (isRecording && isAutoPlaying) {
       const intervalId = setInterval(() => {
@@ -485,40 +482,36 @@ export function AnimatedWorkflow() {
           }
           return prev + 1;
         });
-      }, 6000); // 6 seconds for slower transitions
+      }, 6000);
 
       return () => clearInterval(intervalId);
     }
   }, [isRecording, isAutoPlaying]);
 
-  // Reset after completion with a delay
   useEffect(() => {
     if (completed) {
       const timeout = setTimeout(() => {
         setCurrentStep(0);
         setCompleted(false);
         
-        // Only auto-restart if user hasn't interacted
         if (!userInteracted) {
           setTimeout(() => {
             setIsRecording(true);
             setIsAutoPlaying(true);
           }, 2000);
         }
-      }, 7000); // Longer delay before restarting
+      }, 7000);
 
       return () => clearTimeout(timeout);
     }
   }, [completed, userInteracted]);
 
-  // Detect if user has clicked on any step and switch to interactive mode
   const handleStepClick = (index: number) => {
     setUserInteracted(true);
     setIsAutoPlaying(false);
     setIsRecording(false);
     setCurrentStep(index);
     
-    // If user stops interacting for 15 seconds, switch back to auto mode
     const inactivityTimer = setTimeout(() => {
       if (!completed) {
         setIsAutoPlaying(true);
@@ -549,7 +542,6 @@ export function AnimatedWorkflow() {
         overflow: "hidden"
       }}
     >
-      {/* Show "Encounter Complete" overlay when all steps are completed */}
       {completed && (
         <Box 
           component={motion.div}
@@ -630,6 +622,8 @@ export function AnimatedWorkflow() {
           const isComplete = currentStep > index;
           const isHovered = hovered === index;
           
+          const shouldShowOnMobile = index === 0 || index === 2 || index === 5 || index === 6;
+          
           return (
             <Box
               key={step.id}
@@ -653,7 +647,10 @@ export function AnimatedWorkflow() {
               onMouseEnter={() => setHovered(index)}
               onMouseLeave={() => setHovered(null)}
               sx={{
-                display: "flex",
+                display: {
+                  xs: shouldShowOnMobile ? "flex" : "none",
+                  md: "flex"
+                },
                 alignItems: "flex-start",
                 p: { xs: 1, sm: 1.5 },
                 borderRadius: 1.5,
@@ -723,7 +720,6 @@ export function AnimatedWorkflow() {
                 )}
               </Box>
               
-              {/* Detailed content for active step */}
               <AnimatePresence>
                 {isActive && step.detailContent && (
                   <motion.div
@@ -741,7 +737,6 @@ export function AnimatedWorkflow() {
         })}
       </Box>
 
-      {/* Add animations */}
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes typing {

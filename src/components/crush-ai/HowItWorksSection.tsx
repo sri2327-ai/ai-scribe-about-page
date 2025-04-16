@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -88,28 +87,6 @@ const steps = [
                   Connected to EHR
                 </Typography>
               </Box>
-              {active && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1 }}
-                  className="mt-4 flex justify-center"
-                >
-                  <Typography 
-                    variant="caption" 
-                    sx={{ 
-                      color: 'blue', 
-                      fontWeight: 600, 
-                      cursor: 'pointer',
-                      fontSize: '0.75rem',
-                      textDecoration: 'underline' 
-                    }}
-                    onClick={onNext}
-                  >
-                    Click to continue →
-                  </Typography>
-                </motion.div>
-              )}
             </motion.div>
           )}
         </Box>
@@ -454,24 +431,18 @@ export const HowItWorksSection = () => {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   
-  // Function to move to the next step
   const handleNextStep = () => {
     if (activeStep < steps.length - 1) {
       setCompletedSteps(prev => [...prev, activeStep]);
       setActiveStep(activeStep + 1);
     } else {
-      // Reset the animation if we're at the last step
       setCompletedSteps([]);
       setActiveStep(0);
     }
   };
   
-  // Auto advance to first step when component mounts
   useEffect(() => {
-    // Start with step 0 active
     setActiveStep(0);
-    
-    // Clean up any timers on unmount
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -484,7 +455,7 @@ export const HowItWorksSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: "#ffffff", // Pure white background
+        bgcolor: "#ffffff",
         position: "relative",
         overflow: "hidden"
       }}
@@ -504,7 +475,7 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: "#333" // Darker text for contrast on white
+              color: "#333"
             }}
           >
             How CRUSH Works
@@ -514,7 +485,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555", // Medium gray for body text
+              color: "#555",
               fontWeight: 400,
               mb: 2
             }}
@@ -526,7 +497,7 @@ export const HowItWorksSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#555", // Using gray for better contrast on white
+              color: "#555",
               fontWeight: 600,
               fontSize: "1.2rem"
             }}
@@ -535,7 +506,6 @@ export const HowItWorksSection = () => {
           </Typography>
         </Box>
 
-        {/* Interactive Workflow Animation */}
         <Box 
           sx={{ 
             display: 'flex',
@@ -547,7 +517,6 @@ export const HowItWorksSection = () => {
             maxWidth: 1200
           }}
         >
-          {/* Left side - Steps Navigation */}
           <Box
             sx={{
               width: { xs: '100%', md: '30%' },
@@ -670,7 +639,6 @@ export const HowItWorksSection = () => {
             })}
           </Box>
           
-          {/* Right side - Animation Display */}
           <Box
             sx={{
               width: { xs: '100%', md: '70%' },
