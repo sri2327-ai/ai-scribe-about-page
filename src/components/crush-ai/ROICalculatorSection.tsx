@@ -40,13 +40,13 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.7, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.98, 1]);
   
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
-  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["98%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["98%", "100%"]);
+  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["0.75rem", "0rem"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -196,7 +196,7 @@ export const ROICalculatorSection = () => {
                 variant="body1" 
                 sx={{
                   color: crushAIColors.text.secondary,
-                  mb: 4,
+                  mb: 2,
                   maxWidth: "700px",
                   mx: "auto",
                   fontSize: { xs: "1rem", md: "1.1rem" }
