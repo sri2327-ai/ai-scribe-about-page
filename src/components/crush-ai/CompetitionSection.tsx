@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -87,7 +88,7 @@ export const CompetitionSection = () => {
             <SparklesText 
               text="Why CRUSH Crushes the Competition" 
               className="text-4xl md:text-5xl font-bold text-center mb-6"
-              colors={{ first: "#0EA5E9", second: "#1EAEDB" }}
+              colors={{ first: "#387E89", second: "#5192AE" }} // Updated to brand teal and turquoise
               sparklesCount={20}
             />
           </Box>
@@ -96,7 +97,7 @@ export const CompetitionSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#333333",
+              color: 'rgba(20, 49, 81, 0.8)', // Updated to semi-transparent navy
               fontWeight: 400,
               mb: 4
             }}
@@ -124,8 +125,8 @@ export const CompetitionSection = () => {
                   cursor: "pointer",
                   borderRadius: 1,
                   mb: 1.5,
-                  bgcolor: activeFeature === feature.id ? "rgba(155,135,245,0.1)" : "transparent",
-                  borderLeft: activeFeature === feature.id ? "2px solid #9b87f5" : "2px solid transparent",
+                  bgcolor: activeFeature === feature.id ? "rgba(56, 126, 137, 0.1)" : "transparent", // Updated to semi-transparent teal
+                  borderLeft: activeFeature === feature.id ? "2px solid #387E89" : "2px solid transparent", // Updated to brand teal
                   transition: "all 0.2s ease"
                 }}
                 onClick={() => setActiveFeature(feature.id)}
@@ -135,7 +136,7 @@ export const CompetitionSection = () => {
                     variant="subtitle1" 
                     sx={{ 
                       fontWeight: 500, 
-                      color: activeFeature === feature.id ? "#333333" : "#8E9196",
+                      color: activeFeature === feature.id ? "#143151" : "#8E9196", // Updated to brand navy when active
                       letterSpacing: "0.01em"
                     }}
                   >
@@ -143,7 +144,7 @@ export const CompetitionSection = () => {
                   </Typography>
                   <ChevronRight 
                     size={16} 
-                    className={activeFeature === feature.id ? "text-purple-400" : "text-gray-500"} 
+                    className={activeFeature === feature.id ? "text-teal" : "text-gray-500"} // Updated to use teal class
                     strokeWidth={2}
                   />
                 </Box>
@@ -157,7 +158,7 @@ export const CompetitionSection = () => {
               bgcolor: "rgba(249,250,252,0.8)",
               borderRadius: 2,
               p: 4,
-              border: "1px solid rgba(155,135,245,0.3)",
+              border: "1px solid rgba(56, 126, 137, 0.3)", // Updated to semi-transparent teal
               boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
             }}
           >
@@ -174,8 +175,8 @@ export const CompetitionSection = () => {
                 transition={{ duration: 0.4 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-                  <Trophy size={22} className="text-purple-400 mr-2" stroke="#000000" strokeWidth={1.5} />
-                  <Typography variant="h5" sx={{ fontWeight: 600, color: "#333333", letterSpacing: "0.02em" }}>
+                  <Trophy size={22} className="text-teal mr-2" stroke="#387E89" strokeWidth={1.5} /> {/* Updated to teal */}
+                  <Typography variant="h5" sx={{ fontWeight: 600, color: "#143151", letterSpacing: "0.02em" }}> {/* Updated to navy */}
                     {feature.title}
                   </Typography>
                 </Box>
@@ -184,23 +185,23 @@ export const CompetitionSection = () => {
                   <Box sx={{ display: "flex", mb: 4, alignItems: "flex-start", gap: 2 }}>
                     <Box 
                       sx={{ 
-                        bgcolor: "rgba(155,135,245,0.1)", 
+                        bgcolor: "rgba(56, 126, 137, 0.1)", // Updated to semi-transparent teal
                         p: 1, 
                         borderRadius: "50%", 
                         display: "flex", 
                         alignItems: "center",
                         justifyContent: "center",
                         flexShrink: 0,
-                        border: "1px solid rgba(155,135,245,0.3)"
+                        border: "1px solid rgba(56, 126, 137, 0.3)" // Updated to semi-transparent teal
                       }}
                     >
-                      <CheckCircle size={20} className="text-purple-400" stroke="#000000" strokeWidth={1.5} />
+                      <CheckCircle size={20} className="text-teal" stroke="#387E89" strokeWidth={1.5} /> {/* Updated to teal */}
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#333333" }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#143151" }}> {/* Updated to navy */}
                         C.R.U.S.H.
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#555555", lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      <Typography variant="body2" sx={{ color: 'rgba(20, 49, 81, 0.8)', lineHeight: 1.6, letterSpacing: "0.01em" }}> {/* Updated to semi-transparent navy */}
                         {feature.crushDescription}
                       </Typography>
                     </Box>
@@ -219,13 +220,13 @@ export const CompetitionSection = () => {
                         border: "1px solid rgba(255,100,100,0.3)"
                       }}
                     >
-                      <XCircle size={20} className="text-red-400" stroke="#000000" strokeWidth={1.5} />
+                      <XCircle size={20} className="text-red-400" stroke="#143151" strokeWidth={1.5} /> {/* Updated stroke to navy */}
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#333333" }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#143151" }}> {/* Updated to navy */}
                         Other AI Scribes
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#555555", lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      <Typography variant="body2" sx={{ color: 'rgba(20, 49, 81, 0.8)', lineHeight: 1.6, letterSpacing: "0.01em" }}> {/* Updated to semi-transparent navy */}
                         {feature.competitionDescription}
                       </Typography>
                     </Box>

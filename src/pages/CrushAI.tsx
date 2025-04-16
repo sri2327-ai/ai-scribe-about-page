@@ -17,7 +17,7 @@ import { Container, Typography } from "@mui/material";
 
 const CrushAI = () => {
   return (
-    <Box sx={{ bgcolor: "white", color: "#333" }}>
+    <Box sx={{ bgcolor: "white", color: "#143151" }}> {/* Updated text color to navy */}
       {/* Hero Section */}
       <HeroSection />
 
@@ -33,13 +33,13 @@ const CrushAI = () => {
       {/* Why CRUSH Crushes Competition */}
       <CompetitionSection />
       
-      {/* Testimonial Generate Section (new placement after Competition) */}
+      {/* Testimonial Generate Section (after Competition) */}
       <TestimonialGenerateSection />
       
       {/* Clinical Workflow Section */}
       <ClinicalWorkflowSection />
       
-      {/* Testimonial Generate Section (new placement before Workflow Automation) */}
+      {/* Testimonial Generate Section (before Workflow Automation) */}
       <TestimonialGenerateSection />
       
       {/* Book A Demo CTA */}
@@ -47,7 +47,7 @@ const CrushAI = () => {
         component="section"
         sx={{
           py: 8,
-          bgcolor: "#f5f9ff",
+          bgcolor: "rgba(165, 204, 243, 0.1)", // Updated to light blue with transparency
           textAlign: "center"
         }}
       >
@@ -58,14 +58,14 @@ const CrushAI = () => {
               fontSize: { xs: "1.75rem", md: "2.25rem" },
               fontWeight: 700,
               mb: 3,
-              color: "#000000"
+              color: "#143151" // Updated to navy
             }}
           >
             CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
           </Typography>
           <Button 
             size="lg" 
-            className="bg-black hover:bg-black/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            className="bg-navy hover:bg-navy/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO
