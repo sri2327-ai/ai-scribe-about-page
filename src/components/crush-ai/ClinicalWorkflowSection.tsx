@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -38,20 +39,15 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
     )}
   >
     <div className="flex flex-col gap-3 z-10">
-      <div 
-        className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90"
-      >
-        <Icon className="stroke-[1.5]" style={{ color: crushAIColors.primary, width: 24, height: 24 }} />
+      <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
+        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
       </div>
       
       <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 
-          className="text-xl font-semibold mb-2"
-          style={{ color: crushAIColors.primary }}
-        >
+        <h3 className={`text-xl font-semibold text-[${crushAIColors.primary}] mb-2`}>
           {title}
         </h3>
-        <p style={{ color: crushAIColors.text.secondary }}>{description}</p>
+        <p className={`text-[${crushAIColors.text.secondary}]`}>{description}</p>
       </div>
     </div>
   </motion.div>
@@ -118,6 +114,7 @@ export const ClinicalWorkflowSection = () => {
     }
   ];
 
+  // Render functions for desktop and mobile views
   const renderFeaturesMobile = (features: any[]) => (
     <Carousel className="w-full">
       <CarouselContent>
@@ -173,26 +170,17 @@ export const ClinicalWorkflowSection = () => {
     </ContainerScroll>
   );
 
+  // Card component for mobile view
   const Card = ({ icon: Icon, title, description, className }: FeatureCardProps) => (
     <div className={cn(
       "flex flex-col p-6 border border-black/10 rounded-xl shadow-sm bg-white",
       className
     )}>
       <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-        <Icon className="stroke-[1.5]" style={{ color: crushAIColors.primary, width: 24, height: 24 }} />
+        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
       </div>
-      <h3 
-        className="text-lg font-semibold mb-2"
-        style={{ color: crushAIColors.primary }}
-      >
-        {title}
-      </h3>
-      <p 
-        className="text-sm"
-        style={{ color: crushAIColors.text.secondary }}
-      >
-        {description}
-      </p>
+      <h3 className={`text-lg font-semibold mb-2 text-[${crushAIColors.primary}]`}>{title}</h3>
+      <p className={`text-sm text-[${crushAIColors.text.secondary}]`}>{description}</p>
     </div>
   );
 
