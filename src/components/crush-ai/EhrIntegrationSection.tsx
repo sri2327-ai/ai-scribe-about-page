@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -13,6 +12,7 @@ import {
 } from "@/components/ui/carousel";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
+import EhrBackground from "./EhrBackground";
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
@@ -50,6 +50,8 @@ export const EhrIntegrationSection = () => {
           zIndex: 1
         }}
       >
+        <EhrBackground />
+        
         <Container maxWidth="lg">
           <Box 
             component={motion.div}

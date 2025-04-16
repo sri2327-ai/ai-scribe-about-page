@@ -16,7 +16,6 @@ import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
-import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 import { WaveBackground } from "@/components/ui/wave-background";
 
 const CrushAI = () => {
@@ -98,7 +97,7 @@ const CrushAI = () => {
         <ROICalculatorSection />
       </WaveBackground>
 
-      <TestimonialsBenefitsSection />
+      {/* Removed TestimonialsBenefitsSection as requested */}
     </Box>
   );
 };
