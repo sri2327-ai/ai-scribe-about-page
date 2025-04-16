@@ -70,7 +70,7 @@ export const HeroSection = () => {
       <div className="absolute inset-0 z-0 opacity-20">
         <VoiceWaves 
           colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
-          opacity={0.2}
+          opacity={0.5} // Increased opacity from 0.2 to 0.5
         />
       </div>
       
@@ -217,7 +217,7 @@ export const HeroSection = () => {
       >
         <VoiceWaves 
           colors={["#0FA0CE", "#A63B70"]} // Darker teal blue and pink
-          opacity={0.2}
+          opacity={0.5} // Increased opacity from 0.2 to 0.5
           className="absolute bottom-0 left-0 right-0"
         />
       </Box>
