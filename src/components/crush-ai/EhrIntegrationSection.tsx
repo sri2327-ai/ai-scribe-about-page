@@ -16,7 +16,8 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
+  const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
   const features = [
     {
@@ -115,7 +116,7 @@ export const EhrIntegrationSection = () => {
           ))}
         </Box>
 
-        {/* Desktop: Horizontal scrolling cards, Mobile: Carousel */}
+        {/* Mobile: Carousel, Tablet/Desktop: Horizontal scrolling cards */}
         {isMobile ? (
           <Carousel className="w-full max-w-sm mx-auto">
             <CarouselContent>
@@ -166,63 +167,67 @@ export const EhrIntegrationSection = () => {
             </div>
           </Carousel>
         ) : (
-          <ScrollArea className="w-full whitespace-nowrap pb-4">
-            <Box 
-              sx={{ 
-                display: 'flex',
-                gap: 3,
-                pb: 2,
-                px: 0.5,
-              }}
-            >
-              {features.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  style={{ minWidth: '300px' }}
-                >
-                  <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300">
-                    <CardContent className="flex flex-col items-center text-center p-6">
-                      <Box 
-                        sx={{ 
-                          mb: 3,
-                          p: 2,
-                          borderRadius: '50%',
-                          bgcolor: 'rgba(0, 0, 0, 0.03)',
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center'
-                        }}
-                      >
-                        {item.icon}
-                      </Box>
-                      <Typography 
-                        variant="h5" 
-                        sx={{ 
-                          mb: 1.5,
-                          fontWeight: 600,
-                          color: crushAIColors.text.primary,
-                          fontSize: '1.25rem'
-                        }}
-                      >
-                        {item.title}
-                      </Typography>
-                      <Typography 
-                        variant="body1"
-                        sx={{ color: crushAIColors.text.light, fontSize: '0.95rem' }}
-                      >
-                        {item.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </Box>
-          </ScrollArea>
+          <Box 
+            sx={{ 
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              gap: { xs: 2, sm: 2, md: 3 },
+              width: '100%',
+              px: 2,
+              overflow: 'visible'
+            }}
+          >
+            {features.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                style={{ 
+                  width: isTablet ? 'calc(33.333% - 16px)' : '300px',
+                  minWidth: isTablet ? 'auto' : '300px'
+                }}
+              >
+                <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300">
+                  <CardContent className="flex flex-col items-center text-center p-6">
+                    <Box 
+                      sx={{ 
+                        mb: 3,
+                        p: 2,
+                        borderRadius: '50%',
+                        bgcolor: 'rgba(0, 0, 0, 0.03)',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}
+                    >
+                      {item.icon}
+                    </Box>
+                    <Typography 
+                      variant="h5" 
+                      sx={{ 
+                        mb: 1.5,
+                        fontWeight: 600,
+                        color: crushAIColors.text.primary,
+                        fontSize: '1.25rem'
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography 
+                      variant="body1"
+                      sx={{ color: crushAIColors.text.light, fontSize: '0.95rem' }}
+                    >
+                      {item.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </Box>
         )}
       </Container>
     </Box>

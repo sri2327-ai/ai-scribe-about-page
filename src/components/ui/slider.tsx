@@ -21,10 +21,7 @@ const Slider = React.forwardRef<
       {...props}
       onPointerDown={() => setIsDragging(true)}
       onPointerUp={() => setIsDragging(false)}
-      onPointerLeave={() => {
-        // Don't reset dragging state on pointer leave to prevent disappearing
-        // The state will be reset on pointerup which happens when the drag ends
-      }}
+      onPointerLeave={() => setIsDragging(false)}
       onPointerCancel={() => setIsDragging(false)}
     >
       <SliderPrimitive.Track className="relative h-[1px] w-full grow overflow-hidden bg-neutral-200 dark:bg-neutral-800">
@@ -34,10 +31,9 @@ const Slider = React.forwardRef<
         className="block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center"
         style={{ 
           touchAction: 'none',
-          // Add a property to ensure thumb always stays visible
-          opacity: '1',
-          // Increase hit area for better mobile interaction
-          position: 'relative'
+          opacity: '1 !important', // Force the thumb to always be visible
+          position: 'relative',
+          zIndex: 50 // Ensure a high z-index so it's always on top
         }}
       >
         <div className="grid grid-cols-3 gap-[2px]">
@@ -45,7 +41,7 @@ const Slider = React.forwardRef<
             <div key={index} className="w-[2px] h-[2px] rounded-full bg-white/70"></div>
           ))}
         </div>
-        {/* Add an invisible larger touch target */}
+        {/* Enhanced touch target for better mobile interaction */}
         <div 
           style={{
             position: 'absolute',
@@ -56,7 +52,7 @@ const Slider = React.forwardRef<
             left: '50%',
             transform: 'translate(-50%, -50%)',
             zIndex: -1,
-            cursor: 'grab'
+            cursor: isDragging ? 'grabbing' : 'grab'
           }}
         />
       </SliderPrimitive.Thumb>

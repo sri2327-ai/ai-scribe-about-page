@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Button as ShadcnButton } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
-import { TiltedScroll } from "@/components/ui/tilted-scroll";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SparklesText } from "@/components/ui/sparkles-text";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -66,27 +65,14 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 10, sm: 12, md: 12 }, // Increased top padding for mobile and tablet
+        py: { xs: 10, sm: 12, md: 16 }, // Increased top padding for mobile and tablet
         position: 'relative',
         overflow: 'hidden',
         height: { xs: 'auto', md: '100vh' },
         minHeight: { xs: 'auto', md: '100vh' },
-        mt: { xs: 4, sm: 4, md: 0 } // Added more top margin on mobile/tablet to give space from header
+        mt: { xs: 6, sm: 6, md: 0 } // Added more top margin on mobile/tablet to give space from header
       }}
     >
-      {/* Background Tilted Scroll with increased opacity */}
-      <Box
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          opacity: 0.35, // Opacity set to 0.35 as requested
-          display: { xs: 'block', sm: 'block', md: 'block' } // Show on all devices
-        }}
-      >
-        <TiltedScroll />
-      </Box>
-      
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
         <Box sx={{ 
           display: 'flex', 
@@ -124,7 +110,7 @@ export const HeroSection = () => {
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: crushAIColors.text.primary }}>
+                <Box component="span" sx={{ color: "black" }}>
                   <SparklesText 
                     text="C.R.U.S.H"
                     className="text-3xl md:text-4xl font-bold inline-block"
@@ -157,21 +143,6 @@ export const HeroSection = () => {
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
               </ShadcnButton>
-              
-              {/* Show TiltedScroll on mobile below the CTA button with higher opacity */}
-              {isMobile && (
-                <Box 
-                  sx={{ 
-                    mt: 5, 
-                    opacity: 0.35, // Increased opacity to 0.35
-                    transform: 'scale(0.8)',
-                    height: '150px', // Increased height for better visibility
-                    overflow: 'hidden'
-                  }}
-                >
-                  <TiltedScroll />
-                </Box>
-              )}
             </Box>
           </Box>
           
