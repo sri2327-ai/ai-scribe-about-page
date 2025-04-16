@@ -53,9 +53,10 @@ interface CustomTooltipProps {
 }
 
 export default function CustomTooltip({ title, children }: CustomTooltipProps) {
+  // Fix: Wrap children in a fragment to ensure it's always a valid React element
   return (
     <StyledTooltip title={title} arrow placement="top">
-      {children || <StyledButton>Hover me!</StyledButton>}
+      {children ? <>{children}</> : <StyledButton>Hover me!</StyledButton>}
     </StyledTooltip>
   );
 }
