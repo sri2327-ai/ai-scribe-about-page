@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -33,18 +32,22 @@ export const ROICalculatorSection = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
   const particlesControl = useAnimation();
   
-  // Add scroll animation ref and hooks
   const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
   
-  // Transform values for scroll-based animations
   const cardScale = useTransform(scrollYProgress, [0, 0.6], [0.8, 1]);
   const cardOpacity = useTransform(scrollYProgress, [0, 0.4], [0.4, 1]);
   const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
   const chartHeight = useTransform(scrollYProgress, [0.2, 0.7], ["90%", "100%"]);
+  
+  const containerWidth = useTransform(scrollYProgress, [0.1, 0.5], ["85%", "95%"]);
+  const containerBgOpacity = useTransform(scrollYProgress, [0.1, 0.7], [0.7, 1]);
+  const gradientProgress = useTransform(scrollYProgress, [0, 1], [0, 100]);
   
   useEffect(() => {
     const particleCount = 12;
@@ -113,311 +116,332 @@ export const ROICalculatorSection = () => {
       component="section"
       ref={sectionRef}
       sx={{
-        py: { xs: 6, md: 8 },
-        bgcolor: "#fff",
-        color: "#000",
-        position: "relative"
+        py: { xs: 8, md: 12 },
+        position: "relative",
+        overflow: "hidden",
+        minHeight: "100vh",
       }}
     >
-      <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5 }}>
-        <Box sx={{ mb: 5, textAlign: "center" }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            style={{ scale: titleScale }}
-          >
-            <Typography 
-              variant="h3" 
-              sx={{ 
-                fontWeight: 700, 
-                mb: 2,
-                fontSize: { xs: "1.75rem", md: "2.5rem" },
-                color: crushAIColors.primary
-              }}
+      <motion.div
+        className="absolute inset-0 w-full h-full z-0"
+        style={{
+          background: `linear-gradient(135deg, 
+            ${crushAIColors.primary} ${gradientProgress}%, 
+            ${crushAIColors.secondary} ${gradientProgress.get() + 50}%, 
+            ${crushAIColors.tertiary})`,
+          opacity: containerBgOpacity
+        }}
+      />
+      
+      <motion.div
+        ref={containerRef}
+        className="sticky top-24 mx-auto rounded-2xl overflow-hidden shadow-xl z-10"
+        style={{
+          width: containerWidth,
+          backgroundColor: "#ffffff",
+          boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5, py: 4 }}>
+          <Box sx={{ mb: 5, textAlign: "center" }}>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              style={{ scale: titleScale }}
             >
-              Save $1,800+/month per provider. Automate Notes with AI.
-            </Typography>
-            
-            <Typography 
-              variant="body1" 
-              sx={{
-                color: crushAIColors.text.secondary,
-                mb: 4,
-                maxWidth: "700px",
-                mx: "auto",
-                fontSize: { xs: "1rem", md: "1.1rem" }
-              }}
-            >
-              Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
-            </Typography>
-          </motion.div>
-        </Box>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          viewport={{ once: true }}
-          style={{ 
-            scale: cardScale,
-            opacity: cardOpacity
-          }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
-        >
-          <div className="flex flex-col gap-6 p-6 border border-black/10 rounded-xl shadow-sm">
-            <Typography 
-              variant="h5" 
-              sx={{ 
-                fontWeight: 600,
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                color: crushAIColors.primary
-              }}
-            >
-              <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
-              Calculate Your Savings
-            </Typography>
-            
-            <Stack spacing={3}>
-              <TextField
-                label="Number of Providers"
-                type="number"
-                value={providersInput}
-                onChange={(e) => setProvidersInput(e.target.value)}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Users size={20} className={`text-[${crushAIColors.primary}]`} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.23)',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: crushAIColors.primary,
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: crushAIColors.primary,
-                    },
-                  },
-                  '& .MuiFormLabel-root': {
-                    color: 'rgba(0, 0, 0, 0.6)',
-                    '&.Mui-focused': {
-                      color: crushAIColors.primary,
-                    },
-                  },
-                }}
-              />
-              
-              <TextField
-                label="Monthly Cost per Provider"
-                type="number"
-                value={costPerProviderInput}
-                onChange={(e) => setCostPerProviderInput(e.target.value)}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <DollarSign size={20} className={`text-[${crushAIColors.primary}]`} />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <div className="relative group">
-                        <Info size={18} className={`text-[${crushAIColors.primary}] cursor-help`} />
-                        <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
-                          Starting price of $99/month per provider
-                        </div>
-                      </div>
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.23)',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: crushAIColors.primary,
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: crushAIColors.primary,
-                    },
-                  },
-                  '& .MuiFormLabel-root': {
-                    color: 'rgba(0, 0, 0, 0.6)',
-                    '&.Mui-focused': {
-                      color: crushAIColors.primary,
-                    },
-                  },
-                }}
-              />
-              
-              <TextField
-                label="Patients per Day per Provider"
-                type="number"
-                value={patientsPerDayInput}
-                onChange={(e) => setPatientsPerDayInput(e.target.value)}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Users size={20} className={`text-[${crushAIColors.primary}]`} />
-                    </InputAdornment>
-                  ),
-                }}
-                sx={{
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                      borderColor: 'rgba(0, 0, 0, 0.23)',
-                    },
-                    '&:hover fieldset': {
-                      borderColor: crushAIColors.primary,
-                    },
-                    '&.Mui-focused fieldset': {
-                      borderColor: crushAIColors.primary,
-                    },
-                  },
-                  '& .MuiFormLabel-root': {
-                    color: 'rgba(0, 0, 0, 0.6)',
-                    '&.Mui-focused': {
-                      color: crushAIColors.primary,
-                    },
-                  },
-                }}
-              />
-            </Stack>
-            
-            <div className="flex flex-col items-center justify-center mt-4 p-4 rounded-lg bg-[#F5F9FF]">
-              <Typography variant="subtitle1" sx={{ color: crushAIColors.text.secondary }}>
-                Your Monthly Savings:
-              </Typography>
               <Typography 
-                variant="h4" 
+                variant="h3" 
                 sx={{ 
-                  fontWeight: 700,
+                  fontWeight: 700, 
+                  mb: 2,
+                  fontSize: { xs: "1.75rem", md: "2.5rem" },
                   color: crushAIColors.primary
                 }}
               >
-                ${savings.toLocaleString()}
+                Save $1,800+/month per provider. Automate Notes with AI.
               </Typography>
-              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, textAlign: 'center', mt: 1 }}>
-                Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
-              </Typography>
-            </div>
-            
-            <div className="flex justify-center mt-2">
-              <Button
-                className={cn(
-                  "min-w-40 relative touch-none",
-                  "bg-[#143151] hover:bg-[#143151]/90 text-white",
-                  "border border-[#143151]/20",
-                  "transition-all duration-300"
-                )}
-                onClick={calculateSavings}
-                onMouseEnter={handleInteractionStart}
-                onMouseLeave={handleInteractionEnd}
-                onTouchStart={handleInteractionStart}
-                onTouchEnd={handleInteractionEnd}
+              
+              <Typography 
+                variant="body1" 
+                sx={{
+                  color: crushAIColors.text.secondary,
+                  mb: 4,
+                  maxWidth: "700px",
+                  mx: "auto",
+                  fontSize: { xs: "1rem", md: "1.1rem" }
+                }}
               >
-                {particles.map((_, index) => (
-                  <motion.span
-                    key={index}
-                    custom={index}
-                    initial={{ x: particles[index].x, y: particles[index].y }}
-                    animate={particlesControl}
-                    className={cn(
-                      "absolute text-xs font-bold",
-                      "transition-opacity duration-300",
-                      isAttracting ? "opacity-100" : "opacity-40"
-                    )}
-                    style={{
-                      color: "#FFD700",
-                    }}
-                  >
-                    {index % 3 === 0 ? "$" : index % 3 === 1 ? "💰" : "💵"}
-                  </motion.span>
-                ))}
-                <span className="relative w-full flex items-center justify-center gap-2">
-                  <Magnet
-                    className={cn(
-                      "w-4 h-4 transition-transform duration-300",
-                      isAttracting && "scale-110"
-                    )}
-                  />
-                  {isAttracting ? "Magnetizing Savings" : "Magnetize Savings"}
-                </span>
-              </Button>
-            </div>
-          </div>
-          
-          <motion.div 
-            className="border border-black/10 rounded-xl p-6 shadow-sm"
-            style={{ height: chartHeight }}
+                Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
+              </Typography>
+            </motion.div>
+          </Box>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            style={{ 
+              scale: cardScale,
+              opacity: cardOpacity
+            }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
           >
-            <Typography 
-              variant="h5" 
-              sx={{ 
-                fontWeight: 600,
-                mb: 3,
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                color: crushAIColors.primary
-              }}
-            >
-              <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
-              Monthly Cost Comparison
-            </Typography>
-            
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart
-                data={savingsData}
-                margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
+            <div className="flex flex-col gap-6 p-6 border border-black/10 rounded-xl shadow-sm">
+              <Typography 
+                variant="h5" 
+                sx={{ 
+                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  color: crushAIColors.primary
+                }}
               >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  tick={{ fill: crushAIColors.text.primary }}
-                  axisLine={{ stroke: crushAIColors.text.primary }}
-                />
-                <YAxis
-                  tickFormatter={(value) => `$${value}`}
-                  tick={{ fill: crushAIColors.text.primary }}
-                  axisLine={{ stroke: crushAIColors.text.primary }}
-                />
-                <RechartsTooltip
-                  formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
-                  contentStyle={{ 
-                    backgroundColor: '#fff', 
-                    border: `1px solid ${crushAIColors.primary}`,
-                    borderRadius: '4px'
+                <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
+                Calculate Your Savings
+              </Typography>
+              
+              <Stack spacing={3}>
+                <TextField
+                  label="Number of Providers"
+                  type="number"
+                  value={providersInput}
+                  onChange={(e) => setProvidersInput(e.target.value)}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Users size={20} className={`text-[${crushAIColors.primary}]`} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: 'rgba(0, 0, 0, 0.23)',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: crushAIColors.primary,
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: crushAIColors.primary,
+                      },
+                    },
+                    '& .MuiFormLabel-root': {
+                      color: 'rgba(0, 0, 0, 0.6)',
+                      '&.Mui-focused': {
+                        color: crushAIColors.primary,
+                      },
+                    },
                   }}
                 />
-                <Bar
-                  dataKey="value"
-                  fill={crushAIColors.primary}
-                  radius={[8, 8, 0, 0]}
-                  name="Cost"
+                
+                <TextField
+                  label="Monthly Cost per Provider"
+                  type="number"
+                  value={costPerProviderInput}
+                  onChange={(e) => setCostPerProviderInput(e.target.value)}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <DollarSign size={20} className={`text-[${crushAIColors.primary}]`} />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <div className="relative group">
+                          <Info size={18} className={`text-[${crushAIColors.primary}] cursor-help`} />
+                          <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
+                            Starting price of $99/month per provider
+                          </div>
+                        </div>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: 'rgba(0, 0, 0, 0.23)',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: crushAIColors.primary,
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: crushAIColors.primary,
+                      },
+                    },
+                    '& .MuiFormLabel-root': {
+                      color: 'rgba(0, 0, 0, 0.6)',
+                      '&.Mui-focused': {
+                        color: crushAIColors.primary,
+                      },
+                    },
+                  }}
                 />
-              </BarChart>
-            </ResponsiveContainer>
+                
+                <TextField
+                  label="Patients per Day per Provider"
+                  type="number"
+                  value={patientsPerDayInput}
+                  onChange={(e) => setPatientsPerDayInput(e.target.value)}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Users size={20} className={`text-[${crushAIColors.primary}]`} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      '& fieldset': {
+                        borderColor: 'rgba(0, 0, 0, 0.23)',
+                      },
+                      '&:hover fieldset': {
+                        borderColor: crushAIColors.primary,
+                      },
+                      '&.Mui-focused fieldset': {
+                        borderColor: crushAIColors.primary,
+                      },
+                    },
+                    '& .MuiFormLabel-root': {
+                      color: 'rgba(0, 0, 0, 0.6)',
+                      '&.Mui-focused': {
+                        color: crushAIColors.primary,
+                      },
+                    },
+                  }}
+                />
+              </Stack>
+              
+              <div className="flex flex-col items-center justify-center mt-4 p-4 rounded-lg bg-[#F5F9FF]">
+                <Typography variant="subtitle1" sx={{ color: crushAIColors.text.secondary }}>
+                  Your Monthly Savings:
+                </Typography>
+                <Typography 
+                  variant="h4" 
+                  sx={{ 
+                    fontWeight: 700,
+                    color: crushAIColors.primary
+                  }}
+                >
+                  ${savings.toLocaleString()}
+                </Typography>
+                <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, textAlign: 'center', mt: 1 }}>
+                  Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
+                </Typography>
+              </div>
+              
+              <div className="flex justify-center mt-2">
+                <Button
+                  className={cn(
+                    "min-w-40 relative touch-none",
+                    "bg-[#143151] hover:bg-[#143151]/90 text-white",
+                    "border border-[#143151]/20",
+                    "transition-all duration-300"
+                  )}
+                  onClick={calculateSavings}
+                  onMouseEnter={handleInteractionStart}
+                  onMouseLeave={handleInteractionEnd}
+                  onTouchStart={handleInteractionStart}
+                  onTouchEnd={handleInteractionEnd}
+                >
+                  {particles.map((_, index) => (
+                    <motion.span
+                      key={index}
+                      custom={index}
+                      initial={{ x: particles[index].x, y: particles[index].y }}
+                      animate={particlesControl}
+                      className={cn(
+                        "absolute text-xs font-bold",
+                        "transition-opacity duration-300",
+                        isAttracting ? "opacity-100" : "opacity-40"
+                      )}
+                      style={{
+                        color: "#FFD700",
+                      }}
+                    >
+                      {index % 3 === 0 ? "$" : index % 3 === 1 ? "💰" : "💵"}
+                    </motion.span>
+                  ))}
+                  <span className="relative w-full flex items-center justify-center gap-2">
+                    <Magnet
+                      className={cn(
+                        "w-4 h-4 transition-transform duration-300",
+                        isAttracting && "scale-110"
+                      )}
+                    />
+                    {isAttracting ? "Magnetizing Savings" : "Magnetize Savings"}
+                  </span>
+                </Button>
+              </div>
+            </div>
             
-            <Button 
-              className="w-full mt-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2"
+            <motion.div 
+              className="border border-black/10 rounded-xl p-6 shadow-sm"
+              style={{ height: chartHeight }}
             >
-              Book A Demo
-            </Button>
+              <Typography 
+                variant="h5" 
+                sx={{ 
+                  fontWeight: 600,
+                  mb: 3,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 1,
+                  color: crushAIColors.primary
+                }}
+              >
+                <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
+                Monthly Cost Comparison
+              </Typography>
+              
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  data={savingsData}
+                  margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fill: crushAIColors.text.primary }}
+                    axisLine={{ stroke: crushAIColors.text.primary }}
+                  />
+                  <YAxis
+                    tickFormatter={(value) => `$${value}`}
+                    tick={{ fill: crushAIColors.text.primary }}
+                    axisLine={{ stroke: crushAIColors.text.primary }}
+                  />
+                  <RechartsTooltip
+                    formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
+                    contentStyle={{ 
+                      backgroundColor: '#fff', 
+                      border: `1px solid ${crushAIColors.primary}`,
+                      borderRadius: '4px'
+                    }}
+                  />
+                  <Bar
+                    dataKey="value"
+                    fill={crushAIColors.primary}
+                    radius={[8, 8, 0, 0]}
+                    name="Cost"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+              
+              <Button 
+                className="w-full mt-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2"
+              >
+                Book A Demo
+              </Button>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </Container>
+        </Container>
+      </motion.div>
     </Box>
   );
 };
