@@ -600,8 +600,7 @@ export function AnimatedWorkflow() {
             backgroundColor: "rgba(255, 255, 255, 0.95)",
             zIndex: 50,
             borderRadius: 2,
-            p: { xs: 3, md: 4 },
-            textAlign: "center" // Ensure all text is centered
+            p: 4
           }}
         >
           <Box 
@@ -613,52 +612,30 @@ export function AnimatedWorkflow() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              gap: { xs: 2, md: 3 },
+              gap: 3,
               textAlign: "center",
               width: "100%",
               maxWidth: "320px",
               mx: "auto"
             }}
           >
-            <CheckCircle size={50} color={primaryColor} />
-            <Typography variant="h5" sx={{ 
-              fontWeight: 700, 
-              color: primaryColor, 
-              fontSize: { xs: "1.25rem", sm: "1.5rem" },
-              lineHeight: 1.2,
-              mt: 1
-            }}>
+            <CheckCircle size={60} color={primaryColor} />
+            <Typography variant="h5" sx={{ fontWeight: 700, color: primaryColor, fontSize: { xs: "1.25rem", sm: "1.5rem" } }}>
               Encounter Complete
             </Typography>
-            <Typography variant="body1" sx={{ 
-              color: primaryColor, 
-              maxWidth: "350px", 
-              fontSize: { xs: "0.875rem", sm: "1rem" },
-              px: 2
-            }}>
+            <Typography variant="body1" sx={{ color: primaryColor, maxWidth: "350px", fontSize: { xs: "0.875rem", sm: "1rem" } }}>
               Time Saved, Burnout Crushed, Patients Soaring!
             </Typography>
             
-            <Box sx={{ 
-              display: "flex", 
-              justifyContent: "center", 
-              gap: { xs: 4, sm: 6 }, 
-              mt: { xs: 1, sm: 2 }, 
-              width: "100%"
-            }}>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: { xs: 3, sm: 6 }, mt: 2, width: "100%" }}>
               <Box 
                 component={motion.div}
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Clock size={26} color={primaryColor} className="mb-1" />
-                <Typography sx={{ 
-                  fontSize: { xs: "0.7rem", sm: "0.8rem" }, 
-                  fontWeight: "bold", 
-                  color: primaryColor,
-                  mt: 0.5
-                }}>
+                <Clock size={28} color={primaryColor} className="mb-1" />
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
                   Time Saved
                 </Typography>
               </Box>
@@ -668,13 +645,8 @@ export function AnimatedWorkflow() {
                 transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Heart size={26} className="text-red-500 mb-1" />
-                <Typography sx={{ 
-                  fontSize: { xs: "0.7rem", sm: "0.8rem" }, 
-                  fontWeight: "bold", 
-                  color: primaryColor,
-                  mt: 0.5
-                }}>
+                <Heart size={28} className="text-red-500 mb-1" />
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
                   Burnout Crushed
                 </Typography>
               </Box>
@@ -693,7 +665,7 @@ export function AnimatedWorkflow() {
                 setIsRecording(true);
               }}
               sx={{
-                mt: { xs: 2, sm: 3 },
+                mt: 2,
                 py: 1.5,
                 px: 4,
                 bgcolor: primaryColor,
@@ -702,11 +674,11 @@ export function AnimatedWorkflow() {
                 cursor: "pointer",
                 fontSize: { xs: "0.8rem", sm: "0.9rem" },
                 fontWeight: "medium",
-                width: "fit-content",
+                width: "80%",
                 textAlign: "center"
               }}
             >
-              Complete Encounter
+              Start New Encounter
             </Box>
           </Box>
         </Box>

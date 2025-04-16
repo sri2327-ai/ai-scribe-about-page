@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -7,6 +8,7 @@ import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export const WorkflowAutomationSection = () => {
+  // Create a ref for the slider container
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   
   const [sliderPosition, setSliderPosition] = useState<number>(50);
@@ -14,11 +16,13 @@ export const WorkflowAutomationSection = () => {
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
   
+  // Motion values for smooth animations
   const x = useMotionValue(0);
   const percent = useTransform(x, [-150, 150], [0, 100]);
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
+      // Clamp the value between 5 and 95 to ensure the slider never disappears at edges
       setSliderPosition(Math.min(Math.max(latest, 5), 95));
     });
     
@@ -32,10 +36,11 @@ export const WorkflowAutomationSection = () => {
   const handleDragEnd = () => {
     setIsDragging(false);
     
+    // Bounce back from edges to ensure visibility
     if (sliderPosition < 15) {
-      animate(x, -120, { duration: 0.3 });
+      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~15%
     } else if (sliderPosition > 85) {
-      animate(x, 120, { duration: 0.3 });
+      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~85%
     }
   };
   
@@ -55,9 +60,11 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
+    // Ensure the slider always stays within viewable area
     setSliderPosition(Math.max(5, Math.min(95, position)));
   };
 
+  // For handling direct clicks/taps on the container
   const handleDirectClick = (e: React.MouseEvent | React.TouchEvent) => {
     if (isDragging || !sliderContainerRef.current) return;
     
@@ -74,6 +81,7 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
+    // Ensure the slider always stays within viewable area
     const newPosition = Math.max(5, Math.min(95, position));
     setSliderPosition(newPosition);
     animate(x, (newPosition - 50) * 3, { duration: 0.3 });
@@ -147,29 +155,26 @@ export const WorkflowAutomationSection = () => {
               >
                 <div className="absolute inset-0 flex items-stretch">
                   <div 
-                    className="h-full flex items-center justify-center relative overflow-hidden"
-                    style={{ 
-                      width: `${sliderPosition}%`,
-                      backgroundColor: '#5192AE'
-                    }}
+                    className="h-full bg-black text-white flex items-center justify-center relative overflow-hidden"
+                    style={{ width: `${sliderPosition}%` }}
                   >
                     <div className={`z-10 p-4 ${isMobile ? 'max-w-[90%]' : 'max-w-md p-8'}`}>
-                      <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4 text-white`}>The old way of documentation</h2>
-                      <p className={`text-gray-100 ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
+                      <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4`}>The old way of documentation</h2>
+                      <p className={`text-gray-300 ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
                         Managing patient documentation is tedious and time-consuming. 
                         Avoid further complications by ditching outdated methods.
                       </p>
-                      <ul className={`space-y-2 md:space-y-3 text-gray-100 ${isMobile ? 'text-sm' : ''}`}>
+                      <ul className={`space-y-2 md:space-y-3 text-gray-300 ${isMobile ? 'text-sm' : ''}`}>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-gray-400 mt-1">•</span>
                           <span>Hours of typing after each visit</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-gray-400 mt-1">•</span>
                           <span>Constantly looking at screens</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-gray-400 mt-1">•</span>
                           <span>Increased clinician burnout</span>
                         </li>
                       </ul>
@@ -219,7 +224,7 @@ export const WorkflowAutomationSection = () => {
                   }}
                   drag="x"
                   dragConstraints={{ left: -120, right: 120 }}
-                  dragElastic={0.05}
+                  dragElastic={0.05} // Reduced elasticity to prevent overshooting
                   dragMomentum={false}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
@@ -240,6 +245,7 @@ export const WorkflowAutomationSection = () => {
                         ></div>
                       ))}
                     </div>
+                    {/* Increased the size of the invisible touch target */}
                     <div className="absolute w-20 h-20 rounded-full touch-none cursor-grab"></div>
                   </div>
                 </motion.div>

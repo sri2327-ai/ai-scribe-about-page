@@ -11,12 +11,12 @@ import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowS
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
-import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
+import { TestimonialsBenefitsSection } from "@/components/crush-ai/TestimonialsBenefitsSection";
 import { WaveBackground } from "@/components/ui/wave-background";
 
 const CrushAI = () => {
@@ -98,7 +98,6 @@ const CrushAI = () => {
         <ROICalculatorSection />
       </WaveBackground>
 
-      {/* Re-adding the TestimonialsBenefitsSection as requested */}
       <TestimonialsBenefitsSection />
     </Box>
   );
