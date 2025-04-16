@@ -72,13 +72,14 @@ export const HeroSection = () => {
         minHeight: { xs: 'auto', md: '100vh' }
       }}
     >
-      {/* Background Horizontal Scroll */}
+      {/* Background Tilted Scroll with increased opacity */}
       <Box
         sx={{
           position: 'absolute',
           inset: 0,
           zIndex: 0,
-          opacity: 0.05
+          opacity: 0.15, // Increased from 0.05 to 0.15
+          display: { xs: 'none', md: 'block' } // Hide on mobile as we'll show it differently
         }}
       >
         <TiltedScroll />
@@ -97,7 +98,8 @@ export const HeroSection = () => {
             sx={{ 
               width: { xs: '100%', md: '50%' },
               order: { xs: 1, md: 1 },
-              mb: { xs: 4, md: 0 }
+              mb: { xs: 4, md: 0 },
+              textAlign: { xs: 'center', md: 'left' }
             }}
           >
             <Box 
@@ -106,7 +108,6 @@ export const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               sx={{ 
-                textAlign: { xs: 'center', md: 'left' },
                 pr: { md: 4 }
               }}
             >
@@ -126,7 +127,7 @@ export const HeroSection = () => {
                     text="C.R.U.S.H"
                     className="text-3xl md:text-4xl font-bold inline-block"
                     colors={{ first: "#0EA5E9", second: "#D946EF" }}
-                    sparklesCount={7} // Reduced sparkles for better readability
+                    sparklesCount={5} // Reduced sparkles for better readability
                   />
                   : The AI Medical Scribe That Works for You
                 </Box>
@@ -153,6 +154,21 @@ export const HeroSection = () => {
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
               </ShadcnButton>
+              
+              {/* Show TiltedScroll on mobile below the CTA button */}
+              {isMobile && (
+                <Box 
+                  sx={{ 
+                    mt: 5, 
+                    opacity: 0.6, 
+                    transform: 'scale(0.8)',
+                    height: '120px',
+                    overflow: 'hidden'
+                  }}
+                >
+                  <TiltedScroll />
+                </Box>
+              )}
             </Box>
           </Box>
           

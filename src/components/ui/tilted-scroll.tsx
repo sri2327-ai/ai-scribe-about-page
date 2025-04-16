@@ -3,6 +3,7 @@
 
 import { cn } from "@/lib/utils";
 import { CheckCircle } from "lucide-react";
+import { useEffect, useState, useRef } from "react";
 
 interface TiltedScrollItem {
   id: string;
@@ -18,10 +19,43 @@ export function TiltedScroll({
   items = defaultItems,
   className 
 }: TiltedScrollProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div 
+      ref={containerRef}
+      className={cn("flex items-center justify-center w-full", className)}
+    >
       <div className="relative overflow-hidden [mask-composite:intersect] [mask-image:linear-gradient(to_right,transparent,black_5rem),linear-gradient(to_left,transparent,black_5rem),linear-gradient(to_bottom,transparent,black_5rem),linear-gradient(to_top,transparent,black_5rem)]">
-        <div className="grid h-[250px] w-[300px] gap-5 animate-skew-scroll grid-cols-1">
+        <div 
+          className={cn(
+            "grid h-[250px] w-full gap-5 grid-cols-1",
+            isVisible ? "animate-skew-scroll" : ""
+          )}
+          style={{ minWidth: "300px" }}
+        >
           {items.map((item) => (
             <div
               key={item.id}
