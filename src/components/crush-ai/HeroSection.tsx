@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -71,7 +70,8 @@ export const HeroSection = () => {
       {/* Voice Waves Animation Background Effect */}
       <div className="absolute inset-0 z-0 opacity-20">
         <VoiceWaves 
-          colors={["#2EB9DF", "#D946EF", "#2EB9DF"]}
+          colors={["#2EB9DF", "#D946EF"]}
+          opacity={0.1}
         />
       </div>
       
@@ -156,6 +156,22 @@ export const HeroSection = () => {
                 REQUEST A DEMO
                 <ArrowRight size={16} className="ml-2" />
               </ShadcnButton>
+
+              <Box 
+                sx={{ 
+                  position: 'relative', 
+                  width: '100%', 
+                  height: '100px', 
+                  mt: 4, 
+                  overflow: 'hidden' 
+                }}
+              >
+                <VoiceWaves 
+                  colors={["#2EB9DF", "#D946EF"]}
+                  opacity={0.2}
+                  className="absolute bottom-0 left-0 right-0"
+                />
+              </Box>
             </Box>
           </Box>
           
