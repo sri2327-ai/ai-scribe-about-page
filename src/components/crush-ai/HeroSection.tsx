@@ -65,11 +65,12 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 6, md: 12 }, 
+        py: { xs: 8, md: 12 }, // Increased top padding for mobile
         position: 'relative',
         overflow: 'hidden',
         height: { xs: 'auto', md: '100vh' },
-        minHeight: { xs: 'auto', md: '100vh' }
+        minHeight: { xs: 'auto', md: '100vh' },
+        mt: { xs: 2, md: 0 } // Added top margin on mobile to give space from header
       }}
     >
       {/* Background Tilted Scroll with increased opacity */}
@@ -78,8 +79,8 @@ export const HeroSection = () => {
           position: 'absolute',
           inset: 0,
           zIndex: 0,
-          opacity: 0.15, // Increased from 0.05 to 0.15
-          display: { xs: 'none', md: 'block' } // Hide on mobile as we'll show it differently
+          opacity: 0.35, // Increased opacity to 0.35 as requested
+          display: { xs: 'block', md: 'block' } // Show on all devices
         }}
       >
         <TiltedScroll />
@@ -90,7 +91,7 @@ export const HeroSection = () => {
           display: 'flex', 
           flexDirection: { xs: 'column', md: 'row' }, 
           alignItems: 'center', 
-          gap: { xs: 2, md: 4 },
+          gap: { xs: 4, md: 4 }, // Increased gap on mobile
           height: '100%',
           justifyContent: 'center'
         }}>
@@ -127,7 +128,7 @@ export const HeroSection = () => {
                     text="C.R.U.S.H"
                     className="text-3xl md:text-4xl font-bold inline-block"
                     colors={{ first: "#0EA5E9", second: "#D946EF" }}
-                    sparklesCount={5} // Reduced sparkles for better readability
+                    sparklesCount={15} // Reverted to original settings
                   />
                   : The AI Medical Scribe That Works for You
                 </Box>
@@ -155,14 +156,14 @@ export const HeroSection = () => {
                 REQUEST A DEMO
               </ShadcnButton>
               
-              {/* Show TiltedScroll on mobile below the CTA button */}
+              {/* Show TiltedScroll on mobile below the CTA button with higher opacity */}
               {isMobile && (
                 <Box 
                   sx={{ 
                     mt: 5, 
-                    opacity: 0.6, 
+                    opacity: 0.35, // Increased opacity to 0.35
                     transform: 'scale(0.8)',
-                    height: '120px',
+                    height: '150px', // Increased height for better visibility
                     overflow: 'hidden'
                   }}
                 >
@@ -179,9 +180,9 @@ export const HeroSection = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              maxHeight: { xs: '350px', md: '80vh' },
+              maxHeight: { xs: '320px', md: '80vh' },
               px: { xs: 2, md: 0 },
-              mt: { xs: 0, md: 0 }
+              mt: { xs: 2, md: 0 } // Added more space on mobile
             }}
           >
             <Box 

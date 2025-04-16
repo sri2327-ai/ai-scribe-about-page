@@ -59,10 +59,10 @@ export function TiltedScroll({
           {items.map((item) => (
             <div
               key={item.id}
-              className="group flex items-center gap-2 cursor-pointer rounded-md border border-border/40 bg-gradient-to-b from-background/80 to-muted/80 p-4 shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-xl dark:border-border"
+              className="group flex items-center gap-2 cursor-pointer rounded-md border border-border/60 bg-gradient-to-b from-background/90 to-muted/90 p-4 shadow-md transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-xl dark:border-border"
             >
-              <CheckCircle className="h-6 w-6 mr-2 stroke-foreground/40 transition-colors group-hover:stroke-foreground" />
-              <p className="text-foreground/80 transition-colors group-hover:text-foreground">
+              <CheckCircle className="h-6 w-6 mr-2 stroke-foreground/70 transition-colors group-hover:stroke-foreground" />
+              <p className="text-foreground/90 transition-colors group-hover:text-foreground font-medium">
                 {item.id === "1" ? (<><strong>C</strong>ustomizable: Tailored to your specific clinical workflow</>) : 
                  item.id === "2" ? (<><strong>R</strong>eal-time: Instant documentation as you speak</>) : 
                  item.id === "3" ? (<><strong>U</strong>niversal: Works with any EHR system</>) : 

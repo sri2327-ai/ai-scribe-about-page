@@ -21,17 +21,21 @@ const Slider = React.forwardRef<
       {...props}
       onPointerDown={() => setIsDragging(true)}
       onPointerUp={() => setIsDragging(false)}
-      // Ensure we handle all pointer end events
+      // Ensure we handle all pointer end events including cancel
       onPointerLeave={(e) => {
-        if (isDragging) {
-          setIsDragging(false);
-        }
+        // Don't reset dragging state on pointer leave to prevent disappearing
+        // Will be reset on pointerup which always happens
       }}
+      onPointerCancel={() => setIsDragging(false)}
     >
       <SliderPrimitive.Track className="relative h-[1px] w-full grow overflow-hidden bg-neutral-200 dark:bg-neutral-800">
         <SliderPrimitive.Range className="absolute h-full bg-neutral-900 dark:bg-neutral-100" />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className="block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center touch-none">
+      <SliderPrimitive.Thumb 
+        className="block h-6 w-6 rounded-full border border-neutral-200 bg-black text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center touch-none"
+        // Add a larger touch target for mobile without changing visible size
+        style={{ touchAction: 'none' }}
+      >
         <div className="grid grid-cols-3 gap-[2px]">
           {Array.from({ length: 9 }).map((_, index) => (
             <div key={index} className="w-[2px] h-[2px] rounded-full bg-white/70"></div>

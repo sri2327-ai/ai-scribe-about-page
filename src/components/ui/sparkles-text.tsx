@@ -23,7 +23,7 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
   const [sparkles, setSparkles] = useState<Array<{ id: number; x: number; y: number; size: number; delay: number }>>([]);
   const controls = useAnimationControls();
 
-  // Generate sparkles with reduced count and better positioning
+  // Generate sparkles
   useEffect(() => {
     if (containerRef.current) {
       const container = containerRef.current;
@@ -32,10 +32,9 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
       // Generate sparkles around the text
       const newSparkles = Array.from({ length: sparklesCount }, (_, i) => ({
         id: i,
-        // Position sparkles further from text for better readability
-        x: Math.random() * rect.width * 1.2 - rect.width * 0.1,
-        y: Math.random() * rect.height * 1.2 - rect.height * 0.1,
-        size: Math.random() * 3 + 1, // Reduced size
+        x: Math.random() * rect.width,
+        y: Math.random() * rect.height,
+        size: Math.random() * 4 + 1,
         delay: Math.random() * 0.5,
       }));
       
@@ -73,14 +72,14 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
           }}
           initial={{ opacity: 0, scale: 0 }}
           animate={{
-            opacity: [0, 0.4, 0], // Reduced opacity
+            opacity: [0, 0.7, 0],
             scale: [0, 1, 0],
           }}
           transition={{
             duration: 2,
             delay: sparkle.delay,
             repeat: Infinity,
-            repeatDelay: Math.random() * 5 + 5, // Slower repeats for less distracting animation
+            repeatDelay: Math.random() * 3 + 1,
           }}
         />
       ))}
@@ -93,7 +92,6 @@ export const SparklesText: React.FC<SparklesTextProps> = ({
           fontWeight: "inherit",
           position: "relative",
           zIndex: 1,
-          textShadow: "0 0 1px rgba(255, 255, 255, 0.3)" // Add subtle text shadow for better readability
         }}
       >
         {text}
