@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -40,13 +41,15 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
+  // Reduced scale effect - from 0.95 to 0.98 for more subtle zoom
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.98, 1]);
   
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
-  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
+  // Adjusted container transformations for smoother transition
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
+  const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1rem", "0rem"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -215,7 +218,7 @@ export const ROICalculatorSection = () => {
             style={{ 
               scale: cardScale,
               opacity: cardOpacity,
-              width: "100%"
+              width: "100%",
             }}
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start"
           >
@@ -230,7 +233,7 @@ export const ROICalculatorSection = () => {
                   color: crushAIColors.primary
                 }}
               >
-                <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
+                <BarChart2 size={24} />
                 Calculate Your Savings
               </Typography>
               
@@ -244,7 +247,7 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Users size={20} className={`text-[${crushAIColors.primary}]`} />
+                        <Users size={20} />
                       </InputAdornment>
                     ),
                   }}
@@ -278,13 +281,13 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <DollarSign size={20} className={`text-[${crushAIColors.primary}]`} />
+                        <DollarSign size={20} />
                       </InputAdornment>
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
                         <div className="relative group">
-                          <Info size={18} className={`text-[${crushAIColors.primary}] cursor-help`} />
+                          <Info size={18} className="cursor-help" />
                           <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
                             Starting price of $99/month per provider
                           </div>
@@ -322,7 +325,7 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Users size={20} className={`text-[${crushAIColors.primary}]`} />
+                        <Users size={20} />
                       </InputAdornment>
                     ),
                   }}
@@ -425,7 +428,7 @@ export const ROICalculatorSection = () => {
                   color: crushAIColors.primary
                 }}
               >
-                <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
+                <BarChart2 size={24} />
                 Monthly Cost Comparison
               </Typography>
               
