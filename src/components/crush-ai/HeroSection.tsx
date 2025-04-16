@@ -64,7 +64,8 @@ export const HeroSection = () => {
         py: { xs: 8, md: 12 }, 
         position: 'relative',
         overflow: 'hidden',
-        height: { xs: 'auto', md: '100vh' }
+        height: { xs: 'auto', md: '100vh' },
+        minHeight: { xs: '800px', md: '100vh' }
       }}
     >
       {/* Background Horizontal Scroll */}
@@ -85,7 +86,8 @@ export const HeroSection = () => {
           flexDirection: { xs: 'column', md: 'row' }, 
           alignItems: 'center', 
           gap: 4,
-          height: '100%'
+          height: '100%',
+          justifyContent: 'center'
         }}>
           <Box 
             sx={{ 
@@ -156,8 +158,9 @@ export const HeroSection = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              maxHeight: { xs: '500px', md: '80vh' },
-              px: { xs: 2, md: 0 }
+              maxHeight: { xs: '400px', md: '80vh' },
+              px: { xs: 2, md: 0 },
+              mt: { xs: 4, md: 0 }
             }}
           >
             <Box 
@@ -171,7 +174,7 @@ export const HeroSection = () => {
                 position: 'relative',
                 width: '100%',
                 height: '100%',
-                maxWidth: '550px'
+                maxWidth: { xs: '350px', md: '550px' }
               }}
             >
               <AnimatedWorkflow />

@@ -45,7 +45,19 @@ export const TrustedBySection = () => {
             sx={{ mb: 5 }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
-              <Users size={28} className="text-blue-600 mr-2" />
+              <Box
+                sx={{
+                  p: 1.5,
+                  borderRadius: '50%',
+                  border: '2px solid #000',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mr: 2
+                }}
+              >
+                <Users size={28} className="text-black" />
+              </Box>
               <Typography 
                 variant="h3" 
                 sx={{ 
@@ -66,7 +78,7 @@ export const TrustedBySection = () => {
                 mb: 2
               }}
             >
-              Trusted by Clinicians Nationwide
+              Trusted by Clinicians Worldwide
             </Typography>
             <Typography 
               variant="body1"

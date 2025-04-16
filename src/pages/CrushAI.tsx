@@ -39,9 +39,6 @@ const CrushAI = () => {
       {/* Clinical Workflow Section */}
       <ClinicalWorkflowSection />
       
-      {/* Testimonial Generate Section (new placement before Workflow Automation) */}
-      <TestimonialGenerateSection />
-      
       {/* Book A Demo CTA */}
       <Box 
         component="section"

@@ -533,7 +533,7 @@ export function AnimatedWorkflow() {
     <Box 
       sx={{
         position: "relative",
-        p: 4, 
+        p: { xs: 2, sm: 4 }, 
         bgcolor: "#ffffff",
         borderRadius: 2,
         boxShadow: "0 4px 32px rgba(0, 0, 0, 0.03), 0 2px 8px rgba(0, 0, 0, 0.06)",
@@ -541,10 +541,12 @@ export function AnimatedWorkflow() {
         display: "flex",
         flexDirection: "column",
         border: "1px solid rgba(0, 0, 0, 0.04)",
-        maxWidth: "450px", 
+        width: "100%",
+        maxWidth: { xs: "100%", md: "450px" }, 
         margin: "0 auto",
         background: "rgba(255, 255, 255, 0.5)",
         backdropFilter: "blur(10px)",
+        overflow: "hidden"
       }}
     >
       {/* Show "Encounter Complete" overlay when all steps are completed */}
@@ -580,22 +582,22 @@ export function AnimatedWorkflow() {
             }}
           >
             <CheckCircle size={60} className="text-green-500" />
-            <Typography variant="h5" sx={{ fontWeight: 700, color: "#10b981" }}>
+            <Typography variant="h5" sx={{ fontWeight: 700, color: "#10b981", fontSize: { xs: "1.25rem", sm: "1.5rem" } }}>
               Encounter Complete
             </Typography>
-            <Typography variant="body1" sx={{ color: "#666", maxWidth: "350px" }}>
+            <Typography variant="body1" sx={{ color: "#666", maxWidth: "350px", fontSize: { xs: "0.875rem", sm: "1rem" } }}>
               Time Saved, Burnout Crushed, Patients Soaring!
             </Typography>
             
-            <Box sx={{ display: "flex", justifyContent: "center", gap: 6, mt: 2 }}>
+            <Box sx={{ display: "flex", justifyContent: "center", gap: { xs: 3, sm: 6 }, mt: 2 }}>
               <Box 
                 component={motion.div}
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Clock size={32} className="text-green-600 mb-1" />
-                <Typography sx={{ fontSize: "0.8rem", fontWeight: "bold", color: "#333" }}>
+                <Clock size={28} className="text-green-600 mb-1" />
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: "#333" }}>
                   Time Saved
                 </Typography>
               </Box>
@@ -605,8 +607,8 @@ export function AnimatedWorkflow() {
                 transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Heart size={32} className="text-red-500 mb-1" />
-                <Typography sx={{ fontSize: "0.8rem", fontWeight: "bold", color: "#333" }}>
+                <Heart size={28} className="text-red-500 mb-1" />
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: "#333" }}>
                   Burnout Crushed
                 </Typography>
               </Box>
@@ -653,26 +655,31 @@ export function AnimatedWorkflow() {
               sx={{
                 display: "flex",
                 alignItems: "flex-start",
-                p: 1.5,
+                p: { xs: 1, sm: 1.5 },
                 borderRadius: 1.5,
                 cursor: "pointer", 
                 bgcolor: isActive ? "rgba(0, 0, 0, 0.03)" : "transparent",
                 border: isActive ? "1px solid rgba(0, 0, 0, 0.1)" : "1px solid transparent",
-                flexDirection: "column"
+                flexDirection: "column",
+                mb: 0.5
               }}
             >
               <Box sx={{ display: 'flex', width: '100%', alignItems: 'flex-start' }}>
                 <Box 
                   sx={{ 
-                    mr: 2,
+                    mr: { xs: 1, sm: 2 },
                     opacity: isActive || isComplete ? 1 : 0.7,
                     color: isComplete ? "#10b981" : "#000000",
                     transition: "transform 0.2s ease",
                     transform: isActive ? "scale(1.1)" : "scale(1)",
-                    mt: 0.5
+                    mt: 0.5,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0
                   }}
                 >
-                  {isComplete ? <CheckCircle size={24} /> : step.icon}
+                  {isComplete ? <CheckCircle size={20} /> : React.cloneElement(step.icon as React.ReactElement, { size: 20 })}
                 </Box>
                 <Box sx={{ flex: 1 }}>
                   <Typography 
@@ -680,7 +687,7 @@ export function AnimatedWorkflow() {
                     sx={{ 
                       fontWeight: isActive ? 600 : 500,
                       color: isActive ? "#000000" : "#333333",
-                      fontSize: "0.95rem"
+                      fontSize: { xs: "0.85rem", sm: "0.95rem" }
                     }}
                   >
                     {step.title}
@@ -693,7 +700,7 @@ export function AnimatedWorkflow() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         variant="body2" 
-                        sx={{ color: "#666666", fontSize: "0.85rem" }}
+                        sx={{ color: "#666666", fontSize: { xs: "0.75rem", sm: "0.85rem" } }}
                       >
                         {step.description}
                       </Typography>
