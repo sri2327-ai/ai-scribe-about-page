@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -7,6 +6,7 @@ import { motion } from "framer-motion";
 import { useAnimate, stagger } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { QuoteIcon } from "lucide-react";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const TextGenerateEffect = ({
   words,
