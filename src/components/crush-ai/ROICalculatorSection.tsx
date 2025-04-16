@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { Info, BarChart2, DollarSign, Users, Magnet } from "lucide-react";
 import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, ResponsiveContainer, BarChart } from "recharts";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,19 @@ export const ROICalculatorSection = () => {
   const [isAttracting, setIsAttracting] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
   const particlesControl = useAnimation();
+  
+  // Add scroll animation ref and hooks
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  
+  // Transform values for scroll-based animations
+  const cardScale = useTransform(scrollYProgress, [0, 0.6], [0.8, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.4], [0.4, 1]);
+  const titleScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
+  const chartHeight = useTransform(scrollYProgress, [0.2, 0.7], ["90%", "100%"]);
   
   useEffect(() => {
     const particleCount = 12;
@@ -97,6 +111,7 @@ export const ROICalculatorSection = () => {
   return (
     <Box
       component="section"
+      ref={sectionRef}
       sx={{
         py: { xs: 6, md: 8 },
         bgcolor: "#fff",
@@ -111,6 +126,7 @@ export const ROICalculatorSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
+            style={{ scale: titleScale }}
           >
             <Typography 
               variant="h3" 
@@ -144,6 +160,10 @@ export const ROICalculatorSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
+          style={{ 
+            scale: cardScale,
+            opacity: cardOpacity
+          }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
         >
           <div className="flex flex-col gap-6 p-6 border border-black/10 rounded-xl shadow-sm">
@@ -338,7 +358,10 @@ export const ROICalculatorSection = () => {
             </div>
           </div>
           
-          <div className="border border-black/10 rounded-xl p-6 shadow-sm">
+          <motion.div 
+            className="border border-black/10 rounded-xl p-6 shadow-sm"
+            style={{ height: chartHeight }}
+          >
             <Typography 
               variant="h5" 
               sx={{ 
@@ -392,7 +415,7 @@ export const ROICalculatorSection = () => {
             >
               Book A Demo
             </Button>
-          </div>
+          </motion.div>
         </motion.div>
       </Container>
     </Box>

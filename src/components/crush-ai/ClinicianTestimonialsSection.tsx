@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
-import { motion, useAnimation, useInView } from "framer-motion"
+import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
@@ -49,6 +49,18 @@ export function ClinicianTestimonialsSection({
   const sectionRef = useRef(null)
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
   const controls = useAnimation()
+  
+  // For scroll-based animations
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  })
+  
+  // Transform scroll progress to different values for various animations
+  const cardScale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1])
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
+  const titleY = useTransform(scrollYProgress, [0, 0.3], [50, 0])
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1])
 
   // Automatically cycle through testimonials
   useEffect(() => {
@@ -115,9 +127,7 @@ export function ClinicianTestimonialsSection({
       
       <div className="container items-center px-4 md:px-6 relative z-10">
         <motion.div
-          initial="hidden"
-          animate={controls}
-          variants={containerVariants}
+          style={{ y: titleY, opacity: titleOpacity }}
           className="text-center mb-12 space-y-4"
         >
           <motion.h2 
@@ -142,7 +152,11 @@ export function ClinicianTestimonialsSection({
           variants={containerVariants}
           className="md:grid md:grid-cols-[1fr_auto] gap-8 items-center max-w-[1200px] mx-auto"
         >
-          <motion.div variants={itemVariants} className="relative">
+          <motion.div 
+            variants={itemVariants} 
+            style={{ scale: cardScale, opacity: cardOpacity }}
+            className="relative"
+          >
             <div className="absolute -top-6 -left-6 z-10">
               <Quote className="h-12 w-12" style={{ color: `${crushAIColors.tertiary}33` }} strokeWidth={1} />
             </div>
