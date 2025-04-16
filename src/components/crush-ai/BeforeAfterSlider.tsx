@@ -1,11 +1,14 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Badge } from "@/components/ui/badge";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 
 export const BeforeAfterSlider = () => {
+  // Create a ref for the slider container
+  const sliderContainerRef = useRef<HTMLDivElement>(null);
+  
   const [sliderPosition, setSliderPosition] = useState<number>(50);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const theme = useTheme();
@@ -41,6 +44,26 @@ export const BeforeAfterSlider = () => {
       animate(x, 140, { duration: 0.3 }); // This will set sliderPosition to ~90%
     }
   };
+  
+  const handleDrag = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging || !sliderContainerRef.current) return;
+    
+    const container = sliderContainerRef.current;
+    const rect = container.getBoundingClientRect();
+    let clientX: number;
+    
+    if ("touches" in e && e.touches.length > 0) {
+      clientX = e.touches[0].clientX;
+    } else if ("clientX" in e) {
+      clientX = e.clientX;
+    } else {
+      return;
+    }
+    
+    const position = ((clientX - rect.left) / rect.width) * 100;
+    // Clamp the value between 5 and 95 to prevent disappearing at the edges
+    setSliderPosition(Math.max(5, Math.min(95, position)));
+  };
 
   return (
     <Box sx={{ width: "100%", py: { xs: 4, md: 6 } }}>
@@ -72,7 +95,15 @@ export const BeforeAfterSlider = () => {
             transition={{ duration: 0.5 }}
             style={{ width: "100%" }}
           >
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl">
+            <div 
+              ref={sliderContainerRef}
+              className="relative aspect-[16/9] w-full overflow-hidden rounded-xl"
+              onMouseMove={handleDrag}
+              onMouseUp={handleDragEnd}
+              onMouseLeave={handleDragEnd}
+              onTouchMove={handleDrag}
+              onTouchEnd={handleDragEnd}
+            >
               {/* Main container with black and white sides */}
               <div className="absolute inset-0 flex items-stretch">
                 {/* Black side (Before) */}
@@ -142,7 +173,7 @@ export const BeforeAfterSlider = () => {
               
               {/* Slider divider - prevent it from fully disappearing by limiting drag boundaries */}
               <motion.div 
-                className="absolute top-0 bottom-0 w-px bg-white z-20"
+                className="absolute top-0 bottom-0 w-1 bg-white z-20"
                 style={{ 
                   left: `${sliderPosition}%`,
                   x: x,
@@ -159,7 +190,7 @@ export const BeforeAfterSlider = () => {
                   className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-14 h-14 flex items-center justify-center z-30 cursor-ew-resize touch-none ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                 >
                   <div 
-                    className="w-10 h-10 rounded-full bg-white border border-gray-200 shadow-lg flex items-center justify-center"
+                    className="w-12 h-12 rounded-full bg-white border-2 border-gray-200 shadow-lg flex items-center justify-center"
                   >
                     <div className="flex flex-col gap-[3px]">
                       <div className="flex gap-[3px]">
@@ -172,6 +203,8 @@ export const BeforeAfterSlider = () => {
                       </div>
                     </div>
                   </div>
+                  {/* Invisible larger touch area for better mobile interaction */}
+                  <div className="absolute w-20 h-20 rounded-full touch-none"></div>
                 </div>
               </motion.div>
               

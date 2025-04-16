@@ -33,7 +33,10 @@ const Slider = React.forwardRef<
           touchAction: 'none',
           opacity: '1 !important', // Force the thumb to always be visible
           position: 'relative',
-          zIndex: 50 // Ensure a high z-index so it's always on top
+          zIndex: 50, // Ensure a high z-index so it's always on top
+          // Added a min-width and min-height to ensure it's never too small to grab
+          minWidth: '24px',
+          minHeight: '24px'
         }}
       >
         <div className="grid grid-cols-3 gap-[2px]">

@@ -65,12 +65,12 @@ export const HeroSection = () => {
     <Box 
       component="section" 
       sx={{ 
-        py: { xs: 10, sm: 12, md: 16 }, // Increased top padding for mobile and tablet
+        py: { xs: 12, sm: 14, md: 16 }, // Increased top padding for mobile and tablet
         position: 'relative',
         overflow: 'hidden',
         height: { xs: 'auto', md: '100vh' },
         minHeight: { xs: 'auto', md: '100vh' },
-        mt: { xs: 6, sm: 6, md: 0 } // Added more top margin on mobile/tablet to give space from header
+        mt: { xs: 8, sm: 10, md: 0 } // Added more top margin on mobile/tablet to give space from header
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
@@ -78,7 +78,7 @@ export const HeroSection = () => {
           display: 'flex', 
           flexDirection: { xs: 'column', md: 'row' }, 
           alignItems: 'center', 
-          gap: { xs: 4, md: 4 }, 
+          gap: { xs: 8, md: 4 }, // Increased gap on mobile to prevent overlap
           height: '100%',
           justifyContent: 'center'
         }}>
@@ -153,9 +153,9 @@ export const HeroSection = () => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              maxHeight: { xs: '320px', md: '80vh' },
+              maxHeight: { xs: '280px', sm: '320px', md: '80vh' }, // Reduced height on mobile to prevent overlap
               px: { xs: 2, md: 0 },
-              mt: { xs: 3, md: 0 } // Added more space on mobile
+              mt: { xs: 0, md: 0 } // Adjusted margin to prevent overlap with text section
             }}
           >
             <Box 
@@ -169,7 +169,7 @@ export const HeroSection = () => {
                 position: 'relative',
                 width: '100%',
                 height: '100%',
-                maxWidth: { xs: '300px', md: '550px' }
+                maxWidth: { xs: '280px', sm: '320px', md: '550px' } // Reduced max width on mobile
               }}
             >
               <AnimatedWorkflow />

@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { Monitor, Users, Mic, Clock } from "lucide-react";
@@ -8,6 +8,9 @@ import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export const WorkflowAutomationSection = () => {
+  // Create a ref for the slider container
+  const sliderContainerRef = useRef<HTMLDivElement>(null);
+  
   const [sliderPosition, setSliderPosition] = useState<number>(50);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const muiTheme = useMuiTheme();
@@ -19,7 +22,8 @@ export const WorkflowAutomationSection = () => {
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
-      setSliderPosition(Math.min(Math.max(latest, 0), 100));
+      // Clamp the value between 5 and 95 to prevent disappearing at the edges
+      setSliderPosition(Math.min(Math.max(latest, 5), 95));
     });
     
     return () => unsubscribe();
@@ -31,12 +35,19 @@ export const WorkflowAutomationSection = () => {
   
   const handleDragEnd = () => {
     setIsDragging(false);
+    
+    // Prevent the slider from getting too close to the edges
+    if (sliderPosition < 10) {
+      animate(x, -140, { duration: 0.3 }); // This will set sliderPosition to ~10%
+    } else if (sliderPosition > 90) {
+      animate(x, 140, { duration: 0.3 }); // This will set sliderPosition to ~90%
+    }
   };
   
   const handleDrag = (e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDragging) return;
+    if (!isDragging || !sliderContainerRef.current) return;
     
-    const container = e.currentTarget as HTMLElement;
+    const container = sliderContainerRef.current;
     const rect = container.getBoundingClientRect();
     let clientX: number;
     
@@ -49,7 +60,8 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
-    setSliderPosition(Math.max(0, Math.min(100, position)));
+    // Clamp the value between 5 and 95 to prevent disappearing at the edges
+    setSliderPosition(Math.max(5, Math.min(95, position)));
   };
 
   return (
@@ -108,6 +120,7 @@ export const WorkflowAutomationSection = () => {
           >
             <div className="w-full">
               <div
+                ref={sliderContainerRef}
                 className={`relative ${isMobile ? 'aspect-[4/5]' : 'aspect-video'} w-full h-full overflow-hidden rounded-xl select-none shadow-xl`}
                 onMouseMove={handleDrag}
                 onMouseUp={handleDragEnd}
@@ -171,26 +184,28 @@ export const WorkflowAutomationSection = () => {
                 </div>
                 
                 <motion.div 
-                  className="absolute top-0 bottom-0 w-px bg-white/50 z-20 cursor-ew-resize"
+                  className="absolute top-0 bottom-0 w-1 bg-white/50 z-20 cursor-ew-resize"
                   style={{ 
                     left: `${sliderPosition}%`,
                     x: x
                   }}
                   drag="x"
                   dragConstraints={{ left: -150, right: 150 }}
-                  dragElastic={0.1}
+                  dragElastic={0.05} // Reduced elasticity to prevent overshooting
                   dragMomentum={false}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
                 >
                   <div 
-                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-8 h-8' : 'w-10 h-10'} rounded-full bg-black border border-white/20 shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-black border-2 border-white shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
                       {Array.from({ length: 9 }).map((_, index) => (
                         <div key={index} className="w-[2px] h-[2px] rounded-full bg-white/70"></div>
                       ))}
                     </div>
+                    {/* Increased the size of the invisible touch target */}
+                    <div className="absolute w-16 h-16 rounded-full touch-none"></div>
                   </div>
                 </motion.div>
                 
