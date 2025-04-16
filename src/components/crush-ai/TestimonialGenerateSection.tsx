@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from "react";
@@ -75,7 +76,24 @@ export const TestimonialGenerateSection = () => {
         py: { xs: 8, md: 12 },
         bgcolor: crushAIColors.background.white,
         position: "relative",
-        overflow: "hidden"
+        overflow: "hidden",
+        background: `radial-gradient(
+          circle at 50% 50%,
+          rgba(165, 204, 243, 0.3) 0%,
+          rgba(81, 146, 174, 0.2) 50%,
+          rgba(255, 255, 255, 0.1) 100%
+        ), #FFFFFF`,
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          opacity: 0.05,
+          pointerEvents: "none",
+          zIndex: 0
+        }
       }}
     >
       <Container maxWidth="lg">
