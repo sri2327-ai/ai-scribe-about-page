@@ -73,8 +73,8 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
       const starY = `${Math.random() * 100}%`;
       const color = Math.random() > 0.5 ? colors.first : colors.second;
       const delay = Math.random() * 2;
-      const scale = Math.random() * 1 + 0.3;
-      const lifespan = Math.random() * 10 + 5;
+      const scale = Math.random() * 0.8 + 0.3; // Slightly smaller scale range for x.ai aesthetic
+      const lifespan = Math.random() * 8 + 5; // Adjusted lifespan
       const id = `${starX}-${starY}-${Date.now()}`;
       return { id, x: starX, y: starY, color, delay, scale, lifespan };
     };
@@ -104,7 +104,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
 
   return (
     <div
-      className={cn("text-6xl font-bold", className)}
+      className={cn("text-6xl font-bold tracking-tight", className)} // Added tracking-tight for x.ai-like typography
       {...props}
       style={
         {
@@ -117,7 +117,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong>{text}</strong>
+        <strong className="relative z-10">{text}</strong>
       </span>
     </div>
   );
@@ -127,16 +127,16 @@ const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
   return (
     <motion.svg
       key={id}
-      className="pointer-events-none absolute z-20"
+      className="pointer-events-none absolute z-0" // Changed to z-0 to ensure text is above
       initial={{ opacity: 0, left: x, top: y }}
       animate={{
-        opacity: [0, 1, 0],
+        opacity: [0, 0.8, 0], // Adjusted opacity for subtler effect
         scale: [0, scale, 0],
         rotate: [75, 120, 150],
       }}
-      transition={{ duration: 0.8, repeat: Infinity, delay }}
-      width="21"
-      height="21"
+      transition={{ duration: 1.2, repeat: Infinity, delay }} // Slightly slower for more elegant feel
+      width="18" // Slightly smaller sparkles
+      height="18"
       viewBox="0 0 21 21"
     >
       <path

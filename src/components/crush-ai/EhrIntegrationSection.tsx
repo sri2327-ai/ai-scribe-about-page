@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -65,7 +66,8 @@ export const EhrIntegrationSection = () => {
                 fontWeight: 800,
                 mb: 3,
                 color: crushAIColors.text.primary,
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.04em', // More condensed letter spacing like x.ai
+                lineHeight: 1.1 // Tighter line height for more modern feel
               }}
             >
               Seamless EHR Integration
@@ -73,11 +75,13 @@ export const EhrIntegrationSection = () => {
             <Typography 
               variant="h6" 
               sx={{ 
-                maxWidth: 800,
+                maxWidth: 720, // Slightly narrower for better readability
                 mx: 'auto',
                 color: crushAIColors.text.primary,
                 fontWeight: 400,
-                mb: 5
+                mb: 5,
+                fontSize: { xs: '0.95rem', md: '1.05rem' }, // Slightly larger on desktop
+                lineHeight: 1.6 // Better line height for readability
               }}
             >
               CRUSH syncs effortlessly with any EHR system, eliminating copy-pasting and manual entry.
@@ -104,15 +108,20 @@ export const EhrIntegrationSection = () => {
                 sx={{
                   width: { xs: 80, md: 120 },
                   height: { xs: 40, md: 60 },
-                  bgcolor: 'rgba(255, 255, 255, 0.9)',
-                  borderRadius: 1,
+                  bgcolor: 'rgba(255, 255, 255, 0.95)', // Higher opacity for better visibility
+                  borderRadius: 1.5, // Slightly more rounded corners like x.ai
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   border: '1px solid rgba(0, 0, 0, 0.06)',
                   boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
                   zIndex: 2,
-                  position: 'relative'
+                  position: 'relative',
+                  transition: 'all 0.3s ease', // Smooth transition for hover effects
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.08)'
+                  }
                 }}
               >
                 <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontWeight: 600 }}>
@@ -128,7 +137,7 @@ export const EhrIntegrationSection = () => {
                 {features.map((item, index) => (
                   <CarouselItem key={index}>
                     <div className="p-1">
-                      <Card className="overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 bg-white/90">
+                      <Card className="overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 bg-white/95">
                         <CardContent className="flex flex-col items-center text-center p-6">
                           <Box 
                             sx={{ 
@@ -149,14 +158,15 @@ export const EhrIntegrationSection = () => {
                               mb: 1.5,
                               fontWeight: 600,
                               color: crushAIColors.text.primary,
-                              fontSize: '1.25rem'
+                              fontSize: '1.25rem',
+                              letterSpacing: '-0.01em' // Slightly tighter spacing
                             }}
                           >
                             {item.title}
                           </Typography>
                           <Typography 
                             variant="body1"
-                            sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem' }}
+                            sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
                           >
                             {item.description}
                           </Typography>
@@ -198,7 +208,7 @@ export const EhrIntegrationSection = () => {
                     minWidth: isTablet ? 'auto' : '300px'
                   }}
                 >
-                  <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 bg-white/90">
+                  <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 bg-white/95">
                     <CardContent className="flex flex-col items-center text-center p-6">
                       <Box 
                         sx={{ 
@@ -219,14 +229,15 @@ export const EhrIntegrationSection = () => {
                           mb: 1.5,
                           fontWeight: 600,
                           color: crushAIColors.text.primary,
-                          fontSize: '1.25rem'
+                          fontSize: '1.25rem',
+                          letterSpacing: '-0.01em' // More x.ai-like typography
                         }}
                       >
                         {item.title}
                       </Typography>
                       <Typography 
                         variant="body1"
-                        sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem' }}
+                        sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
                       >
                         {item.description}
                       </Typography>

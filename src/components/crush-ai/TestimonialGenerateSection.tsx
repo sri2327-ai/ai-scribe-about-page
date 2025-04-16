@@ -60,7 +60,7 @@ const TextGenerateEffect = ({
   return (
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className="text-gray-800 text-xl md:text-2xl leading-snug tracking-wide">
+        <div className="text-gray-800 text-xl md:text-2xl leading-snug tracking-tight"> {/* Changed to tracking-tight for x.ai style */}
           {renderWords()}
         </div>
       </div>
@@ -146,7 +146,8 @@ export const TestimonialGenerateSection = () => {
             sx={{ 
               textAlign: "center", 
               mb: 6,
-              position: "relative"
+              position: "relative",
+              px: { xs: 2, sm: 0 } // Better padding on mobile
             }}
           >
             {/* Radial gradient background for text */}
@@ -175,7 +176,8 @@ export const TestimonialGenerateSection = () => {
                 sx={{
                   fontWeight: 600,
                   color: crushAIColors.text.primary,
-                  mb: 1
+                  mb: 1,
+                  letterSpacing: "-0.01em" // x.ai-style typography
                 }}
               >
                 Dr. Sarah Johnson
@@ -231,8 +233,8 @@ export const TestimonialGenerateSection = () => {
             }}
             sx={{
               position: "absolute",
-              width: Math.random() * 4 + 1,
-              height: Math.random() * 4 + 1,
+              width: Math.random() * 3 + 1, // Slightly smaller particles for more x.ai-like aesthetic
+              height: Math.random() * 3 + 1,
               borderRadius: "50%",
               backgroundColor: `rgba(${parseInt(crushAIColors.tertiary.slice(1, 3), 16)},${parseInt(crushAIColors.tertiary.slice(3, 5), 16)},${parseInt(crushAIColors.tertiary.slice(5, 7), 16)},0.4)`,
               border: "0.5px solid rgba(0,0,0,0.2)",

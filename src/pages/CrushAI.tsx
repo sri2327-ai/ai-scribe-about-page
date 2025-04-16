@@ -20,7 +20,14 @@ import { WaveBackground } from "@/components/ui/wave-background";
 
 const CrushAI = () => {
   return (
-    <Box sx={{ bgcolor: crushAIColors.background.white, color: crushAIColors.text.primary }}>
+    <Box 
+      sx={{ 
+        bgcolor: crushAIColors.background.white, 
+        color: crushAIColors.text.primary,
+        overflow: 'hidden', // Prevent horizontal scrolling issues
+        position: 'relative' // Better positioning context
+      }}
+    >
       <HeroSection />
 
       {/* Using the direct component instead of GradientSection for EHR Integration */}
@@ -53,7 +60,7 @@ const CrushAI = () => {
         <Box 
           component="section"
           sx={{
-            py: 8,
+            py: { xs: 8, md: 10 }, // Better spacing on different devices
             textAlign: "center",
             position: "relative",
             zIndex: 1
@@ -63,17 +70,19 @@ const CrushAI = () => {
             <Typography
               variant="h3"
               sx={{
-                fontSize: { xs: "1.75rem", md: "2.25rem" },
+                fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
                 fontWeight: 700,
                 mb: 3,
-                color: crushAIColors.text.primary
+                color: crushAIColors.text.primary,
+                letterSpacing: "-0.03em", // More x.ai-like typography
+                lineHeight: 1.2 // Better readability
               }}
             >
               CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
             </Typography>
             <Button 
               size="lg" 
-              className="rounded-full px-8 py-6 text-lg shadow-lg text-white"
+              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]" // Added subtle hover effect
               style={{ backgroundColor: crushAIColors.primary }}
             >
               <ArrowRight size={16} className="mr-2" />
