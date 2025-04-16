@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Grid, Paper, Button } from '@mui/material';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Spotlight } from "@/components/ui/spotlight";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 import { 
@@ -28,7 +27,6 @@ import {
   CloudCog,
   ShieldAlert
 } from "lucide-react";
-import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 
@@ -217,7 +215,9 @@ const TechHero = () => {
         position: "relative",
         width: "100%",
         overflow: "hidden",
-        bgcolor: "black"
+        bgcolor: "black",
+        height: { xs: 'auto', sm: '80vh', md: '100vh' },
+        minHeight: { xs: '500px', sm: '550px', md: '700px' }
       }}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
@@ -266,261 +266,267 @@ const TechHero = () => {
         </>
       )}
       
-      <ContainerScroll
-        titleComponent={
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          position: 'relative',
+          zIndex: 20,
+          px: { xs: 2, md: 4 },
+          py: { xs: 10, md: 0 }
+        }}
+      >
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          sx={{
+            width: '100%',
+            maxWidth: '900px',
+            textAlign: 'center',
+            position: 'relative',
+            zIndex: 20
+          }}
+        >
+          <Typography
+            component={motion.h1}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            sx={{
+              fontSize: { xs: '1.875rem', md: '4.5rem' },
+              fontWeight: 'light',
+              mb: 3,
+              lineHeight: 'tight',
+              fontFamily: '"Wix Madefor Text", sans-serif',
+              color: 'white'
+            }}
+          >
+            AI Innovation with Unbreakable Security
+          </Typography>
+          
+          <Box
+            component={motion.div}
+            initial={{ opacity: 0 }}
+            animate={controls}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 1,
+              mb: 2
+            }}
+          >
+            <Box sx={{ position: 'relative', display: 'flex', height: 12, width: 12 }}>
+              <Box 
+                sx={{ 
+                  position: 'absolute', 
+                  display: 'inline-flex', 
+                  height: '100%', 
+                  width: '100%', 
+                  animation: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
+                  borderRadius: '50%',
+                  bgcolor: 'white',
+                  opacity: 0.75
+                }}
+              />
+              <Box 
+                sx={{ 
+                  position: 'relative', 
+                  display: 'inline-flex', 
+                  height: 8, 
+                  width: 8, 
+                  borderRadius: '50%',
+                  bgcolor: 'white'
+                }}
+              />
+            </Box>
+            <Typography 
+              sx={{ 
+                fontSize: '0.875rem', 
+                color: 'white', 
+                fontWeight: 500 
+              }}
+            >
+              Secure & HIPAA Compliant
+            </Typography>
+          </Box>
+          
           <Box
             component={motion.div}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
             sx={{
-              width: '100%',
-              px: { xs: 2, md: 0 },
-              textAlign: 'center',
-              position: 'relative',
-              zIndex: 20
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 2,
+              mt: 2
             }}
           >
-            <Typography
-              component={motion.h1}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              sx={{
-                fontSize: { xs: '1.875rem', md: '4.5rem' },
-                fontWeight: 'light',
-                mb: 3,
-                lineHeight: 'tight',
-                fontFamily: '"Wix Madefor Text", sans-serif',
-                color: 'white'
-              }}
-            >
-              AI Innovation with Unbreakable Security
-            </Typography>
-            
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0 }}
-              animate={controls}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 1,
-                mb: 2
-              }}
-            >
-              <Box sx={{ position: 'relative', display: 'flex', height: 12, width: 12 }}>
-                <Box 
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  disableRipple
                   sx={{ 
-                    position: 'absolute', 
-                    display: 'inline-flex', 
-                    height: '100%', 
-                    width: '100%', 
-                    animation: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
-                    borderRadius: '50%',
-                    bgcolor: 'white',
-                    opacity: 0.75
+                    width: 40, 
+                    height: 40, 
+                    minWidth: 'auto',
+                    backdropFilter: 'blur(8px)', 
+                    bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                    border: '1px solid rgba(255, 255, 255, 0.2)', 
+                    borderRadius: 2,
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    color: 'rgba(255, 255, 255, 0.7)', 
+                    '&:hover': { 
+                      color: 'white', 
+                      bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                    },
+                    transition: 'all 0.3s',
+                    p: 0
                   }}
-                />
-                <Box 
-                  sx={{ 
-                    position: 'relative', 
-                    display: 'inline-flex', 
-                    height: 8, 
-                    width: 8, 
-                    borderRadius: '50%',
-                    bgcolor: 'white'
-                  }}
-                />
-              </Box>
-              <Typography 
-                sx={{ 
-                  fontSize: '0.875rem', 
-                  color: 'white', 
-                  fontWeight: 500 
-                }}
-              >
-                Secure & HIPAA Compliant
-              </Typography>
-            </Box>
+                >
+                  <Shield size={20} />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                    HIPAA Compliant
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    Health Insurance Portability and Accountability Act compliance for healthcare data protection.
+                  </Typography>
+                </Box>
+              </HoverCardContent>
+            </HoverCard>
             
-            <Box
-              component={motion.div}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 2,
-                mt: 2
-              }}
-            >
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button
-                    disableRipple
-                    sx={{ 
-                      width: 40, 
-                      height: 40, 
-                      minWidth: 'auto',
-                      backdropFilter: 'blur(8px)', 
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      border: '1px solid rgba(255, 255, 255, 0.2)', 
-                      borderRadius: 2,
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      color: 'rgba(255, 255, 255, 0.7)', 
-                      '&:hover': { 
-                        color: 'white', 
-                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
-                      },
-                      transition: 'all 0.3s',
-                      p: 0
-                    }}
-                  >
-                    <Shield size={20} />
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
-                      HIPAA Compliant
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-                      Health Insurance Portability and Accountability Act compliance for healthcare data protection.
-                    </Typography>
-                  </Box>
-                </HoverCardContent>
-              </HoverCard>
-              
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button
-                    disableRipple
-                    sx={{ 
-                      width: 40, 
-                      height: 40, 
-                      minWidth: 'auto',
-                      backdropFilter: 'blur(8px)', 
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      border: '1px solid rgba(255, 255, 255, 0.2)', 
-                      borderRadius: 2,
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      color: 'rgba(255, 255, 255, 0.7)', 
-                      '&:hover': { 
-                        color: 'white', 
-                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
-                      },
-                      transition: 'all 0.3s',
-                      p: 0
-                    }}
-                  >
-                    <ShieldCheck size={20} />
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
-                      PIPEDA Compliant
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-                      Personal Information Protection and Electronic Documents Act compliance for Canadian privacy standards.
-                    </Typography>
-                  </Box>
-                </HoverCardContent>
-              </HoverCard>
-              
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button
-                    disableRipple
-                    sx={{ 
-                      width: 40, 
-                      height: 40, 
-                      minWidth: 'auto',
-                      backdropFilter: 'blur(8px)', 
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      border: '1px solid rgba(255, 255, 255, 0.2)', 
-                      borderRadius: 2,
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      color: 'rgba(255, 255, 255, 0.7)', 
-                      '&:hover': { 
-                        color: 'white', 
-                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
-                      },
-                      transition: 'all 0.3s',
-                      p: 0
-                    }}
-                  >
-                    <FileCheck size={20} />
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
-                      GDPR Compliant
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-                      General Data Protection Regulation compliance for EU data protection and privacy standards.
-                    </Typography>
-                  </Box>
-                </HoverCardContent>
-              </HoverCard>
-              
-              <HoverCard>
-                <HoverCardTrigger asChild>
-                  <Button
-                    disableRipple
-                    sx={{ 
-                      width: 40, 
-                      height: 40, 
-                      minWidth: 'auto',
-                      backdropFilter: 'blur(8px)', 
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      border: '1px solid rgba(255, 255, 255, 0.2)', 
-                      borderRadius: 2,
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      justifyContent: 'center', 
-                      color: 'rgba(255, 255, 255, 0.7)', 
-                      '&:hover': { 
-                        color: 'white', 
-                        bgcolor: 'rgba(255, 255, 255, 0.2)' 
-                      },
-                      transition: 'all 0.3s',
-                      p: 0
-                    }}
-                  >
-                    <CheckCircle size={20} />
-                  </Button>
-                </HoverCardTrigger>
-                <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
-                      ISO 27001 Certified
-                    </Typography>
-                    <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-                      International standard for information security management systems and best practices.
-                    </Typography>
-                  </Box>
-                </HoverCardContent>
-              </HoverCard>
-            </Box>
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  disableRipple
+                  sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    minWidth: 'auto',
+                    backdropFilter: 'blur(8px)', 
+                    bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                    border: '1px solid rgba(255, 255, 255, 0.2)', 
+                    borderRadius: 2,
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    color: 'rgba(255, 255, 255, 0.7)', 
+                    '&:hover': { 
+                      color: 'white', 
+                      bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                    },
+                    transition: 'all 0.3s',
+                    p: 0
+                  }}
+                >
+                  <ShieldCheck size={20} />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                    PIPEDA Compliant
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    Personal Information Protection and Electronic Documents Act compliance for Canadian privacy standards.
+                  </Typography>
+                </Box>
+              </HoverCardContent>
+            </HoverCard>
+            
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  disableRipple
+                  sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    minWidth: 'auto',
+                    backdropFilter: 'blur(8px)', 
+                    bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                    border: '1px solid rgba(255, 255, 255, 0.2)', 
+                    borderRadius: 2,
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    color: 'rgba(255, 255, 255, 0.7)', 
+                    '&:hover': { 
+                      color: 'white', 
+                      bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                    },
+                    transition: 'all 0.3s',
+                    p: 0
+                  }}
+                >
+                  <FileCheck size={20} />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                    GDPR Compliant
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    General Data Protection Regulation compliance for EU data protection and privacy standards.
+                  </Typography>
+                </Box>
+              </HoverCardContent>
+            </HoverCard>
+            
+            <HoverCard>
+              <HoverCardTrigger asChild>
+                <Button
+                  disableRipple
+                  sx={{ 
+                    width: 40, 
+                    height: 40, 
+                    minWidth: 'auto',
+                    backdropFilter: 'blur(8px)', 
+                    bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                    border: '1px solid rgba(255, 255, 255, 0.2)', 
+                    borderRadius: 2,
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    color: 'rgba(255, 255, 255, 0.7)', 
+                    '&:hover': { 
+                      color: 'white', 
+                      bgcolor: 'rgba(255, 255, 255, 0.2)' 
+                    },
+                    transition: 'all 0.3s',
+                    p: 0
+                  }}
+                >
+                  <CheckCircle size={20} />
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-60 bg-black/80 border border-blue-500/30">
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                  <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white' }}>
+                    ISO 27001 Certified
+                  </Typography>
+                  <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                    International standard for information security management systems and best practices.
+                  </Typography>
+                </Box>
+              </HoverCardContent>
+            </HoverCard>
           </Box>
-        }
-      >
-        {/* Add children content here */}
-        <Box sx={{ height: "50vh" }} />
-      </ContainerScroll>
+        </Box>
+      </Box>
     </Box>
   );
 };
