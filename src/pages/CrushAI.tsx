@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box } from "@mui/material";
 import { HeroSection } from "@/components/crush-ai/HeroSection";
@@ -15,16 +14,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { FeatureHighlights } from "@/components/crush-ai/FeatureHighlights";
 import { GradientSection } from "@/components/ui/gradient-section";
 
 const CrushAI = () => {
   return (
     <Box sx={{ bgcolor: crushAIColors.background.white, color: crushAIColors.text.primary }}>
-      {/* Hero Section - Already using GradientSection component */}
       <HeroSection />
 
-      {/* EHR Integration Section - With Gradient Background */}
       <GradientSection 
         variant="radial"
         intensity="medium"
@@ -32,10 +28,8 @@ const CrushAI = () => {
         <EhrIntegrationSection />
       </GradientSection>
 
-      {/* Trusted By Section */}
       <TrustedBySection />
 
-      {/* How It Works Section - With Gradient Background */}
       <GradientSection 
         variant="radial"
         intensity="medium"
@@ -44,7 +38,6 @@ const CrushAI = () => {
         <HowItWorksSection />
       </GradientSection>
 
-      {/* Why CRUSH Crushes Competition - With gradient background */}
       <GradientSection 
         variant="radial"
         intensity="light"
@@ -53,10 +46,8 @@ const CrushAI = () => {
         <CompetitionSection />
       </GradientSection>
       
-      {/* Testimonial Generate Section - Already has gradient */}
       <TestimonialGenerateSection />
       
-      {/* Clinical Workflow Section - With Gradient Background */}
       <GradientSection 
         variant="radial"
         intensity="medium"
@@ -65,10 +56,6 @@ const CrushAI = () => {
         <ClinicalWorkflowSection />
       </GradientSection>
       
-      {/* Feature Highlights Section */}
-      <FeatureHighlights />
-      
-      {/* Book A Demo CTA */}
       <Box 
         component="section"
         sx={{
@@ -100,7 +87,6 @@ const CrushAI = () => {
         </Container>
       </Box>
       
-      {/* Loved by Clinicians Section - With Gradient Background */}
       <GradientSection 
         variant="radial"
         intensity="light"
@@ -109,10 +95,8 @@ const CrushAI = () => {
         <ClinicianTestimonialsSection />
       </GradientSection>
       
-      {/* Talk to Patients, Not Screens – CRUSH Handles the Rest */}
       <WorkflowAutomationSection />
       
-      {/* ROI Calculator Section - With Gradient Background */}
       <GradientSection 
         variant="radial"
         intensity="medium"
