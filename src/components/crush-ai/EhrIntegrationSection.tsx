@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -12,12 +13,10 @@ import {
 } from "@/components/ui/carousel";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
-import dynamic from "next/dynamic";
+import { lazy, Suspense } from 'react';
 
-const EHRSyncScene = dynamic(() => import("@/components/crush-ai/EHRSyncScene"), { 
-  ssr: false,
-  loading: () => <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />
-});
+// Use React's lazy instead of Next.js dynamic
+const EHRSyncScene = lazy(() => import("@/components/crush-ai/EHRSyncScene"));
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
@@ -56,7 +55,9 @@ export const EhrIntegrationSection = () => {
           overflow: "hidden"
         }}
       >
-        <EHRSyncScene />
+        <Suspense fallback={<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />}>
+          <EHRSyncScene />
+        </Suspense>
         
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 2 }}>
           <Box 

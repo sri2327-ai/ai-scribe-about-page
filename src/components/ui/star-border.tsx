@@ -1,8 +1,8 @@
 
 import { cn } from "@/lib/utils"
-import { ElementType, ComponentPropsWithoutRef } from "react"
+import { ElementType, ComponentPropsWithoutRef, HTMLAttributes } from "react"
 
-interface StarBorderProps<T extends ElementType> {
+interface StarBorderProps<T extends ElementType = "div"> {
   as?: T
   color?: string
   speed?: string
@@ -18,8 +18,8 @@ export function StarBorder<T extends ElementType = "div">({
   children,
   ...props
 }: StarBorderProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof StarBorderProps<T>>) {
-  const Component = as || "div"
-  const defaultColor = color || "#4ECDC4" // Teal blue default
+  const Component = as || "div";
+  const defaultColor = color || "#4ECDC4"; // Teal blue default
 
   return (
     <Component 
@@ -27,7 +27,7 @@ export function StarBorder<T extends ElementType = "div">({
         "relative inline-block py-[1px] overflow-hidden rounded-[20px]",
         className
       )} 
-      {...props}
+      {...props as any} // Use type assertion to resolve the LibraryManagedAttributes error
     >
       <div
         className={cn(
@@ -57,5 +57,5 @@ export function StarBorder<T extends ElementType = "div">({
         {children}
       </div>
     </Component>
-  )
+  );
 }
