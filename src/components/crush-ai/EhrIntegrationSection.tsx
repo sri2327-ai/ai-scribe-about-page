@@ -14,9 +14,10 @@ import {
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { WaveBackground } from "@/components/ui/wave-background";
 import { lazy, Suspense } from 'react';
+import { EHRSyncFallback } from './EHRSyncFallback';
 
-// Use React's lazy instead of Next.js dynamic
-const EHRSyncScene = lazy(() => import("@/components/crush-ai/EHRSyncScene"));
+// Use React's lazy import instead of Next.js dynamic
+const EHRSyncScene = lazy(() => import("./EHRSyncScene"));
 
 export const EhrIntegrationSection = () => {
   const muiTheme = useMuiTheme();
@@ -55,7 +56,7 @@ export const EhrIntegrationSection = () => {
           overflow: "hidden"
         }}
       >
-        <Suspense fallback={<div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }} />}>
+        <Suspense fallback={<EHRSyncFallback />}>
           <EHRSyncScene />
         </Suspense>
         
