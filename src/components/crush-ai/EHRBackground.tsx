@@ -8,6 +8,7 @@ import { crushAIColors } from '@/theme/crush-ai-theme';
 export const EHRBackground = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const circleRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const lineRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -24,11 +25,52 @@ export const EHRBackground = () => {
           circle.style.transform = `translate(${offsetX * movement}px, ${offsetY * movement}px) scale(1)`;
         }
       });
+
+      lineRefs.current.forEach((line, index) => {
+        if (line) {
+          const movement = 5 + index * 3;
+          line.style.transform = `translate(${offsetX * movement}px, ${offsetY * movement}px)`;
+        }
+      });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
+
+  // Generate more complex neural network-like line connections
+  const generateNeuralNetworkLines = () => {
+    const lines = [];
+    const lineCount = 50; // Increased number of lines
+    for (let i = 0; i < lineCount; i++) {
+      const startX = Math.random() * 100;
+      const startY = Math.random() * 100;
+      const endX = Math.random() * 100;
+      const endY = Math.random() * 100;
+      
+      lines.push(
+        <Box
+          key={`neural-line-${i}`}
+          ref={(el) => {
+            lineRefs.current[i] = el as HTMLDivElement | null;
+          }}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '1px',
+            height: '1px',
+            background: 'rgba(255, 255, 255, 0.2)', // Thin white lines with low opacity
+            transform: `translate(${startX}%, ${startY}%) rotate(${Math.random() * 360}deg)`,
+            boxShadow: '0 0 5px rgba(255, 255, 255, 0.3)', // Soft glow effect
+            transition: 'transform 0.2s ease-out',
+            willChange: 'transform',
+          }}
+        />
+      );
+    }
+    return lines;
+  };
 
   return (
     <Box
@@ -41,31 +83,12 @@ export const EHRBackground = () => {
         bottom: 0,
         overflow: 'hidden',
         zIndex: 0,
-        opacity: 0.9, // Increased opacity from 0.7 to 0.9
+        opacity: 0.9,
+        background: 'rgba(20, 49, 81, 0.1)', // Slight background color to help lines stand out
       }}
     >
-      {/* Animated lines */}
-      {[10, 30, 50, 70, 90].map((position, idx) => (
-        <Box
-          key={`line-${idx}`}
-          sx={{
-            position: 'absolute',
-            left: `${position}%`,
-            width: '1px',
-            height: '100%',
-            background: 'rgba(255, 255, 255, 0.4)', // Increased white opacity from 0.2 to 0.4
-            animation: `moveLine 10s linear infinite ${idx * 2}s`,
-            '@keyframes moveLine': {
-              '0%': {
-                transform: 'translateY(-100%)',
-              },
-              '100%': {
-                transform: 'translateY(100%)',
-              },
-            },
-          }}
-        />
-      ))}
+      {/* Neural Network Lines */}
+      {generateNeuralNetworkLines()}
 
       {/* Pulsing circles */}
       {[
@@ -85,7 +108,7 @@ export const EHRBackground = () => {
             width: `${circle.size}px`,
             height: `${circle.size}px`,
             borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.5)', // Increased opacity from 0.3 to 0.5
+            backgroundColor: 'rgba(255, 255, 255, 0.5)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -96,11 +119,11 @@ export const EHRBackground = () => {
             '@keyframes pulse': {
               '0%, 100%': {
                 transform: 'scale(1)',
-                opacity: 0.5, // Increased from 0.3 to 0.5
+                opacity: 0.5,
               },
               '50%': {
                 transform: 'scale(1.5)',
-                opacity: 0.8, // Increased from 0.6 to 0.8
+                opacity: 0.8,
               },
             },
           }}
@@ -116,11 +139,11 @@ export const EHRBackground = () => {
           initial={{ 
             x: Math.random() * 100 + '%', 
             y: -20, 
-            opacity: 0.9 // Increased from 0.8 to 0.9
+            opacity: 0.9
           }}
           animate={{ 
             y: '120%',
-            opacity: [0.9, 0.6, 0.9], // Increased values from [0.8, 0.4, 0.8]
+            opacity: [0.9, 0.6, 0.9],
             scale: [1, 1.1, 1]
           }}
           transition={{ 
