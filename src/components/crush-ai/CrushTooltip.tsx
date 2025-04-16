@@ -13,17 +13,17 @@ interface CrushTooltipProps {
 }
 
 export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0); // Initialize with first letter (C) active
 
   const handleToggle = (index: number) => {
-    setActiveIndex(prev => (prev === index ? null : index));
+    setActiveIndex(index);
   };
 
   return (
     <Box 
       sx={{ 
         display: 'inline-flex',
-        gap: '4px',
+        gap: '8px',
         alignItems: 'center',
         justifyContent: 'center'
       }}
@@ -33,21 +33,28 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
           key={index}
           sx={{
             position: 'relative',
+            width: '36px',
+            height: '36px',
+            borderRadius: '50%',
+            border: index === activeIndex 
+              ? `2px solid ${crushAIColors.primary}` 
+              : '2px solid transparent',
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            transition: 'transform 0.2s ease',
+            transition: 'all 0.2s ease',
             '&:hover': {
-              transform: 'scale(1.1)'
+              transform: 'scale(1.1)',
+              border: `2px solid ${crushAIColors.primary}`
             },
             fontWeight: 800,
             fontSize: 'inherit',
-            color: 'inherit'
+            color: 'inherit',
+            mx: '2px'
           }}
           onClick={() => handleToggle(index)}
-          onMouseEnter={() => setActiveIndex(index)}
-          onMouseLeave={() => setActiveIndex(null)}
+          onMouseEnter={() => handleToggle(index)}
           tabIndex={0}
         >
           {item.letter}
@@ -65,10 +72,11 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
               padding: '10px 15px',
               borderRadius: '12px',
               whiteSpace: 'nowrap',
-              opacity: activeIndex === index ? 1 : 0,
-              pointerEvents: activeIndex === index ? 'auto' : 'none',
+              opacity: 1, // Always visible
+              pointerEvents: 'none',
               transition: 'opacity 0.3s ease',
-              zIndex: 10
+              zIndex: 10,
+              display: activeIndex === index ? 'block' : 'none'
             }}
           >
             {item.content}

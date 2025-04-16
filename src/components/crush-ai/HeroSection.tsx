@@ -17,9 +17,9 @@ export const HeroSection = () => {
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
-  // C.R.U.S.H tooltip content
+  // C.R.U.S.H tooltip content with updated content for "C"
   const tooltipData = [
-    { letter: 'C', content: 'Customizable – Control note content & formatting' },
+    { letter: 'C', content: 'Customisable' },
     { letter: 'R', content: 'Real-Time EHR Sync' },
     { letter: 'U', content: 'Universal Coding' },
     { letter: 'S', content: 'Smart AI Assistance' },
@@ -73,9 +73,9 @@ export const HeroSection = () => {
                   lineHeight: 1.1
                 }}
               >
-                <Box component="span" sx={{ color: crushAIColors.primary }}>
+                <Box component="span" sx={{ color: crushAIColors.primary, display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
                   <CrushTooltip data={tooltipData} />
-                  : The AI Medical Scribe That Works for You
+                  <Box component="span" sx={{ ml: 1 }}>: The AI Medical Scribe That Works for You</Box>
                 </Box>
               </Typography>
 
@@ -179,9 +179,9 @@ export const HeroSection = () => {
                     lineHeight: 1.1
                   }}
                 >
-                  <Box component="span" sx={{ color: crushAIColors.primary }}>
+                  <Box component="span" sx={{ color: crushAIColors.primary, display: 'flex', alignItems: 'center', flexWrap: 'wrap' }}>
                     <CrushTooltip data={tooltipData} />
-                    : The AI Medical Scribe That Works for You
+                    <Box component="span" sx={{ ml: 1 }}>: The AI Medical Scribe That Works for You</Box>
                   </Box>
                 </Typography>
 
