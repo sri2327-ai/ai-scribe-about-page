@@ -39,14 +39,16 @@ const CrushAI = () => {
       <GradientSection 
         variant="radial"
         intensity="medium"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
       >
         <HowItWorksSection />
       </GradientSection>
 
-      {/* Why CRUSH Crushes Competition - Now with gradient background */}
+      {/* Why CRUSH Crushes Competition - With gradient background */}
       <GradientSection 
         variant="radial"
         intensity="light"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
       >
         <CompetitionSection />
       </GradientSection>
@@ -58,6 +60,7 @@ const CrushAI = () => {
       <GradientSection 
         variant="radial"
         intensity="medium"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
       >
         <ClinicalWorkflowSection />
       </GradientSection>
@@ -88,7 +91,8 @@ const CrushAI = () => {
           </Typography>
           <Button 
             size="lg" 
-            className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            className="rounded-full px-8 py-6 text-lg shadow-lg text-white"
+            style={{ backgroundColor: crushAIColors.primary }}
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO
@@ -99,7 +103,8 @@ const CrushAI = () => {
       {/* Loved by Clinicians Section - With Gradient Background */}
       <GradientSection 
         variant="radial"
-        intensity="medium"
+        intensity="light"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
       >
         <ClinicianTestimonialsSection />
       </GradientSection>
@@ -111,6 +116,7 @@ const CrushAI = () => {
       <GradientSection 
         variant="radial"
         intensity="medium"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
       >
         <ROICalculatorSection />
       </GradientSection>

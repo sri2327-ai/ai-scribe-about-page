@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
 import { motion, useAnimation, useInView } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export interface Testimonial {
   id: number
@@ -119,10 +120,18 @@ export function ClinicianTestimonialsSection({
           variants={containerVariants}
           className="text-center mb-12 space-y-4"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-black">
+          <motion.h2 
+            variants={itemVariants} 
+            className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+            style={{ color: crushAIColors.primary }}
+          >
             {title}
           </motion.h2>
-          <motion.p variants={itemVariants} className="text-black/70 max-w-[700px] mx-auto md:text-xl/relaxed">
+          <motion.p 
+            variants={itemVariants} 
+            className="max-w-[700px] mx-auto md:text-xl/relaxed"
+            style={{ color: crushAIColors.text.secondary }}
+          >
             {subtitle}
           </motion.p>
         </motion.div>
@@ -135,7 +144,7 @@ export function ClinicianTestimonialsSection({
         >
           <motion.div variants={itemVariants} className="relative">
             <div className="absolute -top-6 -left-6 z-10">
-              <Quote className="h-12 w-12 text-black/20 stroke-black" strokeWidth={1} />
+              <Quote className="h-12 w-12" style={{ color: `${crushAIColors.tertiary}33` }} strokeWidth={1} />
             </div>
 
             {/* Testimonial cards */}
@@ -144,22 +153,38 @@ export function ClinicianTestimonialsSection({
                 <Card
                   key={testimonial.id}
                   className={cn(
-                    "absolute inset-0 transition-all duration-500 border border-black/10",
+                    "absolute inset-0 transition-all duration-500 border",
                     index === activeIndex
                       ? "opacity-100 translate-x-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]"
                       : "opacity-0 translate-x-[100px] pointer-events-none",
                   )}
+                  style={{ 
+                    borderColor: index === activeIndex ? `${crushAIColors.tertiary}33` : 'transparent'
+                  }}
                 >
                   <CardContent className="p-6 md:p-8 h-full flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center gap-4">
-                        <Avatar className="h-12 w-12 border-2 border-black/10">
+                        <Avatar className="h-12 w-12 border-2" style={{ borderColor: `${crushAIColors.tertiary}33` }}>
                           <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                          <AvatarFallback className="bg-black/10 text-black">{testimonial.name.charAt(0)}</AvatarFallback>
+                          <AvatarFallback 
+                            className="text-white"
+                            style={{ backgroundColor: crushAIColors.primary }}
+                          >
+                            {testimonial.name.charAt(0)}
+                          </AvatarFallback>
                         </Avatar>
                         <div className="text-left">
-                          <h4 className="font-semibold text-black">{testimonial.name}</h4>
-                          <p className="text-sm text-black/60">
+                          <h4 
+                            className="font-semibold"
+                            style={{ color: crushAIColors.text.primary }}
+                          >
+                            {testimonial.name}
+                          </h4>
+                          <p 
+                            className="text-sm"
+                            style={{ color: crushAIColors.text.secondary }}
+                          >
                             {testimonial.role}, {testimonial.company}
                           </p>
                         </div>
@@ -171,12 +196,22 @@ export function ClinicianTestimonialsSection({
                       </div>
                     </div>
 
-                    <Separator className="my-4 bg-black/10" />
+                    <Separator className="my-4" style={{ backgroundColor: `${crushAIColors.tertiary}33` }} />
 
-                    <p className="flex-1 italic text-base/relaxed text-black/80">"{testimonial.content}"</p>
+                    <p 
+                      className="flex-1 italic text-base/relaxed"
+                      style={{ color: crushAIColors.text.secondary }}
+                    >
+                      "{testimonial.content}"
+                    </p>
 
                     {showVerifiedBadge && (
-                      <div className="mt-4 text-xs text-right text-black/50">Verified Healthcare Provider</div>
+                      <div 
+                        className="mt-4 text-xs text-right"
+                        style={{ color: crushAIColors.text.light }}
+                      >
+                        Verified Healthcare Provider
+                      </div>
                     )}
                   </CardContent>
                 </Card>
@@ -190,10 +225,14 @@ export function ClinicianTestimonialsSection({
               variant="outline"
               size="icon"
               onClick={handlePrev}
-              className="rounded-full h-10 w-10 border-black/20 bg-white hover:bg-black/5 hover:border-black/30"
+              className="rounded-full h-10 w-10 hover:border-black/30"
+              style={{ 
+                borderColor: `${crushAIColors.primary}33`,
+                backgroundColor: "white"
+              }}
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="h-4 w-4 text-black/60" />
+              <ChevronLeft className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
             </Button>
 
             <div className="flex md:flex-col gap-2 items-center justify-center">
@@ -202,8 +241,13 @@ export function ClinicianTestimonialsSection({
                   key={index}
                   className={cn(
                     "w-2 h-2 rounded-full transition-colors",
-                    index === activeIndex ? "bg-yellow-500" : "bg-black/20",
+                    index === activeIndex ? "" : "",
                   )}
+                  style={{ 
+                    backgroundColor: index === activeIndex 
+                      ? crushAIColors.primary 
+                      : `${crushAIColors.tertiary}33`
+                  }}
                   role="button"
                   tabIndex={0}
                   onClick={() => setActiveIndex(index)}
@@ -221,21 +265,38 @@ export function ClinicianTestimonialsSection({
               variant="outline"
               size="icon"
               onClick={handleNext}
-              className="rounded-full h-10 w-10 border-black/20 bg-white hover:bg-black/5 hover:border-black/30"
+              className="rounded-full h-10 w-10 hover:border-black/30"
+              style={{ 
+                borderColor: `${crushAIColors.primary}33`,
+                backgroundColor: "white"
+              }}
               aria-label="Next testimonial"
             >
-              <ChevronRight className="h-4 w-4 text-black/60" />
+              <ChevronRight className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
             </Button>
           </motion.div>
         </motion.div>
 
         {/* Logo cloud */}
         {trustedCompanies.length > 0 && (
-          <motion.div variants={itemVariants} className="mt-20 pt-10 border-t border-black/10">
-            <h3 className="text-sm font-medium text-black/60 text-center mb-8">{trustedCompaniesTitle}</h3>
+          <motion.div 
+            variants={itemVariants} 
+            className="mt-20 pt-10 border-t" 
+            style={{ borderColor: `${crushAIColors.tertiary}33` }}
+          >
+            <h3 
+              className="text-sm font-medium text-center mb-8"
+              style={{ color: crushAIColors.text.light }}
+            >
+              {trustedCompaniesTitle}
+            </h3>
             <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
               {trustedCompanies.map((company) => (
-                <div key={company} className="text-2xl font-semibold text-black/40">
+                <div 
+                  key={company} 
+                  className="text-2xl font-semibold"
+                  style={{ color: `${crushAIColors.text.light}80` }}
+                >
                   {company}
                 </div>
               ))}

@@ -37,6 +37,36 @@ const Slider = React.forwardRef<
       ? safeThumbPosition(props.defaultValue as number[]) 
       : [0];
   
+  // Handle direct click on track
+  const handleRootClick = (event: React.MouseEvent | React.TouchEvent) => {
+    const root = event.currentTarget as HTMLDivElement;
+    const rect = root.getBoundingClientRect();
+    const thumbSize = 24; // Thumb width in px
+    
+    // Get clientX whether it's mouse or touch event
+    let clientX: number;
+    if ("touches" in event && event.touches.length > 0) {
+      clientX = event.touches[0].clientX;
+    } else if ("clientX" in event) {
+      clientX = event.clientX;
+    } else {
+      return;
+    }
+    
+    // Calculate percentage position, accounting for thumb size
+    const effectiveTrackWidth = rect.width - thumbSize;
+    const offsetX = clientX - rect.left - (thumbSize / 2);
+    const percentPosition = (offsetX / effectiveTrackWidth) * 100;
+    
+    // Clamp to valid range and call onValueChange
+    const clampedPercent = Math.max(3, Math.min(97, percentPosition));
+    
+    if (props.onValueChange && props.max !== undefined) {
+      const actualValue = (clampedPercent / 100) * props.max;
+      props.onValueChange([actualValue]);
+    }
+  };
+  
   return (
     <SliderPrimitive.Root
       ref={ref}
@@ -54,17 +84,31 @@ const Slider = React.forwardRef<
       // Apply safety bounds to value/defaultValue
       value={props.value ? safeThumbPosition(props.value as number[]) : undefined}
       defaultValue={props.defaultValue ? safeThumbPosition(props.defaultValue as number[]) : undefined}
-      onPointerDown={() => setIsDragging(true)}
+      onPointerDown={(e) => {
+        setIsDragging(true);
+        handleRootClick(e);
+        if (props.onPointerDown) props.onPointerDown(e);
+      }}
       onPointerUp={() => setIsDragging(false)}
       onPointerLeave={() => setIsDragging(false)}
       onPointerCancel={() => setIsDragging(false)}
+      onTouchStart={(e) => {
+        handleRootClick(e);
+        if (props.onTouchStart) props.onTouchStart(e);
+      }}
     >
-      <SliderPrimitive.Track className="relative h-[1px] w-full grow overflow-hidden bg-neutral-200 dark:bg-neutral-800">
-        <SliderPrimitive.Range className="absolute h-full bg-[#143151] dark:bg-neutral-100" />
+      <SliderPrimitive.Track 
+        className="relative h-[1px] w-full grow overflow-hidden"
+        style={{ backgroundColor: `${crushAIColors.tertiary}50` }}
+      >
+        <SliderPrimitive.Range 
+          className="absolute h-full" 
+          style={{ backgroundColor: crushAIColors.primary }}
+        />
       </SliderPrimitive.Track>
       <SliderPrimitive.Thumb 
         className={cn(
-          "block h-6 w-6 rounded-full border border-neutral-200 bg-[#143151] text-white shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center",
+          "block h-6 w-6 rounded-full border shadow-md transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-800 dark:bg-neutral-950 dark:focus-visible:ring-neutral-300 flex items-center justify-center",
           bounceActive && "animate-bounce-subtle"
         )}
         style={{ 
@@ -76,7 +120,9 @@ const Slider = React.forwardRef<
           minHeight: '24px',
           // This ensures we can see the thumb even when at the edge
           transform: 'translate(-50%, -50%)',
-          transition: isDragging ? 'none' : 'transform 0.2s ease-out'
+          transition: isDragging ? 'none' : 'transform 0.2s ease-out',
+          backgroundColor: crushAIColors.primary,
+          borderColor: `${crushAIColors.tertiary}50`
         }}
       >
         <div className="grid grid-cols-3 gap-[2px]">

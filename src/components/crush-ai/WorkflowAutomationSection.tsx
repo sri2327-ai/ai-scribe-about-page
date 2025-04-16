@@ -64,6 +64,29 @@ export const WorkflowAutomationSection = () => {
     setSliderPosition(Math.max(5, Math.min(95, position)));
   };
 
+  // For handling direct clicks/taps on the container
+  const handleDirectClick = (e: React.MouseEvent | React.TouchEvent) => {
+    if (isDragging || !sliderContainerRef.current) return;
+    
+    const container = sliderContainerRef.current;
+    const rect = container.getBoundingClientRect();
+    let clientX: number;
+    
+    if ("touches" in e && e.touches[0]) {
+      clientX = e.touches[0].clientX;
+    } else if ("clientX" in e) {
+      clientX = e.clientX;
+    } else {
+      return;
+    }
+    
+    const position = ((clientX - rect.left) / rect.width) * 100;
+    // Ensure the slider always stays within viewable area
+    const newPosition = Math.max(5, Math.min(95, position));
+    setSliderPosition(newPosition);
+    animate(x, (newPosition - 50) * 3, { duration: 0.3 });
+  };
+
   return (
     <Box
       component="section"
@@ -101,7 +124,7 @@ export const WorkflowAutomationSection = () => {
             <Typography
               variant="body1"
               sx={{
-                color: crushAIColors.text.light,
+                color: crushAIColors.text.secondary,
                 fontSize: { xs: "0.95rem", md: "1.1rem" },
                 mb: 2,
                 maxWidth: "800px"
@@ -127,6 +150,8 @@ export const WorkflowAutomationSection = () => {
                 onMouseLeave={handleDragEnd}
                 onTouchMove={handleDrag}
                 onTouchEnd={handleDragEnd}
+                onClick={handleDirectClick}
+                onTouchStart={handleDirectClick}
               >
                 <div className="absolute inset-0 flex items-stretch">
                   <div 
@@ -161,22 +186,30 @@ export const WorkflowAutomationSection = () => {
                     style={{ width: `${100 - sliderPosition}%` }}
                   >
                     <div className={`z-10 p-4 ${isMobile ? 'max-w-[90%]' : 'max-w-md p-8'}`}>
-                      <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4`}>Focus on what matters</h2>
-                      <p className={`text-gray-600 ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
+                      <h2 
+                        className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4`}
+                        style={{ color: crushAIColors.text.primary }}
+                      >
+                        Focus on what matters
+                      </h2>
+                      <p 
+                        className={`${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}
+                        style={{ color: crushAIColors.text.secondary }}
+                      >
                         Our goal is to streamline clinical documentation, making it easier and faster than ever.
                       </p>
-                      <ul className={`space-y-2 md:space-y-3 text-gray-600 ${isMobile ? 'text-sm' : ''}`}>
+                      <ul className={`space-y-2 md:space-y-3 ${isMobile ? 'text-sm' : ''}`}>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
-                          <span>Documentation during the visit</span>
+                          <span style={{ color: crushAIColors.text.light }} className="mt-1">•</span>
+                          <span style={{ color: crushAIColors.text.secondary }}>Documentation during the visit</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
-                          <span>Full attention on your patients</span>
+                          <span style={{ color: crushAIColors.text.light }} className="mt-1">•</span>
+                          <span style={{ color: crushAIColors.text.secondary }}>Full attention on your patients</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
-                          <span>Leave work on time</span>
+                          <span style={{ color: crushAIColors.text.light }} className="mt-1">•</span>
+                          <span style={{ color: crushAIColors.text.secondary }}>Leave work on time</span>
                         </li>
                       </ul>
                     </div>
@@ -197,11 +230,19 @@ export const WorkflowAutomationSection = () => {
                   onDragEnd={handleDragEnd}
                 >
                   <div 
-                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-black border-2 border-white shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white border-2 border-${crushAIColors.primary} shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                    style={{ 
+                      borderColor: crushAIColors.primary,
+                      backgroundColor: 'white'
+                    }}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
                       {Array.from({ length: 9 }).map((_, index) => (
-                        <div key={index} className="w-[2px] h-[2px] rounded-full bg-white/70"></div>
+                        <div 
+                          key={index} 
+                          className="w-[2px] h-[2px] rounded-full"
+                          style={{ backgroundColor: `${crushAIColors.primary}70` }}
+                        ></div>
                       ))}
                     </div>
                     {/* Increased the size of the invisible touch target */}
@@ -217,8 +258,16 @@ export const WorkflowAutomationSection = () => {
                         <span className="text-sm text-white font-medium">Screen-Focused</span>
                       </div>
                       <div className={`flex items-center gap-2 ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                        <span className="text-sm text-black font-medium">Patient-Focused</span>
-                        <Users className="h-4 w-4 text-black" />
+                        <span 
+                          className="text-sm font-medium"
+                          style={{ color: crushAIColors.text.primary }}
+                        >
+                          Patient-Focused
+                        </span>
+                        <Users 
+                          className="h-4 w-4"
+                          style={{ color: crushAIColors.primary }}
+                        />
                       </div>
                     </div>
                     
@@ -227,9 +276,20 @@ export const WorkflowAutomationSection = () => {
                         <Clock className="h-3 w-3 text-white" />
                         <span className="text-xs text-white font-medium">Hours of documentation</span>
                       </div>
-                      <div className={`flex items-center gap-2 p-2 bg-white/80 rounded-full ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                        <Clock className="h-3 w-3 text-black" />
-                        <span className="text-xs text-black font-medium">Notes in &lt;60 seconds</span>
+                      <div 
+                        className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+                        style={{ backgroundColor: `${crushAIColors.primary}20` }}
+                      >
+                        <Clock 
+                          className="h-3 w-3"
+                          style={{ color: crushAIColors.primary }}
+                        />
+                        <span 
+                          className="text-xs font-medium"
+                          style={{ color: crushAIColors.text.primary }}
+                        >
+                          Notes in &lt;60 seconds
+                        </span>
                       </div>
                     </div>
                   </>
@@ -242,15 +302,28 @@ export const WorkflowAutomationSection = () => {
                   <span className={`text-gray-800 font-medium ${isMobile ? 'text-sm' : ''}`}>Screen-Focused Care</span>
                 </div>
                 <div className="flex items-center">
-                  <span className={`text-gray-800 font-medium ${isMobile ? 'text-sm' : ''}`}>Patient-Focused Care</span>
-                  <Users className="text-gray-800 ml-2" size={isMobile ? 16 : 20} />
+                  <span 
+                    className={`font-medium ${isMobile ? 'text-sm' : ''}`}
+                    style={{ color: crushAIColors.text.primary }}
+                  >
+                    Patient-Focused Care
+                  </span>
+                  <Users 
+                    className="ml-2" 
+                    size={isMobile ? 16 : 20}
+                    style={{ color: crushAIColors.primary }}
+                  />
                 </div>
               </div>
               
               <div className="mt-8 flex justify-center">
                 <Button 
                   size={isMobile ? "default" : "lg"} 
-                  className="bg-black hover:bg-black/90 text-white rounded-full px-6 py-5 text-base md:text-lg shadow-lg"
+                  className="rounded-full px-6 py-5 text-base md:text-lg shadow-lg"
+                  style={{ 
+                    backgroundColor: crushAIColors.primary,
+                    color: "white"
+                  }}
                 >
                   <ArrowRight size={16} className="mr-2" />
                   REQUEST A DEMO

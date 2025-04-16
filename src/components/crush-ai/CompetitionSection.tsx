@@ -4,6 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { CheckCircle, XCircle, Trophy, ChevronRight, FileText, Copy, Import, FilePlus, Database, Users } from "lucide-react";
 import { SparklesText } from "@/components/ui/sparkles-text";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface ComparisonFeature {
   id: string;
@@ -100,9 +101,9 @@ export const CompetitionSection = () => {
             <SparklesText 
               text="Why CRUSH Crushes the Competition" 
               className="text-4xl md:text-5xl font-bold text-center mb-6"
-              colors={{ first: "#0EA5E9", second: "#1EAEDB" }}
+              colors={{ first: crushAIColors.secondary, second: crushAIColors.primary }}
               sparklesCount={20}
-              textColor="black"
+              textColor={crushAIColors.text.primary}
             />
           </Box>
           <Typography
@@ -110,7 +111,7 @@ export const CompetitionSection = () => {
             sx={{
               maxWidth: 800,
               mx: "auto",
-              color: "#333333",
+              color: crushAIColors.text.secondary,
               fontWeight: 400,
               mb: 4
             }}
@@ -138,8 +139,10 @@ export const CompetitionSection = () => {
                   cursor: "pointer",
                   borderRadius: 1,
                   mb: 1.5,
-                  bgcolor: activeFeature === feature.id ? "rgba(155,135,245,0.1)" : "transparent",
-                  borderLeft: activeFeature === feature.id ? "2px solid #9b87f5" : "2px solid transparent",
+                  bgcolor: activeFeature === feature.id ? `rgba(165,204,243,0.1)` : "transparent",
+                  borderLeft: activeFeature === feature.id 
+                    ? `2px solid ${crushAIColors.primary}` 
+                    : "2px solid transparent",
                   transition: "all 0.2s ease"
                 }}
                 onClick={() => setActiveFeature(feature.id)}
@@ -149,7 +152,9 @@ export const CompetitionSection = () => {
                     variant="subtitle1" 
                     sx={{ 
                       fontWeight: 500, 
-                      color: activeFeature === feature.id ? "#333333" : "#8E9196",
+                      color: activeFeature === feature.id 
+                        ? crushAIColors.text.primary 
+                        : crushAIColors.text.light,
                       letterSpacing: "0.01em"
                     }}
                   >
@@ -157,7 +162,9 @@ export const CompetitionSection = () => {
                   </Typography>
                   <ChevronRight 
                     size={16} 
-                    className={activeFeature === feature.id ? "text-purple-400" : "text-gray-500"} 
+                    className={activeFeature === feature.id 
+                      ? `text-[${crushAIColors.primary}]` 
+                      : `text-[${crushAIColors.text.light}]`} 
                     strokeWidth={2}
                   />
                 </Box>
@@ -171,7 +178,7 @@ export const CompetitionSection = () => {
               bgcolor: "rgba(249,250,252,0.8)",
               borderRadius: 2,
               p: 4,
-              border: "1px solid rgba(155,135,245,0.3)",
+              border: `1px solid rgba(165,204,243,0.3)`,
               boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
             }}
           >
@@ -188,8 +195,8 @@ export const CompetitionSection = () => {
                 transition={{ duration: 0.4 }}
               >
                 <Box sx={{ display: "flex", alignItems: "center", mb: 4 }}>
-                  <Trophy size={22} className="text-purple-400 mr-2" stroke="#000000" strokeWidth={1.5} />
-                  <Typography variant="h5" sx={{ fontWeight: 600, color: "#333333", letterSpacing: "0.02em" }}>
+                  <Trophy size={22} className={`text-[${crushAIColors.primary}] mr-2`} stroke={crushAIColors.primary} strokeWidth={1.5} />
+                  <Typography variant="h5" sx={{ fontWeight: 600, color: crushAIColors.text.primary, letterSpacing: "0.02em" }}>
                     {feature.title}
                   </Typography>
                 </Box>
@@ -198,23 +205,23 @@ export const CompetitionSection = () => {
                   <Box sx={{ display: "flex", mb: 4, alignItems: "flex-start", gap: 2 }}>
                     <Box 
                       sx={{ 
-                        bgcolor: "rgba(155,135,245,0.1)", 
+                        bgcolor: `rgba(165,204,243,0.1)`, 
                         p: 1, 
                         borderRadius: "50%", 
                         display: "flex", 
                         alignItems: "center",
                         justifyContent: "center",
                         flexShrink: 0,
-                        border: "1px solid rgba(155,135,245,0.3)"
+                        border: `1px solid rgba(165,204,243,0.3)`
                       }}
                     >
-                      <CheckCircle size={20} className="text-purple-400" stroke="#000000" strokeWidth={1.5} />
+                      <CheckCircle size={20} className={`text-[${crushAIColors.primary}]`} stroke={crushAIColors.primary} strokeWidth={1.5} />
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#333333" }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: crushAIColors.text.primary }}>
                         C.R.U.S.H.
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#555555", lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, lineHeight: 1.6, letterSpacing: "0.01em" }}>
                         {feature.crushDescription}
                       </Typography>
                       
@@ -250,19 +257,19 @@ export const CompetitionSection = () => {
                                 gap: 1.5,
                                 p: 1.5,
                                 borderRadius: 1,
-                                bgcolor: "rgba(155,135,245,0.05)",
-                                border: "1px solid rgba(155,135,245,0.1)"
+                                bgcolor: `rgba(165,204,243,0.05)`,
+                                border: `1px solid rgba(165,204,243,0.1)`
                               }}
                             >
                               <Box sx={{ 
-                                color: "#9b87f5",
+                                color: crushAIColors.primary,
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center"
                               }}>
                                 {item.icon}
                               </Box>
-                              <Typography variant="body2" sx={{ color: "#333", fontSize: "0.85rem" }}>
+                              <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontSize: "0.85rem" }}>
                                 {item.text}
                               </Typography>
                             </Box>
@@ -299,11 +306,11 @@ export const CompetitionSection = () => {
                                 px: 1.5,
                                 py: 0.5,
                                 borderRadius: 5,
-                                bgcolor: "rgba(155,135,245,0.1)",
-                                border: "1px solid rgba(155,135,245,0.2)",
+                                bgcolor: `rgba(165,204,243,0.1)`,
+                                border: `1px solid rgba(165,204,243,0.2)`,
                                 fontSize: "0.75rem",
                                 fontWeight: 500,
-                                color: "#333"
+                                color: crushAIColors.text.primary
                               }}
                             >
                               {specialty}
@@ -330,10 +337,10 @@ export const CompetitionSection = () => {
                       <XCircle size={20} className="text-red-400" stroke="#000000" strokeWidth={1.5} />
                     </Box>
                     <Box>
-                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: "#333333" }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5, color: crushAIColors.text.primary }}>
                         Other AI Scribes
                       </Typography>
-                      <Typography variant="body2" sx={{ color: "#555555", lineHeight: 1.6, letterSpacing: "0.01em" }}>
+                      <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, lineHeight: 1.6, letterSpacing: "0.01em" }}>
                         {feature.competitionDescription}
                       </Typography>
                     </Box>
