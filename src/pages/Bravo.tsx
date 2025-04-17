@@ -1,5 +1,6 @@
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
+import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
 import { bravoColors } from '@/theme/bravo-theme';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +10,7 @@ const Bravo = () => {
   return (
     <div className="bg-black min-h-screen">
       <BravoHeroSection />
+      <CompatibilitySection />
       {/* How BRAVO Works Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
