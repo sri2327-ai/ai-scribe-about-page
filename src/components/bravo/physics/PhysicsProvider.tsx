@@ -29,8 +29,9 @@ import SVGPathCommander from 'svg-path-commander';
 
 // Function to convert SVG path "d" to vertices
 function parsePathToVertices(path: string, sampleLength = 15) {
-// Convert path to absolute commands
-const commander = new SVGPathCommander(path);
+  try {
+    // Convert path to absolute commands
+    const commander = new SVGPathCommander(path);
 
     const points: { x: number, y: number }[] = [];
     let lastPoint: { x: number, y: number } | null = null;
@@ -59,7 +60,10 @@ const commander = new SVGPathCommander(path);
     }
 
     return points;
-
+  } catch (error) {
+    console.error("Error parsing SVG path:", error);
+    return [];
+  }
 }
 
 function calculatePosition(
@@ -199,7 +203,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
 
     const isRunning = useRef(false)
 
-    // Register Matter.js body in the physics world
     const registerElement = useCallback(
       (id: string, element: HTMLElement, props: MatterBodyProps) => {
         if (!canvas.current) return
@@ -230,19 +233,35 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
 
           paths.forEach((path) => {
             const d = path.getAttribute("d")
-            const p = parsePathToVertices(d!, props.sampleLength)
-            vertexSets.push(p)
+            if (d) {
+              const p = parsePathToVertices(d, props.sampleLength)
+              if (p.length > 0) {
+                vertexSets.push(p)
+              }
+            }
           })
 
-          body = Bodies.fromVertices(x, y, vertexSets, {
-            ...props.matterBodyOptions,
-            angle: angle,
-            render: {
-              fillStyle: debug ? "#888888" : "#00000000",
-              strokeStyle: debug ? "#333333" : "#00000000",
-              lineWidth: debug ? 3 : 0,
-            },
-          })
+          if (vertexSets.length > 0) {
+            body = Bodies.fromVertices(x, y, vertexSets, {
+              ...props.matterBodyOptions,
+              angle: angle,
+              render: {
+                fillStyle: debug ? "#888888" : "#00000000",
+                strokeStyle: debug ? "#333333" : "#00000000",
+                lineWidth: debug ? 3 : 0,
+              },
+            })
+          } else {
+            body = Bodies.rectangle(x, y, width, height, {
+              ...props.matterBodyOptions,
+              angle: angle,
+              render: {
+                fillStyle: debug ? "#888888" : "#00000000",
+                strokeStyle: debug ? "#333333" : "#00000000",
+                lineWidth: debug ? 3 : 0,
+              },
+            })
+          }
         } else {
           body = Bodies.rectangle(x, y, width, height, {
             ...props.matterBodyOptions,
@@ -263,7 +282,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       [debug]
     )
 
-    // Unregister Matter.js body from the physics world
     const unregisterElement = useCallback((id: string) => {
       const body = bodiesMap.current.get(id)
       if (body) {
@@ -272,7 +290,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       }
     }, [])
 
-    // Keep react elements in sync with the physics world
     const updateElements = useCallback(() => {
       bodiesMap.current.forEach(({ element, body }) => {
         const { x, y } = body.position
@@ -319,9 +336,7 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
         },
       })
 
-      // Add walls
       const walls = [
-        // Floor
         Bodies.rectangle(width / 2, height + 10, width, 20, {
           isStatic: true,
           friction: 1,
@@ -329,8 +344,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
             visible: debug,
           },
         }),
-
-        // Right wall
         Bodies.rectangle(width + 10, height / 2, 20, height, {
           isStatic: true,
           friction: 1,
@@ -338,8 +351,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
             visible: debug,
           },
         }),
-
-        // Left wall
         Bodies.rectangle(-10, height / 2, 20, height, {
           isStatic: true,
           friction: 1,
@@ -421,7 +432,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
       }
     }, [updateElements, debug, autoStart])
 
-    // Clear the Matter.js world
     const clearRenderer = useCallback(() => {
       if (frameId.current) {
         cancelAnimationFrame(frameId.current)
@@ -457,7 +467,6 @@ const Gravity = forwardRef<GravityRef, GravityProps>(
 
       setCanvasSize({ width: newWidth, height: newHeight })
 
-      // Clear and reinitialize
       clearRenderer()
       initializeRenderer()
     }, [clearRenderer, initializeRenderer, resetOnResize])
