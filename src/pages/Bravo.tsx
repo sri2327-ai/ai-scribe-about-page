@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
@@ -24,13 +25,16 @@ const Bravo = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/30 to-teal-50/30 opacity-60 blur-3xl" />
         
         <div className="container mx-auto px-4 relative">
-          <div 
-            className="text-center max-w-4xl mx-auto mb-16 opacity-0 animate-fade-in"
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center max-w-4xl mx-auto mb-16"
           >
             <h2 
-              className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"
+              className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
               style={{ 
-                color: bravoColors.primary,
                 backgroundImage: `linear-gradient(to right, ${bravoColors.primary}, ${bravoColors.secondary})`
               }}
             >
@@ -42,7 +46,7 @@ const Bravo = () => {
             >
               AI-powered front office. Available 24/7. No burnout.
             </p>
-          </div>
+          </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* ACCESS Card */}
