@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
@@ -13,7 +14,7 @@ const Bravo = () => {
       <BravoHeroSection />
       <CompatibilitySection />
       
-      {/* How BRAVO Works Section - Using the new animated component */}
+      {/* How BRAVO Works Section - Using the fixed animated component */}
       <HowBravoWorksSection />
 
       {/* Handle Calls Section */}

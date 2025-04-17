@@ -75,11 +75,16 @@ const StepItem: React.FC<StepItemProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, amount: 0.3 });
   
+  // FIX: Adding proper dependency array to prevent infinite loop
   useEffect(() => {
     if (isInView && !isActive) {
-      onActivate();
+      // Only call onActivate if this is the first time it's in view
+      const timer = setTimeout(() => {
+        onActivate();
+      }, 100);
+      return () => clearTimeout(timer);
     }
-  }, [isInView, isActive, onActivate]);
+  }, [isInView]); // Remove onActivate and isActive from dependency array
 
   return (
     <div 
@@ -229,7 +234,7 @@ const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
         >
           {icons[step]}
           
-          <AnimatePresence>
+          <AnimatePresence mode="wait">
             {activeStep === step && (
               <>
                 {secondaryIcons[step].map((icon, i) => (
@@ -289,6 +294,7 @@ export const HowBravoWorksSection = () => {
   const [activeStep, setActiveStep] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  const intervalRef = useRef<number | null>(null);
   
   const steps = [
     {
@@ -358,16 +364,48 @@ export const HowBravoWorksSection = () => {
     }
   ];
   
-  // Auto-advance the active step every 8 seconds, but only if the section is in view
+  // Fix: Managing animation interval with proper cleanup
   useEffect(() => {
-    if (!isInView) return;
-    
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % steps.length);
-    }, 8000);
-    
-    return () => clearInterval(interval);
+    // Only set up auto-advancing when the section is in view
+    if (isInView) {
+      // Clear any existing intervals first
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+      
+      // Set up a new interval
+      const id = window.setInterval(() => {
+        setActiveStep((prev) => (prev + 1) % steps.length);
+      }, 8000);
+      
+      intervalRef.current = id;
+      
+      // Clean up function
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      };
+    }
+    // Clean up when not in view
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
   }, [isInView, steps.length]);
+  
+  // Safe handler for step activation
+  const handleActivateStep = (index: number) => {
+    // Clear any auto-advance interval when manually changing steps
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    setActiveStep(index);
+  };
   
   return (
     <WaveBackground 
@@ -428,7 +466,7 @@ export const HowBravoWorksSection = () => {
                 description={step.description}
                 items={step.items}
                 isActive={activeStep === index}
-                onActivate={() => setActiveStep(index)}
+                onActivate={() => handleActivateStep(index)}
                 stepNumber={step.number}
               />
             ))}
@@ -453,11 +491,7 @@ export const HowBravoWorksSection = () => {
           </p>
           
           <motion.button
-            className="px-8 py-6 text-lg rounded-md inline-flex items-center"
-            style={{ 
-              backgroundColor: bravoColors.secondary,
-              color: bravoColors.text.white
-            }}
+            className="px-8 py-6 text-lg rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-xl inline-flex items-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -469,3 +503,4 @@ export const HowBravoWorksSection = () => {
     </WaveBackground>
   );
 };
+
