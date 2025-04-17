@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ImageTrail } from "@/components/ui/image-trail";
 import { Phone, MessageSquare, Calendar, Database, Clock, Bell, FileCheck } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
+import { WaveBackground } from "@/components/ui/wave-background";
 
 export const CompatibilitySection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,7 +20,12 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="w-full min-h-[500px] bg-white relative overflow-hidden flex items-center justify-center">
+    <WaveBackground 
+      baseColor={bravoColors.background.light}
+      intensity="medium"
+      height="500px"
+      className="relative overflow-hidden flex items-center justify-center"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
         {/* Static visible icons for visual hint */}
         <motion.div 
@@ -28,13 +34,13 @@ export const CompatibilitySection = () => {
           animate={{ opacity: 0.6, x: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <div className="bg-white rounded-lg shadow-lg p-2">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-2">
             <Phone size={24} className="text-[#1EAEDB]" />
           </div>
-          <div className="bg-white rounded-lg shadow-lg p-2">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-2">
             <Calendar size={24} className="text-[#1EAEDB]" />
           </div>
-          <div className="bg-white rounded-lg shadow-lg p-2">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-2">
             <Database size={24} className="text-[#1EAEDB]" />
           </div>
         </motion.div>
@@ -45,7 +51,9 @@ export const CompatibilitySection = () => {
           transition={{ duration: 0.6 }}
           className="text-center relative z-10 max-w-2xl"
         >
-          <h2 className="text-3xl font-bold mb-8" style={{ color: bravoColors.primary }}>
+          <h2 
+            className="text-3xl font-bold mb-8 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+          >
             Compatible with Your Preferred SIP, Patient Platform & PMS
           </h2>
           
@@ -59,7 +67,7 @@ export const CompatibilitySection = () => {
                 {icons.map((icon, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-center w-16 h-16 bg-white rounded-lg shadow-lg"
+                    className="flex items-center justify-center w-16 h-16 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg"
                   >
                     {icon}
                   </div>
@@ -69,6 +77,6 @@ export const CompatibilitySection = () => {
           </div>
         </motion.div>
       </div>
-    </div>
+    </WaveBackground>
   );
 };
