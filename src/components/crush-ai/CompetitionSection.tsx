@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -153,33 +154,32 @@ export const CompetitionSection = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             sx={{ 
-              bgcolor: 'rgba(255,255,255,0.95)', 
               borderRadius: 2, 
-              boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
+              boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
               overflow: 'hidden',
-              border: '1px solid rgba(255,255,255,0.2)'
             }}
+            className="bg-gray-200/30 backdrop-blur-md border border-gray-300/20"
           >
             <Table>
               <TableHeader>
-                <TableRow className="bg-gray-50">
-                  <TableHead className="font-bold text-lg text-gray-800 w-1/3">Feature</TableHead>
-                  <TableHead className="font-bold text-lg text-gray-800 w-1/3">C.R.U.S.H.</TableHead>
-                  <TableHead className="font-bold text-lg text-gray-800 w-1/3">Other AI Scribes</TableHead>
+                <TableRow className="bg-gray-300/30 border-b border-gray-300/40">
+                  <TableHead className="font-bold text-lg text-white w-1/3">Feature</TableHead>
+                  <TableHead className="font-bold text-lg text-white w-1/3">C.R.U.S.H.</TableHead>
+                  <TableHead className="font-bold text-lg text-white w-1/3">Other AI Scribes</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {comparisonFeatures.map((feature, index) => (
                   <TableRow 
                     key={feature.id}
-                    className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
+                    className={index % 2 === 0 ? "bg-gray-200/20" : "bg-gray-200/30"}
                   >
-                    <TableCell className="font-medium text-gray-800">{feature.title}</TableCell>
+                    <TableCell className="font-medium text-white">{feature.title}</TableCell>
                     <TableCell>
                       <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
                         <Box
                           sx={{ 
-                            color: crushAIColors.primaryFlat,
+                            color: crushAIColors.icons.primary,
                             flexShrink: 0,
                             mt: 0.5
                           }}
@@ -187,7 +187,7 @@ export const CompetitionSection = () => {
                           <CheckCircle size={20} />
                         </Box>
                         <Box>
-                          <Typography variant="body2" sx={{ color: crushAIColors.text.secondary }}>
+                          <Typography variant="body2" sx={{ color: crushAIColors.text.white }}>
                             {feature.crushDescription}
                           </Typography>
                           
@@ -211,11 +211,11 @@ export const CompetitionSection = () => {
                                     px: 1.5,
                                     py: 0.5,
                                     borderRadius: 5,
-                                    bgcolor: `rgba(165,204,243,0.1)`,
-                                    border: `1px solid rgba(165,204,243,0.2)`,
+                                    bgcolor: `rgba(255, 255, 255, 0.15)`,
+                                    border: `1px solid rgba(255, 255, 255, 0.25)`,
                                     fontSize: "0.75rem",
                                     fontWeight: 500,
-                                    color: crushAIColors.text.primary
+                                    color: crushAIColors.text.white
                                   }}
                                 >
                                   {specialty}
@@ -248,10 +248,10 @@ export const CompetitionSection = () => {
                                     fontSize: "0.75rem"
                                   }}
                                 >
-                                  <Box sx={{ color: crushAIColors.primaryFlat }}>
+                                  <Box sx={{ color: crushAIColors.icons.primary }}>
                                     {item.icon}
                                   </Box>
-                                  <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+                                  <Typography variant="body2" sx={{ fontSize: "0.75rem", color: crushAIColors.text.white }}>
                                     {item.text}
                                   </Typography>
                                 </Box>
@@ -272,7 +272,7 @@ export const CompetitionSection = () => {
                         >
                           <XCircle size={20} />
                         </Box>
-                        <Typography variant="body2" sx={{ color: "#555" }}>
+                        <Typography variant="body2" sx={{ color: crushAIColors.text.white }}>
                           {feature.competitionDescription}
                         </Typography>
                       </Box>
@@ -326,21 +326,26 @@ export const CompetitionSection = () => {
                     </Typography>
                     <ChevronRight 
                       size={20} 
-                      color={crushAIColors.primaryFlat}
+                      color={crushAIColors.icons.primary}
                     />
                   </Box>
                 ))}
               </Box>
 
               <Box
+                component={motion.div}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
                 sx={{
                   width: { xs: "100%", md: "60%" },
-                  bgcolor: "rgba(255,255,255,0.9)",
                   borderRadius: 2,
                   p: 4,
-                  border: `1px solid rgba(165,204,243,0.3)`,
+                  border: `1px solid rgba(255, 255, 255, 0.2)`,
                   boxShadow: "0 4px 20px rgba(0,0,0,0.05)"
                 }}
+                className="bg-gray-200/30 backdrop-blur-md"
               >
                 {comparisonFeatures.map((feature) => (
                   <Box
@@ -360,19 +365,19 @@ export const CompetitionSection = () => {
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          bgcolor: 'rgba(240, 245, 250, 0.95)',
+                          bgcolor: 'rgba(255, 255, 255, 0.2)',
                           p: 1.5,
                           borderRadius: 1,
                           mr: 2
                         }}
                       >
-                        <Trophy size={24} color={crushAIColors.primaryFlat} />
+                        <Trophy size={24} color={crushAIColors.icons.primary} />
                       </Box>
                       <Typography 
                         variant="h5" 
                         sx={{ 
                           fontWeight: 600, 
-                          color: crushAIColors.text.primary, 
+                          color: crushAIColors.text.white, 
                           letterSpacing: "0.02em"
                         }}
                       >
@@ -387,15 +392,15 @@ export const CompetitionSection = () => {
                           mb: 4, 
                           alignItems: "flex-start", 
                           gap: 3, 
-                          bgcolor: 'rgba(240, 245, 250, 0.5)',
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
                           p: 3,
                           borderRadius: 2,
-                          border: '1px solid rgba(165,204,243,0.2)'
+                          border: '1px solid rgba(255, 255, 255, 0.2)'
                         }}
                       >
                         <Box 
                           sx={{ 
-                            bgcolor: `rgba(165,204,243,0.2)`, 
+                            bgcolor: `rgba(255, 255, 255, 0.2)`, 
                             p: 1.5, 
                             borderRadius: "50%", 
                             display: "flex", 
@@ -404,7 +409,7 @@ export const CompetitionSection = () => {
                             flexShrink: 0
                           }}
                         >
-                          <CheckCircle size={24} color={crushAIColors.primaryFlat} />
+                          <CheckCircle size={24} color={crushAIColors.icons.primary} />
                         </Box>
                         <Box>
                           <Typography 
@@ -412,8 +417,8 @@ export const CompetitionSection = () => {
                             sx={{ 
                               fontWeight: 600, 
                               mb: 1, 
-                              color: crushAIColors.primaryFlat,
-                              bgcolor: 'rgba(240, 245, 250, 0.8)',
+                              color: crushAIColors.text.white,
+                              bgcolor: 'rgba(255, 255, 255, 0.1)',
                               display: 'inline-block',
                               px: 2,
                               py: 0.5,
@@ -425,9 +430,9 @@ export const CompetitionSection = () => {
                           <Typography 
                             variant="body1" 
                             sx={{ 
-                              color: crushAIColors.text.secondary, 
+                              color: crushAIColors.text.white, 
                               lineHeight: 1.6,
-                              bgcolor: 'rgba(240, 245, 250, 0.8)',
+                              bgcolor: 'rgba(255, 255, 255, 0.1)',
                               display: 'inline-block',
                               px: 2,
                               py: 0.5,
@@ -468,19 +473,19 @@ export const CompetitionSection = () => {
                                     gap: 1.5,
                                     p: 1.5,
                                     borderRadius: 1,
-                                    bgcolor: `rgba(165,204,243,0.05)`,
-                                    border: `1px solid rgba(165,204,243,0.1)`
+                                    bgcolor: `rgba(255, 255, 255, 0.1)`,
+                                    border: `1px solid rgba(255, 255, 255, 0.2)`
                                   }}
                                 >
                                   <Box sx={{ 
-                                    color: crushAIColors.primaryFlat,
+                                    color: crushAIColors.icons.primary,
                                     display: "flex",
                                     alignItems: "center",
                                     justifyContent: "center"
                                   }}>
                                     {item.icon}
                                   </Box>
-                                  <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontSize: "0.85rem" }}>
+                                  <Typography variant="body2" sx={{ color: crushAIColors.text.white, fontSize: "0.85rem" }}>
                                     {item.text}
                                   </Typography>
                                 </Box>
@@ -516,11 +521,11 @@ export const CompetitionSection = () => {
                                     px: 1.5,
                                     py: 0.5,
                                     borderRadius: 5,
-                                    bgcolor: `rgba(165,204,243,0.1)`,
-                                    border: `1px solid rgba(165,204,243,0.2)`,
+                                    bgcolor: `rgba(255, 255, 255, 0.15)`,
+                                    border: `1px solid rgba(255, 255, 255, 0.25)`,
                                     fontSize: "0.75rem",
                                     fontWeight: 500,
-                                    color: crushAIColors.text.primary
+                                    color: crushAIColors.text.white
                                   }}
                                 >
                                   {specialty}
@@ -536,10 +541,10 @@ export const CompetitionSection = () => {
                           display: "flex", 
                           alignItems: "flex-start", 
                           gap: 3,
-                          bgcolor: 'rgba(255, 240, 240, 0.3)',
+                          bgcolor: 'rgba(255, 100, 100, 0.1)',
                           p: 3,
                           borderRadius: 2,
-                          border: '1px solid rgba(255, 200, 200, 0.2)'
+                          border: '1px solid rgba(255, 100, 100, 0.2)'
                         }}
                       >
                         <Box 
@@ -562,8 +567,8 @@ export const CompetitionSection = () => {
                             sx={{ 
                               fontWeight: 600, 
                               mb: 1, 
-                              color: '#444',
-                              bgcolor: 'rgba(255, 240, 240, 0.7)',
+                              color: crushAIColors.text.white,
+                              bgcolor: 'rgba(255, 100, 100, 0.1)',
                               display: 'inline-block',
                               px: 2,
                               py: 0.5,
@@ -575,9 +580,9 @@ export const CompetitionSection = () => {
                           <Typography 
                             variant="body1" 
                             sx={{ 
-                              color: '#444', 
+                              color: crushAIColors.text.white, 
                               lineHeight: 1.6,
-                              bgcolor: 'rgba(255, 240, 240, 0.7)',
+                              bgcolor: 'rgba(255, 100, 100, 0.1)',
                               display: 'inline-block',
                               px: 2,
                               py: 0.5,

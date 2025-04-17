@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, {
@@ -329,14 +330,14 @@ export const EhrIntegrationSection = () => {
               {features.map((item, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <Card className="overflow-hidden backdrop-blur-sm bg-white/30 border border-white/20 shadow-sm hover:shadow-md transition-all duration-300">
+                    <Card className="overflow-hidden bg-gray-200/30 backdrop-blur-md border border-gray-300/20 shadow-sm hover:shadow-md transition-all duration-300">
                       <CardContent className="flex flex-col items-center text-center p-6">
                         <Box 
                           sx={{ 
                             mb: 3,
                             p: 2,
                             borderRadius: '50%',
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
+                            bgcolor: 'rgba(255, 255, 255, 0.2)',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -400,14 +401,14 @@ export const EhrIntegrationSection = () => {
                   minWidth: isTablet ? 'auto' : '300px'
                 }}
               >
-                <Card className="h-full overflow-hidden backdrop-blur-sm bg-white/30 border border-white/20 shadow-sm hover:shadow-md transition-all duration-300">
+                <Card className="h-full overflow-hidden bg-gray-200/30 backdrop-blur-md border border-gray-300/20 shadow-sm hover:shadow-md transition-all duration-300">
                   <CardContent className="flex flex-col items-center text-center p-6">
                     <Box 
                       sx={{ 
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(255, 255, 255, 0.1)',
+                        bgcolor: 'rgba(255, 255, 255, 0.2)',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
