@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Badge } from "@/components/ui/badge";
