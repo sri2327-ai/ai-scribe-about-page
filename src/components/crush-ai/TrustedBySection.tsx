@@ -33,16 +33,13 @@ export const TrustedBySection = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1]);
   const y = useTransform(scrollYProgress, [0, 0.3], [30, 0]);
 
-  // Light blue gradient background matching the testimonial section
-  const gradientBg = "linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)";
-
   return (
     <Box 
       component="section" 
       ref={sectionRef}
       sx={{ 
         py: { xs: 6, md: 10 },
-        background: gradientBg,
+        bgcolor: crushAIColors.background.light,
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -74,13 +71,13 @@ export const TrustedBySection = () => {
                   mr: 2
                 }}
               >
-                <Users size={28} color={crushAIColors.primaryFlat} />
+                <Users size={28} className={`text-[${crushAIColors.primaryFlat}]`} />
               </Box>
               <Typography 
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: crushAIColors.text.primary,
+                  color: crushAIColors.text.primary, // Updated to black
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -91,7 +88,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: crushAIColors.text.primary,
+                color: crushAIColors.text.primary, // Updated to black
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -101,7 +98,7 @@ export const TrustedBySection = () => {
             <Typography 
               variant="body1"
               sx={{ 
-                color: crushAIColors.text.secondary,
+                color: crushAIColors.text.secondary, // Updated to black
                 fontSize: '1rem', 
                 maxWidth: '600px',
                 mx: 'auto'
