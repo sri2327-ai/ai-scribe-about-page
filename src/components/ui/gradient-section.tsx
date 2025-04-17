@@ -36,18 +36,36 @@ export const GradientSection = ({
   
   // Convert hex to rgba for opacity
   const hexToRgba = (color: string, opacity: number) => {
-    // Check if color is a valid hex string
+    // Check if color is undefined or not a string
     if (!color || typeof color !== 'string') {
-      // Return a default RGBA color if the input is invalid
       return `rgba(200, 200, 200, ${opacity})`;
     }
     
     // Handle non-hex colors (like named colors or rgb values)
     if (!color.startsWith('#')) {
-      return color; // Return the original color if it's not a hex value
+      // For linear-gradient colors, just return them as is
+      if (color.includes('linear-gradient')) {
+        return color;
+      }
+      // For other non-hex colors, apply opacity directly if possible
+      if (color.includes('rgb')) {
+        // Handle rgb and rgba colors
+        return color.replace(/rgba?\(([^)]+)\)/, (_, values) => {
+          const parts = values.split(',').map(v => v.trim());
+          if (parts.length === 3) {
+            return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${opacity})`;
+          } else if (parts.length === 4) {
+            return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${opacity * parseFloat(parts[3])})`;
+          }
+          return `rgba(200, 200, 200, ${opacity})`;
+        });
+      }
+      // For other formats, return a default
+      return color;
     }
     
     try {
+      // Handle hex color
       const r = parseInt(color.slice(1, 3), 16);
       const g = parseInt(color.slice(3, 5), 16);
       const b = parseInt(color.slice(5, 7), 16);
@@ -69,11 +87,12 @@ export const GradientSection = ({
     const [color1, color2, color3] = gradientColors;
     const [opacity1, opacity2, opacity3] = opacityLevels[intensity];
     
-    // If any of the colors are predefined CSS gradients, return them directly
+    // Check if we have a pre-existing gradient
     if (color1 && typeof color1 === 'string' && color1.includes('gradient')) {
       return color1;
     }
     
+    // Check if colors are strings like "#f8f9fa"
     if (variant === "radial") {
       return `radial-gradient(
         circle at 50% 50%,

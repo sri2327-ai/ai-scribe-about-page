@@ -33,8 +33,13 @@ const CrushAI = () => {
       {/* TrustedBySection in its original form */}
       <TrustedBySection />
       
-      {/* Using the direct component instead of GradientSection for EHR Integration */}
-      <EhrIntegrationSection />
+      {/* EHR Integration section with updated background */}
+      <Box sx={{ 
+        background: crushAIColors.primary,
+        position: 'relative' 
+      }}>
+        <EhrIntegrationSection />
+      </Box>
 
       {/* ClinicianTestimonialsSection in its original form */}
       <ClinicianTestimonialsSection />
@@ -47,8 +52,13 @@ const CrushAI = () => {
         <HowItWorksSection />
       </GradientSection>
 
-      {/* Using the direct component instead of GradientSection for Competition */}
-      <CompetitionSection />
+      {/* Competition Section with updated background */}
+      <Box sx={{ 
+        background: crushAIColors.primary,
+        position: 'relative' 
+      }}>
+        <CompetitionSection />
+      </Box>
       
       <TestimonialGenerateSection />
       
@@ -60,52 +70,54 @@ const CrushAI = () => {
         <ClinicalWorkflowSection />
       </GradientSection>
       
-      <WaveBackground baseColor={crushAIColors.primaryFlat} intensity="medium">
-        <Box 
-          component="section"
-          sx={{
-            py: { xs: 8, md: 10 }, // Better spacing on different devices
-            textAlign: "center",
-            position: "relative",
-            zIndex: 1
-          }}
-        >
-          <Container maxWidth="md">
-            <Typography
-              variant="h3"
-              sx={{
-                fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
-                fontWeight: 700,
-                mb: 3,
-                color: crushAIColors.text.white,
-                letterSpacing: "-0.03em", // More modern typography
-                lineHeight: 1.2 // Better readability
-              }}
-            >
-              CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
-            </Typography>
-            <Button 
-              size="lg" 
-              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]"
-              style={{ 
-                background: crushAIColors.button.gradient,
-                color: crushAIColors.text.white
-              }}
-            >
-              <ArrowRight size={16} className="mr-2" />
-              BOOK A DEMO
-            </Button>
-          </Container>
-        </Box>
-      </WaveBackground>
+      {/* Call to Action section with primary gradient background */}
+      <Box 
+        sx={{
+          background: crushAIColors.primary,
+          py: { xs: 8, md: 10 }, 
+          textAlign: "center",
+          position: "relative",
+          zIndex: 1
+        }}
+      >
+        <Container maxWidth="md">
+          <Typography
+            variant="h3"
+            sx={{
+              fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
+              fontWeight: 700,
+              mb: 3,
+              color: crushAIColors.text.white,
+              letterSpacing: "-0.03em", // More modern typography
+              lineHeight: 1.2 // Better readability
+            }}
+          >
+            CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
+          </Typography>
+          <Button 
+            size="lg" 
+            className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]"
+            style={{ 
+              background: crushAIColors.button.gradient,
+              color: crushAIColors.text.white
+            }}
+          >
+            <ArrowRight size={16} className="mr-2" />
+            BOOK A DEMO
+          </Button>
+        </Container>
+      </Box>
       
       <WorkflowAutomationSection />
       
-      {/* ROI Calculator section */}
-      <Box sx={{ my: 4 }}> {/* Added spacing container */}
-        <WaveBackground baseColor={crushAIColors.primaryFlat} intensity="light">
-          <ROICalculatorSection />
-        </WaveBackground>
+      {/* ROI Calculator section with primary gradient background */}
+      <Box 
+        sx={{ 
+          my: 4,
+          background: crushAIColors.primary
+        }}
+      >
+        <ROICalculatorSection />
       </Box>
     </Box>
   );

@@ -127,15 +127,12 @@ export const ROICalculatorSection = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        color: "#FFFFFF"
       }}
     >
       <motion.div
         className="absolute inset-0 w-full h-full z-0"
         style={{
-          background: `linear-gradient(135deg, 
-            ${crushAIColors.primary}, 
-            ${crushAIColors.secondary}, 
-            ${crushAIColors.tertiary})`,
           opacity: containerBgOpacity,
         }}
       />
