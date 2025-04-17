@@ -3,50 +3,11 @@ import React from 'react';
 import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
-import { 
-  Calendar, 
-  Bell, 
-  Workflow, 
-  ShieldCheck, 
-  ClipboardCheck,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { bravoColors } from '@/theme/bravo-theme';
-import { Spotlight } from "@/components/ui/spotlight";
-
-const BravoAbbreviation = [
-  {
-    letter: "B",
-    title: "Booking & Scheduling",
-    description: "Smart appointments & follow-ups",
-    icon: Calendar,
-  },
-  {
-    letter: "R",
-    title: "Reminders & Notifications",
-    description: "Reduce no-shows with automated alerts",
-    icon: Bell,
-  },
-  {
-    letter: "A",
-    title: "Automated Triage",
-    description: "Prioritize urgent cases instantly",
-    icon: Workflow,
-  },
-  {
-    letter: "V",
-    title: "Verification & Identity",
-    description: "Secure patient & insurance checks",
-    icon: ShieldCheck,
-  },
-  {
-    letter: "O",
-    title: "Onboarding & Pre-Visit",
-    description: "Streamlined intake & clinical summaries",
-    icon: ClipboardCheck,
-  },
-];
+import { BravoWorkflowAnimation } from './animations/BravoWorkflowAnimation';
+import { BravoAbbreviation } from './constants/BravoAbbreviation';
 
 export const BravoHeroSection = () => {
   return (
@@ -55,24 +16,18 @@ export const BravoHeroSection = () => {
       sx={{
         position: 'relative',
         overflow: 'hidden',
-        bgcolor: 'black',
+        bgcolor: 'white',
         minHeight: '90vh',
         display: 'flex',
-        alignItems: 'center',
-        pt: { xs: 16, md: 0 },
+        alignItems: 'flex-start',
+        pt: { xs: 16, md: 20 },
       }}
     >
-      <Spotlight
-        className="-top-40 left-0 md:left-60"
-        fill={bravoColors.accent.blue}
-      />
-
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
         <Box sx={{ 
-          maxWidth: '900px', 
-          mx: 'auto',
+          maxWidth: '900px',
           px: { xs: 2, md: 4 },
-          textAlign: 'center' 
+          textAlign: 'left'
         }}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -83,8 +38,8 @@ export const BravoHeroSection = () => {
               sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
-                justifyContent: 'center',
-                alignItems: 'center',
+                alignItems: { xs: 'center', md: 'flex-start' },
+                justifyContent: { xs: 'center', md: 'flex-start' },
                 gap: { xs: 1, md: 2 },
                 mb: 3,
               }}
@@ -105,7 +60,7 @@ export const BravoHeroSection = () => {
                           borderRadius: '12px',
                           transition: 'all 0.3s ease',
                           '&:hover': {
-                            bgcolor: 'rgba(255, 255, 255, 0.1)',
+                            bgcolor: 'rgba(0, 0, 0, 0.03)',
                             transform: 'translateY(-2px)',
                           },
                         }}
@@ -115,8 +70,7 @@ export const BravoHeroSection = () => {
                           sx={{
                             fontSize: { xs: '2.5rem', md: '4rem' },
                             fontWeight: 700,
-                            color: 'white',
-                            textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                            color: 'black',
                           }}
                         >
                           {item.letter}
@@ -124,22 +78,22 @@ export const BravoHeroSection = () => {
                       </Box>
                     </motion.div>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-80 bg-black/80 border border-blue-500/30">
+                  <HoverCardContent className="w-80 bg-white border border-gray-200">
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                       <Box
                         sx={{
                           p: 1,
                           borderRadius: '8px',
-                          bgcolor: `${bravoColors.accent.blue}20`,
+                          bgcolor: `${bravoColors.accent.blue}10`,
                         }}
                       >
                         <item.icon size={24} style={{ color: bravoColors.accent.blue }} />
                       </Box>
                       <Box>
-                        <Typography sx={{ fontSize: '1rem', fontWeight: 600, color: 'white', mb: 0.5 }}>
+                        <Typography sx={{ fontSize: '1rem', fontWeight: 600, color: 'black', mb: 0.5 }}>
                           {item.title}
                         </Typography>
-                        <Typography sx={{ fontSize: '0.875rem', color: 'rgba(255,255,255,0.7)' }}>
+                        <Typography sx={{ fontSize: '0.875rem', color: 'rgba(0,0,0,0.7)' }}>
                           {item.description}
                         </Typography>
                       </Box>
@@ -159,9 +113,10 @@ export const BravoHeroSection = () => {
                 sx={{
                   fontSize: { xs: '1.75rem', md: '2.5rem' },
                   fontWeight: 600,
-                  color: 'white',
+                  color: 'black',
                   mb: 3,
                   lineHeight: 1.4,
+                  maxWidth: '700px',
                 }}
               >
                 The AI Agent That Revolutionizes Patient Care
@@ -170,10 +125,9 @@ export const BravoHeroSection = () => {
               <Typography
                 sx={{
                   fontSize: { xs: '1rem', md: '1.25rem' },
-                  color: 'rgba(255,255,255,0.7)',
+                  color: 'rgba(0,0,0,0.7)',
                   mb: 4,
-                  maxWidth: '700px',
-                  mx: 'auto',
+                  maxWidth: '600px',
                 }}
               >
                 Automate Scheduling, Cut No-Shows, and Elevate Patient Experience!
@@ -181,12 +135,14 @@ export const BravoHeroSection = () => {
 
               <Button 
                 size="lg"
-                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-xl"
+                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
               >
                 Request a Demo
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
+
+            <BravoWorkflowAnimation />
           </motion.div>
         </Box>
       </Container>
