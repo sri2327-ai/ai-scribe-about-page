@@ -7,7 +7,7 @@ const steps = [
     icon: MessageSquare,
     title: "AI Chat & Calls",
     description: "BRAVO connects with patients via chat and calls",
-    color: "#8E9196",
+    color: "#143151",
     preview: (
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <div className="space-y-3">
@@ -51,7 +51,7 @@ const steps = [
     icon: Calendar,
     title: "Smart Scheduling",
     description: "Books appointments and manages refills",
-    color: "#8E9196",
+    color: "#387E89",
     preview: (
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <div className="mb-3">
@@ -80,7 +80,7 @@ const steps = [
     icon: Bell,
     title: "Automated Follow-ups",
     description: "Sends reminders through multiple channels",
-    color: "#8E9196",
+    color: "#5192AE",
     preview: (
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <div className="flex items-center gap-3 mb-3">
@@ -117,7 +117,7 @@ const steps = [
     icon: ClipboardCheck,
     title: "Pre-visit Intake",
     description: "Handles questionnaires and documentation",
-    color: "#8E9196",
+    color: "#143151",
     preview: (
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <div className="space-y-3">
@@ -149,7 +149,7 @@ const steps = [
     icon: FileText,
     title: "Post-visit Patient Feedback",
     description: "Collects and analyzes patient feedback",
-    color: "#8E9196",
+    color: "#387E89",
     preview: (
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <div className="space-y-3">
@@ -189,6 +189,7 @@ export const BravoWorkflowAnimation = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
 
+  // Auto-advance steps
   useEffect(() => {
     if (isAutoPlaying) {
       const interval = setInterval(() => {
@@ -198,7 +199,7 @@ export const BravoWorkflowAnimation = () => {
           }
           return prev + 1;
         });
-      }, 6000);
+      }, 6000); // Show each step for 6 seconds
 
       return () => clearInterval(interval);
     }
@@ -209,6 +210,7 @@ export const BravoWorkflowAnimation = () => {
     setIsAutoPlaying(false);
     setCurrentStep(index);
     
+    // Resume auto-play after 15 seconds of inactivity
     const inactivityTimer = setTimeout(() => {
       setIsAutoPlaying(true);
     }, 15000);
@@ -259,12 +261,12 @@ export const BravoWorkflowAnimation = () => {
                 </motion.div>
                 <div>
                   <motion.h3 
-                    className="text-lg font-semibold text-white"
+                    className="text-lg font-semibold text-gray-900"
                   >
                     {step.title}
                   </motion.h3>
                   <motion.p 
-                    className="text-sm text-white"
+                    className="text-sm text-gray-600"
                   >
                     {step.description}
                   </motion.p>
@@ -290,7 +292,7 @@ export const BravoWorkflowAnimation = () => {
               <motion.div
                 className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
                 style={{
-                  background: 'linear-gradient(to bottom, #8E9196 60%, transparent)'
+                  background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
                 }}
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: isActive ? 1 : 0.5 }}
