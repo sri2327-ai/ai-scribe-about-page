@@ -29,11 +29,13 @@ const CrushAI = () => {
       }}
     >
       <HeroSection />
+      
+      {/* Moved TrustedBySection up, right after HeroSection */}
+      <TrustedBySection />
 
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
       
-      {/* Moved ClinicianTestimonialsSection up, right after EhrIntegrationSection */}
       <GradientSection 
         variant="radial"
         intensity="light"
@@ -41,8 +43,6 @@ const CrushAI = () => {
       >
         <ClinicianTestimonialsSection />
       </GradientSection>
-
-      <TrustedBySection />
 
       <GradientSection 
         variant="radial"
