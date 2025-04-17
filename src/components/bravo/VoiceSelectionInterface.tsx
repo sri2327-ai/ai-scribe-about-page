@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
-import { ChevronLeft, ChevronRight, Volume2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Volume2, AlertCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface VoiceOption {
