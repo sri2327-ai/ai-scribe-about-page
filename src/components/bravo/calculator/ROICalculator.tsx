@@ -27,16 +27,13 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     multiplier: 0
   });
 
+  // Calculate ROI whenever inputs change
   useEffect(() => {
-    calculateROI();
-  }, [staffCount, salary, hours, includeOverhead]);
-
-  const calculateROI = () => {
     const monthlyStaffCost = staffCount[0] * salary[0];
     const overheadMultiplier = includeOverhead ? 1.2 : 1;
     const totalCost = monthlyStaffCost * overheadMultiplier;
     
-    // Example BRAVO cost calculation (adjust as needed)
+    // Example BRAVO cost calculation
     const bravoCost = 1500 + (staffCount[0] * 200);
     
     const monthlySavings = totalCost - bravoCost;
@@ -54,6 +51,12 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
       yearly: monthlySavings * 12,
       multiplier
     });
+  }, [staffCount, salary, hours, includeOverhead, onCalculate]);
+
+  // Separate calculation function for the button click
+  const handleCalculateClick = () => {
+    // This is now just for UI feedback - calculations already happen in useEffect
+    console.log("Calculate button clicked - ROI already updated");
   };
 
   return (
@@ -162,7 +165,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
 
         <Button 
           className="w-full py-6 text-lg bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white"
-          onClick={calculateROI}
+          onClick={handleCalculateClick}
         >
           Calculate My ROI
         </Button>
