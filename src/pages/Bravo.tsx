@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
@@ -187,12 +188,12 @@ const Bravo = () => {
             </p>
             <Button 
               size="lg"
-              className="px-8 py-6 text-lg rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 transition-all duration-300 transform hover:scale-105"
+              className="px-8 py-6 text-lg rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
               style={{ 
                 color: bravoColors.text.white
               }}
             >
-              Talk to an AI Specialist
+              Request a Demo
             </Button>
           </motion.div>
         </div>
