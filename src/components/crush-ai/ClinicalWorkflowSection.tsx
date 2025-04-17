@@ -47,7 +47,7 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
         <h3 className="text-xl font-semibold text-black mb-2">
           {title}
         </h3>
-        <p className="text-[#005477]">{description}</p>
+        <p className="text-black">{description}</p> {/* Updated to black */}
       </div>
     </div>
   </motion.div>
@@ -146,7 +146,7 @@ export const ClinicalWorkflowSection = () => {
           sx={{ 
             fontWeight: 600, 
             mb: 1,
-            color: '#000000',
+            color: '#000000', // Updated to black
             fontSize: { xs: "1.5rem", md: "1.75rem" }
           }}
         >
@@ -180,7 +180,7 @@ export const ClinicalWorkflowSection = () => {
         <Icon size={24} className="text-[#046f90] stroke-[1.5]" />
       </div>
       <h3 className="text-lg font-semibold mb-2 text-black">{title}</h3>
-      <p className="text-sm text-[#005477]">{description}</p>
+      <p className="text-sm text-black">{description}</p> {/* Updated to black */}
     </div>
   );
 
@@ -207,7 +207,7 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 3,
-                color: '#000000',
+                color: '#000000', // Updated to black
                 textAlign: "center",
                 fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
               }}
@@ -225,7 +225,7 @@ export const ClinicalWorkflowSection = () => {
             <Typography 
               variant="body1" 
               sx={{ 
-                color: '#005477', 
+                color: '#000000', // Updated to black
                 maxWidth: "800px",
                 mx: "auto",
                 lineHeight: 1.8,

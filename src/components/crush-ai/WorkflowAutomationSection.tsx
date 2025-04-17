@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -162,27 +161,27 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      backgroundColor: sliderBlueColor, // Change from black to blue color
+                      backgroundColor: sliderBlueColor,
                       color: 'white'
                     }}
                   >
                     <div className={`z-10 p-4 ${isMobile ? 'max-w-[90%]' : 'max-w-md p-8'}`}>
                       <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4`}>The old way of documentation</h2>
-                      <p className={`text-gray-300 ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
+                      <p className={`text-white ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
                         Managing patient documentation is tedious and time-consuming. 
                         Avoid further complications by ditching outdated methods.
                       </p>
-                      <ul className={`space-y-2 md:space-y-3 text-gray-300 ${isMobile ? 'text-sm' : ''}`}>
+                      <ul className={`space-y-2 md:space-y-3 text-white ${isMobile ? 'text-sm' : ''}`}>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
+                          <span className="text-gray-300 mt-1">•</span>
                           <span>Hours of typing after each visit</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
+                          <span className="text-gray-300 mt-1">•</span>
                           <span>Constantly looking at screens</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-400 mt-1">•</span>
+                          <span className="text-gray-300 mt-1">•</span>
                           <span>Increased clinician burnout</span>
                         </li>
                       </ul>
@@ -232,7 +231,7 @@ export const WorkflowAutomationSection = () => {
                   }}
                   drag="x"
                   dragConstraints={{ left: -120, right: 120 }}
-                  dragElastic={0.05} // Reduced elasticity to prevent overshooting
+                  dragElastic={0.05}
                   dragMomentum={false}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
@@ -253,7 +252,6 @@ export const WorkflowAutomationSection = () => {
                         ></div>
                       ))}
                     </div>
-                    {/* Increased the size of the invisible touch target */}
                     <div className="absolute w-20 h-20 rounded-full touch-none cursor-grab"></div>
                   </div>
                 </motion.div>
@@ -262,8 +260,8 @@ export const WorkflowAutomationSection = () => {
                   <>
                     <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                        <Monitor className="h-4 w-4 text-white" />
-                        <span className="text-sm text-white font-medium">Screen-Focused</span>
+                        <Monitor className="h-4 w-4 text-black" />
+                        <span className="text-sm text-black font-medium">Screen-Focused</span>
                       </div>
                       <div className={`flex items-center gap-2 ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <span 
@@ -281,7 +279,7 @@ export const WorkflowAutomationSection = () => {
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-                        style={{ backgroundColor: `${sliderBlueColor}CC` }} // Updated color for the clock indicator
+                        style={{ backgroundColor: `${sliderBlueColor}CC` }}
                       >
                         <Clock className="h-3 w-3 text-white" />
                         <span className="text-xs text-white font-medium">Hours of documentation</span>
@@ -308,8 +306,8 @@ export const WorkflowAutomationSection = () => {
               
               <div className="flex justify-between mt-6 px-4">
                 <div className="flex items-center">
-                  <Monitor className="text-gray-800 mr-2" size={isMobile ? 16 : 20} />
-                  <span className={`text-gray-800 font-medium ${isMobile ? 'text-sm' : ''}`}>Screen-Focused Care</span>
+                  <Monitor className="text-black mr-2" size={isMobile ? 16 : 20} />
+                  <span className={`text-black font-medium ${isMobile ? 'text-sm' : ''}`}>Screen-Focused Care</span>
                 </div>
                 <div className="flex items-center">
                   <span 

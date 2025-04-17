@@ -50,7 +50,7 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
             },
             fontWeight: 800,
             fontSize: 'inherit',
-            color: crushAIColors.text.primary, // Updated to use theme color
+            color: crushAIColors.text.primary, // Updated to use black text
             mx: '2px'
           }}
           onClick={() => handleToggle(index)}
@@ -67,7 +67,7 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
               marginBottom: '10px',
               background: crushAIColors.primary,
               backdropFilter: 'blur(10px)',
-              color: crushAIColors.text.white, // Updated to use theme color
+              color: crushAIColors.text.white, // White text on dark background
               fontSize: '12px',
               padding: '10px 15px',
               borderRadius: '12px',

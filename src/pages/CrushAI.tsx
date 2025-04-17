@@ -22,7 +22,7 @@ import { WaveBackground } from "@/components/ui/wave-background";
 const globalStyles = {
   // Ensure workflow animation uses correct colors
   '.animated-workflow': {
-    color: crushAIColors.text.primary,
+    color: crushAIColors.text.primary, // Updated to black
     '& svg, & path, & g': {
       color: `${crushAIColors.text.primary} !important`,
       fill: `${crushAIColors.text.primary} !important`,
@@ -43,7 +43,7 @@ const CrushAI = () => {
     <Box 
       sx={{ 
         bgcolor: crushAIColors.background.white, 
-        color: crushAIColors.text.primary,
+        color: crushAIColors.text.primary, // Updated to black
         overflow: 'hidden', // Prevent horizontal scrolling issues
         position: 'relative', // Better positioning context
         ...globalStyles
@@ -109,7 +109,7 @@ const CrushAI = () => {
               fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
               fontWeight: 700,
               mb: 3,
-              color: crushAIColors.text.white,
+              color: crushAIColors.text.white, // Keep white for text on dark background
               letterSpacing: "-0.03em", // More modern typography
               lineHeight: 1.2 // Better readability
             }}

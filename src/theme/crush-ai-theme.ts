@@ -15,9 +15,10 @@ export const crushAIColors = {
   },
   text: {
     primary: '#000000', // Black for primary text (headings)
-    secondary: '#005477', // Secondary text color
-    light: '#5192AE', // Medium Teal Blue for lighter text (e.g., captions)
-    white: '#FFFFFF', // White for text on colored backgrounds (e.g., buttons)
+    secondary: '#000000', // Black for secondary text 
+    light: '#333333', // Dark grey for light text to ensure visibility
+    white: '#FFFFFF', // White for text on colored backgrounds
+    lightGrey: '#CCCCCC', // Light grey for secondary text on colored backgrounds
   },
   accent: {
     blue: '#5192AE', // Medium Teal Blue for accents (icons, borders)

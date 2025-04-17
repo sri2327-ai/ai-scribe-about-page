@@ -77,7 +77,7 @@ export const TrustedBySection = () => {
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: "#000000", // Changed to black as requested
+                  color: crushAIColors.text.primary, // Updated to black
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -88,7 +88,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: "#000000", // Changed to black as requested
+                color: crushAIColors.text.primary, // Updated to black
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -98,7 +98,7 @@ export const TrustedBySection = () => {
             <Typography 
               variant="body1"
               sx={{ 
-                color: crushAIColors.text.secondary, 
+                color: crushAIColors.text.secondary, // Updated to black
                 fontSize: '1rem', 
                 maxWidth: '600px',
                 mx: 'auto'

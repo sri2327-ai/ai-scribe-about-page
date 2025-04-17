@@ -44,7 +44,7 @@ const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="text-gray-800 opacity-0"
+              className="text-black opacity-0" // Updated to use black text
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}
@@ -60,7 +60,7 @@ const TextGenerateEffect = ({
   return (
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className="text-gray-800 text-xl md:text-2xl leading-snug tracking-tight"> {/* Changed to tracking-tight for x.ai style */}
+        <div className="text-black text-xl md:text-2xl leading-snug tracking-tight"> {/* Updated to black */}
           {renderWords()}
         </div>
       </div>
@@ -175,7 +175,7 @@ export const TestimonialGenerateSection = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: crushAIColors.text.primary,
+                  color: crushAIColors.text.primary, // Updated to black
                   mb: 1,
                   letterSpacing: "-0.01em" // x.ai-style typography
                 }}
@@ -186,7 +186,7 @@ export const TestimonialGenerateSection = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: crushAIColors.text.secondary,
+                  color: crushAIColors.text.secondary, // Updated to black
                   fontWeight: 500
                 }}
               >
