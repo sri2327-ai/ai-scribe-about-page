@@ -66,9 +66,22 @@ const CrushAI = () => {
       {/* TrustedBySection with text color updated to black */}
       <TrustedBySection />
       
-      {/* EHR Integration section without ripple background */}
-      <Box sx={{ bgcolor: crushAIColors.background.white }}>
-        <EhrIntegrationSection />
+      {/* EHR Integration section with teal background and animation restored */}
+      <Box 
+        sx={{ 
+          bgcolor: crushAIColors.primaryFlat,
+          position: "relative",
+          overflow: "hidden"
+        }}
+      >
+        <div className="rippleBackground">
+          <div className="ripple bg-white/10"></div>
+          <div className="ripple bg-white/10"></div>
+          <div className="ripple bg-white/10"></div>
+        </div>
+        <EHRBeamsBackground>
+          <EhrIntegrationSection />
+        </EHRBeamsBackground>
       </Box>
 
       {/* ClinicianTestimonialsSection in its original form */}
@@ -90,9 +103,22 @@ const CrushAI = () => {
         </Box>
       </GradientSection>
 
-      {/* Competition Section without ripple background */}
-      <Box sx={{ bgcolor: crushAIColors.background.white }}>
-        <CompetitionSection />
+      {/* Competition Section with teal background and animation restored */}
+      <Box 
+        sx={{ 
+          bgcolor: crushAIColors.primaryFlat,
+          position: "relative",
+          overflow: "hidden"
+        }}
+      >
+        <div className="rippleBackground">
+          <div className="ripple bg-white/10"></div>
+          <div className="ripple bg-white/10"></div>
+          <div className="ripple bg-white/10"></div>
+        </div>
+        <EHRBeamsBackground>
+          <CompetitionSection />
+        </EHRBeamsBackground>
       </Box>
       
       <TestimonialGenerateSection />
@@ -102,38 +128,53 @@ const CrushAI = () => {
         <ClinicalWorkflowSection />
       </Box>
       
-      {/* Call to Action section without ripple background */}
+      {/* Call to Action section with teal background and animation restored */}
       <Box 
-        sx={{
-          py: { xs: 8, md: 10 }, 
-          textAlign: "center",
+        sx={{ 
           position: "relative",
           zIndex: 1,
-          bgcolor: crushAIColors.background.light
+          bgcolor: crushAIColors.primaryFlat,
+          overflow: "hidden"
         }}
       >
-        <Container maxWidth="md">
-          <Typography
-            variant="h3"
+        <div className="rippleBackground">
+          <div className="ripple bg-white/10"></div>
+          <div className="ripple bg-white/10"></div>
+          <div className="ripple bg-white/10"></div>
+        </div>
+        <EHRBeamsBackground>
+          <Box 
             sx={{
-              fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
-              fontWeight: 700,
-              mb: 3,
-              color: crushAIColors.text.primary,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.2
+              py: { xs: 8, md: 10 }, 
+              textAlign: "center",
+              position: "relative",
+              zIndex: 1
             }}
           >
-            CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
-          </Typography>
-          <Button 
-            size="lg" 
-            className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
-          >
-            <ArrowRight size={16} className="mr-2" />
-            BOOK A DEMO
-          </Button>
-        </Container>
+            <Container maxWidth="md">
+              <Typography
+                variant="h3"
+                sx={{
+                  fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
+                  fontWeight: 700,
+                  mb: 3,
+                  color: "#fff",
+                  letterSpacing: "-0.03em",
+                  lineHeight: 1.2
+                }}
+              >
+                CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
+              </Typography>
+              <Button 
+                size="lg" 
+                className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
+              >
+                <ArrowRight size={16} className="mr-2" />
+                BOOK A DEMO
+              </Button>
+            </Container>
+          </Box>
+        </EHRBeamsBackground>
       </Box>
       
       <WorkflowAutomationSection />

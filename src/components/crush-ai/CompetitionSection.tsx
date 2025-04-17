@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { CheckCircle, XCircle, Trophy, ChevronRight, FilePlus, Copy, Import, Users, AlertTriangle } from "lucide-react";
+import { CheckCircle, XCircle, Trophy, ChevronRight, FilePlus, Copy, Import, Users } from "lucide-react";
 import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { 
