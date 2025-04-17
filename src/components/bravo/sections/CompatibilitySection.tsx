@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Phone, Users, FileCheck, Database } from 'lucide-react';
@@ -91,21 +90,21 @@ export const CompatibilitySection = () => {
     {
       name: "SIP Phone System",
       icon: <Phone size={24} color="#ffffff" />,
-      gradientColors: ["#2EB9DF", "#2EB9DF", "#6366F1"],
+      gradientColors: ["#2EB9DF", "#2EB9DF", "#6366F1"] as [string, string, string],
       path: `M0,0 C50,-40 100,-40 150,0`,
       position: { x: -150, y: -120 }
     },
     {
       name: "Patient Platform",
       icon: <Users size={24} color="#ffffff" />,
-      gradientColors: ["#2EB9DF", "#2EB9DF", "#8B5CF6"],
+      gradientColors: ["#2EB9DF", "#2EB9DF", "#8B5CF6"] as [string, string, string],
       path: `M0,0 C50,40 100,40 150,0`,
       position: { x: -150, y: 120 }
     },
     {
       name: "PMS/EHR System",
       icon: <FileCheck size={24} color="#ffffff" />,
-      gradientColors: ["#2EB9DF", "#2EB9DF", "#10B981"],
+      gradientColors: ["#2EB9DF", "#2EB9DF", "#10B981"] as [string, string, string],
       path: `M0,0 C40,0 80,0 150,0`,
       position: { x: 150, y: 0 }
     }
