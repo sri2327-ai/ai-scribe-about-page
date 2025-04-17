@@ -2,7 +2,11 @@
 import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { crushAIColors } from "@/theme/crush-ai-theme";
+import { AdminTabContent, ClinicalTabContent } from "./AnimatedTabContent";
+import { AnimatedFeatureCard } from "./AnimatedFeatureCard";
 import { 
   Pill, 
   ClipboardList, 
@@ -15,48 +19,12 @@ import {
   AlertTriangle, 
   LineChart 
 } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { crushAIColors } from "@/theme/crush-ai-theme";
-
-interface FeatureCardProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  className?: string;
-}
-
-const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardProps) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    viewport={{ once: true, margin: "-50px" }}
-    className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-black/5 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md bg-white",
-      className
-    )}
-  >
-    <div className="flex flex-col gap-3 z-10">
-      <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
-        <Icon size={24} className="text-[#046f90] stroke-[1.5]" />
-      </div>
-      
-      <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 className="text-xl font-semibold text-black mb-2">
-          {title}
-        </h3>
-        <p className="text-black">{description}</p> {/* Updated to black */}
-      </div>
-    </div>
-  </motion.div>
-);
 
 export const ClinicalWorkflowSection = () => {
   const [activeTab, setActiveTab] = useState("admin");
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
   const adminFeatures = [
     {
@@ -114,7 +82,20 @@ export const ClinicalWorkflowSection = () => {
     }
   ];
 
-  // Render functions for desktop and mobile views
+  // Card component for mobile view
+  const Card = ({ icon: Icon, title, description, index }) => (
+    <AnimatedFeatureCard 
+      icon={Icon} 
+      title={title} 
+      description={description} 
+      animationDelay={index * 0.1}
+      primaryColor={crushAIColors.primaryFlat}
+      secondaryColor={crushAIColors.secondary}
+      tertiaryColor={crushAIColors.tertiary}
+    />
+  );
+
+  // Render functions for mobile view
   const renderFeaturesMobile = (features: any[]) => (
     <Carousel className="w-full">
       <CarouselContent>
@@ -125,7 +106,7 @@ export const ClinicalWorkflowSection = () => {
                 icon={feature.icon} 
                 title={feature.title} 
                 description={feature.description} 
-                className="h-full"
+                index={index}
               />
             </div>
           </CarouselItem>
@@ -136,52 +117,6 @@ export const ClinicalWorkflowSection = () => {
         <CarouselNext className="relative static right-auto translate-y-0" />
       </div>
     </Carousel>
-  );
-
-  const renderFeaturesDesktop = (features: any[]) => (
-    <ContainerScroll
-      titleComponent={
-        <Typography 
-          variant="h4" 
-          sx={{ 
-            fontWeight: 600, 
-            mb: 1,
-            color: '#000000', // Updated to black
-            fontSize: { xs: "1.5rem", md: "1.75rem" }
-          }}
-        >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#046f90] to-[#0d252b]">
-            {activeTab === "admin" ? "Automate Staffing & Cut Admin Work" : "AI Assistance for Physicians – Smarter, More Accurate Decisions"}
-          </span>
-        </Typography>
-      }
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
-        {features.map((feature, index) => (
-          <FeatureCard
-            key={index}
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.description}
-            className="h-full"
-          />
-        ))}
-      </div>
-    </ContainerScroll>
-  );
-
-  // Card component for mobile view
-  const Card = ({ icon: Icon, title, description, className }: FeatureCardProps) => (
-    <div className={cn(
-      "flex flex-col p-6 border border-black/10 rounded-xl shadow-sm bg-white",
-      className
-    )}>
-      <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-        <Icon size={24} className="text-[#046f90] stroke-[1.5]" />
-      </div>
-      <h3 className="text-lg font-semibold mb-2 text-black">{title}</h3>
-      <p className="text-sm text-black">{description}</p> {/* Updated to black */}
-    </div>
   );
 
   return (
@@ -210,7 +145,7 @@ export const ClinicalWorkflowSection = () => {
                 color: '#000000',
                 textAlign: "center",
                 fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
-                lineHeight: 1.2 // Added line height for better alignment
+                lineHeight: 1.2
               }}
             >
               More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
@@ -231,7 +166,7 @@ export const ClinicalWorkflowSection = () => {
                 mx: "auto",
                 lineHeight: 1.8,
                 fontSize: { xs: "0.95rem", md: "1.1rem" },
-                textAlign: "center" // Ensure center alignment
+                textAlign: "center"
               }}
             >
               CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, 
@@ -261,14 +196,14 @@ export const ClinicalWorkflowSection = () => {
           <TabsContent value="admin" className="mt-0">
             {isMobile 
               ? renderFeaturesMobile(adminFeatures) 
-              : renderFeaturesDesktop(adminFeatures)
+              : <AdminTabContent />
             }
           </TabsContent>
           
           <TabsContent value="clinical" className="mt-0">
             {isMobile 
               ? renderFeaturesMobile(clinicalFeatures) 
-              : renderFeaturesDesktop(clinicalFeatures)
+              : <ClinicalTabContent />
             }
           </TabsContent>
         </Tabs>
