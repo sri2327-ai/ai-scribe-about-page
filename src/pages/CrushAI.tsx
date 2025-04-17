@@ -35,11 +35,17 @@ const globalStyles = {
   },
   // Ensure buttons have the correct background
   '.demo-button': {
-    background: `${crushAIColors.button.gradient} !important`
+    background: `linear-gradient(90deg, #046f90, #f06292) !important`,
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    '&:hover': {
+      transform: 'translateY(-3px)',
+      boxShadow: '0 8px 20px rgba(240, 98, 146, 0.3)'
+    }
   },
   // Ensure call-to-action text is visible
   '.cta-text': {
-    color: `${crushAIColors.text.white} !important`
+    color: `${crushAIColors.text.white} !important`,
+    textShadow: '0 2px 4px rgba(0,0,0,0.3) !important'
   }
 };
 
@@ -105,10 +111,10 @@ const CrushAI = () => {
                 fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
                 fontWeight: 700,
                 mb: 3,
-                color: crushAIColors.text.white, // Keep white for text on dark background
-                letterSpacing: "-0.03em", // More modern typography
-                lineHeight: 1.2, // Better readability
-                textShadow: "0 2px 4px rgba(0,0,0,0.2)" // Add shadow for better readability
+                color: crushAIColors.text.white,
+                letterSpacing: "-0.03em",
+                lineHeight: 1.2,
+                textShadow: "0 3px 6px rgba(0,0,0,0.3)"
               }}
               className="cta-text"
             >
@@ -116,7 +122,7 @@ const CrushAI = () => {
             </Typography>
             <Button 
               size="lg" 
-              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
+              className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
             >
               <ArrowRight size={16} className="mr-2" />
               BOOK A DEMO
