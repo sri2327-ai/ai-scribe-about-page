@@ -1,11 +1,17 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { CrushAIBentoGridItem } from "./CrushAIBentoGridItem";
-import { PrescriptionRefillsIllustration, SmartScreeningIllustration, PreChartingIllustration, ClinicalDecisionIllustration, HCCTrackingIllustration, LongitudinalIntelligenceIllustration } from "./AdminFeatureIllustrations";
+import { 
+  PrescriptionRefillsIllustration, 
+  SmartScreeningIllustration, 
+  PreChartingIllustration, 
+  ClinicalDecisionIllustration, 
+  HCCTrackingIllustration, 
+  LongitudinalIntelligenceIllustration 
+} from "./AdminFeatureIllustrations";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,6 +21,18 @@ const containerVariants = {
       staggerChildren: 0.1,
       delayChildren: 0.3
     }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1.0]
+    } 
   }
 };
 
@@ -92,76 +110,40 @@ const clinicalPanels = [
 
 export const AdminTabContent = () => {
   return (
-    <ContainerScroll
-      titleComponent={
-        <Typography 
-          variant="h4" 
-          sx={{ 
-            fontWeight: 600, 
-            mb: 1,
-            color: '#000000',
-            fontSize: { xs: "1.5rem", md: "1.75rem" }
-          }}
-        >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#046f90] to-[#0d252b]">
-            Automate Staffing & Cut Admin Work
-          </span>
-        </Typography>
-      }
+    <motion.div 
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-10%" }}
     >
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10%" }}
-      >
-        {adminPanels.map((panel, index) => (
-          <CrushAIBentoGridItem
-            key={index}
-            {...panel}
-            index={index}
-          />
-        ))}
-      </motion.div>
-    </ContainerScroll>
+      {adminPanels.map((panel, index) => (
+        <CrushAIBentoGridItem
+          key={index}
+          {...panel}
+          index={index}
+        />
+      ))}
+    </motion.div>
   );
 };
 
 export const ClinicalTabContent = () => {
   return (
-    <ContainerScroll
-      titleComponent={
-        <Typography 
-          variant="h4" 
-          sx={{ 
-            fontWeight: 600, 
-            mb: 1,
-            color: '#000000',
-            fontSize: { xs: "1.5rem", md: "1.75rem" }
-          }}
-        >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#046f90] to-[#0d252b]">
-            AI Assistance for Physicians – Smarter, More Accurate Decisions
-          </span>
-        </Typography>
-      }
+    <motion.div 
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-10%" }}
     >
-      <motion.div 
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-10%" }}
-      >
-        {clinicalPanels.map((panel, index) => (
-          <CrushAIBentoGridItem
-            key={index}
-            {...panel}
-            index={index}
-          />
-        ))}
-      </motion.div>
-    </ContainerScroll>
+      {clinicalPanels.map((panel, index) => (
+        <CrushAIBentoGridItem
+          key={index}
+          {...panel}
+          index={index}
+        />
+      ))}
+    </motion.div>
   );
 };
