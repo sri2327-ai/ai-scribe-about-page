@@ -65,37 +65,33 @@ const CrushAI = () => {
       {/* TrustedBySection with text color updated to black */}
       <TrustedBySection />
       
-      {/* EHR Integration section with BeamsBackground */}
-      <EHRBeamsBackground>
+      {/* EHR Integration section with BeamsBackground without ripple effect */}
+      <EHRBeamsBackground showRipple={false} showIcons={true}>
         <EhrIntegrationSection />
       </EHRBeamsBackground>
 
       {/* ClinicianTestimonialsSection in its original form */}
       <ClinicianTestimonialsSection />
 
-      {/* How It Works section with gradient background */}
-      <GradientSection 
-        variant="linear"
-        intensity="medium"
-        colors={[crushAIColors.background.gradient.split(',')[0].split('(')[1], crushAIColors.background.gradient.split(',')[1].split(')')[0]]}
-      >
+      {/* How It Works section with gradient background and ripple effect */}
+      <EHRBeamsBackground showRipple={true} showIcons={true}>
         <HowItWorksSection />
-      </GradientSection>
+      </EHRBeamsBackground>
 
-      {/* Competition Section with BeamsBackground */}
-      <EHRBeamsBackground>
+      {/* Competition Section with BeamsBackground without ripple effect */}
+      <EHRBeamsBackground showRipple={false} showIcons={true}>
         <CompetitionSection />
       </EHRBeamsBackground>
       
       <TestimonialGenerateSection />
       
-      {/* Clinical Workflow section with BeamsBackground */}
-      <EHRBeamsBackground>
+      {/* Clinical Workflow section with BeamsBackground without ripple effect */}
+      <EHRBeamsBackground showRipple={false} showIcons={true}>
         <ClinicalWorkflowSection />
       </EHRBeamsBackground>
       
-      {/* Call to Action section with BeamsBackground */}
-      <EHRBeamsBackground>
+      {/* Call to Action section with BeamsBackground without ripple effect */}
+      <EHRBeamsBackground showRipple={false} showIcons={true}>
         <Box 
           sx={{
             py: { xs: 8, md: 10 }, 

@@ -145,7 +145,7 @@ export const CompetitionSection = () => {
           </Typography>
         </Box>
 
-        {/* Tablet and desktop view: Display tabular comparison */}
+        {/* Tablet and desktop view: Display tabular comparison with white header */}
         {!isMobile && (
           <Box
             component={motion.div}
@@ -162,17 +162,17 @@ export const CompetitionSection = () => {
           >
             <Table>
               <TableHeader>
-                <TableRow className="bg-gray-800/90 border-b border-gray-700">
-                  <TableHead className="font-bold text-lg text-white w-1/3">Feature</TableHead>
-                  <TableHead className="font-bold text-lg text-white w-1/3">C.R.U.S.H.</TableHead>
-                  <TableHead className="font-bold text-lg text-white w-1/3">Other AI Scribes</TableHead>
+                <TableRow className="bg-white border-b border-gray-200">
+                  <TableHead className="font-bold text-lg text-gray-800 w-1/3">Feature</TableHead>
+                  <TableHead className="font-bold text-lg text-gray-800 w-1/3">C.R.U.S.H.</TableHead>
+                  <TableHead className="font-bold text-lg text-gray-800 w-1/3">Other AI Scribes</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {comparisonFeatures.map((feature, index) => (
                   <TableRow 
                     key={feature.id}
-                    className={index % 2 === 0 ? "bg-gray-100/90" : "bg-white/90"}
+                    className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}
                   >
                     <TableCell className="font-medium text-gray-900">{feature.title}</TableCell>
                     <TableCell>

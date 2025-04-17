@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
-// Define the new blue color for the slider
+// Define the light blue color for the slider
 const sliderBlueColor = "#5192AE";
 
 export const WorkflowAutomationSection = () => {
@@ -90,6 +91,9 @@ export const WorkflowAutomationSection = () => {
     animate(x, (newPosition - 50) * 3, { duration: 0.3 });
   };
 
+  // Light blue color for the "old way" side
+  const lightBlueColor = "rgba(223,234,247,1)";
+
   return (
     <Box
       component="section"
@@ -161,27 +165,27 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      backgroundColor: sliderBlueColor,
-                      color: 'white'
+                      backgroundColor: lightBlueColor,
+                      color: 'black'
                     }}
                   >
                     <div className={`z-10 p-4 ${isMobile ? 'max-w-[90%]' : 'max-w-md p-8'}`}>
-                      <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4`}>The old way of documentation</h2>
-                      <p className={`text-white ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
+                      <h2 className={`${isMobile ? 'text-xl' : 'text-3xl md:text-4xl'} font-bold mb-2 md:mb-4 text-gray-800`}>The old way of documentation</h2>
+                      <p className={`text-gray-600 ${isMobile ? 'text-sm' : 'text-base md:text-lg'} mb-3 md:mb-6`}>
                         Managing patient documentation is tedious and time-consuming. 
                         Avoid further complications by ditching outdated methods.
                       </p>
-                      <ul className={`space-y-2 md:space-y-3 text-white ${isMobile ? 'text-sm' : ''}`}>
+                      <ul className={`space-y-2 md:space-y-3 text-gray-600 ${isMobile ? 'text-sm' : ''}`}>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-gray-400 mt-1">•</span>
                           <span>Hours of typing after each visit</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-gray-400 mt-1">•</span>
                           <span>Constantly looking at screens</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-gray-400 mt-1">•</span>
                           <span>Increased clinician burnout</span>
                         </li>
                       </ul>
@@ -224,7 +228,7 @@ export const WorkflowAutomationSection = () => {
                 </div>
                 
                 <motion.div 
-                  className="absolute top-0 bottom-0 w-1 bg-white/50 z-20 cursor-ew-resize"
+                  className="absolute top-0 bottom-0 w-1 bg-black/20 z-20 cursor-ew-resize"
                   style={{ 
                     left: `${sliderPosition}%`,
                     x: x
@@ -237,18 +241,16 @@ export const WorkflowAutomationSection = () => {
                   onDragEnd={handleDragEnd}
                 >
                   <div 
-                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white border-2 border-${crushAIColors.primary} shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                     style={{ 
-                      borderColor: crushAIColors.primary,
-                      backgroundColor: 'white'
+                      border: "2px solid black",
                     }}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
                       {Array.from({ length: 9 }).map((_, index) => (
                         <div 
                           key={index} 
-                          className="w-[2px] h-[2px] rounded-full"
-                          style={{ backgroundColor: `${crushAIColors.primary}70` }}
+                          className="w-[3px] h-[3px] rounded-full bg-black"
                         ></div>
                       ))}
                     </div>
@@ -279,10 +281,10 @@ export const WorkflowAutomationSection = () => {
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-                        style={{ backgroundColor: `${sliderBlueColor}CC` }}
+                        style={{ backgroundColor: `rgba(0, 0, 0, 0.1)` }}
                       >
-                        <Clock className="h-3 w-3 text-white" />
-                        <span className="text-xs text-white font-medium">Hours of documentation</span>
+                        <Clock className="h-3 w-3 text-black" />
+                        <span className="text-xs text-black font-medium">Hours of documentation</span>
                       </div>
                       <div 
                         className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
