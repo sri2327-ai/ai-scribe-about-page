@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Phone, Check, BarChart3, Users } from "lucide-react";
 import { motion } from "framer-motion";
 import { ROISection } from '@/components/bravo/sections/ROISection';
+import { BravoTestimonialsSection } from '@/components/bravo/sections/BravoTestimonialsSection';
 
 const Bravo = () => {
   return (
@@ -18,13 +19,9 @@ const Bravo = () => {
       <BravoHeroSection />
       <CompatibilitySection />
       <HowBravoWorksSection />
-      
-      {/* Add ROI Section here */}
       <ROISection />
-
-      {/* Handle Calls Section - Enhanced with animations */}
+      <BravoTestimonialsSection />
       <section className="py-20 relative overflow-hidden" style={{ backgroundColor: bravoColors.background.light }}>
-        {/* Animated background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/30 to-teal-50/30 opacity-60 blur-3xl" />
         
         <div className="container mx-auto px-4 relative">
@@ -52,7 +49,6 @@ const Bravo = () => {
           </motion.div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* ACCESS Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +91,6 @@ const Bravo = () => {
               </Card>
             </motion.div>
 
-            {/* EFFICIENCY Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +133,6 @@ const Bravo = () => {
               </Card>
             </motion.div>
 
-            {/* COORDINATION Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -205,10 +199,8 @@ const Bravo = () => {
         </div>
       </section>
 
-      {/* Voice Selection Interface Section */}
       <VoiceSelectionInterface />
 
-      {/* Tasks Section - Now using BentoGrid */}
       <BravoAutomationBentoGrid />
     </div>
   );

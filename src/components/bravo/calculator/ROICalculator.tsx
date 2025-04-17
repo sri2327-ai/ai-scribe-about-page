@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
@@ -27,13 +26,11 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     multiplier: 0
   });
 
-  // Calculate ROI whenever inputs change
   useEffect(() => {
     const monthlyStaffCost = staffCount[0] * salary[0];
     const overheadMultiplier = includeOverhead ? 1.2 : 1;
     const totalCost = monthlyStaffCost * overheadMultiplier;
     
-    // Example BRAVO cost calculation
     const bravoCost = 1500 + (staffCount[0] * 200);
     
     const monthlySavings = totalCost - bravoCost;
@@ -53,17 +50,22 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     });
   }, [staffCount, salary, hours, includeOverhead, onCalculate]);
 
-  // Handle slider value changes properly
   const handleStaffCountChange = (value: number[]) => {
-    setStaffCount(value);
+    if (value[0] !== staffCount[0]) {
+      setStaffCount(value);
+    }
   };
 
   const handleSalaryChange = (value: number[]) => {
-    setSalary(value);
+    if (value[0] !== salary[0]) {
+      setSalary(value);
+    }
   };
 
   const handleHoursChange = (value: number[]) => {
-    setHours(value);
+    if (value[0] !== hours[0]) {
+      setHours(value);
+    }
   };
 
   return (

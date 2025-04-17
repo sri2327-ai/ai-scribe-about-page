@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Phone, Users, FileCheck, Database } from 'lucide-react';
@@ -6,86 +5,24 @@ import { bravoColors } from '@/theme/bravo-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
-export const CompatibilitySection = () => {
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: { 
-      opacity: 1, 
-      transition: { 
-        when: "beforeChildren", 
-        staggerChildren: 0.3,
-        delayChildren: 0.5
-      }
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { 
+    opacity: 1, 
+    transition: { 
+      when: "beforeChildren", 
+      staggerChildren: 0.2,
+      duration: 0.5
     }
-  };
-  
-  const hubVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: { 
-      scale: 1, 
-      opacity: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-        duration: 0.5
-      }
-    }
-  };
-  
-  const iconVariants = {
-    hidden: { scale: 0, opacity: 0 },
-    visible: (custom: number) => ({
-      scale: 1, 
-      opacity: 1,
-      transition: { 
-        type: "spring",
-        stiffness: 300,
-        damping: 25,
-        delay: custom * 0.2
-      }
-    })
-  };
-  
-  const pulseVariants = {
-    hidden: { scale: 0.8, opacity: 0 },
-    visible: {
-      scale: [0.8, 1.2, 1],
-      opacity: [0, 0.6, 0],
-      transition: {
-        repeat: Infinity,
-        repeatDelay: 2,
-        duration: 2,
-        times: [0, 0.5, 1]
-      }
-    }
-  };
-  
-  const connectedBadgeVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 1 + (custom * 0.2),
-        duration: 0.3
-      }
-    })
-  };
-  
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 2.2,
-        duration: 0.5
-      }
-    }
-  };
+  }
+};
 
+const textVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+export const CompatibilitySection = () => {
   // Integration partners with their paths
   const integrations = [
     {
@@ -112,7 +49,7 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="relative w-full py-24 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    <div className="relative w-full py-16 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Background effects */}
       <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden">
         <svg width="100%" height="100%" className="absolute inset-0">
@@ -149,11 +86,9 @@ export const CompatibilitySection = () => {
         </svg>
       </div>
       
-      <div className="container max-w-6xl mx-auto px-4 pt-8 pb-12">
-        {/* Removed heading as requested */}
-        
+      <div className="container max-w-4xl mx-auto px-4">
         <motion.div 
-          className="relative flex items-center justify-center h-[500px]"
+          className="relative flex items-center justify-center min-h-[400px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -162,16 +97,29 @@ export const CompatibilitySection = () => {
           {/* Central BRAVO hub */}
           <div className="relative z-20">
             <motion.div 
-              className="relative flex items-center justify-center"
-              variants={hubVariants}
+              className="relative mb-8"
+              variants={textVariants}
             >
-              {/* Pulse rings */}
+              <div className="relative">
+                {/* Pulse rings */}
               <motion.div 
                 className="absolute inset-0 rounded-full"
                 style={{ 
                   background: `radial-gradient(circle, ${bravoColors.accent.blue}30 0%, ${bravoColors.accent.blue}00 70%)` 
                 }}
-                variants={pulseVariants}
+                variants={{
+                  hidden: { scale: 0.8, opacity: 0 },
+                  visible: {
+                    scale: [0.8, 1.2, 1],
+                    opacity: [0, 0.6, 0],
+                    transition: {
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                      duration: 2,
+                      times: [0, 0.5, 1]
+                    }
+                  }
+                }}
               />
               
               <motion.div 
@@ -180,7 +128,19 @@ export const CompatibilitySection = () => {
                   background: `radial-gradient(circle, ${bravoColors.accent.blue}20 0%, ${bravoColors.accent.blue}00 70%)`,
                   scale: 1.5 
                 }}
-                variants={pulseVariants}
+                variants={{
+                  hidden: { scale: 0.8, opacity: 0 },
+                  visible: {
+                    scale: [0.8, 1.2, 1],
+                    opacity: [0, 0.6, 0],
+                    transition: {
+                      repeat: Infinity,
+                      repeatDelay: 2,
+                      duration: 2,
+                      times: [0, 0.5, 1]
+                    }
+                  }
+                }}
                 custom={0.2}
               />
               
@@ -192,20 +152,33 @@ export const CompatibilitySection = () => {
                   <span className="text-xl font-bold z-10 relative" style={{ color: bravoColors.primary }}>BRAVO</span>
                 </div>
               </div>
+              </div>
             </motion.div>
             
-            {/* Integration spokes */}
+            {/* Integration spokes with adjusted spacing */}
             {integrations.map((integration, i) => (
-              <div key={i} className="absolute" style={{ 
-                transform: `translate(${integration.position.x}px, ${integration.position.y}px)`,
-                transformOrigin: 'center'
-              }}>
+              <motion.div
+                key={i}
+                className="absolute"
+                style={{ 
+                  transform: `translate(${integration.position.x * 0.8}px, ${integration.position.y * 0.8}px)`,
+                  transformOrigin: 'center'
+                }}
+                variants={{
+                  hidden: { opacity: 0, scale: 0.8 },
+                  visible: { 
+                    opacity: 1, 
+                    scale: 1,
+                    transition: { delay: i * 0.2 }
+                  }
+                }}
+              >
                 <div className="relative">
                   {/* Connection line */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                     <GradientTracing
-                      width={Math.abs(integration.position.x)}
-                      height={Math.abs(integration.position.y) + 10}
+                      width={Math.abs(integration.position.x * 0.8)}
+                      height={Math.abs(integration.position.y * 0.8) + 10}
                       path={integration.path}
                       gradientColors={integration.gradientColors}
                       animationDuration={3}
@@ -217,7 +190,19 @@ export const CompatibilitySection = () => {
                   {/* Integration icon */}
                   <motion.div
                     className="relative"
-                    variants={iconVariants}
+                    variants={{
+                      hidden: { scale: 0, opacity: 0 },
+                      visible: (custom: number) => ({
+                        scale: 1, 
+                        opacity: 1,
+                        transition: { 
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 25,
+                          delay: custom * 0.2
+                        }
+                      })
+                    }}
                     custom={i + 1}
                   >
                     <div className="relative w-16 h-16 flex items-center justify-center">
@@ -231,7 +216,17 @@ export const CompatibilitySection = () => {
                       {/* Connected badge */}
                       <motion.div
                         className="absolute -top-3 -right-3 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-sm"
-                        variants={connectedBadgeVariants}
+                        variants={{
+                          hidden: { opacity: 0, y: 10 },
+                          visible: (custom: number) => ({
+                            opacity: 1,
+                            y: 0,
+                            transition: {
+                              delay: 1 + (custom * 0.2),
+                              duration: 0.3
+                            }
+                          })
+                        }}
                         custom={i}
                       >
                         Connected
@@ -245,19 +240,16 @@ export const CompatibilitySection = () => {
                     </div>
                   </motion.div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>
         
         <motion.div
-          className="text-center max-w-2xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
+          className="text-center max-w-2xl mx-auto mt-8"
           variants={textVariants}
         >
-          <p className="text-xl md:text-2xl" style={{ color: bravoColors.text.secondary }}>
+          <p className="text-xl" style={{ color: bravoColors.text.secondary }}>
             BRAVO syncs where it matters most — with your preferred SIP, Patient Platform & PMS.
           </p>
         </motion.div>
