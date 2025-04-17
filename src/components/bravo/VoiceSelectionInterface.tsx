@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
-import { AlertCircle, Volume2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Volume2 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 interface VoiceOption {
@@ -14,6 +13,7 @@ interface VoiceOption {
 
 export const VoiceSelectionInterface = () => {
   const [selectedVoice, setSelectedVoice] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const voices: VoiceOption[] = [
     { id: 'nora', name: 'Nora', description: 'Warm & Attentive', animationType: 'pulse' },
@@ -22,6 +22,14 @@ export const VoiceSelectionInterface = () => {
     { id: 'lina', name: 'Lina', description: 'Reassuring & Clear', animationType: 'rings' },
     { id: 'juno', name: 'Juno', description: 'Energetic & Helpful', animationType: 'particles' }
   ];
+
+  const handlePrevious = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : voices.length - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev < voices.length - 1 ? prev + 1 : 0));
+  };
 
   const handleSelectVoice = (voiceId: string) => {
     setSelectedVoice(voiceId);
@@ -33,11 +41,8 @@ export const VoiceSelectionInterface = () => {
   };
 
   return (
-    <div className="py-16 px-4 md:px-6 relative overflow-hidden">
-      {/* Glassmorphism background effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/20 via-purple-50/10 to-teal-50/20 opacity-40" />
-      
-      <div className="container mx-auto relative">
+    <div className="py-16 px-4 md:px-6 relative overflow-hidden bg-white">
+      <div className="container mx-auto relative max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -45,71 +50,87 @@ export const VoiceSelectionInterface = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent"
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent font-sans"
             style={{
               backgroundImage: `linear-gradient(to right, ${bravoColors.primary}, ${bravoColors.secondary})`
             }}
           >
             Choose Your BRAVO Assistant Voice
           </h2>
-          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto"
+          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans"
             style={{ color: bravoColors.text.secondary }}
           >
             Select a voice personality that best fits your organization
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-          {voices.map((voice, index) => (
+        <div className="relative px-12">
+          <AnimatePresence mode="wait">
             <motion.div
-              key={voice.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className={`
-                relative rounded-xl overflow-hidden backdrop-blur-md
-                p-6 flex flex-col items-center cursor-pointer
-                transition-all duration-300 transform hover:scale-105
-                ${selectedVoice === voice.id ? 'ring-2 ring-teal-400 shadow-lg' : 'shadow-md'}
-              `}
-              style={{ 
-                backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                border: '1px solid rgba(255, 255, 255, 0.2)'
-              }}
-              onClick={() => handleSelectVoice(voice.id)}
+              key={currentIndex}
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.4 }}
+              className="flex justify-center"
             >
-              {/* Voice animation based on type */}
-              <div className="w-20 h-20 mb-4 rounded-full flex items-center justify-center">
-                {renderVoiceAnimation(voice.animationType, selectedVoice === voice.id)}
-              </div>
-              
-              <h3 className="text-xl font-bold mb-1" style={{ color: bravoColors.primary }}>
-                {voice.name}
-              </h3>
-              
-              <p className="text-sm mb-4 text-center" style={{ color: bravoColors.text.secondary }}>
-                {voice.description}
-              </p>
-              
-              <Button
-                size="sm"
-                variant="outline"
-                className="mt-auto group"
+              <div className="w-64 relative rounded-xl overflow-hidden backdrop-blur-md p-6 flex flex-col items-center"
                 style={{ 
-                  borderColor: bravoColors.tertiary,
-                  color: bravoColors.primary
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleTryVoice(voice.id);
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  border: '1px solid rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
                 }}
               >
-                <Volume2 className="w-4 h-4 mr-2 group-hover:text-teal-500 transition-colors" />
-                Try Voice
-              </Button>
+                <div className="w-20 h-20 mb-4 rounded-full flex items-center justify-center">
+                  {renderVoiceAnimation(voices[currentIndex].animationType, selectedVoice === voices[currentIndex].id)}
+                </div>
+                
+                <h3 className="text-xl font-bold mb-1 font-sans" style={{ color: bravoColors.primary }}>
+                  {voices[currentIndex].name}
+                </h3>
+                
+                <p className="text-sm mb-4 text-center font-sans" style={{ color: bravoColors.text.secondary }}>
+                  {voices[currentIndex].description}
+                </p>
+                
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="mt-auto group"
+                  style={{ 
+                    borderColor: bravoColors.tertiary,
+                    color: bravoColors.primary
+                  }}
+                  onClick={() => handleTryVoice(voices[currentIndex].id)}
+                >
+                  <Volume2 className="w-4 h-4 mr-2 group-hover:text-teal-500 transition-colors" />
+                  Try Voice
+                </Button>
+              </div>
             </motion.div>
-          ))}
+          </AnimatePresence>
+
+          <div className="absolute inset-y-0 left-0 flex items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handlePrevious}
+              className="rounded-full hover:bg-gray-100"
+            >
+              <ChevronLeft className="h-6 w-6" style={{ color: bravoColors.primary }} />
+            </Button>
+          </div>
+
+          <div className="absolute inset-y-0 right-0 flex items-center">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleNext}
+              className="rounded-full hover:bg-gray-100"
+            >
+              <ChevronRight className="h-6 w-6" style={{ color: bravoColors.primary }} />
+            </Button>
+          </div>
         </div>
 
         <motion.div
@@ -133,7 +154,6 @@ export const VoiceSelectionInterface = () => {
   );
 };
 
-// Helper function to render different animation types
 const renderVoiceAnimation = (type: string, isActive: boolean) => {
   const baseAnimationClass = "w-full h-full rounded-full flex items-center justify-center";
   
