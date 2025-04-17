@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -119,10 +120,10 @@ export const ROICalculatorSection = () => {
       ref={sectionRef}
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 10, md: 14 },
+        pb: { xs: 12, md: 16 }, // Increased bottom padding to prevent button cutoff
         position: "relative",
         overflow: "hidden",
-        minHeight: "100vh",
+        minHeight: { xs: "110vh", md: "100vh" }, // Increased height on mobile
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -159,7 +160,7 @@ export const ROICalculatorSection = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          padding: "0 0 40px 0",
+          padding: "0 0 60px 0", // Increased bottom padding
         }}
       >
         <Container 
@@ -173,7 +174,7 @@ export const ROICalculatorSection = () => {
             flexDirection: "column",
             height: "100%",
             overflow: "visible",
-            mb: 4,
+            mb: { xs: 6, md: 8 }, // Increased bottom margin
           }}
         >
           <Box 
@@ -382,7 +383,7 @@ export const ROICalculatorSection = () => {
                 </Typography>
               </div>
               
-              <div className="flex justify-center">
+              <div className="flex justify-center mb-4"> {/* Added margin bottom */}
                 <Button
                   className={cn(
                     "min-w-40 relative touch-none",
@@ -390,7 +391,7 @@ export const ROICalculatorSection = () => {
                     "border border-[#143151]/20",
                     "transition-all duration-300",
                     "py-2",
-                    "mb-3"
+                    "mb-6" /* Increased bottom margin */
                   )}
                   onClick={calculateSavings}
                   onMouseEnter={handleInteractionStart}
