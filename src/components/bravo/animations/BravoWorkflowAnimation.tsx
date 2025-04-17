@@ -139,15 +139,24 @@ export const BravoWorkflowAnimation = () => {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ 
-              duration: 0.5, 
-              delay: index * 0.6, // Increased delay between steps
+              duration: 0.8,
+              delay: index * 1.2, // Increased delay for more sequential appearance
               ease: "easeOut"
             }}
             className="relative"
           >
             <motion.div
               className="flex flex-col gap-4"
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ 
+                scale: 1.02,
+                transition: { duration: 0.3 }
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.5,
+                delay: index * 1.2 // Match parent delay
+              }}
             >
               <div className="flex items-center gap-4">
                 <motion.div 
@@ -155,9 +164,13 @@ export const BravoWorkflowAnimation = () => {
                   style={{ backgroundColor: `${step.color}10` }}
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
+                  whileHover={{ 
+                    scale: 1.1,
+                    transition: { duration: 0.2 }
+                  }}
                   transition={{
-                    duration: 0.3,
-                    delay: index * 0.6 + 0.2,
+                    duration: 0.5,
+                    delay: index * 1.2 + 0.3,
                     ease: "backOut"
                   }}
                 >
@@ -169,8 +182,8 @@ export const BravoWorkflowAnimation = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 0.3,
-                      delay: index * 0.6 + 0.3
+                      duration: 0.5,
+                      delay: index * 1.2 + 0.4
                     }}
                   >
                     {step.title}
@@ -180,8 +193,8 @@ export const BravoWorkflowAnimation = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 0.3,
-                      delay: index * 0.6 + 0.4
+                      duration: 0.5,
+                      delay: index * 1.2 + 0.5
                     }}
                   >
                     {step.description}
@@ -191,9 +204,13 @@ export const BravoWorkflowAnimation = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                whileHover={{ 
+                  y: -5,
+                  transition: { duration: 0.2 }
+                }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.6 + 0.5
+                  duration: 0.8,
+                  delay: index * 1.2 + 0.6
                 }}
                 className="ml-16"
               >
@@ -209,8 +226,8 @@ export const BravoWorkflowAnimation = () => {
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
                 transition={{
-                  duration: 0.5,
-                  delay: index * 0.6 + 0.6
+                  duration: 0.8,
+                  delay: index * 1.2 + 0.8
                 }}
               />
             )}
