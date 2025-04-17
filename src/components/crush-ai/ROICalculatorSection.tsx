@@ -41,17 +41,19 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  // Adjust transforms for smoother scaling without causing content to get cut off
-  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.7, 1]);
+  // Modify the transform values to prevent content from being cut off
+  // Reduced scaling difference for smoother effect
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.97, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
   
-  // Smaller scaling difference for the container to avoid excessive zoom
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["94%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
+  // Increase width to prevent button cutoff
+  // Start at 96% instead of 94% to provide more content space
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["94%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
   
-  // Adjust the container position to leave more space for the title
-  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["8%", "0%"]);
+  // Adjusted to provide more room at the top
+  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["6%", "0%"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -123,7 +125,7 @@ export const ROICalculatorSection = () => {
       ref={sectionRef}
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 6, md: 8 },
+        pb: { xs: 8, md: 10 }, // Increased bottom padding to ensure buttons aren't cut off
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
@@ -147,7 +149,7 @@ export const ROICalculatorSection = () => {
       {/* Main Content Container */}
       <motion.div
         ref={containerRef}
-        className="overflow-visible shadow-xl z-10" // Changed from overflow-hidden to overflow-visible
+        className="overflow-visible shadow-xl z-10" 
         style={{
           width: containerWidth,
           height: containerHeight,
@@ -164,6 +166,7 @@ export const ROICalculatorSection = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
+          padding: "0 0 20px 0", // Added bottom padding to ensure buttons don't get cut off
         }}
       >
         <Container 
@@ -176,16 +179,18 @@ export const ROICalculatorSection = () => {
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            overflow: "visible", // Changed from overflowY: "auto" to overflow: "visible"
+            overflow: "visible",
+            // Added extra bottom margin to ensure buttons have space
+            mb: 2,
           }}
         >
-          {/* Title Section - Kept inside the container but with adjusted spacing */}
+          {/* Title Section */}
           <Box 
             sx={{ 
               width: "100%",
               textAlign: "center",
               mb: { xs: 3, md: 4 },
-              mt: { xs: 2, md: 3 }, // Added margin-top to push down from container edge
+              mt: { xs: 2, md: 3 },
             }}
           >
             <motion.div
@@ -237,6 +242,7 @@ export const ROICalculatorSection = () => {
             }}
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start"
           >
+            {/* Left Panel: Calculator */}
             <div className="flex flex-col gap-4 p-4 md:p-5 border border-black/10 rounded-xl shadow-sm bg-white h-full">
               <Typography 
                 variant="h5" 
@@ -394,7 +400,9 @@ export const ROICalculatorSection = () => {
                     "bg-[#143151] hover:bg-[#143151]/90 text-white",
                     "border border-[#143151]/20",
                     "transition-all duration-300",
-                    "py-2" // Slightly smaller padding
+                    "py-2",
+                    // Ensure button is fully visible with extra padding
+                    "mb-1"
                   )}
                   onClick={calculateSavings}
                   onMouseEnter={handleInteractionStart}
@@ -433,6 +441,7 @@ export const ROICalculatorSection = () => {
               </div>
             </div>
             
+            {/* Right Panel: Chart */}
             <div className="border border-black/10 rounded-xl p-4 md:p-5 shadow-sm bg-white h-full flex flex-col">
               <Typography 
                 variant="h5" 
@@ -486,7 +495,7 @@ export const ROICalculatorSection = () => {
               </div>
               
               <Button 
-                className="w-full mt-3 md:mt-4 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2"
+                className="w-full mt-3 md:mt-4 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2 mb-1"
               >
                 Book A Demo
               </Button>
