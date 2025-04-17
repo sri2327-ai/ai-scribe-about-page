@@ -7,7 +7,7 @@ import { bravoColors } from '@/theme/bravo-theme';
 export const SeamlessSyncPreview = () => {
   return (
     <motion.div 
-      className="w-full max-w-md mx-auto p-4 bg-white rounded-xl shadow-lg"
+      className="w-full max-w-sm mx-auto p-4 bg-white rounded-xl shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

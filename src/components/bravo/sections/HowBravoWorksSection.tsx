@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -190,7 +191,16 @@ const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
 
   return (
     <div className="relative h-full min-h-[400px] flex items-center justify-center">
-      <PreviewComponent />
+      <motion.div 
+        key={activeStep}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.5 }}
+        className="w-full"
+      >
+        <PreviewComponent />
+      </motion.div>
     </div>
   );
 };
@@ -322,15 +332,6 @@ export const HowBravoWorksSection = () => {
             />
           </motion.div>
           
-          <motion.h3 
-            className="text-xl md:text-2xl font-medium text-gray-700"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            AI-Powered Front Office Automation
-          </motion.h3>
-          
           <motion.div
             className="mx-auto mt-6 w-24 h-1 bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600"
             initial={{ scaleX: 0 }}
@@ -355,8 +356,10 @@ export const HowBravoWorksSection = () => {
             ))}
           </div>
           
-          <div className="hidden md:block h-full sticky top-24">
-            <StepVisualizer activeStep={activeStep} />
+          <div className="hidden md:block sticky top-24 self-start">
+            <AnimatePresence mode="wait">
+              <StepVisualizer activeStep={activeStep} />
+            </AnimatePresence>
           </div>
         </div>
         
