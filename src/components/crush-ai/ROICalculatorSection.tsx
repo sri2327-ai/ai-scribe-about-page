@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -34,21 +35,24 @@ export const ROICalculatorSection = () => {
   
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  const titleRef = useRef(null);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
   
+  // Create transforms with appropriate ranges for the animation
   const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
   const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
   const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
   
+  // Adjust these values to prevent overlap
   const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
   const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
-  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["140px", "0px"]);
+  
+  // Adjust the container position to start well below the header
+  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["240px", "0px"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -119,13 +123,14 @@ export const ROICalculatorSection = () => {
       component="section"
       ref={sectionRef}
       sx={{
-        py: { xs: 8, md: 12 },
+        pt: { xs: 8, md: 12 }, // Ensure padding at the top
+        pb: { xs: 8, md: 12 }, // Add bottom padding
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start",
+        justifyContent: "flex-start", // Align content to the top
         alignItems: "center",
       }}
     >
@@ -140,16 +145,16 @@ export const ROICalculatorSection = () => {
         }}
       />
       
+      {/* Title Section - Fixed Position */}
       <Box 
-        ref={titleRef}
         sx={{ 
           position: "relative",
-          zIndex: 20,
-          mb: { xs: 10, md: 12 },
-          px: 2,
-          width: "100%",
+          zIndex: 20, // Ensure it stays above the container
           maxWidth: "lg",
-          mx: "auto",
+          width: "100%",
+          px: 2,
+          textAlign: "center",
+          mb: { xs: 18, md: 24 }, // Add significant margin to push container down
         }}
       >
         <motion.div
@@ -158,7 +163,6 @@ export const ROICalculatorSection = () => {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
           style={{ scale: titleScale }}
-          className="text-center"
         >
           <Typography 
             variant="h3" 
@@ -187,6 +191,7 @@ export const ROICalculatorSection = () => {
         </motion.div>
       </Box>
       
+      {/* Main Content Container */}
       <motion.div
         ref={containerRef}
         className="overflow-hidden shadow-xl z-10"
@@ -197,13 +202,13 @@ export const ROICalculatorSection = () => {
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
           position: "absolute",
-          top: containerTop,
+          top: containerTop, // Start well below the title
           bottom: 0,
           left: 0,
           right: 0,
           margin: "0 auto",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start", // Align to top of container
           justifyContent: "center",
         }}
       >
@@ -212,12 +217,13 @@ export const ROICalculatorSection = () => {
           sx={{ 
             position: "relative", 
             zIndex: 5, 
-            py: { xs: 4, md: 6 },
+            py: { xs: 6, md: 8 }, // Increase top padding
             px: { xs: 2, md: 4 },
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "flex-start", // Align to top
+            overflowY: "auto", // Enable scrolling if needed
           }}
         >
           <motion.div
