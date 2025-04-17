@@ -23,7 +23,7 @@ const iconAnimationVariants = {
   animate: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
   hover: { 
     scale: [1, 1.1, 1],
-    transition: { duration: 2, repeat: Infinity }
+    transition: { duration: 2, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }
   }
 };
 
@@ -82,25 +82,29 @@ export const AnimatedFeatureCard = ({
         </motion.div>
       </div>
 
-      {/* Abstract background decorations */}
-      {isHovered && (
-        <>
-          <motion.div 
-            className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full opacity-10"
-            style={{ backgroundColor: tertiaryColor }}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-          <motion.div 
-            className="absolute top-4 right-4 w-2 h-2 rounded-full"
-            style={{ backgroundColor: secondaryColor }}
-            initial={{ scale: 0 }}
-            animate={{ scale: [1, 1.5, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
-        </>
-      )}
+      {/* Abstract background decorations - using AnimatePresence for clean unmounting */}
+      <motion.div 
+        className="absolute -bottom-6 -right-6 w-24 h-24 rounded-full opacity-10"
+        style={{ backgroundColor: tertiaryColor }}
+        initial={{ scale: 0 }}
+        animate={{ scale: isHovered ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      />
+      
+      <motion.div 
+        className="absolute top-4 right-4 w-2 h-2 rounded-full"
+        style={{ backgroundColor: secondaryColor }}
+        initial={{ scale: 0 }}
+        animate={{ 
+          scale: isHovered ? [1, 1.5, 1] : 0,
+          opacity: isHovered ? 1 : 0
+        }}
+        transition={{ 
+          duration: 1.5, 
+          repeat: isHovered ? Infinity : 0,
+          repeatType: "loop"
+        }}
+      />
     </motion.div>
   );
 };

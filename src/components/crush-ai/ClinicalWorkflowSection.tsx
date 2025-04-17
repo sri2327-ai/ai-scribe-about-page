@@ -20,6 +20,27 @@ import {
   LineChart 
 } from "lucide-react";
 
+// Animation variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { 
+    opacity: 1,
+    transition: { 
+      duration: 0.5, 
+      staggerChildren: 0.1
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+};
+
 export const ClinicalWorkflowSection = () => {
   const [activeTab, setActiveTab] = useState("admin");
   const muiTheme = useMuiTheme();
@@ -82,7 +103,7 @@ export const ClinicalWorkflowSection = () => {
     }
   ];
 
-  // Card component for mobile view
+  // Optimized Card component for mobile view
   const Card = ({ icon: Icon, title, description, index }) => (
     <AnimatedFeatureCard 
       icon={Icon} 
@@ -95,7 +116,7 @@ export const ClinicalWorkflowSection = () => {
     />
   );
 
-  // Render functions for mobile view
+  // Optimized render function for mobile view
   const renderFeaturesMobile = (features: any[]) => (
     <Carousel className="w-full">
       <CarouselContent>
@@ -130,77 +151,85 @@ export const ClinicalWorkflowSection = () => {
       }}
     >
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5 }}>
-        <Box sx={{ textAlign: "center", mb: 4 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <Typography 
-              variant="h3" 
-              sx={{ 
-                fontWeight: 700, 
-                mb: 3,
-                color: '#000000',
-                textAlign: "center",
-                fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
-                lineHeight: 1.2
-              }}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          <Box sx={{ textAlign: "center", mb: 4 }}>
+            <motion.div
+              variants={itemVariants}
             >
-              More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
-            </Typography>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <Typography 
-              variant="body1" 
-              sx={{ 
-                color: '#000000',
-                maxWidth: "800px",
-                mx: "auto",
-                lineHeight: 1.8,
-                fontSize: { xs: "0.95rem", md: "1.1rem" },
-                textAlign: "center"
-              }}
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  fontWeight: 700, 
+                  mb: 3,
+                  color: '#000000',
+                  textAlign: "center",
+                  fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
+                  lineHeight: 1.2
+                }}
+              >
+                More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
+              </Typography>
+            </motion.div>
+            
+            <motion.div
+              variants={itemVariants}
             >
-              CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, 
-              automates tasks, and enhances patient care, transforming how clinics operate.
-            </Typography>
-          </motion.div>
-        </Box>
+              <Typography 
+                variant="body1" 
+                sx={{ 
+                  color: '#000000',
+                  maxWidth: "800px",
+                  mx: "auto",
+                  lineHeight: 1.8,
+                  fontSize: { xs: "0.95rem", md: "1.1rem" },
+                  textAlign: "center"
+                }}
+              >
+                CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, 
+                automates tasks, and enhances patient care, transforming how clinics operate.
+              </Typography>
+            </motion.div>
+          </Box>
+        </motion.div>
         
         <Tabs defaultValue="admin" className="w-full" onValueChange={setActiveTab}>
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
-            <TabsList className="w-auto bg-black/5 p-1.5 rounded-full shadow-sm">
-              <TabsTrigger 
-                value="admin" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
-              >
-                {isMobile ? "Admin" : "Automate Staffing & Admin Work"}
-              </TabsTrigger>
-              <TabsTrigger 
-                value="clinical" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
-              >
-                {isMobile ? "Clinical" : "AI Assistance for Physicians"}
-              </TabsTrigger>
-            </TabsList>
-          </Box>
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <Box sx={{ display: "flex", justifyContent: "center", mb: 4 }}>
+              <TabsList className="w-auto bg-black/5 p-1.5 rounded-full shadow-sm">
+                <TabsTrigger 
+                  value="admin" 
+                  className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
+                >
+                  {isMobile ? "Admin" : "Automate Staffing & Admin Work"}
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="clinical" 
+                  className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
+                >
+                  {isMobile ? "Clinical" : "AI Assistance for Physicians"}
+                </TabsTrigger>
+              </TabsList>
+            </Box>
+          </motion.div>
           
-          <TabsContent value="admin" className="mt-0">
+          <TabsContent value="admin" className="mt-0 focus-visible:outline-none">
             {isMobile 
               ? renderFeaturesMobile(adminFeatures) 
               : <AdminTabContent />
             }
           </TabsContent>
           
-          <TabsContent value="clinical" className="mt-0">
+          <TabsContent value="clinical" className="mt-0 focus-visible:outline-none">
             {isMobile 
               ? renderFeaturesMobile(clinicalFeatures) 
               : <ClinicalTabContent />

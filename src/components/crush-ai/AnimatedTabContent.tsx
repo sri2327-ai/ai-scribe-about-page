@@ -137,7 +137,8 @@ export const AdminTabContent = () => {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
         variants={containerVariants}
         initial="hidden"
-        animate="show"
+        whileInView="show"
+        viewport={{ once: true, margin: "-10%" }}
       >
         {adminFeatures.map((feature, index) => (
           <FeatureCard
@@ -210,7 +211,8 @@ export const ClinicalTabContent = () => {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
         variants={containerVariants}
         initial="hidden"
-        animate="show"
+        whileInView="show"
+        viewport={{ once: true, margin: "-10%" }}
       >
         {clinicalFeatures.map((feature, index) => (
           <FeatureCard

@@ -107,3 +107,45 @@
     transform: scale(1);
   }
 }
+
+/* Fix animation stacking and performance issues */
+.illustrationContainer {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.featureIllustration {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Fix for animation bubbling and flickering */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.fadeInAnimation {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.scaleInAnimation {
+  animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Prevent jerky animations */
+.smoothTransition {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
