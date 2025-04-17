@@ -40,7 +40,7 @@ const Slider = React.forwardRef<
   , [props.defaultValue, safeThumbPosition]);
   
   // Handle direct click on track
-  const handleRootClick = React.useCallback((event: React.MouseEvent | React.TouchEvent) => {
+  const handleRootClick = React.useCallback((event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
     const root = event.currentTarget as HTMLDivElement;
     const rect = root.getBoundingClientRect();
     const thumbSize = 24; // Thumb width in px
@@ -76,9 +76,9 @@ const Slider = React.forwardRef<
     }
   }, [props.onValueChange, safeThumbPosition]);
   
-  const handlePointerDown = React.useCallback((e: React.PointerEvent) => {
+  const handlePointerDown = React.useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     setIsDragging(true);
-    handleRootClick(e);
+    handleRootClick(e as unknown as React.MouseEvent<HTMLDivElement>);
     if (props.onPointerDown) props.onPointerDown(e);
   }, [handleRootClick, props.onPointerDown]);
   
@@ -86,7 +86,7 @@ const Slider = React.forwardRef<
     setIsDragging(false);
   }, []);
   
-  const handleTouchStart = React.useCallback((e: React.TouchEvent) => {
+  const handleTouchStart = React.useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     setIsDragging(true);
     handleRootClick(e);
     if (props.onTouchStart) props.onTouchStart(e);
@@ -110,7 +110,7 @@ const Slider = React.forwardRef<
       onPointerCancel={handlePointerUp}
       onTouchStart={handleTouchStart}
       onTouchEnd={handlePointerUp}
-      onClick={handleRootClick} // Add click handler for direct track clicks
+      onClick={handleRootClick as React.MouseEventHandler<HTMLDivElement>} // Type cast for click handler
     >
       <SliderPrimitive.Track 
         className="relative h-[1px] w-full grow overflow-hidden"
