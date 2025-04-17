@@ -18,6 +18,26 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
 
+// Add custom styles to enforce correct colors across components
+const globalStyles = {
+  // Ensure workflow animation uses correct colors
+  '.animated-workflow': {
+    color: crushAIColors.text.primary,
+    '& svg, & path, & g': {
+      color: `${crushAIColors.text.primary} !important`,
+      fill: `${crushAIColors.text.primary} !important`,
+      stroke: `${crushAIColors.text.primary} !important`,
+    },
+    '& text': {
+      fill: `${crushAIColors.text.primary} !important`,
+    }
+  },
+  // Ensure buttons have the correct background
+  '.demo-button': {
+    background: `${crushAIColors.button.gradient} !important`
+  }
+};
+
 const CrushAI = () => {
   return (
     <Box 
@@ -25,12 +45,13 @@ const CrushAI = () => {
         bgcolor: crushAIColors.background.white, 
         color: crushAIColors.text.primary,
         overflow: 'hidden', // Prevent horizontal scrolling issues
-        position: 'relative' // Better positioning context
+        position: 'relative', // Better positioning context
+        ...globalStyles
       }}
     >
       <HeroSection />
       
-      {/* TrustedBySection in its original form */}
+      {/* TrustedBySection with text color updated to black */}
       <TrustedBySection />
       
       {/* EHR Integration section with updated background */}
@@ -97,10 +118,7 @@ const CrushAI = () => {
           </Typography>
           <Button 
             size="lg" 
-            className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]"
-            style={{ 
-              background: crushAIColors.button.gradient,
-            }}
+            className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
           >
             <ArrowRight size={16} className="mr-2" />
             BOOK A DEMO
