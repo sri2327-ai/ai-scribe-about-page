@@ -3,6 +3,7 @@ import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
 import { HowBravoWorksSection } from '@/components/bravo/sections/HowBravoWorksSection';
+import { VoiceSelectionInterface } from '@/components/bravo/VoiceSelectionInterface';
 import { bravoColors } from '@/theme/bravo-theme';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -201,6 +202,9 @@ const Bravo = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* Voice Selection Interface Section */}
+      <VoiceSelectionInterface />
 
       {/* Tasks Section */}
       <section className="py-20 bg-white">
