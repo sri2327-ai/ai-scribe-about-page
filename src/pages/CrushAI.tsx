@@ -11,13 +11,13 @@ import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowS
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
-import { BeforeAfterSlider } from "@/components/crush-ai/BeforeAfterSlider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 const CrushAI = () => {
   return (
@@ -31,22 +31,64 @@ const CrushAI = () => {
     >
       <HeroSection />
       
-      {/* Moved TrustedBySection up, right after HeroSection */}
-      <TrustedBySection />
-
-      {/* Add BeforeAfterSlider after TrustedBySection */}
-      <BeforeAfterSlider />
+      {/* TrustedBySection with ContainerScroll */}
+      <Box 
+        sx={{
+          backgroundColor: crushAIColors.primary,
+        }}
+      >
+        <ContainerScroll
+          titleComponent={
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-white mb-4">Trusted By Clinicians</h1>
+              <p className="text-xl text-white/70">See why clinicians worldwide trust CRUSH</p>
+            </div>
+          }
+        >
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '1rem',
+              p: { xs: 2, md: 4 },
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <TrustedBySection />
+          </Box>
+        </ContainerScroll>
+      </Box>
 
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
       
-      <GradientSection 
-        variant="radial"
-        intensity="light"
-        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
+      {/* ClinicianTestimonialsSection with ContainerScroll */}
+      <Box 
+        sx={{
+          backgroundColor: crushAIColors.primary,
+        }}
       >
-        <ClinicianTestimonialsSection />
-      </GradientSection>
+        <ContainerScroll
+          titleComponent={
+            <div className="mb-8">
+              <h1 className="text-3xl font-bold text-white mb-4">Loved by Clinicians</h1>
+              <p className="text-xl text-white/70">Read what healthcare professionals say about CRUSH</p>
+            </div>
+          }
+        >
+          <Box
+            sx={{
+              backgroundColor: 'white',
+              borderRadius: '1rem',
+              p: { xs: 2, md: 4 },
+              width: '100%',
+              height: '100%',
+            }}
+          >
+            <ClinicianTestimonialsSection />
+          </Box>
+        </ContainerScroll>
+      </Box>
 
       <GradientSection 
         variant="radial"

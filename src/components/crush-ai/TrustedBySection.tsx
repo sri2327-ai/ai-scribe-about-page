@@ -1,7 +1,7 @@
 
 import React, { useRef } from "react";
 import { Box, Container, Typography } from "@mui/material";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -19,29 +19,13 @@ export const TrustedBySection = () => {
     { initials: "RH", image: null },
   ];
 
-  // Refs for scroll animations
-  const sectionRef = useRef(null);
-  
-  // For scroll-based animations
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-  
-  // Transform scroll progress to different values for various animations
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.3], [30, 0]);
-
   return (
     <Box 
       component="section" 
-      ref={sectionRef}
       sx={{ 
-        py: { xs: 6, md: 10 },
-        bgcolor: crushAIColors.background.light,
-        position: 'relative',
-        overflow: 'hidden'
+        py: { xs: 4, md: 6 },
+        width: '100%',
+        height: '100%',
       }}
     >
       <Container maxWidth="lg">
@@ -56,7 +40,9 @@ export const TrustedBySection = () => {
         >
           <Box
             component={motion.div}
-            style={{ scale, opacity, y }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
             sx={{ mb: 5 }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
@@ -110,11 +96,9 @@ export const TrustedBySection = () => {
           
           <Box 
             component={motion.div}
-            style={{ 
-              scale: useTransform(scrollYProgress, [0.1, 0.6], [0.9, 1.05]),
-              opacity: useTransform(scrollYProgress, [0.1, 0.5], [0.7, 1]),
-              y: useTransform(scrollYProgress, [0.1, 0.5], [20, 0])
-            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
             sx={{ 
               display: 'flex', 
               flexWrap: 'wrap',

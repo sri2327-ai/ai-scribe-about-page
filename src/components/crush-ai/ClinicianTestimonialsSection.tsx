@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -7,8 +6,8 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
-import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
-import { useEffect, useRef, useState } from "react"
+import { motion, useAnimation } from "framer-motion"
+import { useEffect, useState } from "react"
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
 export interface Testimonial {
@@ -33,8 +32,6 @@ export interface TestimonialsSectionProps {
 }
 
 export function ClinicianTestimonialsSection({
-  title = "Loved by Clinicians",
-  subtitle = "See what others are saying about CRUSH, our AI Medical Scribe",
   testimonials = defaultTestimonials,
   autoRotateInterval = 6000,
   showVerifiedBadge = true,
@@ -44,24 +41,8 @@ export function ClinicianTestimonialsSection({
 }: TestimonialsSectionProps) {
   // State for active testimonial
   const [activeIndex, setActiveIndex] = useState(0)
-
-  // Refs for scroll animations
-  const sectionRef = useRef(null)
-  const isInView = useInView(sectionRef, { once: true, amount: 0.2 })
   const controls = useAnimation()
   
-  // For scroll-based animations
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  })
-  
-  // Transform scroll progress to different values for various animations
-  const cardScale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1])
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
-  const titleY = useTransform(scrollYProgress, [0, 0.3], [50, 0])
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.3], [0, 1])
-
   // Automatically cycle through testimonials
   useEffect(() => {
     if (autoRotateInterval <= 0 || testimonials.length <= 1) return
@@ -73,12 +54,10 @@ export function ClinicianTestimonialsSection({
     return () => clearInterval(interval)
   }, [testimonials.length, autoRotateInterval])
 
-  // Trigger animations when section comes into view
+  // Trigger animations when component mounts
   useEffect(() => {
-    if (isInView) {
-      controls.start("visible")
-    }
-  }, [isInView, controls])
+    controls.start("visible")
+  }, [controls])
 
   // Handlers for navigation
   const handlePrev = () => {
@@ -119,33 +98,11 @@ export function ClinicianTestimonialsSection({
 
   return (
     <section
-      ref={sectionRef}
       id="testimonials-alt"
-      className={cn("py-16 md:py-24 relative overflow-hidden flex justify-center bg-white text-black", className)}
-    >
-      <div className="absolute inset-0 border-b border-black/10 z-0"></div>
-      
+      className={cn("py-8 md:py-10 flex justify-center text-black w-full", className)}
+      style={{ height: '100%' }}
+    >      
       <div className="container items-center px-4 md:px-6 relative z-10">
-        <motion.div
-          style={{ y: titleY, opacity: titleOpacity }}
-          className="text-center mb-12 space-y-4"
-        >
-          <motion.h2 
-            variants={itemVariants} 
-            className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
-            style={{ color: crushAIColors.primary }}
-          >
-            {title}
-          </motion.h2>
-          <motion.p 
-            variants={itemVariants} 
-            className="max-w-[700px] mx-auto md:text-xl/relaxed"
-            style={{ color: crushAIColors.text.secondary }}
-          >
-            {subtitle}
-          </motion.p>
-        </motion.div>
-
         <motion.div
           initial="hidden"
           animate={controls}
@@ -154,7 +111,6 @@ export function ClinicianTestimonialsSection({
         >
           <motion.div 
             variants={itemVariants} 
-            style={{ scale: cardScale, opacity: cardOpacity }}
             className="relative"
           >
             <div className="absolute -top-6 -left-6 z-10">
