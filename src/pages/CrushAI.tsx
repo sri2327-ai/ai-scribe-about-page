@@ -11,6 +11,7 @@ import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowS
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
+import { BeforeAfterSlider } from "@/components/crush-ai/BeforeAfterSlider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
@@ -32,6 +33,9 @@ const CrushAI = () => {
       
       {/* Moved TrustedBySection up, right after HeroSection */}
       <TrustedBySection />
+
+      {/* Add BeforeAfterSlider after TrustedBySection */}
+      <BeforeAfterSlider />
 
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
@@ -103,9 +107,12 @@ const CrushAI = () => {
       
       <WorkflowAutomationSection />
       
-      <WaveBackground baseColor={crushAIColors.secondary} intensity="light">
-        <ROICalculatorSection />
-      </WaveBackground>
+      {/* Added extra spacing to the ROI Calculator section */}
+      <Box sx={{ my: 4 }}> {/* Added spacing container */}
+        <WaveBackground baseColor={crushAIColors.secondary} intensity="light">
+          <ROICalculatorSection />
+        </WaveBackground>
+      </Box>
     </Box>
   );
 };

@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -41,19 +40,14 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  // Modify the transform values to prevent content from being cut off
-  // Reduced scaling difference for smoother effect
-  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.97, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.8, 1]);
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.85, 1]);
   
-  // Increase width to prevent button cutoff
-  // Start at 96% instead of 94% to provide more content space
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["94%", "100%"]);
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["98%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
   
-  // Adjusted to provide more room at the top
-  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["6%", "0%"]);
+  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["3%", "0%"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -125,7 +119,7 @@ export const ROICalculatorSection = () => {
       ref={sectionRef}
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 8, md: 10 }, // Increased bottom padding to ensure buttons aren't cut off
+        pb: { xs: 10, md: 14 },
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
@@ -146,7 +140,6 @@ export const ROICalculatorSection = () => {
         }}
       />
       
-      {/* Main Content Container */}
       <motion.div
         ref={containerRef}
         className="overflow-visible shadow-xl z-10" 
@@ -166,7 +159,7 @@ export const ROICalculatorSection = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          padding: "0 0 20px 0", // Added bottom padding to ensure buttons don't get cut off
+          padding: "0 0 40px 0",
         }}
       >
         <Container 
@@ -180,17 +173,15 @@ export const ROICalculatorSection = () => {
             flexDirection: "column",
             height: "100%",
             overflow: "visible",
-            // Added extra bottom margin to ensure buttons have space
-            mb: 2,
+            mb: 4,
           }}
         >
-          {/* Title Section */}
           <Box 
             sx={{ 
               width: "100%",
               textAlign: "center",
-              mb: { xs: 3, md: 4 },
-              mt: { xs: 2, md: 3 },
+              mb: { xs: 2.5, md: 3.5 },
+              mt: { xs: 1, md: 2 },
             }}
           >
             <motion.div
@@ -228,7 +219,6 @@ export const ROICalculatorSection = () => {
             </motion.div>
           </Box>
           
-          {/* Calculator and Chart Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -242,7 +232,6 @@ export const ROICalculatorSection = () => {
             }}
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start"
           >
-            {/* Left Panel: Calculator */}
             <div className="flex flex-col gap-4 p-4 md:p-5 border border-black/10 rounded-xl shadow-sm bg-white h-full">
               <Typography 
                 variant="h5" 
@@ -252,14 +241,14 @@ export const ROICalculatorSection = () => {
                   alignItems: "center",
                   gap: 1,
                   color: crushAIColors.primary,
-                  fontSize: { xs: "1.1rem", md: "1.25rem" } // Slightly smaller heading
+                  fontSize: { xs: "1.1rem", md: "1.25rem" }
                 }}
               >
                 <BarChart2 size={22} className={`text-[${crushAIColors.primary}]`} />
                 Calculate Your Savings
               </Typography>
               
-              <Stack spacing={2.5}> {/* Reduced spacing */}
+              <Stack spacing={2.5}>
                 <TextField
                   label="Number of Providers"
                   type="number"
@@ -383,7 +372,7 @@ export const ROICalculatorSection = () => {
                     fontWeight: 700,
                     my: 1,
                     color: crushAIColors.primary,
-                    fontSize: { xs: "1.5rem", md: "1.75rem" } // Smaller savings text
+                    fontSize: { xs: "1.5rem", md: "1.75rem" }
                   }}
                 >
                   ${savings.toLocaleString()}
@@ -401,8 +390,7 @@ export const ROICalculatorSection = () => {
                     "border border-[#143151]/20",
                     "transition-all duration-300",
                     "py-2",
-                    // Ensure button is fully visible with extra padding
-                    "mb-1"
+                    "mb-3"
                   )}
                   onClick={calculateSavings}
                   onMouseEnter={handleInteractionStart}
@@ -441,7 +429,6 @@ export const ROICalculatorSection = () => {
               </div>
             </div>
             
-            {/* Right Panel: Chart */}
             <div className="border border-black/10 rounded-xl p-4 md:p-5 shadow-sm bg-white h-full flex flex-col">
               <Typography 
                 variant="h5" 
@@ -452,28 +439,28 @@ export const ROICalculatorSection = () => {
                   alignItems: "center",
                   gap: 1,
                   color: crushAIColors.primary,
-                  fontSize: { xs: "1.1rem", md: "1.25rem" } // Slightly smaller heading
+                  fontSize: { xs: "1.1rem", md: "1.25rem" }
                 }}
               >
                 <BarChart2 size={22} className={`text-[${crushAIColors.primary}]`} />
                 Monthly Cost Comparison
               </Typography>
               
-              <div className="flex-1 min-h-[200px] md:min-h-[250px]"> {/* Reduced height */}
+              <div className="flex-1 min-h-[200px] md:min-h-[250px]">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={savingsData}
-                    margin={{ top: 5, right: 20, left: 0, bottom: 25 }} // Reduced margins
+                    margin={{ top: 5, right: 20, left: 0, bottom: 25 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="name"
-                      tick={{ fill: crushAIColors.text.primary, fontSize: 12 }} // Smaller font
+                      tick={{ fill: crushAIColors.text.primary, fontSize: 12 }}
                       axisLine={{ stroke: crushAIColors.text.primary }}
                     />
                     <YAxis
                       tickFormatter={(value) => `$${value}`}
-                      tick={{ fill: crushAIColors.text.primary, fontSize: 12 }} // Smaller font
+                      tick={{ fill: crushAIColors.text.primary, fontSize: 12 }}
                       axisLine={{ stroke: crushAIColors.text.primary }}
                     />
                     <RechartsTooltip
@@ -495,7 +482,7 @@ export const ROICalculatorSection = () => {
               </div>
               
               <Button 
-                className="w-full mt-3 md:mt-4 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2 mb-1"
+                className="w-full mt-3 md:mt-4 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2 mb-3"
               >
                 Book A Demo
               </Button>
