@@ -17,7 +17,6 @@ import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 const CrushAI = () => {
   return (
@@ -31,67 +30,65 @@ const CrushAI = () => {
     >
       <HeroSection />
       
-      {/* TrustedBySection with container scroll effect like ROI calculator */}
+      {/* TrustedBySection with container styling similar to ROI calculator */}
       <Box 
         component="section" 
         sx={{
           py: { xs: 6, md: 10 },
-          bgcolor: crushAIColors.secondary,  // Using same blue background as ROI calculator
+          bgcolor: crushAIColors.secondary,  // Using blue background like ROI calculator
           position: 'relative',
           overflow: 'hidden',
+          minHeight: { xs: "80vh", md: "65vh" },
         }}
       >
-        <ContainerScroll
-          titleComponent={
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                fontWeight: 700,
-                color: 'white',
-                textAlign: 'center',
-                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
-                mb: 4
-              }}
-            >
-              Trusted by 1000+ Clinicians Worldwide
-            </Typography>
-          }
+        <Box
+          sx={{
+            bgcolor: 'white',
+            borderRadius: { xs: 0, md: '0rem' },  // No rounded corners like ROI calculator when scrolled fully
+            mx: 'auto',
+            my: 0,
+            width: '100%',
+            height: '100%',
+            p: { xs: 4, md: 6 },
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+            position: 'relative',
+            zIndex: 1,
+          }}
         >
           <TrustedBySection />
-        </ContainerScroll>
+        </Box>
       </Box>
       
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
 
-      {/* ClinicianTestimonialsSection with container scroll effect like ROI calculator */}
+      {/* ClinicianTestimonialsSection with container styling similar to ROI calculator */}
       <Box 
         component="section" 
         sx={{
           py: { xs: 6, md: 10 },
-          bgcolor: crushAIColors.secondary,  // Using same blue background as ROI calculator
+          bgcolor: crushAIColors.secondary,  // Using blue background like ROI calculator
           position: 'relative',
           overflow: 'hidden',
+          minHeight: { xs: "100vh", md: "90vh" },
         }}
       >
-        <ContainerScroll
-          titleComponent={
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                fontWeight: 700,
-                color: 'white',
-                textAlign: 'center',
-                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
-                mb: 4
-              }}
-            >
-              Loved by Clinicians
-            </Typography>
-          }
+        <Box
+          sx={{
+            bgcolor: 'white',
+            borderRadius: { xs: 0, md: '0rem' },  // No rounded corners
+            mx: 'auto',
+            my: 0,
+            width: '100%',
+            height: '100%',
+            p: { xs: 4, md: 6 },
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+            position: 'relative',
+            zIndex: 1,
+          }}
         >
           <ClinicianTestimonialsSection />
-        </ContainerScroll>
+        </Box>
       </Box>
 
       <GradientSection 
