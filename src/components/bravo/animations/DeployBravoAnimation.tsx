@@ -10,19 +10,19 @@ export const DeployBravoAnimation = () => {
     {
       title: "SIP & Phone Systems",
       icon: Phone,
-      image: "/lovable-uploads/48f947bc-5dec-4c72-98a8-2611907a839a.png",
+      image: "/lovable-uploads/0fa273df-84c8-4e79-bcb4-37f62fc5247e.png",
       delay: 0
     },
     {
       title: "Patient Platforms",
       icon: Laptop,
-      image: "https://images.unsplash.com/photo-1571772996211-2f02c9727629?auto=format&fit=crop&q=80&w=300",
+      image: "/lovable-uploads/d77cb987-5ee6-4726-9b27-9b893f8ae27a.png",
       delay: 0.2
     },
     {
       title: "EHR & PMS",
       icon: Database,
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=300",
+      image: "/lovable-uploads/19bc50aa-b0c9-4208-97ad-0ae81f7e9b84.png",
       delay: 0.4
     }
   ];

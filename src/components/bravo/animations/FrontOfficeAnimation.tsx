@@ -1,132 +1,232 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, ClipboardCheck, FileText, MessageSquare } from 'lucide-react';
+import { Calendar, ClipboardCheck, FileText, MessageSquare, Phone, Mail } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
 
 export const FrontOfficeAnimation = () => {
-  // Define tasks that BRAVO automates
-  const tasks = [
-    {
-      title: "Appointment Scheduling",
-      icon: Calendar,
-      preview: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=300",
-      delay: 0
-    },
-    {
-      title: "Refill Processing",
-      icon: MessageSquare,
-      preview: "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&q=80&w=300",
-      delay: 0.2
-    },
-    {
-      title: "Patient Intake",
-      icon: ClipboardCheck,
-      preview: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=300",
-      delay: 0.4
-    },
-    {
-      title: "Patient Communication",
-      icon: FileText,
-      preview: "https://images.unsplash.com/photo-1516549655669-94e804cabf36?auto=format&fit=crop&q=80&w=300",
-      delay: 0.6
-    }
-  ];
-
   return (
     <div className="relative h-[400px] w-full overflow-hidden">
-      {/* Center AI system */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 bg-white rounded-full p-4 shadow-lg"
-        animate={{
-          boxShadow: [
-            "0px 5px 15px rgba(0,0,0,0.1)",
-            "0px 10px 30px rgba(0,0,0,0.2)",
-            "0px 5px 15px rgba(0,0,0,0.1)"
-          ]
-        }}
-        transition={{ duration: 3, repeat: Infinity }}
+      {/* Chat/Call animation */}
+      <motion.div 
+        className="absolute top-0 left-0 bg-white rounded-lg shadow-md overflow-hidden w-[300px]"
+        initial={{ opacity: 0, x: -50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="text-center">
-          <span className="text-xl font-bold" style={{ color: bravoColors.primary }}>AI</span>
+        <div className="p-4 space-y-4">
+          <div className="flex items-start gap-2">
+            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <MessageSquare className="w-5 h-5 text-blue-500" />
+            </div>
+            <div className="bg-gray-100 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-700">Hi, how can I help you today?</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-2 justify-end">
+            <div className="bg-blue-500 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-white">I need to schedule an appointment</p>
+            </div>
+            <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+          </div>
+          
+          <div className="flex items-start gap-2">
+            <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+              <MessageSquare className="w-5 h-5 text-blue-500" />
+            </div>
+            <div className="bg-gray-100 rounded-2xl p-3 max-w-[80%]">
+              <p className="text-sm text-gray-700">I'll help you schedule that. What's your preferred time?</p>
+            </div>
+          </div>
+          
+          <motion.div 
+            className="flex items-center justify-center gap-2 mt-4 p-3 bg-green-50 rounded-lg border border-green-100"
+            animate={{ 
+              y: [0, -5, 0],
+              boxShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 4px 8px rgba(0,0,0,0.1)", "0px 0px 0px rgba(0,0,0,0)"]
+            }}
+            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <Phone className="w-4 h-4 text-green-600" />
+            <span className="text-sm text-green-700">Calling Patient...</span>
+          </motion.div>
         </div>
       </motion.div>
-
-      {/* Glowing orbital path */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full z-0"
-        style={{
-          width: '320px',
-          height: '320px',
-          border: `1px dashed ${bravoColors.tertiary}50`
-        }}
-        animate={{
-          rotate: 360
-        }}
-        transition={{
-          duration: 40,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      />
-
-      {/* Task cards in orbit */}
-      {tasks.map((task, index) => (
-        <motion.div
-          key={index}
-          className="absolute bg-white rounded-lg overflow-hidden shadow-lg"
-          style={{
-            width: '160px',
-            height: '200px',
-            top: '50%',
-            left: '50%',
-            transformOrigin: 'center',
-            zIndex: 10
-          }}
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: 1,
-            x: Math.cos(index * (Math.PI / 2)) * 160 - 80,
-            y: Math.sin(index * (Math.PI / 2)) * 160 - 100,
-          }}
-          transition={{
-            delay: task.delay,
-            duration: 0.8,
-            ease: "easeOut"
-          }}
-        >
-          <div className="h-28 overflow-hidden bg-gray-100">
-            <motion.img 
-              src={task.preview}
-              alt={task.title}
-              className="w-full h-full object-cover"
-              initial={{ scale: 1 }}
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 8, repeat: Infinity }}
-            />
+      
+      {/* Scheduling animation */}
+      <motion.div 
+        className="absolute top-0 right-0 bg-white rounded-lg shadow-md overflow-hidden w-[300px]"
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <div className="p-4 space-y-4">
+          <div className="flex items-center gap-2 mb-4">
+            <Calendar className="w-5 h-5 text-blue-500" />
+            <div className="h-4 bg-gray-100 rounded w-3/4"></div>
           </div>
-          <div className="p-3">
-            <div className="flex items-center gap-2 mb-1">
-              <task.icon size={16} style={{ color: bravoColors.secondary }} />
-              <h4 className="text-sm font-semibold" style={{ color: bravoColors.primary }}>{task.title}</h4>
+          
+          <div className="grid grid-cols-3 gap-2 mb-6">
+            {["9:00 AM", "1:30 PM", "4:00 PM"].map((time, i) => (
+              <motion.div 
+                key={i}
+                className="p-3 rounded-lg bg-blue-50 border border-blue-100 text-center"
+                whileHover={{ scale: 1.05, backgroundColor: "#EFF6FF" }}
+                animate={{ 
+                  y: i === 1 ? [0, -3, 0] : 0,
+                  boxShadow: i === 1 ? 
+                    ["0px 0px 0px rgba(0,0,0,0)", "0px 3px 8px rgba(0,0,0,0.1)", "0px 0px 0px rgba(0,0,0,0)"] : 
+                    "none"
+                }}
+                transition={{ 
+                  duration: 2, 
+                  repeat: Infinity, 
+                  repeatType: "reverse",
+                  delay: i * 0.5
+                }}
+              >
+                <p className="text-sm text-blue-600 font-medium">{time}</p>
+              </motion.div>
+            ))}
+          </div>
+          
+          <motion.div 
+            className="flex items-center gap-2 p-3 bg-orange-50 rounded-lg border border-orange-100"
+            animate={{ 
+              x: [0, 5, 0],
+              boxShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 4px 8px rgba(0,0,0,0.1)", "0px 0px 0px rgba(0,0,0,0)"]
+            }}
+            transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <Calendar className="w-4 h-4 text-orange-600" />
+            <span className="text-sm text-orange-700">Refill Request Scheduled</span>
+          </motion.div>
+        </div>
+      </motion.div>
+      
+      {/* Automated follow-ups animation */}
+      <motion.div 
+        className="absolute bottom-0 left-0 bg-white rounded-lg shadow-md overflow-hidden w-[300px]"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+      >
+        <div className="p-4 space-y-3">
+          <div className="flex items-center justify-center mb-2">
+            <motion.div
+              className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center"
+              animate={{ 
+                scale: [1, 1.1, 1],
+                boxShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 0px 10px rgba(59, 130, 246, 0.5)", "0px 0px 0px rgba(0,0,0,0)"]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <motion.div animate={{ rotate: 360 }} transition={{ duration: 5, repeat: Infinity, ease: "linear" }}>
+                <Bell className="w-5 h-5 text-blue-500" />
+              </motion.div>
+            </motion.div>
+          </div>
+          
+          <motion.div 
+            className="p-3 rounded-lg bg-green-50 border border-green-100"
+            animate={{ 
+              y: [0, -3, 0],
+              boxShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 3px 8px rgba(0,0,0,0.1)", "0px 0px 0px rgba(0,0,0,0)"]
+            }}
+            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <div className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4 text-green-600" />
+              <p className="text-sm text-green-700">SMS Sent</p>
             </div>
+          </motion.div>
+          
+          <motion.div 
+            className="p-3 rounded-lg bg-blue-50 border border-blue-100"
+            animate={{ 
+              y: [0, -3, 0],
+              boxShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 3px 8px rgba(0,0,0,0.1)", "0px 0px 0px rgba(0,0,0,0)"]
+            }}
+            transition={{ duration: 2, delay: 0.5, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-blue-600" />
+              <p className="text-sm text-blue-700">Email Sent</p>
+            </div>
+          </motion.div>
+          
+          <motion.div 
+            className="p-3 rounded-lg bg-purple-50 border border-purple-100"
+            animate={{ 
+              y: [0, -3, 0],
+              boxShadow: ["0px 0px 0px rgba(0,0,0,0)", "0px 3px 8px rgba(0,0,0,0.1)", "0px 0px 0px rgba(0,0,0,0)"]
+            }}
+            transition={{ duration: 2, delay: 1, repeat: Infinity, repeatType: "reverse" }}
+          >
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-purple-600" />
+              <p className="text-sm text-purple-700">Called and Reminded</p>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+      
+      {/* Clinical documentation animation */}
+      <motion.div 
+        className="absolute bottom-0 right-0 bg-white rounded-lg shadow-md overflow-hidden w-[300px]"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.9 }}
+      >
+        <div className="p-4 space-y-3">
+          <div className="flex items-center gap-2 mb-3">
+            <FileText className="w-5 h-5 text-blue-500" />
+            <div className="h-4 bg-gray-100 rounded w-3/4"></div>
+          </div>
+          
+          <div className="p-4 bg-gray-50 rounded-lg border border-gray-100">
+            <div className="flex items-center gap-1 mb-3 justify-center">
+              {[1, 2, 3, 4, 5].map(star => (
+                <motion.svg
+                  key={star}
+                  className="w-5 h-5 text-yellow-400"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1, rotate: [0, 10, 0] }}
+                  transition={{ delay: 0.2 * star, duration: 0.5 }}
+                >
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </motion.svg>
+              ))}
+            </div>
+            
+            <motion.p 
+              className="text-sm text-center text-gray-700 font-medium mb-3"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.5 }}
+            >
+              Great experience!
+            </motion.p>
+            
             <motion.div 
-              className="h-1 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full mt-2 overflow-hidden"
+              className="h-3 bg-gray-200 rounded w-full mb-2"
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
-              transition={{ duration: 2, delay: task.delay + 0.5, repeat: Infinity, repeatDelay: 5 }}
-            >
-              <motion.div 
-                className="h-full"
-                style={{ background: `linear-gradient(90deg, ${bravoColors.tertiary}, ${bravoColors.secondary})` }}
-                animate={{ x: ["0%", "100%"] }}
-                transition={{ duration: 2, delay: task.delay + 0.5, repeat: Infinity, repeatDelay: 5 }}
-              />
-            </motion.div>
-            <p className="text-xs mt-2 text-gray-500">Processing...</p>
+              transition={{ delay: 1.8, duration: 1 }}
+            />
+            
+            <motion.div 
+              className="h-3 bg-gray-200 rounded w-2/3"
+              initial={{ width: 0 }}
+              animate={{ width: "66%" }}
+              transition={{ delay: 2, duration: 0.8 }}
+            />
           </div>
-        </motion.div>
-      ))}
+        </div>
+      </motion.div>
     </div>
   );
 };

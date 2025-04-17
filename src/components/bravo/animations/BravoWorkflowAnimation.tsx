@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneCall, MessageSquare, Calendar, ClipboardCheck, Bell, FileText, CalendarPlus, Phone, Mail } from 'lucide-react';
@@ -122,15 +123,15 @@ const steps = [
       <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <input type="checkbox" checked className="rounded text-blue-500" />
+            <input type="checkbox" readOnly defaultChecked className="rounded text-blue-500" />
             <div className="h-4 bg-gray-100 rounded w-3/4"></div>
           </div>
           <div className="flex items-center gap-2">
-            <input type="checkbox" checked className="rounded text-blue-500" />
+            <input type="checkbox" readOnly defaultChecked className="rounded text-blue-500" />
             <div className="h-4 bg-gray-100 rounded w-1/2"></div>
           </div>
           <div className="flex items-center gap-2">
-            <input type="checkbox" className="rounded text-gray-300" />
+            <input type="checkbox" readOnly className="rounded text-gray-300" />
             <div className="h-4 bg-gray-100 rounded w-2/3"></div>
           </div>
           <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-100">
