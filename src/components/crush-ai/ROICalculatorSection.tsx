@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -46,13 +45,13 @@ export const ROICalculatorSection = () => {
   const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
   const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
   
-  // Adjust these values to prevent overlap
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
+  // Adjust these values to allow more visible content
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["94%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
   
-  // Adjust the container position to start well below the header
-  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["240px", "0px"]);
+  // Keep the container position higher up
+  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["5%", "0px"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -123,14 +122,14 @@ export const ROICalculatorSection = () => {
       component="section"
       ref={sectionRef}
       sx={{
-        pt: { xs: 8, md: 12 }, // Ensure padding at the top
-        pb: { xs: 8, md: 12 }, // Add bottom padding
+        pt: { xs: 6, md: 8 }, // Reduce top padding
+        pb: { xs: 6, md: 8 }, // Reduce bottom padding
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "flex-start", // Align content to the top
+        justifyContent: "center", // Center content vertically
         alignItems: "center",
       }}
     >
@@ -145,52 +144,6 @@ export const ROICalculatorSection = () => {
         }}
       />
       
-      {/* Title Section - Fixed Position */}
-      <Box 
-        sx={{ 
-          position: "relative",
-          zIndex: 20, // Ensure it stays above the container
-          maxWidth: "lg",
-          width: "100%",
-          px: 2,
-          textAlign: "center",
-          mb: { xs: 18, md: 24 }, // Add significant margin to push container down
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          style={{ scale: titleScale }}
-        >
-          <Typography 
-            variant="h3" 
-            sx={{ 
-              fontWeight: 700, 
-              mb: 2,
-              fontSize: { xs: "1.75rem", md: "2.5rem" },
-              color: crushAIColors.primary
-            }}
-          >
-            Save $1,800+/month per provider. Automate Notes with AI.
-          </Typography>
-          
-          <Typography 
-            variant="body1" 
-            sx={{
-              color: crushAIColors.text.secondary,
-              mb: 4,
-              maxWidth: "700px",
-              mx: "auto",
-              fontSize: { xs: "1rem", md: "1.1rem" }
-            }}
-          >
-            Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
-          </Typography>
-        </motion.div>
-      </Box>
-      
       {/* Main Content Container */}
       <motion.div
         ref={containerRef}
@@ -202,14 +155,15 @@ export const ROICalculatorSection = () => {
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
           position: "absolute",
-          top: containerTop, // Start well below the title
+          top: containerTop,
           bottom: 0,
           left: 0,
           right: 0,
           margin: "0 auto",
           display: "flex",
-          alignItems: "flex-start", // Align to top of container
-          justifyContent: "center",
+          flexDirection: "column", // Stack content vertically
+          alignItems: "center",
+          justifyContent: "flex-start", // Start from the top
         }}
       >
         <Container 
@@ -217,15 +171,57 @@ export const ROICalculatorSection = () => {
           sx={{ 
             position: "relative", 
             zIndex: 5, 
-            py: { xs: 6, md: 8 }, // Increase top padding
+            py: { xs: 5, md: 6 }, // Add padding
             px: { xs: 2, md: 4 },
-            height: "100%",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "flex-start", // Align to top
-            overflowY: "auto", // Enable scrolling if needed
+            height: "100%",
+            overflowY: "auto", // Enable scrolling
           }}
         >
+          {/* Title Section - Now inside the container */}
+          <Box 
+            sx={{ 
+              width: "100%",
+              textAlign: "center",
+              mb: { xs: 4, md: 5 }, // Add margin below the title
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+              style={{ scale: titleScale }}
+            >
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  fontWeight: 700, 
+                  mb: 2,
+                  fontSize: { xs: "1.75rem", md: "2.5rem" },
+                  color: crushAIColors.primary,
+                  lineHeight: 1.2, // Tighter line height to save space
+                }}
+              >
+                Save $1,800+/month per provider. Automate Notes with AI.
+              </Typography>
+              
+              <Typography 
+                variant="body1" 
+                sx={{
+                  color: crushAIColors.text.secondary,
+                  mb: 2, // Reduce bottom margin
+                  maxWidth: "700px",
+                  mx: "auto",
+                  fontSize: { xs: "0.95rem", md: "1.05rem" } // Slightly smaller font
+                }}
+              >
+                Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
+              </Typography>
+            </motion.div>
+          </Box>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -234,11 +230,12 @@ export const ROICalculatorSection = () => {
             style={{ 
               scale: cardScale,
               opacity: cardOpacity,
-              width: "100%"
+              width: "100%",
+              flex: 1 // Take remaining space
             }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 items-start"
+            className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start"
           >
-            <div className="flex flex-col gap-4 md:gap-6 p-4 md:p-6 border border-black/10 rounded-xl shadow-sm bg-white h-full">
+            <div className="flex flex-col gap-4 p-4 md:p-5 border border-black/10 rounded-xl shadow-sm bg-white h-full">
               <Typography 
                 variant="h5" 
                 sx={{ 
@@ -246,14 +243,15 @@ export const ROICalculatorSection = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
-                  color: crushAIColors.primary
+                  color: crushAIColors.primary,
+                  fontSize: { xs: "1.1rem", md: "1.25rem" } // Slightly smaller heading
                 }}
               >
-                <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
+                <BarChart2 size={22} className={`text-[${crushAIColors.primary}]`} />
                 Calculate Your Savings
               </Typography>
               
-              <Stack spacing={3}>
+              <Stack spacing={2.5}> {/* Reduced spacing */}
                 <TextField
                   label="Number of Providers"
                   type="number"
@@ -263,7 +261,7 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Users size={20} className={`text-[${crushAIColors.primary}]`} />
+                        <Users size={18} className={`text-[${crushAIColors.primary}]`} />
                       </InputAdornment>
                     ),
                   }}
@@ -297,13 +295,13 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <DollarSign size={20} className={`text-[${crushAIColors.primary}]`} />
+                        <DollarSign size={18} className={`text-[${crushAIColors.primary}]`} />
                       </InputAdornment>
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
                         <div className="relative group">
-                          <Info size={18} className={`text-[${crushAIColors.primary}] cursor-help`} />
+                          <Info size={16} className={`text-[${crushAIColors.primary}] cursor-help`} />
                           <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
                             Starting price of $99/month per provider
                           </div>
@@ -341,7 +339,7 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Users size={20} className={`text-[${crushAIColors.primary}]`} />
+                        <Users size={18} className={`text-[${crushAIColors.primary}]`} />
                       </InputAdornment>
                     ),
                   }}
@@ -367,8 +365,8 @@ export const ROICalculatorSection = () => {
                 />
               </Stack>
               
-              <div className="flex flex-col items-center justify-center mt-2 md:mt-4 p-4 md:p-6 rounded-lg bg-[#F5F9FF]">
-                <Typography variant="subtitle1" sx={{ color: crushAIColors.text.secondary }}>
+              <div className="flex flex-col items-center justify-center mt-2 p-3 md:p-4 rounded-lg bg-[#F5F9FF]">
+                <Typography variant="subtitle1" sx={{ color: crushAIColors.text.secondary, fontSize: { xs: "0.9rem", md: "1rem" } }}>
                   Your Monthly Savings:
                 </Typography>
                 <Typography 
@@ -376,24 +374,25 @@ export const ROICalculatorSection = () => {
                   sx={{ 
                     fontWeight: 700,
                     my: 1,
-                    color: crushAIColors.primary
+                    color: crushAIColors.primary,
+                    fontSize: { xs: "1.5rem", md: "1.75rem" } // Smaller savings text
                   }}
                 >
                   ${savings.toLocaleString()}
                 </Typography>
-                <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, textAlign: 'center', fontSize: "0.8rem" }}>
                   Based on {providers} provider{providers > 1 ? 's' : ''} seeing {patientsPerDay} patient{patientsPerDay > 1 ? 's' : ''} per day
                 </Typography>
               </div>
               
-              <div className="flex justify-center mt-2">
+              <div className="flex justify-center">
                 <Button
                   className={cn(
                     "min-w-40 relative touch-none",
                     "bg-[#143151] hover:bg-[#143151]/90 text-white",
                     "border border-[#143151]/20",
                     "transition-all duration-300",
-                    "py-2.5"
+                    "py-2" // Slightly smaller padding
                   )}
                   onClick={calculateSavings}
                   onMouseEnter={handleInteractionStart}
@@ -432,37 +431,38 @@ export const ROICalculatorSection = () => {
               </div>
             </div>
             
-            <div className="border border-black/10 rounded-xl p-4 md:p-6 shadow-sm bg-white h-full flex flex-col">
+            <div className="border border-black/10 rounded-xl p-4 md:p-5 shadow-sm bg-white h-full flex flex-col">
               <Typography 
                 variant="h5" 
                 sx={{ 
                   fontWeight: 600,
-                  mb: 3,
+                  mb: 2.5,
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
-                  color: crushAIColors.primary
+                  color: crushAIColors.primary,
+                  fontSize: { xs: "1.1rem", md: "1.25rem" } // Slightly smaller heading
                 }}
               >
-                <BarChart2 size={24} className={`text-[${crushAIColors.primary}]`} />
+                <BarChart2 size={22} className={`text-[${crushAIColors.primary}]`} />
                 Monthly Cost Comparison
               </Typography>
               
-              <div className="flex-1 min-h-[250px] md:min-h-[300px]">
+              <div className="flex-1 min-h-[200px] md:min-h-[250px]"> {/* Reduced height */}
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
                     data={savingsData}
-                    margin={{ top: 10, right: 30, left: 0, bottom: 30 }}
+                    margin={{ top: 5, right: 20, left: 0, bottom: 25 }} // Reduced margins
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="name"
-                      tick={{ fill: crushAIColors.text.primary }}
+                      tick={{ fill: crushAIColors.text.primary, fontSize: 12 }} // Smaller font
                       axisLine={{ stroke: crushAIColors.text.primary }}
                     />
                     <YAxis
                       tickFormatter={(value) => `$${value}`}
-                      tick={{ fill: crushAIColors.text.primary }}
+                      tick={{ fill: crushAIColors.text.primary, fontSize: 12 }} // Smaller font
                       axisLine={{ stroke: crushAIColors.text.primary }}
                     />
                     <RechartsTooltip
@@ -484,7 +484,7 @@ export const ROICalculatorSection = () => {
               </div>
               
               <Button 
-                className="w-full mt-4 md:mt-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2.5"
+                className="w-full mt-3 md:mt-4 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2"
               >
                 Book A Demo
               </Button>
