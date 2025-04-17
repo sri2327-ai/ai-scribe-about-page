@@ -1,33 +1,11 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { AnimatedFeatureCard } from "./AnimatedFeatureCard";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import {
-  PrescriptionRefillsIllustration,
-  SmartScreeningIllustration,
-  PreChartingIllustration,
-  CRMSyncIllustration,
-  CentralizedCareIllustration
-} from "./AdminFeatureIllustrations";
-import {
-  ClinicalDecisionIllustration,
-  HCCTrackingIllustration,
-  TreatmentPlansIllustration,
-  PreventiveScreeningIllustration,
-  LongitudinalIntelligenceIllustration
-} from "./ClinicalFeatureIllustrations";
-import { Pill, ClipboardList, FileSpreadsheet, Database, Workflow, Stethoscope, ShieldCheck, FileText, AlertTriangle, LineChart } from "lucide-react";
-
-interface FeatureCardProps {
-  icon: React.ElementType;
-  title: string;
-  description: string;
-  illustration: React.ReactNode;
-  index: number;
-}
+import { CrushAIBentoGridItem } from "./CrushAIBentoGridItem";
+import { PrescriptionRefillsIllustration, SmartScreeningIllustration, PreChartingIllustration, ClinicalDecisionIllustration, HCCTrackingIllustration, LongitudinalIntelligenceIllustration } from "./AdminFeatureIllustrations";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -40,81 +18,79 @@ const containerVariants = {
   }
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
-};
+const adminPanels = [
+  {
+    title: "Prescription Refills & Lab Management",
+    description: "Automates refill requests, lab order submissions, and updates lab results in patient charts—saving time and reducing errors.",
+    illustration: <PrescriptionRefillsIllustration />,
+    details: [
+      "Smart automation of refill requests",
+      "Instant lab order processing",
+      "Real-time result updates"
+    ],
+    bgClass: "bg-gradient-to-br from-blue-50 to-blue-100/50"
+  },
+  {
+    title: "Smart Screening & Assessments",
+    description: "Conducts PHQ-9, GAD-7, PCL-5, AUDIT, and CSSRS assessments automatically, and prepares results for clinical use.",
+    illustration: <SmartScreeningIllustration />,
+    details: [
+      "Automated mental health screenings",
+      "Instant assessment scoring",
+      "Clinical decision support"
+    ],
+    bgClass: "bg-gradient-to-br from-green-50 to-green-100/50"
+  },
+  {
+    title: "Pre-Charting & Document Management",
+    description: "Prepares charts, retrieves history, uploads patient documents, and drafts referral letters with intelligent patient insights.",
+    illustration: <PreChartingIllustration />,
+    details: [
+      "AI-powered chart preparation",
+      "Smart document organization",
+      "Automated referral drafting"
+    ],
+    bgClass: "bg-gradient-to-br from-indigo-50 to-purple-50/50"
+  }
+];
 
-const FeatureCard = ({ icon, title, description, illustration, index }: FeatureCardProps) => {
-  const isEven = index % 2 === 0;
-  
-  return (
-    <motion.div 
-      variants={itemVariants}
-      className="flex flex-col h-full"
-    >
-      <div className="bg-white rounded-xl shadow-sm border border-black/5 overflow-hidden h-full flex flex-col">
-        <div 
-          className="p-5 flex items-center justify-between border-b border-black/5"
-          style={{ background: isEven ? `${crushAIColors.accent.blue}10` : `${crushAIColors.tertiary}10` }}
-        >
-          <div className="flex items-center gap-3">
-            <div 
-              className="w-10 h-10 rounded-lg flex items-center justify-center"
-              style={{ backgroundColor: "#F5F9FF" }}
-            >
-              {React.createElement(icon, { size: 20, className: "text-[#046f90] stroke-[1.5]" })}
-            </div>
-            <h3 className="text-lg font-semibold text-black">{title}</h3>
-          </div>
-        </div>
-        
-        <div className="p-5 flex-1 flex flex-col justify-between">
-          <p className="text-black mb-4">{description}</p>
-          
-          <div className="h-32 flex items-center justify-center">
-            {illustration}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+const clinicalPanels = [
+  {
+    title: "Clinical Decision Support",
+    description: "Delivers instant medical guidelines, clarifies jargon, and ensures accurate documentation at the point of care.",
+    illustration: <ClinicalDecisionIllustration />,
+    details: [
+      "Real-time clinical guidelines",
+      "Medical terminology assistance",
+      "Documentation accuracy support"
+    ],
+    bgClass: "bg-gradient-to-br from-teal-50 to-teal-100/50"
+  },
+  {
+    title: "HCC Tracking & Documentation",
+    description: "Monitors MEAT criteria for HCC coding, supports risk adjustments, and maintains documentation standards.",
+    illustration: <HCCTrackingIllustration />,
+    details: [
+      "Automated MEAT criteria tracking",
+      "Risk adjustment support",
+      "Documentation compliance"
+    ],
+    bgClass: "bg-gradient-to-br from-amber-50 to-amber-100/50"
+  },
+  {
+    title: "Longitudinal Intelligence",
+    description: "Captures and leverages historical patient data across visits to inform better clinical decisions.",
+    illustration: <LongitudinalIntelligenceIllustration />,
+    details: [
+      "Historical data analysis",
+      "Treatment outcome tracking",
+      "Care continuity support"
+    ],
+    bgClass: "bg-gradient-to-br from-blue-50 to-teal-50/50"
+  }
+];
 
 export const AdminTabContent = () => {
-  const adminFeatures = [
-    {
-      icon: Pill,
-      title: "Prescription Refills & Lab Management",
-      description: "Automates refill requests, lab order submissions, and updates lab results in patient charts—saving time and reducing errors.",
-      illustration: <PrescriptionRefillsIllustration />
-    },
-    {
-      icon: ClipboardList,
-      title: "Smart Screening & Assessments",
-      description: "Conducts PHQ-9, GAD-7, PCL-5, AUDIT, and CSSRS assessments automatically, and prepares results for clinical use.",
-      illustration: <SmartScreeningIllustration />
-    },
-    {
-      icon: FileSpreadsheet,
-      title: "Pre-Charting & Referral Automation",
-      description: "Prepares charts, retrieves history, uploads patient documents, and drafts referral letters with intelligent patient insights.",
-      illustration: <PreChartingIllustration />
-    },
-    {
-      icon: Database,
-      title: "CRM Sync & Patient Demographics",
-      description: "Seamlessly transfers patient demographics and pre-visit data into your CRM system for streamlined workflows.",
-      illustration: <CRMSyncIllustration />
-    },
-    {
-      icon: Workflow,
-      title: "Centralized Care Automation",
-      description: "Integrates chart prep, referrals, labs, and CRM updates into a unified flow—enhancing care coordination and reducing manual work.",
-      illustration: <CentralizedCareIllustration />
-    }
-  ];
-
   return (
     <ContainerScroll
       titleComponent={
@@ -140,13 +116,10 @@ export const AdminTabContent = () => {
         whileInView="show"
         viewport={{ once: true, margin: "-10%" }}
       >
-        {adminFeatures.map((feature, index) => (
-          <FeatureCard
+        {adminPanels.map((panel, index) => (
+          <CrushAIBentoGridItem
             key={index}
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.description}
-            illustration={feature.illustration}
+            {...panel}
             index={index}
           />
         ))}
@@ -156,39 +129,6 @@ export const AdminTabContent = () => {
 };
 
 export const ClinicalTabContent = () => {
-  const clinicalFeatures = [
-    {
-      icon: Stethoscope,
-      title: "Clinical Decision & Documentation Support",
-      description: "Delivers instant medical guidelines, clarifies jargon, and ensures accurate, structured, and compliant documentation at the point of care.",
-      illustration: <ClinicalDecisionIllustration />
-    },
-    {
-      icon: ShieldCheck,
-      title: "HCC Tracking & Compliance",
-      description: "Monitors MEAT criteria for HCC coding, supports risk adjustments, and maintains documentation standards for better outcomes and audit readiness.",
-      illustration: <HCCTrackingIllustration />
-    },
-    {
-      icon: FileText,
-      title: "Personalized & Auto-Generated Treatment Plans",
-      description: "Creates SMART-based, personalized care plans tailored to each patient's unique needs, enhancing treatment precision and engagement.",
-      illustration: <TreatmentPlansIllustration />
-    },
-    {
-      icon: AlertTriangle,
-      title: "Preventive Screening & Risk Insights",
-      description: "Proactively flags preventive care needs and risk patterns to enable early interventions and improve long-term patient outcomes.",
-      illustration: <PreventiveScreeningIllustration />
-    },
-    {
-      icon: LineChart,
-      title: "Longitudinal Intelligence & Continuity of Care",
-      description: "Captures and leverages historical patient data across visits to inform better clinical decisions and ensure seamless continuity of care.",
-      illustration: <LongitudinalIntelligenceIllustration />
-    }
-  ];
-
   return (
     <ContainerScroll
       titleComponent={
@@ -214,13 +154,10 @@ export const ClinicalTabContent = () => {
         whileInView="show"
         viewport={{ once: true, margin: "-10%" }}
       >
-        {clinicalFeatures.map((feature, index) => (
-          <FeatureCard
+        {clinicalPanels.map((panel, index) => (
+          <CrushAIBentoGridItem
             key={index}
-            icon={feature.icon}
-            title={feature.title}
-            description={feature.description}
-            illustration={feature.illustration}
+            {...panel}
             index={index}
           />
         ))}
