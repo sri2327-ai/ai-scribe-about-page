@@ -9,6 +9,7 @@ interface WaveBackgroundProps {
   children?: React.ReactNode;
   height?: string | number;
   className?: string;
+  style?: React.CSSProperties; // Added style prop
 }
 
 const WaveContainer = styled(Box)<{ intensity: string; baseColor: string; height?: string | number }>(
@@ -71,9 +72,16 @@ export const WaveBackground: React.FC<WaveBackgroundProps> = ({
   children,
   height,
   className,
+  style, // Add style to destructured props
 }) => {
   return (
-    <WaveContainer intensity={intensity} baseColor={baseColor} height={height} className={className}>
+    <WaveContainer 
+      intensity={intensity} 
+      baseColor={baseColor} 
+      height={height} 
+      className={className}
+      style={style} // Pass style to WaveContainer
+    >
       <ContentContainer>{children}</ContentContainer>
     </WaveContainer>
   );
