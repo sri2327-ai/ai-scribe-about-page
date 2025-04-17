@@ -17,7 +17,7 @@ const iconVariants = {
     transition: { 
       duration: 1.5, 
       repeat: Infinity,
-      repeatType: "mirror",
+      repeatType: "mirror" as const,
       ease: "easeInOut" 
     }
   }
@@ -30,7 +30,7 @@ const floatingVariants = {
     transition: {
       duration: 2.5,
       repeat: Infinity,
-      repeatType: "loop",
+      repeatType: "loop" as const,
       ease: "easeInOut"
     }
   }
@@ -84,7 +84,7 @@ export const PrescriptionRefillsIllustration = () => (
       <motion.div
         className="w-4 h-4 bg-green-400 rounded-full"
         animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 2, repeat: Infinity, repeatType: "mirror" as const }}
       />
     </motion.div>
   </IllustrationWrapper>
@@ -159,7 +159,7 @@ export const LongitudinalIntelligenceIllustration = () => (
           key={i}
           className="w-2 h-2 rounded-full bg-blue-400"
           animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+          transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity, repeatType: "mirror" as const }}
         />
       ))}
     </motion.div>
