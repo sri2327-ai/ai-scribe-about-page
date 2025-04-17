@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box } from "@mui/material";
 import { HeroSection } from "@/components/crush-ai/HeroSection";
@@ -19,9 +18,7 @@ import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
 import { EHRBeamsBackground } from "@/components/crush-ai/EHRBeamsBackground";
 
-// Add custom styles to enforce correct colors across components
 const globalStyles = {
-  // Ensure workflow animation uses correct colors
   '.animated-workflow': {
     color: crushAIColors.text.primary, 
     '& svg, & path, & g': {
@@ -33,7 +30,6 @@ const globalStyles = {
       fill: `${crushAIColors.text.primary} !important`,
     }
   },
-  // Ensure buttons have the correct background
   '.demo-button': {
     background: `linear-gradient(90deg, #046f90, #f06292) !important`,
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
@@ -42,7 +38,6 @@ const globalStyles = {
       boxShadow: '0 8px 20px rgba(240, 98, 146, 0.3)'
     }
   },
-  // Ensure call-to-action text is visible
   '.cta-text': {
     color: `${crushAIColors.text.white} !important`,
     textShadow: '0 2px 8px rgba(0,0,0,0.5) !important'
@@ -60,13 +55,10 @@ const CrushAI = () => {
         ...globalStyles
       }}
     >
-      {/* Hero Section with ripple effect */}
       <HeroSection />
       
-      {/* TrustedBySection with text color updated to black */}
       <TrustedBySection />
       
-      {/* EHR Integration section with teal background and animation restored */}
       <Box 
         sx={{ 
           bgcolor: crushAIColors.primaryFlat,
@@ -84,10 +76,8 @@ const CrushAI = () => {
         </EHRBeamsBackground>
       </Box>
 
-      {/* ClinicianTestimonialsSection in its original form */}
       <ClinicianTestimonialsSection />
 
-      {/* How It Works section with gradient background and ripple effect */}
       <GradientSection 
         variant="linear"
         intensity="medium"
@@ -103,7 +93,6 @@ const CrushAI = () => {
         </Box>
       </GradientSection>
 
-      {/* Competition Section with teal background and animation restored */}
       <Box 
         sx={{ 
           bgcolor: crushAIColors.primaryFlat,
@@ -123,12 +112,10 @@ const CrushAI = () => {
       
       <TestimonialGenerateSection />
       
-      {/* Clinical Workflow section without ripple background */}
       <Box sx={{ bgcolor: crushAIColors.background.white }}>
         <ClinicalWorkflowSection />
       </Box>
       
-      {/* Call to Action section with teal background and animation restored */}
       <Box 
         sx={{ 
           position: "relative",
@@ -179,8 +166,7 @@ const CrushAI = () => {
       
       <WorkflowAutomationSection />
       
-      {/* ROI Calculator section with white background */}
-      <Box sx={{ bgcolor: '#FFFFFF' }}>
+      <Box sx={{ bgcolor: 'transparent', py: { xs: 6, md: 8 } }}>
         <ROICalculatorSection />
       </Box>
     </Box>

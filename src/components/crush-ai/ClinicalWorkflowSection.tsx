@@ -207,9 +207,10 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 3,
-                color: '#000000', // Updated to black
+                color: '#000000',
                 textAlign: "center",
                 fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
+                lineHeight: 1.2 // Added line height for better alignment
               }}
             >
               More Than Just an AI Scribe – CRUSH Automates Clinical Workflows
@@ -225,11 +226,12 @@ export const ClinicalWorkflowSection = () => {
             <Typography 
               variant="body1" 
               sx={{ 
-                color: '#000000', // Updated to black
+                color: '#000000',
                 maxWidth: "800px",
                 mx: "auto",
                 lineHeight: 1.8,
-                fontSize: { xs: "0.95rem", md: "1.1rem" }
+                fontSize: { xs: "0.95rem", md: "1.1rem" },
+                textAlign: "center" // Ensure center alignment
               }}
             >
               CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, 
