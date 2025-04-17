@@ -53,6 +53,19 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     });
   }, [staffCount, salary, hours, includeOverhead, onCalculate]);
 
+  // Handle slider value changes properly
+  const handleStaffCountChange = (value: number[]) => {
+    setStaffCount(value);
+  };
+
+  const handleSalaryChange = (value: number[]) => {
+    setSalary(value);
+  };
+
+  const handleHoursChange = (value: number[]) => {
+    setHours(value);
+  };
+
   return (
     <Card className="backdrop-blur-xl bg-white/80 border-none shadow-lg hover:shadow-xl transition-all duration-300">
       <CardContent className="p-6 space-y-6">
@@ -64,7 +77,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             </label>
             <Slider
               value={staffCount}
-              onValueChange={setStaffCount}
+              onValueChange={handleStaffCountChange}
               min={1}
               max={10}
               step={1}
@@ -79,7 +92,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             </label>
             <Slider
               value={salary}
-              onValueChange={setSalary}
+              onValueChange={handleSalaryChange}
               min={3000}
               max={5000}
               step={100}
@@ -94,7 +107,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             </label>
             <Slider
               value={hours}
-              onValueChange={setHours}
+              onValueChange={handleHoursChange}
               min={20}
               max={60}
               step={1}

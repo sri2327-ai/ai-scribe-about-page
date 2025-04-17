@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Phone, Users, FileCheck, Database } from 'lucide-react';
@@ -149,17 +150,7 @@ export const CompatibilitySection = () => {
       </div>
       
       <div className="container max-w-6xl mx-auto px-4 pt-8 pb-12">
-        <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={textVariants}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: bravoColors.primary }}>
-            Compatible with Your Preferred SIP, Patient Platform & PMS
-          </h2>
-        </motion.div>
+        {/* Removed heading as requested */}
         
         <motion.div 
           className="relative flex items-center justify-center h-[500px]"
@@ -211,9 +202,9 @@ export const CompatibilitySection = () => {
               }}>
                 <div className="relative">
                   {/* Connection line */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
                     <GradientTracing
-                      width={150}
+                      width={Math.abs(integration.position.x)}
                       height={Math.abs(integration.position.y) + 10}
                       path={integration.path}
                       gradientColors={integration.gradientColors}

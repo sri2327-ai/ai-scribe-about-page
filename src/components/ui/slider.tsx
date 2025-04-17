@@ -91,6 +91,12 @@ const Slider = React.forwardRef<
     handleRootClick(e);
     if (props.onTouchStart) props.onTouchStart(e);
   }, [handleRootClick, props.onTouchStart]);
+
+  // Convert number values to percentages for styling
+  const valueAsPercent = React.useMemo(() => {
+    if (!props.value || !props.max) return "0%";
+    return `${(props.value[0] / props.max) * 100}%`;
+  }, [props.value, props.max]);
   
   return (
     <SliderPrimitive.Root
