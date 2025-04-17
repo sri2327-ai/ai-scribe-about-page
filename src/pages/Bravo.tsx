@@ -1,6 +1,7 @@
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
+import { HowBravoWorksSection } from '@/components/bravo/sections/HowBravoWorksSection';
 import { bravoColors } from '@/theme/bravo-theme';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,139 +12,9 @@ const Bravo = () => {
     <div className="bg-black min-h-screen">
       <BravoHeroSection />
       <CompatibilitySection />
-      {/* How BRAVO Works Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16" style={{ color: bravoColors.primary }}>
-            How BRAVO Works – AI-Powered Front Office Automation
-          </h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto" style={{ backgroundColor: `${bravoColors.tertiary}50` }}>
-                  <span className="text-2xl font-bold" style={{ color: bravoColors.primary }}>1️</span>
-                </div>
-                <h3 className="text-xl font-bold text-center mb-4" style={{ color: bravoColors.primary }}>Deploy BRAVO</h3>
-                <p className="text-base mb-4 text-center" style={{ color: bravoColors.text.secondary }}>
-                  Seamlessly integrate with:
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>SIP & Phone Systems</strong> – Twilio, Plivo, Exotel, Telnyx & more.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Patient Platforms</strong> – Elation, OhMD, Care Patron, SimplePractice & others.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>EHR & PMS Integration</strong> – Auto-sync for real-time workflow automation.
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto" style={{ backgroundColor: `${bravoColors.tertiary}50` }}>
-                  <span className="text-2xl font-bold" style={{ color: bravoColors.primary }}>2️</span>
-                </div>
-                <h3 className="text-xl font-bold text-center mb-4" style={{ color: bravoColors.primary }}>AI-Powered Front Office Automation</h3>
-                <p className="text-base mb-4 text-center" style={{ color: bravoColors.text.secondary }}>
-                  BRAVO handles every patient engagement & admin task:
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Appointment Management</strong> – Auto-schedules, confirms & follows up.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Refill Processing</strong> – Verifies identity, confirms pharmacies & drafts refills.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Patient Intake & Check-In</strong> – Registers patients, updates records & collects history.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Pre-Visit Assistance</strong> – Captures chief complaints & prepares clinical summaries.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Patient Communication</strong> – Manages inquiries, triage & education.
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 mx-auto" style={{ backgroundColor: `${bravoColors.tertiary}50` }}>
-                  <span className="text-2xl font-bold" style={{ color: bravoColors.primary }}>3️</span>
-                </div>
-                <h3 className="text-xl font-bold text-center mb-4" style={{ color: bravoColors.primary }}>Seamless Sync with EHR, PMS & RCM</h3>
-                <p className="text-base mb-4 text-center" style={{ color: bravoColors.text.secondary }}>
-                  BRAVO ensures a fully automated front-office workflow:
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Appointments & Refills</strong> – Auto-confirms visits & processes refills.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Billing & Insurance</strong> – Verifies eligibility, handles authorizations & claims.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Clinical Documentation</strong> – Updates records, generates care plans & tracks follow-ups.
-                    </span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-          
-          <div className="text-center mt-16">
-            <p className="text-2xl font-semibold mb-8" style={{ color: bravoColors.secondary }}>
-              Faster Check-Ins. Smarter Scheduling. Effortless Coordination.
-            </p>
-            <Button 
-              className="px-8 py-6 text-lg rounded-md"
-              style={{ 
-                backgroundColor: bravoColors.secondary,
-                color: bravoColors.text.white
-              }}
-            >
-              REQUEST A DEMO
-            </Button>
-          </div>
-        </div>
-      </section>
+      
+      {/* How BRAVO Works Section - Using the new animated component */}
+      <HowBravoWorksSection />
 
       {/* Handle Calls Section */}
       <section className="py-20 bg-gray-50" style={{ backgroundColor: bravoColors.background.light }}>
