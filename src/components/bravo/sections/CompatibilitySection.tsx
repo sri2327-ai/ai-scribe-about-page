@@ -5,6 +5,7 @@ import { ImageTrail } from "@/components/ui/image-trail";
 import { Phone, MessageSquare, Calendar, Database, Clock, Bell, FileCheck } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
 import { WaveBackground } from "@/components/ui/wave-background";
+import { getGradient } from '@/components/ui/effects/gradient-utils';
 
 export const CompatibilitySection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,6 +26,9 @@ export const CompatibilitySection = () => {
       intensity="medium"
       height="500px"
       className="relative overflow-hidden flex items-center justify-center"
+      style={{ 
+        background: getGradient('teal', 0.3),
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
         {/* Static visible icons for visual hint */}
@@ -52,7 +56,7 @@ export const CompatibilitySection = () => {
           className="text-center relative z-10 max-w-2xl"
         >
           <h2 
-            className="text-3xl font-bold mb-8 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+            className="text-3xl font-bold mb-8 bg-gradient-to-r from-[#5192AE] to-[#A5CCF3] bg-clip-text text-transparent"
           >
             Compatible with Your Preferred SIP, Patient Platform & PMS
           </h2>
