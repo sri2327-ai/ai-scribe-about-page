@@ -247,17 +247,17 @@ export const EhrIntegrationSection = () => {
     {
       title: "Works on Any Device",
       description: "Desktop, laptop, tablet, or mobile.",
-      icon: <Zap size={36} style={{ color: '#009bca' }} />
+      icon: <Zap size={36} style={{ color: crushAIColors.icons.primary }} />
     },
     {
       title: "Instant Sync",
       description: "AI-generated notes go directly into your EHR.",
-      icon: <RefreshCw size={36} style={{ color: '#009bca' }} />
+      icon: <RefreshCw size={36} style={{ color: crushAIColors.icons.primary }} />
     },
     {
       title: "Automated Updates",
       description: "Lab results, prescriptions, and referrals auto-sync.",
-      icon: <FileCheck size={36} style={{ color: '#009bca' }} />
+      icon: <FileCheck size={36} style={{ color: crushAIColors.icons.primary }} />
     }
   ];
 
@@ -329,14 +329,14 @@ export const EhrIntegrationSection = () => {
               {features.map((item, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <Card className="overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 bg-white/95">
+                    <Card className="overflow-hidden backdrop-blur-sm bg-white/30 border border-white/20 shadow-sm hover:shadow-md transition-all duration-300">
                       <CardContent className="flex flex-col items-center text-center p-6">
                         <Box 
                           sx={{ 
                             mb: 3,
                             p: 2,
                             borderRadius: '50%',
-                            bgcolor: 'rgba(4, 111, 144, 0.1)',
+                            bgcolor: 'rgba(255, 255, 255, 0.1)',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -349,7 +349,7 @@ export const EhrIntegrationSection = () => {
                           sx={{ 
                             mb: 1.5,
                             fontWeight: 600,
-                            color: crushAIColors.text.primary,
+                            color: crushAIColors.text.white,
                             fontSize: '1.25rem',
                             letterSpacing: '-0.01em'
                           }}
@@ -358,7 +358,7 @@ export const EhrIntegrationSection = () => {
                         </Typography>
                         <Typography 
                           variant="body1"
-                          sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
+                          sx={{ color: crushAIColors.text.white, fontSize: '0.95rem', lineHeight: 1.5 }}
                         >
                           {item.description}
                         </Typography>
@@ -400,14 +400,14 @@ export const EhrIntegrationSection = () => {
                   minWidth: isTablet ? 'auto' : '300px'
                 }}
               >
-                <Card className="h-full overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all duration-300 bg-white/95">
+                <Card className="h-full overflow-hidden backdrop-blur-sm bg-white/30 border border-white/20 shadow-sm hover:shadow-md transition-all duration-300">
                   <CardContent className="flex flex-col items-center text-center p-6">
                     <Box 
                       sx={{ 
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(4, 111, 144, 0.1)',
+                        bgcolor: 'rgba(255, 255, 255, 0.1)',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -420,7 +420,7 @@ export const EhrIntegrationSection = () => {
                       sx={{ 
                         mb: 1.5,
                         fontWeight: 600,
-                        color: crushAIColors.text.primary,
+                        color: crushAIColors.text.white,
                         fontSize: '1.25rem',
                         letterSpacing: '-0.01em'
                       }}
@@ -429,7 +429,7 @@ export const EhrIntegrationSection = () => {
                     </Typography>
                     <Typography 
                       variant="body1"
-                      sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
+                      sx={{ color: crushAIColors.text.white, fontSize: '0.95rem', lineHeight: 1.5 }}
                     >
                       {item.description}
                     </Typography>

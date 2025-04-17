@@ -38,7 +38,7 @@ const globalStyles = {
   },
   // Ensure call-to-action text is visible
   '.cta-text': {
-    color: `${crushAIColors.text.primary} !important`
+    color: `${crushAIColors.text.white} !important`
   }
 };
 

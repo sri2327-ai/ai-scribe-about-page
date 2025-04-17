@@ -237,11 +237,11 @@ export const ROICalculatorSection = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
-                  color: crushAIColors.primary,
+                  color: crushAIColors.text.primary,
                   fontSize: { xs: "1.1rem", md: "1.25rem" }
                 }}
               >
-                <BarChart2 size={22} className={`text-[${crushAIColors.primary}]`} />
+                <BarChart2 size={22} style={{ color: crushAIColors.icons.primary }} />
                 Calculate Your Savings
               </Typography>
               
@@ -255,7 +255,7 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Users size={18} className={`text-[${crushAIColors.primary}]`} />
+                        <Users size={18} style={{ color: crushAIColors.icons.primary }} />
                       </InputAdornment>
                     ),
                   }}
@@ -265,16 +265,16 @@ export const ROICalculatorSection = () => {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                       },
                       '&:hover fieldset': {
-                        borderColor: crushAIColors.primary,
+                        borderColor: crushAIColors.icons.primary,
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: crushAIColors.primary,
+                        borderColor: crushAIColors.icons.primary,
                       },
                     },
                     '& .MuiFormLabel-root': {
                       color: 'rgba(0, 0, 0, 0.6)',
                       '&.Mui-focused': {
-                        color: crushAIColors.primary,
+                        color: crushAIColors.icons.primary,
                       },
                     },
                   }}
@@ -289,13 +289,13 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <DollarSign size={18} className={`text-[${crushAIColors.primary}]`} />
+                        <DollarSign size={18} style={{ color: crushAIColors.icons.primary }} />
                       </InputAdornment>
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
                         <div className="relative group">
-                          <Info size={16} className={`text-[${crushAIColors.primary}] cursor-help`} />
+                          <Info size={16} style={{ color: crushAIColors.icons.primary }} className="cursor-help" />
                           <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
                             Starting price of $99/month per provider
                           </div>
@@ -309,16 +309,16 @@ export const ROICalculatorSection = () => {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                       },
                       '&:hover fieldset': {
-                        borderColor: crushAIColors.primary,
+                        borderColor: crushAIColors.icons.primary,
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: crushAIColors.primary,
+                        borderColor: crushAIColors.icons.primary,
                       },
                     },
                     '& .MuiFormLabel-root': {
                       color: 'rgba(0, 0, 0, 0.6)',
                       '&.Mui-focused': {
-                        color: crushAIColors.primary,
+                        color: crushAIColors.icons.primary,
                       },
                     },
                   }}
@@ -333,7 +333,7 @@ export const ROICalculatorSection = () => {
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <Users size={18} className={`text-[${crushAIColors.primary}]`} />
+                        <Users size={18} style={{ color: crushAIColors.icons.primary }} />
                       </InputAdornment>
                     ),
                   }}
@@ -343,16 +343,16 @@ export const ROICalculatorSection = () => {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                       },
                       '&:hover fieldset': {
-                        borderColor: crushAIColors.primary,
+                        borderColor: crushAIColors.icons.primary,
                       },
                       '&.Mui-focused fieldset': {
-                        borderColor: crushAIColors.primary,
+                        borderColor: crushAIColors.icons.primary,
                       },
                     },
                     '& .MuiFormLabel-root': {
                       color: 'rgba(0, 0, 0, 0.6)',
                       '&.Mui-focused': {
-                        color: crushAIColors.primary,
+                        color: crushAIColors.icons.primary,
                       },
                     },
                   }}
@@ -368,7 +368,7 @@ export const ROICalculatorSection = () => {
                   sx={{ 
                     fontWeight: 700,
                     my: 1,
-                    color: crushAIColors.primary,
+                    color: crushAIColors.text.primary,
                     fontSize: { xs: "1.5rem", md: "1.75rem" }
                   }}
                 >
@@ -438,11 +438,11 @@ export const ROICalculatorSection = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: 1,
-                  color: crushAIColors.primary,
+                  color: crushAIColors.text.primary,
                   fontSize: { xs: "1.1rem", md: "1.25rem" }
                 }}
               >
-                <BarChart2 size={22} className={`text-[${crushAIColors.primary}]`} />
+                <BarChart2 size={22} style={{ color: crushAIColors.icons.primary }} />
                 Monthly Cost Comparison
               </Typography>
               
@@ -468,7 +468,8 @@ export const ROICalculatorSection = () => {
                       contentStyle={{ 
                         backgroundColor: '#fff', 
                         border: `1px solid ${crushAIColors.primary}`,
-                        borderRadius: '4px'
+                        borderRadius: '4px',
+                        color: crushAIColors.text.primary
                       }}
                     />
                     <Bar
