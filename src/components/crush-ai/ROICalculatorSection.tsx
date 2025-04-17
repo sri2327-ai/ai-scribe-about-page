@@ -194,11 +194,8 @@ export const ROICalculatorSection = () => {
                   fontWeight: 700, 
                   mb: 2,
                   fontSize: { xs: "1.75rem", md: "2.5rem" },
-                  background: crushAIColors.primary,
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
+                  color: '#000000',
                   lineHeight: 1.2,
-                  color: crushAIColors.text.primary,
                 }}
               >
                 Save $1,800+/month per provider. Automate Notes with AI.

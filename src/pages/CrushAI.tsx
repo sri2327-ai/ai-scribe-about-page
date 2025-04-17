@@ -22,11 +22,11 @@ import { WaveBackground } from "@/components/ui/wave-background";
 const globalStyles = {
   // Ensure workflow animation uses correct colors
   '.animated-workflow': {
-    color: crushAIColors.text.primary, // Updated to black
+    color: crushAIColors.text.primary, 
     '& svg, & path, & g': {
-      color: `${crushAIColors.text.primary} !important`,
-      fill: `${crushAIColors.text.primary} !important`,
-      stroke: `${crushAIColors.text.primary} !important`,
+      color: `${crushAIColors.icons.primary} !important`,
+      fill: `${crushAIColors.icons.primary} !important`,
+      stroke: `${crushAIColors.icons.primary} !important`,
     },
     '& text': {
       fill: `${crushAIColors.text.primary} !important`,
@@ -35,6 +35,10 @@ const globalStyles = {
   // Ensure buttons have the correct background
   '.demo-button': {
     background: `${crushAIColors.button.gradient} !important`
+  },
+  // Ensure call-to-action text is visible
+  '.cta-text': {
+    color: `${crushAIColors.text.primary} !important`
   }
 };
 
@@ -43,9 +47,9 @@ const CrushAI = () => {
     <Box 
       sx={{ 
         bgcolor: crushAIColors.background.white, 
-        color: crushAIColors.text.primary, // Updated to black
-        overflow: 'hidden', // Prevent horizontal scrolling issues
-        position: 'relative', // Better positioning context
+        color: crushAIColors.text.primary,
+        overflow: 'hidden',
+        position: 'relative',
         ...globalStyles
       }}
     >
@@ -113,6 +117,7 @@ const CrushAI = () => {
               letterSpacing: "-0.03em", // More modern typography
               lineHeight: 1.2 // Better readability
             }}
+            className="cta-text"
           >
             CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
           </Typography>

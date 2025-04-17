@@ -29,7 +29,7 @@ export const crushAIColors = {
     hover: 'linear-gradient(90deg,#00b3e6,#0d252b)', // Slightly lighter for hover state
   },
   icons: {
-    primary: '#046f90', // Primary color for icons
-    secondary: '#0d252b', // Secondary color for icons
+    primary: '#888888', // Updated to grey for icons
+    secondary: '#666666', // Updated to darker grey for secondary icons
   }
 };

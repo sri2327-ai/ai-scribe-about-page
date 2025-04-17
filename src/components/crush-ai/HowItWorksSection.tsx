@@ -830,8 +830,8 @@ export const HowItWorksSection = () => {
         >
           <ShadcnButton 
             size="lg" 
-            className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
-            onClick={() => {}}
+            className="text-white rounded-full px-8 py-6 text-lg shadow-lg"
+            style={{ background: crushAIColors.button.gradient }}
           >
             <ArrowRight size={16} className="mr-2" />
             REQUEST A DEMO

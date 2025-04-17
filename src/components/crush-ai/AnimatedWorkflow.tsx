@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -7,9 +6,10 @@ import {
   Clock, Heart, Database, History
 } from "lucide-react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 // Define primary color for consistency
-const primaryColor = "#143151";
+const primaryColor = "#000000";
 
 const workflowSteps = [
   {
@@ -461,8 +461,6 @@ export function AnimatedWorkflow() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
-  // Make sure to include all necessary steps for mobile view
-  // Update mobileSteps to include all steps (0-6) - especially for final step Push to EHR
   const mobileSteps = isMobile ? [0, 2, 5, 6] : [0, 1, 2, 3, 4, 5, 6];
   
   const isMobileStepVisible = (index: number) => {
@@ -482,7 +480,6 @@ export function AnimatedWorkflow() {
     if (isRecording && isAutoPlaying) {
       const intervalId = setInterval(() => {
         setCurrentStep((prev) => {
-          // For mobile view, make sure we're only navigating through visible steps
           if (isMobile) {
             const currentMobileIndex = mobileSteps.indexOf(prev);
             if (currentMobileIndex >= mobileSteps.length - 1) {
@@ -492,7 +489,6 @@ export function AnimatedWorkflow() {
             }
             return mobileSteps[currentMobileIndex + 1];
           } else {
-            // Default behavior for non-mobile
             if (prev >= workflowSteps.length - 1) {
               setIsRecording(false);
               setCompleted(true);
@@ -541,17 +537,15 @@ export function AnimatedWorkflow() {
     return () => clearTimeout(inactivityTimer);
   };
 
-  // Find the next step based on current step in mobileSteps
   const getNextMobileStep = (currentIndex: number) => {
     if (isMobile) {
       const currentMobileIndex = mobileSteps.indexOf(currentIndex);
       if (currentMobileIndex !== -1 && currentMobileIndex < mobileSteps.length - 1) {
         return mobileSteps[currentMobileIndex + 1];
       }
-      return 0; // Reset to beginning if at end
+      return 0;
     }
     
-    // Default for non-mobile
     return currentIndex < workflowSteps.length - 1 ? currentIndex + 1 : 0;
   };
 
@@ -559,7 +553,6 @@ export function AnimatedWorkflow() {
     const nextStep = getNextMobileStep(currentStep);
     setCurrentStep(nextStep);
     
-    // If we've gone through all steps, show completion
     if ((isMobile && nextStep === 0) || (!isMobile && nextStep === 0)) {
       setCompleted(true);
     }
@@ -619,13 +612,13 @@ export function AnimatedWorkflow() {
               mx: "auto"
             }}
           >
-            <CheckCircle size={isMobile ? 50 : 60} color={primaryColor} />
+            <CheckCircle size={isMobile ? 50 : 60} color={crushAIColors.icons.primary} />
             
             <Typography 
               variant="h5" 
               sx={{ 
                 fontWeight: 700, 
-                color: primaryColor, 
+                color: crushAIColors.text.primary, 
                 fontSize: { xs: "1.25rem", sm: "1.5rem" } 
               }}
             >
@@ -635,7 +628,7 @@ export function AnimatedWorkflow() {
             <Typography 
               variant="body1" 
               sx={{ 
-                color: primaryColor, 
+                color: crushAIColors.text.primary, 
                 maxWidth: "350px", 
                 fontSize: { xs: "0.875rem", sm: "1rem" },
                 mb: { xs: 1, sm: 2 }
@@ -659,8 +652,8 @@ export function AnimatedWorkflow() {
                 transition={{ repeat: Infinity, duration: 2 }}
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
-                <Clock size={28} color={primaryColor} style={{ marginBottom: "4px" }} />
-                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
+                <Clock size={28} color={crushAIColors.icons.primary} style={{ marginBottom: "4px" }} />
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: crushAIColors.text.primary }}>
                   Time Saved
                 </Typography>
               </Box>
@@ -671,7 +664,7 @@ export function AnimatedWorkflow() {
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
               >
                 <Heart size={28} className="text-red-500" style={{ marginBottom: "4px" }} />
-                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: primaryColor }}>
+                <Typography sx={{ fontSize: { xs: "0.7rem", sm: "0.8rem" }, fontWeight: "bold", color: crushAIColors.text.primary }}>
                   Burnout Crushed
                 </Typography>
               </Box>
@@ -693,7 +686,7 @@ export function AnimatedWorkflow() {
                 mt: { xs: 3, sm: 4 },
                 py: 1.5,
                 px: 4,
-                bgcolor: primaryColor,
+                bgcolor: crushAIColors.button.gradient,
                 color: "white",
                 borderRadius: "9999px",
                 cursor: "pointer",
@@ -724,7 +717,6 @@ export function AnimatedWorkflow() {
           const isComplete = currentStep > index;
           const isHovered = hovered === index;
           
-          // Enhanced logic for mobile view display
           const shouldDisplay = isMobile ? isMobileStepVisible(index) : true;
           
           if (!shouldDisplay) return null;
@@ -770,7 +762,7 @@ export function AnimatedWorkflow() {
                   sx={{ 
                     mr: { xs: 1, sm: 2 },
                     opacity: isActive || isComplete ? 1 : 0.7,
-                    color: isComplete ? primaryColor : primaryColor,
+                    color: isComplete ? crushAIColors.icons.primary : crushAIColors.icons.primary,
                     transition: "transform 0.2s ease",
                     transform: isActive ? "scale(1.1)" : "scale(1)",
                     mt: 0.5,
@@ -781,8 +773,8 @@ export function AnimatedWorkflow() {
                   }}
                 >
                   {isComplete ? 
-                    <CheckCircle size={20} color={primaryColor} /> : 
-                    React.cloneElement(step.icon as React.ReactElement, { size: 20, color: primaryColor })
+                    <CheckCircle size={20} color={crushAIColors.icons.primary} /> : 
+                    React.cloneElement(step.icon as React.ReactElement, { size: 20, color: crushAIColors.icons.primary })
                   }
                 </Box>
                 <Box sx={{ flex: 1 }}>
@@ -790,7 +782,7 @@ export function AnimatedWorkflow() {
                     variant="subtitle1" 
                     sx={{ 
                       fontWeight: isActive ? 600 : 500,
-                      color: primaryColor,
+                      color: crushAIColors.text.primary,
                       fontSize: { xs: "0.85rem", sm: "0.95rem" }
                     }}
                   >
@@ -804,7 +796,7 @@ export function AnimatedWorkflow() {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         variant="body2" 
-                        sx={{ color: primaryColor, fontSize: { xs: "0.75rem", sm: "0.85rem" } }}
+                        sx={{ color: crushAIColors.text.primary, fontSize: { xs: "0.75rem", sm: "0.85rem" } }}
                       >
                         {step.description}
                       </Typography>
@@ -822,7 +814,7 @@ export function AnimatedWorkflow() {
                       className="w-3 h-3 rounded-full animate-pulse"
                       animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.8, 0.3] }}
                       transition={{ repeat: Infinity, duration: 1.5 }}
-                      style={{ backgroundColor: primaryColor }}
+                      style={{ backgroundColor: crushAIColors.icons.primary }}
                     />
                   </Box>
                 )}
@@ -841,7 +833,6 @@ export function AnimatedWorkflow() {
                 )}
               </AnimatePresence>
               
-              {/* Mobile-focused: Show Next button for the active step */}
               {isActive && isMobile && index < workflowSteps.length - 1 && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -861,7 +852,7 @@ export function AnimatedWorkflow() {
                     sx={{
                       py: 1,
                       px: 3,
-                      bgcolor: primaryColor,
+                      background: crushAIColors.button.gradient,
                       color: 'white',
                       borderRadius: '9999px',
                       cursor: 'pointer',
@@ -869,50 +860,11 @@ export function AnimatedWorkflow() {
                       fontWeight: 'medium',
                       boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
                       '&:hover': {
-                        bgcolor: primaryColor,
                         opacity: 0.9
                       }
                     }}
                   >
                     Next Step
-                  </Box>
-                </motion.div>
-              )}
-              
-              {/* Show Complete button for the last step */}
-              {isActive && index === workflowSteps.length - 1 && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1 }}
-                  style={{ 
-                    marginTop: 16, 
-                    alignSelf: 'center',
-                    zIndex: 20
-                  }}
-                >
-                  <Box
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setCompleted(true);
-                    }}
-                    sx={{
-                      py: 1,
-                      px: 3,
-                      bgcolor: primaryColor,
-                      color: 'white',
-                      borderRadius: '9999px',
-                      cursor: 'pointer',
-                      fontSize: '0.75rem',
-                      fontWeight: 'medium',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-                      '&:hover': {
-                        bgcolor: primaryColor,
-                        opacity: 0.9
-                      }
-                    }}
-                  >
-                    Complete Encounter
                   </Box>
                 </motion.div>
               )}
