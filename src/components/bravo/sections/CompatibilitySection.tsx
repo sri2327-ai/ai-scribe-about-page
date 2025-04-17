@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { motion } from "framer-motion";
 import { ImageTrail } from "@/components/ui/image-trail";
 import { Phone, MessageSquare, Calendar, Database, Clock, Bell, FileCheck } from 'lucide-react';
+import { bravoColors } from '@/theme/bravo-theme';
 
 export const CompatibilitySection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -51,7 +52,7 @@ export const CompatibilitySection = () => {
           transition={{ duration: 0.6 }}
           className="text-center relative z-10"
         >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
+          <h2 className="text-3xl font-bold mb-8" style={{ color: bravoColors.primary }}>
             Compatible with Your Preferred SIP, Patient Platform & PMS
           </h2>
           
