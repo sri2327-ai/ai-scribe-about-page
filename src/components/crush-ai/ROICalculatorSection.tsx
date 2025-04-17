@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -6,6 +7,9 @@ import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, Responsiv
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+
+// Define the teal color to match the testimonial section
+const tealBlueColor = "#5192AE";
 
 interface Particle {
   id: number;
@@ -454,14 +458,14 @@ export const ROICalculatorSection = () => {
                       formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
                       contentStyle={{ 
                         backgroundColor: '#fff', 
-                        border: `1px solid ${crushAIColors.primary}`,
+                        border: `1px solid ${tealBlueColor}`,
                         borderRadius: '4px',
                         color: crushAIColors.text.primary
                       }}
                     />
                     <Bar
                       dataKey="value"
-                      fill={crushAIColors.primary}
+                      fill={tealBlueColor} // Using the teal blue color as requested
                       radius={[8, 8, 0, 0]}
                       name="Cost"
                     />
