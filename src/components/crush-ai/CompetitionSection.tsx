@@ -162,10 +162,10 @@ export const CompetitionSection = () => {
           >
             <Table>
               <TableHeader>
-                <TableRow className="bg-gray-800/90 border-b border-gray-700">
-                  <TableHead className="font-bold text-lg text-white w-1/3">Feature</TableHead>
-                  <TableHead className="font-bold text-lg text-white w-1/3">C.R.U.S.H.</TableHead>
-                  <TableHead className="font-bold text-lg text-white w-1/3">Other AI Scribes</TableHead>
+                <TableRow className="bg-white border-b border-gray-200">
+                  <TableHead className="font-semibold text-lg text-gray-800 w-1/3">Feature</TableHead>
+                  <TableHead className="font-semibold text-lg text-gray-800 w-1/3">C.R.U.S.H.</TableHead>
+                  <TableHead className="font-semibold text-lg text-gray-800 w-1/3">Other AI Scribes</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

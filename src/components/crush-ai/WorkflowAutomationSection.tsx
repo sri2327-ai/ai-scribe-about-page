@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -6,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
-// Define the new blue color for the slider
+// Define color for the slider - light blue color as requested
 const sliderBlueColor = "#5192AE";
 
 export const WorkflowAutomationSection = () => {
@@ -115,7 +116,7 @@ export const WorkflowAutomationSection = () => {
               variant="h2"
               sx={{
                 fontSize: { xs: "1.75rem", md: "2.75rem" },
-                fontWeight: 800,
+                fontWeight: 700,
                 mb: 2,
                 color: crushAIColors.text.primary,
                 maxWidth: "800px"
@@ -130,7 +131,8 @@ export const WorkflowAutomationSection = () => {
                 color: crushAIColors.text.secondary,
                 fontSize: { xs: "0.95rem", md: "1.1rem" },
                 mb: 2,
-                maxWidth: "800px"
+                maxWidth: "800px",
+                fontWeight: 400
               }}
             >
               Engage fully with your patients while CRUSH automatically documents everything. No more typing during visits or staying late to finish notes. Let AI do the admin work so you can focus on what matters most - patient care.
@@ -237,10 +239,11 @@ export const WorkflowAutomationSection = () => {
                   onDragEnd={handleDragEnd}
                 >
                   <div 
-                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white border-2 border-${crushAIColors.primary} shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                     style={{ 
                       borderColor: crushAIColors.primary,
-                      backgroundColor: 'white'
+                      backgroundColor: 'white',
+                      border: '2px solid #5192AE'
                     }}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
@@ -248,7 +251,7 @@ export const WorkflowAutomationSection = () => {
                         <div 
                           key={index} 
                           className="w-[2px] h-[2px] rounded-full"
-                          style={{ backgroundColor: `${crushAIColors.primary}70` }}
+                          style={{ backgroundColor: `#5192AE` }}
                         ></div>
                       ))}
                     </div>
@@ -260,8 +263,8 @@ export const WorkflowAutomationSection = () => {
                   <>
                     <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                        <Monitor className="h-4 w-4 text-black" />
-                        <span className="text-sm text-black font-medium">Screen-Focused</span>
+                        <Monitor className="h-4 w-4 text-white" />
+                        <span className="text-sm text-white font-medium">Screen-Focused</span>
                       </div>
                       <div className={`flex items-center gap-2 ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <span 
@@ -322,20 +325,6 @@ export const WorkflowAutomationSection = () => {
                     style={{ color: crushAIColors.primary }}
                   />
                 </div>
-              </div>
-              
-              <div className="mt-8 flex justify-center">
-                <Button 
-                  size={isMobile ? "default" : "lg"} 
-                  className="rounded-full px-6 py-5 text-base md:text-lg shadow-lg"
-                  style={{ 
-                    backgroundColor: crushAIColors.primary,
-                    color: "white"
-                  }}
-                >
-                  <ArrowRight size={16} className="mr-2" />
-                  REQUEST A DEMO
-                </Button>
               </div>
             </div>
           </Box>

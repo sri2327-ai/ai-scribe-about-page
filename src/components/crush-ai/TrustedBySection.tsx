@@ -39,7 +39,7 @@ export const TrustedBySection = () => {
       ref={sectionRef}
       sx={{ 
         py: { xs: 6, md: 10 },
-        bgcolor: crushAIColors.background.light,
+        background: 'linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)',
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -77,7 +77,7 @@ export const TrustedBySection = () => {
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: crushAIColors.text.primary, // Updated to black
+                  color: crushAIColors.text.primary, 
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -88,7 +88,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: crushAIColors.text.primary, // Updated to black
+                color: crushAIColors.text.primary,
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -98,10 +98,11 @@ export const TrustedBySection = () => {
             <Typography 
               variant="body1"
               sx={{ 
-                color: crushAIColors.text.secondary, // Updated to black
+                color: crushAIColors.text.secondary,
                 fontSize: '1rem', 
                 maxWidth: '600px',
-                mx: 'auto'
+                mx: 'auto',
+                fontWeight: 400
               }}
             >
               Join thousands of healthcare professionals who have increased their efficiency and improved patient care with CRUSH.
@@ -165,7 +166,7 @@ export const TrustedBySection = () => {
                 justifyContent: 'center'
               }}
             >
-              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, fontSize: '0.875rem' }}>
+              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, fontSize: '0.875rem', fontWeight: 400 }}>
                 + Thousands more clinicians making better use of their time
               </Typography>
             </Box>
