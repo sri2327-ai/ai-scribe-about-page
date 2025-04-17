@@ -42,7 +42,7 @@ const CrushAI = () => {
       <GradientSection 
         variant="linear"
         intensity="medium"
-        colors={['#f8f9fa', '#e9ecef']}
+        colors={[crushAIColors.background.gradient.split(',')[0].split('(')[1], crushAIColors.background.gradient.split(',')[1].split(')')[0]]}
       >
         <HowItWorksSection />
       </GradientSection>
@@ -55,7 +55,7 @@ const CrushAI = () => {
       <GradientSection 
         variant="linear"
         intensity="medium"
-        colors={['#f8f9fa', '#e9ecef']}
+        colors={[crushAIColors.background.gradient.split(',')[0].split('(')[1], crushAIColors.background.gradient.split(',')[1].split(')')[0]]}
       >
         <ClinicalWorkflowSection />
       </GradientSection>

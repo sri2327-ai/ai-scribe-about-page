@@ -70,7 +70,7 @@ export const HeroSection = () => {
                   fontSize: { xs: '1.7rem', sm: '2rem' }, 
                   fontWeight: 800,
                   mb: 2,
-                  color: '#000000',
+                  color: crushAIColors.text.primary,
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1
                 }}
@@ -78,7 +78,7 @@ export const HeroSection = () => {
                 <Box 
                   component="span" 
                   sx={{ 
-                    color: '#000000', 
+                    color: crushAIColors.text.primary, 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
@@ -95,7 +95,7 @@ export const HeroSection = () => {
                 variant="h6" 
                 sx={{ 
                   mb: 4, 
-                  color: '#005477',
+                  color: crushAIColors.text.secondary,
                   fontSize: { xs: '0.85rem', sm: '0.95rem' },
                   fontWeight: 400,
                   lineHeight: 1.5
@@ -187,7 +187,7 @@ export const HeroSection = () => {
                     fontSize: '2.3rem', 
                     fontWeight: 800,
                     mb: 2,
-                    color: '#000000',
+                    color: crushAIColors.text.primary,
                     letterSpacing: '-0.02em',
                     lineHeight: 1.1
                   }}
@@ -195,7 +195,7 @@ export const HeroSection = () => {
                   <Box 
                     component="span" 
                     sx={{ 
-                      color: '#000000', 
+                      color: crushAIColors.text.primary, 
                       display: 'flex', 
                       alignItems: 'center',
                       flexWrap: 'wrap' 
@@ -211,7 +211,7 @@ export const HeroSection = () => {
                   variant="h6" 
                   sx={{ 
                     mb: 4, 
-                    color: '#005477',
+                    color: crushAIColors.text.secondary,
                     fontSize: '0.95rem',
                     fontWeight: 400,
                     lineHeight: 1.5

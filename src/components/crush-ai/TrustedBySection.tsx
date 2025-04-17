@@ -64,20 +64,20 @@ export const TrustedBySection = () => {
                 sx={{
                   p: 1.5,
                   borderRadius: '50%',
-                  border: `2px solid ${crushAIColors.primary}`,
+                  border: `2px solid ${crushAIColors.primaryFlat}`,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   mr: 2
                 }}
               >
-                <Users size={28} className={`text-[${crushAIColors.primary}]`} />
+                <Users size={28} className={`text-[${crushAIColors.primaryFlat}]`} />
               </Box>
               <Typography 
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: crushAIColors.primary,
+                  color: crushAIColors.primaryFlat,
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -88,7 +88,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: crushAIColors.primary,
+                color: crushAIColors.primaryFlat,
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -148,7 +148,7 @@ export const TrustedBySection = () => {
                     {clinician.image ? (
                       <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
                     ) : (
-                      <AvatarFallback className="bg-gray-100 text-[#143151] font-medium">
+                      <AvatarFallback className="bg-gray-100 text-[#046f90] font-medium">
                         {clinician.initials}
                       </AvatarFallback>
                     )}
