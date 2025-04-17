@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -120,10 +119,10 @@ export const ROICalculatorSection = () => {
       ref={sectionRef}
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 12, md: 16 }, // Increased bottom padding to prevent button cutoff
+        pb: { xs: 16, md: 20 },
         position: "relative",
         overflow: "hidden",
-        minHeight: { xs: "110vh", md: "100vh" }, // Increased height on mobile
+        minHeight: { xs: "120vh", sm: "130vh", md: "110vh" },
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -160,7 +159,7 @@ export const ROICalculatorSection = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          padding: "0 0 60px 0", // Increased bottom padding
+          padding: "0 0 100px 0",
         }}
       >
         <Container 
@@ -174,7 +173,7 @@ export const ROICalculatorSection = () => {
             flexDirection: "column",
             height: "100%",
             overflow: "visible",
-            mb: { xs: 6, md: 8 }, // Increased bottom margin
+            mb: { xs: 10, sm: 12, md: 14 },
           }}
         >
           <Box 
@@ -383,7 +382,7 @@ export const ROICalculatorSection = () => {
                 </Typography>
               </div>
               
-              <div className="flex justify-center mb-4"> {/* Added margin bottom */}
+              <div className="flex justify-center mb-8 mt-4">
                 <Button
                   className={cn(
                     "min-w-40 relative touch-none",
@@ -391,7 +390,7 @@ export const ROICalculatorSection = () => {
                     "border border-[#143151]/20",
                     "transition-all duration-300",
                     "py-2",
-                    "mb-6" /* Increased bottom margin */
+                    "mb-8"
                   )}
                   onClick={calculateSavings}
                   onMouseEnter={handleInteractionStart}
@@ -483,7 +482,7 @@ export const ROICalculatorSection = () => {
               </div>
               
               <Button 
-                className="w-full mt-3 md:mt-4 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2 mb-3"
+                className="w-full mt-6 mb-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2.5"
               >
                 Book A Demo
               </Button>
