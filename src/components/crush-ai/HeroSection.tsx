@@ -29,15 +29,16 @@ export const HeroSection = () => {
 
   return (
     <GradientSection 
+      variant="linear"
       intensity="light"
-      variant="radial"
       sx={{ 
         py: { xs: 6, sm: 10, md: 16 },
         position: 'relative',
         overflow: 'hidden',
         height: 'auto',
         minHeight: { xs: 'auto', md: '90vh' },
-        mt: { xs: 6, sm: 8, md: 0 }
+        mt: { xs: 6, sm: 8, md: 0 },
+        background: crushAIColors.background.gradient,
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
@@ -69,7 +70,7 @@ export const HeroSection = () => {
                   fontSize: { xs: '1.7rem', sm: '2rem' }, 
                   fontWeight: 800,
                   mb: 2,
-                  color: crushAIColors.primary,
+                  color: '#000000',
                   letterSpacing: '-0.02em',
                   lineHeight: 1.1
                 }}
@@ -77,7 +78,7 @@ export const HeroSection = () => {
                 <Box 
                   component="span" 
                   sx={{ 
-                    color: crushAIColors.primary, 
+                    color: '#000000', 
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center',
@@ -94,7 +95,7 @@ export const HeroSection = () => {
                 variant="h6" 
                 sx={{ 
                   mb: 4, 
-                  color: crushAIColors.text.secondary,
+                  color: '#005477',
                   fontSize: { xs: '0.85rem', sm: '0.95rem' },
                   fontWeight: 400,
                   lineHeight: 1.5
@@ -106,7 +107,8 @@ export const HeroSection = () => {
 
               <ShadcnButton 
                 size="lg" 
-                className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                className="text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                style={{ background: crushAIColors.button.gradient }}
               >
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
@@ -128,9 +130,9 @@ export const HeroSection = () => {
             >
               {/* Ripple effect background */}
               <div className={rippleStyles.rippleBackground}>
-                <div className={rippleStyles.ripple}></div>
-                <div className={rippleStyles.ripple}></div>
-                <div className={rippleStyles.ripple}></div>
+                <div className={`${rippleStyles.ripple} bg-[#046f90]/30`}></div>
+                <div className={`${rippleStyles.ripple} bg-[#046f90]/20`}></div>
+                <div className={`${rippleStyles.ripple} bg-[#046f90]/10`}></div>
               </div>
               
               <Box 
@@ -185,7 +187,7 @@ export const HeroSection = () => {
                     fontSize: '2.3rem', 
                     fontWeight: 800,
                     mb: 2,
-                    color: crushAIColors.primary,
+                    color: '#000000',
                     letterSpacing: '-0.02em',
                     lineHeight: 1.1
                   }}
@@ -193,7 +195,7 @@ export const HeroSection = () => {
                   <Box 
                     component="span" 
                     sx={{ 
-                      color: crushAIColors.primary, 
+                      color: '#000000', 
                       display: 'flex', 
                       alignItems: 'center',
                       flexWrap: 'wrap' 
@@ -209,7 +211,7 @@ export const HeroSection = () => {
                   variant="h6" 
                   sx={{ 
                     mb: 4, 
-                    color: crushAIColors.text.secondary,
+                    color: '#005477',
                     fontSize: '0.95rem',
                     fontWeight: 400,
                     lineHeight: 1.5
@@ -221,7 +223,8 @@ export const HeroSection = () => {
 
                 <ShadcnButton 
                   size="lg" 
-                  className="bg-[#143151] hover:bg-[#143151]/90 text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                  className="text-white rounded-full px-8 py-6 text-lg shadow-lg"
+                  style={{ background: crushAIColors.button.gradient }}
                 >
                   <ArrowRight size={16} className="mr-2" />
                   REQUEST A DEMO
@@ -241,9 +244,9 @@ export const HeroSection = () => {
             >
               {/* Ripple effect background */}
               <div className={rippleStyles.rippleBackground}>
-                <div className={rippleStyles.ripple}></div>
-                <div className={rippleStyles.ripple}></div>
-                <div className={rippleStyles.ripple}></div>
+                <div className={`${rippleStyles.ripple} bg-[#046f90]/30`}></div>
+                <div className={`${rippleStyles.ripple} bg-[#046f90]/20`}></div>
+                <div className={`${rippleStyles.ripple} bg-[#046f90]/10`}></div>
               </div>
               
               <Box 

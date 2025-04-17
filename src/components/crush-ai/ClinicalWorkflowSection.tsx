@@ -34,20 +34,20 @@ const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardP
     transition={{ duration: 0.5 }}
     viewport={{ once: true, margin: "-50px" }}
     className={cn(
-      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-black/10 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md",
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-black/5 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md bg-white",
       className
     )}
   >
     <div className="flex flex-col gap-3 z-10">
       <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
-        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
+        <Icon size={24} className="text-[#046f90] stroke-[1.5]" />
       </div>
       
       <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 className={`text-xl font-semibold text-[${crushAIColors.primary}] mb-2`}>
+        <h3 className="text-xl font-semibold text-black mb-2">
           {title}
         </h3>
-        <p className={`text-[${crushAIColors.text.secondary}]`}>{description}</p>
+        <p className="text-[#005477]">{description}</p>
       </div>
     </div>
   </motion.div>
@@ -146,11 +146,11 @@ export const ClinicalWorkflowSection = () => {
           sx={{ 
             fontWeight: 600, 
             mb: 1,
-            color: crushAIColors.primary,
+            color: '#000000',
             fontSize: { xs: "1.5rem", md: "1.75rem" }
           }}
         >
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#143151] to-[#5192AE]">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#046f90] to-[#0d252b]">
             {activeTab === "admin" ? "Automate Staffing & Cut Admin Work" : "AI Assistance for Physicians – Smarter, More Accurate Decisions"}
           </span>
         </Typography>
@@ -177,10 +177,10 @@ export const ClinicalWorkflowSection = () => {
       className
     )}>
       <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
+        <Icon size={24} className="text-[#046f90] stroke-[1.5]" />
       </div>
-      <h3 className={`text-lg font-semibold mb-2 text-[${crushAIColors.primary}]`}>{title}</h3>
-      <p className={`text-sm text-[${crushAIColors.text.secondary}]`}>{description}</p>
+      <h3 className="text-lg font-semibold mb-2 text-black">{title}</h3>
+      <p className="text-sm text-[#005477]">{description}</p>
     </div>
   );
 
@@ -189,7 +189,7 @@ export const ClinicalWorkflowSection = () => {
       component="section"
       sx={{
         py: { xs: 4, md: 6 },
-        bgcolor: crushAIColors.background.white,
+        background: crushAIColors.background.gradient,
         position: "relative",
         overflow: "hidden"
       }}
@@ -207,7 +207,7 @@ export const ClinicalWorkflowSection = () => {
               sx={{ 
                 fontWeight: 700, 
                 mb: 3,
-                color: crushAIColors.primary,
+                color: '#000000',
                 textAlign: "center",
                 fontSize: { xs: "1.75rem", sm: "2.25rem", md: "2.75rem" },
               }}
@@ -225,7 +225,7 @@ export const ClinicalWorkflowSection = () => {
             <Typography 
               variant="body1" 
               sx={{ 
-                color: crushAIColors.text.secondary, 
+                color: '#005477', 
                 maxWidth: "800px",
                 mx: "auto",
                 lineHeight: 1.8,
@@ -243,13 +243,13 @@ export const ClinicalWorkflowSection = () => {
             <TabsList className="w-auto bg-black/5 p-1.5 rounded-full shadow-sm">
               <TabsTrigger 
                 value="admin" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-[#143151] data-[state=active]:text-white hover:bg-[#143151]/10"
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
               >
                 {isMobile ? "Admin" : "Automate Staffing & Admin Work"}
               </TabsTrigger>
               <TabsTrigger 
                 value="clinical" 
-                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-[#143151] data-[state=active]:text-white hover:bg-[#143151]/10"
+                className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
               >
                 {isMobile ? "Clinical" : "AI Assistance for Physicians"}
               </TabsTrigger>

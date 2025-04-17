@@ -241,11 +241,11 @@ type Weight = "default" | "thin" | "base" | "semi" | "bold" | "black"
 // Mock EHR logos for demonstration
 // For a real implementation, you would replace these with actual SVG imports 
 const ehrLogos = [
-  { id: 1, name: "Epic", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#143151" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="10">Epic</text></svg> },
-  { id: 2, name: "Cerner", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#143151" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8">Cerner</text></svg> },
-  { id: 3, name: "Meditech", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#143151" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="7">Meditech</text></svg> },
-  { id: 4, name: "NextGen", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#143151" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="7">NextGen</text></svg> },
-  { id: 5, name: "Athena", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#143151" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8">Athena</text></svg> },
+  { id: 1, name: "Epic", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="10">Epic</text></svg> },
+  { id: 2, name: "Cerner", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8">Cerner</text></svg> },
+  { id: 3, name: "Meditech", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="7">Meditech</text></svg> },
+  { id: 4, name: "NextGen", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="7">NextGen</text></svg> },
+  { id: 5, name: "Athena", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8">Athena</text></svg> },
 ]
 
 // Main EHR Integration Section
@@ -258,23 +258,23 @@ export const EhrIntegrationSection = () => {
     {
       title: "Works on Any Device",
       description: "Desktop, laptop, tablet, or mobile.",
-      icon: <Zap size={36} style={{ color: crushAIColors.secondary }} />
+      icon: <Zap size={36} style={{ color: '#009bca' }} />
     },
     {
       title: "Instant Sync",
       description: "AI-generated notes go directly into your EHR.",
-      icon: <RefreshCw size={36} style={{ color: crushAIColors.secondary }} />
+      icon: <RefreshCw size={36} style={{ color: '#009bca' }} />
     },
     {
       title: "Automated Updates",
       description: "Lab results, prescriptions, and referrals auto-sync.",
-      icon: <FileCheck size={36} style={{ color: crushAIColors.secondary }} />
+      icon: <FileCheck size={36} style={{ color: '#009bca' }} />
     }
   ];
 
   return (
     <WaveBackground 
-      baseColor={crushAIColors.secondary}
+      baseColor="#046f90"
       intensity="light"
     >
       <Box 
@@ -300,7 +300,7 @@ export const EhrIntegrationSection = () => {
                 fontSize: { xs: '1.75rem', md: '2.75rem' },
                 fontWeight: 800,
                 mb: 3,
-                color: crushAIColors.text.primary,
+                color: '#fff',
                 letterSpacing: '-0.04em',
                 lineHeight: 1.1
               }}
@@ -312,7 +312,7 @@ export const EhrIntegrationSection = () => {
               sx={{ 
                 maxWidth: 720,
                 mx: 'auto',
-                color: crushAIColors.text.primary,
+                color: '#fff',
                 fontWeight: 400,
                 mb: 5,
                 fontSize: { xs: '0.95rem', md: '1.05rem' },
@@ -353,7 +353,7 @@ export const EhrIntegrationSection = () => {
                               mb: 3,
                               p: 2,
                               borderRadius: '50%',
-                              bgcolor: `${crushAIColors.secondary}20`,
+                              bgcolor: 'rgba(4, 111, 144, 0.1)',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center'
@@ -366,7 +366,7 @@ export const EhrIntegrationSection = () => {
                             sx={{ 
                               mb: 1.5,
                               fontWeight: 600,
-                              color: crushAIColors.text.primary,
+                              color: '#000000',
                               fontSize: '1.25rem',
                               letterSpacing: '-0.01em'
                             }}
@@ -375,7 +375,7 @@ export const EhrIntegrationSection = () => {
                           </Typography>
                           <Typography 
                             variant="body1"
-                            sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
+                            sx={{ color: '#005477', fontSize: '0.95rem', lineHeight: 1.5 }}
                           >
                             {item.description}
                           </Typography>
@@ -424,7 +424,7 @@ export const EhrIntegrationSection = () => {
                           mb: 3,
                           p: 2,
                           borderRadius: '50%',
-                          bgcolor: `${crushAIColors.secondary}20`,
+                          bgcolor: 'rgba(4, 111, 144, 0.1)',
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center'
@@ -437,7 +437,7 @@ export const EhrIntegrationSection = () => {
                         sx={{ 
                           mb: 1.5,
                           fontWeight: 600,
-                          color: crushAIColors.text.primary,
+                          color: '#000000',
                           fontSize: '1.25rem',
                           letterSpacing: '-0.01em'
                         }}
@@ -446,7 +446,7 @@ export const EhrIntegrationSection = () => {
                       </Typography>
                       <Typography 
                         variant="body1"
-                        sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
+                        sx={{ color: '#005477', fontSize: '0.95rem', lineHeight: 1.5 }}
                       >
                         {item.description}
                       </Typography>

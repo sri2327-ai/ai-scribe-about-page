@@ -40,9 +40,9 @@ const CrushAI = () => {
       <ClinicianTestimonialsSection />
 
       <GradientSection 
-        variant="radial"
+        variant="linear"
         intensity="medium"
-        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
+        colors={['#f8f9fa', '#e9ecef']}
       >
         <HowItWorksSection />
       </GradientSection>
@@ -53,14 +53,14 @@ const CrushAI = () => {
       <TestimonialGenerateSection />
       
       <GradientSection 
-        variant="radial"
+        variant="linear"
         intensity="medium"
-        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
+        colors={['#f8f9fa', '#e9ecef']}
       >
         <ClinicalWorkflowSection />
       </GradientSection>
       
-      <WaveBackground baseColor={crushAIColors.secondary} intensity="medium">
+      <WaveBackground baseColor={crushAIColors.primaryFlat} intensity="medium">
         <Box 
           component="section"
           sx={{
@@ -77,8 +77,8 @@ const CrushAI = () => {
                 fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
                 fontWeight: 700,
                 mb: 3,
-                color: crushAIColors.text.primary,
-                letterSpacing: "-0.03em", // More x.ai-like typography
+                color: crushAIColors.text.white,
+                letterSpacing: "-0.03em", // More modern typography
                 lineHeight: 1.2 // Better readability
               }}
             >
@@ -86,8 +86,11 @@ const CrushAI = () => {
             </Typography>
             <Button 
               size="lg" 
-              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]" // Added subtle hover effect
-              style={{ backgroundColor: crushAIColors.primary }}
+              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]"
+              style={{ 
+                background: crushAIColors.button.gradient,
+                color: crushAIColors.text.white
+              }}
             >
               <ArrowRight size={16} className="mr-2" />
               BOOK A DEMO
@@ -100,7 +103,7 @@ const CrushAI = () => {
       
       {/* ROI Calculator section */}
       <Box sx={{ my: 4 }}> {/* Added spacing container */}
-        <WaveBackground baseColor={crushAIColors.secondary} intensity="light">
+        <WaveBackground baseColor={crushAIColors.primaryFlat} intensity="light">
           <ROICalculatorSection />
         </WaveBackground>
       </Box>
