@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -6,9 +7,11 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
+// Define color for the slider - teal blue color as requested
 const sliderBlueColor = "#5192AE";
 
 export const WorkflowAutomationSection = () => {
+  // Create a ref for the slider container
   const sliderContainerRef = useRef<HTMLDivElement>(null);
   
   const [sliderPosition, setSliderPosition] = useState<number>(50);
@@ -17,11 +20,13 @@ export const WorkflowAutomationSection = () => {
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
   const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
   
+  // Motion values for smooth animations
   const x = useMotionValue(0);
   const percent = useTransform(x, [-150, 150], [0, 100]);
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
+      // Clamp the value between 5 and 95 to ensure the slider never disappears at edges
       setSliderPosition(Math.min(Math.max(latest, 5), 95));
     });
     
@@ -35,10 +40,11 @@ export const WorkflowAutomationSection = () => {
   const handleDragEnd = () => {
     setIsDragging(false);
     
+    // Bounce back from edges to ensure visibility
     if (sliderPosition < 15) {
-      animate(x, -120, { duration: 0.3 });
+      animate(x, -120, { duration: 0.3 }); // This will set sliderPosition to ~15%
     } else if (sliderPosition > 85) {
-      animate(x, 120, { duration: 0.3 });
+      animate(x, 120, { duration: 0.3 }); // This will set sliderPosition to ~85%
     }
   };
   
@@ -58,9 +64,11 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
+    // Ensure the slider always stays within viewable area
     setSliderPosition(Math.max(5, Math.min(95, position)));
   };
 
+  // For handling direct clicks/taps on the container
   const handleDirectClick = (e: React.MouseEvent | React.TouchEvent) => {
     if (isDragging || !sliderContainerRef.current) return;
     
@@ -77,6 +85,7 @@ export const WorkflowAutomationSection = () => {
     }
     
     const position = ((clientX - rect.left) / rect.width) * 100;
+    // Ensure the slider always stays within viewable area
     const newPosition = Math.max(5, Math.min(95, position));
     setSliderPosition(newPosition);
     animate(x, (newPosition - 50) * 3, { duration: 0.3 });
@@ -154,8 +163,8 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      background: 'linear-gradient(to bottom, #e6eaf0, #d1d9e6)',
-                      color: 'black'
+                      backgroundColor: "#5192AE", // Using the teal blue color as requested
+                      color: 'white'
                     }}
                   >
                     <div className={`z-10 p-4 ${isMobile ? 'max-w-[90%]' : 'max-w-md p-8'}`}>
