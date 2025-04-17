@@ -34,6 +34,7 @@ export const ROICalculatorSection = () => {
   
   const sectionRef = useRef(null);
   const containerRef = useRef(null);
+  const titleRef = useRef(null);
   
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -47,6 +48,7 @@ export const ROICalculatorSection = () => {
   const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["92%", "100%"]);
   const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
+  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["140px", "0px"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -117,13 +119,13 @@ export const ROICalculatorSection = () => {
       component="section"
       ref={sectionRef}
       sx={{
-        py: { xs: 0, md: 0 },
+        py: { xs: 8, md: 12 },
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
       }}
     >
@@ -138,6 +140,53 @@ export const ROICalculatorSection = () => {
         }}
       />
       
+      <Box 
+        ref={titleRef}
+        sx={{ 
+          position: "relative",
+          zIndex: 20,
+          mb: { xs: 10, md: 12 },
+          px: 2,
+          width: "100%",
+          maxWidth: "lg",
+          mx: "auto",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          style={{ scale: titleScale }}
+          className="text-center"
+        >
+          <Typography 
+            variant="h3" 
+            sx={{ 
+              fontWeight: 700, 
+              mb: 2,
+              fontSize: { xs: "1.75rem", md: "2.5rem" },
+              color: crushAIColors.primary
+            }}
+          >
+            Save $1,800+/month per provider. Automate Notes with AI.
+          </Typography>
+          
+          <Typography 
+            variant="body1" 
+            sx={{
+              color: crushAIColors.text.secondary,
+              mb: 4,
+              maxWidth: "700px",
+              mx: "auto",
+              fontSize: { xs: "1rem", md: "1.1rem" }
+            }}
+          >
+            Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
+          </Typography>
+        </motion.div>
+      </Box>
+      
       <motion.div
         ref={containerRef}
         className="overflow-hidden shadow-xl z-10"
@@ -148,8 +197,11 @@ export const ROICalculatorSection = () => {
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
           position: "absolute",
-          inset: 0,
-          margin: "auto",
+          top: containerTop,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          margin: "0 auto",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -168,45 +220,6 @@ export const ROICalculatorSection = () => {
             justifyContent: "center",
           }}
         >
-          <Box sx={{ 
-            mb: { xs: 3, md: 5 }, 
-            textAlign: "center", 
-            width: "100%"
-          }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-              style={{ scale: titleScale }}
-            >
-              <Typography 
-                variant="h3" 
-                sx={{ 
-                  fontWeight: 700, 
-                  mb: 2,
-                  fontSize: { xs: "1.75rem", md: "2.5rem" },
-                  color: crushAIColors.primary
-                }}
-              >
-                Save $1,800+/month per provider. Automate Notes with AI.
-              </Typography>
-              
-              <Typography 
-                variant="body1" 
-                sx={{
-                  color: crushAIColors.text.secondary,
-                  mb: 4,
-                  maxWidth: "700px",
-                  mx: "auto",
-                  fontSize: { xs: "1rem", md: "1.1rem" }
-                }}
-              >
-                Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
-              </Typography>
-            </motion.div>
-          </Box>
-
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
