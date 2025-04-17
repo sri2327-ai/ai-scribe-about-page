@@ -14,7 +14,7 @@ const Slider = React.forwardRef<
   const [bounceActive, setBounceActive] = React.useState(false);
   
   // Fixed minimum/maximum values to prevent slider from disappearing
-  const safeThumbPosition = (value: number[]) => {
+  const safeThumbPosition = React.useCallback((value: number[]) => {
     // Ensure the slider thumb is always visible by clamping to 3-97% range
     const safeValue = [...value];
     if (safeValue.length > 0) {
@@ -28,17 +28,19 @@ const Slider = React.forwardRef<
       }
     }
     return safeValue;
-  };
+  }, []);
   
-  // Get the current value or default to [0]
-  const currentValue = props.value 
-    ? safeThumbPosition(props.value as number[]) 
-    : props.defaultValue 
-      ? safeThumbPosition(props.defaultValue as number[]) 
-      : [0];
+  // Apply safety bounds to value/defaultValue - but only once during initialization
+  const safeValue = React.useMemo(() => 
+    props.value ? safeThumbPosition(props.value as number[]) : undefined
+  , [props.value, safeThumbPosition]);
+  
+  const safeDefaultValue = React.useMemo(() => 
+    props.defaultValue ? safeThumbPosition(props.defaultValue as number[]) : undefined
+  , [props.defaultValue, safeThumbPosition]);
   
   // Handle direct click on track
-  const handleRootClick = (event: React.MouseEvent | React.TouchEvent) => {
+  const handleRootClick = React.useCallback((event: React.MouseEvent | React.TouchEvent) => {
     const root = event.currentTarget as HTMLDivElement;
     const rect = root.getBoundingClientRect();
     const thumbSize = 24; // Thumb width in px
@@ -65,7 +67,30 @@ const Slider = React.forwardRef<
       const actualValue = (clampedPercent / 100) * props.max;
       props.onValueChange([actualValue]);
     }
-  };
+  }, [props.onValueChange, props.max]);
+  
+  const handleValueChange = React.useCallback((val: number[]) => {
+    if (props.onValueChange) {
+      // Apply safety bounds before passing to user callback
+      props.onValueChange(safeThumbPosition(val));
+    }
+  }, [props.onValueChange, safeThumbPosition]);
+  
+  const handlePointerDown = React.useCallback((e: React.PointerEvent) => {
+    setIsDragging(true);
+    handleRootClick(e);
+    if (props.onPointerDown) props.onPointerDown(e);
+  }, [handleRootClick, props.onPointerDown]);
+  
+  const handlePointerUp = React.useCallback(() => {
+    setIsDragging(false);
+  }, []);
+  
+  const handleTouchStart = React.useCallback((e: React.TouchEvent) => {
+    setIsDragging(true);
+    handleRootClick(e);
+    if (props.onTouchStart) props.onTouchStart(e);
+  }, [handleRootClick, props.onTouchStart]);
   
   return (
     <SliderPrimitive.Root
@@ -74,30 +99,17 @@ const Slider = React.forwardRef<
         "relative flex w-full touch-none select-none items-center",
         className
       )}
-      onValueChange={(val) => {
-        if (props.onValueChange) {
-          // Apply safety bounds before passing to user callback
-          props.onValueChange(safeThumbPosition(val));
-        }
-      }}
+      onValueChange={handleValueChange}
       {...props}
       // Apply safety bounds to value/defaultValue
-      value={props.value ? safeThumbPosition(props.value as number[]) : undefined}
-      defaultValue={props.defaultValue ? safeThumbPosition(props.defaultValue as number[]) : undefined}
-      onPointerDown={(e) => {
-        setIsDragging(true);
-        handleRootClick(e);
-        if (props.onPointerDown) props.onPointerDown(e);
-      }}
-      onPointerUp={() => setIsDragging(false)}
-      onPointerLeave={() => setIsDragging(false)}
-      onPointerCancel={() => setIsDragging(false)}
-      onTouchStart={(e) => {
-        setIsDragging(true);
-        handleRootClick(e);
-        if (props.onTouchStart) props.onTouchStart(e);
-      }}
-      onTouchEnd={() => setIsDragging(false)}
+      value={safeValue}
+      defaultValue={safeDefaultValue}
+      onPointerDown={handlePointerDown}
+      onPointerUp={handlePointerUp}
+      onPointerLeave={handlePointerUp}
+      onPointerCancel={handlePointerUp}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handlePointerUp}
       onClick={handleRootClick} // Add click handler for direct track clicks
     >
       <SliderPrimitive.Track 
