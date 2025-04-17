@@ -19,50 +19,36 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import Image from '@mui/material/CardMedia';
 
 interface FeatureCardProps {
   icon: React.ElementType;
   title: string;
   description: string;
   className?: string;
-  image?: string;
 }
 
-const FeatureCard = ({ icon: Icon, title, description, className, image }: FeatureCardProps) => (
+const FeatureCard = ({ icon: Icon, title, description, className }: FeatureCardProps) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     viewport={{ once: true, margin: "-50px" }}
     className={cn(
-      "group relative flex flex-col overflow-hidden rounded-xl p-6 border border-black/10 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md bg-white",
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl p-6 border border-black/10 hover:border-black/20 transition-all duration-300 shadow-sm hover:shadow-md",
       className
     )}
   >
     <div className="flex flex-col gap-3 z-10">
       <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center transform-gpu transition-all duration-300 ease-in-out group-hover:scale-90">
-        <Icon size={24} className="text-[#143151] stroke-[1.5]" />
+        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
       </div>
       
       <div className="transform-gpu transition-all duration-300 group-hover:-translate-y-1">
-        <h3 className="text-xl font-semibold text-[#143151] mb-2">
+        <h3 className={`text-xl font-semibold text-[${crushAIColors.primary}] mb-2`}>
           {title}
         </h3>
-        <p className="text-[#387E89] text-sm">
-          {description}
-        </p>
+        <p className={`text-[${crushAIColors.text.secondary}]`}>{description}</p>
       </div>
-
-      {image && (
-        <div className="mt-4 rounded-lg overflow-hidden">
-          <img 
-            src={image} 
-            alt={`${title} illustration`} 
-            className="w-full h-auto object-cover rounded-lg transform transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-      )}
     </div>
   </motion.div>
 );
@@ -77,31 +63,26 @@ export const ClinicalWorkflowSection = () => {
       icon: Pill,
       title: "Prescription Refills & Lab Management",
       description: "Automates refill requests, lab order submissions, and updates lab results in patient charts—saving time and reducing errors.",
-      image: isMobile ? undefined : "/lovable-uploads/fe17400e-3f69-4ff2-b54d-064c5139ff9a.png"
     },
     {
       icon: ClipboardList,
       title: "Smart Screening & Assessments",
       description: "Conducts PHQ-9, GAD-7, PCL-5, AUDIT, and CSSRS assessments automatically, and prepares results for clinical use.",
-      image: isMobile ? undefined : "/lovable-uploads/1a770a91-b855-4f46-bb76-7b391c7b5487.png"
     },
     {
       icon: FileSpreadsheet,
       title: "Pre-Charting & Referral Automation",
       description: "Prepares charts, retrieves history, uploads patient documents, and drafts referral letters with intelligent patient insights.",
-      image: isMobile ? undefined : "/lovable-uploads/00fa5e5c-7f5f-482e-a9cb-33a0648ac65a.png"
     },
     {
       icon: Database,
       title: "CRM Sync & Patient Demographics",
       description: "Seamlessly transfers patient demographics and pre-visit data into your CRM system for streamlined workflows.",
-      image: isMobile ? undefined : "/lovable-uploads/1a2ba14f-00e6-420e-a700-93a7776b8a17.png"
     },
     {
       icon: Workflow,
       title: "Centralized Care Automation",
       description: "Integrates chart prep, referrals, labs, and CRM updates into a unified flow—enhancing care coordination and reducing manual work.",
-      image: isMobile ? undefined : "/lovable-uploads/1a2ba14f-00e6-420e-a700-93a7776b8a17.png"
     }
   ];
 
@@ -110,31 +91,26 @@ export const ClinicalWorkflowSection = () => {
       icon: Stethoscope,
       title: "Clinical Decision & Documentation Support",
       description: "Delivers instant medical guidelines, clarifies jargon, and ensures accurate, structured, and compliant documentation at the point of care.",
-      image: isMobile ? undefined : "/lovable-uploads/00fa5e5c-7f5f-482e-a9cb-33a0648ac65a.png"
     },
     {
       icon: ShieldCheck,
       title: "HCC Tracking & Compliance",
       description: "Monitors MEAT criteria for HCC coding, supports risk adjustments, and maintains documentation standards for better outcomes and audit readiness.",
-      image: isMobile ? undefined : "/lovable-uploads/1a770a91-b855-4f46-bb76-7b391c7b5487.png"
     },
     {
       icon: FileText,
       title: "Personalized & Auto-Generated Treatment Plans",
       description: "Creates SMART-based, personalized care plans tailored to each patient's unique needs, enhancing treatment precision and engagement.",
-      image: isMobile ? undefined : "/lovable-uploads/fe17400e-3f69-4ff2-b54d-064c5139ff9a.png"
     },
     {
       icon: AlertTriangle,
       title: "Preventive Screening & Risk Insights",
       description: "Proactively flags preventive care needs and risk patterns to enable early interventions and improve long-term patient outcomes.",
-      image: isMobile ? undefined : "/lovable-uploads/1a2ba14f-00e6-420e-a700-93a7776b8a17.png"
     },
     {
       icon: LineChart,
       title: "Longitudinal Intelligence & Continuity of Care",
       description: "Captures and leverages historical patient data across visits to inform better clinical decisions and ensure seamless continuity of care.",
-      image: isMobile ? undefined : "/lovable-uploads/00fa5e5c-7f5f-482e-a9cb-33a0648ac65a.png"
     }
   ];
 
@@ -188,7 +164,6 @@ export const ClinicalWorkflowSection = () => {
             title={feature.title}
             description={feature.description}
             className="h-full"
-            image={feature.image}
           />
         ))}
       </div>
@@ -202,10 +177,10 @@ export const ClinicalWorkflowSection = () => {
       className
     )}>
       <div className="bg-[#F5F9FF] w-12 h-12 rounded-lg flex items-center justify-center mb-4">
-        <Icon size={24} className="text-[#143151] stroke-[1.5]" />
+        <Icon size={24} className={`text-[${crushAIColors.primary}] stroke-[1.5]`} />
       </div>
-      <h3 className="text-lg font-semibold mb-2 text-[#143151]">{title}</h3>
-      <p className="text-sm text-[#387E89]">{description}</p>
+      <h3 className={`text-lg font-semibold mb-2 text-[${crushAIColors.primary}]`}>{title}</h3>
+      <p className={`text-sm text-[${crushAIColors.text.secondary}]`}>{description}</p>
     </div>
   );
 
