@@ -18,7 +18,9 @@ import {
   Bell,
   FileText,
   CreditCard,
-  FileCheck
+  FileCheck,
+  Laptop,
+  Layers
 } from 'lucide-react';
 
 const stepVariants = {
@@ -185,7 +187,7 @@ const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
           text: "SIP & Phone Systems – Twilio, Plivo, Exotel, Telnyx & more." 
         },
         { 
-          icon: Copy, 
+          icon: Laptop, 
           text: "Patient Platforms – Elation, OhMD, Care Patron, SimplePractice & others." 
         },
         { 
@@ -282,7 +284,7 @@ export const HowBravoWorksSection = () => {
           text: "SIP & Phone Systems – Twilio, Plivo, Exotel, Telnyx & more." 
         },
         { 
-          icon: Copy, 
+          icon: Laptop, 
           text: "Patient Platforms – Elation, OhMD, Care Patron, SimplePractice & others." 
         },
         { 
