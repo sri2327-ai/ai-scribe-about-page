@@ -100,7 +100,6 @@ const CrushAI = () => {
             className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]"
             style={{ 
               background: crushAIColors.button.gradient,
-              color: crushAIColors.text.white
             }}
           >
             <ArrowRight size={16} className="mr-2" />

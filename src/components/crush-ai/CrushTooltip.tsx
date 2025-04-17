@@ -65,7 +65,7 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
               left: '50%',
               transform: 'translateX(-50%)',
               marginBottom: '10px',
-              background: `rgba(20, 49, 81, 0.7)`,
+              background: crushAIColors.primary,
               backdropFilter: 'blur(10px)',
               color: '#fff',
               fontSize: '12px',

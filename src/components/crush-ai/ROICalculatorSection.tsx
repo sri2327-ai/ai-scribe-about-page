@@ -194,8 +194,11 @@ export const ROICalculatorSection = () => {
                   fontWeight: 700, 
                   mb: 2,
                   fontSize: { xs: "1.75rem", md: "2.5rem" },
-                  color: crushAIColors.primary,
+                  background: crushAIColors.primary,
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
                   lineHeight: 1.2,
+                  color: crushAIColors.text.primary,
                 }}
               >
                 Save $1,800+/month per provider. Automate Notes with AI.
@@ -383,12 +386,15 @@ export const ROICalculatorSection = () => {
                 <Button
                   className={cn(
                     "min-w-40 relative touch-none",
-                    "bg-[#143151] hover:bg-[#143151]/90 text-white",
-                    "border border-[#143151]/20",
+                    "text-white",
+                    "border border-[rgba(4,111,144,0.2)]",
                     "transition-all duration-300",
                     "py-2",
                     "mb-8"
                   )}
+                  style={{ 
+                    background: crushAIColors.button.gradient,
+                  }}
                   onClick={calculateSavings}
                   onMouseEnter={handleInteractionStart}
                   onMouseLeave={handleInteractionEnd}
@@ -479,7 +485,10 @@ export const ROICalculatorSection = () => {
               </div>
               
               <Button 
-                className="w-full mt-6 mb-6 bg-[#143151] hover:bg-[#143151]/90 text-white rounded-md py-2.5"
+                className="w-full mt-6 mb-6 rounded-md py-2.5 text-white"
+                style={{ 
+                  background: crushAIColors.button.gradient,
+                }}
               >
                 Book A Demo
               </Button>

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -170,134 +169,127 @@ export const CompetitionSection = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {comparisonFeatures.map((feature, index) => {
-                  // The fix: Instead of passing component prop to TableRow, 
-                  // we wrap the TableRow with motion.div and apply animations to the wrapper
-                  return (
-                    <motion.div
-                      key={feature.id}
-                      custom={index}
-                      initial="hidden"
-                      whileInView="visible"
-                      viewport={{ once: true }}
-                      variants={tableRowVariants}
-                    >
-                      <TableRow className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
-                        <TableCell className="font-medium text-gray-800">{feature.title}</TableCell>
-                        <TableCell>
-                          <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                            <Box
-                              sx={{ 
-                                color: crushAIColors.primaryFlat,
-                                flexShrink: 0,
-                                display: "flex",
-                                alignItems: "center"
-                              }}
-                            >
-                              <CheckCircle size={20} />
-                            </Box>
-                            <Box>
-                              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary }}>
-                                {feature.crushDescription}
-                              </Typography>
-                              
-                              {feature.id === "specialty" && (
-                                <Box 
-                                  sx={{ 
-                                    mt: 1,
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    gap: 1
-                                  }}
-                                >
-                                  {[
-                                    "Cardiology", "Dermatology", "Orthopedics", 
-                                    "Pediatrics", "Psychiatry", "Neurology", 
-                                    "Oncology", "Primary Care", "+ More"
-                                  ].map((specialty, idx) => (
-                                    <Box 
-                                      key={idx}
-                                      sx={{ 
-                                        px: 1.5,
-                                        py: 0.5,
-                                        borderRadius: 5,
-                                        bgcolor: `rgba(165,204,243,0.1)`,
-                                        border: `1px solid rgba(165,204,243,0.2)`,
-                                        fontSize: "0.75rem",
-                                        fontWeight: 500,
-                                        color: crushAIColors.text.primary
-                                      }}
-                                    >
-                                      {specialty}
-                                    </Box>
-                                  ))}
-                                </Box>
-                              )}
-                              
-                              {feature.id === "template-builder" && (
-                                <Box 
-                                  sx={{ 
-                                    mt: 1, 
-                                    display: "grid", 
-                                    gridTemplateColumns: "1fr 1fr", 
-                                    gap: 1 
-                                  }}
-                                >
-                                  {[
-                                    { icon: <FilePlus size={16} />, text: "Create a template from scratch" },
-                                    { icon: <Copy size={16} />, text: "Generate from instructions" },
-                                    { icon: <Import size={16} />, text: "Import templates" },
-                                    { icon: <Users size={16} />, text: "Browse community" }
-                                  ].map((item, idx) => (
-                                    <Box 
-                                      key={idx}
-                                      sx={{ 
-                                        display: "flex", 
-                                        alignItems: "center", 
-                                        gap: 1,
-                                        fontSize: "0.75rem"
-                                      }}
-                                    >
-                                      <Box sx={{ color: crushAIColors.primaryFlat }}>
-                                        {item.icon}
-                                      </Box>
-                                      <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
-                                        {item.text}
-                                      </Typography>
-                                    </Box>
-                                  ))}
-                                </Box>
-                              )}
-                            </Box>
+                {comparisonFeatures.map((feature, index) => (
+                  <motion.div
+                    key={feature.id}
+                    custom={index}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={tableRowVariants}
+                  >
+                    <TableRow className={index % 2 === 0 ? "bg-gray-50" : "bg-white"}>
+                      <TableCell className="font-medium text-gray-800">{feature.title}</TableCell>
+                      <TableCell>
+                        <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
+                          <Box
+                            sx={{ 
+                              color: crushAIColors.primaryFlat,
+                              flexShrink: 0,
+                              mt: 0.5
+                            }}
+                          >
+                            <CheckCircle size={20} />
                           </Box>
-                        </TableCell>
-                        <TableCell>
-                          <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
-                            <Box
-                              sx={{ 
-                                color: "#E57373",
-                                flexShrink: 0,
-                                display: "flex",
-                                alignItems: "center"
-                              }}
-                            >
-                              <XCircle size={20} />
-                            </Box>
-                            <Typography variant="body2" sx={{ color: "#555" }}>
-                              {feature.competitionDescription}
+                          <Box>
+                            <Typography variant="body2" sx={{ color: crushAIColors.text.secondary }}>
+                              {feature.crushDescription}
                             </Typography>
+                            
+                            {feature.id === "specialty" && (
+                              <Box 
+                                sx={{ 
+                                  mt: 1,
+                                  display: "flex",
+                                  flexWrap: "wrap",
+                                  gap: 1
+                                }}
+                              >
+                                {[
+                                  "Cardiology", "Dermatology", "Orthopedics", 
+                                  "Pediatrics", "Psychiatry", "Neurology", 
+                                  "Oncology", "Primary Care", "+ More"
+                                ].map((specialty, idx) => (
+                                  <Box 
+                                    key={idx}
+                                    sx={{ 
+                                      px: 1.5,
+                                      py: 0.5,
+                                      borderRadius: 5,
+                                      bgcolor: `rgba(165,204,243,0.1)`,
+                                      border: `1px solid rgba(165,204,243,0.2)`,
+                                      fontSize: "0.75rem",
+                                      fontWeight: 500,
+                                      color: crushAIColors.text.primary
+                                    }}
+                                  >
+                                    {specialty}
+                                  </Box>
+                                ))}
+                              </Box>
+                            )}
+                            
+                            {feature.id === "template-builder" && (
+                              <Box 
+                                sx={{ 
+                                  mt: 1, 
+                                  display: "grid", 
+                                  gridTemplateColumns: "1fr 1fr", 
+                                  gap: 1 
+                                }}
+                              >
+                                {[
+                                  { icon: <FilePlus size={16} />, text: "Create a template from scratch" },
+                                  { icon: <Copy size={16} />, text: "Generate from instructions" },
+                                  { icon: <Import size={16} />, text: "Import templates" },
+                                  { icon: <Users size={16} />, text: "Browse community" }
+                                ].map((item, idx) => (
+                                  <Box 
+                                    key={idx}
+                                    sx={{ 
+                                      display: "flex", 
+                                      alignItems: "center", 
+                                      gap: 1,
+                                      fontSize: "0.75rem"
+                                    }}
+                                  >
+                                    <Box sx={{ color: crushAIColors.primaryFlat }}>
+                                      {item.icon}
+                                    </Box>
+                                    <Typography variant="body2" sx={{ fontSize: "0.75rem" }}>
+                                      {item.text}
+                                    </Typography>
+                                  </Box>
+                                ))}
+                              </Box>
+                            )}
                           </Box>
-                        </TableCell>
-                      </TableRow>
-                    </motion.div>
-                  );
-                })}
+                        </Box>
+                      </TableCell>
+                      <TableCell>
+                        <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
+                          <Box
+                            sx={{ 
+                              color: "#E57373",
+                              flexShrink: 0,
+                              mt: 0.5
+                            }}
+                          >
+                            <XCircle size={20} />
+                          </Box>
+                          <Typography variant="body2" sx={{ color: "#555" }}>
+                            {feature.competitionDescription}
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  </motion.div>
+                ))}
               </TableBody>
             </Table>
           </Box>
         )}
 
-        {/* Mobile view with interactive feature display */}
         {isMobile && (
             <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 4 }}>
               <Box
