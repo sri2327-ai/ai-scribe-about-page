@@ -134,7 +134,6 @@ export const BeforeAfterSlider = () => {
               onTouchMove={handleDrag}
               onTouchEnd={handleDragEnd}
             >
-              {/* Main container with black and white sides */}
               <div className="absolute inset-0 flex items-stretch">
                 {/* Black side (Before) */}
                 <div 
@@ -142,6 +141,12 @@ export const BeforeAfterSlider = () => {
                   style={{ width: `${sliderPosition}%` }}
                 >
                   <div className="absolute inset-0 bg-[url('/public/lovable-uploads/5737eb5e-abd2-4c80-b961-6676d913887e.png')] bg-center bg-no-repeat bg-cover opacity-10"></div>
+                  
+                  {/* Add Badge for Without CRUSH */}
+                  <div className="absolute top-6 left-6 z-20">
+                    <Badge className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</Badge>
+                  </div>
+                  
                   <div className="z-10 max-w-md p-8">
                     <div className="mb-4">
                       <Badge className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</Badge>
@@ -174,6 +179,12 @@ export const BeforeAfterSlider = () => {
                   style={{ width: `${100 - sliderPosition}%` }}
                 >
                   <div className="absolute inset-0 bg-gray-50"></div>
+                  
+                  {/* Add Badge for With CRUSH */}
+                  <div className="absolute top-6 left-6 z-20">
+                    <Badge className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</Badge>
+                  </div>
+                  
                   <div className="z-10 max-w-md p-8">
                     <div className="mb-4">
                       <Badge className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</Badge>
