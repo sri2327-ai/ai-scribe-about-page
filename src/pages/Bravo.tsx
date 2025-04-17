@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
