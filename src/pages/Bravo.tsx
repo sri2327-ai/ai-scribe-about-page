@@ -21,6 +21,7 @@ const Bravo = () => {
       <HowBravoWorksSection />
       <ROISection />
       <BravoTestimonialsSection />
+      
       <section className="py-20 relative overflow-hidden" style={{ backgroundColor: bravoColors.background.light }}>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/30 to-teal-50/30 opacity-60 blur-3xl" />
         

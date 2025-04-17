@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
@@ -30,10 +31,45 @@ const testimonials = [
     author: "Dr. James Wilson",
     role: "Clinic Owner",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&auto=format&fit=crop&q=60"
+  },
+  {
+    title: "Reduced Front Office Stress",
+    content: "Since implementing BRAVO, our receptionist turnover has dropped to zero and patient satisfaction has improved.",
+    author: "Lisa Thompson",
+    role: "Practice Administrator",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&auto=format&fit=crop&q=60"
+  },
+  {
+    title: "Seamless Integration",
+    content: "BRAVO connected to our EHR system without any issues. The data flows perfectly between systems.",
+    author: "Dr. Anita Patel",
+    role: "Healthcare IT Director",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&auto=format&fit=crop&q=60"
   }
 ];
 
 export const BravoTestimonialsSection = () => {
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (api.selectedScrollSnap() + 1 === api.scrollSnapList().length) {
+        setCurrent(0);
+        api.scrollTo(0);
+      } else {
+        api.scrollNext();
+        setCurrent(current + 1);
+      }
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [api, current]);
+
   return (
     <section className="w-full py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
@@ -42,7 +78,7 @@ export const BravoTestimonialsSection = () => {
             Trusted by Leading Healthcare Providers
           </h2>
           
-          <Carousel className="w-full">
+          <Carousel setApi={setApi} className="w-full">
             <CarouselContent>
               {testimonials.map((testimonial, index) => (
                 <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">

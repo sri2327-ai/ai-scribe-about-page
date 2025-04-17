@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { Users, DollarSign, Clock } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Card,
   CardContent,
@@ -15,9 +16,9 @@ interface ROICalculatorProps {
 }
 
 export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => {
-  const [staffCount, setStaffCount] = useState([3]);
-  const [salary, setSalary] = useState([4000]);
-  const [hours, setHours] = useState([40]);
+  const [staffCount, setStaffCount] = useState<number[]>([3]);
+  const [salary, setSalary] = useState<number[]>([4000]);
+  const [hours, setHours] = useState<number[]>([40]);
   const [includeOverhead, setIncludeOverhead] = useState(false);
   const [results, setResults] = useState({
     totalCost: 0,
@@ -50,22 +51,13 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     });
   }, [staffCount, salary, hours, includeOverhead, onCalculate]);
 
-  const handleStaffCountChange = (value: number[]) => {
-    if (value[0] !== staffCount[0]) {
-      setStaffCount(value);
-    }
-  };
-
-  const handleSalaryChange = (value: number[]) => {
-    if (value[0] !== salary[0]) {
-      setSalary(value);
-    }
-  };
-
-  const handleHoursChange = (value: number[]) => {
-    if (value[0] !== hours[0]) {
-      setHours(value);
-    }
+  const formatCurrency = (value: number): string => {
+    return value.toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    });
   };
 
   return (
@@ -79,7 +71,12 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             </label>
             <Slider
               value={staffCount}
-              onValueChange={handleStaffCountChange}
+              onValueChange={(newValue) => {
+                if (Array.isArray(newValue) && newValue.length > 0) {
+                  const roundedValue = [Math.round(newValue[0])];
+                  setStaffCount(roundedValue);
+                }
+              }}
               min={1}
               max={10}
               step={1}
@@ -90,11 +87,17 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <DollarSign className="w-4 h-4" />
-              Average Monthly Salary: ${salary[0]}
+              Average Monthly Salary: {formatCurrency(salary[0])}
             </label>
             <Slider
               value={salary}
-              onValueChange={handleSalaryChange}
+              onValueChange={(newValue) => {
+                if (Array.isArray(newValue) && newValue.length > 0) {
+                  // Round to nearest 100
+                  const roundedValue = [Math.round(newValue[0] / 100) * 100];
+                  setSalary(roundedValue);
+                }
+              }}
               min={3000}
               max={5000}
               step={100}
@@ -109,7 +112,12 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             </label>
             <Slider
               value={hours}
-              onValueChange={handleHoursChange}
+              onValueChange={(newValue) => {
+                if (Array.isArray(newValue) && newValue.length > 0) {
+                  const roundedValue = [Math.round(newValue[0])];
+                  setHours(roundedValue);
+                }
+              }}
               min={20}
               max={60}
               step={1}
@@ -131,23 +139,23 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             <div>
               <label className="text-sm text-gray-500">Monthly Staff Cost</label>
               <motion.p 
-                key={results.totalCost}
+                key={results.totalCost.toString()}
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 className="text-2xl font-bold text-blue-800"
               >
-                ${results.totalCost.toLocaleString()}
+                {formatCurrency(results.totalCost)}
               </motion.p>
             </div>
             <div>
               <label className="text-sm text-gray-500">BRAVO Cost</label>
               <motion.p 
-                key={results.bravoCost}
+                key={results.bravoCost.toString()}
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 className="text-2xl font-bold text-teal-600"
               >
-                ${results.bravoCost.toLocaleString()}
+                {formatCurrency(results.bravoCost)}
               </motion.p>
             </div>
           </div>
@@ -155,12 +163,12 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           <div className="space-y-2">
             <label className="text-sm text-gray-500">Monthly Savings</label>
             <motion.div 
-              key={results.savings}
+              key={results.savings.toString()}
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               className="text-3xl font-bold text-green-600"
             >
-              ${results.savings.toLocaleString()}
+              {formatCurrency(results.savings)}
             </motion.div>
             <motion.div 
               className="text-lg font-semibold text-teal-600"
@@ -173,7 +181,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
         </div>
 
         <Button 
-          className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-gray-800"
+          className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white"
         >
           Calculate My ROI
         </Button>
