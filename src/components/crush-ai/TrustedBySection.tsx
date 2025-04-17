@@ -1,5 +1,5 @@
 
-import React, { useRef } from "react";
+import React from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { Users } from "lucide-react";
@@ -21,11 +21,14 @@ export const TrustedBySection = () => {
 
   return (
     <Box 
-      component="section" 
       sx={{ 
-        py: { xs: 4, md: 6 },
         width: '100%',
         height: '100%',
+        py: { xs: 6, md: 8 },
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
     >
       <Container maxWidth="lg">
