@@ -53,18 +53,12 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     });
   }, [staffCount, salary, hours, includeOverhead, onCalculate]);
 
-  // Separate calculation function for the button click
-  const handleCalculateClick = () => {
-    // This is now just for UI feedback - calculations already happen in useEffect
-    console.log("Calculate button clicked - ROI already updated");
-  };
-
   return (
     <Card className="backdrop-blur-xl bg-white/80 border-none shadow-lg hover:shadow-xl transition-all duration-300">
       <CardContent className="p-6 space-y-6">
         <div className="space-y-4">
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <Users className="w-4 h-4" />
               Front Office Staff Count: {staffCount[0]}
             </label>
@@ -79,7 +73,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           </div>
 
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <DollarSign className="w-4 h-4" />
               Average Monthly Salary: ${salary[0]}
             </label>
@@ -94,7 +88,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           </div>
 
           <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm font-medium">
+            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <Clock className="w-4 h-4" />
               Working Hours per Week: {hours[0]}
             </label>
@@ -109,7 +103,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           </div>
 
           <div className="flex items-center justify-between py-2">
-            <label className="text-sm font-medium">Include Benefits & Overhead (20%)</label>
+            <label className="text-sm font-medium text-gray-700">Include Benefits & Overhead (20%)</label>
             <Switch
               checked={includeOverhead}
               onCheckedChange={setIncludeOverhead}
@@ -125,7 +119,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
                 key={results.totalCost}
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
-                className="text-2xl font-bold"
+                className="text-2xl font-bold text-blue-800"
               >
                 ${results.totalCost.toLocaleString()}
               </motion.p>
@@ -149,7 +143,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
               key={results.savings}
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
-              className="text-3xl font-bold text-green-500"
+              className="text-3xl font-bold text-green-600"
             >
               ${results.savings.toLocaleString()}
             </motion.div>
@@ -164,8 +158,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
         </div>
 
         <Button 
-          className="w-full py-6 text-lg bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white"
-          onClick={handleCalculateClick}
+          className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-gray-800"
         >
           Calculate My ROI
         </Button>
