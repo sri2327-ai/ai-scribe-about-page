@@ -1,14 +1,68 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { bravoColors } from '@/theme/bravo-theme';
-import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 
 const Bravo = () => {
   return (
     <div className="bg-white min-h-screen">
-      <BravoHeroSection />
+      {/* Hero Section */}
+      <section 
+        className="relative overflow-hidden pt-28 pb-20 bg-gradient-to-b from-[#F5F9FF] to-white"
+        style={{ backgroundColor: bravoColors.background.light }}
+      >
+        <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-center bg-no-repeat bg-cover opacity-10"></div>
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl mb-6" style={{ color: bravoColors.primary }}>
+              BRAVO
+            </h1>
+            <h2 className="font-semibold text-2xl md:text-3xl mb-6" style={{ color: bravoColors.secondary }}>
+              B.R.A.V.O – The AI Agent That Revolutionizes Patient Care
+            </h2>
+            <p className="text-xl mb-8" style={{ color: bravoColors.text.secondary }}>
+              Automate Scheduling, Cut No-Shows, and Elevate Patient Experience!
+            </p>
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64">
+                <h3 className="font-semibold text-lg mb-2" style={{ color: bravoColors.primary }}>Booking & Scheduling</h3>
+                <p className="text-center text-sm" style={{ color: bravoColors.text.secondary }}>Smart appointments & follow-ups.</p>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64">
+                <h3 className="font-semibold text-lg mb-2" style={{ color: bravoColors.primary }}>Reminders & Notifications</h3>
+                <p className="text-center text-sm" style={{ color: bravoColors.text.secondary }}>Reduce no-shows with automated alerts.</p>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64">
+                <h3 className="font-semibold text-lg mb-2" style={{ color: bravoColors.primary }}>Automated Triage</h3>
+                <p className="text-center text-sm" style={{ color: bravoColors.text.secondary }}>Prioritize urgent cases instantly.</p>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64">
+                <h3 className="font-semibold text-lg mb-2" style={{ color: bravoColors.primary }}>Verification & Identity</h3>
+                <p className="text-center text-sm" style={{ color: bravoColors.text.secondary }}>Secure patient & insurance checks.</p>
+              </div>
+              <div className="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-64">
+                <h3 className="font-semibold text-lg mb-2" style={{ color: bravoColors.primary }}>Onboarding & Pre-Visit</h3>
+                <p className="text-center text-sm" style={{ color: bravoColors.text.secondary }}>Streamlined intake & clinical summaries.</p>
+              </div>
+            </div>
+            <p className="text-lg font-medium mb-8" style={{ color: bravoColors.primary }}>
+              Compatible with Your SIP, Patient Platform & PMS
+            </p>
+            <Button 
+              className="px-8 py-6 text-lg rounded-md"
+              style={{ 
+                backgroundColor: bravoColors.secondary,
+                color: bravoColors.text.white
+              }}
+            >
+              REQUEST A DEMO
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* How BRAVO Works Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
