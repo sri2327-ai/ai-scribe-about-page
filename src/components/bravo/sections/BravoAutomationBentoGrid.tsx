@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
+import { Button } from "@/components/ui/button"; // Add this import
 
 // Animation variants for elements
 const panelVariants = {
@@ -668,80 +668,4 @@ export const BravoAutomationBentoGrid = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {automationPanels.map((panel, i) => (
-            <motion.div
-              key={i}
-              custom={i}
-              variants={panelVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              whileHover="hover"
-              className={`overflow-hidden rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 ${panel.bgClass}`}
-            >
-              <motion.div
-                variants={gridItemVariants}
-                className="h-full flex flex-col"
-              >
-                {panel.illustration}
-                
-                <div className="p-5 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 font-sans" style={{ color: bravoColors.primary }}>
-                    {panel.title}
-                  </h3>
-                  <p className="text-sm mb-4 font-sans" style={{ color: bravoColors.text.secondary }}>
-                    {panel.description}
-                  </p>
-                  
-                  <ul className="mt-auto space-y-2">
-                    {panel.details.map((detail, j) => (
-                      <motion.li 
-                        key={j}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 + (j * 0.1) }}
-                        viewport={{ once: true }}
-                        className="flex items-start text-sm"
-                      >
-                        <span className="text-blue-500 mr-2 shrink-0 mt-1">•</span>
-                        <span style={{ color: bravoColors.text.secondary }}>{detail}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-        
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <p className="text-2xl font-semibold mb-8 font-sans" style={{ color: bravoColors.secondary }}>
-            One AI agent - every front office task is automated
-          </p>
-          <div className="mt-12 mb-8">
-            <h3 className="text-2xl font-bold mb-4 font-sans" style={{ color: bravoColors.primary }}>TESTIMONIALS</h3>
-          </div>
-          <p className="text-2xl font-semibold mb-8 font-sans" style={{ color: bravoColors.primary }}>
-            Simplify Your Front Office with BRAVO
-          </p>
-          <Button 
-            className="px-8 py-6 text-lg rounded-md"
-            style={{ 
-              backgroundColor: bravoColors.secondary,
-              color: bravoColors.text.white
-            }}
-          >
-            Book a Demo & Transform Patient Scheduling Today!
-          </Button>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-
