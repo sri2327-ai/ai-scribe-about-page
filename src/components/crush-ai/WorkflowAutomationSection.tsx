@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -161,7 +162,7 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      backgroundColor: sliderBlueColor,
+                      backgroundColor: "#5192AE", // Changed to light blue color
                       color: 'white'
                     }}
                   >
@@ -173,15 +174,15 @@ export const WorkflowAutomationSection = () => {
                       </p>
                       <ul className={`space-y-2 md:space-y-3 text-white ${isMobile ? 'text-sm' : ''}`}>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-white mt-1">•</span> {/* Fixed white bullet point */}
                           <span>Hours of typing after each visit</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-white mt-1">•</span> {/* Fixed white bullet point */}
                           <span>Constantly looking at screens</span>
                         </li>
                         <li className="flex items-start gap-2">
-                          <span className="text-gray-300 mt-1">•</span>
+                          <span className="text-white mt-1">•</span> {/* Fixed white bullet point */}
                           <span>Increased clinician burnout</span>
                         </li>
                       </ul>
@@ -237,9 +238,9 @@ export const WorkflowAutomationSection = () => {
                   onDragEnd={handleDragEnd}
                 >
                   <div 
-                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white border-2 border-${crushAIColors.primary} shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
+                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white border-2 shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                     style={{ 
-                      borderColor: crushAIColors.primary,
+                      borderColor: "#5192AE",
                       backgroundColor: 'white'
                     }}
                   >
@@ -248,7 +249,7 @@ export const WorkflowAutomationSection = () => {
                         <div 
                           key={index} 
                           className="w-[2px] h-[2px] rounded-full"
-                          style={{ backgroundColor: `${crushAIColors.primary}70` }}
+                          style={{ backgroundColor: "#5192AE" }}
                         ></div>
                       ))}
                     </div>
@@ -260,8 +261,8 @@ export const WorkflowAutomationSection = () => {
                   <>
                     <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                        <Monitor className="h-4 w-4 text-black" />
-                        <span className="text-sm text-black font-medium">Screen-Focused</span>
+                        <Monitor className="h-4 w-4 text-white" /> {/* Fixed icon color to white */}
+                        <span className="text-sm text-white font-medium">Screen-Focused</span>
                       </div>
                       <div className={`flex items-center gap-2 ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <span 
@@ -272,14 +273,14 @@ export const WorkflowAutomationSection = () => {
                         </span>
                         <Users 
                           className="h-4 w-4"
-                          style={{ color: crushAIColors.primary }}
+                          style={{ color: crushAIColors.text.primary }}
                         />
                       </div>
                     </div>
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-                        style={{ backgroundColor: `${sliderBlueColor}CC` }}
+                        style={{ backgroundColor: `rgba(81, 146, 174, 0.8)` }} // Updated background color
                       >
                         <Clock className="h-3 w-3 text-white" />
                         <span className="text-xs text-white font-medium">Hours of documentation</span>
@@ -323,6 +324,8 @@ export const WorkflowAutomationSection = () => {
                   />
                 </div>
               </div>
+              
+              {/* Remove the badge here (no badge to show below the slider) */}
               
               <div className="mt-8 flex justify-center">
                 <Button 

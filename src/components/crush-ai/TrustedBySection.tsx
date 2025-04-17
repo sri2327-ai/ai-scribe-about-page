@@ -39,7 +39,7 @@ export const TrustedBySection = () => {
       ref={sectionRef}
       sx={{ 
         py: { xs: 6, md: 10 },
-        bgcolor: crushAIColors.background.light,
+        background: 'linear-gradient(to right, #e6e9f0 0%, #eef1f5 100%)', // Light blue gradient similar to testimonial section
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -77,7 +77,7 @@ export const TrustedBySection = () => {
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700,
-                  color: crushAIColors.text.primary, // Updated to black
+                  color: crushAIColors.text.primary, 
                   fontSize: { xs: '2rem', md: '2.5rem' }
                 }}
               >
@@ -88,7 +88,7 @@ export const TrustedBySection = () => {
               variant="h5" 
               sx={{ 
                 fontWeight: 600,
-                color: crushAIColors.text.primary, // Updated to black
+                color: crushAIColors.text.primary,
                 fontSize: { xs: '1.25rem', md: '1.5rem' },
                 mb: 2
               }}
@@ -98,7 +98,7 @@ export const TrustedBySection = () => {
             <Typography 
               variant="body1"
               sx={{ 
-                color: crushAIColors.text.secondary, // Updated to black
+                color: crushAIColors.text.secondary,
                 fontSize: '1rem', 
                 maxWidth: '600px',
                 mx: 'auto'
