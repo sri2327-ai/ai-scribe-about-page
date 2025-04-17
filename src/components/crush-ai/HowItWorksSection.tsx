@@ -237,3 +237,6 @@ export const HowItWorksSection = () => {
     </Box>
   );
 };
+
+export default HowItWorksSection;
+
