@@ -1,8 +1,5 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { WaveBackground } from "@/components/ui/wave-background";
-import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { bravoColors } from '@/theme/bravo-theme';
 import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
 import { 
@@ -22,7 +19,6 @@ import {
   Copy
 } from 'lucide-react';
 
-// Animation variants for steps
 const stepVariants = {
   initial: { opacity: 0, y: 30 },
   animate: { opacity: 1, y: 0 },
@@ -75,22 +71,20 @@ const StepItem: React.FC<StepItemProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: false, amount: 0.3 });
   
-  // FIX: Adding proper dependency array to prevent infinite loop
   useEffect(() => {
     if (isInView && !isActive) {
-      // Only call onActivate if this is the first time it's in view
       const timer = setTimeout(() => {
         onActivate();
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [isInView]); // Remove onActivate and isActive from dependency array
+  }, [isInView]);
 
   return (
     <div 
       ref={ref}
       className={`relative px-6 py-8 rounded-xl transition-all duration-300 cursor-pointer ${
-        isActive ? "bg-white/10 shadow-lg" : "hover:bg-white/5"
+        isActive ? "bg-gray-50 shadow-lg" : "hover:bg-gray-50"
       }`}
       onClick={onActivate}
     >
@@ -364,23 +358,18 @@ export const HowBravoWorksSection = () => {
     }
   ];
   
-  // Fix: Managing animation interval with proper cleanup
   useEffect(() => {
-    // Only set up auto-advancing when the section is in view
     if (isInView) {
-      // Clear any existing intervals first
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
       
-      // Set up a new interval
       const id = window.setInterval(() => {
         setActiveStep((prev) => (prev + 1) % steps.length);
       }, 8000);
       
       intervalRef.current = id;
       
-      // Clean up function
       return () => {
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
@@ -388,7 +377,7 @@ export const HowBravoWorksSection = () => {
         }
       };
     }
-    // Clean up when not in view
+    
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -397,9 +386,7 @@ export const HowBravoWorksSection = () => {
     };
   }, [isInView, steps.length]);
   
-  // Safe handler for step activation
   const handleActivateStep = (index: number) => {
-    // Clear any auto-advance interval when manually changing steps
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
@@ -408,13 +395,8 @@ export const HowBravoWorksSection = () => {
   };
   
   return (
-    <WaveBackground 
-      intensity="light" 
-      baseColor={bravoColors.background.light} 
-      height="auto"
-      className="py-20"
-    >
-      <div className="container mx-auto" ref={sectionRef}>
+    <section className="bg-white py-20" ref={sectionRef}>
+      <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -425,35 +407,25 @@ export const HowBravoWorksSection = () => {
             <SparklesTextAdvanced 
               text="How BRAVO Works" 
               className="text-4xl md:text-5xl font-bold tracking-tight mb-2"
-              colors={{ first: bravoColors.primary, second: bravoColors.secondary }}
+              colors={{ first: "#000000", second: bravoColors.secondary }}
             />
           </motion.div>
           
           <motion.h3 
-            className="text-xl md:text-2xl font-medium"
+            className="text-xl md:text-2xl font-medium text-gray-700"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            style={{ color: bravoColors.text.secondary }}
           >
             AI-Powered Front Office Automation
           </motion.h3>
           
           <motion.div
-            className="mx-auto mt-6 w-24"
+            className="mx-auto mt-6 w-24 h-1 bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.4 }}
-          >
-            <GradientTracing 
-              width={100} 
-              height={4} 
-              baseColor={`${bravoColors.tertiary}20`}
-              gradientColors={[bravoColors.tertiary, bravoColors.secondary, bravoColors.primary]}
-              strokeWidth={4}
-              path={`M0,2 L100,2`}
-            />
-          </motion.div>
+          />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
@@ -472,7 +444,7 @@ export const HowBravoWorksSection = () => {
             ))}
           </div>
           
-          <div className="hidden md:block h-full">
+          <div className="hidden md:block h-full sticky top-24">
             <StepVisualizer activeStep={activeStep} />
           </div>
         </div>
@@ -483,15 +455,12 @@ export const HowBravoWorksSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p 
-            className="text-2xl font-semibold mb-8"
-            style={{ color: bravoColors.secondary }}
-          >
+          <p className="text-2xl font-semibold mb-8 text-gray-800">
             Faster Check-Ins. Smarter Scheduling. Effortless Coordination.
           </p>
           
           <motion.button
-            className="px-8 py-6 text-lg rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-xl inline-flex items-center"
+            className="px-8 py-6 text-lg rounded-full bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-xl inline-flex items-center hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -500,7 +469,6 @@ export const HowBravoWorksSection = () => {
           </motion.button>
         </motion.div>
       </div>
-    </WaveBackground>
+    </section>
   );
 };
-
