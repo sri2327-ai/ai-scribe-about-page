@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -40,18 +41,17 @@ export const ROICalculatorSection = () => {
     offset: ["start end", "end start"],
   });
   
-  // Create transforms with appropriate ranges for the animation
-  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.9, 1]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.5, 1]);
-  const titleScale = useTransform(scrollYProgress, [0, 0.25], [0.95, 1]);
+  // Adjust transforms for smoother scaling without causing content to get cut off
+  const cardScale = useTransform(scrollYProgress, [0, 0.3], [0.95, 1]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3], [0.7, 1]);
   
-  // Adjust these values to allow more visible content
-  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["96%", "100%"]);
-  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["94%", "100%"]);
+  // Smaller scaling difference for the container to avoid excessive zoom
+  const containerWidth = useTransform(scrollYProgress, [0, 0.3], ["94%", "100%"]);
+  const containerHeight = useTransform(scrollYProgress, [0, 0.3], ["90%", "100%"]);
   const containerBorderRadius = useTransform(scrollYProgress, [0, 0.3], ["1.5rem", "0rem"]);
   
-  // Keep the container position higher up
-  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["5%", "0px"]);
+  // Adjust the container position to leave more space for the title
+  const containerTop = useTransform(scrollYProgress, [0, 0.3], ["8%", "0%"]);
   
   const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
   
@@ -122,14 +122,14 @@ export const ROICalculatorSection = () => {
       component="section"
       ref={sectionRef}
       sx={{
-        pt: { xs: 6, md: 8 }, // Reduce top padding
-        pb: { xs: 6, md: 8 }, // Reduce bottom padding
+        pt: { xs: 6, md: 8 },
+        pb: { xs: 6, md: 8 },
         position: "relative",
         overflow: "hidden",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center", // Center content vertically
+        justifyContent: "center",
         alignItems: "center",
       }}
     >
@@ -147,7 +147,7 @@ export const ROICalculatorSection = () => {
       {/* Main Content Container */}
       <motion.div
         ref={containerRef}
-        className="overflow-hidden shadow-xl z-10"
+        className="overflow-visible shadow-xl z-10" // Changed from overflow-hidden to overflow-visible
         style={{
           width: containerWidth,
           height: containerHeight,
@@ -161,9 +161,9 @@ export const ROICalculatorSection = () => {
           right: 0,
           margin: "0 auto",
           display: "flex",
-          flexDirection: "column", // Stack content vertically
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "flex-start", // Start from the top
+          justifyContent: "flex-start",
         }}
       >
         <Container 
@@ -171,20 +171,21 @@ export const ROICalculatorSection = () => {
           sx={{ 
             position: "relative", 
             zIndex: 5, 
-            py: { xs: 5, md: 6 }, // Add padding
+            py: { xs: 4, md: 5 },
             px: { xs: 2, md: 4 },
             display: "flex",
             flexDirection: "column",
             height: "100%",
-            overflowY: "auto", // Enable scrolling
+            overflow: "visible", // Changed from overflowY: "auto" to overflow: "visible"
           }}
         >
-          {/* Title Section - Now inside the container */}
+          {/* Title Section - Kept inside the container but with adjusted spacing */}
           <Box 
             sx={{ 
               width: "100%",
               textAlign: "center",
-              mb: { xs: 4, md: 5 }, // Add margin below the title
+              mb: { xs: 3, md: 4 },
+              mt: { xs: 2, md: 3 }, // Added margin-top to push down from container edge
             }}
           >
             <motion.div
@@ -192,7 +193,7 @@ export const ROICalculatorSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              style={{ scale: titleScale }}
+              style={{ scale: cardScale }}
             >
               <Typography 
                 variant="h3" 
@@ -201,7 +202,7 @@ export const ROICalculatorSection = () => {
                   mb: 2,
                   fontSize: { xs: "1.75rem", md: "2.5rem" },
                   color: crushAIColors.primary,
-                  lineHeight: 1.2, // Tighter line height to save space
+                  lineHeight: 1.2,
                 }}
               >
                 Save $1,800+/month per provider. Automate Notes with AI.
@@ -211,10 +212,10 @@ export const ROICalculatorSection = () => {
                 variant="body1" 
                 sx={{
                   color: crushAIColors.text.secondary,
-                  mb: 2, // Reduce bottom margin
+                  mb: 2,
                   maxWidth: "700px",
                   mx: "auto",
-                  fontSize: { xs: "0.95rem", md: "1.05rem" } // Slightly smaller font
+                  fontSize: { xs: "0.95rem", md: "1.05rem" }
                 }}
               >
                 Crush AI starts at just $99/month. Trusted by 1000+ providers to reduce burnout, save time, and cut costs.
@@ -222,6 +223,7 @@ export const ROICalculatorSection = () => {
             </motion.div>
           </Box>
           
+          {/* Calculator and Chart Content */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -231,7 +233,7 @@ export const ROICalculatorSection = () => {
               scale: cardScale,
               opacity: cardOpacity,
               width: "100%",
-              flex: 1 // Take remaining space
+              flex: 1,
             }}
             className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-start"
           >
