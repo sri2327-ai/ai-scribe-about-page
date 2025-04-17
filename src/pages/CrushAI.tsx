@@ -11,13 +11,13 @@ import { ClinicalWorkflowSection } from "@/components/crush-ai/ClinicalWorkflowS
 import { ClinicianTestimonialsSection } from "@/components/crush-ai/ClinicianTestimonialsSection";
 import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
 import { TestimonialGenerateSection } from "@/components/crush-ai/TestimonialGenerateSection";
+import { BeforeAfterSlider } from "@/components/crush-ai/BeforeAfterSlider";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 
 const CrushAI = () => {
   return (
@@ -25,70 +25,28 @@ const CrushAI = () => {
       sx={{ 
         bgcolor: crushAIColors.background.white, 
         color: crushAIColors.text.primary,
-        overflow: 'hidden',
-        position: 'relative'
+        overflow: 'hidden', // Prevent horizontal scrolling issues
+        position: 'relative' // Better positioning context
       }}
     >
       <HeroSection />
       
-      {/* TrustedBySection with ContainerScroll */}
-      <Box 
-        sx={{
-          backgroundColor: crushAIColors.primary,
-        }}
-      >
-        <ContainerScroll
-          titleComponent={
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-4">Trusted By Clinicians</h1>
-              <p className="text-xl text-white/70">See why clinicians worldwide trust CRUSH</p>
-            </div>
-          }
-        >
-          <Box
-            sx={{
-              backgroundColor: 'white',
-              borderRadius: '1rem',
-              p: { xs: 2, md: 4 },
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <TrustedBySection />
-          </Box>
-        </ContainerScroll>
-      </Box>
+      {/* Moved TrustedBySection up, right after HeroSection */}
+      <TrustedBySection />
+
+      {/* Add BeforeAfterSlider after TrustedBySection */}
+      <BeforeAfterSlider />
 
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
       
-      {/* ClinicianTestimonialsSection with ContainerScroll */}
-      <Box 
-        sx={{
-          backgroundColor: crushAIColors.primary,
-        }}
+      <GradientSection 
+        variant="radial"
+        intensity="light"
+        colors={[crushAIColors.tertiary, crushAIColors.secondary, crushAIColors.background.white]}
       >
-        <ContainerScroll
-          titleComponent={
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-4">Loved by Clinicians</h1>
-              <p className="text-xl text-white/70">Read what healthcare professionals say about CRUSH</p>
-            </div>
-          }
-        >
-          <Box
-            sx={{
-              backgroundColor: 'white',
-              borderRadius: '1rem',
-              p: { xs: 2, md: 4 },
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <ClinicianTestimonialsSection />
-          </Box>
-        </ContainerScroll>
-      </Box>
+        <ClinicianTestimonialsSection />
+      </GradientSection>
 
       <GradientSection 
         variant="radial"
@@ -115,7 +73,7 @@ const CrushAI = () => {
         <Box 
           component="section"
           sx={{
-            py: { xs: 8, md: 10 },
+            py: { xs: 8, md: 10 }, // Better spacing on different devices
             textAlign: "center",
             position: "relative",
             zIndex: 1
@@ -129,15 +87,15 @@ const CrushAI = () => {
                 fontWeight: 700,
                 mb: 3,
                 color: crushAIColors.text.primary,
-                letterSpacing: "-0.03em",
-                lineHeight: 1.2
+                letterSpacing: "-0.03em", // More x.ai-like typography
+                lineHeight: 1.2 // Better readability
               }}
             >
               CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
             </Typography>
             <Button 
               size="lg" 
-              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]"
+              className="rounded-full px-8 py-6 text-lg shadow-lg text-white transition-all duration-300 hover:translate-y-[-2px]" // Added subtle hover effect
               style={{ backgroundColor: crushAIColors.primary }}
             >
               <ArrowRight size={16} className="mr-2" />
@@ -149,33 +107,11 @@ const CrushAI = () => {
       
       <WorkflowAutomationSection />
       
-      {/* ROI Calculator section with ContainerScroll */}
-      <Box 
-        sx={{
-          backgroundColor: crushAIColors.primary,
-          my: 4
-        }}
-      >
-        <ContainerScroll
-          titleComponent={
-            <div className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-4">ROI Calculator</h1>
-              <p className="text-xl text-white/70">Calculate your potential savings with CRUSH</p>
-            </div>
-          }
-        >
-          <Box
-            sx={{
-              backgroundColor: 'white',
-              borderRadius: '1rem',
-              p: { xs: 2, md: 4 },
-              width: '100%',
-              height: '100%',
-            }}
-          >
-            <ROICalculatorSection />
-          </Box>
-        </ContainerScroll>
+      {/* Added extra spacing to the ROI Calculator section */}
+      <Box sx={{ my: 4 }}> {/* Added spacing container */}
+        <WaveBackground baseColor={crushAIColors.secondary} intensity="light">
+          <ROICalculatorSection />
+        </WaveBackground>
       </Box>
     </Box>
   );
