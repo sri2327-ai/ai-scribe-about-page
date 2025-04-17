@@ -39,7 +39,7 @@ export const TrustedBySection = () => {
       ref={sectionRef}
       sx={{ 
         py: { xs: 6, md: 10 },
-        background: 'linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)',
+        background: 'linear-gradient(to bottom, #e6eaf0, #d1d9e6)', // Updated background
         position: 'relative',
         overflow: 'hidden'
       }}
