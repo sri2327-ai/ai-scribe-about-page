@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
@@ -11,15 +10,17 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Check, BarChart3, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { ROISection } from '@/components/bravo/sections/ROISection';
 
 const Bravo = () => {
   return (
     <div className="bg-black min-h-screen">
       <BravoHeroSection />
       <CompatibilitySection />
-      
-      {/* How BRAVO Works Section */}
       <HowBravoWorksSection />
+      
+      {/* Add ROI Section here */}
+      <ROISection />
 
       {/* Handle Calls Section - Enhanced with animations */}
       <section className="py-20 relative overflow-hidden" style={{ backgroundColor: bravoColors.background.light }}>
