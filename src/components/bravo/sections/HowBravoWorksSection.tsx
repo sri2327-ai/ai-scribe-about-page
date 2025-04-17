@@ -1,11 +1,25 @@
+
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
 import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
 import { DeployBravoAnimation } from '../animations/DeployBravoAnimation';
 import { FrontOfficeAnimation } from '../animations/FrontOfficeAnimation';
 import { SeamlessSyncAnimation } from '../animations/SeamlessSyncAnimation';
-import { ArrowRight } from 'lucide-react';
+import { 
+  ArrowRight, 
+  Phone, 
+  Copy, 
+  Database, 
+  Calendar, 
+  MessageSquare, 
+  UserCheck, 
+  ClipboardCheck,
+  Bell,
+  FileText,
+  CreditCard,
+  FileCheck
+} from 'lucide-react';
 
 const stepVariants = {
   initial: { opacity: 0, y: 30 },
@@ -66,7 +80,7 @@ const StepItem: React.FC<StepItemProps> = ({
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [isInView]);
+  }, [isInView, isActive, onActivate]);
 
   return (
     <div 
@@ -160,6 +174,77 @@ const StepItem: React.FC<StepItemProps> = ({
 };
 
 const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
+  const steps = [
+    {
+      number: "1️",
+      title: "Deploy BRAVO",
+      description: "Seamlessly integrate with:",
+      items: [
+        { 
+          icon: Phone, 
+          text: "SIP & Phone Systems – Twilio, Plivo, Exotel, Telnyx & more." 
+        },
+        { 
+          icon: Copy, 
+          text: "Patient Platforms – Elation, OhMD, Care Patron, SimplePractice & others." 
+        },
+        { 
+          icon: Database, 
+          text: "EHR & PMS Integration – Auto-sync for real-time workflow automation." 
+        }
+      ],
+      animation: DeployBravoAnimation
+    },
+    {
+      number: "2️",
+      title: "AI-Powered Front Office Automation",
+      description: "BRAVO handles every patient engagement & admin task:",
+      items: [
+        { 
+          icon: Calendar, 
+          text: "Appointment Management – Auto-schedules, confirms & follows up." 
+        },
+        { 
+          icon: MessageSquare, 
+          text: "Refill Processing – Verifies identity, confirms pharmacies & drafts refills." 
+        },
+        { 
+          icon: UserCheck, 
+          text: "Patient Intake & Check-In – Registers patients, updates records & collects history." 
+        },
+        { 
+          icon: ClipboardCheck, 
+          text: "Pre-Visit Assistance – Captures chief complaints & prepares clinical summaries." 
+        },
+        { 
+          icon: Bell, 
+          text: "Patient Communication – Manages inquiries, triage & education." 
+        }
+      ],
+      animation: FrontOfficeAnimation
+    },
+    {
+      number: "3️",
+      title: "Seamless Sync with EHR, PMS & RCM",
+      description: "BRAVO ensures a fully automated front-office workflow:",
+      items: [
+        { 
+          icon: FileText, 
+          text: "Appointments & Refills – Auto-confirms visits & processes refills." 
+        },
+        { 
+          icon: CreditCard, 
+          text: "Billing & Insurance – Verifies eligibility, handles authorizations & claims." 
+        },
+        { 
+          icon: FileCheck, 
+          text: "Clinical Documentation – Updates records, generates care plans & tracks follow-ups." 
+        }
+      ],
+      animation: SeamlessSyncAnimation
+    }
+  ];
+  
   const AnimationComponent = steps[activeStep].animation;
   
   return (
