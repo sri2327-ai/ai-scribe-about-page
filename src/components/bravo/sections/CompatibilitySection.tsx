@@ -19,38 +19,31 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="w-full py-16 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="absolute top-0 left-0 w-full h-full">
-          {/* Static visible icons for visual hint */}
-          <motion.div 
-            className="absolute top-1/4 left-1/4 opacity-20"
-            animate={{ scale: [1, 1.1, 1], rotate: [0, 5, 0] }}
-            transition={{ duration: 3, repeat: Infinity }}
-          >
-            <Phone size={32} className="text-[#1EAEDB]" />
-          </motion.div>
-          <motion.div 
-            className="absolute bottom-1/4 right-1/4 opacity-20"
-            animate={{ scale: [1, 1.1, 1], rotate: [0, -5, 0] }}
-            transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-          >
-            <Calendar size={32} className="text-[#1EAEDB]" />
-          </motion.div>
-          <motion.div 
-            className="absolute top-1/3 right-1/3 opacity-20"
-            animate={{ scale: [1, 1.1, 1], rotate: [0, 3, 0] }}
-            transition={{ duration: 3, repeat: Infinity, delay: 2 }}
-          >
-            <Database size={32} className="text-[#1EAEDB]" />
-          </motion.div>
-        </div>
+    <div className="w-full min-h-[500px] bg-white relative overflow-hidden flex items-center justify-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center relative">
+        {/* Static visible icons for visual hint */}
+        <motion.div 
+          className="absolute right-0 top-1/2 -translate-y-1/2 flex space-x-4"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 0.6, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
+          <div className="bg-white rounded-lg shadow-lg p-2">
+            <Phone size={24} className="text-[#1EAEDB]" />
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-2">
+            <Calendar size={24} className="text-[#1EAEDB]" />
+          </div>
+          <div className="bg-white rounded-lg shadow-lg p-2">
+            <Database size={24} className="text-[#1EAEDB]" />
+          </div>
+        </motion.div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center relative z-10"
+          className="text-center relative z-10 max-w-2xl"
         >
           <h2 className="text-3xl font-bold mb-8" style={{ color: bravoColors.primary }}>
             Compatible with Your Preferred SIP, Patient Platform & PMS
