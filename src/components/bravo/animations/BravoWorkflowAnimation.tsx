@@ -138,7 +138,11 @@ export const BravoWorkflowAnimation = () => {
             key={step.title}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
+            transition={{ 
+              duration: 0.5, 
+              delay: index * 0.6, // Increased delay between steps
+              ease: "easeOut"
+            }}
             className="relative"
           >
             <motion.div
@@ -146,25 +150,51 @@ export const BravoWorkflowAnimation = () => {
               whileHover={{ scale: 1.02 }}
             >
               <div className="flex items-center gap-4">
-                <div 
+                <motion.div 
                   className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
                   style={{ backgroundColor: `${step.color}10` }}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{
+                    duration: 0.3,
+                    delay: index * 0.6 + 0.2,
+                    ease: "backOut"
+                  }}
                 >
                   <Icon className="w-6 h-6" style={{ color: step.color }} />
-                </div>
+                </motion.div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
+                  <motion.h3 
+                    className="text-lg font-semibold text-gray-900"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.6 + 0.3
+                    }}
+                  >
                     {step.title}
-                  </h3>
-                  <p className="text-sm text-gray-600">
+                  </motion.h3>
+                  <motion.p 
+                    className="text-sm text-gray-600"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.6 + 0.4
+                    }}
+                  >
                     {step.description}
-                  </p>
+                  </motion.p>
                 </div>
               </div>
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.2 + 0.2 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.6 + 0.5
+                }}
                 className="ml-16"
               >
                 {step.preview}
@@ -172,10 +202,16 @@ export const BravoWorkflowAnimation = () => {
             </motion.div>
             {index < steps.length - 1 && (
               <motion.div
-                className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)] bg-gradient-to-b from-gray-200 to-transparent"
+                className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
+                style={{
+                  background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
+                }}
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.6 + 0.6
+                }}
               />
             )}
           </motion.div>
