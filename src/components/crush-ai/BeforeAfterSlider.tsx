@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Badge } from "@/components/ui/badge";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
@@ -22,9 +22,6 @@ export const BeforeAfterSlider = () => {
   // State to trigger bounce animation when hitting edges
   const [bounceLeftActive, setBounceLeftActive] = useState(false);
   const [bounceRightActive, setBounceRightActive] = useState(false);
-  
-  // Light blue color for the left side
-  const lightBlueColor = "#5192AE";
   
   useEffect(() => {
     const unsubscribe = percent.onChange((latest) => {
@@ -102,6 +99,12 @@ export const BeforeAfterSlider = () => {
     <Box sx={{ width: "100%", py: { xs: 4, md: 6 } }}>
       <Box sx={{ maxWidth: "1200px", mx: "auto", px: { xs: 2, md: 4 } }}>
         <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 1 }}>
+            <Badge className="bg-black text-white py-1.5 px-3 rounded-full">
+              Before vs. After CRUSH
+            </Badge>
+          </Box>
+          
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, textAlign: "center", mb: 3 }}>
             <Typography variant="h4" sx={{ fontWeight: 700, color: "black" }}>
               See the CRUSH Difference
@@ -132,42 +135,38 @@ export const BeforeAfterSlider = () => {
               onTouchEnd={handleDragEnd}
             >
               <div className="absolute inset-0 flex items-stretch">
-                {/* Blue side (Before) - Changed to light blue */}
+                {/* Black side (Before) */}
                 <div 
-                  className="h-full flex items-center justify-center relative overflow-hidden"
-                  style={{ 
-                    width: `${sliderPosition}%`,
-                    backgroundColor: lightBlueColor, // Changed to light blue color
-                    color: 'white'
-                  }}
+                  className="h-full bg-black text-white flex items-center justify-center relative overflow-hidden"
+                  style={{ width: `${sliderPosition}%` }}
                 >
                   <div className="absolute inset-0 bg-[url('/public/lovable-uploads/5737eb5e-abd2-4c80-b961-6676d913887e.png')] bg-center bg-no-repeat bg-cover opacity-10"></div>
                   
                   {/* Add Badge for Without CRUSH */}
                   <div className="absolute top-6 left-6 z-20">
-                    <span className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</span>
+                    <Badge className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</Badge>
                   </div>
                   
                   <div className="z-10 max-w-md p-8">
                     <div className="mb-4">
-                      <span className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</span>
+                      <Badge className="bg-white text-black text-xs font-medium py-1 px-2 rounded-full">WITHOUT CRUSH</Badge>
                     </div>
                     <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold mb-4`}>The old way of documentation</h2>
-                    <p className={`text-white ${isMobile ? 'text-sm' : 'text-lg'} mb-6`}>
+                    <p className={`text-gray-300 ${isMobile ? 'text-sm' : 'text-lg'} mb-6`}>
                       Managing patient documentation is already tedious and time-consuming. 
                       Avoid further complications by ditching outdated, screen-focused methods.
                     </p>
-                    <ul className={`space-y-2 text-white ${isMobile ? 'text-xs' : 'text-base'}`}>
+                    <ul className={`space-y-2 text-gray-300 ${isMobile ? 'text-xs' : 'text-base'}`}>
                       <li className="flex items-start gap-2">
-                        <span className="text-white">•</span> {/* Fixed white bullet point */}
+                        <span className="text-gray-400">•</span>
                         <span>Hours of typing after each visit</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-white">•</span> {/* Fixed white bullet point */}
+                        <span className="text-gray-400">•</span>
                         <span>Constantly looking at screens instead of patients</span>
                       </li>
                       <li className="flex items-start gap-2">
-                        <span className="text-white">•</span> {/* Fixed white bullet point */}
+                        <span className="text-gray-400">•</span>
                         <span>Increased clinician burnout and stress</span>
                       </li>
                     </ul>
@@ -183,12 +182,12 @@ export const BeforeAfterSlider = () => {
                   
                   {/* Add Badge for With CRUSH */}
                   <div className="absolute top-6 left-6 z-20">
-                    <span className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</span>
+                    <Badge className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</Badge>
                   </div>
                   
                   <div className="z-10 max-w-md p-8">
                     <div className="mb-4">
-                      <span className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</span>
+                      <Badge className="bg-black text-white text-xs font-medium py-1 px-2 rounded-full">WITH CRUSH</Badge>
                     </div>
                     <h2 className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold mb-4`}>Focus on what matters</h2>
                     <p className={`text-gray-600 ${isMobile ? 'text-sm' : 'text-lg'} mb-6`}>
@@ -302,7 +301,7 @@ export const BeforeAfterSlider = () => {
               </TooltipProvider>
             </div>
             
-            {/* Bottom labels - kept but no badge */}
+            {/* Bottom labels */}
             <div className="flex justify-between mt-6 px-4">
               <div className="flex items-center">
                 <span className={`text-gray-700 font-medium ${isMobile ? 'text-xs' : 'text-sm'}`}>Screen-Focused Care</span>

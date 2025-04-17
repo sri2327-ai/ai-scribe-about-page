@@ -17,6 +17,7 @@ import { Container, Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
+import { EHRBeamsBackground } from "@/components/crush-ai/EHRBeamsBackground";
 
 // Add custom styles to enforce correct colors across components
 const globalStyles = {
@@ -61,13 +62,13 @@ const CrushAI = () => {
     >
       <HeroSection />
       
-      {/* TrustedBySection with updated gradient background */}
+      {/* TrustedBySection with text color updated to black */}
       <TrustedBySection />
       
-      {/* EHR Integration section without ripple effect */}
-      <Box sx={{ bgcolor: crushAIColors.background.gradient, position: 'relative' }}>
+      {/* EHR Integration section with BeamsBackground */}
+      <EHRBeamsBackground>
         <EhrIntegrationSection />
-      </Box>
+      </EHRBeamsBackground>
 
       {/* ClinicianTestimonialsSection in its original form */}
       <ClinicianTestimonialsSection />
@@ -81,51 +82,54 @@ const CrushAI = () => {
         <HowItWorksSection />
       </GradientSection>
 
-      {/* Competition Section without ripple effect */}
-      <Box sx={{ bgcolor: crushAIColors.background.white, position: 'relative' }}>
+      {/* Competition Section with BeamsBackground */}
+      <EHRBeamsBackground>
         <CompetitionSection />
-      </Box>
+      </EHRBeamsBackground>
       
       <TestimonialGenerateSection />
       
-      {/* Clinical Workflow section without ripple effect */}
-      <Box sx={{ bgcolor: crushAIColors.background.gradient, position: 'relative' }}>
+      {/* Clinical Workflow section with BeamsBackground */}
+      <EHRBeamsBackground>
         <ClinicalWorkflowSection />
-      </Box>
+      </EHRBeamsBackground>
       
-      {/* Call to Action section without ripple effect */}
-      <Box 
-        sx={{
-          background: crushAIColors.background.gradient,
-          py: { xs: 8, md: 10 }, 
-          textAlign: "center",
-          position: "relative",
-          zIndex: 1
-        }}
-      >
-        <Container maxWidth="md">
-          <Typography
-            variant="h3"
-            sx={{
-              fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
-              fontWeight: 700,
-              mb: 3,
-              color: crushAIColors.text.primary,
-              letterSpacing: "-0.03em",
-              lineHeight: 1.2
-            }}
-          >
-            CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
-          </Typography>
-          <Button 
-            size="lg" 
-            className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
-          >
-            <ArrowRight size={16} className="mr-2" />
-            BOOK A DEMO
-          </Button>
-        </Container>
-      </Box>
+      {/* Call to Action section with BeamsBackground */}
+      <EHRBeamsBackground>
+        <Box 
+          sx={{
+            py: { xs: 8, md: 10 }, 
+            textAlign: "center",
+            position: "relative",
+            zIndex: 1
+          }}
+        >
+          <Container maxWidth="md">
+            <Typography
+              variant="h3"
+              sx={{
+                fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
+                fontWeight: 700,
+                mb: 3,
+                color: crushAIColors.text.white,
+                letterSpacing: "-0.03em",
+                lineHeight: 1.2,
+                textShadow: "0 3px 10px rgba(0,0,0,0.5)"
+              }}
+              className="cta-text"
+            >
+              CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
+            </Typography>
+            <Button 
+              size="lg" 
+              className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
+            >
+              <ArrowRight size={16} className="mr-2" />
+              BOOK A DEMO
+            </Button>
+          </Container>
+        </Box>
+      </EHRBeamsBackground>
       
       <WorkflowAutomationSection />
       
