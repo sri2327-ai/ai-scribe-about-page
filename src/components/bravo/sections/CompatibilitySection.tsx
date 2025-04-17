@@ -1,11 +1,15 @@
-import React, { useRef, useEffect } from 'react';
-import { motion } from "framer-motion";
-import { Phone, Users, FileCheck, Database } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, useAnimation } from "framer-motion";
+import { Phone, Users, FileCheck } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
+import ShootingStars from "@/components/ui/shooting-stars";
 
 export const CompatibilitySection = () => {
+  const [hoveredSystem, setHoveredSystem] = useState<number | null>(null);
+  const controls = useAnimation();
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -30,6 +34,14 @@ export const CompatibilitySection = () => {
         damping: 20,
         duration: 0.5
       }
+    },
+    hover: {
+      scale: 1.1,
+      transition: { 
+        type: "spring",
+        stiffness: 400,
+        damping: 10
+      }
     }
   };
   
@@ -44,47 +56,32 @@ export const CompatibilitySection = () => {
         damping: 25,
         delay: custom * 0.2
       }
-    })
+    }),
+    hover: {
+      scale: 1.1,
+      filter: "brightness(1.2)",
+      transition: {
+        type: "spring",
+        stiffness: 400,
+        damping: 10
+      }
+    }
   };
   
   const pulseVariants = {
     hidden: { scale: 0.8, opacity: 0 },
     visible: {
-      scale: [0.8, 1.2, 1],
-      opacity: [0, 0.6, 0],
+      scale: [1, 1.5, 1],
+      opacity: [0.3, 0.6, 0],
       transition: {
         repeat: Infinity,
-        repeatDelay: 2,
+        repeatDelay: 1,
         duration: 2,
         times: [0, 0.5, 1]
       }
     }
   };
   
-  const connectedBadgeVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: (custom: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 1 + (custom * 0.2),
-        duration: 0.3
-      }
-    })
-  };
-  
-  const textVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 2.2,
-        duration: 0.5
-      }
-    }
-  };
-
   // Integration partners with their paths
   const integrations = [
     {
@@ -111,58 +108,16 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="relative w-full py-24 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
-      {/* Background effects */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden">
-        <svg width="100%" height="100%" className="absolute inset-0">
-          <defs>
-            <radialGradient id="gradient-bg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-              <stop offset="0%" stopColor={`${bravoColors.tertiary}10`} />
-              <stop offset="100%" stopColor="#ffffff00" />
-            </radialGradient>
-          </defs>
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#gradient-bg)" />
-          
-          {/* Floating hexagon grid */}
-          <pattern id="hexagons" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-            <path 
-              d="M0,20 L10,0 L30,0 L40,20 L30,40 L10,40 Z" 
-              fill="none" 
-              stroke={`${bravoColors.accent.blue}10`} 
-              strokeWidth="0.5"
-            />
-          </pattern>
-          <motion.rect 
-            x="0" y="0" width="100%" height="100%" 
-            fill="url(#hexagons)"
-            animate={{ 
-              x: [0, 40, 0], 
-              y: [0, 30, 0] 
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 20, 
-              ease: "linear" 
-            }}
-          />
-        </svg>
-      </div>
+    <div className="relative w-full h-[600px] overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+      <ShootingStars 
+        className="absolute inset-0" 
+        starCount={15}
+        colors={[bravoColors.accent.blue, bravoColors.accent.purple]}
+      />
       
-      <div className="container max-w-6xl mx-auto px-4 pt-8 pb-12">
-        <motion.div
-          className="text-center mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={textVariants}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ color: bravoColors.primary }}>
-            Compatible with Your Preferred SIP, Patient Platform & PMS
-          </h2>
-        </motion.div>
-        
+      <div className="relative h-full flex items-center justify-center">
         <motion.div 
-          className="relative flex items-center justify-center h-[500px]"
+          className="relative flex items-center justify-center"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -173,32 +128,32 @@ export const CompatibilitySection = () => {
             <motion.div 
               className="relative flex items-center justify-center"
               variants={hubVariants}
+              whileHover="hover"
+              onHoverStart={() => {
+                controls.start("hover");
+                setHoveredSystem(null);
+              }}
             >
               {/* Pulse rings */}
-              <motion.div 
-                className="absolute inset-0 rounded-full"
-                style={{ 
-                  background: `radial-gradient(circle, ${bravoColors.accent.blue}30 0%, ${bravoColors.accent.blue}00 70%)` 
-                }}
-                variants={pulseVariants}
-              />
-              
-              <motion.div 
-                className="absolute inset-0 rounded-full"
-                style={{ 
-                  background: `radial-gradient(circle, ${bravoColors.accent.blue}20 0%, ${bravoColors.accent.blue}00 70%)`,
-                  scale: 1.5 
-                }}
-                variants={pulseVariants}
-                custom={0.2}
-              />
+              {[1, 1.2, 1.4].map((scale, i) => (
+                <motion.div 
+                  key={i}
+                  className="absolute inset-0 rounded-full"
+                  style={{ 
+                    background: `radial-gradient(circle, ${bravoColors.accent.blue}30 0%, ${bravoColors.accent.blue}00 70%)`,
+                    scale 
+                  }}
+                  variants={pulseVariants}
+                  custom={i * 0.2}
+                />
+              ))}
               
               {/* Hub */}
               <div className="relative">
-                <div className="w-24 h-24 rounded-full backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-lg border border-white/60 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
+                <div className="w-32 h-32 rounded-full backdrop-blur-sm bg-gradient-to-br from-white/90 to-white/40 flex items-center justify-center shadow-lg border border-white/60 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 z-0" />
                   <GlowBorderEffect glow variant="teal" />
-                  <span className="text-xl font-bold z-10 relative" style={{ color: bravoColors.primary }}>BRAVO</span>
+                  <span className="text-2xl font-bold z-10 relative" style={{ color: bravoColors.primary }}>BRAVO</span>
                 </div>
               </div>
             </motion.div>
@@ -217,9 +172,9 @@ export const CompatibilitySection = () => {
                       height={Math.abs(integration.position.y) + 10}
                       path={integration.path}
                       gradientColors={integration.gradientColors}
-                      animationDuration={3}
+                      animationDuration={hoveredSystem === i ? 2 : 3}
                       baseColor="#e5e7eb"
-                      strokeWidth={1.5}
+                      strokeWidth={hoveredSystem === i ? 2.5 : 1.5}
                     />
                   </div>
                   
@@ -228,29 +183,38 @@ export const CompatibilitySection = () => {
                     className="relative"
                     variants={iconVariants}
                     custom={i + 1}
+                    whileHover="hover"
+                    onHoverStart={() => {
+                      setHoveredSystem(i);
+                      controls.start("hover");
+                    }}
+                    onHoverEnd={() => {
+                      setHoveredSystem(null);
+                      controls.start("visible");
+                    }}
                   >
-                    <div className="relative w-16 h-16 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-lg backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-md border border-white/60 z-10">
-                        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
-                        <div className="p-2 rounded-md bg-gradient-to-r from-blue-500 to-blue-600 z-10">
+                    <div className="relative w-20 h-20 flex items-center justify-center group">
+                      <motion.div 
+                        className="w-20 h-20 rounded-xl backdrop-blur-sm bg-gradient-to-br from-white/90 to-white/40 flex items-center justify-center shadow-lg border border-white/60 z-10 overflow-hidden"
+                        animate={hoveredSystem === i ? { scale: 1.1 } : { scale: 1 }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 z-0" />
+                        <div className="p-3 rounded-lg bg-gradient-to-r from-blue-500 to-blue-600 z-10 relative">
                           {integration.icon}
                         </div>
-                      </div>
-                      
-                      {/* Connected badge */}
-                      <motion.div
-                        className="absolute -top-3 -right-3 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-sm"
-                        variants={connectedBadgeVariants}
-                        custom={i}
-                      >
-                        Connected
                       </motion.div>
-                    </div>
-                    
-                    <div className="absolute top-full mt-2 text-center w-full">
-                      <p className="text-sm font-medium" style={{ color: bravoColors.text.secondary }}>
-                        {integration.name}
-                      </p>
+                      
+                      {/* System name */}
+                      <motion.div 
+                        className="absolute top-full mt-4 text-center w-full"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        <p className="text-base font-medium" style={{ color: bravoColors.text.secondary }}>
+                          {integration.name}
+                        </p>
+                      </motion.div>
                     </div>
                   </motion.div>
                 </div>
@@ -259,12 +223,13 @@ export const CompatibilitySection = () => {
           </div>
         </motion.div>
         
+        {/* Bottom text */}
         <motion.div
-          className="text-center max-w-2xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
+          className="absolute bottom-12 text-center max-w-2xl mx-auto px-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          variants={textVariants}
+          transition={{ delay: 2.2, duration: 0.5 }}
         >
           <p className="text-xl md:text-2xl" style={{ color: bravoColors.text.secondary }}>
             BRAVO syncs where it matters most — with your preferred SIP, Patient Platform & PMS.
