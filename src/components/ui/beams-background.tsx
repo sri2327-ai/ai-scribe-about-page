@@ -24,17 +24,17 @@ interface Beam {
 }
 
 function createBeam(width: number, height: number): Beam {
-    const angle = -35 + Math.random() * 10;
+    const angle = Math.random() * 360; // Random angle for radial effect
     return {
-        x: Math.random() * width * 1.5 - width * 0.25,
-        y: Math.random() * height * 1.5 - height * 0.25,
-        width: 30 + Math.random() * 60,
-        length: height * 2.5,
+        x: width / 2, // Center the beams
+        y: height / 2,
+        width: 20 + Math.random() * 40, // Thinner beams
+        length: Math.max(width, height) * 1.5, // Longer beams to reach edges
         angle: angle,
-        speed: 0.6 + Math.random() * 1.2,
-        opacity: 0.12 + Math.random() * 0.16,
+        speed: 0, // Static beams for this effect
+        opacity: 0.2 + Math.random() * 0.3, // Higher opacity for brighter beams
         pulse: Math.random() * Math.PI * 2,
-        pulseSpeed: 0.02 + Math.random() * 0.03,
+        pulseSpeed: 0.01 + Math.random() * 0.02,
     };
 }
 
@@ -46,7 +46,7 @@ export function BeamsBackground({
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
-    const MINIMUM_BEAMS = 20;
+    const MINIMUM_BEAMS = 15; // Fewer beams for a cleaner look
 
     const opacityMap = {
         subtle: 0.7,
@@ -69,30 +69,29 @@ export function BeamsBackground({
             canvas.style.height = `${window.innerHeight}px`;
             ctx.scale(dpr, dpr);
 
-            const totalBeams = MINIMUM_BEAMS * 1.5;
+            const totalBeams = MINIMUM_BEAMS;
             beamsRef.current = Array.from({ length: totalBeams }, () =>
-                createBeam(canvas.width, canvas.height)
+                createBeam(canvas.width / dpr, canvas.height / dpr)
             );
         };
 
         updateCanvasSize();
         window.addEventListener("resize", updateCanvasSize);
 
-        function resetBeam(beam: Beam, index: number, totalBeams: number) {
-            if (!canvas) return beam;
-
-            const column = index % 3;
-            const spacing = canvas.width / 3;
-
-            beam.y = canvas.height + 100;
-            beam.x =
-                column * spacing +
-                spacing / 2 +
-                (Math.random() - 0.5) * spacing * 0.5;
-            beam.width = 100 + Math.random() * 100;
-            beam.speed = 0.5 + Math.random() * 0.4;
-            beam.opacity = 0.2 + Math.random() * 0.1;
-            return beam;
+        function drawCentralGlow() {
+            if (!ctx || !canvas) return;
+            const gradient = ctx.createRadialGradient(
+                canvas.width / 2 / (window.devicePixelRatio || 1),
+                canvas.height / 2 / (window.devicePixelRatio || 1),
+                0,
+                canvas.width / 2 / (window.devicePixelRatio || 1),
+                canvas.height / 2 / (window.devicePixelRatio || 1),
+                Math.max(canvas.width, canvas.height) / 2 / (window.devicePixelRatio || 1)
+            );
+            gradient.addColorStop(0, "rgba(255, 255, 255, 0.15)");
+            gradient.addColorStop(1, "rgba(255, 255, 255, 0)");
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
         }
 
         function drawBeam(ctx: CanvasRenderingContext2D, beam: Beam) {
@@ -107,12 +106,12 @@ export function BeamsBackground({
 
             const gradient = ctx.createLinearGradient(0, 0, 0, beam.length);
 
-            // Subtle white beams with gradient
+            // Subtle white beams with a glowing effect
             gradient.addColorStop(0, `rgba(255, 255, 255, 0)`);
-            gradient.addColorStop(0.1, `rgba(255, 255, 255, ${pulsingOpacity * 0.3})`);
-            gradient.addColorStop(0.4, `rgba(255, 255, 255, ${pulsingOpacity * 0.5})`);
-            gradient.addColorStop(0.6, `rgba(255, 255, 255, ${pulsingOpacity * 0.5})`);
-            gradient.addColorStop(0.9, `rgba(255, 255, 255, ${pulsingOpacity * 0.3})`);
+            gradient.addColorStop(0.1, `rgba(255, 255, 255, ${pulsingOpacity * 0.5})`);
+            gradient.addColorStop(0.4, `rgba(255, 255, 255, ${pulsingOpacity})`);
+            gradient.addColorStop(0.6, `rgba(255, 255, 255, ${pulsingOpacity})`);
+            gradient.addColorStop(0.9, `rgba(255, 255, 255, ${pulsingOpacity * 0.5})`);
             gradient.addColorStop(1, `rgba(255, 255, 255, 0)`);
 
             ctx.fillStyle = gradient;
@@ -124,17 +123,12 @@ export function BeamsBackground({
             if (!canvas || !ctx) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.filter = "blur(35px)";
+            ctx.filter = "blur(50px)"; // Increased blur for a softer glow
 
-            const totalBeams = beamsRef.current.length;
-            beamsRef.current.forEach((beam, index) => {
-                beam.y -= beam.speed;
+            drawCentralGlow();
+
+            beamsRef.current.forEach((beam) => {
                 beam.pulse += beam.pulseSpeed;
-
-                if (beam.y + beam.length < -100) {
-                    resetBeam(beam, index, totalBeams);
-                }
-
                 drawBeam(ctx, beam);
             });
 
@@ -158,7 +152,7 @@ export function BeamsBackground({
                 className
             )}
             style={{
-                background: "linear-gradient(90deg, #046f90, #0d252b)",
+                background: "radial-gradient(circle at center, #046f90 0%, #0d252b 100%)", // Using your color codes
             }}
         >
             <canvas
