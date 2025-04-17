@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
 import { PhoneCall, MessageSquare, Calendar, ClipboardCheck, Bell, FileText } from 'lucide-react';
 
 const steps = [
@@ -129,49 +129,76 @@ const steps = [
 ];
 
 export const BravoWorkflowAnimation = () => {
+  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const [userInteracted, setUserInteracted] = useState<boolean>(false);
+
+  // Auto-advance steps
+  useEffect(() => {
+    if (isAutoPlaying) {
+      const interval = setInterval(() => {
+        setCurrentStep((prev) => {
+          if (prev >= steps.length - 1) {
+            return 0;
+          }
+          return prev + 1;
+        });
+      }, 6000); // Show each step for 6 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [isAutoPlaying]);
+
+  const handleStepClick = (index: number) => {
+    setUserInteracted(true);
+    setIsAutoPlaying(false);
+    setCurrentStep(index);
+    
+    // Resume auto-play after 15 seconds of inactivity
+    const inactivityTimer = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 15000);
+    
+    return () => clearTimeout(inactivityTimer);
+  };
+
   return (
     <div className="grid grid-cols-1 gap-6">
       {steps.map((step, index) => {
         const Icon = step.icon;
+        const isActive = currentStep === index;
+        const isComplete = currentStep > index;
+
         return (
           <motion.div
             key={step.title}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ 
+              opacity: isActive ? 1 : 0.5,
+              height: isActive ? "auto" : "64px",
+              x: isActive ? 0 : -5
+            }}
             transition={{ 
-              duration: 0.8,
-              delay: index * 1.2, // Increased delay for more sequential appearance
+              duration: 0.5,
               ease: "easeOut"
             }}
-            className="relative"
+            className="relative overflow-hidden"
+            onClick={() => handleStepClick(index)}
           >
             <motion.div
-              className="flex flex-col gap-4"
+              className="flex flex-col gap-4 cursor-pointer"
               whileHover={{ 
                 scale: 1.02,
                 transition: { duration: 0.3 }
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: index * 1.2 // Match parent delay
               }}
             >
               <div className="flex items-center gap-4">
                 <motion.div 
                   className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
                   style={{ backgroundColor: `${step.color}10` }}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
                   whileHover={{ 
                     scale: 1.1,
                     transition: { duration: 0.2 }
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 1.2 + 0.3,
-                    ease: "backOut"
                   }}
                 >
                   <Icon className="w-6 h-6" style={{ color: step.color }} />
@@ -179,44 +206,32 @@ export const BravoWorkflowAnimation = () => {
                 <div>
                   <motion.h3 
                     className="text-lg font-semibold text-gray-900"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 1.2 + 0.4
-                    }}
                   >
                     {step.title}
                   </motion.h3>
                   <motion.p 
                     className="text-sm text-gray-600"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.5,
-                      delay: index * 1.2 + 0.5
-                    }}
                   >
                     {step.description}
                   </motion.p>
                 </div>
               </div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={{ 
-                  y: -5,
-                  transition: { duration: 0.2 }
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 1.2 + 0.6
-                }}
-                className="ml-16"
-              >
-                {step.preview}
-              </motion.div>
+              
+              <AnimatePresence>
+                {isActive && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: "auto" }}
+                    exit={{ opacity: 0, y: -20, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="ml-16"
+                  >
+                    {step.preview}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
+            
             {index < steps.length - 1 && (
               <motion.div
                 className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
@@ -224,11 +239,8 @@ export const BravoWorkflowAnimation = () => {
                   background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
                 }}
                 initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 1.2 + 0.8
-                }}
+                animate={{ scaleY: isActive ? 1 : 0.5 }}
+                transition={{ duration: 0.5 }}
               />
             )}
           </motion.div>
