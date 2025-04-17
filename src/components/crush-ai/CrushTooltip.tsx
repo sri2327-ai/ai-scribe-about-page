@@ -37,7 +37,7 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
             height: '36px',
             borderRadius: '50%',
             border: index === activeIndex 
-              ? `2px solid ${crushAIColors.primary}` 
+              ? `2px solid ${crushAIColors.primaryFlat}` 
               : '2px solid transparent',
             display: 'inline-flex',
             alignItems: 'center',
@@ -46,7 +46,7 @@ export const CrushTooltip: React.FC<CrushTooltipProps> = ({ data }) => {
             transition: 'all 0.2s ease',
             '&:hover': {
               transform: 'scale(1.1)',
-              border: `2px solid ${crushAIColors.primary}`
+              border: `2px solid ${crushAIColors.primaryFlat}`
             },
             fontWeight: 800,
             fontSize: 'inherit',

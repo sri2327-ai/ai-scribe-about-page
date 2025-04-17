@@ -44,6 +44,7 @@ const CrushAI = () => {
       {/* ClinicianTestimonialsSection in its original form */}
       <ClinicianTestimonialsSection />
 
+      {/* How It Works section with gradient background */}
       <GradientSection 
         variant="linear"
         intensity="medium"
@@ -62,13 +63,13 @@ const CrushAI = () => {
       
       <TestimonialGenerateSection />
       
-      <GradientSection 
-        variant="linear"
-        intensity="medium"
-        colors={[crushAIColors.background.gradient.split(',')[0].split('(')[1], crushAIColors.background.gradient.split(',')[1].split(')')[0]]}
-      >
+      {/* Clinical Workflow section with updated primary gradient background */}
+      <Box sx={{ 
+        background: crushAIColors.primary,
+        position: 'relative' 
+      }}>
         <ClinicalWorkflowSection />
-      </GradientSection>
+      </Box>
       
       {/* Call to Action section with primary gradient background */}
       <Box 
