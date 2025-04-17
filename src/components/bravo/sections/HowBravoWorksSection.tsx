@@ -1,22 +1,22 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
 import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
-import { BravoWorkflowAnimation } from '../animations/BravoWorkflowAnimation';
 import { 
   ArrowRight, 
+  Plug, 
   Phone, 
-  Laptop, 
+  FileText, 
   Database, 
   Calendar, 
+  ClipboardCheck, 
+  FileCheck, 
   MessageSquare, 
+  Bell, 
   UserCheck, 
-  ClipboardCheck,
-  Bell,
-  FileText,
   CreditCard,
-  FileCheck,
+  Bot,
+  Copy
 } from 'lucide-react';
 
 const stepVariants = {
@@ -42,6 +42,11 @@ const iconContainerVariants = {
     scale: [1, 1.05, 1],
     transition: { duration: 2, repeat: Infinity }
   }
+};
+
+const branchVariants = {
+  initial: { pathLength: 0 },
+  animate: { pathLength: 1, transition: { duration: 1.5, ease: "easeInOut" } }
 };
 
 interface StepItemProps {
@@ -73,7 +78,7 @@ const StepItem: React.FC<StepItemProps> = ({
       }, 100);
       return () => clearTimeout(timer);
     }
-  }, [isInView, isActive, onActivate]);
+  }, [isInView]);
 
   return (
     <div 
@@ -167,10 +172,114 @@ const StepItem: React.FC<StepItemProps> = ({
 };
 
 const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
-  // Use a single animation component that handles all steps
+  const svgRef = useRef<SVGSVGElement>(null);
+  
+  const icons = [
+    <Plug key="plug" size={32} style={{ color: bravoColors.secondary }} />,
+    <Bot key="bot" size={32} style={{ color: bravoColors.secondary }} />,
+    <Database key="database" size={32} style={{ color: bravoColors.secondary }} />
+  ];
+  
+  const secondaryIcons = [
+    [<Phone key="phone" size={24} />, <Copy key="copy" size={24} />, <MessageSquare key="message" size={24} />],
+    [<Calendar key="calendar" size={24} />, <ClipboardCheck key="clipboard" size={24} />, <Bell key="bell" size={24} />],
+    [<FileCheck key="filecheck" size={24} />, <CreditCard key="credit" size={24} />, <UserCheck key="usercheck" size={24} />]
+  ];
+  
   return (
     <div className="relative h-full min-h-[400px] flex items-center justify-center">
-      <BravoWorkflowAnimation />
+      <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 500 500" className="absolute inset-0">
+        <motion.path
+          d="M250,100 C150,150 150,250 250,300 C350,350 350,400 250,450"
+          fill="none"
+          stroke={`${bravoColors.tertiary}30`}
+          strokeWidth="4"
+          strokeDasharray="8 8"
+          variants={branchVariants}
+          initial="initial"
+          animate="animate"
+        />
+      </svg>
+      
+      {[0, 1, 2].map((step) => (
+        <motion.div
+          key={step}
+          className={`absolute flex items-center justify-center w-20 h-20 rounded-full ${
+            activeStep === step ? 'z-10' : 'z-0'
+          }`}
+          style={{ 
+            top: step === 0 ? '10%' : step === 1 ? '45%' : '75%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            backgroundColor: activeStep === step 
+              ? `${bravoColors.secondary}20` 
+              : `${bravoColors.secondary}10`,
+            boxShadow: activeStep === step 
+              ? `0 0 20px ${bravoColors.secondary}40` 
+              : 'none',
+            border: `2px solid ${activeStep === step ? bravoColors.secondary : `${bravoColors.secondary}30`}`
+          }}
+          initial={false}
+          animate={{
+            scale: activeStep === step ? 1.1 : 0.9,
+            opacity: activeStep === step ? 1 : 0.7,
+            transition: { duration: 0.5 }
+          }}
+        >
+          {icons[step]}
+          
+          <AnimatePresence mode="wait">
+            {activeStep === step && (
+              <>
+                {secondaryIcons[step].map((icon, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shadow-lg"
+                    initial={{ opacity: 0, x: 0, y: 0 }}
+                    animate={{ 
+                      opacity: 1, 
+                      x: [(i-1) * 60, (i-1) * 60 + (Math.random() * 10 - 5)], 
+                      y: [0, Math.random() * 10 - 5],
+                      transition: { 
+                        delay: i * 0.2, 
+                        opacity: { duration: 0.3 },
+                        x: { duration: 4, repeat: Infinity, repeatType: 'reverse' },
+                        y: { duration: 3, repeat: Infinity, repeatType: 'reverse' }
+                      } 
+                    }}
+                    exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                    style={{
+                      left: `calc(50% + ${(i-1) * 60}px)`,
+                      borderColor: bravoColors.tertiary,
+                      color: bravoColors.secondary
+                    }}
+                  >
+                    {icon}
+                  </motion.div>
+                ))}
+              </>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      ))}
+      
+      <AnimatePresence>
+        {activeStep === 1 && (
+          <motion.div
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            exit={{ opacity: 0 }}
+          >
+            <div 
+              className="w-72 h-72 rounded-full" 
+              style={{ 
+                background: `radial-gradient(circle, ${bravoColors.tertiary}30 0%, transparent 70%)`,
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -183,7 +292,7 @@ export const HowBravoWorksSection = () => {
   
   const steps = [
     {
-      number: "1",
+      number: "1️",
       title: "Deploy BRAVO",
       description: "Seamlessly integrate with:",
       items: [
@@ -192,7 +301,7 @@ export const HowBravoWorksSection = () => {
           text: "SIP & Phone Systems – Twilio, Plivo, Exotel, Telnyx & more." 
         },
         { 
-          icon: Laptop, 
+          icon: Copy, 
           text: "Patient Platforms – Elation, OhMD, Care Patron, SimplePractice & others." 
         },
         { 
@@ -202,7 +311,7 @@ export const HowBravoWorksSection = () => {
       ]
     },
     {
-      number: "2",
+      number: "2️",
       title: "AI-Powered Front Office Automation",
       description: "BRAVO handles every patient engagement & admin task:",
       items: [
@@ -229,7 +338,7 @@ export const HowBravoWorksSection = () => {
       ]
     },
     {
-      number: "3",
+      number: "3️",
       title: "Seamless Sync with EHR, PMS & RCM",
       description: "BRAVO ensures a fully automated front-office workflow:",
       items: [
