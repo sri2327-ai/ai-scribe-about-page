@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { CompatibilitySection } from '@/components/bravo/sections/CompatibilitySection';
@@ -7,6 +6,7 @@ import { bravoColors } from '@/theme/bravo-theme';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Phone, Check, BarChart3, Users } from "lucide-react";
 
 const Bravo = () => {
   return (
@@ -18,102 +18,111 @@ const Bravo = () => {
       <HowBravoWorksSection />
 
       {/* Handle Calls Section */}
-      <section className="py-20 bg-gray-50" style={{ backgroundColor: bravoColors.background.light }}>
+      <section className="py-20" style={{ backgroundColor: bravoColors.background.light }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-16" style={{ color: bravoColors.primary }}>
-            Let BRAVO Handle Calls, Scheduling & Intake – So Your Staff Doesn't Have To
-          </h2>
+          <div className="text-center max-w-4xl mx-auto mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: bravoColors.primary }}>
+              Let BRAVO Handle Calls, Scheduling & Intake — So Your Staff Doesn't Have To
+            </h2>
+            <p className="text-xl md:text-2xl opacity-90" style={{ color: bravoColors.text.secondary }}>
+              AI-powered front office. Available 24/7. No burnout.
+            </p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto">
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-center mb-4" style={{ color: bravoColors.primary }}>
-                  ACCESS – 24/7 AI-Powered Patient Interaction
-                </h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* ACCESS Card */}
+            <Card className="group backdrop-blur-lg bg-white/90 border-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8 space-y-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-xl" style={{ backgroundColor: `${bravoColors.background.light}` }}>
+                    <Phone className="w-6 h-6" style={{ color: bravoColors.text.light }} />
+                  </div>
+                  <h3 className="text-xl font-bold" style={{ color: bravoColors.primary }}>
+                    24/7 AI-Powered Patient Interaction
+                  </h3>
+                </div>
                 <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>AI Chat & Phone Agents</strong> – Automate multilingual patient interactions.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>24/7 Availability</strong> – Never miss an inquiry, scale effortlessly.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Seamless Scheduling</strong> – AI-driven booking, rescheduling & reminders.
-                    </span>
-                  </li>
+                  {[
+                    'AI Chat & Phone Agents – Automate multilingual patient interactions',
+                    '24/7 Availability – Never miss an inquiry, scale effortlessly',
+                    'Seamless Scheduling – AI-driven booking, rescheduling & reminders'
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3" style={{ color: bravoColors.text.secondary }}>
+                      <Check className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: bravoColors.accent.blue }} />
+                      <span>{text}</span>
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
-            
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-center mb-4" style={{ color: bravoColors.primary }}>
-                  EFFICIENCY – Reduce No-Shows & Boost Revenue
-                </h3>
+
+            {/* EFFICIENCY Card */}
+            <Card className="group backdrop-blur-lg bg-white/90 border-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8 space-y-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-xl" style={{ backgroundColor: `${bravoColors.background.light}` }}>
+                    <BarChart3 className="w-6 h-6" style={{ color: bravoColors.text.light }} />
+                  </div>
+                  <h3 className="text-xl font-bold" style={{ color: bravoColors.primary }}>
+                    Reduce No-Shows & Boost Revenue
+                  </h3>
+                </div>
                 <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Smart Reminders & Follow-Ups</strong> – Minimize cancellations & increase billable visits.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Automated Workflows</strong> – Handle appointments, refills & intake with zero hassle.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Revenue Protection</strong> – Reduce denials, streamline RCM & optimize reimbursements.
-                    </span>
-                  </li>
+                  {[
+                    'Smart Reminders & Follow-Ups – Minimize cancellations',
+                    'Automated Workflows – Handle appointments, refills, intake',
+                    'Revenue Protection – Denials reduced, RCM optimized'
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3" style={{ color: bravoColors.text.secondary }}>
+                      <Check className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: bravoColors.accent.blue }} />
+                      <span>{text}</span>
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
-            
-            <Card className="border-none shadow-lg">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-center mb-4" style={{ color: bravoColors.primary }}>
-                  COORDINATION – Overcome Staffing Shortages with AI
-                </h3>
+
+            {/* COORDINATION Card */}
+            <Card className="group backdrop-blur-lg bg-white/90 border-none hover:shadow-lg transition-all duration-300">
+              <CardContent className="p-8 space-y-6">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 rounded-xl" style={{ backgroundColor: `${bravoColors.background.light}` }}>
+                    <Users className="w-6 h-6" style={{ color: bravoColors.text.light }} />
+                  </div>
+                  <h3 className="text-xl font-bold" style={{ color: bravoColors.primary }}>
+                    Overcome Staffing Shortages with AI
+                  </h3>
+                </div>
                 <ul className="space-y-4">
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>AI Task Assignment</strong> – Smart delegation for better front-office efficiency.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Seamless Integration</strong> – Connects with EHR, CRM, PMS & call center systems.
-                    </span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-blue-500">•</span>
-                    <span style={{ color: bravoColors.text.secondary }}>
-                      <strong>Smarter Referrals</strong> – Automates patient triage, care coordination & messaging.
-                    </span>
-                  </li>
+                  {[
+                    'AI Task Assignment – Smart delegation to the right person',
+                    'Seamless Integration – Connects with EHR, CRM, PMS',
+                    'Smarter Referrals – Automates triage & care coordination'
+                  ].map((text, i) => (
+                    <li key={i} className="flex items-start gap-3" style={{ color: bravoColors.text.secondary }}>
+                      <Check className="w-5 h-5 mt-1 flex-shrink-0" style={{ color: bravoColors.accent.blue }} />
+                      <span>{text}</span>
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
           </div>
           
           <div className="text-center mt-16">
-            <p className="text-2xl font-semibold mb-8" style={{ color: bravoColors.secondary }}>
+            <p className="text-2xl md:text-3xl font-semibold mb-8" style={{ color: bravoColors.secondary }}>
               More Efficiency. Less Admin. Happier Patients.
             </p>
+            <Button 
+              size="lg"
+              className="px-8 py-6 text-lg rounded-xl"
+              style={{ 
+                backgroundColor: bravoColors.secondary,
+                color: bravoColors.text.white
+              }}
+            >
+              Talk to an AI Specialist
+            </Button>
           </div>
         </div>
       </section>
