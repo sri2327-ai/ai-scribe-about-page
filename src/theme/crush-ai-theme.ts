@@ -24,7 +24,11 @@ export const crushAIColors = {
     purple: '#A5CCF3', // Light Sky Blue repurposed as a secondary accent
   },
   button: {
-    gradient: 'linear-gradient(90deg,#009bca,#0d252b)', // Gradient for buttons
+    gradient: 'linear-gradient(90deg,#046f90,#0d252b)', // Updated button gradient to match primary
     hover: 'linear-gradient(90deg,#00b3e6,#0d252b)', // Slightly lighter for hover state
+  },
+  icons: {
+    primary: '#046f90', // Primary color for icons
+    secondary: '#0d252b', // Secondary color for icons
   }
 };
