@@ -35,17 +35,44 @@ export const GradientSection = ({
   ];
   
   // Convert hex to rgba for opacity
-  const hexToRgba = (hex: string, opacity: number) => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  const hexToRgba = (color: string, opacity: number) => {
+    // Check if color is a valid hex string
+    if (!color || typeof color !== 'string') {
+      // Return a default RGBA color if the input is invalid
+      return `rgba(200, 200, 200, ${opacity})`;
+    }
+    
+    // Handle non-hex colors (like named colors or rgb values)
+    if (!color.startsWith('#')) {
+      return color; // Return the original color if it's not a hex value
+    }
+    
+    try {
+      const r = parseInt(color.slice(1, 3), 16);
+      const g = parseInt(color.slice(3, 5), 16);
+      const b = parseInt(color.slice(5, 7), 16);
+      
+      // Check if parsing was successful
+      if (isNaN(r) || isNaN(g) || isNaN(b)) {
+        return `rgba(200, 200, 200, ${opacity})`;
+      }
+      
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    } catch (error) {
+      console.error("Error parsing color:", color, error);
+      return `rgba(200, 200, 200, ${opacity})`;
+    }
   };
   
   // Create gradient based on variant
   const createGradient = () => {
     const [color1, color2, color3] = gradientColors;
     const [opacity1, opacity2, opacity3] = opacityLevels[intensity];
+    
+    // If any of the colors are predefined CSS gradients, return them directly
+    if (color1 && typeof color1 === 'string' && color1.includes('gradient')) {
+      return color1;
+    }
     
     if (variant === "radial") {
       return `radial-gradient(
