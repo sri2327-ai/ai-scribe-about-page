@@ -30,66 +30,14 @@ const CrushAI = () => {
     >
       <HeroSection />
       
-      {/* TrustedBySection with container styling similar to ROI calculator */}
-      <Box 
-        component="section" 
-        sx={{
-          py: { xs: 6, md: 10 },
-          bgcolor: crushAIColors.secondary,  // Using blue background like ROI calculator
-          position: 'relative',
-          overflow: 'hidden',
-          minHeight: { xs: "80vh", md: "65vh" },
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: 'white',
-            borderRadius: { xs: 0, md: '0rem' },  // No rounded corners like ROI calculator when scrolled fully
-            mx: 'auto',
-            my: 0,
-            width: '100%',
-            height: '100%',
-            p: { xs: 4, md: 6 },
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <TrustedBySection />
-        </Box>
-      </Box>
+      {/* TrustedBySection in its original form */}
+      <TrustedBySection />
       
       {/* Using the direct component instead of GradientSection for EHR Integration */}
       <EhrIntegrationSection />
 
-      {/* ClinicianTestimonialsSection with container styling similar to ROI calculator */}
-      <Box 
-        component="section" 
-        sx={{
-          py: { xs: 6, md: 10 },
-          bgcolor: crushAIColors.secondary,  // Using blue background like ROI calculator
-          position: 'relative',
-          overflow: 'hidden',
-          minHeight: { xs: "100vh", md: "90vh" },
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: 'white',
-            borderRadius: { xs: 0, md: '0rem' },  // No rounded corners
-            mx: 'auto',
-            my: 0,
-            width: '100%',
-            height: '100%',
-            p: { xs: 4, md: 6 },
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-            position: 'relative',
-            zIndex: 1,
-          }}
-        >
-          <ClinicianTestimonialsSection />
-        </Box>
-      </Box>
+      {/* ClinicianTestimonialsSection in its original form */}
+      <ClinicianTestimonialsSection />
 
       <GradientSection 
         variant="radial"
