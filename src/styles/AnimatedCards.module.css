@@ -3,6 +3,9 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
 }
 
 .featureCard:hover {
@@ -14,20 +17,14 @@
   position: relative;
   z-index: 2;
   transition: all 0.3s ease-in-out;
-}
-
-.featureCard:hover .iconContainer {
-  transform: scale(1.1);
+  will-change: transform;
 }
 
 .cardContent {
   position: relative;
   z-index: 2;
   transition: all 0.3s ease-in-out;
-}
-
-.featureCard:hover .cardContent {
-  transform: translateY(-5px);
+  will-change: transform;
 }
 
 .decorationCircle {
@@ -35,11 +32,13 @@
   border-radius: 50%;
   opacity: 0.1;
   pointer-events: none;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0);
 }
 
 .featureCard:hover .decorationCircle {
-  transform: scale(1.2);
+  transform: scale(1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .circleLarge {
@@ -54,6 +53,7 @@
   height: 40px;
   top: 20px;
   right: 20px;
+  transition-delay: 0.05s;
 }
 
 .circleTiny {
@@ -61,12 +61,13 @@
   height: 20px;
   bottom: 40px;
   left: 30px;
+  transition-delay: 0.1s;
 }
 
 .shimmer {
   position: absolute;
   top: 0;
-  left: 0;
+  left: -100%;
   width: 100%;
   height: 100%;
   background: linear-gradient(
@@ -75,40 +76,19 @@
     rgba(255, 255, 255, 0.2) 50%,
     rgba(255, 255, 255, 0) 100%
   );
-  transform: translateX(-100%);
-  animation: shimmer 3s infinite;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  will-change: transform;
 }
 
 .featureCard:hover .shimmer {
   opacity: 1;
+  left: 100%;
+  transition: left 1s ease-in-out, opacity 0.2s ease-in-out;
 }
 
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.iconAnimation {
-  animation: pulse 2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-/* Fix animation stacking and performance issues */
+/* Fix animation performance issues */
 .illustrationContainer {
   position: relative;
   height: 100%;
@@ -117,6 +97,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transform: translateZ(0);
   will-change: transform;
 }
 
@@ -124,9 +105,10 @@
   transform: translateZ(0);
   backface-visibility: hidden;
   perspective: 1000px;
+  will-change: transform;
 }
 
-/* Fix for animation bubbling and flickering */
+/* Keyframe animations */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -145,7 +127,24 @@
   animation: scaleIn 0.5s ease-out forwards;
 }
 
-/* Prevent jerky animations */
+/* Smooth transitions */
 .smoothTransition {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Pulse animation for icons */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.iconAnimation {
+  animation: pulse 2s infinite ease-in-out;
 }
