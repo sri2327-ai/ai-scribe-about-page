@@ -49,8 +49,6 @@ export const ROICalculatorSection = () => {
   
   const containerTop = useTransform(scrollYProgress, [0, 0.3], ["3%", "0%"]);
   
-  const containerBgOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
-  
   useEffect(() => {
     const particleCount = 12;
     const newParticles = Array.from({ length: particleCount }, (_, i) => ({
@@ -119,24 +117,18 @@ export const ROICalculatorSection = () => {
       ref={sectionRef}
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 16, md: 20 },
+        pb: { xs: 16, md: 16 },
         position: "relative",
         overflow: "hidden",
-        minHeight: { xs: "120vh", sm: "130vh", md: "110vh" },
+        minHeight: { xs: "unset", sm: "unset", md: "unset" },
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        color: "#FFFFFF"
+        color: "#FFFFFF",
+        bgcolor: "#FFFFFF",
       }}
     >
-      <motion.div
-        className="absolute inset-0 w-full h-full z-0"
-        style={{
-          opacity: containerBgOpacity,
-        }}
-      />
-      
       <motion.div
         ref={containerRef}
         className="overflow-visible shadow-xl z-10" 
@@ -146,17 +138,13 @@ export const ROICalculatorSection = () => {
           borderRadius: containerBorderRadius,
           backgroundColor: "#ffffff",
           boxShadow: "0 20px 40px rgba(0, 0, 0, 0.1)",
-          position: "absolute",
-          top: containerTop,
-          bottom: 0,
-          left: 0,
-          right: 0,
+          position: "relative",
           margin: "0 auto",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          padding: "0 0 100px 0",
+          padding: "0 0 40px 0",
         }}
       >
         <Container 
@@ -170,7 +158,7 @@ export const ROICalculatorSection = () => {
             flexDirection: "column",
             height: "100%",
             overflow: "visible",
-            mb: { xs: 10, sm: 12, md: 14 },
+            mb: { xs: 5, sm: 6, md: 8 },
           }}
         >
           <Box 
@@ -379,7 +367,7 @@ export const ROICalculatorSection = () => {
                 </Typography>
               </div>
               
-              <div className="flex justify-center mb-8 mt-4">
+              <div className="flex justify-center mt-4">
                 <Button
                   className={cn(
                     "min-w-40 relative touch-none",
@@ -387,7 +375,6 @@ export const ROICalculatorSection = () => {
                     "border border-[rgba(4,111,144,0.2)]",
                     "transition-all duration-300",
                     "py-2",
-                    "mb-8"
                   )}
                   style={{ 
                     background: crushAIColors.button.gradient,
@@ -483,7 +470,7 @@ export const ROICalculatorSection = () => {
               </div>
               
               <Button 
-                className="w-full mt-6 mb-6 rounded-md py-2.5 text-white"
+                className="w-full mt-6 rounded-md py-2.5 text-white"
                 style={{ 
                   background: crushAIColors.button.gradient,
                 }}

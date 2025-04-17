@@ -45,7 +45,7 @@ const globalStyles = {
   // Ensure call-to-action text is visible
   '.cta-text': {
     color: `${crushAIColors.text.white} !important`,
-    textShadow: '0 2px 4px rgba(0,0,0,0.3) !important'
+    textShadow: '0 2px 8px rgba(0,0,0,0.5) !important'
   }
 };
 
@@ -114,7 +114,7 @@ const CrushAI = () => {
                 color: crushAIColors.text.white,
                 letterSpacing: "-0.03em",
                 lineHeight: 1.2,
-                textShadow: "0 3px 6px rgba(0,0,0,0.3)"
+                textShadow: "0 3px 10px rgba(0,0,0,0.5)"
               }}
               className="cta-text"
             >
@@ -133,16 +133,10 @@ const CrushAI = () => {
       
       <WorkflowAutomationSection />
       
-      {/* ROI Calculator section with BeamsBackground */}
-      <EHRBeamsBackground>
-        <Box 
-          sx={{ 
-            my: 4
-          }}
-        >
-          <ROICalculatorSection />
-        </Box>
-      </EHRBeamsBackground>
+      {/* ROI Calculator section with white background */}
+      <Box sx={{ bgcolor: '#FFFFFF' }}>
+        <ROICalculatorSection />
+      </Box>
     </Box>
   );
 };

@@ -3,7 +3,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ShieldCheck, Shield, Lock, Fingerprint } from 'lucide-react';
+import { ShieldCheck, Shield, Lock, Fingerprint, Server, Award, CheckCircle } from 'lucide-react';
 import styles from '@/styles/RippleEffect.module.css';
 
 interface SecurityIcon {
@@ -56,6 +56,33 @@ export const SecurityIconsBackground = () => {
       size: 38, 
       delay: 1.5 
     },
+    { 
+      id: 'soc2', 
+      component: <Server strokeWidth={1} />, 
+      name: 'SOC 2', 
+      top: '35%', 
+      left: '5%', 
+      size: 42, 
+      delay: 2 
+    },
+    { 
+      id: 'security', 
+      component: <Award strokeWidth={1} />, 
+      name: 'HITRUST', 
+      top: '42%', 
+      left: '90%', 
+      size: 44, 
+      delay: 2.5 
+    },
+    { 
+      id: 'compliant', 
+      component: <CheckCircle strokeWidth={1} />, 
+      name: 'PHIPA', 
+      top: '12%', 
+      left: '55%', 
+      size: 40, 
+      delay: 3 
+    },
   ];
 
   useEffect(() => {
@@ -71,9 +98,9 @@ export const SecurityIconsBackground = () => {
         
         icon.animate(
           [
-            { transform: 'translate(0, 0)' },
-            { transform: `translate(${randomX}px, ${randomY}px)` },
-            { transform: 'translate(0, 0)' }
+            { transform: 'translate(0, 0) rotate(0deg)' },
+            { transform: `translate(${randomX}px, ${randomY}px) rotate(${randomX}deg)` },
+            { transform: 'translate(0, 0) rotate(0deg)' }
           ],
           {
             duration: duration * 1000,
@@ -101,7 +128,7 @@ export const SecurityIconsBackground = () => {
       {securityIcons.map((icon) => (
         <motion.div
           key={icon.id}
-          className={`${styles.securityIcon} group`}
+          className={`${styles.securityIcon} group cursor-pointer`}
           style={{
             position: 'absolute',
             top: icon.top,
@@ -111,7 +138,8 @@ export const SecurityIconsBackground = () => {
             height: icon.size,
           }}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 0.1, scale: 1 }}
+          animate={{ opacity: 0.15, scale: 1 }}
+          whileHover={{ opacity: 0.8, scale: 1.2 }}
           transition={{
             opacity: { delay: icon.delay, duration: 1 },
             scale: { delay: icon.delay, duration: 1 }
@@ -119,7 +147,7 @@ export const SecurityIconsBackground = () => {
         >
           {icon.component}
           <motion.div 
-            className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+            className="absolute top-full left-1/2 transform -translate-x-1/2 bg-black/80 backdrop-blur-sm text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10"
             style={{ marginTop: '5px' }}
           >
             {icon.name}

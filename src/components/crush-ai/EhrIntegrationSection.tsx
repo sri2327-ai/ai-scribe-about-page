@@ -27,7 +27,6 @@ import { Slot } from "@radix-ui/react-slot";
 interface Logo {
   name: string
   id: number
-  img: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
 interface LogoColumnProps {
@@ -69,7 +68,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
     const columnDelay = index * 200
     const adjustedTime = (currentTime + columnDelay) % (cycleInterval * logos.length)
     const currentIndex = Math.floor(adjustedTime / cycleInterval)
-    const CurrentLogo = useMemo(() => logos[currentIndex].img, [logos, currentIndex])
+    const currentLogo = logos[currentIndex]
 
     return (
       <motion.div
@@ -84,7 +83,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
       >
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${logos[currentIndex].id}-${currentIndex}`}
+            key={`${currentLogo.id}-${currentIndex}`}
             className="absolute inset-0 flex items-center justify-center"
             initial={{ y: "10%", opacity: 0, filter: "blur(8px)" }}
             animate={{
@@ -111,7 +110,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
               },
             }}
           >
-            <CurrentLogo className="h-20 w-20 max-h-[80%] max-w-[80%] object-contain md:h-32 md:w-32" />
+            <Typography className="text-white text-xl font-semibold">{currentLogo.name}</Typography>
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -232,11 +231,11 @@ type Size =
 type Weight = "default" | "thin" | "base" | "semi" | "bold" | "black"
 
 const ehrLogos = [
-  { id: 1, name: "Epic", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="10">Epic</text></svg> },
-  { id: 2, name: "Cerner", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8">Cerner</text></svg> },
-  { id: 3, name: "Meditech", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="7">Meditech</text></svg> },
-  { id: 4, name: "NextGen", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="7">NextGen</text></svg> },
-  { id: 5, name: "Athena", img: ({ className }: SVGProps<SVGSVGElement>) => <svg viewBox="0 0 24 24" fill="none" className={className}><rect width="24" height="24" rx="2" fill="#046f90" /><text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="white" fontSize="8">Athena</text></svg> },
+  { id: 1, name: "Epic" },
+  { id: 2, name: "Cerner" },
+  { id: 3, name: "Meditech" },
+  { id: 4, name: "NextGen" },
+  { id: 5, name: "Athena" },
 ]
 
 export const EhrIntegrationSection = () => {
@@ -248,17 +247,17 @@ export const EhrIntegrationSection = () => {
     {
       title: "Works on Any Device",
       description: "Desktop, laptop, tablet, or mobile.",
-      icon: <Zap size={36} style={{ color: crushAIColors.icons.primary }} />
+      icon: <Zap size={36} className="text-white" />
     },
     {
       title: "Instant Sync",
       description: "AI-generated notes go directly into your EHR.",
-      icon: <RefreshCw size={36} style={{ color: crushAIColors.icons.primary }} />
+      icon: <RefreshCw size={36} className="text-white" />
     },
     {
       title: "Automated Updates",
       description: "Lab results, prescriptions, and referrals auto-sync.",
-      icon: <FileCheck size={36} style={{ color: crushAIColors.icons.primary }} />
+      icon: <FileCheck size={36} className="text-white" />
     }
   ];
 
@@ -330,14 +329,15 @@ export const EhrIntegrationSection = () => {
               {features.map((item, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <Card className="overflow-hidden bg-white/90 backdrop-blur-md border border-gray-300/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <Card className="overflow-hidden backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300"
+                      style={{ backgroundColor: 'transparent' }}>
                       <CardContent className="flex flex-col items-center text-center p-6">
                         <Box 
                           sx={{ 
                             mb: 3,
                             p: 2,
                             borderRadius: '50%',
-                            bgcolor: 'rgba(255, 255, 255, 0.8)',
+                            border: '1px solid rgba(255, 255, 255, 0.3)',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -350,7 +350,7 @@ export const EhrIntegrationSection = () => {
                           sx={{ 
                             mb: 1.5,
                             fontWeight: 600,
-                            color: crushAIColors.text.primary,
+                            color: '#fff',
                             fontSize: '1.25rem',
                             letterSpacing: '-0.01em'
                           }}
@@ -359,7 +359,7 @@ export const EhrIntegrationSection = () => {
                         </Typography>
                         <Typography 
                           variant="body1"
-                          sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
+                          sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95rem', lineHeight: 1.5 }}
                         >
                           {item.description}
                         </Typography>
@@ -370,8 +370,8 @@ export const EhrIntegrationSection = () => {
               ))}
             </CarouselContent>
             <div className="flex justify-center mt-4 gap-2">
-              <CarouselPrevious className="relative static left-auto translate-y-0 bg-white text-gray-800" />
-              <CarouselNext className="relative static right-auto translate-y-0 bg-white text-gray-800" />
+              <CarouselPrevious className="relative static left-auto translate-y-0 bg-transparent text-white border-white" />
+              <CarouselNext className="relative static right-auto translate-y-0 bg-transparent text-white border-white" />
             </div>
           </Carousel>
         ) : (
@@ -401,14 +401,15 @@ export const EhrIntegrationSection = () => {
                   minWidth: isTablet ? 'auto' : '300px'
                 }}
               >
-                <Card className="h-full overflow-hidden bg-white/90 backdrop-blur-md border border-gray-300/50 shadow-lg hover:shadow-xl transition-all duration-300">
+                <Card className="h-full overflow-hidden backdrop-blur-md border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300"
+                  style={{ backgroundColor: 'transparent' }}>
                   <CardContent className="flex flex-col items-center text-center p-6">
                     <Box 
                       sx={{ 
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(255, 255, 255, 0.8)',
+                        border: '1px solid rgba(255, 255, 255, 0.3)',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -421,7 +422,7 @@ export const EhrIntegrationSection = () => {
                       sx={{ 
                         mb: 1.5,
                         fontWeight: 600,
-                        color: crushAIColors.text.primary,
+                        color: '#fff',
                         fontSize: '1.25rem',
                         letterSpacing: '-0.01em'
                       }}
@@ -430,7 +431,7 @@ export const EhrIntegrationSection = () => {
                     </Typography>
                     <Typography 
                       variant="body1"
-                      sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
+                      sx={{ color: 'rgba(255, 255, 255, 0.8)', fontSize: '0.95rem', lineHeight: 1.5 }}
                     >
                       {item.description}
                     </Typography>
