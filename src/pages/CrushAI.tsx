@@ -107,7 +107,8 @@ const CrushAI = () => {
                 mb: 3,
                 color: crushAIColors.text.white, // Keep white for text on dark background
                 letterSpacing: "-0.03em", // More modern typography
-                lineHeight: 1.2 // Better readability
+                lineHeight: 1.2, // Better readability
+                textShadow: "0 2px 4px rgba(0,0,0,0.2)" // Add shadow for better readability
               }}
               className="cta-text"
             >

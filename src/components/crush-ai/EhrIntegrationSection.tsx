@@ -330,14 +330,14 @@ export const EhrIntegrationSection = () => {
               {features.map((item, index) => (
                 <CarouselItem key={index}>
                   <div className="p-1">
-                    <Card className="overflow-hidden bg-gray-200/30 backdrop-blur-md border border-gray-300/20 shadow-sm hover:shadow-md transition-all duration-300">
+                    <Card className="overflow-hidden bg-white/90 backdrop-blur-md border border-gray-300/50 shadow-lg hover:shadow-xl transition-all duration-300">
                       <CardContent className="flex flex-col items-center text-center p-6">
                         <Box 
                           sx={{ 
                             mb: 3,
                             p: 2,
                             borderRadius: '50%',
-                            bgcolor: 'rgba(255, 255, 255, 0.2)',
+                            bgcolor: 'rgba(255, 255, 255, 0.8)',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center'
@@ -350,7 +350,7 @@ export const EhrIntegrationSection = () => {
                           sx={{ 
                             mb: 1.5,
                             fontWeight: 600,
-                            color: crushAIColors.text.white,
+                            color: crushAIColors.text.primary,
                             fontSize: '1.25rem',
                             letterSpacing: '-0.01em'
                           }}
@@ -359,7 +359,7 @@ export const EhrIntegrationSection = () => {
                         </Typography>
                         <Typography 
                           variant="body1"
-                          sx={{ color: crushAIColors.text.white, fontSize: '0.95rem', lineHeight: 1.5 }}
+                          sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
                         >
                           {item.description}
                         </Typography>
@@ -370,8 +370,8 @@ export const EhrIntegrationSection = () => {
               ))}
             </CarouselContent>
             <div className="flex justify-center mt-4 gap-2">
-              <CarouselPrevious className="relative static left-auto translate-y-0" />
-              <CarouselNext className="relative static right-auto translate-y-0" />
+              <CarouselPrevious className="relative static left-auto translate-y-0 bg-white text-gray-800" />
+              <CarouselNext className="relative static right-auto translate-y-0 bg-white text-gray-800" />
             </div>
           </Carousel>
         ) : (
@@ -401,14 +401,14 @@ export const EhrIntegrationSection = () => {
                   minWidth: isTablet ? 'auto' : '300px'
                 }}
               >
-                <Card className="h-full overflow-hidden bg-gray-200/30 backdrop-blur-md border border-gray-300/20 shadow-sm hover:shadow-md transition-all duration-300">
+                <Card className="h-full overflow-hidden bg-white/90 backdrop-blur-md border border-gray-300/50 shadow-lg hover:shadow-xl transition-all duration-300">
                   <CardContent className="flex flex-col items-center text-center p-6">
                     <Box 
                       sx={{ 
                         mb: 3,
                         p: 2,
                         borderRadius: '50%',
-                        bgcolor: 'rgba(255, 255, 255, 0.2)',
+                        bgcolor: 'rgba(255, 255, 255, 0.8)',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center'
@@ -421,7 +421,7 @@ export const EhrIntegrationSection = () => {
                       sx={{ 
                         mb: 1.5,
                         fontWeight: 600,
-                        color: crushAIColors.text.white,
+                        color: crushAIColors.text.primary,
                         fontSize: '1.25rem',
                         letterSpacing: '-0.01em'
                       }}
@@ -430,7 +430,7 @@ export const EhrIntegrationSection = () => {
                     </Typography>
                     <Typography 
                       variant="body1"
-                      sx={{ color: crushAIColors.text.white, fontSize: '0.95rem', lineHeight: 1.5 }}
+                      sx={{ color: crushAIColors.text.secondary, fontSize: '0.95rem', lineHeight: 1.5 }}
                     >
                       {item.description}
                     </Typography>
