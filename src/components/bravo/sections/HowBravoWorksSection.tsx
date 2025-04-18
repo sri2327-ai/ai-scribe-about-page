@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -374,7 +373,7 @@ export const HowBravoWorksSection = () => {
           </p>
           
           <motion.button
-            className="px-8 py-6 text-lg rounded-full bg-gradient-to-r from-gray-800 to-gray-900 text-white shadow-xl inline-flex items-center hover:shadow-2xl transition-all duration-300"
+            className="px-8 py-6 text-lg rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl inline-flex items-center hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
