@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
@@ -20,7 +21,6 @@ export const BravoHeroSection = () => {
         display: 'flex',
         alignItems: 'flex-start',
         pt: { xs: 16, md: 20 },
-        className: "font-sans" // Add this to apply the new font consistently
       }}
     >
       <Container maxWidth="lg">
