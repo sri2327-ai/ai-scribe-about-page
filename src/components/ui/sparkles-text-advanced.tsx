@@ -104,7 +104,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
 
   return (
     <div
-      className={cn("text-6xl font-bold tracking-tight", className)} // Added tracking-tight for x.ai-like typography
+      className={cn("text-6xl font-bold tracking-tight text-black", className)} // Added text-black to ensure black color
       {...props}
       style={
         {
@@ -117,7 +117,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong className="relative z-10">{text}</strong>
+        <strong className="relative z-10 text-black">{text}</strong>
       </span>
     </div>
   );
