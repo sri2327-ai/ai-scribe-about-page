@@ -60,7 +60,7 @@ interface SparklesTextProps {
 
 const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
   text,
-  colors = { first: "#9E7AFF", second: "#FE8BBB" },
+  colors = { first: "#143151", second: "#387E89" }, // Updated default colors
   className,
   sparklesCount = 10,
   ...props
@@ -104,7 +104,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
 
   return (
     <div
-      className={cn("text-6xl font-bold tracking-tight text-black", className)} // Added text-black to ensure black color
+      className={cn("text-6xl font-bold tracking-tight text-black no-underline", className)} // Added no-underline
       {...props}
       style={
         {
@@ -117,7 +117,11 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong className="relative z-10 text-black">{text}</strong>
+        <strong 
+          className="relative z-10 text-black bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+        >
+          {text}
+        </strong>
       </span>
     </div>
   );

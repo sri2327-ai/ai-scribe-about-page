@@ -326,8 +326,8 @@ export const HowBravoWorksSection = () => {
           >
             <SparklesTextAdvanced 
               text="How BRAVO Works" 
-              className="text-4xl md:text-5xl font-bold tracking-tight mb-2"
-              colors={{ first: "#000000", second: bravoColors.secondary }}
+              className="text-4xl md:text-5xl font-bold tracking-tight mb-2 no-underline"
+              colors={{ first: "#143151", second: "#387E89" }}
             />
           </motion.div>
           
