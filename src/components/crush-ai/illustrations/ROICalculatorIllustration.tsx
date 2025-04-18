@@ -6,7 +6,7 @@ import { Calculator, TrendingUp } from 'lucide-react';
 export const ROICalculatorIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] bottom-[20%] z-0"  // Moved further down
+      className="absolute left-[45%] bottom-[20%] z-0"  // Adjusted position to be visible but not overlapping
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.6 }}

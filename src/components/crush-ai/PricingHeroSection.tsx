@@ -36,8 +36,8 @@ export const PricingHeroSection = () => {
             }}
             className="pt-16 pb-16 relative"
           >
-            {/* Background Illustrations - Positioned outside of the content container */}
-            <div className="absolute inset-0 w-[200%] h-[200%] pointer-events-none" style={{ left: '-50%', top: '-50%' }}>
+            {/* Background Illustrations - With adjusted positioning */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none">
               <div className="relative w-full h-full">
                 <EMRChartIllustration />
                 <CliniciansIllustration />
