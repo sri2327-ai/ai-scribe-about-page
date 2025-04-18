@@ -34,16 +34,12 @@ const Bravo = () => {
             className="text-center max-w-4xl mx-auto mb-16"
           >
             <h2 
-              className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent"
-              style={{ 
-                backgroundImage: `linear-gradient(to right, ${bravoColors.primary}, ${bravoColors.secondary})`
-              }}
+              className="text-4xl md:text-5xl font-bold mb-6 text-black"
             >
               Let BRAVO Handle Calls, Scheduling & Intake — So Your Staff Doesn't Have To
             </h2>
             <p 
-              className="text-xl md:text-2xl opacity-90 transition-all duration-300"
-              style={{ color: bravoColors.text.secondary }}
+              className="text-xl md:text-2xl opacity-90 text-black"
             >
               AI-powered front office. Available 24/7. No burnout.
             </p>
