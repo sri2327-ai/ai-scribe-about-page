@@ -5,7 +5,6 @@ import { bravoColors } from '@/theme/bravo-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
-import { EHRBackground } from "@/components/crush-ai/EHRBackground";
 
 // Container animation variants
 const containerVariants = {
@@ -115,13 +114,6 @@ export const CompatibilitySection = () => {
       className="relative w-full py-28 overflow-hidden" 
       style={{ backgroundColor: '#D299C2' }}
     >
-      <div className="rippleBackground">
-        <div className="ripple bg-white/10"></div>
-        <div className="ripple bg-white/10"></div>
-        <div className="ripple bg-white/10"></div>
-      </div>
-      <EHRBackground />
-      
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
           className="relative flex items-center justify-center min-h-[500px] bg-white/95 rounded-3xl p-8 border border-gray-200 shadow-lg"
