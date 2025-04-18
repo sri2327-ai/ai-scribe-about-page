@@ -4,6 +4,7 @@ import { FileCheck, Phone, BarChart2, CalendarDays, Users, MessageCircle, Databa
 import { bravoColors } from '@/theme/bravo-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
+import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 import { CanvasEffect } from "@/components/ui/canvas-effect";
 
 // Container animation variants
@@ -110,12 +111,22 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="relative w-full py-28 overflow-hidden bg-black">
-      <CanvasEffect className="opacity-20" />
+    <div className="relative w-full py-28 overflow-hidden bg-white">
+      {/* Remove existing gradient background div */}
       
+      {/* Optional: Add a very subtle background effect if desired */}
+      <div 
+        className="absolute inset-0 z-0 bg-white/5 opacity-10"
+      />
+      
+      {/* Optional: Keep canvas effect with reduced opacity */}
+      <CanvasEffect className="opacity-10" />
+      
+      {/* Remove ripple background div */}
+
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] bg-white/5 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-lg"
+          className="relative flex items-center justify-center min-h-[500px] bg-white/95 rounded-3xl p-8 border border-gray-200 shadow-lg"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -363,11 +374,13 @@ export const CompatibilitySection = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="text-xl text-white">
+          <p className="text-xl text-gray-800">
             BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
           </p>
         </motion.div>
       </div>
+      
+      {/* Remove the existing <style> tag completely */}
     </div>
   );
 };
