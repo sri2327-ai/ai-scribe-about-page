@@ -86,10 +86,10 @@ export const BravoHeroSection = () => {
                       style={{ 
                         zIndex: 50, 
                         position: 'absolute', 
-                        top: '100%', 
+                        bottom: '100%', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
-                        marginTop: '10px' 
+                        marginBottom: '10px' 
                       }}
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
