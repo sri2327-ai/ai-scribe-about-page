@@ -324,10 +324,13 @@ export const HowBravoWorksSection = () => {
           >
             <SparklesTextAdvanced 
               text="How BRAVO Works" 
-              className="text-4xl md:text-5xl font-bold tracking-tight mb-2 no-underline"
+              className="text-4xl md:text-5xl font-bold tracking-tight mb-2 no-underline text-black"
               colors={{ first: "#143151", second: "#387E89" }}
             />
           </motion.div>
+          <p className="text-lg text-black opacity-80">
+            Discover how BRAVO transforms your front office workflow
+          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
