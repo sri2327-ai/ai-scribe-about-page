@@ -6,15 +6,15 @@ import { Database, Heart, Check } from 'lucide-react';
 export const CliniciansIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] top-[40%] z-0"
+      className="absolute left-[10%] top-[32%] z-0"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
     >
       <motion.div
-        className="flex items-center gap-4 bg-white rounded-lg shadow-lg p-4"
+        className="flex items-center gap-4 bg-white rounded-lg shadow-lg p-4 w-80"
         animate={{
-          y: [0, -8, 0],
+          x: [0, 10, 0],
           scale: [1, 1.02, 1]
         }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -29,13 +29,16 @@ export const CliniciansIllustration = () => {
             <Check className="w-4 h-4 text-green-500" />
           </motion.div>
         </div>
-        <motion.div
-          className="text-sm bg-green-50 px-2 py-1 rounded text-green-600"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          EHR Updated ✨
-        </motion.div>
+        <div>
+          <motion.div
+            className="text-sm bg-green-50 px-2 py-1 rounded text-green-600 mb-2"
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            EHR Updated ✨
+          </motion.div>
+          <span className="text-xs text-gray-500">Patient notes synchronized successfully</span>
+        </div>
       </motion.div>
     </motion.div>
   );

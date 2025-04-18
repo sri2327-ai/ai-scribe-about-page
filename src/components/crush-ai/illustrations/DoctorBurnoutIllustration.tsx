@@ -6,13 +6,13 @@ import { Heart, Clock, Shield } from 'lucide-react';
 export const DoctorBurnoutIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] top-[90%] z-0"
+      className="absolute left-[10%] top-[86%] z-0"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.9 }}
     >
       <motion.div
-        className="bg-white rounded-lg shadow-lg p-4"
+        className="bg-white rounded-lg shadow-lg p-4 w-80"
         animate={{
           y: [0, -8, 0],
           scale: [1, 1.02, 1]
@@ -44,6 +44,7 @@ export const DoctorBurnoutIllustration = () => {
             <Clock className="w-4 h-4 text-green-500" />
             <span className="text-green-500 font-semibold">+2hrs/day</span>
           </motion.div>
+          <span className="text-xs text-gray-500">saved</span>
         </div>
       </motion.div>
     </motion.div>
