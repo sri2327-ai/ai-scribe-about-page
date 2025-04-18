@@ -167,11 +167,11 @@ const CrushAI = () => {
       
       <WorkflowAutomationSection />
       
-      <PricingHeroSection />
-      
       <Box sx={{ bgcolor: 'transparent', py: { xs: 6, md: 8 } }}>
         <ROICalculatorSection />
       </Box>
+      
+      <PricingHeroSection />
     </Box>
   );
 };
