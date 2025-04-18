@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { Slack, FileText, Calendar, CheckCircle, MessageSquare } from 'lucide-react';
+import { Slack, FileText, Calendar, CheckCircle, MicrosoftTeams } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
 import MatrixRain from '@/components/ui/matrix-rain';
 import { GradientTracing } from '@/components/ui/gradient-tracing';
@@ -18,7 +18,7 @@ export const CompatibilitySection = () => {
     { name: 'Epic', icon: <FileText size={28} />, color: '#e51c23' },
     { name: 'Cerner', icon: <Calendar size={28} />, color: '#2196f3' },
     { name: 'athenahealth', icon: <CheckCircle size={28} />, color: '#43a047' },
-    { name: 'eClinicalWorks', icon: <MessageSquare size={28} />, color: '#ff9800' },
+    { name: 'eClinicalWorks', icon: <MicrosoftTeams size={28} />, color: '#ff9800' },
     { name: 'Allscripts', icon: <Slack size={28} />, color: '#9c27b0' },
   ];
 
@@ -226,24 +226,22 @@ export const CompatibilitySection = () => {
       </Container>
 
       {/* Add global animation */}
-      <style>
-        {`
-          @keyframes pulse {
-            0% {
-              transform: scale(0.95);
-              opacity: 0.5;
-            }
-            50% {
-              transform: scale(1.05);
-              opacity: 0.8;
-            }
-            100% {
-              transform: scale(0.95);
-              opacity: 0.5;
-            }
+      <style jsx global>{`
+        @keyframes pulse {
+          0% {
+            transform: scale(0.95);
+            opacity: 0.5;
           }
-        `}
-      </style>
+          50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+          }
+          100% {
+            transform: scale(0.95);
+            opacity: 0.5;
+          }
+        }
+      `}</style>
     </Box>
   );
 };
