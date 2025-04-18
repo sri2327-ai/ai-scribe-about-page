@@ -24,10 +24,10 @@ export const ROISection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: bravoColors.primary }}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-black">
             See the ROI of Automating Your Front Office
           </h2>
-          <p className="text-xl md:text-2xl" style={{ color: bravoColors.text.secondary }}>
+          <p className="text-xl md:text-2xl text-black opacity-80">
             Stop staffing for problems AI can solve.
           </p>
         </motion.div>
@@ -53,3 +53,4 @@ export const ROISection = () => {
     </section>
   );
 };
+
