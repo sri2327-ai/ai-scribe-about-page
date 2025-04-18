@@ -17,6 +17,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
 import { EHRBeamsBackground } from "@/components/crush-ai/EHRBeamsBackground";
+import { PricingHeroSection } from "@/components/crush-ai/PricingHeroSection";
 
 const globalStyles = {
   '.animated-workflow': {
@@ -165,6 +166,8 @@ const CrushAI = () => {
       </Box>
       
       <WorkflowAutomationSection />
+      
+      <PricingHeroSection />
       
       <Box sx={{ bgcolor: 'transparent', py: { xs: 6, md: 8 } }}>
         <ROICalculatorSection />
