@@ -30,7 +30,6 @@ export const BravoHeroSection = () => {
           gap: { xs: 8, md: 12 },
           alignItems: { xs: 'flex-start', md: 'center' },
         }}>
-          {/* Left Column - Content */}
           <Box sx={{ 
             flex: '1',
             maxWidth: { xs: '100%', md: '500px' },
@@ -82,7 +81,17 @@ export const BravoHeroSection = () => {
                         </Box>
                       </motion.div>
                     </HoverCardTrigger>
-                    <HoverCardContent className="w-80">
+                    <HoverCardContent 
+                      className="w-80" 
+                      style={{ 
+                        zIndex: 50, 
+                        position: 'absolute', 
+                        top: '100%', 
+                        left: '50%', 
+                        transform: 'translateX(-50%)', 
+                        marginTop: '10px' 
+                      }}
+                    >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                         <Box
                           sx={{
