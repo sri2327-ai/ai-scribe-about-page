@@ -590,7 +590,7 @@ const automationPanels = [
       "Manages cancellations & reschedules efficiently", 
       "Follows up automatically to minimize no-shows"
     ],
-    bgClass: "bg-gradient-to-br from-[#FFDEE2]/10 to-[#FFDEE2]/20"
+    bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
   {
     title: "Refill Processing",
@@ -601,7 +601,7 @@ const automationPanels = [
       "Confirms pharmacy preference automatically", 
       "Drafts & processes refills instantly"
     ],
-    bgClass: "bg-gradient-to-br from-[#FFDEE2]/10 to-[#FFDEE2]/20"
+    bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
   {
     title: "Patient Registration & Check-In",
@@ -612,7 +612,7 @@ const automationPanels = [
       "Handles insurance & demographic updates", 
       "Integrates directly with practice EHR"
     ],
-    bgClass: "bg-gradient-to-br from-[#FFDEE2]/10 to-[#FFDEE2]/20"
+    bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
   {
     title: "Pre-Visit Assistance",
@@ -623,7 +623,7 @@ const automationPanels = [
       "Prepares preliminary notes for providers", 
       "Reduces documentation time by up to 70%"
     ],
-    bgClass: "bg-gradient-to-br from-[#FFDEE2]/10 to-[#FFDEE2]/20"
+    bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
   {
     title: "Patient Education & Adherence",
@@ -634,7 +634,7 @@ const automationPanels = [
       "Sends automated medication reminders", 
       "Improves treatment outcomes through adherence"
     ],
-    bgClass: "bg-gradient-to-br from-[#FFDEE2]/10 to-[#FFDEE2]/20"
+    bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   },
   {
     title: "Preventative Care & Risk Assessments",
@@ -645,7 +645,7 @@ const automationPanels = [
       "Identifies at-risk patients automatically", 
       "Ensures timely preventative care interventions"
     ],
-    bgClass: "bg-gradient-to-br from-[#FFDEE2]/10 to-[#FFDEE2]/20"
+    bgClass: "bg-gradient-to-br from-[#D299C2]/10 to-[#FFDEE2]/20"
   }
 ];
 
