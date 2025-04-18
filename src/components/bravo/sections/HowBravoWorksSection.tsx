@@ -104,7 +104,7 @@ const StepItem: React.FC<StepItemProps> = ({
         >
           <span 
             className="text-2xl font-bold" 
-            style={{ color: isActive ? bravoColors.tertiary : `${bravoColors.tertiary}80` }}
+            style={{ color: 'black' }}
           >
             {stepNumber}
           </span>
@@ -112,8 +112,7 @@ const StepItem: React.FC<StepItemProps> = ({
         
         <div className="flex-1">
           <motion.h3 
-            className="text-2xl font-bold mb-2" 
-            style={{ color: isActive ? bravoColors.primary : `${bravoColors.primary}90` }}
+            className="text-2xl font-bold mb-2 text-black" 
             variants={stepVariants}
             initial="initial"
             animate="animate"
@@ -122,8 +121,7 @@ const StepItem: React.FC<StepItemProps> = ({
           </motion.h3>
           
           <motion.p 
-            className="text-lg mb-6" 
-            style={{ color: bravoColors.text.secondary }}
+            className="text-lg mb-6 text-black" 
             variants={stepVariants}
             initial="initial"
             animate="animate"
@@ -157,9 +155,9 @@ const StepItem: React.FC<StepItemProps> = ({
                       <div className="w-10 h-10 rounded-full flex items-center justify-center" 
                         style={{ backgroundColor: `${bravoColors.secondary}20` }}
                       >
-                        <Icon size={20} style={{ color: bravoColors.secondary }} />
+                        <Icon size={20} style={{ color: 'black' }} />
                       </div>
-                      <p className="flex-1" style={{ color: bravoColors.text.secondary }}>
+                      <p className="flex-1 text-black">
                         {item.text}
                       </p>
                     </motion.div>
@@ -361,7 +359,7 @@ export const HowBravoWorksSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p className="text-2xl font-semibold mb-8 text-gray-800">
+          <p className="text-2xl font-semibold mb-8 text-black">
             Faster Check-Ins. Smarter Scheduling. Effortless Coordination.
           </p>
           
@@ -371,7 +369,7 @@ export const HowBravoWorksSection = () => {
             whileTap={{ scale: 0.95 }}
           >
             REQUEST A DEMO
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight className="ml-2 h-5 w-5 text-white" />
           </motion.button>
         </motion.div>
       </div>
