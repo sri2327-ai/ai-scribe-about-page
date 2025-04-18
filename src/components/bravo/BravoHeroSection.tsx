@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
 import { bravoColors } from '@/theme/bravo-theme';
 import { BravoWorkflowAnimation } from './animations/BravoWorkflowAnimation';
 import { BravoAbbreviation } from './constants/BravoAbbreviation';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export const BravoHeroSection = () => {
   return (
@@ -48,76 +48,64 @@ export const BravoHeroSection = () => {
                   position: 'relative',
                 }}
               >
-                {BravoAbbreviation.map((item, index) => (
-                  <HoverCard key={item.letter}>
-                    <HoverCardTrigger asChild>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: index * 0.1 }}
-                      >
-                        <Box
-                          sx={{
-                            position: 'relative',
-                            cursor: 'pointer',
-                            p: 2,
-                            borderRadius: '12px',
-                            transition: 'all 0.3s ease',
-                            '&:hover': {
-                              bgcolor: 'rgba(0, 0, 0, 0.03)',
-                              transform: 'translateY(-2px)',
-                            },
-                          }}
-                        >
-                          <Typography
-                            variant="h2"
+                <TooltipProvider>
+                  {BravoAbbreviation.map((item, index) => (
+                    <motion.div
+                      key={item.letter}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <Tooltip delayDuration={200}>
+                        <TooltipTrigger asChild>
+                          <Box
                             sx={{
-                              fontSize: { xs: '2.5rem', md: '4rem' },
-                              fontWeight: 700,
-                              color: 'black',
+                              position: 'relative',
+                              cursor: 'pointer',
+                              p: 2,
+                              borderRadius: '12px',
+                              transition: 'all 0.3s ease',
+                              '&:hover': {
+                                bgcolor: 'rgba(0, 0, 0, 0.03)',
+                                transform: 'translateY(-2px)',
+                              },
                             }}
                           >
-                            {item.letter}
-                          </Typography>
-                        </Box>
-                      </motion.div>
-                    </HoverCardTrigger>
-                    <HoverCardContent 
-                      className="w-80" 
-                      style={{ 
-                        zIndex: 9999, 
-                        position: 'absolute', 
-                        bottom: '120%', 
-                        left: '50%', 
-                        transform: 'translateX(-50%)', 
-                        marginBottom: '10px',
-                        backgroundColor: 'white',
-                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
-                        border: '1px solid rgba(0,0,0,0.1)'
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                        <Box
-                          sx={{
-                            p: 1,
-                            borderRadius: '8px',
-                            bgcolor: `${bravoColors.accent.blue}10`,
-                          }}
+                            <Typography
+                              variant="h2"
+                              sx={{
+                                fontSize: { xs: '2.5rem', md: '4rem' },
+                                fontWeight: 700,
+                                color: 'black',
+                              }}
+                            >
+                              {item.letter}
+                            </Typography>
+                          </Box>
+                        </TooltipTrigger>
+                        <TooltipContent 
+                          side="top" 
+                          sideOffset={15} 
+                          className="w-80 p-0 bg-white border border-gray-200 shadow-lg rounded-md overflow-hidden"
                         >
-                          <item.icon size={24} style={{ color: bravoColors.accent.blue }} />
-                        </Box>
-                        <Box>
-                          <Typography sx={{ fontSize: '1rem', fontWeight: 600, color: 'black', mb: 0.5 }}>
-                            {item.title}
-                          </Typography>
-                          <Typography sx={{ fontSize: '0.875rem', color: 'rgba(0,0,0,0.7)' }}>
-                            {item.description}
-                          </Typography>
-                        </Box>
-                      </Box>
-                    </HoverCardContent>
-                  </HoverCard>
-                ))}
+                          <div className="flex items-center gap-4 p-4">
+                            <div className={`p-3 rounded-lg bg-blue-50`}>
+                              <item.icon size={24} className="text-blue-600" />
+                            </div>
+                            <div>
+                              <h4 className="text-base font-semibold text-gray-900 mb-1">
+                                {item.title}
+                              </h4>
+                              <p className="text-sm text-gray-600">
+                                {item.description}
+                              </p>
+                            </div>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    </motion.div>
+                  ))}
+                </TooltipProvider>
               </Box>
 
               <motion.div
