@@ -45,6 +45,7 @@ export const BravoHeroSection = () => {
                   flexWrap: 'wrap',
                   gap: { xs: 1, md: 2 },
                   mb: 3,
+                  position: 'relative',
                 }}
               >
                 {BravoAbbreviation.map((item, index) => (
@@ -89,7 +90,7 @@ export const BravoHeroSection = () => {
                         bottom: '100%', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
-                        marginBottom: '10px' 
+                        marginBottom: '30px' 
                       }}
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
