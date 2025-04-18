@@ -181,7 +181,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
         </div>
 
         <Button 
-          className="w-full py-6 text-lg bg-gradient-to-r from-blue-500 to-teal-500 hover:from-blue-600 hover:to-teal-600 text-white"
+          className="w-full py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
         >
           Calculate My ROI
         </Button>
