@@ -110,9 +110,9 @@ export const VoiceSelectionInterface = () => {
               variant="ghost"
               size="icon"
               onClick={handlePrevious}
-              className="rounded-full hover:bg-gray-100"
+              className="rounded-full hover:bg-white/20 bg-white/10"
             >
-              <ChevronLeft className="h-6 w-6" style={{ color: bravoColors.primary }} />
+              <ChevronLeft className="h-6 w-6 text-white" />
             </Button>
           </div>
 
@@ -121,9 +121,9 @@ export const VoiceSelectionInterface = () => {
               variant="ghost"
               size="icon"
               onClick={handleNext}
-              className="rounded-full hover:bg-gray-100"
+              className="rounded-full hover:bg-white/20 bg-white/10"
             >
-              <ChevronRight className="h-6 w-6" style={{ color: bravoColors.primary }} />
+              <ChevronRight className="h-6 w-6 text-white" />
             </Button>
           </div>
         </div>
@@ -135,14 +135,17 @@ export const VoiceSelectionInterface = () => {
           viewport={{ once: true }}
           className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
           style={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.7)',
-            border: '1px solid rgba(255, 255, 255, 0.3)'
+            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+            border: '1px solid rgba(255, 255, 255, 0.3)',
+            backdropFilter: 'blur(10px)'
           }}
         >
-          <AlertCircle className="w-5 h-5 mr-2 text-teal-500" />
-          <p className="text-sm" style={{ color: bravoColors.text.secondary }}>
-            You can change your assistant's voice at any time in the BRAVO settings
-          </p>
+          <div className="flex items-center">
+            <AlertCircle className="w-5 h-5 mr-3 text-white" />
+            <p className="text-sm text-white">
+              You can change your assistant's voice at any time in the BRAVO settings
+            </p>
+          </div>
         </motion.div>
       </div>
     </BeamsBackground>
