@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -121,7 +120,7 @@ export const ROICalculatorSection = () => {
       ref={sectionRef}
       sx={{
         pt: { xs: 6, md: 8 },
-        pb: { xs: 16, md: 16 },
+        pb: { xs: 0, md: 0 },
         position: "relative",
         overflow: "hidden",
         minHeight: { xs: "unset", sm: "unset", md: "unset" },
@@ -131,6 +130,7 @@ export const ROICalculatorSection = () => {
         alignItems: "center",
         color: "#FFFFFF",
         bgcolor: "#FFFFFF",
+        marginBottom: 0
       }}
     >
       <motion.div
@@ -465,7 +465,7 @@ export const ROICalculatorSection = () => {
                     />
                     <Bar
                       dataKey="value"
-                      fill={tealBlueColor} // Using the teal blue color as requested
+                      fill={tealBlueColor}
                       radius={[8, 8, 0, 0]}
                       name="Cost"
                     />

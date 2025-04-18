@@ -17,16 +17,11 @@ const fadeInUpVariants = {
 export const PricingHeroSection = () => {
   return (
     <section 
-      className="relative min-h-screen flex items-center overflow-hidden"
+      className="relative min-h-[90vh] flex items-center overflow-hidden"
       style={{ background: `linear-gradient(135deg, ${crushAIColors.background.light} 0%, #fff 100%)` }}
     >
       <Container maxWidth="lg">
-        <div className="max-w-3xl mx-auto text-center relative z-10">
-          {/* Background Illustrations - Adjusted positioning */}
-          <EMRChartIllustration />
-          <CliniciansIllustration />
-          <ROICalculatorIllustration />
-
+        <div className="max-w-3xl mx-auto text-center relative z-10 py-16">
           {/* Main Content */}
           <motion.div
             initial="hidden"
@@ -39,9 +34,21 @@ export const PricingHeroSection = () => {
                 }
               }
             }}
-            className="pt-20 pb-16"
+            className="pt-16 pb-16 relative"
           >
-            <motion.div variants={fadeInUpVariants}>
+            {/* Background Illustrations - Adjusted positioning outside the text content */}
+            <div className="absolute inset-0 w-full h-full pointer-events-none">
+              <div className="relative w-full h-full">
+                <EMRChartIllustration />
+                <CliniciansIllustration />
+                <ROICalculatorIllustration />
+              </div>
+            </div>
+
+            <motion.div 
+              variants={fadeInUpVariants}
+              className="relative z-10"
+            >
               <Typography variant="h2" className="text-4xl md:text-5xl font-bold mb-6" 
                 sx={{ color: crushAIColors.text.primary }}>
                 Can you believe all this starts at just{' '}
@@ -58,14 +65,20 @@ export const PricingHeroSection = () => {
               </Typography>
             </motion.div>
 
-            <motion.div variants={fadeInUpVariants}>
+            <motion.div 
+              variants={fadeInUpVariants}
+              className="relative z-10"
+            >
               <Typography variant="body1" className="text-lg md:text-xl mb-8" 
                 sx={{ color: crushAIColors.text.secondary }}>
                 That's more time with patients, less time on charts, and real ROI—without breaking the bank.
               </Typography>
             </motion.div>
 
-            <motion.div variants={fadeInUpVariants}>
+            <motion.div 
+              variants={fadeInUpVariants}
+              className="relative z-10"
+            >
               <Typography variant="h3" className="text-2xl font-semibold mb-8" 
                 sx={{ color: crushAIColors.text.primary }}>
                 Ready to reclaim your time?
@@ -75,7 +88,7 @@ export const PricingHeroSection = () => {
             {/* CTA Buttons */}
             <motion.div 
               variants={fadeInUpVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center relative z-10"
             >
               <Button
                 size="lg"
