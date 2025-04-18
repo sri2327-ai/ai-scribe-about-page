@@ -111,9 +111,10 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="relative w-full py-28 overflow-hidden bg-white">
-      {/* Remove existing gradient background div */}
-      
+    <div 
+      className="relative w-full py-28 overflow-hidden" 
+      style={{ backgroundColor: '#D299C2' }}
+    >
       {/* Optional: Add a very subtle background effect if desired */}
       <div 
         className="absolute inset-0 z-0 bg-white/5 opacity-10"
@@ -374,13 +375,11 @@ export const CompatibilitySection = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="text-xl text-gray-800">
+          <p className="text-xl text-white">
             BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
           </p>
         </motion.div>
       </div>
-      
-      {/* Remove the existing <style> tag completely */}
     </div>
   );
 };
