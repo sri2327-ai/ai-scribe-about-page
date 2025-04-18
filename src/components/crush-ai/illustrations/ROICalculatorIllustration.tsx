@@ -6,7 +6,7 @@ import { Calculator, TrendingUp } from 'lucide-react';
 export const ROICalculatorIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] bottom-[10%] z-0"  // Moved down from bottom-[5%]
+      className="absolute left-[10%] bottom-[20%] z-0"  // Moved further down
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.6 }}

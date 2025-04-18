@@ -6,7 +6,7 @@ import { Heart } from 'lucide-react';
 export const CliniciansIllustration = () => {
   return (
     <motion.div
-      className="absolute right-[0%] top-[10%] z-0"  // Moved up from top-[15%]
+      className="absolute right-[10%] top-[5%] z-0"  // Moved further right and higher up
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}

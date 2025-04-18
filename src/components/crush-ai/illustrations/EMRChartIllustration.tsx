@@ -6,7 +6,7 @@ import { FileText, Check } from 'lucide-react';
 export const EMRChartIllustration = () => {
   return (
     <motion.div
-      className="absolute -left-[5%] top-[10%] z-0"
+      className="absolute -left-[15%] top-[5%] z-0"  // Moved further left and higher up
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
