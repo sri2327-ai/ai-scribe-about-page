@@ -18,13 +18,13 @@ const fadeInUpVariants = {
 export const PricingHeroSection = () => {
   return (
     <section 
-      className="relative min-h-[90vh] flex items-center overflow-hidden"
+      className="relative py-10 md:py-16 flex items-center overflow-hidden"
       style={{ background: `linear-gradient(135deg, ${crushAIColors.background.light} 0%, #fff 100%)` }}
     >
       <Container maxWidth="lg">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-          <div className="relative h-[800px] hidden lg:block">
-            <div className="absolute top-0 left-0 w-full">
+          <div className="relative flex flex-col items-center hidden lg:flex">
+            <div className="flex flex-col gap-0">
               <EMRChartIllustration />
               <CliniciansIllustration />
               <ROICalculatorIllustration />
@@ -44,7 +44,7 @@ export const PricingHeroSection = () => {
                   }
                 }
               }}
-              className="py-16 relative"
+              className="py-8 relative"
             >
               <motion.div 
                 variants={fadeInUpVariants}

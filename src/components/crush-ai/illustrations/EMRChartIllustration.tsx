@@ -6,7 +6,7 @@ import { FileText, MessageSquare, ArrowRight, Bot } from 'lucide-react';
 export const EMRChartIllustration = () => {
   return (
     <motion.div
-      className="w-80 mb-2"
+      className="w-80"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

@@ -6,7 +6,7 @@ import { Heart, Clock, Shield } from 'lucide-react';
 export const DoctorBurnoutIllustration = () => {
   return (
     <motion.div
-      className="w-80 mb-2"
+      className="w-80"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.9 }}
