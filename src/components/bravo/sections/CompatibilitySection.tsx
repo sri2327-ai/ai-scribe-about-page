@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { FileCheck, Phone, BarChart2, CalendarDays, Users, MessageCircle, Database, ArrowRightLeft } from 'lucide-react';
@@ -323,7 +322,7 @@ export const CompatibilitySection = () => {
                   <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-white/50"></div>
                   <div className="mx-auto flex items-center gap-2">
-                    <span className="text-sm font-medium text-white/90">BRAVO Integrated Dashboard</span>
+                    <span className="text-sm font-medium text-white/90">Integrated Dashboard</span>
                     <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center">
                       <span className="text-[8px] font-bold text-white">B</span>
                     </div>
@@ -366,20 +365,6 @@ export const CompatibilitySection = () => {
                   </div>
                 </div>
               </motion.div>
-              
-              {/* Tagline */}
-              {activeStep >= 5 && (
-                <motion.div
-                  className="mt-6 text-center"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2 }}
-                >
-                  <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
-                    BRAVO: Seamless Integration for Your Workflow
-                  </p>
-                </motion.div>
-              )}
             </motion.div>
           </div>
         </motion.div>
