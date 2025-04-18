@@ -17,7 +17,7 @@ interface ROICalculatorProps {
 
 export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => {
   const [staffCount, setStaffCount] = useState<number>(3);
-  const [salary, setSalary] = useState<number>(4000);
+  const [salary, setSalary] = useState<number>(3300);
   const [hours, setHours] = useState<number>(40);
   const [includeOverhead, setIncludeOverhead] = useState(false);
   const [results, setResults] = useState({
