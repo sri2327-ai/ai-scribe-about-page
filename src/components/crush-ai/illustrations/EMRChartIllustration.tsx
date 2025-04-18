@@ -31,7 +31,7 @@ export const EMRChartIllustration = () => {
             "Patient presents with..."
           </motion.div>
         </div>
-        <div className="space-y-2">
+        <div className="space-y-4">
           {[1, 2, 3].map((_, i) => (
             <motion.div
               key={i}
