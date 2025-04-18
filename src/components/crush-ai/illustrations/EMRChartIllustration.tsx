@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Check } from 'lucide-react';
+import { FileText, MessageSquare, ArrowRight } from 'lucide-react';
 
 export const EMRChartIllustration = () => {
   return (
@@ -12,34 +12,43 @@ export const EMRChartIllustration = () => {
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="relative bg-white rounded-lg shadow-lg p-4 w-48"
+        className="relative bg-white rounded-lg shadow-lg p-4 w-56"
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="flex items-center gap-2 mb-2">
-          <FileText className="w-4 h-4 text-[#009CA6]" />
-          <span className="text-xs font-medium text-gray-600">Patient Notes</span>
+        <div className="flex items-center gap-2 mb-3">
+          <FileText className="w-5 h-5 text-[#009CA6]" />
+          <span className="text-sm font-medium text-gray-600">AI Assistant Writing</span>
         </div>
-        {[1, 2, 3].map((_, i) => (
+        <div className="flex items-center gap-2 mb-2">
+          <MessageSquare className="w-4 h-4 text-blue-500" />
+          <motion.div
+            className="h-2 bg-blue-100 rounded flex-1"
+            initial={{ width: "20%" }}
+            animate={{ width: "100%" }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+          />
+        </div>
+        {[1, 2].map((_, i) => (
           <motion.div
             key={i}
             className="h-2 bg-gray-100 rounded mb-2"
             initial={{ width: "20%" }}
             animate={{ width: "100%" }}
             transition={{
-              duration: 1,
+              duration: 1.5,
               delay: i * 0.5,
               repeat: Infinity,
-              repeatDelay: 3
+              repeatDelay: 2
             }}
           />
         ))}
         <motion.div
-          className="absolute -right-2 -top-2 bg-green-100 rounded-full p-1"
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="absolute -right-3 top-1/2 text-[#009CA6]"
+          animate={{ x: [0, 5, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
         >
-          <Check className="w-3 h-3 text-green-600" />
+          <ArrowRight className="w-6 h-6" />
         </motion.div>
       </motion.div>
     </motion.div>

@@ -7,6 +7,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import { EMRChartIllustration } from "./illustrations/EMRChartIllustration";
 import { CliniciansIllustration } from "./illustrations/CliniciansIllustration";
 import { ROICalculatorIllustration } from "./illustrations/ROICalculatorIllustration";
+import { DoctorBurnoutIllustration } from "./illustrations/DoctorBurnoutIllustration";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -21,10 +22,11 @@ export const PricingHeroSection = () => {
     >
       <Container maxWidth="lg">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
-          <div className="relative h-[600px] hidden lg:block">
+          <div className="relative h-[800px] hidden lg:block">
             <EMRChartIllustration />
             <CliniciansIllustration />
             <ROICalculatorIllustration />
+            <DoctorBurnoutIllustration />
           </div>
 
           <div className="lg:pl-8">

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calculator, TrendingUp } from 'lucide-react';
+import { Calculator, TrendingUp, DollarSign } from 'lucide-react';
 
 export const ROICalculatorIllustration = () => {
   return (
@@ -14,13 +14,13 @@ export const ROICalculatorIllustration = () => {
       <motion.div
         className="bg-white rounded-lg shadow-lg p-4"
         animate={{ 
-          x: [0, 50, 0],
-          scale: [1, 1.05, 1]
+          x: [0, 10, 0],
+          scale: [1, 1.02, 1]
         }}
         transition={{ 
           duration: 4,
           repeat: Infinity,
-          repeatDelay: 2,
+          repeatDelay: 1,
           ease: "easeInOut"
         }}
       >
@@ -30,13 +30,20 @@ export const ROICalculatorIllustration = () => {
         </div>
         <div className="flex items-center gap-2">
           <TrendingUp className="w-4 h-4 text-green-500" />
-          <motion.span
-            className="text-lg font-bold text-green-500"
-            animate={{ opacity: [0, 1] }}
-            transition={{ duration: 1, repeat: Infinity, repeatDelay: 3 }}
+          <motion.div
+            className="flex items-center gap-1"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            $1,800+
-          </motion.span>
+            <DollarSign className="w-4 h-4 text-green-500" />
+            <motion.span
+              className="text-lg font-bold text-green-500"
+              animate={{ opacity: [0.7, 1] }}
+              transition={{ duration: 1, repeat: Infinity, repeatDelay: 2 }}
+            >
+              1,800+
+            </motion.span>
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>
