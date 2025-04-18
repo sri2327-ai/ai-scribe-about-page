@@ -24,7 +24,7 @@ export const PricingHeroSection = () => {
       <Container maxWidth="lg">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
           <div className="relative h-[800px] hidden lg:block">
-            <div className="absolute top-0 left-0 w-full space-y-0">
+            <div className="absolute top-0 left-0 w-full">
               <EMRChartIllustration />
               <CliniciansIllustration />
               <ROICalculatorIllustration />
