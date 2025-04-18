@@ -16,9 +16,9 @@ interface ROICalculatorProps {
 }
 
 export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => {
-  const [staffCount, setStaffCount] = useState<number[]>([3]);
-  const [salary, setSalary] = useState<number[]>([4000]);
-  const [hours, setHours] = useState<number[]>([40]);
+  const [staffCount, setStaffCount] = useState<number>(3);
+  const [salary, setSalary] = useState<number>(4000);
+  const [hours, setHours] = useState<number>(40);
   const [includeOverhead, setIncludeOverhead] = useState(false);
   const [results, setResults] = useState({
     totalCost: 0,
@@ -28,11 +28,11 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
   });
 
   useEffect(() => {
-    const monthlyStaffCost = staffCount[0] * salary[0];
+    const monthlyStaffCost = staffCount * salary;
     const overheadMultiplier = includeOverhead ? 1.2 : 1;
     const totalCost = monthlyStaffCost * overheadMultiplier;
     
-    const bravoCost = 1500 + (staffCount[0] * 200);
+    const bravoCost = 1500 + (staffCount * 200);
     
     const monthlySavings = totalCost - bravoCost;
     const multiplier = totalCost / bravoCost;
@@ -60,6 +60,44 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
     });
   };
 
+  // Handlers for slider changes
+  const handleStaffCountChange = (values: number[]) => {
+    if (values.length > 0) {
+      setStaffCount(Math.round(values[0]));
+    }
+  };
+
+  const handleSalaryChange = (values: number[]) => {
+    if (values.length > 0) {
+      // Round to nearest 100
+      setSalary(Math.round(values[0] / 100) * 100);
+    }
+  };
+
+  const handleHoursChange = (values: number[]) => {
+    if (values.length > 0) {
+      setHours(Math.round(values[0]));
+    }
+  };
+
+  const handleCalculateClick = () => {
+    // Recalculate with current values to ensure accuracy
+    const monthlyStaffCost = staffCount * salary;
+    const overheadMultiplier = includeOverhead ? 1.2 : 1;
+    const totalCost = monthlyStaffCost * overheadMultiplier;
+    
+    const bravoCost = 1500 + (staffCount * 200);
+    
+    const monthlySavings = totalCost - bravoCost;
+    const multiplier = totalCost / bravoCost;
+
+    onCalculate({
+      monthly: monthlySavings,
+      yearly: monthlySavings * 12,
+      multiplier
+    });
+  };
+
   return (
     <Card className="backdrop-blur-xl bg-white/80 border-none shadow-lg hover:shadow-xl transition-all duration-300">
       <CardContent className="p-6 space-y-6">
@@ -67,16 +105,11 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <Users className="w-4 h-4" />
-              Front Office Staff Count: {staffCount[0]}
+              Front Office Staff Count: {staffCount}
             </label>
             <Slider
-              value={staffCount}
-              onValueChange={(newValue) => {
-                if (Array.isArray(newValue) && newValue.length > 0) {
-                  const roundedValue = [Math.round(newValue[0])];
-                  setStaffCount(roundedValue);
-                }
-              }}
+              value={[staffCount]}
+              onValueChange={handleStaffCountChange}
               min={1}
               max={10}
               step={1}
@@ -87,17 +120,11 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <DollarSign className="w-4 h-4" />
-              Average Monthly Salary: {formatCurrency(salary[0])}
+              Average Monthly Salary: {formatCurrency(salary)}
             </label>
             <Slider
-              value={salary}
-              onValueChange={(newValue) => {
-                if (Array.isArray(newValue) && newValue.length > 0) {
-                  // Round to nearest 100
-                  const roundedValue = [Math.round(newValue[0] / 100) * 100];
-                  setSalary(roundedValue);
-                }
-              }}
+              value={[salary]}
+              onValueChange={handleSalaryChange}
               min={3000}
               max={5000}
               step={100}
@@ -108,16 +135,11 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <Clock className="w-4 h-4" />
-              Working Hours per Week: {hours[0]}
+              Working Hours per Week: {hours}
             </label>
             <Slider
-              value={hours}
-              onValueChange={(newValue) => {
-                if (Array.isArray(newValue) && newValue.length > 0) {
-                  const roundedValue = [Math.round(newValue[0])];
-                  setHours(roundedValue);
-                }
-              }}
+              value={[hours]}
+              onValueChange={handleHoursChange}
               min={20}
               max={60}
               step={1}
@@ -182,6 +204,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
 
         <Button 
           className="w-full py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+          onClick={handleCalculateClick}
         >
           Calculate My ROI
         </Button>
