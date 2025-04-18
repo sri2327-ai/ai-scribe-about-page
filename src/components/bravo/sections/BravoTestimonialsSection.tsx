@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { BeamsBackground } from "@/components/ui/beams-background";
 import {
@@ -83,15 +84,25 @@ export const BravoTestimonialsSection = () => {
               <CarouselContent>
                 {testimonials.map((testimonial, index) => (
                   <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="bg-white rounded-xl h-full p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+                    <div 
+                      className="rounded-xl h-full p-6 backdrop-blur-xl transition-all duration-300 hover:shadow-lg"
+                      style={{ 
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+                      }}
+                    >
                       <div className="flex flex-col justify-between h-full gap-4">
-                        <User className="w-8 h-8 mb-2" style={{ color: bravoColors.secondary }} />
+                        <User 
+                          className="w-8 h-8 mb-2"
+                          style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+                        />
                         <div className="flex flex-col gap-4">
                           <div className="flex flex-col">
-                            <h3 className="text-xl font-semibold mb-2" style={{ color: bravoColors.primary }}>
+                            <h3 className="text-xl font-semibold mb-2 text-white">
                               {testimonial.title}
                             </h3>
-                            <p className="text-gray-600 text-base">
+                            <p className="text-white/80 text-base">
                               {testimonial.content}
                             </p>
                           </div>
@@ -101,8 +112,8 @@ export const BravoTestimonialsSection = () => {
                               <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                             </Avatar>
                             <div className="flex flex-col">
-                              <span className="font-medium" style={{ color: bravoColors.text.primary }}>{testimonial.author}</span>
-                              <span className="text-sm text-gray-500">{testimonial.role}</span>
+                              <span className="font-medium text-white">{testimonial.author}</span>
+                              <span className="text-sm text-white/70">{testimonial.role}</span>
                             </div>
                           </div>
                         </div>
