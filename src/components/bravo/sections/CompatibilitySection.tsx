@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from "framer-motion";
 import { FileCheck, Phone } from 'lucide-react';
@@ -153,4 +152,3 @@ export const CompatibilitySection = () => {
     </div>
   );
 };
-
