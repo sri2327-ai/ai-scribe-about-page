@@ -1,251 +1,247 @@
 
-import React from 'react';
-import { motion } from "framer-motion";
-import { FileCheck } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Slack, FileText, Calendar, CheckCircle, MicrosoftTeams } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
-import { GradientTracing } from "@/components/ui/gradient-tracing";
-import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { 
-    opacity: 1, 
-    transition: { 
-      when: "beforeChildren", 
-      staggerChildren: 0.2,
-      duration: 0.5
-    }
-  }
-};
-
-const textVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
+import MatrixRain from '@/components/ui/matrix-rain';
+import { GradientTracing } from '@/components/ui/gradient-tracing';
 
 export const CompatibilitySection = () => {
-  // Integration partners with their icons and paths
-  const integrations = [
-    {
-      name: "PMS/EHR System",
-      icon: <FileCheck size={24} color="#ffffff" />,
-      gradientColors: ["#2EB9DF", "#2EB9DF", "#10B981"] as [string, string, string],
-      path: `M0,0 C40,0 80,0 150,0`,
-      position: { x: 0, y: 120 }
-    }
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const [visibleConnections, setVisibleConnections] = useState<number[]>([]);
+
+  // EHR and other healthcare systems that BRAVO integrates with
+  const systems = [
+    { name: 'Epic', icon: <FileText size={28} />, color: '#e51c23' },
+    { name: 'Cerner', icon: <Calendar size={28} />, color: '#2196f3' },
+    { name: 'athenahealth', icon: <CheckCircle size={28} />, color: '#43a047' },
+    { name: 'eClinicalWorks', icon: <MicrosoftTeams size={28} />, color: '#ff9800' },
+    { name: 'Allscripts', icon: <Slack size={28} />, color: '#9c27b0' },
   ];
 
+  const connections = [
+    { from: 0, to: 1 },
+    { from: 0, to: 2 },
+    { from: 1, to: 3 },
+    { from: 2, to: 4 },
+    { from: 0, to: 4 },
+    { from: 3, to: 4 },
+  ];
+
+  // Fix: Use refs to get positions for connection lines
+  const systemRefs = React.useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    // Animation sequence for connections
+    const timeout = setTimeout(() => {
+      let delay = 0;
+      connections.forEach((_, index) => {
+        setTimeout(() => {
+          setVisibleConnections(prev => [...prev, index]);
+        }, delay);
+        delay += 500; // Stagger the connections
+      });
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  const getConnectionPath = (from: number, to: number) => {
+    // Fix: Get positions from refs instead of hard-coded values
+    const fromEl = systemRefs.current[from];
+    const toEl = systemRefs.current[to];
+
+    if (!fromEl || !toEl) return '';
+    
+    // Fix: Use getBoundingClientRect for accurate positioning
+    const fromRect = fromEl.getBoundingClientRect();
+    const toRect = toEl.getBoundingClientRect();
+    
+    // Find container position to make coordinates relative
+    const containerEl = document.querySelector('.compatibility-container');
+    const containerRect = containerEl?.getBoundingClientRect() || { top: 0, left: 0 };
+    
+    const x1 = fromRect.left + fromRect.width/2 - containerRect.left;
+    const y1 = fromRect.top + fromRect.height/2 - containerRect.top;
+    const x2 = toRect.left + toRect.width/2 - containerRect.left;
+    const y2 = toRect.top + toRect.height/2 - containerRect.top;
+    
+    return `M${x1},${y1} C${x1},${(y1+y2)/2} ${x2},${(y1+y2)/2} ${x2},${y2}`;
+  };
+
   return (
-    <div className="relative w-full py-12 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
-      {/* Background effects */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden">
-        <svg width="100%" height="100%" className="absolute inset-0">
-          <defs>
-            <radialGradient id="gradient-bg" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-              <stop offset="0%" stopColor={`${bravoColors.tertiary}10`} />
-              <stop offset="100%" stopColor="#ffffff00" />
-            </radialGradient>
-          </defs>
-          <rect x="0" y="0" width="100%" height="100%" fill="url(#gradient-bg)" />
-          
-          {/* Floating hexagon grid */}
-          <pattern id="hexagons" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="scale(2)">
-            <path 
-              d="M0,20 L10,0 L30,0 L40,20 L30,40 L10,40 Z" 
-              fill="none" 
-              stroke={`${bravoColors.accent.blue}10`} 
-              strokeWidth="0.5"
-            />
-          </pattern>
-          <motion.rect 
-            x="0" y="0" width="100%" height="100%" 
-            fill="url(#hexagons)"
-            animate={{ 
-              x: [0, 40, 0], 
-              y: [0, 30, 0] 
+    <Box 
+      component="section" 
+      sx={{
+        py: { xs: 10, md: 16 },
+        position: 'relative',
+        overflow: 'hidden',
+        bgcolor: 'white',
+      }}
+    >
+      <Container maxWidth="lg">
+        <Box sx={{ textAlign: 'center', mb: 10 }}>
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+              fontWeight: 700,
+              color: 'black',
+              mb: 2,
             }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 20, 
-              ease: "linear" 
+          >
+            Seamless EHR Integration
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: { xs: '1rem', md: '1.25rem' },
+              color: 'rgba(0,0,0,0.7)',
+              maxWidth: '800px',
+              mx: 'auto',
             }}
-          />
-        </svg>
-      </div>
-      
-      <div className="container max-w-3xl mx-auto px-4">
-        <motion.div 
-          className="relative flex items-center justify-center min-h-[300px]"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
+          >
+            BRAVO syncs in real-time with all major EHR and practice management systems
+          </Typography>
+        </Box>
+
+        <Box 
+          className="compatibility-container"
+          sx={{ 
+            position: 'relative',
+            height: { xs: '400px', md: '300px' },
+            width: '100%',
+            maxWidth: '1000px',
+            mx: 'auto'
+          }}
         >
-          {/* Central BRAVO hub */}
-          <div className="relative z-20">
-            <motion.div 
-              className="relative mb-8"
-              variants={textVariants}
-            >
-              <div className="relative">
-                {/* Pulse rings */}
-                <motion.div 
-                  className="absolute inset-0 rounded-full"
-                  style={{ 
-                    background: `radial-gradient(circle, ${bravoColors.accent.blue}30 0%, ${bravoColors.accent.blue}00 70%)` 
-                  }}
-                  variants={{
-                    hidden: { scale: 0.8, opacity: 0 },
-                    visible: {
-                      scale: [0.8, 1.2, 1],
-                      opacity: [0, 0.6, 0],
-                      transition: {
-                        repeat: Infinity,
-                        repeatDelay: 2,
-                        duration: 2,
-                        times: [0, 0.5, 1]
-                      }
-                    }
-                  }}
-                />
-                
-                <motion.div 
-                  className="absolute inset-0 rounded-full"
-                  style={{ 
-                    background: `radial-gradient(circle, ${bravoColors.accent.blue}20 0%, ${bravoColors.accent.blue}00 70%)`,
-                    scale: 1.5 
-                  }}
-                  variants={{
-                    hidden: { scale: 0.8, opacity: 0 },
-                    visible: {
-                      scale: [0.8, 1.2, 1],
-                      opacity: [0, 0.6, 0],
-                      transition: {
-                        repeat: Infinity,
-                        repeatDelay: 2,
-                        duration: 2,
-                        times: [0, 0.5, 1]
-                      }
-                    }
-                  }}
-                  custom={0.2}
-                />
-                
-                {/* Hub */}
-                <div className="relative">
-                  <div className="w-24 h-24 rounded-full backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-lg border border-white/60 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
-                    <GlowBorderEffect glow variant="teal" />
-                    <span className="text-xl font-bold z-10 relative" style={{ color: bravoColors.primary }}>BRAVO</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* Integration spokes */}
-            {integrations.map((integration, i) => (
+          {/* Background effect */}
+          <Box sx={{ position: 'absolute', inset: 0, opacity: 0.3 }}>
+            <MatrixRain 
+              fontSize={14}
+              color={bravoColors.primary}
+              characters="10"
+              fadeOpacity={0.05}
+              speed={0.6}
+            />
+          </Box>
+
+          {/* System icons with pulse effect */}
+          <Box 
+            sx={{ 
+              position: 'relative', 
+              width: '100%', 
+              height: '100%',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'space-around',
+              alignItems: 'center',
+              zIndex: 2,
+            }}
+          >
+            {systems.map((system, index) => (
               <motion.div
-                key={i}
-                className="absolute"
+                key={system.name}
+                ref={el => systemRefs.current[index] = el}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
                 style={{ 
-                  left: '50%',
-                  top: '50%',
-                  transform: `translate(-50%, ${integration.position.y}px)`,
-                  width: '100%',
-                  display: 'flex',
-                  justifyContent: 'center'
-                }}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { 
-                    opacity: 1, 
-                    y: 0,
-                    transition: { delay: i * 0.2 }
-                  }
+                  position: isSmallScreen ? 'relative' : 'absolute',
+                  top: isSmallScreen ? 'auto' : `${20 + Math.random() * 60}%`,
+                  left: isSmallScreen ? 'auto' : `${20 + Math.random() * 60}%`,
+                  margin: isSmallScreen ? '20px' : 0,
                 }}
               >
-                <div className="relative">
-                  {/* Connection line */}
-                  <div className="absolute top-[-120px] left-0 w-full flex justify-center pointer-events-none">
-                    <GradientTracing
-                      width={2}
-                      height={120}
-                      path={`M0,0 L0,120`}
-                      gradientColors={integration.gradientColors}
-                      animationDuration={3}
-                      baseColor="#e5e7eb"
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                  
-                  {/* Integration icon */}
-                  <motion.div
-                    className="relative"
-                    variants={{
-                      hidden: { scale: 0, opacity: 0 },
-                      visible: {
-                        scale: 1, 
-                        opacity: 1,
-                        transition: { 
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 25,
-                          delay: 0.2
-                        }
-                      }
-                    }}
-                  >
-                    <div className="relative w-20 h-20 flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-lg backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-md border border-white/60 z-10">
-                        <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
-                        <div className="p-2 rounded-md bg-gradient-to-r from-blue-500 to-blue-600 z-10">
-                          {integration.icon}
-                        </div>
-                      </div>
-                      
-                      {/* Connected badge */}
-                      <motion.div
-                        className="absolute -top-3 -right-3 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-sm"
-                        variants={{
-                          hidden: { opacity: 0, y: 10 },
-                          visible: {
-                            opacity: 1,
-                            y: 0,
-                            transition: {
-                              delay: 1.2,
-                              duration: 0.3
-                            }
-                          }
-                        }}
-                      >
-                        Connected
-                      </motion.div>
-                    </div>
-                    
-                    <div className="absolute top-full mt-2 text-center w-full">
-                      <p className="text-sm font-medium" style={{ color: bravoColors.text.secondary }}>
-                        {integration.name}
-                      </p>
-                    </div>
-                  </motion.div>
-                </div>
+                <Box
+                  sx={{
+                    width: { xs: 70, md: 80 },
+                    height: { xs: 70, md: 80 },
+                    borderRadius: '50%',
+                    bgcolor: 'white',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.06)',
+                    position: 'relative',
+                    zIndex: 2,
+                    border: '1px solid rgba(0,0,0,0.06)',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      inset: '-8px',
+                      borderRadius: '50%',
+                      background: `${system.color}20`,
+                      zIndex: -1,
+                      animation: 'pulse 2s infinite',
+                    },
+                  }}
+                >
+                  <Box sx={{ color: system.color, mb: 0.5 }}>
+                    {system.icon}
+                  </Box>
+                  <Typography sx={{ fontSize: '0.75rem', fontWeight: 600 }}>
+                    {system.name}
+                  </Typography>
+                </Box>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
-        
-        <motion.div
-          className="text-center max-w-2xl mx-auto mt-8"
-          variants={textVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <p className="text-xl" style={{ color: bravoColors.text.secondary }}>
-            BRAVO syncs where it matters most — with your preferred PMS/EHR System.
-          </p>
-        </motion.div>
-      </div>
-    </div>
+          </Box>
+
+          {/* Connection lines - Fixed with dynamic paths */}
+          <svg 
+            width="100%" 
+            height="100%" 
+            style={{ 
+              position: 'absolute', 
+              top: 0, 
+              left: 0, 
+              zIndex: 1, 
+              pointerEvents: 'none',
+            }}
+          >
+            {!isSmallScreen && visibleConnections.map((connectionIndex, i) => {
+              const connection = connections[connectionIndex];
+              const path = getConnectionPath(connection.from, connection.to);
+              
+              return (
+                <motion.g key={i} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                  <GradientTracing
+                    width={1000}
+                    height={300}
+                    baseColor="rgba(0,0,0,0.1)"
+                    gradientColors={[bravoColors.accent.blue, bravoColors.accent.blue, bravoColors.accent.purple]}
+                    animationDuration={3}
+                    strokeWidth={2}
+                    path={path}
+                  />
+                </motion.g>
+              );
+            })}
+          </svg>
+        </Box>
+      </Container>
+
+      {/* Add global animation */}
+      <style jsx global>{`
+        @keyframes pulse {
+          0% {
+            transform: scale(0.95);
+            opacity: 0.5;
+          }
+          50% {
+            transform: scale(1.05);
+            opacity: 0.8;
+          }
+          100% {
+            transform: scale(0.95);
+            opacity: 0.5;
+          }
+        }
+      `}</style>
+    </Box>
   );
 };
