@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { motion } from "framer-motion";
-import { FileCheck } from 'lucide-react';
+import { FileCheck, Phone } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
@@ -12,7 +11,7 @@ const containerVariants = {
     opacity: 1, 
     transition: { 
       when: "beforeChildren", 
-      staggerChildren: 0.2,
+      staggerChildren: 0.3,
       duration: 0.5
     }
   }
@@ -30,13 +29,20 @@ export const CompatibilitySection = () => {
       name: "PMS/EHR System",
       icon: <FileCheck size={24} color="#ffffff" />,
       gradientColors: ["#2EB9DF", "#2EB9DF", "#10B981"] as [string, string, string],
-      path: `M0,0 C40,0 80,0 150,0`,
-      position: { x: 0, y: 120 }
+      path: `M0,0 L0,120`,
+      position: { x: -120, y: 120 }
+    },
+    {
+      name: "VOIP System",
+      icon: <Phone size={24} color="#ffffff" />,
+      gradientColors: ["#8B5CF6", "#7C3AED", "#6D28D9"] as [string, string, string],
+      path: `M0,0 L0,120`,
+      position: { x: 120, y: 120 }
     }
   ];
 
   return (
-    <div className="relative w-full py-12 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
+    <div className="relative w-full py-20 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Background effects */}
       <div className="absolute inset-0 opacity-30 pointer-events-none overflow-hidden">
         <svg width="100%" height="100%" className="absolute inset-0">
@@ -73,9 +79,9 @@ export const CompatibilitySection = () => {
         </svg>
       </div>
       
-      <div className="container max-w-3xl mx-auto px-4">
+      <div className="container max-w-4xl mx-auto px-4">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[300px]"
+          className="relative flex items-center justify-center min-h-[400px]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -84,7 +90,7 @@ export const CompatibilitySection = () => {
           {/* Central BRAVO hub */}
           <div className="relative z-20">
             <motion.div 
-              className="relative mb-8"
+              className="relative mb-12"
               variants={textVariants}
             >
               <div className="relative">
@@ -133,10 +139,10 @@ export const CompatibilitySection = () => {
                 
                 {/* Hub */}
                 <div className="relative">
-                  <div className="w-24 h-24 rounded-full backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-lg border border-white/60 overflow-hidden">
+                  <div className="w-32 h-32 rounded-full backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-lg border border-white/60 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
                     <GlowBorderEffect glow variant="teal" />
-                    <span className="text-xl font-bold z-10 relative" style={{ color: bravoColors.primary }}>BRAVO</span>
+                    <span className="text-2xl font-bold z-10 relative" style={{ color: bravoColors.primary }}>BRAVO</span>
                   </div>
                 </div>
               </div>
@@ -148,7 +154,7 @@ export const CompatibilitySection = () => {
                 key={i}
                 className="absolute"
                 style={{ 
-                  left: '50%',
+                  left: `calc(50% + ${integration.position.x}px)`,
                   top: '50%',
                   transform: `translate(-50%, ${integration.position.y}px)`,
                   width: '100%',
@@ -160,7 +166,7 @@ export const CompatibilitySection = () => {
                   visible: { 
                     opacity: 1, 
                     y: 0,
-                    transition: { delay: i * 0.2 }
+                    transition: { delay: i * 0.3 }
                   }
                 }}
               >
@@ -170,7 +176,7 @@ export const CompatibilitySection = () => {
                     <GradientTracing
                       width={2}
                       height={120}
-                      path={`M0,0 L0,120`}
+                      path={integration.path}
                       gradientColors={integration.gradientColors}
                       animationDuration={3}
                       baseColor="#e5e7eb"
@@ -190,22 +196,22 @@ export const CompatibilitySection = () => {
                           type: "spring",
                           stiffness: 300,
                           damping: 25,
-                          delay: 0.2
+                          delay: 0.3
                         }
                       }
                     }}
                   >
-                    <div className="relative w-20 h-20 flex items-center justify-center">
-                      <div className="w-20 h-20 rounded-lg backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-md border border-white/60 z-10">
+                    <div className="relative w-24 h-24 flex items-center justify-center">
+                      <div className="w-24 h-24 rounded-lg backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-md border border-white/60 z-10">
                         <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
-                        <div className="p-2 rounded-md bg-gradient-to-r from-blue-500 to-blue-600 z-10">
+                        <div className="p-3 rounded-md bg-gradient-to-r from-blue-500 to-blue-600 z-10">
                           {integration.icon}
                         </div>
                       </div>
                       
                       {/* Connected badge */}
                       <motion.div
-                        className="absolute -top-3 -right-3 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded-full shadow-sm"
+                        className="absolute -top-3 -right-3 bg-green-500 text-white text-xs px-2 py-0.5 rounded-full shadow-sm"
                         variants={{
                           hidden: { opacity: 0, y: 10 },
                           visible: {
@@ -222,7 +228,7 @@ export const CompatibilitySection = () => {
                       </motion.div>
                     </div>
                     
-                    <div className="absolute top-full mt-2 text-center w-full">
+                    <div className="absolute top-full mt-3 text-center w-full">
                       <p className="text-sm font-medium" style={{ color: bravoColors.text.secondary }}>
                         {integration.name}
                       </p>
@@ -235,14 +241,14 @@ export const CompatibilitySection = () => {
         </motion.div>
         
         <motion.div
-          className="text-center max-w-2xl mx-auto mt-8"
+          className="text-center max-w-2xl mx-auto mt-12"
           variants={textVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
           <p className="text-xl" style={{ color: bravoColors.text.secondary }}>
-            BRAVO syncs where it matters most — with your preferred PMS/EHR System.
+            BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
           </p>
         </motion.div>
       </div>
