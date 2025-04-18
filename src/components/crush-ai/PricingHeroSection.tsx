@@ -1,10 +1,12 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Laptop, Heart, Calculator } from "lucide-react";
+import { ArrowRight, Laptop, Calculator } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { EMRChartIllustration } from "./illustrations/EMRChartIllustration";
+import { CliniciansIllustration } from "./illustrations/CliniciansIllustration";
+import { ROICalculatorIllustration } from "./illustrations/ROICalculatorIllustration";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -31,12 +33,20 @@ export const PricingHeroSection = () => {
         py: { xs: 8, md: 12 },
         background: `linear-gradient(135deg, ${crushAIColors.background.light} 0%, #fff 100%)`,
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center'
       }}
     >
       <Container maxWidth="lg">
-        <div className="max-w-3xl mx-auto text-center relative z-10">
-          {/* EMR Chart Animation */}
+        <div className="max-w-3xl mx-auto text-center relative">
+          {/* Background Illustrations */}
+          <EMRChartIllustration />
+          <CliniciansIllustration />
+          <ROICalculatorIllustration />
+
+          {/* Logo Icon */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -100,38 +110,39 @@ export const PricingHeroSection = () => {
               </Typography>
             </motion.div>
 
+            {/* CTA Buttons */}
             <motion.div 
               variants={fadeInUpVariants}
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button
                 size="lg"
-                className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px]"
+                className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] hover:shadow-2xl"
                 style={{
                   background: `linear-gradient(90deg, #009CA6, #007A82)`,
                 }}
               >
                 Get Started
-                <ArrowRight size={16} className="ml-2" />
+                <ArrowRight className="ml-2" />
               </Button>
               
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full px-8 py-6 text-lg border-2 transition-all duration-300 hover:translate-y-[-2px]"
+                className="rounded-full px-8 py-6 text-lg border-2 transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
                 style={{
                   borderColor: '#009CA6',
                   color: '#009CA6'
                 }}
               >
                 Book a Demo
-                <Calculator size={16} className="ml-2" />
+                <Calculator className="ml-2" />
               </Button>
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Background Elements */}
+        {/* Background Effects */}
         <motion.div 
           className="absolute top-20 left-10 w-24 h-24 rounded-full"
           animate={{
