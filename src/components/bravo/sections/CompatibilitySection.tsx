@@ -38,17 +38,15 @@ export const CompatibilitySection = () => {
 
   return (
     <div className="relative w-full py-20 overflow-hidden">
-      {/* Background with gradient and effects */}
       <div 
-        className="absolute inset-0" 
+        className="absolute inset-0 z-0" 
         style={{ 
-          background: 'linear-gradient(135deg, #046f90 0%, #D946EF 100%)',
+          background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.2) 0%, rgba(217, 70, 239, 0.2) 100%)',
           opacity: 0.9
         }}
       />
       
-      {/* Ripple effects */}
-      <div className="absolute inset-0 opacity-30 pointer-events-none">
+      <div className="absolute inset-0 z-10 opacity-30 pointer-events-none">
         <div className="rippleBackground">
           <div className="ripple bg-white/10"></div>
           <div className="ripple bg-white/10"></div>
@@ -56,15 +54,14 @@ export const CompatibilitySection = () => {
         </div>
       </div>
 
-      <div className="container max-w-4xl mx-auto px-4 relative z-10">
+      <div className="container max-w-4xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[400px]"
+          className="relative flex items-center justify-center min-h-[400px] glass-morphism rounded-3xl p-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
         >
-          {/* Central BRAVO hub */}
           <div className="relative z-20">
             <motion.div 
               className="relative mb-12"
@@ -74,9 +71,8 @@ export const CompatibilitySection = () => {
               }}
             >
               <div className="relative">
-                {/* Hub */}
                 <div className="relative">
-                  <div className="w-32 h-32 rounded-full backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-lg border border-white/60 overflow-hidden">
+                  <div className="w-32 h-32 rounded-full backdrop-blur-md bg-white/20 flex items-center justify-center shadow-lg border border-white/30 overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
                     <GlowBorderEffect glow variant="teal" />
                     <span className="text-2xl font-bold z-10 relative text-white">BRAVO</span>
@@ -85,7 +81,6 @@ export const CompatibilitySection = () => {
               </div>
             </motion.div>
 
-            {/* Integration items */}
             {integrations.map((integration, i) => (
               <motion.div
                 key={i}
@@ -108,7 +103,6 @@ export const CompatibilitySection = () => {
                 }}
               >
                 <div className="relative">
-                  {/* Connection line */}
                   <div className="absolute top-[-120px] left-0 w-full flex justify-center pointer-events-none">
                     <GradientTracing
                       width={2}
@@ -121,9 +115,8 @@ export const CompatibilitySection = () => {
                     />
                   </div>
                   
-                  {/* Integration card */}
                   <div className="relative w-24 h-24 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-lg backdrop-blur-sm bg-gradient-to-br from-white/80 to-white/40 flex items-center justify-center shadow-md border border-white/60 z-10">
+                    <div className="w-24 h-24 rounded-lg backdrop-blur-md bg-white/20 flex items-center justify-center shadow-md border border-white/30 z-10">
                       <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
                       <div className="p-3 rounded-md bg-gradient-to-r from-blue-500 to-blue-600 z-10">
                         {integration.icon}
