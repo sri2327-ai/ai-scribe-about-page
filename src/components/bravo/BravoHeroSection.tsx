@@ -85,14 +85,15 @@ export const BravoHeroSection = () => {
                     <HoverCardContent 
                       className="w-80" 
                       style={{ 
-                        zIndex: 999, 
+                        zIndex: 9999, 
                         position: 'absolute', 
-                        bottom: '100%', 
+                        bottom: '120%', 
                         left: '50%', 
                         transform: 'translateX(-50%)', 
-                        marginBottom: '50px',
+                        marginBottom: '10px',
                         backgroundColor: 'white',
-                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
+                        boxShadow: '0 10px 25px rgba(0,0,0,0.1)',
+                        border: '1px solid rgba(0,0,0,0.1)'
                       }}
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
