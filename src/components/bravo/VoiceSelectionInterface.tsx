@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
 import { ChevronLeft, ChevronRight, Volume2, AlertCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { BeamsBackground } from "@/components/ui/beams-background";
 
 interface VoiceOption {
   id: string;
@@ -41,7 +42,7 @@ export const VoiceSelectionInterface = () => {
   };
 
   return (
-    <div className="py-16 px-4 md:px-6 relative overflow-hidden bg-white">
+    <BeamsBackground className="py-16 px-4 md:px-6 relative overflow-hidden">
       <div className="container mx-auto relative max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,10 +51,10 @@ export const VoiceSelectionInterface = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-black font-sans">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white font-sans">
             Choose Your BRAVO Assistant Voice
           </h2>
-          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-black">
+          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-white/80">
             Select a voice personality that best fits your organization
           </p>
         </motion.div>
@@ -144,7 +145,7 @@ export const VoiceSelectionInterface = () => {
           </p>
         </motion.div>
       </div>
-    </div>
+    </BeamsBackground>
   );
 };
 

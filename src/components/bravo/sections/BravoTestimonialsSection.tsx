@@ -1,5 +1,5 @@
-
 import React, { useEffect, useState } from 'react';
+import { BeamsBackground } from "@/components/ui/beams-background";
 import {
   Carousel,
   CarouselApi,
@@ -71,48 +71,50 @@ export const BravoTestimonialsSection = () => {
   }, [api, current]);
 
   return (
-    <section className="w-full py-20 bg-gradient-to-b from-white to-gray-50">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col gap-10 max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-5xl tracking-tighter lg:max-w-3xl font-bold text-center mx-auto" style={{ color: bravoColors.primary }}>
-            Trusted by Leading Healthcare Providers
-          </h2>
-          
-          <Carousel setApi={setApi} className="w-full">
-            <CarouselContent>
-              {testimonials.map((testimonial, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="bg-white rounded-xl h-full p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
-                    <div className="flex flex-col justify-between h-full gap-4">
-                      <User className="w-8 h-8 mb-2" style={{ color: bravoColors.secondary }} />
-                      <div className="flex flex-col gap-4">
-                        <div className="flex flex-col">
-                          <h3 className="text-xl font-semibold mb-2" style={{ color: bravoColors.primary }}>
-                            {testimonial.title}
-                          </h3>
-                          <p className="text-gray-600 text-base">
-                            {testimonial.content}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Avatar className="h-10 w-10">
-                            <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
-                            <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                          </Avatar>
+    <BeamsBackground>
+      <section className="w-full py-20 relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col gap-10 max-w-7xl mx-auto">
+            <h2 className="text-3xl md:text-5xl tracking-tighter lg:max-w-3xl font-bold text-center mx-auto text-white">
+              Trusted by Leading Healthcare Providers
+            </h2>
+            
+            <Carousel setApi={setApi} className="w-full">
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="bg-white rounded-xl h-full p-6 shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+                      <div className="flex flex-col justify-between h-full gap-4">
+                        <User className="w-8 h-8 mb-2" style={{ color: bravoColors.secondary }} />
+                        <div className="flex flex-col gap-4">
                           <div className="flex flex-col">
-                            <span className="font-medium" style={{ color: bravoColors.text.primary }}>{testimonial.author}</span>
-                            <span className="text-sm text-gray-500">{testimonial.role}</span>
+                            <h3 className="text-xl font-semibold mb-2" style={{ color: bravoColors.primary }}>
+                              {testimonial.title}
+                            </h3>
+                            <p className="text-gray-600 text-base">
+                              {testimonial.content}
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Avatar className="h-10 w-10">
+                              <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
+                              <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                            </Avatar>
+                            <div className="flex flex-col">
+                              <span className="font-medium" style={{ color: bravoColors.text.primary }}>{testimonial.author}</span>
+                              <span className="text-sm text-gray-500">{testimonial.role}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </BeamsBackground>
   );
 };
