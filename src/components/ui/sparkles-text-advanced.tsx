@@ -1,4 +1,3 @@
-
 import { CSSProperties, ReactElement, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -60,7 +59,7 @@ interface SparklesTextProps {
 
 const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
   text,
-  colors = { first: "#143151", second: "#387E89" }, // Updated default colors
+  colors = { first: "#143151", second: "#387E89" },
   className,
   sparklesCount = 10,
   ...props
@@ -73,8 +72,8 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
       const starY = `${Math.random() * 100}%`;
       const color = Math.random() > 0.5 ? colors.first : colors.second;
       const delay = Math.random() * 2;
-      const scale = Math.random() * 0.8 + 0.3; // Slightly smaller scale range for x.ai aesthetic
-      const lifespan = Math.random() * 8 + 5; // Adjusted lifespan
+      const scale = Math.random() * 0.8 + 0.3;
+      const lifespan = Math.random() * 8 + 5;
       const id = `${starX}-${starY}-${Date.now()}`;
       return { id, x: starX, y: starY, color, delay, scale, lifespan };
     };
@@ -104,7 +103,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
 
   return (
     <div
-      className={cn("text-6xl font-bold tracking-tight text-black no-underline", className)} // Added no-underline
+      className={cn("text-6xl font-bold tracking-tight text-black no-underline", className)}
       {...props}
       style={
         {
@@ -117,9 +116,7 @@ const SparklesTextAdvanced: React.FC<SparklesTextProps> = ({
         {sparkles.map((sparkle) => (
           <Sparkle key={sparkle.id} {...sparkle} />
         ))}
-        <strong 
-          className="relative z-10 text-black bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
-        >
+        <strong className="relative z-10 text-black">
           {text}
         </strong>
       </span>
@@ -131,15 +128,15 @@ const Sparkle: React.FC<Sparkle> = ({ id, x, y, color, delay, scale }) => {
   return (
     <motion.svg
       key={id}
-      className="pointer-events-none absolute z-0" // Changed to z-0 to ensure text is above
+      className="pointer-events-none absolute z-0"
       initial={{ opacity: 0, left: x, top: y }}
       animate={{
-        opacity: [0, 0.8, 0], // Adjusted opacity for subtler effect
+        opacity: [0, 0.8, 0],
         scale: [0, scale, 0],
         rotate: [75, 120, 150],
       }}
-      transition={{ duration: 1.2, repeat: Infinity, delay }} // Slightly slower for more elegant feel
-      width="18" // Slightly smaller sparkles
+      transition={{ duration: 1.2, repeat: Infinity, delay }}
+      width="18"
       height="18"
       viewBox="0 0 21 21"
     >

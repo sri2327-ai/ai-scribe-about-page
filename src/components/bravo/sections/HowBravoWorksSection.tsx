@@ -330,13 +330,6 @@ export const HowBravoWorksSection = () => {
               colors={{ first: "#143151", second: "#387E89" }}
             />
           </motion.div>
-          
-          <motion.div
-            className="mx-auto mt-6 w-24 h-1 bg-gradient-to-r from-gray-200 via-gray-400 to-gray-600"
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ duration: 0.7, delay: 0.4 }}
-          />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
