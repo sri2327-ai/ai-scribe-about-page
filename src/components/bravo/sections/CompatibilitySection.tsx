@@ -21,7 +21,7 @@ const containerVariants = {
   }
 };
 
-// Data flow animation variants
+// Data flow animation variants - Fixed the repeatType from string to a specific allowed value
 const flowVariants = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: { 
@@ -32,7 +32,7 @@ const flowVariants = {
       ease: "easeInOut",
       delay: 1,
       repeat: Infinity,
-      repeatType: "loop",
+      repeatType: "loop" as const, // Fixed: Explicitly typed as "loop"
       repeatDelay: 2
     }
   }
@@ -400,8 +400,9 @@ export const CompatibilitySection = () => {
         </motion.div>
       </div>
       
-      {/* Add CSS for ripple effect to global styles */}
-      <style jsx global>{`
+      {/* Add CSS for ripple effect */}
+      <style>
+        {`
         .rippleBackground {
           position: absolute;
           left: 0;
@@ -459,7 +460,8 @@ export const CompatibilitySection = () => {
           border: 1px solid rgba(255, 255, 255, 0.2);
           box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 };
