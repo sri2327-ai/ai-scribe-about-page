@@ -5,7 +5,6 @@ import { bravoColors } from '@/theme/bravo-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
-import { CanvasEffect } from "@/components/ui/canvas-effect";
 
 // Container animation variants
 const containerVariants = {
@@ -115,16 +114,6 @@ export const CompatibilitySection = () => {
       className="relative w-full py-28 overflow-hidden" 
       style={{ backgroundColor: '#D299C2' }}
     >
-      {/* Optional: Add a very subtle background effect if desired */}
-      <div 
-        className="absolute inset-0 z-0 bg-white/5 opacity-10"
-      />
-      
-      {/* Optional: Keep canvas effect with reduced opacity */}
-      <CanvasEffect className="opacity-10" />
-      
-      {/* Remove ripple background div */}
-
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
           className="relative flex items-center justify-center min-h-[500px] bg-white/95 rounded-3xl p-8 border border-gray-200 shadow-lg"
@@ -133,9 +122,7 @@ export const CompatibilitySection = () => {
           viewport={{ once: true }}
           variants={containerVariants}
         >
-          {/* Animation container */}
           <div className="relative z-20 w-full">
-            {/* Step 1-2: Showing separate systems */}
             <motion.div 
               className="flex flex-col md:flex-row items-center justify-center gap-20 relative"
               animate={{ 
@@ -144,7 +131,6 @@ export const CompatibilitySection = () => {
               }}
               transition={{ duration: 0.8 }}
             >
-              {/* EHR System */}
               <motion.div
                 className={`relative ${activeStep >= 2 ? 'translate-x-0 opacity-100' : '-translate-x-4 opacity-80'}`}
                 animate={{ 
@@ -166,7 +152,6 @@ export const CompatibilitySection = () => {
                   </div>
                   
                   <div className="p-4 space-y-4">
-                    {/* EHR UI Elements */}
                     {ehrFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
@@ -185,7 +170,6 @@ export const CompatibilitySection = () => {
                 </div>
               </motion.div>
               
-              {/* BRAVO Logo (Step 2) */}
               <motion.div 
                 className="absolute z-30"
                 variants={{
@@ -212,7 +196,6 @@ export const CompatibilitySection = () => {
                     <span className="text-xl font-bold z-10 relative text-white">BRAVO</span>
                   </div>
                   
-                  {/* Connection lines (Step 3) */}
                   {activeStep >= 3 && (
                     <>
                       <motion.div 
@@ -253,7 +236,6 @@ export const CompatibilitySection = () => {
                 </div>
               </motion.div>
               
-              {/* VOIP System */}
               <motion.div
                 className={`relative ${activeStep >= 2 ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-80'}`}
                 animate={{ 
@@ -275,7 +257,6 @@ export const CompatibilitySection = () => {
                   </div>
                   
                   <div className="p-4 space-y-4">
-                    {/* VOIP UI Elements */}
                     {voipFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
@@ -295,7 +276,6 @@ export const CompatibilitySection = () => {
               </motion.div>
             </motion.div>
             
-            {/* Step 4-5: Integration benefits */}
             <motion.div 
               className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center"
               animate={{ 
@@ -304,7 +284,6 @@ export const CompatibilitySection = () => {
               }}
               transition={{ duration: 0.8 }}
             >
-              {/* Integrated dashboard UI */}
               <motion.div
                 className="w-[90%] max-w-xl h-80 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 shadow-lg overflow-hidden"
                 variants={{
