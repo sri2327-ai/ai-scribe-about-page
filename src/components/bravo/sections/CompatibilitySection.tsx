@@ -111,27 +111,22 @@ export const CompatibilitySection = () => {
   ];
 
   return (
-    <div className="relative w-full py-28 overflow-hidden">
-      {/* Background gradient */}
+    <div className="relative w-full py-28 overflow-hidden bg-white">
+      {/* Remove existing gradient background div */}
+      
+      {/* Optional: Add a very subtle background effect if desired */}
       <div 
-        className="absolute inset-0 z-0 bg-gradient-to-br from-[rgba(14,165,233,0.2)] to-[rgba(217,70,239,0.2)]"
+        className="absolute inset-0 z-0 bg-white/5 opacity-10"
       />
       
-      {/* Animated canvas effect */}
-      <CanvasEffect className="opacity-50" />
+      {/* Optional: Keep canvas effect with reduced opacity */}
+      <CanvasEffect className="opacity-10" />
       
-      {/* Ripple background */}
-      <div className="absolute inset-0 z-10 opacity-30 pointer-events-none">
-        <div className="rippleBackground">
-          <div className="ripple bg-white/10"></div>
-          <div className="ripple bg-white/10"></div>
-          <div className="ripple bg-white/10"></div>
-        </div>
-      </div>
+      {/* Remove ripple background div */}
 
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] glass-morphism rounded-3xl p-8 backdrop-blur-md bg-white/10 border border-white/20 shadow-lg"
+          className="relative flex items-center justify-center min-h-[500px] bg-white/95 rounded-3xl p-8 border border-gray-200 shadow-lg"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -379,74 +374,13 @@ export const CompatibilitySection = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="text-xl text-white">
+          <p className="text-xl text-gray-800">
             BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
           </p>
         </motion.div>
       </div>
       
-      {/* Add CSS for ripple effect */}
-      <style>
-        {`
-        .rippleBackground {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
-          overflow: hidden;
-        }
-        
-        .ripple {
-          position: absolute;
-          border-radius: 50%;
-          transform: scale(0);
-          animation: rippleEffect 12s linear infinite;
-        }
-        
-        .ripple:nth-child(1) {
-          left: 25%;
-          top: 25%;
-          width: 40vw;
-          height: 40vw;
-          animation-delay: 0s;
-        }
-        
-        .ripple:nth-child(2) {
-          left: 50%;
-          top: 40%;
-          width: 60vw;
-          height: 60vw;
-          animation-delay: 4s;
-        }
-        
-        .ripple:nth-child(3) {
-          left: 65%;
-          top: 15%;
-          width: 50vw;
-          height: 50vw;
-          animation-delay: 8s;
-        }
-        
-        @keyframes rippleEffect {
-          0% {
-            transform: scale(0);
-            opacity: 0.6;
-          }
-          100% {
-            transform: scale(1);
-            opacity: 0;
-          }
-        }
-        
-        .glass-morphism {
-          backdrop-filter: blur(12px);
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-        `}
-      </style>
+      {/* Remove the existing <style> tag completely */}
     </div>
   );
 };
