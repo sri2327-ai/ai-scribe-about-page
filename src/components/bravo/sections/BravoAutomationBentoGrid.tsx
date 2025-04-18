@@ -660,10 +660,10 @@ export const BravoAutomationBentoGrid = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-sans" style={{ color: bravoColors.primary }}>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-sans text-black">
             BRAVO Automates Every Front Office Task
           </h2>
-          <p className="text-lg max-w-3xl mx-auto" style={{ color: bravoColors.text.secondary }}>
+          <p className="text-lg max-w-3xl mx-auto text-black">
             One AI assistant handles all patient engagement & administrative workflows
           </p>
         </motion.div>

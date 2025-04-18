@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
@@ -51,16 +50,10 @@ export const VoiceSelectionInterface = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 bg-clip-text text-transparent font-sans"
-            style={{
-              backgroundImage: `linear-gradient(to right, ${bravoColors.primary}, ${bravoColors.secondary})`
-            }}
-          >
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-black font-sans">
             Choose Your BRAVO Assistant Voice
           </h2>
-          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans"
-            style={{ color: bravoColors.text.secondary }}
-          >
+          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-black">
             Select a voice personality that best fits your organization
           </p>
         </motion.div>
