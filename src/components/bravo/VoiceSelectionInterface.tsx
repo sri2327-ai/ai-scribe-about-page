@@ -69,36 +69,36 @@ export const VoiceSelectionInterface = () => {
               transition={{ duration: 0.4 }}
               className="flex justify-center"
             >
-              <div className="w-64 relative rounded-xl overflow-hidden backdrop-blur-md p-6 flex flex-col items-center"
+              <div className="w-64 relative rounded-xl overflow-hidden backdrop-blur-xl p-6 flex flex-col items-center"
                 style={{ 
-                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                  border: '1px solid rgba(0, 0, 0, 0.1)',
-                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
                 }}
               >
                 <div className="w-20 h-20 mb-4 rounded-full flex items-center justify-center">
                   {renderVoiceAnimation(voices[currentIndex].animationType, selectedVoice === voices[currentIndex].id)}
                 </div>
                 
-                <h3 className="text-xl font-bold mb-1 font-sans" style={{ color: bravoColors.primary }}>
+                <h3 className="text-xl font-bold mb-1 font-sans text-white">
                   {voices[currentIndex].name}
                 </h3>
                 
-                <p className="text-sm mb-4 text-center font-sans" style={{ color: bravoColors.text.secondary }}>
+                <p className="text-sm mb-4 text-center font-sans text-white/80">
                   {voices[currentIndex].description}
                 </p>
                 
                 <Button
                   size="sm"
                   variant="outline"
-                  className="mt-auto group"
+                  className="mt-auto group hover:bg-white/20 transition-colors"
                   style={{ 
-                    borderColor: bravoColors.tertiary,
-                    color: bravoColors.primary
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                    color: 'white'
                   }}
                   onClick={() => handleTryVoice(voices[currentIndex].id)}
                 >
-                  <Volume2 className="w-4 h-4 mr-2 group-hover:text-teal-500 transition-colors" />
+                  <Volume2 className="w-4 h-4 mr-2 text-white group-hover:text-white transition-colors" />
                   Try Voice
                 </Button>
               </div>
