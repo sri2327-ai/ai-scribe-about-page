@@ -189,7 +189,7 @@ const Bravo = () => {
             </p>
             <Button 
               size="lg"
-              className="px-8 py-6 text-lg rounded-xl bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 transition-all duration-300 transform hover:scale-105"
+              className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
               style={{ 
                 color: bravoColors.text.white
               }}
