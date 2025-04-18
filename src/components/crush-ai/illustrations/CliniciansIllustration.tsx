@@ -6,13 +6,13 @@ import { Database, Heart, Check } from 'lucide-react';
 export const CliniciansIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] top-[32%] z-0"
+      className="absolute left-0 top-[32%] z-0 w-80"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
     >
       <motion.div
-        className="flex items-center gap-4 bg-white rounded-lg shadow-lg p-4 w-80"
+        className="flex items-center gap-4 bg-white rounded-lg shadow-lg p-4 w-full"
         animate={{
           x: [0, 10, 0],
           scale: [1, 1.02, 1]

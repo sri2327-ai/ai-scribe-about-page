@@ -6,13 +6,13 @@ import { FileText, MessageSquare, ArrowRight, Bot } from 'lucide-react';
 export const EMRChartIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] top-[5%] z-0"
+      className="absolute left-0 top-0 z-0 w-80"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="relative bg-white rounded-lg shadow-lg p-4 w-80"
+        className="bg-white rounded-lg shadow-lg p-4 w-full"
         animate={{ x: [0, 10, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >

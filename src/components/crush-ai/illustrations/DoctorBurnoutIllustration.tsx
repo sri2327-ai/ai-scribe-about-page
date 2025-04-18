@@ -6,13 +6,13 @@ import { Heart, Clock, Shield } from 'lucide-react';
 export const DoctorBurnoutIllustration = () => {
   return (
     <motion.div
-      className="absolute left-[10%] top-[86%] z-0"
+      className="absolute left-0 top-[86%] z-0 w-80"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.9 }}
     >
       <motion.div
-        className="bg-white rounded-lg shadow-lg p-4 w-80"
+        className="bg-white rounded-lg shadow-lg p-4 w-full"
         animate={{
           y: [0, -8, 0],
           scale: [1, 1.02, 1]
