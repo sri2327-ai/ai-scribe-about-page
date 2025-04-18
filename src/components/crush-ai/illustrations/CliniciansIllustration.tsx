@@ -6,7 +6,7 @@ import { Heart } from 'lucide-react';
 export const CliniciansIllustration = () => {
   return (
     <motion.div
-      className="absolute right-[25%] top-[15%] z-0"  // Adjusted position to be visible but not overlapping
+      className="absolute left-[10%] top-[40%] z-0"
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
