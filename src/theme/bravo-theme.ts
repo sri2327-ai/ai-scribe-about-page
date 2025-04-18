@@ -1,24 +1,21 @@
 
-// Theme file specific for Bravo section
-// This ensures color changes here don't affect other pages
-
 export const bravoColors = {
-  primary: '#143151', // Dark Navy Blue for headings or primary elements
-  secondary: '#5192AE', // Medium Teal Blue for buttons and secondary elements
-  tertiary: '#A5CCF3', // Light Sky Blue for hover states or tertiary elements
+  primary: '#000000', // Updated from #143151 to pure black
+  secondary: '#387E89', // Dark Teal Blue remains the same
+  tertiary: '#5192AE', // Medium Teal Blue remains the same
   background: {
-    white: '#FFFFFF', // Dominant white background
-    light: '#F5F9FF', // A very light blue (inspired by xAI's subtle background tones)
-    dark: '#387E89', // Dark Teal Blue for darker background sections if needed
+    white: '#FFFFFF',
+    light: '#F5F9FF',
+    dark: '#387E89',
   },
   text: {
-    primary: '#143151', // Dark Navy Blue for primary text (headings)
-    secondary: '#387E89', // Dark Teal Blue for body text
-    light: '#5192AE', // Medium Teal Blue for lighter text (e.g., captions)
-    white: '#FFFFFF', // White for text on colored backgrounds (e.g., buttons)
+    primary: '#000000', // Updated from #143151 to pure black
+    secondary: '#387E89',
+    light: '#5192AE',
+    white: '#FFFFFF',
   },
   accent: {
-    blue: '#5192AE', // Medium Teal Blue for accents (icons, borders)
-    purple: '#A5CCF3', // Light Sky Blue repurposed as a secondary accent
+    blue: '#5192AE',
+    purple: '#A5CCF3',
   }
 };
