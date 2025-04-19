@@ -1,4 +1,6 @@
 import React from 'react';
+import { CAHeroSection } from '@/components/custom-ai-agent/CAHeroSection';
+import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,37 +9,22 @@ import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 const CustomAIAgent = () => {
   return (
     <div className="bg-white min-h-screen">
-      {/* Hero Section */}
-      <section 
-        className="relative overflow-hidden pt-28 pb-20 bg-gradient-to-b from-[#F5F9FF] to-white"
-        style={{ backgroundColor: customAIAgentColors.background.light }}
-      >
-        <div className="absolute inset-0 bg-[url('/placeholder.svg')] bg-center bg-no-repeat bg-cover opacity-10"></div>
+      {/* Hero Section using our new component */}
+      <CAHeroSection />
+      
+      {/* Bento Grid Section using our new component */}
+      <CABentoGrid />
+
+      {/* Built for Busy Clinics Section */}
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h1 className="font-bold text-4xl md:text-5xl lg:text-6xl mb-6 text-center" style={{ color: customAIAgentColors.primary }}>
-              Custom AI Agent
-            </h1>
-            <h2 className="font-semibold text-2xl md:text-3xl mb-8 text-center" style={{ color: customAIAgentColors.secondary }}>
-              Make Hiring a Custom AI Agent by S10.AI More Human
+            <h2 className="text-3xl font-bold mb-8 text-center" style={{ color: customAIAgentColors.primary }}>
+              Built for Busy Clinics, Designed for Care Teams
             </h2>
-            <p className="text-lg mb-8" style={{ color: customAIAgentColors.text.secondary }}>
-              At S10.AI, we believe technology should feel like a trusted colleague, not a cold machine. That's why our Custom AI Agents are designed to understand your practice, your challenges, and your patients—just like a human teammate would. Whether it's streamlining oncology treatment plans, automating surgical follow-ups, or simplifying compliance audits, our bespoke AI agents adapt to your unique clinical workflows, letting you focus on what matters most: delivering exceptional care.
+            <p className="text-lg mb-12 text-center" style={{ color: customAIAgentColors.text.secondary }}>
+              From patient intake to insurance verifications, your daily workflow is full of manual steps that slow you down. S10.AI eliminates those bottlenecks with intelligent automation—purpose-built for outpatient clinics, specialty practices, and medical groups.
             </p>
-            <p className="text-lg mb-12" style={{ color: customAIAgentColors.text.secondary }}>
-              Built on our patented Intelligent Physician Knowledge Orchestrator (IPKO), Custom AI Agents integrate seamlessly with CRUSH and BRAVO, creating a unified ecosystem that enhances efficiency, reduces burnout, and elevates patient outcomes. Think of them as your practice's personal AI specialist, tailored to solve the niche problems that keep you up at night.
-            </p>
-            <div className="text-center">
-              <Button 
-                className="px-8 py-6 text-lg rounded-md"
-                style={{ 
-                  backgroundColor: customAIAgentColors.secondary,
-                  color: customAIAgentColors.text.white
-                }}
-              >
-                Request a Demo Today
-              </Button>
-            </div>
           </div>
         </div>
       </section>
