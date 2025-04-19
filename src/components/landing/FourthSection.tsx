@@ -1,29 +1,22 @@
 
 import React from 'react';
-import { Box, Typography } from "@mui/material";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
 import { CrushIllustration } from './illustrations/CrushIllustration';
 import { BravoIllustration } from './illustrations/BravoIllustration';
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export const FourthSection = () => {
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16">
-      <Box sx={{ 
-        maxWidth: '1400px',
-        mx: 'auto',
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: 6 
-      }}>
-        <Box sx={{ maxWidth: '900px', mx: 'auto' }}>
-          <Typography variant="h3" sx={{ textAlign: "center", color: "black", mb: 3 }}>
-            Meet Bravo & CRUSH – A S10'ing Experience 
-          </Typography>
-          <Typography variant="h6" sx={{ textAlign: "center", color: "black" }}>
-            From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making. They cut admin tasks and enhance patient care—always ready to assist, with enterprise-grade AI enhancing every aspect. 
-          </Typography>
-        </Box>
+    <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+      <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
+        <div className="max-w-[900px] mx-auto text-center">
+          <h3 className="text-3xl font-bold text-[#143151] mb-4">
+            Meet Bravo & CRUSH – A S10'ing Experience
+          </h3>
+          <p className="text-lg text-gray-600">
+            From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making. They cut admin tasks and enhance patient care—always ready to assist, with enterprise-grade AI enhancing every aspect.
+          </p>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
           {[
@@ -49,7 +42,7 @@ export const FourthSection = () => {
                   <Illustration />
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-4 flex-grow">
                   <h3 className="text-2xl font-bold text-[#143151] text-center">
                     {title}
                   </h3>
@@ -58,7 +51,7 @@ export const FourthSection = () => {
                     {subtitle}
                   </h4>
                   
-                  <p className="text-gray-600 text-center">
+                  <p className="text-gray-600 text-center min-h-[80px]">
                     {description}
                   </p>
                 </div>
@@ -73,7 +66,7 @@ export const FourthSection = () => {
             </div>
           ))}
         </div>
-      </Box>
+      </div>
     </section>
   );
 };
