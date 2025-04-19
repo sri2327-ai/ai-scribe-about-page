@@ -469,7 +469,7 @@ export const ROICalculatorSection = () => {
                     />
                     <Bar
                       dataKey="value"
-                      fill={(data) => data.name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI}
+                      fill={(data) => data.name === "Human Scribe" ? barColors.humanScribe : crushAIColors.secondary}
                       radius={[8, 8, 0, 0]}
                       name="Cost"
                     />
