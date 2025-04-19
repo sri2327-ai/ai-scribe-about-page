@@ -118,7 +118,7 @@ export const CompatibilitySection = () => {
       
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] rounded-xl h-full p-6 backdrop-blur-2xl bg-white/15 border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300"
+          className="relative flex items-center justify-center min-h-[500px] rounded-xl h-full p-6 backdrop-blur-2xl bg-white/10 border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -194,9 +194,9 @@ export const CompatibilitySection = () => {
                 }}
               >
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full backdrop-blur-xl bg-white/40 flex items-center justify-center shadow-lg border border-white/50 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-400/30 z-0" />
-                    <GlowBorderEffect glow variant="teal" />
+                  <div className="w-20 h-20 rounded-full backdrop-blur-xl bg-white/5 flex items-center justify-center shadow-lg border-2 border-white/70 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 z-0" />
+                    <GlowBorderEffect glow variant="white" />
                     <span className="text-xl font-bold z-10 relative text-white">BRAVO</span>
                   </div>
                   
