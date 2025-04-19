@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -12,11 +13,11 @@ export const FirstSection = () => {
 
   return (
     <section className="min-h-screen bg-white">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-20 md:py-28 lg:py-32">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
         {/* Main content layout */}
-        <div className="flex flex-col space-y-12 md:space-y-16">
+        <div className="flex flex-col space-y-8 md:space-y-12">
           {/* Top row: Heading and Card */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12">
             {/* Left column - Heading and CTA */}
             <Box
               sx={{
@@ -41,8 +42,8 @@ export const FirstSection = () => {
                   color: '#000000',
                   letterSpacing: '-0.02em',
                   mb: {
-                    xs: 6,
-                    lg: 8
+                    xs: 4,
+                    lg: 6
                   }
                 }}
               >
@@ -173,7 +174,7 @@ export const FirstSection = () => {
             </Box>
           </div>
 
-          {/* Bottom row: Recommended Companies */}
+          {/* Bottom row: Recommended Companies - moved up to be visible on first load */}
           <Box
             sx={{
               background: 'rgba(243, 244, 246, 0.1)',
@@ -183,7 +184,7 @@ export const FirstSection = () => {
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               width: '100%',
-              mt: { xs: 8, md: 12 }
+              mt: { xs: 2, md: 4 }  // Reduced margin to make it visible on first load
             }}
           >
             <Typography
