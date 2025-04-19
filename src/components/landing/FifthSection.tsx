@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
-import OptimizedImage from '@/components/ui/optimized-image';
 
 const cardIcons = [
     { id: 1, icon: Phone, title: "Instant Call Handling", description: "BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms." },
@@ -79,18 +78,25 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
       style={{
         x,
         rotate,
+        width: '100%',
+        maxWidth: '500px',
+        height: '300px',
       }}
-      className={`w-full max-w-[500px] ${isRight ? 'ml-auto' : 'mr-auto'}`}
+      className={`flex-shrink-0 ${isRight ? 'ml-auto' : 'mr-auto'}`}
     >
       <Paper elevation={2} sx={{ 
         p: 4, 
         borderRadius: 2,
         mb: 4,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
         border: '1px solid rgba(0,0,0,0.1)',
       }}>
-        <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start', position: 'relative', zIndex: 2 }}>
+        <Box sx={{ display: 'flex', gap: 3, alignItems: 'center', position: 'relative', zIndex: 2 }}>
           <Box sx={{ 
             p: 2, 
             borderRadius: '50%',
@@ -147,8 +153,15 @@ export const FifthSection = () => {
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section ref={containerRef} className="py-20 px-4 md:px-8 bg-white">
-      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '1400px', mx: 'auto' }}>
+    <section ref={containerRef} className="py-20 px-4 md:px-8 bg-white relative">
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        maxWidth: '1400px', 
+        mx: 'auto',
+        position: 'relative' 
+      }}>
         <Typography 
           variant="h3" 
           fontWeight="bold" 
@@ -207,11 +220,19 @@ export const FifthSection = () => {
               background: 'linear-gradient(to bottom, transparent, #387E89, transparent)',
               scaleY: height,
               transformOrigin: 'top',
+              zIndex: 1,
+              transform: 'translateX(-50%)'
             }}
             className="hidden md:block"
           />
           
-          <Box sx={{ position: 'relative', zIndex: 1 }}>
+          <Box sx={{ 
+            position: 'relative', 
+            zIndex: 2, 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: 4 
+          }}>
             {cardIcons.map((card, index) => (
               <WorkflowCard 
                 key={card.id}
