@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { FileCheck, Phone, BarChart2, CalendarDays, Users, MessageCircle, Database, ArrowRightLeft } from 'lucide-react';
@@ -108,8 +109,8 @@ export const CompatibilitySection = () => {
     >
       <div className="absolute inset-0 z-0">
         <AnimatedGradientBackground 
-          gradientColors={["#26C6DA", "#38B2BF", "#F06292", "#26C6DA"]} 
-          gradientStops={[0, 30, 70, 100]}
+          gradientColors={["#143151", "#387E89", "#143151"]} 
+          gradientStops={[0, 50, 100]}
           startingGap={250}
           animationSpeed={0.05}
           breathingRange={30}
