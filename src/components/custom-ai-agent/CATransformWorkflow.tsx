@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
@@ -10,7 +9,7 @@ import {
   Clock, 
   MessageSquare,
   Shield,
-  CheckCircle
+  ListChecks
 } from 'lucide-react';
 
 // Define workflow steps with illustrations
@@ -52,10 +51,10 @@ const steps = [
     content: "Custom AI communication tools generate personalized follow-ups, educational content, and care instructions based on each patient's specific conditions and needs."
   },
   {
-    title: "Track Practice Metrics",
-    description: "Real-time analytics and performance tracking",
-    icon: Clock,
-    content: "Your AI agent continuously monitors practice performance, providing real-time analytics on patient outcomes, financial health, and operational efficiency."
+    title: "Handle Repetitive Tasks",
+    description: "Automate manual and repetitive work",
+    icon: ListChecks,
+    content: "Your AI agent takes care of any repetitive tasks like data entry, form filling, and routine documentation. This automation reduces human error and frees up your staff to focus on more meaningful patient interactions."
   }
 ];
 
