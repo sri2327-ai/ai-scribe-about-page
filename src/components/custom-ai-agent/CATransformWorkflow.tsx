@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
@@ -239,7 +240,7 @@ export const CATransformWorkflow = () => {
         
         <div className="text-center mt-12">
           <p className="text-xl font-semibold mb-6" style={{ color: customAIAgentColors.text.primary }}>
-            Faster Check-Ins. Smarter Scheduling. Effortless Coordination.
+            Let's build a Custom AI Agent for your clinic—and show you how to reclaim hours every week.
           </p>
           
           <motion.button
