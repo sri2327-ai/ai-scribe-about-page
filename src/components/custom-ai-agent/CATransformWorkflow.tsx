@@ -243,13 +243,9 @@ export const CATransformWorkflow = () => {
           </p>
           
           <motion.button
-            className="px-6 py-3 text-lg rounded-lg shadow-lg inline-flex items-center hover:shadow-xl transition-all duration-300"
+            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl inline-flex items-center hover:shadow-2xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            style={{ 
-              backgroundColor: customAIAgentColors.secondary, 
-              color: "white" 
-            }}
           >
             Request a Demo
           </motion.button>
