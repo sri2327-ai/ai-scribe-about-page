@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/material";
+import { Card, CardContent, CardMedia, CardActionArea, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,33 +9,29 @@ import "slick-carousel/slick/slick-theme.css";
 export const SecondSection = () => {
   const theme = useTheme();
   const settings = {
-    dots: false,
-    infinite: false,
+    dots: true,
+    infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 3,
-    initialSlide: 0,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
     responsive: [
       {
-        breakpoint: theme.breakpoints.values.md,
+        breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 2,
-          infinite: true,
-          autoplay: true,
-          autoplaySpeed: 2000
+          slidesToScroll: 1,
         }
       },
       {
-        breakpoint: 500,
+        breakpoint: 640,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          infinite: true,
-          autoplay: true,
-          autoplaySpeed: 2000
         }
-      },
+      }
     ]
   };
 
@@ -61,32 +57,87 @@ export const SecondSection = () => {
   ];
   
   return (
-    <section className="py-10 px-4 md:px-8">
-      <Typography variant="h3" sx={{ textAlign: "center", color: theme.palette.text.primary, px: 2, mb: 4 }}>
-        Trusted By Leading Healthcare Organisations
-      </Typography>
-      <Slider {...settings}>
-        {docRevData.map((value, index) => (
-          <Card key={index} sx={{ borderRadius: 'unset', border: `1px solid ${theme.palette.grey.A400}`, mx: 1 }}>
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                image={value.docImg}
-                alt={value.docImgAlt}
-                sx={{
-                  width: "100%",
-                  height: "250px",
-                  objectFit: "cover",
-                }}
-              />
-              <CardContent sx={{ display: 'flex', flexDirection:'column', justifyContent:'space-between', height: { xs:'210px', sm:'170px', md: '210px', lg: '180px' }, px: 3 }}>
-                <Typography variant="body1" fontWeight="medium" sx={{ minHeight: "80px", textAlign: "center", color: theme.palette.text.primary }}>{value.docReview}</Typography>
-                <Typography variant="body1" fontWeight="semiBold" sx={{ minHeight: "30px", textAlign: "center", color: theme.palette.text.primary }}>{value.docNm}</Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))}
-      </Slider>
+    <section className="py-16 px-4 md:px-8 lg:px-16">
+      <Box className="container mx-auto max-w-7xl">
+        <Typography 
+          variant="h3" 
+          sx={{ 
+            textAlign: "center",
+            color: "#000000",
+            fontWeight: "bold",
+            mb: { xs: 6, md: 8 },
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
+          }}
+        >
+          Trusted By Leading Healthcare Organisations
+        </Typography>
+
+        <Box sx={{ mx: { xs: -2, md: -3 } }}>
+          <Slider {...settings}>
+            {docRevData.map((value, index) => (
+              <Box key={index} sx={{ px: { xs: 2, md: 3 } }}>
+                <Card 
+                  sx={{ 
+                    height: '100%',
+                    backgroundColor: '#ffffff',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      image={value.docImg}
+                      alt={value.docImgAlt}
+                      sx={{
+                        width: "100%",
+                        height: { xs: "280px", sm: "320px" },
+                        objectFit: "cover",
+                      }}
+                    />
+                    <CardContent 
+                      sx={{ 
+                        p: 4,
+                        backgroundColor: '#ffffff',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        height: { xs: 'auto', sm: '240px' }
+                      }}
+                    >
+                      <Typography 
+                        variant="body1" 
+                        sx={{ 
+                          color: "#000000",
+                          fontWeight: 500,
+                          textAlign: "center",
+                          lineHeight: 1.6,
+                          fontSize: { xs: '0.9rem', sm: '1rem' }
+                        }}
+                      >
+                        {value.docReview}
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          color: "#000000",
+                          fontWeight: 600,
+                          textAlign: "center",
+                          mt: 'auto',
+                          fontSize: { xs: '0.85rem', sm: '0.9rem' }
+                        }}
+                      >
+                        {value.docNm}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Box>
+            ))}
+          </Slider>
+        </Box>
+      </Box>
     </section>
   );
 };
