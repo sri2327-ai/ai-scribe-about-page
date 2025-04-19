@@ -138,6 +138,54 @@ export const HeroSection = () => {
                 <ArrowRight size={16} className="mr-2" />
                 REQUEST A DEMO
               </ShadcnButton>
+
+              {/* Compliance Icons Added Directly Under Demo Button */}
+              <Box 
+                sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  gap: 2,
+                  mt: 3,
+                  flexWrap: 'wrap'
+                }}
+              >
+                {complianceIcons.map((item, index) => (
+                  <HoverCard key={index}>
+                    <HoverCardTrigger asChild>
+                      <Box
+                        component="button"
+                        sx={{
+                          width: 40,
+                          height: 40,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          borderRadius: '8px',
+                          bgcolor: 'rgba(255, 255, 255, 0.1)',
+                          border: '1px solid rgba(255, 255, 255, 0.2)',
+                          backdropFilter: 'blur(8px)',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            bgcolor: 'rgba(255, 255, 255, 0.2)',
+                            transform: 'translateY(-2px)'
+                          }
+                        }}
+                      >
+                        <item.icon size={20} color="black" strokeWidth={1.5} />
+                      </Box>
+                    </HoverCardTrigger>
+                    <HoverCardContent className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20">
+                      <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
+                        {item.name}
+                      </Typography>
+                      <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                        {item.description}
+                      </Typography>
+                    </HoverCardContent>
+                  </HoverCard>
+                ))}
+              </Box>
             </Box>
 
             <Box 
@@ -251,9 +299,57 @@ export const HeroSection = () => {
                   <ArrowRight size={16} className="mr-2" />
                   REQUEST A DEMO
                 </ShadcnButton>
+
+                {/* Compliance Icons Added Directly Under Demo Button */}
+                <Box 
+                  sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'flex-start', 
+                    gap: 2,
+                    mt: 3,
+                    flexWrap: 'wrap'
+                  }}
+                >
+                  {complianceIcons.map((item, index) => (
+                    <HoverCard key={index}>
+                      <HoverCardTrigger asChild>
+                        <Box
+                          component="button"
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            borderRadius: '8px',
+                            bgcolor: 'rgba(255, 255, 255, 0.1)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            backdropFilter: 'blur(8px)',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                            '&:hover': {
+                              bgcolor: 'rgba(255, 255, 255, 0.2)',
+                              transform: 'translateY(-2px)'
+                            }
+                          }}
+                        >
+                          <item.icon size={20} color="black" strokeWidth={1.5} />
+                        </Box>
+                      </HoverCardTrigger>
+                      <HoverCardContent className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20">
+                        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
+                          {item.name}
+                        </Typography>
+                        <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                          {item.description}
+                        </Typography>
+                      </HoverCardContent>
+                    </HoverCard>
+                  ))}
+                </Box>
               </Box>
             </Box>
-            
+
             <Box 
               sx={{ 
                 width: '50%',
@@ -291,52 +387,7 @@ export const HeroSection = () => {
           </Box>
         )}
 
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            gap: 2,
-            mt: 4,
-            flexWrap: 'wrap'
-          }}
-        >
-          {complianceIcons.map((item, index) => (
-            <HoverCard key={index}>
-              <HoverCardTrigger asChild>
-                <Box
-                  component="button"
-                  sx={{
-                    width: 40,
-                    height: 40,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '8px',
-                    bgcolor: 'rgba(255, 255, 255, 0.1)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
-                    backdropFilter: 'blur(8px)',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      bgcolor: 'rgba(255, 255, 255, 0.2)',
-                      transform: 'translateY(-2px)'
-                    }
-                  }}
-                >
-                  <item.icon size={20} color="black" strokeWidth={1.5} />
-                </Box>
-              </HoverCardTrigger>
-              <HoverCardContent className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20">
-                <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
-                  {item.name}
-                </Typography>
-                <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
-                  {item.description}
-                </Typography>
-              </HoverCardContent>
-            </HoverCard>
-          ))}
-        </Box>
+        {/* Remove the separate compliance icons section at the bottom */}
       </Container>
     </GradientSection>
   );
