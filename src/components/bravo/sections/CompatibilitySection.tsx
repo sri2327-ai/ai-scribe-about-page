@@ -104,7 +104,7 @@ export const CompatibilitySection = () => {
 
   return (
     <div 
-      className="relative w-full py-28 overflow-hidden" 
+      className="relative w-full py-28 overflow-hidden bg-gradient-to-r from-[#143151] to-[#387E89]" 
     >
       <div className="absolute inset-0 z-0">
         <AnimatedGradientBackground 
