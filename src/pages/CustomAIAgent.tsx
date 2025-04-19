@@ -1,6 +1,7 @@
 import React from 'react';
 import { CAHeroSection } from '@/components/custom-ai-agent/CAHeroSection';
 import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
+import { CAWhyChooseSection } from '@/components/custom-ai-agent/CAWhyChooseSection';
 import { CARoleBenefits } from '@/components/custom-ai-agent/CARoleBenefits';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +13,7 @@ const CustomAIAgent = () => {
     <div className="bg-white min-h-screen">
       <CAHeroSection />
       <CABentoGrid />
+      <CAWhyChooseSection />
       
       {/* Built for Busy Clinics Section */}
       <section className="py-20 bg-white">
