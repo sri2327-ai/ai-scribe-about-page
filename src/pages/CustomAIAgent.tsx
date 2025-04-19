@@ -10,10 +10,18 @@ const CustomAIAgent = () => {
   return (
     <div className="bg-white min-h-screen">
       <CAHeroSection />
-      <CABentoGrid />
-      <CATransformWorkflow />
-      <CAGettingStartedStepper />
-      <CABeforeAfterCarousel />
+      <div className="py-4 sm:py-8">
+        <CABentoGrid />
+      </div>
+      <div className="py-4 sm:py-8">
+        <CATransformWorkflow />
+      </div>
+      <div className="py-4 sm:py-8">
+        <CAGettingStartedStepper />
+      </div>
+      <div className="py-4 sm:py-12">
+        <CABeforeAfterCarousel />
+      </div>
     </div>
   );
 };

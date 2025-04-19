@@ -275,7 +275,7 @@ export const CAWorkflowAnimation = () => {
       </div>
 
       {/* Content container with improved responsiveness */}
-      <div className="relative w-full max-w-xl mx-auto text-center flex flex-col items-center justify-center px-4 py-16">
+      <div className="relative w-full max-w-xl mx-auto text-center flex flex-col items-center justify-center px-4 py-10 sm:py-16">
         {/* Workflow step content with AnimatePresence for smooth transitions */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -284,12 +284,12 @@ export const CAWorkflowAnimation = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="mb-8 w-full"
+            className="mb-6 sm:mb-8 w-full"
           >
             {/* Step icon */}
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-4 sm:mb-6">
               <div 
-                className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-sm"
                 style={{ backgroundColor: `${customAIAgentColors.primary}10` }}
               >
                 {React.createElement(workflowSteps[currentStep].icon, { 
@@ -300,25 +300,25 @@ export const CAWorkflowAnimation = () => {
             </div>
             
             {/* Custom illustration */}
-            <div className="mb-6 flex justify-center">
+            <div className="mb-4 sm:mb-6 flex justify-center">
               {workflowSteps[currentStep].illustration}
             </div>
 
             {/* Step text content */}
             <h3 
-              className="text-xl sm:text-2xl font-bold mb-3 px-4" 
+              className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 px-4" 
               style={{ color: customAIAgentColors.primary }}
             >
               {workflowSteps[currentStep].title}
             </h3>
-            <p className="text-base sm:text-lg text-gray-600 max-w-lg mx-auto px-4">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-lg mx-auto px-4">
               {workflowSteps[currentStep].description}
             </p>
           </motion.div>
         </AnimatePresence>
 
         {/* Navigation dots - improved spacing and interaction */}
-        <div className="flex justify-center gap-3 mt-4">
+        <div className="flex justify-center gap-2 sm:gap-3 mt-4">
           {workflowSteps.map((step, index) => (
             <button
               key={step.id}
@@ -326,7 +326,7 @@ export const CAWorkflowAnimation = () => {
                 setCurrentStep(index);
                 setIsAutoPlaying(false);
               }}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
                 currentStep === index 
                   ? 'bg-blue-500 scale-110' 
                   : 'bg-gray-300 hover:bg-gray-400'
@@ -337,7 +337,7 @@ export const CAWorkflowAnimation = () => {
         </div>
 
         {/* Decorative connection lines */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-20">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full pointer-events-none opacity-10 sm:opacity-20">
           <GradientTracing
             width={400}
             height={300}
