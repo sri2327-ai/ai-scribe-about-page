@@ -1,4 +1,3 @@
-
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -11,14 +10,15 @@ export const SeventhSection = () => {
   return(
     <section className="witSp">
       <Stack
-        spacing={3}
+        spacing={4}
         direction={{ xs: "column", md: 'row'}}
         sx={{
-          background: `linear-gradient(135deg, ${theme.palette.primary.light}, ${theme.palette.secondary.main})`,
-          alignItems: 'flex-start',
+          background: '#FFFFFF',
+          alignItems: 'center',
+          justifyContent: 'space-between',
           borderRadius: 4,
-          p: 3,
-          flexGrow: 1
+          p: { xs: 3, md: 5 },
+          gap: { xs: 4, md: 6 }
         }}
         useFlexGap
       >
@@ -28,32 +28,40 @@ export const SeventhSection = () => {
             flexDirection: 'column',
             gap: 3,
             alignItems: 'flex-start',
-            maxWidth: laptopVw ? '214px' : { xs : '300px', md: '250px', lg: '400px' }
+            maxWidth: laptopVw ? '214px' : { xs : '300px', md: '400px', lg: '500px' }
           }}
         >
-          <Typography variant="h3" fontWeight="semiBold" sx={{ color: theme.palette.text.secondary }}>
+          <Typography 
+            variant="h3" 
+            fontWeight="bold" 
+            sx={{ 
+              color: '#000000', 
+              lineHeight: 1.2 
+            }}
+          >
             AI Solutions Designed for Every Medical Specialty
           </Typography>
           <Button 
-            variant="text" 
+            variant="outlined" 
             sx={{ 
               textTransform: "capitalize",
-              background: theme.palette.common.white,
-              border: `1px solid ${theme.palette.secondary.main}`,
+              color: '#143151',
+              borderColor: '#143151',
               px: 3,
               py: 1.5,
               borderRadius: "50px",
               "&:hover":{
+                backgroundColor: '#F0F4F7',
                 ".icon-box": {
                   transform: "rotate(-270deg)",
-                  color: theme.palette.secondary.main,
-                  borderColor: theme.palette.secondary.main,
+                  color: '#387E89',
+                  borderColor: '#387E89',
                 },
                 ".button-text": {
-                  color: theme.palette.secondary.main,
+                  color: '#387E89',
                 },
               },
-              boxShadow:1
+              boxShadow: 'none'
             }}
             startIcon={
               <Box
@@ -65,8 +73,8 @@ export const SeventhSection = () => {
                   width: 25,
                   height: 25,
                   borderRadius: "50%", 
-                  color: theme.palette.secondary.main,
-                  border: `2px solid ${theme.palette.secondary.main}`,
+                  color: '#143151',
+                  border: `2px solid #143151`,
                   transition: "transform 0.3s ease",
                   transform: "rotate(0deg)",
                   mr: 1
@@ -81,7 +89,7 @@ export const SeventhSection = () => {
               variant='h6' 
               fontWeight="semiBold" 
               sx={{
-                color: theme.palette.secondary.main,
+                color: '#143151',
                 transition: "color 0.3s ease"
               }}
             >
@@ -98,82 +106,59 @@ export const SeventhSection = () => {
             flexWrap: 'wrap'
           }}
         >
-          <Box 
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 3,
-              background: theme.palette.common.white,
-              p:3,
-              borderRadius: 3,
-              boxShadow: 2,
-              maxWidth: (tabletVw || laptopVw) ? '214px' : { xs : '250px', md: '250px', lg: '266px', xl: '300px' }
-            }}
-          >
-            <Typography variant="h5" fontWeight="bold" sx={{ color: theme.palette.secondary.main }}>
-              Specialty-Specific AI Models
-            </Typography>
-            <Typography variant="h6" fontWeight="semiBold" sx={{ color: theme.palette.secondary.main }}>
-              Engineered for precise documentation needs across disciplines.
-            </Typography>
-          </Box>
-          <Box 
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 3,
-              background: theme.palette.common.white,
-              p:3,
-              borderRadius: 3,
-              boxShadow: 2,
-              maxWidth: (tabletVw || laptopVw) ? '214px' : { xs : '250px', md: '250px', lg: '266px', xl: '300px' }
-            }}
-          >
-            <Typography variant="h5" fontWeight="bold" sx={{ color: theme.palette.secondary.main }}>
-              Workflow Optimization
-            </Typography>
-            <Typography variant="h6" fontWeight="semiBold" sx={{ color: theme.palette.secondary.main }}>
-              Reduces charting time, improving clinician efficiency.
-            </Typography>
-          </Box>
-          <Box 
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 3,
-              background: theme.palette.common.white,
-              p:3,
-              borderRadius: 3,
-              boxShadow: 2,
-              maxWidth: (tabletVw || laptopVw) ? '214px' : { xs : '250px', md: '250px', lg: '266px', xl: '300px' }
-            }}
-          >
-            <Typography variant="h5" fontWeight="bold" sx={{ color: theme.palette.secondary.main }}>
-              Advanced Clinical Accuracy
-            </Typography>
-            <Typography variant="h6" fontWeight="semiBold" sx={{ color: theme.palette.secondary.main }}>
-              Captures intricate medical details with real-time documentation, from EKG reports and emergency medicine tasks like triaging and rapid interventions, to dermatology screenings.
-            </Typography>
-          </Box>
-          <Box 
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 3,
-              background: theme.palette.common.white,
-              p:3,
-              borderRadius: 3,
-              boxShadow: 2,
-              maxWidth: (tabletVw || laptopVw) ? '214px' : { xs : '250px', md: '250px', lg: '266px', xl: '300px' }
-            }}
-          >
-            <Typography variant="h5" fontWeight="bold" sx={{ color: theme.palette.secondary.main }}>
-              Specialty-Centric AI Automation
-            </Typography>
-            <Typography variant="h6" fontWeight="semiBold" sx={{ color: theme.palette.secondary.main }}>
-              Ensures accurate, efficient documentation for every field of medicine, including AI for multispecialty care.
-            </Typography>
-          </Box>
+          {[
+            { 
+              title: "Specialty-Specific AI Models", 
+              description: "Engineered for precise documentation needs across disciplines." 
+            },
+            { 
+              title: "Workflow Optimization", 
+              description: "Reduces charting time, improving clinician efficiency." 
+            },
+            { 
+              title: "Advanced Clinical Accuracy", 
+              description: "Captures intricate medical details with real-time documentation, from EKG reports and emergency medicine tasks like triaging and rapid interventions, to dermatology screenings." 
+            },
+            { 
+              title: "Specialty-Centric AI Automation", 
+              description: "Ensures accurate, efficient documentation for every field of medicine, including AI for multispecialty care." 
+            }
+          ].map((item, index) => (
+            <Box 
+              key={index}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 3,
+                background: '#FFFFFF',
+                border: '1px solid #E0E0E0',
+                p: 3,
+                borderRadius: 3,
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                maxWidth: (tabletVw || laptopVw) ? '214px' : { xs : '250px', md: '250px', lg: '266px', xl: '300px' }
+              }}
+            >
+              <Typography 
+                variant="h5" 
+                fontWeight="bold" 
+                sx={{ 
+                  color: '#143151' 
+                }}
+              >
+                {item.title}
+              </Typography>
+              <Typography 
+                variant="h6" 
+                fontWeight="semiBold" 
+                sx={{ 
+                  color: '#000000', 
+                  opacity: 0.8 
+                }}
+              >
+                {item.description}
+              </Typography>
+            </Box>
+          ))}
         </Box>
       </Stack>
     </section>
