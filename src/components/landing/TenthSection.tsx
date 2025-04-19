@@ -10,15 +10,23 @@ export const TenthSection = () => {
   return (
     <section style={{ 
       width: '100%',
-      padding: '30px',
+      padding: '20px',
       background: theme.palette.grey.A100 
     }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: { xs: 2, md: 3 },
+        maxWidth: '1400px',
+        mx: 'auto',
+        px: { xs: 2, md: 3 }
+      }}>
         <Stack
-          spacing={3}
+          spacing={{ xs: 2, md: 3 }}
           direction={{ xs: "column", md: "row" }}
           sx={{
             flexGrow: 1,
+            alignItems: { xs: 'center', md: 'flex-start' }
           }}
           useFlexGap
         >
@@ -26,81 +34,37 @@ export const TenthSection = () => {
             display: {xs : 'none',  md: 'flex'},
             flexDirection: 'column',
             position: 'relative',
+            gap: 2
           }}>
-            <Box sx={{ 
-              width: '200px', 
-              p: 2, 
-              boxShadow: 2, 
-              position: 'relative', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'flex-start', 
-              borderRadius: '15px',
-              flex: 1, 
-              background: 'linear-gradient(135deg, #143151, #387E89)',
-              color: 'white'
-            }}>
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="auto"
-              />
-              <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                HIPAA Compliant
-              </Typography>
-            </Box>
-            <Box sx={{ 
-              width: '200px', 
-              p: 2, 
-              boxShadow: 2, 
-              position: 'relative', 
-              top: '-10px', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'flex-start', 
-              borderRadius: '15px',
-              flex: 1, 
-              background: 'linear-gradient(135deg, #143151, #387E89)',
-              color: 'white'
-            }}>
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="auto"
-              />
-              <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                PIPEDA Compliant
-              </Typography>
-            </Box>
-            <Box sx={{ 
-              width: '200px', 
-              p: 2, 
-              boxShadow: 2, 
-              position: 'relative', 
-              top: '-20px', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              borderRadius: '15px', 
-              flex: 1, 
-              background: 'linear-gradient(135deg, #143151, #387E89)',
-              color: 'white'
-            }}>
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="auto"
-              />
-              <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                ISO27001 Accredited
-              </Typography>
-            </Box>
+            {['HIPAA Compliant', 'PIPEDA Compliant', 'ISO27001 Accredited'].map((title, index) => (
+              <Box 
+                key={index}
+                sx={{ 
+                  width: { xs: '100%', md: '200px' }, 
+                  p: 2, 
+                  boxShadow: 2, 
+                  position: 'relative', 
+                  top: index === 0 ? 0 : index === 1 ? '-10px' : '-20px',
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  justifyContent: 'flex-start', 
+                  borderRadius: '15px',
+                  background: 'linear-gradient(135deg, #143151, #387E89)',
+                  color: 'white'
+                }}
+              >
+                <img
+                  src="/circleIcon.png"
+                  alt="circleIcon"
+                  width="90"
+                  height="auto"
+                />
+                <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
+                  {title}
+                </Typography>
+              </Box>
+            ))}
           </Box>
           
           <Box 
@@ -110,14 +74,31 @@ export const TenthSection = () => {
               alignItems: 'center',
               justifyContent: 'center',
               flexGrow: 1,
-              gap: 3,
-              p: 5
+              gap: { xs: 2, md: 3 },
+              p: { xs: 2, md: 5 },
+              maxWidth: { xs: '100%', md: '800px' }
             }}
           >
-            <Typography variant="h3" fontWeight="semiBold" sx={{ textAlign: 'center', color: 'black' }}>
+            <Typography 
+              variant="h3" 
+              fontWeight="semiBold" 
+              sx={{ 
+                textAlign: 'center', 
+                color: 'black',
+                fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3rem' }
+              }}
+            >
               Security, Compliance & Data Protection You Can Trust 
             </Typography>
-            <Typography variant="h5" fontWeight="medium" sx={{ textAlign: 'center', color: 'black' }}>
+            <Typography 
+              variant="h5" 
+              fontWeight="medium" 
+              sx={{ 
+                textAlign: 'center', 
+                color: 'black',
+                fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' }
+              }}
+            >
               HIPAA, PIPEDA & GDPR Compliant – Adhering to global healthcare privacy laws. ISO 27001 Certified – AES-256 encryption for top-tier security. Automated Data Erasure – Secure deletion post-documentation. U.S. & Canada Compliance – Meeting the highest healthcare standards.
             </Typography>
             <Button 
@@ -125,8 +106,8 @@ export const TenthSection = () => {
               sx={{ 
                 textTransform: "capitalize",
                 background: 'linear-gradient(135deg, #143151, #387E89)',
-                px: 3,
-                py: 1.5,
+                px: { xs: 2, md: 3 },
+                py: { xs: 1, md: 1.5 },
                 borderRadius: "50px",
                 "&:hover": {
                   ".icon-box": {
@@ -138,7 +119,8 @@ export const TenthSection = () => {
                     color: "white",
                   },
                 },
-                boxShadow: 1
+                boxShadow: 1,
+                width: { xs: '100%', sm: 'auto' }
               }}
               startIcon={
                 <Box
@@ -167,13 +149,20 @@ export const TenthSection = () => {
                 fontWeight="semiBold" 
                 sx={{
                   color: "white",
-                  transition: "color 0.3s ease"
+                  transition: "color 0.3s ease",
+                  fontSize: { xs: '1rem', md: '1.25rem' }
                 }}
               >
                 View More
               </Typography>
             </Button>
-            <Box sx={{ display: {xs: 'flex', md: 'none'}, minWidth:'300px', maxWidth: '900px', overflow: "hidden" }}>
+
+            <Box sx={{ 
+              display: {xs: 'flex', md: 'none'}, 
+              width: '100%',
+              maxWidth: '100vw',
+              overflow: "hidden"
+            }}>
               <Marquee gradient={false} speed={50} loop={0}>
                 {[
                   "HIPAA Compliant",
@@ -186,9 +175,9 @@ export const TenthSection = () => {
                   <Box 
                     key={index}
                     sx={{ 
-                      width: '300px', 
+                      minWidth: '250px',
                       p: 2, 
-                      mx: 2, 
+                      mx: 1, 
                       boxShadow: 2, 
                       display: 'flex', 
                       flexDirection: 'column', 
@@ -202,10 +191,17 @@ export const TenthSection = () => {
                     <img
                       src="/circleIcon.png"
                       alt="circleIcon"
-                      width="90"
+                      width="70"
                       height="auto"
                     />
-                    <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
+                    <Typography 
+                      variant="h6" 
+                      fontWeight="semiBold" 
+                      sx={{ 
+                        textAlign:'center',
+                        fontSize: { xs: '1rem', sm: '1.25rem' }
+                      }}
+                    >
                       {title}
                     </Typography>
                   </Box>
@@ -218,85 +214,40 @@ export const TenthSection = () => {
             display: {xs : 'none',  md: 'flex'},
             flexDirection:'column',
             position: 'relative',
+            gap: 2
           }}>
-            <Box sx={{ 
-              width: '200px', 
-              p: 2, 
-              boxShadow: 2, 
-              position: 'relative', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'flex-start', 
-              borderRadius: '15px',
-              flex: 1, 
-              background: 'linear-gradient(135deg, #143151, #387E89)',
-              color: 'white'
-            }}>
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="auto"
-              />
-              <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                NHS Compliant
-              </Typography>
-            </Box>
-            <Box sx={{ 
-              width: '200px', 
-              p: 2, 
-              boxShadow: 2, 
-              position: 'relative', 
-              top: '-10px', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'flex-start', 
-              borderRadius: '15px',
-              flex: 1, 
-              background: 'linear-gradient(135deg, #143151, #387E89)',
-              color: 'white'
-            }}>
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="auto"
-              />
-              <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                ​Cyber Essential Certified
-              </Typography>
-            </Box>
-            <Box sx={{ 
-              width: '200px', 
-              p: 2, 
-              boxShadow: 2, 
-              position: 'relative', 
-              top: '-20px', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              borderRadius: '15px', 
-              flex: 1, 
-              background: 'linear-gradient(135deg, #143151, #387E89)',
-              color: 'white'
-            }}>
-              <img
-                src="/circleIcon.png"
-                alt="circleIcon"
-                width="90"
-                height="auto"
-              />
-              <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                GDPR Compliant
-              </Typography>
-            </Box>
+            {['NHS Compliant', '​Cyber Essential Certified', 'GDPR Compliant'].map((title, index) => (
+              <Box 
+                key={index}
+                sx={{ 
+                  width: { xs: '100%', md: '200px' }, 
+                  p: 2, 
+                  boxShadow: 2, 
+                  position: 'relative', 
+                  top: index === 0 ? 0 : index === 1 ? '-10px' : '-20px',
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  justifyContent: 'flex-start', 
+                  borderRadius: '15px',
+                  background: 'linear-gradient(135deg, #143151, #387E89)',
+                  color: 'white'
+                }}
+              >
+                <img
+                  src="/circleIcon.png"
+                  alt="circleIcon"
+                  width="90"
+                  height="auto"
+                />
+                <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
+                  {title}
+                </Typography>
+              </Box>
+            ))}
           </Box>
         </Stack>
       </Box>
     </section>
   );
 };
-
