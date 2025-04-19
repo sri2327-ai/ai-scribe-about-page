@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { Container, Typography } from "@mui/material";
@@ -18,9 +19,7 @@ export const PricingHeroSection = () => {
   return (
     <section 
       className="relative py-10 md:py-16 flex items-center overflow-hidden"
-      style={{ 
-        background: `linear-gradient(135deg, #26C6DA 0%, #26C6DA 40%, #F06292 100%)`,
-      }}
+      style={{ background: `linear-gradient(135deg, ${crushAIColors.background.light} 0%, #fff 100%)` }}
     >
       <Container maxWidth="lg">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 relative z-10">
@@ -51,12 +50,13 @@ export const PricingHeroSection = () => {
                 variants={fadeInUpVariants}
                 className="relative z-10"
               >
-                <Typography variant="h2" className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                <Typography variant="h2" className="text-4xl md:text-5xl font-bold mb-6" 
+                  sx={{ color: crushAIColors.text.primary }}>
                   Can you believe all this starts at just{' '}
                   <motion.span
                     animate={{
                       scale: [1, 1.05, 1],
-                      color: ['#F06292', '#F06292', '#F06292']
+                      color: ['#FF5CA2', '#FF5CA2', '#FF5CA2']
                     }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
@@ -70,7 +70,8 @@ export const PricingHeroSection = () => {
                 variants={fadeInUpVariants}
                 className="relative z-10"
               >
-                <Typography variant="body1" className="text-lg md:text-xl mb-8 text-white/90">
+                <Typography variant="body1" className="text-lg md:text-xl mb-8" 
+                  sx={{ color: crushAIColors.text.secondary }}>
                   That's more time with patients, less time on charts, and real ROI—without breaking the bank.
                 </Typography>
               </motion.div>
@@ -79,7 +80,8 @@ export const PricingHeroSection = () => {
                 variants={fadeInUpVariants}
                 className="relative z-10"
               >
-                <Typography variant="h3" className="text-2xl font-semibold mb-8 text-white">
+                <Typography variant="h3" className="text-2xl font-semibold mb-8" 
+                  sx={{ color: crushAIColors.text.primary }}>
                   Ready to reclaim your time?
                 </Typography>
               </motion.div>
@@ -90,7 +92,10 @@ export const PricingHeroSection = () => {
               >
                 <Button
                   size="lg"
-                  className="rounded-full px-8 py-6 text-lg text-white transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg bg-[#F06292] hover:bg-[#F06292]/90"
+                  className="rounded-full px-8 py-6 text-lg text-white transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg"
+                  style={{
+                    background: crushAIColors.button.gradient,
+                  }}
                 >
                   Get Started
                   <ArrowRight className="ml-2" />
@@ -99,7 +104,11 @@ export const PricingHeroSection = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full px-8 py-6 text-lg border-2 transition-all duration-300 hover:translate-y-[-2px] border-[#26C6DA] text-white hover:bg-[#26C6DA]/20"
+                  className="rounded-full px-8 py-6 text-lg border-2 transition-all duration-300 hover:translate-y-[-2px]"
+                  style={{
+                    borderColor: crushAIColors.primaryFlat,
+                    color: crushAIColors.primaryFlat
+                  }}
                 >
                   Book a Demo
                   <Calculator className="ml-2" />
