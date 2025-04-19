@@ -5,6 +5,8 @@ import { SecondSection } from '@/components/landing/SecondSection';
 import { ThirdSection } from '@/components/landing/ThirdSection';
 import { FourthSection } from '@/components/landing/FourthSection';
 import { FifthSection } from '@/components/landing/FifthSection';
+import { SixthSection } from '@/components/landing/SixthSection';
+import { SeventhSection } from '@/components/landing/SeventhSection';
 
 const Landing = () => {
   return (
@@ -14,6 +16,8 @@ const Landing = () => {
       <ThirdSection />
       <FourthSection />
       <FifthSection />
+      <SixthSection />
+      <SeventhSection />
     </div>
   );
 };
