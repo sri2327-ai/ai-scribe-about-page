@@ -151,8 +151,7 @@ export const FirstSection = () => {
                         fontWeight: 400
                       }}
                     >
-                      Transform your clinical practice with AI that truly understands healthcare.
-                      Our ambient AI solutions—from AI medical scribes to patient care agents—reduce documentation time by 75%, automatically handle administrative tasks, and seamlessly integrate with your EHR. Minimize burnout and save time, letting you focus on what matters most: your patients.
+                      Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
                     </Typography>
                   </Box>
                   <Box sx={{
