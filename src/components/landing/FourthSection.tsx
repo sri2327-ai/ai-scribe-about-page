@@ -1,13 +1,8 @@
-
 import React from 'react';
-import { Box, Typography, Button, Paper } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
 import { CrushIllustration } from './illustrations/CrushIllustration';
 import { BravoIllustration } from './illustrations/BravoIllustration';
-
-// Create a motion version of the MUI Paper component
-const MotionPaper = motion(Paper);
 
 export const FourthSection = () => {
   return (
@@ -35,137 +30,83 @@ export const FourthSection = () => {
           justifyContent: 'center',
           alignItems: 'stretch'
         }}>
-          <Box sx={{ 
-            flex: '1',
-            maxWidth: { xs: '100%', md: '600px' },
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: 'white',
-            borderRadius: 2,
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden'
-          }}>
-            <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
-              <MotionPaper
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                sx={{ 
+          {[
+            {
+              title: "C.R.U.S.H",
+              subtitle: "AI Medical Scribe Assistant Powered by Robots",
+              description: "Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care. It ensures compliance, accurate speech-to-text for doctors, and efficiency.",
+              Illustration: CrushIllustration
+            },
+            {
+              title: "B.R.A.V.O",
+              subtitle: "AI Patient Care Agent Powered by Robots",
+              description: "Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged—enhancing clinical workflow optimization, healthcare AI infrastructure, and patient satisfaction.",
+              Illustration: BravoIllustration
+            }
+          ].map(({ title, subtitle, description, Illustration }) => (
+            <Box
+              key={title}
+              sx={{ 
+                flex: '1',
+                maxWidth: { xs: '100%', md: '600px' },
+                display: 'flex',
+                flexDirection: 'column',
+                backgroundColor: 'white',
+                borderRadius: 2,
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                overflow: 'hidden'
+              }}
+            >
+              <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
+                <Box sx={{ 
                   width: '100%',
                   aspectRatio: '16/9',
                   overflow: 'hidden',
-                  borderRadius: 2
-                }}
-              >
-                <Box sx={{ width: '100%', aspectRatio: '16/9', position: 'relative' }}>
-                  <CrushIllustration />
+                  borderRadius: 2,
+                  bgcolor: 'white'
+                }}>
+                  <Illustration />
                 </Box>
-              </MotionPaper>
-              
-              <Typography variant="h4" sx={{ color: 'black', textAlign: 'center', fontWeight: 'bold' }}>
-                C.R.U.S.H
-              </Typography>
-              
-              <Typography variant="h6" sx={{ color: 'black', textAlign: 'center', fontWeight: 600 }}>
-                AI Medical Scribe Assistant Powered by Robots
-              </Typography>
-              
-              <Typography sx={{ color: 'black', textAlign: 'center', lineHeight: 1.7 }}>
-                Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care. It ensures compliance, accurate speech-to-text for doctors, and efficiency.
-              </Typography>
-            </Box>
+                
+                <Typography variant="h4" sx={{ color: '#143151', textAlign: 'center', fontWeight: 'bold' }}>
+                  {title}
+                </Typography>
+                
+                <Typography variant="h6" sx={{ color: '#143151', textAlign: 'center', fontWeight: 600 }}>
+                  {subtitle}
+                </Typography>
+                
+                <Typography sx={{ color: '#143151', textAlign: 'center', lineHeight: 1.7 }}>
+                  {description}
+                </Typography>
+              </Box>
 
-            <Box sx={{ p: 4, pt: 0 }}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  background: 'linear-gradient(to right, #143151, #387E89)',
-                  color: 'white',
-                  py: 1.5,
-                  borderRadius: 6,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                  '&:hover': {
-                    background: 'linear-gradient(to right, #12283F, #2E6A75)',
-                    opacity: 0.9
-                  }
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  View More
-                  <ArrowRight size={20} />
-                </Box>
-              </Button>
+              <Box sx={{ p: 4, pt: 0 }}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  sx={{
+                    background: 'linear-gradient(to right, #143151, #387E89)',
+                    color: 'white',
+                    py: 1.5,
+                    borderRadius: 6,
+                    textTransform: 'none',
+                    fontSize: '1rem',
+                    fontWeight: 500,
+                    '&:hover': {
+                      background: 'linear-gradient(to right, #12283F, #2E6A75)',
+                      opacity: 0.9
+                    }
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    View More
+                    <ArrowRight size={20} />
+                  </Box>
+                </Button>
+              </Box>
             </Box>
-          </Box>
-
-          <Box sx={{ 
-            flex: '1',
-            maxWidth: { xs: '100%', md: '600px' },
-            display: 'flex',
-            flexDirection: 'column',
-            backgroundColor: 'white',
-            borderRadius: 2,
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-            overflow: 'hidden'
-          }}>
-            <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
-              <MotionPaper
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                sx={{ 
-                  width: '100%',
-                  aspectRatio: '16/9',
-                  overflow: 'hidden',
-                  borderRadius: 2
-                }}
-              >
-                <Box sx={{ width: '100%', aspectRatio: '16/9', position: 'relative' }}>
-                  <BravoIllustration />
-                </Box>
-              </MotionPaper>
-              
-              <Typography variant="h4" sx={{ color: 'black', textAlign: 'center', fontWeight: 'bold' }}>
-                B.R.A.V.O
-              </Typography>
-              
-              <Typography variant="h6" sx={{ color: 'black', textAlign: 'center', fontWeight: 600 }}>
-                AI Patient Care Agent Powered by Robots
-              </Typography>
-              
-              <Typography sx={{ color: 'black', textAlign: 'center', lineHeight: 1.7 }}>
-                Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged—enhancing clinical workflow optimization, healthcare AI infrastructure, and patient satisfaction.
-              </Typography>
-            </Box>
-
-            <Box sx={{ p: 4, pt: 0 }}>
-              <Button
-                fullWidth
-                variant="contained"
-                sx={{
-                  background: 'linear-gradient(to right, #143151, #387E89)',
-                  color: 'white',
-                  py: 1.5,
-                  borderRadius: 6,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  fontWeight: 500,
-                  '&:hover': {
-                    background: 'linear-gradient(to right, #12283F, #2E6A75)',
-                    opacity: 0.9
-                  }
-                }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  View More
-                  <ArrowRight size={20} />
-                </Box>
-              </Button>
-            </Box>
-          </Box>
+          ))}
         </Box>
       </Box>
     </section>

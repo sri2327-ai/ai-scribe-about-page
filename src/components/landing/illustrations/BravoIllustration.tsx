@@ -4,15 +4,40 @@ import { motion } from 'framer-motion';
 import { Calendar, MessageSquare, FileCheck, UserCheck } from 'lucide-react';
 
 export const BravoIllustration = () => {
-  const iconColor = "#143151";
-  const connectingLineColor = "#387E89";
+  const lineColor = "#387E89";
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
 
   return (
-    <div className="relative w-full h-[300px] flex items-center justify-center">
-      <svg className="absolute w-full h-full">
+    <motion.div 
+      className="relative w-full h-full flex items-center justify-center bg-white/80 backdrop-blur-sm p-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <svg className="absolute w-full h-32">
         <motion.path
-          d="M 100,150 C 150,150 150,100 200,100 L 300,100 C 350,100 350,150 400,150"
-          stroke={connectingLineColor}
+          d="M 100,50 C 200,50 200,100 300,100 S 400,50 500,50"
+          stroke={lineColor}
           strokeWidth="2"
           strokeDasharray="5,5"
           fill="none"
@@ -22,45 +47,31 @@ export const BravoIllustration = () => {
         />
       </svg>
 
-      <motion.div 
-        className="absolute left-[10%] bg-white p-4 rounded-lg shadow-lg"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Calendar size={32} color={iconColor} />
-        <p className="text-xs mt-2 text-gray-600">Scheduling</p>
-      </motion.div>
-
-      <motion.div 
-        className="absolute left-[35%] top-[30%] bg-white p-4 rounded-lg shadow-lg"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        <MessageSquare size={32} color={iconColor} />
-        <p className="text-xs mt-2 text-gray-600">Communication</p>
-      </motion.div>
-
-      <motion.div 
-        className="absolute left-[60%] top-[30%] bg-white p-4 rounded-lg shadow-lg"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-      >
-        <FileCheck size={32} color={iconColor} />
-        <p className="text-xs mt-2 text-gray-600">Verification</p>
-      </motion.div>
-
-      <motion.div 
-        className="absolute left-[85%] bg-white p-4 rounded-lg shadow-lg"
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-      >
-        <UserCheck size={32} color={iconColor} />
-        <p className="text-xs mt-2 text-gray-600">Patient Care</p>
-      </motion.div>
-    </div>
+      <div className="relative flex justify-between w-full max-w-3xl">
+        {[
+          { Icon: Calendar, label: "Scheduling", yOffset: 0 },
+          { Icon: MessageSquare, label: "Communication", yOffset: 40 },
+          { Icon: FileCheck, label: "Verification", yOffset: 40 },
+          { Icon: UserCheck, label: "Patient Care", yOffset: 0 }
+        ].map(({ Icon, label, yOffset }, index) => (
+          <motion.div
+            key={label}
+            variants={itemVariants}
+            className="flex flex-col items-center gap-2 bg-white p-4 rounded-xl shadow-lg z-10"
+            style={{ transform: `translateY(${yOffset}px)` }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              className="p-3 rounded-full"
+              style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
+            >
+              <Icon size={24} color="white" />
+            </motion.div>
+            <p className="text-sm font-medium text-[#143151]">{label}</p>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   );
 };
