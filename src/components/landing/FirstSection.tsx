@@ -69,7 +69,6 @@ export const FirstSection = () => {
                   fontWeight: 600,
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 2,
                   width: {
                     xs: '100%',
                     sm: 'auto'
