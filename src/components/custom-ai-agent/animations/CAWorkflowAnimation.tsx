@@ -116,7 +116,7 @@ export const CAWorkflowAnimation = () => {
           path="M100,200 C150,100 450,300 500,200"
           strokeWidth={1.5}
           baseColor="#e2e8f0"
-          gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary]}
+          gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary, customAIAgentColors.secondary]}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"
         />
       </div>
