@@ -12,10 +12,10 @@ export const FourthSection = () => {
   return (
     <section className="py-10 px-4 md:px-8">
       <Box sx={{ display:'flex', flexDirection: 'column', gap: 3 }}>
-        <Typography variant="h3" sx={{ textAlign: "center", color: theme.palette.text.primary }}>
+        <Typography variant="h3" sx={{ textAlign: "center", color: "black" }}>
           Meet Bravo & CRUSH – A S10'ing Experience 
         </Typography>
-        <Typography variant="h6" sx={{ textAlign: "center", color: theme.palette.text.primary }}>
+        <Typography variant="h6" sx={{ textAlign: "center", color: "black" }}>
           From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making. They cut admin tasks and enhance patient care—always ready to assist, with enterprise-grade AI enhancing every aspect. 
         </Typography>
         
