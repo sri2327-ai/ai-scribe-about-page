@@ -19,9 +19,9 @@ export const VoiceAnimation = () => {
         {isActive && (
           <>
             <motion.img
-              src="/lovable-uploads/0b58586a-915d-4fb2-bd8d-01684e66cdf3.png"
-              alt="NLP System Visualization"
-              className="w-24 h-24 object-contain"
+              src="/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png"
+              alt="Voice Assistant"
+              className="w-32 h-32 object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -35,14 +35,14 @@ export const VoiceAnimation = () => {
             <motion.div
               className="absolute inset-0"
               initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.3, 0] }}
+              animate={{ opacity: [0, 0.5, 0] }}
               transition={{
                 duration: 2,
                 ease: "easeInOut",
                 repeat: Infinity,
               }}
               style={{
-                background: 'radial-gradient(circle, rgba(236,72,153,0.2) 0%, rgba(236,72,153,0) 70%)',
+                background: 'radial-gradient(circle, rgba(236,72,153,0.3) 0%, rgba(236,72,153,0) 70%)',
               }}
             />
           </>
