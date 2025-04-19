@@ -11,16 +11,18 @@ interface QuoteTestimonialProps {
 
 export const QuoteTestimonial = ({ quote, author, role, image }: QuoteTestimonialProps) => {
   return (
-    <div className="bg-white/5 backdrop-blur-xl rounded-lg p-6 border border-white/10">
-      <p className="text-white/90 italic mb-4">{quote}</p>
-      <div className="flex items-center gap-3">
-        <Avatar className="h-10 w-10">
-          <AvatarImage src={image} alt={author} />
-          <AvatarFallback>{author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+    <div className="bg-white/10 backdrop-blur-xl rounded-lg p-6 border border-white/20 shadow-lg transition-all duration-300 hover:bg-white/15">
+      <p className="text-black italic mb-4 text-base leading-relaxed">{quote}</p>
+      <div className="flex items-center gap-4">
+        <Avatar className="h-12 w-12 border-2 border-[#387E89]/30">
+          <AvatarImage src={image} alt={author} className="object-cover" />
+          <AvatarFallback className="bg-[#387E89]/10 text-[#387E89]">
+            {author.split(' ').map(n => n[0]).join('')}
+          </AvatarFallback>
         </Avatar>
         <div>
-          <p className="font-semibold text-white">{author}</p>
-          <p className="text-sm text-white/70">{role}</p>
+          <p className="font-semibold text-black text-base">{author}</p>
+          <p className="text-sm text-gray-700">{role}</p>
         </div>
       </div>
     </div>
