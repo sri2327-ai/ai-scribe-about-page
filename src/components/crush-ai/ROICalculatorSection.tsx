@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -9,11 +10,13 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const tealBlueColor = "#5192AE";
 
+// Define fixed colors for chart
 const barColors = {
   humanScribe: "#000000",
   crushAI: crushAIColors.secondary
 };
 
+// Define Particle interface
 interface Particle {
   id: number;
   x: number;
@@ -469,7 +472,7 @@ export const ROICalculatorSection = () => {
                     />
                     <Bar
                       dataKey="value"
-                      fill={(data) => data.name === "Human Scribe" ? barColors.humanScribe : crushAIColors.secondary}
+                      fill={({ name }) => name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI}
                       radius={[8, 8, 0, 0]}
                       name="Cost"
                     />
