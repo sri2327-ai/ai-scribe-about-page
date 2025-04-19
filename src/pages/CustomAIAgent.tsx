@@ -1,6 +1,7 @@
 import React from 'react';
 import { CAHeroSection } from '@/components/custom-ai-agent/CAHeroSection';
 import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
+import { CARoleBenefits } from '@/components/custom-ai-agent/CARoleBenefits';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,12 +10,9 @@ import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 const CustomAIAgent = () => {
   return (
     <div className="bg-white min-h-screen">
-      {/* Hero Section using our new component */}
       <CAHeroSection />
-      
-      {/* Bento Grid Section using our new component */}
       <CABentoGrid />
-
+      
       {/* Built for Busy Clinics Section */}
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
@@ -28,6 +26,9 @@ const CustomAIAgent = () => {
           </div>
         </div>
       </section>
+
+      {/* New Role Benefits Section */}
+      <CARoleBenefits />
 
       {/* Why Choose Section */}
       <section className="py-20 bg-white">
