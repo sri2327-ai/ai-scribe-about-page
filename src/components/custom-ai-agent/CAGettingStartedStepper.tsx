@@ -378,11 +378,7 @@ export const CAGettingStartedStepper = () => {
 
           <div className="text-center">
             <Button 
-              className="px-8 py-6 text-lg rounded-md"
-              style={{
-                backgroundColor: customAIAgentColors.secondary,
-                color: customAIAgentColors.text.white
-              }}
+              className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
             >
               See It in Action: Book a Demo
               <ArrowRight className="ml-2 h-5 w-5" />
