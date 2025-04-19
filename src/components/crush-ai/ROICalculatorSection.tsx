@@ -20,6 +20,12 @@ interface Particle {
   y: number;
 }
 
+const TooltipContent = () => (
+  <div className="absolute invisible group-hover:visible right-0 -top-16 w-52 p-3 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs rounded-md shadow-lg z-10">
+    Starting price of $99/month per provider
+  </div>
+);
+
 export const ROICalculatorSection = () => {
   const [providersInput, setProvidersInput] = useState<string>("3");
   const [costPerProviderInput, setCostPerProviderInput] = useState<string>("99");
@@ -297,9 +303,7 @@ export const ROICalculatorSection = () => {
                       <InputAdornment position="end">
                         <div className="relative group">
                           <Info size={16} style={{ color: crushAIColors.icons.primary }} className="cursor-help" />
-                          <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs rounded-md shadow-lg z-10">
-                            Starting price of $99/month per provider
-                          </div>
+                          <TooltipContent />
                         </div>
                       </InputAdornment>
                     ),
