@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
+import { Precision, Zap, Users, ShieldCheck } from 'lucide-react';
 
 const CustomAIAgent = () => {
   return <div className="bg-white min-h-screen">
@@ -16,15 +17,15 @@ const CustomAIAgent = () => {
       <CABentoGrid />
       <CAWhyChooseSection />
       
-      {/* Removed the section as requested */}
       
-      {/* New Role Benefits Section */}
+
+      
       <CARoleBenefits />
       
-      {/* Transform Workflow Section */}
+      
       <CATransformWorkflow />
 
-      {/* Why Choose Section */}
+      
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -85,10 +86,10 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      {/* Before vs After AI Agent Section */}
+      
       <CABeforeAfterCarousel />
 
-      {/* How Custom AI Agents Transform Your Practice */}
+      
       <section className="py-20 bg-gray-50" style={{
       backgroundColor: customAIAgentColors.background.light
     }}>
@@ -199,7 +200,7 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      {/* Real-World Impact Section */}
+      
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -273,7 +274,7 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      {/* Why Stand Out Section */}
+      
       <section className="py-20 bg-gray-50" style={{
       backgroundColor: customAIAgentColors.background.light
     }}>
@@ -349,7 +350,7 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      {/* Trust & Technology Section */}
+      
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
