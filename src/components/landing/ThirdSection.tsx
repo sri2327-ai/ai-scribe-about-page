@@ -274,14 +274,6 @@ export const ThirdSection = () => {
               ))}
             </Box>
 
-            <div className="mt-8 space-y-4 flex flex-col items-center">
-              {testimonials.map((testimonial, index) => (
-                <div key={index} className="w-full max-w-2xl">
-                  <QuoteTestimonial {...testimonial} />
-                </div>
-              ))}
-            </div>
-
             <div className="mt-8 flex justify-center">
               <Button 
                 className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
@@ -313,6 +305,14 @@ export const ThirdSection = () => {
             </div>
           </Box>
         </Stack>
+
+        <div className="mt-8 space-y-4 flex flex-col items-center">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="w-full max-w-2xl">
+              <QuoteTestimonial {...testimonial} />
+            </div>
+          ))}
+        </div>
       </Box>
     </section>
   );
