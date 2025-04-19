@@ -16,8 +16,8 @@ interface AnimatedGradientBackgroundProps {
 const AnimatedGradientBackground = ({
   startingGap = 300,
   Breathing = true,
-  gradientColors = ["#000", "#0A7A8C", "#0E86A3", "#000"], // More subtle teal blue colors
-  gradientStops = [0, 30, 60, 100],
+  gradientColors = ["#26C6DA", "#F06292"], // Updated default colors
+  gradientStops = [0, 100],
   animationSpeed = 0.03,
   breathingRange = 20,
 }: AnimatedGradientBackgroundProps) => {
@@ -48,30 +48,24 @@ const AnimatedGradientBackground = ({
       // Breathing effect
       if (Breathing) {
         breathingRef.current += Math.sin(time * 0.001) * animationSpeed;
-        if (breathingRef.current > startingGap + breathingRange) {
-          breathingRef.current = startingGap + breathingRange;
-        } else if (breathingRef.current < startingGap - breathingRange) {
-          breathingRef.current = startingGap - breathingRange;
-        }
       }
 
       // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Create gradient
-      const gradient = ctx.createRadialGradient(
-        canvas.width / 2, 
-        0, 
-        breathingRef.current, 
-        canvas.width / 2, 
-        0, 
-        canvas.width * 1.5 // Increased radius to cover more of the screen
+      // Create diagonal gradient
+      const gradient = ctx.createLinearGradient(
+        0, 0,  // Start from top-left
+        canvas.width, canvas.height  // End at bottom-right
       );
 
       // Add colors to gradient
       gradientColors.forEach((color, index) => {
         gradient.addColorStop(gradientStops[index] / 100, color);
       });
+
+      // Apply soft blur effect
+      ctx.filter = 'blur(60px)';
 
       // Draw gradient
       ctx.fillStyle = gradient;
