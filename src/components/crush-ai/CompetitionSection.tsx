@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -126,7 +125,7 @@ export const CompetitionSection = () => {
             <SparklesTextAdvanced 
               text="Why CRUSH Crushes the Competition" 
               className="text-4xl md:text-5xl font-bold text-center mb-6 text-white"
-              colors={{ first: "#FFFFFF", second: "#EEEEEE" }}
+              colors={{ first: "#FFFFFF", second: "#FFFFFF" }}
               sparklesCount={20}
             />
           </Box>
