@@ -123,7 +123,6 @@ export const FifthSection = () => {
           How Bravo & CRUSH Transform Your Practice Together 
         </Typography>
 
-        {/* Desktop view */}
         <Stack
           spacing={3}
           direction="row"
@@ -147,7 +146,6 @@ export const FifthSection = () => {
             gap: 4,
             width: '50%'
           }}>
-            {/* Left column cards (1, 3, 5, 7) */}
             <MotionPaper
               ref={ref1}
               style={{
@@ -177,12 +175,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -240,12 +241,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -303,12 +307,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -366,12 +373,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -405,7 +415,7 @@ export const FifthSection = () => {
             <MotionPaper 
               style={{ height: height }} 
               sx={{ 
-                background: `linear-gradient(0deg, #143151, #D946EF)`,
+                background: `linear-gradient(0deg, #143151, #387E89)`,
                 px: 0.2 
               }}
             >
@@ -419,7 +429,6 @@ export const FifthSection = () => {
             gap: 4,
             width: '50%'
           }}>
-            {/* Right column cards (2, 4, 6) with similar number styling */}
             <MotionPaper
               ref={ref2}
               style={{
@@ -449,12 +458,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -512,12 +524,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -575,12 +590,15 @@ export const FifthSection = () => {
                 <Typography 
                   sx={{ 
                     position: 'absolute',
-                    top: -20,
+                    top: -30,
                     right: -20,
-                    fontSize: '160px',
+                    fontSize: '180px',
                     fontWeight: 'bold',
-                    opacity: 0.05,
-                    color: '#1EAEDB',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    opacity: 0.15,
                     zIndex: 0
                   }}
                 >
@@ -612,7 +630,6 @@ export const FifthSection = () => {
         </Stack>
       </Box>
 
-      {/* Mobile view with slider */}
       <Stack
         spacing={3}
         direction="column"
@@ -633,14 +650,15 @@ export const FifthSection = () => {
             return (
               <Box key={index} sx={{ px: 1.5 }}>
                 <Box sx={{ 
-                  height: { xs: '300px', sm: '320px' }, 
+                  height: { xs: '320px', sm: '340px' }, 
                   p: 3, 
                   gap: 2, 
                   display: 'flex', 
                   flexDirection:'column', 
                   justifyContent: 'space-between',
-                  color: theme.palette.text.secondary, 
-                  background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, 
+                  color: 'black', 
+                  background: 'white',
+                  border: '1px solid rgba(0,0,0,0.1)',
                   borderRadius: 2,
                   position: 'relative',
                   overflow: 'hidden'
@@ -648,18 +666,21 @@ export const FifthSection = () => {
                   <Typography 
                     sx={{ 
                       position: 'absolute',
-                      top: -20,
+                      top: -30,
                       right: -20,
-                      fontSize: '140px',
+                      fontSize: '180px',
                       fontWeight: 'bold',
-                      opacity: 0.1,
-                      color: '#ffffff',
+                      background: 'linear-gradient(135deg, #143151, #387E89)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      opacity: 0.15,
                       zIndex: 0
                     }}
                   >
                     {index + 1}
                   </Typography>
-                  <Typography variant="h5" fontWeight="semiBold" sx={{ position: 'relative', zIndex: 1 }}>
+                  <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
                     {card.title}
                   </Typography>
                   <Box sx={{ position: 'relative', zIndex: 1 }}>
@@ -676,7 +697,7 @@ export const FifthSection = () => {
                     }}>
                       <CardIcon size={28} color="white" />
                     </Box>
-                    <Typography variant="h6" fontWeight="medium">
+                    <Typography variant="h6" fontWeight="medium" color="black">
                       {card.description}
                     </Typography>
                   </Box>
