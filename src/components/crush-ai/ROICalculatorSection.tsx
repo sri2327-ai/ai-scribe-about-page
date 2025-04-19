@@ -1,9 +1,8 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
 import { Info, BarChart2, DollarSign, Users, Magnet } from "lucide-react";
-import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, ResponsiveContainer, BarChart } from "recharts";
+import { CartesianGrid, XAxis, YAxis, Tooltip as RechartsTooltip, Bar, ResponsiveContainer, BarChart, Cell } from "recharts";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -472,10 +471,16 @@ export const ROICalculatorSection = () => {
                     />
                     <Bar
                       dataKey="value"
-                      fill={({ name }) => name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI}
+                      fill={barColors.crushAI}
                       radius={[8, 8, 0, 0]}
                       name="Cost"
-                    />
+                    >
+                      {
+                        savingsData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI} />
+                        ))
+                      }
+                    </Bar>
                   </BarChart>
                 </ResponsiveContainer>
               </div>
