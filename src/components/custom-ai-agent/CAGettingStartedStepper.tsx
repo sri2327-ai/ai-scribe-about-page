@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -135,43 +134,70 @@ const StepIllustration3 = () => (
     className="w-full h-full flex items-center justify-center"
   >
     {/* System Integration Visualization */}
-    <motion.div className="relative w-full h-full flex items-center justify-center">
+    <motion.div className="relative w-full h-full flex flex-col items-center justify-center space-y-6">
       <motion.div 
-        className="absolute w-32 h-32"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+        className="w-full max-w-xs bg-blue-50 rounded-xl p-6 shadow-sm"
+        animate={{ 
+          scale: [1, 1.02, 1],
+          boxShadow: [
+            '0 4px 6px rgba(0,0,0,0.1)',
+            '0 6px 8px rgba(0,0,0,0.15)',
+            '0 4px 6px rgba(0,0,0,0.1)'
+          ]
+        }}
+        transition={{ repeat: Infinity, duration: 2 }}
       >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-xs font-medium text-blue-600">CRUSH</div>
+        <div className="text-sm font-medium text-blue-600 mb-4">System Integration</div>
+        <div className="space-y-3">
+          <motion.div 
+            className="h-2 bg-blue-200 rounded"
+            animate={{ 
+              width: ["0%", "100%", "80%"],
+              backgroundColor: [
+                'rgba(191, 219, 254, 1)', 
+                'rgba(191, 219, 254, 0.7)', 
+                'rgba(191, 219, 254, 1)'
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+          <motion.div 
+            className="h-2 bg-blue-200 rounded"
+            animate={{ 
+              width: ["0%", "90%", "70%"],
+              backgroundColor: [
+                'rgba(191, 219, 254, 1)', 
+                'rgba(191, 219, 254, 0.7)', 
+                'rgba(191, 219, 254, 1)'
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+          />
         </div>
-        <motion.div 
-          className="absolute top-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full"
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        />
+        <div className="mt-4 text-xs text-blue-500 text-center">
+          <motion.span
+            animate={{ opacity: [0.5, 1, 0.5] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            Integrating in under a week...
+          </motion.span>
+        </div>
       </motion.div>
       
       <motion.div 
-        className="absolute w-24 h-24"
-        animate={{ rotate: -360 }}
-        transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
+        className="flex space-x-4"
+        animate={{ 
+          scale: [1, 1.05, 1],
+          opacity: [0.7, 1, 0.7]
+        }}
+        transition={{ repeat: Infinity, duration: 2 }}
       >
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-xs font-medium text-green-600">BRAVO</div>
+        <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+          <span className="text-xs text-purple-600">CRUSH</span>
         </div>
-        <motion.div 
-          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-400 rounded-full"
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
-        />
-      </motion.div>
-
-      <motion.div 
-        className="w-16 h-16 rounded-full border-4 border-purple-200 flex items-center justify-center"
-        animate={{ rotate: 360 }}
-        transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
-      >
-        <div className="text-xs font-medium text-purple-600">Agent</div>
+        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+          <span className="text-xs text-green-600">BRAVO</span>
+        </div>
       </motion.div>
     </motion.div>
   </motion.div>
@@ -270,7 +296,7 @@ const steps: Step[] = [
   {
     number: "3️",
     title: "Seamless Deployment",
-    description: "Your agent integrates with your existing systems in under a week, syncing with CRUSH's real-time notes and BRAVO's patient engagement tools for a cohesive experience.",
+    description: "Your agent integrates with your existing systems in under a week.",
     illustration: <StepIllustration3 />
   },
   {
