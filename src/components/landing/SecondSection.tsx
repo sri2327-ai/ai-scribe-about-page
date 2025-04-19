@@ -153,7 +153,7 @@ export const SecondSection = () => {
           // Desktop view with Grid (no slider)
           <Grid container spacing={3}>
             {docRevData.map((value, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <Grid key={index} xs={12} md={4}>
                 <TestimonialCard data={value} />
               </Grid>
             ))}
