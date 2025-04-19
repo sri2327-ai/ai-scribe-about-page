@@ -242,7 +242,7 @@ export const FifthSection = () => {
                 title={card.title}
                 description={card.description}
                 number={card.id}
-                isRight={(index + 1) % 2 === 0}
+                isRight={card.id % 2 === 0}
               />
             ))}
           </Box>
