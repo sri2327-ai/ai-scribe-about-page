@@ -12,13 +12,13 @@ export const EleventhSection = () => {
       }}
     >
       <Stack
-        spacing={4}
+        spacing={3}  // Reduced spacing
         direction="column"
         sx={{
-          maxWidth: { xs: '90%', sm: '650px', md: '750px', lg: '850px' },
+          maxWidth: { xs: '80%', sm: '500px', md: '600px', lg: '700px' },  // Reduced maximum widths
           width: '100%',
           alignItems: "center",
-          p: { xs: 3, md: 5 }
+          p: { xs: 2, md: 3 }  // Reduced padding
         }}
         useFlexGap
       >
@@ -28,7 +28,7 @@ export const EleventhSection = () => {
           sx={{ 
             textAlign: "center", 
             color: 'white',
-            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
+            fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' }  // Reduced font sizes
           }}
         >
           Join Top Clinics Elevating Patient Care with S10.AI!
@@ -40,7 +40,7 @@ export const EleventhSection = () => {
           sx={{ 
             textAlign: "center", 
             color: 'rgba(255, 255, 255, 0.9)',
-            fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
+            fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' }  // Reduced font sizes
           }}
         >
           Optimize Your Practice with Bravo & CRUSH
@@ -51,8 +51,8 @@ export const EleventhSection = () => {
           sx={{ 
             borderColor: 'white',
             color: 'white',
-            px: { xs: 4, md: 6 },
-            py: { xs: 1.5, md: 2 },
+            px: { xs: 3, md: 4 },
+            py: { xs: 1, md: 1.5 },
             borderRadius: "50px",
             '&:hover': {
               borderColor: 'white',
@@ -65,14 +65,14 @@ export const EleventhSection = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: 25,
-                height: 25,
+                width: 20,
+                height: 20,
                 borderRadius: "50%",
                 border: '2px solid white',
                 mr: 1
               }}
             >
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-3 w-3" />
             </Box>
           }
         >
@@ -80,7 +80,7 @@ export const EleventhSection = () => {
             variant='h6' 
             fontWeight="semiBold" 
             sx={{
-              fontSize: { xs: '1rem', md: '1.1rem' }
+              fontSize: { xs: '0.875rem', md: '1rem' }
             }}
           >
             Book A Demo
@@ -90,3 +90,4 @@ export const EleventhSection = () => {
     </section>
   );
 };
+
