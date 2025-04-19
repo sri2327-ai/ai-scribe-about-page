@@ -1,7 +1,7 @@
 
 import { Box, Typography } from "@mui/material";
 import Marquee from "react-fast-marquee";
-import { Brain, User, Heart, Lungs as LungsIcon, Eye, Building2, FlaskConical, Wheelchair as WheelchairIcon, Apple, Ambulance, CircleDot, Stethoscope, Droplets, Activity, HeartPulse, Ear, Microscope, ShieldPlus } from "lucide-react";
+import { Brain, User, Heart, Eye, Building2, FlaskConical, Apple, Ambulance, CircleDot, Stethoscope, Droplets, Activity, HeartPulse, Ear, Microscope, ShieldPlus } from "lucide-react";
 
 export const EighthSection = () => {
   const specialties = [
@@ -11,13 +11,13 @@ export const EighthSection = () => {
     { name: "Pediatrics", icon: User },
     { name: "Cardiology", icon: Heart },
     { name: "Oncology", icon: CircleDot },
-    { name: "Pulmonology", icon: LungsIcon },
+    { name: "Pulmonology", icon: Activity },
     { name: "Gynecology", icon: HeartPulse },
     { name: "Psychiatry", icon: Brain },
     { name: "Ophthalmology", icon: Eye },
     { name: "Hospital Medicine", icon: Building2 },
     { name: "Hematology", icon: FlaskConical },
-    { name: "Geriatrics", icon: WheelchairIcon },
+    { name: "Geriatrics", icon: Activity },
     { name: "Gastroenterology", icon: Apple },
     { name: "Emergency Medicine", icon: Ambulance },
     { name: "Hepatology", icon: CircleDot },
