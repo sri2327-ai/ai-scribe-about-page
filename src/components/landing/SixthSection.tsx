@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 export const SixthSection = () => {
   return(
     <section 
-      className="witOutSp relative py-16 md:py-24" 
+      className="witOutSp relative py-12 md:py-16" // Reduced vertical padding
       style={{ 
         minHeight: 'unset', 
         background: `linear-gradient(180deg, #143151, #387E89)` 
@@ -14,18 +14,18 @@ export const SixthSection = () => {
       <Box sx={{ 
         display: 'flex', 
         justifyContent: 'center',
-        px: { xs: 2, sm: 4, md: 6 }
+        px: { xs: 2, sm: 3, md: 4 } // Reduced horizontal padding
       }}>
         <Stack
-          spacing={{ xs: 3, md: 4 }}
+          spacing={{ xs: 2, md: 3 }} // Reduced spacing between elements
           direction="column"
           sx={{
             width: '100%',
-            maxWidth: { xs: '90%', sm: '600px', md: '700px', lg: '800px' },
+            maxWidth: { xs: '85%', sm: '500px', md: '600px', lg: '650px' }, // Reduced maximum widths
             alignItems: "center",
             background: 'white', 
             borderRadius: { xs: 2, md: 4 }, 
-            p: { xs: 3, sm: 4, md: 5 },
+            p: { xs: 2.5, sm: 3, md: 4 }, // Reduced padding
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           }}
           useFlexGap
@@ -36,9 +36,9 @@ export const SixthSection = () => {
             sx={{ 
               textAlign: "center", 
               color: "#143151",
-              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.25rem' },
+              fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' }, // Reduced font sizes
               lineHeight: { xs: 1.3, md: 1.4 },
-              maxWidth: '90%'
+              maxWidth: '85%' // Reduced text width
             }}
           >
             Reduce Administrative Fatigue. Enhance Productivity. Improve Patient Care. 
