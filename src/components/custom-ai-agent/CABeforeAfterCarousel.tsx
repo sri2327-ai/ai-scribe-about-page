@@ -2,8 +2,18 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Component, MessageSquare, FileText, Calendar, Layers, Clock, LayoutDashboard } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Component, 
+  MessageSquare, 
+  FileText, 
+  Calendar, 
+  LayoutDashboard,
+  Clock,
+  Layers
+} from "lucide-react";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 
 const workflowData = [
