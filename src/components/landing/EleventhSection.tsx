@@ -6,44 +6,32 @@ import { ArrowRight } from "lucide-react";
 export const EleventhSection = () => {
   return (
     <section 
-      className="min-h-screen w-full flex items-center justify-center"
+      className="py-12 w-full flex items-center justify-center"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
       }}
     >
       <Stack
-        spacing={3}  // Reduced spacing
+        spacing={2}
         direction="column"
         sx={{
-          maxWidth: { xs: '80%', sm: '500px', md: '600px', lg: '700px' },  // Reduced maximum widths
+          maxWidth: { xs: '70%', sm: '400px', md: '500px' },
           width: '100%',
           alignItems: "center",
-          p: { xs: 2, md: 3 }  // Reduced padding
+          p: { xs: 2, md: 3 }
         }}
         useFlexGap
       >
         <Typography 
-          variant="h3" 
+          variant="h4" 
           fontWeight="semiBold" 
           sx={{ 
             textAlign: "center", 
             color: 'white',
-            fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' }  // Reduced font sizes
+            fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' }
           }}
         >
-          Join Top Clinics Elevating Patient Care with S10.AI!
-        </Typography>
-
-        <Typography 
-          variant="h5" 
-          fontWeight="semiBold" 
-          sx={{ 
-            textAlign: "center", 
-            color: 'rgba(255, 255, 255, 0.9)',
-            fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' }  // Reduced font sizes
-          }}
-        >
-          Optimize Your Practice with Bravo & CRUSH
+          Elevate Patient Care with S10.AI
         </Typography>
 
         <Button 
@@ -51,7 +39,7 @@ export const EleventhSection = () => {
           sx={{ 
             borderColor: 'white',
             color: 'white',
-            px: { xs: 3, md: 4 },
+            px: { xs: 2, md: 3 },
             py: { xs: 1, md: 1.5 },
             borderRadius: "50px",
             '&:hover': {
@@ -65,8 +53,8 @@ export const EleventhSection = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: 20,
-                height: 20,
+                width: 18,
+                height: 18,
                 borderRadius: "50%",
                 border: '2px solid white',
                 mr: 1
@@ -80,7 +68,7 @@ export const EleventhSection = () => {
             variant='h6' 
             fontWeight="semiBold" 
             sx={{
-              fontSize: { xs: '0.875rem', md: '1rem' }
+              fontSize: { xs: '0.8rem', md: '0.9rem' }
             }}
           >
             Book A Demo
@@ -90,4 +78,3 @@ export const EleventhSection = () => {
     </section>
   );
 };
-
