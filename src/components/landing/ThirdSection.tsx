@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
@@ -233,8 +234,8 @@ export const ThirdSection = () => {
           </Tabs>
         </Box>
 
-        <Stack spacing={3} direction="column" sx={{ width: '100%' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        <Stack spacing={3} direction={{ xs: "column", md: "row" }} sx={{ width: '100%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', width: { xs: '100%', md: '60%' } }}>
             <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: { xs: '400px', md: '600px' } }}>
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
@@ -288,6 +289,27 @@ export const ThirdSection = () => {
               >
                 Schedule a Demo
               </Button>
+            </div>
+          </Box>
+
+          <Box component="aside" sx={{ width: { xs: "100%", md: "40%" } }}>
+            <div className="relative rounded-lg overflow-hidden shadow-lg border border-gray-200">
+              <iframe
+                width="100%"
+                height="315"
+                src="https://www.youtube.com/embed/unmWENGNuo4"
+                title="S10.AI Healthcare Solutions Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ border: "none" }}
+                loading="lazy"
+              />
+              <div className="mt-4 p-4 bg-white">
+                <h4 className="text-lg font-semibold text-[#387E89]">Watch Our Solution in Action</h4>
+                <p className="text-sm text-gray-600">
+                  See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
+                </p>
+              </div>
             </div>
           </Box>
         </Stack>
