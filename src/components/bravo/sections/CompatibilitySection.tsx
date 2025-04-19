@@ -117,6 +117,21 @@ export const CompatibilitySection = () => {
       </div>
       
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
+        <motion.div
+          className="text-center max-w-2xl mx-auto mb-12"
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: { opacity: 1, y: 0 }
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          <p className="text-2xl font-bold text-white shadow-text tracking-wide leading-relaxed">
+            BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
+          </p>
+        </motion.div>
+
         <motion.div 
           className="relative flex items-center justify-center min-h-[500px] rounded-xl h-full p-6 backdrop-blur-2xl bg-white/10 border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300"
           initial="hidden"
@@ -345,21 +360,6 @@ export const CompatibilitySection = () => {
               </motion.div>
             </motion.div>
           </div>
-        </motion.div>
-        
-        <motion.div
-          className="text-center max-w-2xl mx-auto mt-12"
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          <p className="text-xl font-semibold text-white shadow-text">
-            BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
-          </p>
         </motion.div>
       </div>
     </div>
