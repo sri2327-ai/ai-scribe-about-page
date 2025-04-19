@@ -22,7 +22,7 @@ interface Particle {
 }
 
 const TooltipContent = () => (
-  <div className="absolute invisible group-hover:visible left-0 -top-16 w-64 p-3 bg-[#FFDEE2] text-black text-xs rounded-md shadow-lg z-10">
+  <div className="absolute invisible group-hover:visible left-0 -top-16 w-64 p-3 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs rounded-md shadow-lg z-10">
     Starting price of $99/month per provider
   </div>
 );
