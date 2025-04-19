@@ -1,60 +1,64 @@
 
 import { Box, Typography, Button, Stack } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
 
 export const SixthSection = () => {
-  const theme = useTheme();
-
   return(
     <section 
-      className="witOutSp" 
+      className="witOutSp relative py-16 md:py-24" 
       style={{ 
         minHeight: 'unset', 
         background: `linear-gradient(180deg, #143151, #387E89)` 
       }}
     >
-      <Box sx={{ display:'flex', justifyContent:'center' }}>
+      <Box sx={{ 
+        display: 'flex', 
+        justifyContent: 'center',
+        px: { xs: 2, sm: 4, md: 6 }
+      }}>
         <Stack
-          spacing={4}
+          spacing={{ xs: 3, md: 4 }}
           direction="column"
           sx={{
-            maxWidth: { xs : '300px', sm: '450px', md: '500px', lg: '550px' },
+            width: '100%',
+            maxWidth: { xs: '90%', sm: '600px', md: '700px', lg: '800px' },
             alignItems: "center",
-            background: theme.palette.common.white, 
-            borderRadius: 4, 
-            p: 3, 
-            boxShadow: 1
+            background: 'white', 
+            borderRadius: { xs: 2, md: 4 }, 
+            p: { xs: 3, sm: 4, md: 5 },
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           }}
           useFlexGap
         >
           <Typography 
-            variant="h5" 
-            fontWeight="medium" 
+            variant="h4"
+            fontWeight="bold" 
             sx={{ 
               textAlign: "center", 
-              color: "#143151" 
+              color: "#143151",
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.25rem' },
+              lineHeight: { xs: 1.3, md: 1.4 },
+              maxWidth: '90%'
             }}
           >
             Reduce Administrative Fatigue. Enhance Productivity. Improve Patient Care. 
           </Typography>
           <Button 
-            variant="text" 
+            variant="contained" 
             sx={{ 
-              textTransform: "capitalize",
+              textTransform: "none",
               background: `linear-gradient(135deg, #143151, #387E89)`,
               color: 'white',
-              px: 3,
-              py: 1.5,
+              px: { xs: 3, md: 4 },
+              py: { xs: 1.25, md: 1.5 },
               borderRadius: "50px",
-              "&:hover":{
+              transition: 'all 0.3s ease',
+              "&:hover": {
+                background: `linear-gradient(135deg, #143151, #387E89)`,
+                transform: 'translateY(-2px)',
+                boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
                 ".icon-box": {
                   transform: "rotate(-270deg)",
-                  color: "white",
-                  borderColor: "white",
-                },
-                ".button-text": {
-                  color: "white",
                 },
               },
             }}
@@ -65,8 +69,8 @@ export const SixthSection = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: 25,
-                  height: 25,
+                  width: { xs: 20, md: 25 },
+                  height: { xs: 20, md: 25 },
                   borderRadius: "50%", 
                   color: "white",
                   border: `2px solid white`,
@@ -80,12 +84,11 @@ export const SixthSection = () => {
             }
           >
             <Typography
-              className="button-text"
               variant='h6' 
               fontWeight="semiBold" 
               sx={{
+                fontSize: { xs: '1rem', md: '1.25rem' },
                 color: "white",
-                transition: "color 0.3s ease"
               }}
             >
               Book A Demo
