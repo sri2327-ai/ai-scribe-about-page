@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -72,38 +73,38 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ step, before, after, icon: 
             <h3 className="text-2xl font-bold" style={{ color: customAIAgentColors.primary }}>{step}</h3>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
-            <div className="flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col h-full">
               <h4 className="text-lg font-semibold mb-3 text-red-600">Before AI</h4>
               <div className="flex-1 p-4 rounded-lg bg-red-50/50 border border-red-100">
                 <div className="mb-4 p-3 bg-white rounded-lg shadow-sm border border-red-100">
-                  <div className="w-full h-3 bg-red-100 rounded mb-2" />
-                  <div className="w-2/3 h-3 bg-red-50 rounded" />
+                  <div className="w-full h-3 bg-red-100 rounded mb-2"></div>
+                  <div className="w-2/3 h-3 bg-red-50 rounded"></div>
                 </div>
                 <p className="text-gray-600 mb-3">{before}</p>
                 <div className="flex gap-2">
-                  <div className="w-8 h-8 rounded-full bg-red-100" />
+                  <div className="w-8 h-8 rounded-full bg-red-100"></div>
                   <div className="flex-1">
-                    <div className="h-2 w-3/4 bg-red-100 rounded mb-2" />
-                    <div className="h-2 w-1/2 bg-red-50 rounded" />
+                    <div className="h-2 w-3/4 bg-red-100 rounded mb-2"></div>
+                    <div className="h-2 w-1/2 bg-red-50 rounded"></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col">
+            <div className="flex flex-col h-full">
               <h4 className="text-lg font-semibold mb-3 text-green-600">After AI</h4>
               <div className="flex-1 p-4 rounded-lg bg-green-50/50 border border-green-100">
                 <div className="mb-4 p-3 bg-white rounded-lg shadow-sm border border-green-100">
-                  <div className="w-full h-3 bg-green-100 rounded mb-2" />
-                  <div className="w-2/3 h-3 bg-green-50 rounded" />
+                  <div className="w-full h-3 bg-green-100 rounded mb-2"></div>
+                  <div className="w-2/3 h-3 bg-green-50 rounded"></div>
                 </div>
                 <p className="text-gray-600 mb-3">{after}</p>
                 <div className="flex gap-2">
-                  <div className="w-8 h-8 rounded-full bg-green-100" />
+                  <div className="w-8 h-8 rounded-full bg-green-100"></div>
                   <div className="flex-1">
-                    <div className="h-2 w-3/4 bg-green-100 rounded mb-2" />
-                    <div className="h-2 w-1/2 bg-green-50 rounded" />
+                    <div className="h-2 w-3/4 bg-green-100 rounded mb-2"></div>
+                    <div className="h-2 w-1/2 bg-green-50 rounded"></div>
                   </div>
                 </div>
               </div>
@@ -146,7 +147,7 @@ export const CABeforeAfterCarousel = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: customAIAgentColors.primary }}>
             Before vs. After AI Agent
           </h2>
-          <p className="text-lg mb-8" style={{ color: customAIAgentColors.text.secondary }}>
+          <p className="text-lg mb-8 max-w-3xl mx-auto" style={{ color: customAIAgentColors.text.secondary }}>
             See how our AI agents transform your daily workflow with intelligent automation
           </p>
         </motion.div>
@@ -169,7 +170,7 @@ export const CABeforeAfterCarousel = () => {
               variant="outline"
               size="icon"
               onClick={handlePrev}
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 rounded-full"
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 rounded-full z-10"
             >
               <ChevronLeft className="h-4 w-4" />
             </Button>
@@ -178,7 +179,7 @@ export const CABeforeAfterCarousel = () => {
               variant="outline"
               size="icon"
               onClick={handleNext}
-              className="absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full"
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 rounded-full z-10"
             >
               <ChevronRight className="h-4 w-4" />
             </Button>
@@ -189,11 +190,12 @@ export const CABeforeAfterCarousel = () => {
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
+                className={`w-3 h-3 rounded-full transition-colors ${
                   index === activeIndex 
                     ? 'bg-primary' 
                     : 'bg-gray-300 hover:bg-gray-400'
                 }`}
+                aria-label={`View slide ${index + 1}`}
                 style={{ 
                   backgroundColor: index === activeIndex 
                     ? customAIAgentColors.primary 
