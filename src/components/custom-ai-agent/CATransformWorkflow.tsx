@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import { 
   LayoutDashboard, 
@@ -9,299 +9,111 @@ import {
   Component, 
   Clock, 
   MessageSquare,
-  Bot,
-  CircleDot,
-  Mail,
-  FileCheck,
-  Shield
+  Shield,
+  CheckCircle
 } from 'lucide-react';
 
+// Define workflow steps with illustrations
 const steps = [
   {
     title: "Automate Patient Intake",
     description: "Streamline front desk operations with AI",
     icon: LayoutDashboard,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-4">
-          <div className="w-24 h-6 bg-blue-100 rounded"></div>
-          <div className="w-12 h-6 bg-green-100 rounded"></div>
-        </div>
-        <div className="space-y-3">
-          {[1, 2, 3].map((_, index) => (
-            <div key={index} className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-200 rounded-full flex items-center justify-center">
-                <div className="w-5 h-5 bg-blue-500 rounded-full"></div>
-              </div>
-              <div className="flex-1 h-4 bg-gray-200 rounded"></div>
-            </div>
-          ))}
-        </div>
-        <motion.div 
-          className="mt-4 w-full h-8 bg-blue-500 rounded flex items-center justify-center"
-          animate={{ y: [0, -5, 0] }}
-          transition={{ repeat: Infinity, duration: 2 }}
-        >
-          <div className="w-20 h-3 bg-white rounded"></div>
-        </motion.div>
-      </div>
-    )
+    content: "AI agents automate the intake process, collecting patient information, insurance details, and medical history seamlessly. This eliminates manual data entry and reduces wait times by 75%."
   },
   {
     title: "Process Clinical Documents",
     description: "Eliminate manual document handling",
     icon: FileText,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-4">
-          <div className="w-32 h-6 bg-green-100 rounded"></div>
-          <div className="w-16 h-6 bg-blue-100 rounded"></div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="w-full h-24 bg-gray-200 mb-3 rounded flex items-center justify-center">
-              <FileText className="w-10 h-10 text-gray-400" />
-            </div>
-            <div className="space-y-2">
-              <div className="h-3 bg-gray-100 rounded w-3/4"></div>
-              <div className="h-3 bg-gray-100 rounded w-1/2"></div>
-            </div>
-          </div>
-          <div className="bg-white p-4 rounded-lg shadow-sm">
-            <div className="flex justify-between mb-3">
-              <div className="w-20 h-4 bg-blue-100 rounded"></div>
-              <div className="w-10 h-4 bg-green-100 rounded"></div>
-            </div>
-            <div className="space-y-2">
-              <div className="h-3 bg-gray-100 rounded"></div>
-              <div className="h-3 bg-gray-100 rounded w-3/4"></div>
-              <motion.div 
-                className="h-3 bg-blue-200 rounded w-1/2"
-                animate={{ opacity: [0.7, 1, 0.7] }}
-                transition={{ repeat: Infinity, duration: 2 }}
-              ></motion.div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    content: "Your custom AI agent automatically processes referrals, test results, and prior medical records. It extracts key data points and integrates them into your existing systems without staff intervention."
   },
   {
     title: "Manage Appointments",
     description: "Reduce no-shows and streamline scheduling",
     icon: Calendar,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-4">
-          <div className="flex items-center">
-            <Calendar className="w-5 h-5 text-blue-500 mr-2" />
-            <div className="w-24 h-6 bg-blue-100 rounded"></div>
-          </div>
-          <div className="flex space-x-2">
-            <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-            <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-          </div>
-        </div>
-        <div className="grid grid-cols-7 gap-1 mb-4">
-          {[1, 2, 3, 4, 5, 6, 7].map((day) => (
-            <div key={day} className="text-center">
-              <div className="w-full h-4 bg-gray-200 rounded mb-1"></div>
-              <div className={`w-8 h-8 ${day === 3 ? 'bg-blue-100 border border-blue-300' : 'bg-white border border-gray-300'} rounded-full flex items-center justify-center mx-auto`}>
-                {day + 10}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="space-y-2">
-          {[1, 2, 3].map((_, index) => (
-            <motion.div 
-              key={index} 
-              className={`flex items-center justify-between p-2 ${index === 1 ? 'bg-blue-50' : 'bg-white'} rounded-lg shadow-sm`}
-              animate={index === 1 ? { y: [0, -3, 0] } : {}}
-              transition={index === 1 ? { repeat: Infinity, duration: 2 } : {}}
-            >
-              <div className="w-16 h-4 bg-gray-200 rounded"></div>
-              <div className="w-20 h-4 bg-blue-100 rounded"></div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    )
+    content: "Custom AI scheduling automatically fills cancellations, sends reminders, and optimizes your clinic's calendar based on provider availability and patient needs."
   },
   {
     title: "Generate Clinical Documentation",
     description: "Automate notes, reports, and care plans",
     icon: Component,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-4">
-          <div className="w-28 h-6 bg-purple-100 rounded flex items-center justify-center">
-            <Component className="w-4 h-4 text-purple-500 mr-1" />
-            <div className="w-16 h-3 bg-purple-200 rounded"></div>
-          </div>
-          <div className="w-10 h-6 bg-blue-100 rounded"></div>
-        </div>
-        <div className="space-y-3">
-          <div className="bg-white p-3 rounded-lg shadow-sm">
-            <div className="w-full h-3 bg-gray-100 rounded mb-2"></div>
-            <div className="w-3/4 h-3 bg-gray-100 rounded mb-2"></div>
-            <div className="w-1/2 h-3 bg-gray-100 rounded"></div>
-          </div>
-          <div className="flex space-x-3">
-            <motion.div 
-              className="w-1/2 bg-white p-3 rounded-lg shadow-sm"
-              animate={{ boxShadow: ['0 1px 2px rgba(0,0,0,0.1)', '0 4px 8px rgba(0,0,0,0.1)', '0 1px 2px rgba(0,0,0,0.1)'] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              <div className="w-full h-3 bg-red-100 rounded mb-2"></div>
-              <div className="w-full h-12 bg-gray-100 rounded"></div>
-            </motion.div>
-            <div className="w-1/2 bg-white p-3 rounded-lg shadow-sm">
-              <div className="w-full h-3 bg-green-100 rounded mb-2"></div>
-              <div className="w-full h-12 bg-gray-100 rounded"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    content: "Custom AI documentation creates comprehensive clinical notes that match your specialty's terminology and your personal documentation style, saving hours of administrative work."
   },
   {
     title: "Insurance Automation",
     description: "Complete payer forms and track status",
     icon: Shield,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-4">
-          <div className="flex items-center">
-            <Shield className="w-5 h-5 text-green-500 mr-2" />
-            <div className="w-24 h-6 bg-green-100 rounded"></div>
-          </div>
-          <div className="flex space-x-2">
-            <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white p-3 rounded-lg shadow-sm">
-            <div className="w-full h-5 bg-blue-100 rounded mb-3 flex items-center justify-center">
-              <div className="w-20 h-3 bg-blue-300 rounded"></div>
-            </div>
-            <div className="space-y-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="w-20 h-3 bg-gray-100 rounded"></div>
-                  <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
-                    <div className={`w-4 h-4 rounded-full ${i === 1 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <motion.div 
-            className="bg-white p-3 rounded-lg shadow-sm"
-            animate={{ y: [0, -3, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-          >
-            <div className="w-full h-5 bg-green-100 rounded mb-3 flex items-center justify-center">
-              <FileCheck className="w-4 h-4 text-green-500 mr-1" />
-              <div className="w-16 h-3 bg-green-300 rounded"></div>
-            </div>
-            <div className="space-y-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="flex items-center">
-                  <div className="w-4 h-4 rounded-full bg-green-500 mr-2 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                  </div>
-                  <div className="w-full h-3 bg-gray-100 rounded"></div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    )
+    content: "AI agents handle prior authorizations, eligibility verification, and claim submission with unprecedented accuracy, reducing denials by up to 47%."
   },
   {
     title: "Patient Communication",
     description: "Maintain engagement between visits",
     icon: MessageSquare,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-4">
-          <div className="flex items-center">
-            <MessageSquare className="w-5 h-5 text-blue-500 mr-2" />
-            <div className="w-24 h-6 bg-blue-100 rounded"></div>
-          </div>
-          <div className="flex space-x-2">
-            <div className="w-8 h-8 bg-gray-200 rounded-full"></div>
-          </div>
-        </div>
-        <div className="space-y-3">
-          <div className="flex justify-end">
-            <div className="w-3/4 bg-blue-100 p-3 rounded-lg">
-              <div className="w-full h-3 bg-white/50 rounded mb-1"></div>
-              <div className="w-2/3 h-3 bg-white/50 rounded"></div>
-            </div>
-          </div>
-          <div className="flex justify-start">
-            <div className="w-3/4 bg-gray-200 p-3 rounded-lg">
-              <div className="w-full h-3 bg-white/50 rounded mb-1"></div>
-              <div className="w-1/2 h-3 bg-white/50 rounded"></div>
-            </div>
-          </div>
-          <motion.div 
-            className="flex justify-end"
-            animate={{ y: [0, -3, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          >
-            <div className="w-3/4 bg-blue-100 p-3 rounded-lg">
-              <div className="w-full h-3 bg-white/50 rounded mb-1"></div>
-              <div className="w-3/4 h-3 bg-white/50 rounded"></div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    )
+    content: "Custom AI communication tools generate personalized follow-ups, educational content, and care instructions based on each patient's specific conditions and needs."
   },
   {
     title: "Track Practice Metrics",
     description: "Real-time analytics and performance tracking",
     icon: Clock,
-    illustration: () => (
-      <div className="w-full h-full bg-gray-50 p-6 rounded-lg">
-        <div className="flex justify-between mb-6">
-          <div className="w-20 h-6 bg-blue-100 rounded flex items-center justify-center">
-            <Clock className="w-4 h-4 text-blue-500 mr-1" />
-            <div className="w-10 h-3 bg-blue-300 rounded"></div>
-          </div>
-          <div className="w-24 h-6 bg-green-100 rounded"></div>
-        </div>
-        <div className="h-40 flex items-end space-x-3 mb-4">
-          {[40, 70, 55, 80, 60, 90, 75].map((height, i) => (
-            <motion.div 
-              key={i} 
-              className="flex-1 flex flex-col items-center"
-              animate={i === 5 ? { y: [0, -5, 0] } : {}}
-              transition={i === 5 ? { repeat: Infinity, duration: 2 } : {}}
-            >
-              <div 
-                className={`w-full ${i === 5 ? 'bg-blue-500' : 'bg-blue-400'} rounded-t-md`} 
-                style={{ height: `${height}%` }}
-              ></div>
-              <div className="w-full h-1 bg-gray-300 mt-1"></div>
-              <div className="text-xs text-gray-500 mt-1">{i + 1}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    )
+    content: "Your AI agent continuously monitors practice performance, providing real-time analytics on patient outcomes, financial health, and operational efficiency."
   }
 ];
+
+// Illustration component for each step
+const StepIllustration = ({ step }) => {
+  return (
+    <div className="w-full h-full p-6 bg-white rounded-lg border border-gray-100 shadow-md">
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center">
+          <span className="p-2 rounded-full mr-2" style={{ backgroundColor: `${customAIAgentColors.primary}10` }}>
+            <step.icon size={18} style={{ color: customAIAgentColors.primary }} />
+          </span>
+          <h4 className="text-lg font-medium" style={{ color: customAIAgentColors.primary }}>{step.title}</h4>
+        </div>
+        <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
+          <CheckCircle size={16} className="text-green-500" />
+        </div>
+      </div>
+      
+      <div className="space-y-4">
+        <div className="w-full h-32 bg-gray-50 rounded-lg flex items-center justify-center">
+          <div className="w-2/3 h-2/3 relative">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <step.icon size={40} style={{ color: `${customAIAgentColors.secondary}50` }} />
+            </div>
+            <motion.div 
+              className="absolute bottom-0 left-0 right-0 h-1 bg-blue-400 rounded"
+              initial={{ width: 0 }}
+              animate={{ width: "100%" }}
+              transition={{ duration: 3, repeat: Infinity }}
+            />
+          </div>
+        </div>
+        
+        <p className="text-sm" style={{ color: customAIAgentColors.text.secondary }}>
+          {step.content}
+        </p>
+        
+        {step.title === "Generate Clinical Documentation" && (
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            <div className="p-2 bg-blue-50 rounded text-xs" style={{ color: customAIAgentColors.primary }}>
+              AI-Enhanced Notes
+            </div>
+            <div className="p-2 bg-green-50 rounded text-xs" style={{ color: customAIAgentColors.primary }}>
+              Smart Templates
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export const CATransformWorkflow = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   
-  // Autoplay functionality
+  // Auto-rotate through steps
   useEffect(() => {
     if (!autoplay) return;
     
@@ -312,16 +124,16 @@ export const CATransformWorkflow = () => {
     return () => clearInterval(interval);
   }, [autoplay]);
 
-  // Stop autoplay when user interacts
+  // Pause autoplay when user interacts with the component
   const handleStepClick = (index) => {
     setActiveStep(index);
-    setAutoplay(false);
+    setAutoplay(false); // Stop autoplay when user clicks
   };
 
   return (
-    <section className="py-16 md:py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12 md:mb-16">
+    <section className="py-16 bg-white overflow-hidden">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="text-center mb-12">
           <h2 
             className="text-3xl md:text-4xl font-bold mb-4"
             style={{ color: customAIAgentColors.primary }}
@@ -329,44 +141,53 @@ export const CATransformWorkflow = () => {
             How AI Agents Transform Your Practice
           </h2>
           <p 
-            className="text-base md:text-lg max-w-2xl mx-auto"
+            className="text-lg mx-auto max-w-2xl"
             style={{ color: customAIAgentColors.text.secondary }}
           >
             Discover how our Custom AI Agents revolutionize your workflow, one step at a time
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-10 items-center">
-          <div className="space-y-4 order-2 md:order-1">
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          {/* Left side: Steps */}
+          <div className="space-y-2 order-2 md:order-1">
             {steps.map((step, index) => (
               <motion.div 
                 key={index}
                 onClick={() => handleStepClick(index)}
-                className={`p-4 md:p-6 rounded-lg cursor-pointer transition-all duration-300 ${
+                className={`p-4 rounded-lg cursor-pointer transition-colors duration-300 border ${
                   activeStep === index 
-                    ? 'bg-gray-100 shadow-lg border border-gray-200' 
-                    : 'hover:bg-gray-50 border border-transparent'
+                    ? 'border-blue-200 bg-blue-50' 
+                    : 'border-transparent hover:bg-gray-50'
                 }`}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+                style={{ 
+                  backgroundColor: activeStep === index ? `${customAIAgentColors.tertiary}15` : '',
+                  borderColor: activeStep === index ? `${customAIAgentColors.tertiary}` : ''
+                }}
               >
-                <div className="flex items-center">
+                <div className="flex items-start">
                   <div 
-                    className="p-3 rounded-full mr-4 transition-colors duration-300"
+                    className="p-2 rounded-full mr-3 flex-shrink-0"
                     style={{ 
                       backgroundColor: activeStep === index 
                         ? `${customAIAgentColors.primary}20` 
-                        : `${customAIAgentColors.tertiary}10`,
-                      color: activeStep === index 
-                        ? customAIAgentColors.primary 
-                        : customAIAgentColors.text.secondary
+                        : `${customAIAgentColors.tertiary}10`
                     }}
                   >
-                    <step.icon className="w-6 h-6" />
+                    <step.icon 
+                      className="w-5 h-5" 
+                      style={{ 
+                        color: activeStep === index 
+                          ? customAIAgentColors.primary 
+                          : customAIAgentColors.text.secondary
+                      }} 
+                    />
                   </div>
                   <div>
                     <h3 
-                      className="text-xl font-bold transition-colors duration-300"
+                      className="text-lg font-medium mb-1"
                       style={{ 
                         color: activeStep === index 
                           ? customAIAgentColors.primary 
@@ -376,7 +197,7 @@ export const CATransformWorkflow = () => {
                       {step.title}
                     </h3>
                     <p 
-                      className="text-sm mt-1 transition-colors duration-300"
+                      className="text-sm"
                       style={{ color: customAIAgentColors.text.secondary }}
                     >
                       {step.description}
@@ -386,21 +207,21 @@ export const CATransformWorkflow = () => {
               </motion.div>
             ))}
           </div>
-
-          <div className="relative h-[350px] md:h-[400px] bg-white rounded-lg shadow-lg overflow-hidden order-1 md:order-2 border border-gray-100">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeStep}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.5 }}
-                className="absolute inset-0"
-              >
-                {steps[activeStep].illustration()}
-              </motion.div>
-            </AnimatePresence>
+          
+          {/* Right side: Illustration */}
+          <div className="relative h-[400px] order-1 md:order-2">
+            <motion.div
+              key={activeStep}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="w-full h-full"
+            >
+              <StepIllustration step={steps[activeStep]} />
+            </motion.div>
             
+            {/* Step indicators */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
               {steps.map((_, index) => (
                 <button
@@ -411,6 +232,11 @@ export const CATransformWorkflow = () => {
                       ? 'w-6 bg-blue-500' 
                       : 'bg-gray-300 hover:bg-gray-400'
                   }`}
+                  style={{
+                    backgroundColor: activeStep === index 
+                      ? customAIAgentColors.primary 
+                      : '#E0E0E0'
+                  }}
                   aria-label={`Go to step ${index + 1}`}
                 ></button>
               ))}
@@ -419,14 +245,18 @@ export const CATransformWorkflow = () => {
         </div>
         
         <div className="text-center mt-12">
-          <p className="text-xl md:text-2xl font-semibold mb-6" style={{ color: customAIAgentColors.text.primary }}>
+          <p className="text-xl font-semibold mb-6" style={{ color: customAIAgentColors.text.primary }}>
             Faster Check-Ins. Smarter Scheduling. Effortless Coordination.
           </p>
           
           <motion.button
-            className="px-6 py-3 text-base md:text-lg rounded-full bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg inline-flex items-center hover:shadow-xl transition-all duration-300"
+            className="px-6 py-3 text-lg rounded-lg shadow-lg inline-flex items-center hover:shadow-xl transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            style={{ 
+              backgroundColor: customAIAgentColors.secondary, 
+              color: "white" 
+            }}
           >
             Request a Demo
           </motion.button>

@@ -1,13 +1,16 @@
+
 import React from 'react';
 import { CAHeroSection } from '@/components/custom-ai-agent/CAHeroSection';
 import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
 import { CAWhyChooseSection } from '@/components/custom-ai-agent/CAWhyChooseSection';
 import { CARoleBenefits } from '@/components/custom-ai-agent/CARoleBenefits';
+import { CATransformWorkflow } from '@/components/custom-ai-agent/CATransformWorkflow';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
+
 const CustomAIAgent = () => {
   return <div className="bg-white min-h-screen">
       <CAHeroSection />
@@ -34,6 +37,9 @@ const CustomAIAgent = () => {
 
       {/* New Role Benefits Section */}
       <CARoleBenefits />
+      
+      {/* Transform Workflow Section */}
+      <CATransformWorkflow />
 
       {/* Why Choose Section */}
       <section className="py-20 bg-white">
