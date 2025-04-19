@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -114,7 +113,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 4, md: 12 } // Increased vertical margin to bring card lower
+                mt: { xs: 4, md: 20 } // Updated vertical margin to 20
               }}
             >
               <Box
