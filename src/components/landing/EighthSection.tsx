@@ -1,3 +1,5 @@
+
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import Marquee from "react-fast-marquee";
 import { motion } from "framer-motion";
@@ -6,6 +8,33 @@ import { Brain, User, Heart, Eye, Building2, FlaskConical, Apple, Ambulance, Cir
 
 export const EighthSection = () => {
   const animation = useScrollAnimation();
+  
+  // Define specialties array outside of the JSX
+  const specialties = [
+    { name: "Orthopedics", icon: Activity },
+    { name: "Urology", icon: Droplets },
+    { name: "Neurology", icon: Brain },
+    { name: "Pediatrics", icon: User },
+    { name: "Cardiology", icon: Heart },
+    { name: "Oncology", icon: CircleDot },
+    { name: "Pulmonology", icon: Activity },
+    { name: "Gynecology", icon: HeartPulse },
+    { name: "Psychiatry", icon: Brain },
+    { name: "Ophthalmology", icon: Eye },
+    { name: "Hospital Medicine", icon: Building2 },
+    { name: "Hematology", icon: FlaskConical },
+    { name: "Geriatrics", icon: Activity },
+    { name: "Gastroenterology", icon: Apple },
+    { name: "Emergency Medicine", icon: Ambulance },
+    { name: "Hepatology", icon: CircleDot },
+    { name: "Internal Medicine", icon: Stethoscope },
+    { name: "Nephrology", icon: Droplets },
+    { name: "Rheumatology", icon: Activity },
+    { name: "Urgent Care", icon: HeartPulse },
+    { name: "ENT", icon: Ear },
+    { name: "Endocrinology", icon: Microscope },
+    { name: "Dermatology", icon: ShieldPlus }
+  ];
   
   return (
     <motion.section
@@ -22,33 +51,7 @@ export const EighthSection = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            const specialties = [
-              { name: "Orthopedics", icon: Activity },
-              { name: "Urology", icon: Droplets },
-              { name: "Neurology", icon: Brain },
-              { name: "Pediatrics", icon: User },
-              { name: "Cardiology", icon: Heart },
-              { name: "Oncology", icon: CircleDot },
-              { name: "Pulmonology", icon: Activity },
-              { name: "Gynecology", icon: HeartPulse },
-              { name: "Psychiatry", icon: Brain },
-              { name: "Ophthalmology", icon: Eye },
-              { name: "Hospital Medicine", icon: Building2 },
-              { name: "Hematology", icon: FlaskConical },
-              { name: "Geriatrics", icon: Activity },
-              { name: "Gastroenterology", icon: Apple },
-              { name: "Emergency Medicine", icon: Ambulance },
-              { name: "Hepatology", icon: CircleDot },
-              { name: "Internal Medicine", icon: Stethoscope },
-              { name: "Nephrology", icon: Droplets },
-              { name: "Rheumatology", icon: Activity },
-              { name: "Urgent Care", icon: HeartPulse },
-              { name: "ENT", icon: Ear },
-              { name: "Endocrinology", icon: Microscope },
-              { name: "Dermatology", icon: ShieldPlus }
-            ];
-
-            return specialties.map((specialty, index) => {
+            {specialties.map((specialty, index) => {
               const IconComponent = specialty.icon;
               return (
                 <Box 
@@ -88,7 +91,7 @@ export const EighthSection = () => {
                   </Typography>
                 </Box>
               );
-            });
+            })}
           </motion.div>
         </Marquee>
       </Box>
