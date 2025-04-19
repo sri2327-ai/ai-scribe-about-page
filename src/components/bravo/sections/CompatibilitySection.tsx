@@ -6,7 +6,6 @@ import { GradientTracing } from "@/components/ui/gradient-tracing";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 
-// Container animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { 
@@ -19,7 +18,6 @@ const containerVariants = {
   }
 };
 
-// Data flow animation variants - Fixed the repeatType from string to a specific allowed value
 const flowVariants = {
   hidden: { pathLength: 0, opacity: 0 },
   visible: { 
@@ -30,13 +28,12 @@ const flowVariants = {
       ease: "easeInOut",
       delay: 1,
       repeat: Infinity,
-      repeatType: "loop" as const, // Fixed: Explicitly typed as "loop"
+      repeatType: "loop" as const,
       repeatDelay: 2
     }
   }
 };
 
-// Feature highlight animation
 const featureVariants = {
   hidden: { scale: 0.8, opacity: 0 },
   visible: { 
@@ -49,7 +46,6 @@ const featureVariants = {
 export const CompatibilitySection = () => {
   const [activeStep, setActiveStep] = useState(0);
   
-  // Control the step-by-step animation sequence
   useEffect(() => {
     const timer = setTimeout(() => {
       setActiveStep((prev) => (prev < 5 ? prev + 1 : 0));
@@ -58,7 +54,6 @@ export const CompatibilitySection = () => {
     return () => clearTimeout(timer);
   }, [activeStep]);
 
-  // EHR/PMS System Interface elements
   const ehrFeatures = [
     {
       icon: <FileCheck size={20} color="#ffffff" />,
@@ -74,7 +69,6 @@ export const CompatibilitySection = () => {
     }
   ];
   
-  // VOIP System Interface elements
   const voipFeatures = [
     {
       icon: <Phone size={20} color="#ffffff" />,
@@ -90,7 +84,6 @@ export const CompatibilitySection = () => {
     }
   ];
   
-  // Integration benefits
   const integrationFeatures = [
     {
       icon: <ArrowRightLeft size={20} color="#ffffff" />,
@@ -113,7 +106,6 @@ export const CompatibilitySection = () => {
     <div 
       className="relative w-full py-28 overflow-hidden" 
     >
-      {/* True glassmorphism background effect */}
       <div className="absolute inset-0 z-0">
         <AnimatedGradientBackground 
           gradientColors={["#26C6DA", "#38B2BF", "#F06292", "#26C6DA"]} 
@@ -165,15 +157,20 @@ export const CompatibilitySection = () => {
                     {ehrFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
-                        className="flex items-center p-2 rounded-lg bg-blue-500/40 border border-blue-400/50"
+                        className="flex items-center p-2 rounded-lg bg-blue-500/60 border border-blue-400/70"
                         variants={featureVariants}
                         custom={idx}
                         transition={{ delay: idx * 0.2 }}
                       >
-                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-                          {feature.icon}
+                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
+                          {React.cloneElement(feature.icon, { 
+                            color: '#ffffff', 
+                            size: 20 
+                          })}
                         </div>
-                        <span className="text-sm font-medium text-white">{feature.label}</span>
+                        <span className="text-sm font-medium text-white font-sans">
+                          {feature.label}
+                        </span>
                       </motion.div>
                     ))}
                   </div>
@@ -270,15 +267,20 @@ export const CompatibilitySection = () => {
                     {voipFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
-                        className="flex items-center p-2 rounded-lg bg-purple-500/40 border border-purple-400/50"
+                        className="flex items-center p-2 rounded-lg bg-purple-500/60 border border-purple-400/70"
                         variants={featureVariants}
                         custom={idx}
                         transition={{ delay: idx * 0.2 }}
                       >
-                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
-                          {feature.icon}
+                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
+                          {React.cloneElement(feature.icon, { 
+                            color: '#ffffff', 
+                            size: 20 
+                          })}
                         </div>
-                        <span className="text-sm font-medium text-white">{feature.label}</span>
+                        <span className="text-sm font-medium text-white font-sans">
+                          {feature.label}
+                        </span>
                       </motion.div>
                     ))}
                   </div>
