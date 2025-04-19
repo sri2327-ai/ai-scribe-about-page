@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -7,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
-// Define color for the slider - teal blue color as requested
-const sliderBlueColor = "#5192AE";
+// Define color for the slider
+const sliderBlueColor = "#26C6DA";
+const sliderGradient = `linear-gradient(90deg, ${sliderBlueColor} 0%, ${sliderBlueColor} 70%, ${sliderBlueColor} 90%, #F06292 100%)`;
 
 export const WorkflowAutomationSection = () => {
   // Create a ref for the slider container
@@ -163,7 +163,7 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      backgroundColor: "#5192AE", // Using the teal blue color as requested
+                      background: sliderGradient,
                       color: 'white'
                     }}
                   >
@@ -243,7 +243,7 @@ export const WorkflowAutomationSection = () => {
                     style={{ 
                       borderColor: crushAIColors.primary,
                       backgroundColor: 'white',
-                      border: '2px solid #5192AE'
+                      border: `2px solid ${sliderBlueColor}`
                     }}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
@@ -251,7 +251,7 @@ export const WorkflowAutomationSection = () => {
                         <div 
                           key={index} 
                           className="w-[2px] h-[2px] rounded-full"
-                          style={{ backgroundColor: `#5192AE` }}
+                          style={{ backgroundColor: sliderBlueColor }}
                         ></div>
                       ))}
                     </div>
