@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -83,8 +82,8 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         maxWidth: '450px',
         height: '250px',
         marginBottom: '2rem',
-        marginLeft: isRight ? '5%' : 0,
-        marginRight: !isRight ? '5%' : 0,
+        marginLeft: isRight ? 'auto' : 0,
+        marginRight: !isRight ? 'auto' : 0,
       }}
       className={`flex-shrink-0 ${isRight ? 'ml-auto' : 'mr-auto'}`}
     >
@@ -154,6 +153,8 @@ export const FifthSection = () => {
   });
 
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+
+  console.log('Card arrangement check:', cardIcons.map(card => ({ id: card.id, isRight: card.id % 2 === 0 })));
 
   return (
     <section ref={containerRef} className="py-20 px-4 md:px-8 bg-white relative">
