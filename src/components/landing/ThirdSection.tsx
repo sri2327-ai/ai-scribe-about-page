@@ -233,8 +233,8 @@ export const ThirdSection = () => {
           </Tabs>
         </Box>
 
-        <Stack spacing={3} direction={{ xs: "column", md: "row" }} sx={{ width: '100%' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', width: { xs: '100%', md: '60%' } }}>
+        <Stack spacing={3} direction="column" sx={{ width: '100%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
             <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: { xs: '400px', md: '600px' } }}>
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
@@ -273,41 +273,21 @@ export const ThirdSection = () => {
               ))}
             </Box>
 
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 space-y-4 flex flex-col items-center">
               {testimonials.map((testimonial, index) => (
-                <QuoteTestimonial key={index} {...testimonial} />
+                <div key={index} className="w-full max-w-2xl">
+                  <QuoteTestimonial {...testimonial} />
+                </div>
               ))}
             </div>
 
             <div className="mt-8 flex justify-center">
               <Button 
-                size="lg"
-                className="bg-[#387E89] hover:bg-[#387E89]/90 text-white"
+                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
                 onClick={() => window.location.href = '/demo'}
               >
                 Schedule a Demo
               </Button>
-            </div>
-          </Box>
-
-          <Box component="aside" sx={{ width: { xs: "100%", md: "40%" } }}>
-            <div className="relative rounded-lg overflow-hidden">
-              <iframe
-                width="100%"
-                height="315"
-                src="https://www.youtube.com/embed/unmWENGNuo4"
-                title="S10.AI Healthcare Solutions Demo"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ border: "none" }}
-                loading="lazy"
-              />
-              <div className="mt-4">
-                <h4 className="text-lg font-semibold text-[#387E89]">Watch Our Solution in Action</h4>
-                <p className="text-sm text-gray-600">
-                  See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
-                </p>
-              </div>
             </div>
           </Box>
         </Stack>
