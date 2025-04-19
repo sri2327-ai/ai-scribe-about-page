@@ -160,10 +160,10 @@ export const ThirdSection = () => {
                           key={itemIndex}
                           className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2 hover:border-[#387E89] transition-colors"
                         >
-                          <AccordionTrigger className="text-black hover:text-[#387E89] hover:no-underline px-4 py-3">
+                          <AccordionTrigger className="text-black hover:text-[#387E89] hover:no-underline px-4 py-3 text-lg font-semibold">
                             {item.title}
                           </AccordionTrigger>
-                          <AccordionContent className="text-black/80 px-4 pb-3">
+                          <AccordionContent className="text-black/80 px-4 pb-3 text-base leading-relaxed">
                             {item.content}
                           </AccordionContent>
                         </AccordionItem>
