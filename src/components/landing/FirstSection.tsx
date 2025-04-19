@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -14,11 +13,8 @@ export const FirstSection = () => {
   return (
     <section className="min-h-screen bg-white">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
-        {/* Main content layout */}
         <div className="flex flex-col space-y-8 md:space-y-12">
-          {/* Top row: Heading and Card */}
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12">
-            {/* Left column - Heading and CTA */}
             <Box
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
@@ -106,7 +102,6 @@ export const FirstSection = () => {
               </Button>
             </Box>
 
-            {/* Right column - Card and animation */}
             <Box
               sx={{
                 width: { xs: '100%', md: '45%' },
@@ -114,7 +109,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 4, md: 20 } // Updated vertical margin to 20
+                mt: { xs: 4, md: 20 }
               }}
             >
               <Box
@@ -124,7 +119,6 @@ export const FirstSection = () => {
                   mx: { xs: 'auto', md: 0 }
                 }}
               >
-                {/* Card with content */}
                 <Box
                   sx={{
                     background: 'rgba(255, 255, 255, 0.1)',
@@ -157,7 +151,7 @@ export const FirstSection = () => {
                         fontWeight: 400
                       }}
                     >
-                      From AI medical scribes to patient care AI agents, s10.ai offers AI-powered solutions that streamline clinical documentation, reduce administrative burdens, minimize burnout, and save time—so you can focus on patient care.
+                      Reduce documentation time by 75%, automate administrative tasks, and seamlessly integrate with your EHR. Our AI medical scribes and patient care agents minimize burnout, giving you more time to focus on patient care.
                     </Typography>
                   </Box>
                   <Box sx={{
@@ -174,7 +168,6 @@ export const FirstSection = () => {
             </Box>
           </div>
 
-          {/* Bottom row: Recommended Companies - moved up to be visible on first load */}
           <Box
             sx={{
               background: 'rgba(243, 244, 246, 0.1)',
@@ -184,7 +177,7 @@ export const FirstSection = () => {
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               width: '100%',
-              mt: { xs: 2, md: 4 }  // Reduced margin to make it visible on first load
+              mt: { xs: 2, md: 4 }
             }}
           >
             <Typography
