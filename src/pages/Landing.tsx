@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
+import { SectionLoader } from '@/components/ui/section-loader';
 
 // Lazy load components for better performance
 const SecondSection = lazy(() => import('@/components/landing/SecondSection').then(module => ({ default: module.SecondSection })));
@@ -14,25 +15,6 @@ const EighthSection = lazy(() => import('@/components/landing/EighthSection').th
 const NinthSection = lazy(() => import('@/components/landing/NinthSection').then(module => ({ default: module.NinthSection })));
 const TenthSection = lazy(() => import('@/components/landing/TenthSection').then(module => ({ default: module.TenthSection })));
 const EleventhSection = lazy(() => import('@/components/landing/EleventhSection').then(module => ({ default: module.EleventhSection })));
-
-// Loading component for Suspense fallback
-const SectionLoader = () => (
-  <div className="w-full py-20 flex items-center justify-center">
-    <div className="animate-pulse flex space-x-4">
-      <div className="rounded-full bg-slate-200 h-10 w-10"></div>
-      <div className="flex-1 space-y-6 py-1">
-        <div className="h-2 bg-slate-200 rounded"></div>
-        <div className="space-y-3">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="h-2 bg-slate-200 rounded col-span-2"></div>
-            <div className="h-2 bg-slate-200 rounded col-span-1"></div>
-          </div>
-          <div className="h-2 bg-slate-200 rounded"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 const Landing = () => {
   const schemaMarkup = {
@@ -79,35 +61,65 @@ const Landing = () => {
       {/* FirstSection is not lazy loaded because it's above the fold */}
       <FirstSection />
       
-      {/* Lazy load all sections below the fold */}
-      <Suspense fallback={<SectionLoader />}>
+      {/* Enhanced lazy loading with better fallback */}
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="second-section"
+      >
         <SecondSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="third-section"
+      >
         <ThirdSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="fourth-section"
+      >
         <FourthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="fifth-section"
+      >
         <FifthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="sixth-section"
+      >
         <SixthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="seventh-section"
+      >
         <SeventhSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="eighth-section"
+      >
         <EighthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="ninth-section"
+      >
         <NinthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="tenth-section"
+      >
         <TenthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
+      <Suspense 
+        fallback={<SectionLoader />}
+        key="eleventh-section"
+      >
         <EleventhSection />
       </Suspense>
     </main>
