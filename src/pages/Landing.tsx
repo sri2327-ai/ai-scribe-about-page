@@ -10,6 +10,7 @@ import { SeventhSection } from '@/components/landing/SeventhSection';
 import { EighthSection } from '@/components/landing/EighthSection';
 import { NinthSection } from '@/components/landing/NinthSection';
 import { TenthSection } from '@/components/landing/TenthSection';
+import { EleventhSection } from '@/components/landing/EleventhSection';
 
 const Landing = () => {
   return (
@@ -24,6 +25,7 @@ const Landing = () => {
       <EighthSection />
       <NinthSection />
       <TenthSection />
+      <EleventhSection />
     </div>
   );
 };
