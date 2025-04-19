@@ -77,9 +77,9 @@ export const FifthSection = () => {
   const rotate7 = useTransform(scrollYProgress7, [0, 1], [5, 0]);
 
   const { scrollYProgress: scrollYProgress8 } = useScroll({
-      target: containerRef,
-      offset: ["start center", "end center"]
-    });
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
   
   const height = useTransform(scrollYProgress8, [0, 1], ["0%", "100%"]);
 
@@ -94,7 +94,6 @@ export const FifthSection = () => {
     autoplay: true,
     autoplaySpeed: 2000
   };
-  
 
   return (
     <section ref={containerRef} className="py-10 px-4 md:px-8 bg-white">
@@ -124,111 +123,6 @@ export const FifthSection = () => {
           }}
           useFlexGap
         >
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 4,
-            width: '50%'
-          }}>
-            <MotionPaper
-              ref={ref2}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x2,
-                rotate: rotate2,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-              }}
-            >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  2. Effortless Pre-Visit Workflow
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    Automates patient intake, insurance verification, and medical history updates for seamless visits.
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref4}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x4,
-                rotate: rotate4,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-              }}
-            >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  4. Real-Time AI Medical Scribe
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly.
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref6}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x6,
-                rotate: rotate6,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-              }}
-            >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  6. Post-Visit Patient Support
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes.
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-          </Box>
-
-          <Box sx={{ px: 2 }}>
-            <MotionPaper 
-              style={{ height: height }} 
-              sx={{ background: `linear-gradient(0deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light} )`, px: 0.2 }}>
-            </MotionPaper>
-          </Box>
-
           <Box sx={{
             display: 'flex',
             flexDirection: 'column',
@@ -351,6 +245,115 @@ export const FifthSection = () => {
                   />
                   <Typography variant="h6" fontWeight="medium" color="black">
                     Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes.
+                  </Typography>
+                </Box>
+              </Box>
+            </MotionPaper>
+          </Box>
+
+          <Box sx={{ px: 2 }}>
+            <MotionPaper 
+              style={{ height: height }} 
+              sx={{ 
+                background: `linear-gradient(0deg, #1EAEDB, #D946EF)`, 
+                px: 0.2 
+              }}
+            >
+            </MotionPaper>
+          </Box>
+
+          <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            gap: 4,
+            width: '50%'
+          }}>
+            <MotionPaper
+              ref={ref2}
+              style={{
+                transform: 'translateX(0px) rotate(0deg)',
+                x: x2,
+                rotate: rotate2,
+              }}
+              sx={{
+                boxShadow: 0,
+                background: 'transparent',
+              }}
+            >
+              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black">
+                  2. Effortless Pre-Visit Workflow
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                  <img
+                    src="/circleIcon.png"
+                    alt="circleIcon"
+                    width="90"
+                    height="90"
+                  />
+                  <Typography variant="h6" fontWeight="medium" color="black">
+                    Automates patient intake, insurance verification, and medical history updates for seamless visits.
+                  </Typography>
+                </Box>
+              </Box>
+            </MotionPaper>
+
+            <MotionPaper
+              ref={ref4}
+              style={{
+                transform: 'translateX(0px) rotate(0deg)',
+                x: x4,
+                rotate: rotate4,
+              }}
+              sx={{
+                boxShadow: 0,
+                background: 'transparent',
+              }}
+            >
+              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black">
+                  4. Real-Time AI Medical Scribe
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                  <img
+                    src="/circleIcon.png"
+                    alt="circleIcon"
+                    width="90"
+                    height="90"
+                  />
+                  <Typography variant="h6" fontWeight="medium" color="black">
+                    CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly.
+                  </Typography>
+                </Box>
+              </Box>
+            </MotionPaper>
+
+            <MotionPaper
+              ref={ref6}
+              style={{
+                transform: 'translateX(0px) rotate(0deg)',
+                x: x6,
+                rotate: rotate6,
+              }}
+              sx={{
+                boxShadow: 0,
+                background: 'transparent',
+              }}
+            >
+              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black">
+                  6. Post-Visit Patient Support
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                  <img
+                    src="/circleIcon.png"
+                    alt="circleIcon"
+                    width="90"
+                    height="90"
+                  />
+                  <Typography variant="h6" fontWeight="medium" color="black">
+                    BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes.
                   </Typography>
                 </Box>
               </Box>
