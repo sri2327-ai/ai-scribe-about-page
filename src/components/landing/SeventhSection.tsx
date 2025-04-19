@@ -1,3 +1,4 @@
+
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -14,10 +15,10 @@ export const SeventhSection = () => {
         direction={{ xs: "column", md: 'row'}}
         sx={{
           background: '#FFFFFF',
-          alignItems: 'center',
+          alignItems: { xs: 'center', md: 'flex-start' },
           justifyContent: 'space-between',
           borderRadius: 4,
-          p: { xs: 3, md: 5 },
+          p: { xs: 4, sm: 5, md: 6 },
           gap: { xs: 4, md: 6 }
         }}
         useFlexGap
@@ -27,8 +28,9 @@ export const SeventhSection = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: 3,
-            alignItems: 'flex-start',
-            maxWidth: laptopVw ? '214px' : { xs : '300px', md: '400px', lg: '500px' }
+            alignItems: { xs: 'center', md: 'flex-start' },
+            maxWidth: laptopVw ? '214px' : { xs: '100%', sm: '500px', md: '400px', lg: '500px' },
+            textAlign: { xs: 'center', md: 'left' }
           }}
         >
           <Typography 
@@ -36,7 +38,8 @@ export const SeventhSection = () => {
             fontWeight="bold" 
             sx={{ 
               color: '#000000', 
-              lineHeight: 1.2 
+              lineHeight: 1.2,
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' }
             }}
           >
             AI Solutions Designed for Every Medical Specialty
@@ -99,11 +102,15 @@ export const SeventhSection = () => {
         </Box>
         <Box 
           sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            gap: 3,
-            justifyContent: { xs: 'center', sm : 'space-between', md: 'end' },
-            flexWrap: 'wrap'
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              lg: 'repeat(2, minmax(250px, 1fr))'
+            },
+            gap: { xs: 3, sm: 4 },
+            width: '100%',
+            maxWidth: { xs: '100%', sm: '800px' }
           }}
         >
           {[
@@ -129,20 +136,22 @@ export const SeventhSection = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 3,
+                gap: 2,
                 background: '#FFFFFF',
                 border: '1px solid #E0E0E0',
-                p: 3,
+                p: { xs: 3, sm: 4 },
                 borderRadius: 3,
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                maxWidth: (tabletVw || laptopVw) ? '214px' : { xs : '250px', md: '250px', lg: '266px', xl: '300px' }
+                height: '100%',
+                justifyContent: 'space-between'
               }}
             >
               <Typography 
                 variant="h5" 
                 fontWeight="bold" 
                 sx={{ 
-                  color: '#143151' 
+                  color: '#143151',
+                  fontSize: { xs: '1.25rem', sm: '1.35rem', md: '1.5rem' }
                 }}
               >
                 {item.title}
@@ -152,7 +161,9 @@ export const SeventhSection = () => {
                 fontWeight="semiBold" 
                 sx={{ 
                   color: '#000000', 
-                  opacity: 0.8 
+                  opacity: 0.8,
+                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
+                  lineHeight: 1.5
                 }}
               >
                 {item.description}
