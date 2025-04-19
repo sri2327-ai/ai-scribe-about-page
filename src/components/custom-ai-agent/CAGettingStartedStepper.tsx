@@ -183,22 +183,6 @@ const StepIllustration3 = () => (
           </motion.span>
         </div>
       </motion.div>
-      
-      <motion.div 
-        className="flex space-x-4"
-        animate={{ 
-          scale: [1, 1.05, 1],
-          opacity: [0.7, 1, 0.7]
-        }}
-        transition={{ repeat: Infinity, duration: 2 }}
-      >
-        <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
-          <span className="text-xs text-purple-600">CRUSH</span>
-        </div>
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-          <span className="text-xs text-green-600">BRAVO</span>
-        </div>
-      </motion.div>
     </motion.div>
   </motion.div>
 );
