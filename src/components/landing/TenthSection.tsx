@@ -1,7 +1,8 @@
+
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Shield, ShieldCheck, ShieldLock, Leaf } from "lucide-react";
+import { ArrowRight, Shield, ShieldCheck, ShieldAlert, ShieldHalf, Leaf } from "lucide-react";
 
 export const TenthSection = () => {
   const theme = useTheme();
@@ -9,9 +10,9 @@ export const TenthSection = () => {
   const complianceCards = [
     { title: 'HIPAA Compliant', icon: <Shield className="h-8 w-8 text-white" /> },
     { title: 'PIPEDA Compliant', icon: <Leaf className="h-8 w-8 text-white" /> },
-    { title: 'ISO27001 Accredited', icon: <ShieldLock className="h-8 w-8 text-white" /> },
+    { title: 'ISO27001 Accredited', icon: <ShieldHalf className="h-8 w-8 text-white" /> },
     { title: 'NHS Compliant', icon: <Shield className="h-8 w-8 text-white" /> },
-    { title: '​Cyber Essential Certified', icon: <Shield className="h-8 w-8 text-white" /> },
+    { title: '​Cyber Essential Certified', icon: <ShieldAlert className="h-8 w-8 text-white" /> },
     { title: 'GDPR Compliant', icon: <ShieldCheck className="h-8 w-8 text-white" /> }
   ];
 
@@ -282,3 +283,4 @@ export const TenthSection = () => {
     </section>
   );
 };
+
