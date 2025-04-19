@@ -1,4 +1,3 @@
-
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
@@ -162,13 +161,12 @@ export const TenthSection = () => {
   );
 };
 
-// Grid component for organizing the compliance cards in a more visually pleasing layout
 const Grid = ({ cards }) => {
   return (
     <Box sx={{ 
       display: 'grid',
       gridTemplateColumns: { md: 'repeat(3, 1fr)', lg: 'repeat(6, 1fr)' },
-      gap: 3,
+      gap: 2,
       width: '100%'
     }}>
       {cards.map((card, index) => (
@@ -178,7 +176,6 @@ const Grid = ({ cards }) => {
   );
 };
 
-// ComplianceCard component for consistent card styling
 const ComplianceCard = ({ card, index }) => {
   return (
     <motion.div
@@ -192,22 +189,22 @@ const ComplianceCard = ({ card, index }) => {
         sx={{ 
           position: 'relative',
           width: '100%',
-          minWidth: '180px',
-          height: '240px',
-          p: 3,
-          borderRadius: '20px',
+          minWidth: '140px',
+          height: '200px',
+          p: 2,
+          borderRadius: '16px',
           background: 'linear-gradient(170deg, rgba(56, 126, 137, 0.85) 0%, rgba(20, 49, 81, 0.95) 100%)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)',
+          boxShadow: '0 6px 24px rgba(0, 0, 0, 0.2)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 3,
+          gap: 2,
           transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
           overflow: 'hidden',
           '&:hover': {
-            transform: 'translateY(-10px)',
-            boxShadow: '0 16px 40px rgba(0, 0, 0, 0.35)',
+            transform: 'translateY(-8px)',
+            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.3)',
           }
         }}
       >
@@ -224,17 +221,17 @@ const ComplianceCard = ({ card, index }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '96px',
-            height: '96px',
+            width: '72px',
+            height: '72px',
             borderRadius: '50%',
             backdropFilter: 'blur(10px)',
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
             border: '1px solid rgba(255, 255, 255, 0.3)',
             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            mb: 2,
+            mb: 1,
             '&:hover': {
               transform: 'scale(1.05)',
-              boxShadow: '0 0 25px rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 0 20px rgba(255, 255, 255, 0.2)',
             }
           }}
         >
@@ -246,8 +243,8 @@ const ComplianceCard = ({ card, index }) => {
           sx={{ 
             textAlign: 'center',
             color: 'white',
-            fontSize: { xs: '1.1rem', md: '1.25rem' },
-            textShadow: '0 2px 4px rgba(0,0,0,0.2)'
+            fontSize: { xs: '0.9rem', md: '1rem' },
+            textShadow: '0 1px 3px rgba(0,0,0,0.2)'
           }}
         >
           {card.title}
