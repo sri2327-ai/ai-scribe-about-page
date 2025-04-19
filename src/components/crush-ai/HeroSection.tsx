@@ -323,10 +323,17 @@ export const HeroSection = () => {
                     }
                   }}
                 >
-                  <item.icon size={20} color="white" strokeWidth={1.5} />
+                  <item.icon size={20} color="black" strokeWidth={1.5} />
                 </Box>
               </HoverCardTrigger>
-              <HoverCardContent className="w-64 bg-black/80 border border-white/20">
+              <HoverCardContent 
+                className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20"
+                sx={{
+                  color: 'white',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+                }}
+              >
                 <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
                   {item.name}
                 </Typography>
