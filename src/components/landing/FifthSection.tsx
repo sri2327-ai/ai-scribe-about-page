@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Box, Paper, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Paper, Stack, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X } from 'lucide-react';
@@ -54,15 +54,33 @@ const ROIMetrics = {
 };
 
 const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const cardRef = useRef(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ['start end', 'center center']
+  });
+
+  const x = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [isRight ? 100 : -100, 0]
+  );
+
+  const rotate = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [isRight ? 5 : -5, 0]
+  );
 
   return (
     <motion.div
-      initial={{ x: isRight ? 100 : -100, opacity: 0 }}
-      whileInView={{ x: 0, opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
+      ref={cardRef}
+      style={{
+        x,
+        rotate,
+      }}
+      className={`w-full max-w-[500px] ${isRight ? 'ml-auto' : 'mr-auto'}`}
     >
       <Paper elevation={2} sx={{ 
         p: 4, 
@@ -71,9 +89,6 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         position: 'relative',
         overflow: 'hidden',
         border: '1px solid rgba(0,0,0,0.1)',
-        maxWidth: '500px',
-        ml: isRight ? 'auto' : 0,
-        mr: isRight ? 0 : 'auto',
       }}>
         <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start', position: 'relative', zIndex: 2 }}>
           <Box sx={{ 
@@ -93,7 +108,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
             <Typography variant="h5" fontWeight="bold" color="black" sx={{ mb: 1 }}>
               {title}
             </Typography>
-            <Typography variant={isMobile ? "body2" : "body1"} color="text.secondary">
+            <Typography color="text.secondary">
               {description}
             </Typography>
           </Box>
@@ -104,7 +119,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
             position: 'absolute',
             top: -20,
             right: -10,
-            fontSize: { xs: '120px', md: '180px' },
+            fontSize: '180px',
             fontWeight: 'bold',
             background: 'linear-gradient(135deg, #e0e0e0, #f5f5f5)',
             backgroundClip: 'text',
@@ -123,22 +138,13 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
 };
 
 export const FifthSection = () => {
-  const theme = useTheme();
   const containerRef = useRef(null);
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
 
-  const settings = {
-    dots: false,
-    arrows: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 1,
-    autoplay: true,
-    autoplaySpeed: 2000
-  };
+  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section ref={containerRef} className="py-20 px-4 md:px-8 bg-white">
@@ -191,16 +197,18 @@ export const FifthSection = () => {
             The Complete Workflow Transformation
           </Typography>
           
-          <Box
-            sx={{
+          <motion.div
+            style={{
               position: 'absolute',
               left: '50%',
               top: '100px',
               bottom: '100px',
               width: '2px',
               background: 'linear-gradient(to bottom, transparent, #387E89, transparent)',
-              display: { xs: 'none', md: 'block' }
+              scaleY: height,
+              transformOrigin: 'top',
             }}
+            className="hidden md:block"
           />
           
           <Box sx={{ position: 'relative', zIndex: 1 }}>
