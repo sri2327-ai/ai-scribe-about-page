@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
@@ -12,19 +11,49 @@ import CustomTooltip from "@/components/ui/custom-tooltip";
 import { GradientSection } from "@/components/ui/gradient-section";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { CrushTooltip } from "@/components/crush-ai/CrushTooltip";
+import { Shield } from "lucide-react";
+import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { Box, Typography } from "@mui/material";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(muiTheme.breakpoints.between('sm', 'md'));
 
-  // C.R.U.S.H tooltip content with updated content for "C"
   const tooltipData = [
     { letter: 'C', content: 'Customisable' },
     { letter: 'R', content: 'Real-Time EHR Sync' },
     { letter: 'U', content: 'Universal Coding' },
     { letter: 'S', content: 'Smart AI Assistance' },
     { letter: 'H', content: 'Healthcare Automation' }
+  ];
+
+  const complianceIcons = [
+    {
+      name: "HIPAA",
+      description: "Health Insurance Portability and Accountability Act Compliant",
+      icon: Shield
+    },
+    {
+      name: "PIPEDA",
+      description: "Personal Information Protection and Electronic Documents Act Compliant",
+      icon: Shield
+    },
+    {
+      name: "ISO 27001",
+      description: "International Organization for Standardization Security Certified",
+      icon: Shield
+    },
+    {
+      name: "GDPR",
+      description: "General Data Protection Regulation Compliant",
+      icon: Shield
+    },
+    {
+      name: "APP",
+      description: "Australian Privacy Principles Compliant",
+      icon: Shield
+    }
   ];
 
   return (
@@ -42,7 +71,6 @@ export const HeroSection = () => {
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
-        {/* Mobile/Tablet Layout: Stack Vertically with Text First, Animation Second */}
         {(isMobile || isTablet) && (
           <Box sx={{ 
             display: 'flex', 
@@ -53,7 +81,6 @@ export const HeroSection = () => {
             gap: 6,
             mb: 4
           }}>
-            {/* Text Section */}
             <Box 
               component={motion.div}
               initial={{ opacity: 0, y: 20 }}
@@ -115,7 +142,6 @@ export const HeroSection = () => {
               </ShadcnButton>
             </Box>
 
-            {/* Animation Section with Ripple Background */}
             <Box 
               sx={{ 
                 width: '100%',
@@ -128,7 +154,6 @@ export const HeroSection = () => {
                 position: 'relative'
               }}
             >
-              {/* Ripple effect background */}
               <div className={rippleStyles.rippleBackground}>
                 <div className={`${rippleStyles.ripple} bg-[#046f90]/30`}></div>
                 <div className={`${rippleStyles.ripple} bg-[#046f90]/20`}></div>
@@ -155,7 +180,6 @@ export const HeroSection = () => {
           </Box>
         )}
 
-        {/* Desktop Layout: Side by Side */}
         {!isMobile && !isTablet && (
           <Box sx={{ 
             display: 'flex', 
@@ -242,7 +266,6 @@ export const HeroSection = () => {
                 position: 'relative'
               }}
             >
-              {/* Ripple effect background */}
               <div className={rippleStyles.rippleBackground}>
                 <div className={`${rippleStyles.ripple} bg-[#046f90]/30`}></div>
                 <div className={`${rippleStyles.ripple} bg-[#046f90]/20`}></div>
@@ -269,6 +292,53 @@ export const HeroSection = () => {
             </Box>
           </Box>
         )}
+
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            gap: 2,
+            mt: 4,
+            flexWrap: 'wrap'
+          }}
+        >
+          {complianceIcons.map((item, index) => (
+            <HoverCard key={index}>
+              <HoverCardTrigger asChild>
+                <Box
+                  component="button"
+                  sx={{
+                    width: 40,
+                    height: 40,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '8px',
+                    bgcolor: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    backdropFilter: 'blur(8px)',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(255, 255, 255, 0.2)',
+                      transform: 'translateY(-2px)'
+                    }
+                  }}
+                >
+                  <item.icon size={20} color="white" strokeWidth={1.5} />
+                </Box>
+              </HoverCardTrigger>
+              <HoverCardContent className="w-64 bg-black/80 border border-white/20">
+                <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
+                  {item.name}
+                </Typography>
+                <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                  {item.description}
+                </Typography>
+              </HoverCardContent>
+            </HoverCard>
+          ))}
+        </Box>
       </Container>
     </GradientSection>
   );
