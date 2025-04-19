@@ -1,8 +1,10 @@
+
 import React from 'react';
-import { Box, Typography, Button } from "@mui/material";
-import { ArrowRight } from "lucide-react";
+import { Box, Typography } from "@mui/material";
 import { CrushIllustration } from './illustrations/CrushIllustration';
 import { BravoIllustration } from './illustrations/BravoIllustration';
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export const FourthSection = () => {
   return (
@@ -23,91 +25,54 @@ export const FourthSection = () => {
           </Typography>
         </Box>
         
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: { xs: 'column', md: 'row' }, 
-          gap: { xs: 4, md: 6 },
-          justifyContent: 'center',
-          alignItems: 'stretch'
-        }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
           {[
             {
               title: "C.R.U.S.H",
               subtitle: "AI Medical Scribe Assistant Powered by Robots",
-              description: "Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care. It ensures compliance, accurate speech-to-text for doctors, and efficiency.",
+              description: "Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care.",
               Illustration: CrushIllustration
             },
             {
               title: "B.R.A.V.O",
               subtitle: "AI Patient Care Agent Powered by Robots",
-              description: "Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged—enhancing clinical workflow optimization, healthcare AI infrastructure, and patient satisfaction.",
+              description: "Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged.",
               Illustration: BravoIllustration
             }
           ].map(({ title, subtitle, description, Illustration }) => (
-            <Box
+            <div
               key={title}
-              sx={{ 
-                flex: '1',
-                maxWidth: { xs: '100%', md: '600px' },
-                display: 'flex',
-                flexDirection: 'column',
-                backgroundColor: 'white',
-                borderRadius: 2,
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                overflow: 'hidden'
-              }}
+              className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl"
             >
-              <Box sx={{ p: 4, display: 'flex', flexDirection: 'column', gap: 3, flex: 1 }}>
-                <Box sx={{ 
-                  width: '100%',
-                  aspectRatio: '16/9',
-                  overflow: 'hidden',
-                  borderRadius: 2,
-                  bgcolor: 'white'
-                }}>
+              <div className="p-6 flex flex-col gap-6">
+                <div className="aspect-video w-full bg-gray-50 rounded-lg overflow-hidden">
                   <Illustration />
-                </Box>
+                </div>
                 
-                <Typography variant="h4" sx={{ color: '#143151', textAlign: 'center', fontWeight: 'bold' }}>
-                  {title}
-                </Typography>
-                
-                <Typography variant="h6" sx={{ color: '#143151', textAlign: 'center', fontWeight: 600 }}>
-                  {subtitle}
-                </Typography>
-                
-                <Typography sx={{ color: '#143151', textAlign: 'center', lineHeight: 1.7 }}>
-                  {description}
-                </Typography>
-              </Box>
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold text-[#143151] text-center">
+                    {title}
+                  </h3>
+                  
+                  <h4 className="text-lg font-semibold text-[#387E89] text-center">
+                    {subtitle}
+                  </h4>
+                  
+                  <p className="text-gray-600 text-center">
+                    {description}
+                  </p>
+                </div>
 
-              <Box sx={{ p: 4, pt: 0 }}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    background: 'linear-gradient(to right, #143151, #387E89)',
-                    color: 'white',
-                    py: 1.5,
-                    borderRadius: 6,
-                    textTransform: 'none',
-                    fontSize: '1rem',
-                    fontWeight: 500,
-                    '&:hover': {
-                      background: 'linear-gradient(to right, #12283F, #2E6A75)',
-                      opacity: 0.9
-                    }
-                  }}
+                <Button 
+                  className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white"
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    View More
-                    <ArrowRight size={20} />
-                  </Box>
+                  View More
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </Box>
-            </Box>
+              </div>
+            </div>
           ))}
-        </Box>
+        </div>
       </Box>
     </section>
   );
