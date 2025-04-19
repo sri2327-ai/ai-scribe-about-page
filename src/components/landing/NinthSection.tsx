@@ -15,7 +15,15 @@ export const NinthSection = () => {
 
   return (
     <section className="witOutSp" style={{ background: theme.palette.common.white, paddingTop: '30px', paddingBottom: '30px' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`, flexGrow: 1, gap: 3, p: 3, borderRadius: 4 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        background: 'linear-gradient(135deg, #143151, #387E89)',
+        flexGrow: 1, 
+        gap: 3, 
+        p: 3, 
+        borderRadius: 4 
+      }}>
         <Stack
           spacing={3}
           direction="column"
@@ -26,7 +34,7 @@ export const NinthSection = () => {
           }}
           useFlexGap
         >
-          <Typography variant="h3" fontWeight="semiBold" sx={{ color: theme.palette.text.secondary }}>
+          <Typography variant="h3" fontWeight="semiBold" sx={{ color: 'white' }}>
             The S10.AI<br />Competitive Edge 
           </Typography>
           <Button 
@@ -34,19 +42,20 @@ export const NinthSection = () => {
             sx={{ 
               textTransform: "capitalize",
               background: theme.palette.common.white,
-              border: `1px solid ${theme.palette.primary.main}`,
+              border: `1px solid ${theme.palette.common.white}`,
               px: 3,
               py: 1.5,
               borderRadius: "50px",
               "&:hover": {
                 ".icon-box": {
                   transform: "rotate(-270deg)",
-                  color: theme.palette.primary.main,
-                  borderColor: theme.palette.primary.main,
+                  color: "white",
+                  borderColor: "white",
                 },
                 ".button-text": {
-                  color: theme.palette.primary.main,
+                  color: "white",
                 },
+                background: 'linear-gradient(135deg, #143151, #387E89)',
               },
               boxShadow: 1
             }}
@@ -60,8 +69,8 @@ export const NinthSection = () => {
                   width: 25,
                   height: 25,
                   borderRadius: "50%", 
-                  color: theme.palette.primary.main,
-                  border: `2px solid ${theme.palette.primary.main}`,
+                  color: "#143151",
+                  border: `2px solid #143151`,
                   transition: "transform 0.3s ease",
                   transform: "rotate(0deg)",
                   mr: 1
@@ -76,7 +85,7 @@ export const NinthSection = () => {
               variant='h6' 
               fontWeight="semiBold" 
               sx={{
-                color: theme.palette.primary.main,
+                color: "#143151",
                 transition: "color 0.3s ease"
               }}
             >
@@ -106,20 +115,46 @@ export const NinthSection = () => {
                 maxWidth: { xs : 200, sm: 228, md: 160, lg: 240 },
                 flexBasis: { xs : 200, sm: 228, md: 160, lg: 240 },
                 borderRadius: 3, 
-                border: isMobTabScr || isHovered1 ? `1px solid ${theme.palette.primary.light}` : `1px solid ${theme.palette.primary.main}`,
-                background: isMobTabScr || isHovered1 ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : theme.palette.common.white,
+                border: `1px solid white`,
+                background: theme.palette.common.white,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
                 p: 2,
                 boxShadow: 0,
-                minHeight: 130
+                minHeight: 130,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #143151, #387E89)',
+                  '& .icon-box': {
+                    transform: 'rotate(360deg)',
+                    color: 'white'
+                  },
+                  '& .title': {
+                    color: 'white'
+                  },
+                  '& .description': {
+                    color: 'white'
+                  }
+                }
               }}
               onHoverStart={() => setIsHovered1(true)}
               onHoverEnd={() => !isMobTabScr && setIsHovered1(false)}
             >
-              <Typography variant="h5" fontWeight="semiBold" sx={{ minHeight: 60, display: 'flex', alignItems:'center', justifyContent:'center', textAlign: 'center', color: isMobTabScr || isHovered1 ? theme.palette.text.secondary : theme.palette.primary.main }}>
+              <Typography 
+                className="title"
+                variant="h5" 
+                fontWeight="semiBold" 
+                sx={{ 
+                  minHeight: 60, 
+                  display: 'flex', 
+                  alignItems:'center', 
+                  justifyContent:'center', 
+                  textAlign: 'center', 
+                  color: 'black',
+                  transition: 'color 0.3s ease'
+                }}
+              >
                 Science-Driven AI
               </Typography>
               <MotionPaper
@@ -138,10 +173,19 @@ export const NinthSection = () => {
                   background: 'transparent'
                 }}
               >
-                <Typography variant="h6" fontWeight="semiBold" sx={{ textAlign: 'center', color: theme.palette.text.secondary }}>
-                  Truth-first, responsible AI powered by S10’s patented IPKO for smarter automation. 
+                <Typography 
+                  className="description"
+                  variant="h6" 
+                  fontWeight="semiBold" 
+                  sx={{ 
+                    textAlign: 'center', 
+                    color: 'black',
+                    transition: 'color 0.3s ease'
+                  }}
+                >
+                  Truth-first, responsible AI powered by S10's patented IPKO for smarter automation. 
                 </Typography>
-                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1 }} /> 
+                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1, borderColor: 'white' }} /> 
               </MotionPaper>
               <Box
                 className="icon-box"
@@ -151,12 +195,12 @@ export const NinthSection = () => {
                   justifyContent: "center",
                   width: 25,
                   height: 25,
-                  color: isMobTabScr || isHovered1 ? theme.palette.text.secondary : theme.palette.primary.main,
-                  transition: "transform 0.3s",
+                  color: 'black',
+                  transition: "all 0.3s ease",
                   transform: isMobTabScr || isHovered1 ? "rotate(360deg)" :  "rotate(90deg)",
                   mr: 1
                 }}
-                >
+              >
                 <ArrowUpRight className="h-4 w-4" />
               </Box>
             </MotionPaper>
@@ -172,20 +216,46 @@ export const NinthSection = () => {
                 maxWidth: { xs : 200, sm: 228, md: 160, lg: 240 },
                 flexBasis: { xs : 200, sm: 228, md: 160, lg: 240 },
                 borderRadius: 3, 
-                border: isMobTabScr || isHovered2 ? `1px solid ${theme.palette.primary.light}` : `1px solid ${theme.palette.primary.main}`,
-                background: isMobTabScr || isHovered2 ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : theme.palette.common.white,
+                border: `1px solid white`,
+                background: theme.palette.common.white,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
                 p: 2,
                 boxShadow: 0,
-                minHeight: 130
+                minHeight: 130,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #143151, #387E89)',
+                  '& .icon-box': {
+                    transform: 'rotate(360deg)',
+                    color: 'white'
+                  },
+                  '& .title': {
+                    color: 'white'
+                  },
+                  '& .description': {
+                    color: 'white'
+                  }
+                }
               }}
               onHoverStart={() => setIsHovered2(true)}
               onHoverEnd={() => !isMobTabScr && setIsHovered2(false)}
             >
-              <Typography variant="h5" fontWeight="semiBold" sx={{ minHeight: 60, display: 'flex', alignItems:'center', justifyContent:'center', textAlign: 'center', color: isMobTabScr || isHovered2 ? theme.palette.text.secondary : theme.palette.primary.main }}>
+              <Typography 
+                className="title"
+                variant="h5" 
+                fontWeight="semiBold" 
+                sx={{ 
+                  minHeight: 60, 
+                  display: 'flex', 
+                  alignItems:'center', 
+                  justifyContent:'center', 
+                  textAlign: 'center', 
+                  color: 'black',
+                  transition: 'color 0.3s ease'
+                }}
+              >
                 Cross-Lingual Precision
               </Typography>
               <MotionPaper
@@ -204,10 +274,19 @@ export const NinthSection = () => {
                   background: 'transparent'
                 }}
               >
-                <Typography variant="h6" fontWeight="semiBold" sx={{ textAlign: 'center', color: theme.palette.text.secondary }}>
+                <Typography 
+                  className="description"
+                  variant="h6" 
+                  fontWeight="semiBold" 
+                  sx={{ 
+                    textAlign: 'center', 
+                    color: 'black',
+                    transition: 'color 0.3s ease'
+                  }}
+                >
                   Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition.
                 </Typography>
-                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1 }} /> 
+                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1, borderColor: 'white' }} /> 
               </MotionPaper>
               <Box
                 className="icon-box"
@@ -217,12 +296,12 @@ export const NinthSection = () => {
                   justifyContent: "center",
                   width: 25,
                   height: 25,
-                  color: isMobTabScr || isHovered2 ? theme.palette.text.secondary : theme.palette.primary.main,
-                  transition: "transform 0.3s",
+                  color: 'black',
+                  transition: "all 0.3s ease",
                   transform: isMobTabScr || isHovered2 ? "rotate(360deg)" :  "rotate(90deg)",
                   mr: 1
                 }}
-                >
+              >
                 <ArrowUpRight className="h-4 w-4" />
               </Box>
             </MotionPaper>
@@ -238,20 +317,46 @@ export const NinthSection = () => {
                 maxWidth: { xs : 200, sm: 228, md: 160, lg: 240 },
                 flexBasis: { xs : 200, sm: 228, md: 160, lg: 240 },
                 borderRadius: 3, 
-                border: isMobTabScr || isHovered3 ? `1px solid ${theme.palette.primary.light}` : `1px solid ${theme.palette.primary.main}`,
-                background: isMobTabScr || isHovered3 ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : theme.palette.common.white,
+                border: `1px solid white`,
+                background: theme.palette.common.white,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
                 p: 2,
                 boxShadow: 0,
-                minHeight: 130
+                minHeight: 130,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #143151, #387E89)',
+                  '& .icon-box': {
+                    transform: 'rotate(360deg)',
+                    color: 'white'
+                  },
+                  '& .title': {
+                    color: 'white'
+                  },
+                  '& .description': {
+                    color: 'white'
+                  }
+                }
               }}
               onHoverStart={() => setIsHovered3(true)}
               onHoverEnd={() => !isMobTabScr && setIsHovered3(false)}
             >
-              <Typography variant="h5" fontWeight="semiBold" sx={{ minHeight: 60, display: 'flex', alignItems:'center', justifyContent:'center', textAlign: 'center', color: isMobTabScr || isHovered3 ? theme.palette.text.secondary : theme.palette.primary.main }}>
+              <Typography 
+                className="title"
+                variant="h5" 
+                fontWeight="semiBold" 
+                sx={{ 
+                  minHeight: 60, 
+                  display: 'flex', 
+                  alignItems:'center', 
+                  justifyContent:'center', 
+                  textAlign: 'center', 
+                  color: 'black',
+                  transition: 'color 0.3s ease'
+                }}
+              >
                 Clinician-Centric
               </Typography>
               <MotionPaper
@@ -270,10 +375,19 @@ export const NinthSection = () => {
                   background: 'transparent'
                 }}
               >
-                <Typography variant="h6" fontWeight="semiBold" sx={{ textAlign: 'center', color: theme.palette.text.secondary }}>
+                <Typography 
+                  className="description"
+                  variant="h6" 
+                  fontWeight="semiBold" 
+                  sx={{ 
+                    textAlign: 'center', 
+                    color: 'black',
+                    transition: 'color 0.3s ease'
+                  }}
+                >
                   AI that adapts to workflows, not disrupts them.
                 </Typography>
-                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1 }} /> 
+                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1, borderColor: 'white' }} /> 
               </MotionPaper>
               <Box
                 className="icon-box"
@@ -283,12 +397,12 @@ export const NinthSection = () => {
                   justifyContent: "center",
                   width: 25,
                   height: 25,
-                  color: isMobTabScr || isHovered3 ? theme.palette.text.secondary : theme.palette.primary.main,
-                  transition: "transform 0.3s",
+                  color: 'black',
+                  transition: "all 0.3s ease",
                   transform: isMobTabScr || isHovered3 ? "rotate(360deg)" :  "rotate(90deg)",
                   mr: 1
                 }}
-                >
+              >
                 <ArrowUpRight className="h-4 w-4" />
               </Box>
             </MotionPaper>
@@ -304,20 +418,46 @@ export const NinthSection = () => {
                 maxWidth: { xs : 200, sm: 228, md: 160, lg: 240 },
                 flexBasis: { xs : 200, sm: 228, md: 160, lg: 240 },
                 borderRadius: 3, 
-                border: isMobTabScr || isHovered4 ? `1px solid ${theme.palette.primary.light}` : `1px solid ${theme.palette.primary.main}`,
-                background: isMobTabScr || isHovered4 ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : theme.palette.common.white,
+                border: `1px solid white`,
+                background: theme.palette.common.white,
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 2,
                 p: 2,
                 boxShadow: 0,
-                minHeight: 130
+                minHeight: 130,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #143151, #387E89)',
+                  '& .icon-box': {
+                    transform: 'rotate(360deg)',
+                    color: 'white'
+                  },
+                  '& .title': {
+                    color: 'white'
+                  },
+                  '& .description': {
+                    color: 'white'
+                  }
+                }
               }}
               onHoverStart={() => setIsHovered4(true)}
               onHoverEnd={() => !isMobTabScr && setIsHovered4(false)}
             >
-              <Typography variant="h5" fontWeight="semiBold" sx={{ minHeight: 60, display: 'flex', alignItems:'center', justifyContent:'center', textAlign: 'center', color: isMobTabScr || isHovered4 ? theme.palette.text.secondary : theme.palette.primary.main }}>
+              <Typography 
+                className="title"
+                variant="h5" 
+                fontWeight="semiBold" 
+                sx={{ 
+                  minHeight: 60, 
+                  display: 'flex', 
+                  alignItems:'center', 
+                  justifyContent:'center', 
+                  textAlign: 'center', 
+                  color: 'black',
+                  transition: 'color 0.3s ease'
+                }}
+              >
                 Seamless Automation
               </Typography>
               <MotionPaper
@@ -336,10 +476,19 @@ export const NinthSection = () => {
                   background: 'transparent'
                 }}
               >
-                <Typography variant="h6" fontWeight="semiBold" sx={{ textAlign: 'center', color: theme.palette.text.secondary }}>
+                <Typography 
+                  className="description"
+                  variant="h6" 
+                  fontWeight="semiBold" 
+                  sx={{ 
+                    textAlign: 'center', 
+                    color: 'black',
+                    transition: 'color 0.3s ease'
+                  }}
+                >
                   AI for physician workflows with robotic interoperability.
-                  </Typography>
-                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1 }} /> 
+                </Typography>
+                <Divider variant="middle" flexItem sx={{ my: 1, mx: 0, borderWidth: 1, borderColor: 'white' }} /> 
               </MotionPaper>
               <Box
                 className="icon-box"
@@ -349,12 +498,12 @@ export const NinthSection = () => {
                   justifyContent: "center",
                   width: 25,
                   height: 25,
-                  color: isMobTabScr || isHovered4 ? theme.palette.text.secondary : theme.palette.primary.main,
-                  transition: "transform 0.3s",
+                  color: 'black',
+                  transition: "all 0.3s ease",
                   transform: isMobTabScr || isHovered4 ? "rotate(360deg)" :  "rotate(90deg)",
                   mr: 1
                 }}
-                >
+              >
                 <ArrowUpRight className="h-4 w-4" />
               </Box>
             </MotionPaper>
