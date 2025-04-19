@@ -81,6 +81,9 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         width: '100%',
         maxWidth: '450px',
         height: '250px',
+        marginBottom: '2rem',
+        marginLeft: isRight ? '5%' : 0,
+        marginRight: !isRight ? '5%' : 0,
       }}
       className={`flex-shrink-0 ${isRight ? 'ml-auto' : 'mr-auto'}`}
     >
