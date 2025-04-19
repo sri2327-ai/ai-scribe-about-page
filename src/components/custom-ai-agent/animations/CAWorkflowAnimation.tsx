@@ -241,28 +241,36 @@ export const CAWorkflowAnimation = () => {
     if (isAutoPlaying) {
       const timer = setInterval(() => {
         setCurrentStep((prev) => (prev + 1) % workflowSteps.length);
-      }, 4000); // Increased time to allow users to read content
+      }, 4000);
       return () => clearInterval(timer);
     }
   }, [isAutoPlaying]);
 
   return (
     <div className="relative w-full flex items-center justify-center overflow-hidden">
-      {/* Background elements */}
+      {/* Background elements - made more subtle and seamless */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.05 }}
           transition={{ duration: 0.5 }}
-          className="absolute w-full max-w-[600px] aspect-square rounded-full opacity-10"
-          style={{ backgroundColor: customAIAgentColors.tertiary }}
+          className="absolute w-full h-full"
+          style={{ 
+            backgroundImage: `radial-gradient(
+              ellipse at center, 
+              ${customAIAgentColors.tertiary}10 0%, 
+              ${customAIAgentColors.tertiary}05 100%
+            )`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }}
         />
         
         <motion.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          animate={{ opacity: 0.03 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="absolute w-full max-w-[500px] aspect-square rounded-full opacity-5 border border-blue-200"
+          className="absolute w-full h-full border-[1px] border-blue-100/20"
         />
       </div>
 
