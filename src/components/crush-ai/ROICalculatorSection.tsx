@@ -11,7 +11,7 @@ const tealBlueColor = "#5192AE";
 
 const barColors = {
   humanScribe: "#000000",
-  crushAI: "#5192AE"
+  crushAI: crushAIColors.secondary
 };
 
 export const ROICalculatorSection = () => {
