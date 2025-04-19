@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
@@ -85,13 +84,20 @@ export const ThirdSection = () => {
             aria-label="healthcare ai tabs"
             sx={{
               "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3 },
-              "& .MuiTabs-indicator": { backgroundColor: '#000000' },
+              "& .MuiTabs-indicator": { 
+                backgroundColor: '#387E89',
+                height: '3px',
+                borderRadius: '3px'
+              },
               "& .MuiTabs-scroller": { mx: 1 },
               "& .MuiTabScrollButton-root": {
-                border: "1px solid #000000",
+                border: "1px solid #387E89",
                 background: "#ffffff",
-                color: "#000000",
+                color: "#387E89",
                 borderRadius: "50%",
+                "&:hover": {
+                  backgroundColor: "#f0f9fa"
+                }
               }
             }}
           >
@@ -100,13 +106,17 @@ export const ThirdSection = () => {
                 key={index}
                 label={value}
                 sx={{
-                  color: "#000000",
+                  color: tabValue === index ? "#387E89" : "#666666",
                   mx: 1,
                   minHeight: 'unset',
                   textTransform: 'none',
                   fontWeight: tabValue === index ? 'bold' : 'medium',
+                  transition: 'all 0.3s ease',
+                  "&:hover": {
+                    color: "#387E89",
+                  },
                   "&.Mui-selected": {
-                    color: "#000000"
+                    color: "#387E89"
                   }
                 }}
               />
@@ -142,14 +152,15 @@ export const ThirdSection = () => {
                       type="single" 
                       collapsible 
                       className="w-full border-none space-y-4"
+                      defaultValue="item-0"
                     >
                       {value.map((item, itemIndex) => (
                         <AccordionItem 
                           value={`item-${itemIndex}`} 
                           key={itemIndex}
-                          className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2"
+                          className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2 hover:border-[#387E89] transition-colors"
                         >
-                          <AccordionTrigger className="text-black hover:no-underline px-4 py-3">
+                          <AccordionTrigger className="text-black hover:text-[#387E89] hover:no-underline px-4 py-3">
                             {item.title}
                           </AccordionTrigger>
                           <AccordionContent className="text-black/80 px-4 pb-3">
