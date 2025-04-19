@@ -70,7 +70,7 @@ export const CAWorkflowAnimation = () => {
       </div>
 
       {/* Workflow steps */}
-      <div className="relative w-full max-w-2xl">
+      <div className="relative w-full max-w-2xl flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
