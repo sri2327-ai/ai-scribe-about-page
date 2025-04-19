@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
@@ -73,6 +74,46 @@ export const ThirdSection = () => {
             Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.
           </Typography>
         </Box>
+
+        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3 }}>
+          <Tabs
+            value={tabValue}
+            onChange={handleChange}
+            variant="scrollable"
+            scrollButtons="auto"
+            allowScrollButtonsMobile
+            aria-label="healthcare ai tabs"
+            sx={{
+              "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3 },
+              "& .MuiTabs-indicator": { backgroundColor: '#000000' },
+              "& .MuiTabs-scroller": { mx: 1 },
+              "& .MuiTabScrollButton-root": {
+                border: "1px solid #000000",
+                background: "#ffffff",
+                color: "#000000",
+                borderRadius: "50%",
+              }
+            }}
+          >
+            {tabKeys.map((value, index) => (
+              <Tab 
+                key={index}
+                label={value}
+                sx={{
+                  color: "#000000",
+                  mx: 1,
+                  minHeight: 'unset',
+                  textTransform: 'none',
+                  fontWeight: tabValue === index ? 'bold' : 'medium',
+                  "&.Mui-selected": {
+                    color: "#000000"
+                  }
+                }}
+              />
+            ))}
+          </Tabs>
+        </Box>
+
         <Stack
           spacing={3}
           direction={{ xs: "column", md: "row" }}
@@ -86,46 +127,9 @@ export const ThirdSection = () => {
             borderRadius: '8px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
             p: 3,
-            minHeight: '500px'
+            minHeight: { xs: '400px', md: '500px' }
           }}>
-            <Tabs
-              value={tabValue}
-              onChange={handleChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              allowScrollButtonsMobile
-              aria-label="healthcare ai tabs"
-              sx={{
-                mb: 3,
-                "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3 },
-                "& .MuiTabs-indicator": { backgroundColor: '#000000' },
-                "& .MuiTabs-scroller": { mx: 1 },
-                "& .MuiTabScrollButton-root": {
-                  border: "1px solid #000000",
-                  background: "#ffffff",
-                  color: "#000000",
-                  borderRadius: "50%",
-                }
-              }}
-            >
-              {tabKeys.map((value, index) => (
-                <Tab 
-                  key={index}
-                  label={value}
-                  sx={{
-                    color: "#000000",
-                    mx: 1,
-                    minHeight: 'unset',
-                    textTransform: 'none',
-                    fontWeight: tabValue === index ? 'bold' : 'medium',
-                    "&.Mui-selected": {
-                      color: "#000000"
-                    }
-                  }}
-                />
-              ))}
-            </Tabs>
-            <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: '600px' }}>
+            <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: { xs: '400px', md: '600px' } }}>
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
                   <motion.div
