@@ -89,7 +89,6 @@ export const CompetitionSection = () => {
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(muiTheme.breakpoints.down('md'));
 
-  // Animation variants for rows
   const tableRowVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -109,7 +108,8 @@ export const CompetitionSection = () => {
       sx={{
         py: { xs: 8, md: 12 },
         position: "relative",
-        zIndex: 1
+        zIndex: 1,
+        backgroundColor: crushAIColors.primaryFlat
       }}
     >
       <Container maxWidth="lg">
@@ -127,6 +127,7 @@ export const CompetitionSection = () => {
               className="text-4xl md:text-5xl font-bold text-center mb-6 text-white"
               colors={{ first: "#FFFFFF", second: "#FFFFFF" }}
               sparklesCount={20}
+              style={{ color: "#FFFFFF" }}
             />
           </Box>
           <Typography
@@ -144,7 +145,6 @@ export const CompetitionSection = () => {
           </Typography>
         </Box>
 
-        {/* Tablet and desktop view: Display tabular comparison */}
         {!isMobile && (
           <Box
             component={motion.div}
