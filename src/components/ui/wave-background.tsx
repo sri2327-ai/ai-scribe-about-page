@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
@@ -15,11 +16,7 @@ const WaveContainer = styled(Box)<{ intensity: string; baseColor: string; height
     position: "relative",
     width: "100%",
     height: height || "auto",
-    background: `linear-gradient(135deg, 
-      ${baseColor} 0%, 
-      ${baseColor}40 30%, 
-      ${baseColor}20 70%, 
-      ${baseColor}10 100%)`,
+    background: `linear-gradient(135deg, ${baseColor} 0%, ${baseColor}40 100%)`,
     overflow: "hidden",
     zIndex: 0,
     
@@ -63,16 +60,21 @@ const WaveContainer = styled(Box)<{ intensity: string; baseColor: string; height
   })
 );
 
+const ContentContainer = styled(Box)({
+  position: "relative",
+  zIndex: 1,
+});
+
 export const WaveBackground: React.FC<WaveBackgroundProps> = ({
   intensity = "medium",
-  baseColor = "#A5CCF3",
+  baseColor = "#5192AE",
   children,
   height,
   className,
 }) => {
   return (
     <WaveContainer intensity={intensity} baseColor={baseColor} height={height} className={className}>
-      {children}
+      <ContentContainer>{children}</ContentContainer>
     </WaveContainer>
   );
 };
