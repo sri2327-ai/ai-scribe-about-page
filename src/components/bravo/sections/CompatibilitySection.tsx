@@ -113,23 +113,27 @@ export const CompatibilitySection = () => {
     <div 
       className="relative w-full py-28 overflow-hidden" 
     >
-      {/* Enhanced gradient background with more visible animation and glassmorphism */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-br from-[#26C6DA] to-[#F06292] opacity-95"
-        style={{ 
-          filter: 'blur(60px)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-        }}
-      />
+      {/* True glassmorphism background effect */}
+      <div className="absolute inset-0 z-0">
+        <AnimatedGradientBackground 
+          gradientColors={["#26C6DA", "#38B2BF", "#F06292", "#26C6DA"]} 
+          gradientStops={[0, 30, 70, 100]}
+          startingGap={250}
+          animationSpeed={0.05}
+          breathingRange={30}
+        />
+      </div>
       
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] bg-white/40 rounded-3xl p-8 border border-white/30 shadow-lg backdrop-blur-xl"
+          className="relative flex items-center justify-center min-h-[500px] bg-white/20 rounded-3xl p-8 border border-white/40 shadow-xl backdrop-blur-md"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
+          style={{
+            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
+          }}
         >
           <div className="relative z-20 w-full">
             <motion.div 
@@ -152,27 +156,27 @@ export const CompatibilitySection = () => {
                   visible: { opacity: 1, y: 0, scale: 1 }
                 }}
               >
-                <div className="w-64 h-64 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 shadow-lg overflow-hidden">
-                  <div className="h-8 bg-gradient-to-r from-blue-400/30 to-blue-600/30 flex items-center px-3">
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                    <div className="ml-auto text-xs font-medium text-white/80">PMS/EHR System</div>
+                <div className="w-64 h-64 rounded-xl bg-white/30 backdrop-blur-sm border border-white/40 shadow-lg overflow-hidden">
+                  <div className="h-8 bg-gradient-to-r from-blue-500/70 to-blue-700/70 flex items-center px-3">
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                    <div className="ml-auto text-xs font-medium text-white">PMS/EHR System</div>
                   </div>
                   
                   <div className="p-4 space-y-4">
                     {ehrFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
-                        className="flex items-center p-2 rounded-lg bg-blue-500/20 border border-blue-400/30"
+                        className="flex items-center p-2 rounded-lg bg-blue-500/40 border border-blue-400/50"
                         variants={featureVariants}
                         custom={idx}
                         transition={{ delay: idx * 0.2 }}
                       >
-                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
                           {feature.icon}
                         </div>
-                        <span className="text-sm font-medium text-white/90">{feature.label}</span>
+                        <span className="text-sm font-medium text-white">{feature.label}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -199,8 +203,8 @@ export const CompatibilitySection = () => {
                 }}
               >
                 <div className="relative">
-                  <div className="w-20 h-20 rounded-full backdrop-blur-xl bg-white/20 flex items-center justify-center shadow-lg border border-white/30 overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/10 to-purple-400/10 z-0" />
+                  <div className="w-20 h-20 rounded-full backdrop-blur-xl bg-white/40 flex items-center justify-center shadow-lg border border-white/50 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-400/30 to-purple-400/30 z-0" />
                     <GlowBorderEffect glow variant="teal" />
                     <span className="text-xl font-bold z-10 relative text-white">BRAVO</span>
                   </div>
@@ -219,8 +223,8 @@ export const CompatibilitySection = () => {
                           path={`M0,0 L100,0`}
                           gradientColors={["#0EA5E9", "#38BDF8", "#0EA5E9"]}
                           animationDuration={2}
-                          baseColor="#e5e7eb"
-                          strokeWidth={2}
+                          baseColor="#ffffff"
+                          strokeWidth={3}
                         />
                       </motion.div>
                       
@@ -236,8 +240,8 @@ export const CompatibilitySection = () => {
                           path={`M0,0 L100,0`}
                           gradientColors={["#D946EF", "#E879F9", "#D946EF"]}
                           animationDuration={2}
-                          baseColor="#e5e7eb"
-                          strokeWidth={2}
+                          baseColor="#ffffff"
+                          strokeWidth={3}
                         />
                       </motion.div>
                     </>
@@ -257,27 +261,27 @@ export const CompatibilitySection = () => {
                   visible: { opacity: 1, y: 0, scale: 1 }
                 }}
               >
-                <div className="w-64 h-64 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 shadow-lg overflow-hidden">
-                  <div className="h-8 bg-gradient-to-r from-purple-400/30 to-purple-600/30 flex items-center px-3">
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                    <div className="ml-auto text-xs font-medium text-white/80">VOIP System</div>
+                <div className="w-64 h-64 rounded-xl bg-white/30 backdrop-blur-sm border border-white/40 shadow-lg overflow-hidden">
+                  <div className="h-8 bg-gradient-to-r from-purple-500/70 to-purple-700/70 flex items-center px-3">
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                    <div className="ml-auto text-xs font-medium text-white">VOIP System</div>
                   </div>
                   
                   <div className="p-4 space-y-4">
                     {voipFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
-                        className="flex items-center p-2 rounded-lg bg-purple-500/20 border border-purple-400/30"
+                        className="flex items-center p-2 rounded-lg bg-purple-500/40 border border-purple-400/50"
                         variants={featureVariants}
                         custom={idx}
                         transition={{ delay: idx * 0.2 }}
                       >
-                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
+                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
                           {feature.icon}
                         </div>
-                        <span className="text-sm font-medium text-white/90">{feature.label}</span>
+                        <span className="text-sm font-medium text-white">{feature.label}</span>
                       </motion.div>
                     ))}
                   </div>
@@ -294,20 +298,20 @@ export const CompatibilitySection = () => {
               transition={{ duration: 0.8 }}
             >
               <motion.div
-                className="w-[90%] max-w-xl h-80 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 shadow-lg overflow-hidden"
+                className="w-[90%] max-w-xl h-80 rounded-xl bg-white/30 backdrop-blur-md border border-white/40 shadow-lg overflow-hidden"
                 variants={{
                   hidden: { opacity: 0, y: 40, scale: 0.8 },
                   visible: { opacity: 1, y: 0, scale: 1 }
                 }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="h-10 bg-gradient-to-r from-blue-400/20 to-purple-600/20 flex items-center px-4">
-                  <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                  <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/50"></div>
-                  <div className="w-2.5 h-2.5 rounded-full bg-white/50"></div>
+                <div className="h-10 bg-gradient-to-r from-blue-500/50 to-purple-600/50 flex items-center px-4">
+                  <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                  <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                  <div className="w-2.5 h-2.5 rounded-full bg-white/70"></div>
                   <div className="mx-auto flex items-center gap-2">
-                    <span className="text-sm font-medium text-white/90">Integrated Dashboard</span>
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-400 to-purple-400 flex items-center justify-center">
+                    <span className="text-sm font-medium text-white">Integrated Dashboard</span>
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
                       <span className="text-[8px] font-bold text-white">B</span>
                     </div>
                   </div>
@@ -329,23 +333,23 @@ export const CompatibilitySection = () => {
                         }}
                         animate={activeStep >= 4 ? "visible" : "hidden"}
                       >
-                        <div className="mb-2 w-12 h-12 rounded-lg flex items-center justify-center" 
+                        <div className="mb-2 w-12 h-12 rounded-lg flex items-center justify-center shadow-md" 
                           style={{
                             background: `linear-gradient(to bottom right, ${feature.gradient[0]}, ${feature.gradient[2]})`
                           }}
                         >
                           {feature.icon}
                         </div>
-                        <span className="text-sm font-medium text-white/90">{feature.label}</span>
+                        <span className="text-sm font-medium text-white">{feature.label}</span>
                       </motion.div>
                     ))}
                   </div>
                   
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <div className="h-6 w-24 rounded-md bg-blue-500/20 animate-pulse"></div>
-                    <div className="h-6 w-32 rounded-md bg-purple-500/20 animate-pulse"></div>
-                    <div className="h-6 w-20 rounded-md bg-blue-500/20 animate-pulse"></div>
-                    <div className="h-6 w-28 rounded-md bg-purple-500/20 animate-pulse"></div>
+                    <div className="h-6 w-24 rounded-md bg-blue-500/30 animate-pulse"></div>
+                    <div className="h-6 w-32 rounded-md bg-purple-500/30 animate-pulse"></div>
+                    <div className="h-6 w-20 rounded-md bg-blue-500/30 animate-pulse"></div>
+                    <div className="h-6 w-28 rounded-md bg-purple-500/30 animate-pulse"></div>
                   </div>
                 </div>
               </motion.div>
@@ -363,7 +367,7 @@ export const CompatibilitySection = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <p className="text-xl text-white">
+          <p className="text-xl font-semibold text-white shadow-text">
             BRAVO seamlessly integrates with your PMS/EHR System and VOIP infrastructure.
           </p>
         </motion.div>
