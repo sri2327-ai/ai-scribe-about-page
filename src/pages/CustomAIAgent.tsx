@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CAHeroSection } from '@/components/custom-ai-agent/CAHeroSection';
 import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
@@ -17,24 +16,8 @@ const CustomAIAgent = () => {
       <CABentoGrid />
       <CAWhyChooseSection />
       
-      {/* Built for Busy Clinics Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8 text-center" style={{
-            color: customAIAgentColors.primary
-          }}>
-              Built for Busy Clinics, Designed for Care Teams
-            </h2>
-            <p className="text-lg mb-12 text-center" style={{
-            color: customAIAgentColors.text.secondary
-          }}>
-              From patient intake to insurance verifications, your daily workflow is full of manual steps that slow you down. S10.AI eliminates those bottlenecks with intelligent automation—purpose-built for outpatient clinics, specialty practices, and medical groups.
-            </p>
-          </div>
-        </div>
-      </section>
-
+      {/* Removed the section as requested */}
+      
       {/* New Role Benefits Section */}
       <CARoleBenefits />
       
