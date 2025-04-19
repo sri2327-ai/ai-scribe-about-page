@@ -3,7 +3,7 @@ import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { FileCheck, MessageSquarePlus, Clock, ShieldCheck } from "lucide-react";
+import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield } from "lucide-react";
 import { QuoteTestimonial } from './QuoteTestimonial';
 
 export const ThirdSection = () => {
@@ -41,24 +41,94 @@ export const ThirdSection = () => {
       },
     ],
     "Streamline documentation": [
-      { "title": "Create clinical documentation automatically", "content": "Auto-generate accurate, specialty-specific notes from multilingual patient-clinician conversations, even offline." },
-      { "title": "Superior Documentation Accuracy", "content": "AI-driven medical transcription with Generative AI minimizes human error." },
-      { "title": "Seamless Integration", "content": "Fully compatible with any electronic health record (EHR)" },
-      { "title": "Clinical Decision Support", "content": "Instant guidelines, medical insights & jargon clarification." }
+      { 
+        icon: <FileText className="w-5 h-5" />,
+        title: "Create clinical documentation automatically", 
+        content: "Auto-generate accurate, specialty-specific notes from multilingual patient-clinician conversations, even offline.",
+        metric: "85% faster note creation"
+      },
+      { 
+        icon: <ShieldCheck className="w-5 h-5" />,
+        title: "Superior Documentation Accuracy", 
+        content: "AI-driven medical transcription with Generative AI minimizes human error.",
+        metric: "99% accuracy rate"
+      },
+      { 
+        icon: <Users className="w-5 h-5" />,
+        title: "Seamless Integration", 
+        content: "Fully compatible with any electronic health record (EHR)",
+        metric: "100+ EHR integrations"
+      },
+      { 
+        icon: <MessageSquarePlus className="w-5 h-5" />,
+        title: "Clinical Decision Support", 
+        content: "Instant guidelines, medical insights & jargon clarification.",
+        metric: "60% faster decisions"
+      }
     ],
     "AI powered Front Office": [
-      { "title": "Smart Appointment Management", "content": "AI handles scheduling, reschedules, cancellations, and automated reminders to reduce no-shows." },
-      { "title": "Seamless Patient Intake", "content": "Automates registration, history updates, and pre-visit documentation for faster onboarding." },
-      { "title": "Effortless Refill Processing", "content": "Verifies patients, confirms prescriptions, and alerts staff for quick approvals." },
-      { "title": "Proactive Preventative Care", "content": "AI-driven screenings (PHQ-9, GAD-7, etc.) and custom health plans enhance patient well-being." },
-      { "title": "RCM Automation", "content": "Streamlines insurance checks, prior authorizations, payment posting, and claim follow-ups for faster reimbursements." }
+      { 
+        icon: <Clock className="w-5 h-5" />,
+        title: "Smart Appointment Management", 
+        content: "AI handles scheduling, reschedules, cancellations, and automated reminders to reduce no-shows.",
+        metric: "50% fewer no-shows"
+      },
+      { 
+        icon: <Users className="w-5 h-5" />,
+        title: "Seamless Patient Intake", 
+        content: "Automates registration, history updates, and pre-visit documentation for faster onboarding.",
+        metric: "80% faster intake"
+      },
+      { 
+        icon: <FileCheck className="w-5 h-5" />,
+        title: "Effortless Refill Processing", 
+        content: "Verifies patients, confirms prescriptions, and alerts staff for quick approvals.",
+        metric: "90% faster refills"
+      },
+      { 
+        icon: <Shield className="w-5 h-5" />,
+        title: "Proactive Preventative Care", 
+        content: "AI-driven screenings (PHQ-9, GAD-7, etc.) and custom health plans enhance patient well-being.",
+        metric: "40% better screening"
+      },
+      { 
+        icon: <ShieldCheck className="w-5 h-5" />,
+        title: "RCM Automation", 
+        content: "Streamlines insurance checks, prior authorizations, payment posting, and claim follow-ups for faster reimbursements.",
+        metric: "45% faster payments"
+      }
     ],
     "Automate Tasks": [
-      { "title": "Automated Coding", "content": "AI-driven ICD-10 & E/M , CPT & HCC code capture." },
-      { "title": "Simplified Orders & Prescriptions", "content": "Automates medication & lab orders." },
-      { "title": "Instant Summaries", "content": "Generates referrals, after-visit notes & letters. " },
-      { "title": "Smart Pre-Charting", "content": "Prepares charts & retrieves patient history." },
-      { "title": "Seamless Lab & CRM Sync", "content": "Auto-updates lab results & patient records." }
+      { 
+        icon: <FileCheck className="w-5 h-5" />,
+        title: "Automated Coding", 
+        content: "AI-driven ICD-10 & E/M , CPT & HCC code capture.",
+        metric: "95% coding accuracy"
+      },
+      { 
+        icon: <MessageSquarePlus className="w-5 h-5" />,
+        title: "Simplified Orders & Prescriptions", 
+        content: "Automates medication & lab orders.",
+        metric: "70% faster orders"
+      },
+      { 
+        icon: <FileText className="w-5 h-5" />,
+        title: "Instant Summaries", 
+        content: "Generates referrals, after-visit notes & letters.",
+        metric: "85% time saved"
+      },
+      { 
+        icon: <Clock className="w-5 h-5" />,
+        title: "Smart Pre-Charting", 
+        content: "Prepares charts & retrieves patient history.",
+        metric: "75% faster prep"
+      },
+      { 
+        icon: <Shield className="w-5 h-5" />,
+        title: "Seamless Lab & CRM Sync", 
+        content: "Auto-updates lab results & patient records.",
+        metric: "100% sync accuracy"
+      }
     ]
   };
 
