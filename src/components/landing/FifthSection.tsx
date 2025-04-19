@@ -63,13 +63,13 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    [isRight ? 100 : -100, 0]
+    [isRight ? 60 : -60, 0]
   );
 
   const rotate = useTransform(
     scrollYProgress,
     [0, 1],
-    [isRight ? 5 : -5, 0]
+    [isRight ? 3 : -3, 0]
   );
 
   return (
@@ -79,13 +79,13 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         x,
         rotate,
         width: '100%',
-        maxWidth: '450px',
-        height: '250px',
+        maxWidth: '420px',
+        height: '220px',
       }}
       className={`flex-shrink-0 ${isRight ? 'ml-auto' : 'mr-auto'}`}
     >
       <Paper elevation={2} sx={{ 
-        p: 3,
+        p: 2.5,
         borderRadius: 2,
         height: '100%',
         display: 'flex',
@@ -95,25 +95,25 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         overflow: 'hidden',
         border: '1px solid rgba(0,0,0,0.1)',
       }}>
-        <Box sx={{ display: 'flex', gap: 3, alignItems: 'center', position: 'relative', zIndex: 2 }}>
+        <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', position: 'relative', zIndex: 2 }}>
           <Box sx={{ 
-            p: 2, 
+            p: 1.5, 
             borderRadius: '50%',
             background: 'linear-gradient(135deg, #143151, #387E89)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '60px',
-            height: '60px',
+            width: '50px',
+            height: '50px',
             flexShrink: 0
           }}>
-            <Icon size={30} color="white" />
+            <Icon size={25} color="white" />
           </Box>
           <Box sx={{ flex: 1 }}>
-            <Typography variant="h5" fontWeight="bold" color="black" sx={{ mb: 1 }}>
+            <Typography variant="h5" fontWeight="bold" color="black" sx={{ mb: 0.5, fontSize: '1.1rem' }}>
               {title}
             </Typography>
-            <Typography color="text.secondary">
+            <Typography color="text.secondary" sx={{ fontSize: '0.9rem' }}>
               {description}
             </Typography>
           </Box>
@@ -124,7 +124,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
             position: 'absolute',
             top: -20,
             right: -10,
-            fontSize: '180px',
+            fontSize: '150px',
             fontWeight: 'bold',
             background: 'linear-gradient(135deg, #e0e0e0, #f5f5f5)',
             backgroundClip: 'text',
@@ -149,10 +149,10 @@ export const FifthSection = () => {
     offset: ["start start", "end end"]
   });
 
-  const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const height = useTransform(scrollYProgress, [0, 0.2], ["20%", "100%"]);
 
   return (
-    <section ref={containerRef} className="py-20 px-4 md:px-8 bg-white relative">
+    <section ref={containerRef} className="py-16 px-4 md:px-8 bg-white relative">
       <Box sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
@@ -167,13 +167,13 @@ export const FifthSection = () => {
           sx={{ 
             textAlign: "center", 
             color: 'black',
-            mb: 8
+            mb: 6
           }}
         >
           How Bravo & CRUSH Transform Your Practice Together
         </Typography>
 
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, mb: 10, width: '100%' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, mb: 8, width: '100%' }}>
           {Object.entries(beforeAfterComparison).map(([key, data]) => (
             <Paper
               key={key}
@@ -204,8 +204,8 @@ export const FifthSection = () => {
           ))}
         </Box>
 
-        <Box sx={{ width: '100%', mb: 10, position: 'relative' }}>
-          <Typography variant="h4" fontWeight="bold" textAlign="center" mb={6} color="black">
+        <Box sx={{ width: '100%', mb: 8, position: 'relative' }}>
+          <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4} color="black">
             The Complete Workflow Transformation
           </Typography>
           
@@ -215,9 +215,9 @@ export const FifthSection = () => {
               left: '50%',
               top: 0,
               bottom: 0,
-              width: '2px',
-              background: 'linear-gradient(to bottom, transparent, #387E89, transparent)',
-              scaleY: height,
+              width: '3px',
+              background: 'linear-gradient(to bottom, #387E89, #143151)',
+              height: "100%", 
               transformOrigin: 'top',
               zIndex: 1,
               transform: 'translateX(-50%)'
@@ -230,7 +230,7 @@ export const FifthSection = () => {
             zIndex: 2, 
             display: 'flex', 
             flexDirection: 'column', 
-            gap: 2 
+            gap: 1
           }}>
             {cardIcons.map((card, index) => (
               <WorkflowCard 
