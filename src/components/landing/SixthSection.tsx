@@ -1,17 +1,11 @@
+
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
-import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 export const SixthSection = () => {
-  const animation = useScrollAnimation();
-  
   return(
-    <motion.section 
-      ref={animation.ref}
-      initial={animation.initial}
-      animate={animation.animate}
-      className="witOutSp relative py-12 md:py-16"
+    <section 
+      className="witOutSp relative py-12 md:py-16" // Reduced vertical padding
       style={{ 
         minHeight: 'unset', 
         background: `linear-gradient(180deg, #143151, #387E89)` 
@@ -102,6 +96,6 @@ export const SixthSection = () => {
           </Button>
         </Stack>
       </Box>
-    </motion.section>
+    </section>
   );
 };

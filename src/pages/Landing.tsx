@@ -1,5 +1,5 @@
+
 import React from 'react';
-import { motion } from 'framer-motion';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { SecondSection } from '@/components/landing/SecondSection';
 import { ThirdSection } from '@/components/landing/ThirdSection';
@@ -14,11 +14,7 @@ import { EleventhSection } from '@/components/landing/EleventhSection';
 
 const Landing = () => {
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="min-h-screen bg-white"
-    >
+    <div className="min-h-screen bg-white">
       <FirstSection />
       <SecondSection />
       <ThirdSection />
@@ -30,7 +26,7 @@ const Landing = () => {
       <NinthSection />
       <TenthSection />
       <EleventhSection />
-    </motion.div>
+    </div>
   );
 };
 
