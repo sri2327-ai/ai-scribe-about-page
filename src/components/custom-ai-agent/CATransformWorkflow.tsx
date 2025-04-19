@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
@@ -9,7 +10,8 @@ import {
   Clock, 
   MessageSquare,
   Shield,
-  ListChecks
+  ListChecks,
+  Check  // Add this import
 } from 'lucide-react';
 
 // Define workflow steps with illustrations
@@ -70,7 +72,7 @@ const StepIllustration = ({ step }) => {
           <h4 className="text-lg font-medium" style={{ color: customAIAgentColors.primary }}>{step.title}</h4>
         </div>
         <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
-          <CheckCircle size={16} className="text-green-500" />
+          <Check size={16} className="text-green-500" />  {/* Replace CheckCircle with Check */}
         </div>
       </div>
       
