@@ -239,41 +239,38 @@ export const WorkflowAutomationSection = () => {
                   <>
                     <div className="absolute bottom-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
-                        <Monitor className="h-4 w-4 text-white" />
-                        <span className="text-sm text-white font-medium">Screen-Focused</span>
+                        <Monitor className="h-4 w-4 text-black" />
+                        <span className="text-sm text-black font-medium">Screen-Focused Care</span>
                       </div>
                       <div className={`flex items-center gap-2 ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                         <span 
-                          className="text-sm font-medium"
-                          style={{ color: crushAIColors.text.primary }}
+                          className="text-sm font-medium text-white"
+                          style={{ color: crushAIColors.text.white }}
                         >
-                          Patient-Focused
+                          Patient-Focused Care
                         </span>
                         <Users 
-                          className="h-4 w-4"
-                          style={{ color: crushAIColors.primary }}
+                          className="h-4 w-4 text-white"
                         />
                       </div>
                     </div>
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-                        style={{ backgroundColor: `#5192AECC` }}
+                        style={{ backgroundColor: `${crushAIColors.background.white}`, color: crushAIColors.text.primary }}
                       >
-                        <Clock className="h-3 w-3 text-white" />
-                        <span className="text-xs text-white font-medium">Hours of documentation</span>
+                        <Clock className="h-3 w-3 text-black" />
+                        <span className="text-xs text-black font-medium">Hours of documentation</span>
                       </div>
                       <div 
                         className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition > 80 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
                         style={{ backgroundColor: `${crushAIColors.primary}20` }}
                       >
                         <Clock 
-                          className="h-3 w-3"
-                          style={{ color: crushAIColors.primary }}
+                          className="h-3 w-3 text-white"
                         />
                         <span 
-                          className="text-xs font-medium"
-                          style={{ color: crushAIColors.text.primary }}
+                          className="text-xs font-medium text-white"
                         >
                           Notes in &lt;60 seconds
                         </span>
