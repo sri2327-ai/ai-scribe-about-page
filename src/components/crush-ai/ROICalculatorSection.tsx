@@ -14,6 +14,12 @@ const barColors = {
   crushAI: crushAIColors.secondary
 };
 
+interface Particle {
+  id: number;
+  x: number;
+  y: number;
+}
+
 export const ROICalculatorSection = () => {
   const [providersInput, setProvidersInput] = useState<string>("3");
   const [costPerProviderInput, setCostPerProviderInput] = useState<string>("99");
