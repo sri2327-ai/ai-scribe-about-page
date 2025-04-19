@@ -259,6 +259,10 @@ export const ROICalculatorSection = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
+                      color: crushAIColors.text.primary, // Explicitly set text color
+                      '& input': {
+                        color: crushAIColors.text.primary, // Ensure input text is visible
+                      },
                       '& fieldset': {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                       },
