@@ -1,4 +1,3 @@
-
 import { Box, Typography } from "@mui/material";
 import Marquee from "react-fast-marquee";
 import { Brain, User, Heart, Eye, Building2, FlaskConical, Apple, Ambulance, CircleDot, Stethoscope, Droplets, Activity, HeartPulse, Ear, Microscope, ShieldPlus } from "lucide-react";
@@ -56,12 +55,8 @@ export const EighthSection = () => {
                 <div className="group">
                   <IconComponent
                     size={28}
+                    color="black"
                     className="group-hover:scale-110 transition-transform duration-300"
-                    style={{
-                      background: 'linear-gradient(135deg, #143151, #387E89)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent'
-                    }}
                   />
                 </div>
                 <Typography 
