@@ -79,15 +79,14 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         x,
         rotate,
         width: '100%',
-        maxWidth: '500px',
-        height: '300px',
+        maxWidth: '450px',
+        height: '250px',
       }}
       className={`flex-shrink-0 ${isRight ? 'ml-auto' : 'mr-auto'}`}
     >
       <Paper elevation={2} sx={{ 
-        p: 4, 
+        p: 3,
         borderRadius: 2,
-        mb: 4,
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -174,7 +173,7 @@ export const FifthSection = () => {
           How Bravo & CRUSH Transform Your Practice Together
         </Typography>
 
-        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 4, mb: 10, width: '100%' }}>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 2, mb: 10, width: '100%' }}>
           {Object.entries(beforeAfterComparison).map(([key, data]) => (
             <Paper
               key={key}
@@ -231,7 +230,7 @@ export const FifthSection = () => {
             zIndex: 2, 
             display: 'flex', 
             flexDirection: 'column', 
-            gap: 4 
+            gap: 2 
           }}>
             {cardIcons.map((card, index) => (
               <WorkflowCard 
