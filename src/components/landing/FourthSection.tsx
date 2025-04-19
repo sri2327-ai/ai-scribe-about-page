@@ -10,7 +10,7 @@ export const FourthSection = () => {
     <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
       <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
         <div className="max-w-[900px] mx-auto text-center">
-          <h3 className="text-3xl font-bold text-[#143151] mb-4">
+          <h3 className="text-3xl font-bold text-black mb-4">
             Meet Bravo & CRUSH – A S10'ing Experience
           </h3>
           <p className="text-lg text-gray-600">
