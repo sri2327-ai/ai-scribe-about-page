@@ -145,7 +145,7 @@ export const ClinicalWorkflowSection = () => {
       component="section"
       sx={{
         py: { xs: 4, md: 6 },
-        background: 'linear-gradient(to top, #d299c2 0%, #fef9d7 100%)', // Updated background with light pink gradient
+        background: crushAIColors.background.gradient,
         position: "relative",
         overflow: "hidden"
       }}
