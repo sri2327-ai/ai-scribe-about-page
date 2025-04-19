@@ -1,4 +1,3 @@
-
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -49,12 +48,18 @@ export const SeventhSection = () => {
             sx={{ 
               textTransform: "capitalize",
               color: '#143151',
-              borderColor: '#143151',
+              borderColor: 'transparent',
+              background: 'linear-gradient(135deg, #143151, #387E89)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
               px: 3,
               py: 1.5,
               borderRadius: "50px",
+              border: '2px solid transparent',
+              backgroundOrigin: 'border-box',
               "&:hover":{
-                backgroundColor: '#F0F4F7',
+                backgroundColor: 'rgba(20, 49, 81, 0.1)',
                 ".icon-box": {
                   transform: "rotate(-270deg)",
                   color: '#387E89',
@@ -92,7 +97,10 @@ export const SeventhSection = () => {
               variant='h6' 
               fontWeight="semiBold" 
               sx={{
-                color: '#143151',
+                background: 'linear-gradient(135deg, #143151, #387E89)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
                 transition: "color 0.3s ease"
               }}
             >
