@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Box, Button, Typography, Grid } from "@mui/material";
+import { Box, Button, Typography, Stack } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
@@ -14,100 +14,111 @@ export const FirstSection = () => {
   return (
     <section className="min-h-screen bg-white">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
-        <Grid container spacing={4} sx={{ alignItems: 'flex-start' }}>
-          {/* Left side with heading */}
-          <Grid item container sx={{ width: { xs: '100%', md: '58.33%', lg: '58.33%' } }}>
-            <Box
+        {/* Two column layout using flexbox for better control */}
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
+          {/* Left column - Heading and CTA */}
+          <Box
+            sx={{
+              maxWidth: { xs: '100%', md: '50%' },
+              pt: { xs: 4, md: 0 },
+              pr: { md: 4 },
+              animation: "fadeInUp 0.8s ease-out",
+              "@keyframes fadeInUp": {
+                "0%": {
+                  opacity: 0,
+                  transform: "translateY(20px)"
+                },
+                "100%": {
+                  opacity: 1,
+                  transform: "translateY(0)"
+                }
+              }
+            }}
+          >
+            <Typography
+              variant="h1"
               sx={{
-                pt: { xs: 4, md: 8, lg: 12 },
-                animation: "fadeInUp 0.8s ease-out",
-                "@keyframes fadeInUp": {
-                  "0%": {
-                    opacity: 0,
-                    transform: "translateY(20px)"
-                  },
-                  "100%": {
-                    opacity: 1,
-                    transform: "translateY(0)"
-                  }
+                fontSize: {
+                  xs: '2.5rem',
+                  sm: '3rem',
+                  md: '3.5rem',
+                  lg: '4rem',
+                },
+                lineHeight: {
+                  xs: 1.2,
+                  md: 1.1
+                },
+                fontWeight: 700,
+                color: '#000000',
+                letterSpacing: '-0.02em',
+                mb: {
+                  xs: 3,
+                  lg: 4
                 }
               }}
             >
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: {
-                    xs: '2.5rem',
-                    sm: '3rem',
-                    md: '3.5rem',
-                    lg: '4rem',
-                  },
-                  lineHeight: {
-                    xs: 1.2,
-                    md: 1.1
-                  },
-                  fontWeight: 700,
-                  color: '#000000',
-                  letterSpacing: '-0.02em',
-                  mb: {
-                    xs: 3,
-                    lg: 4
-                  }
-                }}
-              >
-                Innovative<br />
-                Ambient AI<br />
-                Solutions<br />
-                For Healthcare
-              </Typography>
+              Innovative<br />
+              Ambient AI<br />
+              Solutions<br />
+              For Healthcare
+            </Typography>
 
-              <Button
-                sx={{
-                  background: 'linear-gradient(to right, #143151, #387E89)',
-                  color: 'white',
-                  px: 4,
-                  py: 2,
-                  mt: 2,
-                  mb: 4,
-                  borderRadius: '50px',
-                  textTransform: 'none',
-                  fontSize: {
-                    xs: '1rem',
-                    md: '1.125rem'
-                  },
-                  fontWeight: 600,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
-                  width: {
-                    xs: '100%',
-                    sm: 'auto'
-                  },
-                  maxWidth: {
-                    xs: '100%',
-                    sm: '200px'
-                  },
-                  height: '50px',
-                  '&:hover': {
-                    background: 'linear-gradient(to right, #0d2440, #2d6974)'
-                  }
-                }}
-              >
-                <ArrowRight className="h-4 w-4" />
-                <span>Book A Demo</span>
-              </Button>
-            </Box>
-          </Grid>
+            <Button
+              sx={{
+                background: 'linear-gradient(to right, #143151, #387E89)',
+                color: 'white',
+                px: 4,
+                py: 2,
+                mt: 2,
+                mb: 4,
+                borderRadius: '50px',
+                textTransform: 'none',
+                fontSize: {
+                  xs: '1rem',
+                  md: '1.125rem'
+                },
+                fontWeight: 600,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                width: {
+                  xs: '100%',
+                  sm: 'auto'
+                },
+                maxWidth: {
+                  xs: '100%',
+                  sm: '200px'
+                },
+                height: '50px',
+                '&:hover': {
+                  background: 'linear-gradient(to right, #0d2440, #2d6974)'
+                }
+              }}
+            >
+              <ArrowRight className="h-4 w-4" />
+              <span>Book A Demo</span>
+            </Button>
+          </Box>
 
-          {/* Right side with card and animation */}
-          <Grid item container sx={{ width: { xs: '100%', md: '41.67%', lg: '41.67%' }, mt: { xs: 4, md: 16 } }}>
+          {/* Right column - Card and animation */}
+          <Box
+            sx={{
+              width: { xs: '100%', md: '45%' },
+              mt: { xs: 6, md: 0 },
+              position: 'relative',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: { xs: 'center', md: 'flex-start' }
+            }}
+          >
             <Box
               sx={{
                 width: '100%',
-                maxWidth: '480px',
-                mx: 'auto'
+                maxWidth: { xs: '450px', md: '100%' },
+                mx: { xs: 'auto', md: 0 }
               }}
             >
+              {/* Card with content */}
               <Box
                 sx={{
                   background: 'rgba(255, 255, 255, 0.1)',
@@ -227,8 +238,8 @@ export const FirstSection = () => {
                 </Box>
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </div>
       </div>
     </section>
   );
