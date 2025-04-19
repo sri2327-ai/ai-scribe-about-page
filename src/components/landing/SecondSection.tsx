@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card, CardContent, CardMedia, CardActionArea, Typography, Box } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Box, Grid, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 export const SecondSection = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -55,6 +57,70 @@ export const SecondSection = () => {
       "docNm": "— Dr. Lisbeth Roy, Chief Executive Officer, Doctors Studio"
     },
   ];
+
+  const TestimonialCard = ({ data }) => (
+    <Card 
+      sx={{ 
+        height: '100%',
+        backgroundColor: '#ffffff',
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        borderRadius: '12px',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        m: 1
+      }}
+    >
+      <CardMedia
+        component="img"
+        image={data.docImg}
+        alt={data.docImgAlt}
+        sx={{
+          width: "100%",
+          height: { xs: "280px", sm: "320px" },
+          objectFit: "cover",
+        }}
+      />
+      <CardContent 
+        sx={{ 
+          p: 4,
+          backgroundColor: '#ffffff',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          flexGrow: 1
+        }}
+      >
+        <Typography 
+          variant="body1" 
+          sx={{ 
+            color: "#000000",
+            fontWeight: 500,
+            textAlign: "center",
+            lineHeight: 1.6,
+            fontSize: { xs: '0.9rem', sm: '1rem' },
+            mb: 2
+          }}
+        >
+          {data.docReview}
+        </Typography>
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            color: "#000000",
+            fontWeight: 600,
+            textAlign: "center",
+            mt: 'auto',
+            fontSize: { xs: '0.85rem', sm: '0.9rem' },
+            wordBreak: 'break-word',
+            whiteSpace: 'normal'
+          }}
+        >
+          {data.docNm}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
   
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16">
@@ -72,71 +138,27 @@ export const SecondSection = () => {
           Trusted By Leading Healthcare Organisations
         </Typography>
 
-        <Box sx={{ mx: { xs: -2, md: -3 } }}>
-          <Slider {...settings}>
+        {isMobile ? (
+          // Mobile view with Slider
+          <Box sx={{ mx: { xs: -2, md: -3 } }}>
+            <Slider {...settings}>
+              {docRevData.map((value, index) => (
+                <Box key={index} sx={{ px: { xs: 2, md: 3 } }}>
+                  <TestimonialCard data={value} />
+                </Box>
+              ))}
+            </Slider>
+          </Box>
+        ) : (
+          // Desktop view with Grid (no slider)
+          <Grid container spacing={3}>
             {docRevData.map((value, index) => (
-              <Box key={index} sx={{ px: { xs: 2, md: 3 } }}>
-                <Card 
-                  sx={{ 
-                    height: '100%',
-                    backgroundColor: '#ffffff',
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                    borderRadius: '12px',
-                    overflow: 'hidden',
-                  }}
-                >
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      image={value.docImg}
-                      alt={value.docImgAlt}
-                      sx={{
-                        width: "100%",
-                        height: { xs: "280px", sm: "320px" },
-                        objectFit: "cover",
-                      }}
-                    />
-                    <CardContent 
-                      sx={{ 
-                        p: 4,
-                        backgroundColor: '#ffffff',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                        height: { xs: 'auto', sm: '240px' }
-                      }}
-                    >
-                      <Typography 
-                        variant="body1" 
-                        sx={{ 
-                          color: "#000000",
-                          fontWeight: 500,
-                          textAlign: "center",
-                          lineHeight: 1.6,
-                          fontSize: { xs: '0.9rem', sm: '1rem' }
-                        }}
-                      >
-                        {value.docReview}
-                      </Typography>
-                      <Typography 
-                        variant="body2" 
-                        sx={{ 
-                          color: "#000000",
-                          fontWeight: 600,
-                          textAlign: "center",
-                          mt: 'auto',
-                          fontSize: { xs: '0.85rem', sm: '0.9rem' }
-                        }}
-                      >
-                        {value.docNm}
-                      </Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </Box>
+              <Grid item xs={12} md={4} key={index}>
+                <TestimonialCard data={value} />
+              </Grid>
             ))}
-          </Slider>
-        </Box>
+          </Grid>
+        )}
       </Box>
     </section>
   );
