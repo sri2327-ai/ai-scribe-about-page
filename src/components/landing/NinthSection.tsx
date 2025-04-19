@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Paper, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
@@ -6,7 +6,8 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 export const NinthSection = () => {
   const theme = useTheme();
   const isMobTabScr = useMediaQuery("(max-width:900px)");
-  const MotionPaper = motion(Paper);
+
+  const MotionBox = motion(Box);
 
   return (
     <section className="witOutSp" style={{ background: theme.palette.common.white, paddingTop: '30px', paddingBottom: '30px' }}>
@@ -88,17 +89,17 @@ export const NinthSection = () => {
             </Typography>
           </Button>
         </Stack>
-        <Stack
-          spacing={3}
-          direction={"row"}
-          sx={{
-            flexWrap: 'wrap',
-            alignItems: 'flex-start',
-            flex: 1,
-            justifyContent: { xs: 'center', sm :'space-between', md: 'flex-end'},
-          }}
-          useFlexGap
-        >
+
+        <Box sx={{
+          display: 'grid',
+          gridTemplateColumns: {
+            xs: '1fr',
+            sm: 'repeat(2, 1fr)',
+            md: 'repeat(4, 1fr)',
+          },
+          gap: 3,
+          width: '100%',
+        }}>
           {[
             {
               title: "Science-Driven AI",
@@ -118,7 +119,7 @@ export const NinthSection = () => {
             }
           ].map((card, index) => (
             <AnimatePresence key={index}>
-              <MotionPaper
+              <MotionBox
                 layout
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -129,34 +130,28 @@ export const NinthSection = () => {
                   transition: { duration: 0.2 }
                 }}
                 sx={{
-                  maxWidth: { xs : 200, sm: 228, md: 160, lg: 240 },
-                  flexBasis: { xs : 200, sm: 228, md: 160, lg: 240 },
-                  borderRadius: 3, 
-                  border: `1px solid white`,
-                  background: theme.palette.common.white,
-                  overflow: 'hidden',
+                  height: '100%',
+                  minHeight: '280px',
+                  background: 'white',
+                  borderRadius: 3,
+                  p: 3,
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: 2,
-                  p: 2,
-                  boxShadow: 0,
-                  minHeight: 130,
+                  justifyContent: 'space-between',
                   cursor: 'pointer',
+                  transition: 'all 0.3s ease',
                   '&:hover': {
                     background: 'linear-gradient(135deg, #143151, #387E89)',
-                    '& .icon-box': {
-                      transform: 'rotate(360deg)',
-                      color: 'white'
-                    },
-                    '& .title': {
+                    '.title': {
                       color: 'white',
-                      transform: 'translateY(-2px)'
                     },
-                    '& .description': {
+                    '.description': {
                       color: 'white',
                       opacity: 1,
-                      transform: 'translateY(0)',
-                      maxHeight: '200px'
+                    },
+                    '.icon-box': {
+                      transform: 'rotate(360deg)',
+                      color: 'white'
                     }
                   }
                 }}
@@ -166,29 +161,23 @@ export const NinthSection = () => {
                   variant="h5" 
                   fontWeight="semiBold" 
                   sx={{ 
-                    minHeight: 60, 
-                    display: 'flex', 
-                    alignItems:'center', 
-                    justifyContent:'center', 
-                    textAlign: 'center', 
                     color: 'black',
-                    transition: 'all 0.3s ease'
+                    transition: 'color 0.3s ease',
+                    textAlign: 'center',
+                    mb: 2
                   }}
                 >
                   {card.title}
                 </Typography>
                 <Typography 
                   className="description"
-                  variant="h6" 
-                  fontWeight="semiBold" 
+                  variant="body1" 
                   sx={{ 
-                    textAlign: 'center', 
                     color: 'black',
-                    opacity: isMobTabScr ? 1 : 0.8,
-                    transform: isMobTabScr ? 'translateY(0)' : 'translateY(5px)',
-                    maxHeight: isMobTabScr ? '200px' : '0',
+                    opacity: 0.8,
                     transition: 'all 0.3s ease',
-                    overflow: 'hidden'
+                    textAlign: 'center',
+                    mb: 2
                   }}
                 >
                   {card.description}
@@ -196,6 +185,7 @@ export const NinthSection = () => {
                 <Box
                   className="icon-box"
                   sx={{
+                    alignSelf: 'center',
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -203,15 +193,15 @@ export const NinthSection = () => {
                     height: 25,
                     color: 'black',
                     transition: "all 0.3s ease",
-                    transform: "rotate(90deg)",
+                    transform: "rotate(0deg)",
                   }}
                 >
                   <ArrowUpRight className="h-4 w-4" />
                 </Box>
-              </MotionPaper>
+              </MotionBox>
             </AnimatePresence>
           ))}
-        </Stack>
+        </Box>
       </Box>
     </section>
   );
