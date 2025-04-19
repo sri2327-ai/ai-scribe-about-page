@@ -20,14 +20,7 @@ export const TenthSection = () => {
   ];
 
   return (
-    <section className="w-full py-20 relative overflow-hidden bg-[#143151]">
-      {/* Animated background for added visual interest */}
-      <AnimatedGradientBackground 
-        gradientColors={["rgba(56, 126, 137, 0.3)", "rgba(20, 49, 81, 0.4)"]} 
-        gradientStops={[0, 100]}
-        animationSpeed={0.01}
-      />
-      
+    <section className="w-full py-20 relative overflow-hidden bg-white">
       <Box sx={{ 
         maxWidth: '1400px',
         mx: 'auto',
@@ -62,7 +55,7 @@ export const TenthSection = () => {
                 fontWeight="bold"
                 sx={{ 
                   mb: 3,
-                  color: 'white',
+                  color: 'black',
                   fontSize: { xs: '2.25rem', sm: '2.75rem', md: '3.5rem' },
                   lineHeight: 1.2
                 }}
@@ -72,7 +65,7 @@ export const TenthSection = () => {
               <Typography 
                 variant="h5" 
                 sx={{ 
-                  color: 'rgba(255, 255, 255, 0.9)',
+                  color: 'rgba(0, 0, 0, 0.7)',
                   fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
                   lineHeight: 1.6,
                   maxWidth: '900px',
