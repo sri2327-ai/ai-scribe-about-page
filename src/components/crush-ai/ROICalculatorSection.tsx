@@ -513,5 +513,3 @@ export const ROICalculatorSection = () => {
     </Box>
   );
 };
-
-export { ROICalculatorSection };
