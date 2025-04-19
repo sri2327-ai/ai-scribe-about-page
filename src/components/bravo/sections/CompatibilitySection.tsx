@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { FileCheck, Phone, BarChart2, CalendarDays, Users, MessageCircle, Database, ArrowRightLeft } from 'lucide-react';
@@ -119,7 +118,7 @@ export const CompatibilitySection = () => {
       
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] rounded-xl h-full p-6 backdrop-blur-xl hover:shadow-lg bg-white/10 border border-white/20"
+          className="relative flex items-center justify-center min-h-[500px] rounded-xl h-full p-6 backdrop-blur-2xl bg-white/15 border border-white/30 shadow-lg hover:shadow-xl transition-all duration-300"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -146,11 +145,11 @@ export const CompatibilitySection = () => {
                   visible: { opacity: 1, y: 0, scale: 1 }
                 }}
               >
-                <div className="w-64 h-64 rounded-xl bg-white/30 backdrop-blur-sm border border-white/40 shadow-lg overflow-hidden">
-                  <div className="h-8 bg-gradient-to-r from-blue-500/70 to-blue-700/70 flex items-center px-3">
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                <div className="w-64 h-64 rounded-xl bg-white/20 backdrop-blur-xl border border-white/40 shadow-lg overflow-hidden hover:bg-white/25 transition-all duration-300">
+                  <div className="h-8 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 flex items-center px-3">
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/90"></div>
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/90"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/90"></div>
                     <div className="ml-auto text-xs font-medium text-white">PMS/EHR System</div>
                   </div>
                   
@@ -158,16 +157,13 @@ export const CompatibilitySection = () => {
                     {ehrFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
-                        className="flex items-center p-2 rounded-lg bg-blue-500/60 border border-blue-400/70"
+                        className="flex items-center p-2 rounded-lg bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/25 transition-all duration-300"
                         variants={featureVariants}
                         custom={idx}
                         transition={{ delay: idx * 0.2 }}
                       >
-                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center">
-                          {React.cloneElement(feature.icon, { 
-                            color: '#ffffff', 
-                            size: 20 
-                          })}
+                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
+                          {feature.icon}
                         </div>
                         <span className="text-sm font-medium text-white font-sans">
                           {feature.label}
@@ -256,11 +252,11 @@ export const CompatibilitySection = () => {
                   visible: { opacity: 1, y: 0, scale: 1 }
                 }}
               >
-                <div className="w-64 h-64 rounded-xl bg-white/30 backdrop-blur-sm border border-white/40 shadow-lg overflow-hidden">
-                  <div className="h-8 bg-gradient-to-r from-purple-500/70 to-purple-700/70 flex items-center px-3">
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
-                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-white/70"></div>
+                <div className="w-64 h-64 rounded-xl bg-white/20 backdrop-blur-xl border border-white/40 shadow-lg overflow-hidden hover:bg-white/25 transition-all duration-300">
+                  <div className="h-8 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 flex items-center px-3">
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/90"></div>
+                    <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/90"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-white/90"></div>
                     <div className="ml-auto text-xs font-medium text-white">VOIP System</div>
                   </div>
                   
@@ -268,16 +264,13 @@ export const CompatibilitySection = () => {
                     {voipFeatures.map((feature, idx) => (
                       <motion.div 
                         key={idx}
-                        className="flex items-center p-2 rounded-lg bg-purple-500/60 border border-purple-400/70"
+                        className="flex items-center p-2 rounded-lg bg-white/20 border border-white/30 backdrop-blur-sm hover:bg-white/25 transition-all duration-300"
                         variants={featureVariants}
                         custom={idx}
                         transition={{ delay: idx * 0.2 }}
                       >
-                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-purple-600 to-purple-800 flex items-center justify-center">
-                          {React.cloneElement(feature.icon, { 
-                            color: '#ffffff', 
-                            size: 20 
-                          })}
+                        <div className="mr-3 w-8 h-8 rounded-md bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
+                          {feature.icon}
                         </div>
                         <span className="text-sm font-medium text-white font-sans">
                           {feature.label}
