@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, Grid } from "@mui/material";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { Card, CardContent, CardMedia, CardActionArea, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -9,18 +8,31 @@ import "slick-carousel/slick/slick-theme.css";
 
 export const SecondSection = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
-
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
   };
 
   const docRevData = [
@@ -44,87 +56,6 @@ export const SecondSection = () => {
     },
   ];
   
-  const renderCards = () => {
-    if (isMobile) {
-      return (
-        <Slider {...settings}>
-          {docRevData.map((value, index) => (
-            <TestimonialCard key={index} value={value} />
-          ))}
-        </Slider>
-      );
-    }
-
-    return (
-      <Grid container spacing={4}>
-        {docRevData.map((value, index) => (
-          <Grid item xs={12} md={6} lg={4} key={index}>
-            <TestimonialCard value={value} />
-          </Grid>
-        ))}
-      </Grid>
-    );
-  };
-
-  const TestimonialCard = ({ value }: { value: typeof docRevData[0] }) => (
-    <Card 
-      sx={{ 
-        height: '100%',
-        backgroundColor: '#ffffff',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        borderRadius: '12px',
-        overflow: 'hidden',
-      }}
-    >
-      <CardMedia
-        component="img"
-        image={value.docImg}
-        alt={value.docImgAlt}
-        sx={{
-          width: "100%",
-          height: { xs: "280px", sm: "320px", md: "360px" },
-          objectFit: "cover",
-        }}
-      />
-      <CardContent 
-        sx={{ 
-          p: 4,
-          backgroundColor: '#ffffff',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          minHeight: { xs: '200px', sm: '220px', md: '240px' }
-        }}
-      >
-        <Typography 
-          variant="body1" 
-          sx={{ 
-            color: "#000000",
-            fontWeight: 500,
-            textAlign: "center",
-            lineHeight: 1.6,
-            fontSize: { xs: '0.9rem', sm: '1rem' },
-            mb: 2
-          }}
-        >
-          {value.docReview}
-        </Typography>
-        <Typography 
-          variant="body2" 
-          sx={{ 
-            color: "#000000",
-            fontWeight: 600,
-            textAlign: "center",
-            mt: 'auto',
-            fontSize: { xs: '0.85rem', sm: '0.9rem' }
-          }}
-        >
-          {value.docNm}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-  
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16">
       <Box className="container mx-auto max-w-7xl">
@@ -141,11 +72,72 @@ export const SecondSection = () => {
           Trusted By Leading Healthcare Organisations
         </Typography>
 
-        <Box sx={{ mx: { xs: -2, md: 0 } }}>
-          {renderCards()}
+        <Box sx={{ mx: { xs: -2, md: -3 } }}>
+          <Slider {...settings}>
+            {docRevData.map((value, index) => (
+              <Box key={index} sx={{ px: { xs: 2, md: 3 } }}>
+                <Card 
+                  sx={{ 
+                    height: '100%',
+                    backgroundColor: '#ffffff',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    borderRadius: '12px',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      image={value.docImg}
+                      alt={value.docImgAlt}
+                      sx={{
+                        width: "100%",
+                        height: { xs: "280px", sm: "320px" },
+                        objectFit: "cover",
+                      }}
+                    />
+                    <CardContent 
+                      sx={{ 
+                        p: 4,
+                        backgroundColor: '#ffffff',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        height: { xs: 'auto', sm: '240px' }
+                      }}
+                    >
+                      <Typography 
+                        variant="body1" 
+                        sx={{ 
+                          color: "#000000",
+                          fontWeight: 500,
+                          textAlign: "center",
+                          lineHeight: 1.6,
+                          fontSize: { xs: '0.9rem', sm: '1rem' }
+                        }}
+                      >
+                        {value.docReview}
+                      </Typography>
+                      <Typography 
+                        variant="body2" 
+                        sx={{ 
+                          color: "#000000",
+                          fontWeight: 600,
+                          textAlign: "center",
+                          mt: 'auto',
+                          fontSize: { xs: '0.85rem', sm: '0.9rem' }
+                        }}
+                      >
+                        {value.docNm}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              </Box>
+            ))}
+          </Slider>
         </Box>
       </Box>
     </section>
   );
 };
-
