@@ -16,7 +16,7 @@ export const FirstSection = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        flexGrow: 1,
+        width: '100%',
         gap: 3
       }}>
         <Stack 
@@ -26,11 +26,11 @@ export const FirstSection = () => {
             md: "row"
           }} 
           sx={{
-            flexWrap: 'wrap',
+            width: '100%',
             justifyContent: "space-between",
             alignItems: {
               xs: "stretch",
-              md: "flex-end"
+              md: "flex-start"
             }
           }} 
           useFlexGap
@@ -88,8 +88,16 @@ export const FirstSection = () => {
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             position: 'relative',
             zIndex: 1,
-            display: 'flex', // Added display flex
-            flexDirection: 'column', // Stack content vertically
+            display: 'flex',
+            flexDirection: 'column',
+            minWidth: {
+              xs: '100%',
+              md: '300px'
+            },
+            maxWidth: {
+              xs: '100%',
+              md: '450px'
+            },
             animation: "fadeInDown 0.8s ease-out",
             "@keyframes fadeInDown": {
               "0%": {
@@ -103,13 +111,11 @@ export const FirstSection = () => {
             }
           }}>
             <Box sx={{
-              float: 'right',
               display: 'flex',
               alignItems: 'center',
               borderRadius: 4,
-              ml: 2,
               mb: 2,
-              alignSelf: 'flex-end', // Align to the right
+              alignSelf: 'flex-end',
               position: 'relative',
               zIndex: 2
             }}>
@@ -139,7 +145,8 @@ export const FirstSection = () => {
             md: 'row'
           },
           alignItems: 'center',
-          gap: 3
+          gap: 3,
+          width: '100%'
         }}>
           <Button sx={{
             background: 'linear-gradient(to right, #143151, #387E89)',
@@ -152,9 +159,9 @@ export const FirstSection = () => {
             fontWeight: 600,
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center', // Added to center the text and icon
+            justifyContent: 'center',
             gap: 1,
-            minWidth: '200px', // Increased min width
+            minWidth: '200px',
             width: {
               xs: '100%',
               sm: 'auto'
@@ -168,7 +175,7 @@ export const FirstSection = () => {
             <span style={{ 
               display: 'block', 
               whiteSpace: 'nowrap',
-              textAlign: 'center' // Center the text
+              textAlign: 'center'
             }}>Book A Demo</span>
           </Button>
           
@@ -182,7 +189,13 @@ export const FirstSection = () => {
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
             ml: {
               md: 2
-            }
+            },
+            width: {
+              xs: '100%',
+              md: 'auto'
+            },
+            display: 'flex',
+            flexDirection: 'column'
           }}>
             <Typography 
               variant="h6" 
@@ -194,7 +207,8 @@ export const FirstSection = () => {
               S10.AI Is Recommended by
             </Typography>
             <Box sx={{
-              overflow: "hidden"
+              overflow: "hidden",
+              width: '100%'
             }}>
               <Marquee gradient={false} speed={50}>
                 {companyLogos.map((logo, index) => (
