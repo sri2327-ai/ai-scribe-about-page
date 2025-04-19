@@ -53,12 +53,17 @@ export const EighthSection = () => {
                   alignItems: 'center'
                 }}
               >
-                <IconComponent
-                  size={28}
-                  stroke="#143151"
-                  strokeWidth={2}
-                  className="text-[#143151] hover:text-[#387E89] transition-colors duration-300"
-                />
+                <div className="group">
+                  <IconComponent
+                    size={28}
+                    className="text-[#143151] group-hover:text-[#387E89] transition-colors duration-300"
+                    style={{
+                      background: 'linear-gradient(135deg, #143151, #387E89)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}
+                  />
+                </div>
                 <Typography 
                   variant="body1" 
                   sx={{ 
