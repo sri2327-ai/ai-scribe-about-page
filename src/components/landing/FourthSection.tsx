@@ -1,14 +1,12 @@
 import React from 'react';
 import { Box, Typography, Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Paper } from "@mui/material";
+import { CrushIllustration } from './illustrations/CrushIllustration';
+import { BravoIllustration } from './illustrations/BravoIllustration';
 
 export const FourthSection = () => {
-  const theme = useTheme();
-  const MotionPaper = motion(Paper);
-
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16">
       <Box sx={{ 
@@ -56,15 +54,9 @@ export const FourthSection = () => {
                   borderRadius: 2
                 }}
               >
-                <img
-                  src="/circleIcon.png"
-                  alt="CRUSH AI"
-                  style={{ 
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
+                <Box sx={{ width: '100%', aspectRatio: '16/9', position: 'relative' }}>
+                  <CrushIllustration />
+                </Box>
               </MotionPaper>
               
               <Typography variant="h4" sx={{ color: 'black', textAlign: 'center', fontWeight: 'bold' }}>
@@ -128,15 +120,9 @@ export const FourthSection = () => {
                   borderRadius: 2
                 }}
               >
-                <img
-                  src="/circleIcon.png"
-                  alt="BRAVO AI"
-                  style={{ 
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }}
-                />
+                <Box sx={{ width: '100%', aspectRatio: '16/9', position: 'relative' }}>
+                  <BravoIllustration />
+                </Box>
               </MotionPaper>
               
               <Typography variant="h4" sx={{ color: 'black', textAlign: 'center', fontWeight: 'bold' }}>
