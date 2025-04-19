@@ -112,8 +112,13 @@ export const CompatibilitySection = () => {
   return (
     <div 
       className="relative w-full py-28 overflow-hidden" 
-      style={{ backgroundColor: '#D299C2' }}
     >
+      {/* Add gradient background with blur effect */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-[#26C6DA] to-[#F06292] opacity-90 backdrop-blur-sm"
+        style={{ filter: 'blur(80px)' }}
+      />
+      
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
           className="relative flex items-center justify-center min-h-[500px] bg-white/95 rounded-3xl p-8 border border-gray-200 shadow-lg"
