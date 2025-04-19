@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CAHeroSection } from '@/components/custom-ai-agent/CAHeroSection';
 import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
@@ -28,12 +27,12 @@ const CustomAIAgent = () => {
             <h2 className="text-3xl font-bold mb-8" style={{
             color: customAIAgentColors.primary
           }}>
-              How Custom AI Agents Transform Your Practice
+              Getting Started with Custom AI Agents
             </h2>
             <p className="text-lg mb-12" style={{
             color: customAIAgentColors.text.secondary
           }}>
-              Imagine an AI that feels like it was built just for you. Our Custom AI Agents tackle the workflows that standard tools overlook, delivering measurable impact across specialties. Here's how they work:
+              Picture an AI designed specifically for you. Our Custom AI Agents optimize unique workflows, driving significant results across specialties. Here's how to begin:
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-12">
