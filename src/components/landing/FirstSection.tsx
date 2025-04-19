@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -142,7 +141,7 @@ export const FirstSection = () => {
                   }}
                 >
                   <Box sx={{
-                    flex: 2,
+                    flex: 1.5,
                     pr: { xs: 0, md: 2 },
                     mb: { xs: 3, md: 0 }
                   }}>
@@ -150,14 +149,14 @@ export const FirstSection = () => {
                       sx={{
                         color: '#000000',
                         fontSize: {
-                          xs: '0.875rem',
-                          md: '1rem'
+                          xs: '0.75rem',
+                          md: '0.875rem'
                         },
                         lineHeight: 1.6,
                         fontWeight: 400
                       }}
                     >
-                      From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered solutions that streamline clinical documentation, minimize administrative burdens, reduce burnout, and save you time—so you can focus on patient care.
+                      From AI medical scribes to patient care AI agents, s10.ai offers AI-powered solutions that streamline clinical documentation, reduce administrative burdens, minimize burnout, and save time—so you can focus on patient care.
                     </Typography>
                   </Box>
                   <Box sx={{
@@ -165,7 +164,7 @@ export const FirstSection = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    transform: 'scale(0.8)'
+                    transform: 'scale(1.2)'
                   }}>
                     <VoiceAnimation />
                   </Box>
