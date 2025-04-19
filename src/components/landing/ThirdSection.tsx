@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Accordion, AccordionSummary, AccordionDetails, Box, Tabs, Tab, Stack, Typography, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -54,13 +53,36 @@ export const ThirdSection = () => {
 
   return (
     <section className="py-10 px-4 md:px-8">
-      <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, gap: 3, p: 3, background: `linear-gradient(180deg, ${theme.palette.primary.light}, ${theme.palette.secondary.main})`, borderRadius: 4, minHeight: '650px' }}>
-        <Typography variant="h3" sx={{ textAlign: "center", color: theme.palette.text.secondary }}>
-          Why Healthcare Leaders Choose S10.AI? 
-        </Typography>
-        <Typography variant="h6" sx={{ color: theme.palette.text.secondary }}>
-          Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation. 
-        </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <Box 
+          component={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <Typography 
+            variant="h3" 
+            fontWeight="bold" 
+            sx={{ 
+              textAlign: "center", 
+              color: "#000000",
+              mb: 2
+            }}
+          >
+            Why Healthcare Leaders Choose S10.AI?
+          </Typography>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: "#000000",
+              textAlign: "center",
+              mb: 4
+            }}
+          >
+            Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.
+          </Typography>
+        </Box>
         <Stack
           spacing={3}
           direction={{ xs: "column", md: "row" }}
@@ -80,9 +102,9 @@ export const ThirdSection = () => {
                 "& .MuiTabs-indicator": { display: "none" },
                 "& .MuiTabs-scroller": { mx: 1 },
                 "& .MuiTabScrollButton-root": {
-                  border: `1px solid ${theme.palette.text.primary}`,
-                  background: theme.palette.common.white,
-                  color: theme.palette.primary.light,
+                  border: "1px solid #000000",
+                  background: "#ffffff",
+                  color: "#000000",
                   borderRadius: "50%",
                 }
               }}
@@ -93,14 +115,14 @@ export const ThirdSection = () => {
                   label={value}
                   sx={{
                     borderRadius: '50px',
-                    border: `1px solid ${theme.palette.text.primary}`,
-                    color: theme.palette.text.secondary,
+                    border: "1px solid #000000",
+                    color: "#000000",
                     mx: 1,
                     minHeight: 'unset',
                     "&.Mui-selected": {
-                      border: `1px solid ${theme.palette.common.black}`,
-                      backgroundColor: theme.palette.common.white,
-                      color: theme.palette.primary.light
+                      border: "1px solid #000000",
+                      backgroundColor: "#ffffff",
+                      color: "#000000"
                     },
                     fontWeight: 'bold',
                   }}
@@ -109,7 +131,7 @@ export const ThirdSection = () => {
             </Tabs>
             {Object.values(tabAccData).map((value, index) => (
               tabValue === index && (
-                <MotionPaper
+                <motion.div
                   key={index}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -117,7 +139,6 @@ export const ThirdSection = () => {
                     duration: 0.5,
                     ease: 'easeOut'
                   }}
-                  sx={{ boxShadow: 0, background: 'transparent' }}
                 >
                   {value.map((item, itemIndex) => {
                     const panelName = `panel${itemIndex + 1}`;
@@ -127,7 +148,7 @@ export const ThirdSection = () => {
                         expanded={expanded === panelName} 
                         onChange={handleAccChange(panelName)}
                         sx={{
-                          borderBottom: `1px solid ${theme.palette.grey.A700}`,
+                          borderBottom: "1px solid #000000",
                           boxShadow: "none",
                           "&:before": {
                             display: "none",
@@ -151,15 +172,15 @@ export const ThirdSection = () => {
                             },
                           }}
                         >
-                          <Typography variant="body1" fontWeight="semiBold" sx={{ color: theme.palette.text.primary }}>{item.title}</Typography>
+                          <Typography variant="body1" fontWeight="semiBold" sx={{ color: "#000000" }}>{item.title}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                          <Typography variant="body2" fontWeight="medium" sx={{ color: theme.palette.text.primary }}>{item.content}</Typography>
+                          <Typography variant="body2" fontWeight="medium" sx={{ color: "#000000" }}>{item.content}</Typography>
                         </AccordionDetails>
                       </Accordion>
                     );
                   })}
-                </MotionPaper>
+                </motion.div>
               )
             ))}
           </Box>
