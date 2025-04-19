@@ -9,87 +9,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
-import { Precision, Zap, Users, ShieldCheck } from 'lucide-react';
 
 const CustomAIAgent = () => {
   return <div className="bg-white min-h-screen">
       <CAHeroSection />
       <CABentoGrid />
       <CAWhyChooseSection />
-      
-      
-
-      
       <CARoleBenefits />
-      
-      
       <CATransformWorkflow />
-
-      
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8" style={{
-            color: customAIAgentColors.primary
-          }}>
-              Why Choose Custom AI Agents?
-            </h2>
-            <p className="text-lg mb-8" style={{
-            color: customAIAgentColors.text.secondary
-          }}>
-              Every clinic has workflows that don't quite fit standard solutions. Maybe it's the way your cardiology team tracks stress tests, or how your pediatric practice manages developmental screenings. That's where S10.AI's Custom AI Agents shine—delivering hyper-specialized automation that's as unique as your practice.
-            </p>
-            
-            <ul className="space-y-4 mb-12">
-              <li className="flex items-start">
-                <span className="mr-3 text-blue-500 text-xl">•</span>
-                <span style={{
-                color: customAIAgentColors.text.secondary
-              }}>
-                  <strong>Precision for Your Workflows:</strong> From rare disease management to post-surgical care, our agents are engineered for your exact needs, ensuring no task is too complex.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-3 text-blue-500 text-xl">•</span>
-                <span style={{
-                color: customAIAgentColors.text.secondary
-              }}>
-                  <strong>Seamless Integration:</strong> Syncs effortlessly with any EHR, SIP, or PMS platform, working hand-in-hand with CRUSH and BRAVO for end-to-end efficiency.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-3 text-blue-500 text-xl">•</span>
-                <span style={{
-                color: customAIAgentColors.text.secondary
-              }}>
-                  <strong>Clinician-Centric Design:</strong> Adapts to your specialty's nuances, reducing cognitive load and restoring focus to patient interactions.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-3 text-blue-500 text-xl">•</span>
-                <span style={{
-                color: customAIAgentColors.text.secondary
-              }}>
-                  <strong>Burnout Relief:</strong> Automates repetitive, niche tasks—like generating chemotherapy schedules or MIPS reporting—so you can reclaim your time.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="mr-3 text-blue-500 text-xl">•</span>
-                <span style={{
-                color: customAIAgentColors.text.secondary
-              }}>
-                  <strong>Trusted Security:</strong> HIPAA, GDPR, and ISO 27001 compliant, with AES-256 encryption and automated data erasure for peace of mind.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      
       <CABeforeAfterCarousel />
 
-      
       <section className="py-20 bg-gray-50" style={{
       backgroundColor: customAIAgentColors.background.light
     }}>
@@ -200,7 +129,6 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
@@ -274,7 +202,6 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      
       <section className="py-20 bg-gray-50" style={{
       backgroundColor: customAIAgentColors.background.light
     }}>
@@ -350,7 +277,6 @@ const CustomAIAgent = () => {
         </div>
       </section>
 
-      
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
