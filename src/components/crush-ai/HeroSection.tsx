@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shield } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SparklesText } from "@/components/ui/sparkles-text";
@@ -11,9 +11,7 @@ import CustomTooltip from "@/components/ui/custom-tooltip";
 import { GradientSection } from "@/components/ui/gradient-section";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { CrushTooltip } from "@/components/crush-ai/CrushTooltip";
-import { Shield } from "lucide-react";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
-import { Box, Typography } from "@mui/material";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
