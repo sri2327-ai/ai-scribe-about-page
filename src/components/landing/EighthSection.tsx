@@ -1,33 +1,33 @@
 
 import { Box, Typography } from "@mui/material";
 import Marquee from "react-fast-marquee";
-import { Brain, User, Heart, Lungs, Eye, Hospital, FlaskRound, Wheelchair, Stomach, Ambulance, Liver, Stethoscope, Kidney, Activity, FirstAid, Ear, Flask, Skin } from "lucide-react";
+import { Brain, User, Heart, Lungs as LungsIcon, Eye, Building2, FlaskConical, Wheelchair as WheelchairIcon, Apple, Ambulance, CircleDot, Stethoscope, Droplets, Activity, HeartPulse, Ear, Microscope, ShieldPlus } from "lucide-react";
 
 export const EighthSection = () => {
   const specialties = [
     { name: "Orthopedics", icon: Activity },
-    { name: "Urology", icon: Activity },
+    { name: "Urology", icon: Droplets },
     { name: "Neurology", icon: Brain },
     { name: "Pediatrics", icon: User },
     { name: "Cardiology", icon: Heart },
-    { name: "Oncology", icon: Activity },
-    { name: "Pulmonology", icon: Lungs },
-    { name: "Gynecology", icon: Activity },
+    { name: "Oncology", icon: CircleDot },
+    { name: "Pulmonology", icon: LungsIcon },
+    { name: "Gynecology", icon: HeartPulse },
     { name: "Psychiatry", icon: Brain },
     { name: "Ophthalmology", icon: Eye },
-    { name: "Hospital Medicine", icon: Hospital },
-    { name: "Hematology", icon: FlaskRound },
-    { name: "Geriatrics", icon: Wheelchair },
-    { name: "Gastroenterology", icon: Stomach },
+    { name: "Hospital Medicine", icon: Building2 },
+    { name: "Hematology", icon: FlaskConical },
+    { name: "Geriatrics", icon: WheelchairIcon },
+    { name: "Gastroenterology", icon: Apple },
     { name: "Emergency Medicine", icon: Ambulance },
-    { name: "Hepatology", icon: Liver },
+    { name: "Hepatology", icon: CircleDot },
     { name: "Internal Medicine", icon: Stethoscope },
-    { name: "Nephrology", icon: Kidney },
+    { name: "Nephrology", icon: Droplets },
     { name: "Rheumatology", icon: Activity },
-    { name: "Urgent Care", icon: FirstAid },
+    { name: "Urgent Care", icon: HeartPulse },
     { name: "ENT", icon: Ear },
-    { name: "Endocrinology", icon: Flask },
-    { name: "Dermatology", icon: Skin }
+    { name: "Endocrinology", icon: Microscope },
+    { name: "Dermatology", icon: ShieldPlus }
   ];
 
   return (
