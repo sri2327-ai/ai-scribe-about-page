@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
@@ -96,6 +97,17 @@ export const FifthSection = () => {
     autoplaySpeed: 2000
   };
 
+  // Create icon components for each card
+  const cardIcons = [
+    { id: 1, icon: Phone, title: "Instant Call Handling", description: "BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms." },
+    { id: 2, icon: ClipboardList, title: "Effortless Pre-Visit Workflow", description: "Automates patient intake, insurance verification, and medical history updates for seamless visits." },
+    { id: 3, icon: Bell, title: "Reduce No-Shows & Improve Engagement", description: "Sends real-time confirmations, automated reminders, and follow-ups to maximize appointment adherence." },
+    { id: 4, icon: FileText, title: "Real-Time AI Medical Scribe", description: "CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly." },
+    { id: 5, icon: ClipboardCheck, title: "Automate Repetitive Administrative Tasks", description: "Streamlines prescription refills, referrals, lab orders, AI-powered clinical notes, and visit summaries to reduce staff workload." },
+    { id: 6, icon: Heart, title: "Post-Visit Patient Support", description: "BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes." },
+    { id: 7, icon: BarChart, title: "Accelerate Revenue Cycle Management", description: "Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes." },
+  ];
+
   return (
     <section ref={containerRef} className="py-10 px-4 md:px-8 bg-white">
       <Box sx={{ display: 'flex', flexDirection:'column', alignItems: 'center' }}>
@@ -131,6 +143,7 @@ export const FifthSection = () => {
             gap: 4,
             width: '50%'
           }}>
+            {/* Left column cards (1, 3, 5, 7) */}
             <MotionPaper
               ref={ref1}
               style={{
@@ -145,7 +158,7 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  1. Instant Call Handling
+                  1. {cardIcons[0].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
                   <Box sx={{ 
@@ -154,12 +167,14 @@ export const FifthSection = () => {
                     background: 'linear-gradient(135deg, #143151, #387E89)',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center'
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
                   }}>
                     <Phone size={32} color="white" />
                   </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms.
+                    {cardIcons[0].description}
                   </Typography>
                 </Box>
               </Box>
@@ -179,17 +194,23 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  3. Reduce No-Shows & Improve Engagement
+                  3. {cardIcons[2].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
+                  }}>
+                    <Bell size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    Sends real-time confirmations, automated reminders, and follow-ups to maximize appointment adherence.
+                    {cardIcons[2].description}
                   </Typography>
                 </Box>
               </Box>
@@ -209,17 +230,23 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  5. Automate Repetitive Administrative Tasks
+                  5. {cardIcons[4].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
+                  }}>
+                    <ClipboardCheck size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    Streamlines prescription refills, referrals, lab orders, AI-powered clinical notes, and visit summaries to reduce staff workload.
+                    {cardIcons[4].description}
                   </Typography>
                 </Box>
               </Box>
@@ -239,17 +266,23 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  7. Accelerate Revenue Cycle Management
+                  7. {cardIcons[6].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
+                  }}>
+                    <BarChart size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes.
+                    {cardIcons[6].description}
                   </Typography>
                 </Box>
               </Box>
@@ -260,7 +293,7 @@ export const FifthSection = () => {
             <MotionPaper 
               style={{ height: height }} 
               sx={{ 
-                background: `linear-gradient(0deg, #143151, #D946EF)`,
+                background: `linear-gradient(0deg, #0d2b3f, #D946EF)`,
                 px: 0.2 
               }}
             >
@@ -274,6 +307,7 @@ export const FifthSection = () => {
             gap: 4,
             width: '50%'
           }}>
+            {/* Right column cards (2, 4, 6) */}
             <MotionPaper
               ref={ref2}
               style={{
@@ -288,17 +322,23 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  2. Effortless Pre-Visit Workflow
+                  2. {cardIcons[1].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
+                  }}>
+                    <ClipboardList size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    Automates patient intake, insurance verification, and medical history updates for seamless visits.
+                    {cardIcons[1].description}
                   </Typography>
                 </Box>
               </Box>
@@ -318,17 +358,23 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  4. Real-Time AI Medical Scribe
+                  4. {cardIcons[3].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
+                  }}>
+                    <FileText size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly.
+                    {cardIcons[3].description}
                   </Typography>
                 </Box>
               </Box>
@@ -348,17 +394,23 @@ export const FifthSection = () => {
             >
               <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
                 <Typography variant="h5" fontWeight="semiBold" color="black">
-                  6. Post-Visit Patient Support
+                  6. {cardIcons[5].title}
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px'
+                  }}>
+                    <Heart size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
-                    BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes.
+                    {cardIcons[5].description}
                   </Typography>
                 </Box>
               </Box>
@@ -367,6 +419,7 @@ export const FifthSection = () => {
         </Stack>
       </Box>
 
+      {/* Mobile view with slider */}
       <Stack
         spacing={3}
         direction= "column"
@@ -382,146 +435,36 @@ export const FifthSection = () => {
         useFlexGap
       >
         <Slider {...settings}>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                1. Instant Call Handling
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+          {cardIcons.map((card, index) => {
+            const CardIcon = card.icon;
+            return (
+              <Box key={index} sx={{ px: 1.5 }}>
+                <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
+                  <Typography variant="h5" fontWeight="semiBold">
+                    {index + 1}. {card.title}
+                  </Typography>
+                  <Box>
+                    <Box sx={{ 
+                      float: 'left',
+                      width: '70px',
+                      height: '70px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #143151, #387E89)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mr: 2
+                    }}>
+                      <CardIcon size={32} color="white" />
+                    </Box>
+                    <Typography variant="h6" fontWeight="medium">
+                      {card.description}
+                    </Typography>
+                  </Box>
                 </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms.
-                </Typography>
               </Box>
-            </Box>
-          </Box>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                2. Effortless Pre-Visit Workflow
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  Automates patient intake, insurance verification, and medical history updates for seamless visits.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                3. Reduce No-Shows & Improve Engagement
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  Sends real-time confirmations, automated reminders, and follow-ups to maximize appointment adherence.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                4. Real-Time AI Medical Scribe
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                5. Automate Repetitive Administrative Tasks
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  Streamlines prescription refills, referrals, lab orders, AI-powered clinical notes, and visit summaries to reduce staff workload.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                6. Post-Visit Patient Support
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
-          <Box sx={{ px: 1.5 }}>
-            <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-              <Typography variant="h5" fontWeight="semiBold">
-                7. Accelerate Revenue Cycle Management
-              </Typography>
-              <Box>
-                <Box sx={{ float: 'left' }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
-                </Box>
-                <Typography variant="h6" fontWeight="medium">
-                  Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes.
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
+            );
+          })}
         </Slider>
       </Stack>
     </section>
