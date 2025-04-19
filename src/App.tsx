@@ -11,6 +11,7 @@ import Technology from "./pages/Technology";
 import CrushAI from "./pages/CrushAI";
 import Bravo from "./pages/Bravo";
 import CustomAIAgent from "./pages/CustomAIAgent";
+import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Header from "./components/Header";

@@ -78,7 +78,7 @@ export const FirstSection = () => {
 
         <Stack
           spacing={3}
-          direction={"row"}
+          direction="row"
           sx={{
             flexWrap: 'wrap',
             background: theme.palette.grey.A200,
