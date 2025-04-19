@@ -1,11 +1,19 @@
-
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shield, ShieldCheck, ShieldLock, Leaf } from "lucide-react";
 
 export const TenthSection = () => {
   const theme = useTheme();
+
+  const complianceCards = [
+    { title: 'HIPAA Compliant', icon: <Shield className="h-8 w-8 text-white" /> },
+    { title: 'PIPEDA Compliant', icon: <Leaf className="h-8 w-8 text-white" /> },
+    { title: 'ISO27001 Accredited', icon: <ShieldLock className="h-8 w-8 text-white" /> },
+    { title: 'NHS Compliant', icon: <Shield className="h-8 w-8 text-white" /> },
+    { title: '​Cyber Essential Certified', icon: <Shield className="h-8 w-8 text-white" /> },
+    { title: 'GDPR Compliant', icon: <ShieldCheck className="h-8 w-8 text-white" /> }
+  ];
 
   return (
     <section style={{ 
@@ -17,7 +25,7 @@ export const TenthSection = () => {
         display: 'flex', 
         flexDirection: 'column', 
         gap: { xs: 2, md: 3 },
-        maxWidth: '1400px',
+        maxWidth: '100%',
         mx: 'auto',
         px: { xs: 2, md: 3 }
       }}>
@@ -36,7 +44,7 @@ export const TenthSection = () => {
             position: 'relative',
             gap: 2
           }}>
-            {['HIPAA Compliant', 'PIPEDA Compliant', 'ISO27001 Accredited'].map((title, index) => (
+            {complianceCards.slice(0, 3).map((card, index) => (
               <Box 
                 key={index}
                 sx={{ 
@@ -51,17 +59,27 @@ export const TenthSection = () => {
                   justifyContent: 'flex-start', 
                   borderRadius: '15px',
                   background: 'linear-gradient(135deg, #143151, #387E89)',
-                  color: 'white'
+                  color: 'white',
+                  gap: 2
                 }}
               >
-                <img
-                  src="/circleIcon.png"
-                  alt="circleIcon"
-                  width="90"
-                  height="auto"
-                />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px',
+                    borderRadius: '50%',
+                    backdropFilter: 'blur(8px)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  {card.icon}
+                </Box>
                 <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                  {title}
+                  {card.title}
                 </Typography>
               </Box>
             ))}
@@ -164,14 +182,7 @@ export const TenthSection = () => {
               overflow: "hidden"
             }}>
               <Marquee gradient={false} speed={50} loop={0}>
-                {[
-                  "HIPAA Compliant",
-                  "PIPEDA Compliant",
-                  "ISO27001 Accredited",
-                  "NHS Compliant",
-                  "​Cyber Essential Certified",
-                  "GDPR Compliant"
-                ].map((title, index) => (
+                {complianceCards.map((card, index) => (
                   <Box 
                     key={index}
                     sx={{ 
@@ -185,15 +196,25 @@ export const TenthSection = () => {
                       justifyContent: 'center', 
                       borderRadius: '15px', 
                       background: 'linear-gradient(135deg, #143151, #387E89)',
-                      color: 'white'
+                      color: 'white',
+                      gap: 2
                     }}
                   >
-                    <img
-                      src="/circleIcon.png"
-                      alt="circleIcon"
-                      width="70"
-                      height="auto"
-                    />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: '60px',
+                        height: '60px',
+                        borderRadius: '50%',
+                        backdropFilter: 'blur(8px)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                        border: '1px solid rgba(255, 255, 255, 0.2)',
+                      }}
+                    >
+                      {card.icon}
+                    </Box>
                     <Typography 
                       variant="h6" 
                       fontWeight="semiBold" 
@@ -202,7 +223,7 @@ export const TenthSection = () => {
                         fontSize: { xs: '1rem', sm: '1.25rem' }
                       }}
                     >
-                      {title}
+                      {card.title}
                     </Typography>
                   </Box>
                 ))}
@@ -216,7 +237,7 @@ export const TenthSection = () => {
             position: 'relative',
             gap: 2
           }}>
-            {['NHS Compliant', '​Cyber Essential Certified', 'GDPR Compliant'].map((title, index) => (
+            {complianceCards.slice(3).map((card, index) => (
               <Box 
                 key={index}
                 sx={{ 
@@ -231,17 +252,27 @@ export const TenthSection = () => {
                   justifyContent: 'flex-start', 
                   borderRadius: '15px',
                   background: 'linear-gradient(135deg, #143151, #387E89)',
-                  color: 'white'
+                  color: 'white',
+                  gap: 2
                 }}
               >
-                <img
-                  src="/circleIcon.png"
-                  alt="circleIcon"
-                  width="90"
-                  height="auto"
-                />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '70px',
+                    height: '70px',
+                    borderRadius: '50%',
+                    backdropFilter: 'blur(8px)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                  }}
+                >
+                  {card.icon}
+                </Box>
                 <Typography variant="h5" fontWeight="semiBold" sx={{ textAlign:'center' }}>
-                  {title}
+                  {card.title}
                 </Typography>
               </Box>
             ))}
