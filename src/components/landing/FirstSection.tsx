@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -51,30 +52,30 @@ export const FirstSection = () => {
           {/* Right column with description - updated styling */}
           <Box sx={{
             maxWidth: { xs: '100%', lg: '35%' },
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(240,240,240,0.6) 100%)',
             backdropFilter: 'blur(10px)',
-            borderRadius: '24px',
-            p: { xs: 4, md: 5 },
+            borderRadius: '16px',
+            p: { xs: 3, md: 4 },
             border: '1px solid rgba(209, 213, 219, 0.3)',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-            height: '400px',
+            height: '380px',
             display: 'flex',
             flexDirection: 'column',
+            justifyContent: 'center',
             animation: "fadeInDown 0.8s ease-out",
           }}>
             <Box sx={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexGrow: 1,
-              mb: 4
+              mb: 3
             }}>
               <VoiceAnimation />
             </Box>
             <Typography 
               sx={{
                 color: '#000000',
-                fontSize: { xs: '1.125rem', md: '1.25rem' },
+                fontSize: { xs: '1rem', md: '1.125rem' },
                 lineHeight: 1.6,
                 fontWeight: 400,
                 textAlign: 'center'
