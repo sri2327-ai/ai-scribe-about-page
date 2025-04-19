@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -53,82 +54,71 @@ const ROIMetrics = {
   annualSavings: "$150,000+"
 };
 
+// Card component for workflow steps
+const WorkflowCard = ({ icon: Icon, title, description, number }) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+  return (
+    <Paper elevation={2} sx={{ 
+      p: 4, 
+      borderRadius: 2, 
+      mb: 4,
+      position: 'relative',
+      overflow: 'hidden',
+      border: '1px solid rgba(0,0,0,0.1)',
+    }}>
+      <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start', position: 'relative', zIndex: 2 }}>
+        <Box sx={{ 
+          p: 2, 
+          borderRadius: '50%',
+          background: 'linear-gradient(135deg, #143151, #387E89)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '60px',
+          height: '60px',
+          flexShrink: 0
+        }}>
+          <Icon size={30} color="white" />
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="h5" fontWeight="bold" color="black" sx={{ mb: 1 }}>
+            {title}
+          </Typography>
+          <Typography variant={isMobile ? "body2" : "body1"} color="text.secondary">
+            {description}
+          </Typography>
+        </Box>
+      </Box>
+      
+      <Typography 
+        sx={{ 
+          position: 'absolute',
+          top: -20,
+          right: -10,
+          fontSize: { xs: '120px', md: '180px' },
+          fontWeight: 'bold',
+          background: 'linear-gradient(135deg, #e0e0e0, #f5f5f5)',
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          opacity: 0.6,
+          zIndex: 1,
+          pointerEvents: 'none'
+        }}
+      >
+        {number}
+      </Typography>
+    </Paper>
+  );
+};
+
 export const FifthSection = () => {
   const theme = useTheme();
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
-  const ref4 = useRef(null);
   const containerRef = useRef(null);
-  const ref5 = useRef(null);
-  const ref6 = useRef(null);
-  const ref7 = useRef(null);
-
-  const MotionPaper = motion(Paper);
-  const isDesktop = useMediaQuery(theme.breakpoints.down('md'));
-
-  const { scrollYProgress: scrollYProgress1 } = useScroll({
-    target: ref1,
-    offset: ['start end', 'end center'],
-  });
-
-  const x1 = useTransform(scrollYProgress1, [0, 1], [-10, 10]);
-  const rotate1 = useTransform(scrollYProgress1, [0, 1], [-5, 0]);
-
-  const { scrollYProgress: scrollYProgress2 } = useScroll({
-    target: ref2,
-    offset: ['start end', 'end center'],
-  });
-
-  const x2 = useTransform(scrollYProgress2, [0, 1], [-10, 10]);
-  const rotate2 = useTransform(scrollYProgress2, [0, 1], [5, 0]);
-
-  const { scrollYProgress: scrollYProgress3 } = useScroll({
-    target: ref3,
-    offset: ['start end', 'end center'],
-  });
-
-  const x3 = useTransform(scrollYProgress3, [0, 1], [-10, 10]);
-  const rotate3 = useTransform(scrollYProgress3, [0, 1], [-5, 0]);
-
-  const { scrollYProgress: scrollYProgress4 } = useScroll({
-    target: ref4,
-    offset: ['start end', 'end center'],
-  });
-
-  const x4 = useTransform(scrollYProgress4, [0, 1], [-10, 10]);
-  const rotate4 = useTransform(scrollYProgress4, [0, 1], [5, 0]);
-
-  const { scrollYProgress: scrollYProgress5 } = useScroll({
-    target: ref5,
-    offset: ['start end', 'end center'],
-  });
-
-  const x5 = useTransform(scrollYProgress5, [0, 1], [10, -10]);
-  const rotate5 = useTransform(scrollYProgress5, [0, 1], [5, 0]);
-
-  const { scrollYProgress: scrollYProgress6 } = useScroll({
-    target: ref6,
-    offset: ['start end', 'end center'],
-  });
-
-  const x6 = useTransform(scrollYProgress6, [0, 1], [10, -10]);
-  const rotate6 = useTransform(scrollYProgress6, [0, 1], [-5, 0]);
-
-  const { scrollYProgress: scrollYProgress7 } = useScroll({
-    target: ref7,
-    offset: ['start end', 'end center'],
-  });
-
-  const x7 = useTransform(scrollYProgress7, [0, 1], [10, -10]);
-  const rotate7 = useTransform(scrollYProgress7, [0, 1], [5, 0]);
-
-  const { scrollYProgress: scrollYProgress8 } = useScroll({
-    target: containerRef,
-    offset: ["start center", "end center"]
-  });
-  
-  const height = useTransform(scrollYProgress8, [0, 1], ["0%", "100%"]);
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const settings = {
     dots: false,
@@ -188,502 +178,37 @@ export const FifthSection = () => {
           ))}
         </Box>
 
-        <Stack
-          spacing={6}
-          sx={{
-            width: '100%',
-            mb: 10
-          }}
-        >
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 4,
-            width: '50%'
-          }}>
-            <MotionPaper
-              ref={ref1}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x1,
-                rotate: rotate1,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  1
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[0].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <Phone size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[0].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref3}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x3,
-                rotate: rotate3,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  3
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[2].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <Bell size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[2].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref5}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x5,
-                rotate: rotate5,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  5
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[4].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <ClipboardCheck size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[4].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref7}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x7,
-                rotate: rotate7,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  7
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[6].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <BarChart size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[6].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
+        {/* Workflow Cards - Improved Layout */}
+        <Box sx={{ width: '100%', mb: 10 }}>
+          <Typography variant="h4" fontWeight="bold" textAlign="center" mb={6} color="black">
+            The Complete Workflow Transformation
+          </Typography>
+          
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
+            <Box>
+              {cardIcons.slice(0, 4).map((card) => (
+                <WorkflowCard 
+                  key={card.id}
+                  icon={card.icon}
+                  title={card.title}
+                  description={card.description}
+                  number={card.id}
+                />
+              ))}
+            </Box>
+            <Box>
+              {cardIcons.slice(4).map((card) => (
+                <WorkflowCard 
+                  key={card.id}
+                  icon={card.icon}
+                  title={card.title}
+                  description={card.description}
+                  number={card.id}
+                />
+              ))}
+            </Box>
           </Box>
-
-          <Box sx={{ px: 2 }}>
-            <MotionPaper 
-              style={{ height: height }} 
-              sx={{ 
-                background: `linear-gradient(0deg, #143151, #387E89)`,
-                px: 0.2 
-              }}
-            >
-            </MotionPaper>
-          </Box>
-
-          <Box sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            gap: 4,
-            width: '50%'
-          }}>
-            <MotionPaper
-              ref={ref2}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x2,
-                rotate: rotate2,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  2
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[1].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <ClipboardList size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[1].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref4}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x4,
-                rotate: rotate4,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  4
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[3].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <FileText size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[3].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-
-            <MotionPaper
-              ref={ref6}
-              style={{
-                transform: 'translateX(0px) rotate(0deg)',
-                x: x6,
-                rotate: rotate6,
-              }}
-              sx={{
-                boxShadow: 0,
-                background: 'transparent',
-                position: 'relative',
-              }}
-            >
-              <Box sx={{ 
-                p: 3, 
-                gap: 3, 
-                display: 'flex', 
-                flexDirection:'column', 
-                justifyContent:'space-between', 
-                color: 'black', 
-                background: 'white', 
-                borderRadius: 2, 
-                border: '1px solid rgba(0,0,0,0.1)',
-                position: 'relative',
-                overflow: 'hidden'
-              }}>
-                <Typography 
-                  sx={{ 
-                    position: 'absolute',
-                    top: -30,
-                    right: -20,
-                    fontSize: '180px',
-                    fontWeight: 'bold',
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    opacity: 0.15,
-                    zIndex: 0
-                  }}
-                >
-                  6
-                </Typography>
-                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
-                  {cardIcons[5].title}
-                </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: '50%', 
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '70px',
-                    height: '70px'
-                  }}>
-                    <Heart size={32} color="white" />
-                  </Box>
-                  <Typography variant="h6" fontWeight="medium" color="black">
-                    {cardIcons[5].description}
-                  </Typography>
-                </Box>
-              </Box>
-            </MotionPaper>
-          </Box>
-        </Stack>
+        </Box>
 
         <Box 
           sx={{ 
