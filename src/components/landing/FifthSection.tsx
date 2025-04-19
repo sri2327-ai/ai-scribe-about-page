@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart } from 'lucide-react';
 
 export const FifthSection = () => {
   const theme = useTheme();
@@ -147,12 +148,16 @@ export const FifthSection = () => {
                   1. Instant Call Handling
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
-                  <img
-                    src="/circleIcon.png"
-                    alt="circleIcon"
-                    width="90"
-                    height="90"
-                  />
+                  <Box sx={{ 
+                    p: 2, 
+                    borderRadius: '50%', 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <Phone size={32} color="white" />
+                  </Box>
                   <Typography variant="h6" fontWeight="medium" color="black">
                     BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms.
                   </Typography>
@@ -255,7 +260,7 @@ export const FifthSection = () => {
             <MotionPaper 
               style={{ height: height }} 
               sx={{ 
-                background: `linear-gradient(0deg, #1EAEDB, #D946EF)`, 
+                background: `linear-gradient(0deg, #143151, #D946EF)`,
                 px: 0.2 
               }}
             >
