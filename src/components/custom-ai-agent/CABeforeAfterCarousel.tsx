@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,8 @@ import {
   Calendar, 
   LayoutDashboard,
   Clock,
-  Layers
+  Layers,
+  ArrowRight
 } from "lucide-react";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 
