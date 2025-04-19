@@ -113,15 +113,19 @@ export const CompatibilitySection = () => {
     <div 
       className="relative w-full py-28 overflow-hidden" 
     >
-      {/* Add gradient background with blur effect */}
+      {/* Enhanced gradient background with more visible animation and glassmorphism */}
       <div 
-        className="absolute inset-0 bg-gradient-to-br from-[#26C6DA] to-[#F06292] opacity-90 backdrop-blur-sm"
-        style={{ filter: 'blur(80px)' }}
+        className="absolute inset-0 bg-gradient-to-br from-[#26C6DA] to-[#F06292] opacity-95"
+        style={{ 
+          filter: 'blur(60px)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+        }}
       />
       
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] bg-white/95 rounded-3xl p-8 border border-gray-200 shadow-lg"
+          className="relative flex items-center justify-center min-h-[500px] bg-white/40 rounded-3xl p-8 border border-white/30 shadow-lg backdrop-blur-xl"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
