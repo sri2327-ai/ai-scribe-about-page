@@ -25,7 +25,7 @@ export const CAHeroSection = () => {
             
             <Button 
               size="lg"
-              className="rounded-full px-8 py-6 text-lg bg-[#143151] hover:bg-[#0d1f31] text-white shadow-xl"
+              className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
             >
               Request a Demo
               <ArrowRight className="ml-2 h-5 w-5" />
