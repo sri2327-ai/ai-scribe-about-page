@@ -1,9 +1,9 @@
-
 import React from 'react';
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
+import { VoiceAnimation } from './animations/VoiceAnimation';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
@@ -21,18 +21,8 @@ export const FirstSection = () => {
         >
           {/* Left column with heading */}
           <Box sx={{
-            maxWidth: { xs: '100%', lg: '55%' },
+            maxWidth: { xs: '100%', lg: '60%' },
             animation: "fadeInUp 0.8s ease-out",
-            "@keyframes fadeInUp": {
-              "0%": {
-                opacity: 0,
-                transform: "translateY(20px)"
-              },
-              "100%": {
-                opacity: 1,
-                transform: "translateY(0)"
-              }
-            }
           }}>
             <Typography 
               variant="h1" 
@@ -58,52 +48,39 @@ export const FirstSection = () => {
             </Typography>
           </Box>
 
-          {/* Right column with description */}
+          {/* Right column with description - updated styling */}
           <Box sx={{
-            maxWidth: { xs: '100%', lg: '40%' },
+            maxWidth: { xs: '100%', lg: '35%' },
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(10px)',
-            borderRadius: '16px',
+            borderRadius: '24px',
             p: { xs: 4, md: 5 },
             border: '1px solid rgba(209, 213, 219, 0.3)',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            height: '400px',
+            display: 'flex',
+            flexDirection: 'column',
             animation: "fadeInDown 0.8s ease-out",
-            "@keyframes fadeInDown": {
-              "0%": {
-                opacity: 0,
-                transform: "translateY(-20px)"
-              },
-              "100%": {
-                opacity: 1,
-                transform: "translateY(0)"
-              }
-            }
           }}>
             <Box sx={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'flex-end',
+              justifyContent: 'center',
+              flexGrow: 1,
               mb: 4
             }}>
-              <img 
-                src="/circleIcon.png" 
-                alt="circleIcon"
-                style={{
-                  width: '80px',
-                  height: 'auto',
-                  objectFit: 'contain'
-                }}
-              />
+              <VoiceAnimation />
             </Box>
             <Typography 
               sx={{
                 color: '#000000',
                 fontSize: { xs: '1.125rem', md: '1.25rem' },
                 lineHeight: 1.6,
-                fontWeight: 400
+                fontWeight: 400,
+                textAlign: 'center'
               }}
             >
-              From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered solutions that streamline clinical documentation, minimize administrative burdens, reduce burnout, and save you time—so you can focus on patient care and enhance healthcare automation.
+              From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered solutions that streamline clinical documentation, minimize administrative burdens, reduce burnout, and save you time.
             </Typography>
           </Box>
         </Stack>
