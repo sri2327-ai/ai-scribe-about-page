@@ -151,9 +151,16 @@ export const SecondSection = () => {
           </Box>
         ) : (
           // Desktop view with Grid (no slider)
-          <Grid container spacing={3}>
+          <Grid container spacing={3} sx={{ display: 'flex', flexDirection: 'row' }}>
             {docRevData.map((value, index) => (
-              <Grid key={index} sx={{ gridColumn: { xs: "span 12", md: "span 4" } }}>
+              <Grid 
+                key={index} 
+                sx={{ 
+                  flex: '1',
+                  width: '33.333%',
+                  maxWidth: '33.333%'
+                }}
+              >
                 <TestimonialCard data={value} />
               </Grid>
             ))}
@@ -163,3 +170,4 @@ export const SecondSection = () => {
     </section>
   );
 };
+
