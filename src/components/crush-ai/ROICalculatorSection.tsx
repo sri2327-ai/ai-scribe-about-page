@@ -11,7 +11,7 @@ const tealBlueColor = "#5192AE";
 
 const barColors = {
   humanScribe: "#000000",
-  crushAI: "url(#crushGradient)" // We'll use a gradient for Crush AI bars
+  crushAI: "url(#crushGradient)"
 };
 
 interface Particle {
@@ -297,7 +297,7 @@ export const ROICalculatorSection = () => {
                       <InputAdornment position="end">
                         <div className="relative group">
                           <Info size={16} style={{ color: crushAIColors.icons.primary }} className="cursor-help" />
-                          <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-[#143151] text-white text-xs rounded-md shadow-lg z-10">
+                          <div className="absolute invisible group-hover:visible right-0 -top-12 w-44 p-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs rounded-md shadow-lg z-10">
                             Starting price of $99/month per provider
                           </div>
                         </div>
@@ -488,11 +488,14 @@ export const ROICalculatorSection = () => {
                         color: '#FFFFFF',
                         padding: '12px 16px',
                         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-                        maxWidth: 'none',
-                        overflow: 'visible'
+                        maxWidth: '200px',
+                        width: 'auto',
+                        overflow: 'visible',
+                        zIndex: 1000
                       }}
                       itemStyle={{ color: '#FFFFFF' }}
                       labelStyle={{ color: '#FFFFFF' }}
+                      wrapperStyle={{ zIndex: 1000, position: 'relative' }}
                     />
                     <Bar
                       dataKey="value"
