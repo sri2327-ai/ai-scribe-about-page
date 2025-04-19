@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -215,6 +214,25 @@ export const CABeforeAfterCarousel = () => {
             ))}
           </div>
         </div>
+
+        {/* Final Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mt-20 max-w-3xl mx-auto"
+        >
+          <p className="text-lg mb-8" style={{ color: customAIAgentColors.text.secondary }}>
+            S10.AI connects with your tools, works with your staff, and delivers immediate impact—no code, no friction, no disruption.
+          </p>
+          <Button 
+            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+          >
+            Book a discovery call
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </motion.div>
       </div>
     </section>
   );
