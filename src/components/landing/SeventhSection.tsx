@@ -1,4 +1,3 @@
-
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -92,7 +91,10 @@ export const SeventhSection = () => {
               variant='h6' 
               fontWeight="semiBold" 
               sx={{
-                color: '#143151',
+                background: 'linear-gradient(135deg, #143151, #387E89)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
                 transition: "color 0.3s ease"
               }}
             >
