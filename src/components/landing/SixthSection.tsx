@@ -7,7 +7,13 @@ export const SixthSection = () => {
   const theme = useTheme();
 
   return(
-    <section className="witOutSp" style={{ minHeight: 'unset', background: `linear-gradient(180deg, ${theme.palette.secondary.light}, ${theme.palette.common.white})` }}>
+    <section 
+      className="witOutSp" 
+      style={{ 
+        minHeight: 'unset', 
+        background: `linear-gradient(180deg, #143151, #387E89)` 
+      }}
+    >
       <Box sx={{ display:'flex', justifyContent:'center' }}>
         <Stack
           spacing={4}
@@ -22,25 +28,33 @@ export const SixthSection = () => {
           }}
           useFlexGap
         >
-          <Typography variant="h5" fontWeight="medium" sx={{ textAlign: "center", color: theme.palette.text.primary }}>
+          <Typography 
+            variant="h5" 
+            fontWeight="medium" 
+            sx={{ 
+              textAlign: "center", 
+              color: "#143151" 
+            }}
+          >
             Reduce Administrative Fatigue. Enhance Productivity. Improve Patient Care. 
           </Typography>
           <Button 
             variant="text" 
             sx={{ 
               textTransform: "capitalize",
-              background: theme.palette.primary.light,
+              background: `linear-gradient(135deg, #143151, #387E89)`,
+              color: 'white',
               px: 3,
               py: 1.5,
               borderRadius: "50px",
               "&:hover":{
                 ".icon-box": {
                   transform: "rotate(-270deg)",
-                  color: theme.palette.text.secondary,
-                  borderColor: theme.palette.text.secondary,
+                  color: "white",
+                  borderColor: "white",
                 },
                 ".button-text": {
-                  color: theme.palette.text.secondary,
+                  color: "white",
                 },
               },
             }}
@@ -54,8 +68,8 @@ export const SixthSection = () => {
                   width: 25,
                   height: 25,
                   borderRadius: "50%", 
-                  color: theme.palette.text.secondary,
-                  border: `2px solid ${theme.palette.text.secondary}`,
+                  color: "white",
+                  border: `2px solid white`,
                   transition: "transform 0.3s ease",
                   transform: "rotate(0deg)",
                   mr: 1
@@ -70,7 +84,7 @@ export const SixthSection = () => {
               variant='h6' 
               fontWeight="semiBold" 
               sx={{
-                color: theme.palette.text.secondary,
+                color: "white",
                 transition: "color 0.3s ease"
               }}
             >
