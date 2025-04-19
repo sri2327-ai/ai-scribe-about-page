@@ -54,34 +54,35 @@ export const FirstSection = () => {
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(10px)',
             borderRadius: '24px',
-            p: { xs: 4, md: 5 },
+            p: { xs: 3, md: 4 },
             border: '1px solid rgba(209, 213, 219, 0.3)',
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-            height: '400px',
+            height: '300px',
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
+            alignItems: 'center',
             animation: "fadeInDown 0.8s ease-out",
           }}>
-            <Box sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexGrow: 1,
-              mb: 4
-            }}>
-              <VoiceAnimation />
-            </Box>
             <Typography 
               sx={{
                 color: '#000000',
                 fontSize: { xs: '1.125rem', md: '1.25rem' },
                 lineHeight: 1.6,
                 fontWeight: 400,
-                textAlign: 'center'
+                flex: 1,
+                pr: 3
               }}
             >
               From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered solutions that streamline clinical documentation, minimize administrative burdens, reduce burnout, and save you time.
             </Typography>
+            <Box sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '140px',
+            }}>
+              <VoiceAnimation />
+            </Box>
           </Box>
         </Stack>
 
