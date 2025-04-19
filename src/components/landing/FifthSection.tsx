@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography, useMediaQuery } from '@mui/material';
 import { useTheme } from "@mui/material/styles";
@@ -7,6 +6,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart } from 'lucide-react';
+
+const cardIcons = [
+    { id: 1, icon: Phone, title: "Instant Call Handling", description: "BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms." },
+    { id: 2, icon: ClipboardList, title: "Effortless Pre-Visit Workflow", description: "Automates patient intake, insurance verification, and medical history updates for seamless visits." },
+    { id: 3, icon: Bell, title: "Reduce No-Shows & Improve Engagement", description: "Sends real-time confirmations, automated reminders, and follow-ups to maximize appointment adherence." },
+    { id: 4, icon: FileText, title: "Real-Time AI Medical Scribe", description: "CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly." },
+    { id: 5, icon: ClipboardCheck, title: "Automate Repetitive Administrative Tasks", description: "Streamlines prescription refills, referrals, lab orders, AI-powered clinical notes, and visit summaries to reduce staff workload." },
+    { id: 6, icon: Heart, title: "Post-Visit Patient Support", description: "BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes." },
+    { id: 7, icon: BarChart, title: "Accelerate Revenue Cycle Management", description: "Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes." },
+  ];
 
 export const FifthSection = () => {
   const theme = useTheme();
@@ -97,17 +106,6 @@ export const FifthSection = () => {
     autoplaySpeed: 2000
   };
 
-  // Create icon components for each card
-  const cardIcons = [
-    { id: 1, icon: Phone, title: "Instant Call Handling", description: "BRAVO answers patient inquiries, schedules appointments, and integrates with EHR, SIP, and PMS platforms." },
-    { id: 2, icon: ClipboardList, title: "Effortless Pre-Visit Workflow", description: "Automates patient intake, insurance verification, and medical history updates for seamless visits." },
-    { id: 3, icon: Bell, title: "Reduce No-Shows & Improve Engagement", description: "Sends real-time confirmations, automated reminders, and follow-ups to maximize appointment adherence." },
-    { id: 4, icon: FileText, title: "Real-Time AI Medical Scribe", description: "CRUSH captures and transcribes physician-patient interactions, generating structured clinical notes instantly." },
-    { id: 5, icon: ClipboardCheck, title: "Automate Repetitive Administrative Tasks", description: "Streamlines prescription refills, referrals, lab orders, AI-powered clinical notes, and visit summaries to reduce staff workload." },
-    { id: 6, icon: Heart, title: "Post-Visit Patient Support", description: "BRAVO automates follow-ups, medication adherence, and preventive care reminders to improve patient outcomes." },
-    { id: 7, icon: BarChart, title: "Accelerate Revenue Cycle Management", description: "Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes." },
-  ];
-
   return (
     <section ref={containerRef} className="py-10 px-4 md:px-8 bg-white">
       <Box sx={{ display: 'flex', flexDirection:'column', alignItems: 'center' }}>
@@ -115,24 +113,30 @@ export const FifthSection = () => {
           variant="h3" 
           fontWeight="bold" 
           sx={{ 
-            px: 4, 
-            py: 8, 
+            px: { xs: 2, sm: 4 }, 
+            py: { xs: 4, sm: 8 }, 
             textAlign: "center", 
-            color: 'black' 
+            color: 'black',
+            fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' }
           }}
         >
           How Bravo & CRUSH Transform Your Practice Together 
         </Typography>
+
+        {/* Desktop view */}
         <Stack
           spacing={3}
           direction="row"
           sx={{
             display: { xs: 'none', md: 'flex' },
             justifyContent: "center",
-            px: 10,
-            py: 10,
+            px: { md: 4, lg: 10 },
+            py: { md: 6, lg: 10 },
             background: 'white',
             borderRadius: 4,
+            width: '100%',
+            maxWidth: '1600px',
+            margin: '0 auto'
           }}
           useFlexGap
         >
@@ -154,13 +158,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  1. {cardIcons[0].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  1
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[0].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -190,13 +221,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  3. {cardIcons[2].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  3
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[2].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -226,13 +284,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  5. {cardIcons[4].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  5
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[4].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -262,13 +347,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  7. {cardIcons[6].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  7
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[6].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -293,7 +405,7 @@ export const FifthSection = () => {
             <MotionPaper 
               style={{ height: height }} 
               sx={{ 
-                background: `linear-gradient(0deg, #0d2b3f, #D946EF)`,
+                background: `linear-gradient(0deg, #143151, #D946EF)`,
                 px: 0.2 
               }}
             >
@@ -307,7 +419,7 @@ export const FifthSection = () => {
             gap: 4,
             width: '50%'
           }}>
-            {/* Right column cards (2, 4, 6) */}
+            {/* Right column cards (2, 4, 6) with similar number styling */}
             <MotionPaper
               ref={ref2}
               style={{
@@ -318,13 +430,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  2. {cardIcons[1].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  2
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[1].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -354,13 +493,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  4. {cardIcons[3].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  4
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[3].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -390,13 +556,40 @@ export const FifthSection = () => {
               sx={{
                 boxShadow: 0,
                 background: 'transparent',
+                position: 'relative',
               }}
             >
-              <Box sx={{ p: 3, gap: 3, display: 'flex', flexDirection:'column', justifyContent:'space-between', color: 'black', background: 'white', borderRadius: 2, border: '1px solid rgba(0,0,0,0.1)' }}>
-                <Typography variant="h5" fontWeight="semiBold" color="black">
-                  6. {cardIcons[5].title}
+              <Box sx={{ 
+                p: 3, 
+                gap: 3, 
+                display: 'flex', 
+                flexDirection:'column', 
+                justifyContent:'space-between', 
+                color: 'black', 
+                background: 'white', 
+                borderRadius: 2, 
+                border: '1px solid rgba(0,0,0,0.1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}>
+                <Typography 
+                  sx={{ 
+                    position: 'absolute',
+                    top: -20,
+                    right: -20,
+                    fontSize: '160px',
+                    fontWeight: 'bold',
+                    opacity: 0.05,
+                    color: '#1EAEDB',
+                    zIndex: 0
+                  }}
+                >
+                  6
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3 }}>
+                <Typography variant="h5" fontWeight="semiBold" color="black" sx={{ position: 'relative', zIndex: 1 }}>
+                  {cardIcons[5].title}
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection:'row', gap: 3, py: 3, position: 'relative', zIndex: 1 }}>
                   <Box sx={{ 
                     p: 2, 
                     borderRadius: '50%', 
@@ -422,12 +615,12 @@ export const FifthSection = () => {
       {/* Mobile view with slider */}
       <Stack
         spacing={3}
-        direction= "column"
+        direction="column"
         sx={{
           display: { xs: 'flex', md: 'none' },
           alignItems: 'stretch',
-          mx: 2,
-          py: 2,
+          mx: { xs: 1, sm: 2 },
+          py: { xs: 2, sm: 4 },
           background: theme.palette.common.white,
           borderRadius: 4,
           boxShadow: 2
@@ -439,15 +632,41 @@ export const FifthSection = () => {
             const CardIcon = card.icon;
             return (
               <Box key={index} sx={{ px: 1.5 }}>
-                <Box sx={{ height: { xs: '270px', sm: '220px', md: '230px' }, p: 2, gap: 2, display: 'flex', flexDirection:'column', justifyContent: 'space-between',color: theme.palette.text.secondary, background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, borderRadius: 2 }}>
-                  <Typography variant="h5" fontWeight="semiBold">
-                    {index + 1}. {card.title}
+                <Box sx={{ 
+                  height: { xs: '300px', sm: '320px' }, 
+                  p: 3, 
+                  gap: 2, 
+                  display: 'flex', 
+                  flexDirection:'column', 
+                  justifyContent: 'space-between',
+                  color: theme.palette.text.secondary, 
+                  background: `linear-gradient(150deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})`, 
+                  borderRadius: 2,
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}>
+                  <Typography 
+                    sx={{ 
+                      position: 'absolute',
+                      top: -20,
+                      right: -20,
+                      fontSize: '140px',
+                      fontWeight: 'bold',
+                      opacity: 0.1,
+                      color: '#ffffff',
+                      zIndex: 0
+                    }}
+                  >
+                    {index + 1}
                   </Typography>
-                  <Box>
+                  <Typography variant="h5" fontWeight="semiBold" sx={{ position: 'relative', zIndex: 1 }}>
+                    {card.title}
+                  </Typography>
+                  <Box sx={{ position: 'relative', zIndex: 1 }}>
                     <Box sx={{ 
                       float: 'left',
-                      width: '70px',
-                      height: '70px',
+                      width: { xs: '60px', sm: '70px' },
+                      height: { xs: '60px', sm: '70px' },
                       borderRadius: '50%',
                       background: 'linear-gradient(135deg, #143151, #387E89)',
                       display: 'flex',
@@ -455,7 +674,7 @@ export const FifthSection = () => {
                       justifyContent: 'center',
                       mr: 2
                     }}>
-                      <CardIcon size={32} color="white" />
+                      <CardIcon size={28} color="white" />
                     </Box>
                     <Typography variant="h6" fontWeight="medium">
                       {card.description}
