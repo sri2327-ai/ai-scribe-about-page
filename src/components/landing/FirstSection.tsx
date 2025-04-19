@@ -1,11 +1,10 @@
 
 import React from 'react';
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
-import { Button } from "../ui/button";
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
@@ -18,8 +17,8 @@ export const FirstSection = () => {
         {/* Main content layout */}
         <div className="flex flex-col space-y-8">
           {/* Top row: Heading and Card */}
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-            {/* Left column - Heading */}
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            {/* Left column - Heading and CTA */}
             <Box
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
@@ -53,9 +52,45 @@ export const FirstSection = () => {
                 Solutions<br />
                 For Healthcare
               </Typography>
+
+              <Button
+                sx={{
+                  background: 'linear-gradient(to right, #143151, #387E89)',
+                  color: 'white',
+                  px: 4,
+                  py: 2,
+                  mt: 2,
+                  mb: 4,
+                  borderRadius: '50px',
+                  textTransform: 'none',
+                  fontSize: {
+                    xs: '1rem',
+                    md: '1.125rem'
+                  },
+                  fontWeight: 600,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                  width: {
+                    xs: '100%',
+                    sm: 'auto'
+                  },
+                  maxWidth: {
+                    xs: '100%',
+                    sm: '200px'
+                  },
+                  height: '50px',
+                  '&:hover': {
+                    background: 'linear-gradient(to right, #0d2440, #2d6974)'
+                  }
+                }}
+              >
+                <ArrowRight className="h-4 w-4" />
+                <span>Book A Demo</span>
+              </Button>
             </Box>
 
-            {/* Right column - Card */}
+            {/* Right column - Card and animation */}
             <Box
               sx={{
                 width: { xs: '100%', md: '45%' },
@@ -122,82 +157,69 @@ export const FirstSection = () => {
             </Box>
           </div>
 
-          {/* Bottom section: Book Demo Button and Recommended Companies */}
-          <div className="flex flex-col space-y-6">
-            {/* Book Demo Button */}
-            <div className="flex justify-start w-full md:w-1/2">
-              <Button
-                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d2440] hover:to-[#2d6974] text-white rounded-full font-semibold flex items-center justify-center gap-2 min-w-[200px]"
-              >
-                <ArrowRight className="h-4 w-4" />
-                <span>Book A Demo</span>
-              </Button>
-            </div>
-
-            {/* Recommended Companies */}
-            <Box
+          {/* Bottom row: Recommended Companies */}
+          <Box
+            sx={{
+              background: 'rgba(243, 244, 246, 0.1)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '16px',
+              p: 2,
+              border: '1px solid rgba(209, 213, 219, 0.3)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+              width: '100%'
+            }}
+          >
+            <Typography
+              variant="h6"
               sx={{
-                background: 'rgba(243, 244, 246, 0.1)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: '16px',
-                p: 2,
-                border: '1px solid rgba(209, 213, 219, 0.3)',
-                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                width: '100%'
+                color: '#000000',
+                mb: 2,
+                fontSize: {
+                  xs: '1rem',
+                  md: '1.125rem'
+                },
+                fontWeight: 600,
+                textAlign: 'center'
               }}
             >
-              <Typography
-                variant="h6"
-                sx={{
-                  color: '#000000',
-                  mb: 2,
-                  fontSize: {
-                    xs: '1rem',
-                    md: '1.125rem'
-                  },
-                  fontWeight: 600,
-                  textAlign: 'center'
-                }}
-              >
-                S10.AI Is Recommended by
-              </Typography>
-              <Box
-                sx={{
-                  overflow: "hidden",
-                  width: '100%',
-                  '& .marquee-container': {
-                    minHeight: '40px'
-                  }
-                }}
-              >
-                <Marquee gradient={false} speed={50}>
-                  {companyLogos.map((logo, index) => (
-                    <Box
-                      key={index}
-                      sx={{
-                        mx: {
-                          xs: 1.5,
-                          md: 2
-                        },
-                        display: 'flex',
-                        alignItems: 'center'
+              S10.AI Is Recommended by
+            </Typography>
+            <Box
+              sx={{
+                overflow: "hidden",
+                width: '100%',
+                '& .marquee-container': {
+                  minHeight: '40px'
+                }
+              }}
+            >
+              <Marquee gradient={false} speed={50}>
+                {companyLogos.map((logo, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      mx: {
+                        xs: 1.5,
+                        md: 2
+                      },
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <img
+                      src={logo}
+                      alt={`Company logo ${index + 1}`}
+                      style={{
+                        width: 'auto',
+                        height: '24px',
+                        objectFit: 'contain'
                       }}
-                    >
-                      <img
-                        src={logo}
-                        alt={`Company logo ${index + 1}`}
-                        style={{
-                          width: 'auto',
-                          height: '24px',
-                          objectFit: 'contain'
-                        }}
-                      />
-                    </Box>
-                  ))}
-                </Marquee>
-              </Box>
+                    />
+                  </Box>
+                ))}
+              </Marquee>
             </Box>
-          </div>
+          </Box>
         </div>
       </div>
     </section>
