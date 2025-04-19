@@ -1,4 +1,3 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -7,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface DisplayCardProps {
   className?: string;
+  cardClassName?: string;
   icon?: React.ReactNode;
   title?: string;
   description?: string;
@@ -17,6 +17,7 @@ interface DisplayCardProps {
 
 function DisplayCard({
   className,
+  cardClassName,
   icon,
   title = "Featured",
   description = "Discover amazing content",
@@ -30,6 +31,7 @@ function DisplayCard({
     <motion.div
       className={cn(
         "relative flex h-36 w-[22rem] -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-white/10 bg-black/70 backdrop-blur-sm px-4 py-3 transition-all duration-700 hover:border-blue-500/30 hover:bg-black/80 [&>*]:flex [&>*]:items-center [&>*]:gap-2",
+        cardClassName || "",
         className
       )}
       onClick={() => setIsExpanded(!isExpanded)}
