@@ -14,14 +14,14 @@ export const VoiceAnimation = () => {
   }, []);
 
   return (
-    <div className="relative w-24 h-24 flex items-center justify-center">
+    <div className="relative w-20 h-20 flex items-center justify-center">
       <AnimatePresence>
         {isActive && (
           <>
             <motion.img
               src="/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png"
               alt="Voice Assistant"
-              className="w-20 h-20 object-contain"
+              className="w-16 h-16 object-contain"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
