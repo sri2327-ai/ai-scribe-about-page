@@ -1,10 +1,13 @@
+
 import React from 'react';
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Paper } from "@mui/material";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { Paper } from "@mui/material";
 import { CrushIllustration } from './illustrations/CrushIllustration';
 import { BravoIllustration } from './illustrations/BravoIllustration';
+
+// Create a motion version of the MUI Paper component
+const MotionPaper = motion(Paper);
 
 export const FourthSection = () => {
   return (
