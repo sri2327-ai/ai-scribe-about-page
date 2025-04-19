@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -35,7 +34,6 @@ export const FourthSection = () => {
           justifyContent: 'center',
           alignItems: 'stretch'
         }}>
-          {/* CRUSH Box */}
           <Box sx={{ 
             flex: '1',
             maxWidth: { xs: '100%', md: '600px' },
@@ -87,7 +85,7 @@ export const FourthSection = () => {
                 fullWidth
                 variant="contained"
                 sx={{
-                  bgcolor: theme.palette.primary.main,
+                  background: 'linear-gradient(to right, #143151, #387E89)',
                   color: 'white',
                   py: 1.5,
                   borderRadius: 6,
@@ -95,7 +93,8 @@ export const FourthSection = () => {
                   fontSize: '1rem',
                   fontWeight: 500,
                   '&:hover': {
-                    bgcolor: theme.palette.primary.dark,
+                    background: 'linear-gradient(to right, #12283F, #2E6A75)',
+                    opacity: 0.9
                   }
                 }}
               >
@@ -107,7 +106,6 @@ export const FourthSection = () => {
             </Box>
           </Box>
 
-          {/* BRAVO Box */}
           <Box sx={{ 
             flex: '1',
             maxWidth: { xs: '100%', md: '600px' },
@@ -159,7 +157,7 @@ export const FourthSection = () => {
                 fullWidth
                 variant="contained"
                 sx={{
-                  bgcolor: theme.palette.primary.main,
+                  background: 'linear-gradient(to right, #143151, #387E89)',
                   color: 'white',
                   py: 1.5,
                   borderRadius: 6,
@@ -167,7 +165,8 @@ export const FourthSection = () => {
                   fontSize: '1rem',
                   fontWeight: 500,
                   '&:hover': {
-                    bgcolor: theme.palette.primary.dark,
+                    background: 'linear-gradient(to right, #12283F, #2E6A75)',
+                    opacity: 0.9
                   }
                 }}
               >
