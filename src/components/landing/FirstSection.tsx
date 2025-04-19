@@ -48,57 +48,101 @@ export const FirstSection = () => {
               For Healthcare
             </Typography>
 
-            <Button 
-              variant="contained" 
+            <Box 
               sx={{ 
-                textTransform: "none",
-                background: `linear-gradient(135deg, #143151, #387E89)`,
-                color: 'white',
-                px: { xs: 3, md: 4 },
-                py: { xs: 1.25, md: 1.5 },
-                borderRadius: "50px",
-                transition: 'all 0.3s ease',
-                "&:hover": {
-                  background: `linear-gradient(135deg, #143151, #387E89)`,
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
-                  ".icon-box": {
-                    transform: "rotate(-270deg)",
-                  },
-                },
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: 3,
+                mb: {
+                  xs: 6,
+                  lg: 8
+                }
               }}
-              startIcon={
-                <Box
-                  className="icon-box"
+            >
+              <Button 
+                variant="contained" 
+                sx={{ 
+                  textTransform: "none",
+                  background: `linear-gradient(135deg, #143151, #387E89)`,
+                  color: 'white',
+                  px: { xs: 3, md: 4 },
+                  py: { xs: 1.25, md: 1.5 },
+                  borderRadius: "50px",
+                  transition: 'all 0.3s ease',
+                  "&:hover": {
+                    background: `linear-gradient(135deg, #143151, #387E89)`,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
+                    ".icon-box": {
+                      transform: "rotate(-270deg)",
+                    },
+                  },
+                }}
+                startIcon={
+                  <Box
+                    className="icon-box"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: { xs: 20, md: 25 },
+                      height: { xs: 20, md: 25 },
+                      borderRadius: "50%", 
+                      color: "white",
+                      border: `2px solid white`,
+                      transition: "transform 0.3s ease",
+                      transform: "rotate(0deg)",
+                      mr: 1
+                    }}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </Box>
+                }
+              >
+                <Typography
+                  variant='h6' 
+                  fontWeight="semiBold" 
                   sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: { xs: 20, md: 25 },
-                    height: { xs: 20, md: 25 },
-                    borderRadius: "50%", 
+                    fontSize: { xs: '1rem', md: '1.25rem' },
                     color: "white",
-                    border: `2px solid white`,
-                    transition: "transform 0.3s ease",
-                    transform: "rotate(0deg)",
-                    mr: 1
                   }}
                 >
-                  <ArrowRight className="h-4 w-4" />
-                </Box>
-              }
-            >
-              <Typography
-                variant='h6' 
-                fontWeight="semiBold" 
+                  Request A Demo
+                </Typography>
+              </Button>
+
+              <Box 
                 sx={{
-                  fontSize: { xs: '1rem', md: '1.25rem' },
-                  color: "white",
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  p: 1,
+                  border: '1px solid rgba(209, 213, 219, 0.3)',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                  gap: 2
                 }}
               >
-                Request A Demo
-              </Typography>
-            </Button>
+                <Typography
+                  sx={{
+                    color: '#000000',
+                    fontSize: {
+                      xs: '0.75rem',
+                      md: '0.875rem'
+                    },
+                    lineHeight: 1.6,
+                    fontWeight: 400,
+                    maxWidth: '250px'
+                  }}
+                >
+                  AI solutions that streamline clinical documentation
+                </Typography>
+                <Box sx={{ transform: 'scale(1.2)' }}>
+                  <VoiceAnimation />
+                </Box>
+              </Box>
+            </Box>
           </Box>
 
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
