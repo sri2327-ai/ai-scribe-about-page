@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -12,11 +13,11 @@ export const FirstSection = () => {
 
   return (
     <section className="min-h-screen bg-white">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-20 md:py-28 lg:py-32">
         {/* Main content layout */}
-        <div className="flex flex-col space-y-8">
+        <div className="flex flex-col space-y-12 md:space-y-16">
           {/* Top row: Heading and Card */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16">
             {/* Left column - Heading and CTA */}
             <Box
               sx={{
@@ -28,21 +29,21 @@ export const FirstSection = () => {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: '2.5rem',
-                    sm: '3rem',
-                    md: '3.5rem',
-                    lg: '4rem',
+                    xs: '3.5rem',
+                    sm: '4rem',
+                    md: '4.5rem',
+                    lg: '5rem',
                   },
                   lineHeight: {
-                    xs: 1.2,
-                    md: 1.1
+                    xs: 1.1,
+                    md: 1
                   },
                   fontWeight: 700,
                   color: '#000000',
                   letterSpacing: '-0.02em',
                   mb: {
-                    xs: 3,
-                    lg: 4
+                    xs: 6,
+                    lg: 8
                   }
                 }}
               >
@@ -100,7 +101,7 @@ export const FirstSection = () => {
                     color: "white",
                   }}
                 >
-                  Book A Demo
+                  Request A Demo
                 </Typography>
               </Button>
             </Box>
@@ -112,7 +113,8 @@ export const FirstSection = () => {
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: { xs: 'center', md: 'flex-end' }
+                alignItems: { xs: 'center', md: 'flex-end' },
+                mt: { xs: 4, md: 8 }
               }}
             >
               <Box
@@ -172,7 +174,7 @@ export const FirstSection = () => {
             </Box>
           </div>
 
-          {/* Bottom row: Recommended Companies */}
+          {/* Bottom row: Recommended Companies - moved further down */}
           <Box
             sx={{
               background: 'rgba(243, 244, 246, 0.1)',
@@ -181,7 +183,8 @@ export const FirstSection = () => {
               p: 2,
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              width: '100%'
+              width: '100%',
+              mt: { xs: 8, md: 12 }
             }}
           >
             <Typography
