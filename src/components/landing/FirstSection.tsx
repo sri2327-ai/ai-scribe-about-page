@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -128,7 +129,6 @@ export const FirstSection = () => {
           fontWeight: 600,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
           gap: 1,
           minWidth: '150px',
           width: {
@@ -141,7 +141,7 @@ export const FirstSection = () => {
           }
         }}>
             <ArrowRight className="h-5 w-5" />
-            Book A Demo
+            <span style={{ display: 'block', whiteSpace: 'nowrap' }}>Book A Demo</span>
           </Button>
           
           <Box sx={{
