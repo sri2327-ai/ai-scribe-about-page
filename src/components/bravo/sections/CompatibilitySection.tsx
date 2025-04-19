@@ -291,26 +291,26 @@ export const CompatibilitySection = () => {
               transition={{ duration: 0.8 }}
             >
               <motion.div
-                className="w-[90%] max-w-xl h-80 rounded-xl bg-white/30 backdrop-blur-md border border-white/40 shadow-lg overflow-hidden"
+                className="w-[90%] max-w-xl h-80 rounded-xl bg-white/20 backdrop-blur-xl border border-white/40 shadow-lg overflow-hidden"
                 variants={{
                   hidden: { opacity: 0, y: 40, scale: 0.8 },
                   visible: { opacity: 1, y: 0, scale: 1 }
                 }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="h-10 bg-gradient-to-r from-blue-500/50 to-purple-600/50 flex items-center px-4">
+                <div className="h-10 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 flex items-center px-4">
                   <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
                   <div className="mr-1.5 w-2.5 h-2.5 rounded-full bg-white/70"></div>
                   <div className="w-2.5 h-2.5 rounded-full bg-white/70"></div>
                   <div className="mx-auto flex items-center gap-2">
                     <span className="text-sm font-medium text-white">Integrated Dashboard</span>
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center border border-white/30">
                       <span className="text-[8px] font-bold text-white">B</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="p-6">
+                <div className="p-6 bg-white/10 backdrop-blur-md">
                   <div className="flex flex-wrap justify-center gap-6 mb-8">
                     {integrationFeatures.map((feature, idx) => (
                       <motion.div 
@@ -326,10 +326,7 @@ export const CompatibilitySection = () => {
                         }}
                         animate={activeStep >= 4 ? "visible" : "hidden"}
                       >
-                        <div className="mb-2 w-12 h-12 rounded-lg flex items-center justify-center shadow-md" 
-                          style={{
-                            background: `linear-gradient(to bottom right, ${feature.gradient[0]}, ${feature.gradient[2]})`
-                          }}
+                        <div className="mb-2 w-12 h-12 rounded-lg flex items-center justify-center shadow-md bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/30" 
                         >
                           {feature.icon}
                         </div>
@@ -339,10 +336,10 @@ export const CompatibilitySection = () => {
                   </div>
                   
                   <div className="flex flex-wrap gap-3 justify-center">
-                    <div className="h-6 w-24 rounded-md bg-blue-500/30 animate-pulse"></div>
-                    <div className="h-6 w-32 rounded-md bg-purple-500/30 animate-pulse"></div>
-                    <div className="h-6 w-20 rounded-md bg-blue-500/30 animate-pulse"></div>
-                    <div className="h-6 w-28 rounded-md bg-purple-500/30 animate-pulse"></div>
+                    <div className="h-6 w-24 rounded-md bg-white/20 animate-pulse backdrop-blur-sm border border-white/20"></div>
+                    <div className="h-6 w-32 rounded-md bg-white/20 animate-pulse backdrop-blur-sm border border-white/20"></div>
+                    <div className="h-6 w-20 rounded-md bg-white/20 animate-pulse backdrop-blur-sm border border-white/20"></div>
+                    <div className="h-6 w-28 rounded-md bg-white/20 animate-pulse backdrop-blur-sm border border-white/20"></div>
                   </div>
                 </div>
               </motion.div>
