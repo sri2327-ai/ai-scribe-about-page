@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion } from "framer-motion";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import { ArrowRight, Shield } from "lucide-react";
+import { ArrowRight, Shield, BadgeCheck, BadgeInfo, BadgePercent, BadgePlus } from "lucide-react";
 import { AnimatedWorkflow } from "@/components/crush-ai/AnimatedWorkflow";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { SparklesText } from "@/components/ui/sparkles-text";
@@ -35,22 +35,22 @@ export const HeroSection = () => {
     {
       name: "PIPEDA",
       description: "Personal Information Protection and Electronic Documents Act Compliant",
-      icon: Shield
+      icon: BadgeCheck
     },
     {
       name: "ISO 27001",
       description: "International Organization for Standardization Security Certified",
-      icon: Shield
+      icon: BadgeInfo
     },
     {
       name: "GDPR",
       description: "General Data Protection Regulation Compliant",
-      icon: Shield
+      icon: BadgePercent
     },
     {
       name: "APP",
       description: "Australian Privacy Principles Compliant",
-      icon: Shield
+      icon: BadgePlus
     }
   ];
 
@@ -326,14 +326,7 @@ export const HeroSection = () => {
                   <item.icon size={20} color="black" strokeWidth={1.5} />
                 </Box>
               </HoverCardTrigger>
-              <HoverCardContent 
-                className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20"
-                sx={{
-                  color: 'white',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
-                }}
-              >
+              <HoverCardContent className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20">
                 <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
                   {item.name}
                 </Typography>
