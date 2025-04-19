@@ -11,7 +11,6 @@ const cards = [
     description: "Understands clinical context—not just 'if-this-then-that' logic.",
     iconClassName: "bg-gray-100 rounded-lg",
     titleClassName: "text-black",
-    className: "md:col-span-2",
     cardClassName: "border-gray-200 bg-white shadow-sm"
   },
   {
@@ -20,7 +19,6 @@ const cards = [
     description: "Deployed in less than a week. New workflows? Add them anytime.",
     iconClassName: "bg-gray-100 rounded-lg",
     titleClassName: "text-black",
-    className: "md:col-span-1",
     cardClassName: "border-gray-200 bg-white shadow-sm"
   },
   {
@@ -29,7 +27,6 @@ const cards = [
     description: "Used by 1,000+ clinicians to save 10–20 hours per week, improve documentation quality, and cut admin overhead.",
     iconClassName: "bg-gray-100 rounded-lg",
     titleClassName: "text-black",
-    className: "md:col-span-1",
     cardClassName: "border-gray-200 bg-white shadow-sm"
   }
 ];
