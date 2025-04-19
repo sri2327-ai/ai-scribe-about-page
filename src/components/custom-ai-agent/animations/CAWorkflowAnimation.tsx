@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
@@ -57,20 +56,20 @@ export const CAWorkflowAnimation = () => {
   }, [isAutoPlaying]);
 
   return (
-    <div className="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
+    <div className="relative w-full h-[700px] flex items-center justify-center overflow-hidden">
       {/* Background circle */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="absolute w-[800px] h-[800px] rounded-full opacity-10"
+          className="absolute w-[600px] h-[600px] rounded-full opacity-10"
           style={{ backgroundColor: customAIAgentColors.tertiary }}
         />
       </div>
 
       {/* Workflow steps */}
-      <div className="relative max-w-2xl mx-auto text-center flex flex-col items-center justify-center" style={{ marginTop: '-100px' }}>
+      <div className="relative max-w-md mx-auto text-center flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -80,7 +79,7 @@ export const CAWorkflowAnimation = () => {
             transition={{ duration: 0.5 }}
             className="mb-8"
           >
-            <div className="text-7xl mb-6">{workflowSteps[currentStep].illustration}</div>
+            <div className="text-6xl mb-6">{workflowSteps[currentStep].illustration}</div>
             <h3 className="text-2xl font-bold mb-4" style={{ color: customAIAgentColors.primary }}>
               {workflowSteps[currentStep].title}
             </h3>
@@ -91,7 +90,7 @@ export const CAWorkflowAnimation = () => {
         </AnimatePresence>
 
         {/* Step indicators */}
-        <div className="flex justify-center gap-3 mt-12">
+        <div className="flex justify-center gap-3 mt-8">
           {workflowSteps.map((step, index) => (
             <button
               key={step.id}
@@ -111,9 +110,9 @@ export const CAWorkflowAnimation = () => {
 
         {/* Connection lines */}
         <GradientTracing
-          width={600}
-          height={400}
-          path="M100,200 C150,100 450,300 500,200"
+          width={400}
+          height={300}
+          path="M100,150 C150,50 250,250 300,150"
           strokeWidth={1.5}
           baseColor="#e2e8f0"
           gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary, customAIAgentColors.tertiary]}
