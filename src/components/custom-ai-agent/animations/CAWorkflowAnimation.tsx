@@ -57,20 +57,20 @@ export const CAWorkflowAnimation = () => {
   }, [isAutoPlaying]);
 
   return (
-    <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background elements */}
+    <div className="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
+      {/* Background circle */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="absolute w-[500px] h-[500px] rounded-full opacity-10"
+          className="absolute w-[800px] h-[800px] rounded-full opacity-10"
           style={{ backgroundColor: customAIAgentColors.tertiary }}
         />
       </div>
 
       {/* Workflow steps */}
-      <div className="relative w-full max-w-2xl flex flex-col items-center justify-center">
+      <div className="relative max-w-2xl mx-auto text-center flex flex-col items-center justify-center" style={{ marginTop: '-100px' }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentStep}
@@ -78,20 +78,20 @@ export const CAWorkflowAnimation = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-8"
+            className="mb-8"
           >
-            <div className="text-6xl mb-4">{workflowSteps[currentStep].illustration}</div>
-            <h3 className="text-xl font-bold mb-2" style={{ color: customAIAgentColors.primary }}>
+            <div className="text-7xl mb-6">{workflowSteps[currentStep].illustration}</div>
+            <h3 className="text-2xl font-bold mb-4" style={{ color: customAIAgentColors.primary }}>
               {workflowSteps[currentStep].title}
             </h3>
-            <p className="text-gray-600">
+            <p className="text-lg text-gray-600 max-w-xl mx-auto">
               {workflowSteps[currentStep].description}
             </p>
           </motion.div>
         </AnimatePresence>
 
         {/* Step indicators */}
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex justify-center gap-3 mt-12">
           {workflowSteps.map((step, index) => (
             <button
               key={step.id}
@@ -99,7 +99,7 @@ export const CAWorkflowAnimation = () => {
                 setCurrentStep(index);
                 setIsAutoPlaying(false);
               }}
-              className={`w-3 h-3 rounded-full transition-colors ${
+              className={`w-2.5 h-2.5 rounded-full transition-colors ${
                 currentStep === index 
                   ? 'bg-blue-500' 
                   : 'bg-gray-300 hover:bg-gray-400'
@@ -116,7 +116,7 @@ export const CAWorkflowAnimation = () => {
           path="M100,200 C150,100 450,300 500,200"
           strokeWidth={1.5}
           baseColor="#e2e8f0"
-          gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary, customAIAgentColors.secondary]}
+          gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary, customAIAgentColors.tertiary]}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"
         />
       </div>
