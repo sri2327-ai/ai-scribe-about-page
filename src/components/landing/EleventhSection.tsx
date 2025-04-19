@@ -8,7 +8,7 @@ export const EleventhSection = () => {
     <section 
       className="min-h-screen w-full flex items-center justify-center"
       style={{
-        background: `linear-gradient(135deg, #143151, #387E89, #143151, #F06292)`,
+        background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
       }}
     >
       <Stack
