@@ -1,4 +1,3 @@
-
 "use client";
 
 import { cn } from "@/lib/utils";
@@ -23,15 +22,15 @@ function DisplayCard({
   title = "Featured",
   description = "Discover amazing content",
   date,
-  iconClassName = "text-blue-500",
-  titleClassName = "text-blue-500",
+  iconClassName = "bg-gray-100 rounded-lg",
+  titleClassName = "text-black",
 }: DisplayCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <motion.div
       className={cn(
-        "relative flex h-full min-h-[180px] w-full -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-white/10 bg-black/70 backdrop-blur-sm p-6 transition-all duration-700 hover:border-blue-500/30 hover:bg-black/80 [&>*]:flex [&>*]:items-center [&>*]:gap-2",
+        "relative flex h-full min-h-[180px] w-full -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-gray-200 bg-white shadow-sm p-6 transition-all duration-700 hover:border-gray-300 hover:bg-gray-50 [&>*]:flex [&>*]:items-center [&>*]:gap-2",
         cardClassName || "",
         className
       )}
@@ -40,7 +39,7 @@ function DisplayCard({
       layout
     >
       <div>
-        <span className={cn("relative inline-block rounded-full bg-blue-950 p-2", iconClassName)}>
+        <span className={cn("relative inline-block rounded-full bg-gray-100 p-2", iconClassName)}>
           {icon}
         </span>
         <p className={cn("text-lg font-medium", titleClassName)}>{title}</p>
@@ -58,22 +57,22 @@ function DisplayCard({
             }}
           >
             <motion.div 
-              className="w-full max-w-md bg-black border border-blue-500/20 rounded-xl p-6 text-left -skew-y-[3deg]"
+              className="w-full max-w-md bg-white border border-gray-300 rounded-xl p-6 text-left -skew-y-[3deg] shadow-lg"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className={cn("relative inline-block rounded-full bg-blue-950 p-2", iconClassName)}>
+                <span className={cn("relative inline-block rounded-full bg-gray-100 p-2", iconClassName)}>
                   {icon}
                 </span>
                 <p className={cn("text-2xl font-medium", titleClassName)}>{title}</p>
               </div>
-              <p className="text-gray-300 text-base leading-relaxed mb-4">{description}</p>
-              {date && <p className="text-blue-400 text-sm">{date}</p>}
+              <p className="text-gray-700 text-base leading-relaxed mb-4">{description}</p>
+              {date && <p className="text-gray-500 text-sm">{date}</p>}
               <button 
-                className="mt-4 bg-blue-600/30 hover:bg-blue-600/50 text-white py-2 px-4 rounded-md transition-colors"
+                className="mt-4 bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded-md transition-colors"
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsExpanded(false);
@@ -84,10 +83,10 @@ function DisplayCard({
             </motion.div>
           </motion.div>
         ) : (
-          <p className="text-gray-400 text-sm line-clamp-2">{description}</p>
+          <p className="text-gray-600 text-sm line-clamp-2">{description}</p>
         )}
       </AnimatePresence>
-      {date && !isExpanded && <p className="text-muted-foreground text-xs">{date}</p>}
+      {date && !isExpanded && <p className="text-gray-500 text-xs">{date}</p>}
     </motion.div>
   );
 }
