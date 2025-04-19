@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -235,14 +236,14 @@ export const FifthSection = () => {
             flexDirection: 'column', 
             gap: 2 
           }}>
-            {cardIcons.map((card, index) => (
+            {cardIcons.map((card) => (
               <WorkflowCard 
                 key={card.id}
                 icon={card.icon}
                 title={card.title}
                 description={card.description}
                 number={card.id}
-                isRight={card.id % 2 === 0}
+                isRight={card.id % 2 === 0} // Even cards (2, 4, 6) on right, odd cards (1, 3, 5, 7) on left
               />
             ))}
           </Box>
