@@ -84,7 +84,7 @@ export const FirstSection = () => {
                   }
                 }}
               >
-                <span>Book A Demo</span>
+                Book A Demo
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </Box>
