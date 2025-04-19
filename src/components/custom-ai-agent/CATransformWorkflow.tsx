@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
@@ -11,10 +10,9 @@ import {
   MessageSquare,
   Shield,
   ListChecks,
-  Check  // Add this import
+  Check
 } from 'lucide-react';
 
-// Define workflow steps with illustrations
 const steps = [
   {
     title: "Automate Patient Intake",
@@ -56,11 +54,10 @@ const steps = [
     title: "Handle Repetitive Tasks",
     description: "Automate manual and repetitive work",
     icon: ListChecks,
-    content: "Your AI agent takes care of any repetitive tasks like data entry, form filling, and routine documentation. This automation reduces human error and frees up your staff to focus on more meaningful patient interactions."
+    content: "Your AI agent handles repetitive tasks like data entry—anything you can name. This automation reduces human error and frees up your staff to focus on more meaningful patient interactions."
   }
 ];
 
-// Illustration component for each step
 const StepIllustration = ({ step }) => {
   return (
     <div className="w-full h-full p-6 bg-white rounded-lg border border-gray-100 shadow-md">
@@ -72,7 +69,7 @@ const StepIllustration = ({ step }) => {
           <h4 className="text-lg font-medium" style={{ color: customAIAgentColors.primary }}>{step.title}</h4>
         </div>
         <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
-          <Check size={16} className="text-green-500" />  {/* Replace CheckCircle with Check */}
+          <Check size={16} className="text-green-500" />
         </div>
       </div>
       
@@ -114,7 +111,6 @@ export const CATransformWorkflow = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
   
-  // Auto-rotate through steps
   useEffect(() => {
     if (!autoplay) return;
     
@@ -125,10 +121,9 @@ export const CATransformWorkflow = () => {
     return () => clearInterval(interval);
   }, [autoplay]);
 
-  // Pause autoplay when user interacts with the component
   const handleStepClick = (index) => {
     setActiveStep(index);
-    setAutoplay(false); // Stop autoplay when user clicks
+    setAutoplay(false);
   };
 
   return (
@@ -150,7 +145,6 @@ export const CATransformWorkflow = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 items-center">
-          {/* Left side: Steps */}
           <div className="space-y-2 order-2 md:order-1">
             {steps.map((step, index) => (
               <motion.div 
@@ -209,7 +203,6 @@ export const CATransformWorkflow = () => {
             ))}
           </div>
           
-          {/* Right side: Illustration */}
           <div className="relative h-[400px] order-1 md:order-2">
             <motion.div
               key={activeStep}
@@ -222,7 +215,6 @@ export const CATransformWorkflow = () => {
               <StepIllustration step={steps[activeStep]} />
             </motion.div>
             
-            {/* Step indicators */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
               {steps.map((_, index) => (
                 <button
