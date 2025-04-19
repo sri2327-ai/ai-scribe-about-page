@@ -74,6 +74,8 @@ export const FirstSection = () => {
               p: 3,
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              position: 'relative',
+              zIndex: 1,
               animation: "fadeInDown 0.8s ease-out",
               "@keyframes fadeInDown": {
                 "0%": {
@@ -87,7 +89,15 @@ export const FirstSection = () => {
               },
             }}
           >
-            <Box sx={{ float: 'right', display:'flex', alignItems: 'center', borderRadius: 4, ml: 2 }}>
+            <Box sx={{ 
+              float: 'right', 
+              display:'flex', 
+              alignItems: 'center', 
+              borderRadius: 4, 
+              ml: 2,
+              position: 'relative',
+              zIndex: 2
+            }}>
               <img
                 src="/circleIcon.png"
                 alt="circleIcon"
@@ -95,7 +105,7 @@ export const FirstSection = () => {
                 height="auto"
               />
             </Box>
-            <Typography variant="h6" sx={{ color: '#000000' }}>
+            <Typography variant="h6" sx={{ color: '#000000', position: 'relative', zIndex: 1 }}>
               From AI medical scribes to patient care AI agents, CRUSH and BRAVO are AI-powered solutions that streamline clinical documentation, minimize administrative burdens, reduce burnout, and save you time—so you can focus on patient care and enhance healthcare automation.
             </Typography>
           </Box>
@@ -115,15 +125,18 @@ export const FirstSection = () => {
               background: 'linear-gradient(to right, #143151, #387E89)',
               color: 'white',
               px: 4,
-              py: 2,
+              py: 1.5,
               borderRadius: '50px',
               textTransform: 'none',
               fontSize: '1.1rem',
               fontWeight: 600,
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: 1,
+              minWidth: '150px',
               width: {xs: '100%', sm: 'auto'},
+              height: '56px',
               '&:hover': {
                 background: 'linear-gradient(to right, #0d2440, #2d6974)',
               }
@@ -142,6 +155,7 @@ export const FirstSection = () => {
               p: 3,
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              ml: { md: 2 },
             }}
           >
             <Typography variant="h6" sx={{ color: '#000000', mb: 2 }}>
