@@ -154,7 +154,7 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      backgroundColor: "#A5CCF3",
+                      backgroundColor: "#E6F2FF",
                       color: 'white'
                     }}
                   >
@@ -234,7 +234,7 @@ export const WorkflowAutomationSection = () => {
                     style={{ 
                       borderColor: crushAIColors.primary,
                       backgroundColor: 'white',
-                      border: '2px solid #A5CCF3'
+                      border: '2px solid #E6F2FF'
                     }}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
@@ -242,7 +242,7 @@ export const WorkflowAutomationSection = () => {
                         <div 
                           key={index} 
                           className="w-[2px] h-[2px] rounded-full"
-                          style={{ backgroundColor: `#A5CCF3` }}
+                          style={{ backgroundColor: `#E6F2FF` }}
                         ></div>
                       ))}
                     </div>
@@ -273,7 +273,7 @@ export const WorkflowAutomationSection = () => {
                     
                     <div className="absolute top-6 left-0 right-0 flex justify-between px-8 z-30">
                       <div className={`flex items-center gap-2 p-2 rounded-full ${sliderPosition < 20 ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-                        style={{ backgroundColor: `#A5CCF3CC` }}
+                        style={{ backgroundColor: `#E6F2FF4D` }}
                       >
                         <Clock className="h-3 w-3 text-white" />
                         <span className="text-xs text-white font-medium">Hours of documentation</span>
