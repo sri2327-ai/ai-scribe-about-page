@@ -9,13 +9,11 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 
 const tealBlueColor = "#5192AE";
 
-// Define fixed colors for chart
 const barColors = {
   humanScribe: "#000000",
   crushAI: crushAIColors.secondary
 };
 
-// Define Particle interface
 interface Particle {
   id: number;
   x: number;
@@ -259,9 +257,10 @@ export const ROICalculatorSection = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      color: crushAIColors.text.primary, // Explicitly set text color
+                      color: crushAIColors.text.primary,
                       '& input': {
-                        color: crushAIColors.text.primary, // Ensure input text is visible
+                        color: crushAIColors.text.primary,
+                        WebkitTextFillColor: crushAIColors.text.primary,
                       },
                       '& fieldset': {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
@@ -307,6 +306,11 @@ export const ROICalculatorSection = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
+                      color: crushAIColors.text.primary,
+                      '& input': {
+                        color: crushAIColors.text.primary,
+                        WebkitTextFillColor: crushAIColors.text.primary,
+                      },
                       '& fieldset': {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                       },
@@ -341,6 +345,11 @@ export const ROICalculatorSection = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
+                      color: crushAIColors.text.primary,
+                      '& input': {
+                        color: crushAIColors.text.primary,
+                        WebkitTextFillColor: crushAIColors.text.primary,
+                      },
                       '& fieldset': {
                         borderColor: 'rgba(0, 0, 0, 0.23)',
                       },
@@ -504,3 +513,5 @@ export const ROICalculatorSection = () => {
     </Box>
   );
 };
+
+export { ROICalculatorSection };
