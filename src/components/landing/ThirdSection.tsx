@@ -1,15 +1,10 @@
-
 import React, { useState } from 'react';
-import { Box, Stack, Typography, Paper, Tabs, Tab } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const ThirdSection = () => {
-  const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
-  const MotionPaper = motion(Paper);
   
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -48,7 +43,7 @@ export const ThirdSection = () => {
 
   return (
     <section className="py-10 px-4 md:px-8 w-full max-w-[100vw]">
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%', maxWidth: '1400px', mx: 'auto' }}>
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -81,18 +76,17 @@ export const ThirdSection = () => {
         <Stack
           spacing={3}
           direction={{ xs: "column", md: "row" }}
-          useFlexGap
           sx={{ width: '100%' }}
         >
           <Box sx={{ 
             display: 'flex', 
             flexDirection: 'column', 
-            width: { xs: '100%', md: '340px' }, 
-            flexShrink: 0,
+            width: { xs: '100%', md: '60%' }, 
             backgroundColor: '#ffffff',
             borderRadius: '8px',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-            p: 2
+            p: 3,
+            minHeight: '500px'
           }}>
             <Tabs
               value={tabValue}
@@ -103,7 +97,7 @@ export const ThirdSection = () => {
               aria-label="healthcare ai tabs"
               sx={{
                 mb: 3,
-                "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3, pointerEvents: "none" },
+                "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3 },
                 "& .MuiTabs-indicator": { backgroundColor: '#000000' },
                 "& .MuiTabs-scroller": { mx: 1 },
                 "& .MuiTabScrollButton-root": {
@@ -131,29 +125,30 @@ export const ThirdSection = () => {
                 />
               ))}
             </Tabs>
-            <Box sx={{ overflowY: 'auto', height: '100%' }}>
+            <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: '600px' }}>
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{
-                      duration: 0.5,
-                      ease: 'easeOut'
-                    }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
                   >
-                    <Accordion type="single" collapsible className="w-full border-none">
+                    <Accordion 
+                      type="single" 
+                      collapsible 
+                      className="w-full border-none space-y-4"
+                    >
                       {value.map((item, itemIndex) => (
                         <AccordionItem 
                           value={`item-${itemIndex}`} 
                           key={itemIndex}
-                          className="border-b border-solid border-black/20"
+                          className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2"
                         >
-                          <AccordionTrigger className="text-black font-medium py-3 hover:no-underline">
+                          <AccordionTrigger className="text-black hover:no-underline px-4 py-3">
                             {item.title}
                           </AccordionTrigger>
-                          <AccordionContent className="text-black/80">
+                          <AccordionContent className="text-black/80 px-4 pb-3">
                             {item.content}
                           </AccordionContent>
                         </AccordionItem>
@@ -166,12 +161,11 @@ export const ThirdSection = () => {
           </Box>
           <Box sx={{ 
             aspectRatio: "16/9", 
-            overflow: "hidden", 
-            display: 'flex', 
-            flexGrow: 1, 
-            minWidth: { xs: "100%", sm: "400px" }, 
-            minHeight: "250px",
+            width: { xs: "100%", md: "40%" },
+            minHeight: { xs: "250px", md: "300px" },
+            maxHeight: { md: "400px" },
             borderRadius: '8px',
+            overflow: "hidden",
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
           }}>
             <iframe
@@ -181,7 +175,7 @@ export const ThirdSection = () => {
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              style={{ border: "unset" }}
+              style={{ border: "none" }}
             ></iframe>
           </Box>
         </Stack>
