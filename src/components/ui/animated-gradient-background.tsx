@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -15,8 +16,8 @@ interface AnimatedGradientBackgroundProps {
 const AnimatedGradientBackground = ({
   startingGap = 300,
   Breathing = true,
-  gradientColors = ["#26C6DA", "#26C6DA", "#F06292"],
-  gradientStops = [0, 80, 100],
+  gradientColors = ["#26C6DA", "#26C6DA", "#26C6DA", "#F06292"],
+  gradientStops = [0, 70, 90, 100],
   animationSpeed = 0.03,
   breathingRange = 20,
 }: AnimatedGradientBackgroundProps) => {
