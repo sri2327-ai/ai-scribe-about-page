@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -54,63 +53,72 @@ const ROIMetrics = {
   annualSavings: "$150,000+"
 };
 
-// Card component for workflow steps
-const WorkflowCard = ({ icon: Icon, title, description, number }) => {
+const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Paper elevation={2} sx={{ 
-      p: 4, 
-      borderRadius: 2, 
-      mb: 4,
-      position: 'relative',
-      overflow: 'hidden',
-      border: '1px solid rgba(0,0,0,0.1)',
-    }}>
-      <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start', position: 'relative', zIndex: 2 }}>
-        <Box sx={{ 
-          p: 2, 
-          borderRadius: '50%',
-          background: 'linear-gradient(135deg, #143151, #387E89)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '60px',
-          height: '60px',
-          flexShrink: 0
-        }}>
-          <Icon size={30} color="white" />
+    <motion.div
+      initial={{ x: isRight ? 100 : -100, opacity: 0 }}
+      whileInView={{ x: 0, opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, type: "spring", bounce: 0.3 }}
+    >
+      <Paper elevation={2} sx={{ 
+        p: 4, 
+        borderRadius: 2,
+        mb: 4,
+        position: 'relative',
+        overflow: 'hidden',
+        border: '1px solid rgba(0,0,0,0.1)',
+        maxWidth: '500px',
+        ml: isRight ? 'auto' : 0,
+        mr: isRight ? 0 : 'auto',
+      }}>
+        <Box sx={{ display: 'flex', gap: 3, alignItems: 'flex-start', position: 'relative', zIndex: 2 }}>
+          <Box sx={{ 
+            p: 2, 
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #143151, #387E89)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '60px',
+            height: '60px',
+            flexShrink: 0
+          }}>
+            <Icon size={30} color="white" />
+          </Box>
+          <Box sx={{ flex: 1 }}>
+            <Typography variant="h5" fontWeight="bold" color="black" sx={{ mb: 1 }}>
+              {title}
+            </Typography>
+            <Typography variant={isMobile ? "body2" : "body1"} color="text.secondary">
+              {description}
+            </Typography>
+          </Box>
         </Box>
-        <Box sx={{ flex: 1 }}>
-          <Typography variant="h5" fontWeight="bold" color="black" sx={{ mb: 1 }}>
-            {title}
-          </Typography>
-          <Typography variant={isMobile ? "body2" : "body1"} color="text.secondary">
-            {description}
-          </Typography>
-        </Box>
-      </Box>
-      
-      <Typography 
-        sx={{ 
-          position: 'absolute',
-          top: -20,
-          right: -10,
-          fontSize: { xs: '120px', md: '180px' },
-          fontWeight: 'bold',
-          background: 'linear-gradient(135deg, #e0e0e0, #f5f5f5)',
-          backgroundClip: 'text',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          opacity: 0.6,
-          zIndex: 1,
-          pointerEvents: 'none'
-        }}
-      >
-        {number}
-      </Typography>
-    </Paper>
+        
+        <Typography 
+          sx={{ 
+            position: 'absolute',
+            top: -20,
+            right: -10,
+            fontSize: { xs: '120px', md: '180px' },
+            fontWeight: 'bold',
+            background: 'linear-gradient(135deg, #e0e0e0, #f5f5f5)',
+            backgroundClip: 'text',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            opacity: 0.6,
+            zIndex: 1,
+            pointerEvents: 'none'
+          }}
+        >
+          {number}
+        </Typography>
+      </Paper>
+    </motion.div>
   );
 };
 
@@ -178,35 +186,34 @@ export const FifthSection = () => {
           ))}
         </Box>
 
-        {/* Workflow Cards - Improved Layout */}
-        <Box sx={{ width: '100%', mb: 10 }}>
+        <Box sx={{ width: '100%', mb: 10, position: 'relative' }}>
           <Typography variant="h4" fontWeight="bold" textAlign="center" mb={6} color="black">
             The Complete Workflow Transformation
           </Typography>
           
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
-            <Box>
-              {cardIcons.slice(0, 4).map((card) => (
-                <WorkflowCard 
-                  key={card.id}
-                  icon={card.icon}
-                  title={card.title}
-                  description={card.description}
-                  number={card.id}
-                />
-              ))}
-            </Box>
-            <Box>
-              {cardIcons.slice(4).map((card) => (
-                <WorkflowCard 
-                  key={card.id}
-                  icon={card.icon}
-                  title={card.title}
-                  description={card.description}
-                  number={card.id}
-                />
-              ))}
-            </Box>
+          <Box
+            sx={{
+              position: 'absolute',
+              left: '50%',
+              top: '100px',
+              bottom: '100px',
+              width: '2px',
+              background: 'linear-gradient(to bottom, transparent, #387E89, transparent)',
+              display: { xs: 'none', md: 'block' }
+            }}
+          />
+          
+          <Box sx={{ position: 'relative', zIndex: 1 }}>
+            {cardIcons.map((card, index) => (
+              <WorkflowCard 
+                key={card.id}
+                icon={card.icon}
+                title={card.title}
+                description={card.description}
+                number={card.id}
+                isRight={index % 2 !== 0}
+              />
+            ))}
           </Box>
         </Box>
 
