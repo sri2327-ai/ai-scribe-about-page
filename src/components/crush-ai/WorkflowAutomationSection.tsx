@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate } from "framer-motion";
@@ -6,9 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
-// Define color scheme
-const mainBlue = "#26C6DA";
-const accentPink = "#F06292";
+// Define color for the slider - teal blue color as requested
+const sliderBlueColor = "#5192AE";
 
 export const WorkflowAutomationSection = () => {
   // Create a ref for the slider container
@@ -96,9 +96,8 @@ export const WorkflowAutomationSection = () => {
       component="section"
       sx={{
         py: { xs: 8, md: 12 },
-        bgcolor: mainBlue,
-        overflow: "hidden",
-        background: `linear-gradient(135deg, ${mainBlue} 0%, ${mainBlue} 70%, ${mainBlue} 90%, ${accentPink} 100%)`
+        bgcolor: "white",
+        overflow: "hidden"
       }}
     >
       <Container maxWidth="lg">
@@ -119,7 +118,7 @@ export const WorkflowAutomationSection = () => {
                 fontSize: { xs: "1.75rem", md: "2.75rem" },
                 fontWeight: 700,
                 mb: 2,
-                color: "white",
+                color: crushAIColors.text.primary,
                 maxWidth: "800px"
               }}
             >
@@ -129,7 +128,7 @@ export const WorkflowAutomationSection = () => {
             <Typography
               variant="body1"
               sx={{
-                color: "rgba(255, 255, 255, 0.9)",
+                color: crushAIColors.text.secondary,
                 fontSize: { xs: "0.95rem", md: "1.1rem" },
                 mb: 2,
                 maxWidth: "800px",
@@ -164,7 +163,7 @@ export const WorkflowAutomationSection = () => {
                     className="h-full flex items-center justify-center relative overflow-hidden"
                     style={{ 
                       width: `${sliderPosition}%`,
-                      backgroundColor: mainBlue,
+                      backgroundColor: "#5192AE", // Using the teal blue color as requested
                       color: 'white'
                     }}
                   >
@@ -233,18 +232,18 @@ export const WorkflowAutomationSection = () => {
                     x: x
                   }}
                   drag="x"
-                  dragConstraints={{ left: -150, right: 150 }}
+                  dragConstraints={{ left: -120, right: 120 }}
                   dragElastic={0.05}
                   dragMomentum={false}
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
                 >
                   <div 
-                    className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center z-30 cursor-ew-resize"
+                    className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-white shadow-lg flex items-center justify-center z-30 cursor-ew-resize ${isDragging ? 'scale-110' : ''} transition-transform duration-200`}
                     style={{ 
-                      borderColor: mainBlue,
+                      borderColor: crushAIColors.primary,
                       backgroundColor: 'white',
-                      border: `2px solid ${mainBlue}`
+                      border: '2px solid #5192AE'
                     }}
                   >
                     <div className="grid grid-cols-3 gap-[2px]">
@@ -252,10 +251,11 @@ export const WorkflowAutomationSection = () => {
                         <div 
                           key={index} 
                           className="w-[2px] h-[2px] rounded-full"
-                          style={{ backgroundColor: mainBlue }}
+                          style={{ backgroundColor: `#5192AE` }}
                         ></div>
                       ))}
                     </div>
+                    <div className="absolute w-20 h-20 rounded-full touch-none cursor-grab"></div>
                   </div>
                 </motion.div>
                 
