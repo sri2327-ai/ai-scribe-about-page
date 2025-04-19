@@ -5,9 +5,9 @@ import { CAWhyChooseSection } from '@/components/custom-ai-agent/CAWhyChooseSect
 import { CARoleBenefits } from '@/components/custom-ai-agent/CARoleBenefits';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
+import { CATransformSection } from '@/components/custom-ai-agent/CATransformSection';
 
 const CustomAIAgent = () => {
   return (
@@ -32,6 +32,12 @@ const CustomAIAgent = () => {
 
       {/* New Role Benefits Section */}
       <CARoleBenefits />
+
+      {/* Transform Section */}
+      <CATransformSection />
+
+      {/* Before vs After AI Agent Section */}
+      <CABeforeAfterCarousel />
 
       {/* Why Choose Section */}
       <section className="py-20 bg-white">
@@ -79,9 +85,6 @@ const CustomAIAgent = () => {
           </div>
         </div>
       </section>
-
-      {/* Before vs After AI Agent Section */}
-      <CABeforeAfterCarousel />
 
       {/* How Custom AI Agents Transform Your Practice */}
       <section className="py-20 bg-gray-50" style={{ backgroundColor: customAIAgentColors.background.light }}>
