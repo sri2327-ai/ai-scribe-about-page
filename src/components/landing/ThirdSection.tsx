@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
@@ -42,7 +43,7 @@ export const ThirdSection = () => {
   const tabKeys = Object.keys(tabAccData);
 
   return (
-    <section className="py-10 px-4 md:px-8 w-full max-w-[100vw]">
+    <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-10 px-4 md:px-8 w-full max-w-[100vw]">
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%', maxWidth: '1400px', mx: 'auto' }}>
         <Box 
           component={motion.div}
@@ -59,6 +60,7 @@ export const ThirdSection = () => {
               color: "#000000",
               mb: 2
             }}
+            id="benefits-heading"
           >
             Why Healthcare Leaders Choose S10.AI?
           </Typography>
@@ -74,7 +76,11 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3 }}>
+        <Box 
+          component="nav" 
+          sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3 }}
+          aria-label="Healthcare AI benefits navigation"
+        >
           <Tabs
             value={tabValue}
             onChange={handleChange}
@@ -105,6 +111,8 @@ export const ThirdSection = () => {
               <Tab 
                 key={index}
                 label={value}
+                id={`tab-${index}`}
+                aria-controls={`tabpanel-${index}`}
                 sx={{
                   color: tabValue === index ? "#387E89" : "#666666",
                   mx: 1,
@@ -129,16 +137,21 @@ export const ThirdSection = () => {
           direction={{ xs: "column", md: "row" }}
           sx={{ width: '100%' }}
         >
-          <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            width: { xs: '100%', md: '60%' }, 
-            backgroundColor: '#ffffff',
-            borderRadius: '8px',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-            p: 3,
-            minHeight: { xs: '400px', md: '500px' }
-          }}>
+          <Box 
+            sx={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              width: { xs: '100%', md: '60%' }, 
+              backgroundColor: '#ffffff',
+              borderRadius: '8px',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+              p: 3,
+              minHeight: { xs: '400px', md: '500px' }
+            }}
+            role="tabpanel"
+            id={`tabpanel-${tabValue}`}
+            aria-labelledby={`tab-${tabValue}`}
+          >
             <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: { xs: '400px', md: '600px' } }}>
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
@@ -159,6 +172,7 @@ export const ThirdSection = () => {
                           value={`item-${itemIndex}`} 
                           key={itemIndex}
                           className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2 hover:border-[#387E89] transition-colors"
+                          data-accordion-item={`${tabKeys[index]}-${item.title}`}
                         >
                           <AccordionTrigger className="text-black hover:text-[#387E89] hover:no-underline px-4 py-3 text-lg font-semibold">
                             {item.title}
@@ -174,24 +188,32 @@ export const ThirdSection = () => {
               ))}
             </Box>
           </Box>
-          <Box sx={{ 
-            aspectRatio: "16/9", 
-            width: { xs: "100%", md: "40%" },
-            minHeight: { xs: "250px", md: "300px" },
-            maxHeight: { md: "400px" },
-            borderRadius: '8px',
-            overflow: "hidden",
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
-          }}>
+          <Box 
+            component="aside"
+            sx={{ 
+              aspectRatio: "16/9", 
+              width: { xs: "100%", md: "40%" },
+              minHeight: { xs: "250px", md: "300px" },
+              maxHeight: { md: "400px" },
+              borderRadius: '8px',
+              overflow: "hidden",
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+            }}
+          >
             <iframe
               width="100%"
               height="100%"
               src="https://www.youtube.com/embed/unmWENGNuo4"
-              title="YouTube video player"
+              title="S10.AI Healthcare Solutions Demo"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               style={{ border: "none" }}
+              loading="lazy"
+              aria-describedby="video-description"
             ></iframe>
+            <span id="video-description" className="sr-only">
+              This video demonstrates S10.AI's healthcare solutions in action, showing how our technology helps healthcare providers.
+            </span>
           </Box>
         </Stack>
       </Box>

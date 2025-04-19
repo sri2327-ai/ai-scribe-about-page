@@ -1,80 +1,168 @@
 
 import React from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CalendarCheck } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const EleventhSection = () => {
   return (
     <section 
-      className="py-12 w-full flex items-center justify-center"
+      id="call-to-action"
+      className="py-12 w-full flex items-center justify-center relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
       }}
     >
-      <Stack
-        spacing={2}
-        direction="column"
-        sx={{
-          maxWidth: { xs: '70%', sm: '400px', md: '500px' },
-          width: '100%',
-          alignItems: "center",
-          p: { xs: 2, md: 3 }
-        }}
-        useFlexGap
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        viewport={{ once: true }}
+        className="w-full"
       >
-        <Typography 
-          variant="h4" 
-          fontWeight="semiBold" 
-          sx={{ 
-            textAlign: "center", 
-            color: 'white',
-            fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' }
+        <Stack
+          spacing={4}
+          direction={{ xs: "column", md: "row" }}
+          sx={{
+            maxWidth: '1200px',
+            width: '100%',
+            alignItems: "center",
+            justifyContent: "center",
+            p: { xs: 3, md: 4 },
+            mx: 'auto',
+            gap: { xs: 3, md: 6 }
           }}
         >
-          Elevate Patient Care with S10.AI
-        </Typography>
-
-        <Button 
-          variant="outlined" 
-          sx={{ 
-            borderColor: 'white',
-            color: 'white',
-            px: { xs: 2, md: 3 },
-            py: { xs: 1, md: 1.5 },
-            borderRadius: "50px",
-            '&:hover': {
-              borderColor: 'white',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-            }
-          }}
-          startIcon={
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 18,
-                height: 18,
-                borderRadius: "50%",
-                border: '2px solid white',
-                mr: 1
+          <Box sx={{ maxWidth: { xs: '100%', md: '60%' }, textAlign: { xs: 'center', md: 'left' } }}>
+            <Typography 
+              variant="h3" 
+              fontWeight="bold" 
+              sx={{ 
+                color: 'white',
+                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                lineHeight: 1.2,
+                mb: 2
               }}
             >
-              <ArrowRight className="h-3 w-3" />
-            </Box>
-          }
-        >
-          <Typography
-            variant='h6' 
-            fontWeight="semiBold" 
-            sx={{
-              fontSize: { xs: '0.8rem', md: '0.9rem' }
-            }}
-          >
-            Book A Demo
-          </Typography>
-        </Button>
-      </Stack>
+              Elevate Patient Care with S10.AI
+            </Typography>
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                color: 'rgba(255, 255, 255, 0.9)',
+                fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+                lineHeight: 1.6,
+                maxWidth: '600px',
+                mx: { xs: 'auto', md: 0 }
+              }}
+            >
+              Join healthcare providers nationwide who are transforming their practice with AI-driven solutions that reduce administrative burden, minimize burnout, and improve patient outcomes.
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: { xs: 'center', md: 'flex-start' } }}>
+            <Button 
+              variant="contained" 
+              aria-label="Book a demo of S10.AI"
+              sx={{ 
+                bgcolor: 'white',
+                color: '#143151',
+                px: { xs: 3, md: 4 },
+                py: { xs: 1.25, md: 1.5 },
+                borderRadius: "50px",
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                "&:hover": {
+                  bgcolor: 'white',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
+                }
+              }}
+              startIcon={<CalendarCheck className="h-5 w-5" />}
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontWeight: 600
+                }}
+              >
+                Book A Demo
+              </Typography>
+            </Button>
+            
+            <Button 
+              variant="outlined" 
+              aria-label="Learn more about S10.AI"
+              sx={{ 
+                borderColor: 'rgba(255, 255, 255, 0.7)',
+                color: 'white',
+                px: { xs: 3, md: 4 },
+                py: { xs: 1.25, md: 1.5 },
+                borderRadius: "50px",
+                '&:hover': {
+                  borderColor: 'white',
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                }
+              }}
+              startIcon={
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 20,
+                    height: 20,
+                    borderRadius: "50%",
+                    border: '1.5px solid white',
+                  }}
+                >
+                  <ArrowRight className="h-3 w-3" />
+                </Box>
+              }
+            >
+              <Typography
+                sx={{
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontWeight: 500
+                }}
+              >
+                Learn More
+              </Typography>
+            </Button>
+          </Box>
+        </Stack>
+      </motion.div>
+      
+      {/* Add decorative elements for visual appeal */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '5%',
+          width: '120px',
+          height: '120px',
+          borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.1)',
+          filter: 'blur(40px)',
+          transform: 'translateY(-50%)',
+          opacity: 0.5,
+          display: { xs: 'none', md: 'block' }
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '20%',
+          right: '10%',
+          width: '80px',
+          height: '80px',
+          borderRadius: '50%',
+          background: 'rgba(255, 255, 255, 0.15)',
+          filter: 'blur(30px)',
+          opacity: 0.5,
+          display: { xs: 'none', md: 'block' }
+        }}
+      />
     </section>
   );
 };

@@ -1,3 +1,4 @@
+
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
@@ -10,16 +11,16 @@ export const TenthSection = () => {
   const theme = useTheme();
 
   const complianceCards = [
-    { title: 'HIPAA Compliant', icon: <Shield className="h-8 w-8 text-white" /> },
-    { title: 'PIPEDA Compliant', icon: <Leaf className="h-8 w-8 text-white" /> },
-    { title: 'ISO27001 Accredited', icon: <ShieldHalf className="h-8 w-8 text-white" /> },
-    { title: 'NHS Compliant', icon: <Shield className="h-8 w-8 text-white" /> },
-    { title: 'Cyber Essential Certified', icon: <ShieldAlert className="h-8 w-8 text-white" /> },
-    { title: 'GDPR Compliant', icon: <ShieldCheck className="h-8 w-8 text-white" /> }
+    { title: 'HIPAA Compliant', icon: <Shield className="h-6 w-6 text-white" />, description: 'Ensures patient data protection according to US healthcare privacy standards' },
+    { title: 'PIPEDA Compliant', icon: <Leaf className="h-6 w-6 text-white" />, description: 'Meets Canadian personal information protection requirements' },
+    { title: 'ISO27001 Accredited', icon: <ShieldHalf className="h-6 w-6 text-white" />, description: 'Follows international information security management best practices' },
+    { title: 'NHS Compliant', icon: <Shield className="h-6 w-6 text-white" />, description: 'Meets UK National Health Service data protection standards' },
+    { title: 'Cyber Essential Certified', icon: <ShieldAlert className="h-6 w-6 text-white" />, description: 'Protects against common cyber threats and attacks' },
+    { title: 'GDPR Compliant', icon: <ShieldCheck className="h-6 w-6 text-white" />, description: 'Complies with European data protection regulations' }
   ];
 
   return (
-    <section className="w-full py-20 relative overflow-hidden bg-white">
+    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-16 relative overflow-hidden bg-white">
       <Box sx={{ 
         maxWidth: '1400px',
         mx: 'auto',
@@ -28,7 +29,7 @@ export const TenthSection = () => {
         zIndex: 5
       }}>
         <Stack
-          spacing={{ xs: 6, md: 8 }}
+          spacing={{ xs: 5, md: 6 }}
           direction="column"
           sx={{
             alignItems: 'center',
@@ -40,7 +41,7 @@ export const TenthSection = () => {
             sx={{
               width: { xs: '100%', md: '80%', lg: '70%' },
               textAlign: 'center',
-              mb: { xs: 2, md: 4 }
+              mb: { xs: 1, md: 2 }
             }}
           >
             <motion.div
@@ -52,10 +53,11 @@ export const TenthSection = () => {
               <Typography 
                 variant="h2" 
                 fontWeight="bold"
+                id="security-heading"
                 sx={{ 
                   mb: 3,
                   color: 'black',
-                  fontSize: { xs: '2.25rem', sm: '2.75rem', md: '3.5rem' },
+                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                   lineHeight: 1.2
                 }}
               >
@@ -65,7 +67,7 @@ export const TenthSection = () => {
                 variant="h5" 
                 sx={{ 
                   color: 'rgba(0, 0, 0, 0.7)',
-                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' },
+                  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                   lineHeight: 1.6,
                   maxWidth: '900px',
                   mx: 'auto'
@@ -81,7 +83,7 @@ export const TenthSection = () => {
             display: { xs: 'none', md: 'flex' },
             width: '100%',
             justifyContent: 'center',
-            gap: 4
+            gap: 3
           }}>
             <Grid cards={complianceCards} />
           </Box>
@@ -90,7 +92,7 @@ export const TenthSection = () => {
           <Box sx={{ 
             display: { xs: 'block', md: 'none' }, 
             width: '100%',
-            mt: 4
+            mt: 3
           }}>
             <Marquee gradient={false} speed={30} pauseOnHover={true}>
               <Stack direction="row" spacing={2} sx={{ px: 2 }}>
@@ -110,13 +112,14 @@ export const TenthSection = () => {
           >
             <Button 
               variant="contained" 
+              aria-label="View more about security and compliance"
               sx={{ 
                 background: 'linear-gradient(135deg, #143151, #387E89)',
-                px: { xs: 4, md: 6 },
-                py: { xs: 1.5, md: 2 },
+                px: { xs: 3, md: 4 },
+                py: { xs: 1.25, md: 1.5 },
                 borderRadius: "50px",
                 transition: 'all 0.3s ease',
-                mt: 4,
+                mt: 3,
                 "&:hover": {
                   transform: 'translateY(-2px)',
                   boxShadow: '0 8px 20px rgba(20, 49, 81, 0.2)',
@@ -132,14 +135,14 @@ export const TenthSection = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: 30,
-                    height: 30,
+                    width: 26,
+                    height: 26,
                     borderRadius: "50%",
                     border: '2px solid white',
                     transition: "transform 0.3s ease"
                   }}
                 >
-                  <ArrowRight className="h-4 w-4 text-white" />
+                  <ArrowRight className="h-3 w-3 text-white" />
                 </Box>
               }
             >
@@ -147,7 +150,7 @@ export const TenthSection = () => {
                 variant='h6' 
                 sx={{
                   color: "white",
-                  fontSize: { xs: '1rem', md: '1.1rem' },
+                  fontSize: { xs: '0.9rem', md: '1rem' },
                   fontWeight: 600
                 }}
               >
@@ -186,33 +189,35 @@ const ComplianceCard = ({ card, index }) => {
       style={{ position: 'relative' }}
     >
       <Box 
+        component="article"
+        aria-label={`${card.title} certification`}
         sx={{ 
           position: 'relative',
           width: '100%',
           minWidth: '140px',
-          height: '200px',
-          p: 2,
-          borderRadius: '16px',
+          height: '160px', // Reduced height
+          p: 1.5,  // Reduced padding
+          borderRadius: '12px', // Slightly reduced border radius
           background: 'linear-gradient(170deg, rgba(56, 126, 137, 0.85) 0%, rgba(20, 49, 81, 0.95) 100%)',
-          boxShadow: '0 6px 24px rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: 2,
+          gap: 1.5,
           transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
           overflow: 'hidden',
           '&:hover': {
-            transform: 'translateY(-8px)',
-            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.3)',
+            transform: 'translateY(-5px)',
+            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
           }
         }}
       >
         <GlowBorderEffect 
           variant="teal" 
-          borderWidth={2} 
-          blur={20} 
-          spread={40}
+          borderWidth={1.5} 
+          blur={15} 
+          spread={30}
         />
         
         <Box
@@ -221,17 +226,17 @@ const ComplianceCard = ({ card, index }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '72px',
-            height: '72px',
+            width: '56px', // Reduced size
+            height: '56px', // Reduced size
             borderRadius: '50%',
-            backdropFilter: 'blur(10px)',
+            backdropFilter: 'blur(8px)',
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
             border: '1px solid rgba(255, 255, 255, 0.3)',
             transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-            mb: 1,
+            mb: 0.5,
             '&:hover': {
               transform: 'scale(1.05)',
-              boxShadow: '0 0 20px rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 0 15px rgba(255, 255, 255, 0.2)',
             }
           }}
         >
@@ -243,11 +248,24 @@ const ComplianceCard = ({ card, index }) => {
           sx={{ 
             textAlign: 'center',
             color: 'white',
-            fontSize: { xs: '0.9rem', md: '1rem' },
-            textShadow: '0 1px 3px rgba(0,0,0,0.2)'
+            fontSize: { xs: '0.8rem', md: '0.9rem' },
+            textShadow: '0 1px 2px rgba(0,0,0,0.15)'
           }}
         >
           {card.title}
+        </Typography>
+        <Typography 
+          sx={{ 
+            textAlign: 'center',
+            color: 'rgba(255, 255, 255, 0.85)',
+            fontSize: '0.7rem',
+            display: { xs: 'none', lg: 'block' },
+            lineHeight: 1.3,
+            mt: -0.5,
+            px: 0.5
+          }}
+        >
+          {card.description}
         </Typography>
       </Box>
     </motion.div>
