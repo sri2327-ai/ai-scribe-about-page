@@ -1,8 +1,10 @@
-
 import React, { useState } from 'react';
 import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
 import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { FileCheck, MessageSquarePlus, Clock, ShieldCheck } from "lucide-react";
+import { QuoteTestimonial } from './QuoteTestimonial';
 
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -13,10 +15,30 @@ export const ThirdSection = () => {
   
   const tabAccData = {
     "The S10.AI Advantage": [
-      { "title": "Maximize Patient Interaction", "content": "Minimize paperwork and focus on quality AI for patient care." },
-      { "title": "Boost Efficiency & Well-Being", "content": "Alleviate burnout with intelligent automation and AI for physician burnout reduction." },
-      { "title": "Address Staffing Shortages", "content": "AI-powered efficiency ensures uninterrupted clinic operations and an enhanced patient experience." },
-      { "title": "Improve financial impact", "content": "Expand services, reduce denials, and enhance revenue." },
+      { 
+        icon: <FileCheck className="w-5 h-5" />,
+        title: "Maximize Patient Interaction", 
+        content: "Reduce documentation time by 75% and increase patient face-time by 40% on average.",
+        metric: "75% faster documentation"
+      },
+      { 
+        icon: <Clock className="w-5 h-5" />,
+        title: "Boost Efficiency & Well-Being", 
+        content: "Save 10-20 hours per week per clinician with intelligent automation and AI for physician burnout reduction.",
+        metric: "20 hours saved weekly"
+      },
+      { 
+        icon: <MessageSquarePlus className="w-5 h-5" />,
+        title: "Address Staffing Shortages", 
+        content: "Reduce administrative staff needs by 30% while maintaining high-quality patient service.",
+        metric: "30% staff efficiency gain"
+      },
+      { 
+        icon: <ShieldCheck className="w-5 h-5" />,
+        title: "Improve financial impact", 
+        content: "Increase revenue by 15% through improved documentation accuracy and reduced claim denials.",
+        metric: "15% revenue increase"
+      },
     ],
     "Streamline documentation": [
       { "title": "Create clinical documentation automatically", "content": "Auto-generate accurate, specialty-specific notes from multilingual patient-clinician conversations, even offline." },
@@ -40,7 +62,20 @@ export const ThirdSection = () => {
     ]
   };
 
-  const tabKeys = Object.keys(tabAccData);
+  const testimonials = [
+    {
+      quote: "S10.AI has revolutionized our practice. We've cut documentation time by 70% and our physicians can finally focus on patient care.",
+      author: "Dr. Sarah Martinez",
+      role: "Chief Medical Officer, Pacific Health Group",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&auto=format&fit=crop&q=60"
+    },
+    {
+      quote: "The ROI was immediate. Within 3 months, we reduced administrative costs by 25% while improving patient satisfaction scores.",
+      author: "Michael Chang",
+      role: "Director of Operations, MedCare Associates",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&auto=format&fit=crop&q=60"
+    }
+  ];
 
   return (
     <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-10 px-4 md:px-8 w-full max-w-[100vw]">
@@ -76,11 +111,7 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        <Box 
-          component="nav" 
-          sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3 }}
-          aria-label="Healthcare AI benefits navigation"
-        >
+        <Box component="nav" sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3 }}>
           <Tabs
             value={tabValue}
             onChange={handleChange}
@@ -107,7 +138,7 @@ export const ThirdSection = () => {
               }
             }}
           >
-            {tabKeys.map((value, index) => (
+            {Object.keys(tabAccData).map((value, index) => (
               <Tab 
                 key={index}
                 label={value}
@@ -132,26 +163,8 @@ export const ThirdSection = () => {
           </Tabs>
         </Box>
 
-        <Stack
-          spacing={3}
-          direction={{ xs: "column", md: "row" }}
-          sx={{ width: '100%' }}
-        >
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              width: { xs: '100%', md: '60%' }, 
-              backgroundColor: '#ffffff',
-              borderRadius: '8px',
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-              p: 3,
-              minHeight: { xs: '400px', md: '500px' }
-            }}
-            role="tabpanel"
-            id={`tabpanel-${tabValue}`}
-            aria-labelledby={`tab-${tabValue}`}
-          >
+        <Stack spacing={3} direction={{ xs: "column", md: "row" }} sx={{ width: '100%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', width: { xs: '100%', md: '60%' } }}>
             <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: { xs: '400px', md: '600px' } }}>
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
@@ -161,24 +174,26 @@ export const ThirdSection = () => {
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.5, ease: 'easeOut' }}
                   >
-                    <Accordion 
-                      type="single" 
-                      collapsible 
-                      className="w-full border-none space-y-4"
-                      defaultValue="item-0"
-                    >
-                      {value.map((item, itemIndex) => (
+                    <Accordion type="single" collapsible className="w-full border-none space-y-4" defaultValue="item-0">
+                      {value.map((item: any, itemIndex) => (
                         <AccordionItem 
                           value={`item-${itemIndex}`} 
                           key={itemIndex}
                           className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2 hover:border-[#387E89] transition-colors"
-                          data-accordion-item={`${tabKeys[index]}-${item.title}`}
                         >
                           <AccordionTrigger className="text-black hover:text-[#387E89] hover:no-underline px-4 py-3 text-lg font-semibold">
-                            {item.title}
+                            <div className="flex items-center gap-3">
+                              {item.icon}
+                              <span>{item.title}</span>
+                            </div>
                           </AccordionTrigger>
-                          <AccordionContent className="text-black/80 px-4 pb-3 text-base leading-relaxed">
-                            {item.content}
+                          <AccordionContent className="text-black/80 px-4 pb-3">
+                            <p className="mb-2">{item.content}</p>
+                            {item.metric && (
+                              <span className="inline-block bg-[#387E89]/10 text-[#387E89] px-3 py-1 rounded-full text-sm font-medium">
+                                {item.metric}
+                              </span>
+                            )}
                           </AccordionContent>
                         </AccordionItem>
                       ))}
@@ -187,33 +202,43 @@ export const ThirdSection = () => {
                 )
               ))}
             </Box>
+
+            <div className="mt-8 space-y-4">
+              {testimonials.map((testimonial, index) => (
+                <QuoteTestimonial key={index} {...testimonial} />
+              ))}
+            </div>
+
+            <div className="mt-8 flex justify-center">
+              <Button 
+                size="lg"
+                className="bg-[#387E89] hover:bg-[#387E89]/90 text-white"
+                onClick={() => window.location.href = '/demo'}
+              >
+                Schedule a Demo
+              </Button>
+            </div>
           </Box>
-          <Box 
-            component="aside"
-            sx={{ 
-              aspectRatio: "16/9", 
-              width: { xs: "100%", md: "40%" },
-              minHeight: { xs: "250px", md: "300px" },
-              maxHeight: { md: "400px" },
-              borderRadius: '8px',
-              overflow: "hidden",
-              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
-            }}
-          >
-            <iframe
-              width="100%"
-              height="100%"
-              src="https://www.youtube.com/embed/unmWENGNuo4"
-              title="S10.AI Healthcare Solutions Demo"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              style={{ border: "none" }}
-              loading="lazy"
-              aria-describedby="video-description"
-            ></iframe>
-            <span id="video-description" className="sr-only">
-              This video demonstrates S10.AI's healthcare solutions in action, showing how our technology helps healthcare providers.
-            </span>
+
+          <Box component="aside" sx={{ width: { xs: "100%", md: "40%" } }}>
+            <div className="relative rounded-lg overflow-hidden">
+              <iframe
+                width="100%"
+                height="315"
+                src="https://www.youtube.com/embed/unmWENGNuo4"
+                title="S10.AI Healthcare Solutions Demo"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ border: "none" }}
+                loading="lazy"
+              />
+              <div className="mt-4">
+                <h4 className="text-lg font-semibold text-[#387E89]">Watch Our Solution in Action</h4>
+                <p className="text-sm text-gray-600">
+                  See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
+                </p>
+              </div>
+            </div>
           </Box>
         </Stack>
       </Box>
