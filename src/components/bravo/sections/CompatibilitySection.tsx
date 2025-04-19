@@ -126,14 +126,11 @@ export const CompatibilitySection = () => {
       
       <div className="container max-w-5xl mx-auto px-4 relative z-20">
         <motion.div 
-          className="relative flex items-center justify-center min-h-[500px] bg-white/20 rounded-3xl p-8 border border-white/40 shadow-xl backdrop-blur-md"
+          className="relative flex items-center justify-center min-h-[500px] rounded-xl h-full p-6 backdrop-blur-xl hover:shadow-lg bg-white/10 border border-white/20"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
-          style={{
-            boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",
-          }}
         >
           <div className="relative z-20 w-full">
             <motion.div 
