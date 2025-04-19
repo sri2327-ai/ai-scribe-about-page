@@ -97,9 +97,18 @@ export const FifthSection = () => {
   
 
   return (
-    <section ref={containerRef} className="py-10 px-4 md:px-8" style={{ justifyContent:'center', background: `linear-gradient(180deg, ${theme.palette.secondary.main}, ${theme.palette.secondary.light})` }}>
+    <section ref={containerRef} className="py-10 px-4 md:px-8 bg-white">
       <Box sx={{ display: 'flex', flexDirection:'column', alignItems: 'center' }}>
-        <Typography variant="h3" fontWeight="bold" sx={{ px: 4, py: 8, textAlign: "center", color: theme.palette.common.white }}>
+        <Typography 
+          variant="h3" 
+          fontWeight="bold" 
+          sx={{ 
+            px: 4, 
+            py: 8, 
+            textAlign: "center", 
+            color: 'black' 
+          }}
+        >
           How Bravo & CRUSH Transform Your Practice Together 
         </Typography>
         <Stack
