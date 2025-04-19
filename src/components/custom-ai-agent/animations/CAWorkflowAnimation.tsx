@@ -9,37 +9,43 @@ const workflowSteps = [
     id: 1,
     title: "CRM to EHR Data Transfer",
     description: "No more copy-pasting. S10.AI syncs patient details directly into your EHR with perfect accuracy.",
-    illustration: "💻➡️📋"
+    illustration: "⚡️",
+    color: "#9b87f5"
   },
   {
     id: 2,
     title: "Clinical Data Extraction",
     description: "Pulls diagnoses, allergies, meds, and more from scanned docs into the patient chart—instantly.",
-    illustration: "📄➡️📊"
+    illustration: "📊",
+    color: "#7E69AB"
   },
   {
     id: 3,
     title: "Smart Scheduling",
     description: "Handles last-minute changes, fills canceled slots, and reduces no-shows.",
-    illustration: "📅✨"
+    illustration: "📅",
+    color: "#6E59A5"
   },
   {
     id: 4,
     title: "Documentation Support",
     description: "Auto-pastes SOAP, HPI, and assessment notes directly into your EHR—fully structured and editable.",
-    illustration: "📝➡️📋"
+    illustration: "📝",
+    color: "#D946EF"
   },
   {
     id: 5,
     title: "Insurance Automation",
     description: "Completes payer forms, submits documentation, tracks status—no more long phone calls or delays.",
-    illustration: "📋✅"
+    illustration: "✨",
+    color: "#F97316"
   },
   {
     id: 6,
     title: "Inbox Management",
     description: "Responds to appointment requests, routes referrals, confirms forms—all via AI-powered email handling.",
-    illustration: "📧🤖"
+    illustration: "📧",
+    color: "#0EA5E9"
   }
 ];
 
@@ -57,7 +63,7 @@ export const CAWorkflowAnimation = () => {
   }, [isAutoPlaying]);
 
   return (
-    <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden">
+    <div className="relative w-full h-[600px] flex items-center justify-center">
       {/* Background elements */}
       <div className="absolute inset-0 flex items-center justify-center">
         <motion.div
@@ -78,13 +84,47 @@ export const CAWorkflowAnimation = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-8"
+            className="text-center"
           >
-            <div className="text-6xl mb-4">{workflowSteps[currentStep].illustration}</div>
-            <h3 className="text-xl font-bold mb-2" style={{ color: customAIAgentColors.primary }}>
+            {/* Figma-style illustration */}
+            <motion.div 
+              className="mb-8 relative"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              <div 
+                className="w-32 h-32 mx-auto rounded-2xl flex items-center justify-center text-4xl shadow-lg"
+                style={{ 
+                  backgroundColor: workflowSteps[currentStep].color,
+                  backgroundImage: `linear-gradient(135deg, ${workflowSteps[currentStep].color}, ${customAIAgentColors.tertiary})`
+                }}
+              >
+                {workflowSteps[currentStep].illustration}
+              </div>
+              
+              {/* Decorative elements */}
+              <motion.div 
+                className="absolute -z-10 w-40 h-40 rounded-full opacity-20"
+                style={{ 
+                  backgroundColor: workflowSteps[currentStep].color,
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)'
+                }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 0.2 }}
+                transition={{ duration: 0.6 }}
+              />
+            </motion.div>
+
+            <h3 
+              className="text-xl font-bold mb-2"
+              style={{ color: customAIAgentColors.primary }}
+            >
               {workflowSteps[currentStep].title}
             </h3>
-            <p className="text-gray-600">
+            <p className="text-gray-600 max-w-md mx-auto">
               {workflowSteps[currentStep].description}
             </p>
           </motion.div>
@@ -99,13 +139,24 @@ export const CAWorkflowAnimation = () => {
                 setCurrentStep(index);
                 setIsAutoPlaying(false);
               }}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                currentStep === index 
-                  ? 'bg-blue-500' 
-                  : 'bg-gray-300 hover:bg-gray-400'
-              }`}
-              aria-label={`View ${step.title}`}
-            />
+              className="relative group"
+            >
+              <div 
+                className={`w-3 h-3 rounded-full transition-colors duration-300 ${
+                  currentStep === index 
+                    ? 'bg-blue-500' 
+                    : 'bg-gray-300 group-hover:bg-gray-400'
+                }`}
+                aria-label={`View ${step.title}`}
+              />
+              {currentStep === index && (
+                <motion.div
+                  layoutId="activeIndicator"
+                  className="absolute -inset-1 rounded-full border-2 border-blue-500"
+                  transition={{ duration: 0.3 }}
+                />
+              )}
+            </button>
           ))}
         </div>
 
@@ -116,7 +167,7 @@ export const CAWorkflowAnimation = () => {
           path="M100,200 C150,100 450,300 500,200"
           strokeWidth={1.5}
           baseColor="#e2e8f0"
-          gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary]}
+          gradientColors={[customAIAgentColors.primary, customAIAgentColors.secondary, customAIAgentColors.tertiary]}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20"
         />
       </div>
