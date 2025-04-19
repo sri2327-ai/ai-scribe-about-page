@@ -67,10 +67,9 @@ export const FirstSection = () => {
                     md: '1.125rem'
                   },
                   fontWeight: 600,
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 1,
+                  gap: 2,
                   width: {
                     xs: '100%',
                     sm: 'auto'
@@ -85,8 +84,8 @@ export const FirstSection = () => {
                   }
                 }}
               >
-                <ArrowRight className="h-4 w-4" />
-                <span className="flex-grow-0">Book A Demo</span>
+                <span>Book A Demo</span>
+                <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </Box>
 
