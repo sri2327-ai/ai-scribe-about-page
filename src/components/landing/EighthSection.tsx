@@ -56,7 +56,7 @@ export const EighthSection = () => {
                 <div className="group">
                   <IconComponent
                     size={28}
-                    className="text-[#143151] group-hover:text-[#387E89] transition-colors duration-300"
+                    className="group-hover:scale-110 transition-transform duration-300"
                     style={{
                       background: 'linear-gradient(135deg, #143151, #387E89)',
                       WebkitBackgroundClip: 'text',
@@ -68,7 +68,9 @@ export const EighthSection = () => {
                   variant="body1" 
                   sx={{ 
                     textAlign: 'center',
-                    color: '#143151',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
                     fontWeight: 500
                   }}
                 >
