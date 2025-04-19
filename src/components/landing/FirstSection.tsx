@@ -68,9 +68,11 @@ export const FirstSection = () => {
           <Box
             sx={{
               flex: 1,
-              background: 'rgba(255, 255, 255, 0.9)',
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(10px)',
               borderRadius: 4,
               p: 3,
+              border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
               animation: "fadeInDown 0.8s ease-out",
               "@keyframes fadeInDown": {
@@ -130,7 +132,17 @@ export const FirstSection = () => {
             Book A Demo
           </Button>
           
-          <Box sx={{ flex: 1 }}>
+          <Box 
+            sx={{ 
+              flex: 1,
+              background: 'rgba(243, 244, 246, 0.1)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: 4,
+              p: 3,
+              border: '1px solid rgba(209, 213, 219, 0.3)',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            }}
+          >
             <Typography variant="h6" sx={{ color: '#000000', mb: 2 }}>
               S10.AI Is Recommended by
             </Typography>
