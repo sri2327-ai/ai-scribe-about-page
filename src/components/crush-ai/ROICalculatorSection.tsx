@@ -11,7 +11,7 @@ const tealBlueColor = "#5192AE";
 
 const barColors = {
   humanScribe: "#000000",
-  crushAI: crushAIColors.secondary
+  crushAI: "url(#crushGradient)" // We'll use a gradient for Crush AI bars
 };
 
 interface Particle {
@@ -462,6 +462,12 @@ export const ROICalculatorSection = () => {
                     data={savingsData}
                     margin={{ top: 5, right: 20, left: 0, bottom: 25 }}
                   >
+                    <defs>
+                      <linearGradient id="crushGradient" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#143151" />
+                        <stop offset="100%" stopColor="#387E89" />
+                      </linearGradient>
+                    </defs>
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="name"
@@ -476,11 +482,17 @@ export const ROICalculatorSection = () => {
                     <RechartsTooltip
                       formatter={(value: number) => [`$${value.toLocaleString()}`, 'Cost']}
                       contentStyle={{ 
-                        backgroundColor: '#fff', 
-                        border: `1px solid ${tealBlueColor}`,
-                        borderRadius: '4px',
-                        color: crushAIColors.text.primary
+                        background: 'linear-gradient(to right, #143151, #387E89)',
+                        border: 'none',
+                        borderRadius: '8px',
+                        color: '#FFFFFF',
+                        padding: '12px 16px',
+                        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                        maxWidth: 'none',
+                        overflow: 'visible'
                       }}
+                      itemStyle={{ color: '#FFFFFF' }}
+                      labelStyle={{ color: '#FFFFFF' }}
                     />
                     <Bar
                       dataKey="value"
@@ -488,11 +500,12 @@ export const ROICalculatorSection = () => {
                       radius={[8, 8, 0, 0]}
                       name="Cost"
                     >
-                      {
-                        savingsData.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={entry.name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI} />
-                        ))
-                      }
+                      {savingsData.map((entry, index) => (
+                        <Cell 
+                          key={`cell-${index}`} 
+                          fill={entry.name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI} 
+                        />
+                      ))}
                     </Bar>
                   </BarChart>
                 </ResponsiveContainer>
