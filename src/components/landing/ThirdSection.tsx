@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
-import { Accordion, AccordionSummary, AccordionDetails, Box, Tabs, Tab, Stack, Typography, Paper } from "@mui/material";
+import { Box, Stack, Typography, Paper, Tabs, Tab } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { motion } from "framer-motion";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const ThirdSection = () => {
   const theme = useTheme();
@@ -10,14 +12,7 @@ export const ThirdSection = () => {
   const MotionPaper = motion(Paper);
   
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setExpanded('panel1');
     setTabValue(newValue);
-  };
-
-  const [expanded, setExpanded] = React.useState<string | false>('panel1');
-  
-  const handleAccChange = (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpanded(isExpanded ? panel : false);
   };
   
   const tabAccData = {
@@ -52,8 +47,8 @@ export const ThirdSection = () => {
   const tabKeys = Object.keys(tabAccData);
 
   return (
-    <section className="py-10 px-4 md:px-8">
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+    <section className="py-10 px-4 md:px-8 w-full max-w-[100vw]">
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%' }}>
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -87,19 +82,29 @@ export const ThirdSection = () => {
           spacing={3}
           direction={{ xs: "column", md: "row" }}
           useFlexGap
+          sx={{ width: '100%' }}
         >
-          <Box sx={{ display: 'flex', overflow: "hidden", flexDirection: 'column', minWidth: { xs: 'unset', md: '340px' }, maxWidth: { xs: '100%', md: 'unset' } }}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            width: { xs: '100%', md: '340px' }, 
+            flexShrink: 0,
+            backgroundColor: '#ffffff',
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+            p: 2
+          }}>
             <Tabs
               value={tabValue}
               onChange={handleChange}
               variant="scrollable"
               scrollButtons="auto"
               allowScrollButtonsMobile
-              aria-label="scrollable auto tabs example"
+              aria-label="healthcare ai tabs"
               sx={{
-                pb: 3,
+                mb: 3,
                 "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3, pointerEvents: "none" },
-                "& .MuiTabs-indicator": { display: "none" },
+                "& .MuiTabs-indicator": { backgroundColor: '#000000' },
                 "& .MuiTabs-scroller": { mx: 1 },
                 "& .MuiTabScrollButton-root": {
                   border: "1px solid #000000",
@@ -114,77 +119,61 @@ export const ThirdSection = () => {
                   key={index}
                   label={value}
                   sx={{
-                    borderRadius: '50px',
-                    border: "1px solid #000000",
                     color: "#000000",
                     mx: 1,
                     minHeight: 'unset',
+                    textTransform: 'none',
+                    fontWeight: tabValue === index ? 'bold' : 'medium',
                     "&.Mui-selected": {
-                      border: "1px solid #000000",
-                      backgroundColor: "#ffffff",
                       color: "#000000"
-                    },
-                    fontWeight: 'bold',
+                    }
                   }}
                 />
               ))}
             </Tabs>
-            {Object.values(tabAccData).map((value, index) => (
-              tabValue === index && (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{
-                    duration: 0.5,
-                    ease: 'easeOut'
-                  }}
-                >
-                  {value.map((item, itemIndex) => {
-                    const panelName = `panel${itemIndex + 1}`;
-                    return (
-                      <Accordion 
-                        key={itemIndex} 
-                        expanded={expanded === panelName} 
-                        onChange={handleAccChange(panelName)}
-                        sx={{
-                          borderBottom: "1px solid #000000",
-                          boxShadow: "none",
-                          "&:before": {
-                            display: "none",
-                          },
-                          "&.MuiAccordion-root.Mui-expanded": {
-                            margin: '0',
-                            padding: '16px 0'
-                          }
-                        }}
-                      >
-                        <AccordionSummary
-                          expandIcon={<KeyboardArrowDownIcon />}
-                          aria-controls={`${panelName}-content`}
-                          id={`${panelName}-header`}
-                          sx={{
-                            "&.Mui-expanded": {
-                              minHeight: 'unset',
-                            },
-                            "& .MuiAccordionSummary-content.Mui-expanded": {
-                              my: 1
-                            },
-                          }}
+            <Box sx={{ overflowY: 'auto', height: '100%' }}>
+              {Object.values(tabAccData).map((value, index) => (
+                tabValue === index && (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                      duration: 0.5,
+                      ease: 'easeOut'
+                    }}
+                  >
+                    <Accordion type="single" collapsible className="w-full border-none">
+                      {value.map((item, itemIndex) => (
+                        <AccordionItem 
+                          value={`item-${itemIndex}`} 
+                          key={itemIndex}
+                          className="border-b border-solid border-black/20"
                         >
-                          <Typography variant="body1" fontWeight="semiBold" sx={{ color: "#000000" }}>{item.title}</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                          <Typography variant="body2" fontWeight="medium" sx={{ color: "#000000" }}>{item.content}</Typography>
-                        </AccordionDetails>
-                      </Accordion>
-                    );
-                  })}
-                </motion.div>
-              )
-            ))}
+                          <AccordionTrigger className="text-black font-medium py-3 hover:no-underline">
+                            {item.title}
+                          </AccordionTrigger>
+                          <AccordionContent className="text-black/80">
+                            {item.content}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </motion.div>
+                )
+              ))}
+            </Box>
           </Box>
-          <Box sx={{ aspectRatio: "16/9", overflow: "hidden", display: 'flex', flexGrow: 1, minWidth: { xs: "260px", sm: "400px" }, minHeight: "250px" }}>
+          <Box sx={{ 
+            aspectRatio: "16/9", 
+            overflow: "hidden", 
+            display: 'flex', 
+            flexGrow: 1, 
+            minWidth: { xs: "100%", sm: "400px" }, 
+            minHeight: "250px",
+            borderRadius: '8px',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)'
+          }}>
             <iframe
               width="100%"
               height="100%"
