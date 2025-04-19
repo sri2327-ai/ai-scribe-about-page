@@ -7,14 +7,12 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
-// Define the teal color to match the testimonial section
 const tealBlueColor = "#5192AE";
 
-interface Particle {
-  id: number;
-  x: number;
-  y: number;
-}
+const barColors = {
+  humanScribe: "#000000",
+  crushAI: "#5192AE"
+};
 
 export const ROICalculatorSection = () => {
   const [providersInput, setProvidersInput] = useState<string>("3");
@@ -465,7 +463,7 @@ export const ROICalculatorSection = () => {
                     />
                     <Bar
                       dataKey="value"
-                      fill={tealBlueColor}
+                      fill={(data) => data.name === "Human Scribe" ? barColors.humanScribe : barColors.crushAI}
                       radius={[8, 8, 0, 0]}
                       name="Cost"
                     />
