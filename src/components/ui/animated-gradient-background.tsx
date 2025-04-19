@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -16,8 +15,8 @@ interface AnimatedGradientBackgroundProps {
 const AnimatedGradientBackground = ({
   startingGap = 300,
   Breathing = true,
-  gradientColors = ["#26C6DA", "#F06292"], // Updated default colors
-  gradientStops = [0, 100],
+  gradientColors = ["#26C6DA", "#26C6DA", "#F06292"],
+  gradientStops = [0, 80, 100],
   animationSpeed = 0.03,
   breathingRange = 20,
 }: AnimatedGradientBackgroundProps) => {
@@ -39,35 +38,27 @@ const AnimatedGradientBackground = ({
       }
       const deltaTime = time - previousTimeRef.current;
 
-      // Handle canvas resize
       if (canvas.width !== window.innerWidth || canvas.height !== window.innerHeight) {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
       }
 
-      // Breathing effect
       if (Breathing) {
         breathingRef.current += Math.sin(time * 0.001) * animationSpeed;
       }
 
-      // Clear canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Create diagonal gradient
       const gradient = ctx.createLinearGradient(
-        0, 0,  // Start from top-left
-        canvas.width, canvas.height  // End at bottom-right
+        0, 0,
+        canvas.width, canvas.height
       );
 
-      // Add colors to gradient
       gradientColors.forEach((color, index) => {
         gradient.addColorStop(gradientStops[index] / 100, color);
       });
 
-      // Apply soft blur effect
       ctx.filter = 'blur(60px)';
-
-      // Draw gradient
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
