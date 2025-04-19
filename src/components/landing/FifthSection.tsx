@@ -141,7 +141,7 @@ export const FifthSection = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start start", "end end"]
   });
 
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -201,8 +201,8 @@ export const FifthSection = () => {
             style={{
               position: 'absolute',
               left: '50%',
-              top: '100px',
-              bottom: '100px',
+              top: 0,
+              bottom: 0,
               width: '2px',
               background: 'linear-gradient(to bottom, transparent, #387E89, transparent)',
               scaleY: height,
