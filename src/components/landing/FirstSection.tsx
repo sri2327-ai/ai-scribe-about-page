@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -70,6 +69,7 @@ export const FirstSection = () => {
                   fontWeight: 600,
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: 1,
                   width: {
                     xs: '100%',
@@ -86,7 +86,7 @@ export const FirstSection = () => {
                 }}
               >
                 <ArrowRight className="h-4 w-4" />
-                <span>Book A Demo</span>
+                <span className="flex-grow-0">Book A Demo</span>
               </Button>
             </Box>
 
