@@ -126,11 +126,11 @@ export const SeventhSection = () => {
             },
             { 
               title: "Advanced Clinical Accuracy", 
-              description: "Captures intricate medical details with real-time documentation, from EKG reports and emergency medicine tasks like triaging and rapid interventions, to dermatology screenings." 
+              description: "Captures medical details with real-time documentation for EKG reports, emergency triaging, and dermatology screenings." 
             },
             { 
               title: "Specialty-Centric AI Automation", 
-              description: "Ensures accurate, efficient documentation for every field of medicine, including AI for multispecialty care." 
+              description: "Ensures accurate documentation for every medical field, including multispecialty care." 
             }
           ].map((item, index) => (
             <Box 
@@ -138,10 +138,10 @@ export const SeventhSection = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 2,
+                gap: 1.5,
                 background: '#FFFFFF',
                 border: '1px solid #E0E0E0',
-                p: { xs: 3, sm: 4 },
+                p: { xs: 2.5, sm: 3 },
                 borderRadius: 3,
                 boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
                 height: '100%',
@@ -153,7 +153,7 @@ export const SeventhSection = () => {
                 fontWeight="bold" 
                 sx={{ 
                   color: '#143151',
-                  fontSize: { xs: '1.25rem', sm: '1.35rem', md: '1.5rem' }
+                  fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' }
                 }}
               >
                 {item.title}
@@ -164,8 +164,8 @@ export const SeventhSection = () => {
                 sx={{ 
                   color: '#000000', 
                   opacity: 0.8,
-                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
-                  lineHeight: 1.5
+                  fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
+                  lineHeight: 1.4
                 }}
               >
                 {item.description}
