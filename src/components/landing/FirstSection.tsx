@@ -123,6 +123,7 @@ export const FirstSection = () => {
               display: 'flex',
               alignItems: 'center',
               gap: 1,
+              width: {xs: '100%', sm: 'auto'},
               '&:hover': {
                 background: 'linear-gradient(to right, #0d2440, #2d6974)',
               }
