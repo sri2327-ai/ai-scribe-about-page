@@ -1,41 +1,46 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Component, MessageSquare, FileText, Calendar, Layers, Clock, LayoutDashboard } from "lucide-react";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 
 const workflowData = [
   {
     step: "Patient Intake",
     before: "Manual data entry from forms",
-    after: "Auto-sync from CRM to EHR"
+    after: "Auto-sync from CRM to EHR",
+    icon: LayoutDashboard
   },
   {
     step: "Faxed Lab Result",
     before: "Staff opens, reads, retypes into EHR",
-    after: "AI reads, extracts & enters into EHR"
+    after: "AI reads, extracts & enters into EHR",
+    icon: FileText
   },
   {
     step: "Appointment Reschedule",
     before: "Multiple phone calls & emails",
-    after: "AI finds slot + sends confirmation"
+    after: "AI finds slot + sends confirmation",
+    icon: Calendar
   },
   {
     step: "AI Scribe Note Handling",
     before: "Copy/paste between tools",
-    after: "AI auto-pastes structured note into EHR"
+    after: "AI auto-pastes structured note into EHR",
+    icon: Component
   },
   {
     step: "Insurance Pre-Auth",
     before: "45+ mins per case",
-    after: "AI completes & tracks automatically"
+    after: "AI completes & tracks automatically",
+    icon: Clock
   },
   {
     step: "Patient Emails",
     before: "Inbox overload",
-    after: "AI triages & replies in real-time"
+    after: "AI triages & replies in real-time",
+    icon: MessageSquare
   }
 ];
 
@@ -43,11 +48,12 @@ interface CarouselCardProps {
   step: string;
   before: string;
   after: string;
+  icon: React.ElementType;
   index: number;
   activeIndex: number;
 }
 
-const CarouselCard: React.FC<CarouselCardProps> = ({ step, before, after, index, activeIndex }) => {
+const CarouselCard: React.FC<CarouselCardProps> = ({ step, before, after, icon: Icon, index, activeIndex }) => {
   const isActive = index === activeIndex;
   
   return (
@@ -59,15 +65,48 @@ const CarouselCard: React.FC<CarouselCardProps> = ({ step, before, after, index,
     >
       <Card className="h-full bg-white">
         <CardContent className="p-6 h-full">
-          <h3 className="text-2xl font-bold mb-4" style={{ color: customAIAgentColors.primary }}>{step}</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
-            <div className="p-4 rounded-lg bg-red-50/50">
-              <h4 className="text-lg font-semibold mb-2 text-red-600">Before AI</h4>
-              <p className="text-gray-600">{before}</p>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 rounded-lg" style={{ backgroundColor: `${customAIAgentColors.tertiary}20` }}>
+              <Icon className="w-6 h-6" style={{ color: customAIAgentColors.primary }} />
             </div>
-            <div className="p-4 rounded-lg bg-green-50/50">
-              <h4 className="text-lg font-semibold mb-2 text-green-600">After AI</h4>
-              <p className="text-gray-600">{after}</p>
+            <h3 className="text-2xl font-bold" style={{ color: customAIAgentColors.primary }}>{step}</h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-full">
+            <div className="flex flex-col">
+              <h4 className="text-lg font-semibold mb-3 text-red-600">Before AI</h4>
+              <div className="flex-1 p-4 rounded-lg bg-red-50/50 border border-red-100">
+                <div className="mb-4 p-3 bg-white rounded-lg shadow-sm border border-red-100">
+                  <div className="w-full h-3 bg-red-100 rounded mb-2" />
+                  <div className="w-2/3 h-3 bg-red-50 rounded" />
+                </div>
+                <p className="text-gray-600 mb-3">{before}</p>
+                <div className="flex gap-2">
+                  <div className="w-8 h-8 rounded-full bg-red-100" />
+                  <div className="flex-1">
+                    <div className="h-2 w-3/4 bg-red-100 rounded mb-2" />
+                    <div className="h-2 w-1/2 bg-red-50 rounded" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col">
+              <h4 className="text-lg font-semibold mb-3 text-green-600">After AI</h4>
+              <div className="flex-1 p-4 rounded-lg bg-green-50/50 border border-green-100">
+                <div className="mb-4 p-3 bg-white rounded-lg shadow-sm border border-green-100">
+                  <div className="w-full h-3 bg-green-100 rounded mb-2" />
+                  <div className="w-2/3 h-3 bg-green-50 rounded" />
+                </div>
+                <p className="text-gray-600 mb-3">{after}</p>
+                <div className="flex gap-2">
+                  <div className="w-8 h-8 rounded-full bg-green-100" />
+                  <div className="flex-1">
+                    <div className="h-2 w-3/4 bg-green-100 rounded mb-2" />
+                    <div className="h-2 w-1/2 bg-green-50 rounded" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -120,6 +159,7 @@ export const CABeforeAfterCarousel = () => {
                 step={item.step}
                 before={item.before}
                 after={item.after}
+                icon={item.icon}
                 index={index}
                 activeIndex={activeIndex}
               />
