@@ -52,39 +52,56 @@ export const FirstSection = () => {
                 For Healthcare
               </Typography>
 
-              <Button
-                sx={{
-                  background: 'linear-gradient(to right, #143151, #387E89)',
+              <Button 
+                variant="contained" 
+                sx={{ 
+                  textTransform: "none",
+                  background: `linear-gradient(135deg, #143151, #387E89)`,
                   color: 'white',
-                  px: 4,
-                  py: 2,
-                  mt: 2,
-                  mb: 4,
-                  borderRadius: '50px',
-                  textTransform: 'none',
-                  fontSize: {
-                    xs: '1rem',
-                    md: '1.125rem'
+                  px: { xs: 3, md: 4 },
+                  py: { xs: 1.25, md: 1.5 },
+                  borderRadius: "50px",
+                  transition: 'all 0.3s ease',
+                  "&:hover": {
+                    background: `linear-gradient(135deg, #143151, #387E89)`,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
+                    ".icon-box": {
+                      transform: "rotate(-270deg)",
+                    },
                   },
-                  fontWeight: 600,
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  width: {
-                    xs: '100%',
-                    sm: 'auto'
-                  },
-                  maxWidth: {
-                    xs: '100%',
-                    sm: '200px'
-                  },
-                  height: '50px',
-                  '&:hover': {
-                    background: 'linear-gradient(to right, #0d2440, #2d6974)'
-                  }
                 }}
+                startIcon={
+                  <Box
+                    className="icon-box"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: { xs: 20, md: 25 },
+                      height: { xs: 20, md: 25 },
+                      borderRadius: "50%", 
+                      color: "white",
+                      border: `2px solid white`,
+                      transition: "transform 0.3s ease",
+                      transform: "rotate(0deg)",
+                      mr: 1
+                    }}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </Box>
+                }
               >
-                Book A Demo
-                <ArrowRight className="h-4 w-4 ml-2" />
+                <Typography
+                  variant='h6' 
+                  fontWeight="semiBold" 
+                  sx={{
+                    fontSize: { xs: '1rem', md: '1.25rem' },
+                    color: "white",
+                  }}
+                >
+                  Book A Demo
+                </Typography>
               </Button>
             </Box>
 
