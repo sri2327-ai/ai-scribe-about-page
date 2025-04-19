@@ -1,11 +1,17 @@
-
 import React from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from '@/hooks/use-scroll-animation';
 
 export const EleventhSection = () => {
+  const animation = useScrollAnimation();
+
   return (
-    <section 
+    <motion.section 
+      ref={animation.ref}
+      initial={animation.initial}
+      animate={animation.animate}
       className="py-12 w-full flex items-center justify-center"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
@@ -75,6 +81,6 @@ export const EleventhSection = () => {
           </Typography>
         </Button>
       </Stack>
-    </section>
+    </motion.section>
   );
 };
