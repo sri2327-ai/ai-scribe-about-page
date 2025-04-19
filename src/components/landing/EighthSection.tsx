@@ -55,12 +55,9 @@ export const EighthSection = () => {
               >
                 <IconComponent
                   size={28}
-                  style={{
-                    background: 'linear-gradient(135deg, #143151, #387E89)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    strokeWidth: 2
-                  }}
+                  stroke="#143151"
+                  strokeWidth={2}
+                  className="text-[#143151] hover:text-[#387E89] transition-colors duration-300"
                 />
                 <Typography 
                   variant="body1" 
