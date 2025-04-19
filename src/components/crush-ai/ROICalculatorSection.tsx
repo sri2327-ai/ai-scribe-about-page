@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, TextField, InputAdornment, Stack } from "@mui/material";
 import { motion, useAnimation, useScroll, useTransform } from "framer-motion";
@@ -196,7 +197,7 @@ export const ROICalculatorSection = () => {
                   fontWeight: 700, 
                   mb: 2,
                   fontSize: { xs: "1.75rem", md: "2.5rem" },
-                  color: '#FFFFFF',
+                  color: '#000000',
                   lineHeight: 1.2,
                 }}
               >
