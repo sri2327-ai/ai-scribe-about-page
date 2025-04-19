@@ -24,23 +24,62 @@ const StepIllustration1 = () => (
     animate={{ opacity: 1 }}
     className="w-full h-full flex flex-col gap-4"
   >
+    {/* Consultation Session Visualization */}
     <div className="flex gap-4">
       <motion.div 
-        className="h-32 w-1/2 bg-blue-100 rounded-lg"
+        className="h-32 w-1/2 bg-purple-100 rounded-lg p-4 flex flex-col gap-2"
         animate={{ y: [0, -5, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
-      />
+      >
+        <div className="text-xs font-medium text-purple-600">Neurology</div>
+        <motion.div 
+          className="h-2 w-3/4 bg-purple-200 rounded"
+          animate={{ width: ["40%", "75%", "40%"] }}
+          transition={{ repeat: Infinity, duration: 3 }}
+        />
+        <motion.div 
+          className="h-2 w-1/2 bg-purple-200 rounded"
+          animate={{ width: ["30%", "60%", "30%"] }}
+          transition={{ repeat: Infinity, duration: 3, delay: 0.5 }}
+        />
+      </motion.div>
       <motion.div 
-        className="h-32 w-1/2 bg-green-100 rounded-lg"
+        className="h-32 w-1/2 bg-blue-100 rounded-lg p-4 flex flex-col gap-2"
         animate={{ y: [0, -5, 0] }}
         transition={{ repeat: Infinity, duration: 2, delay: 0.3 }}
-      />
+      >
+        <div className="text-xs font-medium text-blue-600">Dermatology</div>
+        <motion.div 
+          className="h-2 w-3/4 bg-blue-200 rounded"
+          animate={{ width: ["50%", "85%", "50%"] }}
+          transition={{ repeat: Infinity, duration: 3 }}
+        />
+        <motion.div 
+          className="h-2 w-1/2 bg-blue-200 rounded"
+          animate={{ width: ["40%", "70%", "40%"] }}
+          transition={{ repeat: Infinity, duration: 3, delay: 0.5 }}
+        />
+      </motion.div>
     </div>
     <motion.div 
-      className="h-24 w-full bg-purple-100 rounded-lg"
+      className="h-24 w-full bg-green-100 rounded-lg p-4"
       animate={{ scale: [1, 1.02, 1] }}
       transition={{ repeat: Infinity, duration: 1.5 }}
-    />
+    >
+      <div className="text-xs font-medium text-green-600 mb-2">Practice Needs Analysis</div>
+      <div className="flex gap-2">
+        <motion.div 
+          className="h-2 w-1/3 bg-green-200 rounded"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        />
+        <motion.div 
+          className="h-2 w-1/3 bg-green-200 rounded"
+          animate={{ opacity: [0.5, 1, 0.5] }}
+          transition={{ repeat: Infinity, duration: 2, delay: 0.3 }}
+        />
+      </div>
+    </motion.div>
   </motion.div>
 );
 
@@ -48,24 +87,44 @@ const StepIllustration2 = () => (
   <motion.div 
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
-    className="w-full h-full grid grid-cols-3 gap-4"
+    className="w-full h-full flex flex-col gap-4"
   >
-    {[1, 2, 3].map((i) => (
-      <motion.div 
-        key={i}
-        className="bg-blue-50 rounded-lg p-4"
-        animate={{ 
-          scale: [1, 1.05, 1],
-          backgroundColor: ['#EFF6FF', '#F3F4F6', '#EFF6FF']
-        }}
-        transition={{ repeat: Infinity, duration: 2, delay: i * 0.3 }}
-      >
-        <div className="w-full h-full flex flex-col gap-2">
-          <div className="h-2 w-3/4 bg-blue-200 rounded" />
-          <div className="h-2 w-1/2 bg-blue-200 rounded" />
-        </div>
-      </motion.div>
-    ))}
+    {/* AI Building Process Visualization */}
+    <motion.div className="h-40 bg-blue-50 rounded-lg p-4 relative overflow-hidden">
+      <div className="text-sm font-medium text-blue-600 mb-4">IPKO AI Training</div>
+      <div className="flex flex-col gap-2">
+        <motion.div 
+          className="h-3 bg-gradient-to-r from-purple-200 to-blue-200 rounded"
+          animate={{ width: ["0%", "100%"] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        />
+        <motion.div
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-xs text-blue-500"
+          animate={{ opacity: [0, 1, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          Training Model...
+        </motion.div>
+      </div>
+      <div className="mt-4 grid grid-cols-3 gap-2">
+        {[1, 2, 3].map((i) => (
+          <motion.div
+            key={i}
+            className="h-12 rounded bg-white shadow-sm p-2"
+            animate={{ 
+              scale: [1, 1.05, 1],
+              backgroundColor: ['#FFFFFF', '#F3F4F6', '#FFFFFF']
+            }}
+            transition={{ repeat: Infinity, duration: 2, delay: i * 0.3 }}
+          >
+            <div className="w-full h-full flex flex-col gap-1">
+              <div className="h-1 w-3/4 bg-blue-100 rounded" />
+              <div className="h-1 w-1/2 bg-blue-100 rounded" />
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </motion.div>
   </motion.div>
 );
 
@@ -75,21 +134,44 @@ const StepIllustration3 = () => (
     animate={{ opacity: 1 }}
     className="w-full h-full flex items-center justify-center"
   >
-    <motion.div 
-      className="w-32 h-32 rounded-full border-4 border-blue-200 flex items-center justify-center"
-      animate={{ rotate: 360 }}
-      transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-    >
+    {/* System Integration Visualization */}
+    <motion.div className="relative w-full h-full flex items-center justify-center">
       <motion.div 
-        className="w-24 h-24 rounded-full border-4 border-green-200"
+        className="absolute w-32 h-32"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+      >
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-xs font-medium text-blue-600">CRUSH</div>
+        </div>
+        <motion.div 
+          className="absolute top-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-400 rounded-full"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        />
+      </motion.div>
+      
+      <motion.div 
+        className="absolute w-24 h-24"
         animate={{ rotate: -360 }}
         transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
       >
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-xs font-medium text-green-600">BRAVO</div>
+        </div>
         <motion.div 
-          className="w-16 h-16 rounded-full border-4 border-purple-200"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+          className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-green-400 rounded-full"
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
         />
+      </motion.div>
+
+      <motion.div 
+        className="w-16 h-16 rounded-full border-4 border-purple-200 flex items-center justify-center"
+        animate={{ rotate: 360 }}
+        transition={{ repeat: Infinity, duration: 4, ease: "linear" }}
+      >
+        <div className="text-xs font-medium text-purple-600">Agent</div>
       </motion.div>
     </motion.div>
   </motion.div>
@@ -101,23 +183,73 @@ const StepIllustration4 = () => (
     animate={{ opacity: 1 }}
     className="w-full h-full flex flex-col gap-4"
   >
-    <motion.div 
-      className="h-4 bg-gradient-to-r from-green-200 to-blue-200 rounded-full"
-      animate={{ width: ["0%", "100%"] }}
-      transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-    />
-    <div className="grid grid-cols-4 gap-2">
-      {[1, 2, 3, 4].map((i) => (
+    {/* Performance Monitoring Visualization */}
+    <div className="space-y-4">
+      <motion.div 
+        className="h-3 bg-gradient-to-r from-green-200 via-blue-200 to-purple-200 rounded-full"
+        animate={{ width: ["0%", "100%"] }}
+        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+      />
+      
+      <div className="grid grid-cols-2 gap-3">
         <motion.div
-          key={i}
-          className="h-16 rounded-lg bg-purple-100"
+          className="p-3 rounded-lg bg-blue-50"
           animate={{ 
-            scale: [1, 1.1, 1],
-            backgroundColor: ['#F3E8FF', '#EFF6FF', '#F3E8FF']
+            scale: [1, 1.02, 1],
+            backgroundColor: ['#EFF6FF', '#F3F4F6', '#EFF6FF']
           }}
-          transition={{ repeat: Infinity, duration: 2, delay: i * 0.2 }}
-        />
-      ))}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <div className="text-[10px] font-medium text-blue-600 mb-1">Efficiency</div>
+          <motion.div 
+            className="h-1.5 bg-blue-200 rounded"
+            animate={{ width: ["60%", "90%", "60%"] }}
+            transition={{ repeat: Infinity, duration: 3 }}
+          />
+        </motion.div>
+
+        <motion.div
+          className="p-3 rounded-lg bg-purple-50"
+          animate={{ 
+            scale: [1, 1.02, 1],
+            backgroundColor: ['#F3E8FF', '#F3F4F6', '#F3E8FF']
+          }}
+          transition={{ repeat: Infinity, duration: 2, delay: 0.3 }}
+        >
+          <div className="text-[10px] font-medium text-purple-600 mb-1">Accuracy</div>
+          <motion.div 
+            className="h-1.5 bg-purple-200 rounded"
+            animate={{ width: ["70%", "95%", "70%"] }}
+            transition={{ repeat: Infinity, duration: 3 }}
+          />
+        </motion.div>
+      </div>
+
+      <motion.div
+        className="p-3 rounded-lg bg-green-50"
+        animate={{ 
+          scale: [1, 1.02, 1],
+          backgroundColor: ['#F0FDF4', '#F3F4F6', '#F0FDF4']
+        }}
+        transition={{ repeat: Infinity, duration: 2, delay: 0.6 }}
+      >
+        <div className="text-[10px] font-medium text-green-600 mb-1">Performance Trend</div>
+        <div className="flex gap-1">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <motion.div
+              key={i}
+              className="flex-1 h-6 relative"
+            >
+              <motion.div
+                className="absolute bottom-0 w-full bg-green-200 rounded-t"
+                initial={{ height: "20%" }}
+                animate={{ height: ["20%", "60%", "40%", "80%", "60%"] }}
+                transition={{ repeat: Infinity, duration: 4, delay: i * 0.2 }}
+              />
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
     </div>
   </motion.div>
 );
