@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Paper, Stack, Typography, useTheme, useMediaQuery } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign } from 'lucide-react';
+import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
 import OptimizedImage from '@/components/ui/optimized-image';
 
