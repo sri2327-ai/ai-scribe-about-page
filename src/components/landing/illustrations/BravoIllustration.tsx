@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Calendar, Bell, ClipboardCheck, MessageCircle } from 'lucide-react';
@@ -16,7 +15,6 @@ const BravoIllustration = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Set loaded state to prevent initial animation issues
     setIsLoaded(true);
     
     const interval = setInterval(() => {
@@ -28,7 +26,6 @@ const BravoIllustration = () => {
     };
   }, []);
 
-  // Don't render until component is fully mounted
   if (!isLoaded) {
     return <div className="w-full h-full flex items-center justify-center">
       <div className="w-4 h-4 border-2 border-t-transparent border-[#387E89] rounded-full animate-spin"></div>
@@ -37,14 +34,12 @@ const BravoIllustration = () => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center p-4 overflow-hidden">
-      {/* Expanded animation path */}
-      <svg className="absolute w-32 h-2">
+      <svg className="absolute w-48 h-2 top-1/2 -translate-y-1/2">
         <motion.path
-          d="M 5,1 L 120,1"
+          d="M 5,1 L 180,1"
           stroke="#387E89"
           strokeWidth="2"
           strokeDasharray="3,3"
-          fill="none"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, repeat: Infinity }}

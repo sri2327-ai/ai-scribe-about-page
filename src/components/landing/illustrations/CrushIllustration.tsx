@@ -38,9 +38,9 @@ const CrushIllustration = () => {
   return (
     <div className="relative w-full h-full flex items-center justify-center p-4 overflow-hidden">
       {/* Expanded path for animations */}
-      <svg className="absolute w-32 h-2 top-1/2 -translate-y-1/2">
+      <svg className="absolute w-48 h-2 top-1/2 -translate-y-1/2">
         <motion.path
-          d="M 5,1 L 120,1"
+          d="M 5,1 L 180,1"
           stroke="#387E89"
           strokeWidth="2"
           strokeDasharray="3,3"
