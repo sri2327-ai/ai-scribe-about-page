@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
@@ -22,30 +21,12 @@ export const FirstSection = () => {
                 pr: { md: 4 }
               }}
             >
-              <Typography
-                variant="h1"
-                sx={{
-                  fontSize: {
-                    xs: '2.5rem',
-                    sm: '3rem',
-                    md: '3.5rem',
-                    lg: '4rem'
-                  },
-                  lineHeight: {
-                    xs: 1.1,
-                    md: 1
-                  },
-                  letterSpacing: '-0.02em',
-                  fontWeight: 700,
-                  color: '#000000',
-                  mb: { xs: 4, md: 6 }
-                }}
-              >
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-relaxed">
                 Innovative<br />
                 Ambient AI<br />
                 Solutions<br />
                 For Healthcare
-              </Typography>
+              </h1>
 
               <Button 
                 variant="contained" 
@@ -132,20 +113,9 @@ export const FirstSection = () => {
                   }}
                 >
                   <Box>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400
-                      }}
-                    >
+                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
                       Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
-                    </Typography>
+                    </p>
                   </Box>
                   <Box 
                     sx={{
@@ -173,22 +143,9 @@ export const FirstSection = () => {
               width: '100%'
             }}
           >
-            <Typography
-              variant="h6"
-              sx={{
-                color: '#000000',
-                mb: { xs: 2, sm: 3 },
-                fontSize: {
-                  xs: '0.875rem',
-                  sm: '1rem',
-                  md: '1.125rem'
-                },
-                fontWeight: 600,
-                textAlign: 'center'
-              }}
-            >
+            <h2 className="font-bold text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
               S10.AI Is Recommended by
-            </Typography>
+            </h2>
             <Box
               sx={{
                 overflow: "hidden",
