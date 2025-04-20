@@ -11,7 +11,7 @@ const steps = [
   { Icon: Stethoscope, label: "Orders & Prescriptions", delay: 4 }
 ];
 
-export const CrushIllustration = () => {
+const CrushIllustration = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 

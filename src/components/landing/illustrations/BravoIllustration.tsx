@@ -11,7 +11,7 @@ const steps = [
   { Icon: MessageCircle, label: "Patient Feedback", delay: 4 }
 ];
 
-export const BravoIllustration = () => {
+const BravoIllustration = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
 
