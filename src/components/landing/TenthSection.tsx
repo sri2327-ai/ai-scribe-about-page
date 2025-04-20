@@ -1,10 +1,8 @@
-
 import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 
-// Define proper types for the card data
 interface ComplianceCardData {
   title: string;
   icon: React.ComponentType<any>;
@@ -17,7 +15,6 @@ interface ComplianceCardProps {
   index: number;
 }
 
-// Extract card data to a separate constant for better organization
 const complianceCards: ComplianceCardData[] = [
   { 
     title: 'HIPAA Compliant', 
@@ -81,7 +78,6 @@ const complianceCards: ComplianceCardData[] = [
   }
 ];
 
-// Extract compliance card into a separate component and memoize it for better performance
 const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
   const IconComponent = card.icon;
   
@@ -94,17 +90,18 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
     >
       <Box 
         sx={{ 
-          background: 'linear-gradient(135deg, rgba(20, 49, 81, 0.95), rgba(56, 126, 137, 0.95))',
+          background: 'white',
           borderRadius: '12px',
           p: 3,
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
-          transition: 'transform 0.3s',
+          transition: 'all 0.3s ease',
+          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
           '&:hover': {
-            transform: 'translateY(-10px)',
-            boxShadow: '0 15px 30px rgba(0,0,0,0.15)'
+            transform: 'translateY(-8px)',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
           }
         }}
       >
@@ -114,11 +111,22 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
           gap: 2,
           mb: 1
         }}>
-          <IconComponent className="h-6 w-6 text-white" />
+          <Box sx={{
+            width: 48,
+            height: 48,
+            borderRadius: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            bgcolor: 'rgba(20, 49, 81, 0.05)',
+            color: '#143151'
+          }}>
+            <IconComponent className="h-6 w-6" />
+          </Box>
           <Typography 
             variant="h6" 
             sx={{ 
-              color: 'white', 
+              color: '#143151', 
               fontWeight: 600,
               fontSize: '1.1rem'
             }}
@@ -129,9 +137,10 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
         
         <Typography 
           sx={{ 
-            color: 'rgba(255,255,255,0.8)', 
+            color: '#4B5563', 
             mb: 1,
-            fontSize: '0.9rem'
+            fontSize: '0.9rem',
+            lineHeight: 1.6
           }}
         >
           {card.description}
@@ -142,12 +151,20 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
             component="ul" 
             sx={{ 
               pl: 2, 
-              color: 'rgba(255,255,255,0.7)', 
-              fontSize: '0.8rem',
+              color: '#6B7280', 
+              fontSize: '0.85rem',
               '& li': { 
-                mb: 0.5,
-                '&::marker': { 
-                  color: 'rgba(255,255,255,0.5)' 
+                mb: 1,
+                position: 'relative',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  left: '-1rem',
+                  top: '0.5rem',
+                  width: '0.375rem',
+                  height: '0.375rem',
+                  borderRadius: '50%',
+                  backgroundColor: '#387E89'
                 }
               }
             }}
@@ -166,7 +183,7 @@ ComplianceCard.displayName = 'ComplianceCard';
 
 const TenthSection = () => {
   return (
-    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-16 relative overflow-hidden bg-white">
+    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-16 relative overflow-hidden bg-gray-50">
       <Box sx={{ 
         maxWidth: '1400px',
         mx: 'auto',
@@ -182,7 +199,6 @@ const TenthSection = () => {
             justifyContent: 'center'
           }}
         >
-          {/* Title Section */}
           <Box 
             sx={{
               width: { xs: '100%', md: '80%', lg: '70%' },
@@ -202,7 +218,7 @@ const TenthSection = () => {
                 id="security-heading"
                 sx={{ 
                   mb: 3,
-                  color: 'black',
+                  color: '#143151',
                   fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                   lineHeight: 1.2
                 }}
@@ -212,7 +228,7 @@ const TenthSection = () => {
               <Typography 
                 variant="h5" 
                 sx={{ 
-                  color: 'rgba(0, 0, 0, 0.7)',
+                  color: '#4B5563',
                   fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                   lineHeight: 1.6,
                   maxWidth: '900px',
@@ -224,7 +240,6 @@ const TenthSection = () => {
             </motion.div>
           </Box>
 
-          {/* Compliance Cards Section - Optimized with virtualization concept */}
           <Box sx={{
             display: 'grid',
             gridTemplateColumns: { 
