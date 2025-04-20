@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -67,17 +66,22 @@ const combinedTestimonial = {
 
 const WorkflowCard = ({ icon: Icon, title, description, number }) => {
   return (
-    <Card className="relative h-full p-6 transition-all duration-300 hover:shadow-lg border border-gray-100 bg-white">
-      <div className="flex items-start gap-4">
-        <div className="p-3 rounded-lg bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10">
-          <Icon className="w-6 h-6 text-[#387E89]" />
+    <Card className="relative h-[280px] p-6 transition-all duration-300 hover:shadow-lg border border-gray-100 bg-white overflow-hidden">
+      <div className="flex flex-col h-full">
+        <div className="flex items-start gap-4 mb-4">
+          <div className="p-3 rounded-lg bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10">
+            <Icon className="w-6 h-6 text-[#387E89]" />
+          </div>
+          <div className="flex-1">
+            <div className="text-sm text-[#387E89] font-medium mb-1">Step {number}</div>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900">{title}</h3>
+          </div>
         </div>
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold mb-2 text-gray-900">{title}</h3>
-          <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
-        </div>
+        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
       </div>
-      <div className="absolute top-4 right-4 text-9xl font-bold text-gray-50 pointer-events-none">
+      <div 
+        className="absolute -bottom-6 -right-6 text-[120px] font-bold opacity-10 leading-none bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+      >
         {number}
       </div>
     </Card>
@@ -134,9 +138,16 @@ export const FifthSection = () => {
             variant="h4" 
             fontWeight="bold" 
             textAlign="center" 
-            sx={{ mb: 6, color: 'black' }}
+            sx={{ mb: 2, color: 'black' }}
           >
             The Complete Workflow Transformation
+          </Typography>
+          <Typography 
+            variant="body1" 
+            textAlign="center" 
+            sx={{ mb: 6, color: 'gray' }}
+          >
+            Follow our 7-step process to transform your practice
           </Typography>
 
           <Carousel
@@ -146,17 +157,19 @@ export const FifthSection = () => {
             }}
             className="w-full"
           >
-            <CarouselContent className="px-4">
+            <CarouselContent className="-ml-4">
               {cardIcons.map((card) => (
-                <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
-                  <div className="p-1">
-                    <WorkflowCard {...card} number={card.id} />
-                  </div>
+                <CarouselItem key={card.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <WorkflowCard {...card} number={card.id} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-end gap-2 mt-4">
+            <div className="flex justify-center gap-2 mt-6">
               <CarouselPrevious />
+              <div className="flex items-center gap-1 text-sm text-gray-500">
+                <span>Steps</span>
+                <span className="font-medium text-[#387E89]">1-7</span>
+              </div>
               <CarouselNext />
             </div>
           </Carousel>
