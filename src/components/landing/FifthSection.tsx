@@ -49,7 +49,8 @@ const ROIMetrics = {
   timeReduction: "75%",
   revenueIncrease: "40%",
   patientSatisfaction: "95%",
-  annualSavings: "$150,000+"
+  annualSavings: "$150,000+",
+  patientVolume: "30%"
 };
 
 const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
