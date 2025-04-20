@@ -54,12 +54,14 @@ const ProductCard = ({
 }) => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
     <div className="p-5 flex flex-col gap-4">
-      <div className="h-80 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
-        <div className="w-full h-full flex items-center justify-center p-4">
-          <Illustration />
+      <div className="h-64 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
+        <div className="w-full h-full flex items-center justify-center p-4 group-hover:opacity-0 transition-opacity duration-300">
+          <div className="w-3/4 h-3/4">
+            <Illustration />
+          </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-95 transition-opacity duration-300 flex items-center justify-center">
-          <p className="text-white text-center text-base px-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <p className="text-white text-center text-lg font-medium px-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Click to see {title} in action
           </p>
         </div>
