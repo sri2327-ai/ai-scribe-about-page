@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
+import { TestimonialCarousel } from './TestimonialCarousel';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
@@ -131,22 +131,6 @@ export const FirstSection = () => {
                     gap: { xs: 4, md: 5 }
                   }}
                 >
-                  <Box>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400
-                      }}
-                    >
-                      Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
-                    </Typography>
-                  </Box>
                   <Box 
                     sx={{
                       display: 'flex',
@@ -157,6 +141,7 @@ export const FirstSection = () => {
                   >
                     <VoiceAnimation />
                   </Box>
+                  <TestimonialCarousel />
                 </Box>
               </Box>
             </Box>
