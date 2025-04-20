@@ -61,5 +61,5 @@ export const IntegrationSection = () => {
   );
 };
 
-// Default export to ensure lazy loading works properly
-export default { IntegrationSection };
+// Default export for lazy loading
+export default IntegrationSection;

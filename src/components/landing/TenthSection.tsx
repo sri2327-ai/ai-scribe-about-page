@@ -1,11 +1,23 @@
-
 import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 
+// Define proper types for the card data
+interface ComplianceCardData {
+  title: string;
+  icon: React.ComponentType<any>;
+  description: string;
+  details: string[];
+}
+
+interface ComplianceCardProps {
+  card: ComplianceCardData;
+  index: number;
+}
+
 // Extract card data to a separate constant for better organization
-const complianceCards = [
+const complianceCards: ComplianceCardData[] = [
   { 
     title: 'HIPAA Compliant', 
     icon: ShieldCheck, 
@@ -69,7 +81,7 @@ const complianceCards = [
 ];
 
 // Extract compliance card into a separate component and memoize it for better performance
-const ComplianceCard = memo(({ card, index }) => {
+const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
   const IconComponent = card.icon;
   
   return (
