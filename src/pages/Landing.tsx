@@ -1,21 +1,19 @@
-
 import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 
-// Correctly lazy load components with default exports
-const SecondSection = lazy(() => import('@/components/landing/SecondSection'));
-const ThirdSection = lazy(() => import('@/components/landing/ThirdSection'));
-const FourthSection = lazy(() => import('@/components/landing/FourthSection'));
+const SecondSection = lazy(() => import('@/components/landing/SecondSection').then(module => ({ default: module.default || module.SecondSection })));
+const ThirdSection = lazy(() => import('@/components/landing/ThirdSection').then(module => ({ default: module.default || module.ThirdSection })));
+const FourthSection = lazy(() => import('@/components/landing/FourthSection').then(module => ({ default: module.default || module.FourthSection })));
 const IntegrationSection = lazy(() => import('@/components/landing/IntegrationSection'));
-const FifthSection = lazy(() => import('@/components/landing/FifthSection'));
-const SeventhSection = lazy(() => import('@/components/landing/SeventhSection'));
-const EighthSection = lazy(() => import('@/components/landing/EighthSection'));
-const NinthSection = lazy(() => import('@/components/landing/NinthSection'));
+const FifthSection = lazy(() => import('@/components/landing/FifthSection').then(module => ({ default: module.default || module.FifthSection })));
+const SeventhSection = lazy(() => import('@/components/landing/SeventhSection').then(module => ({ default: module.default || module.SeventhSection })));
+const EighthSection = lazy(() => import('@/components/landing/EighthSection').then(module => ({ default: module.default || module.EighthSection })));
+const NinthSection = lazy(() => import('@/components/landing/NinthSection').then(module => ({ default: module.default || module.NinthSection })));
 const TenthSection = lazy(() => import('@/components/landing/TenthSection'));
-const EleventhSection = lazy(() => import('@/components/landing/EleventhSection'));
+const EleventhSection = lazy(() => import('@/components/landing/EleventhSection').then(module => ({ default: module.default || module.EleventhSection })));
 
 const Landing = () => {
   const schemaMarkup = {
@@ -59,38 +57,36 @@ const Landing = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      {/* FirstSection is not lazy loaded because it's above the fold */}
       <FirstSection />
       
-      {/* Enhanced lazy loading with better fallback */}
-      <Suspense fallback={<SectionLoader />} key="second-section">
+      <Suspense fallback={<SectionLoader />}>
         <SecondSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="third-section">
+      <Suspense fallback={<SectionLoader />}>
         <ThirdSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="fourth-section">
+      <Suspense fallback={<SectionLoader />}>
         <FourthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="integration-section">
+      <Suspense fallback={<SectionLoader />}>
         <IntegrationSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="fifth-section">
+      <Suspense fallback={<SectionLoader />}>
         <FifthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="seventh-section">
+      <Suspense fallback={<SectionLoader />}>
         <SeventhSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="eighth-section">
+      <Suspense fallback={<SectionLoader />}>
         <EighthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="ninth-section">
+      <Suspense fallback={<SectionLoader />}>
         <NinthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="tenth-section">
+      <Suspense fallback={<SectionLoader />}>
         <TenthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />} key="eleventh-section">
+      <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
       </Suspense>
     </main>
