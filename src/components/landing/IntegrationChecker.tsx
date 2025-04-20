@@ -27,7 +27,10 @@ export const IntegrationChecker = () => {
           onChange={(e) => setSoftware(e.target.value)}
           className="flex-1"
         />
-        <Button type="submit" className="bg-[#143151] hover:bg-[#0d1f31]">
+        <Button 
+          type="submit" 
+          className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+        >
           Check
         </Button>
       </form>
