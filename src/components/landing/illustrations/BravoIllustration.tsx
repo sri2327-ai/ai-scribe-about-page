@@ -2,6 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MessageSquare, Calendar, Bell, ClipboardCheck, MessageCircle } from 'lucide-react';
+import { 
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent 
+} from "@/components/ui/hover-card";
 
 const steps = [
   { Icon: MessageSquare, label: "AI Chat & Calling", delay: 0 },
@@ -51,27 +56,37 @@ const BravoIllustration = () => {
         />
       </svg>
 
-      <motion.div 
-        key={currentStep}
-        initial={{ opacity: 0, y: 2 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -2 }}
-        transition={{ duration: 0.5 }}
-        className="flex flex-col items-center gap-2 bg-white p-3 rounded-lg shadow-md z-10 min-w-[120px]"
-      >
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          className="p-2 rounded-full"
-          style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
-        >
-          {React.createElement(steps[currentStep].Icon, {
-            size: 24,
-            color: "white",
-            strokeWidth: 1.5
-          })}
-        </motion.div>
-        <p className="text-xs font-medium text-[#143151] text-center">{steps[currentStep].label}</p>
-      </motion.div>
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <motion.div 
+            key={currentStep}
+            initial={{ opacity: 0, y: 2 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -2 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center gap-2 bg-white p-3 rounded-lg shadow-md z-10 min-w-[120px] cursor-pointer"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="p-2 rounded-full"
+              style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
+            >
+              {React.createElement(steps[currentStep].Icon, {
+                size: 24,
+                color: "white",
+                strokeWidth: 1.5
+              })}
+            </motion.div>
+            <p className="text-xs font-medium text-[#143151] text-center">{steps[currentStep].label}</p>
+          </motion.div>
+        </HoverCardTrigger>
+        <HoverCardContent className="p-3 bg-white/95 backdrop-blur-sm border border-[#387E89]/20 shadow-lg">
+          <div className="text-center">
+            <h4 className="text-sm font-semibold text-[#143151] mb-2">Click to see B.R.A.V.O in action</h4>
+            <p className="text-xs text-gray-600">Experience how {steps[currentStep].label} works in our AI patient care agent</p>
+          </div>
+        </HoverCardContent>
+      </HoverCard>
     </div>
   );
 };
