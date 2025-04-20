@@ -7,9 +7,10 @@ export const EleventhSection = () => {
   return (
     <section 
       id="call-to-action"
-      className="min-h-screen py-16 w-full flex items-center justify-center relative overflow-hidden"
+      className="py-16 w-full flex items-center justify-center relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
+        minHeight: '50vh',
       }}
     >
       <motion.div
