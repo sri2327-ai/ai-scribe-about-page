@@ -1,4 +1,3 @@
-
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -9,17 +8,17 @@ export const SeventhSection = () => {
   const tabletVw = useMediaQuery('(min-width:600px) and (max-width:700px)');
 
   return(
-    <section className="py-10 px-4">
+    <section className="py-6 px-4">
       <Stack
-        spacing={3}
+        spacing={2}
         direction={{ xs: "column", md: 'row'}}
         sx={{
           background: '#FFFFFF',
           alignItems: { xs: 'center', md: 'flex-start' },
           justifyContent: 'space-between',
           borderRadius: 4,
-          p: { xs: 3, sm: 4, md: 5 },
-          gap: { xs: 4, md: 6 },
+          p: { xs: 2, sm: 3, md: 4 },
+          gap: { xs: 3, md: 4 },
           maxWidth: '1280px',
           mx: 'auto',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)'

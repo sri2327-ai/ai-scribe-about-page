@@ -31,7 +31,7 @@ export const EighthSection = () => {
   ];
 
   return (
-    <section className="py-3 md:py-4" style={{ background: '#FFFFFF', minHeight: 'unset' }}>
+    <section className="py-2" style={{ background: '#FFFFFF', minHeight: 'unset' }}>
       <Box sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 2 } }}>
         <Typography 
           variant="h3" 
@@ -39,7 +39,7 @@ export const EighthSection = () => {
             textAlign: "center",
             color: "#000000",
             fontWeight: 700,
-            mb: { xs: 1, md: 2 },
+            mb: { xs: 1, md: 1 },
             fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" }
           }}
         >
@@ -55,16 +55,16 @@ export const EighthSection = () => {
                   sx={{ 
                     display: 'flex', 
                     flexDirection: 'column', 
-                    mx: { xs: 0.5, sm: 1 }, 
+                    mx: { xs: 0.5, sm: 0.75 }, 
                     background: '#FFFFFF',
                     borderRadius: 2, 
-                    p: { xs: 1, sm: 1.5 }, 
+                    p: { xs: 0.75, sm: 1 }, 
                     my: 0.5,
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
                     border: '1px solid #E0E0E0',
-                    gap: 1,
+                    gap: 0.5,
                     alignItems: 'center',
-                    minWidth: { xs: '80px', sm: '100px' },
+                    minWidth: { xs: '70px', sm: '90px' },
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                     '&:hover': {
                       transform: 'translateY(-3px)',
@@ -74,7 +74,7 @@ export const EighthSection = () => {
                 >
                   <div className="group">
                     <IconComponent
-                      size={20}
+                      size={18}
                       color="black"
                       className="group-hover:scale-110 transition-transform duration-300"
                     />
@@ -87,7 +87,7 @@ export const EighthSection = () => {
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       fontWeight: 600,
-                      fontSize: { xs: '0.65rem', sm: '0.7rem' }
+                      fontSize: { xs: '0.6rem', sm: '0.65rem' }
                     }}
                   >
                     {specialty.name}
