@@ -1,20 +1,22 @@
-import React, { Suspense, lazy } from 'react';
+
+import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 
-const SecondSection = lazy(() => import('@/components/landing/SecondSection'));
-const ThirdSection = lazy(() => import('@/components/landing/ThirdSection'));
-const FourthSection = lazy(() => import('@/components/landing/FourthSection'));
-const IntegrationSection = lazy(() => import('@/components/landing/IntegrationSection'));
-const FifthSection = lazy(() => import('@/components/landing/FifthSection'));
-const SeventhSection = lazy(() => import('@/components/landing/SeventhSection'));
-const EighthSection = lazy(() => import('@/components/landing/EighthSection'));
-const NinthSection = lazy(() => import('@/components/landing/NinthSection'));
-const TenthSection = lazy(() => import('@/components/landing/TenthSection'));
-const EleventhSection = lazy(() => import('@/components/landing/EleventhSection'));
+// Correctly lazy load components with proper type handling
+const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
+const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
+const FourthSection = React.lazy(() => import('@/components/landing/FourthSection'));
+const IntegrationSection = React.lazy(() => import('@/components/landing/IntegrationSection'));
+const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'));
+const SeventhSection = React.lazy(() => import('@/components/landing/SeventhSection'));
+const EighthSection = React.lazy(() => import('@/components/landing/EighthSection'));
+const NinthSection = React.lazy(() => import('@/components/landing/NinthSection'));
+const TenthSection = React.lazy(() => import('@/components/landing/TenthSection'));
+const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSection'));
 
 const Landing = () => {
   const schemaMarkup = {
