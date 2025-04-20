@@ -1,11 +1,10 @@
-
 import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
+import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 
-// Simplified lazy loading approach
 const SecondSection = lazy(() => import('@/components/landing/SecondSection'));
 const ThirdSection = lazy(() => import('@/components/landing/ThirdSection'));
 const FourthSection = lazy(() => import('@/components/landing/FourthSection'));
@@ -88,6 +87,7 @@ const Landing = () => {
       <Suspense fallback={<SectionLoader />}>
         <TenthSection />
       </Suspense>
+      <PracticeTypeSelector />
       <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
       </Suspense>
