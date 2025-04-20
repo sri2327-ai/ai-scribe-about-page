@@ -127,7 +127,7 @@ export const SeventhSection = () => {
             },
             { 
               title: "Real-Time Documentation", 
-              description: "Advanced real-time documentation across all medical specialties. Instantly captures and transcribes EKG interpretations, emergency triage assessments, dermatological examinations, surgical notes, and clinical procedures with exceptional accuracy." 
+              description: "Captures complex medical terms and clinical details across specialties, including real-time EKG, triage, dermatology documentation, and more." 
             },
             { 
               title: "Automated Clinical Workflows", 
