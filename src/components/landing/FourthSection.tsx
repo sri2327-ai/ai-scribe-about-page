@@ -55,8 +55,8 @@ const ProductCard = ({
 }) => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
     <div className="p-5 flex flex-col gap-4">
-      <div className="h-48 w-full bg-gray-50 rounded-lg overflow-hidden relative group"> {/* Increased height for better visibility */}
-        <div className="w-full h-full flex items-center justify-center">
+      <div className="h-64 md:h-80 w-full bg-gray-50 rounded-lg overflow-hidden relative group"> {/* Increased height for much better visibility */}
+        <div className="w-full h-full flex items-center justify-center p-4">
           <Illustration />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
