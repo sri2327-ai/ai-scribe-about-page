@@ -30,19 +30,20 @@ const BravoIllustration = () => {
 
   // Don't render until component is fully mounted
   if (!isLoaded) {
-    return <div className="w-full h-full bg-gray-50 flex items-center justify-center">
-      <div className="w-6 h-6 border-2 border-t-transparent border-[#387E89] rounded-full animate-spin"></div>
+    return <div className="w-full h-full flex items-center justify-center">
+      <div className="w-4 h-4 border-2 border-t-transparent border-[#387E89] rounded-full animate-spin"></div>
     </div>;
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center bg-white/80 backdrop-blur-sm overflow-hidden">
-      <svg className="absolute w-3/4 h-4 max-h-full">
+    <div className="relative w-full h-full flex items-center justify-center p-1 overflow-hidden">
+      {/* Simplified animation */}
+      <svg className="absolute w-24 h-2">
         <motion.path
-          d="M 20,10 C 40,10 60,10 80,10"
+          d="M 5,1 L 80,1"
           stroke="#387E89"
           strokeWidth="2"
-          strokeDasharray="5,5"
+          strokeDasharray="3,3"
           fill="none"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
@@ -52,24 +53,24 @@ const BravoIllustration = () => {
 
       <motion.div 
         key={currentStep}
-        initial={{ opacity: 0, y: 5 }}
+        initial={{ opacity: 0, y: 2 }}
         animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -5 }}
+        exit={{ opacity: 0, y: -2 }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col items-center gap-1 bg-white p-2 rounded-xl shadow-md z-10"
+        className="flex flex-col items-center gap-0.5 bg-white p-1 rounded-lg shadow-sm z-10"
       >
         <motion.div
           whileHover={{ scale: 1.05 }}
-          className="p-1.5 rounded-full"
+          className="p-1 rounded-full"
           style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
         >
           {React.createElement(steps[currentStep].Icon, {
-            size: 16,
+            size: 12,
             color: "white",
             strokeWidth: 1.5
           })}
         </motion.div>
-        <p className="text-xs font-medium text-[#143151]">{steps[currentStep].label}</p>
+        <p className="text-[9px] font-medium text-[#143151]">{steps[currentStep].label}</p>
       </motion.div>
     </div>
   );
