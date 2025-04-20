@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -12,9 +13,9 @@ export const FirstSection = () => {
 
   return (
     <section className="min-h-screen bg-white">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
-        <div className="flex flex-col space-y-8 md:space-y-12">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
+        <div className="flex flex-col space-y-16 md:space-y-24">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
             <Box
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
@@ -25,18 +26,19 @@ export const FirstSection = () => {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: '2rem',
-                    sm: '2.5rem',
-                    md: '3rem',
-                    lg: '3.5rem'
+                    xs: '2.5rem',
+                    sm: '3rem',
+                    md: '3.5rem',
+                    lg: '4rem'
                   },
                   lineHeight: {
-                    xs: 1.2,
-                    md: 1.1
+                    xs: 1.1,
+                    md: 1
                   },
+                  letterSpacing: '-0.02em',
                   fontWeight: 700,
                   color: '#000000',
-                  mb: { xs: 3, md: 4 }
+                  mb: { xs: 4, md: 6 }
                 }}
               >
                 Innovative<br />
@@ -105,7 +107,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 2, md: 0 }
+                mt: { xs: 4, md: 0 }
               }}
             >
               <Box
@@ -120,39 +122,39 @@ export const FirstSection = () => {
                     background: 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '16px',
-                    p: { xs: 3, sm: 4 },
+                    p: { xs: 4, sm: 5 },
                     border: '1px solid rgba(209, 213, 219, 0.3)',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                    height: 'auto'
+                    height: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: { xs: 4, md: 5 }
                   }}
                 >
-                  <Box sx={{
-                    flex: 1,
-                    pr: { xs: 0, md: 2 },
-                    mb: { xs: 3, md: 0 }
-                  }}>
+                  <Box>
                     <Typography
                       variant="body1"
                       sx={{
                         color: '#000000',
                         fontSize: {
                           xs: '0.875rem',
-                          md: '1rem'
+                          sm: '1rem'
                         },
-                        lineHeight: 1.6,
+                        lineHeight: 1.7,
                         fontWeight: 400
                       }}
                     >
                       Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
                     </Typography>
                   </Box>
-                  <Box sx={{
-                    flex: 1,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    transform: { xs: 'scale(0.9)', md: 'scale(1)' }
-                  }}>
+                  <Box 
+                    sx={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      transform: { xs: 'scale(0.9)', md: 'scale(1)' }
+                    }}
+                  >
                     <VoiceAnimation />
                   </Box>
                 </Box>
@@ -165,18 +167,17 @@ export const FirstSection = () => {
               background: 'rgba(243, 244, 246, 0.1)',
               backdropFilter: 'blur(10px)',
               borderRadius: '16px',
-              p: { xs: 1.5, sm: 2 },
+              p: { xs: 3, sm: 4 },
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              width: '100%',
-              mt: { xs: 2, md: 4 }
+              width: '100%'
             }}
           >
             <Typography
               variant="h6"
               sx={{
                 color: '#000000',
-                mb: { xs: 1, sm: 2 },
+                mb: { xs: 2, sm: 3 },
                 fontSize: {
                   xs: '0.875rem',
                   sm: '1rem',
