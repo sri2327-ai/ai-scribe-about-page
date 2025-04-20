@@ -1,4 +1,3 @@
-
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -128,7 +127,7 @@ export const SeventhSection = () => {
             },
             { 
               title: "Real-Time Documentation", 
-              description: "Accurately captures complex medical terminology and clinical nuances across all medical fields, including multispecialty care. Supports real-time documentation for EKG reports, emergency triaging, and dermatology screenings." 
+              description: "Advanced real-time documentation across all medical specialties. Instantly captures and transcribes EKG interpretations, emergency triage assessments, dermatological examinations, surgical notes, and clinical procedures with exceptional accuracy." 
             },
             { 
               title: "Automated Clinical Workflows", 
