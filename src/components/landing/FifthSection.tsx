@@ -82,7 +82,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         rotate,
         width: '100%',
         maxWidth: '450px',
-        marginBottom: '2.5rem', // Increased for better spacing in desktop view
+        marginBottom: '3rem', // Increased for better spacing in desktop view
         marginLeft: isRight ? 'auto' : 0,
         marginRight: !isRight ? 'auto' : 0,
       }}
@@ -210,7 +210,22 @@ export const FifthSection = () => {
         </Box>
 
         <Box sx={{ width: '100%', mb: 10, position: 'relative' }}>
-          <Typography variant="h4" fontWeight="bold" textAlign="center" mb={6} color="black">
+          <Typography 
+            variant="h4" 
+            fontWeight="bold" 
+            textAlign="center" 
+            mb={10} // Increased space between title and first card
+            color="black"
+            position="relative"
+            zIndex={10} // Ensure the heading stays above the line
+            sx={{
+              background: "#ffffff",
+              display: "inline-block",
+              px: 4,
+              mx: "auto",
+              width: "auto"
+            }}
+          >
             The Complete Workflow Transformation
           </Typography>
           
@@ -218,10 +233,10 @@ export const FifthSection = () => {
             style={{
               position: 'absolute',
               left: '50%',
-              top: 0,
+              top: 80, // Start below the heading
               bottom: 0,
               width: '2px',
-              background: 'linear-gradient(to bottom, transparent, #387E89, transparent)',
+              background: 'linear-gradient(to bottom, #387E89, #387E89, #387E89)',
               scaleY: height,
               transformOrigin: 'top',
               zIndex: 1,
@@ -235,10 +250,11 @@ export const FifthSection = () => {
             zIndex: 2, 
             display: 'flex', 
             flexDirection: 'column',
-            gap: { xs: 0, md: 3 }, // No gap on mobile, increased gap on desktop for better visual spacing
+            gap: { xs: 0, md: 4 }, // Increased gap on desktop for better visual spacing
             mb: { xs: 4, md: 8 }, // Add margin at the bottom for better spacing with the next section
             maxWidth: '1200px', // Control max width to ensure proper positioning
             mx: 'auto',  // Center the container
+            pt: 2, // Add padding top to create space from the heading
           }}>
             {cardIcons.map((card) => (
               <WorkflowCard 
