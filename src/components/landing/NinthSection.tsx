@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography, useTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -12,6 +12,7 @@ import {
 
 export const NinthSection = () => {
   const isMobile = useIsMobile();
+  const theme = useTheme();
   const MotionBox = motion(Box);
 
   const cards = [

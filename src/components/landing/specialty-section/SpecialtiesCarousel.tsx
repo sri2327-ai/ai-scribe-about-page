@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Typography } from "@mui/material";
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -117,57 +118,54 @@ export const SpecialtiesCarousel = () => {
           <CarouselNext />
         </Carousel>
       ) : (
-        <Box sx={{ display: 'flex', flex: 1, overflow: "hidden" }}>
-          <Marquee pauseOnHover={true} gradient={false} speed={50} loop={0}>
-            {specialties.map((specialty, index) => {
-              const IconComponent = specialty.icon;
-              return (
-                <Box 
-                  key={index} 
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2, px: 4 }}>
+          {specialties.map((specialty, index) => {
+            const IconComponent = specialty.icon;
+            return (
+              <Box 
+                key={index} 
+                sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  background: '#FFFFFF',
+                  borderRadius: 3, 
+                  p: { xs: 2, sm: 3 }, 
+                  my: 1,
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                  border: '1px solid #E0E0E0',
+                  gap: 2,
+                  alignItems: 'center',
+                  minWidth: { xs: '100px', sm: '120px' },
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-5px)',
+                    boxShadow: '0 8px 15px rgba(0, 0, 0, 0.08)'
+                  }
+                }}
+              >
+                <div className="group">
+                  <IconComponent
+                    size={28}
+                    color="black"
+                    className="group-hover:scale-110 transition-transform duration-300"
+                  />
+                </div>
+                <Typography 
+                  variant="body1" 
                   sx={{ 
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    mx: { xs: 1, sm: 2 }, 
-                    background: '#FFFFFF',
-                    borderRadius: 3, 
-                    p: { xs: 2, sm: 3 }, 
-                    my: 1,
-                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                    border: '1px solid #E0E0E0',
-                    gap: 2,
-                    alignItems: 'center',
-                    minWidth: { xs: '100px', sm: '120px' },
-                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 8px 15px rgba(0, 0, 0, 0.08)'
-                    }
+                    textAlign: 'center',
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    fontWeight: 600,
+                    fontSize: { xs: '0.75rem', sm: '0.875rem' }
                   }}
                 >
-                  <div className="group">
-                    <IconComponent
-                      size={28}
-                      color="black"
-                      className="group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      textAlign: 'center',
-                      background: 'linear-gradient(135deg, #143151, #387E89)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      fontWeight: 600,
-                      fontSize: { xs: '0.75rem', sm: '0.875rem' }
-                    }}
-                  >
-                    {specialty.name}
-                  </Typography>
-                </Box>
-              );
-            })}
-          </Marquee>
+                  {specialty.name}
+                </Typography>
+              </Box>
+            );
+          })}
         </Box>
       )}
     </Box>
