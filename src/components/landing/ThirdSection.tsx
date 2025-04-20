@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { TestimonialCard } from './TestimonialCard';
+import { Check, X } from 'lucide-react';
 
 const tabAccData = {
   "The S10.AI Advantage": [
@@ -156,6 +157,37 @@ const testimonials = [
   }
 ];
 
+const cardIcons = [
+  { icon: FileCheck, title: "Automated Coding", content: "AI-driven ICD-10 & E/M , CPT & HCC code capture.", metric: "95% coding accuracy" },
+  { icon: MessageSquarePlus, title: "Simplified Orders & Prescriptions", content: "Automates medication & lab orders.", metric: "70% faster orders" },
+  { icon: FileText, title: "Instant Summaries", content: "Generates referrals, after-visit notes & letters.", metric: "85% time saved" },
+  { icon: Clock, title: "Smart Pre-Charting", content: "Prepares charts & retrieves patient history.", metric: "75% faster prep" },
+  { icon: Shield, title: "Seamless Lab & CRM Sync", content: "Auto-updates lab results & patient records.", metric: "100% sync accuracy" }
+];
+
+const beforeAfterComparison = {
+  before: {
+    title: "Before S10.AI",
+    metrics: [
+      "4+ hours daily on documentation",
+      "30% no-show rate",
+      "72 hours for prescription refills",
+      "Manual patient follow-ups",
+      "Delayed claim submissions"
+    ]
+  },
+  after: {
+    title: "After CRUSH & BRAVO",
+    metrics: [
+      "1 hour or less on documentation",
+      "5% no-show rate",
+      "Same-day prescription processing",
+      "Automated patient engagement",
+      "Real-time claim processing"
+    ]
+  }
+};
+
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
   
@@ -231,43 +263,80 @@ export const ThirdSection = () => {
         <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <Box className="lg:col-span-2">
             <Box className="bg-white rounded-xl shadow-lg p-6">
-              {Object.values(tabAccData).map((value, index) => (
-                tabValue === index && (
+              {/* Before/After Cards */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                {Object.entries(beforeAfterComparison).map(([key, data]) => (
                   <motion.div
-                    key={index}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
+                    key={key}
+                    whileHover={{ scale: 1.02 }}
+                    className={`p-6 rounded-xl transition-all duration-300 ${
+                      key === 'after' 
+                        ? 'bg-gradient-to-br from-[#387E89]/10 to-[#143151]/10 border border-[#387E89]/20' 
+                        : 'bg-white border border-gray-200'
+                    }`}
                   >
-                    <Accordion type="single" collapsible className="w-full space-y-4" defaultValue="item-0">
-                      {value.map((item: any, itemIndex) => (
-                        <AccordionItem 
-                          value={`item-${itemIndex}`} 
-                          key={itemIndex}
-                          className="border border-gray-100 rounded-lg overflow-hidden hover:border-[#387E89] transition-all duration-200 data-[state=open]:shadow-md"
-                        >
-                          <AccordionTrigger className="px-4 py-3 hover:no-underline">
-                            <div className="flex items-center gap-3">
-                              <div className="p-2 rounded-lg bg-[#387E89]/10">
-                                {item.icon}
-                              </div>
-                              <span className="text-lg font-semibold text-gray-900">{item.title}</span>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="px-4 pb-4">
-                            <p className="text-gray-600 mb-3 leading-relaxed">{item.content}</p>
-                            {item.metric && (
-                              <span className="inline-block bg-[#387E89]/10 text-[#387E89] px-4 py-2 rounded-full text-sm font-medium">
-                                {item.metric}
-                              </span>
-                            )}
-                          </AccordionContent>
-                        </AccordionItem>
+                    <h3 className={`text-xl font-bold mb-4 ${
+                      key === 'after' ? 'text-[#387E89]' : 'text-gray-800'
+                    }`}>
+                      {data.title}
+                    </h3>
+                    <div className="space-y-3">
+                      {data.metrics.map((metric, index) => (
+                        <div key={index} className="flex items-start gap-3">
+                          {key === 'after' ? (
+                            <Check className="w-5 h-5 mt-0.5 text-[#387E89]" />
+                          ) : (
+                            <X className="w-5 h-5 mt-0.5 text-red-500" />
+                          )}
+                          <span className="text-gray-700">{metric}</span>
+                        </div>
                       ))}
-                    </Accordion>
+                    </div>
                   </motion.div>
-                )
-              ))}
+                ))}
+              </div>
+
+              {/* Workflow Carousel */}
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-gray-900">Complete Workflow Transformation</h3>
+                  <div className="flex gap-2">
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </div>
+                </div>
+                <CarouselContent>
+                  {cardIcons.map((card, index) => (
+                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                      <motion.div 
+                        whileHover={{ scale: 1.02 }}
+                        className="p-5 rounded-xl border border-gray-200 bg-white h-full"
+                      >
+                        <div className="flex items-start gap-4">
+                          <div className="p-3 rounded-lg bg-[#387E89]/10">
+                            <card.icon className="w-6 h-6 text-[#387E89]" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-2">{card.title}</h4>
+                            <p className="text-gray-600 text-sm">{card.content}</p>
+                            <div className="mt-3">
+                              <span className="inline-block px-3 py-1 rounded-full text-sm font-medium bg-[#387E89]/10 text-[#387E89]">
+                                {card.metric}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+              </Carousel>
             </Box>
 
             <div className="mt-8 flex justify-center">
@@ -303,7 +372,8 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        <div className="mt-12 relative px-8">
+        {/* Testimonials with reduced bottom margin */}
+        <div className="mt-12 relative px-8 mb-8">
           <Carousel className="w-full max-w-4xl mx-auto"
             opts={{
               align: "center",
