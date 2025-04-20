@@ -1,35 +1,17 @@
-
 import React, { useState } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield } from "lucide-react";
-import { QuoteTestimonial } from './QuoteTestimonial';
-
-const testimonials = [
-  {
-    quote: "S10.AI has transformed our practice workflow. Our providers now spend more time with patients and less time on documentation.",
-    author: "Dr. Sarah Johnson",
-    role: "Chief Medical Officer",
-    organization: "Northside Medical Group",
-    image: "/placeholder.svg" // Added placeholder image
-  },
-  {
-    quote: "The AI medical scribe functionality is remarkably accurate. It's like having an extra team member in every patient encounter.",
-    author: "Dr. Michael Chen",
-    role: "Primary Care Physician",
-    organization: "Valley Health Partners",
-    image: "/placeholder.svg" // Added placeholder image
-  },
-  {
-    quote: "Implementation was seamless and the ROI was immediate. We've reduced administrative staff needs while improving patient satisfaction scores.",
-    author: "Jennifer Williams",
-    role: "Practice Manager",
-    organization: "Westside Family Medicine",
-    image: "/placeholder.svg" // Added placeholder image
-  }
-];
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { TestimonialCard } from './TestimonialCard';
 
 const tabAccData = {
   "The S10.AI Advantage": [
@@ -149,6 +131,30 @@ const tabAccData = {
     }
   ]
 };
+
+const testimonials = [
+  {
+    quote: "S10.AI has transformed our practice workflow. Our providers now spend more time with patients and less time on documentation.",
+    author: "Dr. Sarah Johnson",
+    role: "Chief Medical Officer",
+    organization: "Northside Medical Group",
+    image: "/placeholder.svg"
+  },
+  {
+    quote: "The AI medical scribe functionality is remarkably accurate. It's like having an extra team member in every patient encounter.",
+    author: "Dr. Michael Chen",
+    role: "Primary Care Physician",
+    organization: "Valley Health Partners",
+    image: "/placeholder.svg"
+  },
+  {
+    quote: "Implementation was seamless and the ROI was immediate. We've reduced administrative staff needs while improving patient satisfaction scores.",
+    author: "Jennifer Williams",
+    role: "Practice Manager",
+    organization: "Westside Family Medicine",
+    image: "/placeholder.svg"
+  }
+];
 
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
@@ -297,19 +303,24 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        <div className="mt-12 space-y-6">
-          {testimonials.map((testimonial, index) => (
-            <motion.div 
-              key={index} 
-              className="max-w-3xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.2 }}
-            >
-              <QuoteTestimonial {...testimonial} />
-            </motion.div>
-          ))}
+        <div className="mt-12 relative px-8">
+          <Carousel className="w-full max-w-4xl mx-auto"
+            opts={{
+              align: "center",
+              loop: true,
+            }}>
+            <CarouselContent>
+              {testimonials.map((testimonial, index) => (
+                <CarouselItem key={index}>
+                  <div className="p-1">
+                    <TestimonialCard {...testimonial} />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
         </div>
       </Box>
     </section>
