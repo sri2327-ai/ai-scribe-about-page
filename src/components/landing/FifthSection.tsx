@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X } from 'lucide-react';
+import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X, Clock, TrendingUp, ThumbsUp } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
 
 const cardIcons = [
@@ -46,11 +46,11 @@ const combinedTestimonial = {
 };
 
 const ROIMetrics = {
-  timeReduction: "75%",
-  revenueIncrease: "40%",
-  patientSatisfaction: "95%",
-  annualSavings: "$150,000+",
-  patientVolume: "30%"
+  timeReduction: { value: "75%", icon: Clock },
+  revenueIncrease: { value: "40%", icon: TrendingUp },
+  patientSatisfaction: { value: "95%", icon: ThumbsUp },
+  annualSavings: { value: "$150,000+", icon: DollarSign },
+  patientVolume: { value: "30%", icon: TrendingUp }
 };
 
 const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
@@ -264,9 +264,10 @@ export const FifthSection = () => {
           <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
             Return on Investment
           </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }, gap: 4 }}>
-            {Object.entries(ROIMetrics).map(([key, value]) => (
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }, gap: 4 }}>
+            {Object.entries(ROIMetrics).map(([key, { value, icon: Icon }]) => (
               <Box key={key} sx={{ textAlign: 'center' }}>
+                <Icon className="mx-auto mb-2 w-8 h-8 text-white" />
                 <Typography variant="h3" fontWeight="bold" mb={1}>
                   {value}
                 </Typography>
