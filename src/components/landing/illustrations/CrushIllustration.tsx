@@ -36,11 +36,11 @@ const CrushIllustration = () => {
   }
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center p-1 overflow-hidden">
-      {/* Simplified path for animations to reduce size */}
-      <svg className="absolute w-24 h-2 top-1/2 -translate-y-1/2">
+    <div className="relative w-full h-full flex items-center justify-center p-4 overflow-hidden">
+      {/* Expanded path for animations */}
+      <svg className="absolute w-32 h-2 top-1/2 -translate-y-1/2">
         <motion.path
-          d="M 5,1 L 80,1"
+          d="M 5,1 L 120,1"
           stroke="#387E89"
           strokeWidth="2"
           strokeDasharray="3,3"
@@ -56,20 +56,20 @@ const CrushIllustration = () => {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
         transition={{ duration: 0.5 }}
-        className="flex flex-col items-center gap-0.5 bg-white p-1 rounded-lg shadow-sm z-10"
+        className="flex flex-col items-center gap-2 bg-white p-3 rounded-lg shadow-md z-10 min-w-[120px]"
       >
         <motion.div
           whileHover={{ scale: 1.05 }}
-          className="p-1 rounded-full"
+          className="p-2 rounded-full"
           style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
         >
           {React.createElement(steps[currentStep].Icon, {
-            size: 12,
+            size: 24,
             color: "white",
             strokeWidth: 1.5
           })}
         </motion.div>
-        <p className="text-[9px] font-medium text-[#143151]">{steps[currentStep].label}</p>
+        <p className="text-xs font-medium text-[#143151] text-center">{steps[currentStep].label}</p>
       </motion.div>
     </div>
   );
