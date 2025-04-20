@@ -12,10 +12,10 @@ export const FirstSection = () => {
   const theme = useTheme();
 
   return (
-    <section className="min-h-[65vh] bg-white">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-4 md:py-6 lg:py-8">
-        <div className="flex flex-col space-y-4 md:space-y-6">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 md:gap-6">
+    <section className="min-h-[75vh] bg-white">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 lg:px-8 py-6 md:py-8 lg:py-10">
+        <div className="flex flex-col space-y-6 md:space-y-8">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 md:gap-8">
             <Box
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
@@ -26,10 +26,10 @@ export const FirstSection = () => {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: '2rem',
-                    sm: '2.25rem',
-                    md: '2.5rem',
-                    lg: '3rem'
+                    xs: '2.25rem',
+                    sm: '2.5rem',
+                    md: '3rem',
+                    lg: '3.5rem'
                   },
                   lineHeight: {
                     xs: 1.1,
@@ -38,7 +38,7 @@ export const FirstSection = () => {
                   letterSpacing: '-0.02em',
                   fontWeight: 700,
                   color: '#000000',
-                  mb: { xs: 1.5, md: 2 }
+                  mb: { xs: 2, md: 3 }
                 }}
               >
                 Innovative<br />
@@ -53,8 +53,8 @@ export const FirstSection = () => {
                   textTransform: "none",
                   background: `linear-gradient(135deg, #143151, #387E89)`,
                   color: 'white',
-                  px: { xs: 2, md: 2.5 },
-                  py: { xs: 0.75, md: 1 },
+                  px: { xs: 2.5, md: 3 },
+                  py: { xs: 1, md: 1.25 },
                   borderRadius: "50px",
                   transition: 'all 0.3s ease',
                   "&:hover": {
@@ -73,8 +73,8 @@ export const FirstSection = () => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      width: { xs: 16, md: 20 },
-                      height: { xs: 16, md: 20 },
+                      width: { xs: 18, md: 22 },
+                      height: { xs: 18, md: 22 },
                       borderRadius: "50%", 
                       color: "white",
                       border: `2px solid white`,
@@ -83,14 +83,14 @@ export const FirstSection = () => {
                       mr: 1
                     }}
                   >
-                    <ArrowRight className="h-3 w-3" />
+                    <ArrowRight className="h-3.5 w-3.5" />
                   </Box>
                 }
               >
                 <Typography
                   variant='h6' 
                   sx={{
-                    fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.9rem' },
+                    fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
                     color: "white",
                     fontWeight: 600
                   }}
@@ -107,13 +107,13 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 0, md: 0 }
+                mt: { xs: 1, md: 0 }
               }}
             >
               <Box
                 sx={{
                   width: '100%',
-                  maxWidth: { xs: '400px', md: '100%' },
+                  maxWidth: { xs: '450px', md: '100%' },
                   mx: { xs: 'auto', md: 0 }
                 }}
               >
@@ -122,14 +122,14 @@ export const FirstSection = () => {
                     background: 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '16px',
-                    p: { xs: 1.5, sm: 2 },
+                    p: { xs: 2, sm: 3 },
                     border: '1px solid rgba(209, 213, 219, 0.3)',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                     height: 'auto',
                     display: 'flex',
                     flexDirection: { xs: 'column', sm: 'row' },
                     alignItems: 'center',
-                    gap: { xs: 1.5, sm: 2 }
+                    gap: { xs: 2, sm: 3 }
                   }}
                 >
                   <Box sx={{ flex: '1' }}>
@@ -138,10 +138,10 @@ export const FirstSection = () => {
                       sx={{
                         color: '#000000',
                         fontSize: {
-                          xs: '0.75rem',
-                          sm: '0.8rem'
+                          xs: '0.8rem',
+                          sm: '0.9rem'
                         },
-                        lineHeight: 1.4,
+                        lineHeight: 1.5,
                         fontWeight: 400
                       }}
                     >
@@ -153,7 +153,7 @@ export const FirstSection = () => {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      transform: { xs: 'scale(0.7)', md: 'scale(0.8)' }
+                      transform: { xs: 'scale(0.8)', md: 'scale(0.9)' }
                     }}
                   >
                     <VoiceAnimation />
@@ -168,7 +168,7 @@ export const FirstSection = () => {
               background: 'rgba(243, 244, 246, 0.1)',
               backdropFilter: 'blur(10px)',
               borderRadius: '16px',
-              p: { xs: 1, sm: 1.5 },
+              p: { xs: 1.5, sm: 2 },
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               width: '100%'
@@ -178,11 +178,11 @@ export const FirstSection = () => {
               variant="h6"
               sx={{
                 color: '#000000',
-                mb: { xs: 0.25, sm: 0.5 },
+                mb: { xs: 0.5, sm: 1 },
                 fontSize: {
-                  xs: '0.7rem',
-                  sm: '0.75rem',
-                  md: '0.8rem'
+                  xs: '0.75rem',
+                  sm: '0.85rem',
+                  md: '0.95rem'
                 },
                 fontWeight: 600,
                 textAlign: 'center'
@@ -195,7 +195,7 @@ export const FirstSection = () => {
                 overflow: "hidden",
                 width: '100%',
                 '& .marquee-container': {
-                  minHeight: { xs: '20px', sm: '24px' }
+                  minHeight: { xs: '24px', sm: '28px' }
                 }
               }}
             >
@@ -205,8 +205,8 @@ export const FirstSection = () => {
                     key={index}
                     sx={{
                       mx: {
-                        xs: 0.5,
-                        md: 0.75
+                        xs: 0.75,
+                        md: 1
                       },
                       display: 'flex',
                       alignItems: 'center'
@@ -217,7 +217,7 @@ export const FirstSection = () => {
                       alt={`Company logo ${index + 1}`}
                       style={{
                         width: 'auto',
-                        height: '20px',
+                        height: '22px',
                         objectFit: 'contain'
                       }}
                     />

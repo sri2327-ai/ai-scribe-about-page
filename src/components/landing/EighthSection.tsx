@@ -31,16 +31,16 @@ export const EighthSection = () => {
   ];
 
   return (
-    <section className="py-0" style={{ background: '#FFFFFF', minHeight: 'unset' }}>
+    <section className="py-2" style={{ background: '#FFFFFF', minHeight: 'unset' }}>
       <Box sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 2 } }}>
         <Typography 
-          variant="body1" 
+          variant="h3" 
           sx={{ 
             textAlign: "center",
             color: "#000000",
-            fontWeight: 600,
-            mb: { xs: 0.5, md: 0.5 },
-            fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" }
+            fontWeight: 700,
+            mb: { xs: 1, md: 1 },
+            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" }
           }}
         >
           Specialized for Every Medical Field
@@ -55,39 +55,39 @@ export const EighthSection = () => {
                   sx={{ 
                     display: 'flex', 
                     flexDirection: 'column', 
-                    mx: { xs: 0.5, sm: 0.5 }, 
+                    mx: { xs: 0.5, sm: 0.75 }, 
                     background: '#FFFFFF',
                     borderRadius: 2, 
-                    p: { xs: 0.5, sm: 0.75 }, 
+                    p: { xs: 0.75, sm: 1 }, 
                     my: 0.5,
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
                     border: '1px solid #E0E0E0',
-                    gap: 0.25,
+                    gap: 0.5,
                     alignItems: 'center',
-                    minWidth: { xs: '60px', sm: '70px' },
+                    minWidth: { xs: '70px', sm: '90px' },
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                     '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.08)'
+                      transform: 'translateY(-3px)',
+                      boxShadow: '0 8px 15px rgba(0, 0, 0, 0.08)'
                     }
                   }}
                 >
                   <div className="group">
                     <IconComponent
-                      size={16}
+                      size={18}
                       color="black"
                       className="group-hover:scale-110 transition-transform duration-300"
                     />
                   </div>
                   <Typography 
-                    variant="body2" 
+                    variant="body1" 
                     sx={{ 
                       textAlign: 'center',
                       background: 'linear-gradient(135deg, #143151, #387E89)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       fontWeight: 600,
-                      fontSize: { xs: '0.55rem', sm: '0.6rem' }
+                      fontSize: { xs: '0.6rem', sm: '0.65rem' }
                     }}
                   >
                     {specialty.name}
