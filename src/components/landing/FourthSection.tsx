@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
@@ -107,13 +108,12 @@ const ProductCard = ({
           </div>
           <div className="flex flex-wrap gap-2">
             {(title === "C.R.U.S.H" ? compatibleSystems.crush : compatibleSystems.bravo).map((system, idx) => (
-              <motion.span
+              <span
                 key={idx}
-                whileHover={{ scale: 1.05 }}
-                className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600"
+                className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600 hover:scale-105 transition-transform duration-200"
               >
                 {system}
-              </motion.span>
+              </span>
             ))}
           </div>
         </div>
