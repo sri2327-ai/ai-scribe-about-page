@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Building, Building2, Hospital, User } from 'lucide-react';
+import { User, Building, Building2, Hospital } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
@@ -65,7 +65,7 @@ export const PracticeTypeSelector = () => {
               <TabsTrigger
                 key={type.id}
                 value={type.id}
-                className="data-[state=active]:bg-[#387E89] data-[state=active]:text-white px-4 py-3 h-auto flex flex-col items-center gap-2 rounded-lg border border-gray-200 hover:border-[#387E89] transition-all"
+                className="data-[state=active]:bg-gradient-to-r from-[#143151] to-[#387E89] data-[state=active]:text-white px-4 py-3 h-auto flex flex-col items-center gap-2 rounded-lg border border-gray-200 hover:border-[#387E89] transition-all"
               >
                 <type.icon className="w-6 h-6" />
                 <span className="text-sm font-medium">{type.title}</span>
@@ -82,7 +82,7 @@ export const PracticeTypeSelector = () => {
               >
                 <Card className="mt-6 border-2 border-[#387E89]/10 hover:border-[#387E89]/20 transition-all">
                   <CardHeader className="flex flex-row items-center gap-4">
-                    <div className="p-3 rounded-full bg-[#387E89] text-white">
+                    <div className="p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                       <type.icon className="w-6 h-6" />
                     </div>
                     <h3 className="text-2xl font-semibold text-[#143151]">{type.title}</h3>
@@ -91,11 +91,8 @@ export const PracticeTypeSelector = () => {
                     <p className="text-gray-600 leading-relaxed">{type.description}</p>
                     
                     <div className="mt-6">
-                      <button className="inline-flex items-center px-6 py-3 bg-[#387E89] text-white rounded-lg hover:bg-[#143151] transition-colors duration-200">
+                      <button className="rounded-full px-8 py-3 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 ease-in-out">
                         Learn More
-                        <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                        </svg>
                       </button>
                     </div>
                   </CardContent>
