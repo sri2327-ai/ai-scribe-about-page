@@ -1,9 +1,11 @@
+
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Phone, ClipboardList, Bell, FileText, ClipboardCheck, 
-  Heart, BarChart, ArrowRight, Check, X 
+  Heart, BarChart, ArrowRight, Check, X,
+  Clock, TrendingUp, ThumbsUp, DollarSign, Users
 } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
 import {
@@ -148,7 +150,7 @@ export const FifthSection = () => {
               {cardIcons.map((card) => (
                 <CarouselItem key={card.id} className="md:basis-1/2 lg:basis-1/3">
                   <div className="p-1">
-                    <WorkflowCard {...card} />
+                    <WorkflowCard {...card} number={card.id} />
                   </div>
                 </CarouselItem>
               ))}
@@ -160,7 +162,7 @@ export const FifthSection = () => {
           </Carousel>
         </div>
 
-        <Box sx={{ mb: 8 }}>
+        <Box sx={{ mb: 6 }}>
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
       </Box>
