@@ -8,6 +8,7 @@ import { SectionLoader } from '@/components/ui/section-loader';
 const SecondSection = lazy(() => import('@/components/landing/SecondSection').then(module => ({ default: module.SecondSection })));
 const ThirdSection = lazy(() => import('@/components/landing/ThirdSection').then(module => ({ default: module.ThirdSection })));
 const FourthSection = lazy(() => import('@/components/landing/FourthSection').then(module => ({ default: module.FourthSection })));
+const IntegrationSection = lazy(() => import('@/components/landing/IntegrationSection').then(module => ({ default: module.IntegrationSection })));
 const FifthSection = lazy(() => import('@/components/landing/FifthSection').then(module => ({ default: module.FifthSection })));
 const SeventhSection = lazy(() => import('@/components/landing/SeventhSection').then(module => ({ default: module.SeventhSection })));
 const EighthSection = lazy(() => import('@/components/landing/EighthSection').then(module => ({ default: module.EighthSection })));
@@ -61,58 +62,34 @@ const Landing = () => {
       <FirstSection />
       
       {/* Enhanced lazy loading with better fallback */}
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="second-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="second-section">
         <SecondSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="third-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="third-section">
         <ThirdSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="fourth-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="fourth-section">
         <FourthSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="fifth-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="integration-section">
+        <IntegrationSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />} key="fifth-section">
         <FifthSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="seventh-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="seventh-section">
         <SeventhSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="eighth-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="eighth-section">
         <EighthSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="ninth-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="ninth-section">
         <NinthSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="tenth-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="tenth-section">
         <TenthSection />
       </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="eleventh-section"
-      >
+      <Suspense fallback={<SectionLoader />} key="eleventh-section">
         <EleventhSection />
       </Suspense>
     </main>
