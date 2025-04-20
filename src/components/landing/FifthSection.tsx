@@ -82,7 +82,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         rotate,
         width: '100%',
         maxWidth: '450px',
-        marginBottom: '1rem', // Reduced from 2rem to 1rem
+        marginBottom: '2.5rem', // Increased for better spacing in desktop view
         marginLeft: isRight ? 'auto' : 0,
         marginRight: !isRight ? 'auto' : 0,
       }}
@@ -92,7 +92,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         p: 3,
         borderRadius: 2,
         height: '100%',
-        minHeight: '200px', // Added minimum height for consistency
+        minHeight: '200px',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -235,7 +235,10 @@ export const FifthSection = () => {
             zIndex: 2, 
             display: 'flex', 
             flexDirection: 'column',
-            gap: 0, // Changed from 2 to 0 to reduce vertical spacing between cards
+            gap: { xs: 0, md: 3 }, // No gap on mobile, increased gap on desktop for better visual spacing
+            mb: { xs: 4, md: 8 }, // Add margin at the bottom for better spacing with the next section
+            maxWidth: '1200px', // Control max width to ensure proper positioning
+            mx: 'auto',  // Center the container
           }}>
             {cardIcons.map((card) => (
               <WorkflowCard 
