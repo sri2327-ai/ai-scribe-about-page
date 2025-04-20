@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
-import { motion } from "framer-motion";
 import CrushIllustration from './illustrations/CrushIllustration';
 import BravoIllustration from './illustrations/BravoIllustration';
 
@@ -28,19 +27,13 @@ const specialtyMetrics = {
 };
 
 const SpecialtyBadge = ({ name }: { name: string }) => (
-  <motion.div 
-    whileHover={{ scale: 1.05 }}
-    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 mb-2"
-  >
+  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 mb-2">
     {name}
-  </motion.div>
+  </div>
 );
 
 const MetricCard = ({ icon: Icon, title, value }: { icon: any, title: string, value: string }) => (
-  <motion.div
-    whileHover={{ y: -5 }}
-    className="flex items-start gap-3 p-3 rounded-lg bg-gray-50"
-  >
+  <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 hover:-translate-y-1 transition-transform duration-200">
     <div className="p-2 rounded-lg bg-white">
       <Icon className="w-4 h-4 text-[#387E89]" />
     </div>
@@ -48,7 +41,7 @@ const MetricCard = ({ icon: Icon, title, value }: { icon: any, title: string, va
       <p className="text-sm font-medium text-gray-600">{title}</p>
       <p className="text-lg font-semibold text-[#143151]">{value}</p>
     </div>
-  </motion.div>
+  </div>
 );
 
 const ProductCard = ({ 
@@ -66,10 +59,7 @@ const ProductCard = ({
   metrics: { title: string; value: string; icon: any }[];
   isUniversal?: boolean;
 }) => (
-  <motion.div
-    whileHover={{ y: -5 }}
-    className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl h-full"
-  >
+  <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl h-full hover:-translate-y-1">
     <div className="p-6 flex flex-col gap-6 h-full">
       <div className="aspect-video w-full bg-gray-50 rounded-lg overflow-hidden relative group">
         <div className="w-full h-full">
@@ -136,7 +126,7 @@ const ProductCard = ({
         <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
     </div>
-  </motion.div>
+  </div>
 );
 
 export const FourthSection = () => {
