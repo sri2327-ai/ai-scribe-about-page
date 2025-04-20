@@ -22,12 +22,30 @@ export const FirstSection = () => {
                 pr: { md: 4 }
               }}
             >
-              <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 leading-relaxed">
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: {
+                    xs: '2.5rem',
+                    sm: '3rem',
+                    md: '3.5rem',
+                    lg: '4rem'
+                  },
+                  lineHeight: {
+                    xs: 1.1,
+                    md: 1
+                  },
+                  letterSpacing: '-0.02em',
+                  fontWeight: 700,
+                  color: '#000000',
+                  mb: { xs: 4, md: 6 }
+                }}
+              >
                 Innovative<br />
                 Ambient AI<br />
                 Solutions<br />
                 For Healthcare
-              </h1>
+              </Typography>
 
               <Button 
                 variant="contained" 
@@ -114,9 +132,20 @@ export const FirstSection = () => {
                   }}
                 >
                   <Box>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: '#000000',
+                        fontSize: {
+                          xs: '0.875rem',
+                          sm: '1rem'
+                        },
+                        lineHeight: 1.7,
+                        fontWeight: 400
+                      }}
+                    >
                       Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
-                    </p>
+                    </Typography>
                   </Box>
                   <Box 
                     sx={{
@@ -144,9 +173,22 @@ export const FirstSection = () => {
               width: '100%'
             }}
           >
-            <h2 className="font-bold text-lg text-gray-600 max-w-3xl mx-auto text-center mb-6">
+            <Typography
+              variant="h6"
+              sx={{
+                color: '#000000',
+                mb: { xs: 2, sm: 3 },
+                fontSize: {
+                  xs: '0.875rem',
+                  sm: '1rem',
+                  md: '1.125rem'
+                },
+                fontWeight: 600,
+                textAlign: 'center'
+              }}
+            >
               S10.AI Is Recommended by
-            </h2>
+            </Typography>
             <Box
               sx={{
                 overflow: "hidden",
