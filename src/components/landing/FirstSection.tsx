@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -12,7 +11,7 @@ export const FirstSection = () => {
   const theme = useTheme();
 
   return (
-    <section className="min-h-screen bg-white">
+    <div className="min-h-screen flex flex-col justify-center py-16 relative overflow-hidden">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
         <div className="flex flex-col space-y-16 md:space-y-24">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
@@ -227,6 +226,7 @@ export const FirstSection = () => {
           </Box>
         </div>
       </div>
-    </section>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" />
+    </div>
   );
 };

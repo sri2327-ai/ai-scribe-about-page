@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { ArrowRight, CalendarCheck } from "lucide-react";
@@ -8,7 +7,7 @@ export const EleventhSection = () => {
   return (
     <section 
       id="call-to-action"
-      className="py-12 w-full flex items-center justify-center relative overflow-hidden"
+      className="min-h-screen py-16 w-full flex items-center justify-center relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
       }}
@@ -134,7 +133,8 @@ export const EleventhSection = () => {
         </Stack>
       </motion.div>
       
-      {/* Add decorative elements for visual appeal */}
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mt-16" />
+      
       <Box
         sx={{
           position: 'absolute',

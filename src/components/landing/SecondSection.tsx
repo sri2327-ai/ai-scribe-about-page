@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Box, Grid, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -123,23 +122,22 @@ export const SecondSection = () => {
   );
   
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16">
+    <section className="min-h-screen py-16 px-4 md:px-8 lg:px-16">
       <Box className="container mx-auto max-w-7xl">
         <Typography 
           variant="h3" 
           sx={{ 
             textAlign: "center",
             color: "#000000",
-            fontWeight: "bold",
+            fontWeight: 800,
             mb: { xs: 6, md: 8 },
-            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
+            fontSize: { xs: "2.25rem", sm: "2.75rem", md: "3.25rem" }
           }}
         >
           Trusted By Leading Healthcare Organisations
         </Typography>
 
         {isMobile ? (
-          // Mobile view with Slider
           <Box sx={{ mx: { xs: -2, md: -3 } }}>
             <Slider {...settings}>
               {docRevData.map((value, index) => (
@@ -150,7 +148,6 @@ export const SecondSection = () => {
             </Slider>
           </Box>
         ) : (
-          // Desktop view with Grid (no slider)
           <Grid container spacing={3} sx={{ display: 'flex', flexDirection: 'row' }}>
             {docRevData.map((value, index) => (
               <Grid 
@@ -167,6 +164,7 @@ export const SecondSection = () => {
           </Grid>
         )}
       </Box>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mt-16" />
     </section>
   );
 };
