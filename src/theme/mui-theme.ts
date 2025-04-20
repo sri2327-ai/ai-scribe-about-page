@@ -1,8 +1,33 @@
-
 import { createTheme } from '@mui/material/styles';
 
-// Create a theme instance
 const theme = createTheme({
+  typography: {
+    fontFamily: '"Wix Madefor Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+    h1: {
+      fontWeight: 700,
+    },
+    h2: {
+      fontWeight: 700,
+    },
+    h3: {
+      fontWeight: 700,
+    },
+    h4: {
+      fontWeight: 600,
+    },
+    h5: {
+      fontWeight: 600,
+    },
+    h6: {
+      fontWeight: 600,
+    },
+    body1: {
+      fontWeight: 400,
+    },
+    body2: {
+      fontWeight: 400,
+    },
+  },
   palette: {
     mode: 'dark',
     primary: {
@@ -18,27 +43,6 @@ const theme = createTheme({
     text: {
       primary: '#ffffff',
       secondary: 'rgba(255, 255, 255, 0.7)',
-    },
-  },
-  typography: {
-    fontFamily: '"Wix Madefor Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-    h1: {
-      fontWeight: 'normal',
-    },
-    h2: {
-      fontWeight: 'normal',
-    },
-    h3: {
-      fontWeight: 'normal',
-    },
-    h4: {
-      fontWeight: 'normal',
-    },
-    h5: {
-      fontWeight: 'normal',
-    },
-    h6: {
-      fontWeight: 'normal',
     },
   },
   components: {

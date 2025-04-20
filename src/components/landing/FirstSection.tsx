@@ -95,6 +95,7 @@ export const FirstSection = () => {
                   sx={{
                     fontSize: { xs: '1rem', md: '1.25rem' },
                     color: "white",
+                    fontWeight: 600
                   }}
                 >
                   Request A Demo
