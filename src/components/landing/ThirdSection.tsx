@@ -317,3 +317,5 @@ export const ThirdSection = () => {
     </section>
   );
 };
+
+export default ThirdSection;

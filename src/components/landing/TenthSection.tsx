@@ -1,4 +1,3 @@
-
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
@@ -195,9 +194,9 @@ const ComplianceCard = ({ card, index }) => {
           position: 'relative',
           width: '100%',
           minWidth: '140px',
-          height: '160px', // Reduced height
-          p: 1.5,  // Reduced padding
-          borderRadius: '12px', // Slightly reduced border radius
+          height: '160px',
+          p: 1.5,
+          borderRadius: '12px',
           background: 'linear-gradient(170deg, rgba(56, 126, 137, 0.85) 0%, rgba(20, 49, 81, 0.95) 100%)',
           boxShadow: '0 4px 16px rgba(0, 0, 0, 0.15)',
           display: 'flex',
@@ -226,8 +225,8 @@ const ComplianceCard = ({ card, index }) => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            width: '56px', // Reduced size
-            height: '56px', // Reduced size
+            width: '56px',
+            height: '56px',
             borderRadius: '50%',
             backdropFilter: 'blur(8px)',
             backgroundColor: 'rgba(255, 255, 255, 0.1)',
@@ -271,3 +270,5 @@ const ComplianceCard = ({ card, index }) => {
     </motion.div>
   );
 };
+
+export default TenthSection;

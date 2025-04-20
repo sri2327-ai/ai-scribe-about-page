@@ -205,3 +205,5 @@ export const NinthSection = () => {
     </section>
   );
 };
+
+export default NinthSection;

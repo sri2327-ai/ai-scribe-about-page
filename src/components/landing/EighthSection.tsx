@@ -79,3 +79,5 @@ export const EighthSection = () => {
     </section>
   );
 };
+
+export default EighthSection;

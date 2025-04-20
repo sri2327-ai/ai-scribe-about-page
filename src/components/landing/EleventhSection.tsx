@@ -166,3 +166,5 @@ export const EleventhSection = () => {
     </section>
   );
 };
+
+export default EleventhSection;

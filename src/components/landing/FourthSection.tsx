@@ -181,3 +181,5 @@ export const FourthSection = () => {
     </section>
   );
 };
+
+export default FourthSection;

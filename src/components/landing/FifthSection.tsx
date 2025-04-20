@@ -286,3 +286,5 @@ export const FifthSection = () => {
     </section>
   );
 };
+
+export default FifthSection;

@@ -187,3 +187,5 @@ export const SeventhSection = () => {
     </section>
   );
 };
+
+export default SeventhSection;
