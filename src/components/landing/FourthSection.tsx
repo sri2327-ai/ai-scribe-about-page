@@ -123,13 +123,13 @@ const ProductCard = ({
 
 export const FourthSection = () => {
   return (
-    <section className="py-10 px-4 md:px-8 lg:px-16 bg-white">
+    <section className="min-h-screen py-16 px-4 md:px-8 lg:px-16 bg-white">
       <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
         <div className="max-w-[900px] mx-auto text-center">
-          <h3 className="text-3xl md:text-4xl font-bold text-black mb-4">
+          <h3 className="text-4xl md:text-5xl font-extrabold text-black mb-4">
             Meet Bravo & CRUSH – A S10'ing Experience
           </h3>
-          <p className="text-base text-gray-700 leading-relaxed">
+          <p className="text-lg text-gray-700 leading-relaxed font-normal">
             From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, 
             optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making.
           </p>
@@ -162,6 +162,7 @@ export const FourthSection = () => {
           />
         </div>
       </div>
+      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mt-16" />
     </section>
   );
 };

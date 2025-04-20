@@ -1,14 +1,7 @@
 
 import React from 'react';
 import { Box, Typography } from "@mui/material";
-import { useIsMobile } from '@/hooks/use-mobile';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+import Marquee from "react-fast-marquee";
 import { Brain, User, Heart, Eye, Building2, FlaskConical, Apple, Ambulance, CircleDot, Stethoscope, Droplets, Activity, HeartPulse, Ear, Microscope, ShieldPlus } from "lucide-react";
 
 const specialties = [
@@ -38,8 +31,6 @@ const specialties = [
 ];
 
 export const SpecialtiesCarousel = () => {
-  const isMobile = useIsMobile();
-
   return (
     <Box sx={{ mt: 12, maxWidth: '1400px', mx: 'auto' }}>
       <Typography 
@@ -54,71 +45,8 @@ export const SpecialtiesCarousel = () => {
       >
         Specialized for Every Medical Field
       </Typography>
-      
-      {isMobile ? (
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full px-4"
-        >
-          <CarouselContent>
-            {specialties.map((specialty, index) => {
-              const IconComponent = specialty.icon;
-              return (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      mx: { xs: 1, sm: 2 }, 
-                      background: '#FFFFFF',
-                      borderRadius: 3, 
-                      p: { xs: 2, sm: 3 }, 
-                      my: 1,
-                      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
-                      border: '1px solid #E0E0E0',
-                      gap: 2,
-                      alignItems: 'center',
-                      minWidth: { xs: '100px', sm: '120px' },
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-5px)',
-                        boxShadow: '0 8px 15px rgba(0, 0, 0, 0.08)'
-                      }
-                    }}
-                  >
-                    <div className="group">
-                      <IconComponent
-                        size={28}
-                        color="black"
-                        className="group-hover:scale-110 transition-transform duration-300"
-                      />
-                    </div>
-                    <Typography 
-                      variant="body1" 
-                      sx={{ 
-                        textAlign: 'center',
-                        background: 'linear-gradient(135deg, #143151, #387E89)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        fontWeight: 600,
-                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
-                      }}
-                    >
-                      {specialty.name}
-                    </Typography>
-                  </Box>
-                </CarouselItem>
-              );
-            })}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
-      ) : (
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 2, px: 4 }}>
+      <Box sx={{ display: 'flex', flex: 1, overflow: "hidden" }}>
+        <Marquee pauseOnHover={true} gradient={false} speed={50} loop={0}>
           {specialties.map((specialty, index) => {
             const IconComponent = specialty.icon;
             return (
@@ -127,6 +55,7 @@ export const SpecialtiesCarousel = () => {
                 sx={{ 
                   display: 'flex', 
                   flexDirection: 'column', 
+                  mx: { xs: 1, sm: 2 }, 
                   background: '#FFFFFF',
                   borderRadius: 3, 
                   p: { xs: 2, sm: 3 }, 
@@ -166,8 +95,8 @@ export const SpecialtiesCarousel = () => {
               </Box>
             );
           })}
-        </Box>
-      )}
+        </Marquee>
+      </Box>
     </Box>
   );
 };
