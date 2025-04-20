@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,19 +12,22 @@ const testimonials = [
     quote: "S10.AI has transformed our practice workflow. Our providers now spend more time with patients and less time on documentation.",
     author: "Dr. Sarah Johnson",
     role: "Chief Medical Officer",
-    organization: "Northside Medical Group"
+    organization: "Northside Medical Group",
+    image: "/placeholder.svg" // Added placeholder image
   },
   {
     quote: "The AI medical scribe functionality is remarkably accurate. It's like having an extra team member in every patient encounter.",
     author: "Dr. Michael Chen",
     role: "Primary Care Physician",
-    organization: "Valley Health Partners"
+    organization: "Valley Health Partners",
+    image: "/placeholder.svg" // Added placeholder image
   },
   {
     quote: "Implementation was seamless and the ROI was immediate. We've reduced administrative staff needs while improving patient satisfaction scores.",
     author: "Jennifer Williams",
     role: "Practice Manager",
-    organization: "Westside Family Medicine"
+    organization: "Westside Family Medicine",
+    image: "/placeholder.svg" // Added placeholder image
   }
 ];
 
