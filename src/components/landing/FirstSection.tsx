@@ -14,7 +14,7 @@ export const FirstSection = () => {
     <section className="min-h-screen bg-white">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
         <div className="flex flex-col space-y-8 md:space-y-12">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12">
             <Box
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
@@ -36,10 +36,7 @@ export const FirstSection = () => {
                   },
                   fontWeight: 700,
                   color: '#000000',
-                  mb: {
-                    xs: 4,
-                    lg: 6
-                  }
+                  mb: { xs: 3, md: 4 }
                 }}
               >
                 Innovative<br />
@@ -108,7 +105,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 4, md: 6 }
+                mt: { xs: 2, md: 0 }
               }}
             >
               <Box
@@ -123,19 +120,14 @@ export const FirstSection = () => {
                     background: 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '16px',
-                    p: { xs: 2, sm: 3 },
+                    p: { xs: 3, sm: 4 },
                     border: '1px solid rgba(209, 213, 219, 0.3)',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                    height: 'auto',
-                    display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    mb: 4
+                    height: 'auto'
                   }}
                 >
                   <Box sx={{
-                    flex: 1.5,
+                    flex: 1,
                     pr: { xs: 0, md: 2 },
                     mb: { xs: 3, md: 0 }
                   }}>
@@ -144,8 +136,8 @@ export const FirstSection = () => {
                       sx={{
                         color: '#000000',
                         fontSize: {
-                          xs: '1rem',
-                          md: '1.125rem'
+                          xs: '0.875rem',
+                          md: '1rem'
                         },
                         lineHeight: 1.6,
                         fontWeight: 400
@@ -159,7 +151,7 @@ export const FirstSection = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    transform: { xs: 'scale(1)', md: 'scale(1.2)' }
+                    transform: { xs: 'scale(0.9)', md: 'scale(1)' }
                   }}>
                     <VoiceAnimation />
                   </Box>
