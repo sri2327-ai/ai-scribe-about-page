@@ -9,7 +9,6 @@ const SecondSection = lazy(() => import('@/components/landing/SecondSection').th
 const ThirdSection = lazy(() => import('@/components/landing/ThirdSection').then(module => ({ default: module.ThirdSection })));
 const FourthSection = lazy(() => import('@/components/landing/FourthSection').then(module => ({ default: module.FourthSection })));
 const FifthSection = lazy(() => import('@/components/landing/FifthSection').then(module => ({ default: module.FifthSection })));
-const SixthSection = lazy(() => import('@/components/landing/SixthSection').then(module => ({ default: module.SixthSection })));
 const SeventhSection = lazy(() => import('@/components/landing/SeventhSection').then(module => ({ default: module.SeventhSection })));
 const EighthSection = lazy(() => import('@/components/landing/EighthSection').then(module => ({ default: module.EighthSection })));
 const NinthSection = lazy(() => import('@/components/landing/NinthSection').then(module => ({ default: module.NinthSection })));
@@ -85,12 +84,6 @@ const Landing = () => {
         key="fifth-section"
       >
         <FifthSection />
-      </Suspense>
-      <Suspense 
-        fallback={<SectionLoader />}
-        key="sixth-section"
-      >
-        <SixthSection />
       </Suspense>
       <Suspense 
         fallback={<SectionLoader />}
