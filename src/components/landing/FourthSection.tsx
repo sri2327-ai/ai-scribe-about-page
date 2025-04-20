@@ -55,8 +55,8 @@ const ProductCard = ({
 }) => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
     <div className="p-5 flex flex-col gap-4">
-      <div className="h-24 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
-        <div className="w-full h-full">
+      <div className="h-48 w-full bg-gray-50 rounded-lg overflow-hidden relative group"> {/* Increased height for better visibility */}
+        <div className="w-full h-full flex items-center justify-center">
           <Illustration />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -127,10 +127,10 @@ export const FourthSection = () => {
     <section className="py-10 px-4 md:px-8 lg:px-16 bg-white">
       <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
         <div className="max-w-[900px] mx-auto text-center">
-          <h3 className="text-2xl md:text-3xl font-bold text-black mb-3">
+          <h3 className="text-3xl md:text-4xl font-bold text-black mb-4 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
             Meet Bravo & CRUSH – A S10'ing Experience
           </h3>
-          <p className="text-sm md:text-base text-gray-600">
+          <p className="text-base text-gray-700 leading-relaxed">
             From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, 
             optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making.
           </p>
