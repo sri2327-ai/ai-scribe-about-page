@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -22,8 +23,23 @@ export const FirstSection = () => {
               }}
             >
               <Typography
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
-                component="h1"
+                variant="h1"
+                sx={{
+                  fontSize: {
+                    xs: '2.5rem',
+                    sm: '3rem',
+                    md: '3.5rem',
+                    lg: '4rem'
+                  },
+                  lineHeight: {
+                    xs: 1.1,
+                    md: 1
+                  },
+                  letterSpacing: '-0.02em',
+                  fontWeight: 700,
+                  color: '#000000',
+                  mb: { xs: 4, md: 6 }
+                }}
               >
                 Innovative<br />
                 Ambient AI<br />
@@ -91,8 +107,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 4, md: 8 },
-                mb: { xs: 8, md: 12 }
+                mt: { xs: 4, md: 0 }
               }}
             >
               <Box
@@ -112,21 +127,21 @@ export const FirstSection = () => {
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                     height: 'auto',
                     display: 'flex',
-                    flexDirection: { xs: 'column', sm: 'row' },
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: { xs: 4, sm: 6 }
+                    flexDirection: 'column',
+                    gap: { xs: 4, md: 5 }
                   }}
                 >
-                  <Box sx={{ flex: '1' }}>
+                  <Box>
                     <Typography
-                      className="text-lg text-gray-600 max-w-3xl mx-auto"
+                      variant="body1"
                       sx={{
+                        color: '#000000',
                         fontSize: {
                           xs: '0.875rem',
                           sm: '1rem'
                         },
                         lineHeight: 1.7,
+                        fontWeight: 400
                       }}
                     >
                       Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
@@ -159,9 +174,16 @@ export const FirstSection = () => {
             }}
           >
             <Typography
-              className="font-bold text-lg text-gray-600 max-w-3xl mx-auto"
+              variant="h6"
               sx={{
+                color: '#000000',
                 mb: { xs: 2, sm: 3 },
+                fontSize: {
+                  xs: '0.875rem',
+                  sm: '1rem',
+                  md: '1.125rem'
+                },
+                fontWeight: 600,
                 textAlign: 'center'
               }}
             >
