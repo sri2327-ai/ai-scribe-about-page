@@ -34,7 +34,7 @@ const SpecialtyBadge = ({ name }: { name: string }) => (
 );
 
 const MetricCard = ({ icon: Icon, title, value }: { icon: any, title: string, value: string }) => (
-  <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 hover:-translate-y-1 transition-transform duration-200">
+  <div className="flex items-start gap-3 p-2 rounded-lg bg-gray-50 hover:-translate-y-1 transition-transform duration-200">
     <div className="p-2 rounded-lg bg-white">
       <Icon className="w-4 h-4 text-[#387E89]" />
     </div>
@@ -60,9 +60,9 @@ const ProductCard = ({
   metrics: { title: string; value: string; icon: any }[];
   isUniversal?: boolean;
 }) => (
-  <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl h-full hover:-translate-y-1">
-    <div className="p-6 flex flex-col gap-6 h-full">
-      <div className="h-40 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
+  <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+    <div className="p-5 flex flex-col gap-4">
+      <div className="h-32 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
         <div className="w-full h-full">
           <Illustration />
         </div>
@@ -75,38 +75,38 @@ const ProductCard = ({
         </div>
       </div>
       
-      <div className="space-y-4 flex-1">
+      <div className="space-y-3">
         <div className="text-center">
           <h3 className="text-2xl font-bold text-[#143151]">{title}</h3>
           <h4 className="text-lg font-semibold text-[#387E89]">{subtitle}</h4>
         </div>
         
-        <p className="text-gray-600 text-center">{description}</p>
+        <p className="text-gray-600 text-center text-sm">{description}</p>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {metrics.map((metric, idx) => (
             <MetricCard key={idx} {...metric} />
           ))}
         </div>
         
-        <div className="space-y-2">
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Stethoscope className="w-4 h-4 text-[#387E89]" />
             <p className="text-sm font-medium text-gray-700">Works with all specialties:</p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1">
             {allSpecialties.map((specialty, idx) => (
               <SpecialtyBadge key={idx} name={specialty} />
             ))}
           </div>
         </div>
         
-        <div className="space-y-2">
+        <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-[#387E89]" />
             <p className="text-sm font-medium text-gray-700">Compatible with:</p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-1">
             {(title === "C.R.U.S.H" ? compatibleSystems.crush : compatibleSystems.bravo).map((system, idx) => (
               <span
                 key={idx}
@@ -120,7 +120,7 @@ const ProductCard = ({
       </div>
 
       <Button 
-        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:from-[#0d1f31] hover:to-[#2c6269] shadow-xl mt-4"
+        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:from-[#0d1f31] hover:to-[#2c6269] shadow-xl"
       >
         See {title} Demo
         <ArrowRight className="ml-2 h-4 w-4" />
@@ -131,19 +131,19 @@ const ProductCard = ({
 
 export const FourthSection = () => {
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
+    <section className="py-12 px-4 md:px-8 lg:px-16 bg-white">
+      <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
         <div className="max-w-[900px] mx-auto text-center">
-          <h3 className="text-3xl font-bold text-black mb-4">
+          <h3 className="text-3xl font-bold text-black mb-3">
             Meet Bravo & CRUSH – A S10'ing Experience
           </h3>
-          <p className="text-lg text-gray-600">
+          <p className="text-base text-gray-600">
             From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, 
             optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
           <ProductCard 
             title="C.R.U.S.H"
             subtitle="AI Medical Scribe Assistant Powered by Robots"
