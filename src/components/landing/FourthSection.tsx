@@ -62,7 +62,7 @@ const ProductCard = ({
 }) => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl h-full hover:-translate-y-1">
     <div className="p-6 flex flex-col gap-6 h-full">
-      <div className="aspect-video w-full bg-gray-50 rounded-lg overflow-hidden relative group">
+      <div className="h-40 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
         <div className="w-full h-full">
           <Illustration />
         </div>
@@ -120,7 +120,7 @@ const ProductCard = ({
       </div>
 
       <Button 
-        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:from-[#0d1f31] hover:to-[#2c6269] shadow-xl mt-auto"
+        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:from-[#0d1f31] hover:to-[#2c6269] shadow-xl mt-4"
       >
         See {title} Demo
         <ArrowRight className="ml-2 h-4 w-4" />
@@ -132,7 +132,7 @@ const ProductCard = ({
 export const FourthSection = () => {
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
+      <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
         <div className="max-w-[900px] mx-auto text-center">
           <h3 className="text-3xl font-bold text-black mb-4">
             Meet Bravo & CRUSH – A S10'ing Experience
@@ -143,7 +143,7 @@ export const FourthSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
           <ProductCard 
             title="C.R.U.S.H"
             subtitle="AI Medical Scribe Assistant Powered by Robots"
