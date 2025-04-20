@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X, Clock, TrendingUp, ThumbsUp } from 'lucide-react';
+import { ArrowRight, Phone, ClipboardList, Bell, FileText, ClipboardCheck, Heart, BarChart, DollarSign, Check, X, Clock, TrendingUp, ThumbsUp, Users } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
 
 const cardIcons = [
@@ -46,11 +46,11 @@ const combinedTestimonial = {
 };
 
 const ROIMetrics = {
-  timeReduction: { value: "75%", icon: Clock },
-  revenueIncrease: { value: "40%", icon: TrendingUp },
-  patientSatisfaction: { value: "95%", icon: ThumbsUp },
-  annualSavings: { value: "$150,000+", icon: DollarSign },
-  patientVolume: { value: "30%", icon: TrendingUp }
+  timeReduction: { value: "75%", icon: Clock, label: "reduction in documentation time" },
+  revenueIncrease: { value: "40%", icon: TrendingUp, label: "increase in practice revenue" },
+  patientSatisfaction: { value: "95%", icon: ThumbsUp, label: "patient satisfaction rates" },
+  annualSavings: { value: "$150,000+", icon: DollarSign, label: "annual cost savings" },
+  patientVolume: { value: "30%", icon: Users, label: "increase in patient volume" }
 };
 
 const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
@@ -262,17 +262,17 @@ export const FifthSection = () => {
           }}
         >
           <Typography variant="h4" fontWeight="bold" textAlign="center" mb={4}>
-            Return on Investment
+            Proven Results Across Practices
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr 1fr' }, gap: 4 }}>
-            {Object.entries(ROIMetrics).map(([key, { value, icon: Icon }]) => (
+            {Object.entries(ROIMetrics).map(([key, { value, icon: Icon, label }]) => (
               <Box key={key} sx={{ textAlign: 'center' }}>
                 <Icon className="mx-auto mb-2 w-8 h-8 text-white" />
                 <Typography variant="h3" fontWeight="bold" mb={1}>
                   {value}
                 </Typography>
                 <Typography>
-                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                  {label}
                 </Typography>
               </Box>
             ))}
