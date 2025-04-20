@@ -22,7 +22,7 @@ export const FirstSection = () => {
               }}
             >
               <Typography
-                className="text-2xl md:text-3xl font-bold text-gray-900 mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
                 component="h1"
               >
                 Innovative<br />
