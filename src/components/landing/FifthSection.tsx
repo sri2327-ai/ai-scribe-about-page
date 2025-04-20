@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Box, Paper, Stack, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -81,8 +82,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         rotate,
         width: '100%',
         maxWidth: '450px',
-        height: '250px',
-        marginBottom: '2rem',
+        marginBottom: '1rem', // Reduced from 2rem to 1rem
         marginLeft: isRight ? 'auto' : 0,
         marginRight: !isRight ? 'auto' : 0,
       }}
@@ -92,6 +92,7 @@ const WorkflowCard = ({ icon: Icon, title, description, number, isRight }) => {
         p: 3,
         borderRadius: 2,
         height: '100%',
+        minHeight: '200px', // Added minimum height for consistency
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -154,8 +155,6 @@ export const FifthSection = () => {
   });
 
   const height = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  console.log('Card arrangement check:', cardIcons.map(card => ({ id: card.id, isRight: card.id % 2 === 0 })));
 
   return (
     <section ref={containerRef} className="py-20 px-4 md:px-8 bg-white relative">
@@ -235,8 +234,8 @@ export const FifthSection = () => {
             position: 'relative', 
             zIndex: 2, 
             display: 'flex', 
-            flexDirection: 'column', 
-            gap: 2 
+            flexDirection: 'column',
+            gap: 0, // Changed from 2 to 0 to reduce vertical spacing between cards
           }}>
             {cardIcons.map((card) => (
               <WorkflowCard 
