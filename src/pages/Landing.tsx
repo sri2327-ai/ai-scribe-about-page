@@ -1,19 +1,21 @@
+
 import React, { Suspense, lazy } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 
-const SecondSection = lazy(() => import('@/components/landing/SecondSection').then(module => ({ default: module.default || module.SecondSection })));
-const ThirdSection = lazy(() => import('@/components/landing/ThirdSection').then(module => ({ default: module.default || module.ThirdSection })));
-const FourthSection = lazy(() => import('@/components/landing/FourthSection').then(module => ({ default: module.default || module.FourthSection })));
+// Fix the lazy loading imports to properly handle both default and named exports
+const SecondSection = lazy(() => import('@/components/landing/SecondSection'));
+const ThirdSection = lazy(() => import('@/components/landing/ThirdSection'));
+const FourthSection = lazy(() => import('@/components/landing/FourthSection'));
 const IntegrationSection = lazy(() => import('@/components/landing/IntegrationSection'));
-const FifthSection = lazy(() => import('@/components/landing/FifthSection').then(module => ({ default: module.default || module.FifthSection })));
-const SeventhSection = lazy(() => import('@/components/landing/SeventhSection').then(module => ({ default: module.default || module.SeventhSection })));
-const EighthSection = lazy(() => import('@/components/landing/EighthSection').then(module => ({ default: module.default || module.EighthSection })));
-const NinthSection = lazy(() => import('@/components/landing/NinthSection').then(module => ({ default: module.default || module.NinthSection })));
+const FifthSection = lazy(() => import('@/components/landing/FifthSection'));
+const SeventhSection = lazy(() => import('@/components/landing/SeventhSection'));
+const EighthSection = lazy(() => import('@/components/landing/EighthSection'));
+const NinthSection = lazy(() => import('@/components/landing/NinthSection'));
 const TenthSection = lazy(() => import('@/components/landing/TenthSection'));
-const EleventhSection = lazy(() => import('@/components/landing/EleventhSection').then(module => ({ default: module.default || module.EleventhSection })));
+const EleventhSection = lazy(() => import('@/components/landing/EleventhSection'));
 
 const Landing = () => {
   const schemaMarkup = {

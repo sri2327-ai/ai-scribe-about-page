@@ -2,18 +2,18 @@
 import { Box, Button, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, ShieldCheck, ShieldAlert, ShieldHalf, Leaf, Database, Lock, Shield } from "lucide-react";
+import { ShieldCheck, ShieldAlert, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
-export const TenthSection = () => {
+const TenthSection = () => {
   const theme = useTheme();
 
   const complianceCards = [
     { 
       title: 'HIPAA Compliant', 
-      icon: <Shield className="h-6 w-6 text-white" />, 
+      icon: <ShieldCheck className="h-6 w-6 text-white" />, 
       description: 'Adhering to global healthcare privacy laws, ensuring patient data protection according to US standards',
       details: [
         'Strict patient data confidentiality',
