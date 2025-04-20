@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { IntegrationChecker } from './IntegrationChecker';
 
 const IntegrationSection = () => {
   return (
-    <section className="min-h-screen py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89]">
+    <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89]">
       <div className="max-w-[1400px] mx-auto">
         <div className="text-center mb-12">
           <motion.h2 
@@ -14,7 +15,7 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-4xl md:text-5xl font-extrabold text-white mb-4"
+            className="text-3xl font-bold text-white mb-4"
           >
             Compatible with Your Preferred Software
           </motion.h2>
@@ -23,7 +24,7 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl text-white max-w-2xl mx-auto font-normal"
+            className="text-lg text-white max-w-2xl mx-auto"
           >
             From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
             Try our compatibility checker below.
@@ -55,7 +56,6 @@ const IntegrationSection = () => {
           </Button>
         </motion.div>
       </div>
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent mt-16" />
     </section>
   );
 };

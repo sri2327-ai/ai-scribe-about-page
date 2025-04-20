@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Building, Building2, Hospital } from 'lucide-react';
@@ -42,13 +43,13 @@ export const PracticeTypeSelector = () => {
   const [selectedType, setSelectedType] = useState(practiceTypes[0].id);
 
   return (
-    <section className="min-h-screen py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-[#143151] mb-4">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151]">
             Tailored Solutions for Every Practice Type
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto font-normal">
+          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-normal">
             S10.AI adapts to your practice size and workflow needs
           </p>
         </div>
@@ -103,7 +104,6 @@ export const PracticeTypeSelector = () => {
           ))}
         </Tabs>
       </div>
-      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mt-16" />
     </section>
   );
 };
