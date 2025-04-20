@@ -282,19 +282,6 @@ export const FifthSection = () => {
         <Box sx={{ mb: 10, width: '100%', maxWidth: '900px', mx: 'auto' }}>
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
-
-        <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <Button 
-            className="px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl rounded-full"
-            onClick={() => window.location.href = '/demo'}
-          >
-            Schedule a Combined Demo
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-          <Typography variant="body1" sx={{ mt: 2, color: 'grey.600' }}>
-            See how CRUSH & BRAVO can transform your practice
-          </Typography>
-        </Box>
       </Box>
     </section>
   );
