@@ -4,7 +4,6 @@ import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ShieldCheck, ShieldAlert, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
-import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 import { GlowBorderEffect } from "@/components/ui/effects/glow-border-effect";
 
 const TenthSection = () => {
