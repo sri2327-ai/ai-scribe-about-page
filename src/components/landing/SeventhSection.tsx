@@ -9,7 +9,7 @@ export const SeventhSection = () => {
   const tabletVw = useMediaQuery('(min-width:600px) and (max-width:700px)');
 
   return(
-    <section className="witSp">
+    <section className="py-16 px-4">
       <Stack
         spacing={4}
         direction={{ xs: "column", md: 'row'}}
@@ -19,7 +19,10 @@ export const SeventhSection = () => {
           justifyContent: 'space-between',
           borderRadius: 4,
           p: { xs: 4, sm: 5, md: 6 },
-          gap: { xs: 4, md: 6 }
+          gap: { xs: 6, md: 8 },
+          maxWidth: '1280px',
+          mx: 'auto',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)'
         }}
         useFlexGap
       >
@@ -27,9 +30,9 @@ export const SeventhSection = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 3,
+            gap: 4,
             alignItems: { xs: 'center', md: 'flex-start' },
-            maxWidth: laptopVw ? '214px' : { xs: '100%', sm: '500px', md: '400px', lg: '500px' },
+            maxWidth: laptopVw ? '240px' : { xs: '100%', sm: '500px', md: '320px', lg: '380px' },
             textAlign: { xs: 'center', md: 'left' }
           }}
         >
@@ -64,7 +67,9 @@ export const SeventhSection = () => {
                   color: '#387E89',
                 },
               },
-              boxShadow: 'none'
+              boxShadow: 'none',
+              mt: 1,
+              alignSelf: { xs: 'center', md: 'flex-start' }
             }}
             startIcon={
               <Box
@@ -109,7 +114,7 @@ export const SeventhSection = () => {
             gridTemplateColumns: {
               xs: '1fr',
               sm: 'repeat(2, 1fr)',
-              lg: 'repeat(2, minmax(250px, 1fr))'
+              lg: 'repeat(2, 1fr)'
             },
             gap: { xs: 3, sm: 4 },
             width: '100%',
@@ -139,14 +144,19 @@ export const SeventhSection = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 1.5,
+                gap: 2,
                 background: '#FFFFFF',
                 border: '1px solid #E0E0E0',
-                p: { xs: 2.5, sm: 3 },
+                p: { xs: 3, sm: 3.5 },
                 borderRadius: 3,
-                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
                 height: '100%',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
+                  transform: 'translateY(-4px)'
+                }
               }}
             >
               <Typography 
@@ -160,13 +170,12 @@ export const SeventhSection = () => {
                 {item.title}
               </Typography>
               <Typography 
-                variant="h6" 
-                fontWeight="semiBold" 
+                variant="body1" 
                 sx={{ 
                   color: '#000000', 
-                  opacity: 0.8,
+                  opacity: 0.7,
                   fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
-                  lineHeight: 1.4
+                  lineHeight: 1.6
                 }}
               >
                 {item.description}
