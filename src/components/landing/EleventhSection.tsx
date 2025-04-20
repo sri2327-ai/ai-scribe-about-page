@@ -36,12 +36,12 @@ export const EleventhSection = () => {
           <Box sx={{ maxWidth: { xs: '100%', md: '60%' }, textAlign: { xs: 'center', md: 'left' } }}>
             <Typography 
               variant="h3" 
-              fontWeight="bold" 
               sx={{ 
                 color: 'white',
                 fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
                 lineHeight: 1.2,
-                mb: 2
+                mb: 2,
+                fontWeight: 700
               }}
             >
               Elevate Patient Care with S10.AI
@@ -53,7 +53,8 @@ export const EleventhSection = () => {
                 fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                 lineHeight: 1.6,
                 maxWidth: '600px',
-                mx: { xs: 'auto', md: 0 }
+                mx: { xs: 'auto', md: 0 },
+                fontWeight: 400
               }}
             >
               Join healthcare providers nationwide who are transforming their practice with AI-driven solutions that reduce administrative burden, minimize burnout, and improve patient outcomes.
@@ -123,7 +124,7 @@ export const EleventhSection = () => {
               <Typography
                 sx={{
                   fontSize: { xs: '0.9rem', md: '1rem' },
-                  fontWeight: 500
+                  fontWeight: 600
                 }}
               >
                 Learn More

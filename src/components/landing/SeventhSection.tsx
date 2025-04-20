@@ -1,3 +1,4 @@
+
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -37,11 +38,11 @@ export const SeventhSection = () => {
         >
           <Typography 
             variant="h3" 
-            fontWeight="bold" 
             sx={{ 
               color: '#000000', 
               lineHeight: 1.2,
-              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' }
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+              fontWeight: 700
             }}
           >
             AI Solutions Designed for Every Medical Specialty
@@ -94,13 +95,13 @@ export const SeventhSection = () => {
             <Typography
               className="button-text"
               variant='h6' 
-              fontWeight="semiBold" 
               sx={{
                 background: 'linear-gradient(135deg, #143151, #387E89)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                transition: "color 0.3s ease"
+                transition: "color 0.3s ease",
+                fontWeight: 600
               }}
             >
               View More
@@ -160,10 +161,10 @@ export const SeventhSection = () => {
             >
               <Typography 
                 variant="h5" 
-                fontWeight="bold" 
                 sx={{ 
                   color: '#143151',
-                  fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' }
+                  fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' },
+                  fontWeight: 700
                 }}
               >
                 {item.title}
@@ -174,7 +175,8 @@ export const SeventhSection = () => {
                   color: '#000000', 
                   opacity: 0.7,
                   fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
-                  lineHeight: 1.6
+                  lineHeight: 1.6,
+                  fontWeight: 400
                 }}
               >
                 {item.description}

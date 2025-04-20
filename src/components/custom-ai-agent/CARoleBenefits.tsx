@@ -63,7 +63,7 @@ const cardVariants = {
 
 export const CARoleBenefits = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,7 +72,7 @@ export const CARoleBenefits = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ color: customAIAgentColors.primary }}>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6" style={{ color: customAIAgentColors.primary }}>
             Clinician & Admin Role-Based Benefits
           </h2>
         </motion.div>
@@ -90,17 +90,17 @@ export const CARoleBenefits = () => {
               className={cn("h-full", card.className)}
             >
               <Card className="h-full backdrop-blur-xl bg-white/95 border-none shadow-lg">
-                <CardContent className="p-8 h-full">
+                <CardContent className="p-6 md:p-8 h-full">
                   <div className="flex items-center gap-4 mb-6">
                     <div className="p-3 rounded-lg bg-gradient-to-br from-[#143151] to-[#387E89]">
-                      <card.icon className="h-6 w-6 text-white" />
+                      <card.icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-semibold" style={{ color: customAIAgentColors.primary }}>
+                      <h3 className="text-lg md:text-xl font-bold" style={{ color: customAIAgentColors.primary }}>
                         {card.title}
                       </h3>
                       {card.subtitle && (
-                        <p className="text-sm text-gray-600 mt-1">{card.subtitle}</p>
+                        <p className="text-xs md:text-sm text-gray-600 mt-1 font-normal">{card.subtitle}</p>
                       )}
                     </div>
                   </div>
@@ -108,7 +108,7 @@ export const CARoleBenefits = () => {
                     {card.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <span className="text-blue-500 mt-1">•</span>
-                        <span className="text-gray-600">{benefit}</span>
+                        <span className="text-gray-600 font-normal text-sm md:text-base">{benefit}</span>
                       </li>
                     ))}
                   </ul>
@@ -123,11 +123,11 @@ export const CARoleBenefits = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="text-center bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-10 shadow-xl"
+          className="text-center bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-8 md:p-10 shadow-xl"
         >
           <div className="flex items-center justify-center gap-4 mb-4">
-            <TrendingUp className="h-8 w-8 text-white" />
-            <h3 className="text-2xl font-bold text-white">
+            <TrendingUp className="h-6 w-6 md:h-8 md:w-8 text-white" />
+            <h3 className="text-xl md:text-2xl font-bold text-white">
               Designed to Ease Burnout and Boost Revenue
             </h3>
           </div>

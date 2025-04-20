@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -25,10 +26,10 @@ export const FirstSection = () => {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: '3.5rem',
-                    sm: '4rem',
-                    md: '4.5rem',
-                    lg: '5rem',
+                    xs: '2.75rem',
+                    sm: '3.5rem',
+                    md: '4rem',
+                    lg: '4.5rem',
                   },
                   lineHeight: {
                     xs: 1.1,
@@ -91,9 +92,8 @@ export const FirstSection = () => {
               >
                 <Typography
                   variant='h6' 
-                  fontWeight="semiBold" 
                   sx={{
-                    fontSize: { xs: '1rem', md: '1.25rem' },
+                    fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
                     color: "white",
                     fontWeight: 600
                   }}
@@ -110,7 +110,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 4, md: 20 }
+                mt: { xs: 4, md: 6 }
               }}
             >
               <Box
@@ -125,7 +125,7 @@ export const FirstSection = () => {
                     background: 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '16px',
-                    p: 3,
+                    p: { xs: 2, sm: 3 },
                     border: '1px solid rgba(209, 213, 219, 0.3)',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                     height: 'auto',
@@ -142,6 +142,7 @@ export const FirstSection = () => {
                     mb: { xs: 3, md: 0 }
                   }}>
                     <Typography
+                      variant="body1"
                       sx={{
                         color: '#000000',
                         fontSize: {
@@ -160,7 +161,7 @@ export const FirstSection = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    transform: 'scale(1.2)'
+                    transform: { xs: 'scale(1)', md: 'scale(1.2)' }
                   }}>
                     <VoiceAnimation />
                   </Box>
@@ -174,7 +175,7 @@ export const FirstSection = () => {
               background: 'rgba(243, 244, 246, 0.1)',
               backdropFilter: 'blur(10px)',
               borderRadius: '16px',
-              p: 2,
+              p: { xs: 1.5, sm: 2 },
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               width: '100%',
@@ -185,9 +186,10 @@ export const FirstSection = () => {
               variant="h6"
               sx={{
                 color: '#000000',
-                mb: 2,
+                mb: { xs: 1, sm: 2 },
                 fontSize: {
-                  xs: '1rem',
+                  xs: '0.875rem',
+                  sm: '1rem',
                   md: '1.125rem'
                 },
                 fontWeight: 600,
@@ -201,7 +203,7 @@ export const FirstSection = () => {
                 overflow: "hidden",
                 width: '100%',
                 '& .marquee-container': {
-                  minHeight: '40px'
+                  minHeight: { xs: '32px', sm: '40px' }
                 }
               }}
             >

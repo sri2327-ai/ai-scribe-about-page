@@ -10,7 +10,7 @@ const cards = [
     title: "Smarter Than Simple Automations",
     description: "Understands clinical context—not just 'if-this-then-that' logic.",
     iconClassName: "bg-gray-100 rounded-lg",
-    titleClassName: "text-black",
+    titleClassName: "text-black font-bold",
     cardClassName: "border-gray-200 bg-white shadow-sm"
   },
   {
@@ -18,7 +18,7 @@ const cards = [
     title: "Fast Setup, Easy Scaling",
     description: "Deployed in less than a week. New workflows? Add them anytime.",
     iconClassName: "bg-gray-100 rounded-lg",
-    titleClassName: "text-black",
+    titleClassName: "text-black font-bold",
     cardClassName: "border-gray-200 bg-white shadow-sm"
   },
   {
@@ -26,16 +26,16 @@ const cards = [
     title: "Real Impact, Proven ROI",
     description: "Used by 1,000+ clinicians to save 10–20 hours per week, improve documentation quality, and cut admin overhead.",
     iconClassName: "bg-gray-100 rounded-lg",
-    titleClassName: "text-black",
+    titleClassName: "text-black font-bold",
     cardClassName: "border-gray-200 bg-white shadow-sm"
   }
 ];
 
 export const CAWhyChooseSection = () => {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-black">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 text-center text-black">
           Why Choose Custom AI Agents?
         </h2>
         <div className="max-w-6xl mx-auto">
@@ -45,4 +45,3 @@ export const CAWhyChooseSection = () => {
     </section>
   );
 };
-
