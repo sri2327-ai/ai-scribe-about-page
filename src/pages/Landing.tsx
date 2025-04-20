@@ -62,7 +62,7 @@ const Landing = () => {
 
       <FirstSection />
       
-      {/* Lazy loaded sections with proper error boundaries */}
+      {/* Lazy loaded sections with error boundaries */}
       <Suspense fallback={<SectionLoader />}>
         <SecondSection />
       </Suspense>

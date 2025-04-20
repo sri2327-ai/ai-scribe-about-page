@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { IntegrationChecker } from './IntegrationChecker';
 
-export const IntegrationSection = () => {
+const IntegrationSection = () => {
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-[1400px] mx-auto">
@@ -61,5 +61,5 @@ export const IntegrationSection = () => {
   );
 };
 
-// Default export for lazy loading
+// Export as default for lazy loading
 export default IntegrationSection;
