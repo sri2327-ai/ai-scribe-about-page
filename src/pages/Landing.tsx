@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -5,11 +6,11 @@ import { FourthSection } from '@/components/landing/FourthSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
+import IntegrationSection from '@/components/landing/IntegrationSection';
 
 // Properly import all lazy components
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
 const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
-const IntegrationSection = React.lazy(() => import('@/components/landing/IntegrationSection'));
 const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'));
 const SeventhSection = React.lazy(() => import('@/components/landing/SeventhSection'));
 const EighthSection = React.lazy(() => import('@/components/landing/EighthSection'));
@@ -68,9 +69,7 @@ const Landing = () => {
         <ThirdSection />
       </Suspense>
       <FourthSection />
-      <Suspense fallback={<SectionLoader />}>
-        <IntegrationSection />
-      </Suspense>
+      <IntegrationSection />
       <Suspense fallback={<SectionLoader />}>
         <FifthSection />
       </Suspense>
