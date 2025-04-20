@@ -6,124 +6,145 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield } from "lucide-react";
 import { QuoteTestimonial } from './QuoteTestimonial';
 
+const testimonials = [
+  {
+    quote: "S10.AI has transformed our practice workflow. Our providers now spend more time with patients and less time on documentation.",
+    author: "Dr. Sarah Johnson",
+    role: "Chief Medical Officer",
+    organization: "Northside Medical Group"
+  },
+  {
+    quote: "The AI medical scribe functionality is remarkably accurate. It's like having an extra team member in every patient encounter.",
+    author: "Dr. Michael Chen",
+    role: "Primary Care Physician",
+    organization: "Valley Health Partners"
+  },
+  {
+    quote: "Implementation was seamless and the ROI was immediate. We've reduced administrative staff needs while improving patient satisfaction scores.",
+    author: "Jennifer Williams",
+    role: "Practice Manager",
+    organization: "Westside Family Medicine"
+  }
+];
+
 const tabAccData = {
-    "The S10.AI Advantage": [
-      { 
-        icon: <FileCheck className="w-5 h-5" />,
-        title: "Maximize Patient Interaction", 
-        content: "Reduce documentation time by 75% and increase patient face-time by 40% on average.",
-        metric: "75% faster documentation"
-      },
-      { 
-        icon: <Clock className="w-5 h-5" />,
-        title: "Boost Efficiency & Well-Being", 
-        content: "Save 10-20 hours per week per clinician with intelligent automation and AI for physician burnout reduction.",
-        metric: "20 hours saved weekly"
-      },
-      { 
-        icon: <MessageSquarePlus className="w-5 h-5" />,
-        title: "Address Staffing Shortages", 
-        content: "Reduce administrative staff needs by 30% while maintaining high-quality patient service.",
-        metric: "30% staff efficiency gain"
-      },
-      { 
-        icon: <ShieldCheck className="w-5 h-5" />,
-        title: "Improve financial impact", 
-        content: "Increase revenue by 15% through improved documentation accuracy and reduced claim denials.",
-        metric: "15% revenue increase"
-      },
-    ],
-    "Streamline documentation": [
-      { 
-        icon: <FileText className="w-5 h-5" />,
-        title: "Create clinical documentation automatically", 
-        content: "Auto-generate accurate, specialty-specific notes from multilingual patient-clinician conversations, even offline.",
-        metric: "85% faster note creation"
-      },
-      { 
-        icon: <ShieldCheck className="w-5 h-5" />,
-        title: "Superior Documentation Accuracy", 
-        content: "AI-driven medical transcription with Generative AI minimizes human error.",
-        metric: "99% accuracy rate"
-      },
-      { 
-        icon: <Users className="w-5 h-5" />,
-        title: "Seamless Integration", 
-        content: "Fully compatible with any electronic health record (EHR)",
-        metric: "100+ EHR integrations"
-      },
-      { 
-        icon: <MessageSquarePlus className="w-5 h-5" />,
-        title: "Clinical Decision Support", 
-        content: "Instant guidelines, medical insights & jargon clarification.",
-        metric: "60% faster decisions"
-      }
-    ],
-    "AI powered Front Office": [
-      { 
-        icon: <Clock className="w-5 h-5" />,
-        title: "Smart Appointment Management", 
-        content: "AI handles scheduling, reschedules, cancellations, and automated reminders to reduce no-shows.",
-        metric: "50% fewer no-shows"
-      },
-      { 
-        icon: <Users className="w-5 h-5" />,
-        title: "Seamless Patient Intake", 
-        content: "Automates registration, history updates, and pre-visit documentation for faster onboarding.",
-        metric: "80% faster intake"
-      },
-      { 
-        icon: <FileCheck className="w-5 h-5" />,
-        title: "Effortless Refill Processing", 
-        content: "Verifies patients, confirms prescriptions, and alerts staff for quick approvals.",
-        metric: "90% faster refills"
-      },
-      { 
-        icon: <Shield className="w-5 h-5" />,
-        title: "Proactive Preventative Care", 
-        content: "AI-driven screenings (PHQ-9, GAD-7, etc.) and custom health plans enhance patient well-being.",
-        metric: "40% better screening"
-      },
-      { 
-        icon: <ShieldCheck className="w-5 h-5" />,
-        title: "RCM Automation", 
-        content: "Streamlines insurance checks, prior authorizations, payment posting, and claim follow-ups for faster reimbursements.",
-        metric: "45% faster payments"
-      }
-    ],
-    "Automate Tasks": [
-      { 
-        icon: <FileCheck className="w-5 h-5" />,
-        title: "Automated Coding", 
-        content: "AI-driven ICD-10 & E/M , CPT & HCC code capture.",
-        metric: "95% coding accuracy"
-      },
-      { 
-        icon: <MessageSquarePlus className="w-5 h-5" />,
-        title: "Simplified Orders & Prescriptions", 
-        content: "Automates medication & lab orders.",
-        metric: "70% faster orders"
-      },
-      { 
-        icon: <FileText className="w-5 h-5" />,
-        title: "Instant Summaries", 
-        content: "Generates referrals, after-visit notes & letters.",
-        metric: "85% time saved"
-      },
-      { 
-        icon: <Clock className="w-5 h-5" />,
-        title: "Smart Pre-Charting", 
-        content: "Prepares charts & retrieves patient history.",
-        metric: "75% faster prep"
-      },
-      { 
-        icon: <Shield className="w-5 h-5" />,
-        title: "Seamless Lab & CRM Sync", 
-        content: "Auto-updates lab results & patient records.",
-        metric: "100% sync accuracy"
-      }
-    ]
-  };
+  "The S10.AI Advantage": [
+    { 
+      icon: <FileCheck className="w-5 h-5" />,
+      title: "Maximize Patient Interaction", 
+      content: "Reduce documentation time by 75% and increase patient face-time by 40% on average.",
+      metric: "75% faster documentation"
+    },
+    { 
+      icon: <Clock className="w-5 h-5" />,
+      title: "Boost Efficiency & Well-Being", 
+      content: "Save 10-20 hours per week per clinician with intelligent automation and AI for physician burnout reduction.",
+      metric: "20 hours saved weekly"
+    },
+    { 
+      icon: <MessageSquarePlus className="w-5 h-5" />,
+      title: "Address Staffing Shortages", 
+      content: "Reduce administrative staff needs by 30% while maintaining high-quality patient service.",
+      metric: "30% staff efficiency gain"
+    },
+    { 
+      icon: <ShieldCheck className="w-5 h-5" />,
+      title: "Improve financial impact", 
+      content: "Increase revenue by 15% through improved documentation accuracy and reduced claim denials.",
+      metric: "15% revenue increase"
+    },
+  ],
+  "Streamline documentation": [
+    { 
+      icon: <FileText className="w-5 h-5" />,
+      title: "Create clinical documentation automatically", 
+      content: "Auto-generate accurate, specialty-specific notes from multilingual patient-clinician conversations, even offline.",
+      metric: "85% faster note creation"
+    },
+    { 
+      icon: <ShieldCheck className="w-5 h-5" />,
+      title: "Superior Documentation Accuracy", 
+      content: "AI-driven medical transcription with Generative AI minimizes human error.",
+      metric: "99% accuracy rate"
+    },
+    { 
+      icon: <Users className="w-5 h-5" />,
+      title: "Seamless Integration", 
+      content: "Fully compatible with any electronic health record (EHR)",
+      metric: "100+ EHR integrations"
+    },
+    { 
+      icon: <MessageSquarePlus className="w-5 h-5" />,
+      title: "Clinical Decision Support", 
+      content: "Instant guidelines, medical insights & jargon clarification.",
+      metric: "60% faster decisions"
+    }
+  ],
+  "AI powered Front Office": [
+    { 
+      icon: <Clock className="w-5 h-5" />,
+      title: "Smart Appointment Management", 
+      content: "AI handles scheduling, reschedules, cancellations, and automated reminders to reduce no-shows.",
+      metric: "50% fewer no-shows"
+    },
+    { 
+      icon: <Users className="w-5 h-5" />,
+      title: "Seamless Patient Intake", 
+      content: "Automates registration, history updates, and pre-visit documentation for faster onboarding.",
+      metric: "80% faster intake"
+    },
+    { 
+      icon: <FileCheck className="w-5 h-5" />,
+      title: "Effortless Refill Processing", 
+      content: "Verifies patients, confirms prescriptions, and alerts staff for quick approvals.",
+      metric: "90% faster refills"
+    },
+    { 
+      icon: <Shield className="w-5 h-5" />,
+      title: "Proactive Preventative Care", 
+      content: "AI-driven screenings (PHQ-9, GAD-7, etc.) and custom health plans enhance patient well-being.",
+      metric: "40% better screening"
+    },
+    { 
+      icon: <ShieldCheck className="w-5 h-5" />,
+      title: "RCM Automation", 
+      content: "Streamlines insurance checks, prior authorizations, payment posting, and claim follow-ups for faster reimbursements.",
+      metric: "45% faster payments"
+    }
+  ],
+  "Automate Tasks": [
+    { 
+      icon: <FileCheck className="w-5 h-5" />,
+      title: "Automated Coding", 
+      content: "AI-driven ICD-10 & E/M , CPT & HCC code capture.",
+      metric: "95% coding accuracy"
+    },
+    { 
+      icon: <MessageSquarePlus className="w-5 h-5" />,
+      title: "Simplified Orders & Prescriptions", 
+      content: "Automates medication & lab orders.",
+      metric: "70% faster orders"
+    },
+    { 
+      icon: <FileText className="w-5 h-5" />,
+      title: "Instant Summaries", 
+      content: "Generates referrals, after-visit notes & letters.",
+      metric: "85% time saved"
+    },
+    { 
+      icon: <Clock className="w-5 h-5" />,
+      title: "Smart Pre-Charting", 
+      content: "Prepares charts & retrieves patient history.",
+      metric: "75% faster prep"
+    },
+    { 
+      icon: <Shield className="w-5 h-5" />,
+      title: "Seamless Lab & CRM Sync", 
+      content: "Auto-updates lab results & patient records.",
+      metric: "100% sync accuracy"
+    }
+  ]
+};
 
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
