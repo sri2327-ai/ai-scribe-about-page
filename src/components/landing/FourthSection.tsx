@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
 import { motion } from "framer-motion";
-import { CrushIllustration } from './illustrations/CrushIllustration';
-import { BravoIllustration } from './illustrations/BravoIllustration';
+import CrushIllustration from './illustrations/CrushIllustration';
+import BravoIllustration from './illustrations/BravoIllustration';
 
 const compatibleSystems = {
   crush: ["Epic", "Cerner", "Athena", "AllScripts", "and any other EHR"],
