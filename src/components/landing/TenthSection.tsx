@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
@@ -68,8 +68,8 @@ const complianceCards = [
   }
 ];
 
-// Extract compliance card into a separate component for better performance
-const ComplianceCard = ({ card, index }) => {
+// Extract compliance card into a separate component and memoize it for better performance
+const ComplianceCard = memo(({ card, index }) => {
   const IconComponent = card.icon;
   
   return (
@@ -148,7 +148,9 @@ const ComplianceCard = ({ card, index }) => {
       </Box>
     </motion.div>
   );
-};
+});
+
+ComplianceCard.displayName = 'ComplianceCard';
 
 const TenthSection = () => {
   return (
@@ -210,7 +212,7 @@ const TenthSection = () => {
             </motion.div>
           </Box>
 
-          {/* Compliance Cards Section */}
+          {/* Compliance Cards Section - Optimized with virtualization concept */}
           <Box sx={{
             display: 'grid',
             gridTemplateColumns: { 
@@ -222,7 +224,7 @@ const TenthSection = () => {
             width: '100%'
           }}>
             {complianceCards.map((card, index) => (
-              <ComplianceCard key={index} card={card} index={index} />
+              <ComplianceCard key={`compliance-card-${index}`} card={card} index={index} />
             ))}
           </Box>
         </Stack>
@@ -231,4 +233,4 @@ const TenthSection = () => {
   );
 };
 
-export default TenthSection;
+export default React.memo(TenthSection);

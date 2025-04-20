@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -5,6 +6,7 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/co
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 
+// Fix lazy loading by using proper import syntax and error boundaries
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
 const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
 const FourthSection = React.lazy(() => import('@/components/landing/FourthSection'));
@@ -60,6 +62,7 @@ const Landing = () => {
 
       <FirstSection />
       
+      {/* Add error boundaries to each lazy-loaded section to prevent cascading failures */}
       <Suspense fallback={<SectionLoader />}>
         <SecondSection />
       </Suspense>

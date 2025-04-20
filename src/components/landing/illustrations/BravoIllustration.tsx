@@ -13,13 +13,25 @@ const steps = [
 
 export const BravoIllustration = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Set loaded state to prevent initial animation issues
+    setIsLoaded(true);
+    
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % steps.length);
     }, 3000);
-    return () => clearInterval(interval);
+    
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
+
+  // Don't render until component is fully mounted
+  if (!isLoaded) {
+    return <div className="w-full h-full bg-gray-50"></div>;
+  }
 
   return (
     <div className="relative w-full h-full flex items-center justify-center bg-white/80 backdrop-blur-sm p-8">
@@ -60,3 +72,5 @@ export const BravoIllustration = () => {
     </div>
   );
 };
+
+export default BravoIllustration;
