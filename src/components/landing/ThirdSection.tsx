@@ -1,20 +1,12 @@
-
 import React, { useState } from 'react';
-import { Box, Stack, Typography, Tabs, Tab } from "@mui/material";
-import { motion } from "framer-motion";
+import { Box, Typography, Tabs, Tab } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield } from "lucide-react";
 import { QuoteTestimonial } from './QuoteTestimonial';
 
-export const ThirdSection = () => {
-  const [tabValue, setTabValue] = useState(0);
-  
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
-  
-  const tabAccData = {
+const tabAccData = {
     "The S10.AI Advantage": [
       { 
         icon: <FileCheck className="w-5 h-5" />,
@@ -133,56 +125,40 @@ export const ThirdSection = () => {
     ]
   };
 
-  const testimonials = [
-    {
-      quote: "S10.AI has revolutionized our practice. We've cut documentation time by 70% and our physicians can finally focus on patient care.",
-      author: "Dr. Sarah Martinez",
-      role: "Chief Medical Officer, Pacific Health Group",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&auto=format&fit=crop&q=60"
-    },
-    {
-      quote: "The ROI was immediate. Within 3 months, we reduced administrative costs by 25% while improving patient satisfaction scores.",
-      author: "Michael Chang",
-      role: "Director of Operations, MedCare Associates",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&auto=format&fit=crop&q=60"
-    }
-  ];
+export const ThirdSection = () => {
+  const [tabValue, setTabValue] = useState(0);
+  
+  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setTabValue(newValue);
+  };
 
   return (
-    <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-10 px-4 md:px-8 w-full max-w-[100vw]">
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, width: '100%', maxWidth: '1400px', mx: 'auto' }}>
+    <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-16 px-4 md:px-8 w-full max-w-[100vw] bg-gradient-to-b from-white to-gray-50">
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%', maxWidth: '1400px', mx: 'auto' }}>
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
+          className="text-center max-w-4xl mx-auto"
         >
           <Typography 
-            variant="h3" 
-            fontWeight="bold" 
-            sx={{ 
-              textAlign: "center", 
-              color: "#000000",
-              mb: 2
-            }}
+            variant="h2" 
+            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
             id="benefits-heading"
           >
             Why Healthcare Leaders Choose S10.AI?
           </Typography>
           <Typography 
-            variant="h6" 
-            sx={{ 
-              color: "#000000",
-              textAlign: "center",
-              mb: 4
-            }}
+            variant="body1" 
+            className="text-lg text-gray-600 max-w-3xl mx-auto"
           >
             Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.
           </Typography>
         </Box>
 
-        <Box component="nav" sx={{ width: '100%', display: 'flex', justifyContent: 'center', mb: 3 }}>
+        <Box component="nav" className="w-full flex justify-center mb-8">
           <Tabs
             value={tabValue}
             onChange={handleChange}
@@ -191,20 +167,21 @@ export const ThirdSection = () => {
             allowScrollButtonsMobile
             aria-label="healthcare ai tabs"
             sx={{
-              "& .Mui-disabled": { display: tabValue === 0 ? "none" : "inline-flex", opacity: 0.3 },
               "& .MuiTabs-indicator": { 
                 backgroundColor: '#387E89',
                 height: '3px',
                 borderRadius: '3px'
               },
-              "& .MuiTabs-scroller": { mx: 1 },
-              "& .MuiTabScrollButton-root": {
-                border: "1px solid #387E89",
-                background: "#ffffff",
-                color: "#387E89",
-                borderRadius: "50%",
-                "&:hover": {
-                  backgroundColor: "#f0f9fa"
+              "& .MuiTab-root": {
+                fontSize: "1rem",
+                textTransform: "none",
+                minWidth: "auto",
+                px: 3,
+                py: 2,
+                color: "#666666",
+                "&.Mui-selected": {
+                  color: "#387E89",
+                  fontWeight: "600"
                 }
               }
             }}
@@ -215,53 +192,41 @@ export const ThirdSection = () => {
                 label={value}
                 id={`tab-${index}`}
                 aria-controls={`tabpanel-${index}`}
-                sx={{
-                  color: tabValue === index ? "#387E89" : "#666666",
-                  mx: 1,
-                  minHeight: 'unset',
-                  textTransform: 'none',
-                  fontWeight: tabValue === index ? 'bold' : 'medium',
-                  transition: 'all 0.3s ease',
-                  "&:hover": {
-                    color: "#387E89",
-                  },
-                  "&.Mui-selected": {
-                    color: "#387E89"
-                  }
-                }}
               />
             ))}
           </Tabs>
         </Box>
 
-        <Stack spacing={3} direction={{ xs: "column", md: "row" }} sx={{ width: '100%' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column', width: { xs: '100%', md: '60%' } }}>
-            <Box sx={{ overflowY: 'auto', height: '100%', maxHeight: { xs: '400px', md: '600px' } }}>
+        <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <Box className="lg:col-span-2">
+            <Box className="bg-white rounded-xl shadow-lg p-6">
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.5, ease: 'easeOut' }}
+                    transition={{ duration: 0.5 }}
                   >
-                    <Accordion type="single" collapsible className="w-full border-none space-y-4" defaultValue="item-0">
+                    <Accordion type="single" collapsible className="w-full space-y-4" defaultValue="item-0">
                       {value.map((item: any, itemIndex) => (
                         <AccordionItem 
                           value={`item-${itemIndex}`} 
                           key={itemIndex}
-                          className="border border-gray-200 rounded-lg overflow-hidden bg-white mb-2 hover:border-[#387E89] transition-colors"
+                          className="border border-gray-100 rounded-lg overflow-hidden hover:border-[#387E89] transition-all duration-200 data-[state=open]:shadow-md"
                         >
-                          <AccordionTrigger className="text-black hover:text-[#387E89] hover:no-underline px-4 py-3 text-lg font-semibold">
+                          <AccordionTrigger className="px-4 py-3 hover:no-underline">
                             <div className="flex items-center gap-3">
-                              {item.icon}
-                              <span>{item.title}</span>
+                              <div className="p-2 rounded-lg bg-[#387E89]/10">
+                                {item.icon}
+                              </div>
+                              <span className="text-lg font-semibold text-gray-900">{item.title}</span>
                             </div>
                           </AccordionTrigger>
-                          <AccordionContent className="text-black/80 px-4 pb-3">
-                            <p className="mb-2">{item.content}</p>
+                          <AccordionContent className="px-4 pb-4">
+                            <p className="text-gray-600 mb-3 leading-relaxed">{item.content}</p>
                             {item.metric && (
-                              <span className="inline-block bg-[#387E89]/10 text-[#387E89] px-3 py-1 rounded-full text-sm font-medium">
+                              <span className="inline-block bg-[#387E89]/10 text-[#387E89] px-4 py-2 rounded-full text-sm font-medium">
                                 {item.metric}
                               </span>
                             )}
@@ -276,41 +241,49 @@ export const ThirdSection = () => {
 
             <div className="mt-8 flex justify-center">
               <Button 
-                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
-                onClick={() => window.location.href = '/demo'}
+                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transform transition-all duration-200 hover:scale-105"
               >
                 Schedule a Demo
               </Button>
             </div>
           </Box>
 
-          <Box component="aside" sx={{ width: { xs: "100%", md: "40%" } }}>
-            <div className="relative rounded-lg overflow-hidden shadow-lg border border-gray-200">
-              <iframe
-                width="100%"
-                height="315"
-                src="https://www.youtube.com/embed/unmWENGNuo4"
-                title="S10.AI Healthcare Solutions Demo"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{ border: "none" }}
-                loading="lazy"
-              />
-              <div className="mt-4 p-4 bg-white">
-                <h4 className="text-lg font-semibold text-[#387E89]">Watch Our Solution in Action</h4>
-                <p className="text-sm text-gray-600">
+          <Box component="aside" className="lg:col-span-1">
+            <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white">
+              <div className="aspect-video w-full">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  src="https://www.youtube.com/embed/unmWENGNuo4"
+                  title="S10.AI Healthcare Solutions Demo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{ border: "none" }}
+                  loading="lazy"
+                />
+              </div>
+              <div className="p-6">
+                <h4 className="text-xl font-semibold text-[#387E89] mb-2">Watch Our Solution in Action</h4>
+                <p className="text-gray-600">
                   See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
                 </p>
               </div>
             </div>
           </Box>
-        </Stack>
+        </Box>
 
-        <div className="mt-8 space-y-4 flex flex-col items-center">
+        <div className="mt-12 space-y-6">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="w-full max-w-2xl">
+            <motion.div 
+              key={index} 
+              className="max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+            >
               <QuoteTestimonial {...testimonial} />
-            </div>
+            </motion.div>
           ))}
         </div>
       </Box>
