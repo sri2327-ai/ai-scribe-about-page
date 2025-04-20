@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
@@ -72,7 +73,9 @@ const ProductCard = ({
   >
     <div className="p-6 flex flex-col gap-6 h-full">
       <div className="aspect-video w-full bg-gray-50 rounded-lg overflow-hidden relative group">
-        <Illustration />
+        <div className="w-full h-full">
+          <Illustration />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform">
             <p className="text-white text-center text-sm px-4">
