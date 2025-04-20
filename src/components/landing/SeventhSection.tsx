@@ -1,3 +1,4 @@
+
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -118,19 +119,19 @@ export const SeventhSection = () => {
           {[
             { 
               title: "Specialty-Specific AI Models", 
-              description: "Engineered for precise documentation needs across disciplines." 
+              description: "Custom-trained for each medical specialty, from cardiology to pediatrics." 
             },
             { 
-              title: "Workflow Optimization", 
-              description: "Reduces charting time, improving clinician efficiency." 
+              title: "Real-Time Documentation", 
+              description: "Accurately captures complex medical terminology and clinical nuances across all medical fields, including multispecialty care. Supports real-time documentation for EKG reports, emergency triaging, and dermatology screenings." 
             },
             { 
-              title: "Advanced Clinical Accuracy", 
-              description: "Captures medical details with real-time documentation for EKG reports, emergency triaging, and dermatology screenings." 
+              title: "Automated Clinical Workflows", 
+              description: "Streamlines referrals, prescriptions, and follow-ups." 
             },
             { 
-              title: "Specialty-Centric AI Automation", 
-              description: "Ensures accurate documentation for every medical field, including multispecialty care." 
+              title: "Smart Patient Engagement", 
+              description: "Reduces no-shows and improves adherence to care plans." 
             }
           ].map((item, index) => (
             <Box 

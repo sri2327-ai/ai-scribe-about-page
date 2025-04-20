@@ -6,7 +6,6 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 export const NinthSection = () => {
   const theme = useTheme();
   const isMobTabScr = useMediaQuery("(max-width:900px)");
-
   const MotionBox = motion(Box);
 
   return (
@@ -25,9 +24,14 @@ export const NinthSection = () => {
         }}
         useFlexGap
       >
-        <Typography variant="h3" fontWeight="semiBold" sx={{ color: 'white' }}>
-          The S10.AI<br />Competitive Edge 
-        </Typography>
+        <Box>
+          <Typography variant="h3" fontWeight="semiBold" sx={{ color: 'white', mb: 2 }}>
+            The S10.AI Competitive Edge
+          </Typography>
+          <Typography variant="h5" fontWeight="regular" sx={{ color: 'white', opacity: 0.9 }}>
+            Leading the Future of Healthcare AI
+          </Typography>
+        </Box>
         <Button 
           variant="text" 
           sx={{ 
@@ -99,19 +103,19 @@ export const NinthSection = () => {
         {[
           {
             title: "Science-Driven AI",
-            description: "Truth-first, responsible AI powered by S10's patented IPKO for smarter automation."
+            description: "Truth-first, responsible AI powered by S10's patented IPKO for smarter automation. Specialty-specific medical terminology understanding."
           },
           {
             title: "Cross-Lingual Precision",
-            description: "Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition."
+            description: "Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition. Clinically validated accuracy rates of 98%+."
           },
           {
             title: "Clinician-Centric",
-            description: "AI that adapts to workflows, not disrupts them."
+            description: "AI that adapts to workflows, not disrupts them. Seamless integration with existing systems."
           },
           {
             title: "Seamless Automation",
-            description: "AI for physician workflows with robotic interoperability."
+            description: "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization."
           }
         ].map((card, index) => (
           <AnimatePresence key={index}>
