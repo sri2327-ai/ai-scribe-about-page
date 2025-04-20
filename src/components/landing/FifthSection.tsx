@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -69,18 +70,18 @@ const WorkflowCard = ({ icon: Icon, title, description, number }) => {
     <Card className="relative h-[280px] p-6 transition-all duration-300 hover:shadow-lg border border-gray-100 bg-white overflow-hidden">
       <div className="flex flex-col h-full">
         <div className="flex items-start gap-4 mb-4">
-          <div className="p-3 rounded-lg bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10">
-            <Icon className="w-6 h-6 text-[#387E89]" />
+          <div className="p-3 rounded-lg bg-gradient-to-r from-[#143151] to-[#387E89]">
+            <Icon className="w-6 h-6 text-white" />
           </div>
           <div className="flex-1">
-            <div className="text-sm text-[#387E89] font-medium mb-1">Step {number}</div>
+            <div className="text-sm font-medium mb-1 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">Step {number}</div>
             <h3 className="text-lg font-semibold mb-2 text-gray-900">{title}</h3>
           </div>
         </div>
         <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
       </div>
       <div 
-        className="absolute -bottom-6 -right-6 text-[120px] font-bold opacity-10 leading-none bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+        className="absolute -bottom-6 -right-6 text-[120px] font-bold leading-none bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent opacity-60"
       >
         {number}
       </div>
@@ -166,9 +167,9 @@ export const FifthSection = () => {
             </CarouselContent>
             <div className="flex justify-center gap-2 mt-6">
               <CarouselPrevious />
-              <div className="flex items-center gap-1 text-sm text-gray-500">
-                <span>Steps</span>
-                <span className="font-medium text-[#387E89]">1-7</span>
+              <div className="flex items-center gap-1 text-sm">
+                <span className="text-gray-500">Steps</span>
+                <span className="font-medium bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">1-7</span>
               </div>
               <CarouselNext />
             </div>
