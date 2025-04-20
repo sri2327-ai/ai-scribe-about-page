@@ -31,16 +31,16 @@ export const EighthSection = () => {
   ];
 
   return (
-    <section className="py-6 md:py-8" style={{ background: '#FFFFFF', minHeight: 'unset' }}>
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 4 } }}>
+    <section className="py-3 md:py-4" style={{ background: '#FFFFFF', minHeight: 'unset' }}>
+      <Box sx={{ maxWidth: '1400px', mx: 'auto', px: { xs: 2, md: 2 } }}>
         <Typography 
           variant="h3" 
           sx={{ 
             textAlign: "center",
             color: "#000000",
             fontWeight: 700,
-            mb: { xs: 2, md: 3 },
-            fontSize: { xs: "1.5rem", sm: "1.75rem", md: "2rem" }
+            mb: { xs: 1, md: 2 },
+            fontSize: { xs: "1.25rem", sm: "1.5rem", md: "1.75rem" }
           }}
         >
           Specialized for Every Medical Field
@@ -55,26 +55,26 @@ export const EighthSection = () => {
                   sx={{ 
                     display: 'flex', 
                     flexDirection: 'column', 
-                    mx: { xs: 0.75, sm: 1.5 }, 
+                    mx: { xs: 0.5, sm: 1 }, 
                     background: '#FFFFFF',
                     borderRadius: 2, 
-                    p: { xs: 1.5, sm: 2 }, 
-                    my: 1,
+                    p: { xs: 1, sm: 1.5 }, 
+                    my: 0.5,
                     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
                     border: '1px solid #E0E0E0',
-                    gap: 1.5,
+                    gap: 1,
                     alignItems: 'center',
-                    minWidth: { xs: '90px', sm: '110px' },
+                    minWidth: { xs: '80px', sm: '100px' },
                     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                     '&:hover': {
-                      transform: 'translateY(-5px)',
+                      transform: 'translateY(-3px)',
                       boxShadow: '0 8px 15px rgba(0, 0, 0, 0.08)'
                     }
                   }}
                 >
                   <div className="group">
                     <IconComponent
-                      size={24}
+                      size={20}
                       color="black"
                       className="group-hover:scale-110 transition-transform duration-300"
                     />
@@ -87,7 +87,7 @@ export const EighthSection = () => {
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       fontWeight: 600,
-                      fontSize: { xs: '0.7rem', sm: '0.8rem' }
+                      fontSize: { xs: '0.65rem', sm: '0.7rem' }
                     }}
                   >
                     {specialty.name}

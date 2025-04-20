@@ -9,17 +9,17 @@ export const SeventhSection = () => {
   const tabletVw = useMediaQuery('(min-width:600px) and (max-width:700px)');
 
   return(
-    <section className="py-16 px-4">
+    <section className="py-10 px-4">
       <Stack
-        spacing={4}
+        spacing={3}
         direction={{ xs: "column", md: 'row'}}
         sx={{
           background: '#FFFFFF',
           alignItems: { xs: 'center', md: 'flex-start' },
           justifyContent: 'space-between',
           borderRadius: 4,
-          p: { xs: 4, sm: 5, md: 6 },
-          gap: { xs: 6, md: 8 },
+          p: { xs: 3, sm: 4, md: 5 },
+          gap: { xs: 4, md: 6 },
           maxWidth: '1280px',
           mx: 'auto',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)'
@@ -30,7 +30,7 @@ export const SeventhSection = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 4,
+            gap: 3,
             alignItems: { xs: 'center', md: 'flex-start' },
             maxWidth: laptopVw ? '240px' : { xs: '100%', sm: '500px', md: '320px', lg: '380px' },
             textAlign: { xs: 'center', md: 'left' }
@@ -41,7 +41,7 @@ export const SeventhSection = () => {
             sx={{ 
               color: '#000000', 
               lineHeight: 1.2,
-              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+              fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
               fontWeight: 700
             }}
           >
@@ -53,8 +53,8 @@ export const SeventhSection = () => {
               textTransform: "capitalize",
               color: '#143151',
               borderColor: '#143151',
-              px: 3,
-              py: 1.5,
+              px: 2.5,
+              py: 1,
               borderRadius: "50px",
               "&:hover":{
                 backgroundColor: '#F0F4F7',
@@ -68,7 +68,7 @@ export const SeventhSection = () => {
                 },
               },
               boxShadow: 'none',
-              mt: 1,
+              mt: 0.5,
               alignSelf: { xs: 'center', md: 'flex-start' }
             }}
             startIcon={
@@ -78,8 +78,8 @@ export const SeventhSection = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: 25,
-                  height: 25,
+                  width: 22,
+                  height: 22,
                   borderRadius: "50%", 
                   color: '#143151',
                   border: `2px solid #143151`,
@@ -88,7 +88,7 @@ export const SeventhSection = () => {
                   mr: 1
                 }}
               >
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-3.5 w-3.5" />
               </Box>
             }
           >
@@ -101,7 +101,8 @@ export const SeventhSection = () => {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 transition: "color 0.3s ease",
-                fontWeight: 600
+                fontWeight: 600,
+                fontSize: '0.9rem'
               }}
             >
               View More
@@ -116,7 +117,7 @@ export const SeventhSection = () => {
               sm: 'repeat(2, 1fr)',
               lg: 'repeat(2, 1fr)'
             },
-            gap: { xs: 3, sm: 4 },
+            gap: { xs: 2, sm: 3 },
             width: '100%',
             maxWidth: { xs: '100%', sm: '800px' }
           }}
@@ -144,10 +145,10 @@ export const SeventhSection = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 2,
+                gap: 1.5,
                 background: '#FFFFFF',
                 border: '1px solid #E0E0E0',
-                p: { xs: 3, sm: 3.5 },
+                p: { xs: 2, sm: 2.5 },
                 borderRadius: 3,
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
                 height: '100%',
@@ -163,7 +164,7 @@ export const SeventhSection = () => {
                 variant="h5" 
                 sx={{ 
                   color: '#143151',
-                  fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' },
+                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
                   fontWeight: 700
                 }}
               >
@@ -174,8 +175,8 @@ export const SeventhSection = () => {
                 sx={{ 
                   color: '#000000', 
                   opacity: 0.7,
-                  fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
-                  lineHeight: 1.6,
+                  fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
+                  lineHeight: 1.5,
                   fontWeight: 400
                 }}
               >

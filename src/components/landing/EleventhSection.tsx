@@ -8,7 +8,7 @@ export const EleventhSection = () => {
   return (
     <section 
       id="call-to-action"
-      className="py-8 w-full flex items-center justify-center relative overflow-hidden"
+      className="py-6 w-full flex items-center justify-center relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
       }}
@@ -21,16 +21,16 @@ export const EleventhSection = () => {
         className="w-full"
       >
         <Stack
-          spacing={3}
+          spacing={2}
           direction={{ xs: "column", md: "row" }}
           sx={{
             maxWidth: '1200px',
             width: '100%',
             alignItems: "center",
             justifyContent: "center",
-            p: { xs: 2, md: 3 },
+            p: { xs: 1.5, md: 2 },
             mx: 'auto',
-            gap: { xs: 2, md: 4 }
+            gap: { xs: 1.5, md: 3 }
           }}
         >
           <Box sx={{ maxWidth: { xs: '100%', md: '60%' }, textAlign: { xs: 'center', md: 'left' } }}>
@@ -38,9 +38,9 @@ export const EleventhSection = () => {
               variant="h3" 
               sx={{ 
                 color: 'white',
-                fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
+                fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
                 lineHeight: 1.2,
-                mb: 1,
+                mb: 0.5,
                 fontWeight: 700
               }}
             >
@@ -50,26 +50,26 @@ export const EleventhSection = () => {
               variant="body1" 
               sx={{ 
                 color: 'rgba(255, 255, 255, 0.9)',
-                fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1rem' },
-                lineHeight: 1.5,
+                fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.9rem' },
+                lineHeight: 1.4,
                 maxWidth: '600px',
                 mx: { xs: 'auto', md: 0 },
                 fontWeight: 400
               }}
             >
-              Join healthcare providers nationwide who are transforming their practice with AI-driven solutions that reduce administrative burden, minimize burnout, and improve patient outcomes.
+              Join healthcare providers nationwide who are transforming their practice with AI-driven solutions.
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, alignItems: { xs: 'center', md: 'flex-start' } }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: { xs: 'center', md: 'flex-start' } }}>
             <Button 
               variant="contained" 
               aria-label="Book a demo of S10.AI"
               sx={{ 
                 bgcolor: 'white',
                 color: '#143151',
-                px: { xs: 2.5, md: 3 },
-                py: { xs: 1, md: 1.25 },
+                px: { xs: 2, md: 2.5 },
+                py: { xs: 0.75, md: 1 },
                 borderRadius: "50px",
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
@@ -79,11 +79,11 @@ export const EleventhSection = () => {
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
                 }
               }}
-              startIcon={<CalendarCheck className="h-4 w-4" />}
+              startIcon={<CalendarCheck className="h-3.5 w-3.5" />}
             >
               <Typography
                 sx={{
-                  fontSize: { xs: '0.85rem', md: '0.9rem' },
+                  fontSize: { xs: '0.75rem', md: '0.8rem' },
                   fontWeight: 600
                 }}
               >
@@ -97,8 +97,8 @@ export const EleventhSection = () => {
               sx={{ 
                 borderColor: 'rgba(255, 255, 255, 0.7)',
                 color: 'white',
-                px: { xs: 2.5, md: 3 },
-                py: { xs: 1, md: 1.25 },
+                px: { xs: 2, md: 2.5 },
+                py: { xs: 0.75, md: 1 },
                 borderRadius: "50px",
                 '&:hover': {
                   borderColor: 'white',
@@ -111,19 +111,19 @@ export const EleventhSection = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: 18,
-                    height: 18,
+                    width: 16,
+                    height: 16,
                     borderRadius: "50%",
                     border: '1.5px solid white',
                   }}
                 >
-                  <ArrowRight className="h-3 w-3" />
+                  <ArrowRight className="h-2.5 w-2.5" />
                 </Box>
               }
             >
               <Typography
                 sx={{
-                  fontSize: { xs: '0.85rem', md: '0.9rem' },
+                  fontSize: { xs: '0.75rem', md: '0.8rem' },
                   fontWeight: 600
                 }}
               >
@@ -140,8 +140,8 @@ export const EleventhSection = () => {
           position: 'absolute',
           top: '50%',
           left: '5%',
-          width: '120px',
-          height: '120px',
+          width: '80px',
+          height: '80px',
           borderRadius: '50%',
           background: 'rgba(255, 255, 255, 0.1)',
           filter: 'blur(40px)',
@@ -155,8 +155,8 @@ export const EleventhSection = () => {
           position: 'absolute',
           top: '20%',
           right: '10%',
-          width: '80px',
-          height: '80px',
+          width: '50px',
+          height: '50px',
           borderRadius: '50%',
           background: 'rgba(255, 255, 255, 0.15)',
           filter: 'blur(30px)',
