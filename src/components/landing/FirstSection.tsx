@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -26,18 +25,17 @@ export const FirstSection = () => {
                 variant="h1"
                 sx={{
                   fontSize: {
-                    xs: '2.75rem',
-                    sm: '3.5rem',
-                    md: '4rem',
-                    lg: '4.5rem',
+                    xs: '2rem',
+                    sm: '2.5rem',
+                    md: '3rem',
+                    lg: '3.5rem'
                   },
                   lineHeight: {
-                    xs: 1.1,
-                    md: 1
+                    xs: 1.2,
+                    md: 1.1
                   },
                   fontWeight: 700,
                   color: '#000000',
-                  letterSpacing: '-0.02em',
                   mb: {
                     xs: 4,
                     lg: 6
@@ -146,8 +144,8 @@ export const FirstSection = () => {
                       sx={{
                         color: '#000000',
                         fontSize: {
-                          xs: '0.75rem',
-                          md: '0.875rem'
+                          xs: '1rem',
+                          md: '1.125rem'
                         },
                         lineHeight: 1.6,
                         fontWeight: 400

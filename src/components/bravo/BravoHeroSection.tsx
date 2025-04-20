@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
@@ -116,7 +115,7 @@ export const BravoHeroSection = () => {
                 <Typography
                   variant="h1"
                   sx={{
-                    fontSize: { xs: '1.75rem', md: '2.5rem' },
+                    fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
                     fontWeight: 600,
                     color: 'black',
                     mb: 3,
@@ -131,6 +130,7 @@ export const BravoHeroSection = () => {
                     fontSize: { xs: '1rem', md: '1.25rem' },
                     color: 'rgba(0,0,0,0.7)',
                     mb: 4,
+                    lineHeight: 1.6,
                   }}
                 >
                   Automate Scheduling, Cut No-Shows, and Elevate Patient Experience!
