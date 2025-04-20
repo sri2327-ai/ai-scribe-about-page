@@ -1,3 +1,4 @@
+
 import { Box, Typography, Button, Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { ArrowRight } from "lucide-react";
@@ -8,7 +9,7 @@ export const SeventhSection = () => {
   const tabletVw = useMediaQuery('(min-width:600px) and (max-width:700px)');
 
   return(
-    <section className="py-6 px-4">
+    <section className="py-4 px-3">
       <Stack
         spacing={2}
         direction={{ xs: "column", md: 'row'}}
@@ -17,11 +18,11 @@ export const SeventhSection = () => {
           alignItems: { xs: 'center', md: 'flex-start' },
           justifyContent: 'space-between',
           borderRadius: 4,
-          p: { xs: 2, sm: 3, md: 4 },
-          gap: { xs: 3, md: 4 },
+          p: { xs: 2, sm: 2, md: 3 },
+          gap: { xs: 2, md: 3 },
           maxWidth: '1280px',
           mx: 'auto',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)'
+          boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)'
         }}
         useFlexGap
       >
@@ -29,9 +30,9 @@ export const SeventhSection = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            gap: 3,
+            gap: 2,
             alignItems: { xs: 'center', md: 'flex-start' },
-            maxWidth: laptopVw ? '240px' : { xs: '100%', sm: '500px', md: '320px', lg: '380px' },
+            maxWidth: laptopVw ? '220px' : { xs: '100%', sm: '450px', md: '300px', lg: '350px' },
             textAlign: { xs: 'center', md: 'left' }
           }}
         >
@@ -40,7 +41,7 @@ export const SeventhSection = () => {
             sx={{ 
               color: '#000000', 
               lineHeight: 1.2,
-              fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
+              fontSize: { xs: '1.3rem', sm: '1.5rem', md: '1.7rem' },
               fontWeight: 700
             }}
           >
@@ -52,8 +53,8 @@ export const SeventhSection = () => {
               textTransform: "capitalize",
               color: '#143151',
               borderColor: '#143151',
-              px: 2.5,
-              py: 1,
+              px: 2,
+              py: 0.75,
               borderRadius: "50px",
               "&:hover":{
                 backgroundColor: '#F0F4F7',
@@ -67,7 +68,7 @@ export const SeventhSection = () => {
                 },
               },
               boxShadow: 'none',
-              mt: 0.5,
+              mt: 0,
               alignSelf: { xs: 'center', md: 'flex-start' }
             }}
             startIcon={
@@ -77,8 +78,8 @@ export const SeventhSection = () => {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: 22,
-                  height: 22,
+                  width: 20,
+                  height: 20,
                   borderRadius: "50%", 
                   color: '#143151',
                   border: `2px solid #143151`,
@@ -87,7 +88,7 @@ export const SeventhSection = () => {
                   mr: 1
                 }}
               >
-                <ArrowRight className="h-3.5 w-3.5" />
+                <ArrowRight className="h-3 w-3" />
               </Box>
             }
           >
@@ -101,7 +102,7 @@ export const SeventhSection = () => {
                 WebkitTextFillColor: 'transparent',
                 transition: "color 0.3s ease",
                 fontWeight: 600,
-                fontSize: '0.9rem'
+                fontSize: '0.8rem'
               }}
             >
               View More
@@ -112,11 +113,11 @@ export const SeventhSection = () => {
           sx={{
             display: 'grid',
             gridTemplateColumns: {
-              xs: '1fr',
+              xs: 'repeat(1, 1fr)',
               sm: 'repeat(2, 1fr)',
               lg: 'repeat(2, 1fr)'
             },
-            gap: { xs: 2, sm: 3 },
+            gap: { xs: 1.5, sm: 2 },
             width: '100%',
             maxWidth: { xs: '100%', sm: '800px' }
           }}
@@ -128,7 +129,7 @@ export const SeventhSection = () => {
             },
             { 
               title: "Real-Time Documentation", 
-              description: "Captures complex medical terms and clinical details across specialties, including real-time EKG, triage, dermatology documentation, and more." 
+              description: "Captures complex medical terms and clinical details across specialties." 
             },
             { 
               title: "Automated Clinical Workflows", 
@@ -144,18 +145,18 @@ export const SeventhSection = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 1.5,
+                gap: 1,
                 background: '#FFFFFF',
                 border: '1px solid #E0E0E0',
-                p: { xs: 2, sm: 2.5 },
+                p: { xs: 1.5, sm: 2 },
                 borderRadius: 3,
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.04)',
                 height: '100%',
                 justifyContent: 'space-between',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-                  transform: 'translateY(-4px)'
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                  transform: 'translateY(-2px)'
                 }
               }}
             >
@@ -163,7 +164,7 @@ export const SeventhSection = () => {
                 variant="h5" 
                 sx={{ 
                   color: '#143151',
-                  fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                   fontWeight: 700
                 }}
               >
@@ -174,8 +175,8 @@ export const SeventhSection = () => {
                 sx={{ 
                   color: '#000000', 
                   opacity: 0.7,
-                  fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
-                  lineHeight: 1.5,
+                  fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
+                  lineHeight: 1.4,
                   fontWeight: 400
                 }}
               >
