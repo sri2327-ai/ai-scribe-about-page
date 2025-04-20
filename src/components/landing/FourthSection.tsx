@@ -20,13 +20,6 @@ const allSpecialties = [
   "And More"
 ];
 
-const specialtyMetrics = {
-  primaryCare: "Reduces documentation time by 75%",
-  cardiology: "Increases patient face time by 40%",
-  neurology: "Improves clinical accuracy by 95%",
-  pediatrics: "Saves 12+ hours per week"
-};
-
 const SpecialtyBadge = ({ name }: { name: string }) => (
   <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 mb-2">
     {name}
@@ -62,13 +55,13 @@ const ProductCard = ({
 }) => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
     <div className="p-5 flex flex-col gap-4">
-      <div className="h-32 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
+      <div className="h-24 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
         <div className="w-full h-full">
           <Illustration />
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#143151]/80 to-[#387E89]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
           <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform">
-            <p className="text-white text-center text-sm px-4">
+            <p className="text-white text-center text-xs px-4">
               Click to see {title} in action
             </p>
           </div>
@@ -77,11 +70,11 @@ const ProductCard = ({
       
       <div className="space-y-3">
         <div className="text-center">
-          <h3 className="text-2xl font-bold text-[#143151]">{title}</h3>
-          <h4 className="text-lg font-semibold text-[#387E89]">{subtitle}</h4>
+          <h3 className="text-xl font-bold text-[#143151]">{title}</h3>
+          <h4 className="text-base font-semibold text-[#387E89]">{subtitle}</h4>
         </div>
         
-        <p className="text-gray-600 text-center text-sm">{description}</p>
+        <p className="text-gray-600 text-center text-xs">{description}</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {metrics.map((metric, idx) => (
@@ -92,7 +85,7 @@ const ProductCard = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Stethoscope className="w-4 h-4 text-[#387E89]" />
-            <p className="text-sm font-medium text-gray-700">Works with all specialties:</p>
+            <p className="text-xs font-medium text-gray-700">Works with all specialties:</p>
           </div>
           <div className="flex flex-wrap gap-1">
             {allSpecialties.map((specialty, idx) => (
@@ -104,7 +97,7 @@ const ProductCard = ({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-[#387E89]" />
-            <p className="text-sm font-medium text-gray-700">Compatible with:</p>
+            <p className="text-xs font-medium text-gray-700">Compatible with:</p>
           </div>
           <div className="flex flex-wrap gap-1">
             {(title === "C.R.U.S.H" ? compatibleSystems.crush : compatibleSystems.bravo).map((system, idx) => (
@@ -131,22 +124,22 @@ const ProductCard = ({
 
 export const FourthSection = () => {
   return (
-    <section className="py-12 px-4 md:px-8 lg:px-16 bg-white">
+    <section className="py-10 px-4 md:px-8 lg:px-16 bg-white">
       <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
         <div className="max-w-[900px] mx-auto text-center">
-          <h3 className="text-3xl font-bold text-black mb-3">
+          <h3 className="text-2xl md:text-3xl font-bold text-black mb-3">
             Meet Bravo & CRUSH – A S10'ing Experience
           </h3>
-          <p className="text-base text-gray-600">
+          <p className="text-sm md:text-base text-gray-600">
             From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, 
             optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
           <ProductCard 
             title="C.R.U.S.H"
-            subtitle="AI Medical Scribe Assistant Powered by Robots"
+            subtitle="AI Medical Scribe Assistant"
             description="Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care."
             Illustration={CrushIllustration}
             metrics={[
@@ -158,7 +151,7 @@ export const FourthSection = () => {
           />
           <ProductCard 
             title="B.R.A.V.O"
-            subtitle="AI Patient Care Agent Powered by Robots"
+            subtitle="AI Patient Care Agent"
             description="Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged."
             Illustration={BravoIllustration}
             metrics={[

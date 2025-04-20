@@ -2,7 +2,6 @@
 'use client'
 
 import { Suspense, lazy } from 'react'
-const Spline = lazy(() => import('@splinetool/react-spline'))
 
 interface SplineSceneProps {
   scene: string
@@ -10,6 +9,11 @@ interface SplineSceneProps {
 }
 
 export function SplineScene({ scene, className }: SplineSceneProps) {
+  // Use dynamic import instead to prevent loading issues
+  const Spline = lazy(() => import('@splinetool/react-spline').catch(() => ({
+    default: () => <div>Failed to load Spline</div>
+  })))
+
   return (
     <Suspense 
       fallback={

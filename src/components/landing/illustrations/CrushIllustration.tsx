@@ -37,9 +37,9 @@ const CrushIllustration = () => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center bg-white/80 backdrop-blur-sm overflow-hidden">
-      <svg className="absolute w-4/5 h-[2px] top-1/2 -translate-y-1/2">
+      <svg className="absolute w-3/4 h-[2px] top-1/2 -translate-y-1/2">
         <motion.path
-          d="M 10,1 L 140,1"
+          d="M 10,1 L 100,1"
           stroke="#387E89"
           strokeWidth="2"
           strokeDasharray="5,5"
@@ -63,7 +63,7 @@ const CrushIllustration = () => {
           style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
         >
           {React.createElement(steps[currentStep].Icon, {
-            size: 18,
+            size: 16,
             color: "white",
             strokeWidth: 1.5
           })}

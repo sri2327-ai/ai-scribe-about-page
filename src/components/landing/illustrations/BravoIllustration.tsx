@@ -37,9 +37,9 @@ const BravoIllustration = () => {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center bg-white/80 backdrop-blur-sm overflow-hidden">
-      <svg className="absolute w-4/5 h-8 max-h-full">
+      <svg className="absolute w-3/4 h-4 max-h-full">
         <motion.path
-          d="M 20,10 C 50,10 70,20 100,20"
+          d="M 20,10 C 40,10 60,10 80,10"
           stroke="#387E89"
           strokeWidth="2"
           strokeDasharray="5,5"
@@ -64,7 +64,7 @@ const BravoIllustration = () => {
           style={{ background: `linear-gradient(135deg, #143151, #387E89)` }}
         >
           {React.createElement(steps[currentStep].Icon, {
-            size: 18,
+            size: 16,
             color: "white",
             strokeWidth: 1.5
           })}

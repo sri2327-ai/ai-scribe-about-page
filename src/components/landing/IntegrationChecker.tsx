@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight, Database } from "lucide-react";
+import { CheckCircle2, Database } from "lucide-react";
 
 export const IntegrationChecker = () => {
   const [software, setSoftware] = useState('');
