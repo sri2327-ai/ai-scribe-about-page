@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { IntegrationChecker } from './IntegrationChecker';
 
-const IntegrationSection = () => {
+export const IntegrationSection = () => {
   return (
     <section className="py-16 px-4 bg-gray-50">
       <div className="max-w-[1400px] mx-auto">
@@ -61,4 +62,3 @@ const IntegrationSection = () => {
 };
 
 export default IntegrationSection;
-export { IntegrationSection };

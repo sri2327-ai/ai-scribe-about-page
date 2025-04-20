@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -6,11 +5,10 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/co
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 
-// Correctly lazy load components with proper type handling
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
 const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
 const FourthSection = React.lazy(() => import('@/components/landing/FourthSection'));
-const IntegrationSection = React.lazy(() => import('@/components/landing/IntegrationSection'));
+const IntegrationSection = React.lazy(() => import('@/components/landing/IntegrationSection').then(module => ({ default: module.IntegrationSection })));
 const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'));
 const SeventhSection = React.lazy(() => import('@/components/landing/SeventhSection'));
 const EighthSection = React.lazy(() => import('@/components/landing/EighthSection'));
