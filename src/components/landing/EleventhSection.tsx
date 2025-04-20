@@ -8,7 +8,7 @@ export const EleventhSection = () => {
   return (
     <section 
       id="call-to-action"
-      className="py-12 w-full flex items-center justify-center relative overflow-hidden"
+      className="py-8 w-full flex items-center justify-center relative overflow-hidden"
       style={{
         background: `linear-gradient(135deg, #143151, #387E89, #F06292)`,
       }}
@@ -21,16 +21,16 @@ export const EleventhSection = () => {
         className="w-full"
       >
         <Stack
-          spacing={4}
+          spacing={3}
           direction={{ xs: "column", md: "row" }}
           sx={{
             maxWidth: '1200px',
             width: '100%',
             alignItems: "center",
             justifyContent: "center",
-            p: { xs: 3, md: 4 },
+            p: { xs: 2, md: 3 },
             mx: 'auto',
-            gap: { xs: 3, md: 6 }
+            gap: { xs: 2, md: 4 }
           }}
         >
           <Box sx={{ maxWidth: { xs: '100%', md: '60%' }, textAlign: { xs: 'center', md: 'left' } }}>
@@ -38,9 +38,9 @@ export const EleventhSection = () => {
               variant="h3" 
               sx={{ 
                 color: 'white',
-                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
                 lineHeight: 1.2,
-                mb: 2,
+                mb: 1,
                 fontWeight: 700
               }}
             >
@@ -50,8 +50,8 @@ export const EleventhSection = () => {
               variant="body1" 
               sx={{ 
                 color: 'rgba(255, 255, 255, 0.9)',
-                fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-                lineHeight: 1.6,
+                fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1rem' },
+                lineHeight: 1.5,
                 maxWidth: '600px',
                 mx: { xs: 'auto', md: 0 },
                 fontWeight: 400
@@ -61,15 +61,15 @@ export const EleventhSection = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, alignItems: { xs: 'center', md: 'flex-start' } }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, alignItems: { xs: 'center', md: 'flex-start' } }}>
             <Button 
               variant="contained" 
               aria-label="Book a demo of S10.AI"
               sx={{ 
                 bgcolor: 'white',
                 color: '#143151',
-                px: { xs: 3, md: 4 },
-                py: { xs: 1.25, md: 1.5 },
+                px: { xs: 2.5, md: 3 },
+                py: { xs: 1, md: 1.25 },
                 borderRadius: "50px",
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
@@ -79,11 +79,11 @@ export const EleventhSection = () => {
                   boxShadow: '0 8px 20px rgba(0, 0, 0, 0.2)',
                 }
               }}
-              startIcon={<CalendarCheck className="h-5 w-5" />}
+              startIcon={<CalendarCheck className="h-4 w-4" />}
             >
               <Typography
                 sx={{
-                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontSize: { xs: '0.85rem', md: '0.9rem' },
                   fontWeight: 600
                 }}
               >
@@ -97,8 +97,8 @@ export const EleventhSection = () => {
               sx={{ 
                 borderColor: 'rgba(255, 255, 255, 0.7)',
                 color: 'white',
-                px: { xs: 3, md: 4 },
-                py: { xs: 1.25, md: 1.5 },
+                px: { xs: 2.5, md: 3 },
+                py: { xs: 1, md: 1.25 },
                 borderRadius: "50px",
                 '&:hover': {
                   borderColor: 'white',
@@ -111,8 +111,8 @@ export const EleventhSection = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: 20,
-                    height: 20,
+                    width: 18,
+                    height: 18,
                     borderRadius: "50%",
                     border: '1.5px solid white',
                   }}
@@ -123,7 +123,7 @@ export const EleventhSection = () => {
             >
               <Typography
                 sx={{
-                  fontSize: { xs: '0.9rem', md: '1rem' },
+                  fontSize: { xs: '0.85rem', md: '0.9rem' },
                   fontWeight: 600
                 }}
               >

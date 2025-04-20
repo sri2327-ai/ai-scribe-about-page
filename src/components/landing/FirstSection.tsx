@@ -12,10 +12,10 @@ export const FirstSection = () => {
   const theme = useTheme();
 
   return (
-    <section className="min-h-screen bg-white">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
-        <div className="flex flex-col space-y-16 md:space-y-24">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
+    <section className="min-h-[85vh] bg-white">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-8 md:py-12 lg:py-16">
+        <div className="flex flex-col space-y-8 md:space-y-12">
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12">
             <Box
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
@@ -38,7 +38,7 @@ export const FirstSection = () => {
                   letterSpacing: '-0.02em',
                   fontWeight: 700,
                   color: '#000000',
-                  mb: { xs: 4, md: 6 }
+                  mb: { xs: 3, md: 4 }
                 }}
               >
                 Innovative<br />
@@ -107,7 +107,7 @@ export const FirstSection = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-end' },
-                mt: { xs: 4, md: 0 }
+                mt: { xs: 2, md: 0 }
               }}
             >
               <Box
@@ -122,16 +122,17 @@ export const FirstSection = () => {
                     background: 'rgba(255, 255, 255, 0.1)',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '16px',
-                    p: { xs: 4, sm: 5 },
+                    p: { xs: 3, sm: 4 },
                     border: '1px solid rgba(209, 213, 219, 0.3)',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
                     height: 'auto',
                     display: 'flex',
-                    flexDirection: 'column',
-                    gap: { xs: 4, md: 5 }
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    alignItems: 'center',
+                    gap: { xs: 3, sm: 4 }
                   }}
                 >
-                  <Box>
+                  <Box sx={{ flex: '1' }}>
                     <Typography
                       variant="body1"
                       sx={{
@@ -140,7 +141,7 @@ export const FirstSection = () => {
                           xs: '0.875rem',
                           sm: '1rem'
                         },
-                        lineHeight: 1.7,
+                        lineHeight: 1.6,
                         fontWeight: 400
                       }}
                     >
@@ -167,7 +168,7 @@ export const FirstSection = () => {
               background: 'rgba(243, 244, 246, 0.1)',
               backdropFilter: 'blur(10px)',
               borderRadius: '16px',
-              p: { xs: 3, sm: 4 },
+              p: { xs: 2, sm: 3 },
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
               width: '100%'
@@ -177,7 +178,7 @@ export const FirstSection = () => {
               variant="h6"
               sx={{
                 color: '#000000',
-                mb: { xs: 2, sm: 3 },
+                mb: { xs: 1, sm: 2 },
                 fontSize: {
                   xs: '0.875rem',
                   sm: '1rem',
@@ -194,7 +195,7 @@ export const FirstSection = () => {
                 overflow: "hidden",
                 width: '100%',
                 '& .marquee-container': {
-                  minHeight: { xs: '32px', sm: '40px' }
+                  minHeight: { xs: '28px', sm: '32px' }
                 }
               }}
             >
@@ -204,8 +205,8 @@ export const FirstSection = () => {
                     key={index}
                     sx={{
                       mx: {
-                        xs: 1.5,
-                        md: 2
+                        xs: 1,
+                        md: 1.5
                       },
                       display: 'flex',
                       alignItems: 'center'

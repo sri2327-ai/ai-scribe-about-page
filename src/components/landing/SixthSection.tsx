@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 export const SixthSection = () => {
   return(
     <section 
-      className="relative py-12 md:py-16" 
+      className="relative py-8 md:py-10" 
       style={{ 
         minHeight: 'unset', 
         background: `linear-gradient(180deg, #143151, #387E89)` 
@@ -17,7 +17,7 @@ export const SixthSection = () => {
         px: { xs: 2, sm: 3, md: 4 } 
       }}>
         <Stack
-          spacing={{ xs: 2, md: 3 }}
+          spacing={{ xs: 2, md: 2 }}
           direction="column"
           sx={{
             width: '100%',
@@ -25,7 +25,7 @@ export const SixthSection = () => {
             alignItems: "center",
             background: 'white', 
             borderRadius: { xs: 2, md: 4 }, 
-            p: { xs: 2.5, sm: 3, md: 4 },
+            p: { xs: 2, sm: 2.5, md: 3 },
             boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
           }}
           useFlexGap
@@ -36,7 +36,7 @@ export const SixthSection = () => {
               textAlign: "center", 
               color: "#143151",
               fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem', lg: '2rem' },
-              lineHeight: { xs: 1.3, md: 1.4 },
+              lineHeight: { xs: 1.2, md: 1.3 },
               maxWidth: '90%',
               fontWeight: 700
             }}
@@ -50,7 +50,7 @@ export const SixthSection = () => {
               background: `linear-gradient(135deg, #143151, #387E89)`,
               color: 'white',
               px: { xs: 3, md: 4 },
-              py: { xs: 1.25, md: 1.5 },
+              py: { xs: 1, md: 1.25 },
               borderRadius: "50px",
               transition: 'all 0.3s ease',
               "&:hover": {
