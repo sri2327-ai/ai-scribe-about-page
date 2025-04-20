@@ -2,6 +2,14 @@ import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 interface ComplianceCardData {
   title: string;
@@ -182,6 +190,8 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
 ComplianceCard.displayName = 'ComplianceCard';
 
 const TenthSection = () => {
+  const isMobile = useIsMobile();
+
   return (
     <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-16 relative overflow-hidden bg-gray-50">
       <Box sx={{ 
@@ -240,20 +250,36 @@ const TenthSection = () => {
             </motion.div>
           </Box>
 
-          <Box sx={{
-            display: 'grid',
-            gridTemplateColumns: { 
-              xs: 'repeat(1, 1fr)', 
-              sm: 'repeat(2, 1fr)', 
-              md: 'repeat(3, 1fr)' 
-            },
-            gap: 3,
-            width: '100%'
-          }}>
-            {complianceCards.map((card, index) => (
-              <ComplianceCard key={`compliance-card-${index}`} card={card} index={index} />
-            ))}
-          </Box>
+          {isMobile ? (
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {complianceCards.map((card, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2">
+                    <ComplianceCard card={card} index={index} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          ) : (
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              gap: 3,
+              width: '100%'
+            }}>
+              {complianceCards.map((card, index) => (
+                <ComplianceCard key={`compliance-card-${index}`} card={card} index={index} />
+              ))}
+            </Box>
+          )}
         </Stack>
       </Box>
     </section>
