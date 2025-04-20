@@ -7,7 +7,7 @@ import { IntegrationChecker } from './IntegrationChecker';
 
 const IntegrationSection = () => {
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-16 px-4 bg-white">
       <div className="max-w-[1400px] mx-auto">
         <div className="text-center mb-12">
           <motion.h2 
@@ -15,7 +15,7 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-3xl font-bold text-[#143151] mb-4"
+            className="text-3xl font-bold text-black mb-4"
           >
             Compatible with Your Preferred Software
           </motion.h2>
@@ -24,9 +24,9 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            className="text-lg text-black max-w-2xl mx-auto"
           >
-            From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems.
+            From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
             Try our compatibility checker below.
           </motion.p>
         </div>
@@ -49,8 +49,7 @@ const IntegrationSection = () => {
           className="text-center"
         >
           <Button 
-            variant="outline"
-            className="border-[#143151] text-[#143151] hover:bg-[#143151] hover:text-white"
+            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
           >
             Learn More About Integrations
             <ArrowRight className="ml-2 h-4 w-4" />
