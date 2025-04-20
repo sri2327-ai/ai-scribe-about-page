@@ -25,11 +25,11 @@ export const IntegrationChecker = () => {
           placeholder="Enter your software name..."
           value={software}
           onChange={(e) => setSoftware(e.target.value)}
-          className="flex-1"
+          className="flex-1 bg-white text-[#143151] placeholder-[#143151]/70"
         />
         <Button 
           type="submit" 
-          className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+          className="bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
         >
           Check
         </Button>
@@ -50,9 +50,9 @@ export const IntegrationChecker = () => {
                 transition: { duration: 0.5 }
               }}
             >
-              <Database className="w-8 h-8 text-[#387E89]" />
+              <Database className="w-8 h-8 text-white" />
               <motion.div
-                className="h-0.5 w-16 bg-[#387E89]"
+                className="h-0.5 w-16 bg-white"
                 animate={{
                   width: ["0%", "100%"],
                   transition: { duration: 0.5, delay: 0.3 }
@@ -64,14 +64,14 @@ export const IntegrationChecker = () => {
                   transition: { duration: 0.5, delay: 0.8 }
                 }}
               >
-                <CheckCircle2 className="w-8 h-8 text-green-500" />
+                <CheckCircle2 className="w-8 h-8 text-white" />
               </motion.div>
             </motion.div>
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.3 }}
-              className="mt-4 text-lg font-medium text-[#143151]"
+              className="mt-4 text-lg font-medium text-white"
             >
               S10.AI is compatible with {software}!
             </motion.p>
