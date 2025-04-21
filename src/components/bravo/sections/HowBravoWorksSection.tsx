@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -73,15 +72,12 @@ const StepItem: React.FC<StepItemProps> = ({
   stepNumber
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  // Improved inView detection with higher threshold and no "once" parameter
   const isInView = useInView(ref, { 
     once: false, 
-    amount: 0.6,  // Increased from 0.3 for better sensitivity
-    threshold: [0.4, 0.6, 0.8] // Multiple thresholds for more granular detection
+    amount: 0.6
   });
   
   useEffect(() => {
-    // Activate the step more quickly when it comes into view
     if (isInView && !isActive) {
       onActivate();
     }
@@ -281,40 +277,36 @@ export const HowBravoWorksSection = () => {
     }
   ];
   
-  // Track scroll position to determine which step should be active
   useEffect(() => {
     const handleScroll = () => {
       if (!isInView) return;
       
-      // Clear any existing interval when user scrolls
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
       
-      // Find which step is most visible in the viewport
       const stepElements = stepRefs.current.filter(Boolean);
       if (stepElements.length === 0) return;
       
       let maxVisibleIndex = 0;
       let maxVisibleArea = 0;
+      const windowHeight = window.innerHeight;
       
       stepElements.forEach((stepEl, index) => {
         if (!stepEl) return;
         
         const rect = stepEl.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        
-        // Calculate how much of the element is visible
         const visibleTop = Math.max(0, rect.top);
         const visibleBottom = Math.min(windowHeight, rect.bottom);
         const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-        const visibleArea = visibleHeight / rect.height;
+        const visibleAreaRatio = visibleHeight / rect.height;
         
-        // Weight central position more heavily (elements in the middle of screen)
-        const centerPosition = Math.abs((rect.top + rect.bottom) / 2 - windowHeight / 2);
-        const centralityFactor = 1 - (centerPosition / windowHeight);
-        const weightedVisibility = visibleArea * centralityFactor * 1.5;
+        const midpoint = (rect.top + rect.bottom) / 2;
+        const centerDistance = Math.abs(midpoint - (windowHeight / 2));
+        const centralityFactor = 1 - (centerDistance / (windowHeight / 2));
+        
+        const weightedVisibility = visibleAreaRatio * centralityFactor;
         
         if (weightedVisibility > maxVisibleArea) {
           maxVisibleArea = weightedVisibility;
@@ -322,15 +314,13 @@ export const HowBravoWorksSection = () => {
         }
       });
       
-      // Only update if we're changing to a different step
-      if (maxVisibleArea > 0.2 && maxVisibleIndex !== activeStep) {
+      if (maxVisibleArea > 0.3 && maxVisibleIndex !== activeStep) {
         setActiveStep(maxVisibleIndex);
       }
     };
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // Initial check
     handleScroll();
     
     return () => {
@@ -338,26 +328,18 @@ export const HowBravoWorksSection = () => {
     };
   }, [isInView, activeStep]);
   
-  // Auto-rotation when no scrolling happens
   useEffect(() => {
     if (isInView) {
-      // Reset the auto-rotation timer when the section comes into view
-      const startAutoRotation = () => {
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-        }
-        
-        const id = window.setInterval(() => {
-          setActiveStep((prev) => (prev + 1) % steps.length);
-        }, 8000);
-        
-        intervalRef.current = id;
-      };
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
       
-      // Start auto-rotation
-      startAutoRotation();
+      const id = window.setInterval(() => {
+        setActiveStep((prev) => (prev + 1) % steps.length);
+      }, 8000);
       
-      // Also restart auto-rotation after user stops scrolling
+      intervalRef.current = id;
+      
       let scrollTimeout: number | null = null;
       const handleScrollEnd = () => {
         if (scrollTimeout) {
@@ -366,7 +348,10 @@ export const HowBravoWorksSection = () => {
         
         scrollTimeout = window.setTimeout(() => {
           if (!intervalRef.current) {
-            startAutoRotation();
+            const newId = window.setInterval(() => {
+              setActiveStep((prev) => (prev + 1) % steps.length);
+            }, 8000);
+            intervalRef.current = newId;
           }
         }, 2000);
       };
@@ -401,7 +386,6 @@ export const HowBravoWorksSection = () => {
     setActiveStep(index);
   };
   
-  // Reset refs array when steps change
   useEffect(() => {
     stepRefs.current = stepRefs.current.slice(0, steps.length);
   }, [steps.length]);
