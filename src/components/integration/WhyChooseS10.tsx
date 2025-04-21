@@ -8,6 +8,7 @@ import SecurityIcon from '@mui/icons-material/Security';
 import StorageIcon from '@mui/icons-material/Storage';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import styles from '@/styles/integration.module.scss';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const features = [
   {
@@ -43,9 +44,11 @@ const features = [
 ];
 
 const WhyChooseS10 = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <div className={styles.whyChooseWrapper}>
-      <Typography variant="h4" className={styles.title}>
+      <Typography variant={isMobile ? "h5" : "h4"} className={styles.title}>
         Why Choose S10.AI
       </Typography>
       <div className={styles.cardsGrid}>

@@ -2,13 +2,16 @@
 import React from 'react';
 import styles from "@/styles/integration.module.scss";
 import { Typography, Button } from '@mui/material';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const IntegrationHeroSection = () => {
+  const isMobile = useIsMobile();
+  
   return (
     <div className={styles.container}>
       {/* Left Section */}
       <div className={styles.leftSection}>
-        <Typography variant="h1" className={styles.title}>
+        <Typography variant={isMobile ? "h3" : "h1"} className={styles.title}>
           Seamlessly Connect S10.AI with Your Favourite Software
         </Typography>
         <p className={styles.subtitle}>

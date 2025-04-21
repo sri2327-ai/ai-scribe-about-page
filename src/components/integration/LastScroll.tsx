@@ -5,12 +5,15 @@ import SecurityIcon from '@mui/icons-material/Security';
 import PublicIcon from '@mui/icons-material/Public';
 import CloudIcon from '@mui/icons-material/Cloud';
 import styles from "@/styles/integration.module.scss";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function LastScroll() {
+  const isMobile = useIsMobile();
+  
   return (
     <div className={styles.awsWrapper}>
       <div className={styles.awsHeader}>
-        <Typography variant="h4" className={styles.partnerTitle}>Technical Partner</Typography>
+        <Typography variant={isMobile ? "h5" : "h4"} className={styles.partnerTitle}>Technical Partner</Typography>
         <div className={styles.awsLogo}>
           <img src="/aws.png" alt="AWS" style={{ height: 40 }} />
         </div>
@@ -29,11 +32,11 @@ export default function LastScroll() {
         <div className={styles.featureCard}>
           <CloudIcon className={styles.featureIcon} />
           <Typography variant="subtitle1"><strong>Cloud Excellence</strong></Typography>
-          <p>Leveraging AWS’s industry-leading cloud capabilities.</p>
+          <p>Leveraging AWS's industry-leading cloud capabilities.</p>
         </div>
       </div>
       <div className={styles.ctaSection}>
-        <Typography variant="h4" className={styles.ctaTitle}>Smart. Fast. Effortless.</Typography>
+        <Typography variant={isMobile ? "h5" : "h4"} className={styles.ctaTitle}>Smart. Fast. Effortless.</Typography>
         <p>Elevate Healthcare Efficiency with S10.AI — Get Started Now!</p>
         <Button variant="contained">
           REQUEST A DEMO
