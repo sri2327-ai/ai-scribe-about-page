@@ -4,15 +4,15 @@ import { Heart, Brain, Microscope, Baby, Bone, Wind, Stethoscope, Eye, Pill } fr
 
 const MedicalSpecialtiesIllustration = () => {
   const specialties = [
-    { Icon: Heart, name: 'Cardiology', position: "top-[10%] left-[20%]", size: "large" },
-    { Icon: Brain, name: 'Neurology', position: "top-[15%] right-[25%]", size: "small" },
-    { Icon: Microscope, name: 'Pathology', position: "bottom-[15%] right-[20%]", size: "large" },
-    { Icon: Baby, name: 'Pediatrics', position: "bottom-[25%] left-[25%]", size: "small" },
-    { Icon: Bone, name: 'Orthopedics', position: "top-[40%] left-[30%]", size: "large" },
-    { Icon: Wind, name: 'Pulmonology', position: "bottom-[35%] right-[30%]", size: "small" },
-    { Icon: Stethoscope, name: 'Internal Med', position: "top-[30%] left-[50%]", size: "large" },
-    { Icon: Eye, name: 'Ophthalmology', position: "top-[25%] right-[40%]", size: "small" },
-    { Icon: Pill, name: 'Primary Care', position: "bottom-[30%] left-[40%]", size: "large" },
+    { Icon: Heart, name: 'Cardiology', position: "top-[10%] left-[15%]", size: "large" },
+    { Icon: Brain, name: 'Neurology', position: "top-[15%] right-[15%]", size: "small" },
+    { Icon: Microscope, name: 'Pathology', position: "bottom-[10%] right-[20%]", size: "large" },
+    { Icon: Baby, name: 'Pediatrics', position: "bottom-[15%] left-[15%]", size: "small" },
+    { Icon: Bone, name: 'Orthopedics', position: "top-[40%] left-[10%]", size: "large" },
+    { Icon: Wind, name: 'Pulmonology', position: "bottom-[40%] right-[15%]", size: "small" },
+    { Icon: Stethoscope, name: 'Internal Med', position: "top-[25%] left-[60%]", size: "large" },
+    { Icon: Eye, name: 'Ophthalmology', position: "top-[45%] right-[40%]", size: "small" },
+    { Icon: Pill, name: 'Primary Care', position: "bottom-[30%] left-[50%]", size: "large" },
   ];
 
   return (
