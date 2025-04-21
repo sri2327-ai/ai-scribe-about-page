@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
@@ -135,31 +136,35 @@ export const FourthSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 justify-center items-center">
-          <ProductCard 
-            title="C.R.U.S.H"
-            subtitle="AI Medical Scribe Assistant"
-            description="Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care."
-            Illustration={CrushIllustration}
-            metrics={[
-              { icon: Clock, title: "Documentation Time", value: "-75%" },
-              { icon: FileText, title: "Note Accuracy", value: "99%" },
-              { icon: Heart, title: "Patient Face Time", value: "+40%" },
-              { icon: Shield, title: "Compliance Rate", value: "100%" }
-            ]}
-          />
-          <ProductCard 
-            title="B.R.A.V.O"
-            subtitle="AI Patient Care Agent"
-            description="Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged."
-            Illustration={BravoIllustration}
-            metrics={[
-              { icon: Clock, title: "Admin Tasks", value: "-85%" },
-              { icon: FileText, title: "Patient Satisfaction", value: "+60%" },
-              { icon: Brain, title: "AI Accuracy", value: "98%" },
-              { icon: Stethoscope, title: "Care Quality", value: "+45%" }
-            ]}
-          />
+        <div className="flex flex-col md:flex-row gap-4 lg:gap-6 justify-center">
+          <div className="mx-auto md:mx-0 max-w-[550px]">
+            <ProductCard 
+              title="C.R.U.S.H"
+              subtitle="AI Medical Scribe Assistant"
+              description="Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care."
+              Illustration={CrushIllustration}
+              metrics={[
+                { icon: Clock, title: "Documentation Time", value: "-75%" },
+                { icon: FileText, title: "Note Accuracy", value: "99%" },
+                { icon: Heart, title: "Patient Face Time", value: "+40%" },
+                { icon: Shield, title: "Compliance Rate", value: "100%" }
+              ]}
+            />
+          </div>
+          <div className="mx-auto md:mx-0 max-w-[550px]">
+            <ProductCard 
+              title="B.R.A.V.O"
+              subtitle="AI Patient Care Agent"
+              description="Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged."
+              Illustration={BravoIllustration}
+              metrics={[
+                { icon: Clock, title: "Admin Tasks", value: "-85%" },
+                { icon: FileText, title: "Patient Satisfaction", value: "+60%" },
+                { icon: Brain, title: "AI Accuracy", value: "98%" },
+                { icon: Stethoscope, title: "Care Quality", value: "+45%" }
+              ]}
+            />
+          </div>
         </div>
       </div>
     </section>
