@@ -1,5 +1,7 @@
 
-export { default as EHRTab } from "./EHRTab";
-export { default as SIPTab } from "./SIPTab";
-export { default as CalendarTab } from "./CalendarTab";
-export { default as EmailTab } from "./EmailTab";
+import EHRTab from './EHRTab';
+import SIPTab from './SIPTab';
+import CalendarTab from './CalendarTab';
+import EmailTab from './EmailTab';
+
+export { EHRTab, SIPTab, CalendarTab, EmailTab };

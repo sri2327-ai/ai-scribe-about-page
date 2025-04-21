@@ -1,0 +1,6 @@
+
+# This file ensures the 'images' directory is committed to git
+# You'll need to add your actual images for:
+# - email-ui.png
+# - ehr-ui.png
+# - sip-ui.png

@@ -22,6 +22,7 @@ const SIPTab = () => (
           <p>Integrates seamlessly with any SIP/VoIP system for flawless connectivity.</p>
         </div>
       </div>
+
       <div className={styles.featureItem}>
         <div className={styles.icon}><VideoCallIcon /></div>
         <div>
@@ -29,6 +30,7 @@ const SIPTab = () => (
           <p>Works effortlessly with Zoom, Microsoft Teams, Google Meet, WebEx, and more.</p>
         </div>
       </div>
+
       <p><strong>Supported platforms:</strong></p>
       <div className={styles.ehrTags}>
         <span><VideocamRoundedIcon/>Zoom</span>
