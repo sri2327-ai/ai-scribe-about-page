@@ -6,7 +6,7 @@ import InteractiveSpecialties from './InteractiveSpecialties';
 
 const SpecialtiesGrid = () => {
   return (
-    <section className="witSp bg-gradient-to-b from-white to-blue-50 py-12">
+    <section className="py-12 bg-gradient-to-br from-[#143151] to-[#387E89]">
       <div className={styles.specialties}>
         <div className="flex flex-col items-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-[#143151] max-w-4xl">
