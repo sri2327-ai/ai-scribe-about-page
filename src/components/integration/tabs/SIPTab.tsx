@@ -1,60 +1,65 @@
 
 import React from 'react';
-import styles from '@/styles/integration.module.scss';
-import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import VideoCallIcon from '@mui/icons-material/VideoCall';
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded';
-import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
-import CallRoundedIcon from '@mui/icons-material/CallRounded';
-import PhoneEnabledRoundedIcon from '@mui/icons-material/PhoneEnabledRounded';
-import { Typography } from '@mui/material';
+import { Video, Phone, Users, Monitor, Wifi, Headphones } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const SIPTab = () => {
   const isMobile = useIsMobile();
   
+  const features = [
+    {
+      icon: <Video />,
+      title: 'HD Telehealth Sessions',
+      description: 'High-quality video consultations with integrated clinical documentation and patient vitals monitoring.'
+    },
+    {
+      icon: <Phone />,
+      title: 'Unified Communications',
+      description: 'Seamless integration with your existing phone systems, call routing, and virtual front desk.'
+    }
+  ];
+
+  const platforms = [
+    'Zoom Healthcare', 'Microsoft Teams', 'Google Meet', 'WebEx Healthcare',
+    'RingCentral', 'Doximity', 'Doxy.me', 'VSee', 'AMC Health', 'Vidyo',
+    'Twilio', 'Vonage', 'Cisco', 'Avaya', '8x8', 'GoTo'
+  ];
+
   return (
-    <div className={styles.tabContentWrapper}>
-      <div className={`${styles.tabLeft} w-full text-center`}>
-        <Typography variant={isMobile ? "h5" : "h4"} sx={{ 
-          fontSize: isMobile ? '1.15rem' : '1.5rem',
-          color: '#143151',
-          marginBottom: '1rem'
-        }}>
-          <VideoCallIcon style={{ marginRight: 8, color: '#143151' }}/> SIP & Telehealth Integration
-        </Typography>
-        
-        <p className="text-sm md:text-base mb-4"><strong>AI-Enhanced Call Management</strong>: Integrates seamlessly with any SIP/VoIP system.</p>
-        <p className="text-sm md:text-base mb-4"><strong>Instant Telehealth Integrations</strong>: Works with Zoom, Teams, Meet, WebEx, and more.</p>
-        
-        <div className={`${styles.featureItem} justify-center`}>
-          <div className={styles.icon}>
-            <PhoneInTalkIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
+    <div className="w-full max-w-3xl mx-auto text-center">
+      <h2 className="text-xl md:text-2xl font-semibold mb-6 text-[#143151]">
+        Enterprise-Grade Communication Platform
+      </h2>
+      
+      <div className="grid gap-6 mb-8">
+        {features.map((feature, index) => (
+          <div 
+            key={index}
+            className="flex items-start gap-4 p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow text-left"
+          >
+            <div className="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
+              {feature.icon}
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2 text-[#143151]">{feature.title}</h3>
+              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{feature.description}</p>
+            </div>
           </div>
-          <div>
-            <strong className="text-sm md:text-base">AI-Enhanced Call Management</strong>
-            <p className="text-xs md:text-sm">Integrates seamlessly with any SIP/VoIP system for flawless connectivity.</p>
-          </div>
-        </div>
+        ))}
+      </div>
 
-        <div className={`${styles.featureItem} justify-center`}>
-          <div className={styles.icon}>
-            <VideoCallIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
-          </div>
-          <div>
-            <strong className="text-sm md:text-base">Instant Telehealth Integrations</strong>
-            <p className="text-xs md:text-sm">Works effortlessly with Zoom, Microsoft Teams, Google Meet, WebEx, and more.</p>
-          </div>
-        </div>
-
-        <p className="text-sm md:text-base mt-6 mb-3"><strong>Supported platforms:</strong></p>
-        <div className={styles.ehrTags}>
-          <span><VideocamRoundedIcon/>Zoom</span>
-          <span><GroupsRoundedIcon/>Microsoft Teams</span>
-          <span><VideocamRoundedIcon/>Google Meet</span>
-          <span><VideocamRoundedIcon/>WebEx</span>
-          <span><CallRoundedIcon/>VoIP Systems</span>
-          <span><PhoneEnabledRoundedIcon/>SIP Providers</span>
+      <div className="mt-6">
+        <p className="font-semibold text-[#143151] mb-3">Supported Platforms:</p>
+        <div className="flex flex-wrap gap-3 justify-center">
+          {platforms.map((platform, index) => (
+            <span
+              key={index}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
+            >
+              {index % 2 === 0 ? <Video size={16} /> : <Phone size={16} />}
+              {platform}
+            </span>
+          ))}
         </div>
       </div>
     </div>

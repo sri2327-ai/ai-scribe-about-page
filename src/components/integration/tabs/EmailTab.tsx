@@ -1,60 +1,83 @@
 
 import React from 'react';
-import styles from '@/styles/integration.module.scss';
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
-import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded';
-import DraftsRoundedIcon from '@mui/icons-material/DraftsRounded';
-import { Typography } from '@mui/material';
+import { Mail, Clock, Workflow, Users, Network, Server } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const EmailTab = () => {
   const isMobile = useIsMobile();
   
+  const features = [
+    {
+      icon: <Mail />,
+      title: 'Clinical Communication Hub',
+      description: 'Secure messaging platform for patient communication, team collaboration, and referral management.'
+    },
+    {
+      icon: <Network />,
+      title: 'Automated Workflows',
+      description: 'Smart routing of clinical documents, test results, and patient inquiries to the right team members.'
+    }
+  ];
+
+  const emailPlatforms = [
+    'Gmail HIPAA', 'Outlook Healthcare', 'ProtonMail Medical',
+    'Microsoft Exchange', 'Yahoo Business', 'Zoho Mail',
+    'Hushmail Healthcare', 'MDOfficeMail', 'NeoCertified',
+    'Paubox', 'Virtru', 'Protected Trust'
+  ];
+
+  const workflowPlatforms = [
+    'Zapier', 'Microsoft Flow', 'Workflow Engine',
+    'Kissflow', 'ProcessMaker', 'Integrify',
+    'Monday.com', 'Asana', 'ClickUp'
+  ];
+
   return (
-    <div className={styles.tabContentWrapper}>
-      <div className={`${styles.tabLeft} w-full text-center`}>
-        <Typography 
-          variant={isMobile ? "h5" : "h4"} 
-          sx={{ 
-            fontSize: isMobile ? '1.1rem' : '1.5rem', 
-            mb: 2,
-            color: '#143151'
-          }}
-        >
-          <EmailRoundedIcon style={{ marginRight: 8, color: '#143151', fontSize: '1.5rem' }} /> 
-          Email & Workflow Automation
-        </Typography>
-        <p className="text-sm md:text-base mb-4">Smart routing and automation for all your communication and tasks.</p>
-        
-        <div className={`${styles.featureItem} justify-center mb-6`}>
-          <div className={styles.icon}>
-            <DraftsRoundedIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="grid gap-6">
+        {features.map((feature, index) => (
+          <div 
+            key={index}
+            className="flex items-start gap-4 p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow"
+          >
+            <div className="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
+              {feature.icon}
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold mb-2 text-[#143151]">{feature.title}</h3>
+              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{feature.description}</p>
+            </div>
           </div>
-          <div>
-            <strong className="text-sm md:text-base">Seamless Email Integration</strong>
-            <p className="text-xs md:text-sm">Works with Gmail, Outlook, Yahoo Mail, Apple Mail, and others.</p>
+        ))}
+
+        <div className="mt-6">
+          <p className="font-semibold text-[#143151] mb-3">Email Platform Integrations:</p>
+          <div className="flex flex-wrap gap-3">
+            {emailPlatforms.map((platform, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
+              >
+                <Mail size={16} />
+                {platform}
+              </span>
+            ))}
           </div>
         </div>
 
-        <div className={`${styles.featureItem} justify-center mb-6`}>
-          <div className={styles.icon}>
-            <AutoModeRoundedIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
+        <div className="mt-6">
+          <p className="font-semibold text-[#143151] mb-3">Workflow Automation Tools:</p>
+          <div className="flex flex-wrap gap-3">
+            {workflowPlatforms.map((platform, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
+              >
+                <Server size={16} />
+                {platform}
+              </span>
+            ))}
           </div>
-          <div>
-            <strong className="text-sm md:text-base">Effortless Workflows</strong>
-            <p className="text-xs md:text-sm">
-              AI-driven automation across documentation, chat, and call agent workflows—
-              reducing manual input to nearly zero.
-            </p>
-          </div>
-        </div>
-
-        <p className="text-sm md:text-base mt-6 mb-3"><strong>Compatible email platforms:</strong></p>
-        <div className={styles.ehrTags}>
-          <span className="text-xs"><strong>G </strong> Gmail</span>
-          <span className="text-xs"><EmailRoundedIcon fontSize="small"/>Outlook</span>
-          <span className="text-xs"><strong>Y! </strong> Yahoo Mail</span>
-          <span className="text-xs"><EmailRoundedIcon fontSize="small"/>Apple Mail</span>
         </div>
       </div>
     </div>
