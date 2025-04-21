@@ -1,4 +1,3 @@
-
 import { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
 
@@ -151,7 +150,7 @@ export const specialtyData: Record<string, SpecialtyContent> = {
   infectiousDisease: {
     title: "Infectious Disease",
     content: "Documents pathogen tracking, infection source identification, antimicrobial stewardship, isolation protocols, immunocompromised patient care, and post-infection follow-ups.",
-    icon: Icons.Virus,
+    icon: Icons.BugOff,
     detailedContent: {
       previousNotes: "Previous infectious disease test results and treatment responses are automatically pulled forward and contextualized based on current symptoms.",
       specialtyHPI: "Creates focused infectious disease HPIs with relevant terminology for pathogen tracking, infection source identification, antimicrobial stewardship, isolation protocols, immunocompromised patient care, and post-infection follow-ups.",
@@ -283,7 +282,7 @@ export const specialtyData: Record<string, SpecialtyContent> = {
   pulmonology: {
     title: "Pulmonology",
     content: "Captures spirometry, asthma action plans, sleep study interpretations, ventilator settings, COPD management, and interstitial lung disease tracking.",
-    icon: Icons.Lungs,
+    icon: Icons.AirVent,
     detailedContent: {
       previousNotes: "Previous pulmonology test results and treatment responses are automatically pulled forward and contextualized based on current symptoms.",
       specialtyHPI: "Creates focused pulmonology HPIs with relevant terminology for spirometry, asthma action plans, sleep study interpretations, ventilator settings, COPD management, and interstitial lung disease tracking.",
