@@ -1,3 +1,4 @@
+
 import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,32 +10,42 @@ export const NinthSection = () => {
   const MotionBox = motion(Box);
 
   return (
-    <section style={{ 
-      background: 'linear-gradient(135deg, #143151, #387E89)',
-      width: '100%',
-      padding: '30px'
-    }}>
+    <section
+      style={{
+        background: "linear-gradient(135deg, #143151, #387E89)",
+        width: "100%",
+        padding: "30px",
+      }}
+    >
       <Stack
         spacing={3}
         direction="column"
         sx={{
-          flexWrap: 'wrap',
+          flexWrap: "wrap",
           justifyContent: "space-between",
-          alignItems: 'flex-start',
+          alignItems: "flex-start",
         }}
         useFlexGap
       >
         <Box>
-          <Typography variant="h3" fontWeight="semiBold" sx={{ color: 'white', mb: 2 }}>
+          <Typography
+            variant="h4"
+            fontWeight="semiBold"
+            sx={{ color: "white", mb: 2, textAlign: 'left' }} // smaller and aligned left
+          >
             The S10.AI Competitive Edge
           </Typography>
-          <Typography variant="h5" fontWeight="regular" sx={{ color: 'white', opacity: 0.9 }}>
+          <Typography
+            variant="h5"
+            fontWeight="regular"
+            sx={{ color: "white", opacity: 0.9 }}
+          >
             Leading the Future of Healthcare AI
           </Typography>
         </Box>
-        <Button 
-          variant="text" 
-          sx={{ 
+        <Button
+          variant="text"
+          sx={{
             textTransform: "capitalize",
             background: theme.palette.common.white,
             border: `1px solid ${theme.palette.common.white}`,
@@ -50,9 +61,9 @@ export const NinthSection = () => {
               ".button-text": {
                 color: "white",
               },
-              background: 'linear-gradient(135deg, #143151, #387E89)',
+              background: "linear-gradient(135deg, #143151, #387E89)",
             },
-            boxShadow: 1
+            boxShadow: 1,
           }}
           startIcon={
             <Box
@@ -63,12 +74,12 @@ export const NinthSection = () => {
                 justifyContent: "center",
                 width: 25,
                 height: 25,
-                borderRadius: "50%", 
+                borderRadius: "50%",
                 color: "#143151",
                 border: `2px solid #143151`,
                 transition: "transform 0.3s ease",
                 transform: "rotate(0deg)",
-                mr: 1
+                mr: 1,
               }}
             >
               <ArrowRight className="h-4 w-4" />
@@ -77,11 +88,11 @@ export const NinthSection = () => {
         >
           <Typography
             className="button-text"
-            variant='h6' 
-            fontWeight="semiBold" 
+            variant="h6"
+            fontWeight="semiBold"
             sx={{
               color: "#143151",
-              transition: "color 0.3s ease"
+              transition: "color 0.3s ease",
             }}
           >
             View More
@@ -89,34 +100,40 @@ export const NinthSection = () => {
         </Button>
       </Stack>
 
-      <Box sx={{
-        display: 'grid',
-        gridTemplateColumns: {
-          xs: '1fr',
-          sm: 'repeat(2, 1fr)',
-          md: 'repeat(4, 1fr)',
-        },
-        gap: 3,
-        width: '100%',
-        mt: 3
-      }}>
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(4, 1fr)",
+          },
+          gap: 3,
+          width: "100%",
+          mt: 3,
+        }}
+      >
         {[
           {
             title: "Science-Driven AI",
-            description: "Truth-first, responsible AI powered by S10's patented IPKO for smarter automation. Specialty-specific medical terminology understanding."
+            description:
+              "Truth-first, responsible AI powered by S10's patented IPKO for smarter automation. Specialty-specific medical terminology understanding.",
           },
           {
             title: "Cross-Lingual Precision",
-            description: "Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition. Clinically validated accuracy rates of 98%+."
+            description:
+              "Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition. Clinically validated accuracy rates of 98%+.",
           },
           {
             title: "Clinician-Centric",
-            description: "AI that adapts to workflows, not disrupts them. Seamless integration with existing systems."
+            description:
+              "AI that adapts to workflows, not disrupts them. Seamless integration with existing systems.",
           },
           {
             title: "Seamless Automation",
-            description: "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization."
-          }
+            description:
+              "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization.",
+          },
         ].map((card, index) => (
           <AnimatePresence key={index}>
             <MotionBox
@@ -125,59 +142,59 @@ export const NinthSection = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ 
+              whileHover={{
                 y: -5,
-                transition: { duration: 0.2 }
+                transition: { duration: 0.2 },
               }}
               sx={{
-                height: '100%',
-                minHeight: '280px',
-                background: 'white',
+                height: "100%",
+                minHeight: "280px",
+                background: "white",
                 borderRadius: 3,
                 p: 3,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  background: 'linear-gradient(135deg, #143151, #387E89)',
-                  '.title': {
-                    color: 'white',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  background: "linear-gradient(135deg, #143151, #387E89)",
+                  ".title": {
+                    color: "white",
                   },
-                  '.description': {
-                    color: 'white',
+                  ".description": {
+                    color: "white",
                     opacity: 1,
                   },
-                  '.icon-box': {
-                    transform: 'rotate(360deg)',
-                    color: 'white'
-                  }
-                }
+                  ".icon-box": {
+                    transform: "rotate(360deg)",
+                    color: "white",
+                  },
+                },
               }}
             >
-              <Typography 
+              <Typography
                 className="title"
-                variant="h5" 
-                fontWeight="semiBold" 
-                sx={{ 
-                  color: 'black',
-                  transition: 'color 0.3s ease',
-                  textAlign: 'center',
-                  mb: 2
+                variant="h5"
+                fontWeight="semiBold"
+                sx={{
+                  color: "black",
+                  transition: "color 0.3s ease",
+                  textAlign: "center",
+                  mb: 2,
                 }}
               >
                 {card.title}
               </Typography>
-              <Typography 
+              <Typography
                 className="description"
-                variant="body1" 
-                sx={{ 
-                  color: 'black',
+                variant="body1"
+                sx={{
+                  color: "black",
                   opacity: 0.8,
-                  transition: 'all 0.3s ease',
-                  textAlign: 'center',
-                  mb: 2
+                  transition: "all 0.3s ease",
+                  textAlign: "center",
+                  mb: 2,
                 }}
               >
                 {card.description}
@@ -185,13 +202,13 @@ export const NinthSection = () => {
               <Box
                 className="icon-box"
                 sx={{
-                  alignSelf: 'center',
+                  alignSelf: "center",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   width: 25,
                   height: 25,
-                  color: 'black',
+                  color: "black",
                   transition: "all 0.3s ease",
                   transform: "rotate(0deg)",
                 }}
@@ -207,3 +224,4 @@ export const NinthSection = () => {
 };
 
 export default NinthSection;
+
