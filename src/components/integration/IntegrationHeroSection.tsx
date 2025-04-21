@@ -3,8 +3,9 @@ import React from 'react';
 import styles from "@/styles/integration.module.scss";
 import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
+import OptimizedImage from "@/components/ui/optimized-image";
 
-const HERO_ILLUSTRATION = "/hero-piechart.png";
+const HERO_ILLUSTRATION = "/lovable-uploads/de20d864-766a-4492-833f-96e6d62d35c3.png";
 
 const IntegrationHeroSection = () => {
   const isMobile = useIsMobile();
@@ -33,9 +34,9 @@ const IntegrationHeroSection = () => {
           Learn More
         </button>
       </div>
-      {/* Right Section with Custom Pie Chart Illustration */}
+      {/* Right Section with Pie Chart Illustration */}
       <div className={styles.rightSection}>
-        <img
+        <OptimizedImage
           src={HERO_ILLUSTRATION}
           alt="S10.AI Integrations Pie Chart"
           className={styles.heroImage}
