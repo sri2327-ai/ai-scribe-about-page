@@ -1,0 +1,98 @@
+
+.heroCentered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin-top: 40px;
+}
+
+.hero__content {
+  max-width: 700px;
+}
+
+.specialties {
+  padding: 60px 20px;
+  background-color: white;
+  text-align: center;
+}
+
+.specialties .subtext {
+  max-width: 1000px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+  padding: 0 20px;
+}
+
+.card {
+  background: linear-gradient(to top, #e0f1f9, #ffffff);
+  padding: 20px;
+  min-height: 300px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+  border-radius: 8px;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.circleIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: #143151;
+}
+
+.cardTitle {
+  margin-bottom: 8px;
+  color: #143151;
+}
+
+.cardText {
+  color: #666;
+  line-height: 1.5;
+}
+
+.cardAlt {
+  background: #ffffff;
+}
+
+.testimonial {
+  background: linear-gradient(to top, #005ca9, #ffffff);
+  padding: 40px 20px;
+  color: #003366;
+  text-align: center;
+  
+  footer p {
+    margin-bottom: 5px;
+    margin-top: 20px;
+    color: #fff;
+  }
+}
+
+.closing {
+  text-align: left;
+  padding: 40px 20px;
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  
+  p {
+    margin-bottom: 20px;
+    color: #333;
+  }
+}

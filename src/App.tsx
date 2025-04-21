@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Contact from "./pages/Contact";
+import Specialty from "./pages/Specialty";
 
 const LazyAbout = lazy(() => import('./pages/About'));
 const LazyTechnology = lazy(() => import('./pages/Technology'));
