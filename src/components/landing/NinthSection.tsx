@@ -36,15 +36,15 @@ export const NinthSection = () => {
     Rocket,      // Seamless Automation
   ];
 
-  // Responsive card sizing
-  const cardWidth = { xs: 300, sm: 350, md: 380, lg: 430 };
-  const cardHeight = { xs: 380, sm: 400, md: 420, lg: 430 };
+  // Increased card size for more room
+  const cardWidth = 430;
+  const cardHeight = 430; // Increased height to avoid content being cut off
 
   return (
     <section
-      className="w-full overflow-hidden"
       style={{
         background: "linear-gradient(135deg, #143151, #387E89)",
+        width: "100%",
         padding: "54px 0 54px 0",
       }}
     >
@@ -56,7 +56,6 @@ export const NinthSection = () => {
           justifyContent: "space-between",
           alignItems: { xs: "center", sm: "center" },
           mb: 5,
-          px: { xs: 2, sm: 3, md: 4 }
         }}
         useFlexGap
       >
@@ -94,7 +93,7 @@ export const NinthSection = () => {
           columnsDesktop={3}
           columnsTablet={2}
           columnsMobile={1}
-          gap={{ xs: 25, md: 45 }}
+          gap={45} // Increased gap between cards
           itemWidth={cardWidth}
           itemHeight={cardHeight}
           controlsBelow={true}
@@ -117,12 +116,12 @@ export const NinthSection = () => {
                 <Box
                   sx={{
                     height: "100%",
-                    minHeight: { xs: 350, sm: 380, md: 400, lg: cardHeight.lg },
+                    minHeight: cardHeight,
                     width: "100%",
-                    maxWidth: { xs: "100%", sm: cardWidth.sm, md: cardWidth.md, lg: cardWidth.lg },
+                    maxWidth: cardWidth,
                     background: "#FFF",
-                    borderRadius: { xs: 3, md: 4.5 },
-                    p: { xs: 3, sm: 4, md: 5 },
+                    borderRadius: 4.5,
+                    p: { xs: 4, sm: 5 },
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
@@ -153,21 +152,21 @@ export const NinthSection = () => {
                     className="icon-gradient"
                     sx={{
                       alignSelf: "center",
-                      width: { xs: 60, sm: 70, md: 74 },
-                      height: { xs: 60, sm: 70, md: 74 },
+                      width: 74,
+                      height: 74,
                       borderRadius: "50%",
                       background: "linear-gradient(135deg, #143151, #387E89)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       boxShadow: "0 3px 20px 0px #14315126",
-                      mb: { xs: 2.5, md: 3.5 },
+                      mb: 3.5,
                       mt: 0.5,
                     }}
                   >
                     <Icon
                       className="icon-svg"
-                      size={{ xs: 36, sm: 40, md: 44 }}
+                      size={44}
                       color="#FFF"
                       strokeWidth={2.3}
                     />
@@ -179,10 +178,10 @@ export const NinthSection = () => {
                     fontWeight={700}
                     sx={{
                       color: "#143151",
-                      fontSize: { xs: "1.2rem", sm: "1.33rem", md: "1.5rem" },
+                      fontSize: { xs: "1.33rem", sm: "1.5rem" },
                       textAlign: "center",
                       transition: "color 0.34s",
-                      mb: { xs: 2, md: 2.6 },
+                      mb: 2.6,
                       lineHeight: 1.29,
                       letterSpacing: 0.25,
                       maxWidth: "85%",
@@ -200,10 +199,10 @@ export const NinthSection = () => {
                       textAlign: "center",
                       fontWeight: 400,
                       letterSpacing: 0.01,
-                      mb: { xs: 2.5, md: 3.7 },
-                      fontSize: { xs: "0.95rem", sm: "1rem", md: "1.16rem" },
+                      mb: 3.7,
+                      fontSize: { xs: "1.11rem", sm: "1.16rem" },
                       lineHeight: 1.85,
-                      maxWidth: { xs: "95%", md: 350 },
+                      maxWidth: 350,
                       mx: "auto",
                       wordBreak: "break-word",
                       display: "-webkit-box",
@@ -221,18 +220,18 @@ export const NinthSection = () => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      width: { xs: 32, md: 38 },
-                      height: { xs: 32, md: 38 },
+                      width: 38,
+                      height: 38,
                       borderRadius: "50%",
                       background: "#F1F5F9",
                       color: "#387E89",
-                      fontSize: { xs: "1.2rem", md: "1.4rem" },
+                      fontSize: "1.4rem",
                       boxShadow: "0 1px 7px 0px rgba(20, 49, 81, 0.05)",
                       mb: 0,
                       mt: "auto",
                     }}
                   >
-                    <ArrowUpRight className={`h-${[5, 6][+(window.innerWidth >= 768)]} w-${[5, 6][+(window.innerWidth >= 768)]}`} />
+                    <ArrowUpRight className="h-6 w-6" />
                   </Box>
                 </Box>
               </motion.div>
