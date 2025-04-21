@@ -90,16 +90,16 @@ const WorkflowCard = ({ icon: Icon, title, description, number }) => {
 };
 
 export const FifthSection = () => {
-  const containerRef = useRef(null);
+  const containerRef = React.useRef(null);
 
   return (
     <section ref={containerRef} className="py-16 px-4 md:px-8 bg-white">
       <Box sx={{ maxWidth: '1400px', mx: 'auto' }}>
         <Typography 
-          variant="h3" 
+          variant="h4" 
           fontWeight="bold" 
           textAlign="center" 
-          sx={{ mb: 8, color: 'black' }}
+          sx={{ mb: 8, color: 'black', fontSize: { xs: '1.75rem', sm: '2rem', md: '2rem' } }} // smaller than previous  // Changed from h3 variant to h4 and adjusted fontSize here
         >
           How Bravo & CRUSH Transform Your Practice Together
         </Typography>
