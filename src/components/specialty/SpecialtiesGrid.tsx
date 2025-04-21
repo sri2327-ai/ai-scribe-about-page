@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styles from "@/styles/specialties.module.scss";
 import { Separator } from "@/components/ui/separator";
@@ -9,16 +8,15 @@ import {
   Bone, 
   Ear, // Changed from EarListen
   Eye, 
-  Flask, // Changed from FlaskVial
+  FlaskConical, // Changed from FlaskVial
   Heart, // Changed from HandHoldingMedical for Rheumatology
   Hospital, 
-  Lungs as LungsIcon, // Renamed to avoid conflict
+  Lungs, // Renamed to avoid conflict
   Microscope, 
-  User, // Changed from PersonCane for Geriatrics
+  User, // Changed from PersonCane for Geriatrics and Venus for Gynecology
   Footprints, // Changed from ShoePrints
   Sun, 
-  Stethoscope, // Changed from UserNurse for Hospital Medicine
-  Female // Changed from Venus for Gynecology
+  Stethoscope // Changed from UserNurse for Hospital Medicine
 } from 'lucide-react';
 
 const specialties = [
@@ -39,7 +37,7 @@ const specialties = [
   },
   {
     name: "Urology",
-    icon: Flask,
+    icon: FlaskConical,
     text: "Efficiently captures urological symptoms, imaging reports, and cancer management details, from prostate biopsies to bladder cancer care.",
   },
   {
@@ -64,7 +62,7 @@ const specialties = [
   },
   {
     name: "Gynecology",
-    icon: Female,
+    icon: User,
     text: "From menstrual cycle tracking to hormone replacement therapy, our AI ensures precise documentation for women's health throughout different life stages.",
   },
   {
@@ -74,7 +72,7 @@ const specialties = [
   },
   {
     name: "Pulmonology",
-    icon: LungsIcon,
+    icon: Lungs,
     text: "Captures comprehensive data for pulmonary function tests, sleep studies, and chronic lung disease management, ensuring efficient respiratory care.",
   },
   {
