@@ -1,3 +1,4 @@
+
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Box } from "@mui/material";
@@ -16,11 +17,11 @@ interface ResponsiveCarouselProps<T> {
   columnsDesktop?: number;
   columnsTablet?: number;
   columnsMobile?: number;
-  gap?: number | string;
+  gap?: number | string | { xs: number, sm?: number, md?: number, lg?: number };
   itemKey?: (item: T, idx: number) => string | number;
   showControls?: boolean;
-  itemWidth?: number | string;
-  itemHeight?: number | string;
+  itemWidth?: number | string | { xs: number, sm?: number, md?: number, lg?: number };
+  itemHeight?: number | string | { xs: number, sm?: number, md?: number, lg?: number };
   className?: string;
   cardClassName?: string;
   autoPlay?: boolean;
@@ -52,18 +53,23 @@ export function ResponsiveCarousel<T>({
   if (isTablet) columns = columnsTablet;
   if (isMobile) columns = columnsMobile;
 
-  let minCardWidth: string | number = itemWidth ?? 310;
-  let maxCardWidth: string | number = itemWidth ?? 310;
-  let cardHeight: string | number = itemHeight ?? 180;
-  if (isMobile) {
-    minCardWidth = itemWidth ?? 280;
-    maxCardWidth = itemWidth ?? 280;
-    cardHeight = itemHeight ?? 155;
-  } else if (isTablet) {
-    minCardWidth = itemWidth ?? 285;
-    maxCardWidth = itemWidth ?? 285;
-    cardHeight = itemHeight ?? 170;
-  }
+  // Handle responsive sizes
+  const getResponsiveValue = (value: any, defaultVal: number) => {
+    if (value === undefined) return defaultVal;
+    if (typeof value === 'object') {
+      if (isMobile && value.xs !== undefined) return value.xs;
+      if (isTablet && value.sm !== undefined) return value.sm;
+      if (!isMobile && !isTablet && value.md !== undefined) return value.md;
+      if (!isMobile && !isTablet && !isTablet && value.lg !== undefined) return value.lg;
+      return value.xs || defaultVal;
+    }
+    return value;
+  };
+
+  let minCardWidth = getResponsiveValue(itemWidth, isMobile ? 280 : isTablet ? 285 : 310);
+  let maxCardWidth = getResponsiveValue(itemWidth, isMobile ? 280 : isTablet ? 285 : 310);
+  let cardHeight = getResponsiveValue(itemHeight, isMobile ? 155 : isTablet ? 170 : 180);
+  let gapValue = getResponsiveValue(gap, 24);
 
   const autoplayPlugin = React.useMemo(
     () =>
@@ -101,7 +107,7 @@ export function ResponsiveCarousel<T>({
                 minWidth: minCardWidth,
                 maxWidth: maxCardWidth,
                 height: cardHeight,
-                marginRight: gap,
+                marginRight: gapValue,
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "stretch",
@@ -113,6 +119,7 @@ export function ResponsiveCarousel<T>({
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
+                  width: "100%",
                 }}
               >
                 {renderItem(item, idx)}

@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -67,21 +68,21 @@ const combinedTestimonial = {
 
 const WorkflowCard = ({ icon: Icon, title, description, number }) => {
   return (
-    <Card className="relative h-[280px] p-6 transition-all duration-300 hover:shadow-lg border border-gray-100 bg-white overflow-hidden">
+    <Card className="relative h-[280px] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg border border-gray-100 bg-white overflow-hidden">
       <div className="flex flex-col h-full">
         <div className="flex items-start gap-4 mb-4">
-          <div className="p-3 rounded-lg bg-gradient-to-r from-[#143151] to-[#387E89]">
-            <Icon className="w-6 h-6 text-white" />
+          <div className="p-2 sm:p-3 rounded-lg bg-gradient-to-r from-[#143151] to-[#387E89]">
+            <Icon className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
-            <div className="text-sm font-medium mb-1 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">Step {number}</div>
-            <h3 className="text-lg font-semibold mb-2 text-gray-900">{title}</h3>
+            <div className="text-xs sm:text-sm font-medium mb-1 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">Step {number}</div>
+            <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-900">{title}</h3>
           </div>
         </div>
-        <p className="text-gray-600 text-sm leading-relaxed">{description}</p>
+        <p className="text-xs sm:text-sm leading-relaxed text-gray-600">{description}</p>
       </div>
       <div 
-        className="absolute -bottom-6 -right-6 text-[120px] font-bold leading-none bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent opacity-60"
+        className="absolute -bottom-6 -right-6 text-[80px] sm:text-[120px] font-bold leading-none bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent opacity-60"
       >
         {number}
       </div>
@@ -90,12 +91,12 @@ const WorkflowCard = ({ icon: Icon, title, description, number }) => {
 };
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="flex flex-col items-center p-3 md:p-4 rounded-xl bg-gradient-to-br from-[#143151]/[0.05] to-[#387E89]/[0.07] border border-[#387E89]/10 w-full h-full shadow-sm hover:shadow-md transition-all">
-    <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] mb-2">
-      <Icon className="w-6 h-6 text-white" />
+  <div className="flex flex-col items-center p-2 sm:p-3 md:p-4 rounded-xl bg-gradient-to-br from-[#143151]/[0.05] to-[#387E89]/[0.07] border border-[#387E89]/10 w-full h-full shadow-sm hover:shadow-md transition-all">
+    <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] mb-1 sm:mb-2">
+      <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
     </div>
-    <div className="text-2xl md:text-3xl font-bold text-[#143151] mb-1">{value}</div>
-    <div className="text-sm text-gray-800 text-center">{label}</div>
+    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[#143151] mb-0 sm:mb-1">{value}</div>
+    <div className="text-xs sm:text-sm text-gray-800 text-center">{label}</div>
   </div>
 );
 
@@ -133,7 +134,7 @@ const FifthSection = () => {
   ];
 
   return (
-    <section ref={containerRef} className="py-16 px-4 md:px-8 bg-white">
+    <section ref={containerRef} className="py-16 px-4 md:px-8 bg-white overflow-hidden">
       <Box sx={{ maxWidth: '1400px', mx: 'auto' }}>
         <Typography
           variant="h4"
@@ -159,23 +160,23 @@ const FifthSection = () => {
                 <CarouselContent>
                   {beforeAfterCards.map((card, idx) => (
                     <CarouselItem key={idx} className="pl-2 pr-2 basis-full">
-                      <Card className={`p-6 ${card.color === 'red'
+                      <Card className={`p-4 sm:p-6 ${card.color === 'red'
                         ? 'bg-white border border-gray-200'
                         : 'bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/20'} hover:shadow-lg transition-all duration-300`}>
-                        <h3 className={`text-xl font-semibold mb-4 ${card.color === 'red' ? 'text-gray-900' : 'text-[#387E89]'}`}>
+                        <h3 className={`text-lg sm:text-xl font-semibold mb-4 ${card.color === 'red' ? 'text-gray-900' : 'text-[#387E89]'}`}>
                           {card.title}
                         </h3>
                         <div className="space-y-3">
                           {card.metrics.map((metric, index) => (
-                            <div key={index} className={`flex items-center gap-3 p-3 rounded-lg ${card.color === 'red'
+                            <div key={index} className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg ${card.color === 'red'
                               ? 'bg-red-50/50'
                               : 'bg-[#387E89]/10'}`}>
                               {card.color === 'red' ? (
-                                <X className="w-5 h-5 text-red-500" />
+                                <X className="w-4 h-4 sm:w-5 sm:h-5 text-red-500" />
                               ) : (
-                                <Check className="w-5 h-5 text-[#387E89]" />
+                                <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89]" />
                               )}
-                              <span className="text-gray-700">{metric}</span>
+                              <span className="text-sm sm:text-base text-gray-700">{metric}</span>
                             </div>
                           ))}
                         </div>
@@ -184,9 +185,9 @@ const FifthSection = () => {
                   ))}
                 </CarouselContent>
                 <div className="flex justify-center mt-4">
-                  <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                  <div className="flex items-center gap-1 text-gray-500 text-xs sm:text-sm select-none">
                     <span>Swipe to see next</span>
-                    <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
                   </div>
                 </div>
               </Carousel>
@@ -232,7 +233,7 @@ const FifthSection = () => {
           >
             ROI At-a-Glance
           </Typography>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 sm:gap-4 justify-center max-w-5xl mx-auto">
             {Object.values(ROIMetrics).map((metric, idx) => (
               <ROIMetricCard key={idx} icon={metric.icon} value={metric.value} label={metric.label} />
             ))}
@@ -244,14 +245,14 @@ const FifthSection = () => {
             variant="h4"
             fontWeight="bold"
             textAlign="center"
-            sx={{ mb: 2, color: 'black' }}
+            sx={{ mb: 2, color: 'black', fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' } }}
           >
             The Complete Workflow Transformation
           </Typography>
           <Typography
             variant="body1"
             textAlign="center"
-            sx={{ mb: 6, color: 'gray' }}
+            sx={{ mb: 6, color: 'gray', fontSize: { xs: '0.875rem', sm: '1rem' } }}
           >
             Follow our 7-step process to transform your practice
           </Typography>
@@ -264,9 +265,9 @@ const FifthSection = () => {
               }}
               className="w-full"
             >
-              <CarouselContent className="-ml-4">
+              <CarouselContent className="-ml-2 sm:-ml-4">
                 {cardIcons.map((card) => (
-                  <CarouselItem key={card.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <CarouselItem key={card.id} className="pl-2 sm:pl-4 md:basis-1/2 lg:basis-1/3">
                     <WorkflowCard {...card} number={card.id} />
                   </CarouselItem>
                 ))}
@@ -285,9 +286,9 @@ const FifthSection = () => {
             </Carousel>
             {isMobile && (
               <div className="flex justify-center mt-4">
-                <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                <div className="flex items-center gap-1 text-gray-500 text-xs sm:text-sm select-none">
                   <span>Swipe to see next</span>
-                  <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
                 </div>
               </div>
             )}
@@ -299,7 +300,7 @@ const FifthSection = () => {
         </Box>
 
         <div className="flex justify-center mb-16">
-          <button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-transform duration-200 hover:scale-105">
+          <button className="rounded-full px-6 py-4 sm:px-8 sm:py-6 text-base sm:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-transform duration-200 hover:scale-105">
             Book a Demo
           </button>
         </div>

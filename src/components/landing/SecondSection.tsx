@@ -40,8 +40,8 @@ const TestimonialCard = ({ data }) => (
       display: 'flex',
       flexDirection: 'column',
       m: 1,
-      minWidth: { xs: '300px', md: '340px' }, // minimum width for nice side-by-side look
-      maxWidth: { xs: '370px', md: '400px' },
+      minWidth: { xs: '280px', sm: '300px', md: '340px' },
+      maxWidth: { xs: '340px', sm: '370px', md: '400px' },
       flex: '1 1 0',
     }}
   >
@@ -51,13 +51,13 @@ const TestimonialCard = ({ data }) => (
       alt={data.docImgAlt}
       sx={{
         width: "100%",
-        height: { xs: "220px", sm: "250px", md: "230px" },
+        height: { xs: "180px", sm: "220px", md: "230px" },
         objectFit: "cover",
       }}
     />
     <CardContent 
       sx={{ 
-        p: 3,
+        p: { xs: 2, sm: 3 },
         backgroundColor: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
@@ -72,7 +72,7 @@ const TestimonialCard = ({ data }) => (
           fontWeight: 500,
           textAlign: "center",
           lineHeight: 1.6,
-          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.05rem' },
+          fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1.05rem' },
           mb: 2
         }}
       >
@@ -85,7 +85,7 @@ const TestimonialCard = ({ data }) => (
           fontWeight: 600,
           textAlign: "center",
           mt: 'auto',
-          fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1rem' },
+          fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' },
           wordBreak: 'break-word',
           whiteSpace: 'normal'
         }}
@@ -109,10 +109,21 @@ export const SecondSection = () => {
     autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
+    adaptiveHeight: true,
+    arrows: true,
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          arrows: false,
+          dots: true
+        }
+      }
+    ]
   };
 
   return (
-    <section className="py-10 px-2 md:px-8 lg:px-16 bg-white">
+    <section className="py-10 px-2 md:px-8 lg:px-16 bg-white overflow-hidden">
       <Box className="container mx-auto max-w-6xl flex flex-col items-center">
         <Typography 
           variant="h5"
@@ -130,7 +141,7 @@ export const SecondSection = () => {
 
         {isMobile ? (
           // Mobile view with Slider
-          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', maxWidth: '100%', overflow: 'hidden' }}>
             <Slider {...settings} style={{width: '100%', maxWidth: '420px'}}>
               {docRevData.map((value, index) => (
                 <Box key={index} sx={{ px: { xs: 1, md: 2 } }}>

@@ -40,7 +40,7 @@ const Landing = () => {
   };
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
         <title>S10.AI - Next Generation Clinical AI for Healthcare Providers</title>
         <meta name="description" content="S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions." />

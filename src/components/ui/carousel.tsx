@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -197,6 +198,7 @@ const CarouselPrevious = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
   return (
     <Button
@@ -204,10 +206,10 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute rounded-full h-9 w-9",
+        "absolute rounded-full h-8 w-8 sm:h-9 sm:w-9",
         "bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-lg border-none",
         orientation === "horizontal"
-          ? "-left-12 top-1/2 -translate-y-1/2"
+          ? "-left-8 sm:-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         "opacity-90 hover:opacity-100",
         className
@@ -216,7 +218,7 @@ const CarouselPrevious = React.forwardRef<
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft className="h-5 w-5" />
+      <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -228,6 +230,7 @@ const CarouselNext = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
   return (
     <Button
@@ -235,10 +238,10 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute rounded-full h-9 w-9",
+        "absolute rounded-full h-8 w-8 sm:h-9 sm:w-9",
         "bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-lg border-none",
         orientation === "horizontal"
-          ? "-right-12 top-1/2 -translate-y-1/2"
+          ? "-right-8 sm:-right-12 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         "opacity-90 hover:opacity-100",
         className
@@ -247,7 +250,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight className="h-5 w-5" />
+      <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
       <span className="sr-only">Next slide</span>
     </Button>
   )

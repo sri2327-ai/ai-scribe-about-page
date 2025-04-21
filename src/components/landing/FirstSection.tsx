@@ -12,7 +12,7 @@ export const FirstSection = () => {
   const theme = useTheme();
 
   return (
-    <section className="min-h-screen bg-white">
+    <section className="min-h-screen bg-white overflow-hidden">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
         <div className="flex flex-col space-y-16 md:space-y-24">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
@@ -152,7 +152,9 @@ export const FirstSection = () => {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      transform: { xs: 'scale(0.9)', md: 'scale(1)' }
+                      transform: { xs: 'scale(0.9)', md: 'scale(1)' },
+                      maxWidth: '100%',
+                      overflow: 'hidden'
                     }}
                   >
                     <VoiceAnimation />
