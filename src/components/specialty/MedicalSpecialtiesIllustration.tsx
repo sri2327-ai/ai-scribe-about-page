@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Heart, Brain, Microscope, Baby, Bone, Lungs } from 'lucide-react';
+import { Heart, Brain, Microscope, Baby, Bone, Wind } from 'lucide-react';
 
 const MedicalSpecialtiesIllustration = () => {
   return (
@@ -18,7 +18,7 @@ const MedicalSpecialtiesIllustration = () => {
           { Icon: Microscope, position: "bottom-1/4 right-0 translate-x-1/2" },
           { Icon: Baby, position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2" },
           { Icon: Bone, position: "bottom-1/4 left-0 -translate-x-1/2" },
-          { Icon: Lungs, position: "top-1/4 left-0 -translate-x-1/2" },
+          { Icon: Wind, position: "top-1/4 left-0 -translate-x-1/2" },
         ].map(({ Icon, position }, index) => (
           <div
             key={index}
