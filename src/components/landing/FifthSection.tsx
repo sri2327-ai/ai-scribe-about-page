@@ -1,6 +1,7 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Phone, ClipboardList, Bell, FileText, ClipboardCheck,
   Heart, BarChart, ArrowRight, Check, X,
@@ -295,9 +296,17 @@ const FifthSection = () => {
         <Box sx={{ mb: 6 }}>
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
+
+        {/* Added Book a Demo button below the combined testimonial carousel */}
+        <div className="flex justify-center mb-16">
+          <button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-transform duration-200 hover:scale-105">
+            Book a Demo
+          </button>
+        </div>
       </Box>
     </section>
   );
 };
 
 export default FifthSection;
+
