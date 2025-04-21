@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styles from "@/styles/specialties.module.scss";
 import { Separator } from "@/components/ui/separator";
@@ -6,19 +7,18 @@ import {
   Ambulance, 
   Baby, 
   Bone, 
-  EarListen, 
+  Ear, // Changed from EarListen
   Eye, 
-  FlaskVial, 
-  HandHoldingMedical, 
-  Heart, 
+  Flask, // Changed from FlaskVial
+  Heart, // Changed from HandHoldingMedical for Rheumatology
   Hospital, 
-  Lungs, 
+  Lungs as LungsIcon, // Renamed to avoid conflict
   Microscope, 
-  PersonCane, 
-  ShoePrints, 
+  User, // Changed from PersonCane for Geriatrics
+  Footprints, // Changed from ShoePrints
   Sun, 
-  UserNurse, 
-  Venus 
+  Stethoscope, // Changed from UserNurse for Hospital Medicine
+  Female // Changed from Venus for Gynecology
 } from 'lucide-react';
 
 const specialties = [
@@ -39,7 +39,7 @@ const specialties = [
   },
   {
     name: "Urology",
-    icon: FlaskVial,
+    icon: Flask,
     text: "Efficiently captures urological symptoms, imaging reports, and cancer management details, from prostate biopsies to bladder cancer care.",
   },
   {
@@ -54,17 +54,17 @@ const specialties = [
   },
   {
     name: "Hospital Medicine",
-    icon: UserNurse,
+    icon: Stethoscope,
     text: "Facilitates seamless rounding and handoff workflows, daily progress notes, and specialty consults to ensure comprehensive patient care.",
   },
   {
     name: "Geriatrics",
-    icon: PersonCane,
+    icon: User,
     text: "Captures detailed documentation for memory conditions, cognitive assessments, and chronic disease management, providing support for elderly care.",
   },
   {
     name: "Gynecology",
-    icon: Venus,
+    icon: Female,
     text: "From menstrual cycle tracking to hormone replacement therapy, our AI ensures precise documentation for women's health throughout different life stages.",
   },
   {
@@ -74,12 +74,12 @@ const specialties = [
   },
   {
     name: "Pulmonology",
-    icon: Lungs,
+    icon: LungsIcon,
     text: "Captures comprehensive data for pulmonary function tests, sleep studies, and chronic lung disease management, ensuring efficient respiratory care.",
   },
   {
     name: "Rheumatology",
-    icon: HandHoldingMedical,
+    icon: Heart,
     text: "Documents joint involvement, treatment response, and family histories of rheumatologic conditions for precise care.",
   },
   {
@@ -89,7 +89,7 @@ const specialties = [
   },
   {
     name: "ENT",
-    icon: EarListen,
+    icon: Ear,
     text: "Documents sleep apnea, CPAP therapy, and previous surgical interventions, supporting comprehensive otolaryngologic care.",
   },
   {
@@ -104,7 +104,7 @@ const specialties = [
   },
   {
     name: "Podiatrists",
-    icon: ShoePrints,
+    icon: Footprints,
     text: "Assists podiatrists in capturing detailed foot and ankle assessments, surgical histories, and treatment plans, ensuring precise documentation for all podiatric care needs.",
   }
 ];
