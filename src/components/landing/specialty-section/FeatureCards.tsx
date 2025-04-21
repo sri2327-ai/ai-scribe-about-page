@@ -28,6 +28,10 @@ export const FeatureCards = () => {
     }
   ];
 
+  // Uniform card size for all views
+  const cardWidth = 330;
+  const cardHeight = 190;
+
   return (
     <Box sx={{ width: '100%', mt: 2 }}>
       <ResponsiveCarousel
@@ -37,22 +41,28 @@ export const FeatureCards = () => {
         columnsMobile={1}
         gap={20}
         showControls={true}
-        itemWidth={null}
+        controlsBelow={true}
+        itemWidth={cardWidth}
+        itemHeight={cardHeight}
         cardClassName="flex flex-col h-full justify-between"
         renderItem={(item, index) => (
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: 1.5,
+              justifyContent: 'flex-start',
+              gap: 2,
               background: '#FFF',
               border: '1px solid #E0E0E0',
               borderRadius: 3,
               boxShadow: '0 4px 12px 0px rgba(20, 49, 81, 0.06)',
-              height: { xs: 220, md: 200 },
-              minHeight: 160,
-              p: { xs: 2.3, sm: 3 },
+              height: '100%',
+              minHeight: cardHeight,
+              minWidth: cardWidth,
+              maxWidth: cardWidth,
+              p: { xs: 2.4, sm: 3.1 },
               transition: 'all 0.18s',
+              overflow: "hidden",
               "&:hover": {
                 boxShadow: '0 8px 24px 0 rgba(56,126,137,0.13)',
                 borderColor: '#387E89'
@@ -76,7 +86,8 @@ export const FeatureCards = () => {
                 color: '#27425B',
                 opacity: 0.85,
                 fontSize: { xs: '0.97rem', sm: '1.03rem', md: '1.08rem' },
-                fontWeight: 400
+                fontWeight: 400,
+                flexGrow: 1,
               }}
             >
               {item.description}
@@ -87,3 +98,4 @@ export const FeatureCards = () => {
     </Box>
   );
 };
+
