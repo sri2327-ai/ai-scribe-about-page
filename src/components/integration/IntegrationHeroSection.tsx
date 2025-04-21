@@ -45,17 +45,28 @@ const IntegrationHeroSection = () => {
             S10.AI accelerates your workflow with lightning-fast, bidirectional integration 
             across EHR, PMS, SIP, TeleHealth, Platform, Calendar, Cloud Storage, and Email Systems.
           </Typography>
-          <button
-            className="rounded-full px-8 py-4 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all font-semibold"
-          >
-            Learn More
-          </button>
+          {!isMobile && (
+            <button
+              className="rounded-full px-8 py-4 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all font-semibold"
+            >
+              Learn More
+            </button>
+          )}
         </div>
-        <div className={`order-2 md:order-2 flex justify-center md:justify-end ${isMobile ? 'mt-8' : ''}`}>
+        <div className={`order-2 md:order-2 flex justify-center md:justify-end ${isMobile ? 'mt-2' : ''}`}>
           <div className="max-w-[500px] w-full">
             <HeroPieChartIllustration />
           </div>
         </div>
+        {isMobile && (
+          <div className="order-3 flex justify-center w-full mt-2">
+            <button
+              className="rounded-full px-8 py-4 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all font-semibold"
+            >
+              Learn More
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

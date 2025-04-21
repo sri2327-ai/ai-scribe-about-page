@@ -56,7 +56,7 @@ const EmailTab = () => {
           <div className="w-full overflow-hidden">
             <Marquee
               gradient={true}
-              gradientColor={[20, 49, 81]}
+              gradientColor={"#143151"}
               speed={40}
               pauseOnHover={true}
               className="py-2"
@@ -79,7 +79,7 @@ const EmailTab = () => {
           <div className="w-full overflow-hidden">
             <Marquee
               gradient={true}
-              gradientColor={[20, 49, 81]}
+              gradientColor={"#143151"}
               speed={40}
               pauseOnHover={true}
               className="py-2"
