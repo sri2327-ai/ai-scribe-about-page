@@ -94,9 +94,9 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
         sx={{ 
           background: 'white',
           borderRadius: '12px',
-          p: { xs: 2.2, sm: 2.9, md: 3.3 },
-          minHeight: { xs: 260, sm: 260, md: 255, lg: 264 },
-          height: '100%',
+          // Ensures enough space for ALL content & prevents clipping:
+          minHeight: { xs: 320, sm: 320, md: 320, lg: 340 },
+          height: "100%", // let ResponsiveCarousel manage actual pixel height
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
@@ -104,6 +104,9 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
           transition: 'all 0.23s',
           boxShadow: '0 4px 14px -1px rgba(20,49,81,0.09)',
           border: '1px solid #E0E0E0',
+          p: { xs: 2.5, sm: 3.4, md: 3.6 },
+          // Overflow visible to avoid description being cut off 
+          overflow: 'visible',
           "&:hover": {
             transform: 'translateY(-8px) scale(1.03)',
             boxShadow: '0 14px 30px -5px rgba(20,49,81,0.17)', 
@@ -181,7 +184,7 @@ ComplianceCard.displayName = 'ComplianceCard';
 
 const TenthSection = () => {
   return (
-    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-14 md:py-16 relative overflow-hidden bg-gray-50">
+    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-14 md:py-16 relative overflow-visible bg-gray-50">
       <Box sx={{
         maxWidth: '1400px',
         mx: 'auto',
@@ -248,7 +251,10 @@ const TenthSection = () => {
               columnsMobile={1}
               gap={26}
               showControls={true}
-              itemWidth={null}
+              controlsBelow={true} // Moves arrow controls below & centers them
+              itemWidth={370} // Wider card to fit more text, especially long titles/details
+              itemHeight={340} // Give enough space to never cut content
+              cardClassName="flex flex-col h-full justify-between"
               itemKey={(card, idx) => `${card.title}-${idx}`}
               renderItem={(card, index) => (
                 <ComplianceCard card={card} index={index} />
