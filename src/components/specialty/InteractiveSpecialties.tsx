@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from "@/components/ui/input";
@@ -41,11 +40,16 @@ const InteractiveSpecialties = () => {
                 <Button
                   key={specialty}
                   variant={selectedSpecialty === specialty ? "default" : "outline"}
-                  className={`whitespace-normal text-sm h-auto py-2 ${selectedSpecialty === specialty ? 'bg-[#143151] hover:bg-[#143151]/90' : ''}`}
+                  className={`group whitespace-normal text-sm h-auto py-2 relative overflow-hidden ${
+                    selectedSpecialty === specialty 
+                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:from-[#143151] hover:to-[#387E89]' 
+                      : 'hover:text-white hover:border-transparent'
+                  }`}
                   onClick={() => handleSpecialtyClick(specialty)}
                 >
-                  <SpecialtyIcon className="w-4 h-4 mr-2" />
-                  {specialtyData[specialty].title}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <SpecialtyIcon className="w-4 h-4 mr-2 relative z-10 transition-colors duration-300 group-hover:text-white" />
+                  <span className="relative z-10">{specialtyData[specialty].title}</span>
                 </Button>
               );
             })}
@@ -69,30 +73,14 @@ const InteractiveSpecialties = () => {
               </p>
 
               <div className="space-y-6">
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-[#143151] mb-2">Previous Notes Integration</h4>
-                  <p className="text-gray-700">{specialtyData[selectedSpecialty].detailedContent.previousNotes}</p>
-                </div>
-
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-[#143151] mb-2">Specialty-Specific HPI</h4>
-                  <p className="text-gray-700">{specialtyData[selectedSpecialty].detailedContent.specialtyHPI}</p>
-                </div>
-
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-[#143151] mb-2">Comprehensive History Section</h4>
-                  <p className="text-gray-700">{specialtyData[selectedSpecialty].detailedContent.historySection}</p>
-                </div>
-
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-[#143151] mb-2">AI-Generated Notes</h4>
-                  <p className="text-gray-700">{specialtyData[selectedSpecialty].detailedContent.aiNotes}</p>
-                </div>
-
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <h4 className="font-semibold text-[#143151] mb-2">Specialty ICD-10 Codes</h4>
-                  <p className="text-gray-700">{specialtyData[selectedSpecialty].detailedContent.icdCodes}</p>
-                </div>
+                {Object.entries(specialtyData[selectedSpecialty].detailedContent).map(([key, content]) => (
+                  <div key={key} className="bg-[#FDF4F8] p-4 rounded-lg">
+                    <h4 className="font-semibold text-[#143151] mb-2">
+                      {key.split(/(?=[A-Z])/).join(' ')}
+                    </h4>
+                    <p className="text-gray-700">{content}</p>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
