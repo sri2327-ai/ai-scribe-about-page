@@ -124,15 +124,17 @@ export const SecondSection = () => {
   
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16">
-      <Box className="container mx-auto max-w-6xl"> {/* max-w-6xl for nicely centered narrower container */}
+      {/* max-w-6xl for nicely centered narrower container */}
+      <Box className="container mx-auto max-w-6xl">
         <Typography 
-          variant="h4"  {/* Changed from h3 to h4 for smaller size */}
+          variant="h4"
           sx={{ 
             textAlign: "center",
             color: "#000000",
             fontWeight: "bold",
             mb: { xs: 6, md: 8 },
-            fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" } /* Smaller font sizes */
+            /* Smaller font sizes */
+            fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" }
           }}
         >
           Trusted By Leading Healthcare Organisations
