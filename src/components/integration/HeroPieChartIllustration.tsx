@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   ChartPie,
@@ -12,7 +11,6 @@ import {
   SquarePlus,
 } from "lucide-react";
 
-// PIE SEGMENTS: System type, icon, caption, gradient
 const PIE_SEGMENTS = [
   { label: "EHR",           icon: SquareCheck,   gradient: "from-[#95e8ff] via-[#9b87f5] to-[#0ea5e9]" },
   { label: "PMS",           icon: SquarePlus,    gradient: "from-[#cbf7fc] to-[#7ccba0]" },
@@ -30,9 +28,6 @@ const r = 102;
 const size = 256;
 const segmentAngle = 360 / PIE_SEGMENTS.length;
 
-/**
- * Individual floating badge for a pie chart segment
- */
 function FloatingSegmentBadge({
   x,
   y,
@@ -101,7 +96,6 @@ function FloatingSegmentBadge({
 }
 
 function getPositionOnArc(cx: number, cy: number, r: number, angle: number, distanceOut: number = 36) {
-  // Shift out by "distanceOut" past the arc (for badge)
   const rad = ((angle - 90) * Math.PI) / 180.0;
   return {
     x: cx + (r + distanceOut) * Math.cos(rad),
@@ -120,7 +114,6 @@ function PieSegment({
   colorId: string;
   delay: number;
 }) {
-  // Draw pie segment with animated drop
   const start = polarToCartesian(cx, cy, r, endAngle);
   const end = polarToCartesian(cx, cy, r, startAngle);
   const largeArcFlag = endAngle - startAngle > 180 ? 1 : 0;
@@ -158,9 +151,6 @@ function polarToCartesian(
   };
 }
 
-/**
- * The modern animated Pie Chart SVG with CRUSH/BRAVO-inspired aesthetics
- */
 const PieChartModern: React.FC = () => {
   let angle = 0;
   return (
@@ -171,7 +161,6 @@ const PieChartModern: React.FC = () => {
         minHeight: 260,
       }}
     >
-      {/* Floating "badges" for segment, with icon+label */}
       {PIE_SEGMENTS.map((seg, i) => {
         const midAngle = angle + segmentAngle / 2;
         const badgePos = getPositionOnArc(cx, cy, r, midAngle, 46);
@@ -190,7 +179,6 @@ const PieChartModern: React.FC = () => {
         return out;
       })}
 
-      {/* Main SVG pie chart */}
       <svg
         width={size}
         height={size}
@@ -203,7 +191,6 @@ const PieChartModern: React.FC = () => {
           overflow: "visible",
         }}
       >
-        {/* SVG Gradients */}
         <defs>
           <radialGradient
             id="modern-glass"
@@ -213,7 +200,6 @@ const PieChartModern: React.FC = () => {
             <stop offset="0%" stopColor="#f9fafc" stopOpacity="0.98" />
             <stop offset="100%" stopColor="#e7e6fb" stopOpacity="0.65" />
           </radialGradient>
-          {/* Pie segment linear gradients for smooth segment colors */}
           <linearGradient id="seg0" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0.1" stopColor="#95e8ff" />
             <stop offset="0.7" stopColor="#9b87f5" />
@@ -243,7 +229,6 @@ const PieChartModern: React.FC = () => {
           </linearGradient>
         </defs>
 
-        {/* Glassy background */}
         <ellipse
           cx={cx}
           cy={cy + 17}
@@ -262,7 +247,6 @@ const PieChartModern: React.FC = () => {
             filter: "blur(2.8px)",
           }}
         />
-        {/* PIE SEGMENTS */}
         {PIE_SEGMENTS.map((seg, i) => {
           const startAngle = i * segmentAngle;
           const endAngle = (i + 1) * segmentAngle;
@@ -277,7 +261,6 @@ const PieChartModern: React.FC = () => {
           );
         })}
 
-        {/* Center circle */}
         <circle
           cx={cx}
           cy={cy}
@@ -288,7 +271,6 @@ const PieChartModern: React.FC = () => {
             filter: "drop-shadow(0 1px 22px #8b5cf674) drop-shadow(0 1px 30px #b6ecfc8e)",
           }}
         />
-        {/* Glass-effect inner center */}
         <circle
           cx={cx}
           cy={cy}
@@ -300,10 +282,9 @@ const PieChartModern: React.FC = () => {
           }}
         />
 
-        {/* Central logo text */}
         <text
           x={cx}
-          y={cy - 2}
+          y={cy + 8}
           textAnchor="middle"
           fill="#387E89"
           fontWeight="bold"
@@ -317,21 +298,6 @@ const PieChartModern: React.FC = () => {
           }}
         >
           S10.AI
-        </text>
-        <text
-          x={cx}
-          y={cy + 22}
-          textAnchor="middle"
-          fill="#00b4d6"
-          fontFamily="'Inter',sans-serif"
-          fontSize="0.99rem"
-          style={{
-            fontWeight: 700,
-            letterSpacing: ".045em",
-            filter: "drop-shadow(0 0.5px 6px #021b2b30)",
-          }}
-        >
-          INTEGRATES EVERYTHING
         </text>
         <style>
           {`
@@ -352,26 +318,31 @@ const PieChartModern: React.FC = () => {
 };
 
 const HeroPieChartIllustration = () => (
-  <div
-    className="hover-scale"
-    style={{
-      maxWidth: 410,
-      width: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      background: "linear-gradient(109.6deg,rgba(223,234,247,0.70) 11.2%,rgba(244,248,252,0.35) 91.1%)",
-      borderRadius: 32,
-      padding: "1.37rem 1.1rem",
-      boxShadow: "0 7px 38px rgba(24, 65, 96, 0.10), 0 3.5px 18px 0 rgba(17, 17, 17, 0.12)",
-      backdropFilter: "blur(6.5px)",
-      WebkitBackdropFilter: "blur(6.5px)",
-      transition: "box-shadow 0.24s cubic-bezier(.17,.67,.82,.31)",
-      minWidth: 260,
-      minHeight: 260,
-    }}
-  >
-    <PieChartModern />
+  <div className="flex flex-col items-center gap-4">
+    <div
+      className="hover-scale"
+      style={{
+        maxWidth: 410,
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(109.6deg,rgba(223,234,247,0.70) 11.2%,rgba(244,248,252,0.35) 91.1%)",
+        borderRadius: 32,
+        padding: "1.37rem 1.1rem",
+        boxShadow: "0 7px 38px rgba(24, 65, 96, 0.10), 0 3.5px 18px 0 rgba(17, 17, 17, 0.12)",
+        backdropFilter: "blur(6.5px)",
+        WebkitBackdropFilter: "blur(6.5px)",
+        transition: "box-shadow 0.24s cubic-bezier(.17,.67,.82,.31)",
+        minWidth: 260,
+        minHeight: 260,
+      }}
+    >
+      <PieChartModern />
+    </div>
+    <p className="text-[#00b4d6] font-bold tracking-wider text-sm">
+      INTEGRATES EVERYTHING
+    </p>
   </div>
 );
 
