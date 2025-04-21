@@ -5,9 +5,9 @@ import MedicalSpecialtiesIllustration from './MedicalSpecialtiesIllustration';
 
 const SpecialtiesBanner = () => {
   return (
-    <section className="min-h-screen w-full bg-white">
+    <section className="w-full bg-white pt-24 md:pt-32">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <div className="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12">
           {/* Left side content */}
           <div className="w-full md:w-1/2 text-left space-y-6">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#143151] leading-tight">
