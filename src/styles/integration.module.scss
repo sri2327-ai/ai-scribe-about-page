@@ -1,0 +1,342 @@
+
+/* Use your provided CSS directly */
+/* ... Place the complete users' integration.module.scss code here ... */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem;
+    height: 80vh;
+   
+  }
+  .leftSection {
+    width: 46%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .title {
+    color: #004e70;
+    line-height: 1.2;
+  }
+  .subtitle {
+    color: #004e70;
+  }
+.button{
+  width: 20%;
+}
+  .rightSection {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .gradientCircle {
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+  }
+  .circleText {
+    line-height: 1.5;
+    color: #045072;
+  }
+  .staticToggleWrapper {
+    padding-left: 12px;
+  }
+  .staticToggleCircle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #f2f5f7;
+  }
+  .healthcareSection {
+    padding: 4rem 2rem;
+    background-color: #fff;
+  }
+  .healthcareTitle {
+    text-align: center;
+    color: #003b5c;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .healthcareSubtitle {
+    text-align: left !important;
+    color: #004e70;
+    margin-top: 3rem;
+  }
+  .cardSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .cardContainer {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .card {
+    background: linear-gradient(to right, #6c98a5, #014b70);
+    color: white;
+    padding: 2rem;
+    width: 400px;
+    height: 400px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    align-items: center;
+  }
+  .cardTitle {
+    margin-bottom: 1rem;
+  }
+  .cardText {
+    line-height: 1.5;
+  }
+  .buttonWrapper {
+    margin-top: 2rem;
+  }
+  .outlinedButton {
+    padding: 0.75rem 2rem;
+    background-color: transparent;
+    color: #014b70;
+    border: 2px solid #014b70;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .outlinedButton:hover {
+    background-color: #014b70;
+    color: #fff;
+  }
+  .integrationWrapper {
+    padding: 2rem;
+  }
+  .headerText{
+    text-align: center;
+    margin-bottom:2rem ;
+  }
+  .tabHeader {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tabCard {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    flex: 1;
+    min-width: 200px;
+    max-width: 260px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    transition: border 0.3s, background 0.3s;
+    h4 {
+      margin: 0;
+    }
+    p {
+      margin: 0;
+      color: #555;
+    }
+    .icon {
+      color: #5192AE;
+    }
+    &.active {
+      border: 2px solid #3b82f6;
+      background-color: #f0f8ff;
+    }
+  }
+  .tabContent {
+    background: #f9f9f9;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    min-height: 200px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .platforms {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    span {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+    }
+  }
+  .whyChooseWrapper {
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: #fff;
+    .title {
+      margin-bottom: 2.5rem;
+    }
+    .cardsGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      justify-content: center;
+      margin: 0 auto;
+      max-width: 990px; // Optional: limit the width for better layout
+    }
+    .featureCard {
+      background: #f7f9fc;
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: left;
+      transition: box-shadow 0.3s ease;
+      &:hover {
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+      }
+      .icon {
+        margin-bottom: 0.5rem;
+        color: #1a1a1a;
+      }
+      p {
+        color: #555;
+        margin-top: 0.4rem;
+      }
+    }
+  }
+  .awsWrapper {
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  .awsHeader {
+    margin-bottom: 2rem;
+  }
+  .awsLogo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    img {
+      height: 30px;
+    }
+  }
+  .awsFeatures {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+  }
+  .featureCard {
+    background: #f7f9fc;
+    border-radius: 10px;
+    padding: 1.5rem;
+    max-width: 250px;
+    text-align: left;
+    .featureIcon {
+      margin-bottom: 0.5rem;
+      color: #000;
+    }
+    p {
+      color: #555;
+      margin-top: 0.5rem;
+    }
+  }
+  .ctaSection {
+    background-color: #f0f2f5;
+    padding: 2rem;
+    border-radius: 12px;
+    .ctaTitle {
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .demoButton {
+      background-color: #1e1e2f;
+      color: #fff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+    }
+  }
+  .tabContentWrapper {
+    display: flex;
+    gap: 2rem;
+    height: 60vh;
+  }
+  .tabLeft {
+    flex: 1;
+  }
+  .tabRight {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .featureItem {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    .icon {
+      margin-right: 10px;
+      margin-top: 5px;
+      color: #5192AE;
+    }
+    p {
+      margin: 4px 0 0;
+    }
+  }
+  .ehrTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    span {
+      display: flex;
+      align-items: center;
+      padding: 6px 12px;
+      background-color: #f3f3f3;
+      border-radius: 8px;
+      color: #5192AE;
+    }
+  }
+  .scrollWrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 50px; // Adjust as needed
+  }
+  .ehrscroll {
+    display: flex;
+    gap: 10px;
+    white-space: nowrap;
+    position: absolute;
+    left: 50%;
+    transform: translateX(0); // Start from center visually
+    animation: scroll-left 20s linear infinite;
+    span {
+      display: flex;
+      align-items: center;
+      padding: 6px 12px;
+      background-color: #f3f3f3;
+      border-radius: 8px;
+      color: #5192AE;
+      flex-shrink: 0;
+    }
+  }
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0); // Start at center
+    }
+    100% {
+      transform: translateX(-200%); // Adjust based on total content length
+    }
+  }
