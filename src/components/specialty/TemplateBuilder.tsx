@@ -321,7 +321,7 @@ const TemplateBuilder = () => {
                                 placeholder="Enter section content..."
                                 className="text-sm min-h-[60px]"
                                 value={section.content}
-                                onChange={(e) => updateSectionContent(section.id, e.target.content)}
+                                onChange={(e) => updateSectionContent(section.id, e.target.value)}
                               />
 
                               <div className="flex justify-end">
