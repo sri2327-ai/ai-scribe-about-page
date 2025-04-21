@@ -1,4 +1,3 @@
-
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react";
@@ -36,9 +35,9 @@ export const NinthSection = () => {
     Rocket,      // Seamless Automation
   ];
 
-  // Increased card size for more room
-  const cardWidth = 430;
-  const cardHeight = 430; // Increased height to avoid content being cut off
+  // Reduced card size for better UX
+  const cardWidth = 320;
+  const cardHeight = 340;
 
   return (
     <section
@@ -87,13 +86,13 @@ export const NinthSection = () => {
         </Box>
       </Stack>
 
-      <Box sx={{ mb: 4, maxWidth: "1450px", mx: "auto", px: { xs: 2, md: 4 } }}>
+      <Box sx={{ mb: 4, maxWidth: "1400px", mx: "auto", px: { xs: 2, md: 4 } }}>
         <ResponsiveCarousel
           items={cards}
           columnsDesktop={3}
           columnsTablet={2}
           columnsMobile={1}
-          gap={45} // Increased gap between cards
+          gap={24}
           itemWidth={cardWidth}
           itemHeight={cardHeight}
           controlsBelow={true}
@@ -116,123 +115,86 @@ export const NinthSection = () => {
                 <Box
                   sx={{
                     height: "100%",
-                    minHeight: cardHeight,
                     width: "100%",
-                    maxWidth: cardWidth,
                     background: "#FFF",
-                    borderRadius: 4.5,
-                    p: { xs: 4, sm: 5 },
+                    borderRadius: 3,
+                    p: { xs: 4, sm: 4 },
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
                     alignItems: "center",
                     boxShadow: "0 4px 22px 0px rgba(20, 49, 81, 0.09)",
-                    border: "1.5px solid #E0E0E0",
+                    border: "1px solid #E0E0E0",
                     cursor: "pointer",
                     transition: "all 0.34s",
                     overflow: "hidden",
                     "&:hover": {
-                      background:
-                        "linear-gradient(135deg, #143151, #387E89)",
+                      background: "linear-gradient(135deg, #143151, #387E89)",
                       ".title": { color: "#FFF" },
                       ".description": { color: "#FFF", opacity: 1 },
                       ".icon-gradient": {
-                        background:
-                          "linear-gradient(135deg, #387E89, #143151)",
+                        background: "linear-gradient(135deg, #387E89, #143151)",
                       },
                       ".icon-svg": {
-                        color: "#FFF !important",
+                        color: "#FFF",
                         filter: "drop-shadow(0 4px 12px #387E8966)",
                       },
                     },
                   }}
                 >
-                  {/* Icon with correct proportions */}
                   <Box
                     className="icon-gradient"
                     sx={{
-                      alignSelf: "center",
-                      width: 74,
-                      height: 74,
+                      width: 60,
+                      height: 60,
                       borderRadius: "50%",
                       background: "linear-gradient(135deg, #143151, #387E89)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       boxShadow: "0 3px 20px 0px #14315126",
-                      mb: 3.5,
-                      mt: 0.5,
+                      mb: 3,
                     }}
                   >
                     <Icon
                       className="icon-svg"
-                      size={44}
+                      size={32}
                       color="#FFF"
-                      strokeWidth={2.3}
+                      strokeWidth={2}
                     />
                   </Box>
                   <Typography
                     className="title"
                     variant="h6"
                     component="h3"
-                    fontWeight={700}
                     sx={{
                       color: "#143151",
-                      fontSize: { xs: "1.33rem", sm: "1.5rem" },
+                      fontSize: { xs: "1.25rem", sm: "1.35rem" },
+                      fontWeight: 600,
                       textAlign: "center",
                       transition: "color 0.34s",
-                      mb: 2.6,
-                      lineHeight: 1.29,
-                      letterSpacing: 0.25,
-                      maxWidth: "85%",
+                      mb: 2,
+                      px: 2,
                     }}
                   >
                     {card.title}
                   </Typography>
                   <Typography
                     className="description"
-                    variant="body2"
+                    variant="body1"
                     sx={{
                       color: "#386381",
                       opacity: 0.93,
                       transition: "all 0.32s",
                       textAlign: "center",
-                      fontWeight: 400,
-                      letterSpacing: 0.01,
-                      mb: 3.7,
-                      fontSize: { xs: "1.11rem", sm: "1.16rem" },
-                      lineHeight: 1.85,
-                      maxWidth: 350,
-                      mx: "auto",
-                      wordBreak: "break-word",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 4,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
+                      fontSize: { xs: "1rem", sm: "1.1rem" },
+                      lineHeight: 1.6,
+                      px: 3,
+                      mb: 3,
                     }}
                   >
                     {card.description}
                   </Typography>
-                  <Box
-                    className="icon-box"
-                    sx={{
-                      alignSelf: "center",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 38,
-                      height: 38,
-                      borderRadius: "50%",
-                      background: "#F1F5F9",
-                      color: "#387E89",
-                      fontSize: "1.4rem",
-                      boxShadow: "0 1px 7px 0px rgba(20, 49, 81, 0.05)",
-                      mb: 0,
-                      mt: "auto",
-                    }}
-                  >
-                    <ArrowUpRight className="h-6 w-6" />
-                  </Box>
                 </Box>
               </motion.div>
             );

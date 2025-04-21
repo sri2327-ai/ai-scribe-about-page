@@ -12,6 +12,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { TestimonialCard } from './TestimonialCard';
+import { useMediaQuery } from '@mui/material';
 
 const tabAccData = {
   "The S10.AI Advantage": [
@@ -158,6 +159,7 @@ const testimonials = [
 
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
+  const isMobile = useMediaQuery('(max-width:768px)');
   
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -230,8 +232,8 @@ export const ThirdSection = () => {
           </Tabs>
         </Box>
 
-        <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
-          <Box className="lg:col-span-2">
+        <Box className={`grid ${isMobile ? 'grid-cols-1' : 'grid-cols-12'} gap-8 w-full`}>
+          <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-6">
               {Object.values(tabAccData).map((value, index) => (
                 tabValue === index && (
@@ -281,28 +283,55 @@ export const ThirdSection = () => {
             </div>
           </Box>
 
-          <Box component="aside" className="lg:col-span-1">
-            <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white">
-              <div className="aspect-video w-full">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/unmWENGNuo4"
-                  title="S10.AI Healthcare Solutions Demo"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ border: "none" }}
-                  loading="lazy"
-                />
+          {!isMobile && (
+            <Box component="aside" className="col-span-5">
+              <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white h-fit">
+                <div className="aspect-video w-full">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/unmWENGNuo4"
+                    title="S10.AI Healthcare Solutions Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ border: "none" }}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h4 className="text-xl font-semibold text-[#387E89] mb-2">Watch Our Solution in Action</h4>
+                  <p className="text-gray-600">
+                    See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
+                  </p>
+                </div>
               </div>
-              <div className="p-6">
-                <h4 className="text-xl font-semibold text-[#387E89] mb-2">Watch Our Solution in Action</h4>
-                <p className="text-gray-600">
-                  See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
-                </p>
+            </Box>
+          )}
+
+          {isMobile && (
+            <Box component="aside" className="mt-8">
+              <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white h-fit">
+                <div className="aspect-video w-full">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/unmWENGNuo4"
+                    title="S10.AI Healthcare Solutions Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ border: "none" }}
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-6">
+                  <h4 className="text-xl font-semibold text-[#387E89] mb-2">Watch Our Solution in Action</h4>
+                  <p className="text-gray-600">
+                    See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
+                  </p>
+                </div>
               </div>
-            </div>
-          </Box>
+            </Box>
+          )}
         </Box>
 
         <div className="mt-12 relative px-4 w-full max-w-3xl mx-auto">
