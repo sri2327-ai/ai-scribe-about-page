@@ -39,7 +39,6 @@ export const FeatureCards = () => {
         width: '100%', 
         background: 'linear-gradient(135deg, #143151, #387E89)',
         padding: { xs: '32px 16px', sm: '40px 24px', md: '48px 32px' },
-        borderRadius: 2,
         color: 'white',
         overflow: 'hidden',
         position: 'relative'
@@ -160,3 +159,4 @@ export const FeatureCards = () => {
     </Box>
   );
 };
+
