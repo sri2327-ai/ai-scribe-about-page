@@ -1,10 +1,11 @@
+
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   Phone, ClipboardList, Bell, FileText, ClipboardCheck, 
   Heart, BarChart, ArrowRight, Check, X,
-  Clock, TrendingUp, ThumbsUp, DollarSign, Users
+  Clock, TrendingUp, ThumbsUp, DollarSign, Users, ChevronRight
 } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
 import {
@@ -16,7 +17,25 @@ import {
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { globalCss } from '@stitches/react';
+
+// Define a keyframe animation for the arrow
+const moveRightKeyframe = `
+@keyframes moveRight {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+}
+`;
+
+// Add the keyframe animation to the document
+React.useEffect(() => {
+  const styleElement = document.createElement('style');
+  styleElement.textContent = moveRightKeyframe;
+  document.head.appendChild(styleElement);
+  
+  return () => {
+    document.head.removeChild(styleElement);
+  };
+}, []);
 
 const beforeAfterComparison = {
   before: {
@@ -141,7 +160,6 @@ export const FifthSection = () => {
                 align: "center",
                 loop: true,
                 dragFree: true,
-                speed: 5,
               }}
               plugins={[]}
               className="w-full"
@@ -180,7 +198,7 @@ export const FifthSection = () => {
             <div className="flex justify-center mt-4">
               <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
                 <span>Swipe to see next</span>
-                <ChevronRight className="w-6 h-6 animate-[moveRight_1.5s_ease-in-out_infinite]" />
+                <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
               </div>
             </div>
             </>
