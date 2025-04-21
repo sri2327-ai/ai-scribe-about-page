@@ -1,7 +1,7 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Bulb, Shield, Award, Rocket } from "lucide-react"; // Only use allowed icons
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 export const NinthSection = () => {
@@ -26,6 +26,14 @@ export const NinthSection = () => {
       description:
         "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization.",
     },
+  ];
+
+  // Icon mapping per card (in correct order)
+  const iconMap = [
+    Bulb,   // Science-Driven AI
+    Shield, // Cross-Lingual Precision
+    Award,  // Clinician-Centric
+    Rocket, // Seamless Automation
   ];
 
   // Increased card size for better readability
@@ -89,99 +97,120 @@ export const NinthSection = () => {
           itemHeight={cardHeight}
           controlsBelow={true}
           showControls={true}
-          renderItem={(card, index) => (
-            <motion.div
-              layout
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -18 }}
-              transition={{ duration: 0.36, delay: (index % 4) * 0.06 }}
-              whileHover={{
-                y: -5,
-                transition: { duration: 0.2 }
-              }}
-              style={{ height: "100%" }}
-            >
-              <Box
-                sx={{
-                  height: '100%',
-                  minHeight: cardHeight,
-                  minWidth: cardWidth,
-                  maxWidth: cardWidth,
-                  background: "#FFF",
-                  borderRadius: 3,
-                  p: { xs: 3.5, sm: 4 },
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  transition: "all 0.3s",
-                  boxShadow: "0 4px 18px 0px rgba(20, 49, 81, 0.06)",
-                  border: "1px solid #E0E0E0",
-                  cursor: "pointer",
-                  "&:hover": {
-                    background: "linear-gradient(135deg, #143151, #387E89)",
-                    ".title": { color: "#FFF" },
-                    ".description": { color: "#FFF", opacity: 1 },
-                    ".icon-box": { 
-                      color: "#FFF", 
-                      background: "rgba(255, 255, 255, 0.2)" 
-                    },
-                  },
+          renderItem={(card, index) => {
+            const Icon = iconMap[index];
+            return (
+              <motion.div
+                layout
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -18 }}
+                transition={{ duration: 0.36, delay: (index % 4) * 0.06 }}
+                whileHover={{
+                  y: -5,
+                  transition: { duration: 0.2 }
                 }}
+                style={{ height: "100%" }}
               >
-                <Typography
-                  className="title"
-                  variant="h6"
-                  fontWeight={700}
-                  sx={{
-                    color: "#143151",
-                    transition: "color 0.3s",
-                    textAlign: "center",
-                    mb: 2.5,
-                    fontSize: { xs: "1.15rem", sm: "1.25rem" }
-                  }}
-                >
-                  {card.title}
-                </Typography>
-                <Typography
-                  className="description"
-                  variant="body2"
-                  sx={{
-                    color: "#386381",
-                    opacity: 0.93,
-                    transition: "all 0.32s",
-                    textAlign: "center",
-                    mb: 3,
-                    fontSize: { xs: "1rem", sm: "1.05rem" },
-                    lineHeight: 1.7
-                  }}
-                >
-                  {card.description}
-                </Typography>
                 <Box
-                  className="icon-box"
                   sx={{
+                    height: '100%',
+                    minHeight: cardHeight,
+                    minWidth: cardWidth,
+                    maxWidth: cardWidth,
+                    background: "#FFF",
+                    borderRadius: 3,
+                    p: { xs: 3.5, sm: 4 },
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    transition: "all 0.3s",
+                    boxShadow: "0 4px 18px 0px rgba(20, 49, 81, 0.06)",
+                    border: "1px solid #E0E0E0",
+                    cursor: "pointer",
+                    "&:hover": {
+                      background: "linear-gradient(135deg, #143151, #387E89)",
+                      ".title": { color: "#FFF" },
+                      ".description": { color: "#FFF", opacity: 1 },
+                      ".icon-gradient": {
+                        background: "linear-gradient(135deg, #143151, #387E89)"
+                      },
+                      ".icon-svg": {
+                        color: "#FFF"
+                      }
+                    },
+                  }}
+                >
+                  <Box className="icon-gradient" sx={{
                     alignSelf: "center",
+                    width: 52,
+                    height: 52,
+                    borderRadius: "50%",
+                    background: "linear-gradient(135deg, #143151, #387E89)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: 32,
-                    height: 32,
-                    borderRadius: "50%",
-                    background: "#F1F5F9",
-                    color: "#387E89",
-                    fontSize: "1.3rem",
-                    boxShadow: "0 1px 6px 0px rgba(20, 49, 81, 0.06)",
-                  }}
-                >
-                  <ArrowUpRight className="h-5 w-5" />
+                    boxShadow: "0 1px 10px 0px #14315130",
+                    mb: 2.5,
+                  }}>
+                    <Icon className="icon-svg" size={30} color="#FFF" />
+                  </Box>
+                  <Typography
+                    className="title"
+                    variant="h6"
+                    fontWeight={700}
+                    sx={{
+                      color: "#143151",
+                      transition: "color 0.3s",
+                      textAlign: "center",
+                      mb: 2,
+                      fontSize: { xs: "1.15rem", sm: "1.25rem" }
+                    }}
+                  >
+                    {card.title}
+                  </Typography>
+                  <Typography
+                    className="description"
+                    variant="body2"
+                    sx={{
+                      color: "#386381",
+                      opacity: 0.93,
+                      transition: "all 0.32s",
+                      textAlign: "center",
+                      mb: 2.5,
+                      fontSize: { xs: "1rem", sm: "1.05rem" },
+                      lineHeight: 1.7
+                    }}
+                  >
+                    {card.description}
+                  </Typography>
+                  <Box
+                    className="icon-box"
+                    sx={{
+                      alignSelf: "center",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: 32,
+                      height: 32,
+                      borderRadius: "50%",
+                      background: "#F1F5F9",
+                      color: "#387E89",
+                      fontSize: "1.3rem",
+                      boxShadow: "0 1px 6px 0px rgba(20, 49, 81, 0.06)",
+                      mb: 0.5
+                    }}
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </Box>
                 </Box>
-              </Box>
-            </motion.div>
-          )}
+              </motion.div>
+            );
+          }}
         />
       </Box>
     </section>
   );
 };
 export default NinthSection;
+
