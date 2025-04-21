@@ -164,26 +164,28 @@ export const ThirdSection = () => {
   };
 
   return (
-    <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-16 px-4 md:px-8 w-full max-w-[100vw] bg-gradient-to-b from-white to-gray-50">
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%', maxWidth: '1400px', mx: 'auto' }}>
+    <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-12 px-4 md:px-8 w-full max-w-[100vw] bg-gradient-to-b from-white to-gray-50">
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 6, width: '100%', maxWidth: '1200px', mx: 'auto', alignItems: 'center' }}>
         <Box 
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center max-w-4xl mx-auto"
+          className="text-center max-w-3xl mx-auto"
         >
           <Typography 
-            variant="h2" 
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            variant="h4" 
+            className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
             id="benefits-heading"
+            sx={{ lineHeight: 1.2 }}
           >
             Why Healthcare Leaders Choose S10.AI?
           </Typography>
           <Typography 
             variant="body1" 
-            className="text-lg text-gray-600 max-w-3xl mx-auto"
+            className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto"
+            sx={{ mt: 1 }}
           >
             Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.
           </Typography>
@@ -228,7 +230,7 @@ export const ThirdSection = () => {
           </Tabs>
         </Box>
 
-        <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <Box className="grid grid-cols-1 lg:grid-cols-3 gap-8 w-full">
           <Box className="lg:col-span-2">
             <Box className="bg-white rounded-xl shadow-lg p-6">
               {Object.values(tabAccData).map((value, index) => (
@@ -303,7 +305,7 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        <div className="mt-12 relative px-8">
+        <div className="mt-12 relative px-4 w-full max-w-3xl mx-auto">
           <Carousel className="w-full max-w-4xl mx-auto"
             opts={{
               align: "center",
