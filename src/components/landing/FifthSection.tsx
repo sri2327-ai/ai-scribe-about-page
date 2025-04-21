@@ -109,11 +109,9 @@ export const FifthSection = () => {
       0%, 100% { transform: translateX(0); }
       50% { transform: translateX(10px); }
     }`;
-    
     const styleElement = document.createElement('style');
     styleElement.textContent = moveRightKeyframe;
     document.head.appendChild(styleElement);
-    
     return () => {
       document.head.removeChild(styleElement);
     };
@@ -281,6 +279,14 @@ export const FifthSection = () => {
               <CarouselNext />
             </div>
           </Carousel>
+          {isMobile && (
+            <div className="flex justify-center mt-4">
+              <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                <span>Swipe to see next</span>
+                <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+              </div>
+            </div>
+          )}
         </div>
 
         <Box sx={{ mb: 6 }}>
