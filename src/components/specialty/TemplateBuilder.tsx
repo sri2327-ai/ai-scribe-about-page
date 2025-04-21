@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -10,7 +9,6 @@ import WNLSettingsDialog from './WNLSettingsDialog';
 import AIHelpDialog from './AIHelpDialog';
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-// Extracted dialogs for Macros and Static Text
 import {
   Dialog,
   DialogContent,
@@ -200,7 +198,6 @@ const TemplateBuilder = () => {
       return;
     }
 
-    // Create a simple text representation of the template
     let templateContent = `Template Name: ${templateName}\n\n`;
     
     sections.forEach((section, index) => {
@@ -208,7 +205,6 @@ const TemplateBuilder = () => {
       templateContent += `${section.content || 'No content'}\n\n`;
     });
     
-    // Create a blob and download
     const blob = new Blob([templateContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -230,10 +226,9 @@ const TemplateBuilder = () => {
     <section className="witSp bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex flex-col items-center space-y-4 mb-12 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#143151] max-w-3xl">
+          <h2 className="text-3xl md:text-4xl font-bold text-black max-w-3xl">
             Build Your Workflow with S10.AI
           </h2>
-          <Separator className="w-1/5 bg-black h-1" />
           <p className="text-lg text-gray-700 max-w-3xl">
             Documentation That Adapts to You
           </p>
@@ -252,23 +247,23 @@ const TemplateBuilder = () => {
                   <h3 className="text-xl font-semibold text-[#143151]">Platform Features</h3>
                   <ul className="space-y-3 text-gray-700">
                     <li className="flex items-center gap-2">
-                      <Plus className="h-5 w-5 text-blue-500" />
+                      <Plus className="h-5 w-5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full text-white p-1" />
                       Prompt the AI using a previous note
                     </li>
                     <li className="flex items-center gap-2">
-                      <Plus className="h-5 w-5 text-blue-500" />
+                      <Plus className="h-5 w-5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full text-white p-1" />
                       Build a template with a single command
                     </li>
                     <li className="flex items-center gap-2">
-                      <Plus className="h-5 w-5 text-blue-500" />
+                      <Plus className="h-5 w-5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full text-white p-1" />
                       Start from scratch
                     </li>
                     <li className="flex items-center gap-2">
-                      <Plus className="h-5 w-5 text-blue-500" />
+                      <Plus className="h-5 w-5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full text-white p-1" />
                       Import existing templates
                     </li>
                     <li className="flex items-center gap-2">
-                      <Plus className="h-5 w-5 text-blue-500" />
+                      <Plus className="h-5 w-5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full text-white p-1" />
                       Explore our extensive clinical content library
                     </li>
                   </ul>
@@ -341,7 +336,7 @@ const TemplateBuilder = () => {
               </div>
             </div>
 
-            <Alert className="mt-8 bg-blue-50 border-blue-200 text-blue-800">
+            <Alert className="mt-8 bg-[#fdf4f8] border-[#D299C2] text-gray-800">
               <AlertDescription className="py-2">
                 <p className="font-bold mb-1">DISCLAIMER</p>
                 <p>This is a demonstration of the template builder interface only. The actual application has AI model integration and additional template building options not shown here. Book a demo to see how the real application works in real-time.</p>
