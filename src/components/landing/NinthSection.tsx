@@ -1,7 +1,7 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react"; // icon names corrected
+import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 export const NinthSection = () => {
@@ -36,9 +36,9 @@ export const NinthSection = () => {
     Rocket,      // Seamless Automation
   ];
 
-  // Make the cards larger for more breathing room
-  const cardWidth = 410;
-  const cardHeight = 340;
+  // Increased card size for more room and larger padding
+  const cardWidth = 430;
+  const cardHeight = 380;
 
   return (
     <section
@@ -93,7 +93,7 @@ export const NinthSection = () => {
           columnsDesktop={3}
           columnsTablet={2}
           columnsMobile={1}
-          gap={36}
+          gap={40} // more space between
           itemWidth={cardWidth}
           itemHeight={cardHeight}
           controlsBelow={true}
@@ -117,11 +117,11 @@ export const NinthSection = () => {
                   sx={{
                     height: "100%",
                     minHeight: cardHeight,
-                    minWidth: cardWidth,
+                    width: "100%",
                     maxWidth: cardWidth,
                     background: "#FFF",
-                    borderRadius: 3.5,
-                    p: { xs: 4.7, sm: 5 },
+                    borderRadius: 4.5,
+                    p: { xs: 5.5, sm: 6 },
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
@@ -130,6 +130,7 @@ export const NinthSection = () => {
                     border: "1.5px solid #E0E0E0",
                     cursor: "pointer",
                     transition: "all 0.34s",
+                    overflow: "visible",
                     "&:hover": {
                       background:
                         "linear-gradient(135deg, #143151, #387E89)",
@@ -146,34 +147,34 @@ export const NinthSection = () => {
                     },
                   }}
                 >
-                  {/* Icon in vivid gradient circle */}
+                  {/* Icon */}
                   <Box
                     className="icon-gradient"
                     sx={{
                       alignSelf: "center",
-                      width: 64,
-                      height: 64,
+                      width: 74,
+                      height: 74,
                       borderRadius: "50%",
                       background: "linear-gradient(135deg, #143151, #387E89)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      boxShadow: "0 2px 14px 0px #14315126",
-                      mb: 3.2,
+                      boxShadow: "0 3px 20px 0px #14315126",
+                      mb: 3.5,
+                      mt: 0.5,
                     }}
                   >
                     <Icon
                       className="icon-svg"
-                      size={38}
+                      size={44}
                       color="#FFF"
                       strokeWidth={2.3}
                       style={{
                         display: "block",
                         margin: "auto",
-                        background:
-                          "linear-gradient(135deg, #143151, #387E89)",
                         borderRadius: "50%",
-                        padding: 4,
+                        padding: 7,
+                        // No background here (let the Box handle gradient)
                       }}
                     />
                   </Box>
@@ -184,12 +185,13 @@ export const NinthSection = () => {
                     fontWeight={700}
                     sx={{
                       color: "#143151",
-                      fontSize: { xs: "1.30rem", sm: "1.42rem" },
+                      fontSize: { xs: "1.33rem", sm: "1.5rem" },
                       textAlign: "center",
                       transition: "color 0.34s",
-                      mb: 2.3,
-                      lineHeight: 1.28,
-                      letterSpacing: 0.1,
+                      mb: 2.6,
+                      lineHeight: 1.29,
+                      letterSpacing: 0.25,
+                      maxWidth: "85%",
                     }}
                   >
                     {card.title}
@@ -204,11 +206,12 @@ export const NinthSection = () => {
                       textAlign: "center",
                       fontWeight: 400,
                       letterSpacing: 0.01,
-                      mb: 3.2,
-                      fontSize: { xs: "1.07rem", sm: "1.11rem" },
-                      lineHeight: 1.77,
-                      maxWidth: 320,
+                      mb: 3.7,
+                      fontSize: { xs: "1.11rem", sm: "1.16rem" },
+                      lineHeight: 1.85,
+                      maxWidth: 350,
                       mx: "auto",
+                      wordBreak: "break-word",
                     }}
                   >
                     {card.description}
@@ -220,17 +223,18 @@ export const NinthSection = () => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      width: 36,
-                      height: 36,
+                      width: 38,
+                      height: 38,
                       borderRadius: "50%",
                       background: "#F1F5F9",
                       color: "#387E89",
                       fontSize: "1.4rem",
                       boxShadow: "0 1px 7px 0px rgba(20, 49, 81, 0.05)",
-                      mb: 0.8,
+                      mb: 0,
+                      mt: "auto",
                     }}
                   >
-                    <ArrowUpRight className="h-5 w-5" />
+                    <ArrowUpRight className="h-6 w-6" />
                   </Box>
                 </Box>
               </motion.div>
