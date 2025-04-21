@@ -28,16 +28,16 @@ export const NinthSection = () => {
     },
   ];
 
-  // Consistent card size
-  const cardWidth = 315;
-  const cardHeight = 235;
+  // Increased card size for better readability
+  const cardWidth = 380;
+  const cardHeight = 300;
 
   return (
     <section
       style={{
         background: "linear-gradient(135deg, #143151, #387E89)",
         width: "100%",
-        padding: "30px"
+        padding: "48px 24px"
       }}
     >
       <Stack
@@ -47,7 +47,7 @@ export const NinthSection = () => {
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: { xs: "center", sm: "center" },
-          mb: 4
+          mb: 5
         }}
         useFlexGap
       >
@@ -57,7 +57,7 @@ export const NinthSection = () => {
             fontWeight={700}
             sx={{
               color: "white",
-              mb: 0.5,
+              mb: 1,
               textAlign: "center",
               fontSize: { xs: "1.28rem", sm: "1.34rem", md: "1.45rem" }
             }}
@@ -78,13 +78,13 @@ export const NinthSection = () => {
         </Box>
       </Stack>
 
-      <Box sx={{ mb: 2, maxWidth: "1320px", mx: "auto" }}>
+      <Box sx={{ mb: 4, maxWidth: "1450px", mx: "auto" }}>
         <ResponsiveCarousel
           items={cards}
-          columnsDesktop={4}
+          columnsDesktop={3}
           columnsTablet={2}
           columnsMobile={1}
-          gap={24}
+          gap={32}
           itemWidth={cardWidth}
           itemHeight={cardHeight}
           controlsBelow={true}
@@ -110,7 +110,7 @@ export const NinthSection = () => {
                   maxWidth: cardWidth,
                   background: "#FFF",
                   borderRadius: 3,
-                  p: { xs: 2.2, sm: 3 },
+                  p: { xs: 3.5, sm: 4 },
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",
@@ -122,7 +122,10 @@ export const NinthSection = () => {
                     background: "linear-gradient(135deg, #143151, #387E89)",
                     ".title": { color: "#FFF" },
                     ".description": { color: "#FFF", opacity: 1 },
-                    ".icon-box": { color: "#FFF" },
+                    ".icon-box": { 
+                      color: "#FFF", 
+                      background: "rgba(255, 255, 255, 0.2)" 
+                    },
                   },
                 }}
               >
@@ -134,8 +137,8 @@ export const NinthSection = () => {
                     color: "#143151",
                     transition: "color 0.3s",
                     textAlign: "center",
-                    mb: 1.3,
-                    fontSize: { xs: "1.04rem", sm: "1.12rem" }
+                    mb: 2.5,
+                    fontSize: { xs: "1.15rem", sm: "1.25rem" }
                   }}
                 >
                   {card.title}
@@ -148,8 +151,9 @@ export const NinthSection = () => {
                     opacity: 0.93,
                     transition: "all 0.32s",
                     textAlign: "center",
-                    mb: 1.6,
-                    fontSize: { xs: "0.98rem", sm: "1.04rem" },
+                    mb: 3,
+                    fontSize: { xs: "1rem", sm: "1.05rem" },
+                    lineHeight: 1.7
                   }}
                 >
                   {card.description}
@@ -161,8 +165,8 @@ export const NinthSection = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    width: 28,
-                    height: 28,
+                    width: 32,
+                    height: 32,
                     borderRadius: "50%",
                     background: "#F1F5F9",
                     color: "#387E89",
