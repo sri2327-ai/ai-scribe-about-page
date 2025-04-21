@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styles from "@/styles/specialties.module.scss";
 import { Separator } from "@/components/ui/separator";
@@ -11,7 +12,8 @@ import {
   FlaskConical, // Changed from FlaskVial
   Heart, // Changed from HandHoldingMedical for Rheumatology
   Hospital, 
-  Lungs, // Renamed to avoid conflict
+  // Replace Lungs with a different icon since it's not available
+  Wind, // Using Wind instead of Lungs for Pulmonology
   Microscope, 
   User, // Changed from PersonCane for Geriatrics and Venus for Gynecology
   Footprints, // Changed from ShoePrints
@@ -72,7 +74,7 @@ const specialties = [
   },
   {
     name: "Pulmonology",
-    icon: Lungs,
+    icon: Wind,
     text: "Captures comprehensive data for pulmonary function tests, sleep studies, and chronic lung disease management, ensuring efficient respiratory care.",
   },
   {

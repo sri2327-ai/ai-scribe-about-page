@@ -25,10 +25,10 @@ const Index = () => {
             Learn About Us
           </Link>
           <Link 
-            to="/technology" 
+            to="/specialty" 
             className="bg-transparent border border-blue-500 text-blue-400 hover:bg-blue-900/20 font-medium py-3 px-8 rounded-full text-lg transition-all duration-300"
           >
-            Our Technology
+            Our Specialties
           </Link>
         </div>
       </div>
