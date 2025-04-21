@@ -1,14 +1,14 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState, lazy, Suspense } from "react";
 import Landing from "./pages/Landing";
 import NotFound from "./pages/NotFound";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Contact from "./pages/Contact";
 
 const LazyAbout = lazy(() => import('./pages/About'));
 const LazyTechnology = lazy(() => import('./pages/Technology'));
@@ -17,7 +17,7 @@ const LazyBravo = lazy(() => import('./pages/Bravo'));
 const LazyCustomAIAgent = lazy(() => import('./pages/CustomAIAgent'));
 const LazyIntegration = lazy(() => import('./pages/Integration'));
 
-const App = () => {
+function App() {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
@@ -25,7 +25,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <Router>
           <Header />
           <Routes>
             <Route path="/" element={<Landing />} />
@@ -80,13 +80,14 @@ const App = () => {
                 </Suspense>
               }
             />
+            <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
-        </BrowserRouter>
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );
-};
+}
 
 export default App;
