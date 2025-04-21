@@ -36,9 +36,9 @@ export const NinthSection = () => {
     Rocket,      // Seamless Automation
   ];
 
-  // Increased card size for more room and larger padding
+  // Increased card size for more room
   const cardWidth = 430;
-  const cardHeight = 380;
+  const cardHeight = 430; // Increased height to avoid content being cut off
 
   return (
     <section
@@ -87,13 +87,13 @@ export const NinthSection = () => {
         </Box>
       </Stack>
 
-      <Box sx={{ mb: 4, maxWidth: "1450px", mx: "auto" }}>
+      <Box sx={{ mb: 4, maxWidth: "1450px", mx: "auto", px: { xs: 2, md: 4 } }}>
         <ResponsiveCarousel
           items={cards}
           columnsDesktop={3}
           columnsTablet={2}
           columnsMobile={1}
-          gap={40} // more space between
+          gap={45} // Increased gap between cards
           itemWidth={cardWidth}
           itemHeight={cardHeight}
           controlsBelow={true}
@@ -121,7 +121,7 @@ export const NinthSection = () => {
                     maxWidth: cardWidth,
                     background: "#FFF",
                     borderRadius: 4.5,
-                    p: { xs: 5.5, sm: 6 },
+                    p: { xs: 4, sm: 5 },
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-start",
@@ -130,7 +130,7 @@ export const NinthSection = () => {
                     border: "1.5px solid #E0E0E0",
                     cursor: "pointer",
                     transition: "all 0.34s",
-                    overflow: "visible",
+                    overflow: "hidden",
                     "&:hover": {
                       background:
                         "linear-gradient(135deg, #143151, #387E89)",
@@ -147,7 +147,7 @@ export const NinthSection = () => {
                     },
                   }}
                 >
-                  {/* Icon */}
+                  {/* Icon with correct proportions */}
                   <Box
                     className="icon-gradient"
                     sx={{
@@ -169,13 +169,6 @@ export const NinthSection = () => {
                       size={44}
                       color="#FFF"
                       strokeWidth={2.3}
-                      style={{
-                        display: "block",
-                        margin: "auto",
-                        borderRadius: "50%",
-                        padding: 7,
-                        // No background here (let the Box handle gradient)
-                      }}
                     />
                   </Box>
                   <Typography
@@ -212,6 +205,10 @@ export const NinthSection = () => {
                       maxWidth: 350,
                       mx: "auto",
                       wordBreak: "break-word",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 4,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
                     }}
                   >
                     {card.description}
