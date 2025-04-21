@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -257,47 +256,48 @@ const FifthSection = () => {
             Follow our 7-step process to transform your practice
           </Typography>
 
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-              {cardIcons.map((card) => (
-                <CarouselItem key={card.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <WorkflowCard {...card} number={card.id} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
+          <div>
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4">
+                {cardIcons.map((card) => (
+                  <CarouselItem key={card.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                    <WorkflowCard {...card} number={card.id} />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
 
-            {!isMobile && (
-              <div className="flex justify-center gap-2 mt-6">
-                <CarouselPrevious />
-                <div className="flex items-center gap-1 text-sm">
-                  <span className="text-gray-500">Steps</span>
-                  <span className="font-medium bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">1-7</span>
+              {!isMobile && (
+                <div className="flex justify-center gap-2 mt-6 w-full">
+                  <CarouselPrevious />
+                  <div className="flex items-center gap-1 text-sm">
+                    <span className="text-gray-500">Steps</span>
+                    <span className="font-medium bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">1-7</span>
+                  </div>
+                  <CarouselNext />
                 </div>
-                <CarouselNext />
+              )}
+            </Carousel>
+            {isMobile && (
+              <div className="flex justify-center mt-4">
+                <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                  <span>Swipe to see next</span>
+                  <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+                </div>
               </div>
             )}
-          </Carousel>
-          {isMobile && (
-            <div className="flex justify-center mt-4">
-              <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
-                <span>Swipe to see next</span>
-                <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
         <Box sx={{ mb: 6 }}>
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
 
-        {/* Added Book a Demo button below the combined testimonial carousel */}
         <div className="flex justify-center mb-16">
           <button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-transform duration-200 hover:scale-105">
             Book a Demo
@@ -309,4 +309,3 @@ const FifthSection = () => {
 };
 
 export default FifthSection;
-
