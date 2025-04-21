@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -6,6 +5,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Download, Plus, X } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import WNLSettingsDialog from './WNLSettingsDialog';
+import AIHelpDialog from './AIHelpDialog';
 
 const TemplateBuilder = () => {
   const [templateName, setTemplateName] = useState("");
@@ -56,12 +64,20 @@ const TemplateBuilder = () => {
       return;
     }
 
-    // In a real application, this would generate a PDF or JSON file
-    // For now, we'll just show a success message
     toast({
       title: "Template Downloaded",
       description: `Your template "${templateName}" with ${sections.length} sections has been saved`,
     });
+  };
+
+  const handleMacroSelect = (sectionId: string, value: string) => {
+    if (!value) return;
+    
+    updateSectionContent(sectionId, 
+      sections.find(s => s.id === sectionId)?.content + 
+      (sections.find(s => s.id === sectionId)?.content ? '\n' : '') + 
+      value
+    );
   };
 
   return (
@@ -146,12 +162,39 @@ const TemplateBuilder = () => {
                                 <X className="h-4 w-4" />
                               </button>
                             </div>
-                            <Textarea
-                              placeholder="Enter section content..."
-                              className="text-sm min-h-[60px]"
-                              value={section.content}
-                              onChange={(e) => updateSectionContent(section.id, e.target.value)}
-                            />
+                            
+                            <div className="space-y-3">
+                              <div className="flex gap-2">
+                                <Select onValueChange={(value) => handleMacroSelect(section.id, value)}>
+                                  <SelectTrigger className="w-[200px]">
+                                    <SelectValue placeholder="Select macro" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    <SelectItem value="Patient presents with chest pain radiating to the left arm.">
+                                      Chest Pain
+                                    </SelectItem>
+                                    <SelectItem value="Lungs clear to auscultation bilaterally.">
+                                      Clear Lungs
+                                    </SelectItem>
+                                    <SelectItem value="Cardiovascular exam within normal limits.">
+                                      Cardio WNL
+                                    </SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <WNLSettingsDialog />
+                              </div>
+
+                              <Textarea
+                                placeholder="Enter section content..."
+                                className="text-sm min-h-[60px]"
+                                value={section.content}
+                                onChange={(e) => updateSectionContent(section.id, e.target.value)}
+                              />
+
+                              <div className="flex justify-end">
+                                <AIHelpDialog />
+                              </div>
+                            </div>
                           </div>
                         ))}
                       </div>
