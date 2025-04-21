@@ -6,13 +6,13 @@ import InteractiveSpecialties from './InteractiveSpecialties';
 
 const SpecialtiesGrid = () => {
   return (
-    <section className="witSp">
+    <section className="witSp bg-gradient-to-b from-white to-blue-50 py-12">
       <div className={styles.specialties}>
         <div className="flex flex-col items-center space-y-4 mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-[#143151] max-w-4xl">
-            The S10.AI Advantage: Custom AI for Every Medical Specialty and More
+            The S10.AI Advantage: Custom AI for Every Medical Specialty
           </h2>
-          <Separator className="w-1/5 bg-black h-1" />
+          <Separator className="w-1/5 bg-[#143151] h-1" />
           <p className={`${styles.subtext} text-lg text-gray-700 max-w-4xl text-center`}>
             Our platform stands out by customizing AI models for each medical field, ensuring that documentation is both accurate and relevant, whether it's for a primary care physician, specialist, or allied health professional.
           </p>

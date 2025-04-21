@@ -4,27 +4,7 @@ import { Search } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-
-interface SpecialtyContent {
-  title: string;
-  content: string;
-}
-
-const specialtyData: Record<string, SpecialtyContent> = {
-  allergy: {
-    title: "Allergy & Immunology",
-    content: "Documents immunotherapy plans, allergy testing results, asthma control levels, and autoimmune tracking, enhancing management of hypersensitivity and immune conditions."
-  },
-  cardiology: {
-    title: "Cardiology",
-    content: "Captures detailed data on EKG results, cardiac risk factors, heart failure assessments, pacemaker checks, echocardiograms, and stress test findings, ensuring precise cardiac documentation."
-  },
-  // ... adding more specialties
-  other: {
-    title: "Other Specialties",
-    content: "S10.AI works with ANY medical specialty! Our platform adapts to your specific needs, providing customized documentation solutions for every healthcare specialty. Contact us to learn how we can support your specific practice area with tailored AI assistance."
-  }
-};
+import { specialtyData } from './specialtyData';
 
 const InteractiveSpecialties = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,7 +20,7 @@ const InteractiveSpecialties = () => {
   );
 
   return (
-    <section className="py-12 bg-gray-50">
+    <div className="py-8">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center mb-8">
           <div className="relative w-full max-w-xl mb-8">
@@ -59,7 +39,7 @@ const InteractiveSpecialties = () => {
               <Button
                 key={specialty}
                 variant={selectedSpecialty === specialty ? "default" : "outline"}
-                className="whitespace-nowrap text-sm"
+                className={`whitespace-normal text-sm h-auto py-2 ${selectedSpecialty === specialty ? 'bg-[#143151] hover:bg-[#143151]/90' : ''}`}
                 onClick={() => handleSpecialtyClick(specialty)}
               >
                 {specialtyData[specialty].title}
@@ -81,7 +61,7 @@ const InteractiveSpecialties = () => {
           </Card>
         )}
       </div>
-    </section>
+    </div>
   );
 };
 
