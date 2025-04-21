@@ -98,7 +98,7 @@ export const SecondSection = () => {
             fontWeight: 500,
             textAlign: "center",
             lineHeight: 1.6,
-            fontSize: { xs: '0.9rem', sm: '1rem' },
+            fontSize: { xs: '0.85rem', sm: '0.95rem' },
             mb: 2
           }}
         >
@@ -124,15 +124,15 @@ export const SecondSection = () => {
   
   return (
     <section className="py-16 px-4 md:px-8 lg:px-16">
-      <Box className="container mx-auto max-w-7xl">
+      <Box className="container mx-auto max-w-6xl"> {/* max-w-6xl for nicely centered narrower container */}
         <Typography 
-          variant="h3" 
+          variant="h4"  {/* Changed from h3 to h4 for smaller size */}
           sx={{ 
             textAlign: "center",
             color: "#000000",
             fontWeight: "bold",
             mb: { xs: 6, md: 8 },
-            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
+            fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" } /* Smaller font sizes */
           }}
         >
           Trusted By Leading Healthcare Organisations
@@ -140,8 +140,8 @@ export const SecondSection = () => {
 
         {isMobile ? (
           // Mobile view with Slider
-          <Box sx={{ mx: { xs: -2, md: -3 } }}>
-            <Slider {...settings}>
+          <Box sx={{ mx: { xs: -2, md: -3 }, display: 'flex', justifyContent: 'center' }}>
+            <Slider {...settings} style={{width: '100%', maxWidth: '500px'}}>
               {docRevData.map((value, index) => (
                 <Box key={index} sx={{ px: { xs: 2, md: 3 } }}>
                   <TestimonialCard data={value} />
@@ -151,15 +151,20 @@ export const SecondSection = () => {
           </Box>
         ) : (
           // Desktop view with Grid (no slider)
-          <Grid container spacing={3} sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Grid 
+            container 
+            spacing={3} 
+            sx={{ 
+              justifyContent: 'center',
+              alignItems: 'stretch',
+            }}
+          >
             {docRevData.map((value, index) => (
               <Grid 
                 key={index} 
-                sx={{ 
-                  flex: '1',
-                  width: '33.333%',
-                  maxWidth: '33.333%'
-                }}
+                item 
+                xs={12} sm={6} md={4} 
+                sx={{ display: 'flex' }}
               >
                 <TestimonialCard data={value} />
               </Grid>
