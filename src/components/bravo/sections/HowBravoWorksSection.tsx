@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -73,13 +74,17 @@ const StepItem: React.FC<StepItemProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { 
-    once: false, 
-    amount: 0.6
+    once: false,
+    amount: 0.5,
+    margin: "-100px 0px -100px 0px" // Detect earlier than default
   });
   
   useEffect(() => {
     if (isInView && !isActive) {
-      onActivate();
+      const timer = setTimeout(() => {
+        onActivate();
+      }, 150); // Small delay to avoid thrashing
+      return () => clearTimeout(timer);
     }
   }, [isInView, isActive, onActivate]);
 
@@ -208,6 +213,7 @@ export const HowBravoWorksSection = () => {
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
   const intervalRef = useRef<number | null>(null);
+  const lastScrollTime = useRef<number>(0);
   
   const steps = [
     {
@@ -276,98 +282,114 @@ export const HowBravoWorksSection = () => {
       ]
     }
   ];
-  
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!isInView) return;
+
+  // Function to check which element is most visible in viewport
+  const findMostVisibleElement = () => {
+    if (!isInView) return null;
+    
+    const stepElements = stepRefs.current.filter(Boolean);
+    if (stepElements.length === 0) return null;
+    
+    let mostVisibleIndex = -1;
+    let highestVisibility = 0;
+    const viewportHeight = window.innerHeight;
+    
+    stepElements.forEach((el, index) => {
+      if (!el) return;
       
+      const rect = el.getBoundingClientRect();
+      
+      // Calculate how much of the element is in view
+      const visibleTop = Math.max(0, rect.top);
+      const visibleBottom = Math.min(viewportHeight, rect.bottom);
+      
+      // Skip if element is not visible at all
+      if (visibleBottom <= visibleTop) return;
+      
+      const visibleHeight = visibleBottom - visibleTop;
+      const percentVisible = visibleHeight / rect.height;
+      
+      // Prioritize elements closer to the center of the screen
+      const elementCenter = (rect.top + rect.bottom) / 2;
+      const viewportCenter = viewportHeight / 2;
+      const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
+      const centerFactor = 1 - Math.min(distanceFromCenter / (viewportHeight / 2), 1);
+      
+      // Combined visibility score
+      const visibilityScore = percentVisible * centerFactor * 1.5;
+      
+      if (visibilityScore > highestVisibility) {
+        highestVisibility = visibilityScore;
+        mostVisibleIndex = index;
+      }
+    });
+    
+    return mostVisibleIndex >= 0 && highestVisibility > 0.25 ? mostVisibleIndex : null;
+  };
+  
+  // Handle scroll events
+  useEffect(() => {
+    let scrollTimeout: number;
+    
+    const handleScroll = () => {
+      // Record last scroll time
+      lastScrollTime.current = Date.now();
+      
+      // Pause auto-rotation during scrolling
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
       
-      const stepElements = stepRefs.current.filter(Boolean);
-      if (stepElements.length === 0) return;
+      // Find most visible element
+      const mostVisibleIndex = findMostVisibleElement();
       
-      let maxVisibleIndex = 0;
-      let maxVisibleArea = 0;
-      const windowHeight = window.innerHeight;
-      
-      stepElements.forEach((stepEl, index) => {
-        if (!stepEl) return;
-        
-        const rect = stepEl.getBoundingClientRect();
-        const visibleTop = Math.max(0, rect.top);
-        const visibleBottom = Math.min(windowHeight, rect.bottom);
-        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-        const visibleAreaRatio = visibleHeight / rect.height;
-        
-        const midpoint = (rect.top + rect.bottom) / 2;
-        const centerDistance = Math.abs(midpoint - (windowHeight / 2));
-        const centralityFactor = 1 - (centerDistance / (windowHeight / 2));
-        
-        const weightedVisibility = visibleAreaRatio * centralityFactor;
-        
-        if (weightedVisibility > maxVisibleArea) {
-          maxVisibleArea = weightedVisibility;
-          maxVisibleIndex = index;
-        }
-      });
-      
-      if (maxVisibleArea > 0.3 && maxVisibleIndex !== activeStep) {
-        setActiveStep(maxVisibleIndex);
+      // Update active step if a different element is most visible
+      if (mostVisibleIndex !== null && mostVisibleIndex !== activeStep) {
+        setActiveStep(mostVisibleIndex);
       }
+      
+      // Clear existing timeout
+      clearTimeout(scrollTimeout);
+      
+      // Set new timeout to start auto-rotation after scrolling stops
+      scrollTimeout = window.setTimeout(() => {
+        if (!intervalRef.current && isInView) {
+          const newIntervalId = window.setInterval(() => {
+            setActiveStep(prev => (prev + 1) % steps.length);
+          }, 8000);
+          intervalRef.current = newIntervalId;
+        }
+      }, 2000);
     };
     
+    // Set up scroll event listener
     window.addEventListener('scroll', handleScroll, { passive: true });
     
+    // Run once on mount to initialize
     handleScroll();
     
+    // Clean up
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isInView, activeStep]);
-  
-  useEffect(() => {
-    if (isInView) {
+      clearTimeout(scrollTimeout);
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-      
-      const id = window.setInterval(() => {
-        setActiveStep((prev) => (prev + 1) % steps.length);
-      }, 8000);
-      
-      intervalRef.current = id;
-      
-      let scrollTimeout: number | null = null;
-      const handleScrollEnd = () => {
-        if (scrollTimeout) {
-          window.clearTimeout(scrollTimeout);
-        }
-        
-        scrollTimeout = window.setTimeout(() => {
-          if (!intervalRef.current) {
-            const newId = window.setInterval(() => {
-              setActiveStep((prev) => (prev + 1) % steps.length);
-            }, 8000);
-            intervalRef.current = newId;
-          }
-        }, 2000);
-      };
-      
-      window.addEventListener('scroll', handleScrollEnd, { passive: true });
-      
-      return () => {
-        window.removeEventListener('scroll', handleScrollEnd);
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
-        if (scrollTimeout) {
-          window.clearTimeout(scrollTimeout);
-        }
-      };
+    };
+  }, [activeStep, isInView, steps.length]);
+  
+  // Auto-rotation when component is in view
+  useEffect(() => {
+    if (isInView && !intervalRef.current) {
+      // Only start auto-rotation if not currently scrolling
+      const timeSinceLastScroll = Date.now() - lastScrollTime.current;
+      if (timeSinceLastScroll > 1000) {
+        const id = window.setInterval(() => {
+          setActiveStep(prev => (prev + 1) % steps.length);
+        }, 8000);
+        intervalRef.current = id;
+      }
     }
     
     return () => {
@@ -378,14 +400,18 @@ export const HowBravoWorksSection = () => {
     };
   }, [isInView, steps.length]);
   
+  // Handle manual step activation
   const handleActivateStep = (index: number) => {
+    // Stop auto-rotation when user clicks on a step
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
+    
     setActiveStep(index);
   };
   
+  // Initialize ref array for step elements
   useEffect(() => {
     stepRefs.current = stepRefs.current.slice(0, steps.length);
   }, [steps.length]);
