@@ -72,12 +72,12 @@ export default function IntegrationTabs() {
       </div>
 
       <Tabs defaultValue="ehr" className="w-full max-w-4xl mx-auto">
-        <TabsList className="grid grid-cols-2 lg:grid-cols-4 w-full bg-transparent gap-4">
+        <TabsList className="grid grid-cols-2 lg:grid-cols-4 w-full bg-transparent gap-4 mb-8">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.value}
               value={tab.value}
-              className="flex flex-col items-center gap-2 p-4 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-gradient-to-r hover:from-[#143151]/5 hover:to-[#387E89]/5 transition-all duration-300"
+              className="flex flex-col items-center gap-2 p-4 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-transparent transition-all duration-300"
             >
               <div className="icon-wrapper w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                 {tab.icon}
@@ -90,11 +90,13 @@ export default function IntegrationTabs() {
           ))}
         </TabsList>
 
-        {tabs.map((tab) => (
-          <TabsContent key={tab.value} value={tab.value} className="mt-8">
-            {tab.content}
-          </TabsContent>
-        ))}
+        <div className="mt-10 pt-6">
+          {tabs.map((tab) => (
+            <TabsContent key={tab.value} value={tab.value} className="mt-0">
+              {tab.content}
+            </TabsContent>
+          ))}
+        </div>
       </Tabs>
     </div>
   );
