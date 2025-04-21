@@ -1,8 +1,8 @@
+
 import React from 'react';
 import styles from '@/styles/integration.module.scss';
 import SyncIcon from '@mui/icons-material/Sync';
 import TimerIcon from '@mui/icons-material/Timer';
-import LocalHospitalRoundedIcon from '@mui/icons-material/LocalHospitalRounded';
 import DoNotDisturbRoundedIcon from '@mui/icons-material/DoNotDisturbRounded';
 import NoteAddRoundedIcon from '@mui/icons-material/NoteAddRounded';
 import { Typography } from '@mui/material';
@@ -13,14 +13,10 @@ const EHRTab = () => {
   
   return (
     <div className={styles.tabContentWrapper}>
-      <div className={`${styles.tabLeft} w-full text-center`}>
-        <Typography variant={isMobile ? "h4" : "h3"}>
-          <LocalHospitalRoundedIcon style={{ marginRight: 8, color: '#143151' }} /> EHR & PMS Integration
-        </Typography>
-        <p>Seamless integration with your EHR for smarter, more efficient workflows.</p>
+      <div className={styles.tabLeft}>
         <div className={`${styles.featureItem} justify-center`}>
           <div className={styles.icon}>
-            <SyncIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <SyncIcon style={{ color: '#ffffff' }} />
           </div>
           <div>
             <strong>Bidirectional Syncing</strong>
@@ -30,7 +26,7 @@ const EHRTab = () => {
 
         <div className={`${styles.featureItem} justify-center`}>
           <div className={styles.icon}>
-            <DoNotDisturbRoundedIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <DoNotDisturbRoundedIcon style={{ color: '#ffffff' }} />
           </div>
           <div>
             <strong>No More Copy-Paste</strong>
@@ -40,7 +36,7 @@ const EHRTab = () => {
 
         <div className={`${styles.featureItem} justify-center`}>
           <div className={styles.icon}>
-            <TimerIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <TimerIcon style={{ color: '#ffffff' }} />
           </div>
           <div>
             <strong>Complete Charting in Under 2 Minutes</strong>
@@ -49,17 +45,11 @@ const EHRTab = () => {
         </div>
 
         <p><strong>Compatible with leading EHR systems:</strong></p>
-        <div className={styles.scrollWrapper}>
-          <div className={styles.ehrscroll}>
-            <span><NoteAddRoundedIcon /> Epic</span>
-            <span><NoteAddRoundedIcon /> Cerner</span>
-            <span><NoteAddRoundedIcon /> Allscripts</span>
-            <span><NoteAddRoundedIcon /> Athenahealth</span>
-            <span><NoteAddRoundedIcon /> Epic</span>
-            <span><NoteAddRoundedIcon /> Cerner</span>
-            <span><NoteAddRoundedIcon /> Allscripts</span>
-            <span><NoteAddRoundedIcon /> Athenahealth</span>
-          </div>
+        <div className={styles.ehrTags}>
+          <span><NoteAddRoundedIcon /> Epic</span>
+          <span><NoteAddRoundedIcon /> Cerner</span>
+          <span><NoteAddRoundedIcon /> Allscripts</span>
+          <span><NoteAddRoundedIcon /> Athenahealth</span>
         </div>
       </div>
     </div>

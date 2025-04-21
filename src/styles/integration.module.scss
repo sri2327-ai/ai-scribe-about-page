@@ -1,102 +1,70 @@
-.heroContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4rem 2rem;
-  max-width: 1200px;
+.integrationWrapper {
+  padding: 4rem 1rem;
+  max-width: 1400px;
   margin: 0 auto;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    text-align: center;
-    padding: 2rem;
-  }
-}
-
-.leftSection {
-  flex: 1;
-  padding-right: 2rem;
-
-  @media (max-width: 768px) {
-    padding-right: 0;
-    margin-bottom: 2rem;
-  }
-}
-
-.rightSection {
-  flex: 1;
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  
+  @media (max-width: 768px) {
+    padding: 2rem 1rem;
+  }
 }
 
-.title {
-  color: #143151;
-  margin-bottom: 1rem;
-}
-
-.subtitle {
-  color: #5192AE;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-
-.description {
-  color: #778899;
-  font-size: 1rem;
-  line-height: 1.6;
+.headerText {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
   margin-bottom: 2rem;
 }
 
-.tabsContainer {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 0 2rem;
-
-  @media (max-width: 768px) {
-    padding: 0 1rem;
-  }
+.healthcareTitle {
+  color: #143151;
+  text-align: center;
+  line-height: 1.3;
 }
 
 .tabContentWrapper {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  gap: 2rem;
+  align-items: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 2rem;
-  min-height: 400px;
+  min-height: 300px;
   
   @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
     padding: 1rem;
-    gap: 1rem;
     min-height: auto;
   }
 }
 
 .tabLeft {
-  flex: 1;
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  text-align: center;
   
   h3, h4 {
     margin-bottom: 1.5rem;
     color: #143151;
+    text-align: center;
   }
   
   p {
     margin-bottom: 1.5rem;
     line-height: 1.6;
+    text-align: center;
   }
 }
 
 .featureItem {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 1rem;
   margin-bottom: 2rem;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
@@ -108,22 +76,19 @@
   
   .icon {
     background: linear-gradient(to right, #143151, #387E89);
-    min-width: 40px;
-    height: 40px;
+    min-width: 48px;
+    height: 48px;
     border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     transition: all 0.3s ease;
-    
-    svg {
-      transition: color 0.3s ease;
-    }
   }
   
   div:last-child {
     flex: 1;
+    text-align: left;
     
     strong {
       display: block;
@@ -133,50 +98,41 @@
     
     p {
       margin: 0;
-      font-size: 0.95rem;
+      text-align: left;
       color: #4a5568;
     }
   }
   
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: center;
     text-align: center;
-    margin-bottom: 1.5rem;
+    padding: 1rem;
     
     .icon {
       margin-bottom: 1rem;
     }
+    
+    div:last-child {
+      text-align: center;
+      
+      p {
+        text-align: center;
+      }
+    }
   }
-}
-
-.tabRight {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media (max-width: 768px) {
-    order: -1;
-  }
-}
-
-.tabImage {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
 }
 
 .ehrTags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
 
   span {
-    background-color: #e8f4ff;
-    color: #5192AE;
-    padding: 0.5rem 0.75rem;
+    background: linear-gradient(to right, #143151, #387E89);
+    color: white;
+    padding: 0.5rem 1rem;
     border-radius: 1rem;
     font-size: 0.875rem;
     display: inline-flex;

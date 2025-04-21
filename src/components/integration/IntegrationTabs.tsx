@@ -1,12 +1,10 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '@/styles/integration.module.scss';
-import VideoCallIcon from '@mui/icons-material/VideoCall';
-import EmailIcon from '@mui/icons-material/Email';
-import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import LocalHospitalRoundedIcon from '@mui/icons-material/LocalHospitalRounded';
-import { Typography, Box } from '@mui/material';
+import { LocalHospitalRounded, VideoCall, CalendarToday, Email } from '@mui/icons-material';
+import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import EHRTab from './tabs/EHRTab';
 import SIPTab from './tabs/SIPTab';
 import CalendarTab from './tabs/CalendarTab';
@@ -14,37 +12,36 @@ import EmailTab from './tabs/EmailTab';
 
 const tabs = [
   {
-    key: 'ehr',
-    title: 'EHR & PMS',
+    value: 'ehr',
+    label: 'EHR & PMS',
     description: 'Smarter Clinical Workflows',
-    icon: <LocalHospitalRoundedIcon />,
-    content: <EHRTab />,
+    icon: <LocalHospitalRounded />,
+    content: <EHRTab />
   },
   {
-    key: 'telehealth',
-    title: 'SIP & Telehealth',
+    value: 'telehealth',
+    label: 'SIP & Telehealth',
     description: 'Frictionless Communication',
-    icon: <VideoCallIcon />,
-    content: <SIPTab />,
+    icon: <VideoCall />,
+    content: <SIPTab />
   },
   {
-    key: 'calendar',
-    title: 'Calendars & Cloud Storage',
+    value: 'calendar',
+    label: 'Calendars & Cloud Storage',
     description: 'Stay Organized, Always',
-    icon: <CalendarTodayIcon />,
-    content: <CalendarTab />,
+    icon: <CalendarToday />,
+    content: <CalendarTab />
   },
   {
-    key: 'email',
-    title: 'Email & Workflow',
+    value: 'email',
+    label: 'Email & Workflow',
     description: 'AI That Works for You',
-    icon: <EmailIcon />,
-    content: <EmailTab />,
-  },
+    icon: <Email />,
+    content: <EmailTab />
+  }
 ];
 
 export default function IntegrationTabs() {
-  const [activeTab, setActiveTab] = useState('ehr');
   const isMobile = useIsMobile();
 
   return (
@@ -56,7 +53,8 @@ export default function IntegrationTabs() {
           sx={{ 
             fontSize: isMobile ? '1.5rem' : '2rem',
             mb: 2,
-            px: isMobile ? 1 : 3
+            px: isMobile ? 1 : 3,
+            textAlign: 'center'
           }}
         >
           Deep, Intelligent Integrations <br />
@@ -66,42 +64,41 @@ export default function IntegrationTabs() {
           variant="body1"
           sx={{ 
             fontSize: isMobile ? '0.9rem' : '1rem',
-            mb: 4,
-            px: isMobile ? 2 : 0
+            mb: 8,
+            px: isMobile ? 2 : 0,
+            textAlign: 'center'
           }}
         >
           Our Platform Seamlessly connects with your existing tools, enhancing productivity <br />
           without disrupting your workflow
         </Typography>
       </div>
-      <Box className={styles.tabHeader} sx={{ gap: isMobile ? '0.5rem' : '1rem' }}>
+
+      <Tabs defaultValue="ehr" className="w-full max-w-4xl mx-auto">
+        <TabsList className="grid grid-cols-2 lg:grid-cols-4 w-full bg-transparent gap-2">
+          {tabs.map((tab) => (
+            <TabsTrigger
+              key={tab.value}
+              value={tab.value}
+              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white hover:bg-gradient-to-r hover:from-[#143151] hover:to-[#387E89] hover:text-white transition-all duration-300"
+            >
+              <div className="icon-wrapper w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
+                {tab.icon}
+              </div>
+              <div className="text-center">
+                <p className="font-semibold">{tab.label}</p>
+                <p className="text-sm opacity-80">{tab.description}</p>
+              </div>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
         {tabs.map((tab) => (
-          <div
-            key={tab.key}
-            className={`${styles.tabCard} ${activeTab === tab.key ? styles.active : ''}`}
-            onClick={() => setActiveTab(tab.key)}
-          >
-            <div className={styles.icon}>{tab.icon}</div>
-            <div>
-              <Typography 
-                variant={isMobile ? "subtitle1" : "h6"}
-                sx={{ fontSize: isMobile ? '0.9rem' : '1.1rem', fontWeight: 'bold' }}
-              >
-                {tab.title}
-              </Typography>
-              <Typography 
-                variant="body2"
-                sx={{ fontSize: isMobile ? '0.8rem' : '0.9rem' }}
-              >
-                {tab.description}
-              </Typography>
-            </div>
-          </div>
+          <TabsContent key={tab.value} value={tab.value} className="mt-8">
+            {tab.content}
+          </TabsContent>
         ))}
-      </Box>
-      <div className={styles.tabContent}>
-        {tabs.find((tab) => tab.key === activeTab)?.content}
-      </div>
+      </Tabs>
     </div>
   );
 }
