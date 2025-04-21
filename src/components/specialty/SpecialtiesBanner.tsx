@@ -7,9 +7,9 @@ const SpecialtiesBanner = () => {
   return (
     <section className="w-full bg-white pt-24 md:pt-32">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 md:py-12">
-        <div className="flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12">
-          {/* Left side content */}
-          <div className="w-full md:w-1/2 text-left space-y-6">
+        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          {/* Content section - will appear first on mobile */}
+          <div className="w-full md:w-1/2 text-left space-y-6 order-1 md:order-1">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#143151] leading-tight">
               Transforming Healthcare,<br />
               One Specialty at a Time
@@ -27,8 +27,8 @@ const SpecialtiesBanner = () => {
             </Button>
           </div>
 
-          {/* Right side illustration */}
-          <div className="w-full md:w-1/2">
+          {/* Illustration section - will appear second on mobile */}
+          <div className="w-full md:w-1/2 order-2 md:order-2 mt-8 md:mt-0">
             <MedicalSpecialtiesIllustration />
           </div>
         </div>
