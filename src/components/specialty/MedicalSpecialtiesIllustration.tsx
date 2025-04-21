@@ -27,7 +27,7 @@ const MedicalSpecialtiesIllustration = () => {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full opacity-20 group-hover:opacity-100 transition-opacity duration-300" />
               <Icon
-                className={`relative text-[#143151] transition-transform duration-300 group-hover:scale-110 ${
+                className={`relative text-[#143151] transition-all duration-300 group-hover:text-white ${
                   size === 'large' ? 'w-12 h-12' : 'w-8 h-8'
                 }`}
               />
