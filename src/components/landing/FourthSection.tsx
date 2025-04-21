@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
@@ -136,8 +135,8 @@ export const FourthSection = () => {
           </p>
         </div>
         
-        <div className="flex flex-col md:flex-row gap-4 lg:gap-6 justify-center">
-          <div className="mx-auto md:mx-0 max-w-[550px]">
+        <div className="flex flex-col md:flex-row gap-4 lg:gap-6 items-center justify-center">
+          <div className="w-full md:w-auto max-w-[550px]">
             <ProductCard 
               title="C.R.U.S.H"
               subtitle="AI Medical Scribe Assistant"
@@ -151,7 +150,7 @@ export const FourthSection = () => {
               ]}
             />
           </div>
-          <div className="mx-auto md:mx-0 max-w-[550px]">
+          <div className="w-full md:w-auto max-w-[550px]">
             <ProductCard 
               title="B.R.A.V.O"
               subtitle="AI Patient Care Agent"
