@@ -10,16 +10,16 @@ const MedicalSpecialtiesIllustration = () => {
         s10.ai
       </div>
 
-      {/* Specialty Icons in circular layout with enhanced styling */}
-      <div className="relative w-[300px] h-[300px] animate-[spin_20s_linear_infinite]">
+      {/* Specialty Icons in circular layout with static positioning and varied sizes */}
+      <div className="relative w-[300px] h-[300px]">
         {[
-          { Icon: Heart, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", label: "Cardiology" },
-          { Icon: Brain, position: "top-1/4 right-0 translate-x-1/2", label: "Neurology" },
-          { Icon: Microscope, position: "bottom-1/4 right-0 translate-x-1/2", label: "Oncology" },
-          { Icon: Baby, position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2", label: "Pediatrics" },
-          { Icon: Bone, position: "bottom-1/4 left-0 -translate-x-1/2", label: "Orthopedics" },
-          { Icon: Wind, position: "top-1/4 left-0 -translate-x-1/2", label: "Pulmonology" },
-        ].map(({ Icon, position, label }, index) => (
+          { Icon: Heart, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", label: "Cardiology", size: "large" },
+          { Icon: Brain, position: "top-1/4 right-0 translate-x-1/2", label: "Neurology", size: "small" },
+          { Icon: Microscope, position: "bottom-1/4 right-0 translate-x-1/2", label: "Oncology", size: "large" },
+          { Icon: Baby, position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2", label: "Pediatrics", size: "small" },
+          { Icon: Bone, position: "bottom-1/4 left-0 -translate-x-1/2", label: "Orthopedics", size: "large" },
+          { Icon: Wind, position: "top-1/4 left-0 -translate-x-1/2", label: "Pulmonology", size: "small" },
+        ].map(({ Icon, position, label, size }, index) => (
           <div
             key={index}
             className={`absolute ${position} transform -translate-y-1/2`}
@@ -28,10 +28,10 @@ const MedicalSpecialtiesIllustration = () => {
               {/* Enhanced background effect */}
               <div className="absolute -inset-4 bg-white rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
               
-              {/* Icon container with enhanced styling */}
-              <div className="relative bg-white rounded-xl p-3 shadow-md group-hover:shadow-xl transition-all duration-300">
+              {/* Icon container with varied sizes */}
+              <div className={`relative bg-white rounded-xl p-3 shadow-md group-hover:shadow-xl transition-all duration-300 ${size === 'large' ? 'p-4' : 'p-2'}`}>
                 <Icon 
-                  className="w-8 h-8 text-[#143151] transition-all duration-300 group-hover:scale-110"
+                  className={`${size === 'large' ? 'w-10 h-10' : 'w-6 h-6'} text-[#143151] transition-all duration-300 group-hover:scale-110`}
                   strokeWidth={1.5}
                 />
               </div>
