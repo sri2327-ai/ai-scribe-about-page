@@ -1,19 +1,24 @@
+
 import React from 'react';
+import styles from "@/styles/specialties.module.scss";
+import { Button } from "@/components/ui/button";
 
 const ClosingSection = () => {
   return (
-    <section className="py-16 bg-gradient-to-tr from-[#143151] to-[#387E89] text-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-8">Get Started Today</h2>
-        <div className="flex flex-col items-center justify-center space-y-6 max-w-3xl mx-auto text-center">
-          <p className="text-lg">
-            Experience the power of specialty-specific AI designed for healthcare professionals. 
-            Our platform adapts to your unique workflow and documentation needs.
-          </p>
-          <button className="px-8 py-3 bg-white text-[#143151] rounded-full font-semibold hover:bg-opacity-90 transition-all shadow-lg">
-            Request a Demo
-          </button>
-        </div>
+    <section className='witSp' style={{minHeight:'20vh'}}>
+      <div className={styles.closing}>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#143151]">
+          Discover why S10.AI is the perfect fit for your specialty.
+        </h2>
+        <p className="text-lg mb-8 text-gray-700">
+          See how S10.AI's specialty-specific AI can enhance your care delivery and improve clinician well-being.
+        </p>
+        <Button 
+          variant="default"
+          className="bg-[#143151] hover:bg-[#0f253d] text-white px-8 py-2 rounded-md"
+        >
+          See Demo
+        </Button>
       </div>
     </section>
   );

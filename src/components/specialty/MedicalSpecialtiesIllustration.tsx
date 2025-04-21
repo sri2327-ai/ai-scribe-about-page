@@ -4,50 +4,35 @@ import { Heart, Brain, Microscope, Baby, Bone, Wind } from 'lucide-react';
 
 const MedicalSpecialtiesIllustration = () => {
   return (
-    <div className="relative w-full h-[400px] flex items-center justify-center bg-gradient-to-b from-white to-blue-50/30">
-      {/* Center s10.ai text */}
-      <div className="absolute z-10 text-3xl font-bold text-[#143151] bg-white/90 backdrop-blur-sm rounded-2xl px-8 py-4 shadow-xl">
+    <div className="relative w-full h-[400px] flex items-center justify-center">
+      {/* Center S10.AI text */}
+      <div className="absolute z-10 text-2xl font-bold text-[#143151] bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg">
         s10.ai
       </div>
 
-      {/* Specialty Icons in circular layout with static positioning and varied sizes */}
-      <div className="relative w-[300px] h-[300px]">
+      {/* Specialty Icons in circular layout */}
+      <div className="relative w-[300px] h-[300px] animate-[spin_20s_linear_infinite]">
         {[
-          { Icon: Heart, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2", label: "Cardiology", size: "large" },
-          { Icon: Brain, position: "top-1/4 right-0 translate-x-1/2", label: "Neurology", size: "small" },
-          { Icon: Microscope, position: "bottom-1/4 right-0 translate-x-1/2", label: "Oncology", size: "large" },
-          { Icon: Baby, position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2", label: "Pediatrics", size: "small" },
-          { Icon: Bone, position: "bottom-1/4 left-0 -translate-x-1/2", label: "Orthopedics", size: "large" },
-          { Icon: Wind, position: "top-1/4 left-0 -translate-x-1/2", label: "Pulmonology", size: "small" },
-        ].map(({ Icon, position, label, size }, index) => (
+          { Icon: Heart, position: "top-0 left-1/2 -translate-x-1/2 -translate-y-1/2" },
+          { Icon: Brain, position: "top-1/4 right-0 translate-x-1/2" },
+          { Icon: Microscope, position: "bottom-1/4 right-0 translate-x-1/2" },
+          { Icon: Baby, position: "bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2" },
+          { Icon: Bone, position: "bottom-1/4 left-0 -translate-x-1/2" },
+          { Icon: Wind, position: "top-1/4 left-0 -translate-x-1/2" },
+        ].map(({ Icon, position }, index) => (
           <div
             key={index}
             className={`absolute ${position} transform -translate-y-1/2`}
           >
             <div className="relative group">
-              {/* Enhanced background effect */}
-              <div className="absolute -inset-4 bg-white rounded-2xl shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300" />
-              
-              {/* Icon container with varied sizes */}
-              <div className={`relative bg-white rounded-xl p-3 shadow-md group-hover:shadow-xl transition-all duration-300 ${size === 'large' ? 'p-4' : 'p-2'}`}>
-                <Icon 
-                  className={`${size === 'large' ? 'w-10 h-10' : 'w-6 h-6'} text-[#143151] transition-all duration-300 group-hover:scale-110`}
-                  strokeWidth={1.5}
-                />
-              </div>
-
-              {/* Label that appears on hover */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap text-sm font-medium text-[#143151]">
-                {label}
-              </div>
+              <div className="absolute -inset-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full opacity-20 group-hover:opacity-100 transition-opacity duration-300 animate-pulse" />
+              <Icon
+                className="relative w-10 h-10 text-[#143151] transition-transform duration-300 group-hover:scale-110"
+              />
             </div>
           </div>
         ))}
       </div>
-
-      {/* Background decorative elements */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/20" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(20,49,81,0.05)_0%,transparent_70%)]" />
     </div>
   );
 };

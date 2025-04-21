@@ -1,112 +1,354 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
+import { Download, Plus, X, ScrollText, Keyboard } from "lucide-react";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/components/ui/use-toast";
+import WNLSettingsDialog from './WNLSettingsDialog';
+import AIHelpDialog from './AIHelpDialog';
+import { Alert, AlertDescription } from "@/components/ui/alert";
+
+// Extracted dialogs for Macros and Static Text
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+const MacrosDialog = () => {
+  const [macros, setMacros] = useState<Array<{ trigger: string; text: string }>>([]);
+  const [newTrigger, setNewTrigger] = useState('');
+  const [newText, setNewText] = useState('');
+  const { toast } = useToast();
+
+  const handleAddMacro = () => {
+    if (newTrigger && newText) {
+      setMacros([...macros, { trigger: newTrigger, text: newText }]);
+      setNewTrigger('');
+      setNewText('');
+      
+      toast({
+        title: "Macro Added",
+        description: `Trigger "${newTrigger}" has been added`,
+        className: "bg-white border border-gray-200 text-gray-800",
+      });
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="gap-2">
+          <Keyboard className="h-4 w-4" />
+          Macros / Shortcuts
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md bg-white border-gray-200">
+        <DialogHeader>
+          <DialogTitle className="text-gray-800">Macros / Shortcuts</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input
+              placeholder="Trigger Phrase"
+              value={newTrigger}
+              onChange={(e) => setNewTrigger(e.target.value)}
+              className="bg-white border-gray-300"
+            />
+            <Input
+              placeholder="Auto-Insert Text"
+              value={newText}
+              onChange={(e) => setNewText(e.target.value)}
+              className="bg-white border-gray-300"
+            />
+          </div>
+          <Button onClick={handleAddMacro} className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
+            <Plus className="h-4 w-4" /> Add Macro
+          </Button>
+          
+          {macros.length > 0 && (
+            <div className="mt-4 space-y-2">
+              {macros.map((macro, index) => (
+                <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded border border-gray-200">
+                  <span className="font-medium">{macro.trigger}</span>
+                  <span className="text-gray-600">{macro.text}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const StaticTextDialog = () => {
+  const [staticText, setStaticText] = useState('');
+  const [targetSection, setTargetSection] = useState('');
+  const { toast } = useToast();
+
+  const handleAddStaticText = () => {
+    if (staticText) {
+      toast({
+        title: "Static Text Added",
+        description: targetSection 
+          ? `Static text will be added to "${targetSection}"` 
+          : "Static text has been added",
+        className: "bg-white border border-gray-200 text-gray-800",
+      });
+      setStaticText('');
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="gap-2">
+          <ScrollText className="h-4 w-4" />
+          Static Text
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md bg-white border-gray-200">
+        <DialogHeader>
+          <DialogTitle className="text-gray-800">Static Text</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4 pt-4">
+          <Textarea 
+            placeholder="Enter static text that will be available across all templates..."
+            className="min-h-[150px] bg-white border-gray-300"
+            value={staticText}
+            onChange={(e) => setStaticText(e.target.value)}
+          />
+          
+          <Select value={targetSection} onValueChange={setTargetSection}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select target section (optional)" />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectItem value="all">All Sections</SelectItem>
+              <SelectItem value="chief_complaint">Chief Complaint</SelectItem>
+              <SelectItem value="hpi">History of Present Illness</SelectItem>
+              <SelectItem value="pmh">Past Medical History</SelectItem>
+              <SelectItem value="assessment">Assessment</SelectItem>
+              <SelectItem value="plan">Plan</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <Button onClick={handleAddStaticText} className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
+            <Plus className="h-4 w-4" /> Add Static Text
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 const TemplateBuilder = () => {
+  const [templateName, setTemplateName] = useState("");
+  const [sections, setSections] = useState<Array<{ id: string; title: string; content: string }>>([]);
+  const { toast } = useToast();
+
+  const addSection = () => {
+    const newSection = {
+      id: `section-${Date.now()}`,
+      title: "",
+      content: ""
+    };
+    setSections([...sections, newSection]);
+  };
+
+  const removeSection = (id: string) => {
+    setSections(sections.filter(section => section.id !== id));
+  };
+
+  const updateSectionTitle = (id: string, title: string) => {
+    setSections(sections.map(section => 
+      section.id === id ? { ...section, title } : section
+    ));
+  };
+
+  const updateSectionContent = (id: string, content: string) => {
+    setSections(sections.map(section => 
+      section.id === id ? { ...section, content } : section
+    ));
+  };
+
+  const downloadTemplate = () => {
+    if (!templateName) {
+      toast({
+        title: "Template name required",
+        description: "Please enter a name for your template",
+        variant: "destructive",
+        className: "bg-white border-red-200 text-red-800",
+      });
+      return;
+    }
+
+    if (sections.length === 0) {
+      toast({
+        title: "No sections added",
+        description: "Please add at least one section to your template",
+        variant: "destructive",
+        className: "bg-white border-red-200 text-red-800",
+      });
+      return;
+    }
+
+    // Create a simple text representation of the template
+    let templateContent = `Template Name: ${templateName}\n\n`;
+    
+    sections.forEach((section, index) => {
+      templateContent += `Section ${index + 1}: ${section.title || 'Untitled Section'}\n`;
+      templateContent += `${section.content || 'No content'}\n\n`;
+    });
+    
+    // Create a blob and download
+    const blob = new Blob([templateContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${templateName.replace(/\s+/g, '_')}_template.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    toast({
+      title: "Template Downloaded",
+      description: `Your template "${templateName}" with ${sections.length} sections has been saved`,
+      className: "bg-white border border-gray-200 text-gray-800",
+    });
+  };
+
   return (
-    <section className="py-16 bg-white text-[#143151]">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Specialty-Specific Template Builder</h2>
-          <p className="text-gray-700 max-w-3xl mx-auto">
-            Create and customize templates that match your specialty's unique documentation needs. 
-            Our intelligent builder adapts to your workflow, saving you time and improving accuracy.
+    <section className="witSp bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex flex-col items-center space-y-4 mb-12 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#143151] max-w-3xl">
+            Build Your Workflow with S10.AI
+          </h2>
+          <Separator className="w-1/5 bg-black h-1" />
+          <p className="text-lg text-gray-700 max-w-3xl">
+            Documentation That Adapts to You
           </p>
         </div>
 
-        <Tabs defaultValue="overview" className="w-full max-w-5xl mx-auto">
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="templates">Templates</TabsTrigger>
-            <TabsTrigger value="customize">Customization</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="overview" className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-              <div>
-                <h3 className="text-2xl font-semibold mb-4">Intelligent Template Creation</h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <div className="mr-2 h-6 w-6 flex-shrink-0 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]"></div>
-                    <p>Automate documentation across all medical specialties</p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="mr-2 h-6 w-6 flex-shrink-0 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]"></div>
-                    <p>Build custom templates based on your practice patterns</p>
-                  </li>
-                  <li className="flex items-start">
-                    <div className="mr-2 h-6 w-6 flex-shrink-0 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]"></div>
-                    <p>Save time with AI-powered note completion</p>
-                  </li>
-                </ul>
-                <Button 
-                  className="mt-6 rounded-full px-6 py-5 text-md bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl h-auto"
-                >
-                  Try Template Builder
-                </Button>
-              </div>
-              <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-                <div className="border-2 border-dashed border-gray-300 p-4 rounded-md h-[300px] flex items-center justify-center">
-                  <p className="text-gray-500 text-lg font-semibold">Template Preview</p>
-                </div>
-              </div>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="templates">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {["Cardiology", "Orthopedics", "Neurology"].map((specialty, i) => (
-                <Card key={i} className="transition-all hover:shadow-xl">
-                  <CardContent className="p-6">
-                    <h4 className="font-semibold text-xl mb-2">{specialty}</h4>
-                    <p className="text-gray-500 mb-4">Specialty-specific templates designed for {specialty.toLowerCase()} practice.</p>
-                    <div className="h-32 bg-gray-100 rounded-md mb-4 flex items-center justify-center">
-                      <p className="text-gray-400 text-sm">Template preview</p>
-                    </div>
-                    <Button variant="outline" className="w-full">
-                      View Templates
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="customize">
-            <div className="bg-gray-50 p-8 rounded-xl shadow-sm">
-              <h3 className="text-2xl font-semibold mb-6">Customize Your Workflow</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <Card className="bg-white shadow-lg">
+          <CardContent className="p-6">
+            <div className="space-y-6">
+              <p className="text-gray-700 leading-relaxed">
+                Design the ideal clinical note flow with S10.AI's intelligent template builder. 
+                Choose from predefined sections or create your own—tailored exactly to your needs.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
                 <div className="space-y-4">
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
-                    <h4 className="font-medium">Custom Fields</h4>
-                    <p className="text-sm text-gray-600">Define specialty-specific fields for your templates</p>
-                  </div>
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
-                    <h4 className="font-medium">Smart Defaults</h4>
-                    <p className="text-sm text-gray-600">Set intelligent defaults based on your practice patterns</p>
-                  </div>
-                  <div className="p-4 bg-white rounded-lg shadow-sm">
-                    <h4 className="font-medium">Conditional Logic</h4>
-                    <p className="text-sm text-gray-600">Create templates that adapt to patient conditions</p>
-                  </div>
+                  <h3 className="text-xl font-semibold text-[#143151]">Platform Features</h3>
+                  <ul className="space-y-3 text-gray-700">
+                    <li className="flex items-center gap-2">
+                      <Plus className="h-5 w-5 text-blue-500" />
+                      Prompt the AI using a previous note
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Plus className="h-5 w-5 text-blue-500" />
+                      Build a template with a single command
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Plus className="h-5 w-5 text-blue-500" />
+                      Start from scratch
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Plus className="h-5 w-5 text-blue-500" />
+                      Import existing templates
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Plus className="h-5 w-5 text-blue-500" />
+                      Explore our extensive clinical content library
+                    </li>
+                  </ul>
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="border border-gray-200 p-4 rounded-md h-[250px] mb-4">
-                    <p className="text-gray-400 mb-2 text-xs">Template Editor</p>
-                    <div className="bg-gray-100 h-[200px] rounded-md"></div>
+
+                <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                  <h3 className="text-xl font-semibold text-[#143151] mb-4">Try Template Builder</h3>
+                  <div className="space-y-4">
+                    <input
+                      type="text"
+                      placeholder="Template Name (e.g. General Consultation)"
+                      className="w-full p-2 border rounded"
+                      value={templateName}
+                      onChange={(e) => setTemplateName(e.target.value)}
+                    />
+                    
+                    <div className="flex flex-wrap gap-2">
+                      <MacrosDialog />
+                      <StaticTextDialog />
+                      <WNLSettingsDialog />
+                    </div>
+                    
+                    <Button className="w-full gap-2" onClick={addSection}>
+                      <Plus className="h-4 w-4" /> Add Section
+                    </Button>
+                    
+                    {sections.length > 0 && (
+                      <div className="space-y-4 mt-4">
+                        <h4 className="font-medium text-gray-700">Template Sections:</h4>
+                        {sections.map((section) => (
+                          <div key={section.id} className="bg-white p-3 rounded border">
+                            <div className="flex justify-between items-center mb-2">
+                              <input
+                                type="text"
+                                placeholder="Section Title"
+                                className="border-b border-gray-300 text-sm focus:outline-none focus:border-blue-500 w-4/5"
+                                value={section.title}
+                                onChange={(e) => updateSectionTitle(section.id, e.target.value)}
+                              />
+                              <button 
+                                onClick={() => removeSection(section.id)}
+                                className="text-gray-500 hover:text-red-500"
+                              >
+                                <X className="h-4 w-4" />
+                              </button>
+                            </div>
+                            
+                            <div className="space-y-3">
+                              <Textarea
+                                placeholder="Enter section content..."
+                                className="text-sm min-h-[60px]"
+                                value={section.content}
+                                onChange={(e) => updateSectionContent(section.id, e.target.value)}
+                              />
+
+                              <div className="flex justify-end">
+                                <AIHelpDialog />
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    
+                    <Button className="w-full gap-2" onClick={downloadTemplate}>
+                      <Download className="h-4 w-4" /> Download Template
+                    </Button>
                   </div>
-                  <Button 
-                    className="w-full rounded-md px-4 py-2 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-md"
-                  >
-                    Save Template
-                  </Button>
                 </div>
               </div>
             </div>
-          </TabsContent>
-        </Tabs>
+
+            <Alert className="mt-8 bg-blue-50 border-blue-200 text-blue-800">
+              <AlertDescription className="py-2">
+                <p className="font-bold mb-1">DISCLAIMER</p>
+                <p>This is a demonstration of the template builder interface only. The actual application has AI model integration and additional template building options not shown here. Book a demo to see how the real application works in real-time.</p>
+              </AlertDescription>
+            </Alert>
+          </CardContent>
+        </Card>
       </div>
     </section>
   );
