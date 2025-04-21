@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -72,16 +73,19 @@ const StepItem: React.FC<StepItemProps> = ({
   stepNumber
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: false, amount: 0.3 });
+  // Improved inView detection with higher threshold and no "once" parameter
+  const isInView = useInView(ref, { 
+    once: false, 
+    amount: 0.6,  // Increased from 0.3 for better sensitivity
+    threshold: [0.4, 0.6, 0.8] // Multiple thresholds for more granular detection
+  });
   
   useEffect(() => {
+    // Activate the step more quickly when it comes into view
     if (isInView && !isActive) {
-      const timer = setTimeout(() => {
-        onActivate();
-      }, 100);
-      return () => clearTimeout(timer);
+      onActivate();
     }
-  }, [isInView]);
+  }, [isInView, isActive, onActivate]);
 
   return (
     <div 
@@ -205,6 +209,7 @@ const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
 export const HowBravoWorksSection = () => {
   const [activeStep, setActiveStep] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
   const intervalRef = useRef<number | null>(null);
   
@@ -276,22 +281,106 @@ export const HowBravoWorksSection = () => {
     }
   ];
   
+  // Track scroll position to determine which step should be active
   useEffect(() => {
-    if (isInView) {
+    const handleScroll = () => {
+      if (!isInView) return;
+      
+      // Clear any existing interval when user scrolls
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
       
-      const id = window.setInterval(() => {
-        setActiveStep((prev) => (prev + 1) % steps.length);
-      }, 8000);
+      // Find which step is most visible in the viewport
+      const stepElements = stepRefs.current.filter(Boolean);
+      if (stepElements.length === 0) return;
       
-      intervalRef.current = id;
+      let maxVisibleIndex = 0;
+      let maxVisibleArea = 0;
+      
+      stepElements.forEach((stepEl, index) => {
+        if (!stepEl) return;
+        
+        const rect = stepEl.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        
+        // Calculate how much of the element is visible
+        const visibleTop = Math.max(0, rect.top);
+        const visibleBottom = Math.min(windowHeight, rect.bottom);
+        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+        const visibleArea = visibleHeight / rect.height;
+        
+        // Weight central position more heavily (elements in the middle of screen)
+        const centerPosition = Math.abs((rect.top + rect.bottom) / 2 - windowHeight / 2);
+        const centralityFactor = 1 - (centerPosition / windowHeight);
+        const weightedVisibility = visibleArea * centralityFactor * 1.5;
+        
+        if (weightedVisibility > maxVisibleArea) {
+          maxVisibleArea = weightedVisibility;
+          maxVisibleIndex = index;
+        }
+      });
+      
+      // Only update if we're changing to a different step
+      if (maxVisibleArea > 0.2 && maxVisibleIndex !== activeStep) {
+        setActiveStep(maxVisibleIndex);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial check
+    handleScroll();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [isInView, activeStep]);
+  
+  // Auto-rotation when no scrolling happens
+  useEffect(() => {
+    if (isInView) {
+      // Reset the auto-rotation timer when the section comes into view
+      const startAutoRotation = () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+        
+        const id = window.setInterval(() => {
+          setActiveStep((prev) => (prev + 1) % steps.length);
+        }, 8000);
+        
+        intervalRef.current = id;
+      };
+      
+      // Start auto-rotation
+      startAutoRotation();
+      
+      // Also restart auto-rotation after user stops scrolling
+      let scrollTimeout: number | null = null;
+      const handleScrollEnd = () => {
+        if (scrollTimeout) {
+          window.clearTimeout(scrollTimeout);
+        }
+        
+        scrollTimeout = window.setTimeout(() => {
+          if (!intervalRef.current) {
+            startAutoRotation();
+          }
+        }, 2000);
+      };
+      
+      window.addEventListener('scroll', handleScrollEnd, { passive: true });
       
       return () => {
+        window.removeEventListener('scroll', handleScrollEnd);
         if (intervalRef.current) {
           clearInterval(intervalRef.current);
           intervalRef.current = null;
+        }
+        if (scrollTimeout) {
+          window.clearTimeout(scrollTimeout);
         }
       };
     }
@@ -311,6 +400,11 @@ export const HowBravoWorksSection = () => {
     }
     setActiveStep(index);
   };
+  
+  // Reset refs array when steps change
+  useEffect(() => {
+    stepRefs.current = stepRefs.current.slice(0, steps.length);
+  }, [steps.length]);
   
   return (
     <section className="bg-white py-20" ref={sectionRef}>
@@ -336,16 +430,21 @@ export const HowBravoWorksSection = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
           <div className="space-y-6">
             {steps.map((step, index) => (
-              <StepItem
+              <div 
                 key={index}
-                index={index}
-                title={step.title}
-                description={step.description}
-                items={step.items}
-                isActive={activeStep === index}
-                onActivate={() => handleActivateStep(index)}
-                stepNumber={step.number}
-              />
+                ref={el => stepRefs.current[index] = el}
+                className="scroll-mt-24"
+              >
+                <StepItem
+                  index={index}
+                  title={step.title}
+                  description={step.description}
+                  items={step.items}
+                  isActive={activeStep === index}
+                  onActivate={() => handleActivateStep(index)}
+                  stepNumber={step.number}
+                />
+              </div>
             ))}
           </div>
           
