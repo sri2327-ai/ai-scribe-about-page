@@ -203,7 +203,7 @@ const TenthSection = () => {
           <Box 
             sx={{
               width: { xs: '100%', md: '80%', lg: '70%' },
-              textAlign: 'center',
+              textAlign: { xs: 'left', md: 'center' },
               mb: { xs: 1, md: 2 }
             }}
           >
@@ -214,30 +214,32 @@ const TenthSection = () => {
               viewport={{ once: true }}
             >
               <Typography 
-                variant="h3" 
+                variant="h4" 
                 fontWeight="bold"
                 id="security-heading"
                 sx={{ 
-                  mb: 3,
+                  mb: 2,
                   color: '#143151',
-                  fontSize: { xs: '1.6rem', sm: '1.9rem', md: '2.2rem' },
+                  fontSize: { xs: '1.15rem', sm: '1.2rem', md: '1.5rem' },
                   lineHeight: 1.3,
-                  letterSpacing: '-0.02em'
+                  letterSpacing: '-0.02em',
+                  textAlign: { xs: 'left', md: 'center' }
                 }}
               >
-                Security, Compliance & Data Protection You Can Trust
+                Security, Compliance &amp; Data Protection You Can Trust
               </Typography>
               <Typography 
-                variant="h5" 
+                variant="h6" 
                 sx={{ 
                   color: '#4B5563',
-                  fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1.05rem' },
+                  fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
                   lineHeight: 1.5,
                   maxWidth: '900px',
-                  mx: 'auto'
+                  mx: 'auto',
+                  textAlign: { xs: 'left', md: 'center' }
                 }}
               >
-                Comprehensive protection across HIPAA, PIPEDA & GDPR – Ensuring the highest standards of healthcare data security and privacy.
+                Comprehensive protection across HIPAA, PIPEDA &amp; GDPR – Ensuring the highest standards of healthcare data security and privacy.
               </Typography>
             </motion.div>
           </Box>

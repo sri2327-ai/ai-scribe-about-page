@@ -23,22 +23,32 @@ export const NinthSection = () => {
         sx={{
           flexWrap: "wrap",
           justifyContent: "space-between",
-          alignItems: "flex-start",
+          alignItems: { xs: "center", sm: "flex-start" },
         }}
         useFlexGap
       >
-        <Box>
+        <Box sx={{ width: { xs: "100%", sm: "90%", md: "80%" }, mb: 1 }}>
           <Typography
-            variant="h4"
+            variant="h5"
             fontWeight="semiBold"
-            sx={{ color: "white", mb: 2, textAlign: 'left' }} // smaller and aligned left
+            sx={{ 
+              color: "white", 
+              mb: 1,
+              textAlign: { xs: "center", sm: "left" },
+              fontSize: { xs: "1.15rem", sm: "1.3rem", md: "1.5rem" }
+            }}
           >
             The S10.AI Competitive Edge
           </Typography>
           <Typography
-            variant="h5"
+            variant="subtitle1"
             fontWeight="regular"
-            sx={{ color: "white", opacity: 0.9 }}
+            sx={{ 
+              color: "white", 
+              opacity: 0.9,
+              textAlign: { xs: "center", sm: "left" },
+              fontSize: { xs: "0.95rem", sm: "1.1rem" }
+            }}
           >
             Leading the Future of Healthcare AI
           </Typography>
@@ -175,7 +185,7 @@ export const NinthSection = () => {
             >
               <Typography
                 className="title"
-                variant="h5"
+                variant="h6"
                 fontWeight="semiBold"
                 sx={{
                   color: "black",
@@ -188,7 +198,7 @@ export const NinthSection = () => {
               </Typography>
               <Typography
                 className="description"
-                variant="body1"
+                variant="body2"
                 sx={{
                   color: "black",
                   opacity: 0.8,
@@ -222,6 +232,4 @@ export const NinthSection = () => {
     </section>
   );
 };
-
 export default NinthSection;
-

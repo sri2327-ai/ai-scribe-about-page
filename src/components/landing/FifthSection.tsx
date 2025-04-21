@@ -50,6 +50,7 @@ const cardIcons = [
   { id: 7, icon: BarChart, title: "Accelerate Revenue Cycle Management", description: "Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes." },
 ];
 
+// --- ROI Metrics to display ---
 const ROIMetrics = {
   timeReduction: { value: "75%", icon: Clock, label: "reduction in documentation time" },
   revenueIncrease: { value: "40%", icon: TrendingUp, label: "increase in practice revenue" },
@@ -88,6 +89,16 @@ const WorkflowCard = ({ icon: Icon, title, description, number }) => {
     </Card>
   );
 };
+
+const ROIMetricCard = ({ icon: Icon, value, label }) => (
+  <div className="flex flex-col items-center p-3 md:p-4 rounded-xl bg-gradient-to-br from-[#143151]/[0.05] to-[#387E89]/[0.07] border border-[#387E89]/10 w-full h-full shadow-sm hover:shadow-md transition-all">
+    <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] mb-2">
+      <Icon className="w-6 h-6 text-white" />
+    </div>
+    <div className="text-2xl md:text-3xl font-bold text-[#143151] mb-1">{value}</div>
+    <div className="text-sm text-gray-800 text-center">{label}</div>
+  </div>
+);
 
 export const FifthSection = () => {
   const containerRef = React.useRef(null);
@@ -132,6 +143,23 @@ export const FifthSection = () => {
               ))}
             </div>
           </Card>
+        </div>
+
+        {/* --- ROI Metrics Display --- */}
+        <div className="mb-16">
+          <Typography 
+            variant="h5"
+            fontWeight="bold" 
+            textAlign="center"
+            sx={{ mb: 4, color: "#143151", fontSize: { xs: "1.2rem", sm: "1.35rem" } }}
+          >
+            ROI At-a-Glance
+          </Typography>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 justify-center max-w-5xl mx-auto">
+            {Object.values(ROIMetrics).map((metric, idx) => (
+              <ROIMetricCard key={idx} icon={metric.icon} value={metric.value} label={metric.label} />
+            ))}
+          </div>
         </div>
 
         <div className="mb-16">
@@ -185,3 +213,4 @@ export const FifthSection = () => {
 };
 
 export default FifthSection;
+
