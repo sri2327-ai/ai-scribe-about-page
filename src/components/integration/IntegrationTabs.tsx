@@ -5,7 +5,7 @@ import VideoCallIcon from '@mui/icons-material/VideoCall';
 import EmailIcon from '@mui/icons-material/Email';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocalHospitalRoundedIcon from '@mui/icons-material/LocalHospitalRounded';
-import { Typography } from '@mui/material';
+import { Typography, Box } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
 import EHRTab from './tabs/EHRTab';
 import SIPTab from './tabs/SIPTab';
@@ -50,16 +50,31 @@ export default function IntegrationTabs() {
   return (
     <div className={styles.integrationWrapper}>
       <div className={styles.headerText}>
-        <Typography variant={isMobile ? "h3" : "h2"} className={styles.healthcareTitle}>
+        <Typography 
+          variant={isMobile ? "h4" : "h3"} 
+          className={styles.healthcareTitle}
+          sx={{ 
+            fontSize: isMobile ? '1.5rem' : '2rem',
+            mb: 2,
+            px: isMobile ? 1 : 3
+          }}
+        >
           Deep, Intelligent Integrations <br />
           Across Healthcare Tech
         </Typography>
-        <p>
+        <Typography
+          variant="body1"
+          sx={{ 
+            fontSize: isMobile ? '0.9rem' : '1rem',
+            mb: 4,
+            px: isMobile ? 2 : 0
+          }}
+        >
           Our Platform Seamlessly connects with your existing tools, enhancing productivity <br />
           without disrupting your workflow
-        </p>
+        </Typography>
       </div>
-      <div className={styles.tabHeader}>
+      <Box className={styles.tabHeader} sx={{ gap: isMobile ? '0.5rem' : '1rem' }}>
         {tabs.map((tab) => (
           <div
             key={tab.key}
@@ -68,12 +83,22 @@ export default function IntegrationTabs() {
           >
             <div className={styles.icon}>{tab.icon}</div>
             <div>
-              <Typography variant={isMobile ? "h6" : "h5"}>{tab.title}</Typography>
-              <p>{tab.description}</p>
+              <Typography 
+                variant={isMobile ? "subtitle1" : "h6"}
+                sx={{ fontSize: isMobile ? '0.9rem' : '1.1rem', fontWeight: 'bold' }}
+              >
+                {tab.title}
+              </Typography>
+              <Typography 
+                variant="body2"
+                sx={{ fontSize: isMobile ? '0.8rem' : '0.9rem' }}
+              >
+                {tab.description}
+              </Typography>
             </div>
           </div>
         ))}
-      </div>
+      </Box>
       <div className={styles.tabContent}>
         {tabs.find((tab) => tab.key === activeTab)?.content}
       </div>

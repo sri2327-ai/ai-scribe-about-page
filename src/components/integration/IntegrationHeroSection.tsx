@@ -11,13 +11,17 @@ const IntegrationHeroSection = () => {
     <div className={styles.container}>
       {/* Left Section */}
       <div className={styles.leftSection}>
-        <Typography variant={isMobile ? "h3" : "h1"} className={styles.title}>
+        <Typography 
+          variant={isMobile ? "h4" : "h2"} 
+          className={styles.title}
+          sx={{ fontSize: isMobile ? '1.75rem' : '2.5rem' }}
+        >
           Seamlessly Connect S10.AI with Your Favourite Software
         </Typography>
         <p className={styles.subtitle}>
           Instant Setup, Zero Disruptions, Maximum Efficiency
         </p>
-        <p>
+        <p className={styles.description}>
           S10.AI accelerates your workflow with lightning-fast, bidirectional integration across EHR, PMS, SIP, TeleHealth, platform, Calendar, CloudStorage, and Email Systems.
         </p>
         <Button variant='contained' className={styles.button}>Learn More</Button>
@@ -25,7 +29,7 @@ const IntegrationHeroSection = () => {
       {/* Right Section with Gradient Circle */}
       <div className={styles.rightSection}>
         {/* Update src as needed */}
-        <img src="/img.png" alt="Integration" style={{ maxWidth: "100%", borderRadius: "12px" }} />
+        <img src="/img.png" alt="Integration" className={styles.heroImage} />
       </div>
     </div>
   );
