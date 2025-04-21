@@ -1,5 +1,4 @@
-
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
@@ -17,25 +16,6 @@ import {
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import useMediaQuery from '@mui/material/useMediaQuery';
-
-// Define a keyframe animation for the arrow
-const moveRightKeyframe = `
-@keyframes moveRight {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(10px); }
-}
-`;
-
-// Add the keyframe animation to the document
-React.useEffect(() => {
-  const styleElement = document.createElement('style');
-  styleElement.textContent = moveRightKeyframe;
-  document.head.appendChild(styleElement);
-  
-  return () => {
-    document.head.removeChild(styleElement);
-  };
-}, []);
 
 const beforeAfterComparison = {
   before: {
@@ -123,7 +103,22 @@ export const FifthSection = () => {
   const containerRef = React.useRef(null);
   const isMobile = useMediaQuery("(max-width:600px)");
 
-  // Data for before/after cards
+  useEffect(() => {
+    const moveRightKeyframe = `
+    @keyframes moveRight {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }`;
+    
+    const styleElement = document.createElement('style');
+    styleElement.textContent = moveRightKeyframe;
+    document.head.appendChild(styleElement);
+    
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+
   const beforeAfterCards = [
     {
       type: 'before',
@@ -152,7 +147,6 @@ export const FifthSection = () => {
         </Typography>
 
         <div className="mb-16">
-          {/* Responsive: Carousel for mobile, grid for desktop/tablet */}
           {isMobile ? (
             <>
             <Carousel
@@ -163,7 +157,6 @@ export const FifthSection = () => {
               }}
               plugins={[]}
               className="w-full"
-              // Disable controls for mobile carousel
             >
               <CarouselContent>
                 {beforeAfterCards.map((card, idx) => (
@@ -192,15 +185,13 @@ export const FifthSection = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              {/* Hide nav controls and below-controls on mobile */}
-            </Carousel>
-            {/* Mobile swipe hint arrow below carousel */}
-            <div className="flex justify-center mt-4">
-              <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
-                <span>Swipe to see next</span>
-                <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+              <div className="flex justify-center mt-4">
+                <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                  <span>Swipe to see next</span>
+                  <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+                </div>
               </div>
-            </div>
+            </Carousel>
             </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -234,7 +225,6 @@ export const FifthSection = () => {
           )}
         </div>
 
-        {/* --- ROI Metrics Display --- */}
         <div className="mb-16">
           <Typography 
             variant="h5"
