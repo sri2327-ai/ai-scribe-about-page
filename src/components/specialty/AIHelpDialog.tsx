@@ -29,25 +29,25 @@ const AIHelpDialog = () => {
           AI Help
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md bg-background border-border">
+      <DialogContent className="sm:max-w-md bg-white border-gray-200">
         <DialogHeader>
-          <DialogTitle className="text-foreground">Modify Created Section</DialogTitle>
+          <DialogTitle className="text-gray-800">Modify Created Section</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 pt-4">
-          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-gray-700 hover:bg-gray-100" onClick={handleOptionClick}>
             <ListCheck className="h-4 w-4" />
             Switch to List
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-gray-700 hover:bg-gray-100" onClick={handleOptionClick}>
             Add More Detail
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-gray-700 hover:bg-gray-100" onClick={handleOptionClick}>
             Reduce Detail
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-gray-700 hover:bg-gray-100" onClick={handleOptionClick}>
             Specify Format
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-gray-700 hover:bg-gray-100" onClick={handleOptionClick}>
             Other
           </Button>
         </div>

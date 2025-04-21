@@ -1,19 +1,111 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardContent } from "@/components/ui/card";
-import { Download, Plus, X } from "lucide-react";
+import { Download, Plus, X, ScrollText, Keyboard } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import WNLSettingsDialog from './WNLSettingsDialog';
 import AIHelpDialog from './AIHelpDialog';
+
+// Extracted dialogs for Macros and Static Text
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+
+const MacrosDialog = () => {
+  const [macros, setMacros] = useState<Array<{ trigger: string; text: string }>>([]);
+  const [newTrigger, setNewTrigger] = useState('');
+  const [newText, setNewText] = useState('');
+
+  const handleAddMacro = () => {
+    if (newTrigger && newText) {
+      setMacros([...macros, { trigger: newTrigger, text: newText }]);
+      setNewTrigger('');
+      setNewText('');
+    }
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="gap-2">
+          <Keyboard className="h-4 w-4" />
+          Macros / Shortcuts
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md bg-white border-gray-200">
+        <DialogHeader>
+          <DialogTitle className="text-gray-800">Macros / Shortcuts</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input
+              placeholder="Trigger Phrase"
+              value={newTrigger}
+              onChange={(e) => setNewTrigger(e.target.value)}
+              className="bg-background"
+            />
+            <Input
+              placeholder="Auto-Insert Text"
+              value={newText}
+              onChange={(e) => setNewText(e.target.value)}
+              className="bg-background"
+            />
+          </div>
+          <Button onClick={handleAddMacro} className="w-full gap-2">
+            <Plus className="h-4 w-4" /> Add Macro
+          </Button>
+          
+          {macros.length > 0 && (
+            <div className="mt-4 space-y-2">
+              {macros.map((macro, index) => (
+                <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                  <span className="font-medium">{macro.trigger}</span>
+                  <span className="text-gray-600">{macro.text}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
+const StaticTextDialog = () => {
+  const [staticText, setStaticText] = useState('');
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline" className="gap-2">
+          <ScrollText className="h-4 w-4" />
+          Static Text
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md bg-white border-gray-200">
+        <DialogHeader>
+          <DialogTitle className="text-gray-800">Static Text</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4 pt-4">
+          <Textarea 
+            placeholder="Enter static text that will be available across all templates..."
+            className="min-h-[150px] bg-background"
+            value={staticText}
+            onChange={(e) => setStaticText(e.target.value)}
+          />
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 const TemplateBuilder = () => {
   const [templateName, setTemplateName] = useState("");
@@ -64,20 +156,29 @@ const TemplateBuilder = () => {
       return;
     }
 
+    // Create a simple text representation of the template
+    let templateContent = `Template Name: ${templateName}\n\n`;
+    
+    sections.forEach((section, index) => {
+      templateContent += `Section ${index + 1}: ${section.title || 'Untitled Section'}\n`;
+      templateContent += `${section.content || 'No content'}\n\n`;
+    });
+    
+    // Create a blob and download
+    const blob = new Blob([templateContent], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${templateName.replace(/\s+/g, '_')}_template.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
     toast({
       title: "Template Downloaded",
       description: `Your template "${templateName}" with ${sections.length} sections has been saved`,
     });
-  };
-
-  const handleMacroSelect = (sectionId: string, value: string) => {
-    if (!value) return;
-    
-    updateSectionContent(sectionId, 
-      sections.find(s => s.id === sectionId)?.content + 
-      (sections.find(s => s.id === sectionId)?.content ? '\n' : '') + 
-      value
-    );
   };
 
   return (
@@ -138,6 +239,13 @@ const TemplateBuilder = () => {
                       value={templateName}
                       onChange={(e) => setTemplateName(e.target.value)}
                     />
+                    
+                    <div className="flex flex-wrap gap-2">
+                      <MacrosDialog />
+                      <StaticTextDialog />
+                      <WNLSettingsDialog />
+                    </div>
+                    
                     <Button className="w-full gap-2" onClick={addSection}>
                       <Plus className="h-4 w-4" /> Add Section
                     </Button>
@@ -164,26 +272,6 @@ const TemplateBuilder = () => {
                             </div>
                             
                             <div className="space-y-3">
-                              <div className="flex gap-2">
-                                <Select onValueChange={(value) => handleMacroSelect(section.id, value)}>
-                                  <SelectTrigger className="w-[200px]">
-                                    <SelectValue placeholder="Select macro" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    <SelectItem value="Patient presents with chest pain radiating to the left arm.">
-                                      Chest Pain
-                                    </SelectItem>
-                                    <SelectItem value="Lungs clear to auscultation bilaterally.">
-                                      Clear Lungs
-                                    </SelectItem>
-                                    <SelectItem value="Cardiovascular exam within normal limits.">
-                                      Cardio WNL
-                                    </SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                <WNLSettingsDialog />
-                              </div>
-
                               <Textarea
                                 placeholder="Enter section content..."
                                 className="text-sm min-h-[60px]"
@@ -200,7 +288,7 @@ const TemplateBuilder = () => {
                       </div>
                     )}
                     
-                    <Button variant="outline" className="w-full gap-2" onClick={downloadTemplate}>
+                    <Button className="w-full gap-2" onClick={downloadTemplate}>
                       <Download className="h-4 w-4" /> Download Template
                     </Button>
                   </div>
