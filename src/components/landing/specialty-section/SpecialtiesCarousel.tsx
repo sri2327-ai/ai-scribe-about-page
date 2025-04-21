@@ -46,9 +46,9 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
       background: '#FFF',
       borderRadius: 3, 
       p: { xs: 2, sm: 2.5, md: 2.5 }, 
-      minWidth: { xs: '140px', sm: '150px', md: '170px' },
-      maxWidth: { xs: '200px', sm: '240px', md: '270px' },
-      height: { xs: '120px', sm: '135px', md: '145px' },
+      minWidth: { xs: '130px', sm: '150px', md: '170px' },
+      maxWidth: { xs: '180px', sm: '220px', md: '240px' },
+      height: { xs: '120px', sm: '130px', md: '140px' },
       boxShadow: '0 2px 10px 0 rgba(0,0,0,0.04)',
       border: '1px solid #E0E0E0',
       gap: 2,
@@ -60,7 +60,7 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
     }}
   >
     <div>
-      <IconComponent size={30} color="#143151" />
+      <IconComponent size={28} color="#143151" />
     </div>
     <Typography 
       variant="body1" 
@@ -70,7 +70,7 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
         background: 'linear-gradient(135deg, #143151, #387E89)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
-        fontSize: { xs: '0.96rem', sm: '1.08rem', md: '1.13rem' },
+        fontSize: { xs: '0.92rem', sm: '1rem', md: '1.05rem' },
         mt: 1
       }}
     >
@@ -100,10 +100,12 @@ export const SpecialtiesCarousel = () => {
           items={specialties}
           columnsDesktop={6}
           columnsTablet={3}
-          columnsMobile={1}
-          gap={20}
+          columnsMobile={2}
+          gap={12}
           showControls={true}
           itemWidth={null}
+          autoPlay={true}
+          autoPlayInterval={4000}
           renderItem={(specialty, index) => {
             const IconComponent = specialty.icon;
             return (

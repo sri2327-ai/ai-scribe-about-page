@@ -9,6 +9,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 interface ResponsiveCarouselProps<T> {
   items: T[];
@@ -22,6 +23,8 @@ interface ResponsiveCarouselProps<T> {
   itemWidth?: number | string;
   className?: string;
   cardClassName?: string;
+  autoPlay?: boolean;
+  autoPlayInterval?: number;
 }
 
 export function ResponsiveCarousel<T>({
@@ -36,6 +39,8 @@ export function ResponsiveCarousel<T>({
   itemWidth,
   className,
   cardClassName,
+  autoPlay = false,
+  autoPlayInterval = 3000,
 }: ResponsiveCarouselProps<T>) {
   // Always use carousel for consistency across all breakpoints
   // But for desktop, we show more columns by shrinking basis
@@ -61,8 +66,28 @@ export function ResponsiveCarousel<T>({
     maxCardWidth = 340;
   }
 
+  // Configure autoplay plugin
+  const autoplayPlugin = React.useMemo(
+    () =>
+      autoPlay
+        ? Autoplay({
+            delay: autoPlayInterval,
+            stopOnInteraction: true,
+            stopOnMouseEnter: false,
+          })
+        : undefined,
+    [autoPlay, autoPlayInterval]
+  );
+
   return (
-    <Carousel className={`w-full relative ${className || ""}`}>
+    <Carousel 
+      className={`w-full relative ${className || ""}`}
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      plugins={autoplayPlugin ? [autoplayPlugin] : undefined}
+    >
       <CarouselContent>
         {items.map((item, idx) => (
           <CarouselItem
@@ -119,4 +144,3 @@ export function ResponsiveCarousel<T>({
     </Carousel>
   );
 }
-
