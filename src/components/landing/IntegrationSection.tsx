@@ -4,8 +4,11 @@ import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { IntegrationChecker } from './IntegrationChecker';
+import { Link } from 'react-router-dom';
 
 const IntegrationSection = () => {
+  console.log("Rendering Integration Section on landing page");
+  
   return (
     <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89]">
       <div className="max-w-[1400px] mx-auto">
@@ -48,12 +51,14 @@ const IntegrationSection = () => {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-center"
         >
-          <Button 
-            className="rounded-full px-8 py-6 text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
-          >
-            Learn More About Integrations
-            <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
-          </Button>
+          <Link to="/integration">
+            <Button 
+              className="rounded-full px-8 py-6 text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
+            >
+              Learn More About Integrations
+              <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>
