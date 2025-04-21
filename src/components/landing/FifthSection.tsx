@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -16,6 +15,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const beforeAfterComparison = {
   before: {
@@ -102,6 +102,23 @@ const ROIMetricCard = ({ icon: Icon, value, label }) => (
 
 export const FifthSection = () => {
   const containerRef = React.useRef(null);
+  const isMobile = useMediaQuery("(max-width:600px)");
+
+  // Data for before/after cards
+  const beforeAfterCards = [
+    {
+      type: 'before',
+      title: beforeAfterComparison.before.title,
+      metrics: beforeAfterComparison.before.metrics,
+      color: 'red',
+    },
+    {
+      type: 'after',
+      title: beforeAfterComparison.after.title,
+      metrics: beforeAfterComparison.after.metrics,
+      color: 'blue',
+    },
+  ];
 
   return (
     <section ref={containerRef} className="py-16 px-4 md:px-8 bg-white">
@@ -110,39 +127,82 @@ export const FifthSection = () => {
           variant="h4" 
           fontWeight="bold" 
           textAlign="center" 
-          sx={{ mb: 8, color: 'black', fontSize: { xs: '1.75rem', sm: '2rem', md: '2rem' } }} // smaller than previous  // Changed from h3 variant to h4 and adjusted fontSize here
+          sx={{ mb: 8, color: 'black', fontSize: { xs: '1.75rem', sm: '2rem', md: '2rem' } }}
         >
           How Bravo & CRUSH Transform Your Practice Together
         </Typography>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          <Card className="p-6 bg-white hover:shadow-lg transition-all duration-300 border border-gray-200">
-            <h3 className="text-xl font-semibold mb-4 text-gray-900">
-              Before S10.AI
-            </h3>
-            <div className="space-y-3">
-              {beforeAfterComparison.before.metrics.map((metric, index) => (
-                <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-red-50/50">
-                  <X className="w-5 h-5 text-red-500" />
-                  <span className="text-gray-700">{metric}</span>
+        <div className="mb-16">
+          {/* Responsive: Carousel for mobile, grid for desktop/tablet */}
+          {isMobile ? (
+            <Carousel
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+              plugins={[]}
+              className="w-full"
+              // Disable controls for mobile carousel
+            >
+              <CarouselContent>
+                {beforeAfterCards.map((card, idx) => (
+                  <CarouselItem key={idx} className="pl-2 pr-2 basis-full">
+                    <Card className={`p-6 ${card.color === 'red'
+                      ? 'bg-white border border-gray-200' 
+                      : 'bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/20'} hover:shadow-lg transition-all duration-300`}>
+                      <h3 className={`text-xl font-semibold mb-4 ${card.color === 'red' ? 'text-gray-900' : 'text-[#387E89]'}`}>
+                        {card.title}
+                      </h3>
+                      <div className="space-y-3">
+                        {card.metrics.map((metric, index) => (
+                          <div key={index} className={`flex items-center gap-3 p-3 rounded-lg ${card.color === 'red' 
+                            ? 'bg-red-50/50' 
+                            : 'bg-[#387E89]/10'}`}>
+                            {card.color === 'red' ? (
+                              <X className="w-5 h-5 text-red-500" />
+                            ) : (
+                              <Check className="w-5 h-5 text-[#387E89]" />
+                            )}
+                            <span className="text-gray-700">{metric}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              {/* Hide nav controls and below-controls on mobile */}
+            </Carousel>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="p-6 bg-white hover:shadow-lg transition-all duration-300 border border-gray-200">
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">
+                  Before S10.AI
+                </h3>
+                <div className="space-y-3">
+                  {beforeAfterComparison.before.metrics.map((metric, index) => (
+                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-red-50/50">
+                      <X className="w-5 h-5 text-red-500" />
+                      <span className="text-gray-700">{metric}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </Card>
-
-          <Card className="p-6 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 hover:shadow-lg transition-all duration-300 border border-[#387E89]/20">
-            <h3 className="text-xl font-semibold mb-4 text-[#387E89]">
-              After CRUSH & BRAVO
-            </h3>
-            <div className="space-y-3">
-              {beforeAfterComparison.after.metrics.map((metric, index) => (
-                <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-[#387E89]/10">
-                  <Check className="w-5 h-5 text-[#387E89]" />
-                  <span className="text-gray-700">{metric}</span>
+              </Card>
+              <Card className="p-6 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 hover:shadow-lg transition-all duration-300 border border-[#387E89]/20">
+                <h3 className="text-xl font-semibold mb-4 text-[#387E89]">
+                  After CRUSH & BRAVO
+                </h3>
+                <div className="space-y-3">
+                  {beforeAfterComparison.after.metrics.map((metric, index) => (
+                    <div key={index} className="flex items-center gap-3 p-3 rounded-lg bg-[#387E89]/10">
+                      <Check className="w-5 h-5 text-[#387E89]" />
+                      <span className="text-gray-700">{metric}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </Card>
             </div>
-          </Card>
+          )}
         </div>
 
         {/* --- ROI Metrics Display --- */}
@@ -213,4 +273,3 @@ export const FifthSection = () => {
 };
 
 export default FifthSection;
-
