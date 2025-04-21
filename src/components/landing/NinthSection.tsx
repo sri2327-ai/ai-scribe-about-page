@@ -1,14 +1,10 @@
 
-import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 export const NinthSection = () => {
-  const theme = useTheme();
-  const MotionBox = motion(Box);
-
   const cards = [
     {
       title: "Science-Driven AI",
@@ -31,6 +27,10 @@ export const NinthSection = () => {
         "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization.",
     },
   ];
+
+  // Consistent card size
+  const cardWidth = 315;
+  const cardHeight = 235;
 
   return (
     <section
@@ -76,7 +76,6 @@ export const NinthSection = () => {
             Leading the Future of Healthcare AI
           </Typography>
         </Box>
-        {/* Removed "View More" Button as per request */}
       </Stack>
 
       <Box sx={{ mb: 2, maxWidth: "1320px", mx: "auto" }}>
@@ -86,7 +85,9 @@ export const NinthSection = () => {
           columnsTablet={2}
           columnsMobile={1}
           gap={24}
-          itemWidth={null}
+          itemWidth={cardWidth}
+          itemHeight={cardHeight}
+          controlsBelow={true}
           showControls={true}
           renderItem={(card, index) => (
             <motion.div
@@ -103,8 +104,10 @@ export const NinthSection = () => {
             >
               <Box
                 sx={{
-                  height: { xs: "235px", sm: "240px", md: "230px" },
-                  minHeight: 180,
+                  height: '100%',
+                  minHeight: cardHeight,
+                  minWidth: cardWidth,
+                  maxWidth: cardWidth,
                   background: "#FFF",
                   borderRadius: 3,
                   p: { xs: 2.2, sm: 3 },
