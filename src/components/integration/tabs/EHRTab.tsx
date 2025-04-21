@@ -4,8 +4,11 @@ import SyncIcon from '@mui/icons-material/Sync';
 import TimerIcon from '@mui/icons-material/Timer';
 import DoNotDisturbRoundedIcon from '@mui/icons-material/DoNotDisturbRounded';
 import NoteAddRoundedIcon from '@mui/icons-material/NoteAddRounded';
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const EHRTab = () => {
+  const isMobile = useIsMobile();
+  
   const features = [
     {
       icon: <SyncIcon />,
@@ -37,7 +40,7 @@ const EHRTab = () => {
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2 text-[#143151]">{feature.title}</h3>
-              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+              <p className="text-gray-600 leading-relaxed text-sm md:text-base">{feature.description}</p>
             </div>
           </div>
         ))}

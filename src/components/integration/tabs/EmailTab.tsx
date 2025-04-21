@@ -13,13 +13,22 @@ const EmailTab = () => {
   return (
     <div className={styles.tabContentWrapper}>
       <div className={`${styles.tabLeft} w-full text-center`}>
-        <Typography variant={isMobile ? "h5" : "h4"} sx={{ fontSize: isMobile ? '1.1rem' : '1.5rem', mb: 2 }}>
-          <EmailRoundedIcon style={{ marginRight: 8, color: '#143151', fontSize: '1.5rem' }} /> Email & Workflow Automation
+        <Typography 
+          variant={isMobile ? "h5" : "h4"} 
+          sx={{ 
+            fontSize: isMobile ? '1.1rem' : '1.5rem', 
+            mb: 2,
+            color: '#143151'
+          }}
+        >
+          <EmailRoundedIcon style={{ marginRight: 8, color: '#143151', fontSize: '1.5rem' }} /> 
+          Email & Workflow Automation
         </Typography>
         <p className="text-sm md:text-base mb-4">Smart routing and automation for all your communication and tasks.</p>
-        <div className={`${styles.featureItem} justify-center`}>
+        
+        <div className={`${styles.featureItem} justify-center mb-6`}>
           <div className={styles.icon}>
-            <DraftsRoundedIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <DraftsRoundedIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
           </div>
           <div>
             <strong className="text-sm md:text-base">Seamless Email Integration</strong>
@@ -27,9 +36,9 @@ const EmailTab = () => {
           </div>
         </div>
 
-        <div className={`${styles.featureItem} justify-center`}>
+        <div className={`${styles.featureItem} justify-center mb-6`}>
           <div className={styles.icon}>
-            <AutoModeRoundedIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <AutoModeRoundedIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
           </div>
           <div>
             <strong className="text-sm md:text-base">Effortless Workflows</strong>
@@ -40,7 +49,7 @@ const EmailTab = () => {
           </div>
         </div>
 
-        <p><strong className="text-sm md:text-base">Compatible email platforms:</strong></p>
+        <p className="text-sm md:text-base mt-6 mb-3"><strong>Compatible email platforms:</strong></p>
         <div className={styles.ehrTags}>
           <span className="text-xs"><strong>G </strong> Gmail</span>
           <span className="text-xs"><EmailRoundedIcon fontSize="small"/>Outlook</span>

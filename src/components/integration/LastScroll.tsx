@@ -82,7 +82,8 @@ export default function LastScroll() {
           autoPlay={true}
           autoPlayInterval={4000}
           className="py-4"
-          controlsBelow={true}
+          controlsBelow={isMobile}
+          showControlsOnlyMobile={true}
         />
       </div>
 

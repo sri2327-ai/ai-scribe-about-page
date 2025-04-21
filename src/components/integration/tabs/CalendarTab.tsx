@@ -1,7 +1,8 @@
+
 import React from 'react';
 import styles from '@/styles/integration.module.scss';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import AutoModeIcon from '@mui/icons-material/AutoMode';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import CloudIcon from '@mui/icons-material/Cloud';
 import { Typography, Box } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -15,7 +16,8 @@ const CalendarTab = () => {
           variant={isMobile ? "h5" : "h4"} 
           sx={{ 
             fontSize: isMobile ? '1.25rem' : '1.75rem',
-            mb: 1.5
+            mb: 1.5,
+            color: '#143151'
           }}
         >
           Calendars & Cloud Storage
@@ -27,9 +29,9 @@ const CalendarTab = () => {
           Sync your appointments and files for smoother day-to-day practice management.
         </Typography>
         
-        <Box className={`${styles.featureItem} justify-center`}>
+        <Box className={`${styles.featureItem} justify-center mb-6`}>
           <div className={styles.icon}>
-            <MailOutlineIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <CloudIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
           </div>
           <div>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 0.5 }}>
@@ -41,9 +43,9 @@ const CalendarTab = () => {
           </div>
         </Box>
         
-        <Box className={`${styles.featureItem} justify-center`}>
+        <Box className={`${styles.featureItem} justify-center mb-6`}>
           <div className={styles.icon}>
-            <AutoModeIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <CalendarMonthIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
           </div>
           <div>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 0.5 }}>
@@ -54,6 +56,16 @@ const CalendarTab = () => {
             </Typography>
           </div>
         </Box>
+        
+        <p className="text-sm md:text-base mt-6 mb-3"><strong>Supported platforms:</strong></p>
+        <div className={styles.ehrTags}>
+          <span><CloudIcon fontSize="small"/>Google Drive</span>
+          <span><CloudIcon fontSize="small"/>Dropbox</span>
+          <span><CloudIcon fontSize="small"/>OneDrive</span>
+          <span><CalendarMonthIcon fontSize="small"/>Google Calendar</span>
+          <span><CalendarMonthIcon fontSize="small"/>Outlook Calendar</span>
+          <span><CalendarMonthIcon fontSize="small"/>Apple Calendar</span>
+        </div>
       </div>
     </div>
   );

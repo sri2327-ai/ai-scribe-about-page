@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { LocalHospitalRounded, VideoCall, CalendarToday, Email } from '@mui/icons-material';
+import React, { useState } from 'react';
+import { LocalHospitalRounded, VideoCall, CalendarToday, Email, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -42,6 +42,16 @@ const tabs = [
 
 export default function IntegrationTabs() {
   const isMobile = useIsMobile();
+  const [visibleTabsIndex, setVisibleTabsIndex] = useState(0);
+  const tabsToShow = isMobile ? 2 : 4;
+  
+  const handlePrevTab = () => {
+    setVisibleTabsIndex(prev => Math.max(0, prev - 1));
+  };
+  
+  const handleNextTab = () => {
+    setVisibleTabsIndex(prev => Math.min(tabs.length - tabsToShow, prev + 1));
+  };
 
   return (
     <div className="w-full max-w-[1400px] mx-auto px-4 py-16 md:py-24">
@@ -72,27 +82,47 @@ export default function IntegrationTabs() {
       </div>
 
       <Tabs defaultValue="ehr" className="w-full max-w-4xl mx-auto">
-        <TabsList className="flex flex-wrap sm:grid sm:grid-cols-2 md:grid-cols-4 w-full bg-transparent gap-2 mb-8">
-          {tabs.map((tab) => (
-            <TabsTrigger
-              key={tab.value}
-              value={tab.value}
-              className="flex-1 flex flex-col items-center gap-1 p-2 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-transparent transition-all duration-300"
+        <div className="relative flex items-center mb-4">
+          {isMobile && visibleTabsIndex > 0 && (
+            <button 
+              onClick={handlePrevTab}
+              className="absolute left-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md"
             >
-              <div className="icon-wrapper w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
-                {tab.icon}
-              </div>
-              <div className="text-center">
-                <p className="font-semibold text-[#143151] text-sm">
-                  {tab.label}
-                </p>
-                <p className="text-xs text-gray-600">
-                  {tab.description}
-                </p>
-              </div>
-            </TabsTrigger>
-          ))}
-        </TabsList>
+              <ArrowLeft fontSize="small" />
+            </button>
+          )}
+          
+          <TabsList className="scrollbar-hide overflow-x-auto w-full flex flex-nowrap justify-start sm:justify-center bg-transparent gap-2">
+            {tabs.slice(visibleTabsIndex, visibleTabsIndex + tabsToShow).map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                className="flex-none flex flex-col items-center gap-1 p-2 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-transparent transition-all duration-300 min-w-[120px]"
+              >
+                <div className="icon-wrapper w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
+                  {tab.icon}
+                </div>
+                <div className="text-center">
+                  <p className="font-semibold text-[#143151] text-sm">
+                    {tab.label}
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    {tab.description}
+                  </p>
+                </div>
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          
+          {isMobile && visibleTabsIndex < tabs.length - tabsToShow && (
+            <button 
+              onClick={handleNextTab}
+              className="absolute right-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md"
+            >
+              <ArrowRight fontSize="small" />
+            </button>
+          )}
+        </div>
 
         <div className="mt-6">
           {tabs.map((tab) => (

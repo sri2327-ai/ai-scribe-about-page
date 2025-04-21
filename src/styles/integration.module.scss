@@ -1,3 +1,4 @@
+
 .integrationWrapper {
   padding: 4rem 1rem;
   max-width: 1400px;
@@ -33,12 +34,12 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
-  min-height: 300px;
+  padding: 1rem;
+  min-height: auto;
   
-  @media (max-width: 768px) {
-    padding: 1rem;
-    min-height: auto;
+  @media (min-width: 768px) {
+    padding: 2rem;
+    min-height: 300px;
   }
 }
 
@@ -63,8 +64,8 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
@@ -128,6 +129,7 @@
   justify-content: center;
   gap: 0.5rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 
   span {
     background: linear-gradient(to right, #143151, #387E89);

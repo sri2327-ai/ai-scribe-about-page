@@ -1,3 +1,4 @@
+
 import React from 'react';
 import styles from '@/styles/integration.module.scss';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
@@ -15,32 +16,38 @@ const SIPTab = () => {
   return (
     <div className={styles.tabContentWrapper}>
       <div className={`${styles.tabLeft} w-full text-center`}>
-        <Typography variant={isMobile ? "h4" : "h3"}>
-          <VideoCallIcon style={{ marginRight: 8, color: '#143151' }}/>SIP & Telehealth Integration
+        <Typography variant={isMobile ? "h5" : "h4"} sx={{ 
+          fontSize: isMobile ? '1.15rem' : '1.5rem',
+          color: '#143151',
+          marginBottom: '1rem'
+        }}>
+          <VideoCallIcon style={{ marginRight: 8, color: '#143151' }}/> SIP & Telehealth Integration
         </Typography>
-        <p><strong>AI-Enhanced Call Management</strong>: Integrates seamlessly with any SIP/VoIP system.</p>
-        <p><strong>Instant Telehealth Integrations</strong>: Works with Zoom, Teams, Meet, WebEx, and more.</p>
+        
+        <p className="text-sm md:text-base mb-4"><strong>AI-Enhanced Call Management</strong>: Integrates seamlessly with any SIP/VoIP system.</p>
+        <p className="text-sm md:text-base mb-4"><strong>Instant Telehealth Integrations</strong>: Works with Zoom, Teams, Meet, WebEx, and more.</p>
+        
         <div className={`${styles.featureItem} justify-center`}>
           <div className={styles.icon}>
-            <PhoneInTalkIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <PhoneInTalkIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
           </div>
           <div>
-            <strong>AI-Enhanced Call Management</strong>
-            <p>Integrates seamlessly with any SIP/VoIP system for flawless connectivity.</p>
+            <strong className="text-sm md:text-base">AI-Enhanced Call Management</strong>
+            <p className="text-xs md:text-sm">Integrates seamlessly with any SIP/VoIP system for flawless connectivity.</p>
           </div>
         </div>
 
         <div className={`${styles.featureItem} justify-center`}>
           <div className={styles.icon}>
-            <VideoCallIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+            <VideoCallIcon style={{ color: 'white' }} className="group-hover:text-white transition-colors" />
           </div>
           <div>
-            <strong>Instant Telehealth Integrations</strong>
-            <p>Works effortlessly with Zoom, Microsoft Teams, Google Meet, WebEx, and more.</p>
+            <strong className="text-sm md:text-base">Instant Telehealth Integrations</strong>
+            <p className="text-xs md:text-sm">Works effortlessly with Zoom, Microsoft Teams, Google Meet, WebEx, and more.</p>
           </div>
         </div>
 
-        <p><strong>Supported platforms:</strong></p>
+        <p className="text-sm md:text-base mt-6 mb-3"><strong>Supported platforms:</strong></p>
         <div className={styles.ehrTags}>
           <span><VideocamRoundedIcon/>Zoom</span>
           <span><GroupsRoundedIcon/>Microsoft Teams</span>

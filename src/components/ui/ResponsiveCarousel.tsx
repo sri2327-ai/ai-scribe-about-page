@@ -27,6 +27,7 @@ interface ResponsiveCarouselProps<T> {
   autoPlay?: boolean;
   autoPlayInterval?: number;
   controlsBelow?: boolean;
+  showControlsOnlyMobile?: boolean;
 }
 
 export function ResponsiveCarousel<T>({
@@ -45,6 +46,7 @@ export function ResponsiveCarousel<T>({
   autoPlay = false,
   autoPlayInterval = 3000,
   controlsBelow = false,
+  showControlsOnlyMobile = false,
 }: ResponsiveCarouselProps<T>) {
   const isMobile = useMediaQuery("(max-width:600px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
@@ -52,6 +54,9 @@ export function ResponsiveCarousel<T>({
   let columns = columnsDesktop;
   if (isTablet) columns = columnsTablet;
   if (isMobile) columns = columnsMobile;
+
+  // Hide controls for desktop/tablet views if showControlsOnlyMobile is true
+  const shouldShowControls = showControls && (!showControlsOnlyMobile || (showControlsOnlyMobile && isMobile));
 
   // Handle responsive sizes
   const getResponsiveValue = (value: any, defaultVal: number) => {
@@ -127,7 +132,7 @@ export function ResponsiveCarousel<T>({
             </CarouselItem>
           ))}
         </CarouselContent>
-        {!controlsBelow && showControls && (
+        {!controlsBelow && shouldShowControls && (
           <>
             <CarouselPrevious
               className="
@@ -155,7 +160,7 @@ export function ResponsiveCarousel<T>({
             />
           </>
         )}
-        {controlsBelow && showControls && (
+        {controlsBelow && shouldShowControls && (
           <div className="flex justify-center gap-4 mt-4">
             <CarouselPrevious
               className="
