@@ -10,12 +10,12 @@ const ClosingSection = () => {
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
           Discover why S10.AI is the perfect fit for your specialty.
         </h2>
-        <p className="text-lg mb-8 text-gray-100">
+        <p className="text-lg mb-8 text-white">
           See how S10.AI's specialty-specific AI can enhance your care delivery and improve clinician well-being.
         </p>
         <Button 
-          variant="default"
-          className="bg-white text-[#143151] hover:bg-gray-100 px-8 py-2 rounded-md"
+          variant="outline"
+          className="border-2 border-white text-white hover:bg-white/10 rounded-full px-8"
         >
           See Demo
         </Button>

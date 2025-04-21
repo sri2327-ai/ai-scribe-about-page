@@ -66,7 +66,7 @@ const MacrosDialog = () => {
               className="bg-white border-gray-300"
             />
           </div>
-          <Button onClick={handleAddMacro} className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
+          <Button onClick={handleAddMacro} className="w-full gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90">
             <Plus className="h-4 w-4" /> Add Macro
           </Button>
           
@@ -80,6 +80,13 @@ const MacrosDialog = () => {
               ))}
             </div>
           )}
+
+          <Alert className="mt-4 bg-[#fdf4f8] border-[#D299C2] text-gray-800">
+            <AlertDescription className="py-2">
+              <p className="font-bold mb-1">DISCLAIMER</p>
+              <p>This is a demonstration of the template builder interface only. The actual application has AI model integration and additional template building options not shown here. Book a demo to see how the real application works in real-time.</p>
+            </AlertDescription>
+          </Alert>
         </div>
       </DialogContent>
     </Dialog>
@@ -138,9 +145,16 @@ const StaticTextDialog = () => {
             </SelectContent>
           </Select>
           
-          <Button onClick={handleAddStaticText} className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
+          <Button onClick={handleAddStaticText} className="w-full gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90">
             <Plus className="h-4 w-4" /> Add Static Text
           </Button>
+
+          <Alert className="mt-4 bg-[#fdf4f8] border-[#D299C2] text-gray-800">
+            <AlertDescription className="py-2">
+              <p className="font-bold mb-1">DISCLAIMER</p>
+              <p>This is a demonstration of the template builder interface only. The actual application has AI model integration and additional template building options not shown here. Book a demo to see how the real application works in real-time.</p>
+            </AlertDescription>
+          </Alert>
         </div>
       </DialogContent>
     </Dialog>
