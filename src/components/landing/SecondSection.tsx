@@ -1,10 +1,100 @@
 
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, Grid, useMediaQuery } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography, Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+// Testimonial Data
+const docRevData = [
+  { 
+    "docImg": "https://images.s10.ai/images/Harold.jpg",
+    "docImgAlt": "Harold",
+    "docReview": `"I've tried them all—S10.AI is hands down the best AI assistant for healthcare. Whether it's documentation with CRUSH or patient engagement with BRAVO, S10.AI delivers unparalleled efficiency and accuracy."`,
+    "docNm": "— Dr. Willem Gielen, MD, Co-Founder, Nordjysk Speciallægeklinik"
+  },
+  { 
+    "docImg": "https://images.s10.ai/images/Dr-Humera-Naqvi.jpeg",
+    "docImgAlt": "Dr-Humera-Naqvi",
+    "docReview": `"With S10.AI, I can focus on patient interactions without worrying about administrative burdens. The seamless automation and real-time documentation make my workflow effortless."`,
+    "docNm": "— Dr. Humera Naqvi, Internal Medicine, Medical Office Of Katy"
+  },
+  { 
+    "docImg": "https://images.s10.ai/images/Dr-Lisbeth-Roy.png.webp",
+    "docImgAlt": "Dr-Lisbeth-Roy",
+    "docReview": `"S10.AI is effortless, customizable, and exceeds expectations! From streamlining clinical documentation to enhancing patient care, it's a game-changer for my organisation"`,
+    "docNm": "— Dr. Lisbeth Roy, Chief Executive Officer, Doctors Studio"
+  },
+];
+
+// Testimonial Card
+const TestimonialCard = ({ data }) => (
+  <Card 
+    sx={{ 
+      height: '100%',
+      backgroundColor: '#ffffff',
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+      borderRadius: '12px',
+      overflow: 'hidden',
+      display: 'flex',
+      flexDirection: 'column',
+      m: 1,
+      minWidth: { xs: '300px', md: '340px' }, // minimum width for nice side-by-side look
+      maxWidth: { xs: '370px', md: '400px' },
+      flex: '1 1 0',
+    }}
+  >
+    <CardMedia
+      component="img"
+      image={data.docImg}
+      alt={data.docImgAlt}
+      sx={{
+        width: "100%",
+        height: { xs: "220px", sm: "250px", md: "230px" },
+        objectFit: "cover",
+      }}
+    />
+    <CardContent 
+      sx={{ 
+        p: 3,
+        backgroundColor: '#ffffff',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        flexGrow: 1
+      }}
+    >
+      <Typography 
+        variant="body1" 
+        sx={{ 
+          color: "#000000",
+          fontWeight: 500,
+          textAlign: "center",
+          lineHeight: 1.6,
+          fontSize: { xs: '0.9rem', sm: '1rem', md: '1.05rem' },
+          mb: 2
+        }}
+      >
+        {data.docReview}
+      </Typography>
+      <Typography 
+        variant="body2" 
+        sx={{ 
+          color: "#000000",
+          fontWeight: 600,
+          textAlign: "center",
+          mt: 'auto',
+          fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1rem' },
+          wordBreak: 'break-word',
+          whiteSpace: 'normal'
+        }}
+      >
+        {data.docNm}
+      </Typography>
+    </CardContent>
+  </Card>
+);
 
 export const SecondSection = () => {
   const theme = useTheme();
@@ -14,127 +104,25 @@ export const SecondSection = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
     pauseOnHover: true,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        }
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        }
-      }
-    ]
   };
 
-  const docRevData = [
-    { 
-      "docImg": "https://images.s10.ai/images/Harold.jpg",
-      "docImgAlt": "Harold",
-      "docReview": `"I've tried them all—S10.AI is hands down the best AI assistant for healthcare. Whether it's documentation with CRUSH or patient engagement with BRAVO, S10.AI delivers unparalleled efficiency and accuracy."`,
-      "docNm": "— Dr. Willem Gielen, MD, Co-Founder, Nordjysk Speciallægeklinik"
-    },
-    { 
-      "docImg": "https://images.s10.ai/images/Dr-Humera-Naqvi.jpeg",
-      "docImgAlt": "Dr-Humera-Naqvi",
-      "docReview": `"With S10.AI, I can focus on patient interactions without worrying about administrative burdens. The seamless automation and real-time documentation make my workflow effortless."`,
-      "docNm": "— Dr. Humera Naqvi, Internal Medicine, Medical Office Of Katy"
-    },
-    { 
-      "docImg": "https://images.s10.ai/images/Dr-Lisbeth-Roy.png.webp",
-      "docImgAlt": "Dr-Lisbeth-Roy",
-      "docReview": `"S10.AI is effortless, customizable, and exceeds expectations! From streamlining clinical documentation to enhancing patient care, it's a game-changer for my organisation"`,
-      "docNm": "— Dr. Lisbeth Roy, Chief Executive Officer, Doctors Studio"
-    },
-  ];
-
-  const TestimonialCard = ({ data }) => (
-    <Card 
-      sx={{ 
-        height: '100%',
-        backgroundColor: '#ffffff',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        borderRadius: '12px',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column',
-        m: 1
-      }}
-    >
-      <CardMedia
-        component="img"
-        image={data.docImg}
-        alt={data.docImgAlt}
-        sx={{
-          width: "100%",
-          height: { xs: "280px", sm: "320px" },
-          objectFit: "cover",
-        }}
-      />
-      <CardContent 
-        sx={{ 
-          p: 4,
-          backgroundColor: '#ffffff',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 2,
-          flexGrow: 1
-        }}
-      >
-        <Typography 
-          variant="body1" 
-          sx={{ 
-            color: "#000000",
-            fontWeight: 500,
-            textAlign: "center",
-            lineHeight: 1.6,
-            fontSize: { xs: '0.85rem', sm: '0.95rem' },
-            mb: 2
-          }}
-        >
-          {data.docReview}
-        </Typography>
-        <Typography 
-          variant="body2" 
-          sx={{ 
-            color: "#000000",
-            fontWeight: 600,
-            textAlign: "center",
-            mt: 'auto',
-            fontSize: { xs: '0.85rem', sm: '0.9rem' },
-            wordBreak: 'break-word',
-            whiteSpace: 'normal'
-          }}
-        >
-          {data.docNm}
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-  
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16">
-      {/* max-w-6xl for nicely centered narrower container */}
-      <Box className="container mx-auto max-w-6xl">
+    <section className="py-10 px-2 md:px-8 lg:px-16 bg-white">
+      <Box className="container mx-auto max-w-6xl flex flex-col items-center">
         <Typography 
-          variant="h4"
+          variant="h5"
           sx={{ 
             textAlign: "center",
-            color: "#000000",
-            fontWeight: "bold",
-            mb: { xs: 6, md: 8 },
-            /* Smaller font sizes */
-            fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" }
+            color: "#143151",
+            fontWeight: 700,
+            mb: { xs: 4, md: 6 },
+            fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.7rem" },
+            letterSpacing: 0.1,
           }}
         >
           Trusted By Leading Healthcare Organisations
@@ -142,36 +130,33 @@ export const SecondSection = () => {
 
         {isMobile ? (
           // Mobile view with Slider
-          <Box sx={{ mx: { xs: -2, md: -3 }, display: 'flex', justifyContent: 'center' }}>
-            <Slider {...settings} style={{width: '100%', maxWidth: '500px'}}>
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <Slider {...settings} style={{width: '100%', maxWidth: '420px'}}>
               {docRevData.map((value, index) => (
-                <Box key={index} sx={{ px: { xs: 2, md: 3 } }}>
+                <Box key={index} sx={{ px: { xs: 1, md: 2 } }}>
                   <TestimonialCard data={value} />
                 </Box>
               ))}
             </Slider>
           </Box>
         ) : (
-          // Desktop view with Grid (no slider)
-          <Grid 
-            container 
-            spacing={3} 
-            sx={{ 
+          // Desktop view: Flexbox for side-by-side layout, centered
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: 4,
               justifyContent: 'center',
               alignItems: 'stretch',
+              width: '100%',
+              marginTop: theme.spacing(2),
+              flexWrap: 'nowrap',
             }}
           >
             {docRevData.map((value, index) => (
-              <Grid 
-                key={index} 
-                item 
-                xs={12} sm={6} md={4} 
-                sx={{ display: 'flex' }}
-              >
-                <TestimonialCard data={value} />
-              </Grid>
+              <TestimonialCard key={index} data={value} />
             ))}
-          </Grid>
+          </Box>
         )}
       </Box>
     </section>
