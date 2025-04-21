@@ -1,7 +1,7 @@
 
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react"; // corrected icon import
+import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react"; // icon names corrected
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 export const NinthSection = () => {
@@ -31,21 +31,21 @@ export const NinthSection = () => {
   // Icon mapping per card (in correct order)
   const iconMap = [
     Lightbulb,   // Science-Driven AI
-    Shield,     // Cross-Lingual Precision
+    Shield,      // Cross-Lingual Precision
     Award,       // Clinician-Centric
     Rocket,      // Seamless Automation
   ];
 
-  // Increased card size for better readability
-  const cardWidth = 380;
-  const cardHeight = 300;
+  // Make the cards larger for more breathing room
+  const cardWidth = 410;
+  const cardHeight = 340;
 
   return (
     <section
       style={{
         background: "linear-gradient(135deg, #143151, #387E89)",
         width: "100%",
-        padding: "48px 24px",
+        padding: "54px 0 54px 0",
       }}
     >
       <Stack
@@ -67,7 +67,8 @@ export const NinthSection = () => {
               color: "white",
               mb: 1,
               textAlign: "center",
-              fontSize: { xs: "1.28rem", sm: "1.34rem", md: "1.45rem" },
+              fontSize: { xs: "1.35rem", sm: "1.55rem", md: "1.7rem" },
+              letterSpacing: 0.5,
             }}
           >
             The S10.AI Competitive Edge
@@ -78,7 +79,7 @@ export const NinthSection = () => {
               color: "white",
               opacity: 0.85,
               textAlign: "center",
-              fontSize: { xs: "0.99rem", sm: "1.10rem" },
+              fontSize: { xs: "1.05rem", sm: "1.18rem" },
             }}
           >
             Leading the Future of Healthcare AI
@@ -92,7 +93,7 @@ export const NinthSection = () => {
           columnsDesktop={3}
           columnsTablet={2}
           columnsMobile={1}
-          gap={32}
+          gap={36}
           itemWidth={cardWidth}
           itemHeight={cardHeight}
           controlsBelow={true}
@@ -105,10 +106,10 @@ export const NinthSection = () => {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.36, delay: (index % 4) * 0.06 }}
+                transition={{ duration: 0.36, delay: (index % 4) * 0.05 }}
                 whileHover={{
-                  y: -5,
-                  transition: { duration: 0.2 },
+                  y: -7,
+                  transition: { duration: 0.18 },
                 }}
                 style={{ height: "100%" }}
               >
@@ -119,15 +120,16 @@ export const NinthSection = () => {
                     minWidth: cardWidth,
                     maxWidth: cardWidth,
                     background: "#FFF",
-                    borderRadius: 3,
-                    p: { xs: 3.5, sm: 4 },
+                    borderRadius: 3.5,
+                    p: { xs: 4.7, sm: 5 },
                     display: "flex",
                     flexDirection: "column",
-                    justifyContent: "space-between",
-                    transition: "all 0.3s",
-                    boxShadow: "0 4px 18px 0px rgba(20, 49, 81, 0.06)",
-                    border: "1px solid #E0E0E0",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    boxShadow: "0 4px 22px 0px rgba(20, 49, 81, 0.09)",
+                    border: "1.5px solid #E0E0E0",
                     cursor: "pointer",
+                    transition: "all 0.34s",
                     "&:hover": {
                       background:
                         "linear-gradient(135deg, #143151, #387E89)",
@@ -138,38 +140,56 @@ export const NinthSection = () => {
                           "linear-gradient(135deg, #387E89, #143151)",
                       },
                       ".icon-svg": {
-                        color: "#FFF",
+                        color: "#FFF !important",
+                        filter: "drop-shadow(0 4px 12px #387E8966)",
                       },
                     },
                   }}
                 >
+                  {/* Icon in vivid gradient circle */}
                   <Box
                     className="icon-gradient"
                     sx={{
                       alignSelf: "center",
-                      width: 52,
-                      height: 52,
+                      width: 64,
+                      height: 64,
                       borderRadius: "50%",
                       background: "linear-gradient(135deg, #143151, #387E89)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      boxShadow: "0 1px 10px 0px #14315130",
-                      mb: 2.5,
+                      boxShadow: "0 2px 14px 0px #14315126",
+                      mb: 3.2,
                     }}
                   >
-                    <Icon className="icon-svg" size={30} color="#FFF" />
+                    <Icon
+                      className="icon-svg"
+                      size={38}
+                      color="#FFF"
+                      strokeWidth={2.3}
+                      style={{
+                        display: "block",
+                        margin: "auto",
+                        background:
+                          "linear-gradient(135deg, #143151, #387E89)",
+                        borderRadius: "50%",
+                        padding: 4,
+                      }}
+                    />
                   </Box>
                   <Typography
                     className="title"
                     variant="h6"
+                    component="h3"
                     fontWeight={700}
                     sx={{
                       color: "#143151",
-                      transition: "color 0.3s",
+                      fontSize: { xs: "1.30rem", sm: "1.42rem" },
                       textAlign: "center",
-                      mb: 2,
-                      fontSize: { xs: "1.15rem", sm: "1.25rem" },
+                      transition: "color 0.34s",
+                      mb: 2.3,
+                      lineHeight: 1.28,
+                      letterSpacing: 0.1,
                     }}
                   >
                     {card.title}
@@ -182,9 +202,13 @@ export const NinthSection = () => {
                       opacity: 0.93,
                       transition: "all 0.32s",
                       textAlign: "center",
-                      mb: 2.5,
-                      fontSize: { xs: "1rem", sm: "1.05rem" },
-                      lineHeight: 1.7,
+                      fontWeight: 400,
+                      letterSpacing: 0.01,
+                      mb: 3.2,
+                      fontSize: { xs: "1.07rem", sm: "1.11rem" },
+                      lineHeight: 1.77,
+                      maxWidth: 320,
+                      mx: "auto",
                     }}
                   >
                     {card.description}
@@ -196,14 +220,14 @@ export const NinthSection = () => {
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      width: 32,
-                      height: 32,
+                      width: 36,
+                      height: 36,
                       borderRadius: "50%",
                       background: "#F1F5F9",
                       color: "#387E89",
-                      fontSize: "1.3rem",
-                      boxShadow: "0 1px 6px 0px rgba(20, 49, 81, 0.06)",
-                      mb: 0.5,
+                      fontSize: "1.4rem",
+                      boxShadow: "0 1px 7px 0px rgba(20, 49, 81, 0.05)",
+                      mb: 0.8,
                     }}
                   >
                     <ArrowUpRight className="h-5 w-5" />
@@ -219,4 +243,3 @@ export const NinthSection = () => {
 };
 
 export default NinthSection;
-
