@@ -6,6 +6,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 interface ResponsiveCarouselProps<T> {
@@ -16,6 +18,8 @@ interface ResponsiveCarouselProps<T> {
   columnsMobile?: number;
   gap?: number | string;
   itemKey?: (item: T, idx: number) => string | number;
+  showControls?: boolean;
+  itemWidth?: number | string;
 }
 
 export function ResponsiveCarousel<T>({
@@ -26,6 +30,8 @@ export function ResponsiveCarousel<T>({
   columnsMobile = 1,
   gap = 24,
   itemKey,
+  showControls = true,
+  itemWidth,
 }: ResponsiveCarouselProps<T>) {
   // Responsive breakpoints
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -36,18 +42,28 @@ export function ResponsiveCarousel<T>({
 
   if (useCarousel) {
     return (
-      <Carousel className="w-full">
+      <Carousel className="w-full relative">
         <CarouselContent>
           {items.map((item, idx) => (
             <CarouselItem
               key={itemKey ? itemKey(item, idx) : idx}
-              className="px-2"
-              style={{ minWidth: "85vw", maxWidth: 400 }}
+              className="md:basis-1/2 px-2"
+              style={{ 
+                minWidth: itemWidth || (isMobile ? "85vw" : "45vw"), 
+                maxWidth: itemWidth || (isMobile ? 400 : 450) 
+              }}
             >
               {renderItem(item, idx)}
             </CarouselItem>
           ))}
         </CarouselContent>
+        
+        {showControls && (
+          <>
+            <CarouselPrevious className="absolute left-1 md:left-2 opacity-70 hover:opacity-100" />
+            <CarouselNext className="absolute right-1 md:right-2 opacity-70 hover:opacity-100" />
+          </>
+        )}
       </Carousel>
     );
   }

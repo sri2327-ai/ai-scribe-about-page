@@ -1,3 +1,4 @@
+
 import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { motion, AnimatePresence } from "framer-motion";
@@ -47,12 +48,13 @@ export const NinthSection = () => {
           flexWrap: "wrap",
           justifyContent: "space-between",
           alignItems: { xs: "center", sm: "center" },
+          mb: 4
         }}
         useFlexGap
       >
         <Box sx={{ width: { xs: "100%", sm: "90%", md: "80%" }, mb: 1 }}>
           <Typography
-            variant="subtitle1"
+            variant="h4"
             fontWeight={600}
             sx={{
               color: "white",
@@ -139,6 +141,7 @@ export const NinthSection = () => {
         columnsTablet={2}
         columnsMobile={1}
         gap={24}
+        itemWidth="auto"
         renderItem={(card, index) => (
           <motion.div
             layout

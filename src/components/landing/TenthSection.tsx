@@ -1,3 +1,4 @@
+
 import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
@@ -249,6 +250,7 @@ const TenthSection = () => {
             columnsTablet={2}
             columnsMobile={1}
             gap={24}
+            itemWidth={null}
             itemKey={(card, idx) => `${card.title}-${idx}`}
             renderItem={(card, index) => (
               <ComplianceCard card={card} index={index} />
