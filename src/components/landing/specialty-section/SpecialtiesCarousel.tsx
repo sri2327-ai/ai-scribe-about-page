@@ -1,8 +1,12 @@
 
 import React from 'react';
-import { Box, Typography, useMediaQuery } from "@mui/material";
-import Marquee from "react-fast-marquee";
-import { Brain, User, Heart, Eye, Building2, FlaskConical, Apple, Ambulance, CircleDot, Stethoscope, Droplets, Activity, HeartPulse, Ear, Microscope, ShieldPlus } from "lucide-react";
+import { Box, Typography } from "@mui/material";
+import { 
+  Brain, User, Heart, Eye, 
+  Building2, FlaskConical, Apple, Ambulance, 
+  CircleDot, Stethoscope, Droplets, Activity, 
+  HeartPulse, Ear, Microscope, ShieldPlus 
+} from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 const specialties = [
@@ -35,41 +39,39 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
   <Box 
     sx={{ 
       display: 'flex', 
-      flexDirection: 'column', 
-      mx: { xs: 1, sm: 2 }, 
-      background: '#FFFFFF',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      m: 1,
+      background: '#FFF',
       borderRadius: 3, 
-      p: { xs: 2, sm: 3 }, 
-      my: 1,
-      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.05)',
+      p: { xs: 2, sm: 2.5, md: 2.5 }, 
+      minWidth: { xs: '140px', sm: '150px', md: '170px' },
+      maxWidth: { xs: '200px', sm: '240px', md: '270px' },
+      height: { xs: '120px', sm: '135px', md: '145px' },
+      boxShadow: '0 2px 10px 0 rgba(0,0,0,0.04)',
       border: '1px solid #E0E0E0',
       gap: 2,
-      alignItems: 'center',
-      minWidth: { xs: '120px', sm: '140px' },
-      height: '100%',
-      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-      '&:hover': {
-        transform: 'translateY(-5px)',
-        boxShadow: '0 8px 15px rgba(0, 0, 0, 0.08)'
+      transition: 'transform 0.28s, box-shadow 0.25s',
+      "&:hover": {
+        transform: 'translateY(-5px) scale(1.04)',
+        boxShadow: '0 6px 24px 0 rgba(56,126,137,0.14)'
       }
     }}
   >
-    <div className="group">
-      <IconComponent
-        size={28}
-        color="black"
-        className="group-hover:scale-110 transition-transform duration-300"
-      />
+    <div>
+      <IconComponent size={30} color="#143151" />
     </div>
     <Typography 
       variant="body1" 
       sx={{ 
         textAlign: 'center',
+        fontWeight: 700,
         background: 'linear-gradient(135deg, #143151, #387E89)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
-        fontWeight: 600,
-        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+        fontSize: { xs: '0.96rem', sm: '1.08rem', md: '1.13rem' },
+        mt: 1
       }}
     >
       {specialty.name}
@@ -78,55 +80,38 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
 );
 
 export const SpecialtiesCarousel = () => {
-  const isMobile = useMediaQuery('(max-width:768px)');
-  const isTablet = useMediaQuery('(max-width:1024px)');
-  
   return (
-    <Box sx={{ mt: 12, maxWidth: '1400px', mx: 'auto' }}>
+    <Box sx={{ mt: 10, maxWidth: '1400px', mx: 'auto' }}>
       <Typography 
         variant="h3" 
         sx={{ 
           textAlign: "center",
-          color: "#000000",
-          fontWeight: 700,
+          color: "#000",
+          fontWeight: 800,
           mb: { xs: 3, md: 4 },
-          fontSize: { xs: "1.75rem", sm: "2rem", md: "2.5rem" }
+          fontSize: { xs: "1.55rem", sm: "2.05rem", md: "2.35rem" },
+          letterSpacing: "-0.04em"
         }}
       >
         Specialized for Every Medical Field
       </Typography>
-      
-      {isMobile || isTablet ? (
-        <Box sx={{ px: 2 }}>
-          <ResponsiveCarousel
-            items={specialties}
-            columnsDesktop={6}
-            columnsTablet={4}
-            columnsMobile={2}
-            gap={16}
-            itemWidth="150px"
-            renderItem={(specialty, index) => {
-              const IconComponent = specialty.icon;
-              return <SpecialtyCard specialty={specialty} IconComponent={IconComponent} />;
-            }}
-          />
-        </Box>
-      ) : (
-        <Box sx={{ display: 'flex', flex: 1, overflow: "hidden" }}>
-          <Marquee pauseOnHover={true} gradient={false} speed={50} loop={0}>
-            {specialties.map((specialty, index) => {
-              const IconComponent = specialty.icon;
-              return (
-                <SpecialtyCard 
-                  key={index}
-                  specialty={specialty} 
-                  IconComponent={IconComponent} 
-                />
-              );
-            })}
-          </Marquee>
-        </Box>
-      )}
+      <Box sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
+        <ResponsiveCarousel
+          items={specialties}
+          columnsDesktop={6}
+          columnsTablet={3}
+          columnsMobile={1}
+          gap={20}
+          showControls={true}
+          itemWidth={null}
+          renderItem={(specialty, index) => {
+            const IconComponent = specialty.icon;
+            return (
+              <SpecialtyCard specialty={specialty} IconComponent={IconComponent} />
+            );
+          }}
+        />
+      </Box>
     </Box>
   );
 };

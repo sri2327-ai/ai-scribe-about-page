@@ -87,50 +87,54 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
       viewport={{ once: true }}
     >
       <Box 
         sx={{ 
           background: 'white',
           borderRadius: '12px',
-          p: 3,
+          p: { xs: 2.2, sm: 2.9, md: 3.3 },
+          minHeight: { xs: 260, sm: 260, md: 255, lg: 264 },
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           gap: 2,
-          transition: 'all 0.3s ease',
-          boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-          '&:hover': {
-            transform: 'translateY(-8px)',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+          alignItems: 'flex-start',
+          transition: 'all 0.23s',
+          boxShadow: '0 4px 14px -1px rgba(20,49,81,0.09)',
+          border: '1px solid #E0E0E0',
+          "&:hover": {
+            transform: 'translateY(-8px) scale(1.03)',
+            boxShadow: '0 14px 30px -5px rgba(20,49,81,0.17)', 
+            borderColor: '#387E89'
           }
         }}
       >
         <Box sx={{ 
           display: 'flex', 
           alignItems: 'center', 
-          gap: 2,
+          gap: 1.4,
           mb: 1
         }}>
           <Box sx={{
-            width: 48,
-            height: 48,
+            width: 46,
+            height: 46,
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            bgcolor: 'rgba(20, 49, 81, 0.05)',
+            bgcolor: 'rgba(20,49,81,0.055)',
             color: '#143151'
           }}>
-            <IconComponent className="h-6 w-6" />
+            <IconComponent className="h-7 w-7" />
           </Box>
           <Typography 
             variant="h6" 
             sx={{ 
               color: '#143151', 
-              fontWeight: 600,
-              fontSize: '1.1rem'
+              fontWeight: 800,
+              fontSize: '1.07rem'
             }}
           >
             {card.title}
@@ -139,35 +143,28 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
         
         <Typography 
           sx={{ 
-            color: '#4B5563', 
+            color: '#27425B', 
             mb: 1,
-            fontSize: '0.9rem',
-            lineHeight: 1.6
+            fontSize: '0.98rem',
+            fontWeight: 500,
+            lineHeight: 1.65
           }}
         >
           {card.description}
         </Typography>
         
-        <Box sx={{ mt: 'auto' }}>
+        <Box sx={{ mt: 'auto', width: '100%' }}>
           <Typography 
             component="ul" 
             sx={{ 
-              pl: 2, 
-              color: '#6B7280', 
-              fontSize: '0.85rem',
+              pl: 2.3, 
+              color: '#387E89',
+              fontSize: '0.93rem',
+              fontWeight: 500,
               '& li': { 
-                mb: 1,
+                mb: 0.6,
                 position: 'relative',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  left: '-1rem',
-                  top: '0.5rem',
-                  width: '0.375rem',
-                  height: '0.375rem',
-                  borderRadius: '50%',
-                  backgroundColor: '#387E89'
-                }
+                listStyle: 'disc'
               }
             }}
           >
@@ -180,7 +177,6 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
     </motion.div>
   );
 });
-
 ComplianceCard.displayName = 'ComplianceCard';
 
 const TenthSection = () => {
@@ -189,7 +185,7 @@ const TenthSection = () => {
       <Box sx={{
         maxWidth: '1400px',
         mx: 'auto',
-        px: { xs: 2, sm: 4, md: 6 },
+        px: { xs: 1.5, sm: 3, md: 6 },
         position: 'relative',
         zIndex: 5
       }}>
@@ -205,25 +201,25 @@ const TenthSection = () => {
             sx={{
               width: { xs: '100%', md: '80%', lg: '70%' },
               textAlign: { xs: 'center', md: 'center' },
-              mb: { xs: 1, md: 2 }
+              mb: { xs: 1.7, md: 2 }
             }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 23 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
               viewport={{ once: true }}
             >
               <Typography
                 variant="h5"
-                fontWeight="bold"
+                fontWeight={900}
                 id="security-heading"
                 sx={{
                   mb: 1,
                   color: '#143151',
-                  fontSize: { xs: '1.08rem', sm: '1.12rem', md: '1.3rem' },
+                  fontSize: { xs: '1.2rem', sm: '1.35rem', md: '1.43rem' },
                   lineHeight: 1.3,
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.027em',
                   textAlign: { xs: 'center', md: 'center' }
                 }}
               >
@@ -233,8 +229,8 @@ const TenthSection = () => {
                 variant="subtitle1"
                 sx={{
                   color: '#4B5563',
-                  fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' },
-                  lineHeight: 1.5,
+                  fontSize: { xs: '1.03rem', sm: '1.05rem', md: '1.09rem' },
+                  lineHeight: 1.55,
                   maxWidth: '900px',
                   mx: 'auto',
                   textAlign: { xs: 'center', md: 'center' }
@@ -244,18 +240,21 @@ const TenthSection = () => {
               </Typography>
             </motion.div>
           </Box>
-          <ResponsiveCarousel
-            items={complianceCards}
-            columnsDesktop={3}
-            columnsTablet={2}
-            columnsMobile={1}
-            gap={24}
-            itemWidth={null}
-            itemKey={(card, idx) => `${card.title}-${idx}`}
-            renderItem={(card, index) => (
-              <ComplianceCard card={card} index={index} />
-            )}
-          />
+          <Box sx={{ width: "100%", mb: 2 }}>
+            <ResponsiveCarousel
+              items={complianceCards}
+              columnsDesktop={3}
+              columnsTablet={1}
+              columnsMobile={1}
+              gap={26}
+              showControls={true}
+              itemWidth={null}
+              itemKey={(card, idx) => `${card.title}-${idx}`}
+              renderItem={(card, index) => (
+                <ComplianceCard card={card} index={index} />
+              )}
+            />
+          </Box>
         </Stack>
       </Box>
     </section>

@@ -28,59 +28,62 @@ export const FeatureCards = () => {
     }
   ];
 
-  // Use 2-col on tablet/desktop, 1-col carousel on mobile
   return (
-    <ResponsiveCarousel
-      items={features}
-      columnsDesktop={2}
-      columnsTablet={2}
-      columnsMobile={1}
-      gap={24}
-      renderItem={(item, index) => (
-        <Box
-          key={index}
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-            background: '#FFFFFF',
-            border: '1px solid #E0E0E0',
-            p: { xs: 3, sm: 3.5 },
-            borderRadius: 3,
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.04)',
-            height: '100%',
-            justifyContent: 'space-between',
-            transition: 'all 0.3s ease',
-            '&:hover': {
-              boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
-              transform: 'translateY(-4px)'
-            }
-          }}
-        >
-          <Typography
-            variant="h5"
+    <Box sx={{ width: '100%', mt: 2 }}>
+      <ResponsiveCarousel
+        items={features}
+        columnsDesktop={2}
+        columnsTablet={1}
+        columnsMobile={1}
+        gap={20}
+        showControls={true}
+        itemWidth={null}
+        cardClassName="flex flex-col h-full justify-between"
+        renderItem={(item, index) => (
+          <Box
             sx={{
-              color: '#143151',
-              fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' },
-              fontWeight: 700
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1.5,
+              background: '#FFF',
+              border: '1px solid #E0E0E0',
+              borderRadius: 3,
+              boxShadow: '0 4px 12px 0px rgba(20, 49, 81, 0.06)',
+              height: { xs: 220, md: 200 },
+              minHeight: 160,
+              p: { xs: 2.3, sm: 3 },
+              transition: 'all 0.18s',
+              "&:hover": {
+                boxShadow: '0 8px 24px 0 rgba(56,126,137,0.13)',
+                borderColor: '#387E89'
+              }
             }}
           >
-            {item.title}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: '#000000',
-              opacity: 0.7,
-              fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
-              lineHeight: 1.6,
-              fontWeight: 400
-            }}
-          >
-            {item.description}
-          </Typography>
-        </Box>
-      )}
-    />
+            <Typography
+              variant="h5"
+              sx={{
+                color: '#143151',
+                fontSize: { xs: '1.12rem', sm: '1.18rem', md: '1.26rem' },
+                fontWeight: 700,
+                mb: 1
+              }}
+            >
+              {item.title}
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: '#27425B',
+                opacity: 0.85,
+                fontSize: { xs: '0.97rem', sm: '1.03rem', md: '1.08rem' },
+                fontWeight: 400
+              }}
+            >
+              {item.description}
+            </Typography>
+          </Box>
+        )}
+      />
+    </Box>
   );
 };

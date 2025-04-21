@@ -20,6 +20,8 @@ interface ResponsiveCarouselProps<T> {
   itemKey?: (item: T, idx: number) => string | number;
   showControls?: boolean;
   itemWidth?: number | string;
+  className?: string;
+  cardClassName?: string;
 }
 
 export function ResponsiveCarousel<T>({
@@ -32,56 +34,89 @@ export function ResponsiveCarousel<T>({
   itemKey,
   showControls = true,
   itemWidth,
+  className,
+  cardClassName,
 }: ResponsiveCarouselProps<T>) {
-  // Responsive breakpoints
+  // Always use carousel for consistency across all breakpoints
+  // But for desktop, we show more columns by shrinking basis
   const isMobile = useMediaQuery("(max-width:600px)");
-  const isTablet = useMediaQuery("(max-width:900px)");
+  const isTablet = useMediaQuery("(max-width:1024px)");
 
-  // Use carousel if mobile or tablet
-  const useCarousel = isMobile || isTablet;
+  // Calculate columns for current breakpoint
+  let columns = columnsDesktop;
+  if (isTablet) columns = columnsTablet;
+  if (isMobile) columns = columnsMobile;
 
-  if (useCarousel) {
-    return (
-      <Carousel className="w-full relative">
-        <CarouselContent>
-          {items.map((item, idx) => (
-            <CarouselItem
-              key={itemKey ? itemKey(item, idx) : idx}
-              className="md:basis-1/2 px-2"
-              style={{ 
-                minWidth: itemWidth || (isMobile ? "85vw" : "45vw"), 
-                maxWidth: itemWidth || (isMobile ? 400 : 450) 
-              }}
-            >
-              {renderItem(item, idx)}
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        
-        {showControls && (
-          <>
-            <CarouselPrevious className="absolute left-1 md:left-2 opacity-70 hover:opacity-100" />
-            <CarouselNext className="absolute right-1 md:right-2 opacity-70 hover:opacity-100" />
-          </>
-        )}
-      </Carousel>
-    );
+  // Card min/max width
+  let carouselWidth: string | number = "95vw";
+  let minCardWidth: string | number = 250;
+  let maxCardWidth: string | number = 370;
+  if (isMobile) {
+    carouselWidth = "100vw";
+    minCardWidth = 220;
+    maxCardWidth = 330;
+  } else if (isTablet) {
+    carouselWidth = "98vw";
+    minCardWidth = 220;
+    maxCardWidth = 340;
   }
 
-  // Desktop: grid view
   return (
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${columnsDesktop}, 1fr)`,
-        gap,
-        width: "100%",
-        mt: 3,
-      }}
-    >
-      {items.map((item, idx) => (
-        <Box key={itemKey ? itemKey(item, idx) : idx}>{renderItem(item, idx)}</Box>
-      ))}
-    </Box>
+    <Carousel className={`w-full relative ${className || ""}`}>
+      <CarouselContent>
+        {items.map((item, idx) => (
+          <CarouselItem
+            key={itemKey ? itemKey(item, idx) : idx}
+            className={`
+              px-2 
+              ${isMobile ? "basis-[80vw] max-w-[340px]" : ""}
+              ${isTablet && !isMobile ? "basis-1/2 max-w-[340px]" : ""}
+              ${!isMobile && !isTablet ? `basis-1/${columns}` : ""}
+            `}
+            style={{
+              minWidth: itemWidth || minCardWidth,
+              maxWidth: itemWidth || maxCardWidth,
+              marginRight: gap,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column"
+            }}
+          >
+            <div className={cardClassName ?? ""} style={{ height: "100%" }}>{renderItem(item, idx)}</div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+
+      {showControls && (
+        <>
+          {/* Arrows always visible, on right side for mobile+tablet */}
+          <CarouselPrevious
+            className="
+              !rounded-full h-9 w-9 bg-white shadow-lg border absolute
+              z-20 
+              top-1/2 
+              -translate-y-1/2
+              opacity-90
+              hover:opacity-100
+              left-2
+              md:left-4
+              "
+          />
+          <CarouselNext
+            className="
+              !rounded-full h-9 w-9 bg-white shadow-lg border absolute
+              z-20
+              top-1/2
+              -translate-y-1/2
+              opacity-90
+              hover:opacity-100
+              right-2
+              md:right-4
+              "
+          />
+        </>
+      )}
+    </Carousel>
   );
 }
+

@@ -1,13 +1,12 @@
 
 import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 export const NinthSection = () => {
   const theme = useTheme();
-  const isMobTabScr = useMediaQuery("(max-width:900px)");
   const MotionBox = motion(Box);
 
   const cards = [
@@ -55,12 +54,12 @@ export const NinthSection = () => {
         <Box sx={{ width: { xs: "100%", sm: "90%", md: "80%" }, mb: 1 }}>
           <Typography
             variant="h4"
-            fontWeight={600}
+            fontWeight={700}
             sx={{
               color: "white",
               mb: 0.5,
               textAlign: "center",
-              fontSize: { xs: "1.02rem", sm: "1.12rem", md: "1.20rem" }
+              fontSize: { xs: "1.28rem", sm: "1.34rem", md: "1.45rem" }
             }}
           >
             The S10.AI Competitive Edge
@@ -71,157 +70,110 @@ export const NinthSection = () => {
               color: "white",
               opacity: 0.85,
               textAlign: "center",
-              fontSize: { xs: "0.95rem", sm: "1.02rem" }
+              fontSize: { xs: "0.99rem", sm: "1.10rem" }
             }}
           >
             Leading the Future of Healthcare AI
           </Typography>
         </Box>
-        <Button
-          variant="text"
-          sx={{
-            textTransform: "capitalize",
-            background: theme.palette.common.white,
-            border: `1px solid ${theme.palette.common.white}`,
-            px: 3,
-            py: 1.5,
-            borderRadius: "50px",
-            "&:hover": {
-              ".icon-box": {
-                transform: "rotate(-270deg)",
-                color: "white",
-                borderColor: "white",
-              },
-              ".button-text": {
-                color: "white",
-              },
-              background: "linear-gradient(135deg, #143151, #387E89)",
-            },
-            boxShadow: 1,
-          }}
-          startIcon={
-            <Box
-              className="icon-box"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 25,
-                height: 25,
-                borderRadius: "50%",
-                color: "#143151",
-                border: `2px solid #143151`,
-                transition: "transform 0.3s ease",
-                transform: "rotate(0deg)",
-                mr: 1,
-              }}
-            >
-              <ArrowRight className="h-4 w-4" />
-            </Box>
-          }
-        >
-          <Typography
-            className="button-text"
-            variant="subtitle1"
-            fontWeight="semiBold"
-            sx={{
-              color: "#143151",
-              transition: "color 0.3s ease",
-              fontSize: { xs: "1rem", sm: "1.08rem" }
-            }}
-          >
-            View More
-          </Typography>
-        </Button>
+        {/* Removed "View More" Button as per request */}
       </Stack>
 
-      <ResponsiveCarousel
-        items={cards}
-        columnsDesktop={4}
-        columnsTablet={2}
-        columnsMobile={1}
-        gap={24}
-        itemWidth="auto"
-        renderItem={(card, index) => (
-          <motion.div
-            layout
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, delay: index * 0.1 }}
-            whileHover={{
-              y: -5,
-              transition: { duration: 0.2 },
-            }}
-            style={{ height: "100%" }}
-          >
-            <Box
-              sx={{
-                height: "100%",
-                minHeight: "280px",
-                background: "white",
-                borderRadius: 3,
-                p: 3,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-                cursor: "pointer",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  background: "linear-gradient(135deg, #143151, #387E89)",
-                  ".title": { color: "white" },
-                  ".description": { color: "white", opacity: 1 },
-                  ".icon-box": { transform: "rotate(360deg)", color: "white" },
-                },
+      <Box sx={{ mb: 2, maxWidth: "1320px", mx: "auto" }}>
+        <ResponsiveCarousel
+          items={cards}
+          columnsDesktop={4}
+          columnsTablet={2}
+          columnsMobile={1}
+          gap={24}
+          itemWidth={null}
+          showControls={true}
+          renderItem={(card, index) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -18 }}
+              transition={{ duration: 0.36, delay: (index % 4) * 0.06 }}
+              whileHover={{
+                y: -5,
+                transition: { duration: 0.2 }
               }}
+              style={{ height: "100%" }}
             >
-              <Typography
-                className="title"
-                variant="h6"
-                fontWeight={600}
-                sx={{
-                  color: "black",
-                  transition: "color 0.3s ease",
-                  textAlign: "center",
-                  mb: 2,
-                  fontSize: { xs: "1rem", sm: "1.15rem" }
-                }}
-              >
-                {card.title}
-              </Typography>
-              <Typography
-                className="description"
-                variant="body2"
-                sx={{
-                  color: "black",
-                  opacity: 0.8,
-                  transition: "all 0.3s ease",
-                  textAlign: "center",
-                  mb: 2,
-                }}
-              >
-                {card.description}
-              </Typography>
               <Box
-                className="icon-box"
                 sx={{
-                  alignSelf: "center",
+                  height: { xs: "235px", sm: "240px", md: "230px" },
+                  minHeight: 180,
+                  background: "#FFF",
+                  borderRadius: 3,
+                  p: { xs: 2.2, sm: 3 },
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: 25,
-                  height: 25,
-                  color: "black",
-                  transition: "all 0.3s ease",
-                  transform: "rotate(0deg)",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  transition: "all 0.3s",
+                  boxShadow: "0 4px 18px 0px rgba(20, 49, 81, 0.06)",
+                  border: "1px solid #E0E0E0",
+                  cursor: "pointer",
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #143151, #387E89)",
+                    ".title": { color: "#FFF" },
+                    ".description": { color: "#FFF", opacity: 1 },
+                    ".icon-box": { color: "#FFF" },
+                  },
                 }}
               >
-                <ArrowUpRight className="h-4 w-4" />
+                <Typography
+                  className="title"
+                  variant="h6"
+                  fontWeight={700}
+                  sx={{
+                    color: "#143151",
+                    transition: "color 0.3s",
+                    textAlign: "center",
+                    mb: 1.3,
+                    fontSize: { xs: "1.04rem", sm: "1.12rem" }
+                  }}
+                >
+                  {card.title}
+                </Typography>
+                <Typography
+                  className="description"
+                  variant="body2"
+                  sx={{
+                    color: "#386381",
+                    opacity: 0.93,
+                    transition: "all 0.32s",
+                    textAlign: "center",
+                    mb: 1.6,
+                    fontSize: { xs: "0.98rem", sm: "1.04rem" },
+                  }}
+                >
+                  {card.description}
+                </Typography>
+                <Box
+                  className="icon-box"
+                  sx={{
+                    alignSelf: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: 28,
+                    height: 28,
+                    borderRadius: "50%",
+                    background: "#F1F5F9",
+                    color: "#387E89",
+                    fontSize: "1.3rem",
+                    boxShadow: "0 1px 6px 0px rgba(20, 49, 81, 0.06)",
+                  }}
+                >
+                  <ArrowUpRight className="h-5 w-5" />
+                </Box>
               </Box>
-            </Box>
-          </motion.div>
-        )}
-      />
+            </motion.div>
+          )}
+        />
+      </Box>
     </section>
   );
 };
