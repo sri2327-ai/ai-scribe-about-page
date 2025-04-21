@@ -7,7 +7,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { ListCheck, MessageSquareQuestion } from "lucide-react"
+import { ListCheck, MessageSquareQuote } from "lucide-react"
 import { useToast } from "@/components/ui/use-toast"
 
 const AIHelpDialog = () => {
@@ -25,7 +25,7 @@ const AIHelpDialog = () => {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="secondary" size="sm" className="gap-2">
-          <MessageSquareQuestion className="h-4 w-4" />
+          <MessageSquareQuote className="h-4 w-4" />
           AI Help
         </Button>
       </DialogTrigger>
