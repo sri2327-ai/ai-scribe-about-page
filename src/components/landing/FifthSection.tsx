@@ -270,14 +270,17 @@ const FifthSection = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-center gap-2 mt-6">
-              <CarouselPrevious />
-              <div className="flex items-center gap-1 text-sm">
-                <span className="text-gray-500">Steps</span>
-                <span className="font-medium bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">1-7</span>
+
+            {!isMobile && (
+              <div className="flex justify-center gap-2 mt-6">
+                <CarouselPrevious />
+                <div className="flex items-center gap-1 text-sm">
+                  <span className="text-gray-500">Steps</span>
+                  <span className="font-medium bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">1-7</span>
+                </div>
+                <CarouselNext />
               </div>
-              <CarouselNext />
-            </div>
+            )}
           </Carousel>
           {isMobile && (
             <div className="flex justify-center mt-4">
