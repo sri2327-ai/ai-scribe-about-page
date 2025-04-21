@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -6,13 +7,13 @@ import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/co
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
+import TenthSection from '@/components/landing/TenthSection';
 
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
 const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
 const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'));
 const SeventhSection = React.lazy(() => import('@/components/landing/SeventhSection'));
 const NinthSection = React.lazy(() => import('@/components/landing/NinthSection'));
-const TenthSection = React.lazy(() => import('@/components/landing/TenthSection'));
 const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSection'));
 
 const Landing = () => {
@@ -76,9 +77,7 @@ const Landing = () => {
       <Suspense fallback={<SectionLoader />}>
         <NinthSection />
       </Suspense>
-      <Suspense fallback={<SectionLoader />}>
-        <TenthSection />
-      </Suspense>
+      <TenthSection />
       <PracticeTypeSelector />
       <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
