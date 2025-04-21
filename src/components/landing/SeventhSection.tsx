@@ -2,7 +2,6 @@
 import React from "react";
 import { Stack, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { SpecialtyHeader } from "./specialty-section/SpecialtyHeader";
 import { FeatureCards } from "./specialty-section/FeatureCards";
 import { SpecialtiesCarousel } from "./specialty-section/SpecialtiesCarousel";
 
@@ -29,7 +28,6 @@ export const SeventhSection = () => {
         }}
         useFlexGap
       >
-        <SpecialtyHeader laptopVw={laptopVw} />
         <FeatureCards />
       </Stack>
       
@@ -40,3 +38,4 @@ export const SeventhSection = () => {
 };
 
 export default SeventhSection;
+
