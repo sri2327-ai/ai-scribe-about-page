@@ -29,25 +29,25 @@ const AIHelpDialog = () => {
           AI Help
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-background border-border">
         <DialogHeader>
-          <DialogTitle>Modify Created Section</DialogTitle>
+          <DialogTitle className="text-foreground">Modify Created Section</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 pt-4">
-          <Button variant="outline" className="w-full justify-start gap-2" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
             <ListCheck className="h-4 w-4" />
             Switch to List
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
             Add More Detail
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
             Reduce Detail
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
             Specify Format
           </Button>
-          <Button variant="outline" className="w-full justify-start gap-2" onClick={handleOptionClick}>
+          <Button variant="outline" className="w-full justify-start gap-2 text-foreground hover:bg-accent" onClick={handleOptionClick}>
             Other
           </Button>
         </div>
