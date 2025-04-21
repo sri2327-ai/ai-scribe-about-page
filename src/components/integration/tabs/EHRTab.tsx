@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Database, FileText, UserRound, Clock, Server, BookText } from 'lucide-react';
+import { Database, FileText, UserRound, Clock, Server, BookText, Stethoscope, Hospital } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const EHRTab = () => {
@@ -32,10 +32,14 @@ const EHRTab = () => {
   const ehrPlatforms = [
     'Epic', 'Cerner', 'Allscripts', 'Athenahealth', 'eClinicalWorks', 
     'NextGen', 'Meditech', 'Practice Fusion', 'DrChrono', 'Kareo',
-    'Amazing Charts', 'CareCloud', 'PrognoCIS', 'ChartLogic', 'ModMed'
+    'Amazing Charts', 'CareCloud', 'PrognoCIS', 'ChartLogic', 'ModMed',
+    'GE Healthcare', 'McKesson', 'Greenway Health', 'AdvancedMD', 'WebPT',
+    'Practice Perfect', 'TherapyNotes', 'Modernizing Medicine', 'Compulink',
+    'WRS Health', 'ChARM EHR', 'CureMD', 'CentralReach', 'Nextech',
+    'InSync Healthcare', 'MDConnection', 'RevolutionEHR', 'PracticeSuite',
+    'Meditab', 'CareLogic', 'Valant', 'PatientNow', 'Sevocity',
+    'BlueEHR', 'iPatientCare', 'MedicsCloud', 'OfficeAlly', 'PowerDMS'
   ];
-
-  const pmsFeatures = ['Scheduling', 'Billing', 'Claims', 'Analytics', 'Patient Portal'];
 
   return (
     <div className="w-full max-w-3xl mx-auto">
@@ -63,23 +67,10 @@ const EHRTab = () => {
                 key={index}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
               >
-                <FileText size={16} />
+                {index % 3 === 0 ? <Hospital size={16} /> : 
+                 index % 3 === 1 ? <Stethoscope size={16} /> : 
+                 <FileText size={16} />}
                 {ehr}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <p className="font-semibold text-[#143151] mb-3">Practice Management Features:</p>
-          <div className="flex flex-wrap gap-3">
-            {pmsFeatures.map((feature, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
-              >
-                <Server size={16} />
-                {feature}
               </span>
             ))}
           </div>
