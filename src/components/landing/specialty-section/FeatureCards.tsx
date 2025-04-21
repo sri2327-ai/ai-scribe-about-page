@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Box, Typography } from "@mui/material";
+import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 interface FeatureCardProps {
   title: string;
@@ -9,40 +10,34 @@ interface FeatureCardProps {
 
 export const FeatureCards = () => {
   const features: FeatureCardProps[] = [
-    { 
-      title: "Specialty-Specific AI Models", 
-      description: "Custom-trained for each medical specialty, from cardiology to pediatrics." 
+    {
+      title: "Specialty-Specific AI Models",
+      description: "Custom-trained for each medical specialty, from cardiology to pediatrics."
     },
-    { 
-      title: "Real-Time Documentation", 
-      description: "Captures complex medical terms and clinical details across specialties, including real-time EKG, triage, dermatology documentation, and more." 
+    {
+      title: "Real-Time Documentation",
+      description: "Captures complex medical terms and clinical details across specialties, including real-time EKG, triage, dermatology documentation, and more."
     },
-    { 
-      title: "Automated Clinical Workflows", 
-      description: "Streamlines referrals, prescriptions, and follow-ups." 
+    {
+      title: "Automated Clinical Workflows",
+      description: "Streamlines referrals, prescriptions, and follow-ups."
     },
-    { 
-      title: "Smart Patient Engagement", 
-      description: "Reduces no-shows and improves adherence to care plans." 
+    {
+      title: "Smart Patient Engagement",
+      description: "Reduces no-shows and improves adherence to care plans."
     }
   ];
 
+  // Use 2-col on tablet/desktop, 1-col carousel on mobile
   return (
-    <Box 
-      sx={{
-        display: 'grid',
-        gridTemplateColumns: {
-          xs: '1fr',
-          sm: 'repeat(2, 1fr)',
-          lg: 'repeat(2, 1fr)'
-        },
-        gap: { xs: 3, sm: 4 },
-        width: '100%',
-        maxWidth: { xs: '100%', sm: '800px' }
-      }}
-    >
-      {features.map((item, index) => (
-        <Box 
+    <ResponsiveCarousel
+      items={features}
+      columnsDesktop={2}
+      columnsTablet={2}
+      columnsMobile={1}
+      gap={24}
+      renderItem={(item, index) => (
+        <Box
           key={index}
           sx={{
             display: 'flex',
@@ -62,9 +57,9 @@ export const FeatureCards = () => {
             }
           }}
         >
-          <Typography 
-            variant="h5" 
-            sx={{ 
+          <Typography
+            variant="h5"
+            sx={{
               color: '#143151',
               fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' },
               fontWeight: 700
@@ -72,10 +67,10 @@ export const FeatureCards = () => {
           >
             {item.title}
           </Typography>
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: '#000000', 
+          <Typography
+            variant="body1"
+            sx={{
+              color: '#000000',
               opacity: 0.7,
               fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
               lineHeight: 1.6,
@@ -85,7 +80,7 @@ export const FeatureCards = () => {
             {item.description}
           </Typography>
         </Box>
-      ))}
-    </Box>
+      )}
+    />
   );
 };

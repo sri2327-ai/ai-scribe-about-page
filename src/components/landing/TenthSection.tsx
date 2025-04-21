@@ -1,8 +1,8 @@
-
 import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
 import { motion } from "framer-motion";
+import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 
 interface ComplianceCardData {
   title: string;
@@ -184,8 +184,8 @@ ComplianceCard.displayName = 'ComplianceCard';
 
 const TenthSection = () => {
   return (
-    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-16 relative overflow-hidden bg-gray-50">
-      <Box sx={{ 
+    <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-14 md:py-16 relative overflow-hidden bg-gray-50">
+      <Box sx={{
         maxWidth: '1400px',
         mx: 'auto',
         px: { xs: 2, sm: 4, md: 6 },
@@ -200,10 +200,10 @@ const TenthSection = () => {
             justifyContent: 'center'
           }}
         >
-          <Box 
+          <Box
             sx={{
               width: { xs: '100%', md: '80%', lg: '70%' },
-              textAlign: { xs: 'left', md: 'center' },
+              textAlign: { xs: 'center', md: 'center' },
               mb: { xs: 1, md: 2 }
             }}
           >
@@ -213,51 +213,47 @@ const TenthSection = () => {
               transition={{ duration: 0.7 }}
               viewport={{ once: true }}
             >
-              <Typography 
-                variant="h4" 
+              <Typography
+                variant="h5"
                 fontWeight="bold"
                 id="security-heading"
-                sx={{ 
-                  mb: 2,
+                sx={{
+                  mb: 1,
                   color: '#143151',
-                  fontSize: { xs: '1.15rem', sm: '1.2rem', md: '1.5rem' },
+                  fontSize: { xs: '1.08rem', sm: '1.12rem', md: '1.3rem' },
                   lineHeight: 1.3,
                   letterSpacing: '-0.02em',
-                  textAlign: { xs: 'left', md: 'center' }
+                  textAlign: { xs: 'center', md: 'center' }
                 }}
               >
                 Security, Compliance &amp; Data Protection You Can Trust
               </Typography>
-              <Typography 
-                variant="h6" 
-                sx={{ 
+              <Typography
+                variant="subtitle1"
+                sx={{
                   color: '#4B5563',
-                  fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
+                  fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' },
                   lineHeight: 1.5,
                   maxWidth: '900px',
                   mx: 'auto',
-                  textAlign: { xs: 'left', md: 'center' }
+                  textAlign: { xs: 'center', md: 'center' }
                 }}
               >
                 Comprehensive protection across HIPAA, PIPEDA &amp; GDPR – Ensuring the highest standards of healthcare data security and privacy.
               </Typography>
             </motion.div>
           </Box>
-
-          <Box sx={{
-            display: 'grid',
-            gridTemplateColumns: { 
-              xs: 'repeat(1, 1fr)', 
-              sm: 'repeat(2, 1fr)', 
-              md: 'repeat(3, 1fr)' 
-            },
-            gap: 3,
-            width: '100%'
-          }}>
-            {complianceCards.map((card, index) => (
-              <ComplianceCard key={`compliance-card-${index}`} card={card} index={index} />
-            ))}
-          </Box>
+          <ResponsiveCarousel
+            items={complianceCards}
+            columnsDesktop={3}
+            columnsTablet={2}
+            columnsMobile={1}
+            gap={24}
+            itemKey={(card, idx) => `${card.title}-${idx}`}
+            renderItem={(card, index) => (
+              <ComplianceCard card={card} index={index} />
+            )}
+          />
         </Stack>
       </Box>
     </section>

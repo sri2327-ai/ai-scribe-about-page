@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { User, Building, Building2, Hospital } from 'lucide-react';
@@ -91,12 +90,6 @@ export const PracticeTypeSelector = () => {
                     <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
                       {type.description}
                     </p>
-                    
-                    <div className="mt-6">
-                      <button className="rounded-full px-6 md:px-8 py-2.5 md:py-3 text-base md:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-md hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 font-semibold">
-                        Learn More
-                      </button>
-                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
