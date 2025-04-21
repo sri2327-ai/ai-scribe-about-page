@@ -1,8 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { 
-  Phone, ClipboardList, Bell, FileText, ClipboardCheck, 
+import {
+  Phone, ClipboardList, Bell, FileText, ClipboardCheck,
   Heart, BarChart, ArrowRight, Check, X,
   Clock, TrendingUp, ThumbsUp, DollarSign, Users, ChevronRight
 } from 'lucide-react';
@@ -99,7 +99,7 @@ const ROIMetricCard = ({ icon: Icon, value, label }) => (
   </div>
 );
 
-export const FifthSection = () => {
+const FifthSection = () => {
   const containerRef = React.useRef(null);
   const isMobile = useMediaQuery("(max-width:600px)");
 
@@ -135,10 +135,10 @@ export const FifthSection = () => {
   return (
     <section ref={containerRef} className="py-16 px-4 md:px-8 bg-white">
       <Box sx={{ maxWidth: '1400px', mx: 'auto' }}>
-        <Typography 
-          variant="h4" 
-          fontWeight="bold" 
-          textAlign="center" 
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
           sx={{ mb: 8, color: 'black', fontSize: { xs: '1.75rem', sm: '2rem', md: '2rem' } }}
         >
           How Bravo & CRUSH Transform Your Practice Together
@@ -147,49 +147,49 @@ export const FifthSection = () => {
         <div className="mb-16">
           {isMobile ? (
             <>
-            <Carousel
-              opts={{
-                align: "center",
-                loop: true,
-                dragFree: true,
-              }}
-              plugins={[]}
-              className="w-full"
-            >
-              <CarouselContent>
-                {beforeAfterCards.map((card, idx) => (
-                  <CarouselItem key={idx} className="pl-2 pr-2 basis-full">
-                    <Card className={`p-6 ${card.color === 'red'
-                      ? 'bg-white border border-gray-200' 
-                      : 'bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/20'} hover:shadow-lg transition-all duration-300`}>
-                      <h3 className={`text-xl font-semibold mb-4 ${card.color === 'red' ? 'text-gray-900' : 'text-[#387E89]'}`}>
-                        {card.title}
-                      </h3>
-                      <div className="space-y-3">
-                        {card.metrics.map((metric, index) => (
-                          <div key={index} className={`flex items-center gap-3 p-3 rounded-lg ${card.color === 'red' 
-                            ? 'bg-red-50/50' 
-                            : 'bg-[#387E89]/10'}`}>
-                            {card.color === 'red' ? (
-                              <X className="w-5 h-5 text-red-500" />
-                            ) : (
-                              <Check className="w-5 h-5 text-[#387E89]" />
-                            )}
-                            <span className="text-gray-700">{metric}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <div className="flex justify-center mt-4">
-                <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
-                  <span>Swipe to see next</span>
-                  <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+              <Carousel
+                opts={{
+                  align: "center",
+                  loop: true,
+                  dragFree: true,
+                }}
+                plugins={[]}
+                className="w-full"
+              >
+                <CarouselContent>
+                  {beforeAfterCards.map((card, idx) => (
+                    <CarouselItem key={idx} className="pl-2 pr-2 basis-full">
+                      <Card className={`p-6 ${card.color === 'red'
+                        ? 'bg-white border border-gray-200'
+                        : 'bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/20'} hover:shadow-lg transition-all duration-300`}>
+                        <h3 className={`text-xl font-semibold mb-4 ${card.color === 'red' ? 'text-gray-900' : 'text-[#387E89]'}`}>
+                          {card.title}
+                        </h3>
+                        <div className="space-y-3">
+                          {card.metrics.map((metric, index) => (
+                            <div key={index} className={`flex items-center gap-3 p-3 rounded-lg ${card.color === 'red'
+                              ? 'bg-red-50/50'
+                              : 'bg-[#387E89]/10'}`}>
+                              {card.color === 'red' ? (
+                                <X className="w-5 h-5 text-red-500" />
+                              ) : (
+                                <Check className="w-5 h-5 text-[#387E89]" />
+                              )}
+                              <span className="text-gray-700">{metric}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </Card>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <div className="flex justify-center mt-4">
+                  <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                    <span>Swipe to see next</span>
+                    <ChevronRight className="w-6 h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
+                  </div>
                 </div>
-              </div>
-            </Carousel>
+              </Carousel>
             </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -224,9 +224,9 @@ export const FifthSection = () => {
         </div>
 
         <div className="mb-16">
-          <Typography 
+          <Typography
             variant="h5"
-            fontWeight="bold" 
+            fontWeight="bold"
             textAlign="center"
             sx={{ mb: 4, color: "#143151", fontSize: { xs: "1.2rem", sm: "1.35rem" } }}
           >
@@ -240,17 +240,17 @@ export const FifthSection = () => {
         </div>
 
         <div className="mb-16">
-          <Typography 
-            variant="h4" 
-            fontWeight="bold" 
-            textAlign="center" 
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            textAlign="center"
             sx={{ mb: 2, color: 'black' }}
           >
             The Complete Workflow Transformation
           </Typography>
-          <Typography 
-            variant="body1" 
-            textAlign="center" 
+          <Typography
+            variant="body1"
+            textAlign="center"
             sx={{ mb: 6, color: 'gray' }}
           >
             Follow our 7-step process to transform your practice
