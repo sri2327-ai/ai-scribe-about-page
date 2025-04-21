@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import WNLSettingsDialog from './WNLSettingsDialog';
 import AIHelpDialog from './AIHelpDialog';
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Extracted dialogs for Macros and Static Text
 import {
@@ -18,17 +19,25 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const MacrosDialog = () => {
   const [macros, setMacros] = useState<Array<{ trigger: string; text: string }>>([]);
   const [newTrigger, setNewTrigger] = useState('');
   const [newText, setNewText] = useState('');
+  const { toast } = useToast();
 
   const handleAddMacro = () => {
     if (newTrigger && newText) {
       setMacros([...macros, { trigger: newTrigger, text: newText }]);
       setNewTrigger('');
       setNewText('');
+      
+      toast({
+        title: "Macro Added",
+        description: `Trigger "${newTrigger}" has been added`,
+        className: "bg-white border border-gray-200 text-gray-800",
+      });
     }
   };
 
@@ -50,23 +59,23 @@ const MacrosDialog = () => {
               placeholder="Trigger Phrase"
               value={newTrigger}
               onChange={(e) => setNewTrigger(e.target.value)}
-              className="bg-background"
+              className="bg-white border-gray-300"
             />
             <Input
               placeholder="Auto-Insert Text"
               value={newText}
               onChange={(e) => setNewText(e.target.value)}
-              className="bg-background"
+              className="bg-white border-gray-300"
             />
           </div>
-          <Button onClick={handleAddMacro} className="w-full gap-2">
+          <Button onClick={handleAddMacro} className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
             <Plus className="h-4 w-4" /> Add Macro
           </Button>
           
           {macros.length > 0 && (
             <div className="mt-4 space-y-2">
               {macros.map((macro, index) => (
-                <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded">
+                <div key={index} className="flex justify-between items-center p-2 bg-gray-50 rounded border border-gray-200">
                   <span className="font-medium">{macro.trigger}</span>
                   <span className="text-gray-600">{macro.text}</span>
                 </div>
@@ -81,6 +90,21 @@ const MacrosDialog = () => {
 
 const StaticTextDialog = () => {
   const [staticText, setStaticText] = useState('');
+  const [targetSection, setTargetSection] = useState('');
+  const { toast } = useToast();
+
+  const handleAddStaticText = () => {
+    if (staticText) {
+      toast({
+        title: "Static Text Added",
+        description: targetSection 
+          ? `Static text will be added to "${targetSection}"` 
+          : "Static text has been added",
+        className: "bg-white border border-gray-200 text-gray-800",
+      });
+      setStaticText('');
+    }
+  };
 
   return (
     <Dialog>
@@ -97,10 +121,28 @@ const StaticTextDialog = () => {
         <div className="space-y-4 pt-4">
           <Textarea 
             placeholder="Enter static text that will be available across all templates..."
-            className="min-h-[150px] bg-background"
+            className="min-h-[150px] bg-white border-gray-300"
             value={staticText}
             onChange={(e) => setStaticText(e.target.value)}
           />
+          
+          <Select value={targetSection} onValueChange={setTargetSection}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select target section (optional)" />
+            </SelectTrigger>
+            <SelectContent className="bg-white">
+              <SelectItem value="all">All Sections</SelectItem>
+              <SelectItem value="chief_complaint">Chief Complaint</SelectItem>
+              <SelectItem value="hpi">History of Present Illness</SelectItem>
+              <SelectItem value="pmh">Past Medical History</SelectItem>
+              <SelectItem value="assessment">Assessment</SelectItem>
+              <SelectItem value="plan">Plan</SelectItem>
+            </SelectContent>
+          </Select>
+          
+          <Button onClick={handleAddStaticText} className="w-full gap-2 bg-blue-600 hover:bg-blue-700">
+            <Plus className="h-4 w-4" /> Add Static Text
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
@@ -142,7 +184,8 @@ const TemplateBuilder = () => {
       toast({
         title: "Template name required",
         description: "Please enter a name for your template",
-        variant: "destructive"
+        variant: "destructive",
+        className: "bg-white border-red-200 text-red-800",
       });
       return;
     }
@@ -151,7 +194,8 @@ const TemplateBuilder = () => {
       toast({
         title: "No sections added",
         description: "Please add at least one section to your template",
-        variant: "destructive"
+        variant: "destructive",
+        className: "bg-white border-red-200 text-red-800",
       });
       return;
     }
@@ -178,6 +222,7 @@ const TemplateBuilder = () => {
     toast({
       title: "Template Downloaded",
       description: `Your template "${templateName}" with ${sections.length} sections has been saved`,
+      className: "bg-white border border-gray-200 text-gray-800",
     });
   };
 
@@ -276,7 +321,7 @@ const TemplateBuilder = () => {
                                 placeholder="Enter section content..."
                                 className="text-sm min-h-[60px]"
                                 value={section.content}
-                                onChange={(e) => updateSectionContent(section.id, e.target.value)}
+                                onChange={(e) => updateSectionContent(section.id, e.target.content)}
                               />
 
                               <div className="flex justify-end">
@@ -295,6 +340,13 @@ const TemplateBuilder = () => {
                 </div>
               </div>
             </div>
+
+            <Alert className="mt-8 bg-blue-50 border-blue-200 text-blue-800">
+              <AlertDescription className="py-2">
+                <p className="font-bold mb-1">DISCLAIMER</p>
+                <p>This is a demonstration of the template builder interface only. The actual application has AI model integration and additional template building options not shown here. Book a demo to see how the real application works in real-time.</p>
+              </AlertDescription>
+            </Alert>
           </CardContent>
         </Card>
       </div>

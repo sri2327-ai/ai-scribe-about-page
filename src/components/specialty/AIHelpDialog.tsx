@@ -17,7 +17,8 @@ const AIHelpDialog = () => {
     toast({
       title: "Book a Demo",
       description: "Contact us to see how this works in real-time!",
-      action: <Button variant="outline" onClick={() => window.location.href='/contact'}>Contact Us</Button>
+      action: <Button variant="outline" onClick={() => window.location.href='/contact'}>Contact Us</Button>,
+      className: "bg-white border border-gray-200 text-gray-800"
     });
   };
 

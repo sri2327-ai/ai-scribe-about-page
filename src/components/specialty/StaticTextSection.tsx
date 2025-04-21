@@ -1,8 +1,7 @@
 
 import React from 'react';
-import { Card } from "@/components/ui/card";
 
-// This component is now integrated directly into TemplateBuilder.tsx
+// This component is integrated into TemplateBuilder.tsx via StaticTextDialog
 const StaticTextSection = () => {
   return null;
 };
