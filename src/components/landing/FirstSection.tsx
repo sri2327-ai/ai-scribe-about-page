@@ -1,244 +1,230 @@
 
-import { Box, Stack, Typography } from "@mui/material";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react";
-import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
+import React from 'react';
+import { Box, Button, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import Marquee from "react-fast-marquee";
+import { ArrowRight } from "lucide-react";
+import { VoiceAnimation } from './animations/VoiceAnimation';
+
+const companyLogos = [
+  "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png",
+  "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"
+];
 
 export const FirstSection = () => {
-  const cards = [
-    {
-      title: "Science-Driven AI",
-      description:
-        "Truth-first, responsible AI powered by S10's patented IPKO for smarter automation. Specialty-specific medical terminology understanding.",
-    },
-    {
-      title: "Cross-Lingual Precision",
-      description:
-        "Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition. Clinically validated accuracy rates of 98%+.",
-    },
-    {
-      title: "Clinician-Centric",
-      description:
-        "AI that adapts to workflows, not disrupts them. Seamless integration with existing systems.",
-    },
-    {
-      title: "Seamless Automation",
-      description:
-        "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization.",
-    },
-  ];
-
-  // Icon mapping per card (in correct order)
-  const iconMap = [
-    Lightbulb,   // Science-Driven AI
-    Shield,      // Cross-Lingual Precision
-    Award,       // Clinician-Centric
-    Rocket,      // Seamless Automation
-  ];
-
-  // Increased card size for more room
-  const cardWidth = 430;
-  const cardHeight = 430; // Increased height to avoid content being cut off
+  const theme = useTheme();
 
   return (
-    <section
-      style={{
-        background: "linear-gradient(135deg, #143151, #387E89)",
-        width: "100%",
-        padding: "54px 0 54px 0",
-      }}
-    >
-      <Stack
-        spacing={3}
-        direction="column"
-        sx={{
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-          alignItems: { xs: "center", sm: "center" },
-          mb: 5,
-        }}
-        useFlexGap
-      >
-        <Box sx={{ width: { xs: "100%", sm: "90%", md: "80%" }, mb: 1 }}>
-          <Typography
-            variant="h4"
-            fontWeight={700}
-            sx={{
-              color: "white",
-              mb: 1,
-              textAlign: "center",
-              fontSize: { xs: "1.35rem", sm: "1.55rem", md: "1.7rem" },
-              letterSpacing: 0.5,
-            }}
-          >
-            The S10.AI Competitive Edge
-          </Typography>
-          <Typography
-            variant="subtitle2"
-            sx={{
-              color: "white",
-              opacity: 0.85,
-              textAlign: "center",
-              fontSize: { xs: "1.05rem", sm: "1.18rem" },
-            }}
-          >
-            Leading the Future of Healthcare AI
-          </Typography>
-        </Box>
-      </Stack>
+    <section className="min-h-screen bg-white">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
+        <div className="flex flex-col space-y-16 md:space-y-24">
 
-      <Box sx={{ mb: 4, maxWidth: "1450px", mx: "auto", px: { xs: 2, md: 4 } }}>
-        <ResponsiveCarousel
-          items={cards}
-          columnsDesktop={3}
-          columnsTablet={2}
-          columnsMobile={1}
-          gap={45}
-          itemWidth={cardWidth}
-          itemHeight={cardHeight}
-          controlsBelow={true}
-          showControls={true}
-          renderItem={(card, index) => {
-            const Icon = iconMap[index];
-            return (
-              <motion.div
-                layout
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -18 }}
-                transition={{ duration: 0.36, delay: (index % 4) * 0.05 }}
-                whileHover={{
-                  y: -7,
-                  transition: { duration: 0.18 },
+          {/* Heading and Button Section */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
+            <Box
+              sx={{
+                maxWidth: { xs: '100%', md: '50%' },
+                pr: { md: 4 }
+              }}
+            >
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: {
+                    xs: '2.5rem',
+                    sm: '3rem',
+                    md: '3.5rem',
+                    lg: '4rem'
+                  },
+                  lineHeight: {
+                    xs: 1.1,
+                    md: 1
+                  },
+                  letterSpacing: '-0.02em',
+                  fontWeight: 700,
+                  color: '#000000',
+                  mb: { xs: 4, md: 6 }
                 }}
-                style={{ height: "100%" }}
               >
-                <Box
-                  sx={{
-                    height: "100%",
-                    minHeight: cardHeight,
-                    width: "100%",
-                    maxWidth: cardWidth,
-                    background: "#FFF",
-                    borderRadius: 4.5,
-                    p: { xs: 4, sm: 5 },
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    alignItems: "center",
-                    boxShadow: "0 4px 22px 0px rgba(20, 49, 81, 0.09)",
-                    border: "1.5px solid #E0E0E0",
-                    cursor: "pointer",
-                    transition: "all 0.34s",
-                    overflow: "hidden",
-                    "&:hover": {
-                      background:
-                        "linear-gradient(135deg, #143151, #387E89)",
-                      ".title": { color: "#FFF" },
-                      ".description": { color: "#FFF", opacity: 1 },
-                      ".icon-gradient": {
-                        background:
-                          "linear-gradient(135deg, #387E89, #143151)",
-                      },
-                      ".icon-svg": {
-                        color: "#FFF !important",
-                        filter: "drop-shadow(0 4px 12px #387E8966)",
-                      },
+                Innovative<br />
+                Ambient AI<br />
+                Solutions<br />
+                For Healthcare
+              </Typography>
+
+              <Button 
+                variant="contained" 
+                sx={{ 
+                  textTransform: "none",
+                  background: `linear-gradient(135deg, #143151, #387E89)`,
+                  color: 'white',
+                  px: { xs: 3, md: 4 },
+                  py: { xs: 1.25, md: 1.5 },
+                  borderRadius: "50px",
+                  transition: 'all 0.3s ease',
+                  "&:hover": {
+                    background: `linear-gradient(135deg, #143151, #387E89)`,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
+                    ".icon-box": {
+                      transform: "rotate(-270deg)",
                     },
-                  }}
-                >
-                  {/* Icon with correct proportions */}
-                  <Box
-                    className="icon-gradient"
-                    sx={{
-                      alignSelf: "center",
-                      width: 74,
-                      height: 74,
-                      borderRadius: "50%",
-                      background: "linear-gradient(135deg, #143151, #387E89)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      boxShadow: "0 3px 20px 0px #14315126",
-                      mb: 3.5,
-                      mt: 0.5,
-                    }}
-                  >
-                    <Icon
-                      className="icon-svg"
-                      size={44}
-                      color="#FFF"
-                      strokeWidth={2.3}
-                    />
-                  </Box>
-                  <Typography
-                    className="title"
-                    variant="h6"
-                    component="h3"
-                    fontWeight={700}
-                    sx={{
-                      color: "#143151",
-                      fontSize: { xs: "1.33rem", sm: "1.5rem" },
-                      textAlign: "center",
-                      transition: "color 0.34s",
-                      mb: 2.6,
-                      lineHeight: 1.29,
-                      letterSpacing: 0.25,
-                      maxWidth: "85%",
-                    }}
-                  >
-                    {card.title}
-                  </Typography>
-                  <Typography
-                    className="description"
-                    variant="body2"
-                    sx={{
-                      color: "#386381",
-                      opacity: 0.93,
-                      transition: "all 0.32s",
-                      textAlign: "center",
-                      fontWeight: 400,
-                      letterSpacing: 0.01,
-                      mb: 3.7,
-                      fontSize: { xs: "1.11rem", sm: "1.16rem" },
-                      lineHeight: 1.85,
-                      maxWidth: 350,
-                      mx: "auto",
-                      wordBreak: "break-word",
-                      display: "-webkit-box",
-                      WebkitLineClamp: 4,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {card.description}
-                  </Typography>
+                  },
+                }}
+                startIcon={
                   <Box
                     className="icon-box"
                     sx={{
-                      alignSelf: "center",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      width: 38,
-                      height: 38,
-                      borderRadius: "50%",
-                      background: "#F1F5F9",
-                      color: "#387E89",
-                      fontSize: "1.4rem",
-                      boxShadow: "0 1px 7px 0px rgba(20, 49, 81, 0.05)",
-                      mb: 0,
-                      mt: "auto",
+                      width: { xs: 20, md: 25 },
+                      height: { xs: 20, md: 25 },
+                      borderRadius: "50%", 
+                      color: "white",
+                      border: `2px solid white`,
+                      transition: "transform 0.3s ease",
+                      transform: "rotate(0deg)",
+                      mr: 1
                     }}
                   >
-                    <ArrowUpRight className="h-6 w-6" />
+                    <ArrowRight className="h-4 w-4" />
                   </Box>
-                </Box>
-              </motion.div>
-            );
-          }}
-        />
-      </Box>
+                }
+              >
+                <Typography
+                  variant='h6' 
+                  sx={{
+                    fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
+                    color: "white",
+                    fontWeight: 600
+                  }}
+                >
+                  Request A Demo
+                </Typography>
+              </Button>
+            </Box>
+          </div>
+
+          {/* Right Side Card - Now Moved Below */}
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Box
+              sx={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '8px', // Less rounded for rectangular shape
+                p: { xs: 4, sm: 5 },
+                border: '1px solid rgba(209, 213, 219, 0.3)',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                width: '100%',
+                maxWidth: { xs: '100%', md: '800px' },
+                display: 'flex',
+                flexDirection: 'column',
+                gap: { xs: 4, md: 5 }
+              }}
+            >
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#000000',
+                  fontSize: {
+                    xs: '0.875rem',
+                    sm: '1rem'
+                  },
+                  lineHeight: 1.7,
+                  fontWeight: 400
+                }}
+              >
+                Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
+              </Typography>
+
+              <Box 
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  transform: { xs: 'scale(1.1)', md: 'scale(1.25)' } // Made animation bigger
+                }}
+              >
+                <VoiceAnimation />
+              </Box>
+            </Box>
+          </Box>
+
+          {/* Logos Section */}
+          <Box
+            sx={{
+              background: 'rgba(243, 244, 246, 0.1)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '16px',
+              p: { xs: 3, sm: 4 },
+              border: '1px solid rgba(209, 213, 219, 0.3)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+              width: '100%'
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{
+                color: '#000000',
+                mb: { xs: 2, sm: 3 },
+                fontSize: {
+                  xs: '0.875rem',
+                  sm: '1rem',
+                  md: '1.125rem'
+                },
+                fontWeight: 600,
+                textAlign: 'center'
+              }}
+            >
+              S10.AI Is Recommended by
+            </Typography>
+            <Box
+              sx={{
+                overflow: "hidden",
+                width: '100%',
+                '& .marquee-container': {
+                  minHeight: { xs: '32px', sm: '40px' }
+                }
+              }}
+            >
+              <Marquee gradient={false} speed={50}>
+                {companyLogos.map((logo, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      mx: {
+                        xs: 1.5,
+                        md: 2
+                      },
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <img
+                      src={logo}
+                      alt={`Company logo ${index + 1}`}
+                      style={{
+                        width: 'auto',
+                        height: '24px',
+                        objectFit: 'contain'
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Marquee>
+            </Box>
+          </Box>
+
+        </div>
+      </div>
     </section>
   );
 };
