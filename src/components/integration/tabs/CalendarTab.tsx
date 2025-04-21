@@ -2,6 +2,7 @@
 import React from 'react';
 import { Calendar, Cloud, Database, Shield, Link, Server } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
+import Marquee from "react-fast-marquee";
 
 const CalendarTab = () => {
   const isMobile = useIsMobile();
@@ -51,31 +52,47 @@ const CalendarTab = () => {
 
         <div className="mt-6">
           <p className="font-semibold text-[#143151] mb-3">Calendar Integrations:</p>
-          <div className="flex flex-wrap gap-3">
-            {calendarPlatforms.map((platform, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
-              >
-                <Calendar size={16} />
-                {platform}
-              </span>
-            ))}
+          <div className="w-full overflow-hidden">
+            <Marquee
+              gradient={true}
+              gradientColor={[20, 49, 81]}
+              speed={40}
+              pauseOnHover={true}
+              className="py-2"
+            >
+              {calendarPlatforms.map((platform, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
+                >
+                  <Calendar size={16} />
+                  {platform}
+                </span>
+              ))}
+            </Marquee>
           </div>
         </div>
 
         <div className="mt-6">
           <p className="font-semibold text-[#143151] mb-3">Cloud Storage Solutions:</p>
-          <div className="flex flex-wrap gap-3">
-            {cloudPlatforms.map((platform, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
-              >
-                <Cloud size={16} />
-                {platform}
-              </span>
-            ))}
+          <div className="w-full overflow-hidden">
+            <Marquee
+              gradient={true}
+              gradientColor={[20, 49, 81]}
+              speed={40}
+              pauseOnHover={true}
+              className="py-2"
+            >
+              {cloudPlatforms.map((platform, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
+                >
+                  <Cloud size={16} />
+                  {platform}
+                </span>
+              ))}
+            </Marquee>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ const IntegrationHeroSection = () => {
   return (
     <div className="w-full max-w-[1400px] mx-auto px-4 py-16 md:py-24">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div className="order-2 md:order-1 text-left max-w-xl">
+        <div className="order-1 md:order-1 text-left max-w-xl">
           <Typography 
             variant={isMobile ? "h4" : "h2"} 
             sx={{ 
@@ -51,7 +51,7 @@ const IntegrationHeroSection = () => {
             Learn More
           </button>
         </div>
-        <div className="order-1 md:order-2 flex justify-center md:justify-end">
+        <div className={`order-2 md:order-2 flex justify-center md:justify-end ${isMobile ? 'mt-8' : ''}`}>
           <div className="max-w-[500px] w-full">
             <HeroPieChartIllustration />
           </div>

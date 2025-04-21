@@ -1,7 +1,7 @@
-
 import React from 'react';
 import { Video, Phone, Users, Monitor, Wifi, Headphones } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
+import Marquee from "react-fast-marquee";
 
 const SIPTab = () => {
   const isMobile = useIsMobile();
@@ -50,16 +50,24 @@ const SIPTab = () => {
 
       <div className="mt-6">
         <p className="font-semibold text-[#143151] mb-3">Supported Platforms:</p>
-        <div className="flex flex-wrap gap-3 justify-center">
-          {platforms.map((platform, index) => (
-            <span
-              key={index}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
-            >
-              {index % 2 === 0 ? <Video size={16} /> : <Phone size={16} />}
-              {platform}
-            </span>
-          ))}
+        <div className="w-full overflow-hidden">
+          <Marquee
+            gradient={true}
+            gradientColor={[20, 49, 81]}
+            speed={40}
+            pauseOnHover={true}
+            className="py-2"
+          >
+            {platforms.map((platform, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
+              >
+                {index % 2 === 0 ? <Video size={16} /> : <Phone size={16} />}
+                {platform}
+              </span>
+            ))}
+          </Marquee>
         </div>
       </div>
     </div>

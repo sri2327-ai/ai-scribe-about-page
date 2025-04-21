@@ -2,6 +2,7 @@
 import React from 'react';
 import { Database, FileText, UserRound, Clock, Server, BookText, Stethoscope, Hospital } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
+import Marquee from "react-fast-marquee";
 
 const EHRTab = () => {
   const isMobile = useIsMobile();
@@ -61,18 +62,26 @@ const EHRTab = () => {
 
         <div className="mt-6">
           <p className="font-semibold text-[#143151] mb-3">Compatible EHR Systems:</p>
-          <div className="flex flex-wrap gap-3">
-            {ehrPlatforms.map((ehr, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm"
-              >
-                {index % 3 === 0 ? <Hospital size={16} /> : 
-                 index % 3 === 1 ? <Stethoscope size={16} /> : 
-                 <FileText size={16} />}
-                {ehr}
-              </span>
-            ))}
+          <div className="w-full overflow-hidden">
+            <Marquee
+              gradient={true}
+              gradientColor={[20, 49, 81]}
+              speed={40}
+              pauseOnHover={true}
+              className="py-2"
+            >
+              {ehrPlatforms.map((ehr, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
+                >
+                  {index % 3 === 0 ? <Hospital size={16} /> : 
+                   index % 3 === 1 ? <Stethoscope size={16} /> : 
+                   <FileText size={16} />}
+                  {ehr}
+                </span>
+              ))}
+            </Marquee>
           </div>
         </div>
       </div>
