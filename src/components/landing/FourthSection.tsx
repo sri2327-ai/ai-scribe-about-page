@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
@@ -135,7 +136,7 @@ export const FourthSection = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 place-items-center">
           <ProductCard 
             title="C.R.U.S.H"
             subtitle="AI Medical Scribe Assistant"
@@ -167,3 +168,4 @@ export const FourthSection = () => {
 };
 
 export default FourthSection;
+
