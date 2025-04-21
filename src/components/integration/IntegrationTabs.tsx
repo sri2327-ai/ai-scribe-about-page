@@ -1,6 +1,5 @@
 
 import React from 'react';
-import styles from '@/styles/integration.module.scss';
 import { LocalHospitalRounded, VideoCall, CalendarToday, Email } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -45,16 +44,15 @@ export default function IntegrationTabs() {
   const isMobile = useIsMobile();
 
   return (
-    <div className={styles.integrationWrapper}>
-      <div className={styles.headerText}>
+    <div className="w-full max-w-[1400px] mx-auto px-4 py-16 md:py-24">
+      <div className="text-center max-w-3xl mx-auto mb-16">
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
-          className={styles.healthcareTitle}
           sx={{ 
             fontSize: isMobile ? '1.5rem' : '2rem',
             mb: 2,
-            px: isMobile ? 1 : 3,
-            textAlign: 'center'
+            color: '#143151',
+            lineHeight: 1.2
           }}
         >
           Deep, Intelligent Integrations <br />
@@ -64,30 +62,29 @@ export default function IntegrationTabs() {
           variant="body1"
           sx={{ 
             fontSize: isMobile ? '0.9rem' : '1rem',
-            mb: 8,
-            px: isMobile ? 2 : 0,
-            textAlign: 'center'
+            color: '#4a5568',
+            lineHeight: 1.6
           }}
         >
-          Our Platform Seamlessly connects with your existing tools, enhancing productivity <br />
+          Our Platform Seamlessly connects with your existing tools, enhancing productivity
           without disrupting your workflow
         </Typography>
       </div>
 
       <Tabs defaultValue="ehr" className="w-full max-w-4xl mx-auto">
-        <TabsList className="grid grid-cols-2 lg:grid-cols-4 w-full bg-transparent gap-2">
+        <TabsList className="grid grid-cols-2 lg:grid-cols-4 w-full bg-transparent gap-4">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.value}
               value={tab.value}
-              className="flex flex-col items-center gap-2 p-4 data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white hover:bg-gradient-to-r hover:from-[#143151] hover:to-[#387E89] hover:text-white transition-all duration-300"
+              className="flex flex-col items-center gap-2 p-4 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-gradient-to-r hover:from-[#143151]/5 hover:to-[#387E89]/5 transition-all duration-300"
             >
               <div className="icon-wrapper w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                 {tab.icon}
               </div>
               <div className="text-center">
-                <p className="font-semibold">{tab.label}</p>
-                <p className="text-sm opacity-80">{tab.description}</p>
+                <p className="font-semibold text-[#143151]">{tab.label}</p>
+                <p className="text-sm text-gray-600">{tab.description}</p>
               </div>
             </TabsTrigger>
           ))}
