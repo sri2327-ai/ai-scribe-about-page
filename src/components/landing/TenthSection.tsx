@@ -214,14 +214,15 @@ const TenthSection = () => {
               viewport={{ once: true }}
             >
               <Typography 
-                variant="h2" 
+                variant="h3" 
                 fontWeight="bold"
                 id="security-heading"
                 sx={{ 
                   mb: 3,
                   color: '#143151',
-                  fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
-                  lineHeight: 1.2
+                  fontSize: { xs: '1.6rem', sm: '1.9rem', md: '2.2rem' },
+                  lineHeight: 1.3,
+                  letterSpacing: '-0.02em'
                 }}
               >
                 Security, Compliance & Data Protection You Can Trust
@@ -230,8 +231,8 @@ const TenthSection = () => {
                 variant="h5" 
                 sx={{ 
                   color: '#4B5563',
-                  fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
-                  lineHeight: 1.6,
+                  fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1.05rem' },
+                  lineHeight: 1.5,
                   maxWidth: '900px',
                   mx: 'auto'
                 }}
