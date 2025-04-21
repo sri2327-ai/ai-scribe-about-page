@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { globalCss } from '@stitches/react';
 
 const beforeAfterComparison = {
   before: {
@@ -50,7 +51,6 @@ const cardIcons = [
   { id: 7, icon: BarChart, title: "Accelerate Revenue Cycle Management", description: "Enhances insurance verification, claim processing, and payment tracking for faster reimbursements and improved financial outcomes." },
 ];
 
-// --- ROI Metrics to display ---
 const ROIMetrics = {
   timeReduction: { value: "75%", icon: Clock, label: "reduction in documentation time" },
   revenueIncrease: { value: "40%", icon: TrendingUp, label: "increase in practice revenue" },
@@ -135,10 +135,13 @@ export const FifthSection = () => {
         <div className="mb-16">
           {/* Responsive: Carousel for mobile, grid for desktop/tablet */}
           {isMobile ? (
+            <>
             <Carousel
               opts={{
                 align: "center",
                 loop: true,
+                dragFree: true,
+                speed: 5,
               }}
               plugins={[]}
               className="w-full"
@@ -173,6 +176,14 @@ export const FifthSection = () => {
               </CarouselContent>
               {/* Hide nav controls and below-controls on mobile */}
             </Carousel>
+            {/* Mobile swipe hint arrow below carousel */}
+            <div className="flex justify-center mt-4">
+              <div className="flex items-center gap-1 text-gray-500 text-sm select-none">
+                <span>Swipe to see next</span>
+                <ChevronRight className="w-6 h-6 animate-[moveRight_1.5s_ease-in-out_infinite]" />
+              </div>
+            </div>
+            </>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Card className="p-6 bg-white hover:shadow-lg transition-all duration-300 border border-gray-200">
