@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { Mail, Clock, Workflow, Users, Network, Server } from 'lucide-react';
+import { Mail, Cloud, Database, Shield, Link, Server } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 
@@ -10,36 +9,36 @@ const EmailTab = () => {
   const features = [
     {
       icon: <Mail />,
-      title: 'Clinical Communication Hub',
-      description: 'Secure messaging platform for patient communication, team collaboration, and referral management.'
+      title: 'Email Automation',
+      description: 'Automated email campaigns for appointment reminders, follow-ups, and patient education.'
     },
     {
-      icon: <Network />,
-      title: 'Automated Workflows',
-      description: 'Smart routing of clinical documents, test results, and patient inquiries to the right team members.'
+      icon: <Cloud />,
+      title: 'Secure Cloud Storage',
+      description: 'HIPAA-compliant cloud storage for clinical documents, imaging, and patient records.'
     }
   ];
 
   const emailPlatforms = [
-    'Gmail HIPAA', 'Outlook Healthcare', 'ProtonMail Medical',
-    'Microsoft Exchange', 'Yahoo Business', 'Zoho Mail',
-    'Hushmail Healthcare', 'MDOfficeMail', 'NeoCertified',
-    'Paubox', 'Virtru', 'Protected Trust'
+    'Gmail for Healthcare', 'Outlook for Healthcare', 'Microsoft Exchange',
+    'Office 365', 'HIPAA-Compliant Email', 'ProtonMail', 'Zoho Mail',
+    'Titan', 'Fastmail', 'GMX'
   ];
 
-  const workflowPlatforms = [
-    'Zapier', 'Microsoft Flow', 'Workflow Engine',
-    'Kissflow', 'ProcessMaker', 'Integrify',
-    'Monday.com', 'Asana', 'ClickUp'
+  const storagePlatforms = [
+    'Google Drive Healthcare', 'OneDrive Enterprise', 'Dropbox Business',
+    'Box Healthcare', 'AWS Healthcare', 'Azure Health Data', 'iCloud',
+    'IBM Cloud', 'Salesforce Health Cloud'
   ];
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="grid gap-6">
+    <div className="w-full max-w-3xl mx-auto text-center">
+      
+      <div className="grid gap-6 mb-8">
         {features.map((feature, index) => (
           <div 
             key={index}
-            className="flex items-start gap-4 p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow"
+            className="flex items-start gap-4 p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow text-left"
           >
             <div className="shrink-0 w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
               {feature.icon}
@@ -50,51 +49,53 @@ const EmailTab = () => {
             </div>
           </div>
         ))}
+      </div>
 
-        <div className="mt-6">
-          <p className="font-semibold text-[#143151] mb-3">Email Platform Integrations:</p>
-          <div className="w-full overflow-hidden">
-            <Marquee
-              gradient={true}
-              gradientColor={"#143151"}
-              speed={40}
-              pauseOnHover={true}
-              className="py-2"
-            >
-              {emailPlatforms.map((platform, index) => (
-                <span
-                  key={index}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
-                >
-                  <Mail size={16} />
-                  {platform}
-                </span>
-              ))}
-            </Marquee>
-          </div>
+      <div className="mt-6">
+        <p className="font-semibold text-[#143151] mb-3">Email Platforms:</p>
+        <div className="w-full overflow-hidden">
+          <Marquee
+            gradient={true}
+            gradientColor={"rgb(255, 255, 255)"}
+            gradientWidth={50}
+            speed={40}
+            pauseOnHover={true}
+            className="py-2"
+          >
+            {emailPlatforms.map((platform, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
+              >
+                <Mail size={16} />
+                {platform}
+              </span>
+            ))}
+          </Marquee>
         </div>
+      </div>
 
-        <div className="mt-6">
-          <p className="font-semibold text-[#143151] mb-3">Workflow Automation Tools:</p>
-          <div className="w-full overflow-hidden">
-            <Marquee
-              gradient={true}
-              gradientColor={"#143151"}
-              speed={40}
-              pauseOnHover={true}
-              className="py-2"
-            >
-              {workflowPlatforms.map((platform, index) => (
-                <span
-                  key={index}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
-                >
-                  <Server size={16} />
-                  {platform}
-                </span>
-              ))}
-            </Marquee>
-          </div>
+      <div className="mt-6">
+        <p className="font-semibold text-[#143151] mb-3">Storage Solutions:</p>
+        <div className="w-full overflow-hidden">
+          <Marquee
+            gradient={true}
+            gradientColor={"rgb(255, 255, 255)"}
+            gradientWidth={50}
+            speed={40}
+            pauseOnHover={true}
+            className="py-2"
+          >
+            {storagePlatforms.map((platform, index) => (
+              <span
+                key={index}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
+              >
+                <Cloud size={16} />
+                {platform}
+              </span>
+            ))}
+          </Marquee>
         </div>
       </div>
     </div>

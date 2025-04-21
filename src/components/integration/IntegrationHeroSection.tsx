@@ -8,16 +8,20 @@ const IntegrationHeroSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 py-16 md:py-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div className="w-full max-w-[1400px] mx-auto px-4 py-24 md:py-32">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20 items-center">
         <div className="order-1 md:order-1 text-left max-w-xl">
           <Typography 
-            variant={isMobile ? "h4" : "h2"} 
+            variant={isMobile ? "h3" : "h2"} 
             sx={{ 
-              fontSize: isMobile ? '1.35rem' : '2.5rem',
+              fontSize: {
+                xs: '2rem',
+                sm: '2.25rem',
+                md: '2.5rem'
+              },
               lineHeight: 1.2,
               color: '#143151',
-              mb: 3
+              mb: 4
             }}
           >
             Seamlessly Connect S10.AI with Your Favourite Software
@@ -27,7 +31,7 @@ const IntegrationHeroSection = () => {
             sx={{ 
               fontSize: isMobile ? '1.1rem' : '1.25rem',
               color: '#143151',
-              mb: 3,
+              mb: 4,
               fontWeight: 500
             }}
           >
@@ -38,7 +42,7 @@ const IntegrationHeroSection = () => {
             sx={{ 
               fontSize: isMobile ? '0.9rem' : '1rem',
               color: '#4a5568',
-              mb: 4,
+              mb: 6,
               lineHeight: 1.6
             }}
           >
@@ -53,13 +57,13 @@ const IntegrationHeroSection = () => {
             </button>
           )}
         </div>
-        <div className={`order-2 md:order-2 flex justify-center md:justify-end ${isMobile ? 'mt-2' : ''}`}>
+        <div className={`order-2 md:order-2 flex justify-center md:justify-end ${isMobile ? 'mt-6' : ''}`}>
           <div className="max-w-[500px] w-full">
             <HeroPieChartIllustration />
           </div>
         </div>
         {isMobile && (
-          <div className="order-3 flex justify-center w-full mt-2">
+          <div className="order-3 flex justify-center w-full mt-6">
             <button
               className="rounded-full px-8 py-4 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all font-semibold"
             >

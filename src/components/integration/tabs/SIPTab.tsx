@@ -54,7 +54,8 @@ const SIPTab = () => {
         <div className="w-full overflow-hidden">
           <Marquee
             gradient={true}
-            gradientColor={"#143151"}
+            gradientColor={"rgb(255, 255, 255)"}
+            gradientWidth={50}
             speed={40}
             pauseOnHover={true}
             className="py-2"
