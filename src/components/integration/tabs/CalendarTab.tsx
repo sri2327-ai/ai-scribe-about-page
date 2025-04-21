@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styles from '@/styles/integration.module.scss';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
@@ -11,7 +10,7 @@ const CalendarTab = () => {
   
   return (
     <div className={styles.tabContentWrapper}>
-      <div className={styles.tabLeft}>
+      <div className={`${styles.tabLeft} w-full text-center`}>
         <Typography 
           variant={isMobile ? "h5" : "h4"} 
           sx={{ 
@@ -28,8 +27,10 @@ const CalendarTab = () => {
           Sync your appointments and files for smoother day-to-day practice management.
         </Typography>
         
-        <Box className={styles.featureItem} sx={{ mb: 2.5 }}>
-          <div className={styles.icon}><MailOutlineIcon /></div>
+        <Box className={`${styles.featureItem} justify-center`}>
+          <div className={styles.icon}>
+            <MailOutlineIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+          </div>
           <div>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 0.5 }}>
               Secure Cloud Storage
@@ -40,8 +41,10 @@ const CalendarTab = () => {
           </div>
         </Box>
         
-        <Box className={styles.featureItem}>
-          <div className={styles.icon}><AutoModeIcon /></div>
+        <Box className={`${styles.featureItem} justify-center`}>
+          <div className={styles.icon}>
+            <AutoModeIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+          </div>
           <div>
             <Typography variant="subtitle1" sx={{ fontWeight: 'bold', mb: 0.5 }}>
               Smart Scheduling
@@ -51,13 +54,6 @@ const CalendarTab = () => {
             </Typography>
           </div>
         </Box>
-      </div>
-      <div className={styles.tabRight}>
-        <img
-          src="/images/email-ui.png"
-          alt="Email & Workflow Automation"
-          className={styles.tabImage}
-        />
       </div>
     </div>
   );

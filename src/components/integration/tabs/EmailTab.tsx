@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styles from '@/styles/integration.module.scss';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
@@ -12,21 +11,25 @@ const EmailTab = () => {
   
   return (
     <div className={styles.tabContentWrapper}>
-      <div className={styles.tabLeft}>
+      <div className={`${styles.tabLeft} w-full text-center`}>
         <Typography variant={isMobile ? "h4" : "h3"}>
-          <EmailRoundedIcon style={{ marginRight: 8, color: '#5192AE' }} /> Email & Workflow Automation
+          <EmailRoundedIcon style={{ marginRight: 8, color: '#143151' }} /> Email & Workflow Automation
         </Typography>
         <p>Smart routing and automation for all your communication and tasks.</p>
-        <div className={styles.featureItem}>
-          <div className={styles.icon}><DraftsRoundedIcon  style={{ color: '#5192AE' }}/></div>
+        <div className={`${styles.featureItem} justify-center`}>
+          <div className={styles.icon}>
+            <DraftsRoundedIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+          </div>
           <div>
             <strong>Seamless Email Integration</strong>
             <p>Works with Gmail, Outlook, Yahoo Mail, Apple Mail, and others.</p>
           </div>
         </div>
 
-        <div className={styles.featureItem}>
-          <div className={styles.icon}><AutoModeRoundedIcon style={{ color: "#5192AE" }}/></div>
+        <div className={`${styles.featureItem} justify-center`}>
+          <div className={styles.icon}>
+            <AutoModeRoundedIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+          </div>
           <div>
             <strong>Effortless Workflows</strong>
             <p>
@@ -43,15 +46,6 @@ const EmailTab = () => {
           <span><strong>Y! </strong> Yahoo Mail</span>
           <span><EmailRoundedIcon/>Apple Mail</span>
         </div>
-      </div>
-      <div className={styles.tabRight}>
-        <img
-          src="/images/email-ui.png"
-          alt="Email & Workflow Automation"
-          width={400}
-          height={300}
-          style={{ borderRadius: 12 }}
-        />
       </div>
     </div>
   );

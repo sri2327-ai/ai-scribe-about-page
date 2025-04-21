@@ -1,4 +1,3 @@
-
 import React from 'react';
 import styles from '@/styles/integration.module.scss';
 import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
@@ -15,22 +14,26 @@ const SIPTab = () => {
   
   return (
     <div className={styles.tabContentWrapper}>
-      <div className={styles.tabLeft}>
+      <div className={`${styles.tabLeft} w-full text-center`}>
         <Typography variant={isMobile ? "h4" : "h3"}>
-          <VideoCallIcon style={{ marginRight: 8, color: '#5192AE' }}/>SIP & Telehealth Integration
+          <VideoCallIcon style={{ marginRight: 8, color: '#143151' }}/>SIP & Telehealth Integration
         </Typography>
         <p><strong>AI-Enhanced Call Management</strong>: Integrates seamlessly with any SIP/VoIP system.</p>
         <p><strong>Instant Telehealth Integrations</strong>: Works with Zoom, Teams, Meet, WebEx, and more.</p>
-        <div className={styles.featureItem}>
-          <div className={styles.icon}><PhoneInTalkIcon /></div>
+        <div className={`${styles.featureItem} justify-center`}>
+          <div className={styles.icon}>
+            <PhoneInTalkIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+          </div>
           <div>
             <strong>AI-Enhanced Call Management</strong>
             <p>Integrates seamlessly with any SIP/VoIP system for flawless connectivity.</p>
           </div>
         </div>
 
-        <div className={styles.featureItem}>
-          <div className={styles.icon}><VideoCallIcon /></div>
+        <div className={`${styles.featureItem} justify-center`}>
+          <div className={styles.icon}>
+            <VideoCallIcon style={{ color: '#143151' }} className="group-hover:text-[#387E89] transition-colors" />
+          </div>
           <div>
             <strong>Instant Telehealth Integrations</strong>
             <p>Works effortlessly with Zoom, Microsoft Teams, Google Meet, WebEx, and more.</p>
@@ -46,15 +49,6 @@ const SIPTab = () => {
           <span><CallRoundedIcon/>VoIP Systems</span>
           <span><PhoneEnabledRoundedIcon/>SIP Providers</span>
         </div>
-      </div>
-      <div className={styles.tabRight}>
-        <img
-          src="/images/sip-ui.png"
-          alt="SIP & Telehealth Integration"
-          width={400}
-          height={300}
-          style={{ borderRadius: 12 }}
-        />
       </div>
     </div>
   );

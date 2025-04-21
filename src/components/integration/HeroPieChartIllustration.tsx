@@ -318,7 +318,7 @@ const PieChartModern: React.FC = () => {
 };
 
 const HeroPieChartIllustration = () => (
-  <div className="flex flex-col items-center gap-4">
+  <div className="flex flex-col items-center">
     <div
       className="hover-scale"
       style={{
@@ -340,9 +340,6 @@ const HeroPieChartIllustration = () => (
     >
       <PieChartModern />
     </div>
-    <p className="text-[#00b4d6] font-bold tracking-wider text-sm">
-      INTEGRATES EVERYTHING
-    </p>
   </div>
 );
 
