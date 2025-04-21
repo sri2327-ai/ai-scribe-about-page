@@ -1,4 +1,3 @@
-
 import React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Box } from "@mui/material";
@@ -21,10 +20,12 @@ interface ResponsiveCarouselProps<T> {
   itemKey?: (item: T, idx: number) => string | number;
   showControls?: boolean;
   itemWidth?: number | string;
+  itemHeight?: number | string;
   className?: string;
   cardClassName?: string;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  controlsBelow?: boolean;
 }
 
 export function ResponsiveCarousel<T>({
@@ -37,36 +38,33 @@ export function ResponsiveCarousel<T>({
   itemKey,
   showControls = true,
   itemWidth,
+  itemHeight,
   className,
   cardClassName,
   autoPlay = false,
   autoPlayInterval = 3000,
+  controlsBelow = false,
 }: ResponsiveCarouselProps<T>) {
-  // Always use carousel for consistency across all breakpoints
-  // But for desktop, we show more columns by shrinking basis
   const isMobile = useMediaQuery("(max-width:600px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
 
-  // Calculate columns for current breakpoint
   let columns = columnsDesktop;
   if (isTablet) columns = columnsTablet;
   if (isMobile) columns = columnsMobile;
 
-  // Card min/max width
-  let carouselWidth: string | number = "95vw";
-  let minCardWidth: string | number = 250;
-  let maxCardWidth: string | number = 370;
+  let minCardWidth: string | number = itemWidth ?? 310;
+  let maxCardWidth: string | number = itemWidth ?? 310;
+  let cardHeight: string | number = itemHeight ?? 180;
   if (isMobile) {
-    carouselWidth = "100vw";
-    minCardWidth = 220;
-    maxCardWidth = 330;
+    minCardWidth = itemWidth ?? 280;
+    maxCardWidth = itemWidth ?? 280;
+    cardHeight = itemHeight ?? 155;
   } else if (isTablet) {
-    carouselWidth = "98vw";
-    minCardWidth = 220;
-    maxCardWidth = 340;
+    minCardWidth = itemWidth ?? 285;
+    maxCardWidth = itemWidth ?? 285;
+    cardHeight = itemHeight ?? 170;
   }
 
-  // Configure autoplay plugin
   const autoplayPlugin = React.useMemo(
     () =>
       autoPlay
@@ -80,67 +78,91 @@ export function ResponsiveCarousel<T>({
   );
 
   return (
-    <Carousel 
-      className={`w-full relative ${className || ""}`}
-      opts={{
-        align: "start",
-        loop: true,
-      }}
-      plugins={autoplayPlugin ? [autoplayPlugin] : undefined}
-    >
-      <CarouselContent>
-        {items.map((item, idx) => (
-          <CarouselItem
-            key={itemKey ? itemKey(item, idx) : idx}
-            className={`
-              px-2 
-              ${isMobile ? "basis-[80vw] max-w-[340px]" : ""}
-              ${isTablet && !isMobile ? "basis-1/2 max-w-[340px]" : ""}
-              ${!isMobile && !isTablet ? `basis-1/${columns}` : ""}
-            `}
-            style={{
-              minWidth: itemWidth || minCardWidth,
-              maxWidth: itemWidth || maxCardWidth,
-              marginRight: gap,
-              height: "100%",
-              display: "flex",
-              flexDirection: "column"
-            }}
-          >
-            <div className={cardClassName ?? ""} style={{ height: "100%" }}>{renderItem(item, idx)}</div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-
-      {showControls && (
-        <>
-          {/* Arrows always visible, on right side for mobile+tablet */}
-          <CarouselPrevious
-            className="
-              !rounded-full h-9 w-9 bg-white shadow-lg border absolute
-              z-20 
-              top-1/2 
-              -translate-y-1/2
-              opacity-90
-              hover:opacity-100
-              left-2
-              md:left-4
+    <div className={`w-full flex flex-col ${className || ""}`}>
+      <Carousel 
+        className="w-full relative"
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        plugins={autoplayPlugin ? [autoplayPlugin] : undefined}
+      >
+        <CarouselContent>
+          {items.map((item, idx) => (
+            <CarouselItem
+              key={itemKey ? itemKey(item, idx) : idx}
+              className={`
+                px-2 flex
+                ${isMobile ? "" : ""}
+                ${isTablet && !isMobile ? "" : ""}
+                ${!isMobile && !isTablet ? "" : ""}
+              `}
+              style={{
+                minWidth: minCardWidth,
+                maxWidth: maxCardWidth,
+                height: cardHeight,
+                marginRight: gap,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "stretch",
+              }}
+            >
+              <div
+                className={cardClassName ?? ""}
+                style={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                {renderItem(item, idx)}
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        {!controlsBelow && showControls && (
+          <>
+            <CarouselPrevious
+              className="
+                !rounded-full h-9 w-9 bg-white shadow-lg border absolute
+                z-20 
+                top-1/2 
+                -translate-y-1/2
+                opacity-90
+                hover:opacity-100
+                left-2
+                md:left-4
               "
-          />
-          <CarouselNext
-            className="
-              !rounded-full h-9 w-9 bg-white shadow-lg border absolute
-              z-20
-              top-1/2
-              -translate-y-1/2
-              opacity-90
-              hover:opacity-100
-              right-2
-              md:right-4
+            />
+            <CarouselNext
+              className="
+                !rounded-full h-9 w-9 bg-white shadow-lg border absolute
+                z-20
+                top-1/2
+                -translate-y-1/2
+                opacity-90
+                hover:opacity-100
+                right-2
+                md:right-4
               "
-          />
-        </>
-      )}
-    </Carousel>
+            />
+          </>
+        )}
+        {controlsBelow && showControls && (
+          <div className="flex justify-center gap-4 mt-4">
+            <CarouselPrevious
+              className="
+                static relative left-0 translate-y-0 !rounded-full h-9 w-9 bg-white shadow border
+                opacity-90 hover:opacity-100"
+            />
+            <CarouselNext
+              className="
+                static relative left-0 translate-y-0 !rounded-full h-9 w-9 bg-white shadow border
+                opacity-90 hover:opacity-100"
+            />
+          </div>
+        )}
+      </Carousel>
+    </div>
   );
 }

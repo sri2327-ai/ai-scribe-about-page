@@ -35,32 +35,32 @@ const specialties = [
   { name: "Dermatology", icon: ShieldPlus }
 ];
 
+// Smaller, equal card size everywhere
 const SpecialtyCard = ({ specialty, IconComponent }) => (
   <Box 
-    sx={{ 
-      display: 'flex', 
+    sx={{
+      display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
-      m: 1,
       background: '#FFF',
-      borderRadius: 3, 
-      p: { xs: 2, sm: 2.5, md: 2.5 }, 
-      minWidth: { xs: '130px', sm: '150px', md: '170px' },
-      maxWidth: { xs: '180px', sm: '220px', md: '240px' },
-      height: { xs: '120px', sm: '130px', md: '140px' },
+      borderRadius: 2.5,
+      py: 2,
+      px: 1,
+      minWidth: '100%',
+      height: '100%',
       boxShadow: '0 2px 10px 0 rgba(0,0,0,0.04)',
       border: '1px solid #E0E0E0',
-      gap: 2,
-      transition: 'transform 0.28s, box-shadow 0.25s',
+      gap: 1,
+      transition: 'transform 0.23s, box-shadow 0.22s',
       "&:hover": {
-        transform: 'translateY(-5px) scale(1.04)',
-        boxShadow: '0 6px 24px 0 rgba(56,126,137,0.14)'
+        transform: 'translateY(-4px) scale(1.025)',
+        boxShadow: '0 6px 22px 0 rgba(56,126,137,0.10)'
       }
     }}
   >
     <div>
-      <IconComponent size={28} color="#143151" />
+      <IconComponent size={26} color="#143151" />
     </div>
     <Typography 
       variant="body1" 
@@ -70,8 +70,8 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
         background: 'linear-gradient(135deg, #143151, #387E89)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
-        fontSize: { xs: '0.92rem', sm: '1rem', md: '1.05rem' },
-        mt: 1
+        fontSize: { xs: '0.9rem', sm: '0.97rem', md: '1rem' },
+        mt: 0.5
       }}
     >
       {specialty.name}
@@ -101,11 +101,14 @@ export const SpecialtiesCarousel = () => {
           columnsDesktop={6}
           columnsTablet={3}
           columnsMobile={2}
-          gap={12}
+          gap={16}
           showControls={true}
-          itemWidth={null}
+          itemWidth={140} // Small but even, overrides default width
+          itemHeight={115}  // Uniform height for all
+          cardClassName="flex flex-col items-center justify-center h-full"
           autoPlay={true}
-          autoPlayInterval={4000}
+          autoPlayInterval={3500}
+          controlsBelow={true} // Arrows below carousel
           renderItem={(specialty, index) => {
             const IconComponent = specialty.icon;
             return (
@@ -117,3 +120,4 @@ export const SpecialtiesCarousel = () => {
     </Box>
   );
 };
+
