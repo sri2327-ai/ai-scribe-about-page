@@ -20,11 +20,11 @@ export const specialtyData: Record<string, SpecialtyContent> = {
     content: "Advanced support for structured reporting, speech-to-text dictation, PACS/RIS integration, automated impression summarization, and modality-specific templates for USG, MRI, CT, and other imaging studies.",
     icon: Icons.ScanSearch,
     detailedContent: {
-      previousNotes: "Comparative Imaging\nAutomatically retrieves prior studies, populates the comparison section, and contextualizes current findings with historical imaging—enabling faster, more informed reads.",
-      specialtyHPI: "Modality-Specific Reporting\nCreates structured reports tailored to each imaging modality using standardized templates like BI-RADS, LI-RADS, and PI-RADS for consistent and compliant documentation.",
-      historySection: "Imaging History & Context\nTracks patient imaging history across time and modalities, correlates findings across studies, and integrates directly with PACS/RIS systems for deep context.",
-      aiNotes: "AI Dictation & Impression Logic\nSupports real-time voice dictation, auto-generates impressions, and flags inconsistencies between findings and conclusions—streamlining reporting with clinical precision.",
-      icdCodes: "Diagnostic Coding Compliance\nRecommends ICD-10 codes aligned with radiologic findings, enhancing CMS/ACR compliance and supporting accurate, audit-ready documentation for reimbursement.",
+      previousNotes: "Intelligently retrieves prior imaging studies, automatically populates comparison sections, and contextualizes current findings against historical images.",
+      specialtyHPI: "Creates modality-specific structured reports with standardized terminology using BI-RADS, LI-RADS, PI-RADS templates for consistency across all imaging types.",
+      historySection: "Comprehensive tracking of patient imaging history with automatic correlation of findings across multiple studies and integration with PACS/RIS systems.",
+      aiNotes: "Real-time voice-to-text dictation with automatic impression summarization and error detection to flag inconsistencies between findings and impressions.",
+      icdCodes: "Suggests appropriate ICD-10 codes for radiological findings, ensuring proper documentation for CMS/ACR compliance and optimal reimbursement.",
     }
   },
   cardiacRehab: {
