@@ -10,25 +10,19 @@ const Contact = () => {
       <div className="container mx-auto flex flex-col md:flex-row gap-8 items-start justify-center">
         {/* Info & Testimonial LEFT side */}
         <div className="w-full md:w-1/2 lg:w-2/5 flex flex-col gap-6">
-          <Card className="p-6 shadow-lg rounded-xl bg-white/90 border border-gray-200">
-            <h2 className="text-2xl font-semibold text-[#133255] mb-2">
+          <Card className="p-8 shadow-lg rounded-xl bg-white/90 border border-gray-200 flex flex-col">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-[#133255] mb-3 leading-tight">
               Schedule Your Free Demo
             </h2>
-            <p className="text-gray-800 mb-3">
+            <p className="text-gray-800 mb-3 text-lg">
               See S10.AI's <b>Bravo</b> &amp; <b>Crush</b> in action – join 1,000+ providers saving time!
             </p>
-            <p className="text-gray-800 mb-3">
+            <p className="text-gray-800 mb-3 text-lg">
               Our 15-minute virtual demo shows how <b>Bravo</b> automates scheduling and patient communication, and <b>Crush</b> delivers 99% accurate clinical notes, integrated with your EHR. Tailored to your specialty, no commitment needed.
             </p>
-            <button
-              className="mt-2 mb-3 px-6 py-2 w-full rounded-lg bg-[#387E89] text-white font-bold hover:bg-[#133255] transition"
-              tabIndex={-1}
-              disabled
-            >
-              Schedule Demo
-            </button>
+            {/* Schedule Demo button removed */}
             <div className="mb-4 text-gray-800 text-sm">
-              <b>What to Expect:</b> Personalized walkthrough with our AI experts, plus Q&A.<br />
+              <b>What to Expect:</b> Personalized walkthrough with our AI experts, plus Q&amp;A.<br />
               <span className="block mt-2">
                 <b>Questions?</b> Email <a href="mailto:support@s10.ai" className="underline text-[#387E89]">support@s10.ai</a> or call <a className="underline text-[#387E89]" href="tel:+16314886390">+1 631 4886 390</a>
               </span>
@@ -59,7 +53,7 @@ const Contact = () => {
           </Card>
         </div>
         {/* FORM RIGHT side */}
-        <div className="w-full md:w-1/2 lg:w-2/5">
+        <div className="w-full md:w-1/2 lg:w-2/5 flex flex-col justify-center">
           <DemoRequestForm />
         </div>
       </div>
