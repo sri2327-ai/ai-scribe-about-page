@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Search } from 'lucide-react';
 import { Input } from "@/components/ui/input";
@@ -13,8 +14,16 @@ const InteractiveSpecialties = () => {
     setSelectedSpecialty(id);
   };
 
-  const specialties = Object.keys(specialtyData);
-  const filteredSpecialties = specialties.filter(specialty =>
+  // Create ordered list with radiology and cardiac rehab first
+  const prioritySpecialties = ['radiology', 'cardiacRehab'];
+  const otherSpecialties = Object.keys(specialtyData).filter(
+    specialty => !prioritySpecialties.includes(specialty)
+  );
+  
+  // Combine lists with priority specialties first
+  const orderedSpecialties = [...prioritySpecialties, ...otherSpecialties];
+  
+  const filteredSpecialties = orderedSpecialties.filter(specialty =>
     specialtyData[specialty].title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 

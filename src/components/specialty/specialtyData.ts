@@ -15,6 +15,30 @@ interface SpecialtyContent {
 }
 
 export const specialtyData: Record<string, SpecialtyContent> = {
+  radiology: {
+    title: "Radiology",
+    content: "Advanced support for structured reporting, speech-to-text dictation, PACS/RIS integration, automated impression summarization, and modality-specific templates for USG, MRI, CT, and other imaging studies.",
+    icon: Icons.ScanSearch,
+    detailedContent: {
+      previousNotes: "Intelligently retrieves prior imaging studies, automatically populates comparison sections, and contextualizes current findings against historical images.",
+      specialtyHPI: "Creates modality-specific structured reports with standardized terminology using BI-RADS, LI-RADS, PI-RADS templates for consistency across all imaging types.",
+      historySection: "Comprehensive tracking of patient imaging history with automatic correlation of findings across multiple studies and integration with PACS/RIS systems.",
+      aiNotes: "Real-time voice-to-text dictation with automatic impression summarization and error detection to flag inconsistencies between findings and impressions.",
+      icdCodes: "Suggests appropriate ICD-10 codes for radiological findings, ensuring proper documentation for CMS/ACR compliance and optimal reimbursement.",
+    }
+  },
+  cardiacRehab: {
+    title: "Cardiac Rehabilitation",
+    content: "Specialized documentation for cardiac rehabilitation programs, exercise prescriptions, cardiovascular risk assessments, post-cardiac event monitoring, and progress tracking for patients in recovery.",
+    icon: Icons.Heart,
+    detailedContent: {
+      previousNotes: "Previous cardiac rehabilitation assessments and exercise responses are automatically pulled forward with tracking of vital signs and functional capacity improvements.",
+      specialtyHPI: "Creates focused cardiac rehabilitation HPIs with relevant terminology for post-cardiac event recovery, exercise tolerance, and cardiovascular risk factors.",
+      historySection: "Comprehensive tracking of cardiac events, interventions, exercise prescriptions, and objective measurements of cardiovascular fitness over time.",
+      aiNotes: "Generates complete cardiac rehabilitation notes in minutes, including detailed exercise prescriptions and progress reports toward rehabilitation goals.",
+      icdCodes: "Accurately assigns cardiac rehabilitation-specific ICD-10 codes, prioritizing primary cardiac conditions and rehabilitation status indicators.",
+    }
+  },
   allergy: {
     title: "Allergy & Immunology",
     content: "Documents immunotherapy plans, allergy testing results, asthma control levels, and autoimmune tracking, enhancing management of hypersensitivity and immune conditions.",
