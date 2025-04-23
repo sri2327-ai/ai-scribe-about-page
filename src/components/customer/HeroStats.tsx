@@ -1,0 +1,115 @@
+
+import React, { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+
+interface Stats {
+  chartsSigned: number;
+  callsDone: number;
+  chatsAnswered: number;
+  providersSmiled: number;
+}
+
+const StatCard = ({ title, value }: { title: string; value: number }) => {
+  return (
+    <motion.div
+      className="bg-white p-6 rounded-lg shadow-lg text-center transition-transform duration-500 hover:scale-105"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.h3
+        className="text-3xl md:text-4xl font-bold text-blue-600"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        {value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+      </motion.h3>
+      <p className="mt-2 text-gray-600 font-medium">{title}</p>
+    </motion.div>
+  );
+};
+
+const HeroStats = () => {
+  const [stats, setStats] = useState<Stats>({
+    chartsSigned: 0,
+    callsDone: 0,
+    chatsAnswered: 0,
+    providersSmiled: 0,
+  });
+
+  useEffect(() => {
+    try {
+      const lastUpdate = localStorage.getItem('lastUpdate');
+      const today = new Date().toDateString();
+
+      if (lastUpdate !== today) {
+        const newStats = {
+          chartsSigned: Math.floor(Math.random() * 40000) + 10000,
+          callsDone: Math.floor(Math.random() * 15000) + 5000,
+          chatsAnswered: Math.floor(Math.random() * 30000) + 10000,
+          providersSmiled: Math.floor(Math.random() * 4000) + 1000,
+        };
+        setStats(newStats);
+        localStorage.setItem('lastUpdate', today);
+        localStorage.setItem('stats', JSON.stringify(newStats));
+      } else {
+        const savedStats = JSON.parse(localStorage.getItem('stats') || '{}');
+        setStats(savedStats as Stats);
+      }
+    } catch (error) {
+      console.error('Error updating stats:', error);
+    }
+  }, []);
+
+  return (
+    <section className="min-h-screen bg-white pt-20 pb-16">
+      <div className="text-center max-w-4xl mx-auto px-4">
+        <motion.h1
+          className="text-5xl md:text-6xl font-bold text-gray-800 mb-4"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          Empowering 1000+ Clinics with AI
+        </motion.h1>
+        <motion.p
+          className="text-xl text-gray-600 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Our AI Medical Scribe and Patient Care Agent transform healthcare daily.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <Button size="lg" className="px-8 py-6 text-lg">
+            Book a Demo
+          </Button>
+        </motion.div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto px-4">
+        <StatCard title="Charts Signed" value={stats.chartsSigned} />
+        <StatCard title="Calls Done" value={stats.callsDone} />
+        <StatCard title="Patient Chats Answered" value={stats.chatsAnswered} />
+        <StatCard title="Providers Smiled" value={stats.providersSmiled} />
+      </div>
+
+      <motion.p
+        className="mt-8 text-gray-500 text-sm italic text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+      >
+        *Stats reset daily to showcase our AI's impact across 1000+ customers.*
+      </motion.p>
+    </section>
+  );
+};
+
+export default HeroStats;
