@@ -9,6 +9,7 @@ import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector'
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
 
+// Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
 const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
 const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'));
@@ -42,6 +43,10 @@ const Landing = () => {
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
+        {/* Add preconnect for critical domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        
         <title>S10.AI - Next Generation Clinical AI for Healthcare Providers</title>
         <meta name="description" content="S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions." />
         <link rel="canonical" href="https://s10.ai" />
