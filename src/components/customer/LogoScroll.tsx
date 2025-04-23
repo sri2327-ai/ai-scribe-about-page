@@ -13,6 +13,9 @@ const logos = [
 ];
 
 const LogoScroll = () => {
+  // Convert RGB to Hex color string
+  const gradientColor = '#FFFFFF';  // White color
+
   return (
     <section className="py-12 md:py-16 px-4 md:px-8 bg-white">
       <Box className="max-w-7xl mx-auto text-center">
@@ -47,7 +50,7 @@ const LogoScroll = () => {
           <div className="hidden md:block">
             <Marquee
               gradient={true}
-              gradientColor={[255, 255, 255]}
+              gradientColor={gradientColor}  // Use the hex color string
               speed={40}
               pauseOnHover={true}
             >
