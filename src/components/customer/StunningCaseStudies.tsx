@@ -1,8 +1,10 @@
-"use client"; // Ensures navigation works in a client component
-import { useRouter } from "next/navigation";
+
+"use client";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "@/styles/stunning.module.scss";
 import { Typography } from "@mui/material";
-import Image from "next/image";
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const caseStudies = [
   { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/ImprovePatientCare.webp" },
@@ -11,22 +13,32 @@ const caseStudies = [
 ];
 
 const StunningCaseStudies = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <section className="witSp" >
       <div className={styles.caseWrapper}>
         <div className={styles.container}>
           {caseStudies.map((caseStudy) => (
-            <div key={caseStudy.folder} className={styles.casecard} onClick={(event) => {const url = `/resources/casestudies/${caseStudy.folder}`;
-            if (event.metaKey || event.ctrlKey) { window.open(url, "_blank");
-              }
-              else {
-              router.push(url);
-              }
-            }}
-          >
-          <Image src={caseStudy.image} alt={caseStudy.title} className={styles.image} width={300} height={200} />
+            <div 
+              key={caseStudy.folder} 
+              className={styles.casecard} 
+              onClick={(event) => {
+                const url = `/resources/casestudies/${caseStudy.folder}`;
+                if (event.metaKey || event.ctrlKey) { 
+                  window.open(url, "_blank");
+                } else {
+                  navigate(url);
+                }
+              }}
+            >
+              <OptimizedImage 
+                src={caseStudy.image} 
+                alt={caseStudy.title} 
+                className={styles.image} 
+                width={300} 
+                height={200} 
+              />
               <div className={styles.content}>
                 <Typography variant="h5" className={styles.title}>{caseStudy.title}</Typography>
                 <p className={styles.description}>{caseStudy.description}</p>
