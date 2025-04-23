@@ -16,6 +16,7 @@ const CustomAIAgent = React.lazy(() => import('./pages/CustomAIAgent'));
 const Specialty = React.lazy(() => import('./pages/Specialty'));
 const Technology = React.lazy(() => import('./pages/Technology'));
 const Integration = React.lazy(() => import('./pages/Integration'));
+const Customer = React.lazy(() => import('./pages/Customer'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/specialty" element={<Specialty />} />
           <Route path="/technology" element={<Technology />} />
           <Route path="/integration" element={<Integration />} />
+          <Route path="/customer" element={<Customer />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
