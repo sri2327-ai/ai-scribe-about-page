@@ -7,14 +7,16 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   src: string;
   alt: string;
   className?: string;
+  priority?: boolean;
 }
 
-const OptimizedImage = ({ src, alt, className, ...props }: OptimizedImageProps) => {
+const OptimizedImage = ({ src, alt, className, priority = false, ...props }: OptimizedImageProps) => {
   const [isLoading, setIsLoading] = React.useState(true);
+  const [error, setError] = React.useState(false);
 
   return (
     <div className="relative">
-      {isLoading && (
+      {isLoading && !error && (
         <Skeleton 
           className={cn(
             "absolute inset-0 bg-slate-200",
@@ -25,12 +27,17 @@ const OptimizedImage = ({ src, alt, className, ...props }: OptimizedImageProps) 
       <img
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={priority ? "eager" : "lazy"}
         decoding="async"
         onLoad={() => setIsLoading(false)}
+        onError={() => {
+          setIsLoading(false);
+          setError(true);
+        }}
         className={cn(
           "transition-opacity duration-300",
           isLoading ? "opacity-0" : "opacity-100",
+          error ? "hidden" : "block",
           className
         )}
         {...props}

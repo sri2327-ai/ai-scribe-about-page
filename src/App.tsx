@@ -1,94 +1,44 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useState, lazy, Suspense } from "react";
-import Landing from "./pages/Landing";
-import NotFound from "./pages/NotFound";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import Contact from "./pages/Contact";
-import Specialty from "./pages/Specialty";
 
-const LazyAbout = lazy(() => import('./pages/About'));
-const LazyTechnology = lazy(() => import('./pages/Technology'));
-const LazyCrushAI = lazy(() => import('./pages/CrushAI'));
-const LazyBravo = lazy(() => import('./pages/Bravo'));
-const LazyCustomAIAgent = lazy(() => import('./pages/CustomAIAgent'));
-const LazyIntegration = lazy(() => import('./pages/Integration'));
+import React, { Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Toaster } from "@/components/ui/toaster";
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { SectionLoader } from '@/components/ui/section-loader';
+
+// Lazy load all main routes
+const Landing = React.lazy(() => import('./pages/Landing'));
+const About = React.lazy(() => import('./pages/About'));
+const Contact = React.lazy(() => import('./pages/Contact'));
+const CrushAI = React.lazy(() => import('./pages/CrushAI'));
+const Bravo = React.lazy(() => import('./pages/Bravo'));
+const CustomAIAgent = React.lazy(() => import('./pages/CustomAIAgent'));
+const Specialty = React.lazy(() => import('./pages/Specialty'));
+const Technology = React.lazy(() => import('./pages/Technology'));
+const Integration = React.lazy(() => import('./pages/Integration'));
+const NotFound = React.lazy(() => import('./pages/NotFound'));
 
 function App() {
-  const [queryClient] = useState(() => new QueryClient());
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/landing" element={<Navigate to="/" replace />} />
-            <Route path="/index" element={<Navigate to="/" replace />} />
-            <Route path="/home" element={<Navigate to="/" replace />} />
-            <Route path="/specialty" element={<Specialty />} />
-            <Route 
-              path="/about" 
-              element={
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                  <LazyAbout />
-                </Suspense>
-              } 
-            />
-            <Route 
-              path="/technology" 
-              element={
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                  <LazyTechnology />
-                </Suspense>
-              } 
-            />
-            <Route 
-              path="/crush-ai" 
-              element={
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                  <LazyCrushAI />
-                </Suspense>
-              } 
-            />
-            <Route 
-              path="/bravo" 
-              element={
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                  <LazyBravo />
-                </Suspense>
-              } 
-            />
-            <Route 
-              path="/custom-ai-agent" 
-              element={
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                  <LazyCustomAIAgent />
-                </Suspense>
-              } 
-            />
-            <Route 
-              path="/integration" 
-              element={
-                <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
-                  <LazyIntegration />
-                </Suspense>
-              }
-            />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <Footer />
-        </Router>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <Header />
+      <Suspense fallback={<SectionLoader />}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/crush-ai" element={<CrushAI />} />
+          <Route path="/bravo" element={<Bravo />} />
+          <Route path="/custom-ai-agent" element={<CustomAIAgent />} />
+          <Route path="/specialty" element={<Specialty />} />
+          <Route path="/technology" element={<Technology />} />
+          <Route path="/integration" element={<Integration />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      <Footer />
+      <Toaster />
+    </BrowserRouter>
   );
 }
 
