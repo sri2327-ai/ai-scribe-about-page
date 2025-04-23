@@ -18,7 +18,7 @@ const StatCard = ({ title, value }: { title: string; value: number }) => {
       transition={{ duration: 0.5 }}
     >
       <motion.h3
-        className="bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent text-3xl md:text-4xl font-bold"
+        className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -45,10 +45,10 @@ const HeroStats = () => {
 
       if (lastUpdate !== today) {
         const newStats = {
-          chartsSigned: Math.floor(Math.random() * 400) + 100, // 100-500
-          callsDone: Math.floor(Math.random() * 300) + 100, // 100-400
-          chatsAnswered: Math.floor(Math.random() * 500) + 100, // 100-600
-          providersSmiled: Math.floor(Math.random() * 500) + 100, // 100-600
+          chartsSigned: Math.floor(Math.random() * 400) + 200, // 200-600
+          callsDone: Math.floor(Math.random() * 300) + 150, // 150-450
+          chatsAnswered: Math.floor(Math.random() * 350) + 200, // 200-550
+          providersSmiled: Math.floor(Math.random() * 200) + 100, // 100-300
         };
         setStats(newStats);
         localStorage.setItem('lastUpdate', today);
@@ -63,10 +63,10 @@ const HeroStats = () => {
   }, []);
 
   return (
-    <section className="min-h-screen bg-white pt-20 pb-16">
-      <div className="text-center max-w-4xl mx-auto px-4">
+    <section className="min-h-screen bg-white pt-20 pb-16 px-4">
+      <div className="text-center max-w-4xl mx-auto">
         <motion.h1
-          className="text-5xl md:text-6xl font-bold text-gray-800 mb-4"
+          className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-800 mb-4"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -74,7 +74,7 @@ const HeroStats = () => {
           Empowering Healthcare with AI
         </motion.h1>
         <motion.p
-          className="text-xl text-gray-600 mb-8"
+          className="text-lg sm:text-xl text-gray-600 mb-8 px-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
