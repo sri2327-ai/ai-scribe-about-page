@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { ChartLine, Users, Calendar, TrendingUp } from 'lucide-react';
 
@@ -31,7 +31,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="py-16 sm:py-20 px-4 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-16 sm:py-20 px-4 bg-white">
       <Box className="max-w-7xl mx-auto">
         <motion.div
           variants={containerVariants}
@@ -40,17 +40,17 @@ const HeroSection = () => {
           className="bg-gradient-to-r from-[#143151] to-[#387E89] rounded-3xl p-8 sm:p-12 md:p-16 text-white shadow-2xl"
         >
           <motion.div variants={itemVariants} className="text-center mb-12">
-            <Typography variant="h3" className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+            <Typography variant="h3" className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
               Transform Your Practice with <span className="text-yellow-300">S10.AI</span>
             </Typography>
-            <Typography className="text-lg sm:text-xl opacity-90 max-w-3xl mx-auto">
+            <Typography className="text-lg sm:text-xl opacity-90 max-w-3xl mx-auto text-center">
               Experience the future of healthcare where AI works seamlessly with your team, enhancing efficiency and patient care.
             </Typography>
           </motion.div>
 
           <motion.div 
             variants={containerVariants}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"
           >
             {features.map((feature, index) => (
               <motion.div
@@ -72,12 +72,14 @@ const HeroSection = () => {
             <Typography className="text-xl sm:text-2xl mb-8 font-light">
               Join the healthcare revolution with <span className="font-bold">S10.AI</span>
             </Typography>
-            <Button 
-              variant="contained"
-              className="bg-white text-[#143151] hover:bg-gray-100 rounded-full px-8 py-3 text-lg font-semibold transform transition-all hover:scale-105 shadow-xl"
+            <button 
+              className="bg-white rounded-full px-8 py-6 text-lg hover:bg-opacity-95 transition-all
+                border-2 border-transparent hover:border-white
+                text-transparent bg-clip-text bg-gradient-to-r from-[#143151] to-[#387E89]
+                hover:from-[#0d1f31] hover:to-[#2c6269] shadow-xl"
             >
               Book A Demo
-            </Button>
+            </button>
           </motion.div>
         </motion.div>
       </Box>
