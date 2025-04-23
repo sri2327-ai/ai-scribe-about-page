@@ -1,6 +1,6 @@
+
 import React from "react";
-import { Typography,Box } from "@mui/material";
-import styles from "@/styles/stunning.module.scss";
+import { Typography, Box } from "@mui/material";
 import Marquee from "react-fast-marquee";
 
 const logos = [
@@ -13,31 +13,43 @@ const logos = [
 
 const LogoScroll = () => {
   return (
-    
-      <Box sx={{ backgroundColor: "#fff", py: 4 }}>
-      <Typography
-        variant="h3"
-        sx={{ textAlign: "center",mb: 2 }}
-      >
-        S10 Trusted By 1000+ Providers
-      </Typography>
+    <section className="py-16 px-4 md:px-8 bg-white">
+      <Box className="max-w-7xl mx-auto text-center">
+        <Typography
+          variant="h3"
+          className="text-3xl md:text-4xl font-bold mb-12 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+        >
+          Trusted By 1000+ Healthcare Providers
+        </Typography>
 
-      <Box sx={{ display: 'flex', flex: 1, flexBasis: '300px', overflow: "hidden",marginTop: "10%" }}>
-        <Marquee gradient={false} speed={50} loop={0}>
-          {logos.map((logo, index) => (
-            <Box key={index} sx={{ mx: { xs: 2, sm: 3 }, display: 'flex', alignItems: 'center' }}>
-              <img
-                src={logo}
-                alt={`logo-${index}`}
-                width="150"
-                height="auto"
-                style={{ maxWidth: "100%", height: "auto" }}
-              />
-            </Box>
-          ))}
-        </Marquee>
+        <Box className="mt-8">
+          <Marquee
+            gradient={true}
+            gradientColor={[255, 255, 255]}
+            speed={40}
+            pauseOnHover={true}
+          >
+            {logos.map((logo, index) => (
+              <Box
+                key={index}
+                className="mx-8 transform transition-transform duration-300 hover:scale-110"
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src={logo}
+                  alt={`Partner Logo ${index + 1}`}
+                  className="h-16 md:h-20 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                />
+              </Box>
+            ))}
+          </Marquee>
+        </Box>
       </Box>
-    </Box>
+    </section>
   );
 };
 

@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 interface Stats {
@@ -19,7 +18,7 @@ const StatCard = ({ title, value }: { title: string; value: number }) => {
       transition={{ duration: 0.5 }}
     >
       <motion.h3
-        className="text-3xl md:text-4xl font-bold text-blue-600"
+        className="bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent text-3xl md:text-4xl font-bold"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -46,10 +45,10 @@ const HeroStats = () => {
 
       if (lastUpdate !== today) {
         const newStats = {
-          chartsSigned: Math.floor(Math.random() * 40000) + 10000,
-          callsDone: Math.floor(Math.random() * 15000) + 5000,
-          chatsAnswered: Math.floor(Math.random() * 30000) + 10000,
-          providersSmiled: Math.floor(Math.random() * 4000) + 1000,
+          chartsSigned: Math.floor(Math.random() * 400) + 100, // 100-500
+          callsDone: Math.floor(Math.random() * 300) + 100, // 100-400
+          chatsAnswered: Math.floor(Math.random() * 500) + 100, // 100-600
+          providersSmiled: Math.floor(Math.random() * 500) + 100, // 100-600
         };
         setStats(newStats);
         localStorage.setItem('lastUpdate', today);
@@ -72,7 +71,7 @@ const HeroStats = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          Empowering 1000+ Clinics with AI
+          Empowering Healthcare with AI
         </motion.h1>
         <motion.p
           className="text-xl text-gray-600 mb-8"
@@ -87,9 +86,9 @@ const HeroStats = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <Button size="lg" className="px-8 py-6 text-lg">
+          <button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 hover:scale-105">
             Book a Demo
-          </Button>
+          </button>
         </motion.div>
       </div>
 
@@ -106,7 +105,7 @@ const HeroStats = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        *Stats reset daily to showcase our AI's impact across 1000+ customers.*
+        *Stats reset daily to showcase our AI's impact across our growing network of providers.*
       </motion.p>
     </section>
   );

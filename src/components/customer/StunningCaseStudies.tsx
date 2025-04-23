@@ -1,9 +1,8 @@
 
-"use client";
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import styles from "@/styles/stunning.module.scss";
 import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
 
 const caseStudies = [
@@ -16,33 +15,47 @@ const StunningCaseStudies = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="witSp" >
-      <div className={styles.caseWrapper}>
-        <div className={styles.container}>
+    <section className="py-16 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <Typography 
+          variant="h2" 
+          className="text-3xl md:text-4xl font-bold text-center mb-12 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+        >
+          Success Stories from Our Clients
+        </Typography>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {caseStudies.map((caseStudy) => (
-            <div 
-              key={caseStudy.folder} 
-              className={styles.casecard} 
+            <div
+              key={caseStudy.folder}
+              className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 cursor-pointer"
               onClick={(event) => {
                 const url = `/resources/casestudies/${caseStudy.folder}`;
-                if (event.metaKey || event.ctrlKey) { 
+                if (event.metaKey || event.ctrlKey) {
                   window.open(url, "_blank");
                 } else {
                   navigate(url);
                 }
               }}
             >
-              <OptimizedImage 
-                src={caseStudy.image} 
-                alt={caseStudy.title} 
-                className={styles.image} 
-                width={300} 
-                height={200} 
-              />
-              <div className={styles.content}>
-                <Typography variant="h5" className={styles.title}>{caseStudy.title}</Typography>
-                <p className={styles.description}>{caseStudy.description}</p>
-                <Typography variant="h5">Read More</Typography>
+              <div className="relative h-48">
+                <OptimizedImage
+                  src={caseStudy.image}
+                  alt={caseStudy.title}
+                  className="object-cover w-full h-full"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-3 text-[#143151] line-clamp-2">
+                  {caseStudy.title}
+                </h3>
+                <p className="text-gray-600 mb-4 line-clamp-3">
+                  {caseStudy.description}
+                </p>
+                <div className="flex items-center text-[#387E89] font-medium hover:text-[#143151] transition-colors">
+                  Read More
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </div>
               </div>
             </div>
           ))}

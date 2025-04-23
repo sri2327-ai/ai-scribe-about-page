@@ -1,3 +1,4 @@
+
 "use client";
 import React from "react";
 import { Card, CardContent, Typography, Avatar } from "@mui/material";
@@ -50,35 +51,61 @@ const rows = [
 
 const TestimonialCarousel = () => {
   return (
-  <section className="witsp" style={{paddingLeft: 0, paddingRight: 0}}>
-    <div className={styles.carouselWrapper}>
-      <Typography variant="h3" className={styles.heading}>S10 is STUNNING: The #1 Ambient AI Solution Clinicians Reveal Why!</Typography>
-      {rows.map((row, index) => (
-        <div className={`${styles.row} ${styles[row.direction]}`} key={index}>
-          <div className={styles.track}>
-            {[...row.data, ...row.data].map((t, i) => (
-              <Card className={styles.card} key={`${index}-${i}`}>
-              <CardContent className={styles.cardContent}>
-                <Avatar src={t.image} alt={t.name} className={styles.avatar} />
-                <div className={styles.cardTextBlock}>
-                  <Typography variant="body2" className={styles.cardText}>
-                    {t.text}
-                  </Typography>
-                  <Typography color="warning.main" className={styles.cardRating}>
-                    ⭐⭐⭐⭐⭐
-                  </Typography>
-                  <Typography fontWeight="bold" className={styles.cardName}>
-                    {t.name}
-                  </Typography>
-                </div>
-              </CardContent>
-            </Card>
-            
-            ))}
+    <section className="py-16 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50">
+      <div className={styles.carouselWrapper}>
+        <Typography 
+          variant="h3" 
+          className="text-center text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-12"
+        >
+          S10 is STUNNING: The #1 Ambient AI Solution Clinicians Love!
+        </Typography>
+        {rows.map((row, index) => (
+          <div 
+            className={`${styles.row} ${styles[row.direction]}`} 
+            key={index}
+            style={{ margin: '2rem 0' }}
+          >
+            <div className={styles.track}>
+              {[...row.data, ...row.data].map((t, i) => (
+                <Card 
+                  className={`${styles.card} transform transition-all duration-300 hover:scale-105`} 
+                  key={`${index}-${i}`}
+                  sx={{ 
+                    background: 'linear-gradient(135deg, #143151, #387E89)',
+                    borderRadius: '16px',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
+                  }}
+                >
+                  <CardContent className={styles.cardContent}>
+                    <Avatar 
+                      src={t.image} 
+                      alt={t.name} 
+                      className={styles.avatar}
+                      sx={{ width: 60, height: 60, border: '2px solid white' }}
+                    />
+                    <div className={styles.cardTextBlock}>
+                      <Typography 
+                        variant="body2" 
+                        className={`${styles.cardText} text-white leading-relaxed`}
+                      >
+                        {t.text}
+                      </Typography>
+                      <Typography className={`${styles.cardRating} mt-2`}>
+                        ⭐⭐⭐⭐⭐
+                      </Typography>
+                      <Typography 
+                        className={`${styles.cardName} font-semibold mt-1`}
+                      >
+                        {t.name}
+                      </Typography>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </section>
   );
 };
