@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
-import { Facebook, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Linkedin, Twitter, X } from "lucide-react";
 import { useParams } from 'react-router-dom';
+import { Clock } from "lucide-react";
 
-// Mock blog post data - replace with actual data fetching in production
 const mockBlogPosts = {
   "virtual-medical-scribe": {
     id: 1,
@@ -76,7 +75,6 @@ const BlogPost = () => {
   const { slug } = useParams();
   const post = mockBlogPosts[slug];
   
-  // Handle non-existent blog posts
   if (!post) {
     return (
       <div className="min-h-screen py-16 px-4 flex flex-col items-center justify-start">
@@ -87,60 +85,53 @@ const BlogPost = () => {
       </div>
     );
   }
-  
-  // Get related posts
+
   const relatedPosts = post.relatedPosts.map(id => 
     Object.values(mockBlogPosts).find(p => p.id === id)
   ).filter(Boolean);
 
   return (
-    <div className="min-h-screen py-12 px-4">
+    <div className="min-h-screen py-24 px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header Section */}
         <Card className="mb-8 overflow-hidden">
           <div className="bg-gradient-to-b from-white to-blue-100 p-6 md:p-8">
-            <div className="md:flex gap-8 items-center">
+            <div className="md:flex gap-8 items-start">
               <div className="md:w-1/2 mb-6 md:mb-0">
                 <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-                <div className="flex items-center text-gray-500 mb-4">
-                  <span>{post.date}</span>
-                  <span className="mx-2">•</span>
-                  <span>{post.readTime}</span>
-                </div>
-                <p className="text-gray-600 mb-6">By {post.author}</p>
+                <p className="text-gray-600 mb-6 line-clamp-3">
+                  Medical documentation has long been a challenge for healthcare providers...
+                </p>
                 
                 <div className="flex gap-4">
-                  <button aria-label="Share on Facebook" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50">
-                    <Facebook size={20} />
+                  <button aria-label="Share on Facebook" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                    <Facebook className="h-5 w-5" />
                   </button>
-                  <button aria-label="Share on Twitter" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50">
-                    <Twitter size={20} />
+                  <button aria-label="Share on X (Twitter)" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                    <X className="h-5 w-5" />
                   </button>
-                  <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50">
-                    <Linkedin size={20} />
+                  <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                    <Linkedin className="h-5 w-5" />
                   </button>
                 </div>
               </div>
               
-              <div className="md:w-1/2 h-[250px]">
+              <div className="md:w-1/2">
                 <OptimizedImage 
                   src={post.image} 
                   alt={post.title} 
-                  className="w-full h-full object-cover rounded-lg"
+                  className="w-full rounded-lg shadow-lg"
                 />
               </div>
             </div>
           </div>
         </Card>
         
-        {/* Content Section */}
-        <Card className="mb-8">
-          <div className="p-6 md:p-8 prose max-w-none">
+        <Card className="mb-8 p-6 md:p-8">
+          <div className="prose max-w-none">
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         </Card>
         
-        {/* Related Posts Section */}
         {relatedPosts.length > 0 && (
           <div className="mt-12">
             <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
@@ -159,7 +150,10 @@ const BlogPost = () => {
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold line-clamp-2">{relatedPost.title}</h3>
-                    <p className="text-sm text-gray-500 mt-2">{relatedPost.date}</p>
+                    <div className="flex items-center gap-2 text-gray-600 text-sm mt-2">
+                      <Clock className="h-4 w-4" />
+                      <span>8 min read</span>
+                    </div>
                   </div>
                 </Card>
               ))}

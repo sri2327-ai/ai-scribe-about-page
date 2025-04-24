@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { useNavigate } from "react-router-dom";
+import { Clock } from "lucide-react";
 import { 
   Pagination,
   PaginationContent,
@@ -73,7 +74,7 @@ export const BlogCards = () => {
   };
 
   return (
-    <section className="py-12 px-4 md:px-6">
+    <section className="py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
         <div className="w-full bg-gradient-to-b from-white to-[#A5CCF3] rounded-lg border-2 border-gray-200 p-4 md:p-6 shadow-lg">
           <h1 className="text-3xl font-bold text-center mb-8">Blog</h1>
@@ -87,7 +88,7 @@ export const BlogCards = () => {
                     value={category.name}
                     onClick={() => {
                       setSelectedCategory(category.name);
-                      setCurrentPage(1); // Reset to first page on category change
+                      setCurrentPage(1);
                     }}
                     className="px-4 py-2 whitespace-nowrap"
                   >
@@ -102,7 +103,7 @@ export const BlogCards = () => {
             {paginatedBlogs.map((blog) => (
               <Card 
                 key={blog.id}
-                className="overflow-hidden hover:-translate-y-1 transition-transform duration-200 cursor-pointer bg-white h-[350px]"
+                className="overflow-hidden hover:-translate-y-1 transition-transform duration-200 cursor-pointer bg-white"
                 onClick={() => handleBlogClick(blog.url)}
               >
                 <div className="h-[200px] w-full relative">
@@ -113,7 +114,14 @@ export const BlogCards = () => {
                   />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-lg font-semibold line-clamp-3">{blog.title}</h3>
+                  <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
+                    <Clock className="h-4 w-4" />
+                    <span>8 min read</span>
+                  </div>
+                  <h3 className="text-lg font-semibold line-clamp-2">{blog.title}</h3>
+                  <p className="text-gray-600 mt-2 line-clamp-2">
+                    Medical documentation has long been a challenge for healthcare providers...
+                  </p>
                 </div>
               </Card>
             ))}

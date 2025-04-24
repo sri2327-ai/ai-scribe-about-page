@@ -77,7 +77,7 @@ export default function Section1() {
   });
 
   return (
-    <section className="py-12 px-4 md:px-6 flex justify-center">
+    <section className="py-24 px-4 md:px-6 flex justify-center">
       <div className="w-full max-w-4xl bg-gradient-to-b from-blue-50 to-blue-100 rounded-lg border-2 border-gray-200 p-6 md:p-8 shadow-lg">
         <div className="relative mb-8">
           {showSearch ? (
