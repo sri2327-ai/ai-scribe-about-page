@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Typography, Box } from "@mui/material";
 import Marquee from "react-fast-marquee";
@@ -13,7 +12,6 @@ const logos = [
 ];
 
 const LogoScroll = () => {
-  // Use hex color string for the gradient color
   const gradientColor = '#FFFFFF';
 
   return (
@@ -21,7 +19,7 @@ const LogoScroll = () => {
       <Box className="max-w-7xl mx-auto text-center">
         <Typography
           variant="h3"
-          className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 md:mb-10 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent px-2"
+          className="text-lg sm:text-xl md:text-3xl font-bold mb-6 md:mb-10 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent px-2"
         >
           Trusted By 1000+ Healthcare Providers
         </Typography>

@@ -1,6 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
+import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Stats {
   chartsSigned: number;
@@ -35,7 +36,7 @@ const HeroStats = () => {
     chartsSigned: 0,
     callsDone: 0,
     chatsAnswered: 0,
-    providersSmiled: 0,
+    providersSmiled: 1027,
   });
 
   useEffect(() => {
@@ -45,10 +46,10 @@ const HeroStats = () => {
 
       if (lastUpdate !== today) {
         const newStats = {
-          chartsSigned: Math.floor(Math.random() * 400) + 200, // 200-600
-          callsDone: Math.floor(Math.random() * 300) + 150, // 150-450
-          chatsAnswered: Math.floor(Math.random() * 350) + 200, // 200-550
-          providersSmiled: Math.floor(Math.random() * 200) + 100, // 100-300
+          chartsSigned: Math.floor(Math.random() * 400) + 200,
+          callsDone: Math.floor(Math.random() * 300) + 150,
+          chatsAnswered: Math.floor(Math.random() * 350) + 200,
+          providersSmiled: 1027,
         };
         setStats(newStats);
         localStorage.setItem('lastUpdate', today);
@@ -61,6 +62,14 @@ const HeroStats = () => {
       console.error('Error updating stats:', error);
     }
   }, []);
+
+  const isMobile = useIsMobile();
+  const statCards = [
+    { title: "Charts Signed", value: stats.chartsSigned },
+    { title: "Calls Done", value: stats.callsDone },
+    { title: "Patient Chats Answered", value: stats.chatsAnswered },
+    { title: "Providers Smiled", value: stats.providersSmiled },
+  ];
 
   return (
     <section className="min-h-screen bg-white pt-20 pb-16 px-4">
@@ -92,12 +101,29 @@ const HeroStats = () => {
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto px-4">
-        <StatCard title="Charts Signed" value={stats.chartsSigned} />
-        <StatCard title="Calls Done" value={stats.callsDone} />
-        <StatCard title="Patient Chats Answered" value={stats.chatsAnswered} />
-        <StatCard title="Providers Smiled" value={stats.providersSmiled} />
-      </div>
+      {isMobile ? (
+        <ResponsiveCarousel
+          items={statCards}
+          renderItem={(stat, index) => (
+            <StatCard key={index} title={stat.title} value={stat.value} />
+          )}
+          columnsDesktop={1}
+          columnsTablet={2}
+          columnsMobile={1}
+          autoPlay={true}
+          showControls={true}
+          controlsBelow={true}
+          itemHeight={140}
+          gap={16}
+          className="mt-8"
+        />
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto px-4">
+          {statCards.map((stat, index) => (
+            <StatCard key={index} title={stat.title} value={stat.value} />
+          ))}
+        </div>
+      )}
 
       <motion.p
         className="mt-8 text-gray-500 text-sm italic text-center"
