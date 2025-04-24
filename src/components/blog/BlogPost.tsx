@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
-import { Facebook, Linkedin, Twitter, X } from "lucide-react";
+import { Facebook, Linkedin, X } from "lucide-react";
 import { useParams } from 'react-router-dom';
 import { Clock } from "lucide-react";
+import { QuizSection } from './QuizSection';
+import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
 const mockBlogPosts = {
   "virtual-medical-scribe": {
@@ -91,13 +93,17 @@ const BlogPost = () => {
   ).filter(Boolean);
 
   return (
-    <div className="min-h-screen py-24 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen pt-24 pb-12 px-4">
+      <div className="max-w-6xl mx-auto">
         <Card className="mb-8 overflow-hidden">
           <div className="bg-gradient-to-b from-white to-blue-100 p-6 md:p-8">
-            <div className="md:flex gap-8 items-start">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="md:w-1/2 mb-6 md:mb-0">
                 <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+                <div className="flex items-center gap-2 text-gray-600 mb-4">
+                  <Clock className="h-4 w-4" />
+                  <span>{post.readTime}</span>
+                </div>
                 <p className="text-gray-600 mb-6 line-clamp-3">
                   Medical documentation has long been a challenge for healthcare providers...
                 </p>
@@ -131,11 +137,13 @@ const BlogPost = () => {
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         </Card>
+
+        <QuizSection />
         
         {relatedPosts.length > 0 && (
           <div className="mt-12">
             <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="hidden md:grid md:grid-cols-3 gap-6">
               {relatedPosts.map(relatedPost => (
                 <Card 
                   key={relatedPost.id} 
@@ -157,6 +165,35 @@ const BlogPost = () => {
                   </div>
                 </Card>
               ))}
+            </div>
+            <div className="md:hidden">
+              <ResponsiveCarousel
+                items={relatedPosts}
+                renderItem={(post) => (
+                  <Card className="overflow-hidden mx-2">
+                    <div className="h-40 relative">
+                      <OptimizedImage 
+                        src={post.image} 
+                        alt={post.title} 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold line-clamp-2">{post.title}</h3>
+                      <div className="flex items-center gap-2 text-gray-600 text-sm mt-2">
+                        <Clock className="h-4 w-4" />
+                        <span>8 min read</span>
+                      </div>
+                    </div>
+                  </Card>
+                )}
+                columnsDesktop={3}
+                columnsTablet={2}
+                columnsMobile={1}
+                showControls={true}
+                autoPlay={true}
+                controlsBelow={true}
+              />
             </div>
           </div>
         )}

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { 
   Accordion,
@@ -9,6 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const mockCategories = [
   { category_id: 1, categoryName: "General" },
@@ -66,7 +66,6 @@ export default function Section1() {
     setSelectedCategoryId(categoryId);
   };
 
-  // Filter FAQs based on selected category and search query
   const filteredFaqs = mockFaqs.filter(faq => {
     const matchesCategory = faq.category_id === selectedCategoryId;
     const matchesSearch = searchQuery === "" || 
@@ -78,7 +77,7 @@ export default function Section1() {
 
   return (
     <section className="py-24 px-4 md:px-6 flex justify-center">
-      <div className="w-full max-w-4xl bg-gradient-to-b from-blue-50 to-blue-100 rounded-lg border-2 border-gray-200 p-6 md:p-8 shadow-lg">
+      <div className="w-full max-w-6xl bg-gradient-to-b from-blue-50 to-blue-100 rounded-lg border-2 border-gray-200 p-6 md:p-8 shadow-lg">
         <div className="relative mb-8">
           {showSearch ? (
             <div className="relative w-full transition-all duration-300">
@@ -139,17 +138,31 @@ export default function Section1() {
           ) : (
             <Accordion type="single" collapsible className="w-full">
               {filteredFaqs.map((faq, index) => (
-                <AccordionItem key={index} value={index.toString()}>
-                  <AccordionTrigger className="text-lg font-medium text-left py-4 hover:no-underline">
+                <AccordionItem 
+                  key={index} 
+                  value={index.toString()}
+                  className="bg-white mb-4 rounded-lg overflow-hidden border border-gray-200"
+                >
+                  <AccordionTrigger className="text-lg font-medium text-left py-4 px-6 hover:no-underline hover:bg-gray-50">
                     {faq.support_title}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 pt-2 pb-4">
+                  <AccordionContent className="text-gray-600 px-6 pt-2 pb-4">
                     {faq.short_description}
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
           )}
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-lg mb-6">Still have questions? We're here to help!</p>
+          <Button 
+            className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:opacity-90 px-8 py-4 text-lg"
+            onClick={() => window.location.href = '/contact'}
+          >
+            Contact Our Support Team
+          </Button>
         </div>
       </div>
     </section>
