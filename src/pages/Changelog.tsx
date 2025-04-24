@@ -21,27 +21,34 @@ const changelogData = [
 
 const Changelog = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-gray-50 to-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 py-16">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600">
+          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 inline-block">
             Product Updates
           </h1>
-          <p className="mt-4 text-lg text-gray-600">
-            Track our latest features, improvements, and fixes
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Track our latest features, improvements, and fixes. We're constantly working to improve your experience.
           </p>
         </div>
         
-        <div className="relative space-y-12">
-          {changelogData.map((entry, index) => (
-            <TimelineEntry
-              key={index}
-              {...entry}
-            />
-          ))}
+        <div className="relative">
+          {/* Main timeline line */}
+          <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-blue-400 to-blue-300 hidden md:block"></div>
+          
+          <div className="space-y-16">
+            {changelogData.map((entry, index) => (
+              <TimelineEntry
+                key={index}
+                {...entry}
+                isFirst={index === 0}
+                isLast={index === changelogData.length - 1}
+              />
+            ))}
+          </div>
           
           {/* Timeline end marker */}
-          <div className="absolute left-4 bottom-0 w-0.5 h-24 bg-gradient-to-b from-blue-400 to-transparent" />
+          <div className="hidden md:block absolute left-2.5 bottom-0 w-4 h-4 rounded-full bg-blue-300"></div>
         </div>
       </div>
     </div>
