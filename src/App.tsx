@@ -18,6 +18,7 @@ const Integration = React.lazy(() => import('./pages/Integration'));
 const Customer = React.lazy(() => import('./pages/Customer'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
+const Blog = React.lazy(() => import('./pages/Blog'));
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/integration" element={<Integration />} />
           <Route path="/customer" element={<Customer />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
