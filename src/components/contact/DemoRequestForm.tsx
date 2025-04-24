@@ -4,15 +4,8 @@ import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { CalendarIcon, Clock } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +13,14 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { CalendarIcon, Clock } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -38,7 +38,7 @@ const DemoRequestForm = () => {
     companyName: "",
   });
 
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showDateTimePicker, setShowDateTimePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>();
 
@@ -57,7 +57,7 @@ const DemoRequestForm = () => {
   };
 
   return (
-    <Card className="p-6 shadow-lg bg-white/90">
+    <Card className="p-6 shadow-lg bg-white border border-gray-200">
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
@@ -68,7 +68,7 @@ const DemoRequestForm = () => {
               value={formData.firstName}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89]"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
               placeholder="John"
             />
           </div>
@@ -80,7 +80,7 @@ const DemoRequestForm = () => {
               value={formData.lastName}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89]"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
               placeholder="Doe"
             />
           </div>
@@ -96,7 +96,7 @@ const DemoRequestForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89]"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
               placeholder="john@example.com"
             />
           </div>
@@ -109,7 +109,7 @@ const DemoRequestForm = () => {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89]"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
               placeholder="(123) 456-7890"
             />
           </div>
@@ -123,90 +123,114 @@ const DemoRequestForm = () => {
             value={formData.companyName}
             onChange={handleChange}
             required
-            className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89]"
+            className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
             placeholder="Your Company"
           />
         </div>
 
         <div className="space-y-2">
-          <Label>Practice Type</Label>
+          <Label>Requirements</Label>
           <Select
             value={formData.requirements}
             onValueChange={(value) => setFormData(prev => ({ ...prev, requirements: value }))}
           >
-            <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89]">
-              <SelectValue placeholder="Select your practice type" />
+            <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white">
+              <SelectValue placeholder="Select your requirements" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="family-medicine">Family Medicine</SelectItem>
-              <SelectItem value="internal-medicine">Internal Medicine</SelectItem>
-              <SelectItem value="pediatrics">Pediatrics</SelectItem>
-              <SelectItem value="cardiology">Cardiology</SelectItem>
-              <SelectItem value="other">Other Specialty</SelectItem>
+              <SelectItem value="clinical-documentation">Clinical Documentation</SelectItem>
+              <SelectItem value="patient-scheduling">Patient Scheduling</SelectItem>
+              <SelectItem value="practice-management">Practice Management</SelectItem>
+              <SelectItem value="patient-communication">Patient Communication</SelectItem>
+              <SelectItem value="other">Other Requirements</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
         <div className="space-y-2">
-          <Label>Selected Date & Time</Label>
-          <div className="flex items-center gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              className="flex-1 justify-start text-left font-normal hover:bg-[#E9F4FD] hover:text-[#387E89]"
-              onClick={() => setShowDatePicker(true)}
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
-            </Button>
-            <Select value={selectedTime} onValueChange={setSelectedTime}>
-              <SelectTrigger className="flex-1 transition-all duration-200 focus:ring-2 focus:ring-[#387E89]">
-                <Clock className="mr-2 h-4 w-4" />
-                <SelectValue placeholder="Select time" />
-              </SelectTrigger>
-              <SelectContent>
-                {timeSlots.map((time) => (
-                  <SelectItem key={time} value={time}>
-                    {time}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-          {selectedDate && selectedTime && (
-            <p className="text-sm text-[#387E89]">
-              Your demo is scheduled for {format(selectedDate, "PPP")} at {selectedTime}
-            </p>
-          )}
+          <Label>Select Date & Time</Label>
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full justify-start text-left font-normal hover:bg-[#E9F4FD] hover:text-[#387E89] bg-white"
+            onClick={() => setShowDateTimePicker(true)}
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {selectedDate && selectedTime ? (
+              `${format(selectedDate, "PPP")} at ${selectedTime}`
+            ) : (
+              "Pick a date and time"
+            )}
+          </Button>
         </div>
 
         <Button 
           type="submit" 
-          className="w-full bg-[#143151] hover:bg-[#0d2b4d] transition-colors duration-300"
+          className="w-full rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
           disabled={!selectedDate || !selectedTime}
         >
           Schedule Demo
         </Button>
       </form>
 
-      <Dialog open={showDatePicker} onOpenChange={setShowDatePicker}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Select a Date</DialogTitle>
+      <Dialog open={showDateTimePicker} onOpenChange={setShowDateTimePicker}>
+        <DialogContent className="bg-white p-0 gap-0">
+          <DialogHeader className="p-6 pb-2">
+            <DialogTitle>Schedule Your Demo</DialogTitle>
             <DialogDescription>
-              Choose your preferred demo date. Available times will be shown after date selection.
+              Pick a convenient date and time for your demo
             </DialogDescription>
           </DialogHeader>
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={(date) => {
-              setSelectedDate(date);
-              setShowDatePicker(false);
-            }}
-            className="rounded-md border pointer-events-auto"
-            disabled={(date) => date < new Date() || date.getDay() === 0 || date.getDay() === 6}
-          />
+          <div className="grid md:grid-cols-2 gap-4 p-6">
+            <div className="space-y-4">
+              <Label>Select Date</Label>
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                className="rounded-md border pointer-events-auto"
+                disabled={(date) => 
+                  date < new Date() || 
+                  date.getDay() === 0 || 
+                  date.getDay() === 6
+                }
+              />
+            </div>
+            <div className="space-y-4">
+              <Label>Select Time</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {timeSlots.map((time) => (
+                  <Button
+                    key={time}
+                    type="button"
+                    variant="outline"
+                    className={`
+                      flex items-center gap-2 ${
+                        selectedTime === time 
+                          ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
+                          : 'hover:bg-[#E9F4FD] hover:text-[#387E89]'
+                      }
+                    `}
+                    onClick={() => setSelectedTime(time)}
+                  >
+                    <Clock className="h-4 w-4" />
+                    {time}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="border-t p-6">
+            {selectedDate && selectedTime ? (
+              <div className="text-center text-[#133255] font-medium">
+                Your demo is scheduled for {format(selectedDate, "PPP")} at {selectedTime}
+              </div>
+            ) : (
+              <div className="text-center text-gray-500">
+                Please select both a date and time
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </Card>
