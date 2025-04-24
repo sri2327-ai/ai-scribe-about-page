@@ -17,33 +17,36 @@ const LogoScroll = () => {
   const gradientColor = '#FFFFFF';  // White color
 
   return (
-    <section className="py-12 md:py-16 px-4 md:px-8 bg-white">
+    <section className="py-8 md:py-16 px-4 md:px-8 bg-white">
       <Box className="max-w-7xl mx-auto text-center">
         <Typography
           variant="h3"
-          className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 md:mb-12 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+          className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 md:mb-12 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
         >
           Trusted By 1000+ Healthcare Providers
         </Typography>
 
-        <Box className="mt-8">
+        <Box className="mt-6 md:mt-8">
           <div className="block md:hidden">
             <ResponsiveCarousel
               items={logos}
               renderItem={(logo, index) => (
-                <div key={index} className="mx-4 flex items-center justify-center">
+                <div key={index} className="flex items-center justify-center px-2">
                   <img
                     src={logo}
                     alt={`Partner Logo ${index + 1}`}
-                    className="h-12 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
+                    className="h-10 w-auto object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
                   />
                 </div>
               )}
               columnsDesktop={3}
               columnsTablet={2}
-              columnsMobile={1}
+              columnsMobile={2}
               autoPlay={true}
               showControls={false}
+              controlsBelow={false}
+              itemHeight={80}
+              gap={8}
             />
           </div>
 

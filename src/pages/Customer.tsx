@@ -19,7 +19,7 @@ const Customer = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white overflow-hidden">
       <HeroStats />
       <PromoBanner />
       

@@ -1,19 +1,20 @@
 
 "use client";
 import React from "react";
-import { Card, CardContent, Typography, Avatar } from "@mui/material";
+import { Card, CardContent, Typography, Avatar, useMediaQuery } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import styles from "@/styles/stunning.module.scss";
 
 const testimonialsRow1 = [
   {
     name: "Dr. Harold Henderson, LPC",
     image: "/Harold.jpg",
-    text: "S10.AI’s AI scribe captures patient sessions in real-time, ensuring accuracy and confidentiality. It streamlines workflow, reducing administrative tasks while adapting to different therapeutic styles. This AI-powered tool enhances efficiency, allowing me to focus on patient care rather than extensive documentation.'",
+    text: "S10.AI's AI scribe captures patient sessions in real-time, ensuring accuracy and confidentiality. It streamlines workflow, reducing administrative tasks while adapting to different therapeutic styles. This AI-powered tool enhances efficiency, allowing me to focus on patient care rather than extensive documentation.'",
   },
   {
     name: "Dr. Abdullah, MD",
     image: "/dog2.jpg",
-    text: "In the fast-paced ER, S10.AI’s AI scribe captures key details like vitals and treatment plans instantly. Its Epic EHR integration optimizes workflow, reducing documentation time. This AI-powered tool ensures efficiency, allowing me to focus more on patient care and less on paperwork.",
+    text: "In the fast-paced ER, S10.AI's AI scribe captures key details like vitals and treatment plans instantly. Its Epic EHR integration optimizes workflow, reducing documentation time. This AI-powered tool ensures efficiency, allowing me to focus more on patient care and less on paperwork.",
   },
 ];
 
@@ -34,7 +35,7 @@ const testimonialsRow3 = [
   {
     name: "Bilal Syed, IT",
     image: "/Medical-office-of-katy.webp",
-    text: "S10.AI’s Robot Medical Scribe AI optimizes charting, enabling doctors to focus on patients. Its real-time transcription enhances accuracy and efficiency.",
+    text: "S10.AI's Robot Medical Scribe AI optimizes charting, enabling doctors to focus on patients. Its real-time transcription enhances accuracy and efficiency.",
   },
   {
     name: "Dr. Lisbeth Roy",
@@ -50,12 +51,15 @@ const rows = [
 ];
 
 const TestimonialCarousel = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
   return (
-    <section className="py-16 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-8 md:py-16 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
       <div className={styles.carouselWrapper}>
         <Typography 
           variant="h3" 
-          className="text-center text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-12"
+          className="text-center text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-8 md:mb-12"
         >
           S10 is STUNNING: The #1 Ambient AI Solution Clinicians Love!
         </Typography>
@@ -63,7 +67,7 @@ const TestimonialCarousel = () => {
           <div 
             className={`${styles.row} ${styles[row.direction]}`} 
             key={index}
-            style={{ margin: '2rem 0' }}
+            style={{ margin: isMobile ? '1rem 0' : '2rem 0' }}
           >
             <div className={styles.track}>
               {[...row.data, ...row.data].map((t, i) => (
@@ -72,8 +76,10 @@ const TestimonialCarousel = () => {
                   key={`${index}-${i}`}
                   sx={{ 
                     background: 'linear-gradient(135deg, #143151, #387E89)',
-                    borderRadius: '16px',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)'
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                    minWidth: isMobile ? '250px' : '300px',
+                    maxWidth: isMobile ? '280px' : '350px',
                   }}
                 >
                   <CardContent className={styles.cardContent}>
@@ -81,20 +87,22 @@ const TestimonialCarousel = () => {
                       src={t.image} 
                       alt={t.name} 
                       className={styles.avatar}
-                      sx={{ width: 60, height: 60, border: '2px solid white' }}
+                      sx={{ width: isMobile ? 45 : 60, height: isMobile ? 45 : 60, border: '2px solid white' }}
                     />
                     <div className={styles.cardTextBlock}>
                       <Typography 
                         variant="body2" 
                         className={`${styles.cardText} text-white leading-relaxed`}
+                        sx={{ fontSize: isMobile ? '0.8rem' : 'inherit', lineHeight: isMobile ? 1.4 : 1.6 }}
                       >
-                        {t.text}
+                        {isMobile ? t.text.substring(0, 120) + '...' : t.text}
                       </Typography>
                       <Typography className={`${styles.cardRating} mt-2`}>
                         ⭐⭐⭐⭐⭐
                       </Typography>
                       <Typography 
                         className={`${styles.cardName} font-semibold mt-1`}
+                        sx={{ fontSize: isMobile ? '0.75rem' : 'inherit' }}
                       >
                         {t.name}
                       </Typography>
