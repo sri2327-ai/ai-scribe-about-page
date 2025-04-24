@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { PollIcon } from "lucide-react";
+import { ClipboardCheck } from "lucide-react";
 
 interface QuizOption {
   id: string;
@@ -42,7 +42,7 @@ export const QuizSection = () => {
     <section className="py-12 px-4 md:px-6">
       <Card className="max-w-4xl mx-auto p-6 md:p-8 bg-gradient-to-b from-blue-50 to-blue-100">
         <div className="flex items-center gap-2 mb-6">
-          <PollIcon className="w-6 h-6 text-blue-600" />
+          <ClipboardCheck className="w-6 h-6 text-blue-600" />
           <h2 className="text-2xl font-bold text-gray-900">Quick Assessment</h2>
         </div>
         

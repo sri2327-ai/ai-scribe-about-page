@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
@@ -7,7 +8,22 @@ import { Clock } from "lucide-react";
 import { QuizSection } from './QuizSection';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
-const mockBlogPosts = {
+interface BlogPost {
+  id: number;
+  title: string;
+  image: string;
+  author: string;
+  date: string;
+  readTime: string;
+  content: string;
+  relatedPosts: number[];
+}
+
+interface BlogPosts {
+  [key: string]: BlogPost;
+}
+
+const mockBlogPosts: BlogPosts = {
   "virtual-medical-scribe": {
     id: 1,
     title: "Virtual Medical Scribe Robots",
@@ -75,7 +91,7 @@ const mockBlogPosts = {
 
 const BlogPost = () => {
   const { slug } = useParams();
-  const post = mockBlogPosts[slug];
+  const post = slug ? mockBlogPosts[slug] : null;
   
   if (!post) {
     return (
@@ -88,9 +104,9 @@ const BlogPost = () => {
     );
   }
 
-  const relatedPosts = post.relatedPosts.map(id => 
-    Object.values(mockBlogPosts).find(p => p.id === id)
-  ).filter(Boolean);
+  const relatedPosts = post.relatedPosts
+    .map(id => Object.values(mockBlogPosts).find(p => p.id === id))
+    .filter((p): p is BlogPost => p !== undefined);
 
   return (
     <div className="min-h-screen pt-24 pb-12 px-4">
