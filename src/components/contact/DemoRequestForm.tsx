@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -30,6 +29,8 @@ const timeSlots = [
   "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM"
 ];
 
+const timeZoneOptions = Intl.supportedValuesOf('timeZone');
+
 const DemoRequestForm = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -45,7 +46,6 @@ const DemoRequestForm = () => {
   const [selectedTime, setSelectedTime] = useState<string>();
   const [timeZone, setTimeZone] = useState<string>("");
 
-  // Detect timezone automatically when component mounts
   useEffect(() => {
     try {
       const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -236,27 +236,45 @@ const DemoRequestForm = () => {
                   * Weekend dates are not available
                 </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-[#133255] mb-4">Select Time ({timeZone})</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {timeSlots.map((time) => (
-                    <Button
-                      key={time}
-                      type="button"
-                      variant="outline"
-                      className={`
-                        flex items-center gap-2 ${
-                          selectedTime === time 
-                            ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
-                            : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
-                        }
-                      `}
-                      onClick={() => handleTimeSelection(time)}
-                    >
-                      <Clock className="h-4 w-4" />
-                      {time}
-                    </Button>
-                  ))}
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-[#133255]">Select Time</h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {timeSlots.map((time) => (
+                      <Button
+                        key={time}
+                        type="button"
+                        variant="outline"
+                        className={`
+                          flex items-center gap-2 ${
+                            selectedTime === time 
+                              ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
+                              : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
+                          }
+                        `}
+                        onClick={() => handleTimeSelection(time)}
+                      >
+                        <Clock className="h-4 w-4" />
+                        {time}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <h3 className="font-semibold text-[#133255]">Time Zone</h3>
+                  <Select value={timeZone} onValueChange={setTimeZone}>
+                    <SelectTrigger className="w-full bg-white border-gray-200">
+                      <SelectValue placeholder="Select time zone" />
+                    </SelectTrigger>
+                    <SelectContent className="max-h-[200px] overflow-y-auto bg-white">
+                      {timeZoneOptions.map((tz) => (
+                        <SelectItem key={tz} value={tz} className="cursor-pointer">
+                          {tz}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </div>
