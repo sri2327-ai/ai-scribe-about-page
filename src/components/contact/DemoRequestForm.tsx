@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -6,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, Clock, X } from "lucide-react";
+import DemoSuccessMessage from './DemoSuccessMessage';
 import {
   Dialog,
   DialogContent,
@@ -30,7 +30,6 @@ const timeSlots = [
   "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM"
 ];
 
-// Common timezone options instead of using Intl.supportedValuesOf which has compatibility issues
 const timeZoneOptions = [
   "UTC",
   "America/New_York", // Eastern Time
@@ -71,12 +70,14 @@ const DemoRequestForm = () => {
     phone: "",
     requirements: "",
     companyName: "",
+    specialty: "",
   });
 
   const [showDateTimePicker, setShowDateTimePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>();
   const [timeZone, setTimeZone] = useState<string>("");
+  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     try {
@@ -100,10 +101,9 @@ const DemoRequestForm = () => {
       toast.error("Please select a date and time for your demo");
       return;
     }
-    
-    toast.success("Demo request submitted successfully!", {
-      description: `We'll see you on ${format(selectedDate, "PPP")} at ${selectedTime} ${timeZone}`
-    });
+
+    toast.success("Demo scheduled successfully!");
+    setShowSuccess(true);
     
     console.log("Form Data:", {
       ...formData,
@@ -113,14 +113,19 @@ const DemoRequestForm = () => {
     });
   };
 
-  const handleTimeSelection = (time: string) => {
-    setSelectedTime(time);
-  };
+  if (showSuccess) {
+    return (
+      <DemoSuccessMessage 
+        dateTime={`${format(selectedDate!, "PPP")} at ${selectedTime} ${timeZone}`}
+        onClose={() => setShowSuccess(false)}
+      />
+    );
+  }
 
   return (
     <Card className="p-6 shadow-lg bg-white border border-gray-200">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name</Label>
             <Input
@@ -129,7 +134,7 @@ const DemoRequestForm = () => {
               value={formData.firstName}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
               placeholder="John"
             />
           </div>
@@ -141,13 +146,13 @@ const DemoRequestForm = () => {
               value={formData.lastName}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
               placeholder="Doe"
             />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -157,7 +162,7 @@ const DemoRequestForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
               placeholder="john@example.com"
             />
           </div>
@@ -170,23 +175,44 @@ const DemoRequestForm = () => {
               value={formData.phone}
               onChange={handleChange}
               required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
               placeholder="(123) 456-7890"
             />
           </div>
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="companyName">Company Name</Label>
-          <Input
-            id="companyName"
-            name="companyName"
-            value={formData.companyName}
-            onChange={handleChange}
-            required
-            className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white"
-            placeholder="Your Company"
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="companyName">Practice/Hospital Name</Label>
+            <Input
+              id="companyName"
+              name="companyName"
+              value={formData.companyName}
+              onChange={handleChange}
+              required
+              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
+              placeholder="Your Practice Name"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="specialty">Medical Specialty</Label>
+            <Select
+              value={formData.specialty}
+              onValueChange={(value) => setFormData(prev => ({ ...prev, specialty: value }))}
+            >
+              <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
+                <SelectValue placeholder="Select your specialty" />
+              </SelectTrigger>
+              <SelectContent className="bg-white border border-gray-200">
+                <SelectItem value="family-medicine">Family Medicine</SelectItem>
+                <SelectItem value="internal-medicine">Internal Medicine</SelectItem>
+                <SelectItem value="pediatrics">Pediatrics</SelectItem>
+                <SelectItem value="cardiology">Cardiology</SelectItem>
+                <SelectItem value="orthopedics">Orthopedics</SelectItem>
+                <SelectItem value="other">Other Specialty</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -196,14 +222,15 @@ const DemoRequestForm = () => {
             onValueChange={(value) => setFormData(prev => ({ ...prev, requirements: value }))}
           >
             <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
-              <SelectValue placeholder="Select your requirements" />
+              <SelectValue placeholder="What interests you most?" />
             </SelectTrigger>
-            <SelectContent className="bg-white border border-gray-200">
-              <SelectItem value="clinical-documentation">Clinical Documentation</SelectItem>
-              <SelectItem value="patient-scheduling">Patient Scheduling</SelectItem>
+            <SelectContent className="bg-white border border-gray-200 max-h-[300px]">
+              <SelectItem value="clinical-documentation">Clinical Documentation & Notes</SelectItem>
+              <SelectItem value="patient-scheduling">Patient Scheduling & Management</SelectItem>
               <SelectItem value="practice-management">Practice Management</SelectItem>
               <SelectItem value="patient-communication">Patient Communication</SelectItem>
-              <SelectItem value="other">Other Requirements</SelectItem>
+              <SelectItem value="voice-commands">Voice Commands & AI Assistant</SelectItem>
+              <SelectItem value="full-demo">Full Product Demo</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -213,7 +240,7 @@ const DemoRequestForm = () => {
           <Button
             type="button"
             variant="outline"
-            className="w-full justify-start text-left font-normal hover:bg-[#E9F4FD] hover:text-[#387E89] bg-white"
+            className="w-full justify-start text-left font-normal hover:bg-[#E9F4FD] hover:text-[#387E89] bg-white truncate"
             onClick={() => setShowDateTimePicker(true)}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -235,7 +262,7 @@ const DemoRequestForm = () => {
       </form>
 
       <Dialog open={showDateTimePicker} onOpenChange={setShowDateTimePicker}>
-        <DialogContent className="bg-white p-0 gap-0 max-w-3xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="bg-white p-0 gap-0 sm:max-w-[600px] max-h-[90vh] overflow-hidden">
           <DialogHeader className="p-6 pb-2 sticky top-0 bg-white z-10 border-b">
             <div className="flex justify-between items-center">
               <div>
@@ -249,69 +276,67 @@ const DemoRequestForm = () => {
               </DialogClose>
             </div>
           </DialogHeader>
-          <div className="p-6">
-            <div className="grid md:grid-cols-2 gap-6">
+          <div className="p-6 grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-[#133255]">Select Date</h3>
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                className="rounded-md border bg-white pointer-events-auto"
+                disabled={(date) => 
+                  date < new Date() || 
+                  date.getDay() === 0 || 
+                  date.getDay() === 6
+                }
+              />
+              <div className="text-sm text-gray-500">
+                * Weekend dates are not available
+              </div>
+            </div>
+            <div className="space-y-6">
               <div className="space-y-4">
-                <h3 className="font-semibold text-[#133255]">Select Date</h3>
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  className="rounded-md border bg-white pointer-events-auto"
-                  disabled={(date) => 
-                    date < new Date() || 
-                    date.getDay() === 0 || 
-                    date.getDay() === 6
-                  }
-                />
-                <div className="text-sm text-gray-500">
-                  * Weekend dates are not available
+                <h3 className="font-semibold text-[#133255]">Select Time</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {timeSlots.map((time) => (
+                    <Button
+                      key={time}
+                      type="button"
+                      variant="outline"
+                      className={`
+                        flex items-center gap-2 ${
+                          selectedTime === time 
+                            ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
+                            : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
+                        }
+                      `}
+                      onClick={() => setSelectedTime(time)}
+                    >
+                      <Clock className="h-4 w-4" />
+                      {time}
+                    </Button>
+                  ))}
                 </div>
               </div>
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-[#133255]">Select Time</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {timeSlots.map((time) => (
-                      <Button
-                        key={time}
-                        type="button"
-                        variant="outline"
-                        className={`
-                          flex items-center gap-2 ${
-                            selectedTime === time 
-                              ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
-                              : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
-                          }
-                        `}
-                        onClick={() => handleTimeSelection(time)}
-                      >
-                        <Clock className="h-4 w-4" />
-                        {time}
-                      </Button>
+              
+              <div className="space-y-4">
+                <h3 className="font-semibold text-[#133255]">Time Zone</h3>
+                <Select value={timeZone} onValueChange={setTimeZone}>
+                  <SelectTrigger className="w-full bg-white border-gray-200">
+                    <SelectValue placeholder="Select time zone" />
+                  </SelectTrigger>
+                  <SelectContent className="max-h-[200px] overflow-y-auto bg-white">
+                    {timeZoneOptions.map((tz) => (
+                      <SelectItem key={tz} value={tz} className="cursor-pointer">
+                        {tz}
+                      </SelectItem>
                     ))}
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-[#133255]">Time Zone</h3>
-                  <Select value={timeZone} onValueChange={setTimeZone}>
-                    <SelectTrigger className="w-full bg-white border-gray-200">
-                      <SelectValue placeholder="Select time zone" />
-                    </SelectTrigger>
-                    <SelectContent className="max-h-[200px] overflow-y-auto bg-white">
-                      {timeZoneOptions.map((tz) => (
-                        <SelectItem key={tz} value={tz} className="cursor-pointer">
-                          {tz}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           </div>
-          <div className="border-t p-6 bg-gray-50">
+          <div className="border-t p-6 bg-gray-50 sticky bottom-0">
             {selectedDate && selectedTime ? (
               <div className="text-center">
                 <div className="text-lg font-medium text-[#133255]">
