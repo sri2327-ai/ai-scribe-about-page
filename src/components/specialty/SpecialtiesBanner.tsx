@@ -5,11 +5,10 @@ import MedicalSpecialtiesIllustration from './MedicalSpecialtiesIllustration';
 
 const SpecialtiesBanner = () => {
   return (
-    <section className="w-full bg-white pt-16 md:pt-24">
+    <section className="w-full bg-white pt-8 md:pt-16">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-12">
         <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
-          {/* Content section - will appear first on mobile */}
-          <div className="w-full md:w-1/2 text-left space-y-4 md:space-y-6 order-1 md:order-1">
+          <div className="w-full md:w-1/2 text-left space-y-4 md:space-y-6 order-2 md:order-1">
             <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#143151] leading-tight">
               Transforming Healthcare,<br />
               One Specialty at a Time
@@ -27,8 +26,7 @@ const SpecialtiesBanner = () => {
             </Button>
           </div>
 
-          {/* Illustration section - will appear second on mobile */}
-          <div className="w-full md:w-1/2 order-2 md:order-2">
+          <div className="w-full md:w-1/2 order-1 md:order-2">
             <MedicalSpecialtiesIllustration />
           </div>
         </div>
