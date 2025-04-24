@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -24,6 +23,8 @@ import {
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { toast } from "sonner";
+import { useIsMobile } from '@/hooks/use-mobile';
+import MobileDateTimePicker from './MobileDateTimePicker';
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -64,7 +65,6 @@ const timeZoneOptions = [
 ];
 
 const DemoRequestForm = () => {
-  // State for form fields
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -75,20 +75,16 @@ const DemoRequestForm = () => {
     specialty: "",
   });
 
-  // State for date/time selection
   const [showDateTimePicker, setShowDateTimePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>();
   const [timeZone, setTimeZone] = useState<string>("");
   const [showSuccess, setShowSuccess] = useState(false);
-  
-  // State to track form submission status
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const isMobile = useIsMobile();
 
-  // Detect user's timezone on component mount
   useEffect(() => {
     try {
-      // We use the browser's API to detect the user's timezone
       const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       setTimeZone(detectedTimeZone);
     } catch (error) {
@@ -113,8 +109,6 @@ const DemoRequestForm = () => {
     setIsSubmitting(true);
     
     try {
-      // This is where API integration would go in the future
-      // For now, we're just simulating a successful submission
       console.log("Form Data:", {
         ...formData,
         selectedDate,
@@ -122,7 +116,6 @@ const DemoRequestForm = () => {
         timeZone,
       });
       
-      // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast.success("Demo scheduled successfully!");
@@ -274,6 +267,130 @@ const DemoRequestForm = () => {
           </Button>
         </div>
 
+        {isMobile ? (
+          <MobileDateTimePicker
+            open={showDateTimePicker}
+            onOpenChange={setShowDateTimePicker}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            selectedTime={selectedTime}
+            setSelectedTime={setSelectedTime}
+            timeZone={timeZone}
+            setTimeZone={setTimeZone}
+            timeSlots={timeSlots}
+            timeZoneOptions={timeZoneOptions}
+          />
+        ) : (
+          <Dialog open={showDateTimePicker} onOpenChange={setShowDateTimePicker}>
+            <DialogContent className="bg-white p-0 gap-0 sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+              <DialogHeader className="p-6 pb-2 sticky top-0 bg-white z-10 border-b">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <DialogTitle className="text-2xl font-bold text-[#133255]">Schedule Your Demo</DialogTitle>
+                    <DialogDescription className="text-gray-600">
+                      Pick a convenient date and time for your demo
+                    </DialogDescription>
+                  </div>
+                  <DialogClose className="absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200">
+                    <X className="h-4 w-4" />
+                  </DialogClose>
+                </div>
+              </DialogHeader>
+              
+              <div className="flex flex-col max-h-[calc(100vh-200px)]">
+                <div className="p-6 grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="font-semibold text-[#133255]">Select Date</h3>
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={setSelectedDate}
+                      className="rounded-md border bg-white pointer-events-auto"
+                      disabled={(date) => 
+                        date < new Date() || 
+                        date.getDay() === 0 || 
+                        date.getDay() === 6
+                      }
+                    />
+                    <div className="text-sm text-gray-500">
+                      * Weekend dates are not available
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="space-y-4">
+                      <h3 className="font-semibold text-[#133255]">Select Time</h3>
+                      <div className="grid grid-cols-2 gap-3">
+                        {timeSlots.map((time) => (
+                          <Button
+                            key={time}
+                            type="button"
+                            variant="outline"
+                            className={`
+                              flex items-center gap-2 ${
+                                selectedTime === time 
+                                  ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
+                                  : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
+                              }
+                            `}
+                            onClick={() => setSelectedTime(time)}
+                          >
+                            <Clock className="h-4 w-4" />
+                            {time}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h3 className="font-semibold text-[#133255]">Time Zone</h3>
+                      <Select value={timeZone} onValueChange={setTimeZone}>
+                        <SelectTrigger className="w-full bg-white border-gray-200">
+                          <SelectValue placeholder="Select time zone" />
+                        </SelectTrigger>
+                        <SelectContent 
+                          className="max-h-[200px] overflow-y-auto bg-white z-[100]"
+                          position="popper"
+                          sideOffset={5}
+                        >
+                          {timeZoneOptions.map((tz) => (
+                            <SelectItem key={tz} value={tz} className="cursor-pointer">
+                              {tz}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border-t p-6 bg-gray-50 sticky bottom-0 mt-auto">
+                  {selectedDate && selectedTime ? (
+                    <div className="text-center">
+                      <div className="text-lg font-medium text-[#133255]">
+                        Your demo is scheduled for
+                      </div>
+                      <div className="text-lg md:text-xl font-bold text-[#387E89] mb-4">
+                        {format(selectedDate, "PPPP")} at {selectedTime} ({timeZone})
+                      </div>
+                      <Button 
+                        onClick={() => setShowDateTimePicker(false)}
+                        className="bg-[#387E89] hover:bg-[#2c6269] text-white"
+                      >
+                        Confirm Selection
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="text-center text-gray-500">
+                      Please select both a date and time
+                    </div>
+                  )}
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+
         <Button 
           type="submit" 
           className="w-full rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
@@ -282,115 +399,6 @@ const DemoRequestForm = () => {
           {isSubmitting ? "Scheduling..." : "Schedule Demo"}
         </Button>
       </form>
-
-      <Dialog open={showDateTimePicker} onOpenChange={setShowDateTimePicker}>
-        <DialogContent className="bg-white p-0 gap-0 sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-          <DialogHeader className="p-6 pb-2 sticky top-0 bg-white z-10 border-b">
-            <div className="flex justify-between items-center">
-              <div>
-                <DialogTitle className="text-2xl font-bold text-[#133255]">Schedule Your Demo</DialogTitle>
-                <DialogDescription className="text-gray-600">
-                  Pick a convenient date and time for your demo
-                </DialogDescription>
-              </div>
-              <DialogClose className="absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200">
-                <X className="h-4 w-4" />
-              </DialogClose>
-            </div>
-          </DialogHeader>
-          
-          <div className="flex flex-col max-h-[calc(100vh-200px)]">
-            <div className="p-6 grid md:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h3 className="font-semibold text-[#133255]">Select Date</h3>
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={setSelectedDate}
-                  className="rounded-md border bg-white pointer-events-auto"
-                  disabled={(date) => 
-                    date < new Date() || 
-                    date.getDay() === 0 || 
-                    date.getDay() === 6
-                  }
-                />
-                <div className="text-sm text-gray-500">
-                  * Weekend dates are not available
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-[#133255]">Select Time</h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {timeSlots.map((time) => (
-                      <Button
-                        key={time}
-                        type="button"
-                        variant="outline"
-                        className={`
-                          flex items-center gap-2 ${
-                            selectedTime === time 
-                              ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
-                              : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
-                          }
-                        `}
-                        onClick={() => setSelectedTime(time)}
-                      >
-                        <Clock className="h-4 w-4" />
-                        {time}
-                      </Button>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="space-y-4">
-                  <h3 className="font-semibold text-[#133255]">Time Zone</h3>
-                  <Select value={timeZone} onValueChange={setTimeZone}>
-                    <SelectTrigger className="w-full bg-white border-gray-200">
-                      <SelectValue placeholder="Select time zone" />
-                    </SelectTrigger>
-                    <SelectContent 
-                      className="max-h-[200px] overflow-y-auto bg-white z-[100]"
-                      position="popper"
-                      sideOffset={5}
-                    >
-                      {timeZoneOptions.map((tz) => (
-                        <SelectItem key={tz} value={tz} className="cursor-pointer">
-                          {tz}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
-
-            <div className="border-t p-6 bg-gray-50 sticky bottom-0 mt-auto">
-              {selectedDate && selectedTime ? (
-                <div className="text-center">
-                  <div className="text-lg font-medium text-[#133255]">
-                    Your demo is scheduled for
-                  </div>
-                  <div className="text-lg md:text-xl font-bold text-[#387E89] mb-4">
-                    {format(selectedDate, "PPPP")} at {selectedTime} ({timeZone})
-                  </div>
-                  <Button 
-                    onClick={() => setShowDateTimePicker(false)}
-                    className="bg-[#387E89] hover:bg-[#2c6269] text-white"
-                  >
-                    Confirm Selection
-                  </Button>
-                </div>
-              ) : (
-                <div className="text-center text-gray-500">
-                  Please select both a date and time
-                </div>
-              )}
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </Card>
   );
 };
