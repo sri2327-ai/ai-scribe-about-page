@@ -14,7 +14,7 @@ const DemoSuccessMessage = ({ dateTime, onClose }: DemoSuccessMessageProps) => {
     const event = {
       text: `S10.AI Product Demo - ${dateTime}`,
       dates: dateTime,
-      details: 'Join us for an interactive demo of S10.AI's Bravo & Crush solutions. We'll show you how our AI-powered tools can transform your clinical workflow.',
+      details: "Join us for an interactive demo of S10.AI's Bravo & Crush solutions. We'll show you how our AI-powered tools can transform your clinical workflow.",
     };
     
     // Format for Google Calendar
