@@ -72,7 +72,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { cn } from "@/lib/utils"
-import { CircleUserRound, Menu, Search, Bell, Plus, Settings, Keyboard, QuestionMarkCircled, LifeBuoy, Moon, Sun, ChevronDown, Check, Copy, ExternalLink, FileText, Users, Brain, Wrench, Code, HeartPulse, BookOpen } from "lucide-react";
+import { CircleUserRound, Menu, Search, Bell, Plus, Settings, Keyboard, HelpCircle, LifeBuoy, Moon, Sun, ChevronDown, Check, Copy, ExternalLink, FileText, Users, Brain, Wrench, Code, HeartPulse, BookOpen } from "lucide-react";
 
 const Header = () => {
   const location = useLocation();
