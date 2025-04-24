@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
@@ -36,7 +37,7 @@ const HeroStats = () => {
     chartsSigned: 0,
     callsDone: 0,
     chatsAnswered: 0,
-    providersSmiled: 1027,
+    providersSmiled: 1027, // Fixed at 1027 as requested
   });
 
   useEffect(() => {
@@ -45,17 +46,20 @@ const HeroStats = () => {
       const today = new Date().toDateString();
 
       if (lastUpdate !== today) {
+        // Generate random values but ensure providersSmiled is always 1027
         const newStats = {
-          chartsSigned: Math.floor(Math.random() * 400) + 200,
-          callsDone: Math.floor(Math.random() * 300) + 150,
-          chatsAnswered: Math.floor(Math.random() * 350) + 200,
-          providersSmiled: 1027,
+          chartsSigned: Math.floor(Math.random() * 300) + 150,
+          callsDone: Math.floor(Math.random() * 250) + 100,
+          chatsAnswered: Math.floor(Math.random() * 280) + 130,
+          providersSmiled: 1027, // Always fixed at 1027
         };
         setStats(newStats);
         localStorage.setItem('lastUpdate', today);
         localStorage.setItem('stats', JSON.stringify(newStats));
       } else {
         const savedStats = JSON.parse(localStorage.getItem('stats') || '{}');
+        // Ensure providers smiled is always 1027 even if saved differently
+        savedStats.providersSmiled = 1027;
         setStats(savedStats as Stats);
       }
     } catch (error) {

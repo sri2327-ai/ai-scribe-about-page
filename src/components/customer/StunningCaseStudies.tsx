@@ -72,7 +72,7 @@ const StunningCaseStudies = () => {
             columnsMobile={1}
             autoPlay={true}
             showControls={true}
-            controlsBelow={false}
+            controlsBelow={true} // Changed to true to move controls below
             itemHeight={380}
             gap={16}
           />
