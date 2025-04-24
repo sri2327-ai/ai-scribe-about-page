@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, GlobeIcon, ChromeIcon, MicrosoftOutlookIcon } from "lucide-react";
+import { CalendarIcon, GlobeIcon, Chrome, Mail } from "lucide-react";
 import { toast } from "sonner";
 import { format, parseISO } from "date-fns";
 
@@ -55,7 +55,7 @@ const DemoSuccessMessage = ({ dateTime, onClose }: DemoSuccessMessageProps) => {
               <style>
                 body { 
                   font-family: 'Inter', sans-serif; 
-                  background-color: #f4f4f4;
+                  background-color: #ffffff;
                   display: flex;
                   justify-content: center;
                   align-items: center;
