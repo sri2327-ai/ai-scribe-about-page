@@ -45,7 +45,7 @@ const MobileDateTimePicker = ({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[90vh] overflow-y-auto">
+      <SheetContent side="bottom" className="h-[90vh] bg-white overflow-y-auto p-4">
         <SheetHeader className="text-left mb-4">
           <SheetTitle className="text-xl font-bold text-[#133255]">Schedule Your Demo</SheetTitle>
         </SheetHeader>
@@ -53,17 +53,19 @@ const MobileDateTimePicker = ({
         <div className="space-y-6">
           <div className="space-y-4">
             <h3 className="font-semibold text-[#133255]">Select Date</h3>
-            <Calendar
-              mode="single"
-              selected={selectedDate}
-              onSelect={setSelectedDate}
-              className="rounded-md border w-full mx-auto pointer-events-auto"
-              disabled={(date) => 
-                date < new Date() || 
-                date.getDay() === 0 || 
-                date.getDay() === 6
-              }
-            />
+            <div className="bg-white rounded-lg border border-gray-200 p-2">
+              <Calendar
+                mode="single"
+                selected={selectedDate}
+                onSelect={setSelectedDate}
+                className="rounded-md w-full mx-auto pointer-events-auto"
+                disabled={(date) => 
+                  date < new Date() || 
+                  date.getDay() === 0 || 
+                  date.getDay() === 6
+                }
+              />
+            </div>
           </div>
 
           <div className="space-y-4">
@@ -94,7 +96,7 @@ const MobileDateTimePicker = ({
               <SelectTrigger className="w-full bg-white">
                 <SelectValue placeholder="Select time zone" />
               </SelectTrigger>
-              <SelectContent className="max-h-[200px] overflow-y-auto bg-white">
+              <SelectContent className="max-h-[200px] overflow-y-auto bg-white z-[100]">
                 {timeZoneOptions.map((tz) => (
                   <SelectItem key={tz} value={tz}>
                     {tz}
@@ -104,7 +106,7 @@ const MobileDateTimePicker = ({
             </Select>
           </div>
 
-          <div className="sticky bottom-0 mt-6 pb-4 bg-white">
+          <div className="sticky bottom-0 mt-6 pb-4 pt-4 bg-white border-t border-gray-200">
             {selectedDate && selectedTime && timeZone ? (
               <div className="space-y-4">
                 <div className="text-center">
