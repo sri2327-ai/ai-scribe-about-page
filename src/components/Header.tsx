@@ -1,4 +1,3 @@
-
 'use client'
 import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
@@ -47,10 +46,11 @@ const Header = () => {
       { 'label': "Specialties", 'path': "/specialties" },
     ],
     "Resources": [
-      { 'label': "Blog", 'path': "/resources/blog" },
-      { 'label': "FAQs", 'path': "/resources/faq" },
+      { 'label': "Blog", 'path': "/blog" },
+      { 'label': "FAQs", 'path': "/faq" },
       { 'label': "Customers", 'path': "/resources/stunning" },
-      { 'label': "Case Studies", 'path': "/resources/casestudies" }
+      { 'label': "Case Studies", 'path': "/resources/casestudies" },
+      { 'label': "Changelog", 'path': "/changelog" }
     ]
   }
 
