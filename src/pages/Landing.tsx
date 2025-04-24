@@ -1,16 +1,93 @@
 
-import React from 'react';
+import React, { Suspense } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
+import { FourthSection } from '@/components/landing/FourthSection';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
+import { SectionLoader } from '@/components/ui/section-loader';
+import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
-import CaseStudyLink from '@/components/landing/CaseStudyLink';
+import TenthSection from '@/components/landing/TenthSection';
+
+// Lazy load heavier sections
+const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
+const ThirdSection = React.lazy(() => import('@/components/landing/ThirdSection'));
+const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'));
+const SeventhSection = React.lazy(() => import('@/components/landing/SeventhSection'));
+const NinthSection = React.lazy(() => import('@/components/landing/NinthSection'));
+const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSection'));
 
 const Landing = () => {
+  const schemaMarkup = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "S10.AI",
+    "url": "https://s10.ai",
+    "logo": "https://s10.ai/logo.png",
+    "description": "S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions.",
+    "sameAs": [
+      "https://linkedin.com/company/s10ai",
+      "https://twitter.com/s10ai"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "US"
+    },
+    "offers": {
+      "@type": "Offer",
+      "name": "AI Medical Scribe Solutions",
+      "description": "Ambient AI solutions for healthcare documentation and workflow automation"
+    }
+  };
+
   return (
-    <div className="overflow-hidden">
+    <main className="min-h-screen bg-white overflow-x-hidden">
+      <Helmet>
+        {/* Add preconnect for critical domains */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        
+        <title>S10.AI - Next Generation Clinical AI for Healthcare Providers</title>
+        <meta name="description" content="S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions." />
+        <link rel="canonical" href="https://s10.ai" />
+        <script type="application/ld+json">
+          {JSON.stringify(schemaMarkup)}
+        </script>
+      </Helmet>
+
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       <FirstSection />
+      
+      <Suspense fallback={<SectionLoader />}>
+        <SecondSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <ThirdSection />
+      </Suspense>
+      <FourthSection />
       <IntegrationSection />
-      <CaseStudyLink />
-    </div>
+      <Suspense fallback={<SectionLoader />}>
+        <FifthSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <SeventhSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <NinthSection />
+      </Suspense>
+      <TenthSection />
+      <PracticeTypeSelector />
+      <Suspense fallback={<SectionLoader />}>
+        <EleventhSection />
+      </Suspense>
+    </main>
   );
 };
 
