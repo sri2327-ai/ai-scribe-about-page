@@ -12,21 +12,20 @@ interface QuizOption {
 interface QuizQuestion {
   question: string;
   options: QuizOption[];
-  correctAnswer: string;
+  resultText: string;
 }
 
-const sampleQuiz: QuizQuestion = {
-  question: "Is Your Practice Ready for AI Scribing?",
-  options: [
-    { id: "1", text: "Yes, we're already using some form of digital documentation" },
-    { id: "2", text: "We're interested but need more information" },
-    { id: "3", text: "No, we still rely entirely on manual documentation" },
-    { id: "4", text: "Not sure, would like to evaluate our readiness" }
-  ],
-  correctAnswer: "2"
-};
+interface QuizSectionProps {
+  quiz: QuizQuestion;
+  title?: string;
+  icon?: React.ReactNode;
+}
 
-export const QuizSection = () => {
+export const QuizSection: React.FC<QuizSectionProps> = ({ 
+  quiz, 
+  title = "Quick Assessment", 
+  icon = <ClipboardCheck className="w-6 h-6 text-blue-600" /> 
+}) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
 
@@ -42,14 +41,14 @@ export const QuizSection = () => {
     <section className="py-12 px-4 md:px-6">
       <Card className="max-w-4xl mx-auto p-6 md:p-8 bg-gradient-to-b from-blue-50 to-blue-100">
         <div className="flex items-center gap-2 mb-6">
-          <ClipboardCheck className="w-6 h-6 text-blue-600" />
-          <h2 className="text-2xl font-bold text-gray-900">Quick Assessment</h2>
+          {icon}
+          <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
         </div>
         
-        <h3 className="text-xl font-semibold mb-6">{sampleQuiz.question}</h3>
+        <h3 className="text-xl font-semibold mb-6">{quiz.question}</h3>
         
         <div className="space-y-4">
-          {sampleQuiz.options.map((option) => (
+          {quiz.options.map((option) => (
             <button
               key={option.id}
               onClick={() => handleOptionSelect(option.id)}
@@ -78,7 +77,7 @@ export const QuizSection = () => {
         {showResult && (
           <div className="mt-6 space-y-4">
             <p className="text-lg text-gray-700">
-              Based on your answer, let's explore how AI scribing can benefit your practice!
+              {quiz.resultText}
             </p>
             <Button
               className="w-full md:w-auto bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:opacity-90"

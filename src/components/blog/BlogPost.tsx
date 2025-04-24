@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Facebook, Linkedin, X } from "lucide-react";
 import { useParams } from 'react-router-dom';
-import { Clock } from "lucide-react";
+import { Clock, Zap, Users } from "lucide-react";
 import { QuizSection } from './QuizSection';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
@@ -108,6 +107,17 @@ const BlogPost = () => {
     .map(id => Object.values(mockBlogPosts).find(p => p.id === id))
     .filter((p): p is BlogPost => p !== undefined);
 
+  const genericQuiz = {
+    question: "Is Your Practice Ready for Next-Gen AI Solutions?",
+    options: [
+      { id: "1", text: "Yes, we're already using advanced digital tools" },
+      { id: "2", text: "We're interested but need more information" },
+      { id: "3", text: "No, we're still using traditional methods" },
+      { id: "4", text: "Not sure, would like to evaluate our readiness" }
+    ],
+    resultText: "Discover how our AI solutions can transform your practice's efficiency and patient care!"
+  };
+
   return (
     <div className="min-h-screen pt-24 pb-12 px-4">
       <div className="max-w-6xl mx-auto">
@@ -154,7 +164,11 @@ const BlogPost = () => {
           </div>
         </Card>
 
-        <QuizSection />
+        <QuizSection 
+          quiz={genericQuiz} 
+          title="Practice Readiness Assessment" 
+          icon={<Zap className="w-6 h-6 text-blue-600" />} 
+        />
         
         {relatedPosts.length > 0 && (
           <div className="mt-12">
