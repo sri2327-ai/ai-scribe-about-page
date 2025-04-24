@@ -2,14 +2,15 @@
 import React from 'react';
 import DemoRequestForm from '@/components/contact/DemoRequestForm';
 import { Card } from "@/components/ui/card";
+import { QuoteTestimonial } from '@/components/landing/QuoteTestimonial';
 
 const Contact = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-[#A5CCF3] flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-white to-[#A5CCF3] pt-28 pb-16 px-4">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-        {/* Info Side */}
+        {/* Info Side - Only show description on mobile */}
         <div className="w-full">
-          <Card className="p-8 shadow-lg rounded-xl bg-white/90 border border-gray-200">
+          <Card className="p-8 shadow-lg rounded-xl bg-white/90 border border-gray-200 hidden md:block">
             <h2 className="text-4xl md:text-5xl font-extrabold text-[#133255] mb-3 leading-tight">
               Schedule Your Free Demo
             </h2>
@@ -29,11 +30,28 @@ const Contact = () => {
               "HIPAA-compliant, ISO 27001-certified, trusted by 40,000+ providers. Save 90% on charting with Crush and reduce no-shows with Bravo."
             </div>
           </Card>
+
+          {/* Mobile only description */}
+          <div className="md:hidden mb-8">
+            <h2 className="text-3xl font-extrabold text-[#133255] mb-3 leading-tight">
+              Schedule Your Free Demo
+            </h2>
+            <p className="text-gray-800 mb-3">
+              See S10.AI's <b>Bravo</b> &amp; <b>Crush</b> in action – join 1,000+ providers saving time!
+            </p>
+          </div>
         </div>
         
-        {/* Form Side */}
-        <div className="w-full">
+        {/* Form Side with Testimonial */}
+        <div className="w-full space-y-6">
           <DemoRequestForm />
+          
+          <QuoteTestimonial
+            quote="S10.AI has completely transformed our practice workflow. The demo was eye-opening, and implementation was seamless. Now we save hours daily on documentation."
+            author="Dr. Sarah Mitchell"
+            role="Family Medicine, Boston"
+            image="/placeholder.svg"
+          />
         </div>
       </div>
     </div>
