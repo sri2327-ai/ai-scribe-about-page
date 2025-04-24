@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, GlobeIcon, Chrome, Mail } from "lucide-react";
 import { toast } from "sonner";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 interface DemoSuccessMessageProps {
   dateTime: string;
@@ -14,15 +14,53 @@ interface DemoSuccessMessageProps {
 const DemoSuccessMessage = ({ dateTime, onClose }: DemoSuccessMessageProps) => {
   const addToCalendar = () => {
     try {
-      // Parse the date and time
-      const date = parseISO(dateTime);
+      console.log("Adding to calendar with datetime:", dateTime);
       
-      // Add one hour to the start time for the event duration
-      const endDate = new Date(date.getTime() + 60 * 60 * 1000);
+      // Split the dateTime string into components
+      const dateTimeComponents = dateTime.split(' at ');
+      if (dateTimeComponents.length < 2) {
+        throw new Error("Invalid date time format");
+      }
       
-      // Format dates for calendar URL (YYYYMMDDTHHMMSSZ format)
-      const startFormatted = format(date, "yyyyMMdd'T'HHmmss'Z'");
-      const endFormatted = format(endDate, "yyyyMMdd'T'HHmmss'Z'");
+      const dateString = dateTimeComponents[0];
+      const timeAndZone = dateTimeComponents[1].split(' ');
+      const timeString = timeAndZone[0];
+      const timeZone = timeAndZone.slice(1).join(' ');
+      
+      // Create a date object from the parsed components
+      const today = new Date();
+      const dateParts = new Date(dateString);
+      
+      // Extract hours and minutes from time string (e.g., "2:00 PM")
+      const [hourStr, minuteWithAmPm] = timeString.split(':');
+      const minute = parseInt(minuteWithAmPm.split(' ')[0]);
+      const isPM = minuteWithAmPm.includes('PM');
+      
+      let hour = parseInt(hourStr);
+      if (isPM && hour < 12) hour += 12;
+      if (!isPM && hour === 12) hour = 0;
+      
+      // Set time on the date object
+      const eventDate = new Date(dateParts);
+      eventDate.setHours(hour, minute, 0);
+      
+      // Add one hour for event duration
+      const endDate = new Date(eventDate);
+      endDate.setHours(endDate.getHours() + 1);
+      
+      console.log("Parsed date:", eventDate);
+      console.log("End date:", endDate);
+      
+      // Format dates for calendar URL (YYYYMMDDTHHMMSS format)
+      const formatCalendarDate = (date: Date) => {
+        return date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, 15);
+      };
+      
+      const startFormatted = formatCalendarDate(eventDate);
+      const endFormatted = formatCalendarDate(endDate);
+      
+      console.log("Start formatted:", startFormatted);
+      console.log("End formatted:", endFormatted);
       
       // Event details
       const event = {
