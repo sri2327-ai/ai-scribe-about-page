@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Facebook, Linkedin, X } from "lucide-react";
-import { useParams, Link } from 'react-router-dom';
-import { Clock, Zap } from "lucide-react";
+import { useParams } from 'react-router-dom';
+import { Clock, Zap, Users } from "lucide-react";
 import { QuizSection } from './QuizSection';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
@@ -89,7 +88,7 @@ const mockBlogPosts: BlogPosts = {
   }
 };
 
-const BlogPostComponent = () => {
+const BlogPost = () => {
   const { slug } = useParams();
   const post = slug ? mockBlogPosts[slug] : null;
   
@@ -233,4 +232,4 @@ const BlogPostComponent = () => {
   );
 };
 
-export default BlogPostComponent;
+export default BlogPost;
