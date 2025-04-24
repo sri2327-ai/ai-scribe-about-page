@@ -3,10 +3,13 @@ import React from 'react';
 import DemoRequestForm from '@/components/contact/DemoRequestForm';
 import { Card } from "@/components/ui/card";
 import { QuoteTestimonial } from '@/components/landing/QuoteTestimonial';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const Contact = () => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="min-h-screen bg-white pt-32 pb-16 px-4">
+    <div className="min-h-screen bg-white pt-36 pb-16 px-4">
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         {/* Info Side - Only show description on mobile */}
         <div className="w-full space-y-6">
@@ -41,18 +44,32 @@ const Contact = () => {
             </p>
           </div>
 
-          {/* Testimonial - Now on the left side below info */}
-          <QuoteTestimonial
-            quote="S10.AI has completely transformed our practice workflow. The demo was eye-opening, and implementation was seamless. Now we save hours daily on documentation."
-            author="Dr. Sarah Mitchell"
-            role="Family Medicine, Boston"
-            image="/placeholder.svg"
-          />
+          {/* Testimonial - Only show on desktop */}
+          {!isMobile && (
+            <QuoteTestimonial
+              quote="S10.AI has completely transformed our practice workflow. The demo was eye-opening, and implementation was seamless. Now we save hours daily on documentation."
+              author="Dr. Sarah Mitchell"
+              role="Family Medicine, Boston"
+              image="/placeholder.svg"
+            />
+          )}
         </div>
         
         {/* Form Side */}
         <div className="w-full">
           <DemoRequestForm />
+          
+          {/* Testimonial - Only show on mobile below form */}
+          {isMobile && (
+            <div className="mt-8">
+              <QuoteTestimonial
+                quote="S10.AI has completely transformed our practice workflow. The demo was eye-opening, and implementation was seamless. Now we save hours daily on documentation."
+                author="Dr. Sarah Mitchell"
+                role="Family Medicine, Boston"
+                image="/placeholder.svg"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

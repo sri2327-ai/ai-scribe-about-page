@@ -1,17 +1,18 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, Clock } from "lucide-react";
+import { CalendarIcon, Clock, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -21,6 +22,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
+import { toast } from "sonner";
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -41,6 +43,18 @@ const DemoRequestForm = () => {
   const [showDateTimePicker, setShowDateTimePicker] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>();
+  const [timeZone, setTimeZone] = useState<string>("");
+
+  // Detect timezone automatically when component mounts
+  useEffect(() => {
+    try {
+      const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      setTimeZone(detectedTimeZone);
+    } catch (error) {
+      console.error("Error detecting timezone:", error);
+      setTimeZone("UTC");
+    }
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -49,11 +63,26 @@ const DemoRequestForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!selectedDate || !selectedTime) {
+      toast.error("Please select a date and time for your demo");
+      return;
+    }
+    
+    toast.success("Demo request submitted successfully!", {
+      description: `We'll see you on ${format(selectedDate, "PPP")} at ${selectedTime} ${timeZone}`
+    });
+    
     console.log("Form Data:", {
       ...formData,
       selectedDate,
       selectedTime,
+      timeZone,
     });
+  };
+
+  const handleTimeSelection = (time: string) => {
+    setSelectedTime(time);
   };
 
   return (
@@ -134,10 +163,10 @@ const DemoRequestForm = () => {
             value={formData.requirements}
             onValueChange={(value) => setFormData(prev => ({ ...prev, requirements: value }))}
           >
-            <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white">
+            <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
               <SelectValue placeholder="Select your requirements" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white border border-gray-200">
               <SelectItem value="clinical-documentation">Clinical Documentation</SelectItem>
               <SelectItem value="patient-scheduling">Patient Scheduling</SelectItem>
               <SelectItem value="practice-management">Practice Management</SelectItem>
@@ -157,7 +186,7 @@ const DemoRequestForm = () => {
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {selectedDate && selectedTime ? (
-              `${format(selectedDate, "PPP")} at ${selectedTime}`
+              `${format(selectedDate, "PPP")} at ${selectedTime} (${timeZone})`
             ) : (
               "Pick a date and time"
             )}
@@ -174,56 +203,79 @@ const DemoRequestForm = () => {
       </form>
 
       <Dialog open={showDateTimePicker} onOpenChange={setShowDateTimePicker}>
-        <DialogContent className="bg-white p-0 gap-0">
-          <DialogHeader className="p-6 pb-2">
-            <DialogTitle>Schedule Your Demo</DialogTitle>
-            <DialogDescription>
-              Pick a convenient date and time for your demo
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid md:grid-cols-2 gap-4 p-6">
-            <div className="space-y-4">
-              <Label>Select Date</Label>
-              <Calendar
-                mode="single"
-                selected={selectedDate}
-                onSelect={setSelectedDate}
-                className="rounded-md border pointer-events-auto"
-                disabled={(date) => 
-                  date < new Date() || 
-                  date.getDay() === 0 || 
-                  date.getDay() === 6
-                }
-              />
+        <DialogContent className="bg-white p-0 gap-0 max-w-3xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader className="p-6 pb-2 sticky top-0 bg-white z-10 border-b">
+            <div className="flex justify-between items-center">
+              <div>
+                <DialogTitle className="text-2xl font-bold text-[#133255]">Schedule Your Demo</DialogTitle>
+                <DialogDescription className="text-gray-600">
+                  Pick a convenient date and time for your demo
+                </DialogDescription>
+              </div>
+              <DialogClose className="absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200">
+                <X className="h-4 w-4" />
+              </DialogClose>
             </div>
-            <div className="space-y-4">
-              <Label>Select Time</Label>
-              <div className="grid grid-cols-2 gap-2">
-                {timeSlots.map((time) => (
-                  <Button
-                    key={time}
-                    type="button"
-                    variant="outline"
-                    className={`
-                      flex items-center gap-2 ${
-                        selectedTime === time 
-                          ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
-                          : 'hover:bg-[#E9F4FD] hover:text-[#387E89]'
-                      }
-                    `}
-                    onClick={() => setSelectedTime(time)}
-                  >
-                    <Clock className="h-4 w-4" />
-                    {time}
-                  </Button>
-                ))}
+          </DialogHeader>
+          <div className="p-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h3 className="font-semibold text-[#133255]">Select Date</h3>
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={setSelectedDate}
+                  className="rounded-md border bg-white pointer-events-auto"
+                  disabled={(date) => 
+                    date < new Date() || 
+                    date.getDay() === 0 || 
+                    date.getDay() === 6
+                  }
+                />
+                <div className="text-sm text-gray-500">
+                  * Weekend dates are not available
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold text-[#133255] mb-4">Select Time ({timeZone})</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {timeSlots.map((time) => (
+                    <Button
+                      key={time}
+                      type="button"
+                      variant="outline"
+                      className={`
+                        flex items-center gap-2 ${
+                          selectedTime === time 
+                            ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
+                            : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
+                        }
+                      `}
+                      onClick={() => handleTimeSelection(time)}
+                    >
+                      <Clock className="h-4 w-4" />
+                      {time}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-          <div className="border-t p-6">
+          <div className="border-t p-6 bg-gray-50">
             {selectedDate && selectedTime ? (
-              <div className="text-center text-[#133255] font-medium">
-                Your demo is scheduled for {format(selectedDate, "PPP")} at {selectedTime}
+              <div className="text-center">
+                <div className="text-lg font-medium text-[#133255]">
+                  Your demo is scheduled for
+                </div>
+                <div className="text-lg md:text-xl font-bold text-[#387E89]">
+                  {format(selectedDate, "PPPP")} at {selectedTime} ({timeZone})
+                </div>
+                <Button 
+                  onClick={() => setShowDateTimePicker(false)}
+                  className="mt-4 bg-[#387E89] hover:bg-[#2c6269] text-white"
+                >
+                  Confirm Selection
+                </Button>
               </div>
             ) : (
               <div className="text-center text-gray-500">
