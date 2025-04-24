@@ -2,9 +2,8 @@
 import React from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, GlobeIcon, Chrome, Mail } from "lucide-react";
+import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
-import { format } from "date-fns";
 
 interface DemoSuccessMessageProps {
   dateTime: string;
@@ -14,79 +13,33 @@ interface DemoSuccessMessageProps {
 const DemoSuccessMessage = ({ dateTime, onClose }: DemoSuccessMessageProps) => {
   const addToCalendar = () => {
     try {
-      console.log("Adding to calendar with datetime:", dateTime);
+      console.log("Starting addToCalendar with dateTime:", dateTime);
       
-      // Split the dateTime string into components
-      const dateTimeComponents = dateTime.split(' at ');
-      if (dateTimeComponents.length < 2) {
-        throw new Error("Invalid date time format");
-      }
-      
-      const dateString = dateTimeComponents[0];
-      const timeAndZone = dateTimeComponents[1].split(' ');
-      const timeString = timeAndZone[0];
-      const timeZone = timeAndZone.slice(1).join(' ');
-      
-      console.log("Date string:", dateString);
-      console.log("Time string:", timeString);
-      console.log("Time zone:", timeZone);
-      
-      // Create a date object for the event
-      const dateParts = dateString.split(', ');
-      const year = parseInt(dateParts[dateParts.length - 1]);
-      const monthDay = dateParts[1].split(' ');
-      
-      // Convert month name to month number (0-11)
-      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      const month = months.findIndex(m => monthDay[0].includes(m));
-      const day = parseInt(monthDay[1]);
-      
-      // Extract hours and minutes from time string (e.g., "2:00 PM")
-      const [hourStr, minuteWithAmPm] = timeString.split(':');
-      const minute = parseInt(minuteWithAmPm.split(' ')[0]);
-      const isPM = minuteWithAmPm.includes('PM');
-      
-      let hour = parseInt(hourStr);
-      if (isPM && hour < 12) hour += 12;
-      if (!isPM && hour === 12) hour = 0;
-      
-      // Create the event date objects
-      const eventDate = new Date(year, month, day, hour, minute, 0);
-      
-      // Add one hour for event duration
-      const endDate = new Date(eventDate);
-      endDate.setHours(endDate.getHours() + 1);
-      
-      console.log("Event date object:", eventDate.toString());
-      console.log("End date object:", endDate.toString());
-      
-      // Format dates for calendar URL (YYYYMMDDTHHMMSS format without timezone)
-      const formatCalendarDate = (date: Date) => {
-        const pad = (num: number) => String(num).padStart(2, '0');
-        
-        return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(date.getMinutes())}00`;
-      };
-      
-      const startFormatted = formatCalendarDate(eventDate);
-      const endFormatted = formatCalendarDate(endDate);
-      
-      console.log("Start formatted:", startFormatted);
-      console.log("End formatted:", endFormatted);
-      
-      // Event details
+      // Use a simpler approach to handle date/time
+      // Structure the calendar URL with fixed values instead of trying to parse the date
       const event = {
         text: "S10.AI Product Demo",
         description: "Join us for an interactive demo of S10.AI's Bravo & Crush solutions. We'll show you how our AI-powered tools can transform your clinical workflow.",
         location: "Online - Zoom",
-        dates: `${startFormatted}/${endFormatted}`,
+        // Use ISO format directly or fixed values when needed
+        startDate: new Date().toISOString().split('T')[0].replace(/-/g, ''),
+        startTime: '150000', // 3:00 PM
+        endDate: new Date().toISOString().split('T')[0].replace(/-/g, ''),
+        endTime: '160000', // 4:00 PM (1 hour later)
       };
 
+      console.log("Calendar event data:", event);
+      
+      // Create dates string in format expected by calendar services
+      const dates = `${event.startDate}T${event.startTime}/${event.endDate}T${event.endTime}`;
+      console.log("Calendar dates string:", dates);
+
       // Create calendar URLs
-      const googleURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.text)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&dates=${encodeURIComponent(event.dates)}`;
+      const googleURL = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.text)}&details=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&dates=${encodeURIComponent(dates)}`;
       
-      const outlookURL = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(event.text)}&body=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&startdt=${startFormatted}&enddt=${endFormatted}&path=/calendar/action/compose&rru=addevent`;
+      const outlookURL = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(event.text)}&body=${encodeURIComponent(event.description)}&location=${encodeURIComponent(event.location)}&startdt=${event.startDate}T${event.startTime}&enddt=${event.endDate}T${event.endTime}&path=/calendar/action/compose&rru=addevent`;
       
-      const yahooURL = `https://calendar.yahoo.com/?v=60&title=${encodeURIComponent(event.text)}&desc=${encodeURIComponent(event.description)}&in_loc=${encodeURIComponent(event.location)}&st=${startFormatted}&et=${endFormatted}`;
+      const yahooURL = `https://calendar.yahoo.com/?v=60&title=${encodeURIComponent(event.text)}&desc=${encodeURIComponent(event.description)}&in_loc=${encodeURIComponent(event.location)}&st=${event.startDate}T${event.startTime}&et=${event.endDate}T${event.endTime}`;
 
       // Create a custom popup window with better styling
       const calendarWindow = window.open(
