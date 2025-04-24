@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -29,7 +30,38 @@ const timeSlots = [
   "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM"
 ];
 
-const timeZoneOptions = Intl.supportedValuesOf('timeZone');
+// Common timezone options instead of using Intl.supportedValuesOf which has compatibility issues
+const timeZoneOptions = [
+  "UTC",
+  "America/New_York", // Eastern Time
+  "America/Chicago", // Central Time
+  "America/Denver", // Mountain Time
+  "America/Los_Angeles", // Pacific Time
+  "America/Anchorage", // Alaska Time
+  "Pacific/Honolulu", // Hawaii Time
+  "America/Toronto",
+  "America/Vancouver",
+  "America/Mexico_City",
+  "America/Bogota",
+  "America/Lima",
+  "America/Santiago",
+  "America/Sao_Paulo",
+  "Europe/London",
+  "Europe/Berlin",
+  "Europe/Paris",
+  "Europe/Rome",
+  "Europe/Madrid",
+  "Europe/Amsterdam",
+  "Africa/Cairo",
+  "Asia/Dubai",
+  "Asia/Kolkata",
+  "Asia/Singapore",
+  "Asia/Tokyo",
+  "Asia/Seoul",
+  "Australia/Sydney",
+  "Australia/Melbourne",
+  "Pacific/Auckland"
+];
 
 const DemoRequestForm = () => {
   const [formData, setFormData] = useState({
