@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -18,6 +17,7 @@ const Technology = React.lazy(() => import('./pages/Technology'));
 const Integration = React.lazy(() => import('./pages/Integration'));
 const Customer = React.lazy(() => import('./pages/Customer'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
+const FAQ = React.lazy(() => import('./pages/FAQ'));
 
 function App() {
   return (
@@ -35,6 +35,7 @@ function App() {
           <Route path="/technology" element={<Technology />} />
           <Route path="/integration" element={<Integration />} />
           <Route path="/customer" element={<Customer />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
