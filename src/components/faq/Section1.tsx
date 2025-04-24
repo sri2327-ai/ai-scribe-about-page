@@ -1,47 +1,80 @@
 
-import React, { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
+import React, { useState } from "react";
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger 
+} from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, X as CloseIcon, ChevronDown } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 const mockCategories = [
   { category_id: 1, categoryName: "General" },
   { category_id: 2, categoryName: "Product" },
-  { category_id: 3, categoryName: "Support" }
+  { category_id: 3, categoryName: "Support" },
+  { category_id: 4, categoryName: "Pricing" },
+  { category_id: 5, categoryName: "Integration" }
 ];
 
 const mockFaqs = [
   { 
     category_id: 1, 
     support_title: "What is S10.AI?",
-    short_description: "S10.AI is an advanced healthcare AI platform that helps clinicians streamline their workflow."
+    short_description: "S10.AI is an advanced healthcare AI platform that helps clinicians streamline their workflow by automating documentation, providing medical insights, and enhancing patient care through cutting-edge artificial intelligence technology."
   },
   {
     category_id: 1,
     support_title: "How do I get started?",
-    short_description: "Sign up for an account and our team will guide you through the onboarding process."
+    short_description: "Sign up for an account on our website and our team will guide you through the onboarding process. We'll help you set up the platform, train your staff, and integrate it with your existing systems for a seamless experience."
+  },
+  {
+    category_id: 2,
+    support_title: "What features are included?",
+    short_description: "Our platform includes AI-powered documentation, clinical decision support, voice recognition, EHR integration, and customizable templates tailored to your specialty."
+  },
+  {
+    category_id: 2,
+    support_title: "Is there a mobile app?",
+    short_description: "Yes, we offer mobile apps for iOS and Android devices that provide a seamless experience on the go."
+  },
+  {
+    category_id: 3,
+    support_title: "How can I contact support?",
+    short_description: "You can reach our support team 24/7 via chat, email, or phone. We're always here to help you get the most out of our platform."
+  },
+  {
+    category_id: 4,
+    support_title: "What pricing plans are available?",
+    short_description: "We offer flexible pricing plans designed to fit practices of all sizes. Contact our sales team for a customized quote that meets your needs."
+  },
+  {
+    category_id: 5,
+    support_title: "Which EHR systems do you integrate with?",
+    short_description: "We integrate with all major EHR systems including Epic, Cerner, Athenahealth, and many more. Our team can help you set up custom integrations if needed."
   }
 ];
 
 export default function Section1() {
-  const [tabValue, setTabValue] = useState(0);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null);
-  const [expanded, setExpanded] = useState<number | null>(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [showSearch, setShowSearch] = useState(false);
-  const [categories] = useState(mockCategories);
-  const [faqs] = useState(mockFaqs);
 
   const handleTabChange = (value: string) => {
-    const newValue = parseInt(value);
-    setTabValue(newValue);
-    const selectedCategory = categories[newValue];
-    setSelectedCategoryId(selectedCategory?.category_id);
+    const categoryId = parseInt(value);
+    setSelectedCategoryId(categoryId);
   };
 
-  const handleToggle = (index: number) => {
-    setExpanded(expanded === index ? null : index);
-  };
+  // Filter FAQs based on selected category and search query
+  const filteredFaqs = mockFaqs.filter(faq => {
+    const matchesCategory = faq.category_id === selectedCategoryId;
+    const matchesSearch = searchQuery === "" || 
+      faq.support_title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      faq.short_description.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section className="py-12 px-4 md:px-6 flex justify-center">
@@ -51,15 +84,20 @@ export default function Section1() {
             <div className="relative w-full transition-all duration-300">
               <Input
                 autoFocus
-                className="w-full h-12 pl-10 text-lg"
-                placeholder="Looking for something?"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-12 pl-10 pr-10 text-lg"
+                placeholder="Search FAQs..."
               />
               <Search className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
               <button
-                onClick={() => setShowSearch(false)}
+                onClick={() => {
+                  setShowSearch(false);
+                  setSearchQuery("");
+                }}
                 className="absolute right-3 top-3.5"
               >
-                <CloseIcon className="h-5 w-5 text-gray-400" />
+                <X className="h-5 w-5 text-gray-400" />
               </button>
             </div>
           ) : (
@@ -77,45 +115,41 @@ export default function Section1() {
           )}
         </div>
 
-        <Tabs defaultValue="0" className="w-full">
-          <TabsList className="w-full justify-start mb-6 bg-transparent">
-            {categories.map((category, index) => (
-              <TabsTrigger
-                key={category.category_id}
-                value={index.toString()}
-                onClick={() => handleTabChange(index.toString())}
-                className="px-4 py-2"
-              >
-                {category.categoryName}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        <div className="overflow-x-auto pb-2">
+          <Tabs defaultValue="1" onValueChange={handleTabChange} className="w-full">
+            <TabsList className="w-full flex-wrap justify-start bg-transparent space-x-1 space-y-1">
+              {mockCategories.map((category) => (
+                <TabsTrigger
+                  key={category.category_id}
+                  value={category.category_id.toString()}
+                  className="px-4 py-2 whitespace-nowrap"
+                >
+                  {category.categoryName}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+          </Tabs>
+        </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card
-              key={index}
-              className="border-b border-gray-200 bg-transparent shadow-none hover:bg-white/50 transition-colors cursor-pointer"
-              onClick={() => handleToggle(index)}
-            >
-              <div className="p-4">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold text-gray-900">
+        <div className="mt-8 space-y-4">
+          {filteredFaqs.length === 0 ? (
+            <div className="text-center p-8">
+              <p className="text-gray-500">No FAQs found matching your search.</p>
+            </div>
+          ) : (
+            <Accordion type="single" collapsible className="w-full">
+              {filteredFaqs.map((faq, index) => (
+                <AccordionItem key={index} value={index.toString()}>
+                  <AccordionTrigger className="text-lg font-medium text-left py-4 hover:no-underline">
                     {faq.support_title}
-                  </h3>
-                  <ChevronDown
-                    className={`h-5 w-5 transform transition-transform ${
-                      expanded === index ? "rotate-180" : ""
-                    }`}
-                  />
-                </div>
-                {expanded === index && (
-                  <p className="mt-3 text-gray-600">{faq.short_description}</p>
-                )}
-              </div>
-            </Card>
-          ))}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 pt-2 pb-4">
+                    {faq.short_description}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          )}
         </div>
       </div>
     </section>

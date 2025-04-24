@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -20,6 +21,9 @@ const NotFound = React.lazy(() => import('./pages/NotFound'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
 const Blog = React.lazy(() => import('./pages/Blog'));
 
+// Lazy load the blog post component
+const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
+
 function App() {
   return (
     <BrowserRouter>
@@ -38,6 +42,7 @@ function App() {
           <Route path="/customer" element={<Customer />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
