@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -19,6 +20,7 @@ const Customer = React.lazy(() => import('./pages/Customer'));
 const NotFound = React.lazy(() => import('./pages/NotFound'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
 const Blog = React.lazy(() => import('./pages/Blog'));
+const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
 const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
 
 function App() {
