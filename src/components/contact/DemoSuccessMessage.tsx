@@ -27,9 +27,19 @@ const DemoSuccessMessage = ({ dateTime, onClose }: DemoSuccessMessageProps) => {
       const timeString = timeAndZone[0];
       const timeZone = timeAndZone.slice(1).join(' ');
       
-      // Create a date object from the parsed components
-      const today = new Date();
-      const dateParts = new Date(dateString);
+      console.log("Date string:", dateString);
+      console.log("Time string:", timeString);
+      console.log("Time zone:", timeZone);
+      
+      // Create a date object for the event
+      const dateParts = dateString.split(', ');
+      const year = parseInt(dateParts[dateParts.length - 1]);
+      const monthDay = dateParts[1].split(' ');
+      
+      // Convert month name to month number (0-11)
+      const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const month = months.findIndex(m => monthDay[0].includes(m));
+      const day = parseInt(monthDay[1]);
       
       // Extract hours and minutes from time string (e.g., "2:00 PM")
       const [hourStr, minuteWithAmPm] = timeString.split(':');
@@ -40,20 +50,21 @@ const DemoSuccessMessage = ({ dateTime, onClose }: DemoSuccessMessageProps) => {
       if (isPM && hour < 12) hour += 12;
       if (!isPM && hour === 12) hour = 0;
       
-      // Set time on the date object
-      const eventDate = new Date(dateParts);
-      eventDate.setHours(hour, minute, 0);
+      // Create the event date objects
+      const eventDate = new Date(year, month, day, hour, minute, 0);
       
       // Add one hour for event duration
       const endDate = new Date(eventDate);
       endDate.setHours(endDate.getHours() + 1);
       
-      console.log("Parsed date:", eventDate);
-      console.log("End date:", endDate);
+      console.log("Event date object:", eventDate.toString());
+      console.log("End date object:", endDate.toString());
       
-      // Format dates for calendar URL (YYYYMMDDTHHMMSS format)
+      // Format dates for calendar URL (YYYYMMDDTHHMMSS format without timezone)
       const formatCalendarDate = (date: Date) => {
-        return date.toISOString().replace(/-|:|\.\d+/g, '').slice(0, 15);
+        const pad = (num: number) => String(num).padStart(2, '0');
+        
+        return `${date.getFullYear()}${pad(date.getMonth() + 1)}${pad(date.getDate())}T${pad(date.getHours())}${pad(date.getMinutes())}00`;
       };
       
       const startFormatted = formatCalendarDate(eventDate);
