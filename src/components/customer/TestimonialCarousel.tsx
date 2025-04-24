@@ -55,11 +55,11 @@ const TestimonialCarousel = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   
   return (
-    <section className="py-8 md:py-16 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
-      <div className={styles.carouselWrapper}>
+    <section className="px-4 md:px-8 py-6 md:py-12 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+      <div className={`${styles.carouselWrapper} max-w-7xl mx-auto`}>
         <Typography 
           variant="h3" 
-          className="text-center text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-8 md:mb-12"
+          className="text-center text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-6 md:mb-10 px-2"
         >
           S10 is STUNNING: The #1 Ambient AI Solution Clinicians Love!
         </Typography>
@@ -67,7 +67,7 @@ const TestimonialCarousel = () => {
           <div 
             className={`${styles.row} ${styles[row.direction]}`} 
             key={index}
-            style={{ margin: isMobile ? '1rem 0' : '2rem 0' }}
+            style={{ margin: '1rem 0' }}
           >
             <div className={styles.track}>
               {[...row.data, ...row.data].map((t, i) => (
@@ -78,8 +78,8 @@ const TestimonialCarousel = () => {
                     background: 'linear-gradient(135deg, #143151, #387E89)',
                     borderRadius: '12px',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                    minWidth: isMobile ? '250px' : '300px',
-                    maxWidth: isMobile ? '280px' : '350px',
+                    minWidth: isMobile ? '270px' : '300px',
+                    maxWidth: isMobile ? '300px' : '350px',
                   }}
                 >
                   <CardContent className={styles.cardContent}>
@@ -87,13 +87,22 @@ const TestimonialCarousel = () => {
                       src={t.image} 
                       alt={t.name} 
                       className={styles.avatar}
-                      sx={{ width: isMobile ? 45 : 60, height: isMobile ? 45 : 60, border: '2px solid white' }}
+                      sx={{ 
+                        width: isMobile ? 45 : 60, 
+                        height: isMobile ? 45 : 60, 
+                        border: '2px solid white',
+                        marginRight: '12px'
+                      }}
                     />
                     <div className={styles.cardTextBlock}>
                       <Typography 
                         variant="body2" 
                         className={`${styles.cardText} text-white leading-relaxed`}
-                        sx={{ fontSize: isMobile ? '0.8rem' : 'inherit', lineHeight: isMobile ? 1.4 : 1.6 }}
+                        sx={{ 
+                          fontSize: isMobile ? '0.8rem' : 'inherit', 
+                          lineHeight: isMobile ? 1.4 : 1.6,
+                          textAlign: 'left'
+                        }}
                       >
                         {isMobile ? t.text.substring(0, 120) + '...' : t.text}
                       </Typography>

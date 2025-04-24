@@ -13,20 +13,20 @@ const logos = [
 ];
 
 const LogoScroll = () => {
-  // Convert RGB to Hex color string
-  const gradientColor = '#FFFFFF';  // White color
+  // Use hex color string for the gradient color
+  const gradientColor = '#FFFFFF';
 
   return (
-    <section className="py-8 md:py-16 px-4 md:px-8 bg-white">
+    <section className="px-4 md:px-8 py-6 md:py-12 bg-white">
       <Box className="max-w-7xl mx-auto text-center">
         <Typography
           variant="h3"
-          className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 md:mb-12 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+          className="text-xl sm:text-2xl md:text-3xl font-bold mb-6 md:mb-10 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent px-2"
         >
           Trusted By 1000+ Healthcare Providers
         </Typography>
 
-        <Box className="mt-6 md:mt-8">
+        <Box className="mt-4 md:mt-8">
           <div className="block md:hidden">
             <ResponsiveCarousel
               items={logos}
@@ -53,7 +53,7 @@ const LogoScroll = () => {
           <div className="hidden md:block">
             <Marquee
               gradient={true}
-              gradientColor={gradientColor}  // Use the hex color string
+              gradientColor={gradientColor}
               speed={40}
               pauseOnHover={true}
             >

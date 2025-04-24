@@ -15,16 +15,16 @@ const StunningCaseStudies = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="py-8 md:py-16 px-4 md:px-8 bg-gradient-to-b from-white to-gray-50">
+    <section className="px-4 md:px-8 py-6 md:py-12 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto">
         <Typography 
           variant="h2" 
-          className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+          className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-10 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent px-2"
         >
           Success Stories from Our Clients
         </Typography>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
           {caseStudies.map((caseStudy) => (
             <div
               key={caseStudy.folder}
@@ -38,7 +38,7 @@ const StunningCaseStudies = () => {
                 }
               }}
             >
-              <div className="relative h-40 md:h-48">
+              <div className="relative h-36 md:h-48">
                 <OptimizedImage
                   src={caseStudy.image}
                   alt={caseStudy.title}

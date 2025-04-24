@@ -20,33 +20,31 @@ const Customer = () => {
 
   return (
     <main className="min-h-screen bg-white overflow-hidden">
-      <HeroStats />
-      <PromoBanner />
-      
-      {isMobile ? (
-        <div className="py-8">
-          <ResponsiveCarousel
-            items={sections}
-            renderItem={({ Component, id }) => (
-              <div key={id} className="w-full">
-                <Component />
-              </div>
-            )}
-            columnsMobile={1}
-            autoPlay={false}
-            showControls={true}
-            controlsBelow={true}
-          />
-        </div>
-      ) : (
-        <>
-          {sections.map(({ Component, id }) => (
-            <Component key={id} />
-          ))}
-        </>
-      )}
-      
-      <HeroSection />
+      {/* Fixed-width container to ensure consistent alignment */}
+      <div className="max-w-7xl mx-auto">
+        <HeroStats />
+        <PromoBanner />
+        
+        {isMobile ? (
+          <div className="py-4 px-4">
+            <div className="my-8">
+              {sections.map(({ Component, id }) => (
+                <div key={id} className="mb-12">
+                  <Component />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <>
+            {sections.map(({ Component, id }) => (
+              <Component key={id} />
+            ))}
+          </>
+        )}
+        
+        <HeroSection />
+      </div>
     </main>
   );
 };
