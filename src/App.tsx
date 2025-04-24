@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -20,6 +21,7 @@ const NotFound = React.lazy(() => import('./pages/NotFound'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
 const Blog = React.lazy(() => import('./pages/Blog'));
 const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
+const SiteDirectory = React.lazy(() => import('./pages/SiteDirectory'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -44,6 +46,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/case-study" element={<CaseStudy />} />
+          <Route path="/directory" element={<SiteDirectory />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
