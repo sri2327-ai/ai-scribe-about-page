@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TimelineEntry } from "@/components/changelog/TimelineEntry";
 import { Link } from 'react-router-dom';
@@ -29,39 +28,36 @@ const changelogData = [
 
 const Changelog = () => {
   return (
-    <div className="min-h-screen bg-white py-16">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 inline-block">
-            Product Updates
-          </h1>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
-            Track our latest features, improvements, and fixes. We're constantly working to improve your experience.
-          </p>
-          <div className="mt-6">
-            <Link to="/" className="text-blue-500 hover:text-blue-700 font-medium">
+    <div className="min-h-screen bg-white">
+      <div className="w-full bg-gradient-to-b from-gray-50 to-white py-24">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-24">
+            <Link to="/" className="text-blue-500 hover:text-blue-700 font-medium mb-8 block">
               ← Back to home
             </Link>
-          </div>
-        </div>
-        
-        <div className="relative">
-          {/* Main timeline line */}
-          <div className="absolute left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 via-blue-400 to-blue-300 hidden md:block"></div>
-          
-          <div className="space-y-16">
-            {changelogData.map((entry, index) => (
-              <TimelineEntry
-                key={index}
-                {...entry}
-                isFirst={index === 0}
-                isLast={index === changelogData.length - 1}
-              />
-            ))}
+            <h1 className="text-5xl font-bold tracking-tight text-black mb-6">
+              Product Updates
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Track our latest features, improvements, and fixes. We're constantly working to improve your experience.
+            </p>
           </div>
           
-          {/* Timeline end marker */}
-          <div className="hidden md:block absolute left-2.5 bottom-0 w-4 h-4 rounded-full bg-blue-300"></div>
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-0 md:left-[7.5rem] top-0 bottom-0 w-0.5 bg-gray-200"></div>
+            
+            <div className="space-y-16">
+              {changelogData.map((entry, index) => (
+                <TimelineEntry
+                  key={index}
+                  {...entry}
+                  isFirst={index === 0}
+                  isLast={index === changelogData.length - 1}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

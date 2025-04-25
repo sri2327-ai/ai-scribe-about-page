@@ -24,61 +24,41 @@ export const TimelineEntry: React.FC<TimelineEntryProps> = ({
   isLast
 }) => {
   return (
-    <div className="relative grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-      {/* Timeline dot for desktop */}
-      <div className="hidden md:flex md:col-span-1 justify-center relative">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center shadow-lg z-10">
-          <Calendar className="h-4 w-4 text-white" />
+    <div className="relative grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+      {/* Date and timeline dot */}
+      <div className="md:col-span-3 relative z-10">
+        <div className="flex items-center md:justify-end gap-4">
+          <div className="w-3 h-3 rounded-full bg-blue-500 ring-4 ring-white"></div>
+          <time className="text-sm font-medium text-black whitespace-nowrap">{date}</time>
         </div>
       </div>
       
-      {/* Card content */}
-      <Card className="md:col-span-11 bg-white border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
-        <div className="md:grid md:grid-cols-7 gap-0">
-          {/* Image section */}
-          <div className="md:col-span-3 relative h-60 md:h-full overflow-hidden">
-            {image && (
-              <>
-                <OptimizedImage
-                  src={image}
-                  alt={title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60"></div>
-              </>
-            )}
-            
-            {/* Mobile date display */}
-            <div className="absolute top-4 left-4 bg-white/90 rounded-md px-3 py-1 flex items-center gap-2 md:hidden shadow-md">
-              <Calendar className="h-4 w-4 text-blue-500" />
-              <time className="text-sm font-medium text-gray-700">{date}</time>
-            </div>
+      {/* Content */}
+      <Card className="md:col-span-9 bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <div className="p-6 space-y-6">
+          <div>
+            <h2 className="text-2xl font-bold text-black mb-4">{title}</h2>
+            <p className="text-black text-base leading-relaxed">{description}</p>
           </div>
           
-          {/* Content section */}
-          <div className="md:col-span-4 p-6 space-y-4">
-            {/* Desktop date display */}
-            <div className="hidden md:flex items-center gap-2 text-gray-500">
-              <Calendar className="h-4 w-4 text-blue-500" />
-              <time className="text-sm font-medium">{date}</time>
+          {image && (
+            <div className="relative h-[300px] rounded-lg overflow-hidden">
+              <OptimizedImage
+                src={image}
+                alt={title}
+                className="w-full h-full object-cover"
+              />
             </div>
-
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-              {title}
-            </h2>
-            
-            <div className="prose prose-sm text-gray-600 leading-relaxed">
-              <p>{description}</p>
-            </div>
-
-            {link && link !== "#" && (
-              <a 
-                href={link}
-                className="inline-flex items-center gap-2 text-blue-500 hover:text-blue-600 transition-colors font-medium mt-2"
-              >
-                Learn more
-              </a>
-            )}
+          )}
+          
+          {/* S10.ai logo and branding */}
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+            <span className="text-sm font-semibold text-black">S10.ai</span>
+            <img 
+              src="/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png"
+              alt="S10.ai Logo"
+              className="h-6 w-auto"
+            />
           </div>
         </div>
       </Card>
