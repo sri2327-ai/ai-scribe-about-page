@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { TimelineEntry } from "@/components/changelog/TimelineEntry";
+import { Link } from 'react-router-dom';
 
 const changelogData = [
   {
@@ -16,12 +17,19 @@ const changelogData = [
     description: "We've completely revamped our clinical documentation system with AI-powered features. This major update introduces smart templates, voice-to-text improvements, and contextual suggestions. The system now better understands medical context, reducing documentation time by up to 45%. We've also added support for specialty-specific workflows and improved integration with major EHR systems.",
     image: "/lovable-uploads/e9ad85da-27c0-412a-a0ff-237e4b9a8ef5.png",
     link: "#"
+  },
+  {
+    date: "April 15, 2025",
+    title: "Mobile App Enhancements",
+    description: "Our latest mobile app update brings significant improvements to the user experience. New features include offline mode for documentation, enhanced security with biometric authentication, and a redesigned interface for easier navigation. The update also includes performance optimizations that improve load times by up to 30%.",
+    image: "/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png",
+    link: "#"
   }
 ];
 
 const Changelog = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-50 py-16">
+    <div className="min-h-screen bg-white py-16">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 inline-block">
@@ -30,6 +38,11 @@ const Changelog = () => {
           <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
             Track our latest features, improvements, and fixes. We're constantly working to improve your experience.
           </p>
+          <div className="mt-6">
+            <Link to="/" className="text-blue-500 hover:text-blue-700 font-medium">
+              ← Back to home
+            </Link>
+          </div>
         </div>
         
         <div className="relative">
