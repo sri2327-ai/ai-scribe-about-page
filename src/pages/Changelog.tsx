@@ -112,9 +112,7 @@ const Changelog = () => {
           </p>
         </div>
         
-        <div className="w-full bg-white">
-          <Timeline data={changelogData} />
-        </div>
+        <Timeline data={changelogData} />
       </div>
     </div>
   );
