@@ -12,6 +12,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationEllipsis,
 } from "@/components/ui/pagination";
 
 // Mock data - replace with actual API calls in production
@@ -56,12 +57,24 @@ export const BlogCards = () => {
   const navigate = useNavigate();
   
   const itemsPerPage = 6;
-  const totalPages = Math.ceil(mockBlogs.length / itemsPerPage);
-  
-  // Filter blogs by category (in a real app, this might be done via API)
   const filteredBlogs = selectedCategory === "All" 
     ? mockBlogs 
     : mockBlogs.filter(blog => blog.title.includes(selectedCategory));
+  
+  const totalPages = Math.ceil(filteredBlogs.length / itemsPerPage);
+  
+  // Calculate page range for pagination
+  const getPageRange = () => {
+    const range = [];
+    const maxVisiblePages = 5;
+    const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      range.push(i);
+    }
+    return range;
+  };
   
   // Paginate blogs
   const paginatedBlogs = filteredBlogs.slice(
@@ -69,8 +82,13 @@ export const BlogCards = () => {
     currentPage * itemsPerPage
   );
   
-  const handleBlogClick = (url) => {
+  const handleBlogClick = (url: string) => {
     navigate(url);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -131,23 +149,23 @@ export const BlogCards = () => {
             <Pagination className="mt-8">
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious 
-                    href="#" 
+                  <PaginationPrevious
+                    href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      if (currentPage > 1) setCurrentPage(currentPage - 1);
+                      if (currentPage > 1) handlePageChange(currentPage - 1);
                     }}
                     className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
                   />
                 </PaginationItem>
-                
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+
+                {getPageRange().map((page) => (
                   <PaginationItem key={page}>
-                    <PaginationLink 
-                      href="#" 
+                    <PaginationLink
+                      href="#"
                       onClick={(e) => {
                         e.preventDefault();
-                        setCurrentPage(page);
+                        handlePageChange(page);
                       }}
                       isActive={currentPage === page}
                     >
@@ -155,13 +173,32 @@ export const BlogCards = () => {
                     </PaginationLink>
                   </PaginationItem>
                 ))}
-                
+
+                {totalPages > getPageRange()[getPageRange().length - 1] && (
+                  <>
+                    <PaginationItem>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handlePageChange(totalPages);
+                        }}
+                      >
+                        {totalPages}
+                      </PaginationLink>
+                    </PaginationItem>
+                  </>
+                )}
+
                 <PaginationItem>
-                  <PaginationNext 
-                    href="#" 
+                  <PaginationNext
+                    href="#"
                     onClick={(e) => {
                       e.preventDefault();
-                      if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+                      if (currentPage < totalPages) handlePageChange(currentPage + 1);
                     }}
                     className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
                   />
