@@ -20,6 +20,7 @@ const NotFound = React.lazy(() => import('./pages/NotFound'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
 const Blog = React.lazy(() => import('./pages/Blog'));
 const Changelog = React.lazy(() => import('./pages/Changelog'));
+const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -44,6 +45,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/changelog" element={<Changelog />} />
+          <Route path="/case-study" element={<CaseStudy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
