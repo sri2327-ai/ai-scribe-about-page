@@ -37,7 +37,7 @@ export default function EPICUsabilityCaseStudy() {
     <CaseStudyLayout
       title="How S10 AI Medical Scribe Assistant Improves EPIC Usability"
       description="Optimize EPIC with AI-powered efficiency"
-      image="/ImprovePatientCare.webp"
+      image="/case-studies/epic-integration.svg"
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">

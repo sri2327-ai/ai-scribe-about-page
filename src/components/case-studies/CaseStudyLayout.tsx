@@ -6,6 +6,7 @@ import OptimizedImage from "@/components/ui/optimized-image";
 import { cn } from "@/lib/utils";
 import styles from "@/styles/casecontentpage.module.scss";
 import { Button } from "@/components/ui/button";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface CaseStudyLayoutProps {
   title: string;
@@ -36,59 +37,72 @@ export const CaseStudyLayout = ({
       </Helmet>
 
       {/* Hero Banner */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Clock className="w-4 h-4" />
-                <span className="text-sm">Max 3 min read</span>
-              </div>
-
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-                {title}
-              </h1>
-              
-              <p className="text-base md:text-lg text-gray-600">
-                {description}
-              </p>
-
-              <div className="flex gap-4 pt-2">
-                <button className="hover:scale-110 transition-transform" aria-label="Share on Facebook">
-                  <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-                </button>
-                <button className="hover:scale-110 transition-transform" aria-label="Share on X">
-                  <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
-                </button>
-                <button className="hover:scale-110 transition-transform" aria-label="Share on LinkedIn">
-                  <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-                </button>
-              </div>
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-6">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-6">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Clock className="w-4 h-4" />
+              <span className="text-sm">Max 3 min read</span>
             </div>
 
-            <div className="relative aspect-video md:aspect-square rounded-lg overflow-hidden shadow-xl">
-              <OptimizedImage
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 break-words hyphens-auto">
+              {title}
+            </h1>
+            
+            <p className="text-base md:text-lg text-gray-600">
+              {description}
+            </p>
+
+            <div className="flex gap-4 pt-2">
+              <button className="hover:scale-110 transition-transform" aria-label="Share on Facebook">
+                <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
+              </button>
+              <button className="hover:scale-110 transition-transform" aria-label="Share on X">
+                <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
+              </button>
+              <button className="hover:scale-110 transition-transform" aria-label="Share on LinkedIn">
+                <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600" />
+              </button>
             </div>
+          </div>
+
+          <div className="mt-8 md:mt-12">
+            <OptimizedImage
+              src={image}
+              alt={title}
+              className="w-full h-auto max-h-80 rounded-lg object-cover shadow-lg"
+            />
           </div>
         </div>
       </section>
 
       {/* Content */}
-      <section className="py-8 md:py-12 px-4">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-8 md:py-12 px-4 md:px-6">
+        <div className="max-w-4xl mx-auto">
           <div className="prose prose-lg max-w-none">
             {children}
           </div>
 
           {/* CTA Card */}
-          <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:scale-[1.02] transition-transform">
+          <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:shadow-xl transition-all duration-300">
             <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
             <p className="text-gray-600 mb-6">{ctaDescription}</p>
-            <Button size="lg" className="w-full md:w-auto animate-fade-in">
+            <Button 
+              size="lg" 
+              className="w-full sm:w-auto animate-fade-in"
+              style={{
+                background: crushAIColors.button.gradient,
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '';
+              }}
+            >
               Book Demo
             </Button>
           </div>

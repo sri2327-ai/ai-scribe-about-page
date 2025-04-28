@@ -1,0 +1,24 @@
+
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F0F4F8"/>
+  <rect x="100" y="80" width="200" height="160" rx="8" fill="#FFFFFF" stroke="#046F90" stroke-width="2"/>
+  <path d="M120 200L180 170L240 180L280 150" stroke="#5192AE" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="120" cy="200" r="6" fill="#046F90"/>
+  <circle cx="180" cy="170" r="6" fill="#046F90"/>
+  <circle cx="240" cy="180" r="6" fill="#046F90"/>
+  <circle cx="280" cy="150" r="6" fill="#046F90"/>
+  <rect x="120" y="100" width="160" height="40" rx="4" fill="#F0F4F8"/>
+  <path d="M140 120H260" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <path d="M140 130H240" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="350" cy="120" r="20" fill="#A5CCF3"/>
+  <path d="M350 110V130" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M340 120H360" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="50" cy="120" r="20" fill="#046F90"/>
+  <text x="50" y="125" text-anchor="middle" font-family="Arial" font-size="16" font-weight="bold" fill="#FFFFFF">$</text>
+  <path d="M70 120H90" stroke="#046F90" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M310 120H330" stroke="#046F90" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="130" y="30" width="140" height="30" rx="8" fill="#046F90"/>
+  <text x="200" y="50" text-anchor="middle" font-family="Arial" font-size="14" fill="white">Saves $17,796</text>
+  <rect x="120" y="220" width="160" height="20" rx="4" fill="#5192AE"/>
+  <text x="200" y="235" text-anchor="middle" font-family="Arial" font-size="12" fill="white">CRUSH AI Scribing</text>
+</svg>

@@ -1,0 +1,20 @@
+
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F0F4F8"/>
+  <path d="M120 80C120 57.9086 137.909 40 160 40H240C262.091 40 280 57.9086 280 80V220C280 242.091 262.091 260 240 260H160C137.909 260 120 242.091 120 220V80Z" fill="#FFFFFF" stroke="#046F90" stroke-width="2"/>
+  <circle cx="200" cy="100" r="30" fill="#5192AE"/>
+  <path d="M185 100H215" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M200 85V115" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="150" cy="170" r="20" fill="#A5CCF3"/>
+  <path d="M150 160V180" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M140 170H160" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="250" cy="170" r="20" fill="#A5CCF3"/>
+  <path d="M240 170H260" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <rect x="160" y="200" width="80" height="30" rx="8" fill="#046F90"/>
+  <text x="200" y="220" text-anchor="middle" font-family="Arial" font-size="14" fill="white">S10.AI</text>
+  <path d="M100 130C90 140 80 160 80 180" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="70" cy="190" r="10" fill="#5192AE"/>
+  <path d="M300 130C310 140 320 160 320 180" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="330" cy="190" r="10" fill="#5192AE"/>
+  <path d="M70 190V220C70 242.091 87.9086 260 110 260H290C312.091 260 330 242.091 330 220V190" stroke="#046F90" stroke-width="2" stroke-dasharray="4 4"/>
+</svg>

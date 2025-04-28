@@ -1,0 +1,21 @@
+
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F0F4F8"/>
+  <rect x="80" y="60" width="240" height="180" rx="8" fill="#FFFFFF" stroke="#046F90" stroke-width="2"/>
+  <rect x="100" y="90" width="200" height="120" rx="4" fill="#E6F7FF"/>
+  <path d="M140 140H260" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <path d="M140 160H220" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <path d="M140 180H240" stroke="#046F90" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="300" cy="80" r="15" fill="#5192AE"/>
+  <circle cx="300" cy="80" r="7" fill="#FFFFFF"/>
+  <circle cx="100" cy="200" r="15" fill="#5192AE"/>
+  <path d="M95 200L105 200M100 195L100 205" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="320" cy="220" r="20" fill="#A5CCF3"/>
+  <path d="M320 210V230M310 220H330" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M200 40C200.113 40 220 52 220 80" stroke="#046F90" stroke-width="2" stroke-dasharray="4 4"/>
+  <path d="M200 260C200.113 260 180 248 180 220" stroke="#046F90" stroke-width="2" stroke-dasharray="4 4"/>
+  <rect x="160" y="20" width="80" height="20" rx="10" fill="#046F90"/>
+  <text x="200" y="34" text-anchor="middle" font-family="Arial" font-size="12" fill="white">EPIC EHR</text>
+  <rect x="160" y="260" width="80" height="20" rx="10" fill="#046F90"/>
+  <text x="200" y="274" text-anchor="middle" font-family="Arial" font-size="12" fill="white">S10 AI</text>
+</svg>
