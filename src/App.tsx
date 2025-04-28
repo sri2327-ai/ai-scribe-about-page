@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -30,6 +29,7 @@ const FamilyMedicineCaseStudy = React.lazy(() => import('./pages/case-studies/Fa
 const EPICUsabilityCaseStudy = React.lazy(() => import('./pages/case-studies/EPICUsabilityCaseStudy'));
 const ImprovingPatientCareCaseStudy = React.lazy(() => import('./pages/case-studies/ImprovingPatientCareCaseStudy'));
 const FiveThousandCaseStudy = React.lazy(() => import('./pages/case-studies/FiveThousandCaseStudy'));
+const SeventeenThousandCaseStudy = React.lazy(() => import('./pages/case-studies/SeventeenThousandCaseStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -64,6 +64,7 @@ function App() {
           <Route path="/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability" element={<EPICUsabilityCaseStudy />} />
           <Route path="/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe" element={<ImprovingPatientCareCaseStudy />} />
           <Route path="/resources/casestudies/physician-earns-five-thousand-dollars-per-month" element={<FiveThousandCaseStudy />} />
+          <Route path="/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly" element={<SeventeenThousandCaseStudy />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
