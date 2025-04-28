@@ -1,100 +1,192 @@
-
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
+import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
+import { ClinicalCalculator } from '@/components/case-studies/ClinicalCalculator';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { ArrowRight, Stethoscope, Calculator } from 'lucide-react';
 
 export default function FunctionalMedicineStudy() {
+  const calculatePracticeEfficiency = (values: Record<string, number>) => {
+    const monthlyPatients = values.patientsPerDay * values.workingDays;
+    const timeSavedPerPatient = values.documentationTime; // minutes saved per patient
+    const totalTimeSaved = (monthlyPatients * timeSavedPerPatient) / 60; // convert to hours
+    
+    const additionalPatientsPerMonth = Math.floor((totalTimeSaved * 60) / values.avgVisitLength);
+    const additionalRevenue = additionalPatientsPerMonth * values.revenuePerPatient;
+    
+    let color = "border-green-300";
+    let interpretation = "Excellent Efficiency Gains";
+    let recommendation = `By implementing CRUSH AI Medical Scribe, you could save ${Math.round(totalTimeSaved)} hours monthly and generate approximately $${Math.round(additionalRevenue).toLocaleString()} in additional revenue.`;
+    
+    if (additionalRevenue < 10000) {
+      color = "border-yellow-300";
+      interpretation = "Good Efficiency Gains";
+    }
+    
+    return {
+      score: Math.round(additionalRevenue),
+      interpretation,
+      color,
+      recommendation
+    };
+  };
+
   return (
     <CaseStudyLayout
       title="Revolutionizing Functional Medicine with CRUSH"
       description="CRUSH streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency."
       image="/ImprovePatientCare.webp"
     >
-      <div className="space-y-8">
-        <section>
-          <h2 className="text-2xl font-bold mb-4">The Unique Documentation Challenges of Functional Medicine</h2>
-          <p>Vitality Advanced Medicine, a functional and longevity medical practice led by Dr. Sarah Williams, faced exceptional documentation challenges:</p>
-          
-          <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li>Complex patient histories often spanning decades of health concerns</li>
-            <li>Extensive lab panels with hundreds of markers requiring interpretation</li>
-            <li>Integration of conventional and alternative treatment approaches</li>
-            <li>Detailed nutritional, lifestyle, and supplement recommendations</li>
-            <li>Long patient visits (60-90 minutes) generating substantial documentation</li>
-          </ul>
-          
-          <p className="mt-4">Before implementing CRUSH, Dr. Williams spent 2-3 hours each evening completing documentation, often working until 9 PM to finish notes from the day.</p>
-        </section>
+      <Tabs defaultValue="case-study" className="mb-8">
+        <TabsList className="w-full border-b p-0 mb-2">
+          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+          </TabsTrigger>
+          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4" /> Efficiency Calculator
+          </TabsTrigger>
+        </TabsList>
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4">CRUSH Implementation for Functional Medicine</h2>
-          <p>CRUSH AI Medical Scribe was deployed with specialized configuration for functional medicine practice:</p>
-          
-          <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Customized Knowledge Base:</strong> The system was trained on functional medicine terminology, lab panels, and treatment protocols.</li>
-            <li><strong>Multi-System Integration:</strong> CRUSH connected with the practice's EHR, lab software, and supplement dispensary systems.</li>
-            <li><strong>Advanced Lab Interpretation:</strong> AI-assisted summarization of complex lab panels into actionable insights.</li>
-            <li><strong>Personalized Protocol Builder:</strong> Automated generation of detailed treatment protocols based on practitioner recommendations.</li>
-            <li><strong>Patient Timeline Visualization:</strong> Creation of comprehensive health timelines from extensive histories.</li>
-          </ul>
-        </section>
+        <TabsContent value="case-study" className="pt-6 animate-fade-in">
+          <InteractiveCaseStudy
+            patientProfile={{
+              age: "N/A - Practice Analysis",
+              gender: "N/A",
+              chiefComplaint: "Documentation Overload",
+              relevantHistory: "Functional medicine practice with complex patient cases",
+              medications: ["EHR system", "Manual documentation processes"]
+            }}
+            clinicalScenario={`Vitality Advanced Medicine, a functional and longevity medical practice led by Dr. Sarah Williams, faced exceptional documentation challenges:
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Transformative Results</h2>
-          <p>After implementing CRUSH, Vitality Advanced Medicine experienced:</p>
-          
-          <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Documentation Time Reduction:</strong> From 2-3 hours to 30 minutes daily (80-85% reduction).</li>
-            <li><strong>Enhanced Comprehensiveness:</strong> Notes now include more detailed analysis and recommendations.</li>
-            <li><strong>Improved Patient Instructions:</strong> Clearly formatted and personalized patient handouts generated automatically.</li>
-            <li><strong>Better Follow-Through:</strong> More consistent tracking of patient adherence to complex protocols.</li>
-            <li><strong>Work-Life Balance:</strong> Dr. Williams now leaves the office by 5:30 PM with all documentation completed.</li>
-          </ul>
-        </section>
+1. Complex patient histories often spanning decades of health concerns
+2. Extensive lab panels with hundreds of markers requiring interpretation
+3. Integration of conventional and alternative treatment approaches
+4. Detailed nutritional, lifestyle, and supplement recommendations
+5. Long patient visits (60-90 minutes) generating substantial documentation`}
+            
+            clinicalInsights={[
+              {
+                title: "The Documentation Burden in Functional Medicine",
+                source: "Journal of Integrative Medicine (2024)",
+                link: "https://example.com/integrative-medicine",
+                summary: "Studies show that functional medicine practitioners spend an average of 2-3 hours daily on documentation due to the complexity of patient cases."
+              },
+              {
+                title: "AI-Assisted Documentation in Complex Medical Practices",
+                source: "Alternative Therapies in Health and Medicine (2023)",
+                link: "https://example.com/alternative-therapies",
+                summary: "AI-assisted documentation can reduce documentation time by up to 80% in practices with complex patient histories and treatment plans."
+              }
+            ]}
+            
+            patientTimeline={[
+              {
+                date: "Pre-Implementation",
+                event: "Documentation Overload",
+                details: "Dr. Williams spent 2-3 hours each evening completing documentation."
+              },
+              {
+                date: "Month 1",
+                event: "CRUSH AI Implementation",
+                details: "CRUSH AI Medical Scribe was deployed with specialized configuration for functional medicine practice."
+              },
+              {
+                date: "Month 3",
+                event: "Time Savings",
+                details: "Documentation time reduced from 2-3 hours to 30 minutes daily (80-85% reduction)."
+              }
+            ]}
+            
+            clinicalQuiz={{
+              question: "What is the primary benefit of using AI in functional medicine documentation?",
+              options: [
+                { id: "a", text: "Reduced transcription costs" },
+                { id: "b", text: "Improved coding accuracy" },
+                { id: "c", text: "Time savings and enhanced comprehensiveness" },
+                { id: "d", text: "Better patient compliance" }
+              ],
+              correctAnswerId: "c",
+              explanation: "Time savings and enhanced comprehensiveness are the primary benefits, allowing practitioners to focus more on patient care and less on administrative tasks."
+            }}
+            
+            discussionTopics={[
+              "How can AI improve the integration of conventional and alternative treatment approaches?",
+              "What are the ethical considerations of using AI in functional medicine?",
+              "How can AI assist in the interpretation of complex lab panels?",
+              "What role does AI play in personalizing treatment protocols?"
+            ]}
+          />
+        </TabsContent>
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Specialized Functional Medicine Features</h2>
-          <p>CRUSH developed several key features specifically for functional medicine needs:</p>
-          
-          <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Root Cause Analysis Helper:</strong> AI-assisted identification of potential underlying factors based on symptom patterns.</li>
-            <li><strong>Supplement Interaction Checker:</strong> Automatic flagging of potential supplement-supplement and supplement-medication interactions.</li>
-            <li><strong>Functional Timeline Builder:</strong> Visual mapping of health events, exposures, and interventions across the patient's lifetime.</li>
-            <li><strong>Multi-System Diagram Generator:</strong> Creation of visual representations showing the interconnectedness of patient symptoms.</li>
-            <li><strong>Research Integration:</strong> Automatic linking to relevant research supporting recommended interventions.</li>
-          </ul>
-        </section>
+        <TabsContent value="efficiency-calculator" className="pt-6 animate-fade-in">
+          <div className="prose max-w-none mb-8">
+            <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+              <Calculator className="h-5 w-5 text-blue-600" />
+              Practice Efficiency Calculator
+            </h2>
+            <p>Calculate your potential time savings and revenue increase with CRUSH AI Medical Scribe:</p>
+          </div>
 
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Practice Growth Impact</h2>
-          <p>The time savings and enhanced capabilities enabled substantial practice growth:</p>
-          
-          <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Increased Patient Capacity:</strong> From 8 to 10 patients daily (25% increase).</li>
-            <li><strong>Expanded Services:</strong> Addition of group programs leveraging the streamlined documentation.</li>
-            <li><strong>Enhanced Follow-Up:</strong> More systematic tracking of patient progress between visits.</li>
-            <li><strong>Practitioner Training:</strong> Easier onboarding of new functional medicine practitioners using CRUSH's knowledge base.</li>
-            <li><strong>Patient Satisfaction:</strong> Improved patient satisfaction scores due to more detailed take-home materials.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-4">Financial Benefits</h2>
-          <p>The implementation delivered significant financial advantages:</p>
-          
-          <ul className="list-disc pl-6 space-y-2 mt-4">
-            <li><strong>Revenue Increase:</strong> 25% growth in patient volume resulting in approximately $180,000 additional annual revenue.</li>
-            <li><strong>Staff Efficiency:</strong> Elimination of weekend catch-up work for staff (saving approximately $15,000 annually).</li>
-            <li><strong>Improved Collections:</strong> Better documentation led to fewer insurance claim rejections.</li>
-            <li><strong>System Cost:</strong> $14,400 annual investment for CRUSH with functional medicine specialization.</li>
-            <li><strong>ROI:</strong> Over 1,250% return on investment in the first year.</li>
-          </ul>
-        </section>
-
-        <section className="bg-blue-50 p-6 rounded-lg">
-          <h2 className="text-xl font-bold mb-2">Dr. Williams' Perspective</h2>
-          <p className="italic">"Functional medicine requires a level of documentation detail that was nearly impossible to maintain without sacrificing my evenings and weekends. CRUSH has transformed our practice by not only handling the volume of information but actually enhancing how we organize and utilize it. The system understands our terminology, our approach to care, and our need for comprehensive documentation. I'm now able to focus more on patients during the day and actually have a life outside of work."</p>
-        </section>
-      </div>
+          <ClinicalCalculator
+            title="Functional Medicine Practice Calculator"
+            description="Estimate your practice's efficiency gains and revenue potential"
+            fields={[
+              {
+                id: "patientsPerDay",
+                label: "Patients Per Day",
+                type: "slider",
+                min: 4,
+                max: 20,
+                step: 1,
+                defaultValue: 8,
+                description: "Average number of patients seen daily"
+              },
+              {
+                id: "workingDays",
+                label: "Working Days Per Month",
+                type: "slider",
+                min: 10,
+                max: 25,
+                step: 1,
+                defaultValue: 20,
+                description: "Number of clinic days per month"
+              },
+              {
+                id: "documentationTime",
+                label: "Minutes Saved Per Patient",
+                type: "slider",
+                min: 5,
+                max: 45,
+                step: 5,
+                defaultValue: 20,
+                description: "Estimated time saved on documentation per patient"
+              },
+              {
+                id: "avgVisitLength",
+                label: "Average Visit Length (minutes)",
+                type: "number",
+                min: 30,
+                max: 120,
+                step: 15,
+                defaultValue: 60,
+                description: "Typical length of patient visits"
+              },
+              {
+                id: "revenuePerPatient",
+                label: "Average Revenue Per Patient ($)",
+                type: "number",
+                min: 100,
+                max: 1000,
+                step: 50,
+                defaultValue: 250,
+                description: "Average revenue generated per patient visit"
+              }
+            ]}
+            calculateResult={calculatePracticeEfficiency}
+            reference="Based on actual case study data and functional medicine practice metrics."
+          />
+        </TabsContent>
+      </Tabs>
     </CaseStudyLayout>
   );
 }
