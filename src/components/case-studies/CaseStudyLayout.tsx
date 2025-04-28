@@ -2,9 +2,7 @@
 import React from 'react';
 import { Facebook, Linkedin, Clock, X } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
-import OptimizedImage from "@/components/ui/optimized-image";
 import { cn } from "@/lib/utils";
-import styles from "@/styles/casecontentpage.module.scss";
 import { Button } from "@/components/ui/button";
 
 interface CaseStudyLayoutProps {
@@ -19,10 +17,9 @@ interface CaseStudyLayoutProps {
 export const CaseStudyLayout = ({
   title,
   description,
-  image,
   children,
   ctaTitle = "Transform Your Practice with CRUSH",
-  ctaDescription = "Experience the power of AI-driven documentation. Get started today!"
+  ctaDescription = "Join thousands of healthcare providers who have revolutionized their documentation process."
 }: CaseStudyLayoutProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
@@ -31,47 +28,45 @@ export const CaseStudyLayout = ({
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={image} />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
       {/* Hero Banner */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Clock className="w-4 h-4" />
-                <span className="text-sm">Max 3 min read</span>
-              </div>
-
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-                {title}
-              </h1>
-              
-              <p className="text-base md:text-lg text-gray-600">
-                {description}
-              </p>
-
-              <div className="flex gap-4 pt-2">
-                <button className="hover:scale-110 transition-transform" aria-label="Share on Facebook">
-                  <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-                </button>
-                <button className="hover:scale-110 transition-transform" aria-label="Share on X">
-                  <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
-                </button>
-                <button className="hover:scale-110 transition-transform" aria-label="Share on LinkedIn">
-                  <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-                </button>
-              </div>
+      <section className="pt-12 md:pt-20 pb-6 md:pb-10 px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="space-y-4">
+            <div className="flex items-center gap-2 text-gray-600">
+              <Clock className="w-4 h-4" />
+              <span className="text-sm">Max 3 min read</span>
             </div>
 
-            <div className="relative aspect-video md:aspect-square rounded-lg overflow-hidden shadow-xl">
-              <OptimizedImage
-                src={image}
-                alt={title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight">
+              {title}
+            </h1>
+            
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+              {description}
+            </p>
+
+            <div className="flex gap-4 pt-2">
+              <button 
+                className="hover:scale-110 transition-transform rounded-full p-2 hover:bg-gray-100" 
+                aria-label="Share on Facebook"
+              >
+                <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
+              </button>
+              <button 
+                className="hover:scale-110 transition-transform rounded-full p-2 hover:bg-gray-100" 
+                aria-label="Share on X"
+              >
+                <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
+              </button>
+              <button 
+                className="hover:scale-110 transition-transform rounded-full p-2 hover:bg-gray-100" 
+                aria-label="Share on LinkedIn"
+              >
+                <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600" />
+              </button>
             </div>
           </div>
         </div>
@@ -79,18 +74,23 @@ export const CaseStudyLayout = ({
 
       {/* Content */}
       <section className="py-8 md:py-12 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="prose prose-lg max-w-none">
             {children}
           </div>
 
-          {/* CTA Card */}
-          <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:scale-[1.02] transition-transform">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
-            <p className="text-gray-600 mb-6">{ctaDescription}</p>
-            <Button size="lg" className="w-full md:w-auto animate-fade-in">
-              Book Demo
-            </Button>
+          {/* Enhanced CTA Card */}
+          <div className="mt-16 bg-gradient-to-br from-[#F2FCE2] to-green-50 rounded-xl p-8 md:p-12 shadow-lg">
+            <div className="max-w-2xl mx-auto text-center space-y-6">
+              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">{ctaTitle}</h3>
+              <p className="text-lg text-gray-600">{ctaDescription}</p>
+              <Button 
+                size="lg" 
+                className="bg-[#22c55e] hover:bg-[#16a34a] text-white px-8 py-6 text-lg h-auto transition-all duration-300 animate-fade-in shadow-lg hover:shadow-xl"
+              >
+                Book Your Free Demo
+              </Button>
+            </div>
           </div>
         </div>
       </section>
