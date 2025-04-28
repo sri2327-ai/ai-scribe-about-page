@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -45,7 +46,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/changelog" element={<Changelog />} />
-          <Route path="/case-study" element={<CaseStudy />} />
+          <Route path="/case-studies" element={<CaseStudy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
