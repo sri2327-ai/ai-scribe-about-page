@@ -26,6 +26,10 @@ const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
 // Lazy load case study pages
 const OsmindCaseStudy = React.lazy(() => import('./pages/case-studies/OsmindCaseStudy'));
 const NordicLanguagesCaseStudy = React.lazy(() => import('./pages/case-studies/NordicLanguagesCaseStudy'));
+const FamilyMedicineCaseStudy = React.lazy(() => import('./pages/case-studies/FamilyMedicineCaseStudy'));
+const EPICUsabilityCaseStudy = React.lazy(() => import('./pages/case-studies/EPICUsabilityCaseStudy'));
+const ImprovingPatientCareCaseStudy = React.lazy(() => import('./pages/case-studies/ImprovingPatientCareCaseStudy'));
+const FiveThousandCaseStudy = React.lazy(() => import('./pages/case-studies/FiveThousandCaseStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -51,10 +55,15 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/case-studies" element={<CaseStudy />} />
+          <Route path="/resources/casestudies" element={<CaseStudy />} />
           
           {/* Case Study Routes */}
           <Route path="/resources/casestudies/80-faster-documentation-with-osmind-ehr-integration" element={<OsmindCaseStudy />} />
           <Route path="/resources/casestudies/100-accuracy-in-nordic-languages-fast-documentation" element={<NordicLanguagesCaseStudy />} />
+          <Route path="/resources/casestudies/family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4" element={<FamilyMedicineCaseStudy />} />
+          <Route path="/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability" element={<EPICUsabilityCaseStudy />} />
+          <Route path="/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe" element={<ImprovingPatientCareCaseStudy />} />
+          <Route path="/resources/casestudies/physician-earns-five-thousand-dollars-per-month" element={<FiveThousandCaseStudy />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -9,8 +9,9 @@ import { useIsMobile } from "@/hooks/use-mobile";
 
 const caseStudies = [
   { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/ImprovePatientCare.webp" },
-  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/ImprovePatientCare.webp" },
-  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices", description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/ImprovePatientCare.webp" },
+  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "CRUSH integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/ImprovePatientCare.webp" },
+  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More", description: "Boost revenue with efficient and accurate AI scribing from Crush AI Medical Scribe.", image: "/ImprovePatientCare.webp" },
+  { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI", description: "Focus more on patients, less on paperwork with AI assistance.", image: "/ImprovePatientCare.webp" },
 ];
 
 const StunningCaseStudies = () => {
@@ -72,12 +73,12 @@ const StunningCaseStudies = () => {
             columnsMobile={1}
             autoPlay={true}
             showControls={true}
-            controlsBelow={true} // Changed to true to move controls below
+            controlsBelow={true}
             itemHeight={380}
             gap={16}
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
             {caseStudies.map((caseStudy, index) => (
               <CaseStudyCard key={index} caseStudy={caseStudy} />
             ))}
