@@ -1,9 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 
-export const ROICalculator = () => {
+interface ROICalculatorProps {
+  onCalculate?: (data: { monthly: number; yearly: number; multiplier: number }) => void;
+}
+
+export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => {
   const [patientsPerDay, setPatientsPerDay] = useState(20);
   const [workingDays, setWorkingDays] = useState(22);
   const [noShowRate, setNoShowRate] = useState(15);
@@ -29,6 +33,16 @@ export const ROICalculator = () => {
   };
 
   const roi = calculateRoi();
+
+  useEffect(() => {
+    if (onCalculate) {
+      onCalculate({
+        monthly: roi.additionalRevenue,
+        yearly: roi.additionalRevenue * 12,
+        multiplier: roi.additionalRevenue > 0 ? roi.additionalRevenue / 1000 : 0
+      });
+    }
+  }, [roi.additionalRevenue, onCalculate]);
 
   return (
     <Card className="p-6 shadow-md">

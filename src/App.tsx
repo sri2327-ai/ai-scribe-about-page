@@ -32,6 +32,10 @@ const ImprovingPatientCareCaseStudy = React.lazy(() => import('./pages/case-stud
 const FiveThousandCaseStudy = React.lazy(() => import('./pages/case-studies/FiveThousandCaseStudy'));
 const SeventeenThousandCaseStudy = React.lazy(() => import('./pages/case-studies/SeventeenThousandCaseStudy'));
 const TwentyoneThousandCaseStudy = React.lazy(() => import('./pages/case-studies/TwentyoneThousandCaseStudy'));
+const GastroenterologyStudy = React.lazy(() => import('./pages/case-studies/GastroenterologyStudy'));
+const MultiProviderPracticesStudy = React.lazy(() => import('./pages/case-studies/MultiProviderPracticesStudy'));
+const IntakeQStudy = React.lazy(() => import('./pages/case-studies/IntakeQStudy'));
+const FunctionalMedicineStudy = React.lazy(() => import('./pages/case-studies/FunctionalMedicineStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -68,6 +72,12 @@ function App() {
           <Route path="/resources/casestudies/physician-earns-five-thousand-dollars-per-month" element={<FiveThousandCaseStudy />} />
           <Route path="/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly" element={<SeventeenThousandCaseStudy />} />
           <Route path="/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly" element={<TwentyoneThousandCaseStudy />} />
+          
+          {/* New Case Study Routes */}
+          <Route path="/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists" element={<GastroenterologyStudy />} />
+          <Route path="/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices" element={<MultiProviderPracticesStudy />} />
+          <Route path="/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice" element={<IntakeQStudy />} />
+          <Route path="/resources/casestudies/revolutionizing-functional-medicine-with-crush" element={<FunctionalMedicineStudy />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
