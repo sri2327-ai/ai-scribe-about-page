@@ -30,6 +30,7 @@ const EPICUsabilityCaseStudy = React.lazy(() => import('./pages/case-studies/EPI
 const ImprovingPatientCareCaseStudy = React.lazy(() => import('./pages/case-studies/ImprovingPatientCareCaseStudy'));
 const FiveThousandCaseStudy = React.lazy(() => import('./pages/case-studies/FiveThousandCaseStudy'));
 const SeventeenThousandCaseStudy = React.lazy(() => import('./pages/case-studies/SeventeenThousandCaseStudy'));
+const TwentyoneThousandCaseStudy = React.lazy(() => import('./pages/case-studies/TwentyoneThousandCaseStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -65,6 +66,7 @@ function App() {
           <Route path="/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe" element={<ImprovingPatientCareCaseStudy />} />
           <Route path="/resources/casestudies/physician-earns-five-thousand-dollars-per-month" element={<FiveThousandCaseStudy />} />
           <Route path="/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly" element={<SeventeenThousandCaseStudy />} />
+          <Route path="/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly" element={<TwentyoneThousandCaseStudy />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
