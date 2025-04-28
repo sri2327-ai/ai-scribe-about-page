@@ -22,7 +22,10 @@ const FAQ = React.lazy(() => import('./pages/FAQ'));
 const Blog = React.lazy(() => import('./pages/Blog'));
 const Changelog = React.lazy(() => import('./pages/Changelog'));
 const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
+
+// Lazy load case study pages
 const OsmindCaseStudy = React.lazy(() => import('./pages/case-studies/OsmindCaseStudy'));
+const NordicLanguagesCaseStudy = React.lazy(() => import('./pages/case-studies/NordicLanguagesCaseStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -48,7 +51,11 @@ function App() {
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/changelog" element={<Changelog />} />
           <Route path="/case-studies" element={<CaseStudy />} />
+          
+          {/* Case Study Routes */}
           <Route path="/resources/casestudies/80-faster-documentation-with-osmind-ehr-integration" element={<OsmindCaseStudy />} />
+          <Route path="/resources/casestudies/100-accuracy-in-nordic-languages-fast-documentation" element={<NordicLanguagesCaseStudy />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
