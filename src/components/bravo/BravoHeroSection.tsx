@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
@@ -56,7 +57,7 @@ export const BravoHeroSection = () => {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                     >
                       <Tooltip delayDuration={200}>
-                        <TooltipTrigger asChild>
+                        <TooltipTrigger>
                           <Box
                             sx={{
                               position: 'relative',

@@ -3,7 +3,6 @@ import * as React from "react"
 import * as SliderPrimitive from "@radix-ui/react-slider"
 
 import { cn } from "@/lib/utils"
-import { crushAIColors } from "@/theme/crush-ai-theme"
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,

@@ -1,7 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon, Clock, X } from "lucide-react";
@@ -142,7 +142,7 @@ const DemoRequestForm = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="firstName">First Name</Label>
+            <label htmlFor="firstName" className="block text-sm font-medium">First Name</label>
             <Input
               id="firstName"
               name="firstName"
@@ -154,7 +154,7 @@ const DemoRequestForm = () => {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="lastName">Last Name</Label>
+            <label htmlFor="lastName" className="block text-sm font-medium">Last Name</label>
             <Input
               id="lastName"
               name="lastName"
@@ -169,7 +169,7 @@ const DemoRequestForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <label htmlFor="email" className="block text-sm font-medium">Email</label>
             <Input
               id="email"
               name="email"
@@ -182,7 +182,7 @@ const DemoRequestForm = () => {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="phone">Phone</Label>
+            <label htmlFor="phone" className="block text-sm font-medium">Phone</label>
             <Input
               id="phone"
               name="phone"
@@ -198,7 +198,7 @@ const DemoRequestForm = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="companyName">Practice/Hospital Name</Label>
+            <label htmlFor="companyName" className="block text-sm font-medium">Practice/Hospital Name</label>
             <Input
               id="companyName"
               name="companyName"
@@ -210,12 +210,12 @@ const DemoRequestForm = () => {
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="specialty">Medical Specialty</Label>
+            <label htmlFor="specialty" className="block text-sm font-medium">Medical Specialty</label>
             <Select
               value={formData.specialty}
               onValueChange={(value) => setFormData(prev => ({ ...prev, specialty: value }))}
             >
-              <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
+              <SelectTrigger id="specialty" className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
                 <SelectValue placeholder="Select your specialty" />
               </SelectTrigger>
               <SelectContent className="bg-white border border-gray-200">
@@ -231,7 +231,7 @@ const DemoRequestForm = () => {
         </div>
 
         <div className="space-y-2">
-          <Label>Requirements</Label>
+          <label className="block text-sm font-medium">Requirements</label>
           <Select
             value={formData.requirements}
             onValueChange={(value) => setFormData(prev => ({ ...prev, requirements: value }))}
@@ -251,7 +251,7 @@ const DemoRequestForm = () => {
         </div>
 
         <div className="space-y-2">
-          <Label>Select Date & Time</Label>
+          <label className="block text-sm font-medium">Select Date & Time</label>
           <Button
             type="button"
             variant="outline"
@@ -354,7 +354,7 @@ const DemoRequestForm = () => {
                           sideOffset={5}
                         >
                           {timeZoneOptions.map((tz) => (
-                            <SelectItem key={tz} value={tz} className="cursor-pointer">
+                            <SelectItem key={tz} value={tz}>
                               {tz}
                             </SelectItem>
                           ))}
