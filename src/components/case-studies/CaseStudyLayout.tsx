@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Facebook, Linkedin, Clock, X } from "lucide-react";
+import { Helmet } from 'react-helmet-async';
 import OptimizedImage from "@/components/ui/optimized-image";
 import { cn } from "@/lib/utils";
 import styles from "@/styles/casecontentpage.module.scss";
@@ -25,36 +26,51 @@ export const CaseStudyLayout = ({
 }: CaseStudyLayoutProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
+      <Helmet>
+        <title>{`${title} | CRUSH AI Medical Scribe`}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={image} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Helmet>
+
       {/* Hero Banner */}
-      <section className="pt-24 pb-12">
-        <div className={styles.casestudycontainer}>
-          <div className={styles.bannerCard}>
-            <div className={styles.bannerContent}>
-              <div className="flex items-center gap-2 text-gray-600 mb-4">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 text-gray-600">
                 <Clock className="w-4 h-4" />
                 <span className="text-sm">Max 3 min read</span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                 {title}
               </h1>
               
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-base md:text-lg text-gray-600">
                 {description}
               </p>
 
-              <div className="flex gap-4">
-                <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600 cursor-pointer" />
-                <X className="w-5 h-5 text-gray-600 hover:text-gray-900 cursor-pointer" />
-                <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600 cursor-pointer" />
+              <div className="flex gap-4 pt-2">
+                <button className="hover:scale-110 transition-transform" aria-label="Share on Facebook">
+                  <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
+                </button>
+                <button className="hover:scale-110 transition-transform" aria-label="Share on X">
+                  <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
+                </button>
+                <button className="hover:scale-110 transition-transform" aria-label="Share on LinkedIn">
+                  <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600" />
+                </button>
               </div>
             </div>
 
-            <div className={styles.bannerImage}>
+            <div className="relative aspect-video md:aspect-square rounded-lg overflow-hidden shadow-xl">
               <OptimizedImage
                 src={image}
                 alt={title}
-                className="w-full h-full rounded-lg object-cover"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
@@ -62,15 +78,17 @@ export const CaseStudyLayout = ({
       </section>
 
       {/* Content */}
-      <section className="py-12">
-        <div className={cn(styles.casestudycontainer, "prose prose-lg max-w-none")}>
-          {children}
+      <section className="py-8 md:py-12 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="prose prose-lg max-w-none">
+            {children}
+          </div>
 
           {/* CTA Card */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-8 mt-12">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
+          <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:scale-[1.02] transition-transform">
+            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
             <p className="text-gray-600 mb-6">{ctaDescription}</p>
-            <Button size="lg">
+            <Button size="lg" className="w-full md:w-auto animate-fade-in">
               Book Demo
             </Button>
           </div>

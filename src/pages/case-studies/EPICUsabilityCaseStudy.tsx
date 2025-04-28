@@ -36,15 +36,15 @@ export default function EPICUsabilityCaseStudy() {
   return (
     <CaseStudyLayout
       title="How S10 AI Medical Scribe Assistant Improves EPIC Usability"
-      description="Optimize EPIC with AI-powered efficiency."
+      description="Optimize EPIC with AI-powered efficiency"
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:text-blue-700">
             <Stethoscope className="h-4 w-4" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 data-[state=active]:text-blue-700">
+          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:text-blue-700">
             <Calculator className="h-4 w-4" /> Efficiency Calculator
           </TabsTrigger>
         </TabsList>
