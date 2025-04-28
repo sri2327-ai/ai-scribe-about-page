@@ -98,23 +98,25 @@ export const BlogCards = () => {
           <h1 className="text-3xl font-bold text-center mb-8">Blog</h1>
 
           <div className="mb-8 overflow-x-auto">
-            <Tabs defaultValue="All" className="w-full">
-              <TabsList className="w-full flex-wrap justify-start p-1">
-                {mockCategories.map((category) => (
-                  <TabsTrigger
-                    key={category.id}
-                    value={category.name}
-                    onClick={() => {
-                      setSelectedCategory(category.name);
-                      setCurrentPage(1);
-                    }}
-                    className="px-4 py-2 whitespace-nowrap"
-                  >
-                    {category.name}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+            <div className="w-full">
+              <Tabs defaultValue="All" className="w-full">
+                <TabsList className="w-full flex-wrap justify-start p-1">
+                  {mockCategories.map((category) => (
+                    <TabsTrigger
+                      key={category.id}
+                      value={category.name}
+                      onClick={() => {
+                        setSelectedCategory(category.name);
+                        setCurrentPage(1);
+                      }}
+                      className="px-4 py-2 whitespace-nowrap"
+                    >
+                      {category.name}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </Tabs>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

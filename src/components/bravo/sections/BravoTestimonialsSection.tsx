@@ -109,7 +109,9 @@ export const BravoTestimonialsSection = () => {
                           <div className="flex items-center gap-3">
                             <Avatar className="h-10 w-10">
                               <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
-                              <AvatarFallback>{testimonial.author.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                              <AvatarFallback>
+                                {testimonial.author.split(' ').map(n => n[0]).join('')}
+                              </AvatarFallback>
                             </Avatar>
                             <div className="flex flex-col">
                               <span className="font-medium text-white">{testimonial.author}</span>

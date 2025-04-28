@@ -55,7 +55,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             <span className="font-bold">{patientsPerDay}</span>
           </div>
           <Slider 
-            value={[patientsPerDay]} 
+            defaultValue={[patientsPerDay]} 
             onValueChange={values => setPatientsPerDay(values[0])}
             min={5}
             max={50}
@@ -69,7 +69,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             <span className="font-bold">{workingDays}</span>
           </div>
           <Slider 
-            value={[workingDays]} 
+            defaultValue={[workingDays]} 
             onValueChange={values => setWorkingDays(values[0])}
             min={10}
             max={30}
@@ -83,7 +83,7 @@ export const ROICalculator: React.FC<ROICalculatorProps> = ({ onCalculate }) => 
             <span className="font-bold">{noShowRate}%</span>
           </div>
           <Slider 
-            value={[noShowRate]} 
+            defaultValue={[noShowRate]} 
             onValueChange={values => setNoShowRate(values[0])}
             min={5}
             max={30}

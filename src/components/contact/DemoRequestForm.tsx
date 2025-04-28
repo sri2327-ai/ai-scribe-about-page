@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -10,8 +9,6 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
-  DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
 import {
@@ -286,10 +283,10 @@ const DemoRequestForm = () => {
               <DialogHeader className="p-6 pb-2 sticky top-0 bg-white z-10 border-b">
                 <div className="flex justify-between items-center">
                   <div>
-                    <DialogTitle className="text-2xl font-bold text-[#133255]">Schedule Your Demo</DialogTitle>
-                    <DialogDescription className="text-gray-600">
+                    <h2 className="text-2xl font-bold text-[#133255]">Schedule Your Demo</h2>
+                    <p className="text-gray-600">
                       Pick a convenient date and time for your demo
-                    </DialogDescription>
+                    </p>
                   </div>
                   <DialogClose className="absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200">
                     <X className="h-4 w-4" />
