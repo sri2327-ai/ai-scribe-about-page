@@ -8,49 +8,49 @@ import OptimizedImage from "@/components/ui/optimized-image";
 
 const caseStudies = [
   {
-    title: "How S10 AI Medical Scribe Assistant Improves EPIC Usability",
+    title: "How CRUSH AI Medical Scribe Assistant Improves EPIC Usability",
     description: "Optimize EPIC with AI-powered efficiency",
-    path: "/case-studies/epic-usability",
+    path: "/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability",
     image: "/case-studies/epic-integration.svg"
   },
   {
-    title: "Family Medicine Practitioner In Canada Moved To S10.AI From GPT4",
-    description: "Learn how a Canadian doctor improved their practice with S10.AI",
-    path: "/case-studies/family-medicine",
+    title: "Family Medicine Practitioner In Canada Moved To CRUSH From GPT4",
+    description: "Learn how a Canadian doctor improved their practice with CRUSH AI",
+    path: "/resources/casestudies/family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4",
     image: "/case-studies/family-medicine.svg"
   },
   {
-    title: "Improving Patient Care With S10.AI Medical Scribe",
+    title: "Improving Patient Care With CRUSH AI Medical Scribe",
     description: "Focus more on patients, less on paperwork with AI assistance",
-    path: "/case-studies/improving-patient-care",
+    path: "/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe",
     image: "/case-studies/patient-care.svg"
   },
   {
-    title: "Physician Earns $5,311 Per Month More with Crush AI Medical Scribe",
+    title: "Physician Earns $5,311 Per Month More with CRUSH AI Medical Scribe",
     description: "Boost revenue with efficient and accurate AI scribing",
-    path: "/case-studies/five-thousand",
+    path: "/resources/casestudies/physician-earns-five-thousand-dollars-per-month",
     image: "/case-studies/revenue-growth.svg"
   },
   {
     title: "Physician saves $21,144 yearly",
-    description: "Cut costs by replacing traditional scribes with Crush AI Medical Scribe",
-    path: "/case-studies/twentyone-thousand",
+    description: "Cut costs by replacing traditional scribes with CRUSH AI Medical Scribe",
+    path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
     image: "/case-studies/cost-savings.svg"
   },
   {
     title: "Physician saves $17,796 yearly",
-    description: "Eliminate transcription costs with Crush S10.AI Medical Scribe",
-    path: "/case-studies/seventeen-thousand",
+    description: "Eliminate transcription costs with CRUSH AI Medical Scribe",
+    path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
     image: "/case-studies/transcription-savings.svg"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
-    description: "How Crush AI helps gastroenterologists save time on documentation",
-    path: "/case-studies/gastro-efficiency",
+    description: "How CRUSH AI helps gastroenterologists save time on documentation",
+    path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
     image: "/case-studies/patient-care.svg"
   },
   {
-    title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With Crush",
+    title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
     path: "/case-studies/alaska-therapy",
     image: "/case-studies/patient-care.svg"
@@ -85,7 +85,7 @@ export default function CaseStudiesIndex() {
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h2 className="text-base md:text-lg font-semibold mb-3 line-clamp-2 min-h-[2.75rem] text-gray-900 group-hover:text-blue-700 transition-colors">
+                  <h2 className="text-base md:text-lg font-semibold mb-3 text-gray-900 group-hover:text-blue-700 transition-colors">
                     {study.title}
                   </h2>
                   <p className="text-gray-600 text-sm mb-5 flex-grow">
