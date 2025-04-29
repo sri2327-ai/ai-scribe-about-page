@@ -11,49 +11,67 @@ const caseStudies = [
     title: "How CRUSH AI Medical Scribe Assistant Improves EPIC Usability",
     description: "Optimize EPIC with AI-powered efficiency",
     path: "/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability",
-    image: "/case-studies/epic-integration.svg"
+    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
   },
   {
     title: "Family Medicine Practitioner In Canada Moved To CRUSH From GPT4",
     description: "Learn how a Canadian doctor improved their practice with CRUSH AI",
     path: "/resources/casestudies/family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4",
-    image: "/case-studies/family-medicine.svg"
+    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
   },
   {
     title: "Improving Patient Care With CRUSH AI Medical Scribe",
     description: "Focus more on patients, less on paperwork with AI assistance",
     path: "/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe",
-    image: "/case-studies/patient-care.svg"
+    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
   },
   {
     title: "Physician Earns $5,311 Per Month More with CRUSH AI Medical Scribe",
     description: "Boost revenue with efficient and accurate AI scribing",
     path: "/resources/casestudies/physician-earns-five-thousand-dollars-per-month",
-    image: "/case-studies/revenue-growth.svg"
+    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
   },
   {
     title: "Physician saves $21,144 yearly",
     description: "Cut costs by replacing traditional scribes with CRUSH AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
-    image: "/case-studies/cost-savings.svg"
+    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
   },
   {
     title: "Physician saves $17,796 yearly",
     description: "Eliminate transcription costs with CRUSH AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
-    image: "/case-studies/transcription-savings.svg"
+    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
     description: "How CRUSH AI helps gastroenterologists save time on documentation",
     path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
-    image: "/case-studies/patient-care.svg"
+    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
   },
   {
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
-    path: "/resources/casestudies/alaska-therapy", // Updated path to be consistent
-    image: "/case-studies/patient-care.svg"
+    path: "/resources/casestudies/alaska-therapy",
+    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
+  },
+  {
+    title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices",
+    description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices",
+    path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
+    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
+  },
+  {
+    title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice",
+    description: "CRUSH integrates seamlessly with INTAKE Q to automate documentation",
+    path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
+    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+  },
+  {
+    title: "Revolutionizing Functional Medicine with CRUSH",
+    description: "CRUSH streamlines documentation in functional and longevity medicine",
+    path: "/resources/casestudies/revolutionizing-functional-medicine-with-crush",
+    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
   }
 ];
 
@@ -77,11 +95,11 @@ export default function CaseStudiesIndex() {
           {caseStudies.map((study) => (
             <Link key={study.path} to={study.path} className="group">
               <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
-                <div className="aspect-video relative overflow-hidden bg-blue-50/50">
+                <div className="aspect-video relative overflow-hidden">
                   <OptimizedImage 
                     src={study.image} 
                     alt={study.title}
-                    className="w-full h-full object-contain p-4 transform group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">

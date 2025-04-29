@@ -8,10 +8,10 @@ import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const caseStudies = [
-  { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/ImprovePatientCare.webp" },
-  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "CRUSH integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/ImprovePatientCare.webp" },
-  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More", description: "Boost revenue with efficient and accurate AI scribing from Crush AI Medical Scribe.", image: "/ImprovePatientCare.webp" },
-  { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI", description: "Focus more on patients, less on paperwork with AI assistance.", image: "/ImprovePatientCare.webp" },
+  { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
+  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "CRUSH integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
+  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More", description: "Boost revenue with efficient and accurate AI scribing from Crush AI Medical Scribe.", image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" },
+  { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI", description: "Focus more on patients, less on paperwork with AI assistance.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
 ];
 
 const StunningCaseStudies = () => {
@@ -30,7 +30,7 @@ const StunningCaseStudies = () => {
         }
       }}
     >
-      <div className="relative h-36">
+      <div className="relative h-48">
         <OptimizedImage
           src={caseStudy.image}
           alt={caseStudy.title}

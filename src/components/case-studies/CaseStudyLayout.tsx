@@ -37,7 +37,7 @@ export const CaseStudyLayout = ({
       </Helmet>
 
       {/* Hero Banner */}
-      <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-6">
+      <section className="pt-24 md:pt-28 pb-8 md:pb-12 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-6">
             <div className="flex items-center gap-2 text-gray-600">
@@ -45,7 +45,7 @@ export const CaseStudyLayout = ({
               <span className="text-sm">Max 3 min read</span>
             </div>
 
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 break-words hyphens-auto">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 break-words hyphens-auto leading-tight">
               {title}
             </h1>
             

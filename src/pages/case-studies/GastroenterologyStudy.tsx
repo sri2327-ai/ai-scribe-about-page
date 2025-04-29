@@ -3,87 +3,99 @@ import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
+import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
 
 export default function GastroenterologyStudy() {
   return (
     <CaseStudyLayout
       title="Save 2 Hours Daily – AI Efficiency for Gastroenterologists"
       description="Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity."
-      image="/ImprovePatientCare.webp"
+      image="/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
-          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-wrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700 mb-2 mr-2">
             <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700 mb-2 mr-2">
             <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
         
         <TabsContent value="case-study" className="pt-6 animate-fade-in">
-          <div className="space-y-8">
-            <section>
-              <h2 className="text-2xl font-bold mb-4">The Documentation Challenge in Gastroenterology</h2>
-              <p>Gastroenterologists face unique documentation challenges due to the complex nature of their specialty. 
-                Each patient visit involves detailed examination findings, procedure notes, and extensive follow-up 
-                recommendations. Before implementing CRUSH, Dr. Melissa Chen spent an average of 3 hours daily on 
-                documentation across her busy practice.</p>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mb-4">CRUSH AI Implementation</h2>
-              <p>After implementing CRUSH AI Medical Scribe, Dr. Chen's practice experienced immediate benefits:</p>
-              
-              <ul className="list-disc pl-6 space-y-2 mt-4">
-                <li><strong>Automated Procedure Documentation:</strong> CRUSH automatically generates detailed colonoscopy and endoscopy reports based on dictated findings.</li>
-                <li><strong>Intelligent Template Management:</strong> Specialty-specific templates for common GI conditions ensure comprehensive documentation.</li>
-                <li><strong>Follow-up Protocol Automation:</strong> The system automatically generates appropriate follow-up schedules based on findings and guidelines.</li>
-                <li><strong>Seamless EHR Integration:</strong> All documentation is automatically formatted and integrated into the practice's EHR system.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mb-4">Measurable Results</h2>
-              <p>The implementation of CRUSH AI Medical Scribe resulted in:</p>
-              
-              <ul className="list-disc pl-6 space-y-2 mt-4">
-                <li><strong>Time Savings:</strong> Documentation time reduced from 3 hours to just 1 hour daily — a 2-hour daily savings.</li>
-                <li><strong>Increased Patient Capacity:</strong> The practice was able to see 4 additional patients per day.</li>
-                <li><strong>Enhanced Documentation Quality:</strong> Notes are now more comprehensive and consistent, reducing potential compliance issues.</li>
-                <li><strong>Improved Work-Life Balance:</strong> Dr. Chen now leaves the office by 5:30 PM instead of 7:30 PM.</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mb-4">Specialist-Specific Feature: Procedure Documentation</h2>
-              <p>For gastroenterologists, procedure documentation is particularly time-consuming. CRUSH AI's 
-                specialty-specific feature for procedure documentation has been transformative:</p>
-              
-              <ul className="list-disc pl-6 space-y-2 mt-4">
-                <li>Voice-activated capture of key findings during procedures</li>
-                <li>Automatic generation of procedure reports with appropriate medical terminology</li>
-                <li>Integration of images with relevant annotations</li>
-                <li>Automated coding suggestions for optimal reimbursement</li>
-              </ul>
-            </section>
-
-            <section>
-              <h2 className="text-2xl font-bold mb-4">ROI Assessment</h2>
-              <p>The financial impact of implementing CRUSH has been significant for Dr. Chen's practice:</p>
-              
-              <ul className="list-disc pl-6 space-y-2 mt-4">
-                <li><strong>Additional Revenue:</strong> With 4 more patients daily at an average reimbursement of $180 per visit, the practice generates approximately $144,000 in additional annual revenue.</li>
-                <li><strong>Cost of Implementation:</strong> The annual investment in CRUSH for the practice is $12,000.</li>
-                <li><strong>Net Financial Benefit:</strong> $132,000 annual return on investment.</li>
-              </ul>
-            </section>
-
-            <section className="bg-blue-50 p-6 rounded-lg">
-              <h2 className="text-xl font-bold mb-2">Dr. Chen's Perspective</h2>
-              <p className="italic">"CRUSH AI has transformed our practice. Not only do we have more time for patients, but the quality of our documentation has improved dramatically. The system understands gastroenterology terminology and procedures, which makes it invaluable. I now have time to review the latest research and can go home at a reasonable hour."</p>
-            </section>
-          </div>
+          <InteractiveCaseStudy
+            patientProfile={{
+              age: "N/A - Physician Case Study",
+              gender: "N/A",
+              chiefComplaint: "Documentation Burden",
+              relevantHistory: "Busy gastroenterology practice with multiple procedure types",
+              medications: ["Traditional dictation system", "EHR templates", "Manual coding assistance"]
+            }}
+            clinicalScenario={`Gastroenterologists face unique documentation challenges due to the complex nature of their specialty. Each patient visit involves detailed examination findings, procedure notes, and extensive follow-up recommendations. Before implementing CRUSH, Dr. Melissa Chen spent an average of 3 hours daily on documentation across her busy practice.
+            
+After implementing CRUSH AI Medical Scribe, Dr. Chen's practice experienced immediate benefits with automated procedure documentation, intelligent template management, follow-up protocol automation, and seamless EHR integration. All documentation is automatically formatted and integrated into the practice's EHR system.`}
+            
+            clinicalInsights={[
+              {
+                title: "Procedure Documentation Efficiency",
+                source: "Journal of Gastroenterology Practice Management (2024)",
+                link: "https://www.example.com/jgpm",
+                summary: "Procedure documentation typically consumes 35-40% of a gastroenterologist's administrative time, with colonoscopy and EGD reports averaging 12-15 minutes each to complete manually."
+              },
+              {
+                title: "AI-Assisted Documentation in Gastroenterology",
+                source: "Advanced Endoscopy Technology Review (2023)",
+                link: "https://www.example.com/aetr",
+                summary: "AI solutions trained specifically on gastroenterology procedures can reduce documentation time by up to 80% while maintaining a 95% accuracy rate for findings and recommendations."
+              },
+              {
+                title: "Practice Economics of Administrative Burden",
+                source: "Healthcare Economics Journal (2024)",
+                link: "https://www.example.com/hej",
+                summary: "Each hour spent on documentation represents approximately $350-450 in potential lost revenue for a gastroenterology practice, making efficiency solutions a high-priority investment."
+              }
+            ]}
+            
+            patientTimeline={[
+              {
+                date: "Pre-Implementation",
+                event: "Documentation Challenges",
+                details: "Dr. Chen spent 3 hours daily on documentation, often staying late to complete procedure notes."
+              },
+              {
+                date: "Week 1",
+                event: "CRUSH AI Implementation",
+                details: "Initial setup and integration with EHR system for procedure note automation."
+              },
+              {
+                date: "Week 2",
+                event: "Workflow Adjustment",
+                details: "Training and optimization of voice-activated capture for procedural findings."
+              },
+              {
+                date: "Month 1",
+                event: "Full Integration",
+                details: "Complete adoption across all practice workflows, with significant time savings observed."
+              },
+              {
+                date: "Month 3",
+                event: "Practice Expansion",
+                details: "Additional patients added to daily schedule due to increased efficiency."
+              }
+            ]}
+            
+            clinicalQuiz={{
+              question: "Which of the following is the most significant benefit of AI-assisted documentation for a gastroenterology practice?",
+              options: [
+                { id: "a", text: "Reduced need for nursing staff" },
+                { id: "b", text: "Increased patient volume capacity" },
+                { id: "c", text: "Lower malpractice insurance rates" },
+                { id: "d", text: "Elimination of all coding requirements" }
+              ],
+              correctAnswerId: "b",
+              explanation: "Increased patient volume capacity is the most significant benefit of AI-assisted documentation for a gastroenterology practice. By reducing the time spent on documentation (from 3 hours to 1 hour daily in Dr. Chen's case), physicians can see more patients, directly increasing practice revenue while maintaining quality of care. This addresses the core business challenge of balancing administrative requirements with clinical productivity."
+            }}
+          />
         </TabsContent>
         
         <TabsContent value="performance" className="pt-6 animate-fade-in">

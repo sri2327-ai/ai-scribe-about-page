@@ -44,7 +44,6 @@ interface InteractiveCaseStudyProps {
   clinicalInsights: ClinicalInsight[];
   patientTimeline: TimelineEvent[];
   clinicalQuiz: ClinicalQuiz;
-  discussionTopics?: string[]; // Made optional since we're removing this section
 }
 
 export const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({

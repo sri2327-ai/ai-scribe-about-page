@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
@@ -12,17 +11,17 @@ export default function NordicLanguagesCaseStudy() {
     <CaseStudyLayout
       title="100% Accuracy in Nordic Languages – Fast Documentation"
       description="AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors."
-      image="/ImprovePatientCare.webp"
+      image="/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
     >
       <Tabs defaultValue="clinical-case" className="mb-8">
-        <TabsList>
-          <TabsTrigger value="clinical-case" className="flex items-center gap-2">
+        <TabsList className="flex flex-wrap">
+          <TabsTrigger value="clinical-case" className="flex items-center gap-2 mb-2 mr-2">
             <Stethoscope className="h-4 w-4" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="language-demo" className="flex items-center gap-2">
+          <TabsTrigger value="language-demo" className="flex items-center gap-2 mb-2 mr-2">
             <Headphones className="h-4 w-4" /> Language Demo
           </TabsTrigger>
-          <TabsTrigger value="metrics-data" className="flex items-center gap-2">
+          <TabsTrigger value="metrics-data" className="flex items-center gap-2 mb-2">
             <BarChart className="h-4 w-4" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
@@ -33,7 +32,8 @@ export default function NordicLanguagesCaseStudy() {
               age: "N/A - Physician Case Study",
               gender: "N/A",
               chiefComplaint: "Multilingual Documentation Challenges",
-              relevantHistory: "Leading specialist operating in a Nordic multilingual region"
+              relevantHistory: "Leading specialist operating in a Nordic multilingual region",
+              medications: ["Traditional transcription services", "Manual translation verification", "Multilingual administrative staff"]
             }}
             clinicalScenario={`Dr. Willem Gielen, MD, Co-Founder of Nordjysk Speciallægeklinik, is a prominent cardiology specialist serving patients across multiple Nordic countries. His practice faces unique challenges that affect clinical efficiency and documentation:
 
