@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
@@ -104,13 +105,6 @@ Dr. Gielen needed a solution that could seamlessly handle multilingual medical d
               correctAnswerId: "c",
               explanation: "Accurate transcription of medical terminology across different languages presents the most significant challenge in multilingual clinical settings. Medical terminology contains specialized vocabulary that may not have direct equivalents in all languages, and nuanced meanings can be particularly difficult to capture when translating between different linguistic structures, potentially leading to clinical errors if not accurately documented."
             }}
-            
-            discussionTopics={[
-              "How does accurate multilingual documentation improve clinical outcomes?",
-              "What are the ethical considerations of using AI for medical documentation?",
-              "How might AI documentation tools need to adapt to regional dialectal variations?",
-              "What verification processes should remain in place when using AI medical scribing?"
-            ]}
           />
         </TabsContent>
         

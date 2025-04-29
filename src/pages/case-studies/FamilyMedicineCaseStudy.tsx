@@ -81,12 +81,6 @@ After implementing CRUSH AI Medical Scribe, Dr. Gielen was able to automate the 
             correctAnswerId: "c",
             explanation: "Dr. Gielen switched primarily because the manual process of typing prompts into ChatGPT, reviewing the document, and manually entering it into the EHR was time-consuming. CRUSH AI's ability to automate this entire workflow directly from patient conversations was the key advantage."
           }}
-          discussionTopics={[
-            "How can AI-assisted documentation tools be improved for multilingual healthcare environments?",
-            "What are the best practices for integrating AI scribes with existing EHR systems?",
-            "How might time savings from documentation translate to improved patient outcomes?",
-            "What training do physicians need to optimize their use of AI documentation tools?"
-          ]}
         />
 
         <section>

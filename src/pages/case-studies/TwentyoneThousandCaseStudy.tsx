@@ -132,13 +132,6 @@ These challenges were causing stress, reducing efficiency, and creating document
               correctAnswerId: "c",
               explanation: "While all options offer advantages, the elimination of scribe salary, benefits, and turnover expenses represents the most direct and substantial financial impact, as highlighted in this case study where the practice saved $2,112 monthly in direct scribe costs."
             }}
-            
-            discussionTopics={[
-              "How would implementing AI scribing affect your clinical workflow?",
-              "What non-financial benefits might result from adopting AI scribing technology?",
-              "What concerns would you have about transitioning from human to AI scribes?",
-              "How might AI scribing impact patient satisfaction and engagement during visits?"
-            ]}
           />
         </TabsContent>
         
