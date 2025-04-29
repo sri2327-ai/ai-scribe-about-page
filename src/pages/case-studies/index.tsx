@@ -42,6 +42,18 @@ const caseStudies = [
     description: "Eliminate transcription costs with Crush S10.AI Medical Scribe",
     path: "/case-studies/seventeen-thousand",
     image: "/case-studies/transcription-savings.svg"
+  },
+  {
+    title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
+    description: "How Crush AI helps gastroenterologists save time on documentation",
+    path: "/case-studies/gastro-efficiency",
+    image: "/case-studies/patient-care.svg"
+  },
+  {
+    title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With Crush",
+    description: "Learn how a small hospital in Alaska improved documentation in just one week",
+    path: "/case-studies/alaska-therapy",
+    image: "/case-studies/patient-care.svg"
   }
 ];
 
@@ -73,10 +85,10 @@ export default function CaseStudiesIndex() {
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h2 className="text-lg md:text-xl font-semibold mb-3 text-gray-900 group-hover:text-blue-700 transition-colors">
+                  <h2 className="text-base md:text-lg font-semibold mb-3 line-clamp-2 min-h-[2.75rem] text-gray-900 group-hover:text-blue-700 transition-colors">
                     {study.title}
                   </h2>
-                  <p className="text-gray-600 mb-5 flex-grow">
+                  <p className="text-gray-600 text-sm mb-5 flex-grow">
                     {study.description}
                   </p>
                   <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform mt-auto">

@@ -36,6 +36,7 @@ const GastroenterologyStudy = React.lazy(() => import('./pages/case-studies/Gast
 const MultiProviderPracticesStudy = React.lazy(() => import('./pages/case-studies/MultiProviderPracticesStudy'));
 const IntakeQStudy = React.lazy(() => import('./pages/case-studies/IntakeQStudy'));
 const FunctionalMedicineStudy = React.lazy(() => import('./pages/case-studies/FunctionalMedicineStudy'));
+const AlaskaTherapyStudy = React.lazy(() => import('./pages/case-studies/AlaskaTherapyStudy'));
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
@@ -78,6 +79,7 @@ function App() {
           <Route path="/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices" element={<MultiProviderPracticesStudy />} />
           <Route path="/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice" element={<IntakeQStudy />} />
           <Route path="/resources/casestudies/revolutionizing-functional-medicine-with-crush" element={<FunctionalMedicineStudy />} />
+          <Route path="/case-studies/alaska-therapy" element={<AlaskaTherapyStudy />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
