@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Helmet } from 'react-helmet-async';
+import OptimizedImage from "@/components/ui/optimized-image";
 
 const caseStudies = [
   {
@@ -65,17 +66,17 @@ export default function CaseStudiesIndex() {
             <Link key={study.path} to={study.path} className="group">
               <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
                 <div className="aspect-video relative overflow-hidden bg-blue-50/50">
-                  <img 
+                  <OptimizedImage 
                     src={study.image} 
                     alt={study.title}
                     className="w-full h-full object-contain p-4 transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h2 className="text-lg md:text-xl font-semibold mb-2 text-gray-900 group-hover:text-blue-700 transition-colors">
+                  <h2 className="text-lg md:text-xl font-semibold mb-3 text-gray-900 group-hover:text-blue-700 transition-colors">
                     {study.title}
                   </h2>
-                  <p className="text-gray-600 mb-4 flex-grow">
+                  <p className="text-gray-600 mb-5 flex-grow">
                     {study.description}
                   </p>
                   <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform mt-auto">
