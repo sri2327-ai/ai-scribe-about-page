@@ -10,6 +10,7 @@ export default function AlaskaTherapyCaseStudy() {
       image="/case-studies/alaska-therapy.svg"
       ctaTitle="Ready to Transform Your Therapy Documentation?"
       ctaDescription="Join the Wasilla Hospital and hundreds of other healthcare providers who are saving time and improving care with CRUSH AI."
+      readTime="5 min read"
     >
       <div className="space-y-8">
         <section className="bg-blue-50/50 p-6 rounded-lg border border-blue-100">

@@ -16,6 +16,7 @@ interface CaseStudyLayoutProps {
   ctaDescription?: string;
   author?: string;
   date?: string;
+  readTime?: string;
 }
 
 export const CaseStudyLayout = ({
@@ -26,7 +27,8 @@ export const CaseStudyLayout = ({
   ctaTitle = "Transform Your Practice with CRUSH",
   ctaDescription = "Experience the power of AI-driven documentation. Get started today!",
   author = "CRUSH AI Team",
-  date = "April 2025"
+  date = "April 2025",
+  readTime = "3 min read"
 }: CaseStudyLayoutProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
@@ -46,7 +48,7 @@ export const CaseStudyLayout = ({
             <div className="flex flex-wrap items-center gap-4 text-gray-600">
               <div className="flex items-center gap-2">
                 <Clock className="w-4 h-4" />
-                <span className="text-sm">3 min read</span>
+                <span className="text-sm">{readTime}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
