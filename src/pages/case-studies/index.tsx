@@ -60,10 +60,10 @@ export default function CaseStudiesIndex() {
           Discover how healthcare providers are transforming their practices and improving patient care with CRUSH AI Medical Scribe.
         </p>
         
-        <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
             <Link key={study.path} to={study.path} className="group">
-              <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
                 <div className="aspect-video relative overflow-hidden bg-blue-50/50">
                   <img 
                     src={study.image} 
@@ -71,14 +71,14 @@ export default function CaseStudiesIndex() {
                     className="w-full h-full object-contain p-4 transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="p-6">
-                  <h2 className="text-xl font-semibold mb-2 text-gray-900 line-clamp-2 min-h-[3.5rem] group-hover:text-blue-700 transition-colors">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h2 className="text-lg md:text-xl font-semibold mb-2 text-gray-900 group-hover:text-blue-700 transition-colors">
                     {study.title}
                   </h2>
-                  <p className="text-gray-600 mb-4 line-clamp-2">
+                  <p className="text-gray-600 mb-4 flex-grow">
                     {study.description}
                   </p>
-                  <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
+                  <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform mt-auto">
                     Read More <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
                 </div>
