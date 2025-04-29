@@ -38,12 +38,15 @@ export default function OsmindCaseStudy() {
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Calculator className="h-4 w-4" /> Efficiency Calculator
+          <TabsTrigger value="efficiency-calculator" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Efficiency Calculator
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
 
@@ -108,13 +111,6 @@ export default function OsmindCaseStudy() {
               correctAnswerId: "b",
               explanation: "While all benefits are valuable, time savings and improved work-life balance are the primary benefits, directly impacting both provider satisfaction and patient care quality."
             }}
-            
-            discussionTopics={[
-              "How does documentation burden affect your patient interactions?",
-              "What specific OSMIND features would you like to see automated?",
-              "How would reduced documentation time impact your practice?",
-              "What concerns do you have about AI integration?"
-            ]}
           />
         </TabsContent>
 
@@ -165,6 +161,41 @@ export default function OsmindCaseStudy() {
             calculateResult={calculateEfficiencyGains}
             reference="Based on actual implementation data and psychiatric practice metrics."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Time Efficiency</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Documentation time reduction: <span className="font-medium text-emerald-600">80%</span></li>
+                  <li>Time saved per patient: <span className="font-medium text-emerald-600">18.5 minutes</span></li>
+                  <li>After-hours documentation: <span className="font-medium text-emerald-600">Reduced by 94%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Psychiatric Practice Impact</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Assessment quality score: <span className="font-medium text-emerald-600">9.2/10</span> (increased from 7.4/10)</li>
+                  <li>Treatment plan detail improvement: <span className="font-medium text-emerald-600">+46%</span></li>
+                  <li>Provider satisfaction with notes: <span className="font-medium text-emerald-600">96%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">EHR Integration Performance</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Seamless data transfer rate: <span className="font-medium text-emerald-600">99.7%</span></li>
+                  <li>Data validation accuracy: <span className="font-medium text-emerald-600">99.3%</span></li>
+                  <li>Integration stability: <span className="font-medium text-emerald-600">99.9% uptime</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>

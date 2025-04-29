@@ -41,11 +41,14 @@ export default function EPICUsabilityCaseStudy() {
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 whitespace-nowrap data-[state=active]:text-blue-700">
-            <Calculator className="h-4 w-4" /> Efficiency Calculator
+          <TabsTrigger value="efficiency-calculator" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Efficiency Calculator
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
 
@@ -110,13 +113,6 @@ export default function EPICUsabilityCaseStudy() {
               correctAnswerId: "b",
               explanation: "While all metrics are important, time saved on documentation directly impacts provider efficiency, patient care quality, and overall healthcare delivery effectiveness."
             }}
-            
-            discussionTopics={[
-              "How has EHR documentation affected your clinical workflow?",
-              "What specific EPIC features would you like to see automated?",
-              "How would reduced click burden impact your patient interactions?",
-              "What concerns do you have about AI integration with EPIC?"
-            ]}
           />
         </TabsContent>
 
@@ -157,6 +153,41 @@ export default function EPICUsabilityCaseStudy() {
             calculateResult={calculateTimeAndClicks}
             reference="Based on actual EPIC usage data and AI implementation results."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">EHR Efficiency Impact</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Documentation time reduction: <span className="font-medium text-emerald-600">75%</span></li>
+                  <li>Click reduction per task: <span className="font-medium text-emerald-600">80%</span></li>
+                  <li>Average time saved per provider: <span className="font-medium text-emerald-600">2.3 hours daily</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Workflow Improvement</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Real-time documentation rate: <span className="font-medium text-emerald-600">92%</span></li>
+                  <li>Chart completion at point-of-care: <span className="font-medium text-emerald-600">89%</span> (increased from 34%)</li>
+                  <li>Provider adoption rate: <span className="font-medium text-emerald-600">96%</span> after 3 months</li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Clinical Outcomes</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Increased face-to-face patient time: <span className="font-medium text-emerald-600">42%</span></li>
+                  <li>Provider burnout reduction: <span className="font-medium text-emerald-600">38%</span></li>
+                  <li>Clinical decision support utilization: <span className="font-medium text-emerald-600">+57%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>

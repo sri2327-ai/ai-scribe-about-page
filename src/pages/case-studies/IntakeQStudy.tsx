@@ -38,12 +38,15 @@ export default function IntakeQStudy() {
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Calculator className="h-4 w-4" /> Efficiency Calculator
+          <TabsTrigger value="efficiency-calculator" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Efficiency Calculator
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
 
@@ -113,13 +116,6 @@ export default function IntakeQStudy() {
               correctAnswerId: "b",
               explanation: "While all benefits are important, time savings and workflow efficiency have the most immediate impact on practice operations and provider satisfaction, enabling providers to see more patients and improve care quality."
             }}
-            
-            discussionTopics={[
-              "How would automated intake data integration benefit your practice?",
-              "What challenges do you face with your current intake process?",
-              "How could saved documentation time be reinvested in patient care?",
-              "What concerns do you have about system integration?"
-            ]}
           />
         </TabsContent>
 
@@ -170,6 +166,41 @@ export default function IntakeQStudy() {
             calculateResult={calculateIntakeEfficiency}
             reference="Based on actual implementation data from practices using CRUSH with IntakeQ integration."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Workflow Efficiency</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Documentation time reduction: <span className="font-medium text-emerald-600">88%</span> (from 43 to 5 minutes per patient)</li>
+                  <li>Data transfer automation: <span className="font-medium text-emerald-600">100%</span></li>
+                  <li>Data accuracy improvement: <span className="font-medium text-emerald-600">96%</span> (from 82%)</li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Practice Performance</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Daily patient capacity increase: <span className="font-medium text-emerald-600">+4 patients</span></li>
+                  <li>Monthly revenue increase: <span className="font-medium text-emerald-600">$14,400</span></li>
+                  <li>Administrative staff time savings: <span className="font-medium text-emerald-600">12.5 hours weekly</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Experience Metrics</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Patient intake experience rating: <span className="font-medium text-emerald-600">9.4/10</span> (from 7.2/10)</li>
+                  <li>Provider satisfaction score: <span className="font-medium text-emerald-600">9.7/10</span></li>
+                  <li>Staff satisfaction improvement: <span className="font-medium text-emerald-600">+86%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>

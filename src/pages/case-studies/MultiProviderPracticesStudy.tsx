@@ -41,12 +41,15 @@ export default function MultiProviderPracticesStudy() {
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="efficiency-calculator" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Calculator className="h-4 w-4" /> Practice Efficiency Calculator
+          <TabsTrigger value="efficiency-calculator" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Practice Efficiency Calculator
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
 
@@ -116,13 +119,6 @@ export default function MultiProviderPracticesStudy() {
               correctAnswerId: "b",
               explanation: "While all benefits are important, standardized documentation quality across providers enables better care coordination, consistent billing practices, and improved patient outcomes tracking."
             }}
-            
-            discussionTopics={[
-              "How would standardized documentation impact your group practice?",
-              "What challenges do you face in maintaining consistent documentation?",
-              "How could reduced documentation time benefit your team?",
-              "What concerns do you have about practice-wide AI implementation?"
-            ]}
           />
         </TabsContent>
 
@@ -183,6 +179,41 @@ export default function MultiProviderPracticesStudy() {
             calculateResult={calculatePracticeEfficiency}
             reference="Based on actual implementation data from multi-provider practices using CRUSH AI Medical Scribe."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Group Practice Efficiency</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Average time saved per provider: <span className="font-medium text-emerald-600">2.3 hours daily</span></li>
+                  <li>Practice-wide monthly time savings: <span className="font-medium text-emerald-600">598 hours</span></li>
+                  <li>Documentation completion rate at point-of-care: <span className="font-medium text-emerald-600">91%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Practice-Wide Benefits</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Standardized documentation quality: <span className="font-medium text-emerald-600">96% compliance</span></li>
+                  <li>Care coordination improvement: <span className="font-medium text-emerald-600">+41%</span></li>
+                  <li>After-hours documentation reduction: <span className="font-medium text-emerald-600">-82%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Financial Impact</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Additional patients capacity monthly: <span className="font-medium text-emerald-600">520</span></li>
+                  <li>Monthly revenue increase: <span className="font-medium text-emerald-600">$98,800</span></li>
+                  <li>Annual ROI: <span className="font-medium text-emerald-600">890%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>

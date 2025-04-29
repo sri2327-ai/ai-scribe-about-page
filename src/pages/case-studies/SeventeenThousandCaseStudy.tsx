@@ -39,12 +39,15 @@ export default function SeventeenThousandCaseStudy() {
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="roi-analysis" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <DollarSign className="h-4 w-4" /> ROI Analysis
+          <TabsTrigger value="roi-analysis" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <DollarSign className="h-4 w-4 mr-2 inline" /> ROI Analysis
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
         
@@ -108,13 +111,6 @@ export default function SeventeenThousandCaseStudy() {
               correctAnswerId: "b",
               explanation: "While all options represent advantages, immediate documentation availability is the most significant as it enables real-time clinical decision-making and eliminates the 24-hour delay typical with traditional transcription services."
             }}
-            
-            discussionTopics={[
-              "How would real-time documentation impact your clinical decision-making?",
-              "What security concerns do you have with your current documentation process?",
-              "How do documentation delays affect patient care in your practice?",
-              "What would you do with the time saved from faster documentation?"
-            ]}
           />
         </TabsContent>
         
@@ -157,6 +153,41 @@ export default function SeventeenThousandCaseStudy() {
             calculateResult={calculatePracticeROI}
             reference="Based on actual case study data and industry standard healthcare economics calculations."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Financial Impact</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Annual cost savings: <span className="font-medium text-emerald-600">$17,796</span></li>
+                  <li>ROI after 12 months: <span className="font-medium text-emerald-600">648%</span></li>
+                  <li>Implementation cost recovery: <span className="font-medium text-blue-600">5.4 weeks</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Efficiency Metrics</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Documentation time reduction: <span className="font-medium text-emerald-600">87%</span></li>
+                  <li>Eliminated transcription waiting period: <span className="font-medium text-emerald-600">24 hours</span></li>
+                  <li>Documentation completion rate at point-of-care: <span className="font-medium text-emerald-600">94%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Quality Measurements</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Documentation compliance score: <span className="font-medium text-emerald-600">98%</span> (increased from 82%)</li>
+                  <li>Error reduction rate: <span className="font-medium text-emerald-600">91%</span></li>
+                  <li>Provider satisfaction score: <span className="font-medium text-emerald-600">9.3/10</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>

@@ -38,12 +38,15 @@ export default function ImprovingPatientCareCaseStudy() {
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="care-calculator" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Calculator className="h-4 w-4" /> Care Impact Calculator
+          <TabsTrigger value="care-calculator" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Care Impact Calculator
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
 
@@ -108,13 +111,6 @@ export default function ImprovingPatientCareCaseStudy() {
               correctAnswerId: "c",
               explanation: "While all benefits are important, increased direct patient care time has the most significant impact on both care quality and patient outcomes."
             }}
-            
-            discussionTopics={[
-              "How does documentation time affect your patient interactions?",
-              "What would you do with additional patient care time?",
-              "How could increased face-to-face time improve outcomes?",
-              "What aspects of patient care suffer most from documentation burden?"
-            ]}
           />
         </TabsContent>
 
@@ -175,6 +171,41 @@ export default function ImprovingPatientCareCaseStudy() {
             calculateResult={calculatePatientCareImprovements}
             reference="Based on healthcare quality metrics and implementation data."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Patient Interaction Metrics</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Direct patient interaction time increase: <span className="font-medium text-emerald-600">40%</span></li>
+                  <li>Average additional minutes per patient: <span className="font-medium text-emerald-600">7.5 minutes</span></li>
+                  <li>Patient satisfaction scores: <span className="font-medium text-emerald-600">Increased by 32%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Provider Experience</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Provider burnout reduction: <span className="font-medium text-emerald-600">43%</span></li>
+                  <li>Work-life balance improvement: <span className="font-medium text-emerald-600">+38%</span></li>
+                  <li>Documentation satisfaction: <span className="font-medium text-emerald-600">92%</span> (increased from 41%)</li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Clinical Outcomes</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Treatment plan adherence: <span className="font-medium text-emerald-600">Increased by 28%</span></li>
+                  <li>Preventive care measure completion: <span className="font-medium text-emerald-600">+33%</span></li>
+                  <li>Follow-up appointment attendance: <span className="font-medium text-emerald-600">Improved by 24%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>

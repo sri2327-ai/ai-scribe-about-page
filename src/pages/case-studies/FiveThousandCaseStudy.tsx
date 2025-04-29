@@ -40,12 +40,15 @@ export default function FiveThousandCaseStudy() {
       image="/ImprovePatientCare.webp"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="roi-analysis" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <DollarSign className="h-4 w-4" /> ROI Analysis
+          <TabsTrigger value="roi-analysis" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <DollarSign className="h-4 w-4 mr-2 inline" /> ROI Analysis
+          </TabsTrigger>
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
         
@@ -111,13 +114,6 @@ These challenges were affecting both practice efficiency and personal well-being
               correctAnswerId: "b",
               explanation: "While all factors contribute to improved practice performance, increased patient volume capacity through time savings is the primary driver of additional revenue, allowing physicians to see more patients during regular hours."
             }}
-            
-            discussionTopics={[
-              "How would you utilize the additional hours saved from documentation?",
-              "What impact would seeing more patients have on your practice?",
-              "How would reduced documentation time affect your work-life balance?",
-              "What aspects of your current EHR workflow need the most improvement?"
-            ]}
           />
         </TabsContent>
         
@@ -180,6 +176,41 @@ These challenges were affecting both practice efficiency and personal well-being
             calculateResult={calculateTimeROI}
             reference="Based on actual case study data and industry standard healthcare economics calculations."
           />
+        </TabsContent>
+
+        <TabsContent value="performance" className="pt-6 animate-fade-in">
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
+            
+            <div className="space-y-6">
+              <div className="border-l-4 border-blue-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Financial Performance</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Additional monthly revenue: <span className="font-medium text-emerald-600">$5,311</span></li>
+                  <li>Annual revenue increase: <span className="font-medium text-emerald-600">$63,732</span></li>
+                  <li>Return on investment: <span className="font-medium text-emerald-600">785%</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-purple-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Clinical Efficiency</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Documentation time reduced: <span className="font-medium text-emerald-600">75%</span></li>
+                  <li>Additional patients seen daily: <span className="font-medium text-emerald-600">4.2</span></li>
+                  <li>Hours saved per week: <span className="font-medium text-emerald-600">11.5</span></li>
+                </ul>
+              </div>
+              
+              <div className="border-l-4 border-amber-500 pl-4">
+                <h3 className="text-lg font-semibold mb-2">Practice Transformation</h3>
+                <ul className="list-disc list-inside space-y-2 text-gray-700">
+                  <li>Work-life balance improvement: <span className="font-medium text-emerald-600">+47%</span></li>
+                  <li>Provider satisfaction increase: <span className="font-medium text-emerald-600">+68%</span></li>
+                  <li>Patient satisfaction scores: <span className="font-medium text-emerald-600">Increased by 29%</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </TabsContent>
       </Tabs>
     </CaseStudyLayout>
