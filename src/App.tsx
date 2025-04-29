@@ -21,7 +21,7 @@ const NotFound = React.lazy(() => import('./pages/NotFound'));
 const FAQ = React.lazy(() => import('./pages/FAQ'));
 const Blog = React.lazy(() => import('./pages/Blog'));
 const Changelog = React.lazy(() => import('./pages/Changelog'));
-const CaseStudy = React.lazy(() => import('./pages/case-studies/index'));
+const CaseStudy = React.lazy(() => import('./pages/CaseStudy'));
 
 // Lazy load case study pages
 const OsmindCaseStudy = React.lazy(() => import('./pages/case-studies/OsmindCaseStudy'));
