@@ -41,18 +41,6 @@ const caseStudies = [
     description: "Eliminate transcription costs with Crush S10.AI Medical Scribe",
     path: "/case-studies/seventeen-thousand",
     image: "/case-studies/transcription-savings.svg"
-  },
-  {
-    title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
-    description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation",
-    path: "/case-studies/gastroenterology",
-    image: "/case-studies/gastro-efficiency.svg"
-  },
-  {
-    title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH AI",
-    description: "A small hospital implemented CRUSH AI and transformed their therapy documentation process",
-    path: "/case-studies/alaska-therapy",
-    image: "/case-studies/alaska-therapy.svg"
   }
 ];
 
@@ -75,7 +63,7 @@ export default function CaseStudiesIndex() {
         <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
             <Link key={study.path} to={study.path} className="group">
-              <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
+              <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100">
                 <div className="aspect-video relative overflow-hidden bg-blue-50/50">
                   <img 
                     src={study.image} 
@@ -83,14 +71,14 @@ export default function CaseStudiesIndex() {
                     className="w-full h-full object-contain p-4 transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h2 className="text-xl font-semibold mb-2 text-gray-900 group-hover:text-blue-700 transition-colors min-h-[4rem] line-clamp-2">
+                <div className="p-6">
+                  <h2 className="text-xl font-semibold mb-2 text-gray-900 line-clamp-2 min-h-[3.5rem] group-hover:text-blue-700 transition-colors">
                     {study.title}
                   </h2>
-                  <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">
+                  <p className="text-gray-600 mb-4 line-clamp-2">
                     {study.description}
                   </p>
-                  <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform mt-auto">
+                  <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform">
                     Read More <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
                 </div>
