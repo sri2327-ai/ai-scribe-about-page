@@ -10,16 +10,14 @@ import StunningCaseStudies from '@/components/customer/StunningCaseStudies';
 import LogoScroll from '@/components/customer/LogoScroll';
 import HeroSection from '@/components/customer/HeroSection';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const Customer = () => {
   const isMobile = useIsMobile();
   
   const sections = [
-    { Component: TestimonialCarousel, id: 'testimonials', title: 'Customer Testimonials' },
-    { Component: StunningCaseStudies, id: 'case-studies', title: 'Case Studies' },
-    { Component: LogoScroll, id: 'logos', title: 'Trusted By' },
+    { Component: TestimonialCarousel, id: 'testimonials' },
+    { Component: StunningCaseStudies, id: 'case-studies' },
+    { Component: LogoScroll, id: 'logos' },
   ];
 
   const containerVariants = {
@@ -70,9 +68,8 @@ const Customer = () => {
         {isMobile ? (
           <div className="py-4">
             <div className="my-8 space-y-16">
-              {sections.map(({ Component, id, title }) => (
+              {sections.map(({ Component, id }) => (
                 <motion.div key={id} className="mb-12" variants={itemVariants}>
-                  <h2 className="text-2xl font-bold text-[#143151] mb-6 text-center">{title}</h2>
                   <Component />
                 </motion.div>
               ))}
@@ -80,9 +77,8 @@ const Customer = () => {
           </div>
         ) : (
           <div className="space-y-24 py-12">
-            {sections.map(({ Component, id, title }) => (
+            {sections.map(({ Component, id }) => (
               <motion.div key={id} variants={itemVariants} className="py-6">
-                <h2 className="text-3xl font-bold text-[#143151] mb-8 text-center">{title}</h2>
                 <Component />
               </motion.div>
             ))}
@@ -91,12 +87,6 @@ const Customer = () => {
         
         <motion.div variants={itemVariants}>
           <HeroSection />
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="text-center py-12">
-          <Link to="/case-study" className="inline-flex items-center gap-2 text-[#143151] font-medium hover:underline">
-            View All Case Studies <ArrowRight className="h-4 w-4" />
-          </Link>
         </motion.div>
       </div>
     </motion.main>

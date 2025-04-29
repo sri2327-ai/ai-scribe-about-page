@@ -59,9 +59,9 @@ const TestimonialCarousel = () => {
       <div className={`${styles.carouselWrapper} max-w-7xl mx-auto`}>
         <Typography 
           variant="h3" 
-          className="text-center text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-6 md:mb-10 px-2"
+          className="text-center text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-10 px-2"
         >
-          S10 is STUNNING: The #1 Ambient AI Solution Clinicians Love!
+          <span className="text-[#D946EF]">S10</span> is STUNNING: The #1 Ambient AI Solution Clinicians Love!
         </Typography>
         {rows.map((row, index) => (
           <div 

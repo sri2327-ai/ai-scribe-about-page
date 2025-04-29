@@ -87,7 +87,9 @@ export const CaseStudyLayout = ({
           {/* CTA Card */}
           <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:shadow-xl transition-all duration-300">
             <div className="text-center">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
+                <span className="text-[#D946EF]">{ctaTitle}</span>
+              </h3>
               <p className="text-gray-600 mb-6">{ctaDescription}</p>
               <Button 
                 size="lg" 

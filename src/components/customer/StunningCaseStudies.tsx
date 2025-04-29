@@ -55,13 +55,6 @@ const StunningCaseStudies = () => {
   return (
     <section className="px-4 md:px-8 py-6 md:py-12 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto">
-        <Typography 
-          variant="h2" 
-          className="text-xl md:text-3xl font-bold text-center mb-6 md:mb-10 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent px-2"
-        >
-          Success Stories from Our Clients
-        </Typography>
-
         {isMobile ? (
           <ResponsiveCarousel
             items={caseStudies}
