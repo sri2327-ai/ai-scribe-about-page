@@ -10,67 +10,67 @@ const caseStudies = [
   {
     title: "How CRUSH AI Medical Scribe Assistant Improves EPIC Usability",
     description: "Optimize EPIC with AI-powered efficiency",
-    path: "/case-studies/EPICUsabilityCaseStudy",
+    path: "/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability",
     image: "/case-studies/epic-integration.svg"
   },
   {
     title: "Family Medicine Practitioner In Canada Moved To CRUSH From GPT4",
     description: "Learn how a Canadian doctor improved their practice with CRUSH AI",
-    path: "/case-studies/FamilyMedicineCaseStudy",
+    path: "/resources/casestudies/family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4",
     image: "/case-studies/family-medicine.svg"
   },
   {
     title: "Improving Patient Care With CRUSH AI Medical Scribe",
     description: "Focus more on patients, less on paperwork with AI assistance",
-    path: "/case-studies/ImprovingPatientCareCaseStudy",
+    path: "/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe",
     image: "/case-studies/patient-care.svg"
   },
   {
     title: "Physician Earns $5,311 Per Month More with CRUSH AI Medical Scribe",
     description: "Boost revenue with efficient and accurate AI scribing",
-    path: "/case-studies/FiveThousandCaseStudy",
+    path: "/resources/casestudies/physician-earns-five-thousand-dollars-per-month",
     image: "/case-studies/revenue-growth.svg"
   },
   {
     title: "Physician saves $21,144 yearly",
     description: "Cut costs by replacing traditional scribes with CRUSH AI Medical Scribe",
-    path: "/case-studies/TwentyoneThousandCaseStudy",
+    path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
     image: "/case-studies/cost-savings.svg"
   },
   {
     title: "Physician saves $17,796 yearly",
     description: "Eliminate transcription costs with CRUSH AI Medical Scribe",
-    path: "/case-studies/SeventeenThousandCaseStudy",
+    path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
     image: "/case-studies/transcription-savings.svg"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
     description: "How CRUSH AI helps gastroenterologists save time on documentation",
-    path: "/case-studies/GastroenterologyStudy",
+    path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
     image: "/case-studies/patient-care.svg"
   },
   {
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
-    path: "/case-studies/AlaskaTherapyStudy",
+    path: "/resources/casestudies/alaska-therapy",
     image: "/case-studies/cost-savings.svg"
   },
   {
     title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices",
     description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices",
-    path: "/case-studies/MultiProviderPracticesStudy",
+    path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
     image: "/case-studies/patient-care.svg"
   },
   {
     title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice",
     description: "CRUSH integrates seamlessly with INTAKE Q to automate documentation",
-    path: "/case-studies/IntakeQStudy",
+    path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
     image: "/case-studies/epic-integration.svg"
   },
   {
     title: "Revolutionizing Functional Medicine with CRUSH",
     description: "CRUSH streamlines documentation in functional and longevity medicine",
-    path: "/case-studies/FunctionalMedicineStudy",
+    path: "/resources/casestudies/revolutionizing-functional-medicine-with-crush",
     image: "/case-studies/family-medicine.svg"
   }
 ];

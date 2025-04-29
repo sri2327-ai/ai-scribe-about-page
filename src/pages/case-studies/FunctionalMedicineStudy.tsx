@@ -3,6 +3,7 @@ import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function FunctionalMedicineStudy() {
   return (
@@ -70,6 +71,13 @@ export default function FunctionalMedicineStudy() {
               <h2 className="text-xl font-bold mb-2">Dr. Taylor's Experience</h2>
               <p className="italic">"CRUSH AI has transformed our functional medicine practice. The depth and quality of our documentation has improved significantly, while the time required has been cut by 75%. This allows us to focus more on analyzing complex cases and delivering personalized care. The system's ability to handle our specialized lab panels and supplement protocols has been remarkable."</p>
             </section>
+
+            <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+              <p className="text-lg text-center max-w-2xl mb-6">Experience the power of AI-driven documentation. Get started today!</p>
+              <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+                Book Demo
+              </Button>
+            </div>
           </div>
         </TabsContent>
         
@@ -104,6 +112,13 @@ export default function FunctionalMedicineStudy() {
                   <li>Lab result follow-up rate: <span className="font-medium text-emerald-600">99.4%</span> (increased from 87%)</li>
                 </ul>
               </div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+              <p className="text-lg text-center max-w-2xl mb-6">Transform Your Practice with CRUSH</p>
+              <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+                Book Demo
+              </Button>
             </div>
           </div>
         </TabsContent>

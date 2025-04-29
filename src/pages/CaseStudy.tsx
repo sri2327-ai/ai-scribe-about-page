@@ -45,7 +45,7 @@ const CaseStudy = () => {
               
               <button 
                 onClick={() => navigate(`/resources/casestudies/100-accuracy-in-nordic-languages-fast-documentation`)}
-                className="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white rounded-md transition-colors"
               >
                 Read Full Case Study <ChevronRight size={18} />
               </button>

@@ -4,6 +4,7 @@ import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
 import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
+import { Button } from '@/components/ui/button';
 
 export default function GastroenterologyStudy() {
   return (
@@ -96,6 +97,13 @@ After implementing CRUSH AI Medical Scribe, Dr. Chen's practice experienced imme
               explanation: "Increased patient volume capacity is the most significant benefit of AI-assisted documentation for a gastroenterology practice. By reducing the time spent on documentation (from 3 hours to 1 hour daily in Dr. Chen's case), physicians can see more patients, directly increasing practice revenue while maintaining quality of care. This addresses the core business challenge of balancing administrative requirements with clinical productivity."
             }}
           />
+
+          <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+            <p className="text-lg text-center max-w-2xl mb-6">Transform Your Practice with CRUSH</p>
+            <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+              Book Demo
+            </Button>
+          </div>
         </TabsContent>
         
         <TabsContent value="performance" className="pt-6 animate-fade-in">
@@ -129,6 +137,13 @@ After implementing CRUSH AI Medical Scribe, Dr. Chen's practice experienced imme
                   <li>Clinical protocol adherence: <span className="font-medium text-emerald-600">97%</span></li>
                 </ul>
               </div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+              <p className="text-lg text-center max-w-2xl mb-6">Experience the power of AI-driven documentation. Get started today!</p>
+              <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+                Book Demo
+              </Button>
             </div>
           </div>
         </TabsContent>

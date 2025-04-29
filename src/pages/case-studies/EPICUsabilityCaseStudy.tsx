@@ -5,6 +5,7 @@ import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy
 import { ClinicalCalculator } from '@/components/case-studies/ClinicalCalculator';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ArrowRight, Stethoscope, Calculator } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function EPICUsabilityCaseStudy() {
   const calculateTimeAndClicks = (values: Record<string, number>) => {
@@ -114,6 +115,13 @@ export default function EPICUsabilityCaseStudy() {
               explanation: "While all metrics are important, time saved on documentation directly impacts provider efficiency, patient care quality, and overall healthcare delivery effectiveness."
             }}
           />
+
+          <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+            <p className="text-lg text-center max-w-2xl mb-6">Transform Your Practice with CRUSH</p>
+            <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+              Book Demo
+            </Button>
+          </div>
         </TabsContent>
 
         <TabsContent value="efficiency-calculator" className="pt-6 animate-fade-in">
@@ -153,6 +161,13 @@ export default function EPICUsabilityCaseStudy() {
             calculateResult={calculateTimeAndClicks}
             reference="Based on actual EPIC usage data and AI implementation results."
           />
+
+          <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+            <p className="text-lg text-center max-w-2xl mb-6">Experience the power of AI-driven documentation. Get started today!</p>
+            <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+              Book Demo
+            </Button>
+          </div>
         </TabsContent>
 
         <TabsContent value="performance" className="pt-6 animate-fade-in">
@@ -186,6 +201,13 @@ export default function EPICUsabilityCaseStudy() {
                   <li>Clinical decision support utilization: <span className="font-medium text-emerald-600">+57%</span></li>
                 </ul>
               </div>
+            </div>
+
+            <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+              <p className="text-lg text-center max-w-2xl mb-6">Transform Your Practice with CRUSH</p>
+              <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+                Book Demo
+              </Button>
             </div>
           </div>
         </TabsContent>

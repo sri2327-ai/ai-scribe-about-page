@@ -2,6 +2,7 @@
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
+import { Button } from '@/components/ui/button';
 
 export default function FamilyMedicineCaseStudy() {
   return (
@@ -132,6 +133,13 @@ After implementing CRUSH AI Medical Scribe, Dr. Gielen was able to automate the 
             document quality, and ease of use, leading to better patient care and overall operational efficiency in their 
             respective healthcare settings.</p>
         </section>
+
+        <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+          <p className="text-lg text-center max-w-2xl mb-6">Transform Your Practice with CRUSH</p>
+          <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+            Book Demo
+          </Button>
+        </div>
       </div>
     </CaseStudyLayout>
   );
