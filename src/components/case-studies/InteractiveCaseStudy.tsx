@@ -38,7 +38,7 @@ interface ClinicalQuiz {
   explanation: string;
 }
 
-interface InteractiveCaseStudyProps {
+export interface InteractiveCaseStudyProps {
   patientProfile: PatientProfile;
   clinicalScenario: string;
   clinicalInsights: ClinicalInsight[];
@@ -46,7 +46,7 @@ interface InteractiveCaseStudyProps {
   clinicalQuiz: ClinicalQuiz;
 }
 
-export const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
+const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
   patientProfile,
   clinicalScenario,
   clinicalInsights,
