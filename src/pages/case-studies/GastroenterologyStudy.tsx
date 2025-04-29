@@ -3,7 +3,7 @@ import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
-import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
+import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
 
 export default function GastroenterologyStudy() {
   return (

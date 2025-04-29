@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
-import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
+import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 export default function NordicLanguagesCaseStudy() {

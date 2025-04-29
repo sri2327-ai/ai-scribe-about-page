@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
-import { InteractiveCaseStudy } from '@/components/case-studies/InteractiveCaseStudy';
+import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
+import { ClinicalCalculator } from '@/components/case-studies/ClinicalCalculator';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
 
