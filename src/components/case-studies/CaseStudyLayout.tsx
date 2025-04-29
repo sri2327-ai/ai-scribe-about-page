@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Facebook, Linkedin, Clock, X } from "lucide-react";
+import { Facebook, Linkedin, Clock, X, Calendar, User } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
 import OptimizedImage from "@/components/ui/optimized-image";
 import { cn } from "@/lib/utils";
@@ -14,6 +14,8 @@ interface CaseStudyLayoutProps {
   children: React.ReactNode;
   ctaTitle?: string;
   ctaDescription?: string;
+  author?: string;
+  date?: string;
 }
 
 export const CaseStudyLayout = ({
@@ -22,7 +24,9 @@ export const CaseStudyLayout = ({
   image,
   children,
   ctaTitle = "Transform Your Practice with CRUSH",
-  ctaDescription = "Experience the power of AI-driven documentation. Get started today!"
+  ctaDescription = "Experience the power of AI-driven documentation. Get started today!",
+  author = "CRUSH AI Team",
+  date = "April 2025"
 }: CaseStudyLayoutProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
@@ -39,9 +43,19 @@ export const CaseStudyLayout = ({
       <section className="pt-16 md:pt-24 pb-8 md:pb-12 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           <div className="space-y-6">
-            <div className="flex items-center gap-2 text-gray-600">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm">Max 3 min read</span>
+            <div className="flex flex-wrap items-center gap-4 text-gray-600">
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm">3 min read</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                <span className="text-sm">{date}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                <span className="text-sm">{author}</span>
+              </div>
             </div>
 
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 break-words hyphens-auto">
