@@ -10,14 +10,14 @@ export default function GastroenterologyStudy() {
     <CaseStudyLayout
       title="Save 2 Hours Daily – AI Efficiency for Gastroenterologists"
       description="Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity."
-      image="/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+      image="/case-studies/patient-care.svg" // Updated to Figma-designed UI illustration
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-wrap">
-          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700 mb-2 mr-2">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-[#387E89] mb-2 mr-2">
             <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700 mb-2 mr-2">
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-[#387E89] mb-2 mr-2">
             <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
@@ -103,7 +103,7 @@ After implementing CRUSH AI Medical Scribe, Dr. Chen's practice experienced imme
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
             
             <div className="space-y-6">
-              <div className="border-l-4 border-blue-500 pl-4">
+              <div className="border-l-4 border-[#143151] pl-4">
                 <h3 className="text-lg font-semibold mb-2">Time Efficiency</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Daily documentation time savings: <span className="font-medium text-emerald-600">2 hours</span></li>
@@ -112,7 +112,7 @@ After implementing CRUSH AI Medical Scribe, Dr. Chen's practice experienced imme
                 </ul>
               </div>
               
-              <div className="border-l-4 border-purple-500 pl-4">
+              <div className="border-l-4 border-[#387E89] pl-4">
                 <h3 className="text-lg font-semibold mb-2">Practice Growth</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Additional patients daily: <span className="font-medium text-emerald-600">4</span></li>

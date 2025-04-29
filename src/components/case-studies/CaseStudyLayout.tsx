@@ -85,26 +85,16 @@ export const CaseStudyLayout = ({
 
           {/* CTA Card */}
           <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:shadow-xl transition-all duration-300">
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
-            <p className="text-gray-600 mb-6">{ctaDescription}</p>
-            <Button 
-              size="lg" 
-              className="w-full sm:w-auto animate-fade-in"
-              style={{
-                background: crushAIColors.button.gradient,
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.1)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '';
-              }}
-            >
-              Book Demo
-            </Button>
+            <div className="text-center">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">{ctaTitle}</h3>
+              <p className="text-gray-600 mb-6">{ctaDescription}</p>
+              <Button 
+                size="lg" 
+                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl h-auto"
+              >
+                Book Demo
+              </Button>
+            </div>
           </div>
         </div>
       </section>

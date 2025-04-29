@@ -4,7 +4,7 @@ import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
 import { ClinicalCalculator } from '@/components/case-studies/ClinicalCalculator';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { ArrowRight, Stethoscope, Calculator, DollarSign } from 'lucide-react';
+import { Stethoscope, Calculator, DollarSign } from 'lucide-react';
 
 export default function SeventeenThousandCaseStudy() {
   const calculatePracticeROI = (values: Record<string, number>) => {
@@ -36,17 +36,17 @@ export default function SeventeenThousandCaseStudy() {
     <CaseStudyLayout
       title="Physician saves $17,796 yearly"
       description="Eliminate transcription costs with Crush S10.AI Medical Scribe."
-      image="/ImprovePatientCare.webp"
+      image="/case-studies/cost-savings.svg" // Updated to use Figma-designed UI illustration
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
-          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-[#387E89]">
             <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="roi-analysis" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+          <TabsTrigger value="roi-analysis" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-[#387E89]">
             <DollarSign className="h-4 w-4 mr-2 inline" /> ROI Analysis
           </TabsTrigger>
-          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+          <TabsTrigger value="performance" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-[#387E89]">
             <Calculator className="h-4 w-4 mr-2 inline" /> Performance Metrics
           </TabsTrigger>
         </TabsList>
@@ -117,7 +117,7 @@ export default function SeventeenThousandCaseStudy() {
         <TabsContent value="roi-analysis" className="pt-6 animate-fade-in">
           <div className="prose max-w-none mb-8">
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-              <Calculator className="h-5 w-5 text-blue-600" />
+              <Calculator className="h-5 w-5 text-[#387E89]" />
               Practice ROI Calculator
             </h2>
             <p>
@@ -160,16 +160,16 @@ export default function SeventeenThousandCaseStudy() {
             <h2 className="text-2xl font-bold mb-4 text-gray-800">Performance Metrics</h2>
             
             <div className="space-y-6">
-              <div className="border-l-4 border-blue-500 pl-4">
+              <div className="border-l-4 border-[#143151] pl-4">
                 <h3 className="text-lg font-semibold mb-2">Financial Impact</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Annual cost savings: <span className="font-medium text-emerald-600">$17,796</span></li>
                   <li>ROI after 12 months: <span className="font-medium text-emerald-600">648%</span></li>
-                  <li>Implementation cost recovery: <span className="font-medium text-blue-600">5.4 weeks</span></li>
+                  <li>Implementation cost recovery: <span className="font-medium text-emerald-600">5.4 weeks</span></li>
                 </ul>
               </div>
               
-              <div className="border-l-4 border-purple-500 pl-4">
+              <div className="border-l-4 border-[#387E89] pl-4">
                 <h3 className="text-lg font-semibold mb-2">Efficiency Metrics</h3>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Documentation time reduction: <span className="font-medium text-emerald-600">87%</span></li>

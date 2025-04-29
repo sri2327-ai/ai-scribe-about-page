@@ -120,7 +120,7 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
             <Card key={idx}>
               <CardContent className="p-6">
                 <h4 className="font-bold text-lg mb-2">{insight.title}</h4>
-                <p className="text-sm text-gray-500 mb-2">Source: <a href={insight.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{insight.source}</a></p>
+                <p className="text-sm text-gray-500 mb-2">Source: <a href={insight.link} target="_blank" rel="noopener noreferrer" className="text-[#387E89] hover:underline">{insight.source}</a></p>
                 <p>{insight.summary}</p>
               </CardContent>
             </Card>
@@ -128,16 +128,16 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
         </TabsContent>
         
         <TabsContent value="timeline" className="relative">
-          <div className="absolute w-1 bg-blue-200 h-full left-4 top-0"></div>
+          <div className="absolute w-1 bg-gradient-to-b from-[#143151] to-[#387E89] h-full left-4 top-0"></div>
           
           {patientTimeline.map((event, idx) => (
             <div key={idx} className="ml-10 relative mb-8">
-              <div className="absolute w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center -left-14 border-4 border-white">
+              <div className="absolute w-8 h-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center -left-14 border-4 border-white">
                 <span className="text-white text-sm font-bold">{idx + 1}</span>
               </div>
               <Card>
                 <CardContent className="p-6">
-                  <span className="text-sm font-medium text-blue-600">{event.date}</span>
+                  <span className="text-sm font-medium text-[#387E89]">{event.date}</span>
                   <h4 className="text-lg font-bold mt-1">{event.event}</h4>
                   <p className="mt-2">{event.details}</p>
                 </CardContent>
@@ -148,7 +148,7 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
       </Tabs>
       
       {/* Clinical Quiz */}
-      <Card className="border-blue-200">
+      <Card className="border-[#387E89]/30">
         <CardContent className="p-6">
           <h3 className="text-xl font-bold mb-4">Clinical Knowledge Check</h3>
           <p className="mb-6 font-medium">{clinicalQuiz.question}</p>
@@ -158,7 +158,11 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
               <Button
                 key={option.id}
                 variant={selectedAnswer === option.id ? (isCorrectAnswer ? "default" : "destructive") : "outline"}
-                className="w-full justify-start text-left h-auto py-3 px-4"
+                className={`w-full justify-start text-left h-auto py-3 px-4 ${
+                  selectedAnswer === option.id && isCorrectAnswer 
+                    ? "bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white" 
+                    : ""
+                }`}
                 onClick={() => handleSelectAnswer(option.id)}
                 disabled={showExplanation}
               >

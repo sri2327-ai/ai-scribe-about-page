@@ -3,10 +3,10 @@
 // This ensures color changes here don't affect other pages
 
 export const crushAIColors = {
-  primary: 'linear-gradient(90deg,#046f90,#0d252b)', // Primary gradient for headings or primary elements
-  primaryFlat: '#046f90', // Flat version of primary for when gradients can't be used
-  primaryDark: '#0d252b', // Dark end of the primary gradient
-  secondary: '#5192AE', // Medium Teal Blue for buttons and secondary elements
+  primary: 'linear-gradient(90deg, #143151, #387E89)', // Primary gradient for headings or primary elements
+  primaryFlat: '#143151', // Flat version of primary for when gradients can't be used
+  primaryDark: '#0d1f31', // Dark end of the primary gradient
+  secondary: '#387E89', // Medium Teal Blue for buttons and secondary elements
   tertiary: '#A5CCF3', // Light Sky Blue for hover states or tertiary elements
   background: {
     white: '#FFFFFF', // Dominant white background
@@ -21,12 +21,12 @@ export const crushAIColors = {
     lightGrey: '#CCCCCC', // Light grey for secondary text on colored backgrounds
   },
   accent: {
-    blue: '#5192AE', // Medium Teal Blue for accents (icons, borders)
+    blue: '#387E89', // Medium Teal Blue for accents (icons, borders)
     purple: '#A5CCF3', // Light Sky Blue repurposed as a secondary accent
   },
   button: {
-    gradient: 'linear-gradient(90deg,#046f90,#0d252b)', // Updated button gradient to match primary
-    hover: 'linear-gradient(90deg,#00b3e6,#0d252b)', // Slightly lighter for hover state
+    gradient: 'linear-gradient(90deg, #143151, #387E89)', // Updated button gradient to match primary
+    hover: 'linear-gradient(90deg, #0d1f31, #2c6269)', // Slightly darker for hover state
   },
   icons: {
     primary: '#888888', // Updated to grey for icons
