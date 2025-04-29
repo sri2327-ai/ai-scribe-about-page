@@ -41,7 +41,7 @@ const HeroSection = () => {
         >
           <motion.div variants={itemVariants} className="text-center mb-6 md:mb-10">
             <Typography variant="h3" className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
-              Transform Your Practice with <span className="text-yellow-300">S10.AI</span>
+              Transform Your Practice with <span className="text-pink-500">S10.AI</span>
             </Typography>
             <Typography className="text-base opacity-90 max-w-3xl mx-auto text-center px-1">
               Experience the future of healthcare where AI works seamlessly with your team, enhancing efficiency and patient care.
@@ -70,7 +70,7 @@ const HeroSection = () => {
 
           <motion.div variants={itemVariants} className="text-center">
             <Typography className="text-base sm:text-lg mb-4 md:mb-6 font-light">
-              Join the healthcare revolution with <span className="font-bold">S10.AI</span>
+              Join the healthcare revolution with <span className="font-bold text-pink-500">S10.AI</span>
             </Typography>
             <button 
               className="bg-white rounded-full px-5 py-2.5 md:px-7 md:py-3.5 text-base

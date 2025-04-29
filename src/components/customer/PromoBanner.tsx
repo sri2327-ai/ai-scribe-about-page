@@ -12,8 +12,8 @@ const PromoBanner = () => {
           className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-4 md:mb-6 leading-tight"
         >
           <strong>9 out of 10 providers</strong> adopt both the{" "}
-          <span className="text-[#D946EF]">CRUSH AI Medical Scribe</span> and{" "}
-          <span className="text-[#D946EF]">AI Agent BRAVO</span>
+          <span className="text-pink-500">CRUSH AI Medical Scribe</span> and{" "}
+          <span className="text-pink-500">AI Agent BRAVO</span>
           <br className="hidden md:block" />
           —saving time, reducing stress, addressing staffing shortages, and delivering superior patient care.
         </Typography>
