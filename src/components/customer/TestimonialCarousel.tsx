@@ -61,7 +61,7 @@ const TestimonialCarousel = () => {
           variant="h3" 
           className="text-center text-2xl md:text-3xl lg:text-4xl font-bold mb-6 md:mb-10 px-2"
         >
-          <span className="text-pink-500">S10</span> is STUNNING: The #1 Ambient AI Solution Clinicians Love!
+          <span className="text-[#D946EF]">S10</span> is STUNNING: The #1 Ambient AI Solution Clinicians Love!
         </Typography>
         {rows.map((row, index) => (
           <div 
