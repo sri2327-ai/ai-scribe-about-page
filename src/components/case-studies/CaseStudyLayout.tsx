@@ -66,11 +66,12 @@ export const CaseStudyLayout = ({
             </div>
           </div>
 
-          <div className="mt-8 md:mt-12">
+          <div className="mt-8 md:mt-12 relative rounded-lg overflow-hidden shadow-lg">
             <OptimizedImage
               src={image}
               alt={title}
-              className="w-full h-auto max-h-80 rounded-lg object-cover shadow-lg"
+              className="w-full h-auto max-h-80 object-cover"
+              priority={true}
             />
           </div>
         </div>

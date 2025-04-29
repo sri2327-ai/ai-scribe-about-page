@@ -3,23 +3,24 @@ import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
 
 export default function NordicLanguagesCaseStudy() {
   return (
     <CaseStudyLayout
       title="100% Accuracy in Nordic Languages, Fast Documentation"
       description="Learn how CRUSH AI helps healthcare providers achieve accurate, efficient multilingual documentation."
-      image="/case-studies/family-medicine.svg" // Updated to use Figma-designed UI illustration
+      image="/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png"
     >
       <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-[#387E89]">
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto">
+          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-[#387E89] px-4 py-2 whitespace-nowrap">
             Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="performance-metrics" className="flex items-center gap-2 data-[state=active]:text-[#387E89]">
+          <TabsTrigger value="performance-metrics" className="flex items-center gap-2 data-[state=active]:text-[#387E89] px-4 py-2 whitespace-nowrap">
             Performance Metrics
           </TabsTrigger>
-          <TabsTrigger value="language-performance" className="flex items-center gap-2 data-[state=active]:text-[#387E89]">
+          <TabsTrigger value="language-performance" className="flex items-center gap-2 data-[state=active]:text-[#387E89] px-4 py-2 whitespace-nowrap">
             Language Performance
           </TabsTrigger>
         </TabsList>
@@ -93,6 +94,13 @@ Previously, this type of multilingual documentation would require extensive post
               explanation: "Accurate transcription of medical terminology across different languages presents the most significant challenge in multilingual clinical settings. Medical terminology contains specialized vocabulary that may not have direct equivalents in all languages, and nuanced meanings can be particularly difficult to capture when translating between different linguistic structures, potentially leading to clinical errors if not accurately documented."
             }}
           />
+
+          <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+            <p className="text-lg text-center max-w-2xl mb-6">Experience the power of CRUSH AI Medical Scribe multilingual capabilities today!</p>
+            <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+              Book Demo
+            </Button>
+          </div>
         </TabsContent>
         
         <TabsContent value="performance-metrics" className="pt-6 animate-fade-in">
@@ -232,6 +240,13 @@ Previously, this type of multilingual documentation would require extensive post
                 </div>
               </div>
             </section>
+
+            <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+              <p className="text-lg text-center max-w-2xl mb-6">Ready to experience 100% accuracy in your multilingual practice?</p>
+              <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+                Book Demo
+              </Button>
+            </div>
           </div>
         </TabsContent>
 
@@ -241,8 +256,8 @@ Previously, this type of multilingual documentation would require extensive post
               <h2 className="text-2xl font-bold mb-4">Nordic Language Performance Analysis</h2>
               <p className="mb-6">CRUSH AI Medical Scribe demonstrates exceptional performance across Nordic languages, providing multilingual documentation support with unprecedented accuracy.</p>
               
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-6">
-                <div className="bg-gradient-to-b from-blue-50 to-blue-100 p-6 rounded-lg border border-blue-200 shadow-md">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-6">
+                <div className="bg-gradient-to-b from-blue-50 to-blue-100 p-4 sm:p-6 rounded-lg border border-blue-200 shadow-md">
                   <h3 className="text-xl font-bold text-[#143151] mb-4">Danish</h3>
                   <div className="space-y-3">
                     <div>
@@ -268,7 +283,7 @@ Previously, this type of multilingual documentation would require extensive post
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-b from-red-50 to-red-100 p-6 rounded-lg border border-red-200 shadow-md">
+                <div className="bg-gradient-to-b from-red-50 to-red-100 p-4 sm:p-6 rounded-lg border border-red-200 shadow-md">
                   <h3 className="text-xl font-bold text-[#143151] mb-4">Norwegian</h3>
                   <div className="space-y-3">
                     <div>
@@ -294,7 +309,7 @@ Previously, this type of multilingual documentation would require extensive post
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-b from-yellow-50 to-yellow-100 p-6 rounded-lg border border-yellow-200 shadow-md">
+                <div className="bg-gradient-to-b from-yellow-50 to-yellow-100 p-4 sm:p-6 rounded-lg border border-yellow-200 shadow-md">
                   <h3 className="text-xl font-bold text-[#143151] mb-4">Swedish</h3>
                   <div className="space-y-3">
                     <div>
@@ -320,7 +335,7 @@ Previously, this type of multilingual documentation would require extensive post
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-b from-green-50 to-green-100 p-6 rounded-lg border border-green-200 shadow-md">
+                <div className="bg-gradient-to-b from-green-50 to-green-100 p-4 sm:p-6 rounded-lg border border-green-200 shadow-md">
                   <h3 className="text-xl font-bold text-[#143151] mb-4">English</h3>
                   <div className="space-y-3">
                     <div>
@@ -348,7 +363,7 @@ Previously, this type of multilingual documentation would require extensive post
               </div>
             </section>
 
-            <section>
+            <section className="mt-12">
               <h2 className="text-2xl font-bold mb-4">Cross-Language Performance</h2>
               <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200 shadow-md">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -394,7 +409,7 @@ Previously, this type of multilingual documentation would require extensive post
               </div>
             </section>
 
-            <section>
+            <section className="mt-12">
               <h2 className="text-2xl font-bold mb-4">Language Processing Metrics</h2>
               <div className="overflow-x-auto">
                 <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">
@@ -447,6 +462,13 @@ Previously, this type of multilingual documentation would require extensive post
                 </table>
               </div>
             </section>
+
+            <div className="flex flex-col items-center justify-center mt-10 pt-8 border-t border-gray-200">
+              <p className="text-lg text-center max-w-2xl mb-6">Experience multilingual medical documentation that's 100% accurate!</p>
+              <Button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl">
+                Book Demo
+              </Button>
+            </div>
           </div>
         </TabsContent>
       </Tabs>

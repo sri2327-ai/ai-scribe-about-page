@@ -6,19 +6,19 @@ import OptimizedImage from "@/components/ui/optimized-image";
 import { ChevronRight } from "lucide-react";
 
 const caseStudies = [
-  { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
-  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "CRUSH integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
+  { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png" },
+  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "CRUSH integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/lovable-uploads/14fcf3f1-8d66-4abb-a217-4e685d29b99c.png" },
   { folder: "family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4", title: "Family Medicine Practitioner In Canada Moved To S10.AI From GPT4", description: "Learn how a Canadian doctor improved their practice with S10.AI", image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" },
-  { folder: "how-s10-ai-medical-scribe-assistant-improves-epic-usability", title: "How S10 AI Medical Scribe Assistant Improves EPIC Usability", description: "Optimize EPIC with AI-powered efficiency.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
-  { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI AI Medical Scribe", description: "Focus more on patients, less on paperwork with AI assistance", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
-  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More with Crush AI Medical Scribe", description: "Boost revenue with efficient and accurate AI scribing.", image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" },
-  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
-  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices", description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
-  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice", description: "CRUSH integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" },
+  { folder: "how-s10-ai-medical-scribe-assistant-improves-epic-usability", title: "How S10 AI Medical Scribe Assistant Improves EPIC Usability", description: "Optimize EPIC with AI-powered efficiency.", image: "/case-studies/epic-integration.svg" },
+  { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI AI Medical Scribe", description: "Focus more on patients, less on paperwork with AI assistance", image: "/case-studies/patient-care.svg" },
+  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More with Crush AI Medical Scribe", description: "Boost revenue with efficient and accurate AI scribing.", image: "/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" },
+  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
+  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices", description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png" },
+  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice", description: "CRUSH integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/lovable-uploads/e9ad85da-27c0-412a-a0ff-237e4b9a8ef5.png" },
   { folder: "revolutionizing-functional-medicine-with-crush", title: "Revolutionizing Functional Medicine with CRUSH", description: "CRUSH streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
-  { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with Crush AI Medical Scribe.", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
-  { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with Crush S10.AI Medical Scribe.", image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" },
-  { folder: "alaska-therapy", title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH", description: "Learn how a small hospital in Alaska improved documentation in just one week", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
+  { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with Crush AI Medical Scribe.", image: "/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" },
+  { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with Crush S10.AI Medical Scribe.", image: "/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png" },
+  { folder: "alaska-therapy", title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH", description: "Learn how a small hospital in Alaska improved documentation in just one week", image: "/lovable-uploads/14fcf3f1-8d66-4abb-a217-4e685d29b99c.png" },
 ];
 
 const CaseStudy = () => {
@@ -38,8 +38,8 @@ const CaseStudy = () => {
             </p>
           </div>
           
-          <div className={styles.featuredCard}>
-            <div className={styles.featuredContent}>
+          <div className={`${styles.featuredCard} flex flex-col md:flex-row`}>
+            <div className={`${styles.featuredContent} p-6 md:p-8`}>
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">100% Accuracy in Nordic Languages – Fast Documentation</h2>
               <p className="text-lg text-gray-600">AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.</p>
               
@@ -50,9 +50,9 @@ const CaseStudy = () => {
                 Read Full Case Study <ChevronRight size={18} />
               </button>
             </div>
-            <div className={styles.featuredImage}>
+            <div className={`${styles.featuredImage} md:min-h-[350px] h-64 md:h-auto mt-6 md:mt-0`}>
               <OptimizedImage
-                src="/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+                src="/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png"
                 alt="Featured Case Study"
                 className="w-full h-full object-cover rounded-xl"
               />
