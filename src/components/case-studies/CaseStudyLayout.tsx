@@ -4,7 +4,6 @@ import { Facebook, Linkedin, Clock, X } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
 import OptimizedImage from "@/components/ui/optimized-image";
 import { cn } from "@/lib/utils";
-import styles from "@/styles/casecontentpage.module.scss";
 import { Button } from "@/components/ui/button";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
@@ -70,7 +69,7 @@ export const CaseStudyLayout = ({
             <OptimizedImage
               src={image}
               alt={title}
-              className="w-full h-auto max-h-80 rounded-lg object-cover shadow-lg"
+              className="w-full h-auto max-h-80 rounded-lg object-contain shadow-lg bg-white p-4"
             />
           </div>
         </div>
