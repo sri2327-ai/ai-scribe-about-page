@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from "@/components/ui/toaster";
@@ -41,6 +40,20 @@ const AlaskaTherapyStudy = React.lazy(() => import('./pages/case-studies/AlaskaT
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
 
+// Import case study components
+import CaseStudiesIndex from "./pages/case-studies/index";
+import EPICUsabilityCaseStudy from "./pages/case-studies/EPICUsabilityCaseStudy";
+import FamilyMedicineCaseStudy from "./pages/case-studies/FamilyMedicineCaseStudy";
+import ImprovingPatientCareCaseStudy from "./pages/case-studies/ImprovingPatientCareCaseStudy";
+import FiveThousandCaseStudy from "./pages/case-studies/FiveThousandCaseStudy";
+import TwentyoneThousandCaseStudy from "./pages/case-studies/TwentyoneThousandCaseStudy";
+import SeventeenThousandCaseStudy from "./pages/case-studies/SeventeenThousandCaseStudy";
+import GastroenterologyStudy from "./pages/case-studies/GastroenterologyStudy";
+import AlaskaTherapyStudy from "./pages/case-studies/AlaskaTherapyStudy";
+import MultiProviderPracticesStudy from "./pages/case-studies/MultiProviderPracticesStudy";
+import IntakeQStudy from "./pages/case-studies/IntakeQStudy";
+import FunctionalMedicineStudy from "./pages/case-studies/FunctionalMedicineStudy";
+
 function App() {
   return (
     <BrowserRouter>
@@ -61,8 +74,8 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/changelog" element={<Changelog />} />
-          <Route path="/case-studies" element={<CaseStudy />} />
-          <Route path="/resources/casestudies" element={<CaseStudy />} />
+          <Route path="/case-studies" element={<CaseStudiesIndex />} />
+          <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
           
           {/* Case Study Routes */}
           <Route path="/resources/casestudies/80-faster-documentation-with-osmind-ehr-integration" element={<OsmindCaseStudy />} />

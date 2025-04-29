@@ -10,68 +10,68 @@ const caseStudies = [
   {
     title: "How CRUSH AI Medical Scribe Assistant Improves EPIC Usability",
     description: "Optimize EPIC with AI-powered efficiency",
-    path: "/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability",
-    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+    path: "/case-studies/EPICUsabilityCaseStudy",
+    image: "/case-studies/epic-integration.svg"
   },
   {
     title: "Family Medicine Practitioner In Canada Moved To CRUSH From GPT4",
     description: "Learn how a Canadian doctor improved their practice with CRUSH AI",
-    path: "/resources/casestudies/family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4",
-    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
+    path: "/case-studies/FamilyMedicineCaseStudy",
+    image: "/case-studies/family-medicine.svg"
   },
   {
     title: "Improving Patient Care With CRUSH AI Medical Scribe",
     description: "Focus more on patients, less on paperwork with AI assistance",
-    path: "/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe",
-    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
+    path: "/case-studies/ImprovingPatientCareCaseStudy",
+    image: "/case-studies/patient-care.svg"
   },
   {
     title: "Physician Earns $5,311 Per Month More with CRUSH AI Medical Scribe",
     description: "Boost revenue with efficient and accurate AI scribing",
-    path: "/resources/casestudies/physician-earns-five-thousand-dollars-per-month",
-    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+    path: "/case-studies/FiveThousandCaseStudy",
+    image: "/case-studies/revenue-growth.svg"
   },
   {
     title: "Physician saves $21,144 yearly",
     description: "Cut costs by replacing traditional scribes with CRUSH AI Medical Scribe",
-    path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
-    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
+    path: "/case-studies/TwentyoneThousandCaseStudy",
+    image: "/case-studies/cost-savings.svg"
   },
   {
     title: "Physician saves $17,796 yearly",
     description: "Eliminate transcription costs with CRUSH AI Medical Scribe",
-    path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
-    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
+    path: "/case-studies/SeventeenThousandCaseStudy",
+    image: "/case-studies/transcription-savings.svg"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
     description: "How CRUSH AI helps gastroenterologists save time on documentation",
-    path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
-    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+    path: "/case-studies/GastroenterologyStudy",
+    image: "/case-studies/patient-care.svg"
   },
   {
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
-    path: "/resources/casestudies/alaska-therapy",
-    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
+    path: "/case-studies/AlaskaTherapyStudy",
+    image: "/case-studies/cost-savings.svg"
   },
   {
     title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices",
     description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices",
-    path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
-    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
+    path: "/case-studies/MultiProviderPracticesStudy",
+    image: "/case-studies/patient-care.svg"
   },
   {
     title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice",
     description: "CRUSH integrates seamlessly with INTAKE Q to automate documentation",
-    path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
-    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+    path: "/case-studies/IntakeQStudy",
+    image: "/case-studies/epic-integration.svg"
   },
   {
     title: "Revolutionizing Functional Medicine with CRUSH",
     description: "CRUSH streamlines documentation in functional and longevity medicine",
-    path: "/resources/casestudies/revolutionizing-functional-medicine-with-crush",
-    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
+    path: "/case-studies/FunctionalMedicineStudy",
+    image: "/case-studies/family-medicine.svg"
   }
 ];
 
@@ -103,13 +103,13 @@ export default function CaseStudiesIndex() {
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
-                  <h2 className="text-base md:text-lg font-semibold mb-3 text-gray-900 group-hover:text-blue-700 transition-colors">
+                  <h2 className="text-base md:text-lg font-semibold mb-3 text-gray-900 group-hover:text-[#387E89] transition-colors">
                     {study.title}
                   </h2>
                   <p className="text-gray-600 text-sm mb-5 flex-grow">
                     {study.description}
                   </p>
-                  <div className="flex items-center text-blue-600 font-medium group-hover:translate-x-1 transition-transform mt-auto">
+                  <div className="flex items-center text-[#387E89] font-medium group-hover:translate-x-1 transition-transform mt-auto">
                     Read More <ArrowRight className="ml-2 h-4 w-4" />
                   </div>
                 </div>

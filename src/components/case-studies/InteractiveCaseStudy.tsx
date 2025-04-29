@@ -193,6 +193,5 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
   );
 };
 
-// Make sure InteractiveCaseStudy is exported properly both as default and named export
 export { InteractiveCaseStudy };
 export default InteractiveCaseStudy;
