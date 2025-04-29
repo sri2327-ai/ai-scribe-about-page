@@ -52,7 +52,7 @@ const caseStudies = [
   {
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
-    path: "/case-studies/alaska-therapy",
+    path: "/resources/casestudies/alaska-therapy", // Updated path to be consistent
     image: "/case-studies/patient-care.svg"
   }
 ];

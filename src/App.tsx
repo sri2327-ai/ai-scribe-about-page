@@ -79,6 +79,9 @@ function App() {
           <Route path="/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices" element={<MultiProviderPracticesStudy />} />
           <Route path="/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice" element={<IntakeQStudy />} />
           <Route path="/resources/casestudies/revolutionizing-functional-medicine-with-crush" element={<FunctionalMedicineStudy />} />
+          
+          {/* Fix the Alaska Therapy case study route */}
+          <Route path="/resources/casestudies/alaska-therapy" element={<AlaskaTherapyStudy />} />
           <Route path="/case-studies/alaska-therapy" element={<AlaskaTherapyStudy />} />
           
           <Route path="*" element={<NotFound />} />
