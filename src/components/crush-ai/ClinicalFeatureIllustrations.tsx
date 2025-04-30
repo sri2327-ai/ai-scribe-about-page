@@ -31,8 +31,7 @@ export const ClinicalDecisionIllustration = () => {
       <div className="relative w-40 h-40">
         {/* Background circle */}
         <motion.div 
-          className="absolute inset-0 rounded-full"
-          style={{ backgroundColor: `${crushAIColors.accent.blue}20` }}
+          className={`absolute inset-0 rounded-full bg-[${crushAIColors.accent.blue}20]`}
           variants={circleVariants}
           initial="initial"
           animate="animate"
@@ -61,8 +60,7 @@ export const ClinicalDecisionIllustration = () => {
         
         {/* Lightbulb effect */}
         <motion.div 
-          className="absolute bottom-1/4 left-1/5 w-8 h-8 rounded-full"
-          style={{ backgroundColor: `${crushAIColors.tertiary}60` }}
+          className={`absolute bottom-1/4 left-1/5 w-8 h-8 rounded-full bg-[${crushAIColors.tertiary}60]`}
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
@@ -97,8 +95,7 @@ export const HCCTrackingIllustration = () => {
       <div className="relative w-40 h-40">
         {/* Background circle */}
         <motion.div 
-          className="absolute inset-0 rounded-full"
-          style={{ backgroundColor: `${crushAIColors.accent.blue}20` }}
+          className={`absolute inset-0 rounded-full bg-[${crushAIColors.accent.blue}20]`}
           variants={circleVariants}
           initial="initial"
           animate="animate"
@@ -163,8 +160,7 @@ export const TreatmentPlansIllustration = () => {
     <div className="relative w-full h-full flex items-center justify-center">
       <div className="relative w-40 h-40">
         <motion.div 
-          className="absolute inset-0 rounded-full"
-          style={{ backgroundColor: `${crushAIColors.accent.blue}20` }}
+          className={`absolute inset-0 rounded-full bg-[${crushAIColors.accent.blue}20]`}
           variants={circleVariants}
           initial="initial"
           animate="animate"
@@ -217,8 +213,7 @@ export const PreventiveScreeningIllustration = () => (
   <div className="relative w-full h-full flex items-center justify-center">
     <div className="relative w-40 h-40">
       <motion.div 
-        className="absolute inset-0 rounded-full"
-        style={{ backgroundColor: `${crushAIColors.accent.blue}20` }}
+        className={`absolute inset-0 rounded-full bg-[${crushAIColors.accent.blue}20]`}
         variants={circleVariants}
         initial="initial"
         animate="animate"
@@ -265,8 +260,7 @@ export const LongitudinalIntelligenceIllustration = () => (
   <div className="relative w-full h-full flex items-center justify-center">
     <div className="relative w-40 h-40">
       <motion.div 
-        className="absolute inset-0 rounded-full"
-        style={{ backgroundColor: `${crushAIColors.accent.blue}20` }}
+        className={`absolute inset-0 rounded-full bg-[${crushAIColors.accent.blue}20]`}
         variants={circleVariants}
         initial="initial"
         animate="animate"

@@ -32,6 +32,37 @@ export interface TestimonialsSectionProps {
   className?: string
 }
 
+// Default testimonials - replace as needed
+const defaultTestimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: "Dr. Sarah Chen",
+    role: "Cardiologist",
+    company: "Heart Care Associates",
+    content: "CRUSH has transformed my practice. Documentation that once took hours now happens in real-time, allowing me to focus entirely on my patients. The clinical insights are remarkably accurate.",
+    rating: 5,
+    avatar: "/testimonials/doctor-1.jpg"
+  },
+  {
+    id: 2,
+    name: "Dr. Michael Rodriguez",
+    role: "Family Physician",
+    company: "Community Health Center",
+    content: "As a physician seeing 25+ patients daily, CRUSH has been revolutionary. It captures everything accurately during visits, and I spend almost zero time on documentation after hours.",
+    rating: 5,
+    avatar: "/testimonials/doctor-2.jpg"
+  },
+  {
+    id: 3,
+    name: "Dr. Emma Thompson",
+    role: "Pediatrician",
+    company: "Children's Wellness Clinic",
+    content: "The quality of notes CRUSH produces is exceptional. It captures medical details with precision while maintaining the human elements of patient stories.",
+    rating: 5,
+    avatar: "/testimonials/doctor-3.jpg"
+  },
+];
+
 export function ClinicianTestimonialsSection({
   title = "Loved by Clinicians",
   subtitle = "See what others are saying about CRUSH, our AI Medical Scribe",
@@ -132,15 +163,13 @@ export function ClinicianTestimonialsSection({
         >
           <motion.h2 
             variants={itemVariants} 
-            className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
-            style={{ color: crushAIColors.primary }}
+            className={`text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-[${crushAIColors.primary}]`}
           >
             {title}
           </motion.h2>
           <motion.p 
             variants={itemVariants} 
-            className="max-w-[700px] mx-auto md:text-xl/relaxed"
-            style={{ color: crushAIColors.text.secondary }}
+            className={`max-w-[700px] mx-auto md:text-xl/relaxed text-[${crushAIColors.text.secondary}]`}
           >
             {subtitle}
           </motion.p>
@@ -158,7 +187,7 @@ export function ClinicianTestimonialsSection({
             className="relative"
           >
             <div className="absolute -top-6 -left-6 z-10">
-              <Quote className="h-12 w-12" style={{ color: `${crushAIColors.tertiary}33` }} strokeWidth={1} />
+              <Quote className={`h-12 w-12 text-[${crushAIColors.tertiary}33]`} strokeWidth={1} />
             </div>
 
             {/* Testimonial cards */}
@@ -171,33 +200,28 @@ export function ClinicianTestimonialsSection({
                     index === activeIndex
                       ? "opacity-100 translate-x-0 shadow-[0_0_15px_rgba(0,0,0,0.1)]"
                       : "opacity-0 translate-x-[100px] pointer-events-none",
+                    index === activeIndex ? `border-[${crushAIColors.tertiary}33]` : 'border-transparent'
                   )}
-                  style={{ 
-                    borderColor: index === activeIndex ? `${crushAIColors.tertiary}33` : 'transparent'
-                  }}
                 >
                   <CardContent className="p-6 md:p-8 h-full flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center gap-4">
-                        <Avatar className="h-12 w-12 border-2" style={{ borderColor: `${crushAIColors.tertiary}33` }}>
+                        <Avatar className={`h-12 w-12 border-2 border-[${crushAIColors.tertiary}33]`}>
                           <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                           <AvatarFallback 
-                            className="text-white"
-                            style={{ backgroundColor: crushAIColors.primary }}
+                            className={`text-white bg-[${crushAIColors.primary}]`}
                           >
                             {testimonial.name.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
                         <div className="text-left">
                           <h4 
-                            className="font-semibold"
-                            style={{ color: crushAIColors.text.primary }}
+                            className={`font-semibold text-[${crushAIColors.text.primary}]`}
                           >
                             {testimonial.name}
                           </h4>
                           <p 
-                            className="text-sm"
-                            style={{ color: crushAIColors.text.secondary }}
+                            className={`text-sm text-[${crushAIColors.text.secondary}]`}
                           >
                             {testimonial.role}, {testimonial.company}
                           </p>
@@ -210,19 +234,17 @@ export function ClinicianTestimonialsSection({
                       </div>
                     </div>
 
-                    <Separator className="my-4" style={{ backgroundColor: `${crushAIColors.tertiary}33` }} />
+                    <Separator className={`my-4 bg-[${crushAIColors.tertiary}33]`} />
 
                     <p 
-                      className="flex-1 italic text-base/relaxed"
-                      style={{ color: crushAIColors.text.secondary }}
+                      className={`flex-1 italic text-base/relaxed text-[${crushAIColors.text.secondary}]`}
                     >
                       "{testimonial.content}"
                     </p>
 
                     {showVerifiedBadge && (
                       <div 
-                        className="mt-4 text-xs text-right"
-                        style={{ color: crushAIColors.text.light }}
+                        className={`mt-4 text-xs text-right text-[${crushAIColors.text.light}]`}
                       >
                         Verified Healthcare Provider
                       </div>
@@ -239,14 +261,10 @@ export function ClinicianTestimonialsSection({
               variant="outline"
               size="icon"
               onClick={handlePrev}
-              className="rounded-full h-10 w-10 hover:border-black/30"
-              style={{ 
-                borderColor: `${crushAIColors.primary}33`,
-                backgroundColor: "white"
-              }}
+              className={`rounded-full h-10 w-10 hover:border-black/30 border-[${crushAIColors.primary}33] bg-white`}
               aria-label="Previous testimonial"
             >
-              <ChevronLeft className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
+              <ChevronLeft className={`h-4 w-4 text-[${crushAIColors.text.light}]`} />
             </Button>
 
             <div className="flex md:flex-col gap-2 items-center justify-center">
@@ -255,13 +273,10 @@ export function ClinicianTestimonialsSection({
                   key={index}
                   className={cn(
                     "w-2 h-2 rounded-full transition-colors",
-                    index === activeIndex ? "" : "",
+                    index === activeIndex 
+                      ? `bg-[${crushAIColors.primary}]` 
+                      : `bg-[${crushAIColors.tertiary}33]`
                   )}
-                  style={{ 
-                    backgroundColor: index === activeIndex 
-                      ? crushAIColors.primary 
-                      : `${crushAIColors.tertiary}33`
-                  }}
                   role="button"
                   tabIndex={0}
                   onClick={() => setActiveIndex(index)}
@@ -279,94 +294,14 @@ export function ClinicianTestimonialsSection({
               variant="outline"
               size="icon"
               onClick={handleNext}
-              className="rounded-full h-10 w-10 hover:border-black/30"
-              style={{ 
-                borderColor: `${crushAIColors.primary}33`,
-                backgroundColor: "white"
-              }}
+              className={`rounded-full h-10 w-10 hover:border-black/30 border-[${crushAIColors.primary}33] bg-white`}
               aria-label="Next testimonial"
             >
-              <ChevronRight className="h-4 w-4" style={{ color: crushAIColors.text.light }} />
+              <ChevronRight className={`h-4 w-4 text-[${crushAIColors.text.light}]`} />
             </Button>
           </motion.div>
         </motion.div>
-
-        {/* Logo cloud */}
-        {trustedCompanies.length > 0 && (
-          <motion.div 
-            variants={itemVariants} 
-            className="mt-20 pt-10 border-t" 
-            style={{ borderColor: `${crushAIColors.tertiary}33` }}
-          >
-            <h3 
-              className="text-sm font-medium text-center mb-8"
-              style={{ color: crushAIColors.text.light }}
-            >
-              {trustedCompaniesTitle}
-            </h3>
-            <div className="flex flex-wrap justify-center gap-x-12 gap-y-8">
-              {trustedCompanies.map((company) => (
-                <div 
-                  key={company} 
-                  className="text-2xl font-semibold"
-                  style={{ color: `${crushAIColors.text.light}80` }}
-                >
-                  {company}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        )}
       </div>
     </section>
-  )
+  );
 }
-
-// Default testimonials data with realistic clinician feedback
-const defaultTestimonials: Testimonial[] = [
-  {
-    id: 1,
-    name: "Dr. Sarah Johnson",
-    role: "Family Medicine Physician",
-    company: "Boston Medical Center",
-    content: "CRUSH has transformed my practice. I'm saving 2+ hours daily on documentation, allowing me to focus on patients instead of screens. The AI captures nuances I would have missed in my notes.",
-    rating: 5,
-    avatar: ""
-  },
-  {
-    id: 2,
-    name: "Dr. Michael Chen",
-    role: "Cardiologist",
-    company: "Northwestern Memorial Hospital",
-    content: "As a specialist, I need precision in my documentation. CRUSH understands complex cardiac terminology and accurately documents patient histories, saving me time while improving my note quality.",
-    rating: 5,
-    avatar: ""
-  },
-  {
-    id: 3,
-    name: "Dr. Rebecca Martinez",
-    role: "Pediatrician",
-    company: "Children's Hospital Colorado",
-    content: "CRUSH adapts perfectly to pediatric practice. It handles parent interviews seamlessly, helps with growth tracking, and ensures I never miss preventative care opportunities. Game-changing technology!",
-    rating: 5,
-    avatar: ""
-  },
-  {
-    id: 4,
-    name: "Dr. James Wilson",
-    role: "Emergency Medicine",
-    company: "Johns Hopkins Hospital",
-    content: "In our fast-paced ED, CRUSH keeps up flawlessly. It captures critical details during rapid assessments and helps me maintain detailed documentation even during our busiest shifts.",
-    rating: 4,
-    avatar: ""
-  },
-  {
-    id: 5,
-    name: "Dr. Elizabeth Taylor",
-    role: "Psychiatrist",
-    company: "UCLA Medical Center",
-    content: "CRUSH excels at capturing the nuances of psychiatric interviews. It helps me track subtle changes in patient presentation over time and ensures my documentation supports proper care planning.",
-    rating: 5,
-    avatar: ""
-  }
-];
