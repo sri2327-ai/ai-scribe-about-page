@@ -3,10 +3,7 @@ import React from 'react';
 import { Facebook, Linkedin, Clock, X } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
 import OptimizedImage from "@/components/ui/optimized-image";
-import { cn } from "@/lib/utils";
-import styles from "@/styles/casecontentpage.module.scss";
 import { Button } from "@/components/ui/button";
-import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface CaseStudyLayoutProps {
   title: string;
@@ -82,7 +79,7 @@ export const CaseStudyLayout = ({
             {children}
           </div>
 
-          {/* CTA Card */}
+          {/* Single CTA at the bottom */}
           <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:shadow-xl transition-all duration-300">
             <div className="text-center">
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">

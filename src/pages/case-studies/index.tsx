@@ -29,55 +29,55 @@ const caseStudies = [
     title: "Physician Earns $5,311 Per Month More with CRUSH AI Medical Scribe",
     description: "Boost revenue with efficient and accurate AI scribing",
     path: "/resources/casestudies/physician-earns-five-thousand-dollars-per-month",
-    image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png"
+    image: "/case-studies/revenue-growth.svg"
   },
   {
     title: "Physician saves $21,144 yearly",
     description: "Cut costs by replacing traditional scribes with CRUSH AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
-    image: "/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png"
+    image: "/case-studies/cost-savings.svg"
   },
   {
     title: "Physician saves $17,796 yearly",
     description: "Eliminate transcription costs with CRUSH AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
-    image: "/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+    image: "/case-studies/transcription-savings.svg"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
     description: "How CRUSH AI helps gastroenterologists save time on documentation",
     path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
-    image: "/lovable-uploads/14fcf3f1-8d66-4abb-a217-4e685d29b99c.png"
+    image: "/case-studies/epic-integration.svg"
   },
   {
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
     path: "/resources/casestudies/alaska-therapy",
-    image: "/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png"
+    image: "/case-studies/nordic-languages.svg"
   },
   {
     title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices",
     description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices",
     path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
-    image: "/lovable-uploads/e9ad85da-27c0-412a-a0ff-237e4b9a8ef5.png"
+    image: "/case-studies/patient-care.svg"
   },
   {
     title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice",
     description: "CRUSH integrates seamlessly with INTAKE Q to automate documentation",
     path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
-    image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png"
+    image: "/case-studies/osmind-integration.svg"
   },
   {
     title: "Revolutionizing Functional Medicine with CRUSH",
     description: "CRUSH streamlines documentation in functional and longevity medicine",
     path: "/resources/casestudies/revolutionizing-functional-medicine-with-crush",
-    image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png"
+    image: "/case-studies/functional-medicine.svg"
   },
   {
     title: "100% Accuracy in Nordic Languages – Fast Documentation",
     description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors",
     path: "/resources/casestudies/100-accuracy-in-nordic-languages-fast-documentation",
-    image: "/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png"
+    image: "/case-studies/nordic-languages.svg"
   }
 ];
 
