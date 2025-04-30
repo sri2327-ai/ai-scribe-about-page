@@ -20,6 +20,19 @@ export const CaseStudyLayout = ({
   children,
   ctaTitle = "Transform Your Practice with S10.AI"
 }: CaseStudyLayoutProps) => {
+  // Check if we're using one of our improved SVGs
+  const useImprovedSVG = () => {
+    if (image === "/case-studies/cost-savings.svg") {
+      return "/case-studies/cost-savings-improved.svg";
+    }
+    if (image === "/case-studies/transcription-savings.svg") {
+      return "/case-studies/transcription-savings-improved.svg";
+    }
+    return image;
+  };
+
+  const displayImage = useImprovedSVG();
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
       <Helmet>
@@ -27,7 +40,7 @@ export const CaseStudyLayout = ({
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={image} />
+        <meta property="og:image" content={displayImage} />
         <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
@@ -62,10 +75,10 @@ export const CaseStudyLayout = ({
           </div>
 
           <div className="mt-8 md:mt-12 relative rounded-lg overflow-hidden shadow-lg bg-white p-6 md:p-8">
-            {image && (
+            {displayImage && (
               <div className="w-full h-60 md:h-80 flex items-center justify-center">
                 <OptimizedImage
-                  src={image}
+                  src={displayImage}
                   alt={title}
                   className="w-full h-full object-contain max-w-full"
                   priority={true}

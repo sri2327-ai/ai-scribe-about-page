@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
@@ -38,13 +37,13 @@ const caseStudies = [
     title: "Physician saves $21,144 yearly",
     description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
-    image: "/case-studies/cost-savings.svg"
+    image: "/case-studies/cost-savings-improved.svg"
   },
   {
     title: "Physician saves $17,796 yearly",
     description: "Eliminate transcription costs with S10.AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
-    image: "/case-studies/transcription-savings.svg"
+    image: "/case-studies/transcription-savings-improved.svg"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
@@ -94,11 +93,23 @@ export default function CaseStudiesIndex() {
   const renderCaseStudyImage = (study) => {
     if (study.useCustomIllustration) {
       if (study.illustrationType === "gastro") {
-        return <GastroIllustration />;
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <GastroIllustration />
+          </div>
+        );
       } else if (study.illustrationType === "intakeQ") {
-        return <IntakeQIllustration />;
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <IntakeQIllustration />
+          </div>
+        );
       } else if (study.illustrationType === "multiProvider") {
-        return <MultiProviderIllustration />;
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <MultiProviderIllustration />
+          </div>
+        );
       }
     }
     

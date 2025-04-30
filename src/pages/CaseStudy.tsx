@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import OptimizedImage from "@/components/ui/optimized-image";
@@ -16,10 +15,10 @@ const caseStudies = [
   { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More with S10.AI Medical Scribe", description: "Boost revenue with efficient and accurate AI scribing.", image: "/case-studies/revenue-growth.svg" },
   { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/case-studies/epic-integration.svg", useCustomIllustration: true, illustrationType: "gastro" },
   { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices", description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/case-studies/patient-care.svg", useCustomIllustration: true, illustrationType: "multiProvider" },
-  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice", description: "S10.AI integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/case-studies/osmind-integration.svg", useCustomIllustration: true, illustrationType: "intakeQ" },
+  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice", description: "S10.AI integrates seamlessly with INTAKE Q to automate documentation, saving time and improving efficiency.", image: "/case-studies/osmind-integration.svg", useCustomIllustration: true, illustrationType: "intakeQ" },
   { folder: "revolutionizing-functional-medicine-with-crush", title: "Revolutionizing Functional Medicine with S10.AI", description: "S10.AI streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency.", image: "/case-studies/functional-medicine.svg" },
-  { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe.", image: "/case-studies/cost-savings.svg" },
-  { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with S10.AI Medical Scribe.", image: "/case-studies/transcription-savings.svg" },
+  { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe.", image: "/case-studies/cost-savings-improved.svg" },
+  { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with S10.AI Medical Scribe.", image: "/case-studies/transcription-savings-improved.svg" },
   { folder: "alaska-therapy", title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI", description: "Learn how a small hospital in Alaska improved documentation in just one week", image: "/case-studies/nordic-languages.svg" },
 ];
 
