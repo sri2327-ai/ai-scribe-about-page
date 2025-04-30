@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
@@ -23,7 +24,7 @@ export default function TwentyoneThousandCaseStudy() {
     
     let color = "border-green-300";
     let interpretation = "Excellent ROI";
-    let recommendation = `Implementing Crush AI Medical Scribe could save approximately $${Math.round(annualSavings).toLocaleString()} annually through reduced costs and increased revenue.`;
+    let recommendation = `Implementing S10.AI Medical Scribe could save approximately $${Math.round(annualSavings).toLocaleString()} annually through reduced costs and increased revenue.`;
     
     if (annualSavings < 15000) {
       color = "border-yellow-300";
@@ -45,16 +46,16 @@ export default function TwentyoneThousandCaseStudy() {
   return (
     <CaseStudyLayout
       title="Physician saves $21,144 yearly"
-      description="Cut costs by replacing traditional scribes with Crush AI Medical Scribe."
-      image="/ImprovePatientCare.webp"
+      description="Cut costs by replacing traditional scribes with S10.AI Medical Scribe."
+      image="/case-studies/cost-savings.svg"
     >
-      <Tabs defaultValue="case-study" className="mb-8">
-        <TabsList className="w-full border-b p-0 mb-2">
-          <TabsTrigger value="case-study" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <Stethoscope className="h-4 w-4" /> Clinical Case Study
+      <Tabs defaultValue="case-study" className="mb-8 overflow-hidden">
+        <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
+          <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
           </TabsTrigger>
-          <TabsTrigger value="roi-analysis" className="flex items-center gap-2 data-[state=active]:text-blue-700">
-            <DollarSign className="h-4 w-4" /> ROI Analysis
+          <TabsTrigger value="roi-analysis" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
+            <DollarSign className="h-4 w-4 mr-2 inline" /> ROI Analysis
           </TabsTrigger>
         </TabsList>
         
@@ -100,7 +101,7 @@ These challenges were causing stress, reducing efficiency, and creating document
             patientTimeline={[
               {
                 date: "Month 1",
-                event: "Implementation of Crush AI Medical Scribe",
+                event: "Implementation of S10.AI Medical Scribe",
                 details: "Physician spent only 1 hour for implementation and training with the AI system."
               },
               {
@@ -141,7 +142,7 @@ These challenges were causing stress, reducing efficiency, and creating document
               Practice Financial Impact Analysis
             </h2>
             <p>
-              The implementation of Crush AI Medical Scribe provided immediate financial benefits through two primary mechanisms:
+              The implementation of S10.AI Medical Scribe provided immediate financial benefits through two primary mechanisms:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
               <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
@@ -161,14 +162,14 @@ These challenges were causing stress, reducing efficiency, and creating document
             </div>
             
             <p className="mt-4">
-              Use the interactive calculator below to estimate your own practice's potential ROI with Crush AI Medical Scribe. 
+              Use the interactive calculator below to estimate your own practice's potential ROI with S10.AI Medical Scribe. 
               Adjust the values to match your practice parameters.
             </p>
           </div>
           
           <ClinicalCalculator
             title="Practice ROI Calculator"
-            description="Estimate your return on investment when implementing Crush AI Medical Scribe"
+            description="Estimate your return on investment when implementing S10.AI Medical Scribe"
             fields={[
               {
                 id: "patientsPerDay",

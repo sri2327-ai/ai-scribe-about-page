@@ -18,7 +18,7 @@ export default function FiveThousandCaseStudy() {
     
     let color = "border-green-300";
     let interpretation = "Excellent ROI";
-    let recommendation = `By implementing Crush AI Medical Scribe and saving ${values.hoursSaved} hours daily, you could generate approximately $${Math.round(annualAdditionalRevenue).toLocaleString()} in additional annual revenue.`;
+    let recommendation = `By implementing S10.AI Medical Scribe and saving ${values.hoursSaved} hours daily, you could generate approximately $${Math.round(annualAdditionalRevenue).toLocaleString()} in additional annual revenue.`;
     
     if (annualAdditionalRevenue < 50000) {
       color = "border-yellow-300";
@@ -35,11 +35,11 @@ export default function FiveThousandCaseStudy() {
 
   return (
     <CaseStudyLayout
-      title="Physician Earns $5,311 Per Month More with Crush AI Medical Scribe"
+      title="Physician Earns $5,311 Per Month More with S10.AI Medical Scribe"
       description="Boost revenue with efficient and accurate AI scribing."
-      image="/ImprovePatientCare.webp"
+      image="/case-studies/revenue-growth.svg"
     >
-      <Tabs defaultValue="case-study" className="mb-8">
+      <Tabs defaultValue="case-study" className="mb-8 overflow-hidden">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
           <TabsTrigger value="case-study" className="flex-shrink-0 px-4 py-2 whitespace-nowrap data-[state=active]:text-blue-700">
             <Stethoscope className="h-4 w-4 mr-2 inline" /> Clinical Case Study
@@ -88,7 +88,7 @@ These challenges were affecting both practice efficiency and personal well-being
             patientTimeline={[
               {
                 date: "Week 1",
-                event: "Implementation of Crush AI Medical Scribe",
+                event: "Implementation of S10.AI Medical Scribe",
                 details: "Initial setup and training completed in one day."
               },
               {

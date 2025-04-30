@@ -47,7 +47,9 @@ const caseStudies = [
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
     description: "How S10.AI helps gastroenterologists save time on documentation",
     path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
-    image: "/case-studies/epic-integration.svg"
+    image: "/case-studies/epic-integration.svg",
+    useCustomIllustration: true,
+    illustrationType: "gastro"
   },
   {
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI",
@@ -59,13 +61,17 @@ const caseStudies = [
     title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices",
     description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices",
     path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
-    image: "/case-studies/patient-care.svg"
+    image: "/case-studies/patient-care.svg",
+    useCustomIllustration: true,
+    illustrationType: "multiProvider"
   },
   {
     title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice",
     description: "S10.AI integrates seamlessly with INTAKE Q to automate documentation",
     path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
-    image: "/case-studies/osmind-integration.svg"
+    image: "/case-studies/osmind-integration.svg",
+    useCustomIllustration: true,
+    illustrationType: "intakeQ"
   },
   {
     title: "Revolutionizing Functional Medicine with S10.AI",
@@ -82,6 +88,41 @@ const caseStudies = [
 ];
 
 export default function CaseStudiesIndex() {
+  const renderCaseStudyImage = (study) => {
+    if (study.useCustomIllustration) {
+      if (study.illustrationType === "gastro") {
+        const GastroIllustration = React.lazy(() => import('@/components/case-studies/custom-illustrations/GastroIllustration'));
+        return (
+          <React.Suspense fallback={<div className="w-full h-48 flex items-center justify-center bg-gray-100">Loading...</div>}>
+            <GastroIllustration />
+          </React.Suspense>
+        );
+      } else if (study.illustrationType === "intakeQ") {
+        const IntakeQIllustration = React.lazy(() => import('@/components/case-studies/custom-illustrations/IntakeQIllustration'));
+        return (
+          <React.Suspense fallback={<div className="w-full h-48 flex items-center justify-center bg-gray-100">Loading...</div>}>
+            <IntakeQIllustration />
+          </React.Suspense>
+        );
+      } else if (study.illustrationType === "multiProvider") {
+        const MultiProviderIllustration = React.lazy(() => import('@/components/case-studies/custom-illustrations/MultiProviderIllustration'));
+        return (
+          <React.Suspense fallback={<div className="w-full h-48 flex items-center justify-center bg-gray-100">Loading...</div>}>
+            <MultiProviderIllustration />
+          </React.Suspense>
+        );
+      }
+    }
+    
+    return (
+      <OptimizedImage 
+        src={study.image} 
+        alt={study.title}
+        className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
+      />
+    );
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50 pt-20 md:pt-24 pb-12 px-4 md:px-6">
       <Helmet>
@@ -102,11 +143,7 @@ export default function CaseStudiesIndex() {
             <Link key={study.path} to={study.path} className="group">
               <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
                 <div className="aspect-video relative overflow-hidden bg-white p-4 flex items-center justify-center">
-                  <OptimizedImage 
-                    src={study.image} 
-                    alt={study.title}
-                    className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
-                  />
+                  {renderCaseStudyImage(study)}
                 </div>
                 <div className="p-6 flex flex-col flex-grow">
                   <h2 className="text-base md:text-lg font-semibold mb-3 text-gray-900 group-hover:text-[#387E89] transition-colors">

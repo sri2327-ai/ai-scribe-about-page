@@ -3,6 +3,9 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { ChevronRight } from "lucide-react";
+import GastroIllustration from '@/components/case-studies/custom-illustrations/GastroIllustration';
+import IntakeQIllustration from '@/components/case-studies/custom-illustrations/IntakeQIllustration';
+import MultiProviderIllustration from '@/components/case-studies/custom-illustrations/MultiProviderIllustration';
 
 const caseStudies = [
   { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/case-studies/nordic-languages.svg" },
@@ -11,9 +14,9 @@ const caseStudies = [
   { folder: "how-s10-ai-medical-scribe-assistant-improves-epic-usability", title: "How S10 AI Medical Scribe Assistant Improves EPIC Usability", description: "Optimize EPIC with AI-powered efficiency.", image: "/case-studies/epic-integration.svg" },
   { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI AI Medical Scribe", description: "Focus more on patients, less on paperwork with AI assistance", image: "/case-studies/patient-care.svg" },
   { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More with S10.AI Medical Scribe", description: "Boost revenue with efficient and accurate AI scribing.", image: "/case-studies/revenue-growth.svg" },
-  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/case-studies/epic-integration.svg" },
-  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices", description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/case-studies/patient-care.svg" },
-  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice", description: "S10.AI integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/case-studies/osmind-integration.svg" },
+  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/case-studies/epic-integration.svg", useCustomIllustration: true, illustrationType: "gastro" },
+  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices", description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/case-studies/patient-care.svg", useCustomIllustration: true, illustrationType: "multiProvider" },
+  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice", description: "S10.AI integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/case-studies/osmind-integration.svg", useCustomIllustration: true, illustrationType: "intakeQ" },
   { folder: "revolutionizing-functional-medicine-with-crush", title: "Revolutionizing Functional Medicine with S10.AI", description: "S10.AI streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency.", image: "/case-studies/functional-medicine.svg" },
   { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe.", image: "/case-studies/cost-savings.svg" },
   { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with S10.AI Medical Scribe.", image: "/case-studies/transcription-savings.svg" },
@@ -22,6 +25,29 @@ const caseStudies = [
 
 const CaseStudy = () => {
   const navigate = useNavigate();
+  
+  const renderCaseStudyImage = (caseStudy) => {
+    if (caseStudy.useCustomIllustration) {
+      if (caseStudy.illustrationType === "gastro") {
+        return <GastroIllustration />;
+      } else if (caseStudy.illustrationType === "intakeQ") {
+        return <IntakeQIllustration />;
+      } else if (caseStudy.illustrationType === "multiProvider") {
+        return <MultiProviderIllustration />;
+      }
+    }
+    
+    return (
+      <OptimizedImage
+        src={caseStudy.image}
+        alt={caseStudy.title}
+        className="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
+      />
+    );
+  };
+
+  // Featured case study - using first one for demonstration
+  const featuredCaseStudy = caseStudies[6]; // Using the gastro case study
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-white to-blue-50 pt-24">
@@ -39,22 +65,20 @@ const CaseStudy = () => {
           
           <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl flex flex-col md:flex-row">
             <div className="p-6 md:p-8 md:w-1/2">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">100% Accuracy in Nordic Languages – Fast Documentation</h2>
-              <p className="text-lg text-gray-600">AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.</p>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">{featuredCaseStudy.title}</h2>
+              <p className="text-lg text-gray-600">{featuredCaseStudy.description}</p>
               
               <button 
-                onClick={() => navigate(`/resources/casestudies/100-accuracy-in-nordic-languages-fast-documentation`)}
+                onClick={() => navigate(`/resources/casestudies/${featuredCaseStudy.folder}`)}
                 className="mt-6 inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white rounded-md transition-colors"
               >
                 Read Full Case Study <ChevronRight size={18} />
               </button>
             </div>
             <div className="md:w-1/2 p-6 flex items-center justify-center bg-white">
-              <OptimizedImage
-                src="/case-studies/nordic-languages.svg"
-                alt="Featured Case Study"
-                className="w-full h-64 md:h-80 object-contain"
-              />
+              <div className="w-full h-64 md:h-80">
+                {renderCaseStudyImage(featuredCaseStudy)}
+              </div>
             </div>
           </div>
         </div>
@@ -73,15 +97,11 @@ const CaseStudy = () => {
                 onClick={() => navigate(`/resources/casestudies/${caseStudy.folder}`)}
               >
                 <div className="h-52 overflow-hidden bg-white p-4 flex items-center justify-center">
-                  <OptimizedImage
-                    src={caseStudy.image}
-                    alt={caseStudy.title}
-                    className="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
-                  />
+                  {renderCaseStudyImage(caseStudy)}
                 </div>
-                <div className="p-6 flex flex-col h-56">
+                <div className="p-6 flex flex-col min-h-[12rem]">
                   <h3 className="text-xl font-bold text-gray-800 mb-2 line-clamp-2">{caseStudy.title}</h3>
-                  <p className="text-gray-600 mb-4 flex-grow">{caseStudy.description}</p>
+                  <p className="text-gray-600 mb-4 line-clamp-3 flex-grow">{caseStudy.description}</p>
                   <div className="mt-auto pt-4 flex justify-end border-t border-gray-100">
                     <span className="text-blue-600 inline-flex items-center text-sm font-medium">
                       Read more <ChevronRight size={16} className="ml-1" />
