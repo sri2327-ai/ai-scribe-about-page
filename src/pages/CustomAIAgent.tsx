@@ -6,26 +6,68 @@ import { CATransformWorkflow } from '@/components/custom-ai-agent/CATransformWor
 import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
 import { CAGettingStartedStepper } from '@/components/custom-ai-agent/CAGettingStartedStepper';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 
 const CustomAIAgent = () => {
   const isMobile = useIsMobile();
   
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  };
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <div className="bg-white min-h-screen">
-      <CAHeroSection />
-      <div className={`py-6 ${isMobile ? 'pt-2' : 'py-8'}`}>
-        <CABentoGrid />
+    <motion.div 
+      className="bg-white min-h-screen overflow-x-hidden"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <Helmet>
+        <title>Custom AI Agent | S10.AI</title>
+        <meta name="description" content="Create your own custom AI agents for healthcare workflows with S10.AI's platform." />
+      </Helmet>
+
+      <motion.div variants={sectionVariants}>
+        <CAHeroSection />
+      </motion.div>
+
+      <div className={`${isMobile ? 'space-y-8' : 'space-y-12'} max-w-7xl mx-auto px-4 sm:px-6`}>
+        <motion.div 
+          className={`py-4 ${isMobile ? 'pt-2' : 'py-6'}`}
+          variants={sectionVariants}
+        >
+          <CABentoGrid />
+        </motion.div>
+
+        <motion.div 
+          className={`py-2 ${isMobile ? 'py-4' : 'py-6'}`}
+          variants={sectionVariants}
+        >
+          <CATransformWorkflow />
+        </motion.div>
+
+        <motion.div 
+          className={`py-2 ${isMobile ? 'py-4' : 'py-6'}`}
+          variants={sectionVariants}
+        >
+          <CAGettingStartedStepper />
+        </motion.div>
+
+        <motion.div 
+          className={`py-4 ${isMobile ? 'py-6' : 'py-10'}`}
+          variants={sectionVariants}
+        >
+          <CABeforeAfterCarousel />
+        </motion.div>
       </div>
-      <div className={`py-4 ${isMobile ? 'py-6' : 'py-8'}`}>
-        <CATransformWorkflow />
-      </div>
-      <div className={`py-4 ${isMobile ? 'py-6' : 'py-8'}`}>
-        <CAGettingStartedStepper />
-      </div>
-      <div className={`py-4 ${isMobile ? 'py-8' : 'py-12'}`}>
-        <CABeforeAfterCarousel />
-      </div>
-    </div>
+    </motion.div>
   );
 };
 

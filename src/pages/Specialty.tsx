@@ -11,13 +11,13 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/co
 
 const Specialty = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
         <title>Medical Specialties | S10.AI</title>
         <meta name="description" content="S10.AI provides specialty-specific AI solutions for healthcare professionals across various medical disciplines." />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 pt-8">
+      <div className="max-w-7xl mx-auto px-4 pt-6 sm:pt-8">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -34,6 +34,7 @@ const Specialty = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
+        className="space-y-8 sm:space-y-12 md:space-y-16"
       >
         <SpecialtiesBanner />
         <SpecialtiesGrid />

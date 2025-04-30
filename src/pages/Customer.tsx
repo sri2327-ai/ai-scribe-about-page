@@ -22,12 +22,22 @@ const Customer = () => {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+    visible: { 
+      opacity: 1, 
+      transition: { 
+        staggerChildren: 0.15,
+        duration: 0.5
+      } 
+    }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.4 } 
+    }
   };
 
   return (
@@ -42,7 +52,7 @@ const Customer = () => {
         <meta name="description" content="Discover how S10.AI has helped healthcare providers improve efficiency and patient care through AI-powered solutions." />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 pt-8">
+      <div className="max-w-7xl mx-auto px-4 pt-6 sm:pt-8">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -56,36 +66,36 @@ const Customer = () => {
       </div>
 
       {/* Fixed-width container to ensure consistent alignment */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div variants={itemVariants}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+        <motion.div variants={itemVariants} className="mt-4 sm:mt-6">
           <HeroStats />
         </motion.div>
         
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants} className="mt-6 sm:mt-8">
           <PromoBanner />
         </motion.div>
         
         {isMobile ? (
-          <div className="py-4">
-            <div className="my-8 space-y-16">
+          <div className="mt-6 sm:mt-8">
+            <div className="space-y-12">
               {sections.map(({ Component, id }) => (
-                <motion.div key={id} className="mb-12" variants={itemVariants}>
+                <motion.div key={id} variants={itemVariants} className="mb-10">
                   <Component />
                 </motion.div>
               ))}
             </div>
           </div>
         ) : (
-          <div className="space-y-24 py-12">
+          <div className="space-y-16 sm:space-y-20 mt-8 sm:mt-10">
             {sections.map(({ Component, id }) => (
-              <motion.div key={id} variants={itemVariants} className="py-6">
+              <motion.div key={id} variants={itemVariants} className="py-4">
                 <Component />
               </motion.div>
             ))}
           </div>
         )}
         
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants} className="mt-8 sm:mt-12">
           <HeroSection />
         </motion.div>
       </div>

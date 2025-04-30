@@ -6,6 +6,7 @@ import { useWindowSize } from '@/hooks/use-window-size';
 const MedicalSpecialtiesIllustration = () => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
+  const isTablet = width >= 768 && width < 1024;
 
   const specialties = [
     { Icon: Heart, name: 'Cardiology', angle: 0 },
@@ -19,15 +20,24 @@ const MedicalSpecialtiesIllustration = () => {
     { Icon: Pill, name: 'Primary Care' }
   ];
 
+  // Adjust radius based on screen size
+  const getRadius = () => {
+    if (isMobile) return 120;
+    if (isTablet) return 150;
+    return 180;
+  };
+  
+  const radius = getRadius();
+
   return (
-    <div className="relative w-full h-[400px] md:h-[500px]">
+    <div className="relative w-full h-[300px] sm:h-[350px] md:h-[400px]">
       {/* Center icon */}
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="relative group">
           <div className="absolute -inset-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg opacity-20 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="relative flex flex-col items-center p-4">
-            <Pill className="w-12 h-12 md:w-16 md:h-16 text-[#143151] transition-all duration-300 group-hover:text-white" />
-            <span className="text-sm md:text-base font-medium text-[#143151] text-center mt-2">
+            <Pill className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-[#143151] transition-all duration-300 group-hover:text-white" />
+            <span className="text-xs sm:text-sm md:text-base font-medium text-[#143151] text-center mt-2">
               Primary Care
             </span>
           </div>
@@ -36,7 +46,6 @@ const MedicalSpecialtiesIllustration = () => {
 
       {/* Surrounding specialties */}
       {specialties.slice(0, -1).map(({ Icon, name, angle }, index) => {
-        const radius = isMobile ? 120 : 180;
         const radian = (angle * Math.PI) / 180;
         const x = radius * Math.cos(radian);
         const y = radius * Math.sin(radian);
@@ -54,7 +63,7 @@ const MedicalSpecialtiesIllustration = () => {
             <div className="relative group">
               <div className="absolute -inset-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg opacity-20 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex flex-col items-center p-2">
-                <Icon className="w-8 h-8 md:w-10 md:h-10 text-[#143151] transition-all duration-300 group-hover:text-white" />
+                <Icon className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-[#143151] transition-all duration-300 group-hover:text-white" />
                 <span className="text-xs md:text-sm font-medium text-[#143151] text-center mt-1 whitespace-nowrap">
                   {name}
                 </span>
