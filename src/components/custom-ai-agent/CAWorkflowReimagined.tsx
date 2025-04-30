@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import OptimizedImage from '@/components/ui/optimized-image';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 // Define workflow steps with their automated status and improved icons
 const workflowSteps = [
@@ -398,13 +399,15 @@ export const CAWorkflowReimagined = () => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
   };
+  
+  const isMobile = useIsMobile();
 
   return (
-    <section className="py-12 md:py-20 px-4 bg-gradient-to-b from-white to-blue-50/30">
+    <section className="py-8 sm:py-10 md:py-20 px-4 bg-gradient-to-b from-white to-blue-50/30">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12">
           <motion.h2 
-            className="text-3xl md:text-4xl font-bold text-[#143151] mb-4"
+            className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#143151] mb-3 sm:mb-4"
             initial={{ opacity: 0, y: -20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -413,7 +416,7 @@ export const CAWorkflowReimagined = () => {
             Your Clinic's Workflow, Reimagined with AI
           </motion.h2>
           <motion.p 
-            className="text-lg text-gray-700 max-w-3xl mx-auto"
+            className="text-base sm:text-lg text-gray-700 max-w-3xl mx-auto"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -424,16 +427,16 @@ export const CAWorkflowReimagined = () => {
           </motion.p>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 md:p-10 mb-10">
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 md:p-10 mb-8 sm:mb-10">
           {/* Legend with improved styling */}
-          <div className="flex justify-center gap-8 mb-8">
+          <div className="flex justify-center gap-4 sm:gap-8 mb-6 sm:mb-8">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-[#5192AE]"></div>
-              <span className="text-sm text-gray-700">AI Automated Steps</span>
+              <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-[#5192AE]"></div>
+              <span className="text-xs sm:text-sm text-gray-700">AI Automated Steps</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded-full bg-gray-300"></div>
-              <span className="text-sm text-gray-700">Manual Steps</span>
+              <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-gray-300"></div>
+              <span className="text-xs sm:text-sm text-gray-700">Manual Steps</span>
             </div>
           </div>
 
@@ -447,7 +450,7 @@ export const CAWorkflowReimagined = () => {
           >
             <motion.div 
               variants={itemVariants}
-              className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xl font-bold mb-4 shadow-lg"
+              className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-base sm:text-xl font-bold mb-3 sm:mb-4 shadow-lg"
             >
               Start
             </motion.div>
@@ -458,49 +461,51 @@ export const CAWorkflowReimagined = () => {
                   variants={itemVariants} 
                   className="flex justify-center my-1"
                 >
-                  <ArrowDown className="text-gray-400 w-6 h-10" />
+                  <ArrowDown className="text-gray-400 w-4 h-8 sm:w-6 sm:h-10" />
                 </motion.div>
                 
                 <motion.div
                   variants={itemVariants}
-                  className={`w-full max-w-2xl rounded-lg p-5 border-2 shadow-sm ${
+                  className={`w-full max-w-full sm:max-w-lg md:max-w-2xl rounded-lg p-3 sm:p-5 border-2 shadow-sm ${
                     step.automated 
                       ? "border-[#5192AE]/30 bg-[#5192AE]/5" 
                       : "border-gray-300/50 bg-gray-100"
                   }`}
                 >
-                  <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-lg flex items-center justify-center shadow-sm ${
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center shadow-sm ${
                       step.automated ? "bg-[#5192AE]/20" : "bg-gray-200"
                     }`}>
                       <span className="text-[#143151]">{step.icon}</span>
                     </div>
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-[#143151] text-lg">{step.title}</h3>
-                      <p className="text-sm text-gray-600">{step.description}</p>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-[#143151] text-sm sm:text-base md:text-lg truncate">{step.title}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{step.description}</p>
                     </div>
                     {step.automated && (
-                      <div className="ml-auto bg-[#5192AE]/20 text-[#143151] text-xs font-semibold py-1.5 px-3 rounded-full">
+                      <div className="ml-auto bg-[#5192AE]/20 text-[#143151] text-[10px] sm:text-xs font-semibold py-1 px-2 sm:py-1.5 sm:px-3 rounded-full whitespace-nowrap">
                         AI Automated
                       </div>
                     )}
                   </div>
                   
-                  {/* Add the illustration */}
-                  <div className="mt-4 pt-4 border-t border-gray-200">
-                    {step.illustration}
+                  {/* Add the illustration with improved responsive sizing */}
+                  <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 overflow-hidden">
+                    <div className="transform scale-90 sm:scale-100 origin-center">
+                      {step.illustration}
+                    </div>
                   </div>
                 </motion.div>
               </React.Fragment>
             ))}
 
             <motion.div variants={itemVariants} className="flex justify-center my-1">
-              <ArrowDown className="text-gray-400 w-6 h-10" />
+              <ArrowDown className="text-gray-400 w-4 h-8 sm:w-6 sm:h-10" />
             </motion.div>
             
             <motion.div 
               variants={itemVariants}
-              className="flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xl font-bold mt-2 shadow-lg"
+              className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-base sm:text-xl font-bold mt-2 shadow-lg"
             >
               End
             </motion.div>
@@ -510,8 +515,8 @@ export const CAWorkflowReimagined = () => {
         {/* Call to Action with improved styling */}
         <div className="text-center">
           <Button 
-            size="lg" 
-            className="rounded-full px-10 py-7 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl h-auto"
+            size={isMobile ? "default" : "lg"}
+            className="rounded-full px-6 sm:px-10 py-5 sm:py-7 text-base sm:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl h-auto"
           >
             Book a Discovery Call
           </Button>
