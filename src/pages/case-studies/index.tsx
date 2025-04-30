@@ -9,7 +9,16 @@ import GastroIllustration from '@/components/case-studies/custom-illustrations/G
 import IntakeQIllustration from '@/components/case-studies/custom-illustrations/IntakeQIllustration';
 import MultiProviderIllustration from '@/components/case-studies/custom-illustrations/MultiProviderIllustration';
 
-const caseStudies = [
+type CaseStudy = {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  useCustomIllustration?: boolean;
+  illustrationType?: "gastro" | "intakeQ" | "multiProvider";
+};
+
+const caseStudies: CaseStudy[] = [
   {
     title: "How S10.AI Medical Scribe Assistant Improves EPIC Usability",
     description: "Optimize EPIC with AI-powered efficiency",
@@ -50,7 +59,6 @@ const caseStudies = [
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
     description: "How S10.AI helps gastroenterologists save time on documentation",
     path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
-    image: "/case-studies/epic-integration.svg",
     useCustomIllustration: true,
     illustrationType: "gastro"
   },
@@ -64,7 +72,6 @@ const caseStudies = [
     title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices",
     description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices",
     path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
-    image: "/case-studies/patient-care.svg",
     useCustomIllustration: true,
     illustrationType: "multiProvider"
   },
@@ -72,7 +79,6 @@ const caseStudies = [
     title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice",
     description: "S10.AI integrates seamlessly with INTAKE Q to automate documentation",
     path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
-    image: "/case-studies/osmind-integration.svg",
     useCustomIllustration: true,
     illustrationType: "intakeQ"
   },
@@ -91,7 +97,7 @@ const caseStudies = [
 ];
 
 const CaseStudiesIndex = () => {
-  const renderCaseStudyImage = (study) => {
+  const renderCaseStudyImage = (study: CaseStudy) => {
     if (study.useCustomIllustration) {
       if (study.illustrationType === "gastro") {
         return (
@@ -124,36 +130,36 @@ const CaseStudiesIndex = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50 pt-20 md:pt-24 pb-12 px-4 md:px-6">
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50 pt-16 sm:pt-20 md:pt-24 pb-12 px-4 md:px-6">
       <Helmet>
         <title>Case Studies | S10.AI Medical Scribe</title>
         <meta name="description" content="Discover how healthcare providers are transforming their practices with S10.AI" />
       </Helmet>
       
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
           Case Studies
         </h1>
-        <p className="text-gray-600 text-lg mb-8 max-w-2xl">
+        <p className="text-gray-600 text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl">
           Discover how healthcare providers are transforming their practices and improving patient care with S10.AI.
         </p>
         
-        <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {caseStudies.map((study) => (
             <Link key={study.path} to={study.path} className="group">
               <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
                 <div className="aspect-video relative overflow-hidden bg-white p-4 flex items-center justify-center">
                   {renderCaseStudyImage(study)}
                 </div>
-                <div className="p-6 flex flex-col flex-grow">
-                  <h2 className="text-base md:text-lg font-semibold mb-3 text-gray-900 group-hover:text-[#387E89] transition-colors">
+                <div className="p-4 sm:p-5 md:p-6 flex flex-col flex-grow">
+                  <h2 className="text-sm sm:text-base md:text-lg font-semibold mb-2 sm:mb-3 text-gray-900 group-hover:text-[#387E89] transition-colors line-clamp-2">
                     {study.title}
                   </h2>
-                  <p className="text-gray-600 text-sm mb-5 flex-grow">
+                  <p className="text-gray-600 text-xs sm:text-sm mb-4 sm:mb-5 flex-grow line-clamp-2">
                     {study.description}
                   </p>
                   <div className="flex items-center text-[#387E89] font-medium group-hover:translate-x-1 transition-transform mt-auto">
-                    Read More <ArrowRight className="ml-2 h-4 w-4" />
+                    Read More <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
                   </div>
                 </div>
               </Card>

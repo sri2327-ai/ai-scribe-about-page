@@ -17,7 +17,7 @@ const Specialty = () => {
         <meta name="description" content="S10.AI provides specialty-specific AI solutions for healthcare professionals across various medical disciplines." />
       </Helmet>
 
-      <div className="max-w-7xl mx-auto px-4 pt-6 sm:pt-8">
+      <div className="max-w-7xl mx-auto px-4 pt-4 sm:pt-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -34,7 +34,7 @@ const Specialty = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="space-y-8 sm:space-y-12 md:space-y-16"
+        className="space-y-6 sm:space-y-10 md:space-y-14"
       >
         <SpecialtiesBanner />
         <SpecialtiesGrid />

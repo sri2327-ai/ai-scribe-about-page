@@ -15,12 +15,19 @@ const CustomAIAgent = () => {
   
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.2 } 
+    }
   };
 
   const sectionVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { duration: 0.5 } 
+    }
   };
 
   return (
@@ -39,37 +46,37 @@ const CustomAIAgent = () => {
         <CAHeroSection />
       </motion.div>
 
-      <div className={`${isMobile ? 'space-y-8' : 'space-y-12'} max-w-7xl mx-auto px-4 sm:px-6`}>
+      <div className={`${isMobile ? 'space-y-6' : 'space-y-10'} max-w-7xl mx-auto px-4 sm:px-6 pb-12`}>
         <motion.div 
-          className={`py-4 ${isMobile ? 'pt-2' : 'py-6'}`}
+          className="py-4"
           variants={sectionVariants}
         >
           <CABentoGrid />
         </motion.div>
 
         <motion.div 
-          className={`py-2 ${isMobile ? 'py-4' : 'py-6'}`}
+          className="py-4"
           variants={sectionVariants}
         >
           <CATransformWorkflow />
         </motion.div>
 
         <motion.div 
-          className={`py-2 ${isMobile ? 'py-4' : 'py-6'}`}
+          className="py-4"
           variants={sectionVariants}
         >
           <CAGettingStartedStepper />
         </motion.div>
 
         <motion.div 
-          className={`py-4 ${isMobile ? 'py-6' : 'py-10'}`}
+          className="py-4"
           variants={sectionVariants}
         >
           <CABeforeAfterCarousel />
         </motion.div>
         
         <motion.div 
-          className={`py-4 ${isMobile ? 'py-6' : 'py-10'}`}
+          className="py-4"
           variants={sectionVariants}
         >
           <CAWorkflowReimagined />

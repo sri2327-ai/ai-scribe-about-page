@@ -70,10 +70,10 @@ const StunningCaseStudies = () => {
         {renderCaseStudyImage(caseStudy)}
       </div>
       <div className="p-4 flex-grow flex flex-col">
-        <h3 className="text-lg font-semibold mb-2 text-[#143151] line-clamp-2">
+        <h3 className="text-base sm:text-lg font-semibold mb-2 text-[#143151] line-clamp-2">
           {caseStudy.title}
         </h3>
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">
+        <p className="text-xs sm:text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">
           {caseStudy.description}
         </p>
         <div className="flex items-center text-[#387E89] text-sm font-medium hover:text-[#143151] transition-colors mt-auto">
@@ -85,11 +85,11 @@ const StunningCaseStudies = () => {
   );
 
   return (
-    <section className="px-4 md:px-8 py-6 md:py-12 bg-gradient-to-b from-white to-gray-50">
+    <section className="px-4 md:px-6 py-6 md:py-10 bg-gradient-to-b from-white to-gray-50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#143151] mb-3">Case Studies</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#143151] mb-2 sm:mb-3">Case Studies</h2>
+          <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
             Discover how healthcare providers are transforming their practices and improving patient care with S10.AI.
           </p>
         </div>
@@ -110,7 +110,7 @@ const StunningCaseStudies = () => {
             gap={16}
           />
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
             {caseStudies.map((caseStudy, index) => (
               <CaseStudyCard key={index} caseStudy={caseStudy} />
             ))}
