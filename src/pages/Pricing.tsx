@@ -123,7 +123,7 @@ const Pricing = () => {
           </motion.div>
 
           {/* Tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
+          <div className="flex justify-center gap-2 mb-8">
             <Button 
               variant={activePlan === 'crush' ? 'default' : 'outline'}
               onClick={() => setActivePlan('crush')}
@@ -428,7 +428,7 @@ const Pricing = () => {
                 size="lg" 
                 className="rounded-full px-8 py-6 text-lg bg-white text-[#143151] hover:bg-gray-100 shadow-lg transition-all duration-300 hover:scale-105"
               >
-                Start Your 30-Day Money-Back Guarantee
+                Start Your 30-Day Risk-Free Trial
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <p className="mt-4 text-sm text-white/80">No credit card required for demo • Cancel anytime</p>
