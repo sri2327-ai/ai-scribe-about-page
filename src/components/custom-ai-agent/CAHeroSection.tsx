@@ -14,7 +14,7 @@ export const CAHeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="order-2 lg:order-1"
+            className="order-1 lg:order-1"
           >
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 text-black">
               Build Custom AI Agents for Your Clinic Workflows
@@ -33,7 +33,7 @@ export const CAHeroSection = () => {
             </Button>
           </motion.div>
 
-          <div className="order-1 lg:order-2 mt-0 md:mt-0">
+          <div className="order-2 lg:order-2 mt-6 md:mt-6 lg:mt-0">
             <CAWorkflowAnimation />
           </div>
         </div>
