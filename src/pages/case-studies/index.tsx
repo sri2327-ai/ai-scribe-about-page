@@ -5,6 +5,9 @@ import { ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Helmet } from 'react-helmet-async';
 import OptimizedImage from "@/components/ui/optimized-image";
+import GastroIllustration from '@/components/case-studies/custom-illustrations/GastroIllustration';
+import IntakeQIllustration from '@/components/case-studies/custom-illustrations/IntakeQIllustration';
+import MultiProviderIllustration from '@/components/case-studies/custom-illustrations/MultiProviderIllustration';
 
 const caseStudies = [
   {
@@ -91,26 +94,11 @@ export default function CaseStudiesIndex() {
   const renderCaseStudyImage = (study) => {
     if (study.useCustomIllustration) {
       if (study.illustrationType === "gastro") {
-        const GastroIllustration = React.lazy(() => import('@/components/case-studies/custom-illustrations/GastroIllustration'));
-        return (
-          <React.Suspense fallback={<div className="w-full h-48 flex items-center justify-center bg-gray-100">Loading...</div>}>
-            <GastroIllustration />
-          </React.Suspense>
-        );
+        return <GastroIllustration />;
       } else if (study.illustrationType === "intakeQ") {
-        const IntakeQIllustration = React.lazy(() => import('@/components/case-studies/custom-illustrations/IntakeQIllustration'));
-        return (
-          <React.Suspense fallback={<div className="w-full h-48 flex items-center justify-center bg-gray-100">Loading...</div>}>
-            <IntakeQIllustration />
-          </React.Suspense>
-        );
+        return <IntakeQIllustration />;
       } else if (study.illustrationType === "multiProvider") {
-        const MultiProviderIllustration = React.lazy(() => import('@/components/case-studies/custom-illustrations/MultiProviderIllustration'));
-        return (
-          <React.Suspense fallback={<div className="w-full h-48 flex items-center justify-center bg-gray-100">Loading...</div>}>
-            <MultiProviderIllustration />
-          </React.Suspense>
-        );
+        return <MultiProviderIllustration />;
       }
     }
     
@@ -118,7 +106,7 @@ export default function CaseStudiesIndex() {
       <OptimizedImage 
         src={study.image} 
         alt={study.title}
-        className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
+        className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
       />
     );
   };

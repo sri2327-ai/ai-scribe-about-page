@@ -29,11 +29,23 @@ const CaseStudy = () => {
   const renderCaseStudyImage = (caseStudy) => {
     if (caseStudy.useCustomIllustration) {
       if (caseStudy.illustrationType === "gastro") {
-        return <GastroIllustration />;
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <GastroIllustration />
+          </div>
+        );
       } else if (caseStudy.illustrationType === "intakeQ") {
-        return <IntakeQIllustration />;
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <IntakeQIllustration />
+          </div>
+        );
       } else if (caseStudy.illustrationType === "multiProvider") {
-        return <MultiProviderIllustration />;
+        return (
+          <div className="w-full h-full flex items-center justify-center">
+            <MultiProviderIllustration />
+          </div>
+        );
       }
     }
     
@@ -46,8 +58,8 @@ const CaseStudy = () => {
     );
   };
 
-  // Featured case study - using first one for demonstration
-  const featuredCaseStudy = caseStudies[6]; // Using the gastro case study
+  // Featured case study - using a case study with custom illustration
+  const featuredCaseStudy = caseStudies.find(cs => cs.useCustomIllustration) || caseStudies[0];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white via-white to-blue-50 pt-24">
