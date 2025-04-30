@@ -3,13 +3,12 @@ import React from 'react';
 import { CaseStudyLayout } from '@/components/case-studies/CaseStudyLayout';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export default function FunctionalMedicineStudy() {
   return (
     <CaseStudyLayout
-      title="Revolutionizing Functional Medicine with CRUSH"
-      description="CRUSH streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency."
+      title="Revolutionizing Functional Medicine with S10.AI"
+      description="S10.AI streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency."
       image="/case-studies/functional-medicine.svg"
     >
       <Tabs defaultValue="case-study" className="mb-8">
@@ -28,17 +27,17 @@ export default function FunctionalMedicineStudy() {
               <h2 className="text-2xl font-bold mb-4">Functional Medicine Documentation Challenges</h2>
               <p>Functional and longevity medicine practices face unique documentation challenges due to their holistic approach and comprehensive patient evaluations. Dr. Amanda Taylor's practice, Optimal Health Partners, struggled with documenting detailed patient histories, extensive lab analyses, and multi-faceted treatment plans.</p>
               
-              <p className="mt-4">Before implementing CRUSH, practitioners at Optimal Health Partners spent an average of 45-60 minutes documenting each patient encounter. With complex initial assessments often requiring comprehensive evaluations across multiple body systems, some documentation sessions extended to 90+ minutes.</p>
+              <p className="mt-4">Before implementing S10.AI, practitioners at Optimal Health Partners spent an average of 45-60 minutes documenting each patient encounter. With complex initial assessments often requiring comprehensive evaluations across multiple body systems, some documentation sessions extended to 90+ minutes.</p>
             </section>
             
             <section>
               <h2 className="text-2xl font-bold mb-4">Specialized Implementation</h2>
-              <p>CRUSH AI Medical Scribe was customized to address the unique requirements of functional medicine practice:</p>
+              <p>S10.AI Medical Scribe was customized to address the unique requirements of functional medicine practice:</p>
               
               <ul className="list-disc pl-6 space-y-2 mt-4">
-                <li><strong>Comprehensive Systems Review:</strong> CRUSH was configured to document detailed functional medicine systems reviews across all body systems.</li>
+                <li><strong>Comprehensive Systems Review:</strong> S10.AI was configured to document detailed functional medicine systems reviews across all body systems.</li>
                 <li><strong>Lab Integration:</strong> The system was integrated with specialized functional medicine lab panels, facilitating automated documentation of complex lab analyses.</li>
-                <li><strong>Supplement Protocols:</strong> CRUSH was trained to document detailed supplement protocols with dosing schedules and interactions.</li>
+                <li><strong>Supplement Protocols:</strong> S10.AI was trained to document detailed supplement protocols with dosing schedules and interactions.</li>
                 <li><strong>Lifestyle Modification Plans:</strong> Custom templates were developed for comprehensive lifestyle modification documentation.</li>
               </ul>
             </section>
@@ -57,7 +56,7 @@ export default function FunctionalMedicineStudy() {
             
             <section>
               <h2 className="text-2xl font-bold mb-4">Specialty-Specific Benefits</h2>
-              <p>CRUSH AI Medical Scribe delivered specific benefits for functional medicine practice:</p>
+              <p>S10.AI Medical Scribe delivered specific benefits for functional medicine practice:</p>
               
               <ul className="list-disc pl-6 space-y-2 mt-4">
                 <li>Automated documentation of complex supplement regimens with interaction checks</li>
@@ -69,7 +68,7 @@ export default function FunctionalMedicineStudy() {
             
             <section className="bg-blue-50 p-6 rounded-lg">
               <h2 className="text-xl font-bold mb-2">Dr. Taylor's Experience</h2>
-              <p className="italic">"CRUSH AI has transformed our functional medicine practice. The depth and quality of our documentation has improved significantly, while the time required has been cut by 75%. This allows us to focus more on analyzing complex cases and delivering personalized care. The system's ability to handle our specialized lab panels and supplement protocols has been remarkable."</p>
+              <p className="italic">"S10.AI has transformed our functional medicine practice. The depth and quality of our documentation has improved significantly, while the time required has been cut by 75%. This allows us to focus more on analyzing complex cases and delivering personalized care. The system's ability to handle our specialized lab panels and supplement protocols has been remarkable."</p>
             </section>
           </div>
         </TabsContent>

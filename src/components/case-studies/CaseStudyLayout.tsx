@@ -61,13 +61,15 @@ export const CaseStudyLayout = ({
             </div>
           </div>
 
-          <div className="mt-8 md:mt-12 relative rounded-lg overflow-hidden shadow-lg">
-            <OptimizedImage
-              src={image}
-              alt={title}
-              className="w-full h-auto max-h-80 object-cover"
-              priority={true}
-            />
+          <div className="mt-8 md:mt-12 relative rounded-lg overflow-hidden shadow-lg bg-white p-4">
+            <div className="w-full h-60 md:h-80 flex items-center justify-center">
+              <OptimizedImage
+                src={image}
+                alt={title}
+                className="w-full h-full object-contain max-w-full"
+                priority={true}
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -19,7 +19,7 @@ const StunningCaseStudies = () => {
 
   const CaseStudyCard = ({ caseStudy }: { caseStudy: typeof caseStudies[0] }) => (
     <div
-      className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 cursor-pointer h-full"
+      className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col"
       onClick={(event) => {
         const url = `/resources/casestudies/${caseStudy.folder}`;
         if (event.metaKey || event.ctrlKey) {
@@ -29,21 +29,21 @@ const StunningCaseStudies = () => {
         }
       }}
     >
-      <div className="relative h-48">
+      <div className="relative h-48 p-4 bg-white flex items-center justify-center">
         <OptimizedImage
           src={caseStudy.image}
           alt={caseStudy.title}
-          className="object-cover w-full h-full"
+          className="object-contain w-full h-full"
         />
       </div>
-      <div className="p-4">
+      <div className="p-4 flex-grow flex flex-col">
         <h3 className="text-lg font-semibold mb-2 text-[#143151] line-clamp-2">
           {caseStudy.title}
         </h3>
-        <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+        <p className="text-sm text-gray-600 mb-3 line-clamp-2 flex-grow">
           {caseStudy.description}
         </p>
-        <div className="flex items-center text-[#387E89] text-sm font-medium hover:text-[#143151] transition-colors">
+        <div className="flex items-center text-[#387E89] text-sm font-medium hover:text-[#143151] transition-colors mt-auto">
           Read More
           <ArrowRight className="w-4 h-4 ml-1" />
         </div>

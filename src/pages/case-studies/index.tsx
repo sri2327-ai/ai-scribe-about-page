@@ -8,68 +8,68 @@ import OptimizedImage from "@/components/ui/optimized-image";
 
 const caseStudies = [
   {
-    title: "How CRUSH AI Medical Scribe Assistant Improves EPIC Usability",
+    title: "How S10.AI Medical Scribe Assistant Improves EPIC Usability",
     description: "Optimize EPIC with AI-powered efficiency",
     path: "/resources/casestudies/how-s10-ai-medical-scribe-assistant-improves-epic-usability",
     image: "/case-studies/epic-integration.svg"
   },
   {
-    title: "Family Medicine Practitioner In Canada Moved To CRUSH From GPT4",
-    description: "Learn how a Canadian doctor improved their practice with CRUSH AI",
+    title: "Family Medicine Practitioner In Canada Moved To S10.AI From GPT4",
+    description: "Learn how a Canadian doctor improved their practice with S10.AI",
     path: "/resources/casestudies/family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4",
     image: "/case-studies/family-medicine.svg"
   },
   {
-    title: "Improving Patient Care With CRUSH AI Medical Scribe",
+    title: "Improving Patient Care With S10.AI Medical Scribe",
     description: "Focus more on patients, less on paperwork with AI assistance",
     path: "/resources/casestudies/improving-patient-care-with-s10-ai-ai-medical-scribe",
     image: "/case-studies/patient-care.svg"
   },
   {
-    title: "Physician Earns $5,311 Per Month More with CRUSH AI Medical Scribe",
+    title: "Physician Earns $5,311 Per Month More with S10.AI Medical Scribe",
     description: "Boost revenue with efficient and accurate AI scribing",
     path: "/resources/casestudies/physician-earns-five-thousand-dollars-per-month",
     image: "/case-studies/revenue-growth.svg"
   },
   {
     title: "Physician saves $21,144 yearly",
-    description: "Cut costs by replacing traditional scribes with CRUSH AI Medical Scribe",
+    description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-twenty-one-thousand-dollars-yearly",
     image: "/case-studies/cost-savings.svg"
   },
   {
     title: "Physician saves $17,796 yearly",
-    description: "Eliminate transcription costs with CRUSH AI Medical Scribe",
+    description: "Eliminate transcription costs with S10.AI Medical Scribe",
     path: "/resources/casestudies/physician-saves-seventeen-thousand-dollars-yearly",
     image: "/case-studies/transcription-savings.svg"
   },
   {
     title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists",
-    description: "How CRUSH AI helps gastroenterologists save time on documentation",
+    description: "How S10.AI helps gastroenterologists save time on documentation",
     path: "/resources/casestudies/save-2-hours-daily-ai-efficiency-for-gastroenterologists",
     image: "/case-studies/epic-integration.svg"
   },
   {
-    title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH",
+    title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
     path: "/resources/casestudies/alaska-therapy",
     image: "/case-studies/nordic-languages.svg"
   },
   {
-    title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices",
-    description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices",
+    title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices",
+    description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices",
     path: "/resources/casestudies/crush-saves-2-hours-daily-for-multi-provider-practices",
     image: "/case-studies/patient-care.svg"
   },
   {
-    title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice",
-    description: "CRUSH integrates seamlessly with INTAKE Q to automate documentation",
+    title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice",
+    description: "S10.AI integrates seamlessly with INTAKE Q to automate documentation",
     path: "/resources/casestudies/crush-intake-q-transforming-dr-strotman-practice",
     image: "/case-studies/osmind-integration.svg"
   },
   {
-    title: "Revolutionizing Functional Medicine with CRUSH",
-    description: "CRUSH streamlines documentation in functional and longevity medicine",
+    title: "Revolutionizing Functional Medicine with S10.AI",
+    description: "S10.AI streamlines documentation in functional and longevity medicine",
     path: "/resources/casestudies/revolutionizing-functional-medicine-with-crush",
     image: "/case-studies/functional-medicine.svg"
   },
@@ -101,11 +101,11 @@ export default function CaseStudiesIndex() {
           {caseStudies.map((study) => (
             <Link key={study.path} to={study.path} className="group">
               <Card className="h-full overflow-hidden hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col">
-                <div className="aspect-video relative overflow-hidden">
+                <div className="aspect-video relative overflow-hidden bg-white p-4 flex items-center justify-center">
                   <OptimizedImage 
                     src={study.image} 
                     alt={study.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6 flex flex-col flex-grow">

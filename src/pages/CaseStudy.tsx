@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { useNavigate } from "react-router-dom";
-import styles from "@/styles/casestudy.module.scss";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { ChevronRight } from "lucide-react";
 
@@ -38,8 +37,8 @@ const CaseStudy = () => {
             </p>
           </div>
           
-          <div className={`${styles.featuredCard} flex flex-col md:flex-row`}>
-            <div className={`${styles.featuredContent} p-6 md:p-8`}>
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl flex flex-col md:flex-row">
+            <div className="p-6 md:p-8 md:w-1/2">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">100% Accuracy in Nordic Languages – Fast Documentation</h2>
               <p className="text-lg text-gray-600">AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.</p>
               
@@ -50,11 +49,11 @@ const CaseStudy = () => {
                 Read Full Case Study <ChevronRight size={18} />
               </button>
             </div>
-            <div className={`${styles.featuredImage} md:min-h-[350px] h-64 md:h-auto mt-6 md:mt-0`}>
+            <div className="md:w-1/2 p-6 flex items-center justify-center bg-white">
               <OptimizedImage
                 src="/case-studies/nordic-languages.svg"
                 alt="Featured Case Study"
-                className="w-full h-full object-cover rounded-xl"
+                className="w-full h-64 md:h-80 object-contain"
               />
             </div>
           </div>
@@ -73,11 +72,11 @@ const CaseStudy = () => {
                 className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer transform hover:-translate-y-2 transition-transform duration-300" 
                 onClick={() => navigate(`/resources/casestudies/${caseStudy.folder}`)}
               >
-                <div className="h-48 overflow-hidden">
+                <div className="h-52 overflow-hidden bg-white p-4 flex items-center justify-center">
                   <OptimizedImage
                     src={caseStudy.image}
                     alt={caseStudy.title}
-                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                    className="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
                   />
                 </div>
                 <div className="p-6 flex flex-col h-56">
