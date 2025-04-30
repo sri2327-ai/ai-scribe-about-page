@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -63,7 +64,9 @@ const Landing = () => {
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/pricing">Pricing</BreadcrumbLink>
+            <BreadcrumbLink asChild>
+              <Link to="/pricing">Pricing</Link>
+            </BreadcrumbLink>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
