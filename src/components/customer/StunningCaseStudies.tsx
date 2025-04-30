@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -28,6 +27,7 @@ const caseStudies: CaseStudy[] = [
   { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices", description: "Enhance workflow and save valuable time with S10.AI.", useCustomIllustration: true, illustrationType: "multiProvider" },
   { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe.", image: "/case-studies/cost-savings-improved.svg" },
   { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with S10.AI Medical Scribe.", image: "/case-studies/transcription-savings-improved.svg" },
+  { folder: "alaska-therapy", title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI", description: "Learn how a small hospital in Alaska improved documentation in just one week", image: "/case-studies/alaska-therapy.svg" },
 ];
 
 const StunningCaseStudies = () => {
