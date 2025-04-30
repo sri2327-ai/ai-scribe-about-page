@@ -5,6 +5,7 @@ import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy
 import { ClinicalCalculator } from '@/components/case-studies/ClinicalCalculator';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
+import MultiProviderIllustration from '@/components/case-studies/custom-illustrations/MultiProviderIllustration';
 
 export default function MultiProviderPracticesStudy() {
   const calculatePracticeEfficiency = (values: Record<string, number>) => {
@@ -36,9 +37,9 @@ export default function MultiProviderPracticesStudy() {
 
   return (
     <CaseStudyLayout
-      title="CRUSH Saves 2+ Hours Daily for Multi-Provider Practices"
-      description="CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation."
-      image="/ImprovePatientCare.webp"
+      title="S10.AI Saves 2+ Hours Daily for Multi-Provider Practices"
+      description="S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation."
+      customIllustration={<MultiProviderIllustration />}
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">

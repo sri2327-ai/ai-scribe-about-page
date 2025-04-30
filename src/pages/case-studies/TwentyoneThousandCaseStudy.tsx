@@ -47,7 +47,8 @@ export default function TwentyoneThousandCaseStudy() {
     <CaseStudyLayout
       title="Physician saves $21,144 yearly"
       description="Cut costs by replacing traditional scribes with S10.AI Medical Scribe."
-      image="/case-studies/cost-savings.svg"
+      image="/case-studies/cost-savings-improved.svg"
+      // Updated to use the correct image path for this case study
     >
       <Tabs defaultValue="case-study" className="mb-8 overflow-hidden">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">

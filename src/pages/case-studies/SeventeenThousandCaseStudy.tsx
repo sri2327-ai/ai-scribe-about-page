@@ -35,8 +35,9 @@ export default function SeventeenThousandCaseStudy() {
   return (
     <CaseStudyLayout
       title="Physician saves $17,796 yearly"
-      description="Eliminate transcription costs with Crush S10.AI Medical Scribe."
-      image="/case-studies/cost-savings.svg" // Updated to use Figma-designed UI illustration
+      description="Eliminate transcription costs with S10.AI Medical Scribe."
+      image="/case-studies/transcription-savings-improved.svg" 
+      // Updated to use the correct image path for this case study
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
