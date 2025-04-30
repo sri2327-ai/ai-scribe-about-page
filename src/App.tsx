@@ -9,6 +9,9 @@ import { SectionLoader } from '@/components/ui/section-loader';
 // Import Landing directly instead of lazy loading it to fix the dynamic import issue
 import Landing from './pages/Landing';
 
+// Import case study index directly to resolve the blank page issue
+import CaseStudiesIndex from './pages/case-studies/index';
+
 // Lazy load all other routes
 const About = React.lazy(() => import('./pages/About'));
 const Contact = React.lazy(() => import('./pages/Contact'));
@@ -42,9 +45,6 @@ const AlaskaTherapyStudy = React.lazy(() => import('./pages/case-studies/AlaskaT
 
 // Lazy load the blog post component
 const BlogPost = React.lazy(() => import('./components/blog/BlogPost'));
-
-// Import case study index component
-import CaseStudiesIndex from "./pages/case-studies/index";
 
 function App() {
   return (
@@ -120,8 +120,17 @@ function App() {
             <Changelog />
           </Suspense>
         } />
+        
+        {/* Case Studies routes - directly import CaseStudiesIndex to fix blank page issue */}
         <Route path="/case-studies" element={<CaseStudiesIndex />} />
         <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
+        
+        {/* Legacy case study route */}
+        <Route path="/case-study" element={
+          <Suspense fallback={<SectionLoader />}>
+            <CaseStudy />
+          </Suspense>
+        } />
         
         {/* Case Study Routes */}
         <Route path="/resources/casestudies/80-faster-documentation-with-osmind-ehr-integration" element={
@@ -187,7 +196,7 @@ function App() {
           </Suspense>
         } />
         
-        {/* Fix the Alaska Therapy case study route */}
+        {/* Alaska Therapy case study routes */}
         <Route path="/resources/casestudies/alaska-therapy" element={
           <Suspense fallback={<SectionLoader />}>
             <AlaskaTherapyStudy />
