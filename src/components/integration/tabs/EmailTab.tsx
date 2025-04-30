@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Mail, Sync, Workflow, Database, Link, Download } from 'lucide-react';
+import { Mail, RotateCw, Workflow, Database, Link, Download } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 

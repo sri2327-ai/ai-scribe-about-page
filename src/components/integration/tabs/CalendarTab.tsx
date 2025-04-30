@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Calendar, Cloud, Database, Clock, Link, Sync } from 'lucide-react';
+import { Calendar, Cloud, Database, Clock, Link, RotateCw } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 
