@@ -9,9 +9,9 @@ import { Stethoscope, Calculator } from 'lucide-react';
 export default function AlaskaTherapyStudy() {
   return (
     <CaseStudyLayout
-      title="The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH"
+      title="The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI"
       description="Learn how a small hospital in Alaska improved documentation in just one week"
-      image="/case-studies/patient-care.svg"
+      image="/case-studies/alaska-therapy.svg"
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">
@@ -36,7 +36,7 @@ export default function AlaskaTherapyStudy() {
 
 Without an EHR system, therapists were manually typing notes after sessions, which created significant administrative burden and delayed the completion of clinical documentation. This documentation backlog was affecting their ability to maintain up-to-date patient records and impacting their capacity to see more patients.
 
-After implementing CRUSH AI Medical Scribe, the hospital was able to automate the documentation process. The system was configured to create customized long-form initial assessment notes and shorter follow-up visit notes, exactly matching their workflow needs. Documentation time decreased dramatically, from hours to minutes per patient, allowing therapists to focus more on patient care."
+After implementing S10.AI Medical Scribe, the hospital was able to automate the documentation process. The system was configured to create customized long-form initial assessment notes and shorter follow-up visit notes, exactly matching their workflow needs. Documentation time decreased dramatically, from hours to minutes per patient, allowing therapists to focus more on patient care."
             clinicalInsights={[
               {
                 title: "Documentation Burden in Mental Health Practice",
@@ -59,22 +59,22 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
               },
               {
                 date: "February 2024",
-                event: "CRUSH AI Evaluation",
+                event: "S10.AI Evaluation",
                 details: "Hospital CEO sought AI solutions to address documentation inefficiencies and improve practitioner productivity."
               },
               {
                 date: "March 2024",
-                event: "CRUSH AI Implementation",
-                details: "Implemented CRUSH AI Medical Scribe with customized templates for initial assessments and follow-up visits."
+                event: "S10.AI Implementation",
+                details: "Implemented S10.AI Medical Scribe with customized templates for initial assessments and follow-up visits."
               },
               {
                 date: "March 2024 (1 week later)",
                 event: "Full Adoption",
-                details: "All four therapists fully adopted CRUSH AI, reporting significant time savings and improved documentation quality."
+                details: "All four therapists fully adopted S10.AI, reporting significant time savings and improved documentation quality."
               }
             ]}
             clinicalQuiz={{
-              question: "What was the primary reason the Wasilla Hospital implemented CRUSH AI Medical Scribe?",
+              question: "What was the primary reason the Wasilla Hospital implemented S10.AI Medical Scribe?",
               options: [
                 { id: "a", text: "To reduce costs associated with transcription services" },
                 { id: "b", text: "To complete long, detailed medical notes more efficiently" },
@@ -82,7 +82,7 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
                 { id: "d", text: "To comply with new regulatory requirements" }
               ],
               correctAnswerId: "b",
-              explanation: "The primary pain point for Wasilla Hospital was the inefficiency in completing long, detailed medical notes, which was affecting their productivity and patient care. CRUSH AI Medical Scribe was implemented specifically to address this documentation burden and streamline the note-taking process."
+              explanation: "The primary pain point for Wasilla Hospital was the inefficiency in completing long, detailed medical notes, which was affecting their productivity and patient care. S10.AI Medical Scribe was implemented specifically to address this documentation burden and streamline the note-taking process."
             }}
           />
 
@@ -115,7 +115,7 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
             </section>
 
             <section>
-              <h2 className="text-2xl font-bold mb-4">Pain Points Before CRUSH Adoption</h2>
+              <h2 className="text-2xl font-bold mb-4">Pain Points Before S10.AI Adoption</h2>
               <p>The Wasilla Hospital faced significant challenges in completing detailed medical notes efficiently. 
               Each therapy session required extensive documentation, with initial assessments particularly time-consuming.
               Without an EHR system, therapists were manually documenting their sessions, which created delays in completing
@@ -130,7 +130,7 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
 
             <section>
               <h2 className="text-2xl font-bold mb-4">Competitive Landscape</h2>
-              <p>Before adopting CRUSH AI Medical Scribe, the Wasilla Hospital relied entirely on manual documentation methods. 
+              <p>Before adopting S10.AI Medical Scribe, the Wasilla Hospital relied entirely on manual documentation methods. 
               Therapists would take handwritten notes during sessions and then spend hours after patient visits converting 
               these into formal medical documentation. They had not previously implemented any automated documentation 
               solutions or scribing services.</p>
@@ -138,11 +138,11 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
 
             <section>
               <h2 className="text-2xl font-bold mb-4">Adoption History and Outcomes</h2>
-              <p>CRUSH AI Medical Scribe was implemented rapidly, with the entire adoption process taking just one week. 
+              <p>S10.AI Medical Scribe was implemented rapidly, with the entire adoption process taking just one week. 
               The system was configured to meet the specific needs of the therapy practice, particularly the requirement 
               for detailed long-form notes for initial visits and more concise documentation for follow-up appointments.</p>
               
-              <p className="mt-4">After implementing CRUSH AI Medical Scribe, the hospital experienced immediate and significant 
+              <p className="mt-4">After implementing S10.AI Medical Scribe, the hospital experienced immediate and significant 
               improvements in their documentation workflow. Documentation time was reduced from hours to minutes per patient, 
               allowing therapists to see more patients and reduce their administrative workload. The quality and consistency 
               of documentation also improved, with more comprehensive and standardized notes.</p>
@@ -154,7 +154,7 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
 
             <section>
               <h2 className="text-2xl font-bold mb-4">Conclusion</h2>
-              <p>CRUSH AI Medical Scribe proved to be an effective solution for the Wasilla Hospital, addressing their 
+              <p>S10.AI Medical Scribe proved to be an effective solution for the Wasilla Hospital, addressing their 
               specific pain points related to medical documentation in a therapy setting. The AI-powered system 
               significantly improved time management and document quality, enabling therapists to focus more on 
               patient care rather than administrative tasks.</p>
@@ -162,7 +162,7 @@ After implementing CRUSH AI Medical Scribe, the hospital was able to automate th
               <p className="mt-4">This case study demonstrates how AI scribing solutions can be successfully implemented 
               even in small healthcare facilities without existing EHR systems, providing immediate benefits in terms of 
               operational efficiency and practitioner satisfaction. The rapid adoption and positive outcomes highlight 
-              the accessibility and effectiveness of CRUSH AI Medical Scribe for specialized healthcare settings.</p>
+              the accessibility and effectiveness of S10.AI Medical Scribe for specialized healthcare settings.</p>
             </section>
           </div>
         </TabsContent>
