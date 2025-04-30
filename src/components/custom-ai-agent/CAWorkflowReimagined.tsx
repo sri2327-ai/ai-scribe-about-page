@@ -486,7 +486,7 @@ export const CAWorkflowReimagined = () => {
                     )}
                   </div>
                   
-                  {/* Add the new illustration */}
+                  {/* Add the illustration */}
                   <div className="mt-4 pt-4 border-t border-gray-200">
                     {step.illustration}
                   </div>

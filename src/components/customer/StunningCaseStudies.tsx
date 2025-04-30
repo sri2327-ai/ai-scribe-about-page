@@ -45,7 +45,7 @@ const StunningCaseStudies = () => {
     );
   };
 
-  const CaseStudyCard = ({ caseStudy }: { caseStudy: typeof caseStudies[0] }) => (
+  const CaseStudyCard = ({ caseStudy }) => (
     <div
       className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col"
       onClick={(event) => {

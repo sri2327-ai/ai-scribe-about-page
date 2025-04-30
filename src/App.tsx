@@ -121,7 +121,7 @@ function App() {
           </Suspense>
         } />
         
-        {/* Case Studies routes - directly import CaseStudiesIndex to fix blank page issue */}
+        {/* Case Studies routes - directly render CaseStudiesIndex to fix blank page issue */}
         <Route path="/case-studies" element={<CaseStudiesIndex />} />
         <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
         
