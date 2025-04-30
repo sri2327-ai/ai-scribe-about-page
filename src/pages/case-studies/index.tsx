@@ -120,13 +120,13 @@ const CaseStudiesIndex = () => {
       }
     }
     
-    return (
+    return study.image ? (
       <OptimizedImage 
         src={study.image} 
         alt={study.title}
         className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-300"
       />
-    );
+    ) : null;
   };
 
   return (

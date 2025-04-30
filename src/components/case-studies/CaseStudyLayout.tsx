@@ -51,11 +51,11 @@ export const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
                 <div className="w-full max-h-[300px] flex items-center justify-center">
                   {customIllustration}
                 </div>
-              ) : (
+              ) : image ? (
                 <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
                   <OptimizedImage src={image} alt={title} className="w-full h-full object-contain max-h-[300px]" />
                 </div>
-              )}
+              ) : null}
             </div>
             
             {children}
