@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
         <>
           {/* Basic (No EHR) */}
           <motion.div 
-            className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
+            className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col h-full"
             whileHover={{ y: -5 }}
             variants={fadeInUpVariants}
             custom={1}
@@ -55,8 +56,8 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   '24x7 Support',
                   'Human RCPA Specialists'
                 ].map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <li key={index} className="flex items-start gap-2">
+                    <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
@@ -75,7 +76,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
 
           {/* Basic (With EHR) */}
           <motion.div 
-            className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col relative"
+            className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col relative h-full"
             whileHover={{ y: -5 }}
             variants={fadeInUpVariants}
             custom={2}
@@ -104,8 +105,8 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
               <ul className="mb-6 md:mb-8 space-y-3 flex-grow">
-                <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                   <span className="text-gray-700 font-semibold">All Basic (No EHR) features</span>
                 </li>
                 {[
@@ -115,8 +116,8 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Custom templates',
                   'Contextual pre-charting'
                 ].map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <li key={index} className="flex items-start gap-2">
+                    <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
@@ -135,7 +136,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
 
           {/* Pro */}
           <motion.div 
-            className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col relative"
+            className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col relative h-full"
             whileHover={{ y: -5 }}
             variants={fadeInUpVariants}
             custom={3}
@@ -158,8 +159,8 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
               <ul className="mb-6 md:mb-8 space-y-3 flex-grow">
-                <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                   <span className="text-gray-700 font-semibold">All Basic (With EHR) features</span>
                 </li>
                 {[
@@ -170,8 +171,8 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Longitudinal intelligence',
                   'HCC tracking & documentation'
                 ].map((feature, index) => (
-                  <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <li key={index} className="flex items-start gap-2">
+                    <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}

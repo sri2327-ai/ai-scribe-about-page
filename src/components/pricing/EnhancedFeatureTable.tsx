@@ -112,18 +112,18 @@ export const EnhancedFeatureTable = ({ product }: EnhancedFeatureTableProps) => 
         <Table>
           <TableHeader className="bg-gradient-to-r from-[#143151] to-[#387E89]">
             <TableRow className="border-none">
-              <TableHead className="text-white font-bold w-1/3">Features</TableHead>
+              <TableHead className="text-white font-bold text-lg w-1/3 py-4">Features</TableHead>
               {product === 'crush' ? (
                 <>
-                  <TableHead className="text-white font-bold text-center">Basic (No EHR)</TableHead>
-                  <TableHead className="text-white font-bold text-center">Basic (With EHR)</TableHead>
-                  <TableHead className="text-white font-bold text-center">Pro</TableHead>
+                  <TableHead className="text-white font-bold text-lg text-center py-4">Basic (No EHR)</TableHead>
+                  <TableHead className="text-white font-bold text-lg text-center py-4">Basic (With EHR)</TableHead>
+                  <TableHead className="text-white font-bold text-lg text-center py-4">Pro</TableHead>
                 </>
               ) : (
                 <>
-                  <TableHead className="text-white font-bold text-center">Basic</TableHead>
-                  <TableHead className="text-white font-bold text-center">Pro</TableHead>
-                  <TableHead className="text-white font-bold text-center">Enterprise</TableHead>
+                  <TableHead className="text-white font-bold text-lg text-center py-4">Basic</TableHead>
+                  <TableHead className="text-white font-bold text-lg text-center py-4">Pro</TableHead>
+                  <TableHead className="text-white font-bold text-lg text-center py-4">Enterprise</TableHead>
                 </>
               )}
             </TableRow>
@@ -132,7 +132,7 @@ export const EnhancedFeatureTable = ({ product }: EnhancedFeatureTableProps) => 
             {features.map((section, sectionIndex) => (
               <React.Fragment key={section.category}>
                 <TableRow className="bg-gray-50 hover:bg-gray-50">
-                  <TableCell colSpan={4} className="font-bold text-lg text-[#143151] py-4">
+                  <TableCell colSpan={4} className="font-bold text-xl text-[#143151] py-5">
                     {section.category}
                   </TableCell>
                 </TableRow>
@@ -146,7 +146,7 @@ export const EnhancedFeatureTable = ({ product }: EnhancedFeatureTableProps) => 
                     viewport={{ once: true }}
                     className={`${featureIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-blue-50/30`}
                   >
-                    <TableCell className={`font-medium ${feature.highlight ? 'text-[#143151]' : ''}`}>
+                    <TableCell className={`font-medium ${feature.highlight ? 'text-[#143151] font-semibold' : ''} py-3`}>
                       <div className="flex items-center">
                         {feature.name}
                         {feature.highlight && (
@@ -158,21 +158,21 @@ export const EnhancedFeatureTable = ({ product }: EnhancedFeatureTableProps) => 
                     </TableCell>
                     {product === 'crush' ? (
                       <>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-3">
                           {feature.basic ? (
                             <Check className="h-5 w-5 text-green-500 mx-auto" />
                           ) : (
                             <span className="text-gray-300">—</span>
                           )}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-3">
                           {feature.basicWithEHR ? (
                             <Check className="h-5 w-5 text-green-500 mx-auto" />
                           ) : (
                             <span className="text-gray-300">—</span>
                           )}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-3">
                           {feature.pro ? (
                             <Check className="h-5 w-5 text-green-500 mx-auto" />
                           ) : (
@@ -182,21 +182,21 @@ export const EnhancedFeatureTable = ({ product }: EnhancedFeatureTableProps) => 
                       </>
                     ) : (
                       <>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-3">
                           {feature.basic ? (
                             <Check className="h-5 w-5 text-green-500 mx-auto" />
                           ) : (
                             <span className="text-gray-300">—</span>
                           )}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-3">
                           {feature.pro ? (
                             <Check className="h-5 w-5 text-green-500 mx-auto" />
                           ) : (
                             <span className="text-gray-300">—</span>
                           )}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-3">
                           <Check className="h-5 w-5 text-green-500 mx-auto" />
                         </TableCell>
                       </>
