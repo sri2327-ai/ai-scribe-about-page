@@ -90,7 +90,7 @@ const caseStudies = [
   }
 ];
 
-export default function CaseStudiesIndex() {
+const CaseStudiesIndex = () => {
   const renderCaseStudyImage = (study) => {
     if (study.useCustomIllustration) {
       if (study.illustrationType === "gastro") {
@@ -163,4 +163,6 @@ export default function CaseStudiesIndex() {
       </div>
     </div>
   );
-}
+};
+
+export default CaseStudiesIndex;

@@ -68,7 +68,6 @@ const CustomAIAgent = () => {
           <CABeforeAfterCarousel />
         </motion.div>
         
-        {/* Add the new Workflow Reimagined section */}
         <motion.div 
           className={`py-4 ${isMobile ? 'py-6' : 'py-10'}`}
           variants={sectionVariants}

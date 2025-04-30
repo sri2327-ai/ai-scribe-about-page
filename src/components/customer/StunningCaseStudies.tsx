@@ -9,7 +9,16 @@ import GastroIllustration from "@/components/case-studies/custom-illustrations/G
 import IntakeQIllustration from "@/components/case-studies/custom-illustrations/IntakeQIllustration";
 import MultiProviderIllustration from "@/components/case-studies/custom-illustrations/MultiProviderIllustration";
 
-const caseStudies = [
+type CaseStudy = {
+  folder: string;
+  title: string;
+  description: string;
+  image?: string;
+  useCustomIllustration?: boolean;
+  illustrationType?: "gastro" | "intakeQ" | "multiProvider";
+};
+
+const caseStudies: CaseStudy[] = [
   { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/case-studies/nordic-languages.svg" },
   { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "S10.AI integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/case-studies/osmind-integration.svg" },
   { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More", description: "Boost revenue with efficient and accurate AI scribing from S10.AI Medical Scribe.", image: "/case-studies/revenue-growth.svg" },
@@ -25,7 +34,7 @@ const StunningCaseStudies = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
 
-  const renderCaseStudyImage = (caseStudy) => {
+  const renderCaseStudyImage = (caseStudy: CaseStudy) => {
     if (caseStudy.useCustomIllustration) {
       if (caseStudy.illustrationType === "gastro") {
         return <GastroIllustration />;
@@ -45,7 +54,7 @@ const StunningCaseStudies = () => {
     );
   };
 
-  const CaseStudyCard = ({ caseStudy }) => (
+  const CaseStudyCard = ({ caseStudy }: { caseStudy: CaseStudy }) => (
     <div
       className="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 cursor-pointer h-full flex flex-col"
       onClick={(event) => {
