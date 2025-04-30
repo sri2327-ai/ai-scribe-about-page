@@ -22,6 +22,7 @@ import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing";
 
 function App() {
+  console.log("Rendering App component");
   return (
     <Routes>
       <Route path="/" element={<Index />} />

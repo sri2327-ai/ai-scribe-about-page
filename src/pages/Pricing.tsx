@@ -15,9 +15,15 @@ import { EnhancedFeatureTable } from "@/components/pricing/EnhancedFeatureTable"
 import { InteractiveTestimonials } from "@/components/pricing/InteractiveTestimonials";
 
 const Pricing = () => {
+  console.log("Rendering Pricing page");
   const [activePlan, setActivePlan] = useState<'crush' | 'bravo' | 'bundle'>('crush');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [activeFeatures, setActiveFeatures] = useState<'crush' | 'bravo'>('crush');
+  
+  useEffect(() => {
+    console.log("Pricing page mounted");
+    document.title = "Pricing - S10.AI | CRUSH & BRAVO Solutions";
+  }, []);
   
   // Handle practice selection
   const handlePracticeSelection = (planType: string) => {

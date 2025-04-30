@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Calculator } from "lucide-react";
@@ -17,6 +16,12 @@ const fadeInUpVariants = {
 };
 
 export const PricingCalculator = () => {
+  console.log("Rendering PricingCalculator component");
+  
+  useEffect(() => {
+    console.log("PricingCalculator mounted");
+  }, []);
+  
   // Calculator state
   const [providers, setProviders] = useState<string>('');
   const [patients, setPatients] = useState<string>('');

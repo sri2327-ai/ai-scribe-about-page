@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -8,6 +7,8 @@ import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -18,6 +19,7 @@ const NinthSection = React.lazy(() => import('@/components/landing/NinthSection'
 const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSection'));
 
 const Landing = () => {
+  console.log("Rendering Landing page");
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -60,8 +62,26 @@ const Landing = () => {
           <BreadcrumbItem>
             <BreadcrumbLink href="/">Home</BreadcrumbLink>
           </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink as={Link} to="/pricing">Pricing</BreadcrumbLink>
+          </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
+
+      {/* Add a debug button for testing - we can remove this later */}
+      <div className="fixed top-20 right-4 z-50">
+        <Button 
+          size="sm" 
+          variant="outline" 
+          className="bg-white shadow-md"
+          onClick={() => {
+            console.log("Navigating to pricing");
+            window.location.href = "/pricing";
+          }}
+        >
+          View Pricing
+        </Button>
+      </div>
 
       <FirstSection />
       
