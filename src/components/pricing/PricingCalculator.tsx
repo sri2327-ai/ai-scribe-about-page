@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -5,6 +6,7 @@ import { Calculator } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -28,6 +30,7 @@ export const PricingCalculator = () => {
   const [product, setProduct] = useState<'crush' | 'bravo' | 'bundle'>('crush');
   const [savingsResult, setSavingsResult] = useState<string>('');
   const [showError, setShowError] = useState(false);
+  const [showFeatureTable, setShowFeatureTable] = useState(false);
 
   const calculateSavings = () => {
     const providersNum = parseInt(providers);
@@ -36,6 +39,7 @@ export const PricingCalculator = () => {
     if (isNaN(providersNum) || isNaN(patientsNum) || providersNum < 1 || patientsNum < 1) {
       setShowError(true);
       setSavingsResult('');
+      setShowFeatureTable(false);
       return;
     }
     
@@ -55,6 +59,7 @@ export const PricingCalculator = () => {
     }
     
     setSavingsResult(`Save $${costSavings.toLocaleString()}/month and ${hoursSaved} hours daily!`);
+    setShowFeatureTable(true);
   };
 
   return (
@@ -83,7 +88,7 @@ export const PricingCalculator = () => {
             </motion.p>
           </motion.div>
 
-          <Card className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          <Card className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
             <div className="flex flex-col gap-6">
               <div className="flex flex-wrap gap-6 justify-center md:justify-between">
                 <div className="w-full md:w-auto">
@@ -156,7 +161,7 @@ export const PricingCalculator = () => {
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="mt-8 text-center"
+                    className="mt-8 text-center w-full"
                   >
                     <Badge 
                       className="text-lg font-semibold px-6 py-3 rounded-full bg-blue-50 text-[#143151] border border-[#143151]/20"
@@ -164,9 +169,97 @@ export const PricingCalculator = () => {
                       {savingsResult}
                     </Badge>
                     
-                    <p className="mt-4 text-[#387E89]">
+                    <p className="mt-4 mb-8 text-[#387E89]">
                       That's significant time and cost savings for your practice!
                     </p>
+
+                    {showFeatureTable && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="mt-8 overflow-x-auto w-full"
+                      >
+                        <Table className="w-full border-collapse">
+                          <TableHeader>
+                            <TableRow className="bg-gray-50">
+                              <TableHead className="font-bold text-left text-[#143151] text-base">Feature</TableHead>
+                              <TableHead className="font-bold text-center text-[#143151] text-base">CRUSH Basic</TableHead>
+                              <TableHead className="font-bold text-center text-[#143151] text-base">CRUSH Pro</TableHead>
+                              <TableHead className="font-bold text-center text-[#143151] text-base">BRAVO</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody>
+                            <TableRow>
+                              <TableCell className="font-medium">Pinpoint Accuracy</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">-</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Multilingual Support</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Rapid Documentation</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">-</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">AI Template Builder</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">-</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Patient Instructions</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Telehealth Support</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Available on Devices</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">24x7 Support</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Human RCPA Specialists</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">-</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">EHR Integration</TableCell>
+                              <TableCell className="text-center">Optional</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                            </TableRow>
+                            <TableRow>
+                              <TableCell className="font-medium">Longitudinal Intelligence</TableCell>
+                              <TableCell className="text-center">-</TableCell>
+                              <TableCell className="text-center">✓</TableCell>
+                              <TableCell className="text-center">-</TableCell>
+                            </TableRow>
+                          </TableBody>
+                        </Table>
+                      </motion.div>
+                    )}
                   </motion.div>
                 )}
               </div>
