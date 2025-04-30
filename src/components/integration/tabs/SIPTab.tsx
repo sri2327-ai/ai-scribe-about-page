@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Video, Phone, Users, Monitor, Wifi, Headphones } from 'lucide-react';
+import { Phone, Video, Headphones, Monitor, Wifi, Link } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 
@@ -9,14 +9,14 @@ const SIPTab = () => {
   
   const features = [
     {
-      icon: <Video />,
-      title: 'HD Telehealth Sessions',
-      description: 'High-quality video consultations with integrated clinical documentation and patient vitals monitoring.'
+      icon: <Phone />,
+      title: 'AI-Enhanced Call Management',
+      description: 'Integrates seamlessly with any SIP/VoIP system for flawless connectivity.'
     },
     {
-      icon: <Phone />,
-      title: 'Unified Communications',
-      description: 'Seamless integration with your existing phone systems, call routing, and virtual front desk.'
+      icon: <Video />,
+      title: 'Instant Telehealth Integrations',
+      description: 'Works effortlessly with Zoom, Microsoft Teams, Google Meet, WebEx, and more.'
     }
   ];
 

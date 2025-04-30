@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Database, FileText, UserRound, Clock, Server, BookText, Stethoscope, Hospital } from 'lucide-react';
+import { ArrowRightLeft, FilePlus, Clock } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 
@@ -8,24 +9,19 @@ const EHRTab = () => {
   
   const features = [
     {
-      icon: <Database />,
-      title: 'Seamless Data Integration',
-      description: 'Direct integration with your EHR system for real-time patient data synchronization and clinical documentation.'
+      icon: <ArrowRightLeft />,
+      title: 'Bidirectional Syncing',
+      description: 'Auto-populate medical records with AI-generated notes, patient history, and structured data.'
     },
     {
-      icon: <FileText />,
-      title: 'Smart Clinical Documentation',
-      description: 'AI-powered clinical note generation with specialty-specific templates and automated coding suggestions.'
-    },
-    {
-      icon: <UserRound />,
-      title: 'Patient Care Coordination',
-      description: 'Streamline referrals, lab orders, and care team communication within your existing workflow.'
+      icon: <FilePlus />,
+      title: 'No More Copy-Paste',
+      description: 'Instant documentation with real-time conversation context.'
     },
     {
       icon: <Clock />,
-      title: 'Time-Saving Automation',
-      description: 'Reduce documentation time by 70% with automated charting and clinical decision support.'
+      title: 'Complete Charting in Under 2 Minutes',
+      description: 'Custom-tailored notes, automated ICD-10/HCC coding, and AI-driven accuracy.'
     }
   ];
 
@@ -76,9 +72,9 @@ const EHRTab = () => {
                 key={index}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
               >
-                {index % 3 === 0 ? <Hospital size={16} /> : 
-                 index % 3 === 1 ? <Stethoscope size={16} /> : 
-                 <FileText size={16} />}
+                {index % 3 === 0 ? <ArrowRightLeft size={16} /> : 
+                 index % 3 === 1 ? <FilePlus size={16} /> : 
+                 <Clock size={16} />}
                 {ehr}
               </span>
             ))}

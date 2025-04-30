@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Mail, Cloud, Database, Shield, Link, Server } from 'lucide-react';
+import { Mail, Sync, Workflow, Database, Link, Download } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 
@@ -9,26 +10,26 @@ const EmailTab = () => {
   const features = [
     {
       icon: <Mail />,
-      title: 'Email Automation',
-      description: 'Automated email campaigns for appointment reminders, follow-ups, and patient education.'
+      title: 'Seamless Email Integration',
+      description: 'Works with Gmail, Outlook, Yahoo Mail, Apple Mail, and others.'
     },
     {
-      icon: <Cloud />,
-      title: 'Secure Cloud Storage',
-      description: 'HIPAA-compliant cloud storage for clinical documents, imaging, and patient records.'
+      icon: <Workflow />,
+      title: 'Effortless Workflows',
+      description: 'AI-driven automation across documentation, chat, and call agent workflows—reducing manual input to nearly zero.'
     }
   ];
 
   const emailPlatforms = [
-    'Gmail for Healthcare', 'Outlook for Healthcare', 'Microsoft Exchange',
+    'Gmail', 'Outlook', 'Yahoo Mail', 'Apple Mail', 'Microsoft Exchange',
     'Office 365', 'HIPAA-Compliant Email', 'ProtonMail', 'Zoho Mail',
     'Titan', 'Fastmail', 'GMX'
   ];
 
-  const storagePlatforms = [
-    'Google Drive Healthcare', 'OneDrive Enterprise', 'Dropbox Business',
-    'Box Healthcare', 'AWS Healthcare', 'Azure Health Data', 'iCloud',
-    'IBM Cloud', 'Salesforce Health Cloud'
+  const workflowPlatforms = [
+    'Microsoft Power Automate', 'Zapier', 'Integromat', 'IFTTT',
+    'Notion', 'Airtable', 'Monday.com', 'ClickUp', 'Asana',
+    'Trello', 'Slack', 'Teams'
   ];
 
   return (
@@ -76,7 +77,7 @@ const EmailTab = () => {
       </div>
 
       <div className="mt-6">
-        <p className="font-semibold text-[#143151] mb-3">Storage Solutions:</p>
+        <p className="font-semibold text-[#143151] mb-3">Workflow Solutions:</p>
         <div className="w-full overflow-hidden">
           <Marquee
             gradient={true}
@@ -86,12 +87,12 @@ const EmailTab = () => {
             pauseOnHover={true}
             className="py-2"
           >
-            {storagePlatforms.map((platform, index) => (
+            {workflowPlatforms.map((platform, index) => (
               <span
                 key={index}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm mx-2"
               >
-                <Cloud size={16} />
+                <Workflow size={16} />
                 {platform}
               </span>
             ))}

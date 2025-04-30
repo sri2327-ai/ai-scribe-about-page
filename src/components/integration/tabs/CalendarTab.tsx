@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { Calendar, Cloud, Database, Shield, Link, Server } from 'lucide-react';
+import { Calendar, Cloud, Database, Clock, Link, Sync } from 'lucide-react';
 import { useIsMobile } from "@/hooks/use-mobile";
 import Marquee from "react-fast-marquee";
 
@@ -10,25 +11,25 @@ const CalendarTab = () => {
     {
       icon: <Calendar />,
       title: 'Smart Scheduling',
-      description: 'AI-powered scheduling with automated appointment reminders and patient self-booking.'
+      description: 'Sync with Outlook, Apple Calendar, Google Calendar, Trello, Slack, and more.'
     },
     {
       icon: <Cloud />,
       title: 'Secure Cloud Storage',
-      description: 'HIPAA-compliant cloud storage for clinical documents, imaging, and patient records.'
+      description: 'Save, access, and manage documents in Google Drive, Dropbox, OneDrive, iCloud, and more.'
     }
   ];
 
   const calendarPlatforms = [
     'Google Calendar', 'Outlook Calendar', 'Apple Calendar', 'Microsoft Exchange',
     'Office 365', 'CalDAV', 'Calendly', 'Square Appointments', 'Acuity Scheduling',
-    'SimplePractice'
+    'SimplePractice', 'Trello', 'Slack'
   ];
 
   const cloudPlatforms = [
-    'Google Drive Healthcare', 'OneDrive Enterprise', 'Dropbox Business',
-    'Box Healthcare', 'AWS Healthcare', 'Azure Health Data', 'iCloud',
-    'IBM Cloud', 'Salesforce Health Cloud'
+    'Google Drive', 'OneDrive', 'Dropbox',
+    'Box', 'AWS S3', 'Azure Storage', 'iCloud',
+    'IBM Cloud', 'Salesforce Files'
   ];
 
   return (
