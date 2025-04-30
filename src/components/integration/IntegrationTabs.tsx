@@ -54,8 +54,8 @@ export default function IntegrationTabs() {
   };
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 py-16 md:py-24">
-      <div className="text-center max-w-3xl mx-auto mb-12">
+    <div className="w-full max-w-[1400px] mx-auto px-4 py-12 md:py-20">
+      <div className="text-center max-w-3xl mx-auto mb-10">
         <Typography 
           variant={isMobile ? "h4" : "h3"} 
           sx={{ 
@@ -82,17 +82,18 @@ export default function IntegrationTabs() {
       </div>
 
       <Tabs defaultValue="ehr" className="w-full max-w-4xl mx-auto">
-        <div className="relative flex items-center mb-4">
-          {isMobile && visibleTabsIndex > 0 && (
+        <div className="relative flex items-center mb-6">
+          {visibleTabsIndex > 0 && (
             <button 
               onClick={handlePrevTab}
               className="absolute left-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md"
+              aria-label="Previous tabs"
             >
               <ArrowLeft fontSize="small" />
             </button>
           )}
           
-          <TabsList className="scrollbar-hide overflow-x-auto w-full flex flex-nowrap justify-start sm:justify-center bg-transparent gap-2">
+          <TabsList className="scrollbar-hide overflow-x-auto w-full flex flex-nowrap justify-start sm:justify-center bg-transparent gap-2 pl-6 pr-6">
             {tabs.slice(visibleTabsIndex, visibleTabsIndex + tabsToShow).map((tab) => (
               <TabsTrigger
                 key={tab.value}
@@ -114,10 +115,11 @@ export default function IntegrationTabs() {
             ))}
           </TabsList>
           
-          {isMobile && visibleTabsIndex < tabs.length - tabsToShow && (
+          {visibleTabsIndex < tabs.length - tabsToShow && (
             <button 
               onClick={handleNextTab}
               className="absolute right-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md"
+              aria-label="Next tabs"
             >
               <ArrowRight fontSize="small" />
             </button>
@@ -126,7 +128,7 @@ export default function IntegrationTabs() {
 
         <div className="mt-6">
           {tabs.map((tab) => (
-            <TabsContent key={tab.value} value={tab.value} className="mt-0">
+            <TabsContent key={tab.value} value={tab.value} className="mt-0 animate-in fade-in-50 duration-300">
               {tab.content}
             </TabsContent>
           ))}

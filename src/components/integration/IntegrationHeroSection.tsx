@@ -9,8 +9,8 @@ const IntegrationHeroSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-16 md:py-24">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
+    <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-12 md:py-20">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center">
         <motion.div 
           className="order-1 md:order-1 text-left max-w-xl"
           initial={{ opacity: 0, y: 20 }}
@@ -21,13 +21,13 @@ const IntegrationHeroSection = () => {
             variant={isMobile ? "h3" : "h2"} 
             sx={{ 
               fontSize: {
-                xs: '2rem',
+                xs: '1.75rem',
                 sm: '2.25rem',
                 md: '2.5rem'
               },
               lineHeight: 1.2,
               color: '#143151',
-              mb: 4
+              mb: 3
             }}
           >
             Seamlessly Connect S10.AI with Your Favourite Software
@@ -37,7 +37,7 @@ const IntegrationHeroSection = () => {
             sx={{ 
               fontSize: isMobile ? '1.1rem' : '1.25rem',
               color: '#143151',
-              mb: 4,
+              mb: 3,
               fontWeight: 500
             }}
           >
@@ -48,12 +48,12 @@ const IntegrationHeroSection = () => {
             sx={{ 
               fontSize: isMobile ? '0.9rem' : '1rem',
               color: '#4a5568',
-              mb: 6,
+              mb: 5,
               lineHeight: 1.6
             }}
           >
-            S10.AI accelerates your workflow with lightning-fast, bidirectional integration 
-            across EHR, PMS, SIP, TeleHealth, Platform, Calendar, Cloud Storage, and Email Systems.
+            S10.AI supercharges your productivity with lightning-fast, bidirectional integration
+            across 7000+ apps, including EHR, PMS, SIP, TeleHealth, Platform, Calendar, Cloud Storage, and Email Systems.
           </Typography>
           
           <motion.button
@@ -66,7 +66,7 @@ const IntegrationHeroSection = () => {
         </motion.div>
         
         <motion.div 
-          className={`order-2 md:order-2 flex justify-center md:justify-end ${isMobile ? 'mt-6' : ''}`}
+          className={`order-2 flex justify-center md:justify-end ${isMobile ? 'mt-6' : ''}`}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
