@@ -472,18 +472,18 @@ export const CAWorkflowReimagined = () => {
                       : "border-gray-300/50 bg-gray-100"
                   }`}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <div className={`w-8 h-8 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center shadow-sm ${
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className={`min-w-[32px] w-8 h-8 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center shadow-sm flex-shrink-0 ${
                       step.automated ? "bg-[#5192AE]/20" : "bg-gray-200"
                     }`}>
                       <span className="text-[#143151]">{step.icon}</span>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-[#143151] text-sm sm:text-base md:text-lg truncate">{step.title}</h3>
-                      <p className="text-xs sm:text-sm text-gray-600 line-clamp-2">{step.description}</p>
+                      <h3 className="font-semibold text-[#143151] text-sm sm:text-base md:text-lg break-words">{step.title}</h3>
+                      <p className="text-xs sm:text-sm text-gray-600 break-words">{step.description}</p>
                     </div>
                     {step.automated && (
-                      <div className="ml-auto bg-[#5192AE]/20 text-[#143151] text-[10px] sm:text-xs font-semibold py-1 px-2 sm:py-1.5 sm:px-3 rounded-full whitespace-nowrap">
+                      <div className="ml-auto bg-[#5192AE]/20 text-[#143151] text-[10px] sm:text-xs font-semibold py-1 px-2 sm:py-1.5 sm:px-3 rounded-full flex-shrink-0">
                         AI Automated
                       </div>
                     )}
