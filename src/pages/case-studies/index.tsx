@@ -66,7 +66,7 @@ const caseStudies: CaseStudy[] = [
     title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI",
     description: "Learn how a small hospital in Alaska improved documentation in just one week",
     path: "/resources/casestudies/alaska-therapy",
-    image: "/case-studies/nordic-languages.svg"
+    image: "/case-studies/alaska-therapy.svg" 
   },
   {
     title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices",

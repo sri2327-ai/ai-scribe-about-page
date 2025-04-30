@@ -5,13 +5,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
 import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy';
 import { Button } from '@/components/ui/button';
+import GastroIllustration from '@/components/case-studies/custom-illustrations/GastroIllustration';
 
 export default function GastroenterologyStudy() {
   return (
     <CaseStudyLayout
       title="Save 2 Hours Daily – AI Efficiency for Gastroenterologists"
       description="Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity."
-      image="/case-studies/patient-care.svg" // Updated to Figma-designed UI illustration
+      customIllustration={<GastroIllustration />}
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-wrap">

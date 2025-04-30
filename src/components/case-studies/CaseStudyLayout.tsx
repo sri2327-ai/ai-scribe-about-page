@@ -1,117 +1,67 @@
 
-import React from 'react';
-import { Facebook, Linkedin, Clock, X } from "lucide-react";
+import React, { ReactNode } from 'react';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb';
 import { Helmet } from 'react-helmet-async';
-import OptimizedImage from "@/components/ui/optimized-image";
-import { Button } from "@/components/ui/button";
+import OptimizedImage from '@/components/ui/optimized-image';
 
 interface CaseStudyLayoutProps {
   title: string;
   description: string;
-  image: string;
-  children: React.ReactNode;
-  ctaTitle?: string;
+  image?: string;
+  customIllustration?: ReactNode;
+  children: ReactNode;
 }
 
-export const CaseStudyLayout = ({
+export const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
   title,
   description,
   image,
+  customIllustration,
   children,
-  ctaTitle = "Transform Your Practice with S10.AI"
-}: CaseStudyLayoutProps) => {
-  // Check if we're using one of our improved SVGs
-  const useImprovedSVG = () => {
-    if (image === "/case-studies/cost-savings.svg") {
-      return "/case-studies/cost-savings-improved.svg";
-    }
-    if (image === "/case-studies/transcription-savings.svg") {
-      return "/case-studies/transcription-savings-improved.svg";
-    }
-    return image;
-  };
-
-  const displayImage = useImprovedSVG();
-
+}) => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
+    <div className="min-h-screen bg-gradient-to-b from-white via-white to-blue-50/30">
       <Helmet>
-        <title>{`${title} | S10.AI Medical Scribe`}</title>
+        <title>{title} | S10.AI Case Study</title>
         <meta name="description" content={description} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={displayImage} />
-        <meta name="twitter:card" content="summary_large_image" />
       </Helmet>
 
-      {/* Hero Banner */}
-      <section className="pt-24 md:pt-28 pb-8 md:pb-12 px-4 md:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="space-y-6">
-            <div className="flex items-center gap-2 text-gray-600">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm">Max 3 min read</span>
-            </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-14 md:pt-20 pb-20">
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/resources/casestudies">Case Studies</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">{title}</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
 
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 break-words hyphens-auto leading-tight">
-              {title}
-            </h1>
+        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-10">
+          <div className="p-6 sm:p-8 md:p-10">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h1>
+            <p className="text-gray-600 text-lg mb-8 max-w-3xl">{description}</p>
             
-            <p className="text-base md:text-lg text-gray-600">
-              {description}
-            </p>
-
-            <div className="flex gap-4 pt-2">
-              <button className="hover:scale-110 transition-transform" aria-label="Share on Facebook">
-                <Facebook className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-              </button>
-              <button className="hover:scale-110 transition-transform" aria-label="Share on X">
-                <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
-              </button>
-              <button className="hover:scale-110 transition-transform" aria-label="Share on LinkedIn">
-                <Linkedin className="w-5 h-5 text-gray-600 hover:text-blue-600" />
-              </button>
+            <div className="w-full max-w-3xl mx-auto mb-10 flex justify-center">
+              {customIllustration ? (
+                <div className="w-full max-h-[300px] flex items-center justify-center">
+                  {customIllustration}
+                </div>
+              ) : (
+                <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
+                  <OptimizedImage src={image} alt={title} className="w-full h-full object-contain max-h-[300px]" />
+                </div>
+              )}
             </div>
-          </div>
-
-          <div className="mt-8 md:mt-12 relative rounded-lg overflow-hidden shadow-lg bg-white p-6 md:p-8">
-            {displayImage && (
-              <div className="w-full h-auto min-h-[300px] flex items-center justify-center">
-                <OptimizedImage
-                  src={displayImage}
-                  alt={title}
-                  className="w-full h-auto object-contain max-w-full max-h-[400px]"
-                  priority={true}
-                />
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Content */}
-      <section className="py-8 md:py-12 px-4 md:px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="prose prose-lg max-w-none">
+            
             {children}
           </div>
-
-          {/* Single CTA at the bottom */}
-          <div className="mt-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 md:p-8 shadow-lg transform hover:shadow-xl transition-all duration-300">
-            <div className="text-center">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
-                <span className="text-[#143151]">{ctaTitle}</span>
-              </h3>
-              <Button 
-                size="lg" 
-                className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl h-auto"
-              >
-                Book Demo
-              </Button>
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
