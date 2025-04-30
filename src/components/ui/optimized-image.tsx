@@ -15,7 +15,7 @@ const OptimizedImage = ({ src, alt, className, priority = false, ...props }: Opt
   const [error, setError] = React.useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative w-full h-full flex items-center justify-center">
       {isLoading && !error && (
         <Skeleton 
           className={cn(
@@ -35,7 +35,7 @@ const OptimizedImage = ({ src, alt, className, priority = false, ...props }: Opt
           setError(true);
         }}
         className={cn(
-          "transition-opacity duration-300",
+          "transition-opacity duration-300 max-w-full max-h-full",
           isLoading ? "opacity-0" : "opacity-100",
           error ? "hidden" : "block",
           className

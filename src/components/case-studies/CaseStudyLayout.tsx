@@ -76,11 +76,11 @@ export const CaseStudyLayout = ({
 
           <div className="mt-8 md:mt-12 relative rounded-lg overflow-hidden shadow-lg bg-white p-6 md:p-8">
             {displayImage && (
-              <div className="w-full h-60 md:h-80 flex items-center justify-center">
+              <div className="w-full h-auto min-h-[300px] flex items-center justify-center">
                 <OptimizedImage
                   src={displayImage}
                   alt={title}
-                  className="w-full h-full object-contain max-w-full"
+                  className="w-full h-auto object-contain max-w-full max-h-[400px]"
                   priority={true}
                 />
               </div>

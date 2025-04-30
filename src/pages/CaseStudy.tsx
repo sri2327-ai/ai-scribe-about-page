@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import OptimizedImage from "@/components/ui/optimized-image";
@@ -52,7 +53,7 @@ const CaseStudy = () => {
       <OptimizedImage
         src={caseStudy.image}
         alt={caseStudy.title}
-        className="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
+        className="w-full h-full object-contain max-h-[400px] transition-transform duration-500 hover:scale-105"
       />
     );
   };
@@ -87,7 +88,7 @@ const CaseStudy = () => {
               </button>
             </div>
             <div className="md:w-1/2 p-6 flex items-center justify-center bg-white">
-              <div className="w-full h-64 md:h-80">
+              <div className="w-full h-64 md:h-80 flex items-center justify-center overflow-hidden">
                 {renderCaseStudyImage(featuredCaseStudy)}
               </div>
             </div>

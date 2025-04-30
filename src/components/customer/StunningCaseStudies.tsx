@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
@@ -39,7 +40,7 @@ const StunningCaseStudies = () => {
       <OptimizedImage
         src={caseStudy.image}
         alt={caseStudy.title}
-        className="object-contain w-full h-full"
+        className="object-contain w-full h-full max-h-[180px]"
       />
     );
   };
@@ -56,7 +57,7 @@ const StunningCaseStudies = () => {
         }
       }}
     >
-      <div className="relative h-48 p-4 bg-white flex items-center justify-center">
+      <div className="relative h-48 p-4 bg-white flex items-center justify-center overflow-hidden">
         {renderCaseStudyImage(caseStudy)}
       </div>
       <div className="p-4 flex-grow flex flex-col">

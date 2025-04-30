@@ -24,7 +24,7 @@ export default function EPICUsabilityCaseStudy() {
     
     let color = "border-green-300";
     let interpretation = "Significant Time Savings";
-    let recommendation = `By implementing CRUSH AI Medical Scribe with EPIC, you could save approximately ${Math.round(timeSaved)} hours monthly, reducing clicks by ${Math.round(totalTraditionalClicks * 0.8).toLocaleString()}.`;
+    let recommendation = `By implementing S10.AI Medical Scribe with EPIC, you could save approximately ${Math.round(timeSaved)} hours monthly, reducing clicks by ${Math.round(totalTraditionalClicks * 0.8).toLocaleString()}.`;
     
     return {
       score: Math.round(timeSaved),
