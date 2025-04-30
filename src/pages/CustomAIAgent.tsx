@@ -5,6 +5,7 @@ import { CABentoGrid } from '@/components/custom-ai-agent/CABentoGrid';
 import { CATransformWorkflow } from '@/components/custom-ai-agent/CATransformWorkflow';
 import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
 import { CAGettingStartedStepper } from '@/components/custom-ai-agent/CAGettingStartedStepper';
+import { CAWorkflowReimagined } from '@/components/custom-ai-agent/CAWorkflowReimagined';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -65,6 +66,14 @@ const CustomAIAgent = () => {
           variants={sectionVariants}
         >
           <CABeforeAfterCarousel />
+        </motion.div>
+        
+        {/* Add the new Workflow Reimagined section */}
+        <motion.div 
+          className={`py-4 ${isMobile ? 'py-6' : 'py-10'}`}
+          variants={sectionVariants}
+        >
+          <CAWorkflowReimagined />
         </motion.div>
       </div>
     </motion.div>
