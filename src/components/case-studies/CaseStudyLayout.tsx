@@ -14,7 +14,6 @@ interface CaseStudyLayoutProps {
   image: string;
   children: React.ReactNode;
   ctaTitle?: string;
-  ctaDescription?: string;
 }
 
 export const CaseStudyLayout = ({
@@ -22,13 +21,12 @@ export const CaseStudyLayout = ({
   description,
   image,
   children,
-  ctaTitle = "Transform Your Practice with CRUSH",
-  ctaDescription = "Experience the power of AI-driven documentation. Get started today!"
+  ctaTitle = "Transform Your Practice with S10.AI"
 }: CaseStudyLayoutProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50">
       <Helmet>
-        <title>{`${title} | CRUSH AI Medical Scribe`}</title>
+        <title>{`${title} | S10.AI Medical Scribe`}</title>
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
@@ -90,7 +88,6 @@ export const CaseStudyLayout = ({
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                 <span className="text-[#D946EF]">{ctaTitle}</span>
               </h3>
-              <p className="text-gray-600 mb-6">{ctaDescription}</p>
               <Button 
                 size="lg" 
                 className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl h-auto"

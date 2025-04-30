@@ -1,0 +1,40 @@
+
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F0F4F8"/>
+  <rect x="80" y="50" width="240" height="160" rx="8" fill="#FFFFFF" stroke="#046F90" stroke-width="2"/>
+  
+  <!-- Nordic flags -->
+  <rect x="100" y="80" width="60" height="40" fill="#003399"/>
+  <path d="M100 100H160M130 80V120" stroke="#FFFFFF" stroke-width="6"/>
+  <path d="M100 100H160M130 80V120" stroke="#FFCC00" stroke-width="3"/>
+  
+  <rect x="170" y="80" width="60" height="40" fill="#FFFFFF"/>
+  <path d="M170 100H230M200 80V120" stroke="#003399" stroke-width="8"/>
+  
+  <rect x="240" y="80" width="60" height="40" fill="#C8102E"/>
+  <path d="M240 100H300M270 80V120" stroke="#FFFFFF" stroke-width="6"/>
+  
+  <!-- Text document with checkmarks -->
+  <rect x="120" y="140" width="160" height="50" rx="4" fill="#F8FAFC" stroke="#046F90" stroke-width="1"/>
+  <path d="M130 155H270" stroke="#046F90" stroke-width="1"/>
+  <path d="M130 170H240" stroke="#046F90" stroke-width="1"/>
+  <path d="M130 185H210" stroke="#046F90" stroke-width="1"/>
+  
+  <!-- Accuracy symbol -->
+  <circle cx="330" cy="70" r="20" fill="#5192AE"/>
+  <path d="M320 70L327 77L340 63" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Speed symbol -->
+  <circle cx="70" cy="70" r="20" fill="#5192AE"/>
+  <path d="M60 70H80M70 60V80" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M62 62L78 78" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Document fast processing symbol -->
+  <rect x="150" y="210" width="100" height="50" rx="8" fill="#046F90"/>
+  <path d="M170 235H230" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M170 245H210" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M170 225H230" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  <path d="M250 210C260 220 260 250 250 260" stroke="#046F90" stroke-width="2"/>
+  <path d="M260 210C270 220 270 250 260 260" stroke="#046F90" stroke-width="2"/>
+  <path d="M270 210C280 220 280 250 270 260" stroke="#046F90" stroke-width="2"/>
+</svg>

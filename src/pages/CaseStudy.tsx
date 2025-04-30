@@ -6,19 +6,19 @@ import OptimizedImage from "@/components/ui/optimized-image";
 import { ChevronRight } from "lucide-react";
 
 const caseStudies = [
-  { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png" },
-  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "CRUSH integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/lovable-uploads/14fcf3f1-8d66-4abb-a217-4e685d29b99c.png" },
-  { folder: "family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4", title: "Family Medicine Practitioner In Canada Moved To S10.AI From GPT4", description: "Learn how a Canadian doctor improved their practice with S10.AI", image: "/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" },
+  { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/case-studies/nordic-languages.svg" },
+  { folder: "80-faster-documentation-with-osmind-ehr-integration", title: "80% Faster Documentation with OSMIND EHR Integration", description: "S10.AI integrates with OSMIND EHR to reduce documentation time by 80%, increasing clinician efficiency.", image: "/case-studies/osmind-integration.svg" },
+  { folder: "family-medicine-practitioner-in-canada-moved-to-s10-ai-from-gpt4", title: "Family Medicine Practitioner In Canada Moved To S10.AI From GPT4", description: "Learn how a Canadian doctor improved their practice with S10.AI", image: "/case-studies/family-medicine.svg" },
   { folder: "how-s10-ai-medical-scribe-assistant-improves-epic-usability", title: "How S10 AI Medical Scribe Assistant Improves EPIC Usability", description: "Optimize EPIC with AI-powered efficiency.", image: "/case-studies/epic-integration.svg" },
   { folder: "improving-patient-care-with-s10-ai-ai-medical-scribe", title: "Improving Patient Care With S10.AI AI Medical Scribe", description: "Focus more on patients, less on paperwork with AI assistance", image: "/case-studies/patient-care.svg" },
-  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More with Crush AI Medical Scribe", description: "Boost revenue with efficient and accurate AI scribing.", image: "/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" },
-  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/lovable-uploads/20120bd3-8d95-4a42-b8d0-db320053bf72.png" },
-  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "CRUSH Saves 2+ Hours Daily for Multi-Provider Practices", description: "CRUSH enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png" },
-  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "CRUSH & INTAKE Q: Transforming Dr. Strotman's Practice", description: "CRUSH integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/lovable-uploads/e9ad85da-27c0-412a-a0ff-237e4b9a8ef5.png" },
-  { folder: "revolutionizing-functional-medicine-with-crush", title: "Revolutionizing Functional Medicine with CRUSH", description: "CRUSH streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency.", image: "/lovable-uploads/9df4bd33-3548-4b5b-b7ff-19fb8f8cea4f.png" },
-  { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with Crush AI Medical Scribe.", image: "/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" },
-  { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with Crush S10.AI Medical Scribe.", image: "/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png" },
-  { folder: "alaska-therapy", title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With CRUSH", description: "Learn how a small hospital in Alaska improved documentation in just one week", image: "/lovable-uploads/14fcf3f1-8d66-4abb-a217-4e685d29b99c.png" },
+  { folder: "physician-earns-five-thousand-dollars-per-month", title: "Physician Earns $5,311 Per Month More with S10.AI Medical Scribe", description: "Boost revenue with efficient and accurate AI scribing.", image: "/case-studies/revenue-growth.svg" },
+  { folder: "save-2-hours-daily-ai-efficiency-for-gastroenterologists", title: "Save 2 Hours Daily – AI Efficiency for Gastroenterologists", description: "Our AI tool saves gastroenterologists 2 hours daily by automating documentation, boosting productivity.", image: "/case-studies/epic-integration.svg" },
+  { folder: "crush-saves-2-hours-daily-for-multi-provider-practices", title: "S10.AI Saves 2+ Hours Daily for Multi-Provider Practices", description: "S10.AI enhances workflow and saves over 2 hours daily for multi-provider practices by streamlining documentation.", image: "/case-studies/patient-care.svg" },
+  { folder: "crush-intake-q-transforming-dr-strotman-practice", title: "S10.AI & INTAKE Q: Transforming Dr. Strotman's Practice", description: "S10.AI integrates seamlessly with INTAKE Q to automate patient intake and documentation, saving time and improving efficiency.", image: "/case-studies/osmind-integration.svg" },
+  { folder: "revolutionizing-functional-medicine-with-crush", title: "Revolutionizing Functional Medicine with S10.AI", description: "S10.AI streamlines documentation in functional and longevity medicine, enhancing patient care and practice efficiency.", image: "/case-studies/functional-medicine.svg" },
+  { folder: "physician-saves-twenty-one-thousand-dollars-yearly", title: "Physician saves $21,144 yearly", description: "Cut costs by replacing traditional scribes with S10.AI Medical Scribe.", image: "/case-studies/cost-savings.svg" },
+  { folder: "physician-saves-seventeen-thousand-dollars-yearly", title: "Physician saves $17,796 yearly", description: "Eliminate transcription costs with S10.AI Medical Scribe.", image: "/case-studies/transcription-savings.svg" },
+  { folder: "alaska-therapy", title: "The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI", description: "Learn how a small hospital in Alaska improved documentation in just one week", image: "/case-studies/nordic-languages.svg" },
 ];
 
 const CaseStudy = () => {
@@ -52,7 +52,7 @@ const CaseStudy = () => {
             </div>
             <div className={`${styles.featuredImage} md:min-h-[350px] h-64 md:h-auto mt-6 md:mt-0`}>
               <OptimizedImage
-                src="/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png"
+                src="/case-studies/nordic-languages.svg"
                 alt="Featured Case Study"
                 className="w-full h-full object-cover rounded-xl"
               />

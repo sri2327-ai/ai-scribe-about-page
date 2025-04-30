@@ -1,24 +1,52 @@
 
 <svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect width="400" height="300" fill="#F0F4F8"/>
+  
+  <!-- Graph background -->
   <rect x="80" y="60" width="240" height="180" rx="8" fill="#FFFFFF" stroke="#046F90" stroke-width="2"/>
-  <path d="M120 200L180 160L240 180L300 120" stroke="#5192AE" stroke-width="4" stroke-linecap="round"/>
-  <circle cx="120" cy="200" r="8" fill="#046F90"/>
-  <circle cx="180" cy="160" r="8" fill="#046F90"/>
-  <circle cx="240" cy="180" r="8" fill="#046F90"/>
-  <circle cx="300" cy="120" r="8" fill="#046F90"/>
-  <path d="M80 220H320" stroke="#046F90" stroke-width="2"/>
-  <path d="M120 240V220" stroke="#046F90" stroke-width="2"/>
-  <path d="M180 240V220" stroke="#046F90" stroke-width="2"/>
-  <path d="M240 240V220" stroke="#046F90" stroke-width="2"/>
-  <path d="M300 240V220" stroke="#046F90" stroke-width="2"/>
-  <text x="120" y="255" text-anchor="middle" font-family="Arial" font-size="12" fill="#046F90">Q1</text>
-  <text x="180" y="255" text-anchor="middle" font-family="Arial" font-size="12" fill="#046F90">Q2</text>
-  <text x="240" y="255" text-anchor="middle" font-family="Arial" font-size="12" fill="#046F90">Q3</text>
-  <text x="300" y="255" text-anchor="middle" font-family="Arial" font-size="12" fill="#046F90">Q4</text>
-  <rect x="160" y="20" width="80" height="30" rx="8" fill="#046F90"/>
-  <text x="200" y="40" text-anchor="middle" font-family="Arial" font-size="14" fill="white">$5,311</text>
-  <path d="M200 50V80" stroke="#046F90" stroke-width="2" stroke-dasharray="4 4"/>
-  <circle cx="200" cy="100" r="15" fill="#A5CCF3"/>
-  <text x="200" y="104" text-anchor="middle" font-family="Arial" font-size="14" font-weight="bold" fill="#FFFFFF">$</text>
+  
+  <!-- Graph X and Y axis -->
+  <path d="M120 200H300" stroke="#046F90" stroke-width="2"/>
+  <path d="M120 200V100" stroke="#046F90" stroke-width="2"/>
+  
+  <!-- Graph data points and line -->
+  <path d="M120 180L180 160L240 140L300 100" stroke="#5192AE" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="120" cy="180" r="5" fill="#046F90"/>
+  <circle cx="180" cy="160" r="5" fill="#046F90"/>
+  <circle cx="240" cy="140" r="5" fill="#046F90"/>
+  <circle cx="300" cy="100" r="5" fill="#046F90"/>
+  
+  <!-- X-axis labels -->
+  <path d="M120 200V205" stroke="#046F90" stroke-width="2"/>
+  <path d="M180 200V205" stroke="#046F90" stroke-width="2"/>
+  <path d="M240 200V205" stroke="#046F90" stroke-width="2"/>
+  <path d="M300 200V205" stroke="#046F90" stroke-width="2"/>
+  <text x="120" y="220" text-anchor="middle" font-family="Arial" font-size="10" fill="#046F90">Week 1</text>
+  <text x="180" y="220" text-anchor="middle" font-family="Arial" font-size="10" fill="#046F90">Week 2</text>
+  <text x="240" y="220" text-anchor="middle" font-family="Arial" font-size="10" fill="#046F90">Week 3</text>
+  <text x="300" y="220" text-anchor="middle" font-family="Arial" font-size="10" fill="#046F90">Week 4</text>
+  
+  <!-- Dollar signs for revenue -->
+  <text x="110" y="180" text-anchor="end" font-family="Arial" font-size="10" fill="#046F90">$2K</text>
+  <text x="110" y="160" text-anchor="end" font-family="Arial" font-size="10" fill="#046F90">$3K</text>
+  <text x="110" y="140" text-anchor="end" font-family="Arial" font-size="10" fill="#046F90">$4K</text>
+  <text x="110" y="120" text-anchor="end" font-family="Arial" font-size="10" fill="#046F90">$5K</text>
+  <text x="110" y="100" text-anchor="end" font-family="Arial" font-size="10" fill="#046F90">$5.3K</text>
+  
+  <!-- Money bag icon -->
+  <circle cx="330" cy="70" r="15" fill="#5192AE"/>
+  <text x="330" y="75" text-anchor="middle" font-family="Arial" font-size="15" font-weight="bold" fill="#FFFFFF">$</text>
+  
+  <!-- Doctor icon -->
+  <circle cx="70" cy="70" r="15" fill="#5192AE"/>
+  <path d="M70 75C75 75 75 65 70 65C65 65 65 75 70 75Z" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+  <circle cx="70" cy="60" r="5" stroke="#FFFFFF" stroke-width="1.5" fill="none"/>
+  
+  <!-- Title -->
+  <rect x="130" y="40" width="140" height="25" rx="12.5" fill="#046F90"/>
+  <text x="200" y="57" text-anchor="middle" font-family="Arial" font-size="12" fill="white">Monthly Revenue +$5,311</text>
+  
+  <!-- S10.AI label -->
+  <rect x="150" y="230" width="100" height="25" rx="12.5" fill="#5192AE"/>
+  <text x="200" y="247" text-anchor="middle" font-family="Arial" font-size="12" fill="white">S10.AI</text>
 </svg>

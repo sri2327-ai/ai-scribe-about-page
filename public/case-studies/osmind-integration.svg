@@ -1,0 +1,46 @@
+
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#F0F4F8"/>
+  
+  <!-- Main container -->
+  <rect x="80" y="80" width="240" height="140" rx="8" fill="#FFFFFF" stroke="#046F90" stroke-width="2"/>
+  
+  <!-- Left system - OSMIND -->
+  <rect x="100" y="100" width="80" height="100" rx="4" fill="#E6F7FF"/>
+  <rect x="110" y="110" width="60" height="10" rx="2" fill="#5192AE"/>
+  <rect x="110" y="130" width="60" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="110" y="142" width="60" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="110" y="154" width="60" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="110" y="166" width="40" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="110" y="178" width="30" height="12" rx="6" fill="#046F90"/>
+  
+  <!-- Right system - S10.AI -->
+  <rect x="220" y="100" width="80" height="100" rx="4" fill="#E6F7FF"/>
+  <rect x="230" y="110" width="60" height="10" rx="2" fill="#5192AE"/>
+  <rect x="230" y="130" width="60" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="230" y="142" width="60" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="230" y="154" width="60" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="230" y="166" width="40" height="6" rx="1" fill="#5192AE" fill-opacity="0.6"/>
+  <rect x="230" y="178" width="30" height="12" rx="6" fill="#046F90"/>
+  
+  <!-- Integration arrows -->
+  <path d="M180 120L200 120M190 110L190 130" stroke="#046F90" stroke-width="2"/>
+  <path d="M200 150L180 150" stroke="#046F90" stroke-width="2"/>
+  <path d="M200 180L180 180" stroke="#046F90" stroke-width="2"/>
+  
+  <!-- Speedometer -->
+  <circle cx="200" cy="240" r="30" fill="#5192AE"/>
+  <path d="M200 240L200 220" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M200 240L215 250" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+  <path d="M187 218C181 222 177 230 177 240C177 256 187 265 200 265C213 265 223 256 223 240C223 230 219 222 213 218" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- Text "80% Faster" -->
+  <rect x="150" y="50" width="100" height="20" rx="10" fill="#046F90"/>
+  <text x="200" y="64" text-anchor="middle" font-family="Arial" font-size="12" fill="white">80% Faster</text>
+  
+  <!-- OSMIND label -->
+  <text x="140" y="95" text-anchor="middle" font-family="Arial" font-size="10" fill="#046F90">OSMIND EHR</text>
+  
+  <!-- S10.AI label -->
+  <text x="260" y="95" text-anchor="middle" font-family="Arial" font-size="10" fill="#046F90">S10.AI</text>
+</svg>

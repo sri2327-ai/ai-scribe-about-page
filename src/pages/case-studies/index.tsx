@@ -85,8 +85,8 @@ export default function CaseStudiesIndex() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50/50 pt-20 md:pt-24 pb-12 px-4 md:px-6">
       <Helmet>
-        <title>Case Studies | CRUSH AI Medical Scribe</title>
-        <meta name="description" content="Discover how healthcare providers are transforming their practices with CRUSH AI Medical Scribe" />
+        <title>Case Studies | S10.AI Medical Scribe</title>
+        <meta name="description" content="Discover how healthcare providers are transforming their practices with S10.AI" />
       </Helmet>
       
       <div className="max-w-7xl mx-auto">
@@ -94,7 +94,7 @@ export default function CaseStudiesIndex() {
           Case Studies
         </h1>
         <p className="text-gray-600 text-lg mb-8 max-w-2xl">
-          Discover how healthcare providers are transforming their practices and improving patient care with CRUSH AI Medical Scribe.
+          Discover how healthcare providers are transforming their practices and improving patient care with S10.AI.
         </p>
         
         <div className="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
