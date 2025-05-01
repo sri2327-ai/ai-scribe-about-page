@@ -2,11 +2,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Calculator, Clock, DollarSign, Timer } from "lucide-react";
+import { Calculator, Clock, DollarSign, Timer, Users } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -34,7 +32,6 @@ export const PricingCalculator = () => {
   const [savingsResult, setSavingsResult] = useState<string>('');
   const [timeSaved, setTimeSaved] = useState<string>('');
   const [showError, setShowError] = useState(false);
-  const [showFeatureTable, setShowFeatureTable] = useState(false);
   const [calculationDone, setCalculationDone] = useState(false);
 
   const calculateSavings = () => {
@@ -44,7 +41,6 @@ export const PricingCalculator = () => {
     if (isNaN(providersNum) || isNaN(patientsNum) || providersNum < 1 || patientsNum < 1) {
       setShowError(true);
       setSavingsResult('');
-      setShowFeatureTable(false);
       toast({
         title: "Invalid input",
         description: "Please enter valid numbers for providers and patients.",
@@ -74,7 +70,6 @@ export const PricingCalculator = () => {
     
     setSavingsResult(`$${costSavings.toLocaleString()}/month`);
     setTimeSaved(`${hoursSaved} hours daily | ${weeklyHours} hours weekly`);
-    setShowFeatureTable(true);
     setCalculationDone(true);
     
     toast({
@@ -147,24 +142,26 @@ export const PricingCalculator = () => {
 
                   <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Select Product</label>
-                    <Tabs 
-                      defaultValue="crush" 
-                      value={product}
-                      onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
-                      className="w-full"
-                    >
-                      <TabsList className="grid grid-cols-3 w-full">
-                        <TabsTrigger value="crush" className="text-base">
-                          CRUSH (AI Scribe)
-                        </TabsTrigger>
-                        <TabsTrigger value="bravo" className="text-base">
-                          BRAVO (Patient Engagement)
-                        </TabsTrigger>
-                        <TabsTrigger value="bundle" className="text-base">
-                          Bundle (Best Value)
-                        </TabsTrigger>
-                      </TabsList>
-                    </Tabs>
+                    <div className="overflow-x-auto pb-1"> {/* Added overflow-x-auto to fix tab responsiveness */}
+                      <Tabs 
+                        defaultValue="crush" 
+                        value={product}
+                        onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
+                        className="w-full min-w-[300px]" {/* Added min-width to prevent tabs from collapsing */}
+                      >
+                        <TabsList className="grid grid-cols-3 w-full">
+                          <TabsTrigger value="crush" className="text-base whitespace-nowrap px-2 py-2">
+                            CRUSH (AI Scribe)
+                          </TabsTrigger>
+                          <TabsTrigger value="bravo" className="text-base whitespace-nowrap px-2 py-2">
+                            BRAVO (Patient Engagement)
+                          </TabsTrigger>
+                          <TabsTrigger value="bundle" className="text-base whitespace-nowrap px-2 py-2">
+                            Bundle (Best Value)
+                          </TabsTrigger>
+                        </TabsList>
+                      </Tabs>
+                    </div>
                   </div>
 
                   <div className="flex flex-col items-center mt-4">
@@ -204,8 +201,12 @@ export const PricingCalculator = () => {
                     <span className="text-gray-700">Cut no-shows by 30% with BRAVO's smart engagement.</span>
                   </li>
                   <li className="flex items-start">
+                    <Users className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
+                    <span className="text-gray-700">Reduce staffing needs with AI-powered automation.</span>
+                  </li>
+                  <li className="flex items-start">
                     <DollarSign className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
-                    <span className="text-gray-700">Get enterprise-grade efficiency at a fraction of human staff costs.</span>
+                    <span className="text-gray-700">Get enterprise-grade efficiency at a fraction of human staff and scribe costs.</span>
                   </li>
                 </ul>
               </div>
@@ -224,7 +225,7 @@ export const PricingCalculator = () => {
                     <div className="bg-white rounded-lg p-4 shadow-sm">
                       <h4 className="text-gray-600 text-sm mb-1">Cost Savings</h4>
                       <div className="text-3xl font-bold text-[#143151]">{savingsResult}</div>
-                      <p className="text-xs text-gray-500 mt-1">vs. human medical scribe</p>
+                      <p className="text-xs text-gray-500 mt-1">vs. human medical scribe & staff</p>
                     </div>
                     
                     <div className="bg-white rounded-lg p-4 shadow-sm">
@@ -238,95 +239,6 @@ export const PricingCalculator = () => {
                     That's significant time and cost savings for your practice!
                   </p>
                 </div>
-                    
-                {showFeatureTable && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="mt-8 overflow-x-auto w-full"
-                  >
-                    <h3 className="font-bold text-xl text-[#143151] mb-4">Compare Features</h3>
-                    <Table className="w-full border-collapse">
-                      <TableHeader>
-                        <TableRow className="bg-gray-50">
-                          <TableHead className="font-bold text-left text-[#143151] text-base py-4">Feature</TableHead>
-                          <TableHead className="font-bold text-center text-[#143151] text-base py-4">CRUSH Basic</TableHead>
-                          <TableHead className="font-bold text-center text-[#143151] text-base py-4">CRUSH Pro</TableHead>
-                          <TableHead className="font-bold text-center text-[#143151] text-base py-4">BRAVO</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell className="font-medium">Pinpoint Accuracy</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Multilingual Support</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Rapid Documentation</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">AI Template Builder</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Patient Instructions</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Telehealth Support</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Available on Devices</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">24x7 Support</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Human RCPA Specialists</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">EHR Integration</TableCell>
-                          <TableCell className="text-center">Optional</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Longitudinal Intelligence</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </motion.div>
-                )}
               </motion.div>
             )}
           </Card>
