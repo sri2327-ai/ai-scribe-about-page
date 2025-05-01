@@ -7,15 +7,9 @@ import { cn } from "@/lib/utils"
 
 const Dialog = DialogPrimitive.Root
 
-// Add explicit children type to interface
-interface DialogTriggerProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> {
-  children: React.ReactNode;
-  asChild?: boolean;
-}
-
 const DialogTrigger = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Trigger>,
-  DialogTriggerProps
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Trigger
     ref={ref}
@@ -30,14 +24,9 @@ DialogTrigger.displayName = DialogPrimitive.Trigger.displayName
 
 const DialogPortal = DialogPrimitive.Portal
 
-interface DialogCloseProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> {
-  children?: React.ReactNode;
-  className?: string;
-}
-
 const DialogClose = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Close>,
-  DialogCloseProps
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Close
     ref={ref}
@@ -94,6 +83,7 @@ DialogContent.displayName = DialogPrimitive.Content.displayName
 
 const DialogHeader = ({
   className,
+  children,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
@@ -102,12 +92,15 @@ const DialogHeader = ({
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </div>
 )
 DialogHeader.displayName = "DialogHeader"
 
 const DialogFooter = ({
   className,
+  children,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
@@ -116,18 +109,15 @@ const DialogFooter = ({
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </div>
 )
 DialogFooter.displayName = "DialogFooter"
 
-interface DialogTitleProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> {
-  children: React.ReactNode;
-  className?: string;
-}
-
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
-  DialogTitleProps
+  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
@@ -145,12 +135,14 @@ DialogTitle.displayName = DialogPrimitive.Title.displayName
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
     className={cn("text-sm text-muted-foreground", className)}
     {...props}
-  />
+  >
+    {children}
+  </DialogPrimitive.Description>
 ))
 DialogDescription.displayName = DialogPrimitive.Description.displayName
 

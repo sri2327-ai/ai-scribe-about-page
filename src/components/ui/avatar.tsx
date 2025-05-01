@@ -6,15 +6,9 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 import { cn } from "@/lib/utils"
 
-// Add explicit children type and className
-interface AvatarProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
-  children: React.ReactNode;
-  className?: string;
-}
-
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
-  AvatarProps
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
 >(({ className, children, ...props }, ref) => (
   <AvatarPrimitive.Root
     ref={ref}
@@ -29,36 +23,21 @@ const Avatar = React.forwardRef<
 ))
 Avatar.displayName = AvatarPrimitive.Root.displayName
 
-// Update interface to include src, alt and className
-interface AvatarImageProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {
-  src: string;
-  alt: string;
-  className?: string;
-}
-
 const AvatarImage = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Image>,
-  AvatarImageProps
->(({ className, src, alt, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>
+>(({ className, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
     className={cn("aspect-square h-full w-full", className)}
-    src={src}
-    alt={alt || ""}
     {...props}
   />
 ))
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
-// Add explicit children type and className
-interface AvatarFallbackProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> {
-  children: React.ReactNode;
-  className?: string;
-}
-
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
-  AvatarFallbackProps
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>
 >(({ className, children, ...props }, ref) => (
   <AvatarPrimitive.Fallback
     ref={ref}

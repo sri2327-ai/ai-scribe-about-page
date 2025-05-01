@@ -47,7 +47,9 @@ const MobileDateTimePicker = ({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="h-[90vh] bg-white overflow-y-auto p-4">
         <SheetHeader className="text-left mb-4">
-          <SheetTitle className="text-xl font-bold text-[#133255]">Schedule Your Demo</SheetTitle>
+          <SheetTitle className="text-xl font-bold text-[#133255]">
+            Schedule Your Demo
+          </SheetTitle>
         </SheetHeader>
 
         <div className="space-y-6">

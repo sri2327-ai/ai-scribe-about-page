@@ -6,16 +6,9 @@ import { cn } from "@/lib/utils"
 
 const HoverCard = HoverCardPrimitive.Root
 
-// Add explicit children type to interface
-interface HoverCardTriggerProps extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger> {
-  children: React.ReactNode;
-  className?: string;
-  asChild?: boolean; // Add asChild property
-}
-
 const HoverCardTrigger = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Trigger>,
-  HoverCardTriggerProps
+  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
   <HoverCardPrimitive.Trigger
     ref={ref}
@@ -30,7 +23,7 @@ HoverCardTrigger.displayName = HoverCardPrimitive.Trigger.displayName
 const HoverCardContent = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
->(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
+>(({ className, align = "center", sideOffset = 4, children, ...props }, ref) => (
   <HoverCardPrimitive.Content
     ref={ref}
     align={align}
@@ -40,7 +33,9 @@ const HoverCardContent = React.forwardRef<
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </HoverCardPrimitive.Content>
 ))
 HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
 

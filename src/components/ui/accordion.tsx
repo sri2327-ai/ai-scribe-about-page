@@ -5,20 +5,9 @@ import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-// Define interfaces for each component with all required properties
-interface AccordionProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
-  children: React.ReactNode;
-  className?: string;
-  type: "single" | "multiple";
-  collapsible?: boolean;
-  defaultValue?: string;
-  value?: string;
-  onValueChange?: (value: string) => void;
-}
-
 const Accordion = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
-  AccordionProps
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Root
     ref={ref}
@@ -30,16 +19,9 @@ const Accordion = React.forwardRef<
 ))
 Accordion.displayName = AccordionPrimitive.Root.displayName
 
-interface AccordionItemProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item> {
-  children: React.ReactNode;
-  className?: string;
-  value: string;
-  disabled?: boolean;
-}
-
 const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
-  AccordionItemProps
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Item
     ref={ref}
@@ -51,14 +33,9 @@ const AccordionItem = React.forwardRef<
 ))
 AccordionItem.displayName = "AccordionItem"
 
-interface AccordionTriggerProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger> {
-  children: React.ReactNode;
-  className?: string;
-}
-
 const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  AccordionTriggerProps
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
@@ -76,15 +53,9 @@ const AccordionTrigger = React.forwardRef<
 ))
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 
-interface AccordionContentProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> {
-  children: React.ReactNode;
-  className?: string;
-  forceMount?: boolean;
-}
-
 const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
-  AccordionContentProps
+  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
   <AccordionPrimitive.Content
     ref={ref}
