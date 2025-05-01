@@ -10,6 +10,7 @@ import { EMRChartIllustration } from "./illustrations/EMRChartIllustration";
 import { CliniciansIllustration } from "./illustrations/CliniciansIllustration";
 import { ROICalculatorIllustration } from "./illustrations/ROICalculatorIllustration";
 import { DoctorBurnoutIllustration } from "./illustrations/DoctorBurnoutIllustration";
+import { EHRBeamsBackground } from "./EHRBeamsBackground";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -78,7 +79,7 @@ PricingCTAButtons.displayName = 'PricingCTAButtons';
 export const PricingHeroSection = memo(() => {
   return (
     <section 
-      className="relative min-h-[calc(100vh-80px)] py-6 md:py-0 flex items-center overflow-hidden"
+      className="relative h-[calc(100vh-80px)] flex items-center overflow-hidden"
       style={{ 
         background: `linear-gradient(135deg, ${crushAIColors.background.light} 0%, #fff 100%)`,
         contain: 'paint layout'

@@ -123,10 +123,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -181,10 +181,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -234,10 +234,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -282,10 +282,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -341,10 +341,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -388,10 +388,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 Contact Us
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Custom pricing for your needs</p>
             </div>
@@ -435,10 +435,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -478,10 +478,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -532,10 +532,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             </div>
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
@@ -568,29 +568,18 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
           </div>
         </div>
         
-        {/* Mobile navigation controls */}
-        <div className="flex justify-center items-center gap-4 mt-6">
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-full border-[#387E89]"
-            onClick={prevCard}
-            disabled={currentIndex === 0}
-          >
-            <ChevronLeft className="h-4 w-4 text-[#387E89]" />
-          </Button>
-          <div className="text-sm text-[#387E89]">
-            {currentIndex + 1} / {getNumCards()}
-          </div>
-          <Button
-            variant="outline"
-            size="icon"
-            className="rounded-full border-[#387E89]"
-            onClick={nextCard}
-            disabled={currentIndex === getNumCards() - 1}
-          >
-            <ChevronRight className="h-4 w-4 text-[#387E89]" />
-          </Button>
+        {/* Pagination dots instead of navigation arrows */}
+        <div className="flex justify-center mt-6 gap-2">
+          {Array.from({ length: getNumCards() }).map((_, index) => (
+            <button
+              key={index}
+              className={`h-2 rounded-full transition-all ${
+                currentIndex === index ? "w-6 bg-[#387E89]" : "w-2 bg-gray-300"
+              }`}
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     );

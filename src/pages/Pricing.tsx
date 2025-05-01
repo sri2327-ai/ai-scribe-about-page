@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -53,12 +52,12 @@ const Pricing = () => {
         <meta name="description" content="Discover flexible pricing options for S10.AI's CRUSH AI Scribe and BRAVO Patient Engagement solutions. Save hours daily, starting at just $99/month." />
       </Helmet>
 
-      {/* Hero Section */}
+      {/* Hero Section - Updated to fit first viewport */}
       <WaveBackground 
         intensity="medium" 
         baseColor={crushAIColors.tertiary}
-        height="auto"
-        className="py-12 md:py-20 lg:py-28"
+        height="calc(100vh - 80px)"
+        className="flex items-center"
       >
         <div className="container mx-auto px-4 text-center">
           <motion.div
@@ -67,15 +66,15 @@ const Pricing = () => {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-4 md:mb-6 text-[#143151]">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-5 text-[#143151]">
               Reclaim Your Life with AI-Powered CRUSH & BRAVO
             </h1>
-            <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
-              Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save over 2 hours per day and reduce time spent by more than 96% compared to human scribes or staff—plans start at just $99/month!
+            <p className="text-base md:text-lg mb-6 md:mb-7 max-w-3xl mx-auto text-[#387E89]">
+              Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save over 2 hours per day—plans start at just $99/month!
             </p>
             <Button 
               size="lg"
-              className="rounded-full px-4 md:px-8 py-4 md:py-6 text-base md:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 hover:scale-105"
+              className="rounded-full px-4 md:px-8 py-4 md:py-5 text-base md:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 hover:scale-105"
               onClick={() => {
                 const pricingSection = document.getElementById('pricing');
                 if (pricingSection) {

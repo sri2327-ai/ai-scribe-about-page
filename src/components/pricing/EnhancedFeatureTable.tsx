@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Check, X, ChevronRight, ChevronLeft } from "lucide-react";
+import { Check, X, ChevronRight, ChevronLeft, ChevronDown, ChevronUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { 
   Table, 
@@ -11,6 +10,12 @@ import {
   TableCell 
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@/components/ui/accordion";
 
 interface EnhancedFeatureTableProps {
   product: 'crush' | 'bravo';
@@ -299,92 +304,73 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
     );
   };
 
-  // Improved mobile view with category navigation
+  // Improved accordion-based mobile view
   const showMobileView = () => {
-    const currentCategory = currentFeatures[currentCategoryIndex];
-    
     return (
       <div className="block md:hidden">
-        {/* Category navigation */}
-        <div className="flex items-center justify-between mb-4">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="border-gray-300 text-gray-500"
-            onClick={prevCategory}
-            disabled={currentCategoryIndex === 0}
-          >
-            <ChevronLeft className="h-4 w-4 mr-1" />
-            Prev
-          </Button>
-          
-          <h3 className="font-bold text-[#143151] text-sm text-center">
-            {currentCategory.category}
-            <div className="text-xs text-gray-500 mt-1">
-              {currentCategoryIndex + 1} of {currentFeatures.length}
-            </div>
-          </h3>
-          
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="border-gray-300 text-gray-500"
-            onClick={nextCategory}
-            disabled={currentCategoryIndex === currentFeatures.length - 1}
-          >
-            Next
-            <ChevronRight className="h-4 w-4 ml-1" />
-          </Button>
-        </div>
-        
-        {/* Features for current category */}
-        <div className="border rounded-lg overflow-hidden">
-          {currentCategory.features.map((feature, featureIndex) => (
-            <div 
-              key={`feature-${featureIndex}`} 
-              className={`p-4 ${featureIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+        <Accordion type="single" collapsible className="w-full">
+          {currentFeatures.map((category, categoryIndex) => (
+            <AccordionItem 
+              key={`category-${categoryIndex}`}
+              value={`category-${categoryIndex}`}
+              className="border border-gray-200 rounded-lg mb-4 overflow-hidden"
             >
-              <p className="font-medium mb-3 text-sm">{feature.name}</p>
-              <div className="grid grid-cols-3 gap-2 text-center">
-                {product === 'crush' ? (
-                  <>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Basic<br/>(No EHR)</div>
-                      {renderCheckmark(feature.basic)}
+              <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-gray-50">
+                <span className="font-bold text-[#143151] text-sm">
+                  {category.category}
+                </span>
+              </AccordionTrigger>
+              <AccordionContent className="pt-0">
+                {category.features.map((feature, featureIndex) => (
+                  <div 
+                    key={`feature-${featureIndex}`} 
+                    className={`p-4 ${featureIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'} border-t border-gray-100`}
+                  >
+                    <p className="font-medium mb-4 text-sm">{feature.name}</p>
+                    <div className="grid grid-cols-3 gap-3 text-center">
+                      {product === 'crush' ? (
+                        <>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Basic<br/>(No EHR)</div>
+                            {renderCheckmark(feature.basic)}
+                          </div>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Basic<br/>(With EHR)</div>
+                            {renderCheckmark(feature.basicEHR)}
+                          </div>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Pro</div>
+                            {renderCheckmark(feature.pro)}
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Basic</div>
+                            {renderCheckmark(feature.basic)}
+                          </div>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Pro</div>
+                            {renderCheckmark(feature.pro)}
+                          </div>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Enterprise</div>
+                            {renderCheckmark(feature.enterprise)}
+                          </div>
+                        </>
+                      )}
                     </div>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Basic<br/>(With EHR)</div>
-                      {renderCheckmark(feature.basicEHR)}
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Pro</div>
-                      {renderCheckmark(feature.pro)}
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Basic</div>
-                      {renderCheckmark(feature.basic)}
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Pro</div>
-                      {renderCheckmark(feature.pro)}
-                    </div>
-                    <div>
-                      <div className="text-xs text-gray-500 mb-2">Enterprise</div>
-                      {renderCheckmark(feature.enterprise)}
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
+                  </div>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
       </div>
     );
   };
 
+  // Desktop view remains the same
   const showDesktopView = () => {
     return (
       <div className="hidden md:block overflow-x-auto">
