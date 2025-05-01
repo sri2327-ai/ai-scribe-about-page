@@ -45,19 +45,19 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             variants={fadeInUpVariants}
             custom={1}
           >
-            <div className="p-8 flex flex-col flex-grow">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {billingCycle === 'monthly' ? '$99' : '$990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $198)'}
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
                   'Pinpoint accuracy',
                   'Multilingual support',
@@ -73,20 +73,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Referral letters'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
 
@@ -103,25 +103,25 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             }}
           >
             <div className="absolute top-0 right-0 left-0 flex justify-center">
-              <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-6 py-2 rounded-b-xl font-bold shadow-lg text-sm translate-y-0.5">
+              <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 md:px-6 py-1 md:py-2 rounded-b-xl font-bold shadow-lg text-xs md:text-sm translate-y-0.5">
                 RECOMMENDED
               </div>
             </div>
-            <div className="p-8 flex flex-col flex-grow mt-8">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {billingCycle === 'monthly' ? '$149-$199' : '$1,490-$1,990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                   <span className="text-gray-700 font-semibold">All Basic (No EHR) features</span>
                 </li>
                 {[
@@ -131,20 +131,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Prescription refills & lab management'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
 
@@ -156,24 +156,24 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             custom={3}
           >
             <div className="absolute top-0 right-0 left-0 flex justify-center">
-              <div className="bg-[#387E89] text-white px-6 py-2 rounded-b-xl font-bold shadow-lg text-sm translate-y-0.5">
+              <div className="bg-[#387E89] text-white px-4 md:px-6 py-1 md:py-2 rounded-b-xl font-bold shadow-lg text-xs md:text-sm translate-y-0.5">
                 MOST POPULAR
               </div>
             </div>
-            <div className="p-8 flex flex-col flex-grow mt-8">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
-                <p className="text-3xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   Custom pricing
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                   <span className="text-gray-700 font-semibold">All Basic (With EHR) features</span>
                 </li>
                 {[
@@ -184,20 +184,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'HCC tracking & documentation'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
         </>
@@ -212,19 +212,19 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             variants={fadeInUpVariants}
             custom={1}
           >
-            <div className="p-8 flex flex-col flex-grow">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {billingCycle === 'monthly' ? 'From $99' : 'From $990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $198)'}
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
                   'Appointment Management',
                   'Patient Registration & Check-In',
@@ -232,20 +232,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Standard support'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
 
@@ -262,25 +262,25 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             }}
           >
             <div className="absolute top-0 right-0 left-0 flex justify-center">
-              <div className="bg-[#387E89] text-white px-6 py-2 rounded-b-xl font-bold shadow-lg text-sm translate-y-0.5">
+              <div className="bg-[#387E89] text-white px-4 md:px-6 py-1 md:py-2 rounded-b-xl font-bold shadow-lg text-xs md:text-sm translate-y-0.5">
                 MOST POPULAR
               </div>
             </div>
-            <div className="p-8 flex flex-col flex-grow mt-8">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {billingCycle === 'monthly' ? 'Up to $299' : 'Up to $2,990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                   <span className="text-gray-700 font-semibold">All Basic features</span>
                 </li>
                 {[
@@ -291,20 +291,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Priority support'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
 
@@ -315,20 +315,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             variants={fadeInUpVariants}
             custom={3}
           >
-            <div className="p-8 flex flex-col flex-grow">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Enterprise</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Enterprise</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   Custom
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored for large practices
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 <li className="flex items-start">
-                  <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                  <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                   <span className="text-gray-700 font-semibold">All Pro features</span>
                 </li>
                 {[
@@ -338,20 +338,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Custom workflows'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 Contact Us
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">Custom pricing for your needs</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Custom pricing for your needs</p>
             </div>
           </motion.div>
         </>
@@ -366,39 +366,39 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             variants={fadeInUpVariants}
             custom={1}
           >
-            <div className="p-8 flex flex-col flex-grow">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
               <div className="mb-4">
-                <p className="text-3xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {billingCycle === 'monthly' ? '$159-$399' : '$1,590-$3,990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
                   'CRUSH Basic (No EHR)',
                   'BRAVO Basic',
                   '10% discount vs. separate'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
 
@@ -409,39 +409,39 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             variants={fadeInUpVariants}
             custom={2}
           >
-            <div className="p-8 flex flex-col flex-grow">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
-                <p className="text-3xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {billingCycle === 'monthly' ? '$199-$399' : '$1,990-$3,990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
                   'CRUSH Basic (With EHR)',
                   'BRAVO Basic',
                   '10% discount vs. separate'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
 
@@ -458,22 +458,22 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             }}
           >
             <div className="absolute top-0 right-0 left-0 flex justify-center">
-              <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-6 py-2 rounded-b-xl font-bold shadow-lg text-sm translate-y-0.5">
+              <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 md:px-6 py-1 md:py-2 rounded-b-xl font-bold shadow-lg text-xs md:text-sm translate-y-0.5">
                 BEST VALUE
               </div>
             </div>
-            <div className="p-8 flex flex-col flex-grow mt-8">
-              <h3 className="text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
+            <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
-                <p className="text-3xl font-bold text-[#143151]">
+                <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   Custom pricing
                 </p>
-                <p className="text-sm text-gray-500 mt-1">
+                <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
-              <ul className="mb-8 space-y-3 flex-grow">
+              <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
                   'CRUSH Pro',
                   'BRAVO Pro',
@@ -482,20 +482,20 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Priority onboarding'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
-                    <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
                     <span className="text-gray-700">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="px-8 pb-8">
+            <div className="px-6 md:px-8 pb-6 md:pb-8">
               <Button 
-                className="w-full rounded-full py-6 font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
+                className="w-full rounded-full py-3 md:py-6 text-sm md:font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300"
               >
                 30-Day Money-Back Guarantee
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
             </div>
           </motion.div>
         </>
@@ -508,7 +508,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+      className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto"
     >
       {renderPlanCards()}
     </motion.div>
