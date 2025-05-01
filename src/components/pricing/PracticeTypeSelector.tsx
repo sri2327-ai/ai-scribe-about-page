@@ -1,88 +1,131 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { ArrowRight, Stethoscope, Users, Hospital, HeartPulse, Brain, Tooth } from "lucide-react";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface PracticeTypeSelectorProps {
-  onSelect: (planType: string) => void;
+  onSelect: (practiceType: string) => void;
 }
 
-export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSelect }) => {
+export const PracticeTypeSelector = ({ onSelect }: PracticeTypeSelectorProps) => {
+  const [selectedPractice, setSelectedPractice] = useState<string>('');
+  
+  const handleSelect = (practiceType: string) => {
+    setSelectedPractice(practiceType);
+    onSelect(practiceType);
+  };
+  
   const practiceTypes = [
-    {
-      title: 'Solo Provider',
-      description: 'Solo practitioners looking to reduce documentation burden and grow their practice.',
-      icon: '👨‍⚕️',
-      tag: 'Most Popular',
-      plan: 'crush-bravo-bundle'
+    { 
+      id: 'solo', 
+      title: 'Solo Practice', 
+      icon: Stethoscope,
+      description: 'Perfect for independent clinicians'
     },
-    {
-      title: 'Small Practice',
-      description: 'Practices with 2-5 providers seeking efficiency and patient engagement tools.',
-      icon: '👩‍⚕️👨‍⚕️',
-      plan: 'crush-bravo-bundle'
+    { 
+      id: 'group', 
+      title: 'Group Practice', 
+      icon: Users,
+      description: 'Ideal for 2-10 providers'
     },
-    {
-      title: 'Mid-Size Group',
-      description: 'Groups with 6-20 providers looking for scalable documentation solutions.',
-      icon: '👩‍⚕️👨‍⚕️👩‍⚕️',
-      tag: 'Best Value',
-      plan: 'crush-bravo-bundle'
+    { 
+      id: 'enterprise', 
+      title: 'Enterprise', 
+      icon: Hospital,
+      description: 'For hospitals & large organizations'
     },
-    {
-      title: 'Large Practice',
-      description: 'Organizations with 20+ providers requiring enterprise-grade solutions.',
-      icon: '🏥',
-      plan: 'crush-bravo-bundle'
-    }
+    { 
+      id: 'specialty_mental', 
+      title: 'Mental Health', 
+      icon: Brain,
+      description: 'Therapists & psychiatrists'
+    },
+    { 
+      id: 'specialty_primary', 
+      title: 'Primary Care', 
+      icon: HeartPulse,
+      description: 'Family medicine & internists'
+    },
+    { 
+      id: 'specialty_dental', 
+      title: 'Dental', 
+      icon: Tooth,
+      description: 'For dental practices'
+    },
   ];
 
-  return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#143151]">
-              Which Solution Is Right for Your Practice?
-            </h2>
-            <p className="text-lg text-[#387E89] max-w-3xl mx-auto">
-              We recommend both CRUSH and BRAVO for all practice types. CRUSH eases your documentation burden while BRAVO grows your practice by cutting no-shows and enhancing patient engagement.
-            </p>
-          </div>
+  // SVG gradient definition
+  const iconGradientStyle = {
+    background: `linear-gradient(to right, ${crushAIColors.primaryFlat}, ${crushAIColors.secondaryFlat})`,
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    display: 'inline-block'
+  };
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {practiceTypes.map((type, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -5 }}
-                className="cursor-pointer"
-                onClick={() => onSelect(type.plan)}
-              >
-                <Card className="h-full p-6 flex flex-col relative overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300">
-                  {type.tag && (
-                    <div className="absolute top-0 right-0">
-                      <div className="bg-[#387E89] text-white text-xs font-bold py-1 px-3 rounded-bl-lg">
-                        {type.tag}
-                      </div>
-                    </div>
-                  )}
-                  <div className="text-4xl mb-4">{type.icon}</div>
-                  <h3 className="text-xl font-semibold mb-2 text-[#143151]">{type.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4 flex-grow">{type.description}</p>
-                  <Button 
-                    variant="outline" 
-                    className="mt-auto w-full border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white"
-                  >
-                    View Recommendations
-                  </Button>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+  return (
+    <section className="py-16 md:py-20 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#143151]">
+            Which Solution Is Right for Your Practice?
+          </h2>
+          <p className="text-lg max-w-3xl mx-auto text-[#387E89]">
+            Tell us about your practice, and we'll recommend the optimal solution for your needs.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+          {practiceTypes.map((practice) => (
+            <motion.div
+              key={practice.id}
+              className={`border rounded-xl p-6 cursor-pointer transition-all hover:shadow-lg ${
+                selectedPractice === practice.id 
+                ? 'border-2 border-[#387E89] bg-[#387E89]/5' 
+                : 'border-gray-200 hover:border-[#387E89]/50'
+              }`}
+              onClick={() => handleSelect(practice.id)}
+              whileHover={{ y: -5 }}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div 
+                  className="w-16 h-16 mb-4 rounded-full flex items-center justify-center"
+                  style={{
+                    background: selectedPractice === practice.id 
+                      ? `linear-gradient(to right, ${crushAIColors.primaryFlat}, ${crushAIColors.secondaryFlat})` 
+                      : '#EBF5F7'
+                  }}
+                >
+                  <practice.icon 
+                    size={32} 
+                    className={selectedPractice === practice.id ? "text-white" : ""}
+                    style={selectedPractice === practice.id ? {} : iconGradientStyle}
+                  />
+                </div>
+                <h3 className="text-xl font-semibold mb-2 text-[#143151]">{practice.title}</h3>
+                <p className="text-sm text-gray-600">{practice.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="flex justify-center">
+          <Button
+            size="lg"
+            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 hover:scale-105"
+            onClick={() => {
+              // Scroll to pricing section
+              const pricingSection = document.getElementById('pricing');
+              if (pricingSection) {
+                pricingSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
+            View Recommendations
+            <ArrowRight className="ml-2" />
+          </Button>
         </div>
       </div>
     </section>

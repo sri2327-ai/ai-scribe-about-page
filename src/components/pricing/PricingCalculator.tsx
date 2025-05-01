@@ -6,7 +6,7 @@ import { Calculator, Clock, DollarSign, Timer, Users } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { Card } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -116,21 +116,21 @@ export const PricingCalculator = () => {
 
             <div className="w-full">
               <label className="block text-sm font-medium text-gray-700 mb-2">Select Product:</label>
-              <div className="overflow-x-auto pb-1">
+              <div className="w-full bg-gray-100 rounded-lg p-2">
                 <Tabs 
-                  defaultValue="crush" 
+                  defaultValue={product} 
                   value={product}
                   onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
-                  className="w-full min-w-[300px]"
+                  className="w-full"
                 >
-                  <TabsList className="grid grid-cols-3 w-full">
-                    <TabsTrigger value="crush" className="text-base whitespace-nowrap px-2 py-2">
+                  <TabsList className="w-full grid grid-cols-3">
+                    <TabsTrigger value="crush" className="text-base py-2">
                       CRUSH (AI Scribe)
                     </TabsTrigger>
-                    <TabsTrigger value="bravo" className="text-base whitespace-nowrap px-2 py-2">
+                    <TabsTrigger value="bravo" className="text-base py-2">
                       BRAVO (Patient Engagement)
                     </TabsTrigger>
-                    <TabsTrigger value="bundle" className="text-base whitespace-nowrap px-2 py-2">
+                    <TabsTrigger value="bundle" className="text-base py-2">
                       Bundle (Best Value)
                     </TabsTrigger>
                   </TabsList>
