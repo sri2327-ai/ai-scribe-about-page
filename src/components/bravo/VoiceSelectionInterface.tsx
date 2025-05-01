@@ -1,9 +1,10 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
 import { ChevronLeft, ChevronRight, Volume2, AlertCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { BeamsBackground } from "@/components/ui/beams-background";
+import { LazyLoad } from "@/components/ui/lazy-load";
 
 interface VoiceOption {
   id: string;
@@ -151,7 +152,9 @@ const VoiceCard = memo(({ voice, isSelected, onTryVoice }: {
       style={{ 
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         border: '1px solid rgba(255, 255, 255, 0.2)',
-        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+        willChange: 'transform',
+        transform: 'translateZ(0)'
       }}
     >
       <div className="w-20 h-20 mb-4 rounded-full flex items-center justify-center">
@@ -190,13 +193,13 @@ export const VoiceSelectionInterface = memo(() => {
   const [selectedVoice, setSelectedVoice] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const voices: VoiceOption[] = [
+  const voices: VoiceOption[] = useMemo(() => [
     { id: 'nora', name: 'Nora', description: 'Warm & Attentive', animationType: 'pulse' },
     { id: 'kai', name: 'Kai', description: 'Efficient & Friendly', animationType: 'wave' },
     { id: 'ravi', name: 'Ravi', description: 'Calm & Professional', animationType: 'morph' },
     { id: 'lina', name: 'Lina', description: 'Reassuring & Clear', animationType: 'rings' },
     { id: 'juno', name: 'Juno', description: 'Energetic & Helpful', animationType: 'particles' }
-  ];
+  ], []);
 
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : voices.length - 1));
@@ -206,33 +209,30 @@ export const VoiceSelectionInterface = memo(() => {
     setCurrentIndex((prev) => (prev < voices.length - 1 ? prev + 1 : 0));
   };
 
-  const handleSelectVoice = (voiceId: string) => {
-    setSelectedVoice(voiceId);
-  };
-
   const handleTryVoice = (voiceId: string) => {
     console.log(`Playing sample for ${voiceId}`);
-    // In a real app, this would play an audio sample
-    handleSelectVoice(voiceId);
+    setSelectedVoice(voiceId);
   };
 
   return (
     <BeamsBackground className="py-16 px-4 md:px-6 relative overflow-hidden" intensity="medium">
       <div className="container mx-auto relative max-w-4xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white font-sans">
-            Choose Your BRAVO Assistant Voice
-          </h2>
-          <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-white/80">
-            Select a voice personality that best fits your organization
-          </p>
-        </motion.div>
+        <LazyLoad threshold={0.3}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white font-sans">
+              Choose Your BRAVO Assistant Voice
+            </h2>
+            <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-white/80">
+              Select a voice personality that best fits your organization
+            </p>
+          </motion.div>
+        </LazyLoad>
 
         <div className="relative px-12">
           <AnimatePresence mode="wait">
@@ -243,6 +243,7 @@ export const VoiceSelectionInterface = memo(() => {
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.4 }}
               className="flex justify-center"
+              style={{ willChange: 'transform, opacity' }}
             >
               <VoiceCard 
                 voice={voices[currentIndex]} 
@@ -275,25 +276,28 @@ export const VoiceSelectionInterface = memo(() => {
           </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
-          style={{ 
-            backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            backdropFilter: 'blur(10px)'
-          }}
-        >
-          <div className="flex items-center">
-            <AlertCircle className="w-5 h-5 mr-3 text-white" />
-            <p className="text-sm text-white">
-              You can change your assistant's voice at any time in the BRAVO settings
-            </p>
-          </div>
-        </motion.div>
+        <LazyLoad threshold={0.2}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
+            style={{ 
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              backdropFilter: 'blur(10px)',
+              willChange: 'transform, opacity'
+            }}
+          >
+            <div className="flex items-center">
+              <AlertCircle className="w-5 h-5 mr-3 text-white" />
+              <p className="text-sm text-white">
+                You can change your assistant's voice at any time in the BRAVO settings
+              </p>
+            </div>
+          </motion.div>
+        </LazyLoad>
       </div>
     </BeamsBackground>
   );

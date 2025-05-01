@@ -1,28 +1,34 @@
 
-import React, { useEffect, useState, ReactNode } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 interface LazyLoadProps {
-  children: ReactNode;
+  children: React.ReactNode;
   threshold?: number;
   rootMargin?: string;
+  fallback?: React.ReactNode;
 }
 
-export const LazyLoad: React.FC<LazyLoadProps> = ({ 
-  children, 
-  threshold = 0.1, 
-  rootMargin = "100px" 
-}) => {
+export const LazyLoad = ({
+  children,
+  threshold = 0.1,
+  rootMargin = "100px",
+  fallback
+}: LazyLoadProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [ref, setRef] = useState<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const wasTriggeredRef = useRef(false);
 
   useEffect(() => {
-    if (!ref) return;
-    
+    const currentRef = containerRef.current;
+    if (!currentRef || wasTriggeredRef.current) return;
+
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const [entry] = entries;
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          wasTriggeredRef.current = true;
+          observer.unobserve(currentRef);
         }
       },
       {
@@ -31,18 +37,27 @@ export const LazyLoad: React.FC<LazyLoadProps> = ({
       }
     );
 
-    observer.observe(ref);
+    observer.observe(currentRef);
 
     return () => {
-      if (ref) observer.disconnect();
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
     };
-  }, [ref, threshold, rootMargin]);
+  }, [threshold, rootMargin]);
 
   return (
-    <div ref={setRef} className="w-full">
-      {isVisible ? children : (
-        <div className="w-full h-40 flex items-center justify-center">
-          <div className="w-6 h-6 border-2 border-t-transparent border-primary rounded-full animate-spin"></div>
+    <div 
+      ref={containerRef} 
+      className="w-full"
+      style={{ 
+        minHeight: !isVisible ? '40px' : undefined,
+        contain: 'content'
+      }}
+    >
+      {isVisible ? children : fallback || (
+        <div className="w-full h-10 flex items-center justify-center opacity-0">
+          <span className="sr-only">Loading content...</span>
         </div>
       )}
     </div>
