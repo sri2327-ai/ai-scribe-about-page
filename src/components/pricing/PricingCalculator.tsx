@@ -142,24 +142,29 @@ export const PricingCalculator = () => {
 
                   <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Select Product</label>
-                    <Tabs 
-                      defaultValue="crush" 
-                      value={product}
-                      onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
-                      className="w-full"
-                    >
-                      <TabsList className="grid grid-cols-3 w-full">
-                        <TabsTrigger value="crush" className="text-base">
-                          CRUSH (AI Scribe)
-                        </TabsTrigger>
-                        <TabsTrigger value="bravo" className="text-base">
-                          BRAVO (Patient Engagement)
-                        </TabsTrigger>
-                        <TabsTrigger value="bundle" className="text-base">
-                          Bundle (Best Value)
-                        </TabsTrigger>
-                      </TabsList>
-                    </Tabs>
+                    <div className="flex flex-col">
+                      <Tabs 
+                        defaultValue="crush" 
+                        value={product}
+                        onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
+                        className="w-full"
+                      >
+                        <TabsList className="grid grid-cols-3 w-full">
+                          <TabsTrigger value="crush">
+                            CRUSH (AI Scribe)
+                          </TabsTrigger>
+                          <TabsTrigger value="bravo">
+                            BRAVO (Patient Engagement)
+                          </TabsTrigger>
+                          <TabsTrigger value="bundle">
+                            Bundle (Best Value)
+                          </TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="crush"></TabsContent>
+                        <TabsContent value="bravo"></TabsContent>
+                        <TabsContent value="bundle"></TabsContent>
+                      </Tabs>
+                    </div>
                   </div>
 
                   <div className="flex flex-col items-center mt-4">

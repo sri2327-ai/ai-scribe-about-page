@@ -3,8 +3,13 @@ import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Stethoscope, Building, Users, Activity, Heart, Brain, Baby } from "lucide-react";
+import { ArrowRight, Stethoscope, Building, Users, Activity, Heart } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { 
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface PracticeTypeSelectorProps {
   onSelect: (planType: string) => void;
@@ -46,22 +51,16 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       icon: Heart,
       description: 'For specialty practices with unique documentation needs',
       plan: 'crush_pro'
-    },
-    { 
-      id: 'mental', 
-      name: 'Mental Health', 
-      icon: Brain,
-      description: 'Solutions tailored for behavioral health and psychiatry',
-      plan: 'bundle_standard'
-    },
-    { 
-      id: 'pediatrics', 
-      name: 'Pediatrics', 
-      icon: Baby,
-      description: 'Designed for the specific needs of pediatric practices',
-      plan: 'crush_plus'
-    },
+    }
   ];
+  
+  // Define product recommendations
+  const productRecommendations = {
+    'solo': { name: 'CRUSH Basic', description: 'Perfect for solo providers', price: '$99/month' },
+    'small': { name: 'CRUSH Plus', description: 'Ideal for small practices', price: '$149/provider/month' },
+    'clinic': { name: 'Bundle Enterprise', description: 'Complete solution for clinics & groups', price: 'Custom pricing' },
+    'specialty': { name: 'CRUSH Pro', description: 'Advanced features for specialty practices', price: '$199/provider/month' }
+  };
   
   // Animation variants
   const containerVariants = {
@@ -94,7 +93,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
           </div>
           
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -128,21 +127,45 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                     <p className="text-gray-600 mb-4 flex-grow">{type.description}</p>
                     
                     <div className={`mt-2 flex justify-end ${isSelected ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
-                      <Button
-                        variant="link"
-                        className="p-0 text-[#387E89] font-medium"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onSelect(type.plan);
-                          const pricingSection = document.getElementById('pricing');
-                          if (pricingSection) {
-                            pricingSection.scrollIntoView({ behavior: 'smooth' });
-                          }
-                        }}
-                      >
-                        View Recommendations
-                        <ArrowRight className="ml-1 h-4 w-4" />
-                      </Button>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button
+                            variant="link"
+                            className="p-0 text-[#387E89] font-medium"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onSelect(type.plan);
+                            }}
+                          >
+                            View Recommendations
+                            <ArrowRight className="ml-1 h-4 w-4" />
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-80 p-4 bg-white shadow-md rounded-md border border-[#387E89]/20">
+                          <div className="space-y-2">
+                            <h4 className="font-bold text-[#143151] text-lg">Recommended Plan</h4>
+                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
+                              <h5 className="font-semibold text-[#387E89]">{productRecommendations[type.id as keyof typeof productRecommendations].name}</h5>
+                              <p className="text-sm text-gray-600">{productRecommendations[type.id as keyof typeof productRecommendations].description}</p>
+                              <div className="mt-2 font-bold text-[#143151]">{productRecommendations[type.id as keyof typeof productRecommendations].price}</div>
+                            </div>
+                            <div className="pt-2">
+                              <Button
+                                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white"
+                                onClick={() => {
+                                  const pricingSection = document.getElementById('pricing');
+                                  if (pricingSection) {
+                                    pricingSection.scrollIntoView({ behavior: 'smooth' });
+                                  }
+                                }}
+                              >
+                                See Full Details
+                                <ArrowRight className="ml-1 h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        </PopoverContent>
+                      </Popover>
                     </div>
                   </Card>
                 </motion.div>
