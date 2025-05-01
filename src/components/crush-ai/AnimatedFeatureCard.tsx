@@ -1,6 +1,6 @@
 
-import React, { useState } from "react";
-import { motion, Variant } from "framer-motion";
+import React, { useState, memo, useMemo } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -22,16 +22,14 @@ interface AnimatedFeatureCardProps {
 const iconAnimationVariants = {
   initial: { scale: 0.8, opacity: 0 },
   animate: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
-  // Fixed type issue by removing hover variant
 };
 
 const contentAnimationVariants = {
   initial: { opacity: 0, y: 10 },
   animate: { opacity: 1, y: 0, transition: { duration: 0.4 } },
-  // Fixed type issue by removing hover variant
 };
 
-export const AnimatedFeatureCard = ({ 
+export const AnimatedFeatureCard = memo(({ 
   icon: Icon, 
   title, 
   description, 
@@ -44,6 +42,14 @@ export const AnimatedFeatureCard = ({
   iconSize = 24
 }: AnimatedFeatureCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  
+  // Pre-compute styles for better performance
+  const decorationStyles = useMemo(() => ({
+    large: { backgroundColor: tertiaryColor },
+    small: { backgroundColor: secondaryColor },
+    tiny: { backgroundColor: primaryColor },
+    icon: { color: primaryColor, backgroundColor: iconBackground }
+  }), [primaryColor, secondaryColor, tertiaryColor, iconBackground]);
 
   return (
     <motion.div
@@ -59,15 +65,15 @@ export const AnimatedFeatureCard = ({
       onHoverEnd={() => setIsHovered(false)}
       transition={{ delay: animationDelay }}
     >
-      {/* Background decoration elements */}
+      {/* Background decoration elements with reduced opacity and better contain */}
       <div className={cn(styles.decorationCircle, styles.circleLarge)} 
-        style={{ backgroundColor: tertiaryColor }}
+        style={decorationStyles.large}
       />
       <div className={cn(styles.decorationCircle, styles.circleSmall)} 
-        style={{ backgroundColor: secondaryColor }}
+        style={decorationStyles.small}
       />
       <div className={cn(styles.decorationCircle, styles.circleTiny)} 
-        style={{ backgroundColor: primaryColor }}
+        style={decorationStyles.tiny}
       />
       <div className={styles.shimmer} />
 
@@ -77,7 +83,7 @@ export const AnimatedFeatureCard = ({
           style={{ backgroundColor: iconBackground }}
           variants={iconAnimationVariants}
           animate={isHovered ? { 
-            scale: [1, 1.1, 1], 
+            scale: [1, 1.05, 1], 
             transition: { 
               duration: 2, 
               repeat: Infinity, 
@@ -93,7 +99,7 @@ export const AnimatedFeatureCard = ({
           className={styles.cardContent}
           variants={contentAnimationVariants}
           animate={isHovered ? { 
-            y: -5, 
+            y: -3, 
             transition: { duration: 0.2 } 
           } : "animate"}
           transition={{ delay: animationDelay + 0.1 }}
@@ -106,4 +112,6 @@ export const AnimatedFeatureCard = ({
       </div>
     </motion.div>
   );
-};
+});
+
+AnimatedFeatureCard.displayName = 'AnimatedFeatureCard';

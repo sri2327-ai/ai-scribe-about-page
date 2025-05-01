@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
 import { Typography } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -18,24 +18,25 @@ const containerVariants = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3
+      staggerChildren: 0.08, // Reduced from 0.1
+      delayChildren: 0.2 // Reduced from 0.3
     }
   }
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 }, // Reduced from y: 20
   show: { 
     opacity: 1, 
     y: 0, 
     transition: { 
-      duration: 0.5,
+      duration: 0.4, // Reduced from 0.5
       ease: [0.25, 0.1, 0.25, 1.0]
     } 
   }
 };
 
+// Memoize panel data to prevent recalculation
 const adminPanels = [
   {
     title: "Prescription Refills & Lab Management",
@@ -108,7 +109,8 @@ const clinicalPanels = [
   }
 ];
 
-export const AdminTabContent = () => {
+// Use React.memo to prevent unnecessary re-renders
+export const AdminTabContent = memo(() => {
   return (
     <motion.div 
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
@@ -126,9 +128,11 @@ export const AdminTabContent = () => {
       ))}
     </motion.div>
   );
-};
+});
 
-export const ClinicalTabContent = () => {
+AdminTabContent.displayName = 'AdminTabContent';
+
+export const ClinicalTabContent = memo(() => {
   return (
     <motion.div 
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4"
@@ -146,4 +150,6 @@ export const ClinicalTabContent = () => {
       ))}
     </motion.div>
   );
-};
+});
+
+ClinicalTabContent.displayName = 'ClinicalTabContent';

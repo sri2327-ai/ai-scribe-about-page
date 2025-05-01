@@ -5,7 +5,7 @@
   overflow: hidden;
   z-index: 0;
   pointer-events: none;
-  contain: paint;
+  contain: strict;
   will-change: transform;
 }
 
@@ -13,31 +13,32 @@
   position: absolute;
   width: 300px;
   height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(81, 146, 174, 0.25) 0%, 
-    rgba(240, 98, 146, 0.15) 45%, 
-    rgba(81, 146, 174, 0) 70%
-  );
+  transform: translate(-50%, -50%);
   border-radius: 50%;
   animation: ripple 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   opacity: 0;
   mix-blend-mode: plus-lighter;
   will-change: opacity, transform;
+  contain: layout paint style;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ripple {
     animation: none;
-    opacity: 0.15;
+    opacity: 0.1;
   }
 }
 
 .ripple:nth-child(1) {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   animation-delay: 0s;
+  background: radial-gradient(
+    circle,
+    rgba(81, 146, 174, 0.15) 0%, 
+    rgba(240, 98, 146, 0.08) 45%, 
+    rgba(81, 146, 174, 0) 70%
+  );
 }
 
 .ripple:nth-child(2) {
@@ -47,8 +48,8 @@
   animation-delay: 1s;
   background: radial-gradient(
     circle,
-    rgba(240, 98, 146, 0.25) 0%, 
-    rgba(81, 146, 174, 0.15) 45%, 
+    rgba(240, 98, 146, 0.15) 0%, 
+    rgba(81, 146, 174, 0.08) 45%, 
     rgba(240, 98, 146, 0) 70%
   );
 }
@@ -58,6 +59,12 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.6);
   animation-delay: 2s;
+  background: radial-gradient(
+    circle,
+    rgba(81, 146, 174, 0.15) 0%, 
+    rgba(240, 98, 146, 0.08) 45%, 
+    rgba(81, 146, 174, 0) 70%
+  );
 }
 
 @keyframes ripple {
@@ -66,13 +73,13 @@
     opacity: 0;
   }
   25% {
-    opacity: 0.8;
+    opacity: 0.4;
   }
   50% {
-    opacity: 0.6;
+    opacity: 0.3;
   }
   75% {
-    opacity: 0.4;
+    opacity: 0.2;
   }
   100% {
     transform: translate(-50%, -50%) scale(1.5);
@@ -87,6 +94,7 @@
   pointer-events: auto;
   z-index: 1;
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+  will-change: opacity, transform, filter;
 }
 
 .securityIcon:hover {

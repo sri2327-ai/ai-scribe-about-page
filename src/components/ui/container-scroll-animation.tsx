@@ -1,9 +1,9 @@
 
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, memo } from "react";
 import { motion } from "framer-motion";
 
-export const ContainerScroll = ({
+export const ContainerScroll = memo(({
   titleComponent,
   children,
 }: {
@@ -19,28 +19,41 @@ export const ContainerScroll = ({
     };
     checkMobile();
     
-    // Use ResizeObserver instead of event listener for better performance
-    const resizeObserver = new ResizeObserver(entries => {
-      if (entries[0]) {
-        checkMobile();
+    // Use ResizeObserver with performance optimizations
+    if (typeof window !== 'undefined' && 'ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver((entries) => {
+        if (!entries || !entries.length) return;
+        
+        // Use requestAnimationFrame to throttle updates
+        requestAnimationFrame(() => {
+          checkMobile();
+        });
+      });
+      
+      if (document.body) {
+        resizeObserver.observe(document.body);
       }
-    });
-    
-    if (window) {
-      resizeObserver.observe(document.body);
+      
+      return () => {
+        resizeObserver.disconnect();
+      };
+    } else {
+      // Fallback to throttled event listener
+      const throttledResize = throttle(checkMobile, 200);
+      window.addEventListener('resize', throttledResize);
+      
+      return () => {
+        window.removeEventListener('resize', throttledResize);
+      };
     }
-    
-    return () => {
-      resizeObserver.disconnect();
-    };
   }, []);
 
-  // Memoize expensive render
+  // Memoize children for performance
   const memoizedChildren = React.useMemo(() => children, [children]);
 
   return (
     <div
-      className="flex items-center justify-center relative p-2 md:p-10"
+      className="flex items-center justify-center relative p-2 md:p-10 will-change-transform"
       ref={containerRef}
     >
       <div className="py-5 md:py-10 w-full relative">
@@ -49,18 +62,22 @@ export const ContainerScroll = ({
       </div>
     </div>
   );
-};
+});
 
-export const Header = ({ titleComponent }: { titleComponent: string | React.ReactNode }) => {
+ContainerScroll.displayName = 'ContainerScroll';
+
+export const Header = memo(({ titleComponent }: { titleComponent: string | React.ReactNode }) => {
   return (
     <div className="div max-w-5xl mx-auto text-center">
       {titleComponent}
     </div>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 // Use React.memo to prevent unnecessary re-renders
-export const Card = React.memo(({
+export const Card = memo(({
   children,
 }: {
   children: React.ReactNode;
@@ -75,3 +92,20 @@ export const Card = React.memo(({
 });
 
 Card.displayName = 'Card';
+
+// Utility function to throttle events
+function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
+  let inThrottle: boolean;
+  let lastResult: ReturnType<T>;
+  
+  return function(this: any, ...args: Parameters<T>): void {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      
+      setTimeout(() => {
+        inThrottle = false;
+      }, limit);
+    }
+  };
+}

@@ -1,10 +1,10 @@
 
-import React from "react";
+import React, { memo } from "react";
 import { motion } from "framer-motion";
-import { FileSpreadsheet, ListChecks } from "lucide-react";
+import { FileSpreadsheet } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
-export const PreCharting = () => {
+export const PreCharting = memo(() => {
   const chartItems = [
     { label: "Vitals", value: "BP: 120/80" },
     { label: "Chief Complaint", value: "Headache" },
@@ -36,7 +36,7 @@ export const PreCharting = () => {
           <motion.div
             key={i}
             className="absolute left-1/2 transform -translate-x-1/2 text-xs bg-white rounded-md shadow-sm border border-gray-200 p-1.5"
-            style={{ top: `${20 + i * 30}%` }}
+            style={{ top: `${20 + i * 30}%`, willChange: "transform, opacity" }}
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.5 + i * 0.3, duration: 0.4 }}
@@ -47,6 +47,7 @@ export const PreCharting = () => {
               animate={{ width: "100%" }}
               transition={{ delay: 0.8 + i * 0.3, duration: 0.5 }}
               className="h-0.5 bg-blue-400 my-1"
+              style={{ willChange: "width" }}
             />
             <motion.div
               initial={{ opacity: 0 }}
@@ -61,4 +62,6 @@ export const PreCharting = () => {
       </div>
     </div>
   );
-};
+});
+
+PreCharting.displayName = 'PreCharting';

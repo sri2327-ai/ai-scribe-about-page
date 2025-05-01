@@ -1,5 +1,5 @@
 
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useState, useEffect, memo, useCallback } from "react";
 import { Box } from "@mui/material";
 import { HeroSection } from "@/components/crush-ai/HeroSection";
 import { TrustedBySection } from "@/components/crush-ai/TrustedBySection";
@@ -12,20 +12,59 @@ import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
 import { PricingHeroSection } from "@/components/crush-ai/PricingHeroSection";
 
-// Lazy load non-critical components
-const EhrIntegrationSection = lazy(() => import("@/components/crush-ai/EhrIntegrationSection").then(module => ({ default: module.EhrIntegrationSection })));
-const HowItWorksSection = lazy(() => import("@/components/crush-ai/HowItWorksSection").then(module => ({ default: module.HowItWorksSection })));
-const CompetitionSection = lazy(() => import("@/components/crush-ai/CompetitionSection").then(module => ({ default: module.CompetitionSection })));
-const WorkflowAutomationSection = lazy(() => import("@/components/crush-ai/WorkflowAutomationSection").then(module => ({ default: module.WorkflowAutomationSection })));
-const ClinicalWorkflowSection = lazy(() => import("@/components/crush-ai/ClinicalWorkflowSection").then(module => ({ default: module.ClinicalWorkflowSection })));
-const ClinicianTestimonialsSection = lazy(() => import("@/components/crush-ai/ClinicianTestimonialsSection").then(module => ({ default: module.ClinicianTestimonialsSection })));
-const ROICalculatorSection = lazy(() => import("@/components/crush-ai/ROICalculatorSection").then(module => ({ default: module.ROICalculatorSection })));
-const EHRBeamsBackground = lazy(() => import("@/components/crush-ai/EHRBeamsBackground").then(module => ({ default: module.EHRBeamsBackground })));
+// Use dynamic imports with prefetch to improve loading performance
+const EhrIntegrationSection = lazy(() => {
+  const module = import("@/components/crush-ai/EhrIntegrationSection").then(module => ({ default: module.EhrIntegrationSection }));
+  // Return the promise
+  return module;
+});
 
-// Loading placeholder
-const SectionLoader = () => (
-  <Box sx={{ py: 8, display: "flex", justifyContent: "center", alignItems: "center", minHeight: "300px" }}>
-    <div className="animate-pulse flex space-x-4">
+const HowItWorksSection = lazy(() => {
+  const module = import("@/components/crush-ai/HowItWorksSection").then(module => ({ default: module.HowItWorksSection }));
+  return module;
+});
+
+const CompetitionSection = lazy(() => {
+  const module = import("@/components/crush-ai/CompetitionSection").then(module => ({ default: module.CompetitionSection }));
+  return module;
+});
+
+const WorkflowAutomationSection = lazy(() => {
+  const module = import("@/components/crush-ai/WorkflowAutomationSection").then(module => ({ default: module.WorkflowAutomationSection }));
+  return module;
+});
+
+const ClinicalWorkflowSection = lazy(() => {
+  const module = import("@/components/crush-ai/ClinicalWorkflowSection").then(module => ({ default: module.ClinicalWorkflowSection }));
+  return module;
+});
+
+const ClinicianTestimonialsSection = lazy(() => {
+  const module = import("@/components/crush-ai/ClinicianTestimonialsSection").then(module => ({ default: module.ClinicianTestimonialsSection }));
+  return module;
+});
+
+const ROICalculatorSection = lazy(() => {
+  const module = import("@/components/crush-ai/ROICalculatorSection").then(module => ({ default: module.ROICalculatorSection }));
+  return module;
+});
+
+const EHRBeamsBackground = lazy(() => {
+  const module = import("@/components/crush-ai/EHRBeamsBackground").then(module => ({ default: module.EHRBeamsBackground }));
+  return module;
+});
+
+// Optimized loading placeholder with reduced animation
+const SectionLoader = memo(() => (
+  <Box sx={{ 
+    py: 8, 
+    display: "flex", 
+    justifyContent: "center", 
+    alignItems: "center", 
+    minHeight: "300px",
+    backgroundColor: "rgba(255, 255, 255, 0.8)"
+  }}>
+    <div className="flex space-x-4 w-full max-w-md px-4">
       <div className="flex-1 space-y-6 py-1">
         <div className="h-4 bg-gray-200 rounded w-3/4"></div>
         <div className="space-y-3">
@@ -38,9 +77,11 @@ const SectionLoader = () => (
       </div>
     </div>
   </Box>
-);
+));
 
-// Optimized ripple styles with will-change property for better GPU handling
+SectionLoader.displayName = 'SectionLoader';
+
+// Optimized styles with reduced paint operations
 const globalStyles = {
   '.animated-workflow': {
     color: crushAIColors.text.primary, 
@@ -56,6 +97,7 @@ const globalStyles = {
   '.demo-button': {
     background: `linear-gradient(90deg, #046f90, #f06292) !important`,
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    willChange: 'transform',
     '&:hover': {
       transform: 'translateY(-3px)',
       boxShadow: '0 8px 20px rgba(240, 98, 146, 0.3)'
@@ -64,57 +106,141 @@ const globalStyles = {
   '.cta-text': {
     color: `${crushAIColors.text.white} !important`,
     textShadow: '0 2px 8px rgba(0,0,0,0.5) !important'
-  },
-  '.rippleBackground': {
-    willChange: 'transform',
-    contain: 'strict',
-    position: 'absolute',
-    inset: 0,
-    overflow: 'hidden',
-    zIndex: 0,
-    pointerEvents: 'none',
-  },
-  '.ripple': {
-    willChange: 'opacity, transform',
-    containIntrinsicSize: '300px 300px',
   }
 };
 
-// Optimized IntersectionObserver based component loader
-const LazyLoadSection = ({ children, threshold = 0.1 }) => {
-  const [isVisible, setIsVisible] = React.useState(false);
+// PerformanceObserver to monitor page performance
+if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
+  try {
+    const perfObserver = new PerformanceObserver((list) => {
+      const entries = list.getEntries();
+      entries.forEach((entry) => {
+        if (entry.entryType === 'longtask' && entry.duration > 50) {
+          console.log('Long task detected:', entry.duration + 'ms');
+        }
+      });
+    });
+    perfObserver.observe({ entryTypes: ['longtask'] });
+  } catch (e) {
+    console.log('PerformanceObserver not supported');
+  }
+}
+
+// Enhanced IntersectionObserver component with better performance characteristics
+const LazyLoadSection = memo(({ children, threshold = 0.1, rootMargin = "200px 0px" }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const sectionRef = React.useRef(null);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
+      (entries) => {
+        const [entry] = entries;
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          if (!hasLoaded) {
+            setHasLoaded(true);
+          }
         }
       },
-      { threshold }
+      { threshold, rootMargin }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    const currentRef = sectionRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (sectionRef.current) {
+      if (currentRef) {
         observer.disconnect();
       }
     };
-  }, [threshold]);
+  }, [threshold, rootMargin, hasLoaded]);
 
   return (
-    <div ref={sectionRef}>
-      {isVisible ? children : <SectionLoader />}
+    <div ref={sectionRef} className="will-change-auto">
+      {(isVisible || hasLoaded) ? children : <SectionLoader />}
     </div>
   );
-};
+});
+
+LazyLoadSection.displayName = 'LazyLoadSection';
+
+// Memoized CTA section to prevent re-renders
+const CTASection = memo(({ EHRBeamsBackground }) => (
+  <Box 
+    sx={{ 
+      position: "relative",
+      zIndex: 1,
+      bgcolor: crushAIColors.primaryFlat,
+      overflow: "hidden"
+    }}
+  >
+    <div className="rippleBackground">
+      <div className="ripple bg-white/10"></div>
+      <div className="ripple bg-white/10"></div>
+      <div className="ripple bg-white/10"></div>
+    </div>
+    <Suspense fallback={<SectionLoader />}>
+      <EHRBeamsBackground>
+        <Box 
+          sx={{
+            py: { xs: 8, md: 10 }, 
+            textAlign: "center",
+            position: "relative",
+            zIndex: 1
+          }}
+        >
+          <Container maxWidth="md">
+            <Typography
+              variant="h3"
+              sx={{
+                fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
+                fontWeight: 700,
+                mb: 3,
+                color: "#fff",
+                letterSpacing: "-0.03em",
+                lineHeight: 1.2
+              }}
+            >
+              CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
+            </Typography>
+            <Button 
+              size="lg" 
+              className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
+            >
+              <ArrowRight size={16} className="mr-2" />
+              BOOK A DEMO
+            </Button>
+          </Container>
+        </Box>
+      </EHRBeamsBackground>
+    </Suspense>
+  </Box>
+));
+
+CTASection.displayName = 'CTASection';
 
 const CrushAI = () => {
+  // Preload critical components
+  useEffect(() => {
+    const preloadComponents = async () => {
+      try {
+        // Preload key components that will be visible soon
+        const imports = [
+          import("@/components/crush-ai/EhrIntegrationSection"),
+          import("@/components/crush-ai/HowItWorksSection"),
+        ];
+        await Promise.all(imports);
+      } catch (err) {
+        console.error("Error preloading components:", err);
+      }
+    };
+    
+    preloadComponents();
+  }, []);
+
   return (
     <Box 
       sx={{ 
@@ -140,9 +266,9 @@ const CrushAI = () => {
           }}
         >
           <div className="rippleBackground">
-            <div className="ripple bg-white/10"></div>
-            <div className="ripple bg-white/10"></div>
-            <div className="ripple bg-white/10"></div>
+            <div className="ripple"></div>
+            <div className="ripple"></div>
+            <div className="ripple"></div>
           </div>
           <Suspense fallback={<SectionLoader />}>
             <EHRBeamsBackground>
@@ -166,9 +292,9 @@ const CrushAI = () => {
         >
           <Box sx={{ position: 'relative', overflow: 'hidden' }}>
             <div className="rippleBackground">
-              <div className="ripple bg-[#046f90]/30"></div>
-              <div className="ripple bg-[#046f90]/20"></div>
-              <div className="ripple bg-[#046f90]/10"></div>
+              <div className="ripple"></div>
+              <div className="ripple"></div>
+              <div className="ripple"></div>
             </div>
             <Suspense fallback={<SectionLoader />}>
               <HowItWorksSection />
@@ -186,9 +312,9 @@ const CrushAI = () => {
           }}
         >
           <div className="rippleBackground">
-            <div className="ripple bg-white/10"></div>
-            <div className="ripple bg-white/10"></div>
-            <div className="ripple bg-white/10"></div>
+            <div className="ripple"></div>
+            <div className="ripple"></div>
+            <div className="ripple"></div>
           </div>
           <Suspense fallback={<SectionLoader />}>
             <EHRBeamsBackground>
@@ -209,55 +335,7 @@ const CrushAI = () => {
       </LazyLoadSection>
       
       <LazyLoadSection>
-        <Box 
-          sx={{ 
-            position: "relative",
-            zIndex: 1,
-            bgcolor: crushAIColors.primaryFlat,
-            overflow: "hidden"
-          }}
-        >
-          <div className="rippleBackground">
-            <div className="ripple bg-white/10"></div>
-            <div className="ripple bg-white/10"></div>
-            <div className="ripple bg-white/10"></div>
-          </div>
-          <Suspense fallback={<SectionLoader />}>
-            <EHRBeamsBackground>
-              <Box 
-                sx={{
-                  py: { xs: 8, md: 10 }, 
-                  textAlign: "center",
-                  position: "relative",
-                  zIndex: 1
-                }}
-              >
-                <Container maxWidth="md">
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontSize: { xs: "1.75rem", sm: "2rem", md: "2.25rem" },
-                      fontWeight: 700,
-                      mb: 3,
-                      color: "#fff",
-                      letterSpacing: "-0.03em",
-                      lineHeight: 1.2
-                    }}
-                  >
-                    CRUSH Streamlines Clinical Workflows. Schedule a Demo to Experience Its Full Value Firsthand.
-                  </Typography>
-                  <Button 
-                    size="lg" 
-                    className="rounded-full px-8 py-6 text-lg shadow-xl text-white transition-all duration-300 hover:translate-y-[-2px] demo-button"
-                  >
-                    <ArrowRight size={16} className="mr-2" />
-                    BOOK A DEMO
-                  </Button>
-                </Container>
-              </Box>
-            </EHRBeamsBackground>
-          </Suspense>
-        </Box>
+        <CTASection EHRBeamsBackground={EHRBeamsBackground} />
       </LazyLoadSection>
       
       <LazyLoadSection>
