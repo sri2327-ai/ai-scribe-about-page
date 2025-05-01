@@ -1,111 +1,79 @@
 
-"use client";
-import React, { useRef, useState, useEffect, memo } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
-export const ContainerScroll = memo(({
+interface ContainerScrollProps {
+  titleComponent: React.ReactNode;
+  children?: React.ReactNode;
+  className?: string;
+  /** The speed of the scroll effect. Higher values mean slower scrolling. Default is 0.5. */
+  speed?: number;
+}
+
+export const ContainerScroll: React.FC<ContainerScrollProps> = ({
   titleComponent,
   children,
-}: {
-  titleComponent: string | React.ReactNode;
-  children: React.ReactNode;
+  className = '',
+  speed = 0.5,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [containerHeight, setContainerHeight] = useState<number | undefined>(undefined);
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    
-    // Use ResizeObserver with performance optimizations
-    if (typeof window !== 'undefined' && 'ResizeObserver' in window) {
-      const resizeObserver = new ResizeObserver((entries) => {
-        if (!entries || !entries.length) return;
-        
-        // Use requestAnimationFrame to throttle updates
-        requestAnimationFrame(() => {
-          checkMobile();
-        });
-      });
-      
-      if (document.body) {
-        resizeObserver.observe(document.body);
-      }
-      
-      return () => {
-        resizeObserver.disconnect();
-      };
-    } else {
-      // Fallback to throttled event listener
-      const throttledResize = throttle(checkMobile, 200);
-      window.addEventListener('resize', throttledResize);
-      
-      return () => {
-        window.removeEventListener('resize', throttledResize);
-      };
+    setIsMounted(true);
+    if (containerRef.current) {
+      setContainerHeight(containerRef.current.offsetHeight);
     }
   }, []);
 
-  // Memoize children for performance
-  const memoizedChildren = React.useMemo(() => children, [children]);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const transform = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, speed * 100]
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        setContainerHeight(containerRef.current.offsetHeight);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', handleResize);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+    return undefined;
+  }, []);
 
   return (
     <div
-      className="flex items-center justify-center relative p-2 md:p-10 will-change-transform"
+      className={`relative w-full overflow-hidden bg-black ${className}`}
       ref={containerRef}
     >
-      <div className="py-5 md:py-10 w-full relative">
-        <Header titleComponent={titleComponent} />
-        <Card>{memoizedChildren}</Card>
-      </div>
-    </div>
-  );
-});
-
-ContainerScroll.displayName = 'ContainerScroll';
-
-export const Header = memo(({ titleComponent }: { titleComponent: string | React.ReactNode }) => {
-  return (
-    <div className="div max-w-5xl mx-auto text-center">
-      {titleComponent}
-    </div>
-  );
-});
-
-Header.displayName = 'Header';
-
-// Use React.memo to prevent unnecessary re-renders
-export const Card = memo(({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  return (
-    <div className="max-w-5xl -mt-8 mx-auto h-auto min-h-[25rem] md:min-h-[35rem] w-full">
-      <div className="h-full w-full overflow-hidden flex items-center justify-center bg-white rounded-xl shadow-lg border border-gray-100">
+      {isMounted && (
+        <div className="sticky top-0 flex h-screen w-full items-center justify-center">
+          <div className="relative w-full">
+            {/* Title component with parallax effect */}
+            <motion.div style={{ y: transform }} className="w-full">
+              {titleComponent}
+            </motion.div>
+          </div>
+        </div>
+      )}
+      {/* Creates the height for the scroll progress */}
+      {containerHeight && <div style={{ height: containerHeight + 'px' }} />}
+      <div className="absolute top-0 left-0 w-full">
         {children}
       </div>
     </div>
   );
-});
-
-Card.displayName = 'Card';
-
-// Utility function to throttle events
-function throttle<T extends (...args: any[]) => any>(func: T, limit: number): (...args: Parameters<T>) => void {
-  let inThrottle: boolean;
-  let lastResult: ReturnType<T>;
-  
-  return function(this: any, ...args: Parameters<T>): void {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      
-      setTimeout(() => {
-        inThrottle = false;
-      }, limit);
-    }
-  };
-}
+};

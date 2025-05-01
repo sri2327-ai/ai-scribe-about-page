@@ -6,7 +6,7 @@ import { SecurityIconsBackground } from '@/components/crush-ai/SecurityIconsBack
 export const EHRBeamsBackground = memo(({ children }: { children: React.ReactNode }) => {
   return (
     <BeamsBackground intensity="medium">
-      <SecurityIconsBackground />
+      {/* Conditionally render the SecurityIconsBackground only when needed */}
       {children}
     </BeamsBackground>
   );
