@@ -10,7 +10,7 @@ const Dialog = DialogPrimitive.Root
 // Add explicit children type to interface
 interface DialogTriggerProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> {
   children: React.ReactNode;
-  asChild?: boolean; // Add asChild property
+  asChild?: boolean;
 }
 
 const DialogTrigger = React.forwardRef<

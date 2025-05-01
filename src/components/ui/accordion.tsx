@@ -5,8 +5,8 @@ import { ChevronDown } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-// Define interfaces for each component
-interface AccordionProps {
+// Define interfaces for each component with all required properties
+interface AccordionProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
   children: React.ReactNode;
   className?: string;
   type: "single" | "multiple";
@@ -34,6 +34,7 @@ interface AccordionItemProps extends React.ComponentPropsWithoutRef<typeof Accor
   children: React.ReactNode;
   className?: string;
   value: string;
+  disabled?: boolean;
 }
 
 const AccordionItem = React.forwardRef<
@@ -78,6 +79,7 @@ AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName
 interface AccordionContentProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content> {
   children: React.ReactNode;
   className?: string;
+  forceMount?: boolean;
 }
 
 const AccordionContent = React.forwardRef<

@@ -60,6 +60,7 @@ interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPri
   children: React.ReactNode;
   className?: string;
   value: string;
+  onClick?: () => void; // Add onClick property
 }
 
 const TabsTrigger = React.forwardRef<
