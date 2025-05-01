@@ -18,7 +18,7 @@ export const EHRBeamsBackground = memo(({
   // Use useMemo to avoid recreating styles on each render
   const contentStyles = useMemo(() => ({
     willChange: "transform",
-    backfaceVisibility: "hidden",
+    backfaceVisibility: "hidden" as const, // Type assertion to fix the error
     transform: "translateZ(0)", // Enables hardware acceleration
     contain: "content",
     ...style
