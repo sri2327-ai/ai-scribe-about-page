@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Stethoscope, Building, Users, Activity, Heart } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 interface PracticeTypeSelectorProps {
   onSelect: (planType: string) => void;
@@ -12,6 +13,7 @@ interface PracticeTypeSelectorProps {
 
 export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSelect }) => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<'crush' | 'bravo'>('crush');
   
   const handleSelect = (type: string) => {
     setSelectedType(type);
@@ -51,10 +53,24 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
   
   // Define product recommendations
   const productRecommendations = {
-    'solo': { name: 'CRUSH Basic', description: 'Perfect for solo providers', price: '$99/month' },
-    'small': { name: 'CRUSH Plus', description: 'Ideal for small practices', price: '$149/provider/month' },
-    'clinic': { name: 'Bundle Enterprise', description: 'Complete solution for clinics & groups', price: 'Custom pricing' },
-    'specialty': { name: 'CRUSH Pro', description: 'Advanced features for specialty practices', price: '$199/provider/month' }
+    crush: {
+      'solo': { name: 'CRUSH Basic', description: 'Perfect for solo providers', price: '$99/month' },
+      'small': { name: 'CRUSH Plus', description: 'Ideal for small practices', price: '$149-$199/provider/month' },
+      'clinic': { name: 'Bundle Enterprise', description: 'Complete solution for clinics & groups', price: 'Custom pricing' },
+      'specialty': { name: 'CRUSH Pro', description: 'Advanced features for specialty practices', price: 'Custom pricing' }
+    },
+    bravo: {
+      'solo': { name: 'BRAVO Basic', description: 'Streamlined patient management', price: '$99/month' },
+      'small': { name: 'BRAVO Pro', description: 'Enhanced patient engagement', price: 'Up to $299/month' },
+      'clinic': { name: 'BRAVO Enterprise', description: 'Multi-clinic management', price: 'Custom pricing' },
+      'specialty': { name: 'BRAVO Pro', description: 'Specialty-specific workflows', price: 'Up to $299/month' }
+    },
+    bundle: {
+      'solo': { name: 'Basic Bundle', description: 'CRUSH + BRAVO with discount', price: 'From $159/month' },
+      'small': { name: 'Plus Bundle', description: 'Premium integration package', price: 'From $199/month' },
+      'clinic': { name: 'Enterprise Bundle', description: 'Complete enterprise solution', price: 'Custom pricing' },
+      'specialty': { name: 'Pro Bundle', description: 'Specialty-specific bundle', price: 'Custom pricing' }
+    }
   };
   
   // Animation variants
@@ -137,12 +153,40 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
 
                     {isSelected && (
                       <div className="mt-4 pt-4 border-t border-gray-200">
-                        <h4 className="font-bold text-[#143151] text-lg mb-2">Recommended Plan</h4>
-                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
-                          <h5 className="font-semibold text-[#387E89]">{productRecommendations[type.id as keyof typeof productRecommendations].name}</h5>
-                          <p className="text-sm text-gray-600">{productRecommendations[type.id as keyof typeof productRecommendations].description}</p>
-                          <div className="mt-2 font-bold text-[#143151]">{productRecommendations[type.id as keyof typeof productRecommendations].price}</div>
-                        </div>
+                        <h4 className="font-bold text-[#143151] text-lg mb-2">Recommended Plans</h4>
+                        
+                        <Tabs defaultValue="crush" className="w-full" onValueChange={(value) => setActiveTab(value as 'crush' | 'bravo')}>
+                          <TabsList className="w-full mb-2 bg-gray-100">
+                            <TabsTrigger value="crush" className="flex-1">CRUSH</TabsTrigger>
+                            <TabsTrigger value="bravo" className="flex-1">BRAVO</TabsTrigger>
+                            <TabsTrigger value="bundle" className="flex-1">Bundle</TabsTrigger>
+                          </TabsList>
+                          
+                          <TabsContent value="crush" className="mt-0">
+                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
+                              <h5 className="font-semibold text-[#387E89]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].name}</h5>
+                              <p className="text-sm text-gray-600">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].description}</p>
+                              <div className="mt-2 font-bold text-[#143151]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].price}</div>
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="bravo" className="mt-0">
+                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
+                              <h5 className="font-semibold text-[#387E89]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].name}</h5>
+                              <p className="text-sm text-gray-600">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].description}</p>
+                              <div className="mt-2 font-bold text-[#143151]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].price}</div>
+                            </div>
+                          </TabsContent>
+                          
+                          <TabsContent value="bundle" className="mt-0">
+                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
+                              <h5 className="font-semibold text-[#387E89]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].name}</h5>
+                              <p className="text-sm text-gray-600">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].description}</p>
+                              <div className="mt-2 font-bold text-[#143151]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].price}</div>
+                            </div>
+                          </TabsContent>
+                        </Tabs>
+                        
                         <div className="mt-3">
                           <Button
                             className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white"

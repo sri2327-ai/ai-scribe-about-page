@@ -20,6 +20,19 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
     })
   };
 
+  // Calculate annual price with savings (16%)
+  const calculateAnnualPrice = (monthlyPrice: string): string => {
+    if (monthlyPrice.includes('$')) {
+      const numericPart = monthlyPrice.match(/\$(\d+)/);
+      if (numericPart && numericPart[1]) {
+        const monthly = parseInt(numericPart[1]);
+        const annual = (monthly * 10).toLocaleString(); // 12 months - 16% discount ≈ 10 months worth
+        return `$${annual}`;
+      }
+    }
+    return monthlyPrice;
+  };
+
   // Render different plan cards based on the active plan
   const renderPlanCards = () => {
     if (activePlan === 'crush') {
@@ -56,7 +69,8 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   'Available on Devices',
                   '24x7 Support',
                   'Human RCPA Specialists',
-                  'Patient instructions'
+                  'Care plan',
+                  'Referral letters'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
@@ -97,11 +111,11 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
                 <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$139' : '$1,390'}
+                  {billingCycle === 'monthly' ? '$149-$199' : '$1,490-$1,990'}
                   <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $278)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -112,10 +126,9 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                 </li>
                 {[
                   'EHR integration (all EHRs)',
-                  'Referral letters',
-                  'Patient instructions',
-                  'Custom templates',
-                  'Contextual pre-charting'
+                  'Advanced Custom templates',
+                  'Contextual pre-charting',
+                  'Prescription refills & lab management'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check className="h-5 w-5 text-green-500 mr-2 shrink-0" />
@@ -150,12 +163,11 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             <div className="p-8 flex flex-col flex-grow mt-8">
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$175' : '$1,750'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                <p className="text-3xl font-bold text-[#143151]">
+                  Custom pricing
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $350)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -165,7 +177,6 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
                   <span className="text-gray-700 font-semibold">All Basic (With EHR) features</span>
                 </li>
                 {[
-                  'Prescription refills & lab management',
                   'Smart screening & assessments',
                   'Pre-charting & document management',
                   'Clinical decision support',
@@ -205,7 +216,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
               <div className="mb-4">
                 <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$99' : '$990'}
+                  {billingCycle === 'monthly' ? 'From $99' : 'From $990'}
                   <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
@@ -259,11 +270,11 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$299' : '$2,990'}
+                  {billingCycle === 'monthly' ? 'Up to $299' : 'Up to $2,990'}
                   <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $598)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -358,12 +369,12 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             <div className="p-8 flex flex-col flex-grow">
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$179' : '$1,790'}
+                <p className="text-3xl font-bold text-[#143151]">
+                  {billingCycle === 'monthly' ? '$159-$399' : '$1,590-$3,990'}
                   <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $358)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -401,12 +412,12 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             <div className="p-8 flex flex-col flex-grow">
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$209' : '$2,090'}
+                <p className="text-3xl font-bold text-[#143151]">
+                  {billingCycle === 'monthly' ? '$199-$399' : '$1,990-$3,990'}
                   <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $418)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -454,12 +465,11 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
             <div className="p-8 flex flex-col flex-grow mt-8">
               <h3 className="text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
-                <p className="text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$399' : '$3,990'}
-                  <span className="text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                <p className="text-3xl font-bold text-[#143151]">
+                  Custom pricing
                 </p>
                 <p className="text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $798)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>

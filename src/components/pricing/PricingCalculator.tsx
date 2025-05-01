@@ -93,14 +93,14 @@ export const PricingCalculator = () => {
       id: 'bravo',
       name: 'BRAVO (Patient Engagement)',
       description: 'Smart scheduling and patient communication',
-      price: 'From $149/month',
+      price: 'From $99/month',
       savings: 'Reduce no-shows by up to 30%'
     },
     {
       id: 'bundle',
       name: 'Bundle (Best Value)',
       description: 'CRUSH + BRAVO with 10% discount',
-      price: 'From $224/month',
+      price: 'From $159/month',
       savings: 'Most comprehensive solution'
     }
   ];
@@ -168,31 +168,31 @@ export const PricingCalculator = () => {
 
                   <div className="w-full">
                     <Label className="block text-sm font-medium text-gray-700 mb-3">Select Product</Label>
-                    <div className="grid grid-cols-1 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                       {productOptions.map((option) => (
                         <div 
                           key={option.id}
                           onClick={() => setProduct(option.id as 'crush' | 'bravo' | 'bundle')}
                           className={`
-                            cursor-pointer rounded-lg border p-3 flex items-center
+                            cursor-pointer rounded-lg border p-4 flex flex-col
                             ${product === option.id ? 
                               'border-[#387E89] bg-[#387E89]/5 shadow' : 
                               'border-gray-200 hover:border-[#387E89]/50'
                             }
                           `}
                         >
-                          <div className={`
-                            w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3
-                            ${product === option.id ? 'border-[#387E89]' : 'border-gray-300'}
-                          `}>
-                            {product === option.id && <div className="w-3 h-3 rounded-full bg-[#387E89]"></div>}
-                          </div>
-                          <div className="flex-1">
+                          <div className="flex items-center mb-2">
+                            <div className={`
+                              w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3
+                              ${product === option.id ? 'border-[#387E89]' : 'border-gray-300'}
+                            `}>
+                              {product === option.id && <div className="w-3 h-3 rounded-full bg-[#387E89]"></div>}
+                            </div>
                             <h4 className="font-medium text-[#143151]">{option.name}</h4>
-                            <p className="text-sm text-gray-600">{option.description}</p>
                           </div>
-                          <div className="text-right text-sm">
-                            <div className="font-bold text-[#143151]">{option.price}</div>
+                          <p className="text-sm text-gray-600 mb-2">{option.description}</p>
+                          <div className="mt-auto">
+                            <div className="font-bold text-[#143151] text-sm">{option.price}</div>
                             <div className="text-xs text-[#387E89]">{option.savings}</div>
                           </div>
                         </div>
