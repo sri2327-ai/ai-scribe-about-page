@@ -78,7 +78,7 @@ PricingCTAButtons.displayName = 'PricingCTAButtons';
 export const PricingHeroSection = memo(() => {
   return (
     <section 
-      className="relative py-10 md:py-16 flex items-center overflow-hidden"
+      className="relative min-h-[calc(100vh-80px)] py-6 md:py-0 flex items-center overflow-hidden"
       style={{ 
         background: `linear-gradient(135deg, ${crushAIColors.background.light} 0%, #fff 100%)`,
         contain: 'paint layout'

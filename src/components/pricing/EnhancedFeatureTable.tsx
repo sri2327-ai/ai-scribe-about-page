@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Check, X } from "lucide-react";
+import React, { useState } from 'react';
+import { Check, X, ChevronRight, ChevronLeft } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { 
   Table, 
@@ -10,12 +10,15 @@ import {
   TableBody, 
   TableCell 
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 interface EnhancedFeatureTableProps {
   product: 'crush' | 'bravo';
 }
 
 export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ product }) => {
+  const [currentCategoryIndex, setCurrentCategoryIndex] = useState(0);
+  
   const renderCheckmark = (isIncluded: boolean) => {
     return isIncluded ? (
       <Check className="h-5 w-5 text-green-500 mx-auto" />
@@ -281,63 +284,103 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
     }
   ];
 
-  // Setting responsiveness considerations
+  const currentFeatures = product === 'crush' ? crushFeatures : bravoFeatures;
+  
+  // Navigate through categories in mobile view
+  const nextCategory = () => {
+    setCurrentCategoryIndex((prev) => 
+      prev < currentFeatures.length - 1 ? prev + 1 : prev
+    );
+  };
+  
+  const prevCategory = () => {
+    setCurrentCategoryIndex((prev) => 
+      prev > 0 ? prev - 1 : prev
+    );
+  };
+
+  // Improved mobile view with category navigation
   const showMobileView = () => {
+    const currentCategory = currentFeatures[currentCategoryIndex];
+    
     return (
       <div className="block md:hidden">
-        {product === 'crush' ? 
-          crushFeatures.map((categoryGroup, categoryIndex) => (
-            <div key={`category-${categoryIndex}`} className="mb-8">
-              <h3 className="font-bold text-[#143151] mb-4 bg-gray-100 p-2">{categoryGroup.category}</h3>
-              
-              {categoryGroup.features.map((feature, featureIndex) => (
-                <div key={`feature-${featureIndex}`} className="mb-6 border-b pb-4">
-                  <p className="font-medium mb-3">{feature.name}</p>
-                  <div className="grid grid-cols-3 gap-2 text-center">
+        {/* Category navigation */}
+        <div className="flex items-center justify-between mb-4">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="border-gray-300 text-gray-500"
+            onClick={prevCategory}
+            disabled={currentCategoryIndex === 0}
+          >
+            <ChevronLeft className="h-4 w-4 mr-1" />
+            Prev
+          </Button>
+          
+          <h3 className="font-bold text-[#143151] text-sm text-center">
+            {currentCategory.category}
+            <div className="text-xs text-gray-500 mt-1">
+              {currentCategoryIndex + 1} of {currentFeatures.length}
+            </div>
+          </h3>
+          
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="border-gray-300 text-gray-500"
+            onClick={nextCategory}
+            disabled={currentCategoryIndex === currentFeatures.length - 1}
+          >
+            Next
+            <ChevronRight className="h-4 w-4 ml-1" />
+          </Button>
+        </div>
+        
+        {/* Features for current category */}
+        <div className="border rounded-lg overflow-hidden">
+          {currentCategory.features.map((feature, featureIndex) => (
+            <div 
+              key={`feature-${featureIndex}`} 
+              className={`p-4 ${featureIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+            >
+              <p className="font-medium mb-3 text-sm">{feature.name}</p>
+              <div className="grid grid-cols-3 gap-2 text-center">
+                {product === 'crush' ? (
+                  <>
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Basic (No EHR)</div>
+                      <div className="text-xs text-gray-500 mb-2">Basic<br/>(No EHR)</div>
                       {renderCheckmark(feature.basic)}
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Basic (With EHR)</div>
+                      <div className="text-xs text-gray-500 mb-2">Basic<br/>(With EHR)</div>
                       {renderCheckmark(feature.basicEHR)}
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Pro</div>
+                      <div className="text-xs text-gray-500 mb-2">Pro</div>
                       {renderCheckmark(feature.pro)}
                     </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ))
-        : 
-          bravoFeatures.map((categoryGroup, categoryIndex) => (
-            <div key={`category-${categoryIndex}`} className="mb-8">
-              <h3 className="font-bold text-[#143151] mb-4 bg-gray-100 p-2">{categoryGroup.category}</h3>
-              
-              {categoryGroup.features.map((feature, featureIndex) => (
-                <div key={`feature-${featureIndex}`} className="mb-6 border-b pb-4">
-                  <p className="font-medium mb-3">{feature.name}</p>
-                  <div className="grid grid-cols-3 gap-2 text-center">
+                  </>
+                ) : (
+                  <>
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Basic</div>
+                      <div className="text-xs text-gray-500 mb-2">Basic</div>
                       {renderCheckmark(feature.basic)}
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Pro</div>
+                      <div className="text-xs text-gray-500 mb-2">Pro</div>
                       {renderCheckmark(feature.pro)}
                     </div>
                     <div>
-                      <div className="text-xs text-gray-500 mb-1">Enterprise</div>
+                      <div className="text-xs text-gray-500 mb-2">Enterprise</div>
                       {renderCheckmark(feature.enterprise)}
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </>
+                )}
+              </div>
             </div>
-          ))
-        }
+          ))}
+        </div>
       </div>
     );
   };

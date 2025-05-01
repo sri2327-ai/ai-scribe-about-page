@@ -1,8 +1,7 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, BadgePercent } from "lucide-react";
+import { ArrowRight, Check, BadgePercent, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 interface PricingCardsProps {
@@ -11,6 +10,28 @@ interface PricingCardsProps {
 }
 
 export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
+  useEffect(() => {
+    // Reset index when plan changes
+    setCurrentIndex(0);
+  }, [activePlan]);
+
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (custom: number) => ({
@@ -18,6 +39,27 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
       y: 0,
       transition: { delay: custom * 0.1, duration: 0.5 }
     })
+  };
+  
+  // Navigation for mobile carousel
+  const nextCard = () => {
+    const numCards = getNumCards();
+    if (currentIndex < numCards - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+  
+  const prevCard = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+  
+  const getNumCards = () => {
+    if (activePlan === 'crush' || activePlan === 'bravo' || activePlan === 'bundle') {
+      return 3;
+    }
+    return 0;
   };
 
   // Calculate annual price with savings (16%)
@@ -503,14 +545,82 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
     }
   };
 
+  // Mobile carousel display
+  const renderMobileCarousel = () => {
+    const cards = renderPlanCards();
+    const cardArray = React.Children.toArray(cards);
+    
+    return (
+      <div className="relative">
+        <div 
+          className="overflow-hidden"
+          ref={cardsContainerRef}
+        >
+          <div 
+            className="flex transition-transform duration-300 ease-in-out"
+            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+          >
+            {React.Children.map(cardArray, (card, index) => (
+              <div key={index} className="w-full flex-shrink-0 px-1">
+                {card}
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        {/* Mobile navigation controls */}
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full border-[#387E89]"
+            onClick={prevCard}
+            disabled={currentIndex === 0}
+          >
+            <ChevronLeft className="h-4 w-4 text-[#387E89]" />
+          </Button>
+          <div className="text-sm text-[#387E89]">
+            {currentIndex + 1} / {getNumCards()}
+          </div>
+          <Button
+            variant="outline"
+            size="icon"
+            className="rounded-full border-[#387E89]"
+            onClick={nextCard}
+            disabled={currentIndex === getNumCards() - 1}
+          >
+            <ChevronRight className="h-4 w-4 text-[#387E89]" />
+          </Button>
+        </div>
+      </div>
+    );
+  };
+
+  // Desktop display
+  const renderDesktopGrid = () => {
+    return (
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto"
+      >
+        {renderPlanCards()}
+      </motion.div>
+    );
+  };
+
   return (
-    <motion.div 
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto"
-    >
-      {renderPlanCards()}
-    </motion.div>
+    <>
+      {/* Mobile View with Carousel */}
+      <div className="md:hidden">
+        {renderMobileCarousel()}
+      </div>
+      
+      {/* Desktop View with Grid */}
+      <div className="hidden md:block">
+        {renderDesktopGrid()}
+      </div>
+    </>
   );
 };
