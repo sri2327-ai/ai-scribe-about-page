@@ -9,6 +9,8 @@ const HoverCard = HoverCardPrimitive.Root
 // Add explicit children type to interface
 interface HoverCardTriggerProps extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger> {
   children: React.ReactNode;
+  className?: string;
+  asChild?: boolean; // Add asChild property
 }
 
 const HoverCardTrigger = React.forwardRef<

@@ -11,6 +11,7 @@ const Tooltip = TooltipPrimitive.Root
 // Add explicit children type to interface
 interface TooltipTriggerProps extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger> {
   children: React.ReactNode;
+  asChild?: boolean; // Add asChild property
 }
 
 const TooltipTrigger = React.forwardRef<

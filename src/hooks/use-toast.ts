@@ -19,7 +19,8 @@ type Toast = {
   title?: React.ReactNode
   description?: React.ReactNode
   action?: ToastActionElement
-  className?: string  // Add this line to fix the className error
+  className?: string
+  variant?: "default" | "destructive" // Add this line
 }
 
 type ToasterToast = Toast & {
@@ -49,7 +50,8 @@ interface AddToastProps {
   type?: "default" | "destructive"
   action?: ToastActionElement
   duration?: number
-  className?: string  // Add this line to fix the className error
+  className?: string
+  variant?: "default" | "destructive" // Add this line
 }
 
 function toast(props: AddToastProps) {
@@ -59,19 +61,21 @@ function toast(props: AddToastProps) {
     type = "default",
     action,
     duration = 5000,
-    className // Add this line
+    className,
+    variant // Add this line
   } = props
   const id = genId()
 
   const update = (props: AddToastProps) => {
-    const { title, description, type, action, className } = props
+    const { title, description, type, action, className, variant } = props
     dispatch({
       id,
       title,
       description,
       type,
       action,
-      className // Add this line
+      className,
+      variant
     })
   }
 
@@ -90,7 +94,8 @@ function toast(props: AddToastProps) {
     description,
     type,
     action,
-    className, // Add this line
+    className,
+    variant,
     duration
   })
 

@@ -6,18 +6,15 @@ import { ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 // Define interfaces for each component
-interface AccordionSingleProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
+interface AccordionProps {
   children: React.ReactNode;
-  type: "single";
+  className?: string;
+  type: "single" | "multiple";
   collapsible?: boolean;
+  defaultValue?: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
 }
-
-interface AccordionMultipleProps extends React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root> {
-  children: React.ReactNode;
-  type: "multiple";
-}
-
-type AccordionProps = AccordionSingleProps | AccordionMultipleProps;
 
 const Accordion = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Root>,
