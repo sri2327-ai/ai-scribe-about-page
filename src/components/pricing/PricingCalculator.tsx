@@ -6,7 +6,6 @@ import { Calculator, Clock, DollarSign, Timer } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -34,7 +33,6 @@ export const PricingCalculator = () => {
   const [savingsResult, setSavingsResult] = useState<string>('');
   const [timeSaved, setTimeSaved] = useState<string>('');
   const [showError, setShowError] = useState(false);
-  const [showFeatureTable, setShowFeatureTable] = useState(false);
   const [calculationDone, setCalculationDone] = useState(false);
 
   const calculateSavings = () => {
@@ -44,7 +42,6 @@ export const PricingCalculator = () => {
     if (isNaN(providersNum) || isNaN(patientsNum) || providersNum < 1 || patientsNum < 1) {
       setShowError(true);
       setSavingsResult('');
-      setShowFeatureTable(false);
       toast({
         title: "Invalid input",
         description: "Please enter valid numbers for providers and patients.",
@@ -74,7 +71,6 @@ export const PricingCalculator = () => {
     
     setSavingsResult(`$${costSavings.toLocaleString()}/month`);
     setTimeSaved(`${hoursSaved} hours daily | ${weeklyHours} hours weekly`);
-    setShowFeatureTable(true);
     setCalculationDone(true);
     
     toast({
@@ -105,8 +101,7 @@ export const PricingCalculator = () => {
               custom={1}
               className="text-lg mb-8 max-w-3xl mx-auto text-[#387E89]"
             >
-              See how CRUSH & BRAVO can save you thousands monthly—at just 1/30th the cost of a human scribe! 
-              Enter your details to get a personalized estimate of time and money saved, freeing you for patient care.
+              Discover how CRUSH & BRAVO can save you thousands of dollars each month—at just 1/11th the cost of a human scribe or staff member! Enter your details below to receive a personalized estimate of your time and money savings, so you can focus more on patient care.
             </motion.p>
           </motion.div>
 
@@ -186,11 +181,7 @@ export const PricingCalculator = () => {
               <div className="md:col-span-2 bg-gray-50 rounded-xl p-4">
                 <h3 className="font-bold text-lg text-[#143151] mb-3">Example Savings:</h3>
                 <p className="text-gray-700 mb-4">
-                  A solo practice with 1 provider seeing 20 patients/day could save 
-                  <span className="font-bold text-[#387E89]"> $2,900+/month </span> 
-                  vs. a human scribe and gain 
-                  <span className="font-bold text-[#387E89]"> 10+ hours/week </span>
-                  for more patients or personal time.
+                  A solo provider seeing 20 patients per day could save over $2,900 per month compared to hiring a human scribe or staff—and reclaim 10+ hours per week for seeing more patients or enjoying personal time.
                 </p>
                 
                 <h3 className="font-bold text-lg text-[#143151] mt-6 mb-3">Why It's a Game-Changer:</h3>
@@ -205,7 +196,11 @@ export const PricingCalculator = () => {
                   </li>
                   <li className="flex items-start">
                     <DollarSign className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
-                    <span className="text-gray-700">Get enterprise-grade efficiency at a fraction of human staff costs.</span>
+                    <span className="text-gray-700">Reduce staffing needs with AI-powered automation.</span>
+                  </li>
+                  <li className="flex items-start">
+                    <DollarSign className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
+                    <span className="text-gray-700">Get enterprise-grade efficiency at a fraction of human staff and scribe costs.</span>
                   </li>
                 </ul>
               </div>
@@ -238,95 +233,6 @@ export const PricingCalculator = () => {
                     That's significant time and cost savings for your practice!
                   </p>
                 </div>
-                    
-                {showFeatureTable && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="mt-8 overflow-x-auto w-full"
-                  >
-                    <h3 className="font-bold text-xl text-[#143151] mb-4">Compare Features</h3>
-                    <Table className="w-full border-collapse">
-                      <TableHeader>
-                        <TableRow className="bg-gray-50">
-                          <TableHead className="font-bold text-left text-[#143151] text-base py-4">Feature</TableHead>
-                          <TableHead className="font-bold text-center text-[#143151] text-base py-4">CRUSH Basic</TableHead>
-                          <TableHead className="font-bold text-center text-[#143151] text-base py-4">CRUSH Pro</TableHead>
-                          <TableHead className="font-bold text-center text-[#143151] text-base py-4">BRAVO</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        <TableRow>
-                          <TableCell className="font-medium">Pinpoint Accuracy</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Multilingual Support</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Rapid Documentation</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">AI Template Builder</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Patient Instructions</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Telehealth Support</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Available on Devices</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">24x7 Support</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Human RCPA Specialists</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">EHR Integration</TableCell>
-                          <TableCell className="text-center">Optional</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell className="font-medium">Longitudinal Intelligence</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                          <TableCell className="text-center">✓</TableCell>
-                          <TableCell className="text-center">-</TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </motion.div>
-                )}
               </motion.div>
             )}
           </Card>

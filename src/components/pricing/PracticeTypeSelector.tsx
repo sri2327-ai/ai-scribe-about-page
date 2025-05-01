@@ -1,156 +1,154 @@
 
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ArrowRight, Stethoscope, Building, Users, Activity, Heart, Brain, Baby } from "lucide-react";
+import { crushAIColors } from "@/theme/crush-ai-theme";
 
-interface PracticeSelectorProps {
-  onSelect: (plan: string) => void;
+interface PracticeTypeSelectorProps {
+  onSelect: (planType: string) => void;
 }
 
-export const PracticeTypeSelector = ({ onSelect }: PracticeSelectorProps) => {
+export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSelect }) => {
   const [selectedType, setSelectedType] = useState<string | null>(null);
-  const [recommendation, setRecommendation] = useState<string | null>(null);
-
+  
+  const handleSelect = (type: string) => {
+    setSelectedType(type);
+    onSelect(type);
+  };
+  
   const practiceTypes = [
     { 
-      id: 'solo',
-      name: 'Solo Practice', 
-      description: '1 provider seeing patients independently',
-      recommendedPlan: 'crush-basic-ehr'
+      id: 'solo', 
+      name: 'Solo Provider', 
+      icon: Stethoscope,
+      description: 'Perfect for independent providers looking to save time and costs',
+      plan: 'crush_basic'
     },
     { 
       id: 'small', 
       name: 'Small Practice', 
-      description: '2-5 providers working together',
-      recommendedPlan: 'crush-pro'
+      icon: Users,
+      description: '2-5 providers wanting to optimize workflows and reduce no-shows',
+      plan: 'crush_plus'
     },
     { 
-      id: 'medium', 
-      name: 'Mid-sized Group', 
-      description: '6-20 providers across one or more locations',
-      recommendedPlan: 'bundle-pro'
+      id: 'clinic', 
+      name: 'Clinic/Group', 
+      icon: Building,
+      description: '6+ providers seeking enterprise-grade solutions at scale',
+      plan: 'bundle_enterprise'
     },
     { 
-      id: 'large', 
-      name: 'Large Group', 
-      description: '20+ providers or multi-location practice',
-      recommendedPlan: 'bundle-enterprise'
+      id: 'specialty', 
+      name: 'Specialty', 
+      icon: Heart,
+      description: 'For specialty practices with unique documentation needs',
+      plan: 'crush_pro'
     },
     { 
-      id: 'telehealth', 
-      name: 'Telehealth Practice', 
-      description: 'Primarily virtual patient visits',
-      recommendedPlan: 'crush-pro'
-    }
+      id: 'mental', 
+      name: 'Mental Health', 
+      icon: Brain,
+      description: 'Solutions tailored for behavioral health and psychiatry',
+      plan: 'bundle_standard'
+    },
+    { 
+      id: 'pediatrics', 
+      name: 'Pediatrics', 
+      icon: Baby,
+      description: 'Designed for the specific needs of pediatric practices',
+      plan: 'crush_plus'
+    },
   ];
-
-  const handleTypeSelect = (type: string, plan: string) => {
-    setSelectedType(type);
-    setRecommendation(plan);
-  };
-
-  const getPlanDisplayName = (planId: string) => {
-    switch(planId) {
-      case 'crush-basic-no-ehr':
-        return 'CRUSH Basic (No EHR)';
-      case 'crush-basic-ehr':
-        return 'CRUSH Basic (With EHR)';
-      case 'crush-pro':
-        return 'CRUSH Pro';
-      case 'bravo-basic':
-        return 'BRAVO Basic';
-      case 'bravo-pro':
-        return 'BRAVO Pro';
-      case 'bundle-basic-no-ehr':
-        return 'Bundle Basic (No EHR)';
-      case 'bundle-basic-ehr':
-        return 'Bundle Basic (With EHR)';
-      case 'bundle-pro':
-        return 'Bundle Pro';
-      case 'bundle-enterprise':
-        return 'Enterprise Solution';
-      default:
-        return planId;
-    }
-  };
-
-  const handleContinue = () => {
-    if (recommendation) {
-      onSelect(recommendation);
-      
-      // Scroll to pricing section
-      const pricingSection = document.getElementById('pricing');
-      if (pricingSection) {
-        pricingSection.scrollIntoView({ behavior: 'smooth' });
+  
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.3
       }
     }
   };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
+  };
 
   return (
-    <section className="py-16 md:py-20 bg-gray-50">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#143151]">
-              Which Solution Is Right For Your Practice?
+              Which Solution Is Right for Your Practice?
             </h2>
-            <p className="text-lg max-w-3xl mx-auto text-[#387E89]">
-              Select your practice type below, and we'll recommend the perfect plan to maximize efficiency and patient satisfaction
+            <p className="text-lg mb-8 max-w-3xl mx-auto text-[#387E89]">
+              Select your practice type for a custom recommendation or explore our comprehensive pricing options below.
             </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {practiceTypes.map((type) => (
-              <Card 
-                key={type.id}
-                onClick={() => handleTypeSelect(type.id, type.recommendedPlan)}
-                className={`p-6 transition-all cursor-pointer hover:shadow-lg ${
-                  selectedType === type.id 
-                    ? 'border-2 border-[#387E89] bg-blue-50' 
-                    : 'border border-gray-200 bg-white'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-[#143151]">{type.name}</h3>
-                  {selectedType === type.id && <Check className="h-5 w-5 text-[#387E89]" />}
-                </div>
-                <p className="text-sm text-gray-600">{type.description}</p>
-              </Card>
-            ))}
           </div>
-
-          {recommendation && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              className="mt-8 bg-white p-6 rounded-xl shadow-md border border-[#387E89]/20"
-            >
-              <div className="flex items-center mb-4">
-                <Badge className="mr-3 bg-[#387E89] text-white">Recommended</Badge>
-                <h3 className="text-xl font-semibold text-[#143151]">
-                  {getPlanDisplayName(recommendation)}
-                </h3>
-              </div>
-              <p className="mb-6 text-gray-600">
-                Based on your practice type, we recommend {getPlanDisplayName(recommendation)} for optimal results. 
-                This plan will provide the right balance of features and affordability for your needs.
-              </p>
-              <Button 
-                onClick={handleContinue}
-                className="rounded-full py-2 px-6 bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90 text-white"
-              >
-                See Pricing Details
-              </Button>
-            </motion.div>
-          )}
+          
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            {practiceTypes.map((type) => {
+              const Icon = type.icon;
+              const isSelected = selectedType === type.id;
+              
+              return (
+                <motion.div key={type.id} variants={itemVariants}>
+                  <Card 
+                    className={`p-6 cursor-pointer transition-all duration-300 h-full flex flex-col ${
+                      isSelected 
+                        ? 'border-[#387E89] shadow-lg' 
+                        : 'border-gray-200 hover:border-[#387E89]/50 hover:shadow-md'
+                    }`}
+                    onClick={() => handleSelect(type.id)}
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-[#143151] to-[#387E89]'
+                          : 'bg-gradient-to-r from-gray-200 to-gray-100'
+                      }`}>
+                        <Icon size={24} className={isSelected ? 'text-white' : 'text-gray-600'} />
+                      </div>
+                      <h3 className="text-xl font-semibold ml-4 text-[#143151]">{type.name}</h3>
+                    </div>
+                    
+                    <p className="text-gray-600 mb-4 flex-grow">{type.description}</p>
+                    
+                    <div className={`mt-2 flex justify-end ${isSelected ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
+                      <Button
+                        variant="link"
+                        className="p-0 text-[#387E89] font-medium"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelect(type.plan);
+                          const pricingSection = document.getElementById('pricing');
+                          if (pricingSection) {
+                            pricingSection.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                      >
+                        View Recommendations
+                        <ArrowRight className="ml-1 h-4 w-4" />
+                      </Button>
+                    </div>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
       </div>
     </section>

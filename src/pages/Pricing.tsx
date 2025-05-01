@@ -71,7 +71,7 @@ const Pricing = () => {
               Reclaim Your Life with AI-Powered CRUSH & BRAVO
             </h1>
             <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-[#387E89]">
-              Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save hours daily, starting at just $99/month.
+              Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save over 2 hours per day and reduce time spent by more than 96% compared to human scribes or staff—plans start at just $99/month!
             </p>
             <Button 
               size="lg"
@@ -83,10 +83,10 @@ const Pricing = () => {
                 }
               }}
             >
-              Start Saving Time Today
+              Try Risk-Free for 30 Days
               <ArrowRight className="ml-2" />
             </Button>
-            <p className="mt-4 text-sm text-[#143151]/70">30-Day Money-Back Guarantee • No Contracts</p>
+            <p className="mt-4 text-sm text-[#143151]/70">30-Day Money-Back Guarantee • No Credit Card Required</p>
           </motion.div>
         </div>
       </WaveBackground>
