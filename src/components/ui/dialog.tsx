@@ -7,13 +7,36 @@ import { cn } from "@/lib/utils"
 
 const Dialog = DialogPrimitive.Root
 
-const DialogTrigger = DialogPrimitive.Trigger
+// Add explicit children type to interface
+interface DialogTriggerProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger> {
+  children: React.ReactNode;
+}
+
+const DialogTrigger = React.forwardRef<
+  React.ElementRef<typeof DialogPrimitive.Trigger>,
+  DialogTriggerProps
+>(({ className, children, ...props }, ref) => (
+  <DialogPrimitive.Trigger
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  >
+    {children}
+  </DialogPrimitive.Trigger>
+))
+
+DialogTrigger.displayName = DialogPrimitive.Trigger.displayName
 
 const DialogPortal = DialogPrimitive.Portal
 
+interface DialogCloseProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close> {
+  children?: React.ReactNode;
+  className?: string;
+}
+
 const DialogClose = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Close>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>
+  DialogCloseProps
 >(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Close
     ref={ref}
@@ -96,10 +119,15 @@ const DialogFooter = ({
 )
 DialogFooter.displayName = "DialogFooter"
 
+interface DialogTitleProps extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title> {
+  children: React.ReactNode;
+  className?: string;
+}
+
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className, ...props }, ref) => (
+  DialogTitleProps
+>(({ className, children, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
     className={cn(
@@ -107,7 +135,9 @@ const DialogTitle = React.forwardRef<
       className
     )}
     {...props}
-  />
+  >
+    {children}
+  </DialogPrimitive.Title>
 ))
 DialogTitle.displayName = DialogPrimitive.Title.displayName
 

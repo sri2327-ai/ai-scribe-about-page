@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 
@@ -7,7 +8,24 @@ const TooltipProvider = TooltipPrimitive.Provider
 
 const Tooltip = TooltipPrimitive.Root
 
-const TooltipTrigger = TooltipPrimitive.Trigger
+// Add explicit children type to interface
+interface TooltipTriggerProps extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Trigger> {
+  children: React.ReactNode;
+}
+
+const TooltipTrigger = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Trigger>,
+  TooltipTriggerProps
+>(({ className, children, ...props }, ref) => (
+  <TooltipPrimitive.Trigger
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  >
+    {children}
+  </TooltipPrimitive.Trigger>
+))
+TooltipTrigger.displayName = TooltipPrimitive.Trigger.displayName
 
 const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,

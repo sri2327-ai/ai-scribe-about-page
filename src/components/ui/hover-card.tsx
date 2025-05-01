@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
 
@@ -5,7 +6,24 @@ import { cn } from "@/lib/utils"
 
 const HoverCard = HoverCardPrimitive.Root
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger
+// Add explicit children type to interface
+interface HoverCardTriggerProps extends React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Trigger> {
+  children: React.ReactNode;
+}
+
+const HoverCardTrigger = React.forwardRef<
+  React.ElementRef<typeof HoverCardPrimitive.Trigger>,
+  HoverCardTriggerProps
+>(({ className, children, ...props }, ref) => (
+  <HoverCardPrimitive.Trigger
+    ref={ref}
+    className={cn(className)}
+    {...props}
+  >
+    {children}
+  </HoverCardPrimitive.Trigger>
+))
+HoverCardTrigger.displayName = HoverCardPrimitive.Trigger.displayName
 
 const HoverCardContent = React.forwardRef<
   React.ElementRef<typeof HoverCardPrimitive.Content>,
