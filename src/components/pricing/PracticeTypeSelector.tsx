@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Stethoscope, Users, Hospital, HeartPulse, Brain, Tooth } from "lucide-react";
+import { ArrowRight, Stethoscope, Users, Hospital, HeartPulse, Brain, Scissors } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
 interface PracticeTypeSelectorProps {
@@ -51,12 +51,17 @@ export const PracticeTypeSelector = ({ onSelect }: PracticeTypeSelectorProps) =>
     { 
       id: 'specialty_dental', 
       title: 'Dental', 
-      icon: Tooth,
+      icon: Scissors,
       description: 'For dental practices'
     },
   ];
 
-  // SVG gradient definition
+  // Define the gradient styles for icons and selected cards
+  const gradientStyle = {
+    background: `linear-gradient(to right, ${crushAIColors.primaryFlat}, ${crushAIColors.secondaryFlat})`,
+  };
+
+  // SVG gradient definition for the icons
   const iconGradientStyle = {
     background: `linear-gradient(to right, ${crushAIColors.primaryFlat}, ${crushAIColors.secondaryFlat})`,
     WebkitBackgroundClip: 'text',
@@ -92,11 +97,7 @@ export const PracticeTypeSelector = ({ onSelect }: PracticeTypeSelectorProps) =>
               <div className="flex flex-col items-center text-center">
                 <div 
                   className="w-16 h-16 mb-4 rounded-full flex items-center justify-center"
-                  style={{
-                    background: selectedPractice === practice.id 
-                      ? `linear-gradient(to right, ${crushAIColors.primaryFlat}, ${crushAIColors.secondaryFlat})` 
-                      : '#EBF5F7'
-                  }}
+                  style={selectedPractice === practice.id ? gradientStyle : {background: '#EBF5F7'}}
                 >
                   <practice.icon 
                     size={32} 
