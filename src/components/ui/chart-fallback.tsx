@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-export const ChartFallback = ({ 
+export const ChartFallback = React.memo(({ 
   width = 300, 
   height = 200, 
   message = "Chart visualization loading..." 
@@ -20,10 +20,13 @@ export const ChartFallback = ({
         justifyContent: 'center',
         background: '#f5f5f5',
         borderRadius: '8px',
-        color: '#666'
+        color: '#666',
+        contain: 'strict' // Optimize rendering
       }}
     >
       {message}
     </div>
   );
-};
+});
+
+ChartFallback.displayName = 'ChartFallback';

@@ -8,7 +8,7 @@ interface LazyLoadProps {
   fallback?: React.ReactNode;
 }
 
-export const LazyLoad = ({
+export const LazyLoad = React.memo(({
   children,
   threshold = 0.1,
   rootMargin = "100px",
@@ -22,11 +22,15 @@ export const LazyLoad = ({
     const currentRef = containerRef.current;
     if (!currentRef || wasTriggeredRef.current) return;
 
+    // Use more efficient IntersectionObserver options with root: null
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          // Set visible with requestAnimationFrame for better performance
+          requestAnimationFrame(() => {
+            setIsVisible(true);
+          });
           wasTriggeredRef.current = true;
           observer.unobserve(currentRef);
         }
@@ -34,6 +38,7 @@ export const LazyLoad = ({
       {
         threshold,
         rootMargin,
+        root: null // Use viewport as root
       }
     );
 
@@ -52,7 +57,8 @@ export const LazyLoad = ({
       className="w-full"
       style={{ 
         minHeight: !isVisible ? '40px' : undefined,
-        contain: 'content'
+        contain: 'content',
+        willChange: !isVisible ? 'contents' : 'auto'
       }}
     >
       {isVisible ? children : fallback || (
@@ -62,4 +68,6 @@ export const LazyLoad = ({
       )}
     </div>
   );
-};
+});
+
+LazyLoad.displayName = 'LazyLoad';
