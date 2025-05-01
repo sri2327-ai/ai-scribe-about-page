@@ -6,38 +6,12 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Calculator } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { LazyLoad } from "@/components/ui/lazy-load";
-import { EMRChartIllustration } from "./illustrations/EMRChartIllustration";
-import { CliniciansIllustration } from "./illustrations/CliniciansIllustration";
-import { ROICalculatorIllustration } from "./illustrations/ROICalculatorIllustration";
-import { DoctorBurnoutIllustration } from "./illustrations/DoctorBurnoutIllustration";
-import { EHRBeamsBackground } from "./EHRBeamsBackground";
+import { SideIllustrations } from "./illustrations/SideIllustrations";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
 };
-
-// Separate the illustrations to their own component for better performance
-const SideIllustrations = memo(() => {
-  return (
-    <div className="flex flex-col gap-6">
-      <LazyLoad threshold={0.2}>
-        <EMRChartIllustration />
-      </LazyLoad>
-      <LazyLoad threshold={0.2}>
-        <CliniciansIllustration />
-      </LazyLoad>
-      <LazyLoad threshold={0.2}>
-        <ROICalculatorIllustration />
-      </LazyLoad>
-      <LazyLoad threshold={0.2}>
-        <DoctorBurnoutIllustration />
-      </LazyLoad>
-    </div>
-  );
-});
-
-SideIllustrations.displayName = 'SideIllustrations';
 
 // Separate the CTA buttons to prevent renders
 const PricingCTAButtons = memo(() => {
