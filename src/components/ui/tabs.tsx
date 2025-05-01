@@ -6,9 +6,10 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
 
-// Add explicit children type
+// Add explicit children type and className
 interface TabsProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const Tabs = React.forwardRef<
@@ -28,9 +29,10 @@ const Tabs = React.forwardRef<
 ))
 Tabs.displayName = TabsPrimitive.Root.displayName
 
-// Add explicit children type
+// Add explicit children type and className
 interface TabsListProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const TabsList = React.forwardRef<
@@ -50,9 +52,10 @@ const TabsList = React.forwardRef<
 ))
 TabsList.displayName = TabsPrimitive.List.displayName
 
-// Add explicit children type
+// Add explicit children type and className
 interface TabsTriggerProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const TabsTrigger = React.forwardRef<
@@ -72,9 +75,10 @@ const TabsTrigger = React.forwardRef<
 ))
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
 
-// Add explicit children type
+// Add explicit children type and className
 interface TabsContentProps extends React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const TabsContent = React.forwardRef<

@@ -6,9 +6,10 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar"
 
 import { cn } from "@/lib/utils"
 
-// Add explicit children type
+// Add explicit children type and className
 interface AvatarProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const Avatar = React.forwardRef<
@@ -28,10 +29,11 @@ const Avatar = React.forwardRef<
 ))
 Avatar.displayName = AvatarPrimitive.Root.displayName
 
-// Update interface to include src and alt
+// Update interface to include src, alt and className
 interface AvatarImageProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {
   src: string;
   alt: string;
+  className?: string;
 }
 
 const AvatarImage = React.forwardRef<
@@ -48,9 +50,10 @@ const AvatarImage = React.forwardRef<
 ))
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
-// Add explicit children type
+// Add explicit children type and className
 interface AvatarFallbackProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const AvatarFallback = React.forwardRef<

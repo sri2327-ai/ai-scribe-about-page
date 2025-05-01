@@ -23,6 +23,7 @@ const ContextMenuRadioGroup = ContextMenuPrimitive.RadioGroup
 interface ContextMenuSubTriggerProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubTrigger> {
   inset?: boolean;
   children: React.ReactNode;
+  className?: string;
 }
 
 const ContextMenuSubTrigger = React.forwardRef<
@@ -47,6 +48,7 @@ ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName
 // Add children prop to interface
 interface ContextMenuSubContentProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const ContextMenuSubContent = React.forwardRef<
@@ -69,6 +71,7 @@ ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName
 // Add children prop to interface
 interface ContextMenuContentProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const ContextMenuContent = React.forwardRef<
@@ -94,6 +97,7 @@ ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName
 interface ContextMenuItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> {
   inset?: boolean;
   children: React.ReactNode;
+  className?: string;
 }
 
 const ContextMenuItem = React.forwardRef<
@@ -118,6 +122,7 @@ ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName
 interface ContextMenuCheckboxItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.CheckboxItem> {
   children: React.ReactNode;
   checked?: boolean;
+  className?: string;
 }
 
 const ContextMenuCheckboxItem = React.forwardRef<
@@ -147,6 +152,7 @@ ContextMenuCheckboxItem.displayName =
 // Add children prop to interface
 interface ContextMenuRadioItemProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.RadioItem> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const ContextMenuRadioItem = React.forwardRef<
@@ -175,6 +181,7 @@ ContextMenuRadioItem.displayName = ContextMenuPrimitive.RadioItem.displayName
 interface ContextMenuLabelProps extends React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> {
   inset?: boolean;
   children: React.ReactNode;
+  className?: string;
 }
 
 const ContextMenuLabel = React.forwardRef<

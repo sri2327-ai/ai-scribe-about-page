@@ -37,21 +37,24 @@ const SelectValue = React.forwardRef<
 ))
 SelectValue.displayName = SelectPrimitive.Value.displayName
 
-// Add children prop to interface
+// Add children prop and className to interface
 interface SelectTriggerProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {
   children: React.ReactNode;
+  className?: string;
+  id?: string;
 }
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
->(({ className, children, ...props }, ref) => (
+>(({ className, children, id, ...props }, ref) => (
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
       "flex h-9 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
       className
     )}
+    id={id}
     {...props}
   >
     {children}
@@ -97,9 +100,10 @@ const SelectScrollDownButton = React.forwardRef<
 SelectScrollDownButton.displayName =
   SelectPrimitive.ScrollDownButton.displayName
 
-// Add children prop to interface
+// Add children prop and className to interface
 interface SelectContentProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const SelectContent = React.forwardRef<
@@ -147,6 +151,7 @@ SelectLabel.displayName = SelectPrimitive.Label.displayName
 // Add children prop to interface
 interface SelectItemProps extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item> {
   children: React.ReactNode;
+  className?: string;
 }
 
 const SelectItem = React.forwardRef<
