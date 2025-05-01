@@ -1,4 +1,3 @@
-
 import React, { useState, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
@@ -218,7 +217,7 @@ export const VoiceSelectionInterface = memo(() => {
   };
 
   return (
-    <BeamsBackground className="py-16 px-4 md:px-6 relative overflow-hidden" intensity="low">
+    <BeamsBackground className="py-16 px-4 md:px-6 relative overflow-hidden" intensity="medium">
       <div className="container mx-auto relative max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

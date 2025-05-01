@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense, useState, useEffect, memo, useCallback } from "react";
 import { Box } from "@mui/material";
 import { HeroSection } from "@/components/crush-ai/HeroSection";
@@ -126,8 +125,15 @@ if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
   }
 }
 
+// Define proper interfaces for our components
+interface LazyLoadSectionProps {
+  children: React.ReactNode;
+  threshold?: number;
+  rootMargin?: string;
+}
+
 // Enhanced IntersectionObserver component with better performance characteristics
-const LazyLoadSection = memo(({ children, threshold = 0.1, rootMargin = "200px 0px" }) => {
+const LazyLoadSection = memo(({ children, threshold = 0.1, rootMargin = "200px 0px" }: LazyLoadSectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const sectionRef = React.useRef(null);
@@ -167,8 +173,13 @@ const LazyLoadSection = memo(({ children, threshold = 0.1, rootMargin = "200px 0
 
 LazyLoadSection.displayName = 'LazyLoadSection';
 
+// Define a proper interface for CTASection
+interface CTASectionProps {
+  EHRBeamsBackground: React.ComponentType<{children: React.ReactNode}>;
+}
+
 // Memoized CTA section to prevent re-renders
-const CTASection = memo(({ EHRBeamsBackground }) => (
+const CTASection = memo(({ EHRBeamsBackground }: CTASectionProps) => (
   <Box 
     sx={{ 
       position: "relative",
