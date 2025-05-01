@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -9,10 +10,18 @@ import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Calendar as CalendarIcon, Check, Clock, User, Users, Building, Phone, Mail, Map, Loader2 } from 'lucide-react';
+import { Calendar as CalendarIcon, Check, Clock, User, Users, Building, Phone, Mail, Map, Loader2, X } from 'lucide-react';
 import { cn } from "@/lib/utils";
-import { MobileDateTimePicker } from './MobileDateTimePicker';
+import MobileDateTimePicker from './MobileDateTimePicker';
 import { useWindowSize } from '@/hooks/use-window-size';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Calendar } from "@/components/ui/calendar";
+import DemoSuccessMessage from './DemoSuccessMessage';
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -69,9 +78,9 @@ const DemoRequestForm = () => {
   const [timeZone, setTimeZone] = useState<string>("");
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isMobile = useIsMobile();
   const { toast } = useToast();
   const { width } = useWindowSize();
+  const isMobile = width ? width < 768 : false;
 
   useEffect(() => {
     try {
@@ -92,7 +101,11 @@ const DemoRequestForm = () => {
     e.preventDefault();
     
     if (!selectedDate || !selectedTime) {
-      toast.error("Please select a date and time for your demo");
+      toast({
+        title: "Error",
+        description: "Please select a date and time for your demo",
+        variant: "destructive"
+      });
       return;
     }
 
@@ -108,11 +121,18 @@ const DemoRequestForm = () => {
       
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      toast.success("Demo scheduled successfully!");
+      toast({
+        title: "Success",
+        description: "Demo scheduled successfully!"
+      });
       setShowSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Failed to schedule demo. Please try again.");
+      toast({
+        title: "Error",
+        description: "Failed to schedule demo. Please try again.",
+        variant: "destructive"
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -251,7 +271,6 @@ const DemoRequestForm = () => {
             </SelectTrigger>
             <SelectContent 
               className="max-h-[200px] overflow-y-auto bg-white z-[100]"
-              position="popper"
             >
               {timeZoneOptions.map((tz) => (
                 <SelectItem key={tz} value={tz}>
@@ -362,7 +381,6 @@ const DemoRequestForm = () => {
                         </SelectTrigger>
                         <SelectContent 
                           className="max-h-[200px] overflow-y-auto bg-white z-[100]"
-                          position="popper"
                         >
                           {timeZoneOptions.map((tz) => (
                             <SelectItem key={tz} value={tz}>
