@@ -1,28 +1,18 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, Clock, X } from "lucide-react";
-import DemoSuccessMessage from './DemoSuccessMessage';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogClose,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import { toast } from "sonner";
-import { useIsMobile } from '@/hooks/use-mobile';
-import MobileDateTimePicker from './MobileDateTimePicker';
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
+import { Calendar as CalendarIcon, Check, Clock, User, Users, Building, Phone, Mail, Map, Loader2 } from 'lucide-react';
+import { cn } from "@/lib/utils";
+import { MobileDateTimePicker } from './MobileDateTimePicker';
+import { useWindowSize } from '@/hooks/use-window-size';
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -80,6 +70,8 @@ const DemoRequestForm = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isMobile = useIsMobile();
+  const { toast } = useToast();
+  const { width } = useWindowSize();
 
   useEffect(() => {
     try {
@@ -244,6 +236,28 @@ const DemoRequestForm = () => {
               <SelectItem value="patient-communication">Patient Communication</SelectItem>
               <SelectItem value="voice-commands">Voice Commands & AI Assistant</SelectItem>
               <SelectItem value="full-demo">Full Product Demo</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label htmlFor="timezone">Time Zone</Label>
+          <Select
+            value={timeZone}
+            onValueChange={setTimeZone}
+          >
+            <SelectTrigger id="timezone" className="w-full">
+              <SelectValue placeholder="Select your time zone" />
+            </SelectTrigger>
+            <SelectContent 
+              className="max-h-[200px] overflow-y-auto bg-white z-[100]"
+              position="popper"
+            >
+              {timeZoneOptions.map((tz) => (
+                <SelectItem key={tz} value={tz}>
+                  {tz}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
