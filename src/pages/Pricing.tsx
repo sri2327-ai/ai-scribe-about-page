@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -52,7 +53,7 @@ const Pricing = () => {
         <meta name="description" content="Discover flexible pricing options for S10.AI's CRUSH AI Scribe and BRAVO Patient Engagement solutions. Save hours daily, starting at just $99/month." />
       </Helmet>
 
-      {/* Hero Section - UPDATED */}
+      {/* Hero Section */}
       <WaveBackground 
         intensity="medium" 
         baseColor={crushAIColors.tertiary}
@@ -70,7 +71,7 @@ const Pricing = () => {
               Reclaim Your Life with AI-Powered CRUSH & BRAVO
             </h1>
             <p className="text-lg md:text-xl mb-8 max-w-3xl mx-auto text-[#387E89]">
-              Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save over 2 hours per day and reduce time spent by more than 96% compared to human scribes or staff—plans start at just $99/month!
+              Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save hours daily, starting at just $99/month.
             </p>
             <Button 
               size="lg"
@@ -82,10 +83,10 @@ const Pricing = () => {
                 }
               }}
             >
-              Try Risk-Free for 30 Days
+              Start Saving Time Today
               <ArrowRight className="ml-2" />
             </Button>
-            <p className="mt-4 text-sm text-[#143151]/70">30-Day Money-Back Guarantee • No Credit Card Required</p>
+            <p className="mt-4 text-sm text-[#143151]/70">30-Day Money-Back Guarantee • No Contracts</p>
           </motion.div>
         </div>
       </WaveBackground>
@@ -93,36 +94,8 @@ const Pricing = () => {
       {/* Interactive Practice Type Selector */}
       <PracticeTypeSelector onSelect={handlePracticeSelection} />
 
-      {/* Savings Calculator - UPDATED */}
-      <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <motion.div 
-              initial="hidden" 
-              whileInView="visible" 
-              viewport={{ once: true }}
-              className="text-center mb-10"
-            >
-              <motion.h2 
-                variants={fadeInUpVariants} 
-                custom={0}
-                className="text-3xl md:text-4xl font-bold mb-4 text-[#143151]"
-              >
-                Calculate Your Time & Cost Savings
-              </motion.h2>
-              <motion.p 
-                variants={fadeInUpVariants}
-                custom={1}
-                className="text-lg mb-8 max-w-3xl mx-auto text-[#387E89]"
-              >
-                Discover how CRUSH & BRAVO can save you thousands of dollars each month—at just 1/11th the cost of a human scribe or staff member! Enter your details below to receive a personalized estimate of your time and money savings, so you can focus more on patient care.
-              </motion.p>
-            </motion.div>
-
-            <PricingCalculator />
-          </div>
-        </div>
-      </section>
+      {/* Savings Calculator */}
+      <PricingCalculator />
 
       {/* Pricing Section */}
       <section id="pricing" className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white">

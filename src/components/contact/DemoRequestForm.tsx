@@ -1,27 +1,27 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { Calendar as CalendarIcon, Check, Clock, User, Users, Building, Phone, Mail, Map, Loader2, X } from 'lucide-react';
-import { cn } from "@/lib/utils";
-import MobileDateTimePicker from './MobileDateTimePicker';
-import { useWindowSize } from '@/hooks/use-window-size';
+import { CalendarIcon, Clock, X } from "lucide-react";
+import DemoSuccessMessage from './DemoSuccessMessage';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogClose,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
-import DemoSuccessMessage from './DemoSuccessMessage';
+import { toast } from "sonner";
+import { useIsMobile } from '@/hooks/use-mobile';
+import MobileDateTimePicker from './MobileDateTimePicker';
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -78,9 +78,7 @@ const DemoRequestForm = () => {
   const [timeZone, setTimeZone] = useState<string>("");
   const [showSuccess, setShowSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
-  const { width } = useWindowSize();
-  const isMobile = width ? width < 768 : false;
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     try {
@@ -101,11 +99,7 @@ const DemoRequestForm = () => {
     e.preventDefault();
     
     if (!selectedDate || !selectedTime) {
-      toast({
-        title: "Error",
-        description: "Please select a date and time for your demo",
-        variant: "destructive"
-      });
+      toast.error("Please select a date and time for your demo");
       return;
     }
 
@@ -121,18 +115,11 @@ const DemoRequestForm = () => {
       
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      toast({
-        title: "Success",
-        description: "Demo scheduled successfully!"
-      });
+      toast.success("Demo scheduled successfully!");
       setShowSuccess(true);
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast({
-        title: "Error",
-        description: "Failed to schedule demo. Please try again.",
-        variant: "destructive"
-      });
+      toast.error("Failed to schedule demo. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -261,27 +248,6 @@ const DemoRequestForm = () => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="timezone">Time Zone</Label>
-          <Select
-            value={timeZone}
-            onValueChange={setTimeZone}
-          >
-            <SelectTrigger id="timezone" className="w-full">
-              <SelectValue placeholder="Select your time zone" />
-            </SelectTrigger>
-            <SelectContent 
-              className="max-h-[200px] overflow-y-auto bg-white z-[100]"
-            >
-              {timeZoneOptions.map((tz) => (
-                <SelectItem key={tz} value={tz}>
-                  {tz}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
           <label className="block text-sm font-medium">Select Date & Time</label>
           <Button
             type="button"
@@ -381,6 +347,8 @@ const DemoRequestForm = () => {
                         </SelectTrigger>
                         <SelectContent 
                           className="max-h-[200px] overflow-y-auto bg-white z-[100]"
+                          position="popper"
+                          sideOffset={5}
                         >
                           {timeZoneOptions.map((tz) => (
                             <SelectItem key={tz} value={tz}>

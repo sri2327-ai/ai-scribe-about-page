@@ -1,6 +1,3 @@
-
-"use client"
-
 import * as React from "react"
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu"
 import { Check, ChevronRight, Circle } from "lucide-react"
@@ -43,7 +40,7 @@ ContextMenuSubTrigger.displayName = ContextMenuPrimitive.SubTrigger.displayName
 const ContextMenuSubContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.SubContent>
->(({ className, children, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <ContextMenuPrimitive.SubContent
     ref={ref}
     className={cn(
@@ -51,16 +48,14 @@ const ContextMenuSubContent = React.forwardRef<
       className
     )}
     {...props}
-  >
-    {children}
-  </ContextMenuPrimitive.SubContent>
+  />
 ))
 ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName
 
 const ContextMenuContent = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <ContextMenuPrimitive.Portal>
     <ContextMenuPrimitive.Content
       ref={ref}
@@ -69,9 +64,7 @@ const ContextMenuContent = React.forwardRef<
         className
       )}
       {...props}
-    >
-      {children}
-    </ContextMenuPrimitive.Content>
+    />
   </ContextMenuPrimitive.Portal>
 ))
 ContextMenuContent.displayName = ContextMenuPrimitive.Content.displayName
@@ -81,7 +74,7 @@ const ContextMenuItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Item> & {
     inset?: boolean
   }
->(({ className, inset, children, ...props }, ref) => (
+>(({ className, inset, ...props }, ref) => (
   <ContextMenuPrimitive.Item
     ref={ref}
     className={cn(
@@ -90,9 +83,7 @@ const ContextMenuItem = React.forwardRef<
       className
     )}
     {...props}
-  >
-    {children}
-  </ContextMenuPrimitive.Item>
+  />
 ))
 ContextMenuItem.displayName = ContextMenuPrimitive.Item.displayName
 
@@ -117,7 +108,8 @@ const ContextMenuCheckboxItem = React.forwardRef<
     {children}
   </ContextMenuPrimitive.CheckboxItem>
 ))
-ContextMenuCheckboxItem.displayName = ContextMenuPrimitive.CheckboxItem.displayName
+ContextMenuCheckboxItem.displayName =
+  ContextMenuPrimitive.CheckboxItem.displayName
 
 const ContextMenuRadioItem = React.forwardRef<
   React.ElementRef<typeof ContextMenuPrimitive.RadioItem>,
@@ -146,7 +138,7 @@ const ContextMenuLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof ContextMenuPrimitive.Label> & {
     inset?: boolean
   }
->(({ className, inset, children, ...props }, ref) => (
+>(({ className, inset, ...props }, ref) => (
   <ContextMenuPrimitive.Label
     ref={ref}
     className={cn(
@@ -155,9 +147,7 @@ const ContextMenuLabel = React.forwardRef<
       className
     )}
     {...props}
-  >
-    {children}
-  </ContextMenuPrimitive.Label>
+  />
 ))
 ContextMenuLabel.displayName = ContextMenuPrimitive.Label.displayName
 
