@@ -1,7 +1,14 @@
 
-import React from 'react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import React, { Suspense, lazy } from 'react';
 import { ChartContainer } from "@/components/ui/chart";
+import { ChartFallback } from "@/components/ui/chart-fallback";
+
+// Dynamically import recharts to handle potential loading issues
+const PieChart = lazy(() => import('recharts').then(module => ({ default: module.PieChart })));
+const Pie = lazy(() => import('recharts').then(module => ({ default: module.Pie })));
+const Cell = lazy(() => import('recharts').then(module => ({ default: module.Cell })));
+const ResponsiveContainer = lazy(() => import('recharts').then(module => ({ default: module.ResponsiveContainer })));
+const Tooltip = lazy(() => import('recharts').then(module => ({ default: module.Tooltip })));
 
 const data = [
   { name: 'EHR Systems', value: 35, color: '#143151' },
@@ -38,25 +45,27 @@ const IntegrationChart = () => {
   return (
     <div className="w-full h-[300px] p-4">
       <ChartContainer config={chartConfig} className="h-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              outerRadius={80}
-              innerRadius={40}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
-            <Tooltip formatter={(value, name) => [`${value}%`, name]} />
-          </PieChart>
-        </ResponsiveContainer>
+        <Suspense fallback={<ChartFallback message="Loading integration chart..." />}>
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                outerRadius={80}
+                innerRadius={40}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip formatter={(value, name) => [`${value}%`, name]} />
+            </PieChart>
+          </ResponsiveContainer>
+        </Suspense>
       </ChartContainer>
       
       <div className="flex flex-wrap justify-center mt-4 gap-4">
