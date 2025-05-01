@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -20,6 +19,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     onSelect(type);
   };
   
+  // Updated practice types with minor change to description text
   const practiceTypes = [
     { 
       id: 'solo', 
@@ -99,7 +99,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
               Which Solution Is Right for Your Practice?
             </h2>
             <p className="text-base md:text-lg mb-8 max-w-3xl mx-auto text-[#387E89]">
-              Select your practice type for a custom recommendation or explore our comprehensive pricing options below.
+              Select your practice type below for a personalized recommendation.
             </p>
           </div>
           
