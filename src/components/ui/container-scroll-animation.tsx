@@ -1,6 +1,6 @@
 
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 export const ContainerScroll = ({
@@ -11,31 +11,41 @@ export const ContainerScroll = ({
   children: React.ReactNode;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = React.useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth <= 768);
     };
     checkMobile();
-    window.addEventListener("resize", checkMobile);
+    
+    // Use ResizeObserver instead of event listener for better performance
+    const resizeObserver = new ResizeObserver(entries => {
+      if (entries[0]) {
+        checkMobile();
+      }
+    });
+    
+    if (window) {
+      resizeObserver.observe(document.body);
+    }
+    
     return () => {
-      window.removeEventListener("resize", checkMobile);
+      resizeObserver.disconnect();
     };
   }, []);
+
+  // Memoize expensive render
+  const memoizedChildren = React.useMemo(() => children, [children]);
 
   return (
     <div
       className="flex items-center justify-center relative p-2 md:p-10"
       ref={containerRef}
     >
-      <div
-        className="py-5 md:py-10 w-full relative"
-      >
+      <div className="py-5 md:py-10 w-full relative">
         <Header titleComponent={titleComponent} />
-        <Card>
-          {children}
-        </Card>
+        <Card>{memoizedChildren}</Card>
       </div>
     </div>
   );
@@ -49,7 +59,8 @@ export const Header = ({ titleComponent }: { titleComponent: string | React.Reac
   );
 };
 
-export const Card = ({
+// Use React.memo to prevent unnecessary re-renders
+export const Card = React.memo(({
   children,
 }: {
   children: React.ReactNode;
@@ -61,5 +72,6 @@ export const Card = ({
       </div>
     </div>
   );
-};
+});
 
+Card.displayName = 'Card';
