@@ -142,12 +142,12 @@ export const PricingCalculator = () => {
 
                   <div className="w-full">
                     <label className="block text-sm font-medium text-gray-700 mb-2">Select Product</label>
-                    <div className="overflow-x-auto pb-1"> {/* Added overflow-x-auto to fix tab responsiveness */}
+                    <div className="overflow-x-auto pb-1">
                       <Tabs 
                         defaultValue="crush" 
                         value={product}
                         onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
-                        className="w-full min-w-[300px]" {/* Added min-width to prevent tabs from collapsing */}
+                        className="w-full min-w-[300px]"
                       >
                         <TabsList className="grid grid-cols-3 w-full">
                           <TabsTrigger value="crush" className="text-base whitespace-nowrap px-2 py-2">
