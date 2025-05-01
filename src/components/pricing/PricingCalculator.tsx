@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Label } from "@/components/ui/label";
 
 const fadeInUpVariants = {
   hidden: { opacity: 0, y: 20 },
@@ -79,6 +80,31 @@ export const PricingCalculator = () => {
     });
   };
 
+  // Product option data
+  const productOptions = [
+    {
+      id: 'crush',
+      name: 'CRUSH (AI Scribe)',
+      description: 'Automate clinical documentation with AI',
+      price: 'From $99/month',
+      savings: '96% time reduction vs. human scribes'
+    },
+    {
+      id: 'bravo',
+      name: 'BRAVO (Patient Engagement)',
+      description: 'Smart scheduling and patient communication',
+      price: 'From $149/month',
+      savings: 'Reduce no-shows by up to 30%'
+    },
+    {
+      id: 'bundle',
+      name: 'Bundle (Best Value)',
+      description: 'CRUSH + BRAVO with 10% discount',
+      price: 'From $224/month',
+      savings: 'Most comprehensive solution'
+    }
+  ];
+
   return (
     <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
@@ -141,29 +167,36 @@ export const PricingCalculator = () => {
                   </div>
 
                   <div className="w-full">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Select Product</label>
-                    <div className="flex flex-col">
-                      <Tabs 
-                        defaultValue="crush" 
-                        value={product}
-                        onValueChange={(value) => setProduct(value as 'crush' | 'bravo' | 'bundle')}
-                        className="w-full"
-                      >
-                        <TabsList className="grid grid-cols-3 w-full">
-                          <TabsTrigger value="crush">
-                            CRUSH (AI Scribe)
-                          </TabsTrigger>
-                          <TabsTrigger value="bravo">
-                            BRAVO (Patient Engagement)
-                          </TabsTrigger>
-                          <TabsTrigger value="bundle">
-                            Bundle (Best Value)
-                          </TabsTrigger>
-                        </TabsList>
-                        <TabsContent value="crush"></TabsContent>
-                        <TabsContent value="bravo"></TabsContent>
-                        <TabsContent value="bundle"></TabsContent>
-                      </Tabs>
+                    <Label className="block text-sm font-medium text-gray-700 mb-3">Select Product</Label>
+                    <div className="grid grid-cols-1 gap-3">
+                      {productOptions.map((option) => (
+                        <div 
+                          key={option.id}
+                          onClick={() => setProduct(option.id as 'crush' | 'bravo' | 'bundle')}
+                          className={`
+                            cursor-pointer rounded-lg border p-3 flex items-center
+                            ${product === option.id ? 
+                              'border-[#387E89] bg-[#387E89]/5 shadow' : 
+                              'border-gray-200 hover:border-[#387E89]/50'
+                            }
+                          `}
+                        >
+                          <div className={`
+                            w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3
+                            ${product === option.id ? 'border-[#387E89]' : 'border-gray-300'}
+                          `}>
+                            {product === option.id && <div className="w-3 h-3 rounded-full bg-[#387E89]"></div>}
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-[#143151]">{option.name}</h4>
+                            <p className="text-sm text-gray-600">{option.description}</p>
+                          </div>
+                          <div className="text-right text-sm">
+                            <div className="font-bold text-[#143151]">{option.price}</div>
+                            <div className="text-xs text-[#387E89]">{option.savings}</div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
 

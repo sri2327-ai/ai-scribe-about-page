@@ -5,11 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Stethoscope, Building, Users, Activity, Heart } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { 
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 interface PracticeTypeSelectorProps {
   onSelect: (planType: string) => void;
@@ -40,7 +35,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     },
     { 
       id: 'clinic', 
-      name: 'Clinic/Group', 
+      name: 'Clinic/Group/Enterprise', 
       icon: Building,
       description: '6+ providers seeking enterprise-grade solutions at scale',
       plan: 'bundle_enterprise'
@@ -127,46 +122,45 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                     <p className="text-gray-600 mb-4 flex-grow">{type.description}</p>
                     
                     <div className={`mt-2 flex justify-end ${isSelected ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
-                      <Popover>
-                        <PopoverTrigger asChild>
+                      <Button
+                        variant="link"
+                        className="p-0 text-[#387E89] font-medium"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelect(type.plan);
+                        }}
+                      >
+                        View Recommendations
+                        <ArrowRight className="ml-1 h-4 w-4" />
+                      </Button>
+                    </div>
+
+                    {isSelected && (
+                      <div className="mt-4 pt-4 border-t border-gray-200">
+                        <h4 className="font-bold text-[#143151] text-lg mb-2">Recommended Plan</h4>
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
+                          <h5 className="font-semibold text-[#387E89]">{productRecommendations[type.id as keyof typeof productRecommendations].name}</h5>
+                          <p className="text-sm text-gray-600">{productRecommendations[type.id as keyof typeof productRecommendations].description}</p>
+                          <div className="mt-2 font-bold text-[#143151]">{productRecommendations[type.id as keyof typeof productRecommendations].price}</div>
+                        </div>
+                        <div className="mt-3">
                           <Button
-                            variant="link"
-                            className="p-0 text-[#387E89] font-medium"
+                            className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white"
                             onClick={(e) => {
                               e.stopPropagation();
-                              onSelect(type.plan);
+                              const pricingSection = document.getElementById('pricing');
+                              if (pricingSection) {
+                                pricingSection.scrollIntoView({ behavior: 'smooth' });
+                              }
                             }}
+                            size="sm"
                           >
-                            View Recommendations
+                            See Full Details
                             <ArrowRight className="ml-1 h-4 w-4" />
                           </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-80 p-4 bg-white shadow-md rounded-md border border-[#387E89]/20">
-                          <div className="space-y-2">
-                            <h4 className="font-bold text-[#143151] text-lg">Recommended Plan</h4>
-                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-3 rounded-lg">
-                              <h5 className="font-semibold text-[#387E89]">{productRecommendations[type.id as keyof typeof productRecommendations].name}</h5>
-                              <p className="text-sm text-gray-600">{productRecommendations[type.id as keyof typeof productRecommendations].description}</p>
-                              <div className="mt-2 font-bold text-[#143151]">{productRecommendations[type.id as keyof typeof productRecommendations].price}</div>
-                            </div>
-                            <div className="pt-2">
-                              <Button
-                                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white"
-                                onClick={() => {
-                                  const pricingSection = document.getElementById('pricing');
-                                  if (pricingSection) {
-                                    pricingSection.scrollIntoView({ behavior: 'smooth' });
-                                  }
-                                }}
-                              >
-                                See Full Details
-                                <ArrowRight className="ml-1 h-4 w-4" />
-                              </Button>
-                            </div>
-                          </div>
-                        </PopoverContent>
-                      </Popover>
-                    </div>
+                        </div>
+                      </div>
+                    )}
                   </Card>
                 </motion.div>
               );
