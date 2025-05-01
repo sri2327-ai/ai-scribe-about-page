@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -348,7 +349,6 @@ const DemoRequestForm = () => {
                         <SelectContent 
                           className="max-h-[200px] overflow-y-auto bg-white z-[100]"
                           position="popper"
-                          sideOffset={5}
                         >
                           {timeZoneOptions.map((tz) => (
                             <SelectItem key={tz} value={tz}>
