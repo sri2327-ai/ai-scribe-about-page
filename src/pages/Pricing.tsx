@@ -215,58 +215,66 @@ const Pricing = () => {
       </section>
 
       {/* Feature Comparison */}
-      <section className="py-12 md:py-16 lg:py-20 bg-gray-50">
+      <section className="py-12 md:py-16 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div 
             initial="hidden" 
             whileInView="visible" 
             viewport={{ once: true }}
-            className="text-center mb-6 md:mb-10"
+            className="text-center mb-8 md:mb-14"
           >
             <motion.h2 
               variants={fadeInUpVariants}
               custom={0}
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-[#143151]"
+              className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-5 text-[#143151]"
             >
               Why CRUSH & BRAVO Are the Ultimate AI-Powered Solutions
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-base md:text-lg max-w-3xl mx-auto text-[#387E89]"
+              className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-[#387E89]"
             >
               Discover time-saving, customizable features that set CRUSH and BRAVO apart, boosting efficiency and patient satisfaction.
             </motion.p>
           </motion.div>
 
-          {/* Feature Toggle */}
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-6 md:mb-8">
+          {/* Feature Toggle - Improved for mobile */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-5 mb-6 md:mb-10">
             <Button 
               variant={activeFeatures === 'crush' ? 'default' : 'outline'}
               onClick={() => setActiveFeatures('crush')}
-              className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activeFeatures === 'crush' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
+              className={`rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base ${activeFeatures === 'crush' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : 'border-2 border-[#387E89]/50'}`}
             >
               CRUSH Features
             </Button>
             <Button 
               variant={activeFeatures === 'bravo' ? 'default' : 'outline'}
               onClick={() => setActiveFeatures('bravo')}
-              className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activeFeatures === 'bravo' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
+              className={`rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base ${activeFeatures === 'bravo' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : 'border-2 border-[#387E89]/50'}`}
             >
               BRAVO Features
             </Button>
           </div>
 
-          {/* Feature Tables */}
+          {/* Feature Tables - Improved scrolling for mobile */}
           <motion.div 
             key={activeFeatures}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
-            className="overflow-x-auto"
+            className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
           >
-            <EnhancedFeatureTable product={activeFeatures} />
+            <div className="min-w-[768px] md:min-w-0">
+              <EnhancedFeatureTable product={activeFeatures} />
+            </div>
           </motion.div>
+          
+          {/* Mobile scroll indicator */}
+          <div className="flex md:hidden justify-center mt-3 items-center text-sm text-[#387E89]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path></svg>
+            Swipe to see all features
+          </div>
         </div>
       </section>
 

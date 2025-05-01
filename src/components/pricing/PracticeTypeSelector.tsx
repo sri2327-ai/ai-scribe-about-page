@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -91,20 +92,20 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
   };
 
   return (
-    <section className="py-8 md:py-16 bg-white">
+    <section className="py-10 md:py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151]">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-8 md:mb-12 lg:mb-16">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 text-[#143151]">
               Which Solution Is Right for Your Practice?
             </h2>
-            <p className="text-base md:text-lg mb-8 max-w-3xl mx-auto text-[#387E89]">
+            <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
               Select your practice type below for a personalized recommendation.
             </p>
           </div>
           
           <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
             variants={containerVariants}
             initial="hidden"
             whileInView="visible"
@@ -115,9 +116,9 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
               const isSelected = selectedType === type.id;
               
               return (
-                <motion.div key={type.id} variants={itemVariants}>
+                <motion.div key={type.id} variants={itemVariants} className="h-full">
                   <Card 
-                    className={`p-4 md:p-6 cursor-pointer transition-all duration-300 h-full flex flex-col ${
+                    className={`p-4 md:p-6 lg:p-8 cursor-pointer transition-all duration-300 h-full flex flex-col ${
                       isSelected 
                         ? 'border-[#387E89] shadow-lg' 
                         : 'border-gray-200 hover:border-[#387E89]/50 hover:shadow-md'

@@ -106,37 +106,37 @@ export const PricingCalculator = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-14 md:py-20 lg:py-28 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <motion.div 
             initial="hidden" 
             whileInView="visible" 
             viewport={{ once: true }}
-            className="text-center mb-10"
+            className="text-center mb-10 md:mb-16"
           >
             <motion.h2 
               variants={fadeInUpVariants} 
               custom={0}
-              className="text-3xl md:text-4xl font-bold mb-4 text-[#143151]"
+              className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 md:mb-6 text-[#143151]"
             >
               Calculate Your Time & Cost Savings
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-lg mb-8 max-w-3xl mx-auto text-[#387E89]"
+              className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]"
             >
-              Discover how CRUSH & BRAVO can save you thousands of dollars each month—at just 1/11th the cost of a human scribe or staff member! Enter your details below to receive a personalized estimate of your time and money savings, so you can focus more on patient care.
+              Discover how CRUSH & BRAVO can save you thousands of dollars each month—at just 1/11th the cost of a human scribe or staff member!
             </motion.p>
           </motion.div>
 
-          <Card className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-gray-100">
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-              <div className="md:col-span-3">
-                <div className="flex flex-col gap-6">
-                  <div className="flex flex-wrap gap-6 justify-center md:justify-between">
-                    <div className="w-full md:w-auto">
+          <Card className="bg-white rounded-2xl shadow-xl p-6 md:p-8 lg:p-10 border border-gray-100">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10">
+              <div className="lg:col-span-3">
+                <div className="flex flex-col gap-6 md:gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <div className="w-full">
                       <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                         <span className="mr-2">Number of Providers</span>
                         <span className="text-xs text-gray-500">(clinicians in your practice)</span>
@@ -147,10 +147,10 @@ export const PricingCalculator = () => {
                         onChange={(e) => setProviders(e.target.value)} 
                         placeholder="Number of Providers" 
                         min="1" 
-                        className="w-full md:w-64 border border-gray-300 p-4 rounded-lg text-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89]"
+                        className="w-full border border-gray-300 p-4 rounded-lg text-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89]"
                       />
                     </div>
-                    <div className="w-full md:w-auto">
+                    <div className="w-full">
                       <label className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
                         <span className="mr-2">Patients per Day</span>
                         <span className="text-xs text-gray-500">(per provider)</span>
@@ -161,7 +161,7 @@ export const PricingCalculator = () => {
                         onChange={(e) => setPatients(e.target.value)}
                         placeholder="Patients per Day" 
                         min="1" 
-                        className="w-full md:w-64 border border-gray-300 p-4 rounded-lg text-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89]"
+                        className="w-full border border-gray-300 p-4 rounded-lg text-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89]"
                       />
                     </div>
                   </div>
@@ -200,11 +200,11 @@ export const PricingCalculator = () => {
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-center mt-4">
+                  <div className="flex flex-col items-center mt-2 md:mt-4">
                     <Button 
                       onClick={calculateSavings}
                       size="lg"
-                      className="rounded-full px-8 py-6 text-lg font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 w-full md:w-auto"
+                      className="rounded-full px-6 md:px-8 py-4 md:py-6 text-base md:text-lg font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 w-full md:w-auto"
                     >
                       Calculate Your Savings Now
                       <Calculator className="ml-2" />
@@ -216,28 +216,28 @@ export const PricingCalculator = () => {
                 </div>
               </div>
 
-              <div className="md:col-span-2 bg-gray-50 rounded-xl p-4">
-                <h3 className="font-bold text-lg text-[#143151] mb-3">Example Savings:</h3>
+              <div className="lg:col-span-2 bg-gray-50 rounded-xl p-5 md:p-6">
+                <h3 className="font-bold text-lg md:text-xl text-[#143151] mb-3 md:mb-4">Example Savings:</h3>
                 <p className="text-gray-700 mb-4">
                   A solo provider seeing 20 patients per day could save over $2,900 per month compared to hiring a human scribe or staff—and reclaim 10+ hours per week for seeing more patients or enjoying personal time.
                 </p>
                 
-                <h3 className="font-bold text-lg text-[#143151] mt-6 mb-3">Why It's a Game-Changer:</h3>
-                <ul className="space-y-3">
+                <h3 className="font-bold text-lg md:text-xl text-[#143151] mt-6 mb-3">Why It's a Game-Changer:</h3>
+                <ul className="space-y-3 md:space-y-4">
                   <li className="flex items-start">
-                    <Clock className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
+                    <Clock className="h-5 w-5 md:h-6 md:w-6 text-[#387E89] mr-2 mt-0.5 shrink-0" />
                     <span className="text-gray-700">Save 2+ hours daily on charting and admin tasks.</span>
                   </li>
                   <li className="flex items-start">
-                    <Timer className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
+                    <Timer className="h-5 w-5 md:h-6 md:w-6 text-[#387E89] mr-2 mt-0.5 shrink-0" />
                     <span className="text-gray-700">Cut no-shows by 30% with BRAVO's smart engagement.</span>
                   </li>
                   <li className="flex items-start">
-                    <DollarSign className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
+                    <DollarSign className="h-5 w-5 md:h-6 md:w-6 text-[#387E89] mr-2 mt-0.5 shrink-0" />
                     <span className="text-gray-700">Reduce staffing needs with AI-powered automation.</span>
                   </li>
                   <li className="flex items-start">
-                    <DollarSign className="h-5 w-5 text-[#387E89] mr-2 mt-0.5 shrink-0" />
+                    <DollarSign className="h-5 w-5 md:h-6 md:w-6 text-[#387E89] mr-2 mt-0.5 shrink-0" />
                     <span className="text-gray-700">Get enterprise-grade efficiency at a fraction of human staff and scribe costs.</span>
                   </li>
                 </ul>
@@ -248,26 +248,26 @@ export const PricingCalculator = () => {
               <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="mt-8 text-center w-full"
+                className="mt-8 md:mt-12 text-center w-full"
               >
-                <div className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 rounded-xl p-6 mt-8">
-                  <h3 className="font-bold text-xl text-[#143151] mb-4">Your Potential Savings</h3>
+                <div className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 rounded-xl p-6 md:p-8">
+                  <h3 className="font-bold text-xl md:text-2xl text-[#143151] mb-4 md:mb-6">Your Potential Savings</h3>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h4 className="text-gray-600 text-sm mb-1">Cost Savings</h4>
-                      <div className="text-3xl font-bold text-[#143151]">{savingsResult}</div>
-                      <p className="text-xs text-gray-500 mt-1">vs. human medical scribe</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+                    <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+                      <h4 className="text-gray-600 text-sm md:text-base mb-1 md:mb-2">Cost Savings</h4>
+                      <div className="text-3xl md:text-4xl font-bold text-[#143151]">{savingsResult}</div>
+                      <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">vs. human medical scribe</p>
                     </div>
                     
-                    <div className="bg-white rounded-lg p-4 shadow-sm">
-                      <h4 className="text-gray-600 text-sm mb-1">Time Saved</h4>
-                      <div className="text-3xl font-bold text-[#387E89]">{timeSaved}</div>
-                      <p className="text-xs text-gray-500 mt-1">for patient care or personal time</p>
+                    <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+                      <h4 className="text-gray-600 text-sm md:text-base mb-1 md:mb-2">Time Saved</h4>
+                      <div className="text-3xl md:text-4xl font-bold text-[#387E89]">{timeSaved}</div>
+                      <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">for patient care or personal time</p>
                     </div>
                   </div>
                   
-                  <p className="mt-6 mb-2 text-[#387E89] font-medium">
+                  <p className="mt-6 mb-2 text-[#387E89] font-medium text-lg md:text-xl">
                     That's significant time and cost savings for your practice!
                   </p>
                 </div>
