@@ -100,7 +100,7 @@ export const BlogCards = () => {
           <div className="mb-8 overflow-x-auto">
             <div className="w-full">
               <Tabs defaultValue="All" className="w-full">
-                <TabsList className="w-full flex-wrap justify-start p-1">
+                <TabsList>
                   {mockCategories.map((category) => (
                     <TabsTrigger
                       key={category.id}
@@ -109,7 +109,6 @@ export const BlogCards = () => {
                         setSelectedCategory(category.name);
                         setCurrentPage(1);
                       }}
-                      className="px-4 py-2 whitespace-nowrap"
                     >
                       {category.name}
                     </TabsTrigger>
