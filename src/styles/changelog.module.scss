@@ -55,13 +55,13 @@
 .timeline::before {
   content: "";
   position: absolute;
-  top: 12px; /* Match the dot's top */
-  left: 131px; /* Adjust to the center of pulse dot (125px left + 6px radius) */
+  top: 12px;
+  left: 131px;
   width: 2px;
   height: 100%;
   background: linear-gradient(to bottom, #143151 0%, #143151 45%, #143151 55%, #143151 100%);
   animation: growLine 2s ease-in-out;
-  z-index: 1; /* behind the pulse */
+  z-index: 1;
 }
 
 @keyframes growLine {
@@ -86,11 +86,11 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(30px); /* Initial off-screen or moved state */
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
-    transform: translateY(0); /* Final position */
+    transform: translateY(0);
   }
 }
 
@@ -104,24 +104,31 @@
 }
 
 .dateRibbon {
-  background: #143151;
+  background: linear-gradient(90deg, #143151, #387E89);
   color: #fff;
-  border-radius: 30px 0 0 30px;
-  padding: 10px 20px;
+  border-radius: 12px;
+  padding: 12px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-weight: 600;
   position: relative;
   margin-right: 30px;
-  margin-left: -19px; // moves it left slightly   
+  margin-left: -19px;
   font-size: 14px;
   min-width: 100px;
   text-align: center;
   z-index: 2;
+  box-shadow: 0 4px 15px rgba(20, 49, 81, 0.2);
+  transform: translateZ(0);
+  transition: all 0.3s ease;
 }
 
-// circle pulse
+.dateRibbon:hover {
+  transform: translateY(-2px) translateZ(0);
+  box-shadow: 0 6px 20px rgba(20, 49, 81, 0.3);
+}
+
 .dateRibbon::before {
   content: "";
   position: absolute;
@@ -129,24 +136,10 @@
   left: 141px;
   width: 20px;
   height: 20px;
-  background: #143151;
+  background: linear-gradient(90deg, #143151, #387E89);
   border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(74, 194, 232, 0.7);
   animation: pulse 0.9s infinite ease-in-out;
-  z-index: 1;
-}
-
-// Sharp edge
-.dateRibbon::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: -10px; /* Width of the triangle */
-  width: 0;
-  height: 0;
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  border-left: 10px solid #143151;
   z-index: 1;
 }
 
@@ -170,20 +163,24 @@
 }
 
 .dateDay {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   display: block;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
 }
 
 .dateMonth,
 .dateYear {
-  font-size: 12px;
+  font-size: 13px;
   display: block;
-  color: #ccc;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .card {
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 24px;
   width: 100%;
   max-width: 750px;
@@ -191,21 +188,18 @@
   margin-left: 30px;
   overflow: hidden;
   background: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
   
-  /* Animation base */
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-
+  
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
   }
 }
 
-/* Fade-in with staggered delay */
 .card:nth-child(1) {
   transition-delay: 0.2s;
 }
@@ -216,7 +210,6 @@
   transition-delay: 0.6s;
 }
 
-/* When visible, fade in */
 .visible {
   opacity: 1;
   transform: translateY(0);
@@ -237,6 +230,8 @@
 .imageContainer {
   flex: 0 0 auto;
   width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
   
   @media (min-width: 768px) {
     width: 45%;
@@ -249,10 +244,10 @@
   object-fit: cover;
   height: auto;
   aspect-ratio: 16 / 9;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
   
   &:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
   }
 }
 
@@ -266,6 +261,7 @@
   margin-bottom: 15px;
   letter-spacing: 0.5px;
   color: #143151;
+  line-height: 1.4;
 }
 
 .cardDesc {
@@ -284,7 +280,7 @@
 }
 
 .logo {
-  width: 80px; /* adjust as needed */
+  width: 80px;
   height: auto;
   object-fit: contain;
   opacity: 0.9;
@@ -295,32 +291,153 @@
   }
 }
 
+.cookieConsent {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1000;
+  max-width: 360px;
+  transform: translateY(100px);
+  opacity: 0;
+  animation: slideUp 0.5s ease-out forwards;
+  animation-delay: 1s;
+  border: 1px solid rgba(74, 194, 232, 0.2);
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.cookieIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(90deg, #143151, #387E89);
+  border-radius: 50%;
+  color: white;
+}
+
+.cookieContent {
+  flex: 1;
+}
+
+.cookieTitle {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+  color: #143151;
+}
+
+.cookieText {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.cookieButtons {
+  display: flex;
+  gap: 8px;
+}
+
+.acceptButton {
+  background: linear-gradient(90deg, #143151, #387E89);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(20, 49, 81, 0.2);
+  }
+}
+
+.declineButton {
+  background: transparent;
+  border: 1px solid #ddd;
+  color: #666;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #f5f5f5;
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .wrapper {
     padding: 20px;
   }
   
-  .card {
-    width: 100%;
-    max-width: 100%;
-    margin-left: 15px;
-  }
-  
-  .image {
-    width: 100%;
-  }
-  
-  .timeline::before {
-    left: 80px;
+  .logItem {
+    flex-direction: column;
   }
   
   .dateRibbon {
-    min-width: 70px;
+    margin-right: 0;
+    margin-bottom: 16px;
+    align-self: flex-start;
+    width: auto;
+    min-width: 130px;
+    border-radius: 12px;
+    padding: 10px 16px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
   }
   
   .dateRibbon::before {
-    left: 90px;
+    display: none;
+  }
+  
+  .timeline::before {
+    display: none;
+  }
+  
+  .dateDay {
+    margin-right: 4px;
+    font-size: 18px;
+  }
+  
+  .dateMonth, .dateYear {
+    font-size: 14px;
+  }
+  
+  .card {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .cardContent {
+    flex-direction: column;
+  }
+  
+  .imageContainer {
+    width: 100%;
   }
   
   .heading {
@@ -329,6 +446,24 @@
   
   .subheading {
     font-size: 16px;
+  }
+  
+  .timeline {
+    margin-left: 0;
+  }
+  
+  .cookieConsent {
+    left: 16px;
+    right: 16px;
+    max-width: calc(100% - 32px);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .cookieButtons {
+    width: 100%;
+    flex-direction: column;
   }
 }
 
@@ -339,24 +474,20 @@
   }
   
   .timeline {
-    margin-left: 20px;
-  }
-  
-  .timeline::before {
-    left: 65px;
+    gap: 40px;
   }
   
   .dateRibbon {
-    min-width: 60px;
-    padding: 8px 12px;
-  }
-  
-  .dateRibbon::before {
-    left: 75px;
+    padding: 8px 16px;
+    font-size: 14px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
   }
   
   .card {
-    padding: 16px;
+    padding: 20px;
+    border-radius: 12px;
   }
   
   .cardTitle {

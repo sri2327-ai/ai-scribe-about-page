@@ -1,8 +1,8 @@
 
 "use client"
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/changelog.module.scss";
-import { ArrowLeft } from "lucide-react";
+import { Cookie } from "lucide-react";
 
 const changelogs = [
   {
@@ -59,9 +59,12 @@ const changelogs = [
 ];
 
 const Changelog = () => {
+  const [showCookieConsent, setShowCookieConsent] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  
   useEffect(() => {
     const cards = document.querySelectorAll(`.${styles.card}`);
-  
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -74,12 +77,40 @@ const Changelog = () => {
       threshold: 0.1,
       rootMargin: '0px 0px -100px 0px'
     });
-  
+    
     cards.forEach(card => observer.observe(card));
-  
+    
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkIsMobile();
+    window.addEventListener('resize', checkIsMobile);
+    
     return () => {
       cards.forEach(card => observer.unobserve(card));
+      window.removeEventListener('resize', checkIsMobile);
     };
+  }, []);
+  
+  const handleAcceptCookies = () => {
+    setShowCookieConsent(false);
+    localStorage.setItem('cookiesAccepted', 'true');
+  };
+  
+  const handleDeclineCookies = () => {
+    setShowCookieConsent(false);
+    localStorage.setItem('cookiesDeclined', 'true');
+  };
+  
+  // Check for existing cookie preference
+  useEffect(() => {
+    const cookiesAccepted = localStorage.getItem('cookiesAccepted');
+    const cookiesDeclined = localStorage.getItem('cookiesDeclined');
+    
+    if (cookiesAccepted === 'true' || cookiesDeclined === 'true') {
+      setShowCookieConsent(false);
+    }
   }, []);
   
   return (
@@ -135,6 +166,26 @@ const Changelog = () => {
           })}
         </div>
       </div>
+      
+      {showCookieConsent && (
+        <div className={styles.cookieConsent}>
+          <div className={styles.cookieIcon}>
+            <Cookie size={20} />
+          </div>
+          <div className={styles.cookieContent}>
+            <h3 className={styles.cookieTitle}>Cookie Preferences</h3>
+            <p className={styles.cookieText}>We use cookies to enhance your browsing experience, analyze site traffic and personalize content.</p>
+            <div className={styles.cookieButtons}>
+              <button className={styles.acceptButton} onClick={handleAcceptCookies}>
+                Accept All
+              </button>
+              <button className={styles.declineButton} onClick={handleDeclineCookies}>
+                Decline
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
