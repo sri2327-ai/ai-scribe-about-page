@@ -1,8 +1,8 @@
 
 "use client"
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "@/styles/changelog.module.scss"; // Reusing changelog styles
-import { Cookie, Search } from "lucide-react";
+import { Cookie, Search, BookOpen, FileText, Settings, ChevronRight } from "lucide-react";
 
 interface Article {
   title: string;
@@ -23,7 +23,7 @@ const HelpLibrary = () => {
 
   const cards: Card[] = [
     {
-      icon: <div className={styles.categoryIcon}>📚</div>,
+      icon: <BookOpen className="text-blue-800" size={30} />,
       title: 'Introduction & Setup',
       count: '2 articles',
       articles: [
@@ -32,7 +32,7 @@ const HelpLibrary = () => {
       ],
     },
     {
-      icon: <div className={styles.categoryIcon}>📝</div>,
+      icon: <FileText className="text-blue-800" size={30} />,
       title: 'Step-by-Step Guides',
       count: '25 articles',
       articles: [
@@ -64,7 +64,7 @@ const HelpLibrary = () => {
       ],
     },
     {
-      icon: <div className={styles.categoryIcon}>🔧</div>,
+      icon: <Settings className="text-blue-800" size={30} />,
       title: 'Technical Set Up & Troubleshooting',
       count: '5 articles',
       articles: [
@@ -88,7 +88,7 @@ const HelpLibrary = () => {
   };
   
   // Check for existing cookie preference
-  React.useEffect(() => {
+  useEffect(() => {
     const cookiesAccepted = localStorage.getItem('cookiesAccepted');
     const cookiesDeclined = localStorage.getItem('cookiesDeclined');
     
@@ -244,7 +244,7 @@ const HelpLibrary = () => {
                       }}
                     >
                       <div className={styles.articleTitle}>{article.title}</div>
-                      <div className={styles.articleArrow}>→</div>
+                      <div className={styles.articleArrow}><ChevronRight size={18} /></div>
                     </div>
                   ))
               )}
