@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "@/styles/changelog.module.scss";
+import { ArrowLeft } from "lucide-react";
 
 const changelogs = [
   {
@@ -67,11 +68,12 @@ const Changelog = () => {
         if (entry.isIntersecting) {
           entry.target.classList.add(styles.visible);
         } else {
-          entry.target.classList.remove(styles.visible); // remove when out of view
+          entry.target.classList.remove(styles.visible);
         }
       });
     }, {
       threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
     });
   
     cards.forEach(card => observer.observe(card));
@@ -84,10 +86,15 @@ const Changelog = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Link to="/" className="text-blue-500 hover:text-blue-700 font-medium mb-8 block">
-          ← Back to home
+        <Link to="/" className={styles.backLink}>
+          <ArrowLeft size={20} />
+          <span>Back to home</span>
         </Link>
-        <h1 className={styles.heading}>S10.AI Changelog</h1>
+        
+        <div className={styles.header}>
+          <h1 className={styles.heading}>S10.AI Changelog</h1>
+          <p className={styles.subheading}>Follow our product updates and improvements</p>
+        </div>
 
         <div className={styles.timeline}>
           {changelogs.map((log, index) => {
@@ -95,18 +102,36 @@ const Changelog = () => {
             return (
               <div key={index} className={styles.logItem}>
                 <div className={styles.dateRibbon}>
-                  <span>{day} {month} {year}</span>
+                  <span className={styles.dateDay}>{day}</span>
+                  <span className={styles.dateMonth}>{month}</span>
+                  <span className={styles.dateYear}>{year}</span>
                 </div>
 
                 <div className={styles.card}>
-                  <img src={log.imgSrc} alt="changelog visual" className={styles.image} />
-                  <h2 className={styles.cardTitle}>{log.title}</h2>
-                  <p className={styles.cardDesc}>{log.desc}</p>
+                  <div className={styles.cardContent}>
+                    {log.imgSrc && (
+                      <div className={styles.imageContainer}>
+                        <img src={log.imgSrc} alt="changelog visual" className={styles.image} />
+                      </div>
+                    )}
+                    <div className={styles.textContent}>
+                      <h2 className={styles.cardTitle}>{log.title}</h2>
+                      <p className={styles.cardDesc}>{log.desc}</p>
+                    </div>
+                  </div>
+                  
                   {log.imgSrc2 && (
-                    <img src={log.imgSrc2} alt="changelog visual" className={styles.image} />
+                    <div className={styles.cardContent}>
+                      <div className={styles.imageContainer}>
+                        <img src={log.imgSrc2} alt="changelog visual" className={styles.image} />
+                      </div>
+                      <div className={styles.textContent}>
+                        <h2 className={styles.cardTitle}>{log.title2}</h2>
+                        <p className={styles.cardDesc}>{log.desc2}</p>
+                      </div>
+                    </div>
                   )}
-                  <h2 className={styles.cardTitle}>{log.title2}</h2>
-                  <p className={styles.cardDesc}>{log.desc2}</p>
+                  
                   <div className={styles.logoContainer}>
                     <img src="/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" alt="Logo" className={styles.logo} />
                   </div>
