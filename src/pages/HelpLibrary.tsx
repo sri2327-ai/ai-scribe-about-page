@@ -23,7 +23,7 @@ const HelpLibrary = () => {
 
   const cards: Card[] = [
     {
-      icon: <BookOpen className="text-blue-800" size={30} />,
+      icon: <BookOpen className="text-white" size={30} />,
       title: 'Introduction & Setup',
       count: '2 articles',
       articles: [
@@ -32,7 +32,7 @@ const HelpLibrary = () => {
       ],
     },
     {
-      icon: <FileText className="text-blue-800" size={30} />,
+      icon: <FileText className="text-white" size={30} />,
       title: 'Step-by-Step Guides',
       count: '25 articles',
       articles: [
@@ -64,7 +64,7 @@ const HelpLibrary = () => {
       ],
     },
     {
-      icon: <Settings className="text-blue-800" size={30} />,
+      icon: <Settings className="text-white" size={30} />,
       title: 'Technical Set Up & Troubleshooting',
       count: '5 articles',
       articles: [
@@ -130,7 +130,7 @@ const HelpLibrary = () => {
         {/* Search Container */}
         <div className={styles.searchContainer}>
           <div className={styles.searchWrapper}>
-            <Search className={styles.searchIcon} />
+            <Search className="text-white" size={20} />
             <input
               type="text"
               placeholder="Search here..."
@@ -244,7 +244,7 @@ const HelpLibrary = () => {
                       }}
                     >
                       <div className={styles.articleTitle}>{article.title}</div>
-                      <div className={styles.articleArrow}><ChevronRight size={18} /></div>
+                      <div className={styles.articleArrow}><ChevronRight className="text-white" size={18} /></div>
                     </div>
                   ))
               )}
@@ -262,7 +262,7 @@ const HelpLibrary = () => {
       {showCookieConsent && (
         <div className={styles.cookieConsent}>
           <div className={styles.cookieIcon}>
-            <Cookie size={20} />
+            <Cookie className="text-white" size={20} />
           </div>
           <div className={styles.cookieContent}>
             <h3 className={styles.cookieTitle}>Cookie Preferences</h3>
