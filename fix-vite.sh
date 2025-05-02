@@ -1,5 +1,4 @@
 
 #!/bin/bash
-echo "Fixing Vite installation..."
-npm install vite@latest --save-dev
-echo "Vite installation fixed."
+npm install -g vite@latest
+npm install vite@latest
