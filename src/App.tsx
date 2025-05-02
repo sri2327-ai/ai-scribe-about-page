@@ -18,6 +18,7 @@ import Blog from "@/pages/Blog";
 import Changelog from "@/pages/Changelog";
 import FAQ from "@/pages/FAQ";
 import CaseStudy from "@/pages/CaseStudy";
+import CaseStudiesIndex from "@/pages/case-studies/index";
 import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing";
 
@@ -40,7 +41,8 @@ function App() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/changelog" element={<Changelog />} />
       <Route path="/faq" element={<FAQ />} />
-      <Route path="/resources/casestudies/*" element={<CaseStudy />} />
+      <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
+      <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
