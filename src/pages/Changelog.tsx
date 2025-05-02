@@ -1,7 +1,6 @@
 
 "use client"
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
 import styles from "@/styles/changelog.module.scss";
 import { ArrowLeft } from "lucide-react";
 
@@ -86,11 +85,6 @@ const Changelog = () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Link to="/" className={styles.backLink}>
-          <ArrowLeft size={20} />
-          <span>Back to home</span>
-        </Link>
-        
         <div className={styles.header}>
           <h1 className={styles.heading}>S10.AI Changelog</h1>
           <p className={styles.subheading}>Follow our product updates and improvements</p>
