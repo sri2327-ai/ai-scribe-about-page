@@ -107,7 +107,7 @@ export const BravoTestimonialsSection = () => {
                             </p>
                           </div>
                           <div className="flex items-center gap-3">
-                            <Avatar>
+                            <Avatar className="h-10 w-10">
                               <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
                               <AvatarFallback>
                                 {testimonial.author.split(' ').map(n => n[0]).join('')}

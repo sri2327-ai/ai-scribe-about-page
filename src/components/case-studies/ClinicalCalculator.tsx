@@ -80,6 +80,7 @@ export const ClinicalCalculator: React.FC<ClinicalCalculatorProps> = ({
                   defaultValue={[field.defaultValue]}
                   value={[values[field.id]]}
                   onValueChange={(value) => handleChange(field.id, value[0])}
+                  className="py-2"
                 />
               ) : (
                 <Input
