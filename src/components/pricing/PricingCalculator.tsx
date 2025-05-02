@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -35,6 +34,19 @@ export const PricingCalculator = () => {
   const [timeSaved, setTimeSaved] = useState<string>('');
   const [showError, setShowError] = useState(false);
   const [calculationDone, setCalculationDone] = useState(false);
+
+  // Get comparison text based on selected product
+  const getComparisonText = () => {
+    switch (product) {
+      case 'bravo':
+        return "vs. human front office staff";
+      case 'bundle':
+        return "vs. human staff & scribes";
+      case 'crush':
+      default:
+        return "vs. human medical scribe";
+    }
+  };
 
   const calculateSavings = () => {
     const providersNum = parseInt(providers);
@@ -257,7 +269,7 @@ export const PricingCalculator = () => {
                     <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
                       <h4 className="text-gray-600 text-sm md:text-base mb-1 md:mb-2">Cost Savings</h4>
                       <div className="text-3xl md:text-4xl font-bold text-[#143151]">{savingsResult}</div>
-                      <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">vs. human medical scribe</p>
+                      <p className="text-xs md:text-sm text-gray-500 mt-1 md:mt-2">{getComparisonText()}</p>
                     </div>
                     
                     <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
