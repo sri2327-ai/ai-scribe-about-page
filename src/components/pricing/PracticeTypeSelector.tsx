@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -49,7 +48,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       id: 'clinic', 
       name: 'Clinic/Group', 
       shortName: 'Clinic/Group',
-      displayName: 'Clinic/Group/Enterprise',
+      displayName: 'Clinic/Group',
       icon: Building,
       description: '6+ providers seeking enterprise-grade solutions at scale',
       plan: 'bundle_enterprise'
@@ -159,10 +158,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                         </div>
                         <h3 className="text-lg md:text-xl font-semibold ml-3 md:ml-4 text-[#143151] break-words">
                           {type.id === 'clinic' ? (
-                            <>
-                              <span className="md:hidden lg:inline">Clinic/Group/Enterprise</span>
-                              <span className="hidden md:inline lg:hidden">Clinic/Group</span>
-                            </>
+                            <span>Clinic/Group</span>
                           ) : type.name}
                         </h3>
                       </div>

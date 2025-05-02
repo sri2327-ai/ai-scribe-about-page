@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Calculator, Clock, DollarSign, Timer } from "lucide-react";
+import { Calculator, Clock, DollarSign, Timer, Check } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +35,7 @@ export const PricingCalculator = () => {
   const [timeSaved, setTimeSaved] = useState<string>('');
   const [showError, setShowError] = useState(false);
   const [calculationDone, setCalculationDone] = useState(false);
+  const [isCalculating, setIsCalculating] = useState(false);
 
   // Get comparison text based on selected product
   const getComparisonText = () => {
@@ -49,47 +51,64 @@ export const PricingCalculator = () => {
   };
 
   const calculateSavings = () => {
-    const providersNum = parseInt(providers);
-    const patientsNum = parseInt(patients);
+    // Visual feedback - button state changes
+    setIsCalculating(true);
     
-    if (isNaN(providersNum) || isNaN(patientsNum) || providersNum < 1 || patientsNum < 1) {
-      setShowError(true);
-      setSavingsResult('');
+    // Simulate calculation delay for better UX
+    setTimeout(() => {
+      const providersNum = parseInt(providers);
+      const patientsNum = parseInt(patients);
+      
+      if (isNaN(providersNum) || isNaN(patientsNum) || providersNum < 1 || patientsNum < 1) {
+        setShowError(true);
+        setSavingsResult('');
+        toast({
+          title: "Invalid input",
+          description: "Please enter valid numbers for providers and patients.",
+          variant: "destructive"
+        });
+        setIsCalculating(false);
+        return;
+      }
+      
+      setShowError(false);
+      let costSavings = 0;
+      let hoursSaved = 0;
+      let weeklyHours = 0;
+      
+      if (product === 'crush') {
+        costSavings = providersNum * patientsNum * 95;
+        hoursSaved = providersNum * 2;
+        weeklyHours = hoursSaved * 5;
+      } else if (product === 'bravo') {
+        costSavings = providersNum * patientsNum * 50;
+        hoursSaved = providersNum * 1;
+        weeklyHours = hoursSaved * 5;
+      } else {
+        costSavings = providersNum * patientsNum * 145;
+        hoursSaved = providersNum * 3;
+        weeklyHours = hoursSaved * 5;
+      }
+      
+      setSavingsResult(`$${costSavings.toLocaleString()}/month`);
+      setTimeSaved(`${hoursSaved} hours daily | ${weeklyHours} hours weekly`);
+      setCalculationDone(true);
+      setIsCalculating(false);
+      
+      // Scroll to results
+      setTimeout(() => {
+        const resultsElement = document.getElementById('calculation-results');
+        if (resultsElement) {
+          resultsElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+      
+      // Show toast notification
       toast({
-        title: "Invalid input",
-        description: "Please enter valid numbers for providers and patients.",
-        variant: "destructive"
+        title: "Calculation complete",
+        description: `You could save $${costSavings.toLocaleString()}/month and ${weeklyHours} hours weekly!`,
       });
-      return;
-    }
-    
-    setShowError(false);
-    let costSavings = 0;
-    let hoursSaved = 0;
-    let weeklyHours = 0;
-    
-    if (product === 'crush') {
-      costSavings = providersNum * patientsNum * 95;
-      hoursSaved = providersNum * 2;
-      weeklyHours = hoursSaved * 5;
-    } else if (product === 'bravo') {
-      costSavings = providersNum * patientsNum * 50;
-      hoursSaved = providersNum * 1;
-      weeklyHours = hoursSaved * 5;
-    } else {
-      costSavings = providersNum * patientsNum * 145;
-      hoursSaved = providersNum * 3;
-      weeklyHours = hoursSaved * 5;
-    }
-    
-    setSavingsResult(`$${costSavings.toLocaleString()}/month`);
-    setTimeSaved(`${hoursSaved} hours daily | ${weeklyHours} hours weekly`);
-    setCalculationDone(true);
-    
-    toast({
-      title: "Calculation complete",
-      description: `You could save $${costSavings.toLocaleString()}/month and ${weeklyHours} hours weekly!`,
-    });
+    }, 800); // Short delay for feedback effect
   };
 
   // Product option data
@@ -215,12 +234,32 @@ export const PricingCalculator = () => {
                   <div className="flex flex-col items-center mt-2 md:mt-4">
                     <Button 
                       onClick={calculateSavings}
+                      disabled={isCalculating}
                       size="lg"
-                      className="rounded-full px-6 md:px-8 py-4 md:py-6 text-base md:text-lg font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 w-full md:w-auto"
+                      className={`relative rounded-full px-6 md:px-8 py-4 md:py-6 text-base md:text-lg font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 w-full md:w-auto ${isCalculating ? 'opacity-90' : ''}`}
                     >
-                      Calculate Your Savings Now
-                      <Calculator className="ml-2" />
+                      {isCalculating ? (
+                        <>
+                          <span className="animate-pulse">Calculating...</span>
+                          <span className="ml-2 animate-spin inline-block h-4 w-4 border-2 border-white border-t-transparent rounded-full"></span>
+                        </>
+                      ) : !calculationDone ? (
+                        <>
+                          Calculate Your Savings Now
+                          <Calculator className="ml-2" />
+                        </>
+                      ) : (
+                        <>
+                          Update Calculation
+                          <Check className="ml-2" />
+                        </>
+                      )}
                     </Button>
+                    {calculationDone && !isCalculating && (
+                      <div className="text-sm text-green-600 mt-2 flex items-center">
+                        <Check className="h-4 w-4 mr-1" /> Results calculated! Scroll down to see your savings
+                      </div>
+                    )}
                     {showError && (
                       <p className="text-red-600 text-sm mt-2">Please enter valid numbers for providers and patients.</p>
                     )}
@@ -258,6 +297,7 @@ export const PricingCalculator = () => {
                     
             {calculationDone && (
               <motion.div 
+                id="calculation-results"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="mt-8 md:mt-12 text-center w-full"
