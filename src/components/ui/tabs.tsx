@@ -6,27 +6,12 @@ import * as TabsPrimitive from "@radix-ui/react-tabs"
 
 import { cn } from "@/lib/utils"
 
-const Tabs = React.forwardRef<
-  React.ElementRef<typeof TabsPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root>
->(({ className, children, ...props }, ref) => (
-  <TabsPrimitive.Root
-    ref={ref}
-    className={cn(
-      "inline-flex items-center justify-start overflow-x-auto scrollbar-hide w-full",
-      className
-    )}
-    {...props}
-  >
-    {children}
-  </TabsPrimitive.Root>
-))
-Tabs.displayName = TabsPrimitive.Root.displayName
+const Tabs = TabsPrimitive.Root
 
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, children, ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <TabsPrimitive.List
     ref={ref}
     className={cn(
@@ -34,9 +19,7 @@ const TabsList = React.forwardRef<
       className
     )}
     {...props}
-  >
-    {children}
-  </TabsPrimitive.List>
+  />
 ))
 TabsList.displayName = TabsPrimitive.List.displayName
 
