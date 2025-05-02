@@ -141,7 +141,7 @@ const AlaskaTherapyIllustration = () => {
         y="260" 
         fontSize="14" 
         fontWeight="bold" 
-        fill="#143151" 
+        fill="#FFFFFF" 
         textAnchor="middle"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
