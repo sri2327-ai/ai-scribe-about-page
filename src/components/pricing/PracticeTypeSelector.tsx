@@ -47,7 +47,9 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     },
     { 
       id: 'clinic', 
-      name: 'Clinic/Group/Enterprise', 
+      name: 'Clinic/Group', 
+      shortName: 'Clinic/Group',
+      displayName: 'Clinic/Group/Enterprise',
       icon: Building,
       description: '6+ providers seeking enterprise-grade solutions at scale',
       plan: 'bundle_enterprise'
@@ -155,7 +157,14 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                         }`}>
                           <Icon size={20} className={isSelected ? 'text-white' : 'text-gray-600'} />
                         </div>
-                        <h3 className="text-lg md:text-xl font-semibold ml-3 md:ml-4 text-[#143151]">{type.name}</h3>
+                        <h3 className="text-lg md:text-xl font-semibold ml-3 md:ml-4 text-[#143151] break-words">
+                          {type.id === 'clinic' ? (
+                            <>
+                              <span className="md:hidden lg:inline">Clinic/Group/Enterprise</span>
+                              <span className="hidden md:inline lg:hidden">Clinic/Group</span>
+                            </>
+                          ) : type.name}
+                        </h3>
                       </div>
                       
                       <p className="text-sm md:text-base text-gray-600 mb-4 flex-grow">{type.description}</p>
@@ -242,7 +251,9 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                         <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89]">
                           <Icon size={20} className="text-white" />
                         </div>
-                        <h3 className="text-lg font-semibold ml-3 text-[#143151]">{type.name}</h3>
+                        <h3 className="text-lg font-semibold ml-3 text-[#143151] break-words">
+                          {type.id === 'clinic' ? 'Clinic/Group' : type.name}
+                        </h3>
                       </div>
                       
                       <p className="text-sm text-gray-600 mb-4">{type.description}</p>
