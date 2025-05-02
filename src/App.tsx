@@ -16,6 +16,7 @@ import Integration from "@/pages/Integration";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
 import Changelog from "@/pages/Changelog";
+import HelpLibrary from "@/pages/HelpLibrary";
 import FAQ from "@/pages/FAQ";
 import CaseStudy from "@/pages/CaseStudy";
 import CaseStudiesIndex from "@/pages/case-studies/index";
@@ -40,6 +41,7 @@ function App() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/blog" element={<Blog />} />
       <Route path="/changelog" element={<Changelog />} />
+      <Route path="/help-library" element={<HelpLibrary />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
