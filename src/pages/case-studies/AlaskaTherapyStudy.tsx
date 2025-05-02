@@ -5,13 +5,14 @@ import InteractiveCaseStudy from '@/components/case-studies/InteractiveCaseStudy
 import { ClinicalCalculator } from '@/components/case-studies/ClinicalCalculator';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Stethoscope, Calculator } from 'lucide-react';
+import AlaskaTherapyIllustration from '@/components/case-studies/custom-illustrations/AlaskaTherapyIllustration';
 
 export default function AlaskaTherapyStudy() {
   return (
     <CaseStudyLayout
       title="The Wasilla, Alaska Hospital Automated Their Therapy Notes With S10.AI"
       description="Learn how a small hospital in Alaska improved documentation in just one week"
-      image="/case-studies/alaska-therapy.svg"
+      customIllustration={<AlaskaTherapyIllustration />}
     >
       <Tabs defaultValue="case-study" className="mb-8">
         <TabsList className="w-full border-b p-0 mb-2 overflow-x-auto flex-nowrap">

@@ -1,11 +1,13 @@
 
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { ChevronRight } from "lucide-react";
 import GastroIllustration from '@/components/case-studies/custom-illustrations/GastroIllustration';
 import IntakeQIllustration from '@/components/case-studies/custom-illustrations/IntakeQIllustration';
 import MultiProviderIllustration from '@/components/case-studies/custom-illustrations/MultiProviderIllustration';
+import TwentyoneThousandCaseStudy from './case-studies/TwentyoneThousandCaseStudy';
+import AlaskaTherapyStudy from './case-studies/AlaskaTherapyStudy';
 
 const caseStudies = [
   { folder: "100-accuracy-in-nordic-languages-fast-documentation", title: "100% Accuracy in Nordic Languages – Fast Documentation", description: "AI-driven solution ensures flawless Nordic language documentation, saving time and reducing errors.", image: "/case-studies/nordic-languages.svg" },
@@ -25,6 +27,16 @@ const caseStudies = [
 
 const CaseStudy = () => {
   const navigate = useNavigate();
+  const { caseStudyId } = useParams();
+  
+  // Special cases routing for specific case studies
+  if (caseStudyId === "physician-saves-twenty-one-thousand-dollars-yearly") {
+    return <TwentyoneThousandCaseStudy />;
+  }
+  
+  if (caseStudyId === "alaska-therapy") {
+    return <AlaskaTherapyStudy />;
+  }
   
   const renderCaseStudyImage = (caseStudy) => {
     if (caseStudy.useCustomIllustration) {

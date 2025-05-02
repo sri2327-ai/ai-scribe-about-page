@@ -1,65 +1,59 @@
 
-import React, { ReactNode } from 'react';
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb';
-import { Helmet } from 'react-helmet-async';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import OptimizedImage from '@/components/ui/optimized-image';
+import { ChevronLeft } from 'lucide-react';
+import styles from '@/styles/casecontentpage.module.scss';
 
 interface CaseStudyLayoutProps {
   title: string;
   description: string;
   image?: string;
-  customIllustration?: ReactNode;
-  children: ReactNode;
+  customIllustration?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-export const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({
-  title,
-  description,
-  image,
+export const CaseStudyLayout: React.FC<CaseStudyLayoutProps> = ({ 
+  title, 
+  description, 
+  image, 
   customIllustration,
-  children,
+  children 
 }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white via-white to-blue-50/30">
-      <Helmet>
-        <title>{title} | S10.AI Case Study</title>
-        <meta name="description" content={description} />
-      </Helmet>
+    <div className="min-h-screen bg-gradient-to-b from-white via-white to-blue-50 pt-24">
+      <div className={styles.casestudycontainer}>
+        <button
+          onClick={() => navigate('/resources/casestudies')}
+          className="inline-flex items-center gap-2 px-4 py-2 mb-8 text-gray-700 hover:text-blue-700 transition-colors"
+        >
+          <ChevronLeft size={18} /> Back to all case studies
+        </button>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-14 md:pt-20 pb-20">
-        <Breadcrumb className="mb-6">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/resources/casestudies">Case Studies</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">{title}</BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-10">
-          <div className="p-6 sm:p-8 md:p-10">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">{title}</h1>
-            <p className="text-gray-600 text-lg mb-8 max-w-3xl">{description}</p>
-            
-            <div className="w-full max-w-3xl mx-auto mb-10 flex justify-center">
-              {customIllustration ? (
-                <div className="w-full max-h-[300px] flex items-center justify-center">
-                  {customIllustration}
-                </div>
-              ) : image ? (
-                <div className="w-full h-[300px] flex items-center justify-center bg-gray-50 rounded-xl overflow-hidden">
-                  <OptimizedImage src={image} alt={title} className="w-full h-full object-contain max-h-[300px]" />
-                </div>
-              ) : null}
-            </div>
-            
-            {children}
+        <div className={styles.bannerCard}>
+          <div className={styles.bannerContent}>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">{title}</h1>
+            <p className="text-lg text-gray-600">{description}</p>
           </div>
+          <div className={styles.bannerImage}>
+            {customIllustration ? (
+              customIllustration
+            ) : (
+              image && (
+                <OptimizedImage
+                  src={image}
+                  alt={title}
+                  className="w-full h-full object-contain"
+                />
+              )
+            )}
+          </div>
+        </div>
+
+        <div className="my-12">
+          {children}
         </div>
       </div>
     </div>
