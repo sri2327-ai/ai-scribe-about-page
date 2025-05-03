@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -12,12 +13,14 @@ import { PracticeTypeSelector } from "@/components/pricing/PracticeTypeSelector"
 import { PricingCards } from "@/components/pricing/PricingCards";
 import { EnhancedFeatureTable } from "@/components/pricing/EnhancedFeatureTable";
 import { InteractiveTestimonials } from "@/components/pricing/InteractiveTestimonials";
+import { CurrencySelector, CurrencyCode } from "@/components/pricing/CurrencySelector";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
   const [activePlan, setActivePlan] = useState<'crush' | 'bravo' | 'bundle'>('crush');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [activeFeatures, setActiveFeatures] = useState<'crush' | 'bravo'>('crush');
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
   
   useEffect(() => {
     console.log("Pricing page mounted");
@@ -33,6 +36,11 @@ const Pricing = () => {
     } else if (planType.startsWith('bundle')) {
       setActivePlan('bundle');
     }
+  };
+
+  // Handle currency change
+  const handleCurrencyChange = (currency: CurrencyCode) => {
+    setSelectedCurrency(currency);
   };
 
   // Animate in variants
@@ -121,6 +129,11 @@ const Pricing = () => {
             </motion.p>
           </motion.div>
 
+          {/* Currency Selector */}
+          <div className="flex justify-center mb-6">
+            <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} />
+          </div>
+
           {/* Tabs */}
           <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
             <Button 
@@ -170,7 +183,7 @@ const Pricing = () => {
 
           {/* Render the appropriate pricing cards based on active plan */}
           <motion.div 
-            key={activePlan + billingCycle}
+            key={`${activePlan}-${billingCycle}-${selectedCurrency}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -208,7 +221,11 @@ const Pricing = () => {
               </div>
             )}
 
-            <PricingCards activePlan={activePlan} billingCycle={billingCycle} />
+            <PricingCards 
+              activePlan={activePlan} 
+              billingCycle={billingCycle} 
+              selectedCurrency={selectedCurrency} 
+            />
           </motion.div>
         </div>
       </section>

@@ -1,10 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, ChevronLeft, ChevronRight, Stethoscope, Building, Users, Heart } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 interface PracticeTypeSelectorProps {
   onSelect: (planType: string) => void;
@@ -12,7 +12,12 @@ interface PracticeTypeSelectorProps {
 
 export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSelect }) => {
   const [selectedType, setSelectedType] = useState<string>("solo"); // Default selected
-  const [activeTab, setActiveTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
+  const [activeTabs, setActiveTabs] = useState<Record<string, 'crush' | 'bravo' | 'bundle'>>({
+    'solo': 'crush',
+    'small': 'crush',
+    'clinic': 'crush',
+    'specialty': 'crush'
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
   
@@ -26,6 +31,13 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     onSelect(type === 'solo' ? "crush_basic" : 
              type === 'small' ? "crush_plus" : 
              type === 'clinic' ? "bundle_enterprise" : "crush_pro");
+  };
+
+  const handleTabChange = (type: string, tabValue: 'crush' | 'bravo' | 'bundle') => {
+    setActiveTabs(prev => ({
+      ...prev,
+      [type]: tabValue
+    }));
   };
   
   // Updated practice types with minor change to description text
@@ -137,6 +149,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
               {practiceTypes.map((type) => {
                 const Icon = type.icon;
                 const isSelected = selectedType === type.id;
+                const activeTab = activeTabs[type.id];
                 
                 return (
                   <motion.div key={type.id} variants={itemVariants} className="h-full">
@@ -169,41 +182,75 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                       <div className="mt-4 pt-4 border-t border-gray-200">
                         <h4 className="font-bold text-[#143151] text-base md:text-lg mb-2">Recommended Plans</h4>
                         
-                        <Tabs 
-                          defaultValue="crush" 
-                          className="w-full" 
-                          onValueChange={(value) => setActiveTab(value as 'crush' | 'bravo' | 'bundle')}
-                        >
-                          <TabsList className="w-full mb-2 bg-gray-100 flex">
-                            <TabsTrigger value="crush" className="flex-1 text-xs md:text-sm py-1 md:py-2">CRUSH</TabsTrigger>
-                            <TabsTrigger value="bravo" className="flex-1 text-xs md:text-sm py-1 md:py-2">BRAVO</TabsTrigger>
-                            <TabsTrigger value="bundle" className="flex-1 text-xs md:text-sm py-1 md:py-2">Bundle</TabsTrigger>
-                          </TabsList>
-                          
-                          <TabsContent value="crush" className="mt-0">
+                        <div className="w-full bg-gray-100 rounded-md mb-2">
+                          <div className="flex justify-between">
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleTabChange(type.id, 'crush');
+                              }}
+                              className={`flex-1 text-xs md:text-sm py-2 px-2 rounded-l-md transition-colors ${
+                                activeTab === 'crush' 
+                                  ? 'bg-[#387E89] text-white font-medium' 
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              CRUSH
+                            </button>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleTabChange(type.id, 'bravo');
+                              }}
+                              className={`flex-1 text-xs md:text-sm py-2 px-2 transition-colors ${
+                                activeTab === 'bravo' 
+                                  ? 'bg-[#387E89] text-white font-medium' 
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              BRAVO
+                            </button>
+                            <button 
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleTabChange(type.id, 'bundle');
+                              }}
+                              className={`flex-1 text-xs md:text-sm py-2 px-2 rounded-r-md transition-colors ${
+                                activeTab === 'bundle' 
+                                  ? 'bg-[#387E89] text-white font-medium' 
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              Bundle
+                            </button>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-3">
+                          {activeTab === 'crush' && (
                             <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 md:p-3 rounded-lg">
                               <h5 className="font-semibold text-sm md:text-base text-[#387E89]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].name}</h5>
                               <p className="text-xs md:text-sm text-gray-600">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].description}</p>
                               <div className="mt-1 md:mt-2 font-bold text-sm md:text-base text-[#143151]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].price}</div>
                             </div>
-                          </TabsContent>
+                          )}
                           
-                          <TabsContent value="bravo" className="mt-0">
+                          {activeTab === 'bravo' && (
                             <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 md:p-3 rounded-lg">
                               <h5 className="font-semibold text-sm md:text-base text-[#387E89]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].name}</h5>
                               <p className="text-xs md:text-sm text-gray-600">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].description}</p>
                               <div className="mt-1 md:mt-2 font-bold text-sm md:text-base text-[#143151]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].price}</div>
                             </div>
-                          </TabsContent>
+                          )}
                           
-                          <TabsContent value="bundle" className="mt-0">
+                          {activeTab === 'bundle' && (
                             <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 md:p-3 rounded-lg">
                               <h5 className="font-semibold text-sm md:text-base text-[#387E89]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].name}</h5>
                               <p className="text-xs md:text-sm text-gray-600">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].description}</p>
                               <div className="mt-1 md:mt-2 font-bold text-sm md:text-base text-[#143151]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].price}</div>
                             </div>
-                          </TabsContent>
-                        </Tabs>
+                          )}
+                        </div>
                         
                         <div className="mt-3">
                           <Button
@@ -238,6 +285,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                 {practiceTypes.map((type, index) => {
                   const Icon = type.icon;
                   const isActive = index === currentIndex;
+                  const activeTab = activeTabs[type.id];
                   
                   if (!isActive) return null;
                   
@@ -257,41 +305,66 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                       <div className="mt-4 pt-4 border-t border-gray-200">
                         <h4 className="font-bold text-[#143151] text-base mb-2">Recommended Plans</h4>
                         
-                        <Tabs 
-                          defaultValue="crush" 
-                          className="w-full" 
-                          onValueChange={(value) => setActiveTab(value as 'crush' | 'bravo' | 'bundle')}
-                        >
-                          <TabsList className="w-full mb-2 bg-gray-100 flex">
-                            <TabsTrigger value="crush" className="flex-1 text-xs py-1">CRUSH</TabsTrigger>
-                            <TabsTrigger value="bravo" className="flex-1 text-xs py-1">BRAVO</TabsTrigger>
-                            <TabsTrigger value="bundle" className="flex-1 text-xs py-1">Bundle</TabsTrigger>
-                          </TabsList>
-                          
-                          <TabsContent value="crush" className="mt-0">
+                        <div className="w-full bg-gray-100 rounded-md mb-2">
+                          <div className="flex justify-between">
+                            <button 
+                              onClick={() => handleTabChange(type.id, 'crush')}
+                              className={`flex-1 text-xs py-2 px-2 rounded-l-md transition-colors ${
+                                activeTab === 'crush' 
+                                  ? 'bg-[#387E89] text-white font-medium' 
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              CRUSH
+                            </button>
+                            <button 
+                              onClick={() => handleTabChange(type.id, 'bravo')}
+                              className={`flex-1 text-xs py-2 px-2 transition-colors ${
+                                activeTab === 'bravo' 
+                                  ? 'bg-[#387E89] text-white font-medium' 
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              BRAVO
+                            </button>
+                            <button 
+                              onClick={() => handleTabChange(type.id, 'bundle')}
+                              className={`flex-1 text-xs py-2 px-2 rounded-r-md transition-colors ${
+                                activeTab === 'bundle' 
+                                  ? 'bg-[#387E89] text-white font-medium' 
+                                  : 'hover:bg-gray-200'
+                              }`}
+                            >
+                              Bundle
+                            </button>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-3">
+                          {activeTab === 'crush' && (
                             <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 rounded-lg">
                               <h5 className="font-semibold text-sm text-[#387E89]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].name}</h5>
                               <p className="text-xs text-gray-600">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].description}</p>
                               <div className="mt-1 font-bold text-sm text-[#143151]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].price}</div>
                             </div>
-                          </TabsContent>
+                          )}
                           
-                          <TabsContent value="bravo" className="mt-0">
+                          {activeTab === 'bravo' && (
                             <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 rounded-lg">
                               <h5 className="font-semibold text-sm text-[#387E89]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].name}</h5>
                               <p className="text-xs text-gray-600">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].description}</p>
                               <div className="mt-1 font-bold text-sm text-[#143151]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].price}</div>
                             </div>
-                          </TabsContent>
+                          )}
                           
-                          <TabsContent value="bundle" className="mt-0">
+                          {activeTab === 'bundle' && (
                             <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 rounded-lg">
                               <h5 className="font-semibold text-sm text-[#387E89]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].name}</h5>
                               <p className="text-xs text-gray-600">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].description}</p>
                               <div className="mt-1 font-bold text-sm text-[#143151]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].price}</div>
                             </div>
-                          </TabsContent>
-                        </Tabs>
+                          )}
+                        </div>
                         
                         <div className="mt-3">
                           <Button

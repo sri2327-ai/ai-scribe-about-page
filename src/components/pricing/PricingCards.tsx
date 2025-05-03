@@ -1,15 +1,19 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, BadgePercent, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Check, BadgePercent } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { CurrencyCode } from './CurrencySelector';
+import { getPricingByCurrency } from '@/utils/pricing';
 
 interface PricingCardsProps {
   activePlan: 'crush' | 'bravo' | 'bundle';
   billingCycle: 'monthly' | 'annual';
+  selectedCurrency: CurrencyCode;
 }
 
-export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) => {
+export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: PricingCardsProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const cardsContainerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -41,38 +45,15 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
     })
   };
   
-  // Navigation for mobile carousel
-  const nextCard = () => {
-    const numCards = getNumCards();
-    if (currentIndex < numCards - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
+  // Get pricing for the selected currency and billing cycle
+  const pricingData = getPricingByCurrency(selectedCurrency, billingCycle);
   
-  const prevCard = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
-  
+  // For mobile carousel
   const getNumCards = () => {
     if (activePlan === 'crush' || activePlan === 'bravo' || activePlan === 'bundle') {
       return 3;
     }
     return 0;
-  };
-
-  // Calculate annual price with savings (16%)
-  const calculateAnnualPrice = (monthlyPrice: string): string => {
-    if (monthlyPrice.includes('$')) {
-      const numericPart = monthlyPrice.match(/\$(\d+)/);
-      if (numericPart && numericPart[1]) {
-        const monthly = parseInt(numericPart[1]);
-        const annual = (monthly * 10).toLocaleString(); // 12 months - 16% discount ≈ 10 months worth
-        return `$${annual}`;
-      }
-    }
-    return monthlyPrice;
   };
 
   // Render different plan cards based on the active plan
@@ -91,11 +72,11 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$99' : '$990'}
+                  {pricingData.crush.noEhr}
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $198)'}
+                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -153,8 +134,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$149-$199' : '$1,490-$1,990'}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  {pricingData.crush.withEhr}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -183,10 +163,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                30-Day Money-Back Guarantee
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
 
@@ -206,7 +186,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  Custom pricing
+                  {pricingData.crush.pro}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -236,10 +216,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                30-Day Money-Back Guarantee
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
         </>
@@ -258,11 +238,11 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? 'From $99' : 'From $990'}
+                  From {pricingData.bravo.noEhr}
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save $198)'}
+                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -312,8 +292,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? 'Up to $299' : 'Up to $2,990'}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  {pricingData.bravo.withEhr}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -343,10 +322,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                30-Day Money-Back Guarantee
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
 
@@ -361,7 +340,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Enterprise</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  Custom
+                  {pricingData.bravo.pro}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored for large practices
@@ -412,7 +391,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$159-$399' : '$1,590-$3,990'}
+                  From {pricingData.bundle.noEhr}
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
@@ -455,8 +434,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {billingCycle === 'monthly' ? '$199-$399' : '$1,990-$3,990'}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  {pricingData.bundle.withEhr}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -480,10 +458,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                30-Day Money-Back Guarantee
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
 
@@ -508,7 +486,7 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  Custom pricing
+                  {pricingData.bundle.pro}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -534,10 +512,10 @@ export const PricingCards = ({ activePlan, billingCycle }: PricingCardsProps) =>
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                30-Day Money-Back Guarantee
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">No credit card required</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
         </>
