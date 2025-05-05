@@ -14,6 +14,7 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
 
 // Mock data - replace with actual API calls in production
 const mockBlogs = [

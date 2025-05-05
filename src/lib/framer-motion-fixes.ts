@@ -15,6 +15,18 @@ export interface SafeMotionStyle extends CSSProperties {
   background?: string;
   borderRadius?: string;
   boxShadow?: string;
+  border?: string;
+  width?: string | number;
+  height?: string | number;
+  left?: string | number;
+  right?: string | number;
+  top?: string | number;
+  bottom?: string | number;
+  marginTop?: string | number;
+  marginBottom?: string | number;
+  marginLeft?: string | number;
+  marginRight?: string | number;
+  opacity?: number;
 }
 
 // For animate props in motion components
@@ -28,6 +40,12 @@ export interface SafeMotionAnimate {
   boxShadow?: string | string[];
   backgroundColor?: string | string[];
   background?: string | string[];
+  width?: string | number | (string | number)[];
+  height?: string | number | (string | number)[];
+  left?: string | number | (string | number)[];
+  right?: string | number | (string | number)[];
+  top?: string | number | (string | number)[];
+  bottom?: string | number | (string | number)[];
   [key: string]: any;
 }
 

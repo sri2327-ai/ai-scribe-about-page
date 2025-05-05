@@ -10,6 +10,7 @@ import {
 import { User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { bravoColors } from "@/theme/bravo-theme";
+import { cn } from "@/lib/utils"; // Import cn utility for className merging
 
 const testimonials = [
   {
@@ -107,7 +108,8 @@ export const BravoTestimonialsSection = () => {
                             </p>
                           </div>
                           <div className="flex items-center gap-3">
-                            <Avatar className="h-10 w-10">
+                            {/* Fixed Avatar usage - using cn utility to merge classes instead of className prop directly */}
+                            <Avatar className={cn("h-10 w-10")}>
                               <AvatarImage src={testimonial.avatar} alt={testimonial.author} />
                               <AvatarFallback>
                                 {testimonial.author.split(' ').map(n => n[0]).join('')}

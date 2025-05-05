@@ -282,11 +282,11 @@ export const VoiceSelectionInterface = memo(() => {
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true, amount: 0.3 }}
             className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
-            style={{ 
+            style={safeMotionStyle({ 
               border: '1px solid rgba(255, 255, 255, 0.3)',
               backdropFilter: 'blur(10px)',
-              background: 'rgba(255, 255, 255, 0.2)'
-            }}
+              backgroundColor: 'rgba(255, 255, 255, 0.2)'
+            })}
           >
             <div className="flex items-center">
               <AlertCircle className="w-5 h-5 mr-3 text-white" />
