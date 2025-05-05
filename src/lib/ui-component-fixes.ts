@@ -21,83 +21,93 @@ import { TooltipTrigger } from '@/components/ui/tooltip';
 export const StyledAvatar = React.forwardRef<
   HTMLSpanElement, 
   React.ComponentPropsWithoutRef<typeof Avatar> & { className?: string }
->(({ className, ...props }, ref) => (
-  <Avatar ref={ref} className={cn(className)} {...props} />
-));
+>((props, ref) => {
+  const { className, ...rest } = props;
+  return <Avatar ref={ref} className={cn(className)} {...rest} />;
+});
 StyledAvatar.displayName = 'StyledAvatar';
 
 export const StyledAvatarImage = React.forwardRef<
   HTMLImageElement, 
   React.ComponentPropsWithoutRef<typeof AvatarImage> & { className?: string }
->(({ className, ...props }, ref) => (
-  <AvatarImage ref={ref} className={cn(className)} {...props} />
-));
+>((props, ref) => {
+  const { className, ...rest } = props;
+  return <AvatarImage ref={ref} className={cn(className)} {...rest} />;
+});
 StyledAvatarImage.displayName = 'StyledAvatarImage';
 
 export const StyledAvatarFallback = React.forwardRef<
   HTMLSpanElement, 
   React.ComponentPropsWithoutRef<typeof AvatarFallback> & { className?: string }
->(({ className, ...props }, ref) => (
-  <AvatarFallback ref={ref} className={cn(className)} {...props} />
-));
+>((props, ref) => {
+  const { className, ...rest } = props;
+  return <AvatarFallback ref={ref} className={cn(className)} {...rest} />;
+});
 StyledAvatarFallback.displayName = 'StyledAvatarFallback';
 
 // Dialog components with className support
 export const StyledDialogTitle = React.forwardRef<
   HTMLHeadingElement, 
   React.ComponentPropsWithoutRef<typeof DialogTitle> & { className?: string, children?: React.ReactNode }
->(({ className, children, ...props }, ref) => (
-  <DialogTitle ref={ref} className={cn(className)} {...props}>{children}</DialogTitle>
-));
+>((props, ref) => {
+  const { className, children, ...rest } = props;
+  return <DialogTitle ref={ref} className={cn(className)} {...rest}>{children}</DialogTitle>;
+});
 StyledDialogTitle.displayName = 'StyledDialogTitle';
 
 export const StyledDialogClose = React.forwardRef<
   HTMLButtonElement, 
   React.ComponentPropsWithoutRef<typeof DialogClose> & { className?: string, children?: React.ReactNode }
->(({ className, children, ...props }, ref) => (
-  <DialogClose ref={ref} className={cn(className)} {...props}>{children}</DialogClose>
-));
+>((props, ref) => {
+  const { className, children, ...rest } = props;
+  return <DialogClose ref={ref} className={cn(className)} {...rest}>{children}</DialogClose>;
+});
 StyledDialogClose.displayName = 'StyledDialogClose';
 
 // Select components with className support
 export const StyledSelectTrigger = React.forwardRef<
   HTMLButtonElement, 
   React.ComponentPropsWithoutRef<typeof SelectTrigger> & { className?: string, children?: React.ReactNode, id?: string }
->(({ className, children, id, ...props }, ref) => (
-  <SelectTrigger ref={ref} className={cn(className)} id={id} {...props}>{children}</SelectTrigger>
-));
+>((props, ref) => {
+  const { className, children, id, ...rest } = props;
+  return <SelectTrigger ref={ref} className={cn(className)} id={id} {...rest}>{children}</SelectTrigger>;
+});
 StyledSelectTrigger.displayName = 'StyledSelectTrigger';
 
 export const StyledSelectContent = React.forwardRef<
   HTMLDivElement, 
   React.ComponentPropsWithoutRef<typeof SelectContent> & { className?: string, children?: React.ReactNode, position?: string, sideOffset?: number }
->(({ className, children, position, sideOffset, ...props }, ref) => (
-  <SelectContent ref={ref} className={cn(className)} position={position as any} sideOffset={sideOffset} {...props}>{children}</SelectContent>
-));
+>((props, ref) => {
+  const { className, children, position, sideOffset, ...rest } = props;
+  return <SelectContent ref={ref} className={cn(className)} position={position as any} sideOffset={sideOffset} {...rest}>{children}</SelectContent>;
+});
 StyledSelectContent.displayName = 'StyledSelectContent';
 
 export const StyledSelectItem = React.forwardRef<
   HTMLDivElement, 
   React.ComponentPropsWithoutRef<typeof SelectItem> & { className?: string, children?: React.ReactNode }
->(({ className, children, ...props }, ref) => (
-  <SelectItem ref={ref} className={cn(className)} {...props}>{children}</SelectItem>
-));
+>((props, ref) => {
+  const { className, children, ...rest } = props;
+  return <SelectItem ref={ref} className={cn(className)} {...rest}>{children}</SelectItem>;
+});
 StyledSelectItem.displayName = 'StyledSelectItem';
 
 // Separator with className support
 export const StyledSeparator = React.forwardRef<
   HTMLDivElement, 
   React.ComponentPropsWithoutRef<typeof Separator> & { className?: string }
->(({ className, ...props }, ref) => (
-  <Separator ref={ref} className={cn(className)} {...props} />
-));
+>((props, ref) => {
+  const { className, ...rest } = props;
+  return <Separator ref={ref} className={cn(className)} {...rest} />;
+});
 StyledSeparator.displayName = 'StyledSeparator';
 
 // Tooltip with children support
 export const StyledTooltipTrigger = React.forwardRef<
   HTMLButtonElement, 
   React.ComponentPropsWithoutRef<typeof TooltipTrigger> & { children?: React.ReactNode }
->(({ children, ...props }, ref) => (
-  <TooltipTrigger ref={ref} {...props}>{children}</TooltipTrigger>
-));
+>((props, ref) => {
+  const { children, ...rest } = props;
+  return <TooltipTrigger ref={ref} {...rest}>{children}</TooltipTrigger>;
+});
 StyledTooltipTrigger.displayName = 'StyledTooltipTrigger';
