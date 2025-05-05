@@ -97,7 +97,13 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   // Format the price with currency symbol
   const formatPrice = (price: number | string | 'custom') => {
     if (price === 'custom') return 'Custom pricing';
-    if (typeof price === 'string') return price;
+    if (typeof price === 'string') {
+      // Handle string prices that include currency symbols
+      if (price.includes('$') && currency !== 'USD') {
+        return price.replace('$', symbol);
+      }
+      return price;
+    }
     return `${symbol}${(price * multiplier).toLocaleString()}`;
   };
   
@@ -109,7 +115,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   // Calculate bundle prices (approximately 1.6x the base price with 10% discount)
   const calcBundlePrice = (basePrice: number | string | 'custom') => {
     if (basePrice === 'custom' || typeof basePrice === 'string') return 'Custom pricing';
-    return Math.round(basePrice * 1.6 * 0.9);
+    return Math.round(basePrice * 1.6 * 0.9); // Combined price with 10% bundle discount
   };
   
   // Generate pricing data for all products
@@ -127,14 +133,18 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       pro: formatPrice(pricing.bravoPro)
     },
     bundle: {
-      noEhr: typeof pricing.noEhr === 'number' ? formatPrice(calcBundlePrice(pricing.noEhr)) : 'Custom pricing',
-      withEhr: typeof pricing.withEhr === 'number' ? formatPrice(calcBundlePrice(pricing.withEhr as number)) : 'Custom pricing',
+      noEhr: typeof pricing.noEhr === 'number' && typeof pricing.bravoNoEhr === 'number' ? 
+             formatPrice(calcBundlePrice(pricing.noEhr + pricing.bravoNoEhr)) : 
+             'Custom pricing',
+      withEhr: typeof pricing.withEhr === 'number' && typeof pricing.bravoNoEhr === 'number' ? 
+              formatPrice(calcBundlePrice(pricing.withEhr + pricing.bravoNoEhr)) : 
+              'Custom pricing',
       pro: pricing.pro === 'custom' || pricing.bravoPro === 'custom' ? 
            'Custom pricing' : 
-           formatPrice(calcBundlePrice(Math.max(
-             typeof pricing.pro === 'number' ? pricing.pro : 0, 
-             typeof pricing.bravoPro === 'number' ? pricing.bravoPro : 0
-           )))
+           formatPrice(calcBundlePrice(
+             (typeof pricing.pro === 'number' ? pricing.pro : 0) + 
+             (typeof pricing.bravoPro === 'number' ? pricing.bravoPro : 0)
+           ))
     }
   };
 };
