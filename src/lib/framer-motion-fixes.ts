@@ -14,9 +14,9 @@ export interface SafeMotionStyle extends CSSProperties {
   backgroundColor?: string;
   background?: string;
   backdropFilter?: string;
+  border?: string;
   borderRadius?: string;
   boxShadow?: string;
-  border?: string;
   width?: string | number;
   height?: string | number;
   left?: string | number;

@@ -10,8 +10,8 @@ export interface SafeMotionAnimateProps {
   backgroundColor?: string | string[];
   background?: string | string[];
   borderRadius?: string | string[];
-  scale?: number | number[];
   opacity?: number | number[];
+  scale?: number | number[];
   x?: number | number[];
   y?: number | number[];
   [key: string]: any; // Allow any property
