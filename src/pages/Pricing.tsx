@@ -134,25 +134,34 @@ const Pricing = () => {
             <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} showPerProviderNote={true} />
           </div>
 
-          {/* Tabs */}
+          {/* Tabs - Updated to ensure clicks work */}
           <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
             <Button 
               variant={activePlan === 'crush' ? 'default' : 'outline'}
-              onClick={() => setActivePlan('crush')}
+              onClick={() => {
+                console.log("Clicked CRUSH button");
+                setActivePlan('crush');
+              }}
               className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activePlan === 'crush' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
             >
               CRUSH (AI Scribe)
             </Button>
             <Button 
               variant={activePlan === 'bravo' ? 'default' : 'outline'}
-              onClick={() => setActivePlan('bravo')}
+              onClick={() => {
+                console.log("Clicked BRAVO button");
+                setActivePlan('bravo');
+              }}
               className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activePlan === 'bravo' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
             >
               BRAVO (Patient Engagement)
             </Button>
             <Button 
               variant={activePlan === 'bundle' ? 'default' : 'outline'}
-              onClick={() => setActivePlan('bundle')}
+              onClick={() => {
+                console.log("Clicked Bundle button");
+                setActivePlan('bundle');
+              }}
               className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activePlan === 'bundle' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
             >
               Bundle
@@ -264,18 +273,24 @@ const Pricing = () => {
             </motion.p>
           </motion.div>
 
-          {/* Feature Toggle - Improved for mobile */}
+          {/* Feature Toggle - Improved with explicit click handlers */}
           <div className="flex flex-wrap justify-center gap-3 md:gap-5 mb-6 md:mb-10">
             <Button 
               variant={activeFeatures === 'crush' ? 'default' : 'outline'}
-              onClick={() => setActiveFeatures('crush')}
+              onClick={() => {
+                console.log("Clicked CRUSH features button");
+                setActiveFeatures('crush');
+              }}
               className={`rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base ${activeFeatures === 'crush' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : 'border-2 border-[#387E89]/50'}`}
             >
               CRUSH Features
             </Button>
             <Button 
               variant={activeFeatures === 'bravo' ? 'default' : 'outline'}
-              onClick={() => setActiveFeatures('bravo')}
+              onClick={() => {
+                console.log("Clicked BRAVO features button");
+                setActiveFeatures('bravo');
+              }}
               className={`rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base ${activeFeatures === 'bravo' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : 'border-2 border-[#387E89]/50'}`}
             >
               BRAVO Features
