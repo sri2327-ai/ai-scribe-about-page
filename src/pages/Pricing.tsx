@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -21,7 +20,6 @@ const Pricing = () => {
   console.log("Rendering Pricing page");
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
-  const [activeTabValue, setActiveTabValue] = useState<'crush' | 'bravo' | 'bundle'>('crush');
   
   useEffect(() => {
     console.log("Pricing page mounted");
@@ -29,10 +27,10 @@ const Pricing = () => {
   }, []);
   
   // Handle practice selection
-  const handlePracticeSelection = (planType: 'crush' | 'bravo' | 'bundle') => {
+  const handlePracticeSelection = (planType: string) => {
     console.log("Practice selection:", planType);
-    setActiveTabValue(planType);
-    setBillingCycle('monthly'); // Always show monthly billing when selecting a plan
+    // This function is kept for compatibility with PracticeTypeSelector
+    // but tab selection is now handled by Radix UI Tabs
   };
 
   // Handle currency change
@@ -134,8 +132,7 @@ const Pricing = () => {
           {/* Tabs - Fixed Radix UI Tabs implementation */}
           <div className="flex flex-col items-center">
             <Tabs 
-              value={activeTabValue} 
-              onValueChange={(value) => setActiveTabValue(value as 'crush' | 'bravo' | 'bundle')}
+              defaultValue="crush" 
               className="w-full flex flex-col items-center"
             >
               <TabsList className="mb-6 md:mb-8">
