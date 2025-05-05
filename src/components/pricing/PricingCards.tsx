@@ -6,6 +6,7 @@ import { ArrowRight, Check, BadgePercent } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { CurrencyCode } from './CurrencySelector';
 import { getPricingByCurrency } from '@/utils/pricing';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PricingCardsProps {
   activePlan: 'crush' | 'bravo' | 'bundle';
@@ -135,6 +136,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.crush.withEhr}
+                  {pricingData.crush.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -187,6 +189,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.crush.pro}
+                  {pricingData.crush.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -293,6 +296,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.bravo.withEhr}
+                  {pricingData.bravo.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -341,6 +345,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bravo.pro}
+                  {pricingData.bravo.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored for large practices
@@ -395,7 +400,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  Tailored to your practice
+                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -435,6 +440,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bundle.withEhr}
+                  {pricingData.bundle.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -487,6 +493,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bundle.pro}
+                  {pricingData.bundle.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice

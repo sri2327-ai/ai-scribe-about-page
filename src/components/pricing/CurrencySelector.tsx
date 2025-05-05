@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export type CurrencyCode = 'USD' | 'CAD' | 'AUD' | 'GBP' | 'EUR' | 'NZD' | 'AED';
@@ -24,6 +25,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({ selectedCurr
         value={selectedCurrency}
         onChange={(e) => onChange(e.target.value as CurrencyCode)}
         className="appearance-none bg-white border border-gray-200 rounded-md py-2 px-4 pr-8 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+        style={{ backgroundColor: 'white' }}
       >
         <option value="USD">USD ($)</option>
         <option value="CAD">CAD (C$)</option>

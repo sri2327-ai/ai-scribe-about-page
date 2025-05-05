@@ -14,6 +14,7 @@ import { PricingCards } from "@/components/pricing/PricingCards";
 import { EnhancedFeatureTable } from "@/components/pricing/EnhancedFeatureTable";
 import { InteractiveTestimonials } from "@/components/pricing/InteractiveTestimonials";
 import { CurrencySelector, CurrencyCode } from "@/components/pricing/CurrencySelector";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
@@ -169,15 +170,24 @@ const Pricing = () => {
               >
                 Monthly
               </Button>
-              <Button 
-                variant="ghost"
-                onClick={() => setBillingCycle('annual')}
-                className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
-              >
-                Annual
-                <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
-                <span className="text-xs ml-1">Save 16%</span>
-              </Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="ghost"
+                      onClick={() => setBillingCycle('annual')}
+                      className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                    >
+                      Annual
+                      <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
+                      <span className="text-xs ml-1">Save 16%</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Pay for 10 months, get 12 months of service</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
 
