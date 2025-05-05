@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -14,6 +15,7 @@ import { EnhancedFeatureTable } from "@/components/pricing/EnhancedFeatureTable"
 import { InteractiveTestimonials } from "@/components/pricing/InteractiveTestimonials";
 import { CurrencySelector, CurrencyCode } from "@/components/pricing/CurrencySelector";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
@@ -134,79 +136,69 @@ const Pricing = () => {
             <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} showPerProviderNote={true} />
           </div>
 
-          {/* Tabs - Updated to ensure clicks work */}
-          <div className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
-            <Button 
-              variant={activePlan === 'crush' ? 'default' : 'outline'}
-              onClick={() => {
-                console.log("Clicked CRUSH button");
-                setActivePlan('crush');
-              }}
-              className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activePlan === 'crush' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
-            >
-              CRUSH (AI Scribe)
-            </Button>
-            <Button 
-              variant={activePlan === 'bravo' ? 'default' : 'outline'}
-              onClick={() => {
-                console.log("Clicked BRAVO button");
-                setActivePlan('bravo');
-              }}
-              className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activePlan === 'bravo' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
-            >
-              BRAVO (Patient Engagement)
-            </Button>
-            <Button 
-              variant={activePlan === 'bundle' ? 'default' : 'outline'}
-              onClick={() => {
-                console.log("Clicked Bundle button");
-                setActivePlan('bundle');
-              }}
-              className={`rounded-full px-4 md:px-6 py-1 md:py-2 text-sm ${activePlan === 'bundle' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : ''}`}
-            >
-              Bundle
-            </Button>
-          </div>
-
-          {/* Pricing Toggle */}
-          <div className="flex justify-center mb-8 md:mb-12">
-            <div className="flex bg-gray-100 rounded-full p-1">
-              <Button 
-                variant="ghost"
-                onClick={() => setBillingCycle('monthly')}
-                className={`rounded-full text-xs md:text-sm ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
-              >
-                Monthly
-              </Button>
-              <TooltipProvider>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button 
-                      variant="ghost"
-                      onClick={() => setBillingCycle('annual')}
-                      className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
-                    >
-                      Annual
-                      <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
-                      <span className="text-xs ml-1">Save 16%</span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p>Pay for 10 months, get 12 months of service</p>
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
-            </div>
-          </div>
-
-          {/* Render the appropriate pricing cards based on active plan */}
-          <motion.div 
-            key={`${activePlan}-${billingCycle}-${selectedCurrency}`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
+          {/* Tabs - Updated to use Radix UI Tabs */}
+          <Tabs 
+            value={activePlan} 
+            onValueChange={(value) => {
+              console.log("Changed to tab:", value);
+              setActivePlan(value as 'crush' | 'bravo' | 'bundle');
+            }}
+            className="flex flex-col items-center"
           >
-            {activePlan === 'crush' && (
+            <TabsList className="flex flex-wrap justify-center gap-2 mb-6 md:mb-8">
+              <TabsTrigger 
+                value="crush"
+                className="rounded-full px-4 md:px-6 py-1 md:py-2 text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white"
+              >
+                CRUSH (AI Scribe)
+              </TabsTrigger>
+              <TabsTrigger 
+                value="bravo"
+                className="rounded-full px-4 md:px-6 py-1 md:py-2 text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white"
+              >
+                BRAVO (Patient Engagement)
+              </TabsTrigger>
+              <TabsTrigger 
+                value="bundle"
+                className="rounded-full px-4 md:px-6 py-1 md:py-2 text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white"
+              >
+                Bundle
+              </TabsTrigger>
+            </TabsList>
+
+            {/* Pricing Toggle */}
+            <div className="flex justify-center mb-8 md:mb-12">
+              <div className="flex bg-gray-100 rounded-full p-1">
+                <Button 
+                  variant="ghost"
+                  onClick={() => setBillingCycle('monthly')}
+                  className={`rounded-full text-xs md:text-sm ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                >
+                  Monthly
+                </Button>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button 
+                        variant="ghost"
+                        onClick={() => setBillingCycle('annual')}
+                        className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                      >
+                        Annual
+                        <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
+                        <span className="text-xs ml-1">Save 16%</span>
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Pay for 10 months, get 12 months of service</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </div>
+
+            {/* Tab Contents */}
+            <TabsContent value="crush" className="w-full">
               <div className="text-center mb-6 md:mb-10">
                 <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
                   CRUSH: End Charting Nightmares with AI-Powered Precision
@@ -215,9 +207,14 @@ const Pricing = () => {
                   From pinpoint-accurate notes to seamless EHR integration, CRUSH saves 2+ hours daily. Don't let documentation ruin your evenings—start now!
                 </p>
               </div>
-            )}
+              <PricingCards 
+                activePlan="crush" 
+                billingCycle={billingCycle} 
+                selectedCurrency={selectedCurrency} 
+              />
+            </TabsContent>
 
-            {activePlan === 'bravo' && (
+            <TabsContent value="bravo" className="w-full">
               <div className="text-center mb-6 md:mb-10">
                 <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
                   BRAVO: Slash No-Shows with Seamless Patient Engagement
@@ -226,9 +223,14 @@ const Pricing = () => {
                   Automate your front office and cut no-shows by 30% with AI-powered scheduling and patient communication. Focus on care—start today!
                 </p>
               </div>
-            )}
+              <PricingCards 
+                activePlan="bravo" 
+                billingCycle={billingCycle} 
+                selectedCurrency={selectedCurrency} 
+              />
+            </TabsContent>
 
-            {activePlan === 'bundle' && (
+            <TabsContent value="bundle" className="w-full">
               <div className="text-center mb-6 md:mb-10">
                 <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
                   Bundle: Transform Your Practice with Comprehensive AI Solutions
@@ -237,14 +239,13 @@ const Pricing = () => {
                   Combine CRUSH and BRAVO for unmatched efficiency and patient satisfaction. Save 10% with our time-saving, HIPAA-compliant bundle!
                 </p>
               </div>
-            )}
-
-            <PricingCards 
-              activePlan={activePlan} 
-              billingCycle={billingCycle} 
-              selectedCurrency={selectedCurrency} 
-            />
-          </motion.div>
+              <PricingCards 
+                activePlan="bundle" 
+                billingCycle={billingCycle} 
+                selectedCurrency={selectedCurrency} 
+              />
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
@@ -273,42 +274,56 @@ const Pricing = () => {
             </motion.p>
           </motion.div>
 
-          {/* Feature Toggle - Improved with explicit click handlers */}
-          <div className="flex flex-wrap justify-center gap-3 md:gap-5 mb-6 md:mb-10">
-            <Button 
-              variant={activeFeatures === 'crush' ? 'default' : 'outline'}
-              onClick={() => {
-                console.log("Clicked CRUSH features button");
-                setActiveFeatures('crush');
-              }}
-              className={`rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base ${activeFeatures === 'crush' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : 'border-2 border-[#387E89]/50'}`}
-            >
-              CRUSH Features
-            </Button>
-            <Button 
-              variant={activeFeatures === 'bravo' ? 'default' : 'outline'}
-              onClick={() => {
-                console.log("Clicked BRAVO features button");
-                setActiveFeatures('bravo');
-              }}
-              className={`rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base ${activeFeatures === 'bravo' ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white' : 'border-2 border-[#387E89]/50'}`}
-            >
-              BRAVO Features
-            </Button>
-          </div>
-
-          {/* Feature Tables - Improved scrolling for mobile */}
-          <motion.div 
-            key={activeFeatures}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
+          {/* Feature Toggle - Also convert to Tabs */}
+          <Tabs
+            value={activeFeatures}
+            onValueChange={(value) => {
+              console.log("Changed to features tab:", value);
+              setActiveFeatures(value as 'crush' | 'bravo');
+            }}
+            className="flex flex-col items-center"
           >
-            <div className="min-w-[768px] md:min-w-0">
-              <EnhancedFeatureTable product={activeFeatures} />
-            </div>
-          </motion.div>
+            <TabsList className="flex flex-wrap justify-center gap-3 md:gap-5 mb-6 md:mb-10">
+              <TabsTrigger 
+                value="crush"
+                className="rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white"
+              >
+                CRUSH Features
+              </TabsTrigger>
+              <TabsTrigger 
+                value="bravo"
+                className="rounded-full px-5 md:px-8 py-2 md:py-3 text-sm md:text-base data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white"
+              >
+                BRAVO Features
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="crush" className="w-full">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
+              >
+                <div className="min-w-[768px] md:min-w-0">
+                  <EnhancedFeatureTable product="crush" />
+                </div>
+              </motion.div>
+            </TabsContent>
+            
+            <TabsContent value="bravo" className="w-full">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
+              >
+                <div className="min-w-[768px] md:min-w-0">
+                  <EnhancedFeatureTable product="bravo" />
+                </div>
+              </motion.div>
+            </TabsContent>
+          </Tabs>
           
           {/* Mobile scroll indicator */}
           <div className="flex md:hidden justify-center mt-3 items-center text-sm text-[#387E89]">
