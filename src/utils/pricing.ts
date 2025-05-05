@@ -16,8 +16,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     withEhr?: number, 
     withEhrMax?: number,
     pro?: number,
-    bravoNoEhr?: number,
-    bravoWithEhr?: number, 
+    bravoNoEhr: number,
+    bravoWithEhr: number, 
     bravoPro?: number
   }> = {
     USD: { 
@@ -26,8 +26,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 199,
       pro: 0, // Custom pricing
       bravoNoEhr: 99,
-      bravoWithEhr: 119,
-      bravoPro: 149
+      bravoWithEhr: 299,
+      bravoPro: 0 // Custom pricing
     },
     CAD: { 
       noEhr: 129, 
@@ -35,8 +35,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 249,
       pro: 0, // Custom pricing
       bravoNoEhr: 129,
-      bravoWithEhr: 159,
-      bravoPro: 199
+      bravoWithEhr: 389,
+      bravoPro: 0 // Custom pricing
     },
     AUD: { 
       noEhr: 149, 
@@ -44,8 +44,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 249,
       pro: 0, // Custom pricing
       bravoNoEhr: 149,
-      bravoWithEhr: 169,
-      bravoPro: 219
+      bravoWithEhr: 449,
+      bravoPro: 0 // Custom pricing
     },
     GBP: { 
       noEhr: 79, 
@@ -53,8 +53,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 169,
       pro: 0, // Custom pricing
       bravoNoEhr: 79,
-      bravoWithEhr: 99,
-      bravoPro: 129
+      bravoWithEhr: 239,
+      bravoPro: 0 // Custom pricing
     },
     EUR: { 
       noEhr: 89, 
@@ -62,8 +62,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 179,
       pro: 0, // Custom pricing
       bravoNoEhr: 89,
-      bravoWithEhr: 109,
-      bravoPro: 149
+      bravoWithEhr: 269,
+      bravoPro: 0 // Custom pricing
     },
     NZD: { 
       noEhr: 159, 
@@ -71,8 +71,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 279,
       pro: 0, // Custom pricing
       bravoNoEhr: 159,
-      bravoWithEhr: 179,
-      bravoPro: 229
+      bravoWithEhr: 479,
+      bravoPro: 0 // Custom pricing
     },
     AED: { 
       noEhr: 363, 
@@ -80,8 +80,8 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 650,
       pro: 0, // Custom pricing
       bravoNoEhr: 363,
-      bravoWithEhr: 436,
-      bravoPro: 545
+      bravoWithEhr: 1099,
+      bravoPro: 0 // Custom pricing
     },
   };
   
@@ -103,6 +103,19 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}`;
   };
   
+  // Calculate bundle pricing (CRUSH + BRAVO with 10% discount)
+  const calculateBundlePrice = (crushPrice: number, bravoPrice: number) => {
+    return (crushPrice + bravoPrice) * 0.9; // 10% discount
+  };
+  
+  // Generate bundle price range for Basic with EHR
+  const getBundleWithEhrRange = () => {
+    if (!pricing.withEhr || !pricing.withEhrMax || !pricing.bravoNoEhr) return 'Custom pricing';
+    const minBundle = calculateBundlePrice(pricing.withEhr, pricing.bravoNoEhr);
+    const maxBundle = calculateBundlePrice(pricing.withEhrMax, pricing.bravoNoEhr);
+    return formatPriceRange(minBundle, maxBundle);
+  };
+  
   // Generate pricing data for all products
   return {
     crush: {
@@ -111,14 +124,14 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       pro: 'Custom pricing'
     },
     bravo: {
-      noEhr: formatPrice(pricing.bravoNoEhr || pricing.noEhr),
-      withEhr: formatPrice(pricing.bravoWithEhr || pricing.withEhr),
-      pro: formatPrice(pricing.bravoPro || pricing.pro)
+      noEhr: formatPrice(pricing.bravoNoEhr),
+      withEhr: formatPrice(pricing.bravoWithEhr),
+      pro: 'Custom pricing'
     },
     bundle: {
-      noEhr: formatPrice(pricing.noEhr ? pricing.noEhr * 1.6 : undefined), // Bundle is approximately 1.6x the base price with 10% discount
-      withEhr: pricing.withEhr ? formatPrice(pricing.withEhr * 1.6) : 'Custom pricing',
-      pro: pricing.pro ? formatPrice(pricing.pro * 1.6) : 'Custom pricing'
+      noEhr: formatPrice(pricing.noEhr && pricing.bravoNoEhr ? calculateBundlePrice(pricing.noEhr, pricing.bravoNoEhr) : undefined),
+      withEhr: getBundleWithEhrRange(),
+      pro: 'Custom pricing'
     }
   };
 };
