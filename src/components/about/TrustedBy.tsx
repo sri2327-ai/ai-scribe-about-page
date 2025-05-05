@@ -1,4 +1,3 @@
-
 "use client";
 
 import { memo, useEffect, useState } from "react";
@@ -97,12 +96,12 @@ const StackedCardView = ({
           <motion.div
             key={`testimonial-${index}`}
             className={`absolute top-0 left-0 right-0 rounded-xl bg-black border border-gray-800 p-4 sm:p-5 flex flex-col items-center text-center shadow-xl ${cardHeight}`}
-            style={{
+            style={safeMotionStyle({
               zIndex,
               opacity,
               scale,
               y
-            }}
+            })}
             animate={{
               opacity,
               scale,

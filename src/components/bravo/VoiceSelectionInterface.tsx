@@ -150,7 +150,7 @@ const VoiceCard = memo(({ voice, isSelected, onTryVoice }: {
 }) => {
   return (
     <div className="w-64 relative rounded-xl overflow-hidden backdrop-blur-xl p-6 flex flex-col items-center"
-      style={{ 
+      style={{
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         border: '1px solid rgba(255, 255, 255, 0.2)',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
@@ -282,11 +282,11 @@ export const VoiceSelectionInterface = memo(() => {
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true, amount: 0.3 }}
             className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
-            style={safeMotionStyle({ 
+            style={{
               border: '1px solid rgba(255, 255, 255, 0.3)',
               backdropFilter: 'blur(10px)',
               backgroundColor: 'rgba(255, 255, 255, 0.2)'
-            })}
+            }}
           >
             <div className="flex items-center">
               <AlertCircle className="w-5 h-5 mr-3 text-white" />

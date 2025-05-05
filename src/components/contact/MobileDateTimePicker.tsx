@@ -4,14 +4,14 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
-  SheetTitle,
 } from "@/components/ui/sheet";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { format } from "date-fns";
 import { Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { StyledDialogTitle, StyledSelectContent, StyledSelectTrigger } from "@/lib/ui-component-fixes";
 
 interface MobileDateTimePickerProps {
   open: boolean;
@@ -48,9 +48,9 @@ const MobileDateTimePicker = ({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="h-[90vh] bg-white overflow-y-auto p-4">
         <SheetHeader className="text-left mb-4">
-          <SheetTitle className={cn("text-xl font-bold text-[#133255]")}>
+          <StyledDialogTitle className={cn("text-xl font-bold text-[#133255]")}>
             Schedule Your Demo
-          </SheetTitle>
+          </StyledDialogTitle>
         </SheetHeader>
 
         <div className="space-y-6">
@@ -96,16 +96,16 @@ const MobileDateTimePicker = ({
           <div className="space-y-4">
             <h3 className="font-semibold text-[#133255]">Select Time Zone</h3>
             <Select value={timeZone} onValueChange={setTimeZone}>
-              <SelectTrigger className={cn("w-full bg-white")}>
+              <StyledSelectTrigger className={cn("w-full bg-white")}>
                 <SelectValue placeholder="Select time zone" />
-              </SelectTrigger>
-              <SelectContent className={cn("max-h-[200px] overflow-y-auto bg-white z-[100]")}>
+              </StyledSelectTrigger>
+              <StyledSelectContent className={cn("max-h-[200px] overflow-y-auto bg-white z-[100]")}>
                 {timeZoneOptions.map((tz) => (
                   <SelectItem key={tz} value={tz}>
                     {tz}
                   </SelectItem>
                 ))}
-              </SelectContent>
+              </StyledSelectContent>
             </Select>
           </div>
 

@@ -13,6 +13,7 @@ export interface SafeMotionStyle extends CSSProperties {
   transform?: string;
   backgroundColor?: string;
   background?: string;
+  backdropFilter?: string;
   borderRadius?: string;
   boxShadow?: string;
   border?: string;
@@ -27,6 +28,7 @@ export interface SafeMotionStyle extends CSSProperties {
   marginLeft?: string | number;
   marginRight?: string | number;
   opacity?: number;
+  position?: string;
 }
 
 // For animate props in motion components
@@ -46,7 +48,7 @@ export interface SafeMotionAnimate {
   right?: string | number | (string | number)[];
   top?: string | number | (string | number)[];
   bottom?: string | number | (string | number)[];
-  [key: string]: any;
+  [key: string]: any; // Allow any property in animate prop
 }
 
 // Helper to safely use CSS properties in style prop

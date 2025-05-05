@@ -1,4 +1,3 @@
-
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -10,6 +9,8 @@ import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react'
 import { motion, useAnimation, useInView, useScroll, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { StyledAvatar, StyledAvatarFallback } from '@/components/ui/styled-avatar';
+import { StyledSeparator } from '@/lib/ui-component-fixes';
 
 export interface Testimonial {
   id: number
@@ -206,14 +207,14 @@ export function ClinicianTestimonialsSection({
                   <CardContent className="p-6 md:p-8 h-full flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-center gap-4">
-                        <Avatar className={`h-12 w-12 border-2 border-[${crushAIColors.tertiary}33]`}>
+                        <StyledAvatar className="w-10 h-10">
                           <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                          <AvatarFallback 
+                          <StyledAvatarFallback 
                             className={`text-white bg-[${crushAIColors.primary}]`}
                           >
                             {testimonial.name.charAt(0)}
-                          </AvatarFallback>
-                        </Avatar>
+                          </StyledAvatarFallback>
+                        </StyledAvatar>
                         <div className="text-left">
                           <h4 
                             className={`font-semibold text-[${crushAIColors.text.primary}]`}
@@ -234,7 +235,7 @@ export function ClinicianTestimonialsSection({
                       </div>
                     </div>
 
-                    <Separator className={`my-4 bg-[${crushAIColors.tertiary}33]`} />
+                    <StyledSeparator className="my-4" />
 
                     <p 
                       className={`flex-1 italic text-base/relaxed text-[${crushAIColors.text.secondary}]`}
