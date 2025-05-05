@@ -105,7 +105,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   
   // Calculate bundle pricing (CRUSH + BRAVO with 10% discount)
   const calculateBundlePrice = (crushPrice: number, bravoPrice: number) => {
-    return (crushPrice + bravoPrice) * 0.9; // 10% discount
+    return Math.round((crushPrice + bravoPrice) * 0.9); // 10% discount, rounded for cleaner display
   };
   
   // Generate bundle price range for Basic with EHR
