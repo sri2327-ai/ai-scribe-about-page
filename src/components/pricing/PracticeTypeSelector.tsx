@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -140,6 +139,32 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     // If type is the currently selected practice type, also update the main plan
     if (type === selectedType) {
       onSelect(practiceToPlans[type][tabValue]);
+    }
+  };
+  
+  // Navigate to pricing section and set the correct tab based on selected product
+  const handleSeeFullDetails = (e: React.MouseEvent, practiceType: string) => {
+    e.stopPropagation();
+    
+    // Get the active tab for this practice type
+    const activeTab = activeTabs[practiceType];
+    
+    // Set localStorage values to control which tab is shown in the pricing section
+    localStorage.setItem('activePricingTab', activeTab);
+    
+    // Always ensure we're showing monthly pricing
+    localStorage.setItem('billingCycle', 'monthly');
+    
+    // Create custom event to notify other components about tab changes
+    const tabChangeEvent = new CustomEvent('pricingTabChange', { 
+      detail: { tab: activeTab, billing: 'monthly' } 
+    });
+    window.dispatchEvent(tabChangeEvent);
+    
+    // Scroll to pricing section
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
   
@@ -397,13 +422,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                         <div className="mt-3">
                           <Button
                             className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs md:text-sm py-1 md:py-2"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const pricingSection = document.getElementById('pricing');
-                              if (pricingSection) {
-                                pricingSection.scrollIntoView({ behavior: 'smooth' });
-                              }
-                            }}
+                            onClick={(e) => handleSeeFullDetails(e, type.id)}
                             size="sm"
                           >
                             See Full Details
@@ -511,13 +530,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                         <div className="mt-3">
                           <Button
                             className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs py-1"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              const pricingSection = document.getElementById('pricing');
-                              if (pricingSection) {
-                                pricingSection.scrollIntoView({ behavior: 'smooth' });
-                              }
-                            }}
+                            onClick={(e) => handleSeeFullDetails(e, type.id)}
                             size="sm"
                           >
                             See Full Details

@@ -20,10 +20,40 @@ const Pricing = () => {
   console.log("Rendering Pricing page");
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
+  const [activeTab, setActiveTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
   
   useEffect(() => {
     console.log("Pricing page mounted");
     document.title = "Pricing - S10.AI | CRUSH & BRAVO Solutions";
+    
+    // Check if a tab value exists in localStorage
+    const storedTab = localStorage.getItem('activePricingTab');
+    if (storedTab && ['crush', 'bravo', 'bundle'].includes(storedTab)) {
+      setActiveTab(storedTab as 'crush' | 'bravo' | 'bundle');
+    }
+    
+    // Check if a billing cycle exists in localStorage
+    const storedCycle = localStorage.getItem('billingCycle');
+    if (storedCycle && (storedCycle === 'monthly' || storedCycle === 'annual')) {
+      setBillingCycle(storedCycle as 'monthly' | 'annual');
+    }
+    
+    // Listen for pricing tab change events from practice selector
+    const handlePricingTabChange = (e: Event) => {
+      const event = e as CustomEvent;
+      if (event.detail && event.detail.tab) {
+        setActiveTab(event.detail.tab);
+      }
+      if (event.detail && event.detail.billing) {
+        setBillingCycle(event.detail.billing);
+      }
+    };
+    
+    window.addEventListener('pricingTabChange', handlePricingTabChange);
+    
+    return () => {
+      window.removeEventListener('pricingTabChange', handlePricingTabChange);
+    };
   }, []);
   
   // Handle practice selection
@@ -36,6 +66,30 @@ const Pricing = () => {
   // Handle currency change
   const handleCurrencyChange = (currency: CurrencyCode) => {
     setSelectedCurrency(currency);
+  };
+
+  // Handle tab change - store in localStorage and update state
+  const handleTabChange = (value: string) => {
+    setActiveTab(value as 'crush' | 'bravo' | 'bundle');
+    localStorage.setItem('activePricingTab', value);
+    
+    // Broadcast the change for other components
+    const event = new CustomEvent('currencyTabChange', { 
+      detail: { tab: value } 
+    });
+    window.dispatchEvent(event);
+  };
+  
+  // Handle billing cycle change - store in localStorage and update state
+  const handleBillingCycleChange = (cycle: 'monthly' | 'annual') => {
+    setBillingCycle(cycle);
+    localStorage.setItem('billingCycle', cycle);
+    
+    // Broadcast the change for other components
+    const event = new CustomEvent('billingCycleChange', { 
+      detail: { cycle } 
+    });
+    window.dispatchEvent(event);
   };
 
   // Animate in variants
@@ -132,7 +186,8 @@ const Pricing = () => {
           {/* Tabs - Fixed Radix UI Tabs implementation */}
           <div className="flex flex-col items-center">
             <Tabs 
-              defaultValue="crush" 
+              value={activeTab}
+              onValueChange={handleTabChange}
               className="w-full flex flex-col items-center"
             >
               <TabsList className="mb-6 md:mb-8">
@@ -152,7 +207,7 @@ const Pricing = () => {
                 <div className="flex bg-gray-100 rounded-full p-1">
                   <Button 
                     variant="ghost"
-                    onClick={() => setBillingCycle('monthly')}
+                    onClick={() => handleBillingCycleChange('monthly')}
                     className={`rounded-full text-xs md:text-sm ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
                   >
                     Monthly
@@ -162,7 +217,7 @@ const Pricing = () => {
                       <TooltipTrigger asChild>
                         <Button 
                           variant="ghost"
-                          onClick={() => setBillingCycle('annual')}
+                          onClick={() => handleBillingCycleChange('annual')}
                           className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
                         >
                           Annual
