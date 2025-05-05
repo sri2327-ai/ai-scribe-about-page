@@ -91,6 +91,11 @@ export const BlogCards = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setCurrentPage(1);
+  };
+
   return (
     <section className="py-24 px-4 md:px-6">
       <div className="max-w-7xl mx-auto">
@@ -99,17 +104,13 @@ export const BlogCards = () => {
 
           <div className="mb-8 overflow-x-auto">
             <div className="w-full">
-              <Tabs defaultValue="All" className="w-full">
-                <TabsList className="w-full flex-wrap justify-start p-1">
+              <Tabs defaultValue="All">
+                <TabsList>
                   {mockCategories.map((category) => (
                     <TabsTrigger
                       key={category.id}
                       value={category.name}
-                      onClick={() => {
-                        setSelectedCategory(category.name);
-                        setCurrentPage(1);
-                      }}
-                      className="px-4 py-2 whitespace-nowrap"
+                      onClick={() => handleCategoryChange(category.name)}
                     >
                       {category.name}
                     </TabsTrigger>

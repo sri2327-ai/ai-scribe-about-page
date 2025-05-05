@@ -109,13 +109,13 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
       </Card>
       
       {/* Interactive Elements */}
-      <Tabs defaultValue="insights" className="w-full">
-        <TabsList className="grid grid-cols-2 mb-4">
+      <Tabs defaultValue="insights">
+        <TabsList>
           <TabsTrigger value="insights">Clinical Insights</TabsTrigger>
           <TabsTrigger value="timeline">Implementation Timeline</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="insights" className="space-y-4">
+        <TabsContent value="insights">
           {clinicalInsights.map((insight, idx) => (
             <Card key={idx}>
               <CardContent className="p-6">
@@ -127,7 +127,7 @@ const InteractiveCaseStudy: React.FC<InteractiveCaseStudyProps> = ({
           ))}
         </TabsContent>
         
-        <TabsContent value="timeline" className="relative">
+        <TabsContent value="timeline">
           <div className="absolute w-1 bg-gradient-to-b from-[#143151] to-[#387E89] h-full left-4 top-0"></div>
           
           {patientTimeline.map((event, idx) => (

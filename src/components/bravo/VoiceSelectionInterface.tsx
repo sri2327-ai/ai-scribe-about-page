@@ -1,3 +1,4 @@
+
 import React, { useState, memo, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
@@ -5,6 +6,7 @@ import { ChevronLeft, ChevronRight, Volume2, AlertCircle } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { BeamsBackground } from "@/components/ui/beams-background";
 import { LazyLoad } from "@/components/ui/lazy-load";
+import { safeMotionStyle, safeMotionAnimate } from "@/lib/framer-motion-fixes";
 
 interface VoiceOption {
   id: string;
@@ -23,16 +25,16 @@ const VoiceAnimation = memo(({ type, isActive }: { type: string, isActive: boole
         <div className={`${baseAnimationClass} bg-gradient-to-r from-pink-100 to-blue-100`}>
           <motion.div
             className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-blue-300"
-            animate={{ 
+            animate={safeMotionAnimate({ 
               scale: isActive ? [1, 1.2, 1] : [1, 1.1, 1],
               opacity: [0.7, 0.9, 0.7]
-            }}
+            })}
             transition={{ 
               repeat: Infinity, 
               duration: 2.5,
               ease: "easeInOut"
             }}
-            style={{ willChange: 'transform, opacity' }}
+            style={safeMotionStyle({ willChange: 'transform, opacity' })}
           />
         </div>
       );
@@ -67,15 +69,15 @@ const VoiceAnimation = memo(({ type, isActive }: { type: string, isActive: boole
         <div className={`${baseAnimationClass} bg-gradient-to-r from-indigo-50 to-blue-50`}>
           <motion.div
             className="w-14 h-14 bg-gradient-to-r from-teal-300 to-indigo-300 opacity-80"
-            animate={{ 
+            animate={safeMotionAnimate({ 
               borderRadius: ["30% 70% 70% 30% / 30% 30% 70% 70%", "60% 40% 30% 70% / 60% 30% 70% 40%", "30% 60% 70% 40% / 50% 60% 30% 60%", "30% 70% 70% 30% / 30% 30% 70% 70%"],
-            }}
+            })}
             transition={{ 
               repeat: Infinity, 
               duration: 8,
               ease: "easeInOut"
             }}
-            style={{ willChange: 'transform, border-radius' }}
+            style={safeMotionStyle({ willChange: 'transform, border-radius' })}
           />
         </div>
       );
@@ -84,9 +86,9 @@ const VoiceAnimation = memo(({ type, isActive }: { type: string, isActive: boole
       return (
         <div className={`${baseAnimationClass} bg-gradient-to-r from-blue-50 to-purple-50`}>
           <div className="relative w-14 h-14 flex items-center justify-center">
-            <div className="absolute rounded-full border-2 border-indigo-300 w-[20px] h-[20px]" style={{ willChange: 'transform, opacity' }} />
-            <div className="absolute rounded-full border-2 border-indigo-300 w-[40px] h-[40px]" style={{ willChange: 'transform, opacity' }} />
-            <div className="absolute rounded-full border-2 border-indigo-300 w-[60px] h-[60px]" style={{ willChange: 'transform, opacity' }} />
+            <div className="absolute rounded-full border-2 border-indigo-300 w-[20px] h-[20px]" />
+            <div className="absolute rounded-full border-2 border-indigo-300 w-[40px] h-[40px]" />
+            <div className="absolute rounded-full border-2 border-indigo-300 w-[60px] h-[60px]" />
             <motion.div
               className="w-5 h-5 rounded-full bg-purple-300"
               animate={{ 
@@ -97,7 +99,6 @@ const VoiceAnimation = memo(({ type, isActive }: { type: string, isActive: boole
                 duration: 2,
                 ease: "easeInOut"
               }}
-              style={{ willChange: 'transform' }}
             />
           </div>
         </div>
@@ -127,7 +128,7 @@ const VoiceAnimation = memo(({ type, isActive }: { type: string, isActive: boole
                   delay: i * 0.2,
                   ease: "easeInOut"
                 }}
-                style={{ willChange: 'transform, opacity' }}
+                style={safeMotionStyle({ willChange: 'transform, opacity' })}
               />
             ))}
           </div>
@@ -153,7 +154,6 @@ const VoiceCard = memo(({ voice, isSelected, onTryVoice }: {
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         border: '1px solid rgba(255, 255, 255, 0.2)',
         boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-        willChange: 'transform',
         transform: 'translateZ(0)'
       }}
     >
@@ -220,7 +220,7 @@ export const VoiceSelectionInterface = memo(() => {
         <LazyLoad threshold={0.3}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true, amount: 0.3 }}
             className="text-center mb-12"
@@ -242,8 +242,7 @@ export const VoiceSelectionInterface = memo(() => {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.4 }}
-              className="flex justify-center"
-              style={{ willChange: 'transform, opacity' }}
+              className="flex justify-center transform-gpu"
             >
               <VoiceCard 
                 voice={voices[currentIndex]} 
@@ -279,15 +278,14 @@ export const VoiceSelectionInterface = memo(() => {
         <LazyLoad threshold={0.2}>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             viewport={{ once: true, amount: 0.3 }}
             className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
             style={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
               border: '1px solid rgba(255, 255, 255, 0.3)',
               backdropFilter: 'blur(10px)',
-              willChange: 'transform, opacity'
+              background: 'rgba(255, 255, 255, 0.2)'
             }}
           >
             <div className="flex items-center">
