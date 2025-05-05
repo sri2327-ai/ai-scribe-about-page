@@ -241,7 +241,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  From {pricingData.bravo.noEhr}
+                  {pricingData.bravo.noEhr}
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
@@ -383,6 +383,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
         </>
       );
     } else {
+      // Bundle plan
       return (
         <>
           {/* Basic (No EHR) */}
@@ -396,8 +397,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  From {pricingData.bundle.noEhr}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  {pricingData.bundle.noEhr}
+                  {pricingData.bundle.noEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
