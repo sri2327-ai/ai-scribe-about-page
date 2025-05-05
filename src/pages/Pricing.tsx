@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -132,7 +131,7 @@ const Pricing = () => {
 
           {/* Currency Selector */}
           <div className="flex justify-center mb-6">
-            <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} />
+            <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} showPerProviderNote={true} />
           </div>
 
           {/* Tabs */}
