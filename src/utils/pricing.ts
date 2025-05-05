@@ -14,6 +14,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   const currencyPricing: Record<CurrencyCode, {
     noEhr: number, 
     withEhr?: number, 
+    withEhrMax?: number,
     pro?: number,
     bravoNoEhr?: number,
     bravoWithEhr?: number, 
@@ -21,56 +22,63 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   }> = {
     USD: { 
       noEhr: 99, 
-      withEhr: 149, 
-      pro: 199,
+      withEhr: 120,
+      withEhrMax: 199,
+      pro: 0, // Custom pricing
       bravoNoEhr: 99,
       bravoWithEhr: 119,
       bravoPro: 149
     },
     CAD: { 
       noEhr: 129, 
-      withEhr: 199, 
-      pro: 249,
+      withEhr: 150,
+      withEhrMax: 249,
+      pro: 0, // Custom pricing
       bravoNoEhr: 129,
       bravoWithEhr: 159,
       bravoPro: 199
     },
     AUD: { 
       noEhr: 149, 
-      withEhr: 199, 
-      pro: 249,
+      withEhr: 170,
+      withEhrMax: 249,
+      pro: 0, // Custom pricing
       bravoNoEhr: 149,
       bravoWithEhr: 169,
       bravoPro: 219
     },
     GBP: { 
       noEhr: 79, 
-      withEhr: 129, 
-      pro: 169,
+      withEhr: 89,
+      withEhrMax: 169,
+      pro: 0, // Custom pricing
       bravoNoEhr: 79,
       bravoWithEhr: 99,
       bravoPro: 129
     },
     EUR: { 
       noEhr: 89, 
-      withEhr: 139, 
-      pro: 179,
+      withEhr: 99,
+      withEhrMax: 179,
+      pro: 0, // Custom pricing
       bravoNoEhr: 89,
       bravoWithEhr: 109,
       bravoPro: 149
     },
     NZD: { 
       noEhr: 159, 
-      withEhr: 219, 
-      pro: 279,
+      withEhr: 179,
+      withEhrMax: 279,
+      pro: 0, // Custom pricing
       bravoNoEhr: 159,
       bravoWithEhr: 179,
       bravoPro: 229
     },
     AED: { 
       noEhr: 363, 
-      withEhr: 546, 
-      pro: 729,
+      withEhr: 400,
+      withEhrMax: 650,
+      pro: 0, // Custom pricing
       bravoNoEhr: 363,
       bravoWithEhr: 436,
       bravoPro: 545
@@ -89,12 +97,18 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(price * multiplier).toLocaleString()}`;
   };
   
+  // Format price range
+  const formatPriceRange = (min?: number, max?: number) => {
+    if (!min || !max) return 'Custom pricing';
+    return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}`;
+  };
+  
   // Generate pricing data for all products
   return {
     crush: {
       noEhr: formatPrice(pricing.noEhr),
-      withEhr: pricing.withEhr ? formatPrice(pricing.withEhr) : 'Custom pricing',
-      pro: pricing.pro ? formatPrice(pricing.pro) : 'Custom pricing'
+      withEhr: pricing.withEhr && pricing.withEhrMax ? formatPriceRange(pricing.withEhr, pricing.withEhrMax) : 'Custom pricing',
+      pro: 'Custom pricing'
     },
     bravo: {
       noEhr: formatPrice(pricing.bravoNoEhr || pricing.noEhr),

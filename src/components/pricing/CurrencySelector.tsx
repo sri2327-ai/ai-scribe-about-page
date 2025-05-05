@@ -1,26 +1,6 @@
-
 import React from 'react';
-import { 
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { 
-  DollarSign, 
-  Euro, 
-  PoundSterling, 
-  CircleDollarSign
-} from "lucide-react";
 
 export type CurrencyCode = 'USD' | 'CAD' | 'AUD' | 'GBP' | 'EUR' | 'NZD' | 'AED';
-
-interface CurrencySelectorProps {
-  selectedCurrency: CurrencyCode;
-  onChange: (currency: CurrencyCode) => void;
-}
 
 export const currencySymbols: Record<CurrencyCode, string> = {
   USD: '$',
@@ -32,60 +12,32 @@ export const currencySymbols: Record<CurrencyCode, string> = {
   AED: 'د.إ',
 };
 
+interface CurrencySelectorProps {
+  selectedCurrency: CurrencyCode;
+  onChange: (currency: CurrencyCode) => void;
+}
+
 export const CurrencySelector: React.FC<CurrencySelectorProps> = ({ selectedCurrency, onChange }) => {
   return (
-    <div className="flex items-center gap-2 mb-4">
-      <Select value={selectedCurrency} onValueChange={(value) => onChange(value as CurrencyCode)}>
-        <SelectTrigger className="w-[140px] bg-white border border-gray-200 rounded-md">
-          <SelectValue placeholder="Currency" />
-        </SelectTrigger>
-        <SelectContent className="bg-white border border-gray-200 shadow-lg">
-          <SelectGroup>
-            <SelectItem value="USD">
-              <div className="flex items-center">
-                <DollarSign className="h-4 w-4 mr-2 text-green-600" />
-                <span>USD ($)</span>
-              </div>
-            </SelectItem>
-            <SelectItem value="CAD">
-              <div className="flex items-center">
-                <DollarSign className="h-4 w-4 mr-2 text-red-600" />
-                <span>CAD (C$)</span>
-              </div>
-            </SelectItem>
-            <SelectItem value="AUD">
-              <div className="flex items-center">
-                <DollarSign className="h-4 w-4 mr-2 text-blue-600" />
-                <span>AUD (A$)</span>
-              </div>
-            </SelectItem>
-            <SelectItem value="GBP">
-              <div className="flex items-center">
-                <PoundSterling className="h-4 w-4 mr-2 text-purple-600" />
-                <span>GBP (£)</span>
-              </div>
-            </SelectItem>
-            <SelectItem value="EUR">
-              <div className="flex items-center">
-                <Euro className="h-4 w-4 mr-2 text-blue-600" />
-                <span>EUR (€)</span>
-              </div>
-            </SelectItem>
-            <SelectItem value="NZD">
-              <div className="flex items-center">
-                <DollarSign className="h-4 w-4 mr-2 text-green-600" />
-                <span>NZD (NZ$)</span>
-              </div>
-            </SelectItem>
-            <SelectItem value="AED">
-              <div className="flex items-center">
-                <CircleDollarSign className="h-4 w-4 mr-2 text-yellow-600" />
-                <span>AED (د.إ)</span>
-              </div>
-            </SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+    <div className="relative">
+      <select 
+        value={selectedCurrency}
+        onChange={(e) => onChange(e.target.value as CurrencyCode)}
+        className="appearance-none bg-white border border-gray-200 rounded-md py-2 px-4 pr-8 text-gray-700 leading-tight focus:outline-none focus:border-blue-500"
+      >
+        <option value="USD">USD ($)</option>
+        <option value="CAD">CAD (C$)</option>
+        <option value="AUD">AUD (A$)</option>
+        <option value="GBP">GBP (£)</option>
+        <option value="EUR">EUR (€)</option>
+        <option value="NZD">NZD (NZ$)</option>
+        <option value="AED">AED (د.إ)</option>
+      </select>
+      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+        </svg>
+      </div>
     </div>
   );
 };
