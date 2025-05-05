@@ -3,7 +3,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Phone, MessageSquare, Database } from 'lucide-react';
 import { bravoColors } from '@/theme/bravo-theme';
-import { safeMotionAnimate, safeMotionStyle } from '@/lib/framer-motion-fixes';
 
 export const DeployBravoPreview = () => {
   return (
@@ -17,9 +16,7 @@ export const DeployBravoPreview = () => {
         {/* Incoming Call Card */}
         <motion.div 
           className="p-4 rounded-lg border border-gray-100"
-          animate={safeMotionAnimate({ 
-            boxShadow: ['0px 0px 0px rgba(81,146,174,0)', '0px 0px 20px rgba(81,146,174,0.2)', '0px 0px 0px rgba(81,146,174,0)'] 
-          })}
+          animate={{ boxShadow: ['0px 0px 0px rgba(81,146,174,0)', '0px 0px 20px rgba(81,146,174,0.2)', '0px 0px 0px rgba(81,146,174,0)'] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           <div className="flex items-center justify-between mb-3">

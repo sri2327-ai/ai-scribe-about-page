@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneCall, MessageSquare, Calendar, ClipboardCheck, Bell, FileText, CalendarPlus, Phone, Mail } from 'lucide-react';
-import { safeMotionStyle, safeMotionAnimate } from '@/lib/framer-motion-fixes';
 
 const steps = [
   {
@@ -252,7 +251,7 @@ export const BravoWorkflowAnimation = () => {
               <div className="flex items-center gap-4">
                 <motion.div 
                   className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
-                  style={safeMotionStyle({ backgroundColor: `${step.color}10` })}
+                  style={{ backgroundColor: `${step.color}10` }}
                   whileHover={{ 
                     scale: 1.1,
                     transition: { duration: 0.2 }
@@ -292,9 +291,9 @@ export const BravoWorkflowAnimation = () => {
             {index < steps.length - 1 && (
               <motion.div
                 className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
-                style={safeMotionStyle({
+                style={{
                   background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
-                })}
+                }}
                 initial={{ scaleY: 0 }}
                 animate={{ scaleY: isActive ? 1 : 0.5 }}
                 transition={{ duration: 0.5 }}

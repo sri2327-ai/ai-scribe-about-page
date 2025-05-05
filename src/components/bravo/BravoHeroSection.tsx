@@ -17,7 +17,7 @@ const BravoLetter = memo(({ item, index }: { item: any, index: number }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="transform-gpu"
+      style={{ willChange: 'transform, opacity' }}
     >
       <Tooltip delayDuration={200}>
         <TooltipTrigger>
@@ -79,7 +79,7 @@ const HeroContent = memo(() => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.5 }}
-      className="transform-gpu"
+      style={{ willChange: 'transform, opacity' }}
     >
       <Typography
         variant="h1"
@@ -147,7 +147,7 @@ export const BravoHeroSection = memo(() => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="transform-gpu"
+              style={{ willChange: 'transform, opacity' }}
             >
               <Box
                 sx={{
@@ -179,7 +179,7 @@ export const BravoHeroSection = memo(() => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
-              className="transform-gpu"
+              style={{ willChange: 'transform, opacity' }}
             >
               <BravoWorkflowAnimation />
             </motion.div>

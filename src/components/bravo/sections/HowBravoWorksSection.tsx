@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -101,7 +102,10 @@ const StepItem: React.FC<StepItemProps> = ({
           initial="initial"
           animate={isActive ? "pulse" : "animate"}
           className="flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center"
-          style={safeMotionStyle({ backgroundColor: 'rgba(255,255,255,0.02)' })}
+          style={{ 
+            backgroundColor: `${bravoColors.tertiary}20`,
+            border: isActive ? `2px solid ${bravoColors.tertiary}` : `1px solid ${bravoColors.tertiary}50`
+          }}
         >
           <span 
             className="text-2xl font-bold" 

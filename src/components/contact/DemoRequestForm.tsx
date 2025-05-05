@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { format } from "date-fns";
 import { Card } from "@/components/ui/card";
@@ -10,6 +9,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogClose,
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -22,8 +22,6 @@ import { Calendar } from "@/components/ui/calendar";
 import { toast } from "sonner";
 import { useIsMobile } from '@/hooks/use-mobile';
 import MobileDateTimePicker from './MobileDateTimePicker';
-import { cn } from '@/lib/utils';
-import { StyledDialogClose, StyledSelectContent, StyledSelectTrigger } from '@/lib/ui-component-fixes';
 
 const timeSlots = [
   "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
@@ -214,17 +212,17 @@ const DemoRequestForm = () => {
               value={formData.specialty}
               onValueChange={(value) => setFormData(prev => ({ ...prev, specialty: value }))}
             >
-              <StyledSelectTrigger className={cn("transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900")}>
+              <SelectTrigger id="specialty" className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
                 <SelectValue placeholder="Select your specialty" />
-              </StyledSelectTrigger>
-              <StyledSelectContent className={cn("bg-white border border-gray-200")}>
+              </SelectTrigger>
+              <SelectContent className="bg-white border border-gray-200">
                 <SelectItem value="family-medicine">Family Medicine</SelectItem>
                 <SelectItem value="internal-medicine">Internal Medicine</SelectItem>
                 <SelectItem value="pediatrics">Pediatrics</SelectItem>
                 <SelectItem value="cardiology">Cardiology</SelectItem>
                 <SelectItem value="orthopedics">Orthopedics</SelectItem>
                 <SelectItem value="other">Other Specialty</SelectItem>
-              </StyledSelectContent>
+              </SelectContent>
             </Select>
           </div>
         </div>
@@ -235,17 +233,17 @@ const DemoRequestForm = () => {
             value={formData.requirements}
             onValueChange={(value) => setFormData(prev => ({ ...prev, requirements: value }))}
           >
-            <StyledSelectTrigger className={cn("transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900")}>
+            <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
               <SelectValue placeholder="What interests you most?" />
-            </StyledSelectTrigger>
-            <StyledSelectContent className={cn("bg-white border border-gray-200 max-h-[300px]")}>
+            </SelectTrigger>
+            <SelectContent className="bg-white border border-gray-200 max-h-[300px]">
               <SelectItem value="clinical-documentation">Clinical Documentation & Notes</SelectItem>
               <SelectItem value="patient-scheduling">Patient Scheduling & Management</SelectItem>
               <SelectItem value="practice-management">Practice Management</SelectItem>
               <SelectItem value="patient-communication">Patient Communication</SelectItem>
               <SelectItem value="voice-commands">Voice Commands & AI Assistant</SelectItem>
               <SelectItem value="full-demo">Full Product Demo</SelectItem>
-            </StyledSelectContent>
+            </SelectContent>
           </Select>
         </div>
 
@@ -290,9 +288,9 @@ const DemoRequestForm = () => {
                       Pick a convenient date and time for your demo
                     </p>
                   </div>
-                  <StyledDialogClose className={cn("absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200")}>
+                  <DialogClose className="absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200">
                     <X className="h-4 w-4" />
-                  </StyledDialogClose>
+                  </DialogClose>
                 </div>
               </DialogHeader>
               
@@ -344,11 +342,11 @@ const DemoRequestForm = () => {
                     <div className="space-y-4">
                       <h3 className="font-semibold text-[#133255]">Time Zone</h3>
                       <Select value={timeZone} onValueChange={setTimeZone}>
-                        <StyledSelectTrigger className={cn("w-full bg-white border-gray-200")}>
+                        <SelectTrigger className="w-full bg-white border-gray-200">
                           <SelectValue placeholder="Select time zone" />
-                        </StyledSelectTrigger>
-                        <StyledSelectContent 
-                          className={cn("max-h-[200px] overflow-y-auto bg-white z-[100]")}
+                        </SelectTrigger>
+                        <SelectContent 
+                          className="max-h-[200px] overflow-y-auto bg-white z-[100]"
                           position="popper"
                           sideOffset={5}
                         >
@@ -357,7 +355,7 @@ const DemoRequestForm = () => {
                               {tz}
                             </SelectItem>
                           ))}
-                        </StyledSelectContent>
+                        </SelectContent>
                       </Select>
                     </div>
                   </div>

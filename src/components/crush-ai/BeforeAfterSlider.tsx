@@ -5,7 +5,6 @@ import { motion, useMotionValue, useTransform, animate } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-import { StyledTooltipTrigger } from '@/components/ui/styled-tooltip';
 
 export const BeforeAfterSlider = () => {
   // Create a ref for the slider container
@@ -269,32 +268,32 @@ export const BeforeAfterSlider = () => {
               {/* Helper buttons that appear when the slider gets close to the edges */}
               <TooltipProvider>
                 <Tooltip>
-                  <StyledTooltipTrigger asChild>
-                    <Button
+                  <TooltipTrigger asChild>
+                    <motion.button
                       className={`absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-40 shadow-lg ${sliderPosition > 15 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                       onClick={moveSliderRight}
                       animate={sliderPosition < 15 ? { scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] } : {}}
                       transition={{ repeat: Infinity, duration: 1.5 }}
                     >
                       <ArrowRight className="h-5 w-5 rotate-180" />
-                    </Button>
-                  </StyledTooltipTrigger>
+                    </motion.button>
+                  </TooltipTrigger>
                   <TooltipContent>
                     <p>Move slider right</p>
                   </TooltipContent>
                 </Tooltip>
 
                 <Tooltip>
-                  <StyledTooltipTrigger asChild>
-                    <Button
+                  <TooltipTrigger asChild>
+                    <motion.button
                       className={`absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white p-2 rounded-full z-40 shadow-lg ${sliderPosition < 85 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
                       onClick={moveSliderLeft}
                       animate={sliderPosition > 85 ? { scale: [1, 1.1, 1], opacity: [0.7, 1, 0.7] } : {}}
                       transition={{ repeat: Infinity, duration: 1.5 }}
                     >
                       <ArrowRight className="h-5 w-5" />
-                    </Button>
-                  </StyledTooltipTrigger>
+                    </motion.button>
+                  </TooltipTrigger>
                   <TooltipContent>
                     <p>Move slider left</p>
                   </TooltipContent>

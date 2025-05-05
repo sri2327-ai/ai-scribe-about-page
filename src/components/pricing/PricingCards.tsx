@@ -296,10 +296,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.bravo.withEhr}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  {pricingData.bravo.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -326,10 +326,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Get Started
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">30-day money-back guarantee</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
 
@@ -345,6 +345,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bravo.pro}
+                  {pricingData.bravo.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored for large practices
@@ -430,17 +431,12 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
 
           {/* Basic (With EHR) */}
           <motion.div 
-            className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col relative"
+            className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
             whileHover={{ y: -5 }}
             variants={fadeInUpVariants}
             custom={2}
           >
-            <div className="absolute top-0 right-0 left-0 flex justify-center">
-              <div className="bg-[#387E89] text-white px-4 md:px-6 py-1 md:py-2 rounded-b-xl font-bold shadow-lg text-xs md:text-sm translate-y-0.5">
-                POPULAR CHOICE
-              </div>
-            </div>
-            <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
+            <div className="p-6 md:p-8 flex flex-col flex-grow">
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
@@ -448,7 +444,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                   {pricingData.bundle.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
+                  Tailored to your practice
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
@@ -456,8 +452,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                 {[
                   'CRUSH Basic (With EHR)',
                   'BRAVO Basic',
-                  '10% discount vs. separate',
-                  'Enhanced EHR integration'
+                  '10% discount vs. separate'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
@@ -470,10 +465,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Get Started
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
-              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">30-day money-back guarantee</p>
+              <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
             </div>
           </motion.div>
 
@@ -499,6 +494,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bundle.pro}
+                  {pricingData.bundle.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -575,18 +571,31 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
     );
   };
 
-  return (
-    <div className="flex flex-col gap-8">
-      {/* Desktop view - show cards in a grid */}
-      <div className={`${isMobile ? 'hidden' : 'grid'} grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-4`}>
+  // Desktop display
+  const renderDesktopGrid = () => {
+    return (
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 max-w-6xl mx-auto"
+      >
         {renderPlanCards()}
-      </div>
+      </motion.div>
+    );
+  };
 
-      {/* Mobile view - show cards in a carousel */}
-      <div className={`${isMobile ? 'block' : 'hidden'}`}>
+  return (
+    <>
+      {/* Mobile View with Carousel */}
+      <div className="md:hidden">
         {renderMobileCarousel()}
       </div>
-    </div>
+      
+      {/* Desktop View with Grid */}
+      <div className="hidden md:block">
+        {renderDesktopGrid()}
+      </div>
+    </>
   );
 };
-
