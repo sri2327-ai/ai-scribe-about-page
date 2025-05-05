@@ -1,4 +1,3 @@
-
 import { CurrencyCode, currencySymbols } from "@/components/pricing/CurrencySelector";
 
 export interface PricingData {
@@ -29,7 +28,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       withEhrMax: 199,
       pro: 'custom',
       bravoNoEhr: 99,
-      bravoWithEhr: 'Up to 299',
+      bravoWithEhr: '$Up to 299',
       bravoPro: 'custom'
     },
     CAD: { 
