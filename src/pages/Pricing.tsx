@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -19,9 +18,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
-  const [activePlan, setActivePlan] = useState<'crush' | 'bravo' | 'bundle'>('crush');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
-  const [activeFeatures, setActiveFeatures] = useState<'crush' | 'bravo'>('crush');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
   
   useEffect(() => {
@@ -31,13 +28,9 @@ const Pricing = () => {
   
   // Handle practice selection
   const handlePracticeSelection = (planType: string) => {
-    if (planType.startsWith('crush')) {
-      setActivePlan('crush');
-    } else if (planType.startsWith('bravo')) {
-      setActivePlan('bravo');
-    } else if (planType.startsWith('bundle')) {
-      setActivePlan('bundle');
-    }
+    console.log("Practice selection:", planType);
+    // This function is kept for compatibility with PracticeTypeSelector
+    // but tab selection is now handled by Radix UI Tabs
   };
 
   // Handle currency change
@@ -140,30 +133,16 @@ const Pricing = () => {
           <div className="flex flex-col items-center">
             <Tabs 
               defaultValue="crush" 
-              value={activePlan}
-              onValueChange={(value) => {
-                console.log("Changed to tab:", value);
-                setActivePlan(value as 'crush' | 'bravo' | 'bundle');
-              }}
               className="w-full flex flex-col items-center"
             >
               <TabsList className="mb-6 md:mb-8">
-                <TabsTrigger 
-                  value="crush"
-                  className="px-4 md:px-6 py-1 md:py-2 text-sm"
-                >
+                <TabsTrigger value="crush" className="px-4 md:px-6 py-1 md:py-2 text-sm">
                   CRUSH (AI Scribe)
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="bravo"
-                  className="px-4 md:px-6 py-1 md:py-2 text-sm"
-                >
+                <TabsTrigger value="bravo" className="px-4 md:px-6 py-1 md:py-2 text-sm">
                   BRAVO (Patient Engagement)
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="bundle"
-                  className="px-4 md:px-6 py-1 md:py-2 text-sm"
-                >
+                <TabsTrigger value="bundle" className="px-4 md:px-6 py-1 md:py-2 text-sm">
                   Bundle
                 </TabsTrigger>
               </TabsList>
@@ -278,58 +257,48 @@ const Pricing = () => {
           </motion.div>
 
           {/* Feature Toggle - Fixed Radix UI Tabs implementation */}
-          <div className="flex flex-col items-center">
-            <Tabs
-              defaultValue="crush"
-              value={activeFeatures}
-              onValueChange={(value) => {
-                console.log("Changed to features tab:", value);
-                setActiveFeatures(value as 'crush' | 'bravo');
-              }}
-              className="w-full flex flex-col items-center"
-            >
-              <TabsList className="mb-6 md:mb-10">
-                <TabsTrigger 
-                  value="crush"
-                  className="px-5 md:px-8 py-2 md:py-3 text-sm md:text-base"
-                >
-                  CRUSH Features
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="bravo"
-                  className="px-5 md:px-8 py-2 md:py-3 text-sm md:text-base"
-                >
-                  BRAVO Features
-                </TabsTrigger>
-              </TabsList>
+          <Tabs defaultValue="crush" className="w-full flex flex-col items-center">
+            <TabsList className="mb-6 md:mb-10">
+              <TabsTrigger 
+                value="crush"
+                className="px-5 md:px-8 py-2 md:py-3 text-sm md:text-base"
+              >
+                CRUSH Features
+              </TabsTrigger>
+              <TabsTrigger 
+                value="bravo"
+                className="px-5 md:px-8 py-2 md:py-3 text-sm md:text-base"
+              >
+                BRAVO Features
+              </TabsTrigger>
+            </TabsList>
 
-              <TabsContent value="crush" className="w-full">
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
-                >
-                  <div className="min-w-[768px] md:min-w-0">
-                    <EnhancedFeatureTable product="crush" />
-                  </div>
-                </motion.div>
-              </TabsContent>
-              
-              <TabsContent value="bravo" className="w-full">
-                <motion.div 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
-                >
-                  <div className="min-w-[768px] md:min-w-0">
-                    <EnhancedFeatureTable product="bravo" />
-                  </div>
-                </motion.div>
-              </TabsContent>
-            </Tabs>
-          </div>
+            <TabsContent value="crush" className="w-full">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
+              >
+                <div className="min-w-[768px] md:min-w-0">
+                  <EnhancedFeatureTable product="crush" />
+                </div>
+              </motion.div>
+            </TabsContent>
+            
+            <TabsContent value="bravo" className="w-full">
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
+              >
+                <div className="min-w-[768px] md:min-w-0">
+                  <EnhancedFeatureTable product="bravo" />
+                </div>
+              </motion.div>
+            </TabsContent>
+          </Tabs>
           
           {/* Mobile scroll indicator */}
           <div className="flex md:hidden justify-center mt-3 items-center text-sm text-[#387E89]">
@@ -398,7 +367,7 @@ const Pricing = () => {
               whileHover={{ y: -5 }}
             >
               <div className="h-12 w-12 md:h-16 md:w-16 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center text-white mb-4 md:mb-6">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2" /><path d="M10 16c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2" /><path d="M16 22c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v4c0 1.1-.9 2-2 2h-4Z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 10c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2" /><path d="M10 16c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2" /><path d="M16 22c-1.1 0-2-.9-2-2v-4c0-1.1.9-2 2-2v4c0 1.1-.9 2-2 2h-4Z" /></svg>
               </div>
               <h3 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-[#143151]">Tailored for You</h3>
               <p className="text-sm md:text-base text-gray-700">Specialty-specific scribe and seamless EHR/PMS integration fit your unique clinical workflow needs.</p>
