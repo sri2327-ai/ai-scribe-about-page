@@ -10,9 +10,6 @@ export interface PricingData {
 export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'monthly' | 'annual'): Record<'crush' | 'bravo' | 'bundle', PricingData> => {
   const symbol = currencySymbols[currency];
   
-  // Base pricing data for USD
-  const baseNoEhr = 99;
-  
   // Define pricing for different currencies
   const currencyPricing: Record<CurrencyCode, {noEhr: number, withEhr?: number, pro?: number}> = {
     USD: { noEhr: 99 },
