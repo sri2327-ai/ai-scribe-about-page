@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -183,32 +184,41 @@ const Pricing = () => {
             <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} showPerProviderNote={true} />
           </div>
 
-          {/* Tabs - Fixed Radix UI Tabs implementation */}
+          {/* Tabs - Improved mobile responsiveness */}
           <div className="flex flex-col items-center">
             <Tabs 
               value={activeTab}
               onValueChange={handleTabChange}
               className="w-full flex flex-col items-center"
             >
-              <TabsList className="mb-6 md:mb-8">
-                <TabsTrigger value="crush" className="px-4 md:px-6 py-1 md:py-2 text-sm">
+              <TabsList className="mb-6 md:mb-8 flex w-full max-w-md overflow-x-auto justify-center p-1 bg-gray-100/70 rounded-full">
+                <TabsTrigger 
+                  value="crush" 
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm whitespace-nowrap min-w-[80px]"
+                >
                   CRUSH (AI Scribe)
                 </TabsTrigger>
-                <TabsTrigger value="bravo" className="px-4 md:px-6 py-1 md:py-2 text-sm">
+                <TabsTrigger 
+                  value="bravo" 
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm whitespace-nowrap min-w-[80px]"
+                >
                   BRAVO (Patient Engagement)
                 </TabsTrigger>
-                <TabsTrigger value="bundle" className="px-4 md:px-6 py-1 md:py-2 text-sm">
+                <TabsTrigger 
+                  value="bundle" 
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm whitespace-nowrap min-w-[80px]"
+                >
                   Bundle
                 </TabsTrigger>
               </TabsList>
 
-              {/* Pricing Toggle */}
+              {/* Pricing Toggle - Improved for mobile */}
               <div className="flex justify-center mb-8 md:mb-12">
                 <div className="flex bg-gray-100 rounded-full p-1">
                   <Button 
                     variant="ghost"
                     onClick={() => handleBillingCycleChange('monthly')}
-                    className={`rounded-full text-xs md:text-sm ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                    className={`rounded-full text-xs md:text-sm px-3 py-1 ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
                   >
                     Monthly
                   </Button>
@@ -218,10 +228,10 @@ const Pricing = () => {
                         <Button 
                           variant="ghost"
                           onClick={() => handleBillingCycleChange('annual')}
-                          className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                          className={`rounded-full flex items-center text-xs md:text-sm px-3 py-1 ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
                         >
                           Annual
-                          <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
+                          <BadgePercent className="ml-1 h-3 w-3 md:h-4 md:w-4" />
                           <span className="text-xs ml-1">Save 16%</span>
                         </Button>
                       </TooltipTrigger>
@@ -286,7 +296,7 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Feature Comparison */}
+      {/* Feature Comparison - Improved mobile responsiveness */}
       <section className="py-12 md:py-16 lg:py-24 bg-gray-50">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -311,18 +321,18 @@ const Pricing = () => {
             </motion.p>
           </motion.div>
 
-          {/* Feature Toggle - Fixed Radix UI Tabs implementation */}
+          {/* Feature Toggle - Improved mobile responsiveness */}
           <Tabs defaultValue="crush" className="w-full flex flex-col items-center">
-            <TabsList className="mb-6 md:mb-10">
+            <TabsList className="mb-6 md:mb-10 flex w-full max-w-md justify-center p-1 bg-gray-100/70 rounded-full">
               <TabsTrigger 
                 value="crush"
-                className="px-5 md:px-8 py-2 md:py-3 text-sm md:text-base"
+                className="flex-1 px-4 py-2 text-xs sm:text-sm"
               >
                 CRUSH Features
               </TabsTrigger>
               <TabsTrigger 
                 value="bravo"
-                className="px-5 md:px-8 py-2 md:py-3 text-sm md:text-base"
+                className="flex-1 px-4 py-2 text-xs sm:text-sm"
               >
                 BRAVO Features
               </TabsTrigger>
@@ -355,8 +365,8 @@ const Pricing = () => {
             </TabsContent>
           </Tabs>
           
-          {/* Mobile scroll indicator */}
-          <div className="flex md:hidden justify-center mt-3 items-center text-sm text-[#387E89]">
+          {/* Mobile scroll indicator - Improved visibility */}
+          <div className="flex md:hidden justify-center mt-3 items-center text-sm text-[#387E89] bg-gray-50/80 py-2 rounded-full shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-1"><path d="M17 8h1a4 4 0 1 1 0 8h-1"></path><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"></path></svg>
             Swipe to see all features
           </div>

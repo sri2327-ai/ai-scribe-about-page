@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { User, Building, Building2, Hospital } from 'lucide-react';
+import { User, Building, Building2, Hospital, ArrowRight } from 'lucide-react';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface PracticeType {
   id: string;
@@ -39,13 +40,34 @@ const practiceTypes: PracticeType[] = [
   }
 ];
 
-export const PracticeTypeSelector = () => {
+export const PracticeTypeSelector = ({ onSelect }: { onSelect: (type: string) => void }) => {
   const [selectedType, setSelectedType] = useState(practiceTypes[0].id);
+  const [selectedTab, setSelectedTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
+
+  const handleSeeDetails = () => {
+    // Navigate to pricing section
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Dispatch event to change tab in pricing section
+    const event = new CustomEvent('pricingTabChange', { 
+      detail: { tab: selectedTab } 
+    });
+    window.dispatchEvent(event);
+    
+    // Store selected tab in localStorage for persistence
+    localStorage.setItem('activePricingTab', selectedTab);
+    
+    // Call onSelect prop
+    onSelect(selectedTab);
+  };
 
   return (
-    <section className="w-full py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="w-full py-14 md:py-20 bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12">
+        <div className="text-center mb-10 md:mb-12">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151]">
             Tailored Solutions for Every Practice Type
           </h2>
@@ -60,12 +82,13 @@ export const PracticeTypeSelector = () => {
           onValueChange={setSelectedType}
           className="w-full"
         >
-          <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 bg-transparent h-auto p-0">
+          {/* Improved mobile grid layout */}
+          <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 bg-transparent h-auto p-0 overflow-x-auto">
             {practiceTypes.map((type) => (
               <TabsTrigger
                 key={type.id}
                 value={type.id}
-                className="data-[state=active]:bg-gradient-to-r from-[#143151] to-[#387E89] data-[state=active]:text-white px-3 md:px-4 py-2 md:py-3 h-auto flex flex-col items-center gap-2 rounded-lg border border-gray-200 hover:border-[#387E89] transition-all"
+                className="data-[state=active]:bg-gradient-to-r from-[#143151] to-[#387E89] data-[state=active]:text-white px-3 md:px-4 py-2 md:py-3 h-auto flex flex-col items-center gap-2 rounded-lg border border-gray-200 hover:border-[#387E89] transition-all min-w-[120px]"
               >
                 <type.icon className="w-5 h-5 md:w-6 md:h-6" />
                 <span className="text-xs md:text-sm font-semibold">{type.title}</span>
@@ -79,18 +102,64 @@ export const PracticeTypeSelector = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
+                className="mt-6"
               >
-                <Card className="mt-6 border-2 border-[#387E89]/10 hover:border-[#387E89]/20 transition-all shadow-sm hover:shadow-md">
-                  <CardHeader className="flex flex-row items-center gap-4">
+                <Card className="border-2 border-[#387E89]/10 hover:border-[#387E89]/20 transition-all shadow-sm hover:shadow-md overflow-hidden">
+                  <CardHeader className="flex flex-row items-center gap-4 flex-wrap sm:flex-nowrap">
                     <div className="p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                       <type.icon className="w-5 h-5 md:w-6 md:h-6" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold text-[#143151]">{type.title}</h3>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-sm md:text-base text-gray-600 leading-relaxed font-normal">
+                  
+                  <CardContent className="space-y-6">
+                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
                       {type.description}
                     </p>
+                    
+                    {/* Product selection tabs */}
+                    <div className="w-full pt-4">
+                      <h4 className="text-lg font-medium text-[#143151] mb-3">
+                        Which solution is right for your practice?
+                      </h4>
+                      
+                      <Tabs 
+                        value={selectedTab} 
+                        onValueChange={(value) => setSelectedTab(value as 'crush' | 'bravo' | 'bundle')}
+                        className="w-full"
+                      >
+                        <TabsList className="w-full flex max-w-md mx-auto mb-4 p-1 bg-gray-100/80 rounded-full">
+                          <TabsTrigger 
+                            value="crush" 
+                            className="flex-1 text-xs md:text-sm py-1.5"
+                          >
+                            CRUSH AI Scribe
+                          </TabsTrigger>
+                          <TabsTrigger 
+                            value="bravo" 
+                            className="flex-1 text-xs md:text-sm py-1.5"
+                          >
+                            BRAVO Patient
+                          </TabsTrigger>
+                          <TabsTrigger 
+                            value="bundle" 
+                            className="flex-1 text-xs md:text-sm py-1.5"
+                          >
+                            Bundle (Save 10%)
+                          </TabsTrigger>
+                        </TabsList>
+                        
+                        <div className="flex justify-center mt-6">
+                          <Button 
+                            onClick={handleSeeDetails}
+                            className="rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-md"
+                          >
+                            See Full Details
+                            <ArrowRight className="ml-1 h-4 w-4" />
+                          </Button>
+                        </div>
+                      </Tabs>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
