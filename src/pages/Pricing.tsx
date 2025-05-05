@@ -129,103 +129,105 @@ const Pricing = () => {
             <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} showPerProviderNote={true} />
           </div>
 
-          {/* Tabs for product selection */}
-          <Tabs 
-            defaultValue="crush" 
-            className="w-full flex flex-col items-center"
-          >
-            <TabsList className="mb-6 md:mb-8">
-              <TabsTrigger value="crush" className="px-4 md:px-6 py-1 md:py-2 text-sm">
-                CRUSH (AI Scribe)
-              </TabsTrigger>
-              <TabsTrigger value="bravo" className="px-4 md:px-6 py-1 md:py-2 text-sm">
-                BRAVO (Patient Engagement)
-              </TabsTrigger>
-              <TabsTrigger value="bundle" className="px-4 md:px-6 py-1 md:py-2 text-sm">
-                Bundle
-              </TabsTrigger>
-            </TabsList>
+          {/* Tabs - Fixed Radix UI Tabs implementation */}
+          <div className="flex flex-col items-center">
+            <Tabs 
+              defaultValue="crush" 
+              className="w-full flex flex-col items-center"
+            >
+              <TabsList className="mb-6 md:mb-8">
+                <TabsTrigger value="crush" className="px-4 md:px-6 py-1 md:py-2 text-sm">
+                  CRUSH (AI Scribe)
+                </TabsTrigger>
+                <TabsTrigger value="bravo" className="px-4 md:px-6 py-1 md:py-2 text-sm">
+                  BRAVO (Patient Engagement)
+                </TabsTrigger>
+                <TabsTrigger value="bundle" className="px-4 md:px-6 py-1 md:py-2 text-sm">
+                  Bundle
+                </TabsTrigger>
+              </TabsList>
 
-            {/* Pricing Toggle */}
-            <div className="flex justify-center mb-8 md:mb-12">
-              <div className="flex bg-gray-100 rounded-full p-1">
-                <Button 
-                  variant="ghost"
-                  onClick={() => setBillingCycle('monthly')}
-                  className={`rounded-full text-xs md:text-sm ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
-                >
-                  Monthly
-                </Button>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button 
-                        variant="ghost"
-                        onClick={() => setBillingCycle('annual')}
-                        className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
-                      >
-                        Annual
-                        <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
-                        <span className="text-xs ml-1">Save 16%</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Pay for 10 months, get 12 months of service</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+              {/* Pricing Toggle */}
+              <div className="flex justify-center mb-8 md:mb-12">
+                <div className="flex bg-gray-100 rounded-full p-1">
+                  <Button 
+                    variant="ghost"
+                    onClick={() => setBillingCycle('monthly')}
+                    className={`rounded-full text-xs md:text-sm ${billingCycle === 'monthly' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                  >
+                    Monthly
+                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          variant="ghost"
+                          onClick={() => setBillingCycle('annual')}
+                          className={`rounded-full flex items-center text-xs md:text-sm ${billingCycle === 'annual' ? 'bg-[#143151] text-white' : 'text-gray-700 hover:text-[#143151]'}`}
+                        >
+                          Annual
+                          <BadgePercent className="ml-1 md:ml-2 h-3 w-3 md:h-4 md:w-4" />
+                          <span className="text-xs ml-1">Save 16%</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Pay for 10 months, get 12 months of service</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
               </div>
-            </div>
 
-            {/* Tab Contents */}
-            <TabsContent value="crush" className="w-full">
-              <div className="text-center mb-6 md:mb-10">
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
-                  CRUSH: End Charting Nightmares with AI-Powered Precision
-                </h3>
-                <p className="text-base md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
-                  From pinpoint-accurate notes to seamless EHR integration, CRUSH saves 2+ hours daily. Don't let documentation ruin your evenings—start now!
-                </p>
-              </div>
-              <PricingCards 
-                activePlan="crush" 
-                billingCycle={billingCycle} 
-                selectedCurrency={selectedCurrency} 
-              />
-            </TabsContent>
+              {/* Tab Contents */}
+              <TabsContent value="crush" className="w-full">
+                <div className="text-center mb-6 md:mb-10">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
+                    CRUSH: End Charting Nightmares with AI-Powered Precision
+                  </h3>
+                  <p className="text-base md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
+                    From pinpoint-accurate notes to seamless EHR integration, CRUSH saves 2+ hours daily. Don't let documentation ruin your evenings—start now!
+                  </p>
+                </div>
+                <PricingCards 
+                  activePlan="crush" 
+                  billingCycle={billingCycle} 
+                  selectedCurrency={selectedCurrency} 
+                />
+              </TabsContent>
 
-            <TabsContent value="bravo" className="w-full">
-              <div className="text-center mb-6 md:mb-10">
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
-                  BRAVO: Slash No-Shows with Seamless Patient Engagement
-                </h3>
-                <p className="text-base md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
-                  Automate your front office and cut no-shows by 30% with AI-powered scheduling and patient communication. Focus on care—start today!
-                </p>
-              </div>
-              <PricingCards 
-                activePlan="bravo" 
-                billingCycle={billingCycle} 
-                selectedCurrency={selectedCurrency} 
-              />
-            </TabsContent>
+              <TabsContent value="bravo" className="w-full">
+                <div className="text-center mb-6 md:mb-10">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
+                    BRAVO: Slash No-Shows with Seamless Patient Engagement
+                  </h3>
+                  <p className="text-base md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
+                    Automate your front office and cut no-shows by 30% with AI-powered scheduling and patient communication. Focus on care—start today!
+                  </p>
+                </div>
+                <PricingCards 
+                  activePlan="bravo" 
+                  billingCycle={billingCycle} 
+                  selectedCurrency={selectedCurrency} 
+                />
+              </TabsContent>
 
-            <TabsContent value="bundle" className="w-full">
-              <div className="text-center mb-6 md:mb-10">
-                <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
-                  Bundle: Transform Your Practice with Comprehensive AI Solutions
-                </h3>
-                <p className="text-base md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
-                  Combine CRUSH and BRAVO for unmatched efficiency and patient satisfaction. Save 10% with our time-saving, HIPAA-compliant bundle!
-                </p>
-              </div>
-              <PricingCards 
-                activePlan="bundle" 
-                billingCycle={billingCycle} 
-                selectedCurrency={selectedCurrency} 
-              />
-            </TabsContent>
-          </Tabs>
+              <TabsContent value="bundle" className="w-full">
+                <div className="text-center mb-6 md:mb-10">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4 text-[#143151]">
+                    Bundle: Transform Your Practice with Comprehensive AI Solutions
+                  </h3>
+                  <p className="text-base md:text-lg mb-6 md:mb-8 max-w-3xl mx-auto text-[#387E89]">
+                    Combine CRUSH and BRAVO for unmatched efficiency and patient satisfaction. Save 10% with our time-saving, HIPAA-compliant bundle!
+                  </p>
+                </div>
+                <PricingCards 
+                  activePlan="bundle" 
+                  billingCycle={billingCycle} 
+                  selectedCurrency={selectedCurrency} 
+                />
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
       </section>
 
@@ -254,7 +256,7 @@ const Pricing = () => {
             </motion.p>
           </motion.div>
 
-          {/* Feature Toggle */}
+          {/* Feature Toggle - Fixed Radix UI Tabs implementation */}
           <Tabs defaultValue="crush" className="w-full flex flex-col items-center">
             <TabsList className="mb-6 md:mb-10">
               <TabsTrigger 
