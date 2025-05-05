@@ -103,11 +103,44 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
              type === 'clinic' ? "bundle_enterprise" : "crush_pro");
   };
 
-  const handleTabChange = (type: string, tabValue: 'crush' | 'bravo' | 'bundle') => {
+  // Fixed the tab handling to prevent event bubbling issues
+  const handleTabChange = (type: string, tabValue: 'crush' | 'bravo' | 'bundle', e: React.MouseEvent) => {
+    // Stop event propagation to prevent the card click handler from firing
+    e.stopPropagation();
+    
     setActiveTabs(prev => ({
       ...prev,
       [type]: tabValue
     }));
+    
+    // Update the main plan selection based on the tab and practice type
+    const practiceToPlans: Record<string, Record<'crush' | 'bravo' | 'bundle', string>> = {
+      'solo': {
+        'crush': 'crush_basic',
+        'bravo': 'bravo_basic',
+        'bundle': 'bundle_basic'
+      },
+      'small': {
+        'crush': 'crush_plus',
+        'bravo': 'bravo_pro',
+        'bundle': 'bundle_plus'
+      },
+      'clinic': {
+        'crush': 'crush_enterprise',
+        'bravo': 'bravo_enterprise',
+        'bundle': 'bundle_enterprise'
+      },
+      'specialty': {
+        'crush': 'crush_pro',
+        'bravo': 'bravo_pro',
+        'bundle': 'bundle_pro'
+      }
+    };
+    
+    // If type is the currently selected practice type, also update the main plan
+    if (type === selectedType) {
+      onSelect(practiceToPlans[type][tabValue]);
+    }
   };
   
   // Updated practice types with minor change to description text
@@ -300,13 +333,10 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                       <div className="mt-4 pt-4 border-t border-gray-200">
                         <h4 className="font-bold text-[#143151] text-base md:text-lg mb-2">Recommended Plans</h4>
                         
-                        <div className="w-full bg-gray-100 rounded-md mb-2">
+                        <div className="w-full bg-gray-100 rounded-md mb-2 overflow-hidden">
                           <div className="flex justify-between">
                             <button 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleTabChange(type.id, 'crush');
-                              }}
+                              onClick={(e) => handleTabChange(type.id, 'crush', e)}
                               className={`flex-1 text-xs md:text-sm py-2 px-2 rounded-l-md transition-colors ${
                                 activeTab === 'crush' 
                                   ? 'bg-[#387E89] text-white font-medium' 
@@ -316,10 +346,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                               CRUSH
                             </button>
                             <button 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleTabChange(type.id, 'bravo');
-                              }}
+                              onClick={(e) => handleTabChange(type.id, 'bravo', e)}
                               className={`flex-1 text-xs md:text-sm py-2 px-2 transition-colors ${
                                 activeTab === 'bravo' 
                                   ? 'bg-[#387E89] text-white font-medium' 
@@ -329,10 +356,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                               BRAVO
                             </button>
                             <button 
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleTabChange(type.id, 'bundle');
-                              }}
+                              onClick={(e) => handleTabChange(type.id, 'bundle', e)}
                               className={`flex-1 text-xs md:text-sm py-2 px-2 rounded-r-md transition-colors ${
                                 activeTab === 'bundle' 
                                   ? 'bg-[#387E89] text-white font-medium' 
@@ -423,10 +447,10 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                       <div className="mt-4 pt-4 border-t border-gray-200">
                         <h4 className="font-bold text-[#143151] text-base mb-2">Recommended Plans</h4>
                         
-                        <div className="w-full bg-gray-100 rounded-md mb-2">
+                        <div className="w-full bg-gray-100 rounded-md mb-2 overflow-hidden">
                           <div className="flex justify-between">
                             <button 
-                              onClick={() => handleTabChange(type.id, 'crush')}
+                              onClick={(e) => handleTabChange(type.id, 'crush', e)}
                               className={`flex-1 text-xs py-2 px-2 rounded-l-md transition-colors ${
                                 activeTab === 'crush' 
                                   ? 'bg-[#387E89] text-white font-medium' 
@@ -436,7 +460,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                               CRUSH
                             </button>
                             <button 
-                              onClick={() => handleTabChange(type.id, 'bravo')}
+                              onClick={(e) => handleTabChange(type.id, 'bravo', e)}
                               className={`flex-1 text-xs py-2 px-2 transition-colors ${
                                 activeTab === 'bravo' 
                                   ? 'bg-[#387E89] text-white font-medium' 
@@ -446,7 +470,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                               BRAVO
                             </button>
                             <button 
-                              onClick={() => handleTabChange(type.id, 'bundle')}
+                              onClick={(e) => handleTabChange(type.id, 'bundle', e)}
                               className={`flex-1 text-xs py-2 px-2 rounded-r-md transition-colors ${
                                 activeTab === 'bundle' 
                                   ? 'bg-[#387E89] text-white font-medium' 
@@ -487,7 +511,8 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                         <div className="mt-3">
                           <Button
                             className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs py-1"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               const pricingSection = document.getElementById('pricing');
                               if (pricingSection) {
                                 pricingSection.scrollIntoView({ behavior: 'smooth' });
