@@ -43,6 +43,12 @@ const Landing = () => {
     }
   };
 
+  // Add a handler for the onSelect prop
+  const handlePracticeTypeSelect = (type: string) => {
+    console.log("Practice type selected on landing page:", type);
+    // You can add more functionality here if needed
+  };
+
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
@@ -106,7 +112,7 @@ const Landing = () => {
         <NinthSection />
       </Suspense>
       <TenthSection />
-      <PracticeTypeSelector />
+      <PracticeTypeSelector onSelect={handlePracticeTypeSelect} />
       <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
       </Suspense>
