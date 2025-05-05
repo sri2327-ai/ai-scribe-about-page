@@ -1,9 +1,12 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, ChevronLeft, ChevronRight, Stethoscope, Building, Users, Heart } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { getPricingByCurrency, PricingData } from "@/utils/pricing";
+import { CurrencyCode } from "@/components/pricing/CurrencySelector";
 
 interface PracticeTypeSelectorProps {
   onSelect: (planType: string) => void;
@@ -18,12 +21,80 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     'specialty': 'crush'
   });
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  
+  // Get dynamic pricing data
+  const pricingData = getPricingByCurrency(selectedCurrency, billingCycle);
   
   useEffect(() => {
     // Select solo by default on component mount
     onSelect("crush_basic");
+    
+    // Get currency from URL or localStorage if available
+    const urlParams = new URLSearchParams(window.location.search);
+    const currencyParam = urlParams.get('currency');
+    const storedCurrency = localStorage.getItem('selectedCurrency');
+    
+    if (currencyParam && ['USD', 'CAD', 'AUD', 'GBP', 'EUR', 'NZD', 'AED'].includes(currencyParam)) {
+      setSelectedCurrency(currencyParam as CurrencyCode);
+    } else if (storedCurrency && ['USD', 'CAD', 'AUD', 'GBP', 'EUR', 'NZD', 'AED'].includes(storedCurrency)) {
+      setSelectedCurrency(storedCurrency as CurrencyCode);
+    }
+    
+    // Get billing cycle from URL or localStorage if available
+    const cycleParam = urlParams.get('billing');
+    const storedCycle = localStorage.getItem('billingCycle');
+    
+    if (cycleParam === 'annual' || cycleParam === 'monthly') {
+      setBillingCycle(cycleParam);
+    } else if (storedCycle === 'annual' || storedCycle === 'monthly') {
+      setBillingCycle(storedCycle as 'annual' | 'monthly');
+    }
   }, [onSelect]);
+  
+  // Sync with pricing component's currency changes
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'selectedCurrency' && e.newValue) {
+        if (['USD', 'CAD', 'AUD', 'GBP', 'EUR', 'NZD', 'AED'].includes(e.newValue)) {
+          setSelectedCurrency(e.newValue as CurrencyCode);
+        }
+      }
+      if (e.key === 'billingCycle' && e.newValue) {
+        if (e.newValue === 'annual' || e.newValue === 'monthly') {
+          setBillingCycle(e.newValue as 'annual' | 'monthly');
+        }
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Check if we need to update from events within the same window
+    const handleCurrencyChange = (e: Event) => {
+      const event = e as CustomEvent;
+      if (event.detail && event.detail.currency) {
+        setSelectedCurrency(event.detail.currency);
+      }
+    };
+    
+    const handleBillingChange = (e: Event) => {
+      const event = e as CustomEvent;
+      if (event.detail && event.detail.cycle) {
+        setBillingCycle(event.detail.cycle);
+      }
+    };
+    
+    window.addEventListener('currencyChange', handleCurrencyChange);
+    window.addEventListener('billingCycleChange', handleBillingChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('currencyChange', handleCurrencyChange);
+      window.removeEventListener('billingCycleChange', handleBillingChange);
+    };
+  }, []);
   
   const handleSelect = (type: string) => {
     setSelectedType(type);
@@ -73,28 +144,87 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
     }
   ];
   
-  // Define product recommendations
+  // Define product recommendations with dynamic pricing
   const productRecommendations = {
     crush: {
-      'solo': { name: 'CRUSH Basic', description: 'Perfect for solo providers', price: '$99/month' },
-      'small': { name: 'CRUSH Plus', description: 'Ideal for small practices', price: '$149/provider/mo' },
-      'clinic': { name: 'Bundle Enterprise', description: 'Complete solution for clinics & groups', price: 'Custom pricing' },
-      'specialty': { name: 'CRUSH Pro', description: 'Advanced features for specialty practices', price: 'Custom pricing' }
+      'solo': { 
+        name: 'CRUSH Basic', 
+        description: 'Perfect for solo providers', 
+        price: pricingData.crush.noEhr
+      },
+      'small': { 
+        name: 'CRUSH Plus', 
+        description: 'Ideal for small practices', 
+        price: pricingData.crush.withEhr
+      },
+      'clinic': { 
+        name: 'CRUSH Enterprise', 
+        description: 'Complete solution for clinics & groups', 
+        price: pricingData.crush.pro
+      },
+      'specialty': { 
+        name: 'CRUSH Pro', 
+        description: 'Advanced features for specialty practices', 
+        price: pricingData.crush.pro
+      }
     },
     bravo: {
-      'solo': { name: 'BRAVO Basic', description: 'Streamlined patient management', price: '$99/month' },
-      'small': { name: 'BRAVO Pro', description: 'Enhanced patient engagement', price: '$119/month' },
-      'clinic': { name: 'BRAVO Enterprise', description: 'Multi-clinic management', price: 'Custom pricing' },
-      'specialty': { name: 'BRAVO Pro', description: 'Specialty-specific workflows', price: '$149/month' }
+      'solo': { 
+        name: 'BRAVO Basic', 
+        description: 'Streamlined patient management', 
+        price: pricingData.bravo.noEhr
+      },
+      'small': { 
+        name: 'BRAVO Pro', 
+        description: 'Enhanced patient engagement', 
+        price: pricingData.bravo.withEhr
+      },
+      'clinic': { 
+        name: 'BRAVO Enterprise', 
+        description: 'Multi-clinic management', 
+        price: pricingData.bravo.pro
+      },
+      'specialty': { 
+        name: 'BRAVO Pro', 
+        description: 'Specialty-specific workflows', 
+        price: pricingData.bravo.pro
+      }
     },
     bundle: {
-      'solo': { name: 'Basic Bundle', description: 'CRUSH + BRAVO with discount', price: 'From $159/month' },
-      'small': { name: 'Plus Bundle', description: 'Premium integration package', price: 'From $199/month' },
-      'clinic': { name: 'Enterprise Bundle', description: 'Complete enterprise solution', price: 'Custom pricing' },
-      'specialty': { name: 'Pro Bundle', description: 'Specialty-specific bundle', price: 'From $219/month' }
+      'solo': { 
+        name: 'Basic Bundle', 
+        description: 'CRUSH + BRAVO with discount', 
+        price: pricingData.bundle.noEhr
+      },
+      'small': { 
+        name: 'Plus Bundle', 
+        description: 'Premium integration package', 
+        price: pricingData.bundle.withEhr
+      },
+      'clinic': { 
+        name: 'Enterprise Bundle', 
+        description: 'Complete enterprise solution', 
+        price: pricingData.bundle.pro
+      },
+      'specialty': { 
+        name: 'Pro Bundle', 
+        description: 'Specialty-specific bundle', 
+        price: pricingData.bundle.pro
+      }
     }
   };
   
+  // For mobile carousel
+  const nextPractice = () => {
+    setCurrentIndex(prev => (prev + 1) % practiceTypes.length);
+    handleSelect(practiceTypes[(currentIndex + 1) % practiceTypes.length].id);
+  };
+  
+  const prevPractice = () => {
+    setCurrentIndex(prev => (prev - 1 + practiceTypes.length) % practiceTypes.length);
+    handleSelect(practiceTypes[(currentIndex - 1 + practiceTypes.length) % practiceTypes.length].id);
+  };
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -110,17 +240,6 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 }
-  };
-  
-  // For mobile carousel
-  const nextPractice = () => {
-    setCurrentIndex(prev => (prev + 1) % practiceTypes.length);
-    handleSelect(practiceTypes[(currentIndex + 1) % practiceTypes.length].id);
-  };
-  
-  const prevPractice = () => {
-    setCurrentIndex(prev => (prev - 1 + practiceTypes.length) % practiceTypes.length);
-    handleSelect(practiceTypes[(currentIndex - 1 + practiceTypes.length) % practiceTypes.length].id);
   };
 
   return (
