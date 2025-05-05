@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -570,3 +571,22 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             />
           ))}
         </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="flex flex-col gap-8">
+      {/* Desktop view - show cards in a grid */}
+      <div className={`${isMobile ? 'hidden' : 'grid'} grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-4`}>
+        {renderPlanCards()}
+      </div>
+
+      {/* Mobile view - show cards in a carousel */}
+      <div className={`${isMobile ? 'block' : 'hidden'}`}>
+        {renderMobileCarousel()}
+      </div>
+    </div>
+  );
+};
+
