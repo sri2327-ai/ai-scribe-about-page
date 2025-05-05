@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -574,23 +573,3 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
   // Desktop display
   const renderDesktopGrid = () => {
     return (
-      <div className="grid md:grid-cols-3 gap-6 md:gap-8">
-        {renderPlanCards()}
-      </div>
-    );
-  };
-  
-  return (
-    <div className="w-full max-w-6xl mx-auto">
-      {/* Show carousel on mobile, grid on desktop */}
-      <div className="md:hidden">
-        {renderMobileCarousel()}
-      </div>
-      <div className="hidden md:block">
-        {renderDesktopGrid()}
-      </div>
-    </div>
-  );
-};
-
-export default PricingCards;
