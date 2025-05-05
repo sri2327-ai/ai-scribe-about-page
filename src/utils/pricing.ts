@@ -33,7 +33,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(price * multiplier).toLocaleString()}`;
   };
   
-  // Generate pricing data
+  // Generate pricing data for all products
   return {
     crush: {
       noEhr: formatPrice(pricing.noEhr),
@@ -41,14 +41,14 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       pro: pricing.pro ? formatPrice(pricing.pro) : 'Custom pricing'
     },
     bravo: {
-      noEhr: formatPrice(pricing.noEhr),
+      noEhr: formatPrice(pricing.noEhr),  // Using the same base pricing for Bravo
       withEhr: pricing.withEhr ? formatPrice(pricing.withEhr) : 'Custom pricing',
       pro: pricing.pro ? formatPrice(pricing.pro) : 'Custom pricing'
     },
     bundle: {
       noEhr: formatPrice(pricing.noEhr ? pricing.noEhr * 1.6 : undefined), // Bundle is approximately 1.6x the base price with 10% discount
-      withEhr: 'Custom pricing',
-      pro: 'Custom pricing'
+      withEhr: pricing.withEhr ? formatPrice(pricing.withEhr * 1.6) : 'Custom pricing',
+      pro: pricing.pro ? formatPrice(pricing.pro * 1.6) : 'Custom pricing'
     }
   };
 };

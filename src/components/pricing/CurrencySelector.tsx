@@ -39,7 +39,7 @@ export const CurrencySelector: React.FC<CurrencySelectorProps> = ({ selectedCurr
         <SelectTrigger className="w-[140px] bg-white border border-gray-200 rounded-md">
           <SelectValue placeholder="Currency" />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="bg-white border border-gray-200 shadow-lg">
           <SelectGroup>
             <SelectItem value="USD">
               <div className="flex items-center">
