@@ -124,12 +124,15 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}`;
   };
 
-  // Format for "Up to" pricing
+  // Format for "Up to" pricing - modified to handle annual pricing
   const formatUpTo = (max: number) => {
+    if (billingCycle === 'annual') {
+      return `Up to ${symbol}${(max * multiplier).toLocaleString()}/yr`;
+    }
     return `Up to ${symbol}${(max * multiplier).toLocaleString()}`;
   };
   
-  // Format "From" price text (for bundle Pro)
+  // Format "From" price text - modified to handle annual pricing
   const formatFromPrice = (text: string) => {
     if (!text.startsWith('From')) return text;
     
@@ -140,7 +143,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       if (matches && matches.length === 3) {
         const currSymbol = matches[1]; // e.g., "$", "€"
         const amount = parseInt(matches[2], 10); // e.g., 198
-        return `From ${currSymbol}${(amount * 10).toLocaleString()}`; // 10 months price instead of 12
+        return `From ${currSymbol}${(amount * 10).toLocaleString()}/yr`; // 10 months price instead of 12
       }
     }
     
