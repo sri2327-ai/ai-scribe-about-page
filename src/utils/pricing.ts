@@ -1,4 +1,3 @@
-
 import { CurrencyCode, currencySymbols } from "@/components/pricing/CurrencySelector";
 
 export interface PricingData {
@@ -116,20 +115,17 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   // Format the price with currency symbol
   const formatPrice = (price: number | string) => {
     if (typeof price === 'string') return price;
-    return `${symbol}${(price * multiplier).toLocaleString()}`;
+    return `${symbol}${(price * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
   // Format price range
   const formatPriceRange = (min: number, max: number) => {
-    return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}`;
+    return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
 
   // Format for "Up to" pricing - modified to handle annual pricing
   const formatUpTo = (max: number) => {
-    if (billingCycle === 'annual') {
-      return `Up to ${symbol}${(max * multiplier).toLocaleString()}/yr`;
-    }
-    return `Up to ${symbol}${(max * multiplier).toLocaleString()}`;
+    return `Up to ${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
   // Format "From" price text - modified to handle annual pricing
@@ -144,6 +140,14 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
         const currSymbol = matches[1]; // e.g., "$", "€"
         const amount = parseInt(matches[2], 10); // e.g., 198
         return `From ${currSymbol}${(amount * 10).toLocaleString()}/yr`; // 10 months price instead of 12
+      }
+    } else if (billingCycle === 'monthly' && text.startsWith('From')) {
+      // Extract the currency symbol and number
+      const matches = text.match(/From\s+([^\d]*)(\d+)/);
+      if (matches && matches.length === 3) {
+        const currSymbol = matches[1]; // e.g., "$", "€"
+        const amount = parseInt(matches[2], 10); // e.g., 198
+        return `From ${currSymbol}${amount.toLocaleString()}/mo`;
       }
     }
     
