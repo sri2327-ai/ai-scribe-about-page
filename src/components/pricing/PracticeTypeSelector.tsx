@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -208,17 +209,17 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'solo': { 
         name: 'CRUSH Basic', 
         description: 'Perfect for solo providers', 
-        price: pricingData.crush.noEhr
+        price: pricingData.crush.basic
       },
       'small': { 
         name: 'CRUSH Plus', 
         description: 'Ideal for small practices', 
-        price: pricingData.crush.withEhr
+        price: pricingData.crush.pro
       },
       'clinic': { 
         name: 'CRUSH Enterprise', 
         description: 'Complete solution for clinics & groups', 
-        price: pricingData.crush.pro
+        price: pricingData.crush.enterprise
       },
       'specialty': { 
         name: 'CRUSH Pro', 
@@ -230,17 +231,17 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'solo': { 
         name: 'BRAVO Basic', 
         description: 'Streamlined patient management', 
-        price: pricingData.bravo.noEhr
+        price: pricingData.bravo.basic
       },
       'small': { 
         name: 'BRAVO Pro', 
         description: 'Enhanced patient engagement', 
-        price: pricingData.bravo.withEhr
+        price: pricingData.bravo.pro
       },
       'clinic': { 
         name: 'BRAVO Enterprise', 
         description: 'Multi-clinic management', 
-        price: pricingData.bravo.pro
+        price: pricingData.bravo.enterprise
       },
       'specialty': { 
         name: 'BRAVO Pro', 
@@ -252,17 +253,17 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'solo': { 
         name: 'Basic Bundle', 
         description: 'CRUSH + BRAVO with discount', 
-        price: pricingData.bundle.noEhr
+        price: pricingData.bundle.basic
       },
       'small': { 
         name: 'Plus Bundle', 
         description: 'Premium integration package', 
-        price: pricingData.bundle.withEhr
+        price: pricingData.bundle.pro
       },
       'clinic': { 
         name: 'Enterprise Bundle', 
         description: 'Complete enterprise solution', 
-        price: pricingData.bundle.pro
+        price: pricingData.bundle.enterprise
       },
       'specialty': { 
         name: 'Pro Bundle', 
