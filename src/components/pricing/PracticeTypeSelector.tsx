@@ -212,7 +212,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
         price: pricingData.crush.basic
       },
       'small': { 
-        name: 'CRUSH Plus', 
+        name: 'CRUSH Pro', 
         description: 'Ideal for small practices', 
         price: pricingData.crush.pro
       },
@@ -256,7 +256,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
         price: pricingData.bundle.basic
       },
       'small': { 
-        name: 'Plus Bundle', 
+        name: 'Pro Bundle', 
         description: 'Premium integration package', 
         price: pricingData.bundle.pro
       },
@@ -369,7 +369,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              CRUSH
+                              Basic
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bravo', e)}
@@ -379,7 +379,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              BRAVO
+                              Pro
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bundle', e)}
@@ -389,7 +389,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Bundle
+                              Enterprise
                             </button>
                           </div>
                         </div>
@@ -477,7 +477,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              CRUSH
+                              Basic
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bravo', e)}
@@ -487,7 +487,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              BRAVO
+                              Pro
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bundle', e)}
@@ -497,7 +497,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Bundle
+                              Enterprise
                             </button>
                           </div>
                         </div>
