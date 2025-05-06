@@ -2,11 +2,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, BadgePercent } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { CurrencyCode } from './CurrencySelector';
 import { getPricingByCurrency } from '@/utils/pricing';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface PricingCardsProps {
   activePlan: 'crush' | 'bravo' | 'bundle';
@@ -70,10 +69,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             custom={1}
           >
             <div className="p-6 md:p-8 flex flex-col flex-grow">
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR Integration)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {pricingData.crush.noEhr}
+                  {pricingData.crush.basic}
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
@@ -114,7 +113,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             </div>
           </motion.div>
 
-          {/* Basic (With EHR) */}
+          {/* Pro (With EHR) */}
           <motion.div 
             className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col relative"
             whileHover={{ y: -5 }}
@@ -132,11 +131,11 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               </div>
             </div>
             <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro (With EHR Integration)</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {pricingData.crush.withEhr}
-                  {pricingData.crush.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.crush.pro}
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -146,7 +145,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 <li className="flex items-start">
                   <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
-                  <span className="text-gray-700 font-semibold">All Basic (No EHR) features</span>
+                  <span className="text-gray-700 font-semibold">All Basic features</span>
                 </li>
                 {[
                   'EHR integration (all EHRs)',
@@ -172,7 +171,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             </div>
           </motion.div>
 
-          {/* Pro */}
+          {/* Enterprise */}
           <motion.div 
             className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col relative"
             whileHover={{ y: -5 }}
@@ -185,11 +184,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               </div>
             </div>
             <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Enterprise</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {pricingData.crush.pro}
-                  {pricingData.crush.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.crush.enterprise}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -199,7 +197,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 <li className="flex items-start">
                   <Check className="h-4 w-4 md:h-5 md:w-5 text-green-500 mr-2 shrink-0" />
-                  <span className="text-gray-700 font-semibold">All Basic (With EHR) features</span>
+                  <span className="text-gray-700 font-semibold">All Pro features</span>
                 </li>
                 {[
                   'Smart screening & assessments',
@@ -241,7 +239,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {pricingData.bravo.noEhr}
+                  {pricingData.bravo.basic}
                   <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
@@ -295,8 +293,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {pricingData.bravo.withEhr}
-                  {pricingData.bravo.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.bravo.pro}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -344,8 +341,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Enterprise</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {pricingData.bravo.pro}
-                  {pricingData.bravo.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.bravo.enterprise}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored for large practices
@@ -386,7 +382,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
       // Bundle plan
       return (
         <>
-          {/* Basic (No EHR) */}
+          {/* Basic */}
           <motion.div 
             className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
             whileHover={{ y: -5 }}
@@ -394,11 +390,11 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             custom={1}
           >
             <div className="p-6 md:p-8 flex flex-col flex-grow">
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (No EHR)</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {pricingData.bundle.noEhr}
-                  {pricingData.bundle.noEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.bundle.basic}
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
@@ -429,7 +425,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             </div>
           </motion.div>
 
-          {/* Basic (With EHR) */}
+          {/* Pro */}
           <motion.div 
             className="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
             whileHover={{ y: -5 }}
@@ -437,11 +433,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             custom={2}
           >
             <div className="p-6 md:p-8 flex flex-col flex-grow">
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Basic (With EHR)</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {pricingData.bundle.withEhr}
-                  {pricingData.bundle.withEhr !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.bundle.pro}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -450,8 +445,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="border-t border-gray-100 my-4"></div>
               <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
-                  'CRUSH Basic (With EHR)',
-                  'BRAVO Basic',
+                  'CRUSH Pro (With EHR)',
+                  'BRAVO Pro',
                   '10% discount vs. separate'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
@@ -472,7 +467,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
             </div>
           </motion.div>
 
-          {/* Pro */}
+          {/* Enterprise */}
           <motion.div 
             className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 flex flex-col relative"
             whileHover={{ y: -5 }}
@@ -490,21 +485,20 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               </div>
             </div>
             <div className="p-6 md:p-8 flex flex-col flex-grow mt-6 md:mt-8">
-              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
+              <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Enterprise</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
-                  {pricingData.bundle.pro}
-                  {pricingData.bundle.pro !== "Custom pricing" && <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>}
+                  {pricingData.bundle.enterprise}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
-                  Tailored to your practice
+                  Tailored for large practices
                 </p>
               </div>
               <div className="border-t border-gray-100 my-4"></div>
               <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
-                  'CRUSH Pro',
-                  'BRAVO Pro',
+                  'CRUSH Enterprise',
+                  'BRAVO Enterprise',
                   '10% discount vs. separate',
                   'Enhanced integration',
                   'Priority onboarding'
@@ -520,7 +514,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Pricing
+                Contact for Pro Bundle Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
