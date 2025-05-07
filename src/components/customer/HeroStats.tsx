@@ -15,10 +15,6 @@ const StatCard = ({ title, value, isAnimating = false }: { title: string; value:
   // Format the number with commas
   const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   
-  // Split the value into an array of characters to animate just the last digit
-  const valueChars = formattedValue.split('');
-  const lastIndex = valueChars.length - 1;
-
   return (
     <motion.div
       className="bg-white p-6 rounded-lg shadow-lg text-center transition-transform duration-500 hover:scale-105"
@@ -26,31 +22,18 @@ const StatCard = ({ title, value, isAnimating = false }: { title: string; value:
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <motion.h3
-        className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {valueChars.map((char, index) => (
-          index === lastIndex && isAnimating ? (
-            <AnimatePresence mode="wait" key={`${value}-${index}`}>
-              <motion.span
-                key={`${value}-${char}`}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.3 }}
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            </AnimatePresence>
-          ) : (
-            <span key={`${value}-${index}`}>{char}</span>
-          )
-        ))}
-      </motion.h3>
+      <AnimatePresence mode="wait">
+        <motion.h3
+          key={value} // Key changes with value to trigger animation
+          className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 10 }}
+          transition={{ duration: 0.3 }}
+        >
+          {formattedValue}
+        </motion.h3>
+      </AnimatePresence>
       <p className="mt-2 text-gray-600 font-medium">{title}</p>
     </motion.div>
   );
