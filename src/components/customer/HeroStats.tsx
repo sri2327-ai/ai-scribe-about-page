@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -14,6 +14,10 @@ interface Stats {
 const StatCard = ({ title, value, isAnimating = false }: { title: string; value: number; isAnimating?: boolean }) => {
   // Format the number with commas
   const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
+  // Split the value into an array of characters to animate just the last digit
+  const valueChars = formattedValue.split('');
+  const lastIndex = valueChars.length - 1;
 
   return (
     <motion.div
@@ -28,19 +32,24 @@ const StatCard = ({ title, value, isAnimating = false }: { title: string; value:
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {isAnimating ? (
-          <motion.span
-            key={value}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.3 }}
-          >
-            {formattedValue}
-          </motion.span>
-        ) : (
-          formattedValue
-        )}
+        {valueChars.map((char, index) => (
+          index === lastIndex && isAnimating ? (
+            <AnimatePresence mode="wait" key={`${value}-${index}`}>
+              <motion.span
+                key={`${value}-${char}`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ duration: 0.3 }}
+                className="inline-block"
+              >
+                {char}
+              </motion.span>
+            </AnimatePresence>
+          ) : (
+            <span key={`${value}-${index}`}>{char}</span>
+          )
+        ))}
       </motion.h3>
       <p className="mt-2 text-gray-600 font-medium">{title}</p>
     </motion.div>
