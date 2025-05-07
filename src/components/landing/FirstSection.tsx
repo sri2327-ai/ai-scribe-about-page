@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -44,7 +43,7 @@ export const FirstSection = () => {
                 Innovative<br />
                 Ambient AI<br />
                 Solutions<br />
-                For Healthcare
+                For Clinicians Like You
               </Typography>
 
               <Button 
