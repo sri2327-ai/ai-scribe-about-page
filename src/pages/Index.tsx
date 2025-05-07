@@ -13,7 +13,7 @@ const Index = () => {
       </div>
       
       <div className="text-center max-w-3xl px-4 relative z-10">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">Innovative Ambient AI Solutions for Clinicians Like You</h1>
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">Innovative<br />Ambient AI<br />Solutions<br />For Clinicians Like You</h1>
         <p className="text-xl text-gray-300 mb-8">
           Book Your Free Demo to Save 2 Hours Daily
         </p>
@@ -35,23 +35,23 @@ const Index = () => {
         {/* Key Benefits Section */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 animate-fade-in">
-            <h3 className="text-lg font-bold text-white mb-2">Slash Charting Time by 75%</h3>
-            <p className="text-gray-300">CRUSH automates documentation with 99% accuracy.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Cut Charting Time by 75%</h3>
+            <p className="text-gray-300">CRUSH AI scribe automates documentation with up to 99% accuracy.</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 animate-fade-in" style={{animationDelay: "100ms"}}>
-            <h3 className="text-lg font-bold text-white mb-2">Reduce No-Shows by 50%</h3>
-            <p className="text-gray-300">BRAVO streamlines scheduling and patient communication.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Cut No-Shows by 50%</h3>
+            <p className="text-gray-300">BRAVO AI agent optimizes scheduling and patient communication.</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 animate-fade-in" style={{animationDelay: "200ms"}}>
-            <h3 className="text-lg font-bold text-white mb-2">Seamless EHR Integration</h3>
-            <p className="text-gray-300">Works with Epic, Cerner, and 100+ systems.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Works with Your Chosen EHR</h3>
+            <p className="text-gray-300">Effortless integration with Epic, Cerner, and over 100+ EHR platforms.</p>
           </div>
           
           <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20 animate-fade-in" style={{animationDelay: "300ms"}}>
-            <h3 className="text-lg font-bold text-white mb-2">Trusted by 1,000+ Clinicians</h3>
-            <p className="text-gray-300">Join healthcare professionals already saving time.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Focus on Patients, Not Paperwork</h3>
+            <p className="text-gray-300">Trusted by over 1,000 clinicians.</p>
           </div>
         </div>
       </div>
