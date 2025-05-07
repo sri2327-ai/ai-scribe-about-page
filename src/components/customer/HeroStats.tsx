@@ -11,7 +11,10 @@ interface Stats {
   providersSmiled: number;
 }
 
-const StatCard = ({ title, value }: { title: string; value: number }) => {
+const StatCard = ({ title, value, isAnimating = false }: { title: string; value: number; isAnimating?: boolean }) => {
+  // Format the number with commas
+  const formattedValue = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   return (
     <motion.div
       className="bg-white p-6 rounded-lg shadow-lg text-center transition-transform duration-500 hover:scale-105"
@@ -25,7 +28,19 @@ const StatCard = ({ title, value }: { title: string; value: number }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        {value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        {isAnimating ? (
+          <motion.span
+            key={value}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.3 }}
+          >
+            {formattedValue}
+          </motion.span>
+        ) : (
+          formattedValue
+        )}
       </motion.h3>
       <p className="mt-2 text-gray-600 font-medium">{title}</p>
     </motion.div>
@@ -33,13 +48,44 @@ const StatCard = ({ title, value }: { title: string; value: number }) => {
 };
 
 const HeroStats = () => {
-  // Fixed stats that align with the 1027 providers
-  const [stats] = useState<Stats>({
+  // Initialize stats with base values
+  const [stats, setStats] = useState<Stats>({
     chartsSigned: 12324,
     callsDone: 8645,
     chatsAnswered: 9872,
-    providersSmiled: 1027, // Fixed at 1027 as requested
+    providersSmiled: 1027, // Fixed at 1027 as baseline
   });
+
+  // State to control animation
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    // Update stats periodically
+    const intervalId = setInterval(() => {
+      setIsAnimating(true);
+      
+      setStats(prevStats => {
+        // Generate new values with slight increases
+        const chartIncrement = Math.floor(Math.random() * 5) + 1; // 1-5 increment
+        const callIncrement = Math.floor(Math.random() * 3) + 1; // 1-3 increment
+        const chatIncrement = Math.floor(Math.random() * 4) + 1; // 1-4 increment
+        
+        return {
+          chartsSigned: prevStats.chartsSigned + chartIncrement,
+          callsDone: prevStats.callsDone + callIncrement,
+          chatsAnswered: prevStats.chatsAnswered + chatIncrement,
+          providersSmiled: 1027, // Keep this fixed as requested
+        };
+      });
+      
+      // Reset animation state after a delay
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 800);
+    }, 5000); // Update every 5 seconds
+    
+    return () => clearInterval(intervalId);
+  }, []);
 
   const isMobile = useIsMobile();
   const statCards = [
@@ -83,7 +129,7 @@ const HeroStats = () => {
         <ResponsiveCarousel
           items={statCards}
           renderItem={(stat, index) => (
-            <StatCard key={index} title={stat.title} value={stat.value} />
+            <StatCard key={index} title={stat.title} value={stat.value} isAnimating={isAnimating} />
           )}
           columnsDesktop={1}
           columnsTablet={2}
@@ -98,19 +144,27 @@ const HeroStats = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12 max-w-6xl mx-auto px-4">
           {statCards.map((stat, index) => (
-            <StatCard key={index} title={stat.title} value={stat.value} />
+            <StatCard key={index} title={stat.title} value={stat.value} isAnimating={isAnimating} />
           ))}
         </div>
       )}
 
-      <motion.p
-        className="mt-8 text-gray-500 text-sm italic text-center"
+      <motion.div
+        className="mt-8 flex flex-col items-center justify-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        *Real-time impact of our AI across our network of 1,027 providers.*
-      </motion.p>
+        <p className="text-gray-500 text-sm italic text-center">
+          *Real-time impact of our AI across our network of 1,027 providers.*
+        </p>
+        
+        {/* Adding a subtle live indicator */}
+        <div className="flex items-center mt-2">
+          <span className="h-2 w-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
+          <span className="text-xs text-gray-400">Live updates</span>
+        </div>
+      </motion.div>
     </section>
   );
 };
