@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -12,8 +13,8 @@ export const FirstSection = () => {
 
   return (
     <section className="min-h-screen bg-white overflow-hidden">
-      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-24">
-        <div className="flex flex-col space-y-16 md:space-y-24">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
+        <div className="flex flex-col space-y-12 md:space-y-20">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
             <Box
               sx={{
@@ -43,7 +44,7 @@ export const FirstSection = () => {
                 Innovative<br />
                 Ambient AI<br />
                 Solutions<br />
-                For Clinicians Like You
+                For Healthcare
               </Typography>
 
               <Button 
@@ -130,7 +131,55 @@ export const FirstSection = () => {
                     gap: { xs: 4, md: 5 }
                   }}
                 >
-                  <Box>
+                  <Box className="space-y-4">
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: '#000000',
+                        fontSize: {
+                          xs: '0.875rem',
+                          sm: '1rem'
+                        },
+                        lineHeight: 1.7,
+                        fontWeight: 400,
+                        mb: 2
+                      }}
+                    >
+                      Cut Charting Time by 75%: CRUSH AI scribe automates documentation with up to 99% accuracy.
+                    </Typography>
+                    
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: '#000000',
+                        fontSize: {
+                          xs: '0.875rem',
+                          sm: '1rem'
+                        },
+                        lineHeight: 1.7,
+                        fontWeight: 400,
+                        mb: 2
+                      }}
+                    >
+                      Cut No-Shows by 50%: BRAVO AI agent optimizes scheduling and patient communication.
+                    </Typography>
+                    
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: '#000000',
+                        fontSize: {
+                          xs: '0.875rem',
+                          sm: '1rem'
+                        },
+                        lineHeight: 1.7,
+                        fontWeight: 400,
+                        mb: 2
+                      }}
+                    >
+                      Works with Your Chosen EHR: Effortless integration with Epic, Cerner, and over 100+ EHR platforms.
+                    </Typography>
+                    
                     <Typography
                       variant="body1"
                       sx={{
@@ -143,9 +192,10 @@ export const FirstSection = () => {
                         fontWeight: 400
                       }}
                     >
-                      Transform your clinical practice with AI that understands healthcare. Our AI medical scribe and patient care agent reduce documentation time, automate admin tasks, integrate with your EHR, and refocus care on patients.
+                      Focus on Patients, Not Paperwork: Trusted by over 1,000 clinicians.
                     </Typography>
                   </Box>
+                  
                   <Box 
                     sx={{
                       display: 'flex',
@@ -171,7 +221,8 @@ export const FirstSection = () => {
               p: { xs: 3, sm: 4 },
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              width: '100%'
+              width: '100%',
+              mt: { xs: 4, md: 0 }
             }}
           >
             <Typography
