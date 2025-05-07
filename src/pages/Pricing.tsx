@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BadgePercent, Share2 } from "lucide-react";
+import { ArrowRight, BadgePercent } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -15,14 +16,12 @@ import { InteractiveTestimonials } from "@/components/pricing/InteractiveTestimo
 import { CurrencySelector, CurrencyCode } from "@/components/pricing/CurrencySelector";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { SocialShareDialog } from "@/components/pricing/SocialShareDialog";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
   const [activeTab, setActiveTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
-  const [socialShareOpen, setSocialShareOpen] = useState(false);
   
   useEffect(() => {
     console.log("Pricing page mounted");
@@ -159,31 +158,11 @@ const Pricing = () => {
                 Try Risk-Free for 30 Days
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              
-              {/* Social Share Button */}
-              <Button
-                variant="outline"
-                size="lg"
-                className="rounded-full px-4 md:px-6 py-3 md:py-4 text-sm md:text-base border-[#143151] text-[#143151] hover:bg-[#143151]/5 transition-all duration-300"
-                onClick={() => setSocialShareOpen(true)}
-              >
-                Share
-                <Share2 className="ml-2 h-4 w-4" />
-              </Button>
             </div>
             <p className="mt-3 md:mt-4 text-xs md:text-sm text-[#143151]/70">30-Day Money-Back Guarantee • No Credit Card Required</p>
           </motion.div>
         </div>
       </WaveBackground>
-
-      {/* Social Share Dialog */}
-      <SocialShareDialog 
-        open={socialShareOpen} 
-        onOpenChange={setSocialShareOpen}
-        title="S10.AI Pricing - AI Solutions for Healthcare Providers"
-        description="Save 2+ hours daily with our AI solutions for healthcare providers. CRUSH AI scribe and BRAVO patient engagement starting at $99/month."
-        url={typeof window !== 'undefined' ? window.location.href : 'https://s10.ai/pricing'}
-      />
 
       {/* Interactive Practice Type Selector */}
       <PracticeTypeSelector onSelect={handlePracticeSelection} />
@@ -582,3 +561,4 @@ const Pricing = () => {
 };
 
 export default Pricing;
+
