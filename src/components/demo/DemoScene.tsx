@@ -1,10 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { DemoStage } from './S10Demo';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMouseVector } from '@/hooks/use-mouse-vector';
-import { MessageCircle, Calendar, FileText, BellRing, PhoneCall, CheckCircle, Clock, User, Database, Shield } from 'lucide-react';
+import { MessageCircle, Calendar, FileText, BellRing, PhoneCall, CheckCircle, Clock, User, Database, Shield, Clipboard, Microphone, ClipboardCheck, ArrowRight } from 'lucide-react';
 
 interface DemoSceneProps {
   currentStage: number;
@@ -20,6 +19,8 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   const [userInteracting, setUserInteracting] = useState(false);
   const [targetedArea, setTargetedArea] = useState<string | null>(null);
   const [isProcessingCall, setIsProcessingCall] = useState(false);
+  const [transcriptionActive, setTranscriptionActive] = useState(false);
+  const [noteGeneration, setNoteGeneration] = useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   // Animation for the patient engagement illustration
@@ -29,8 +30,21 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
         setSubStep((prev) => (prev + 1) % 4);
       }, 3000);
       return () => clearInterval(interval);
+    } else if (currentStage === 1) {
+      // For AI Medical Scribe, advance steps automatically if not interacting
+      if (!userInteracting) {
+        const interval = setInterval(() => {
+          setSubStep((prev) => {
+            // Only advance if we're not in transcription mode (which requires click)
+            if (prev === 2 && !transcriptionActive) return prev;
+            if (prev === 3 && !noteGeneration) return prev;
+            return (prev + 1) % 5;
+          });
+        }, 4000);
+        return () => clearInterval(interval);
+      }
     }
-  }, [currentStage]);
+  }, [currentStage, userInteracting, transcriptionActive, noteGeneration]);
 
   // Set AI actions based on the current step
   useEffect(() => {
@@ -42,6 +56,15 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
         "AI Sending Appointment Reminders"
       ];
       setAiAction(actions[subStep]);
+    } else if (currentStage === 1) {
+      const actions = [
+        "AI Authenticating User",
+        "AI Syncing Patient Schedule",
+        "AI Loading Preferred Templates",
+        "AI Transcribing Encounter",
+        "AI Generating EHR Documentation"
+      ];
+      setAiAction(actions[subStep]);
     } else {
       setAiAction(null);
     }
@@ -49,21 +72,41 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
 
   // Handle mouse position
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (containerRef.current && currentStage === 0) {
+    if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       setMousePosition({ x, y });
       
       // Determine if mouse is hovering over interactive areas
-      if (y > 100 && y < 250 && x > 50 && x < 250) {
-        setTargetedArea("Chat");
-      } else if (y > 100 && y < 250 && x > 300 && x < 500) {
-        setTargetedArea("Calendar");
-      } else if (y > 250 && y < 400 && x > 50 && x < 250) {
-        setTargetedArea("Intake");
-      } else if (y > 250 && y < 400 && x > 300 && x < 500) {
-        setTargetedArea("Reminders");
+      if (currentStage === 0) {
+        // Logic for patient engagement step
+        if (y > 100 && y < 250 && x > 50 && x < 250) {
+          setTargetedArea("Chat");
+        } else if (y > 100 && y < 250 && x > 300 && x < 500) {
+          setTargetedArea("Calendar");
+        } else if (y > 250 && y < 400 && x > 50 && x < 250) {
+          setTargetedArea("Intake");
+        } else if (y > 250 && y < 400 && x > 300 && x < 500) {
+          setTargetedArea("Reminders");
+        } else {
+          setTargetedArea(null);
+        }
+      } else if (currentStage === 1) {
+        // Logic for AI Medical Scribe step
+        if (y > 100 && y < 200 && x > 600 && x < 740) {
+          setTargetedArea("Login");
+        } else if (y > 220 && y < 260 && x > 600 && x < 740) {
+          setTargetedArea("Patient");
+        } else if (y > 280 && y < 320 && x > 600 && x < 740) {
+          setTargetedArea("Templates");
+        } else if (y > 340 && y < 380 && x > 600 && x < 740) {
+          setTargetedArea("StartEncounter");
+        } else if (y > 400 && y < 440 && x > 600 && x < 740) {
+          setTargetedArea("GenerateNotes");
+        } else {
+          setTargetedArea(null);
+        }
       } else {
         setTargetedArea(null);
       }
@@ -73,17 +116,32 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   const handleMouseDown = () => {
     setUserInteracting(true);
     
-    // Set subStep based on targeted area
-    if (targetedArea === "Chat") {
-      setSubStep(0);
-      if (Math.random() > 0.5) {
-        setIsProcessingCall(true);
-        setTimeout(() => setIsProcessingCall(false), 2000);
+    if (currentStage === 0) {
+      // Logic for patient engagement step
+      if (targetedArea === "Chat") {
+        setSubStep(0);
+        if (Math.random() > 0.5) {
+          setIsProcessingCall(true);
+          setTimeout(() => setIsProcessingCall(false), 2000);
+        }
+      }
+      if (targetedArea === "Calendar") setSubStep(1);
+      if (targetedArea === "Intake") setSubStep(2);
+      if (targetedArea === "Reminders") setSubStep(3);
+    } else if (currentStage === 1) {
+      // Logic for AI Medical Scribe step
+      if (targetedArea === "Login") setSubStep(0);
+      if (targetedArea === "Patient") setSubStep(1);
+      if (targetedArea === "Templates") setSubStep(2);
+      if (targetedArea === "StartEncounter") {
+        setSubStep(3);
+        setTranscriptionActive(true);
+      }
+      if (targetedArea === "GenerateNotes") {
+        setSubStep(4);
+        setNoteGeneration(true);
       }
     }
-    if (targetedArea === "Calendar") setSubStep(1);
-    if (targetedArea === "Intake") setSubStep(2);
-    if (targetedArea === "Reminders") setSubStep(3);
     
     setTimeout(() => setUserInteracting(false), 300);
   };
@@ -155,8 +213,16 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
           />
         )}
         
-        {/* Show other illustrations for other stages */}
-        {currentStage !== 0 && stages.map((stage, index) => (
+        {currentStage === 1 && (
+          <FigmaAIMedicalScribeIllustration
+            subStep={subStep}
+            transcriptionActive={transcriptionActive}
+            noteGeneration={noteGeneration}
+          />
+        )}
+        
+        {/* Show SVG illustrations for other stages */}
+        {currentStage !== 0 && currentStage !== 1 && stages.map((stage, index) => (
           index === currentStage && (
             <motion.div
               key={stage.id}
@@ -206,7 +272,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       </div>
       
       {/* AI agent action label */}
-      {currentStage === 0 && aiAction && (
+      {(currentStage === 0 || currentStage === 1) && aiAction && (
         <motion.div 
           className="absolute left-8 top-16 md:left-12 md:top-24 z-50 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg"
           initial={{ opacity: 0, x: -20 }}
@@ -250,7 +316,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       )}
       
       {/* Animated UI elements for other stages */}
-      {currentStage === 1 && (
+      {currentStage === 1 && transcriptionActive && (
         <motion.div 
           className="absolute right-4 bottom-4 md:right-1/4 md:bottom-1/4 bg-white p-4 rounded-lg border border-blue-200 text-sm text-gray-800 max-w-xs z-20 shadow-md"
           initial={{ opacity: 0, y: 20 }}
@@ -362,7 +428,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       )}
       
       {/* Custom cursor with "You" label */}
-      {currentStage === 0 && (
+      {(currentStage === 0 || currentStage === 1) && (
         <motion.div 
           className="absolute z-50 pointer-events-none"
           animate={{ x: mousePosition.x - 12, y: mousePosition.y - 12 }}
@@ -574,237 +640,4 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition, isProcess
               
               <h4 className="text-sm font-medium text-gray-700 mb-2">Available Times</h4>
               <div className="grid grid-cols-3 gap-2">
-                {['9:00 AM', '10:30 AM', '1:15 PM', '2:45 PM', '4:00 PM'].map((time, i) => (
-                  <motion.div 
-                    key={i}
-                    className={`px-4 py-2 rounded-lg border ${i === 1 ? 'bg-blue-50 border-blue-300' : 'border-gray-200'} flex items-center justify-center`}
-                    whileHover={{ scale: 1.03 }}
-                  >
-                    <span className={`text-sm ${i === 1 ? 'text-blue-700 font-medium' : 'text-gray-700'}`}>{time}</span>
-                    {i === 1 && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1 }}
-                        className="ml-2"
-                      >
-                        <CheckCircle size={14} className="text-blue-500" />
-                      </motion.div>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-              
-              <div className="absolute bottom-8 right-8">
-                <motion.button 
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md flex items-center"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="mr-2">Book Appointment</span>
-                  <CheckCircle size={16} />
-                </motion.button>
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Step 3: Patient Intake Automation */}
-          <motion.div 
-            className="absolute inset-0 p-4"
-            animate={{ opacity: subStep === 2 ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-medium text-gray-800">Patient Intake & Insurance</h3>
-                <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                  <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium text-gray-700">Insurance Verification</label>
-                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full flex items-center">
-                      <CheckCircle size={10} className="mr-1" /> Verified
-                    </span>
-                  </div>
-                  <div className="border border-gray-300 rounded-lg p-3 bg-gray-50">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Blue Cross Blue Shield</span>
-                      <span className="text-sm font-medium text-gray-800">#BCBS291042</span>
-                    </div>
-                    <div className="mt-1 flex justify-between items-center">
-                      <span className="text-xs text-gray-500">Coverage Status</span>
-                      <span className="text-xs text-green-600">Active</span>
-                    </div>
-                    <div className="mt-1 flex justify-between items-center">
-                      <span className="text-xs text-gray-500">Co-pay</span>
-                      <span className="text-xs text-gray-800">$25.00</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Medical History</label>
-                  <div className="border border-gray-300 rounded-lg overflow-hidden">
-                    <div className="bg-gray-50 px-3 py-2 border-b border-gray-200 flex justify-between items-center">
-                      <span className="text-xs font-medium text-gray-700">Automatically Retrieved</span>
-                      <motion.div 
-                        className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      >
-                        <Database size={10} className="text-blue-600" />
-                      </motion.div>
-                    </div>
-                    <div className="p-3">
-                      <div className="flex items-center mb-2">
-                        <Shield size={14} className="text-blue-500 mr-2" />
-                        <span className="text-sm text-gray-800">Allergies: Penicillin, Peanuts</span>
-                      </div>
-                      <div className="flex items-center mb-2">
-                        <Shield size={14} className="text-blue-500 mr-2" />
-                        <span className="text-sm text-gray-800">Current Medications: Lisinopril, Metformin</span>
-                      </div>
-                      <div className="flex items-center">
-                        <Shield size={14} className="text-blue-500 mr-2" />
-                        <span className="text-sm text-gray-800">Previous Surgeries: Appendectomy (2020)</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-700">Consent Forms</span>
-                  <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full flex items-center">
-                    <CheckCircle size={10} className="mr-1" /> 3/3 Signed
-                  </span>
-                </div>
-                
-                <motion.div 
-                  className="absolute bottom-8 right-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                >
-                  <div className="px-3 py-1.5 bg-green-500 text-white text-xs rounded-full shadow-md flex items-center">
-                    <span className="mr-1">All data processed</span>
-                    <CheckCircle size={14} />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Step 4: Send Reminders */}
-          <motion.div 
-            className="absolute inset-0 p-4"
-            animate={{ opacity: subStep === 3 ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm">
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="font-medium text-gray-800">Notifications</h3>
-                <div className="flex items-center">
-                  <motion.div 
-                    className="w-6 h-6 bg-red-500 rounded-full text-white flex items-center justify-center"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 1, repeat: Infinity }}
-                  >
-                    <span className="text-xs">3</span>
-                  </motion.div>
-                </div>
-              </div>
-              
-              <div className="space-y-3">
-                <motion.div 
-                  className="border border-blue-200 bg-blue-50 rounded-lg p-3"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mt-1">
-                        <Calendar size={16} className="text-blue-700" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm text-gray-800">Appointment Reminder</h4>
-                        <p className="text-xs text-gray-600 mt-1">Your appointment with Dr. Smith is tomorrow at 10:30 AM.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="text-xs text-gray-500">9:01 AM</div>
-                    </div>
-                  </div>
-                  <div className="mt-2 flex space-x-2">
-                    <motion.button 
-                      className="px-3 py-1 bg-blue-500 text-white text-xs rounded-md"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Confirm
-                    </motion.button>
-                    <button className="px-3 py-1 border border-gray-300 text-gray-600 text-xs rounded-md">
-                      Reschedule
-                    </button>
-                  </div>
-                </motion.div>
-                
-                <div className="border border-gray-200 rounded-lg p-3">
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center mt-1">
-                        <FileText size={16} className="text-amber-700" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm text-gray-800">Forms Required</h4>
-                        <p className="text-xs text-gray-600 mt-1">Please complete your health history form before your visit.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="text-xs text-gray-500">Yesterday</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <div className="border border-gray-200 rounded-lg p-3">
-                  <div className="flex justify-between items-start">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mt-1">
-                        <Clock size={16} className="text-green-700" />
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-sm text-gray-800">Medication Reminder</h4>
-                        <p className="text-xs text-gray-600 mt-1">Time to take your prescribed medication.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="text-xs text-gray-500">2 days ago</div>
-                    </div>
-                  </div>
-                </div>
-                
-                <motion.div 
-                  className="absolute bottom-8 right-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                >
-                  <div className="px-3 py-1.5 bg-blue-500 text-white text-xs rounded-full shadow-md flex items-center">
-                    <span className="mr-1">All notifications sent</span>
-                    <CheckCircle size={14} />
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
+                {['9:
