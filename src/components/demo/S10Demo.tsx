@@ -94,18 +94,44 @@ export const S10Demo = () => {
     }
   ];
 
-  // Calculate current stage based on scroll position
+  // Calculate current stage based on scroll position with debounce for smoother transitions
   useEffect(() => {
+    let animationFrameId: number | null = null;
+    let lastScrollValue = 0;
+    
+    const handleScroll = (value: number) => {
+      // Only update if there's a significant change (reduces jitter)
+      if (Math.abs(value - lastScrollValue) > 0.01 || value === 1 || value === 0) {
+        lastScrollValue = value;
+        
+        // Calculate which stage we're in based on scroll progress
+        const rawStageIndex = value * stages.length;
+        const stageIndex = Math.min(
+          Math.floor(rawStageIndex),
+          stages.length - 1
+        );
+        
+        // Update current stage if it's changed
+        setCurrentStage(stageIndex);
+        console.log(`Current stage updated to: ${stageIndex}, scroll progress: ${value.toFixed(2)}`);
+      }
+      
+      animationFrameId = null;
+    };
+    
     const unsubscribe = scrollYProgress.onChange(value => {
-      // Calculate which stage we're in based on scroll progress
-      const stageIndex = Math.min(
-        Math.floor(value * stages.length),
-        stages.length - 1
-      );
-      setCurrentStage(stageIndex);
+      // Use requestAnimationFrame to throttle updates
+      if (animationFrameId === null) {
+        animationFrameId = requestAnimationFrame(() => handleScroll(value));
+      }
     });
-
-    return () => unsubscribe();
+    
+    return () => {
+      unsubscribe();
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, [scrollYProgress, stages.length]);
 
   return (
