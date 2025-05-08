@@ -18,7 +18,13 @@ const InteractiveDemo = () => {
   }, []);
 
   const scrollToDemo = () => {
-    demoStartRef.current?.scrollIntoView({ behavior: 'smooth' });
+    // Enhanced smooth scroll to demo section with a slight delay
+    setTimeout(() => {
+      demoStartRef.current?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }, 100);
   };
 
   return (

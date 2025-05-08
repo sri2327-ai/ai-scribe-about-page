@@ -24,6 +24,7 @@ export const S10Demo = () => {
   const isMobile = useIsMobile();
   const [hasStartedDemo, setHasStartedDemo] = useState(false);
   
+  // Fix: Use offset to start demo after hero section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -99,6 +100,7 @@ export const S10Demo = () => {
   // Calculate current stage based on scroll position
   useEffect(() => {
     const unsubscribe = scrollYProgress.onChange(value => {
+      // Fix: Start demo only after scrolling past the initial viewport (hero section)
       if (value > 0.05) {
         setHasStartedDemo(true);
       }
@@ -124,8 +126,17 @@ export const S10Demo = () => {
     <div ref={containerRef} className="relative bg-white">
       {/* Fixed position content that changes based on scroll */}
       <div className="sticky top-0 h-screen w-full" ref={demoContentRef}>
-        {/* Content overlay - Now with proper z-index and pointer events */}
-        <div className="absolute inset-0 z-30">
+        {/* 3D scene that appears under the content - move this before the content overlay for proper z-index */}
+        <div className="absolute inset-0 z-10">
+          <DemoScene 
+            currentStage={currentStage}
+            scrollProgress={scrollYProgress}
+            stages={stages} 
+          />
+        </div>
+        
+        {/* Content overlay - Now with proper z-index (higher than scene) */}
+        <div className="absolute inset-0 z-30 pointer-events-none">
           {stages.map((stage, index) => (
             <DemoStageContent 
               key={stage.id}
@@ -134,15 +145,6 @@ export const S10Demo = () => {
               index={index}
             />
           ))}
-        </div>
-        
-        {/* 3D scene that appears under the content */}
-        <div className="absolute inset-0 z-20">
-          <DemoScene 
-            currentStage={currentStage}
-            scrollProgress={scrollYProgress}
-            stages={stages} 
-          />
         </div>
         
         {/* Progress indicator - only visible when demo has started */}
