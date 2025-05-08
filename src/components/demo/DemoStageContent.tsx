@@ -20,7 +20,23 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-black/70 backdrop-blur-md rounded-2xl p-6 max-w-md border border-blue-500/30 shadow-[0_0_15px_rgba(30,174,219,0.15)]">
+      <motion.div 
+        className="bg-black/70 backdrop-blur-md rounded-2xl p-6 max-w-md border border-blue-500/30 shadow-[0_0_15px_rgba(30,174,219,0.15)]"
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ 
+          opacity: isActive ? 1 : 0, 
+          y: isActive ? 0 : 20, 
+          scale: isActive ? 1 : 0.95 
+        }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <motion.div
+          initial={{ width: "0%" }}
+          animate={{ width: isActive ? "100%" : "0%" }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
+          className="h-0.5 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full mb-4"
+        />
+        
         <motion.h2 
           className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: -10 }}
@@ -54,13 +70,23 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
                 animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
                 transition={{ duration: 0.5, delay: 0.4 + (i * 0.1) }}
               >
-                <CheckCircle className="h-4 w-4 mr-2 text-blue-400 flex-shrink-0" />
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: isActive ? 1 : 0 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 300, 
+                    delay: 0.5 + (i * 0.1) 
+                  }}
+                >
+                  <CheckCircle className="h-4 w-4 mr-2 text-blue-400 flex-shrink-0" />
+                </motion.div>
                 <span>{highlight}</span>
               </motion.li>
             ))}
           </motion.ul>
         )}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
