@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import type { DemoStage } from './S10Demo';
@@ -672,4 +673,725 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition, isProcess
               
               <div className="space-y-4">
                 <div>
-                  <label className
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    Reason for visit
+                  </label>
+                  <div className="p-3 bg-gray-50 border border-gray-200 rounded-lg">
+                    <p className="text-sm text-gray-800">Annual physical examination and prescription refill</p>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    Current symptoms
+                  </label>
+                  <div className="flex flex-wrap gap-2">
+                    {['None', 'Headache', 'Cough', 'Fatigue', 'Sore throat'].map((symptom, i) => (
+                      <div 
+                        key={symptom}
+                        className={`px-3 py-1 rounded-full text-xs font-medium ${
+                          i === 0 ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                        }`}
+                      >
+                        {symptom}
+                      </div>
+                    ))}
+                    <div className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-600 border border-blue-200 border-dashed flex items-center">
+                      <span>+ Add</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    Medications
+                  </label>
+                  <div className="space-y-2">
+                    <div className="p-2 border border-gray-200 rounded-lg flex justify-between items-center">
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">Lisinopril 10mg</p>
+                        <p className="text-xs text-gray-500">1 tablet daily</p>
+                      </div>
+                      <span className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded">Refill needed</span>
+                    </div>
+                    <div className="p-2 border border-gray-200 rounded-lg flex justify-between items-center">
+                      <div>
+                        <p className="text-sm font-medium text-gray-800">Atorvastatin 20mg</p>
+                        <p className="text-xs text-gray-500">1 tablet at bedtime</p>
+                      </div>
+                      <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded">Active</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    Allergies
+                  </label>
+                  <div className="flex gap-2">
+                    <div className="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                      Penicillin
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-600 border border-blue-200 border-dashed flex items-center">
+                      <span>+ Add</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="pt-4">
+                  <button className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg py-2 text-sm font-medium">
+                    Submit Intake Form
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Step 4: Reminders */}
+          <motion.div 
+            className="absolute inset-0 p-4"
+            animate={{ opacity: subStep === 3 ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-medium text-gray-800">Appointment Reminders</h3>
+                <div className="flex items-center space-x-2">
+                  <div className="px-2 py-1 bg-blue-100 rounded-md">
+                    <span className="text-xs text-blue-700">Upcoming</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <motion.div 
+                  className="p-4 border-l-4 border-blue-500 bg-blue-50 rounded-r-lg"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">Dr. Smith - Annual Physical</h4>
+                      <p className="text-sm text-gray-500">Tomorrow, 10:30 AM</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="p-1.5 rounded-full bg-white border border-gray-300">
+                        <Calendar size={16} className="text-gray-500" />
+                      </button>
+                      <button className="p-1.5 rounded-full bg-white border border-gray-300">
+                        <MessageCircle size={16} className="text-gray-500" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-2 flex gap-2">
+                    <div className="px-3 py-1 rounded-full text-xs bg-white text-gray-600 border border-gray-200">
+                      <span>Bring insurance card</span>
+                    </div>
+                    <div className="px-3 py-1 rounded-full text-xs bg-white text-gray-600 border border-gray-200">
+                      <span>Fasting required</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="p-4 border-l-4 border-amber-500 bg-amber-50 rounded-r-lg"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">Lab Results Ready</h4>
+                      <p className="text-sm text-gray-500">Cholesterol Panel</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="p-1.5 rounded-full bg-white border border-gray-300">
+                        <FileText size={16} className="text-gray-500" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-2">
+                    <button className="px-3 py-1.5 rounded-md text-xs font-medium bg-white text-blue-600 border border-blue-200">
+                      View Results
+                    </button>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="p-4 border-l-4 border-green-500 bg-green-50 rounded-r-lg"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">Prescription Refill</h4>
+                      <p className="text-sm text-gray-500">Lisinopril - Ready for pickup</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <button className="p-1.5 rounded-full bg-white border border-gray-300">
+                        <PhoneCall size={16} className="text-gray-500" />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-2 flex gap-2">
+                    <div className="px-3 py-1 rounded-full text-xs bg-white text-gray-600 border border-gray-200 flex items-center">
+                      <Clock size={12} className="mr-1" />
+                      <span>Available until 8PM</span>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <div className="flex justify-between items-center pt-2">
+                  <span className="text-sm text-gray-500">Notifications</span>
+                  <div className="relative inline-block w-10 align-middle select-none">
+                    <input type="checkbox" name="toggle" id="toggle" className="sr-only" defaultChecked />
+                    <div className="block bg-gray-200 w-10 h-6 rounded-full"></div>
+                    <div className="absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform translate-x-4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Figma-style flat UI illustration for AI Medical Scribe
+const FigmaAIMedicalScribeIllustration = ({ subStep, transcriptionActive, noteGeneration }) => {
+  return (
+    <motion.div 
+      className="w-full max-w-3xl aspect-video bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xl"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7 }}
+    >
+      {/* App UI Header */}
+      <div className="h-12 bg-blue-600 flex items-center justify-between px-4">
+        <div className="flex items-center space-x-2">
+          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+            <Stethoscope size={14} className="text-white" />
+          </div>
+          <span className="text-white text-sm font-medium">S10.AI Medical Scribe</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+            <User size={14} className="text-white" />
+          </div>
+          <div className="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
+            <Settings size={14} className="text-white" />
+          </div>
+        </div>
+      </div>
+      
+      <div className="flex h-[calc(100%-3rem)] bg-gray-50">
+        {/* Sidebar Navigation */}
+        <div className="w-16 bg-blue-800 flex flex-col items-center py-4 space-y-6">
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 0 ? 'bg-white text-blue-600' : 'text-blue-200'}`}>
+            <Shield size={20} />
+          </div>
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 1 ? 'bg-white text-blue-600' : 'text-blue-200'}`}>
+            <CalendarDays size={20} />
+          </div>
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 2 ? 'bg-white text-blue-600' : 'text-blue-200'}`}>
+            <ClipboardList size={20} />
+          </div>
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 3 ? 'bg-white text-blue-600' : 'text-blue-200'}`}>
+            <Mic size={20} />
+          </div>
+          <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 4 ? 'bg-white text-blue-600' : 'text-blue-200'}`}>
+            <FileText size={20} />
+          </div>
+        </div>
+        
+        {/* Main Content Area */}
+        <div className="flex-1 p-4 relative">
+          {/* Step 1: Authentication */}
+          <motion.div 
+            className="absolute inset-0 p-4 flex flex-col justify-center items-center"
+            animate={{ opacity: subStep === 0 ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div 
+              className="bg-white rounded-lg border border-gray-200 p-6 shadow-lg w-full max-w-md"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: subStep === 0 ? 1 : 0.9 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="flex justify-center mb-6">
+                <div className="h-16 w-16 bg-blue-500 rounded-full flex items-center justify-center">
+                  <Shield size={32} className="text-white" />
+                </div>
+              </div>
+              
+              <h3 className="text-xl font-semibold text-center text-gray-800 mb-6">Secure Authentication</h3>
+              
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    Username
+                  </label>
+                  <input 
+                    type="text" 
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value="dr.smith@healthcare.org"
+                    readOnly
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-gray-700 mb-1 block">
+                    Password
+                  </label>
+                  <input 
+                    type="password" 
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md"
+                    value="••••••••••••"
+                    readOnly
+                  />
+                </div>
+                
+                <div className="pt-2">
+                  <motion.button 
+                    className="w-full bg-blue-500 text-white py-2 rounded-md flex items-center justify-center"
+                    whileHover={{ backgroundColor: "rgb(37, 99, 235)" }}
+                  >
+                    <motion.div 
+                      className="flex items-center"
+                      animate={{ opacity: [1, 0.7, 1] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      <span>Authenticating</span>
+                      <motion.div 
+                        className="ml-2 flex space-x-1"
+                        animate={{ opacity: [1, 0.5, 1] }}
+                        transition={{ duration: 1.2, repeat: Infinity }}
+                      >
+                        <span className="w-1 h-1 bg-white rounded-full"></span>
+                        <span className="w-1 h-1 bg-white rounded-full"></span>
+                        <span className="w-1 h-1 bg-white rounded-full"></span>
+                      </motion.div>
+                    </motion.div>
+                  </motion.button>
+                </div>
+                
+                <div className="flex items-center justify-between text-sm text-blue-600 pt-2">
+                  <span className="hover:underline cursor-pointer">Forgot Password?</span>
+                  <span className="hover:underline cursor-pointer">Two-Factor Auth</span>
+                </div>
+              </div>
+              
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-center text-xs text-gray-500">
+                  <Shield size={14} className="mr-1" />
+                  <span>HIPAA Compliant &amp; Secure</span>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+          
+          {/* Step 2: Patient Schedule */}
+          <motion.div 
+            className="absolute inset-0 p-4"
+            animate={{ opacity: subStep === 1 ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-medium text-gray-800">Today's Patient Schedule</h3>
+                <div className="flex items-center space-x-2">
+                  <div className="px-2 py-1 bg-blue-100 rounded-md">
+                    <span className="text-xs text-blue-700">May 8, 2025</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                {[
+                  { time: "9:00 AM", name: "Sarah Johnson", reason: "Follow-up", status: "Completed" },
+                  { time: "10:30 AM", name: "Michael Chen", reason: "Headache", status: "In Progress", highlight: true },
+                  { time: "1:00 PM", name: "Emma Davis", reason: "Annual Physical", status: "Scheduled" },
+                  { time: "2:15 PM", name: "Robert Wilson", reason: "Medication Review", status: "Scheduled" },
+                  { time: "3:30 PM", name: "Olivia Martinez", reason: "Lab Results", status: "Scheduled" }
+                ].map((appointment, index) => (
+                  <motion.div
+                    key={index}
+                    className={`p-3 rounded-lg ${
+                      appointment.highlight 
+                        ? 'border-2 border-blue-400 bg-blue-50' 
+                        : 'border border-gray-200'
+                    }`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ 
+                      opacity: 1, 
+                      y: 0,
+                      boxShadow: appointment.highlight ? '0 0 0 2px rgba(96, 165, 250, 0.3)' : 'none'
+                    }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <div className="flex justify-between">
+                      <div className="flex items-center">
+                        <div className={`w-2 h-2 rounded-full mr-2 ${
+                          appointment.status === 'Completed' ? 'bg-green-500' :
+                          appointment.status === 'In Progress' ? 'bg-blue-500' : 'bg-gray-300'
+                        }`}></div>
+                        <span className="font-medium text-gray-800">{appointment.time}</span>
+                      </div>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        appointment.status === 'Completed' ? 'bg-green-100 text-green-800' :
+                        appointment.status === 'In Progress' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'
+                      }`}>
+                        {appointment.status}
+                      </span>
+                    </div>
+                    
+                    <div className="mt-2">
+                      <p className="font-medium text-gray-800">{appointment.name}</p>
+                      <p className="text-sm text-gray-500">{appointment.reason}</p>
+                    </div>
+                    
+                    <div className="mt-2 flex justify-end space-x-2">
+                      <button className="px-2 py-1 text-xs rounded bg-white border border-gray-300 text-gray-700">
+                        EHR
+                      </button>
+                      <button className="px-2 py-1 text-xs rounded bg-white border border-gray-300 text-gray-700">
+                        Notes
+                      </button>
+                      {appointment.highlight && (
+                        <button className="px-2 py-1 text-xs rounded bg-blue-500 text-white">
+                          Start
+                        </button>
+                      )}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Step 3: Templates */}
+          <motion.div 
+            className="absolute inset-0 p-4"
+            animate={{ opacity: subStep === 2 ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="font-medium text-gray-800">Note Templates</h3>
+                <div className="flex items-center space-x-2">
+                  <button className="px-2 py-1 text-xs rounded bg-blue-100 text-blue-700">
+                    + New Template
+                  </button>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="p-3 border-2 border-blue-400 bg-blue-50 rounded-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">SOAP Note - General</h4>
+                      <p className="text-xs text-gray-500 mt-1">Default template for standard examinations</p>
+                    </div>
+                    <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+                      Selected
+                    </span>
+                  </div>
+                  
+                  <div className="mt-3 grid grid-cols-2 gap-2">
+                    <div className="p-2 bg-white rounded border border-gray-200">
+                      <span className="text-xs font-medium text-gray-700">S: Subjective</span>
+                    </div>
+                    <div className="p-2 bg-white rounded border border-gray-200">
+                      <span className="text-xs font-medium text-gray-700">O: Objective</span>
+                    </div>
+                    <div className="p-2 bg-white rounded border border-gray-200">
+                      <span className="text-xs font-medium text-gray-700">A: Assessment</span>
+                    </div>
+                    <div className="p-2 bg-white rounded border border-gray-200">
+                      <span className="text-xs font-medium text-gray-700">P: Plan</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-3 border border-gray-200 rounded-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">New Patient Intake</h4>
+                      <p className="text-xs text-gray-500 mt-1">Comprehensive template for new patient visits</p>
+                    </div>
+                    <button className="text-xs px-2 py-0.5 rounded text-blue-600 hover:bg-blue-50">
+                      Select
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="p-3 border border-gray-200 rounded-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">Follow-up Visit</h4>
+                      <p className="text-xs text-gray-500 mt-1">Brief template for routine follow-ups</p>
+                    </div>
+                    <button className="text-xs px-2 py-0.5 rounded text-blue-600 hover:bg-blue-50">
+                      Select
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="p-3 border border-gray-200 rounded-lg">
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h4 className="font-medium text-gray-800">Specialist Referral</h4>
+                      <p className="text-xs text-gray-500 mt-1">Template for creating referrals to specialists</p>
+                    </div>
+                    <button className="text-xs px-2 py-0.5 rounded text-blue-600 hover:bg-blue-50">
+                      Select
+                    </button>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="mt-4">
+                <h4 className="text-sm font-medium text-gray-700 mb-2">Configuration Options</h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="flex items-center">
+                    <input type="checkbox" id="auto-populate" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                    <label htmlFor="auto-populate" className="ml-2 text-sm text-gray-700">Auto-populate from EHR</label>
+                  </div>
+                  <div className="flex items-center">
+                    <input type="checkbox" id="include-vitals" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                    <label htmlFor="include-vitals" className="ml-2 text-sm text-gray-700">Include Vitals</label>
+                  </div>
+                  <div className="flex items-center">
+                    <input type="checkbox" id="include-meds" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                    <label htmlFor="include-meds" className="ml-2 text-sm text-gray-700">Include Medications</label>
+                  </div>
+                  <div className="flex items-center">
+                    <input type="checkbox" id="include-allergies" className="h-4 w-4 text-blue-600 rounded" defaultChecked />
+                    <label htmlFor="include-allergies" className="ml-2 text-sm text-gray-700">Include Allergies</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Step 4: Encounter Recording */}
+          <motion.div 
+            className="absolute inset-0 p-4"
+            animate={{ opacity: subStep === 3 ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm relative flex flex-col">
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h3 className="font-medium text-gray-800">Michael Chen</h3>
+                  <p className="text-xs text-gray-500">DOB: 04/15/1985 • MRN: 78432-B • Reason: Headache</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="px-2 py-1 bg-red-100 text-red-600 rounded-full flex items-center">
+                    <span className="relative flex h-2 w-2 mr-1">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-red-600"></span>
+                    </span>
+                    <span className="text-xs font-medium">Recording</span>
+                  </div>
+                  <span className="text-xs text-gray-500">10:34</span>
+                </div>
+              </div>
+              
+              <div className="flex-1 border border-gray-200 rounded-lg p-3 mb-4 overflow-y-auto bg-gray-50">
+                <div className="space-y-4">
+                  <div>
+                    <span className="text-xs font-medium text-blue-600">DR. SMITH:</span>
+                    <p className="text-sm text-gray-800">Hello Mr. Chen, how are you feeling today?</p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-xs font-medium text-green-600">PATIENT:</span>
+                    <p className="text-sm text-gray-800">I've been having these headaches for the past three days. They seem to be getting worse, especially in the morning.</p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-xs font-medium text-blue-600">DR. SMITH:</span>
+                    <p className="text-sm text-gray-800">I'm sorry to hear that. Can you describe the pain? Is it on one side or both sides of your head?</p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-xs font-medium text-green-600">PATIENT:</span>
+                    <p className="text-sm text-gray-800">It's mostly on the right side, above my eye. It feels like pressure, and sometimes it throbs.</p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-xs font-medium text-blue-600">DR. SMITH:</span>
+                    <p className="text-sm text-gray-800">Have you taken any medications for it?</p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-xs font-medium text-green-600">PATIENT:</span>
+                    <p className="text-sm text-gray-800">I tried some over-the-counter ibuprofen, but it only helps a little bit.</p>
+                  </div>
+                  
+                  <div>
+                    <span className="text-xs font-medium text-blue-600">DR. SMITH:</span>
+                    <p className="text-sm text-gray-800">Any other symptoms along with the headache? Nausea? Visual changes? Sensitivity to light?</p>
+                  </div>
+                  
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                  >
+                    <span className="text-xs font-medium text-green-600">PATIENT:</span>
+                    <p className="text-sm text-gray-800">Yes, I do feel a bit nauseated when the headache is really bad, and bright lights make it worse.</p>
+                  </motion.div>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex space-x-2">
+                  <button className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-md text-sm flex items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-1">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" />
+                      <rect x="9" y="9" width="2" height="6" fill="currentColor" />
+                      <rect x="13" y="9" width="2" height="6" fill="currentColor" />
+                    </svg>
+                    Pause
+                  </button>
+                  <button className="px-3 py-1.5 bg-blue-500 text-white rounded-md text-sm flex items-center">
+                    <ClipboardCheck size={16} className="mr-1" />
+                    Generate Note
+                  </button>
+                </div>
+                <div className="flex items-center text-xs text-gray-600">
+                  <Server size={14} className="mr-1" />
+                  <span>Synced with EHR</span>
+                </div>
+              </div>
+              
+              {/* AI processing indicators */}
+              <div className="absolute left-1/2 bottom-16 transform -translate-x-1/2">
+                <motion.div 
+                  className="bg-blue-500 text-white px-3 py-1.5 rounded-full text-xs flex items-center"
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                    boxShadow: [
+                      "0 0px 0px rgba(59,130,246,0)", 
+                      "0 0px 16px rgba(59,130,246,0.7)",
+                      "0 0px 0px rgba(59,130,246,0)"
+                    ]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-1.5">
+                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5l6.74-6.76zM16 8l-2-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M17.5 15H9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span>AI analyzing conversation</span>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Step 5: Generated Notes */}
+          <motion.div 
+            className="absolute inset-0 p-4"
+            animate={{ opacity: subStep === 4 ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm overflow-y-auto">
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h3 className="font-medium text-gray-800">Medical Note</h3>
+                  <p className="text-xs text-gray-500">Michael Chen • DOB: 04/15/1985 • Visit Date: May 8, 2025</p>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button className="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">
+                    Edit
+                  </button>
+                  <button className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded">
+                    Finalize
+                  </button>
+                </div>
+              </div>
+              
+              <div className="p-4 border border-gray-200 rounded-lg space-y-4 bg-gray-50">
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <h4 className="font-medium text-blue-800">S: Subjective</h4>
+                  <p className="text-sm text-gray-800 mt-1">
+                    Patient is a 40-year-old male presenting with complaints of headache for the past three days, gradually worsening. Describes the pain as pressure-like and throbbing, primarily located on the right side above the eye. Reports associated symptoms of nausea during severe headache episodes and photophobia. Has tried OTC ibuprofen with minimal relief.
+                  </p>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h4 className="font-medium text-blue-800">O: Objective</h4>
+                  <div className="text-sm text-gray-800 mt-1 space-y-2">
+                    <p><span className="font-medium">Vitals:</span> BP 128/82, HR 76, Temp 98.6°F, RR 16, O2 Sat 99% on RA</p>
+                    <p><span className="font-medium">General:</span> Alert and oriented x3, in mild distress due to headache</p>
+                    <p><span className="font-medium">HEENT:</span> Normocephalic, atraumatic. No periorbital edema, sclera clear. Pupils equal, round, reactive to light. Extraocular movements intact. Mild tenderness to palpation over right temporal region.</p>
+                    <p><span className="font-medium">Neuro:</span> CN II-XII intact. No focal deficits. Negative Romberg. Normal gait.</p>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <h4 className="font-medium text-blue-800">A: Assessment</h4>
+                  <div className="text-sm text-gray-800 mt-1 space-y-1">
+                    <p>1. Migraine with aura (G43.109)</p>
+                    <p>2. Dehydration, mild (E86.0)</p>
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                >
+                  <h4 className="font-medium text-blue-800">P: Plan</h4>
+                  <div className="text-sm text-gray-800 mt-1 space-y-2">
+                    <p>1. Prescribe sumatriptan 50mg PO at onset of migraine, may repeat in 2 hours if no relief, not to exceed 200mg in 24 hours.</p>
+                    <p>2. Recommend increasing fluid intake, maintaining regular sleep schedule, and identifying potential triggers.</p>
+                    <p>3. Headache diary to track frequency, duration, and potential triggers.</p>
+                    <p>4. Follow-up in 4 weeks to reassess, sooner if symptoms worsen or change.</p>
+                    <p>5. Patient educated on medication usage, side effects, and red flag symptoms that would require immediate attention.</p>
+                  </div>
+                </motion.div>
+              </div>
+              
+              <div className="mt-4 flex justify-between items-center">
+                <div className="flex items-center text-xs text-gray-600">
+                  <Clock size={14} className="mr-1" />
+                  <span>Generated in 8 seconds</span>
+                </div>
+                
+                <div className="flex space-x-2">
+                  <button className="px-3 py-1.5 border border-gray-300 rounded-md text-sm">
+                    Save Draft
+                  </button>
+                  <button className="px-3 py-1.5 bg-blue-500 text-white rounded-md text-sm flex items-center">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-1">
+                      <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    Push to EHR
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
