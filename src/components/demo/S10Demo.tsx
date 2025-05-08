@@ -19,12 +19,9 @@ export interface DemoStage {
 
 export const S10Demo = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const demoContentRef = useRef<HTMLDivElement>(null);
   const [currentStage, setCurrentStage] = useState(0);
   const isMobile = useIsMobile();
-  const [hasStartedDemo, setHasStartedDemo] = useState(false);
   
-  // Fix: Use offset to start demo after hero section
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
@@ -100,32 +97,33 @@ export const S10Demo = () => {
   // Calculate current stage based on scroll position
   useEffect(() => {
     const unsubscribe = scrollYProgress.onChange(value => {
-      // Fix: Start demo only after scrolling past the initial viewport (hero section)
-      if (value > 0.05) {
-        setHasStartedDemo(true);
-      }
-      
-      // Adjust calculation to start after passing hero section
-      const adjustedValue = Math.max(0, (value - 0.05) / 0.95);
-      
-      // Calculate which stage we're in based on adjusted scroll progress
+      // Calculate which stage we're in based on scroll progress
       const stageIndex = Math.min(
-        Math.floor(adjustedValue * stages.length),
+        Math.floor(value * stages.length),
         stages.length - 1
       );
-      
-      if (hasStartedDemo || value > 0.05) {
-        setCurrentStage(stageIndex);
-      }
+      setCurrentStage(stageIndex);
     });
 
     return () => unsubscribe();
-  }, [scrollYProgress, stages.length, hasStartedDemo]);
+  }, [scrollYProgress, stages.length]);
 
   return (
     <div ref={containerRef} className="relative bg-white">
       {/* Fixed position content that changes based on scroll */}
-      <div className="sticky top-0 h-screen w-full" ref={demoContentRef}>
+      <div className="sticky top-0 h-screen w-full">
+        {/* Content overlay - Moved to appear before the 3D scene */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {stages.map((stage, index) => (
+            <DemoStageContent 
+              key={stage.id}
+              stage={stage}
+              isActive={currentStage === index}
+              index={index}
+            />
+          ))}
+        </div>
+        
         {/* 3D scene that appears under the content */}
         <div className="absolute inset-0 z-10">
           <DemoScene 
@@ -135,32 +133,18 @@ export const S10Demo = () => {
           />
         </div>
         
-        {/* Content overlay - Now with proper z-index */}
-        <div className="absolute inset-0 z-30 pointer-events-none">
-          {stages.map((stage, index) => (
-            <DemoStageContent 
-              key={stage.id}
-              stage={stage}
-              isActive={currentStage === index && hasStartedDemo}
-              index={index}
-            />
-          ))}
-        </div>
-        
-        {/* Progress indicator - only visible when demo has started */}
-        {hasStartedDemo && (
-          <ProgressIndicator 
-            currentStage={currentStage} 
-            totalStages={stages.length} 
-          />
-        )}
+        {/* Progress indicator */}
+        <ProgressIndicator 
+          currentStage={currentStage} 
+          totalStages={stages.length} 
+        />
       </div>
       
       {/* Create scrollable height */}
       <div style={{ height: `${stages.length * 100}vh` }}></div>
       
       {/* Final CTA section */}
-      <section className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4 relative z-40">
+      <section className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-blue-800">Ready to Automate Your Clinic?</h2>
           <p className="text-lg md:text-xl mb-8 text-gray-600">

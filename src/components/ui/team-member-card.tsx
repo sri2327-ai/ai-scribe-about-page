@@ -2,8 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Typography, Box } from "@mui/material";
 
 interface TeamMemberCardProps {
   name: string;

@@ -13,19 +13,15 @@ interface DemoStageContentProps {
 export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isActive, index }) => {
   return (
     <motion.div 
-      className={`absolute inset-0 flex items-center justify-center p-4 ${
+      className={`absolute inset-0 flex items-center justify-center p-4 pointer-events-none ${
         index % 2 === 0 ? 'md:items-start md:pt-32' : 'md:items-end md:pb-32'
       }`}
       initial={{ opacity: 0 }}
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
-      style={{ 
-        pointerEvents: isActive ? 'auto' : 'none',
-        zIndex: 50 // Increased z-index to ensure content appears above scene
-      }}
     >
       <motion.div 
-        className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl pointer-events-auto"
+        className="bg-white rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl"
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ 
           opacity: isActive ? 1 : 0, 
