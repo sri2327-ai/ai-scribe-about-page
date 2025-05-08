@@ -22,6 +22,7 @@ import CaseStudy from "@/pages/CaseStudy";
 import CaseStudiesIndex from "@/pages/case-studies/index";
 import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing";
+import InteractiveDemo from "@/pages/InteractiveDemo";
 
 function App() {
   console.log("Rendering App component");
@@ -45,6 +46,7 @@ function App() {
       <Route path="/faq" element={<FAQ />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
+      <Route path="/demo" element={<InteractiveDemo />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
