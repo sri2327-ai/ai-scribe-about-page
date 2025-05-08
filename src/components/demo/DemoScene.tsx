@@ -1,8 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { DemoStage } from './S10Demo';
+import type { DemoStage } from './S10Demo';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useMouseVector } from '@/hooks/use-mouse-vector';
 import { 
   MessageCircle, 
   Calendar, 
@@ -43,6 +43,14 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   const [transcriptionActive, setTranscriptionActive] = useState(false);
   const [noteGeneration, setNoteGeneration] = useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
+
+  // Reset substep when stage changes
+  useEffect(() => {
+    setSubStep(0);
+    setTranscriptionActive(false);
+    setNoteGeneration(false);
+    setTargetedArea(null);
+  }, [currentStage]);
 
   // Animation for the patient engagement illustration
   useEffect(() => {
@@ -171,6 +179,78 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
 
   console.log("Current stage in DemoScene:", currentStage);
 
+  // Choose the appropriate content to display based on currentStage
+  const renderStageContent = () => {
+    if (currentStage === 0) {
+      return (
+        <FigmaPatientEngagementIllustration 
+          subStep={subStep} 
+          cursorPosition={mousePosition}
+          isProcessingCall={isProcessingCall} 
+        />
+      );
+    } 
+    else if (currentStage === 1) {
+      return (
+        <FigmaAIMedicalScribeIllustration
+          subStep={subStep}
+          transcriptionActive={transcriptionActive}
+          noteGeneration={noteGeneration}
+        />
+      );
+    }
+    // For other stages, show SVG illustrations
+    else {
+      const stage = stages[currentStage];
+      return (
+        <motion.div
+          key={stage.id}
+          className="w-full max-w-3xl mx-auto"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ 
+            opacity: 1,
+            scale: 1,
+            y: 0,
+          }}
+          transition={{ 
+            duration: 0.7, 
+            ease: "easeOut",
+          }}
+        >
+          <div className="relative aspect-video bg-gradient-to-br from-blue-50 to-white rounded-xl border border-blue-100 overflow-hidden flex items-center justify-center shadow-lg">
+            <img 
+              src={`/demo/${stage.id}.svg`} 
+              alt={stage.title} 
+              className="w-full h-full object-contain p-4"
+              onError={(e) => {
+                console.error(`Error loading image for stage: ${stage.id}`);
+                e.currentTarget.src = "/demo/placeholder.svg";
+              }}
+            />
+            
+            {/* Animated highlight ring */}
+            <motion.div
+              className="absolute inset-0 border-2 rounded-xl border-blue-400/0"
+              animate={{
+                borderColor: ["rgba(59,130,246,0)", "rgba(59,130,246,0.3)", "rgba(59,130,246,0)"],
+                boxShadow: [
+                  "0 0 0px rgba(59,130,246,0)",
+                  "0 0 15px rgba(59,130,246,0.3)",
+                  "0 0 0px rgba(59,130,246,0)"
+                ]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+        </motion.div>
+      );
+    }
+  };
+
   return (
     <div 
       className="w-full h-full relative bg-white"
@@ -217,74 +297,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       
       {/* Central Display Area */}
       <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
-        {currentStage === 0 && (
-          <FigmaPatientEngagementIllustration 
-            subStep={subStep} 
-            cursorPosition={mousePosition}
-            isProcessingCall={isProcessingCall} 
-          />
-        )}
-        
-        {currentStage === 1 && (
-          <FigmaAIMedicalScribeIllustration
-            subStep={subStep}
-            transcriptionActive={transcriptionActive}
-            noteGeneration={noteGeneration}
-          />
-        )}
-        
-        {/* Show SVG illustrations for other stages */}
-        {currentStage !== 0 && currentStage !== 1 && stages.map((stage, index) => {
-          console.log("Checking stage:", stage.id, "index:", index, "currentStage:", currentStage);
-          return (
-            index === currentStage && (
-              <motion.div
-                key={stage.id}
-                className="w-full max-w-3xl mx-auto"
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ 
-                  opacity: 1,
-                  scale: 1,
-                  y: 0,
-                }}
-                transition={{ 
-                  duration: 0.7, 
-                  ease: "easeOut",
-                }}
-              >
-                <div className="relative aspect-video bg-gradient-to-br from-blue-50 to-white rounded-xl border border-blue-100 overflow-hidden flex items-center justify-center shadow-lg">
-                  <img 
-                    src={`/demo/${stage.id}.svg`} 
-                    alt={stage.title} 
-                    className="w-full h-full object-contain p-4"
-                    onError={(e) => {
-                      console.error(`Error loading image for stage: ${stage.id}`);
-                      e.currentTarget.src = "/demo/placeholder.svg";
-                    }}
-                  />
-                  
-                  {/* Animated highlight ring */}
-                  <motion.div
-                    className="absolute inset-0 border-2 rounded-xl border-blue-400/0"
-                    animate={{
-                      borderColor: ["rgba(59,130,246,0)", "rgba(59,130,246,0.3)", "rgba(59,130,246,0)"],
-                      boxShadow: [
-                        "0 0 0px rgba(59,130,246,0)",
-                        "0 0 15px rgba(59,130,246,0.3)",
-                        "0 0 0px rgba(59,130,246,0)"
-                      ]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                </div>
-              </motion.div>
-            )
-          );
-        })}
+        {renderStageContent()}
       </div>
       
       {/* AI agent action label */}
@@ -1177,6 +1190,3 @@ const FigmaAIMedicalScribeIllustration = ({ subStep, transcriptionActive, noteGe
     </motion.div>
   );
 };
-
-// Import icons needed by the new component
-import { Settings, CalendarDays, ClipboardList, Mic, Stethoscope, Server } from 'lucide-react';

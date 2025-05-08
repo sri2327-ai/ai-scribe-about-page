@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DemoStage } from './S10Demo';
+import type { DemoStage } from './S10Demo';
 import { CheckCircle } from 'lucide-react';
 
 interface DemoStageContentProps {
