@@ -110,16 +110,10 @@ export const S10Demo = () => {
 
   return (
     <div ref={containerRef} className="relative bg-white">
-      {/* Fixed position 3D scene that changes based on scroll */}
+      {/* Fixed position content that changes based on scroll */}
       <div className="sticky top-0 h-screen w-full">
-        <DemoScene 
-          currentStage={currentStage}
-          scrollProgress={scrollYProgress}
-          stages={stages} 
-        />
-        
-        {/* Content overlay */}
-        <div className="absolute inset-0 pointer-events-none">
+        {/* Content overlay - Moved to appear before the 3D scene */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
           {stages.map((stage, index) => (
             <DemoStageContent 
               key={stage.id}
@@ -128,6 +122,15 @@ export const S10Demo = () => {
               index={index}
             />
           ))}
+        </div>
+        
+        {/* 3D scene that appears under the content */}
+        <div className="absolute inset-0 z-10">
+          <DemoScene 
+            currentStage={currentStage}
+            scrollProgress={scrollYProgress}
+            stages={stages} 
+          />
         </div>
         
         {/* Progress indicator */}
