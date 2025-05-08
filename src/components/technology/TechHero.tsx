@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Container, Grid, Paper, Button } from '@mui/material';
 import { motion, useAnimation } from "framer-motion";
@@ -29,6 +28,7 @@ import {
 } from "lucide-react";
 
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { TechHeroBox } from "./TechHeroUtils";
 
 const FloatingSecurityItem = ({ icon: Icon, label, description, position }) => {
   return (
@@ -209,8 +209,7 @@ const TechHero = () => {
   ];
 
   return (
-    <Box 
-      component="section"
+    <TechHeroBox 
       sx={{
         position: "relative",
         width: "100%",
@@ -527,7 +526,7 @@ const TechHero = () => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </TechHeroBox>
   );
 };
 

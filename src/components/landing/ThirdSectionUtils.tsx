@@ -1,24 +1,28 @@
 
 import React from 'react';
-import { Box as MuiBox, BoxProps as MuiBoxProps } from "@mui/material";
+import { Box as MuiBox } from "@mui/material";
+import type { BoxProps as MuiBoxProps, Theme } from "@mui/material";
 
-interface CustomBoxProps extends Omit<MuiBoxProps, 'component' | 'className'> {
+interface CustomBoxProps {
   component?: React.ElementType;
   className?: string;
+  children: React.ReactNode;
+  sx?: any;
+  [key: string]: any;
 }
 
 // This component handles the incompatible props issue in MUI v7
-export const Box: React.FC<CustomBoxProps> = ({ 
+export const Box = ({ 
   component, 
   className, 
   children, 
   sx, 
   ...rest 
-}) => {
+}: CustomBoxProps) => {
   if (component) {
     return (
       <MuiBox
-        // Use the 'as' prop instead of 'component' for MUI v7
+        component={component as any}
         sx={{
           ...(sx || {}),
           // Convert className to sx if provided
