@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { DemoStage } from './S10Demo';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMouseVector } from '@/hooks/use-mouse-vector';
-import { MessageCircle, Calendar, FileText, BellRing, PhoneCall, CheckCircle, Clock, User } from 'lucide-react';
+import { MessageCircle, Calendar, FileText, BellRing, PhoneCall, CheckCircle, Clock, User, Database, Shield } from 'lucide-react';
 
 interface DemoSceneProps {
   currentStage: number;
@@ -18,6 +19,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   const [mousePosition, setMousePosition] = useState({ x: 20, y: 20 });
   const [userInteracting, setUserInteracting] = useState(false);
   const [targetedArea, setTargetedArea] = useState<string | null>(null);
+  const [isProcessingCall, setIsProcessingCall] = useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   // Animation for the patient engagement illustration
@@ -34,9 +36,9 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   useEffect(() => {
     if (currentStage === 0) {
       const actions = [
-        "AI Assistant Processing Message",
+        "AI Assistant Processing Messages",
         "AI Checking Calendar Availability",
-        "AI Analyzing Symptoms",
+        "AI Automating Patient Intake",
         "AI Sending Appointment Reminders"
       ];
       setAiAction(actions[subStep]);
@@ -59,7 +61,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       } else if (y > 100 && y < 250 && x > 300 && x < 500) {
         setTargetedArea("Calendar");
       } else if (y > 250 && y < 400 && x > 50 && x < 250) {
-        setTargetedArea("Symptoms");
+        setTargetedArea("Intake");
       } else if (y > 250 && y < 400 && x > 300 && x < 500) {
         setTargetedArea("Reminders");
       } else {
@@ -72,9 +74,15 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
     setUserInteracting(true);
     
     // Set subStep based on targeted area
-    if (targetedArea === "Chat") setSubStep(0);
+    if (targetedArea === "Chat") {
+      setSubStep(0);
+      if (Math.random() > 0.5) {
+        setIsProcessingCall(true);
+        setTimeout(() => setIsProcessingCall(false), 2000);
+      }
+    }
     if (targetedArea === "Calendar") setSubStep(1);
-    if (targetedArea === "Symptoms") setSubStep(2);
+    if (targetedArea === "Intake") setSubStep(2);
     if (targetedArea === "Reminders") setSubStep(3);
     
     setTimeout(() => setUserInteracting(false), 300);
@@ -140,7 +148,11 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       {/* Central Display Area */}
       <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
         {currentStage === 0 && (
-          <FigmaPatientEngagementIllustration subStep={subStep} cursorPosition={mousePosition} />
+          <FigmaPatientEngagementIllustration 
+            subStep={subStep} 
+            cursorPosition={mousePosition}
+            isProcessingCall={isProcessingCall} 
+          />
         )}
         
         {/* Show other illustrations for other stages */}
@@ -212,6 +224,28 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           />
+        </motion.div>
+      )}
+      
+      {/* Call processing overlay */}
+      {isProcessingCall && (
+        <motion.div 
+          className="absolute top-16 right-16 z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <div className="flex items-center">
+            <div className="w-6 h-6 rounded-full bg-green-600 flex items-center justify-center mr-2">
+              <PhoneCall className="h-3 w-3 text-white" />
+            </div>
+            <span>AI Answering Patient Call</span>
+            <motion.div 
+              className="ml-2 h-2 w-2 rounded-full bg-white"
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ repeat: Infinity, duration: 0.8 }}
+            />
+          </div>
         </motion.div>
       )}
       
@@ -331,7 +365,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       {currentStage === 0 && (
         <motion.div 
           className="absolute z-50 pointer-events-none"
-          animate={{ x: mousePosition.x, y: mousePosition.y }}
+          animate={{ x: mousePosition.x - 12, y: mousePosition.y - 12 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
           <div className="relative">
@@ -373,7 +407,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
 };
 
 // Figma-style flat UI illustration for patient engagement
-const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
+const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition, isProcessingCall }) => {
   return (
     <motion.div 
       className="w-full max-w-3xl aspect-video bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xl"
@@ -405,7 +439,7 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
             <Calendar size={20} />
           </div>
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 2 ? 'bg-blue-100 text-blue-600' : 'text-gray-400'}`}>
-            <FileText size={20} />
+            <Database size={20} />
           </div>
           <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${subStep === 3 ? 'bg-blue-100 text-blue-600' : 'text-gray-400'}`}>
             <BellRing size={20} />
@@ -424,8 +458,15 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
               <div className="flex justify-between items-center mb-4">
                 <h3 className="font-medium text-gray-800">AI Assistant</h3>
                 <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                    <PhoneCall size={16} className="text-blue-600" />
+                  <div className={`w-8 h-8 rounded-full ${isProcessingCall ? 'bg-green-100' : 'bg-blue-100'} flex items-center justify-center`}>
+                    <PhoneCall size={16} className={isProcessingCall ? 'text-green-600' : 'text-blue-600'} />
+                    {isProcessingCall && (
+                      <motion.div
+                        className="absolute w-12 h-12 rounded-full border-2 border-green-300"
+                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                      />
+                    )}
                   </div>
                   <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
                     <MessageCircle size={16} className="text-blue-600" />
@@ -435,12 +476,20 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
               
               <div className="space-y-4">
                 <div className="bg-blue-50 p-3 rounded-lg rounded-tl-none max-w-[80%]">
-                  <p className="text-sm text-gray-700">Hello! How can I help you today?</p>
+                  <p className="text-sm text-gray-700">
+                    {isProcessingCall 
+                      ? "Hello! I'm connecting you with our scheduling team. How can I help you today?" 
+                      : "Hello! How can I help you today?"}
+                  </p>
                   <p className="text-xs text-gray-500 mt-1">10:30 AM</p>
                 </div>
                 
                 <div className="bg-gray-100 p-3 rounded-lg rounded-tr-none max-w-[80%] ml-auto">
-                  <p className="text-sm text-gray-700">I need to schedule an appointment with Dr. Smith</p>
+                  <p className="text-sm text-gray-700">
+                    {isProcessingCall 
+                      ? "Hi, I need to speak with someone about scheduling an appointment" 
+                      : "I need to schedule an appointment with Dr. Smith"}
+                  </p>
                   <p className="text-xs text-gray-500 mt-1">10:31 AM</p>
                 </div>
                 
@@ -450,7 +499,11 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <p className="text-sm text-gray-700">I can help you with that. What day and time works best for you?</p>
+                  <p className="text-sm text-gray-700">
+                    {isProcessingCall 
+                      ? "I can help you with that. Would you prefer a morning or afternoon appointment?" 
+                      : "I can help you with that. What day and time works best for you?"}
+                  </p>
                   <p className="text-xs text-gray-500 mt-1">10:32 AM</p>
                 </motion.div>
                 
@@ -555,7 +608,7 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
             </div>
           </motion.div>
           
-          {/* Step 3: Describe Symptoms */}
+          {/* Step 3: Patient Intake Automation */}
           <motion.div 
             className="absolute inset-0 p-4"
             animate={{ opacity: subStep === 2 ? 1 : 0 }}
@@ -563,83 +616,87 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition }) => {
           >
             <div className="bg-white h-full rounded-lg border border-gray-200 p-4 shadow-sm">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="font-medium text-gray-800">Pre-Visit Questionnaire</h3>
+                <h3 className="font-medium text-gray-800">Patient Intake & Insurance</h3>
                 <div className="flex items-center space-x-1">
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                  <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                   <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
                 </div>
               </div>
               
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">What symptoms are you experiencing?</label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-sm font-medium text-gray-700">Insurance Verification</label>
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full flex items-center">
+                      <CheckCircle size={10} className="mr-1" /> Verified
+                    </span>
+                  </div>
                   <div className="border border-gray-300 rounded-lg p-3 bg-gray-50">
-                    <motion.p 
-                      className="text-sm text-gray-700"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      Headache and mild fever for the past two days. Also experiencing some congestion.
-                    </motion.p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-gray-600">Blue Cross Blue Shield</span>
+                      <span className="text-sm font-medium text-gray-800">#BCBS291042</span>
+                    </div>
+                    <div className="mt-1 flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Coverage Status</span>
+                      <span className="text-xs text-green-600">Active</span>
+                    </div>
+                    <div className="mt-1 flex justify-between items-center">
+                      <span className="text-xs text-gray-500">Co-pay</span>
+                      <span className="text-xs text-gray-800">$25.00</span>
+                    </div>
                   </div>
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">When did your symptoms begin?</label>
-                  <div className="flex items-center border border-gray-300 rounded-lg px-3 h-10">
-                    <span className="text-sm text-gray-800">2 days ago</span>
-                  </div>
-                </div>
-                
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Rate your pain level (1-10)</label>
-                  <div className="flex items-center space-x-1">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Medical History</label>
+                  <div className="border border-gray-300 rounded-lg overflow-hidden">
+                    <div className="bg-gray-50 px-3 py-2 border-b border-gray-200 flex justify-between items-center">
+                      <span className="text-xs font-medium text-gray-700">Automatically Retrieved</span>
                       <motion.div 
-                        key={num}
-                        className={`w-8 h-8 rounded-full flex items-center justify-center cursor-pointer ${
-                          num === 4 ? 'bg-blue-500 text-white' : 'bg-gray-100 text-gray-700'
-                        }`}
-                        whileHover={{ scale: 1.1 }}
+                        className="w-4 h-4 rounded-full bg-blue-100 flex items-center justify-center"
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ duration: 2, repeat: Infinity }}
                       >
-                        <span className="text-xs font-medium">{num}</span>
+                        <Database size={10} className="text-blue-600" />
                       </motion.div>
-                    ))}
+                    </div>
+                    <div className="p-3">
+                      <div className="flex items-center mb-2">
+                        <Shield size={14} className="text-blue-500 mr-2" />
+                        <span className="text-sm text-gray-800">Allergies: Penicillin, Peanuts</span>
+                      </div>
+                      <div className="flex items-center mb-2">
+                        <Shield size={14} className="text-blue-500 mr-2" />
+                        <span className="text-sm text-gray-800">Current Medications: Lisinopril, Metformin</span>
+                      </div>
+                      <div className="flex items-center">
+                        <Shield size={14} className="text-blue-500 mr-2" />
+                        <span className="text-sm text-gray-800">Previous Surgeries: Appendectomy (2020)</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Have you taken any medication?</label>
-                  <div className="flex items-center space-x-2">
-                    <div className="border border-blue-300 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full text-sm font-medium flex items-center">
-                      <span className="mr-1">Ibuprofen</span>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                        <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                      </svg>
-                    </div>
-                    <div className="border border-gray-300 px-3 h-8 rounded-full flex items-center">
-                      <span className="text-xs text-gray-400">Add another...</span>
-                    </div>
-                  </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium text-gray-700">Consent Forms</span>
+                  <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full flex items-center">
+                    <CheckCircle size={10} className="mr-1" /> 3/3 Signed
+                  </span>
                 </div>
-              </div>
-              
-              <div className="absolute bottom-8 right-8">
-                <motion.button 
-                  className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md flex items-center"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                
+                <motion.div 
+                  className="absolute bottom-8 right-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
                 >
-                  <span className="mr-2">Continue</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M5 12H19" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-                    <path d="M12 5L19 12L12 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </motion.button>
+                  <div className="px-3 py-1.5 bg-green-500 text-white text-xs rounded-full shadow-md flex items-center">
+                    <span className="mr-1">All data processed</span>
+                    <CheckCircle size={14} />
+                  </div>
+                </motion.div>
               </div>
             </div>
           </motion.div>
