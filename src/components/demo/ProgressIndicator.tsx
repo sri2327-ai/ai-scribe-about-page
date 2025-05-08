@@ -19,9 +19,9 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
           transition={{ delay: index * 0.1, duration: 0.5 }}
         >
           <motion.div
-            className={`h-6 w-6 md:h-7 md:w-7 rounded-full ${
+            className={`h-6 w-6 md:h-8 md:w-8 rounded-full ${
               index === currentStage 
-                ? 'bg-blue-600' 
+                ? 'bg-blue-600 ring-2 ring-blue-300 ring-offset-2' 
                 : index < currentStage 
                   ? 'bg-blue-900' 
                   : 'bg-gray-300'

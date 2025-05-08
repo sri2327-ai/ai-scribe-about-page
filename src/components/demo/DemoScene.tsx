@@ -1,10 +1,28 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { DemoStage } from './S10Demo';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useMouseVector } from '@/hooks/use-mouse-vector';
-import { MessageCircle, Calendar, FileText, BellRing, PhoneCall, CheckCircle, Clock, User, Database, Shield, Clipboard, ClipboardCheck, ArrowRight } from 'lucide-react';
+import { 
+  MessageCircle, 
+  Calendar, 
+  FileText, 
+  BellRing, 
+  PhoneCall, 
+  CheckCircle, 
+  Clock, 
+  User, 
+  Database, 
+  Shield, 
+  ClipboardCheck, 
+  ArrowRight,
+  Settings, 
+  CalendarDays, 
+  ClipboardList, 
+  Mic, 
+  Stethoscope, 
+  Server
+} from 'lucide-react';
 
 interface DemoSceneProps {
   currentStage: number;
@@ -13,6 +31,8 @@ interface DemoSceneProps {
 }
 
 export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) => {
+  console.log("DemoScene rendering with currentStage:", currentStage);
+  
   const isMobile = useIsMobile();
   const [subStep, setSubStep] = useState(0);
   const [aiAction, setAiAction] = useState<string | null>(null);
@@ -26,6 +46,8 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
 
   // Animation for the patient engagement illustration
   useEffect(() => {
+    console.log("DemoScene effect running with currentStage:", currentStage);
+    
     if (currentStage === 0) {
       const interval = setInterval(() => {
         setSubStep((prev) => (prev + 1) % 4);
@@ -147,6 +169,8 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
     setTimeout(() => setUserInteracting(false), 300);
   };
 
+  console.log("Current stage in DemoScene:", currentStage);
+
   return (
     <div 
       className="w-full h-full relative bg-white"
@@ -156,19 +180,6 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
     >
       {/* Background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.03),rgba(255,255,255,0))]" />
-      <motion.div 
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.02),rgba(255,255,255,0)_70%)]"
-        animate={{
-          opacity: [0.3, 0.7, 0.3],
-          scale: [1, 1.05, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
-      />
       
       {/* Dynamic grid lines */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
@@ -223,53 +234,57 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
         )}
         
         {/* Show SVG illustrations for other stages */}
-        {currentStage !== 0 && currentStage !== 1 && stages.map((stage, index) => (
-          index === currentStage && (
-            <motion.div
-              key={stage.id}
-              className="w-full max-w-3xl mx-auto"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ 
-                opacity: 1,
-                scale: 1,
-                y: 0,
-              }}
-              transition={{ 
-                duration: 0.7, 
-                ease: "easeOut",
-              }}
-            >
-              <div className="relative aspect-video bg-gradient-to-br from-blue-50 to-white rounded-xl border border-blue-100 overflow-hidden flex items-center justify-center shadow-lg">
-                <img 
-                  src={`/demo/${stage.id}.svg`} 
-                  alt={stage.title} 
-                  className="w-full h-full object-contain p-4"
-                  onError={(e) => {
-                    e.currentTarget.src = "/demo/placeholder.svg";
-                  }}
-                />
-                
-                {/* Animated highlight ring */}
-                <motion.div
-                  className="absolute inset-0 border-2 rounded-xl border-blue-400/0"
-                  animate={{
-                    borderColor: ["rgba(59,130,246,0)", "rgba(59,130,246,0.3)", "rgba(59,130,246,0)"],
-                    boxShadow: [
-                      "0 0 0px rgba(59,130,246,0)",
-                      "0 0 15px rgba(59,130,246,0.3)",
-                      "0 0 0px rgba(59,130,246,0)"
-                    ]
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
-            </motion.div>
-          )
-        ))}
+        {currentStage !== 0 && currentStage !== 1 && stages.map((stage, index) => {
+          console.log("Checking stage:", stage.id, "index:", index, "currentStage:", currentStage);
+          return (
+            index === currentStage && (
+              <motion.div
+                key={stage.id}
+                className="w-full max-w-3xl mx-auto"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ 
+                  opacity: 1,
+                  scale: 1,
+                  y: 0,
+                }}
+                transition={{ 
+                  duration: 0.7, 
+                  ease: "easeOut",
+                }}
+              >
+                <div className="relative aspect-video bg-gradient-to-br from-blue-50 to-white rounded-xl border border-blue-100 overflow-hidden flex items-center justify-center shadow-lg">
+                  <img 
+                    src={`/demo/${stage.id}.svg`} 
+                    alt={stage.title} 
+                    className="w-full h-full object-contain p-4"
+                    onError={(e) => {
+                      console.error(`Error loading image for stage: ${stage.id}`);
+                      e.currentTarget.src = "/demo/placeholder.svg";
+                    }}
+                  />
+                  
+                  {/* Animated highlight ring */}
+                  <motion.div
+                    className="absolute inset-0 border-2 rounded-xl border-blue-400/0"
+                    animate={{
+                      borderColor: ["rgba(59,130,246,0)", "rgba(59,130,246,0.3)", "rgba(59,130,246,0)"],
+                      boxShadow: [
+                        "0 0 0px rgba(59,130,246,0)",
+                        "0 0 15px rgba(59,130,246,0.3)",
+                        "0 0 0px rgba(59,130,246,0)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                </div>
+              </motion.div>
+            )
+          );
+        })}
       </div>
       
       {/* AI agent action label */}
@@ -477,6 +492,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
 
 // Figma-style flat UI illustration for patient engagement
 const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition, isProcessingCall }) => {
+  console.log("Rendering PatientEngagementIllustration with subStep:", subStep);
   return (
     <motion.div 
       className="w-full max-w-3xl aspect-video bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xl"
@@ -846,6 +862,7 @@ const FigmaPatientEngagementIllustration = ({ subStep, cursorPosition, isProcess
 
 // Figma-style flat UI illustration for AI Medical Scribe
 const FigmaAIMedicalScribeIllustration = ({ subStep, transcriptionActive, noteGeneration }) => {
+  console.log("Rendering AIMedicalScribeIllustration with subStep:", subStep);
   return (
     <motion.div 
       className="w-full max-w-3xl aspect-video bg-white rounded-xl border border-gray-200 overflow-hidden shadow-xl"
