@@ -1,0 +1,59 @@
+
+<svg width="800" height="500" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="500" fill="#0F172A"/>
+  
+  <!-- Background elements -->
+  <circle cx="400" cy="250" r="180" fill="url(#blueGradient)" fill-opacity="0.1"/>
+  
+  <!-- ROI metric boxes -->
+  <g id="metric1">
+    <rect x="150" y="180" width="180" height="140" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1"/>
+    <text x="240" y="220" font-family="Arial" font-size="36" font-weight="bold" fill="#38BDF8" text-anchor="middle">95%</text>
+    <text x="240" y="260" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Reduced</text>
+    <text x="240" y="280" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Documentation Time</text>
+  </g>
+  
+  <g id="metric2">
+    <rect x="350" y="180" width="180" height="140" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1"/>
+    <text x="440" y="220" font-family="Arial" font-size="36" font-weight="bold" fill="#38BDF8" text-anchor="middle">40%</text>
+    <text x="440" y="260" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Increased Patient</text>
+    <text x="440" y="280" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Throughput</text>
+  </g>
+  
+  <g id="metric3">
+    <rect x="550" y="180" width="180" height="140" rx="8" fill="#1E293B" stroke="#38BDF8" stroke-width="1"/>
+    <text x="640" y="220" font-family="Arial" font-size="36" font-weight="bold" fill="#38BDF8" text-anchor="middle">2x</text>
+    <text x="640" y="260" font-family="Arial" font-size="16" fill="white" text-anchor="middle">ROI Within</text>
+    <text x="640" y="280" font-family="Arial" font-size="16" fill="white" text-anchor="middle">Months</text>
+  </g>
+  
+  <!-- Before/After bar chart -->
+  <g id="before-after">
+    <rect x="250" y="360" width="380" height="100" rx="5" fill="#1E293B" stroke="#38BDF8" stroke-width="1" opacity="0.5"/>
+    
+    <text x="290" y="380" font-family="Arial" font-size="12" fill="white" text-anchor="start">Before S10.AI</text>
+    <rect x="290" y="390" width="100" height="20" rx="3" fill="#475569"/>
+    
+    <text x="290" y="430" font-family="Arial" font-size="12" fill="white" text-anchor="start">After S10.AI</text>
+    <rect x="290" y="440" width="300" height="20" rx="3" fill="#0EA5E9"/>
+    
+    <text x="600" y="405" font-family="Arial" font-size="12" fill="#94A3B8" text-anchor="start">Patient Volume</text>
+    <text x="600" y="450" font-family="Arial" font-size="12" fill="#94A3B8" text-anchor="start">3x Improvement</text>
+  </g>
+  
+  <!-- Title -->
+  <text x="400" y="60" font-family="Arial" font-size="24" font-weight="bold" fill="white" text-anchor="middle">Return on Investment You Can See</text>
+  <text x="400" y="90" font-family="Arial" font-size="16" fill="#94A3B8" text-anchor="middle">Measurable benefits for your practice</text>
+  
+  <!-- Call to Action -->
+  <rect x="320" y="100" width="160" height="40" rx="20" fill="#0284C7"/>
+  <text x="400" y="125" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Calculate Your ROI</text>
+  
+  <!-- Gradient definitions -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284C7" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#0EA5E9" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

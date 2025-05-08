@@ -20,7 +20,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 max-w-md border border-blue-500/30 shadow-[0_0_15px_rgba(30,174,219,0.15)]">
+      <div className="bg-black/70 backdrop-blur-md rounded-2xl p-6 max-w-md border border-blue-500/30 shadow-[0_0_15px_rgba(30,174,219,0.15)]">
         <motion.h2 
           className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"
           initial={{ opacity: 0, y: -10 }}

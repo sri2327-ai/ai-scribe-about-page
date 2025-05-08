@@ -13,7 +13,7 @@ interface DemoSceneProps {
 export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) => {
   const isMobile = useIsMobile();
   
-  // Array of illustration components for each stage
+  // Array of illustration SVGs for each stage
   const stageIllustrations = [
     "/demo/patient-engagement.svg",
     "/demo/ai-scribe.svg",
@@ -41,15 +41,14 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
             transition={{ duration: 0.5 }}
             style={{ position: 'absolute', display: currentStage === index ? 'block' : 'none' }}
           >
-            {/* Placeholder for SVG illustrations */}
             <div className="relative aspect-video bg-gradient-to-br from-blue-900/20 to-teal-900/20 rounded-xl border border-blue-500/20 overflow-hidden flex items-center justify-center">
               <img 
                 src={stageIllustrations[index]} 
                 alt={stage.title} 
-                className="w-full h-full object-contain p-4"
+                className="w-full h-full object-contain"
                 onError={(e) => {
                   // Fallback for missing illustrations
-                  e.currentTarget.src = "/placeholder.svg";
+                  e.currentTarget.src = "/demo/placeholder.svg";
                 }}
               />
             </div>

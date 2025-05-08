@@ -14,9 +14,9 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
         <motion.div
           key={index}
           className="relative"
-          initial={{ opacity: 0.5 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: index * 0.1 }}
+          initial={{ opacity: 0.5, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: index * 0.1, duration: 0.3 }}
         >
           <motion.div
             className={`h-2 w-2 md:h-3 md:w-3 rounded-full ${
