@@ -19,10 +19,13 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       initial={{ opacity: 0 }}
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
-      style={{ pointerEvents: isActive ? 'auto' : 'none' }} // Only allow interaction when active
+      style={{ 
+        pointerEvents: isActive ? 'auto' : 'none',
+        zIndex: 50 // Increased z-index to ensure content appears above scene
+      }}
     >
       <motion.div 
-        className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl pointer-events-auto relative z-50"
+        className="bg-white/95 backdrop-blur-sm rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl pointer-events-auto"
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ 
           opacity: isActive ? 1 : 0, 

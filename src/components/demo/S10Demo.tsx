@@ -126,7 +126,7 @@ export const S10Demo = () => {
     <div ref={containerRef} className="relative bg-white">
       {/* Fixed position content that changes based on scroll */}
       <div className="sticky top-0 h-screen w-full" ref={demoContentRef}>
-        {/* 3D scene that appears under the content - move this before the content overlay for proper z-index */}
+        {/* 3D scene that appears under the content */}
         <div className="absolute inset-0 z-10">
           <DemoScene 
             currentStage={currentStage}
@@ -135,7 +135,7 @@ export const S10Demo = () => {
           />
         </div>
         
-        {/* Content overlay - Now with proper z-index (higher than scene) */}
+        {/* Content overlay - Now with proper z-index */}
         <div className="absolute inset-0 z-30 pointer-events-none">
           {stages.map((stage, index) => (
             <DemoStageContent 
@@ -160,7 +160,7 @@ export const S10Demo = () => {
       <div style={{ height: `${stages.length * 100}vh` }}></div>
       
       {/* Final CTA section */}
-      <section className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4">
+      <section className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4 relative z-40">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-blue-800">Ready to Automate Your Clinic?</h2>
           <p className="text-lg md:text-xl mb-8 text-gray-600">
