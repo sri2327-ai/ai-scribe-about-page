@@ -27,19 +27,27 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
           viewport={{ once: true }}
         >
           {imageSrc ? (
+            // Fix: Don't use component="img" on Box, use regular img with styling
             <Box
-              component="img"
-              src={imageSrc}
-              alt={name}
               sx={{
                 width: 80,
                 height: 80,
                 borderRadius: '50%',
-                objectFit: 'cover',
                 mb: 2,
-                mx: 'auto'
+                mx: 'auto',
+                overflow: 'hidden',
               }}
-            />
+            >
+              <img 
+                src={imageSrc}
+                alt={name}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover'
+                }}
+              />
+            </Box>
           ) : (
             <Box
               sx={{

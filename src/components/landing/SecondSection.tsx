@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, useMediaQuery } from "@mui/material";
+import { Card, CardContent, Typography, Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -45,15 +45,16 @@ const TestimonialCard = ({ data }) => (
       flex: '1 1 0',
     }}
   >
-    <CardMedia
-      component="img"
-      image={data.docImg}
-      alt={data.docImgAlt}
+    {/* Fix: Remove component prop and alt prop from CardMedia */}
+    <Box
       sx={{
         width: "100%",
         height: { xs: "180px", sm: "220px", md: "230px" },
-        objectFit: "cover",
+        backgroundImage: `url(${data.docImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
+      aria-label={data.docImgAlt}
     />
     <CardContent 
       sx={{ 
