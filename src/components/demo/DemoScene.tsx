@@ -25,9 +25,9 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   return (
     <div className="w-full h-full relative bg-white">
       {/* Animated background elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),rgba(255,255,255,0))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.03),rgba(255,255,255,0))]" />
       <motion.div 
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.04),rgba(255,255,255,0)_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.02),rgba(255,255,255,0)_70%)]"
         animate={{
           opacity: [0.3, 0.7, 0.3],
           scale: [1, 1.05, 1],

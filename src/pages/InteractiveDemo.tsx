@@ -26,9 +26,9 @@ const InteractiveDemo = () => {
       </Helmet>
 
       {/* Dynamic background effect */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(240,249,255,0.8)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0)_0%,rgba(240,249,255,0.4)_100%)]" />
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.05),rgba(255,255,255,0)_70%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03),rgba(255,255,255,0)_70%)]" />
         <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-300/50 to-transparent" />
       </div>
       
@@ -96,7 +96,7 @@ const InteractiveDemo = () => {
         <S10Demo />
 
         {/* Call to action section */}
-        <section className="min-h-[50vh] flex items-center justify-center px-4 py-20 bg-gradient-to-b from-blue-50 to-white">
+        <section className="min-h-[50vh] flex items-center justify-center px-4 py-20 bg-white">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

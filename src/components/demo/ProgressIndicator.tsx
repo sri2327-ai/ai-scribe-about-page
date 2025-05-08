@@ -9,7 +9,7 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentStage, totalStages }) => {
   return (
-    <div className="fixed right-6 md:right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-20 bg-white/80 p-2 rounded-lg shadow-md">
+    <div className="fixed right-6 md:right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-20 bg-white p-3 rounded-lg shadow-lg border border-gray-100">
       {Array.from({ length: totalStages }).map((_, index) => (
         <motion.div
           key={index}
@@ -19,11 +19,11 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
           transition={{ delay: index * 0.1, duration: 0.5 }}
         >
           <motion.div
-            className={`h-3 w-3 md:h-4 md:w-4 rounded-full ${
+            className={`h-4 w-4 md:h-5 md:w-5 rounded-full ${
               index === currentStage 
-                ? 'bg-blue-400' 
+                ? 'bg-blue-500' 
                 : index < currentStage 
-                  ? 'bg-blue-600' 
+                  ? 'bg-blue-700' 
                   : 'bg-gray-300'
             }`}
             initial={{ scale: 1 }}
@@ -51,13 +51,13 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
           )}
           
           <motion.div 
-            className="absolute -left-20 top-0 opacity-0 pointer-events-none"
+            className="absolute -left-[180px] top-0 pointer-events-none"
             animate={{ 
               opacity: index === currentStage ? 1 : 0,
             }}
             transition={{ duration: 0.3 }}
           >
-            <div className="bg-white px-2 py-1 rounded text-xs text-blue-900 whitespace-nowrap border border-blue-200 shadow-sm">
+            <div className="bg-white px-3 py-1.5 rounded text-sm text-blue-900 whitespace-nowrap border border-blue-200 shadow-md font-medium">
               {index === 0 && "Patient Engagement"}
               {index === 1 && "AI Medical Scribe"}
               {index === 2 && "Admin Tasks"}

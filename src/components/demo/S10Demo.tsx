@@ -141,7 +141,7 @@ export const S10Demo = () => {
       <div style={{ height: `${stages.length * 100}vh` }}></div>
       
       {/* Final CTA section */}
-      <section className="bg-gradient-to-b from-blue-50 to-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4">
+      <section className="bg-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-blue-800">Ready to Automate Your Clinic?</h2>
           <p className="text-lg md:text-xl mb-8 text-gray-600">

@@ -21,7 +21,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       transition={{ duration: 0.5 }}
     >
       <motion.div 
-        className="bg-white rounded-2xl p-6 max-w-md border border-blue-200 shadow-lg"
+        className="bg-white rounded-2xl p-6 max-w-md border border-blue-200 shadow-xl"
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ 
           opacity: isActive ? 1 : 0, 
@@ -34,7 +34,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
           initial={{ width: "0%" }}
           animate={{ width: isActive ? "100%" : "0%" }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="h-1 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full mb-4"
+          className="h-1.5 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full mb-4"
         />
         
         <motion.h2 
