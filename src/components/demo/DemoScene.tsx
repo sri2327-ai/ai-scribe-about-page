@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { DemoStage } from './S10Demo';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useMouseVector } from '@/hooks/use-mouse-vector';
 import { MessageCircle, Calendar, FileText, BellRing, PhoneCall, CheckCircle, Clock, User } from 'lucide-react';
 
 interface DemoSceneProps {
@@ -13,9 +13,13 @@ interface DemoSceneProps {
 
 export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) => {
   const isMobile = useIsMobile();
-  const [cursorPosition, setCursorPosition] = useState({ x: 20, y: 20 });
   const [subStep, setSubStep] = useState(0);
-  
+  const [aiAction, setAiAction] = useState<string | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 20, y: 20 });
+  const [userInteracting, setUserInteracting] = useState(false);
+  const [targetedArea, setTargetedArea] = useState<string | null>(null);
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   // Animation for the patient engagement illustration
   useEffect(() => {
     if (currentStage === 0) {
@@ -25,23 +29,64 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       return () => clearInterval(interval);
     }
   }, [currentStage]);
-  
-  // Move cursor for interactive demonstration
+
+  // Set AI actions based on the current step
   useEffect(() => {
     if (currentStage === 0) {
-      const positions = [
-        { x: 80, y: 120 }, // AI chat position
-        { x: 280, y: 180 }, // Calendar position
-        { x: 160, y: 240 }, // Symptoms form position
-        { x: 220, y: 100 }  // Notification position
+      const actions = [
+        "AI Assistant Processing Message",
+        "AI Checking Calendar Availability",
+        "AI Analyzing Symptoms",
+        "AI Sending Appointment Reminders"
       ];
-      
-      setCursorPosition(positions[subStep]);
+      setAiAction(actions[subStep]);
+    } else {
+      setAiAction(null);
     }
   }, [currentStage, subStep]);
 
+  // Handle mouse position
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (containerRef.current && currentStage === 0) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      setMousePosition({ x, y });
+      
+      // Determine if mouse is hovering over interactive areas
+      if (y > 100 && y < 250 && x > 50 && x < 250) {
+        setTargetedArea("Chat");
+      } else if (y > 100 && y < 250 && x > 300 && x < 500) {
+        setTargetedArea("Calendar");
+      } else if (y > 250 && y < 400 && x > 50 && x < 250) {
+        setTargetedArea("Symptoms");
+      } else if (y > 250 && y < 400 && x > 300 && x < 500) {
+        setTargetedArea("Reminders");
+      } else {
+        setTargetedArea(null);
+      }
+    }
+  };
+
+  const handleMouseDown = () => {
+    setUserInteracting(true);
+    
+    // Set subStep based on targeted area
+    if (targetedArea === "Chat") setSubStep(0);
+    if (targetedArea === "Calendar") setSubStep(1);
+    if (targetedArea === "Symptoms") setSubStep(2);
+    if (targetedArea === "Reminders") setSubStep(3);
+    
+    setTimeout(() => setUserInteracting(false), 300);
+  };
+
   return (
-    <div className="w-full h-full relative bg-white">
+    <div 
+      className="w-full h-full relative bg-white"
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      onMouseDown={handleMouseDown}
+    >
       {/* Background elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.03),rgba(255,255,255,0))]" />
       <motion.div 
@@ -95,7 +140,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       {/* Central Display Area */}
       <div className="absolute inset-0 flex items-center justify-center p-8 z-10">
         {currentStage === 0 && (
-          <FigmaPatientEngagementIllustration subStep={subStep} cursorPosition={cursorPosition} />
+          <FigmaPatientEngagementIllustration subStep={subStep} cursorPosition={mousePosition} />
         )}
         
         {/* Show other illustrations for other stages */}
@@ -147,6 +192,28 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
           )
         ))}
       </div>
+      
+      {/* AI agent action label */}
+      {currentStage === 0 && aiAction && (
+        <motion.div 
+          className="absolute left-8 top-16 md:left-12 md:top-24 z-50 bg-blue-500 text-white px-4 py-2 rounded-lg shadow-lg"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          key={aiAction} // Force re-render on action change
+        >
+          <div className="flex items-center">
+            <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center mr-2">
+              <div className="text-xs">AI</div>
+            </div>
+            <span>{aiAction}</span>
+          </div>
+          <motion.div 
+            className="absolute -bottom-1 left-3 w-3 h-3 bg-blue-500 rotate-45"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          />
+        </motion.div>
+      )}
       
       {/* Animated UI elements for other stages */}
       {currentStage === 1 && (
@@ -260,16 +327,45 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
         </motion.div>
       )}
       
-      {/* Interactive cursor for the patient engagement illustration */}
+      {/* Custom cursor with "You" label */}
       {currentStage === 0 && (
         <motion.div 
           className="absolute z-50 pointer-events-none"
-          animate={{ x: cursorPosition.x, y: cursorPosition.y }}
-          transition={{ type: "spring", stiffness: 120, damping: 20 }}
+          animate={{ x: mousePosition.x, y: mousePosition.y }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M5 12.5L10.5 18L19 6.5" stroke="#3B82F6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
+          <div className="relative">
+            {/* Cursor pointer */}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path 
+                d="M5 3L19 12L12 14L9 21L5 3Z" 
+                fill={userInteracting ? "#1E40AF" : "#3B82F6"} 
+                stroke="white" 
+                strokeWidth="1.5" 
+              />
+            </svg>
+            
+            {/* "You" label */}
+            <motion.div 
+              className="absolute top-6 left-0 bg-gray-800 text-white px-2 py-1 rounded text-xs whitespace-nowrap"
+              animate={{ scale: userInteracting ? 1.1 : 1 }}
+              style={{ boxShadow: "0 2px 5px rgba(0,0,0,0.2)" }}
+            >
+              You {targetedArea && `(${targetedArea})`}
+            </motion.div>
+            
+            {/* Click indicator */}
+            {userInteracting && (
+              <motion.div
+                className="absolute top-0 left-0"
+                initial={{ scale: 0.5, opacity: 1 }}
+                animate={{ scale: 2, opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="w-5 h-5 rounded-full border-2 border-blue-500" />
+              </motion.div>
+            )}
+          </div>
         </motion.div>
       )}
     </div>
