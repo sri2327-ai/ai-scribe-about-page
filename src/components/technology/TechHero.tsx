@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Container, Grid, Paper, Button } from '@mui/material';
+import { Typography, Container, Grid, Paper, Button } from '@mui/material';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Spotlight } from "@/components/ui/spotlight";
@@ -221,8 +221,8 @@ const TechHero = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <Box 
-        sx={{ 
+      <div 
+        style={{ 
           position: 'absolute', 
           inset: 0, 
           zIndex: 0, 
@@ -230,7 +230,7 @@ const TechHero = () => {
         }}
       >
         <CanvasEffect id="tech-canvas" className="opacity-40" />
-      </Box>
+      </div>
       
       <Spotlight
         className="-top-40 left-0 z-10"
@@ -265,16 +265,15 @@ const TechHero = () => {
         </>
       )}
       
-      <Box
-        sx={{
+      <div
+        style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
           position: 'relative',
           zIndex: 20,
-          px: { xs: 2, md: 4 },
-          py: { xs: 10, md: 0 }
+          padding: '2rem 1rem'
         }}
       >
         <Box
@@ -525,7 +524,7 @@ const TechHero = () => {
             </HoverCard>
           </Box>
         </Box>
-      </Box>
+      </div>
     </TechHeroBox>
   );
 };

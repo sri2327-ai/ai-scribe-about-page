@@ -22,7 +22,6 @@ export const Box = ({
   if (component) {
     return (
       <MuiBox
-        component={component as any}
         sx={{
           ...(sx || {}),
           // Convert className to sx if provided
@@ -42,6 +41,28 @@ export const Box = ({
   // Regular Box with className support
   return (
     <div className={className} {...rest}>
+      {children}
+    </div>
+  );
+};
+
+// This is a wrapper component for Box from MUI that properly handles the className and component props
+export const EnhancedBox = ({ component, className, children, ...props }: CustomBoxProps) => {
+  // If using 'component' prop, we'll use sx instead of className
+  if (component) {
+    return (
+      <MuiBox
+        sx={{ ...props.sx }}
+        {...props}
+      >
+        {children}
+      </MuiBox>
+    );
+  }
+  
+  // If using className, use regular div with className
+  return (
+    <div className={className} {...props}>
       {children}
     </div>
   );

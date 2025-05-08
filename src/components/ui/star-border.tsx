@@ -18,7 +18,7 @@ export function StarBorder<T extends ElementType = "div">({
   children,
   ...props
 }: StarBorderProps<T> & Omit<ComponentPropsWithoutRef<T>, keyof StarBorderProps<T>>) {
-  // Fix: Use React.createElement instead of directly rendering the component
+  // Fix: Create the component properly
   const Component = as || "div";
 
   const defaultColor = color || "#4ECDC4" // Teal blue default
