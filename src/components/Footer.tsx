@@ -352,79 +352,74 @@ export default function Footer() {
                 gap: '1rem', 
                 marginTop: '1.5rem' 
               }}>
+                {/* Fixed social media icon buttons */}
                 <IconButton 
-                  component="a" 
                   href="https://x.com/s10aiscribe" 
                   target="_blank" 
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
+                    '&:hover': { color: '#0E86A3' }, 
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <XIcon />
                 </IconButton>
                 <IconButton 
-                  component="a" 
                   href="https://www.facebook.com/profile.php?id=100086008459597" 
                   target="_blank" 
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
+                    '&:hover': { color: '#0E86A3' }, 
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <FacebookIcon />
                 </IconButton>
                 <IconButton 
-                  component="a" 
                   href="https://www.linkedin.com/company/s10-ai/" 
                   target="_blank" 
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
+                    '&:hover': { color: '#0E86A3' }, 
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <LinkedInIcon />
                 </IconButton>
                 <IconButton 
-                  component="a" 
                   href="https://instagram.com/s10.ai" 
                   target="_blank" 
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
+                    '&:hover': { color: '#0E86A3' }, 
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <InstagramIcon />
                 </IconButton>
                 <IconButton 
-                  component="a" 
                   href="https://www.youtube.com/channel/UCSaWPSJyic-OURNS_w-49Ow" 
                   target="_blank" 
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
+                    '&:hover': { color: '#0E86A3' }, 
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
                   <YouTubeIcon />
                 </IconButton>
                 <IconButton 
-                  component="a" 
                   href="https://www.tiktok.com/@s10robotmedicalscribe" 
                   target="_blank" 
                   sx={{ 
                     color: '#fff',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
+                    '&:hover': { color: '#0E86A3' }, 
                     backgroundColor: 'rgba(0,0,0,0.2)', 
                   }}
                 >
