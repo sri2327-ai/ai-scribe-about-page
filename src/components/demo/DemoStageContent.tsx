@@ -2,6 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { DemoStage } from './S10Demo';
+import { CheckCircle } from 'lucide-react';
 
 interface DemoStageContentProps {
   stage: DemoStage;
@@ -19,22 +20,45 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="bg-black/50 backdrop-blur-sm rounded-xl p-6 max-w-md border border-blue-500/20">
-        <h2 className="text-2xl md:text-3xl font-bold mb-3 text-white">
+      <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 max-w-md border border-blue-500/30 shadow-[0_0_15px_rgba(30,174,219,0.15)]">
+        <motion.h2 
+          className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -10 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
           {stage.title}
-        </h2>
-        <p className="text-gray-200 mb-4">
+        </motion.h2>
+        
+        <motion.p 
+          className="text-gray-200 mb-4 leading-relaxed"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
           {stage.description}
-        </p>
+        </motion.p>
+        
         {stage.highlights && stage.highlights.length > 0 && (
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <motion.ul 
+            className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isActive ? 1 : 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             {stage.highlights.map((highlight, i) => (
-              <li key={i} className="flex items-center text-sm text-blue-200">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue-400 mr-2"></span>
-                {highlight}
-              </li>
+              <motion.li 
+                key={i} 
+                className="flex items-center text-sm text-blue-200"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
+                transition={{ duration: 0.5, delay: 0.4 + (i * 0.1) }}
+              >
+                <CheckCircle className="h-4 w-4 mr-2 text-blue-400 flex-shrink-0" />
+                <span>{highlight}</span>
+              </motion.li>
             ))}
-          </ul>
+          </motion.ul>
         )}
       </div>
     </motion.div>
