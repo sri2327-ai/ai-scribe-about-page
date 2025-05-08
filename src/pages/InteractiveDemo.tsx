@@ -1,20 +1,25 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { S10Demo } from '@/components/demo/S10Demo';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowDown } from 'lucide-react';
 
 const InteractiveDemo = () => {
   const [isLoaded, setIsLoaded] = useState(true); // Changed to true to avoid initial loading state
+  const demoStartRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     // Add a debugging message to the console
     console.log("InteractiveDemo component loaded");
     document.body.style.overflow = "auto"; // Ensure scrolling is enabled
   }, []);
+
+  const scrollToDemo = () => {
+    demoStartRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-white overflow-visible relative">
@@ -76,20 +81,24 @@ const InteractiveDemo = () => {
           >
             From patient engagement to real-time documentation and post-visit support—see how S10.AI transforms care delivery, end-to-end.
           </motion.p>
-          <motion.div 
-            className="text-sm text-gray-500 animate-bounce flex flex-col items-center"
+          <motion.button
+            className="flex flex-col items-center text-blue-600 hover:text-blue-800 transition-colors cursor-pointer"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ 
+              opacity: { delay: 0.6, duration: 0.8 },
+              y: { repeat: Infinity, duration: 1.5 }
+            }}
+            onClick={scrollToDemo}
           >
-            <div className="mb-2">Scroll to begin the journey</div>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-down">
-              <line x1="12" y1="5" x2="12" y2="19"></line>
-              <polyline points="19 12 12 19 5 12"></polyline>
-            </svg>
-          </motion.div>
+            <div className="mb-2 text-sm font-medium">Click to start the interactive demo</div>
+            <ArrowDown className="h-6 w-6" />
+          </motion.button>
         </section>
 
+        {/* Demo start marker - this is where the demo begins */}
+        <div ref={demoStartRef} className="h-0 w-full" id="demo-start"></div>
+        
         {/* Demo container */}
         <S10Demo />
 

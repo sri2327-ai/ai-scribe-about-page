@@ -13,7 +13,7 @@ interface DemoStageContentProps {
 export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isActive, index }) => {
   return (
     <motion.div 
-      className={`absolute inset-0 flex items-center justify-center p-4 pointer-events-none ${
+      className={`absolute inset-0 flex items-center justify-center p-4 ${
         index % 2 === 0 ? 'md:items-start md:pt-32' : 'md:items-end md:pb-32'
       }`}
       initial={{ opacity: 0 }}
@@ -21,7 +21,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       transition={{ duration: 0.5 }}
     >
       <motion.div 
-        className="bg-white rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl"
+        className="bg-white rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl pointer-events-auto"
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ 
           opacity: isActive ? 1 : 0, 
