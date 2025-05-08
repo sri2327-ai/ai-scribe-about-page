@@ -94,11 +94,6 @@ export const S10Demo = () => {
     }
   ];
 
-  // Manually change stage when clicked
-  const handleStageClick = (index: number) => {
-    setCurrentStage(index);
-  };
-
   // Calculate current stage based on scroll position
   useEffect(() => {
     const unsubscribe = scrollYProgress.onChange(value => {
@@ -117,35 +112,31 @@ export const S10Demo = () => {
     <div ref={containerRef} className="relative bg-white">
       {/* Fixed position content that changes based on scroll */}
       <div className="sticky top-0 h-screen w-full">
+        {/* Content overlay - Moved to appear before the 3D scene */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {stages.map((stage, index) => (
+            <DemoStageContent 
+              key={stage.id}
+              stage={stage}
+              isActive={currentStage === index}
+              index={index}
+            />
+          ))}
+        </div>
+        
         {/* 3D scene that appears under the content */}
         <div className="absolute inset-0 z-10">
           <DemoScene 
             currentStage={currentStage}
             scrollProgress={scrollYProgress}
             stages={stages} 
-            onStageClick={handleStageClick}
           />
-        </div>
-        
-        {/* Content overlay - Moved to appear at the bottom */}
-        <div className="absolute bottom-12 right-8 left-8 z-20 pointer-events-none">
-          <div className="max-w-xl mx-auto bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
-            {stages.map((stage, index) => (
-              <DemoStageContent 
-                key={stage.id}
-                stage={stage}
-                isActive={currentStage === index}
-                index={index}
-              />
-            ))}
-          </div>
         </div>
         
         {/* Progress indicator */}
         <ProgressIndicator 
           currentStage={currentStage} 
           totalStages={stages.length} 
-          onStageClick={handleStageClick}
         />
       </div>
       

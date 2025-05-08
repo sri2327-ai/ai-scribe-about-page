@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
-import { Typography, Container, Grid, Paper, Button } from '@mui/material';
+import { Box, Typography, Container, Grid, Paper, Button } from '@mui/material';
 import { motion, useAnimation } from "framer-motion";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Spotlight } from "@/components/ui/spotlight";
@@ -28,7 +29,6 @@ import {
 } from "lucide-react";
 
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
-import { TechHeroBox } from "./TechHeroUtils";
 
 const FloatingSecurityItem = ({ icon: Icon, label, description, position }) => {
   return (
@@ -209,7 +209,8 @@ const TechHero = () => {
   ];
 
   return (
-    <TechHeroBox 
+    <Box 
+      component="section"
       sx={{
         position: "relative",
         width: "100%",
@@ -221,8 +222,8 @@ const TechHero = () => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      <div 
-        style={{ 
+      <Box 
+        sx={{ 
           position: 'absolute', 
           inset: 0, 
           zIndex: 0, 
@@ -230,7 +231,7 @@ const TechHero = () => {
         }}
       >
         <CanvasEffect id="tech-canvas" className="opacity-40" />
-      </div>
+      </Box>
       
       <Spotlight
         className="-top-40 left-0 z-10"
@@ -265,15 +266,16 @@ const TechHero = () => {
         </>
       )}
       
-      <div
-        style={{
+      <Box
+        sx={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           height: '100%',
           position: 'relative',
           zIndex: 20,
-          padding: '2rem 1rem'
+          px: { xs: 2, md: 4 },
+          py: { xs: 10, md: 0 }
         }}
       >
         <Box
@@ -524,8 +526,8 @@ const TechHero = () => {
             </HoverCard>
           </Box>
         </Box>
-      </div>
-    </TechHeroBox>
+      </Box>
+    </Box>
   );
 };
 

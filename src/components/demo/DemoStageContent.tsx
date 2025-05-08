@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DemoStage } from './S10Demo';
+import type { DemoStage } from './S10Demo';
+import { CheckCircle } from 'lucide-react';
 
 interface DemoStageContentProps {
   stage: DemoStage;
@@ -10,34 +11,82 @@ interface DemoStageContentProps {
 }
 
 export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isActive, index }) => {
-  if (!isActive) return null;
-  
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
+    <motion.div 
+      className={`absolute inset-0 flex items-center justify-center p-4 pointer-events-none ${
+        index % 2 === 0 ? 'md:items-start md:pt-32' : 'md:items-end md:pb-32'
+      }`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isActive ? 1 : 0 }}
       transition={{ duration: 0.5 }}
-      className="pointer-events-auto"
     >
-      <h2 className="text-xl md:text-2xl font-bold text-blue-800 mb-2">{stage.title}</h2>
-      <p className="text-gray-700 mb-4">{stage.description}</p>
-      
-      {stage.highlights && stage.highlights.length > 0 && (
-        <div className="space-y-1 mt-3">
-          <h3 className="text-sm font-semibold text-gray-600">Key Features:</h3>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 mt-1">
+      <motion.div 
+        className="bg-white rounded-2xl p-6 max-w-md border border-blue-300 shadow-2xl"
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ 
+          opacity: isActive ? 1 : 0, 
+          y: isActive ? 0 : 20, 
+          scale: isActive ? 1 : 0.95 
+        }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <motion.div
+          initial={{ width: "0%" }}
+          animate={{ width: isActive ? "100%" : "0%" }}
+          transition={{ duration: 0.7, ease: "easeInOut" }}
+          className="h-2 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full mb-4"
+        />
+        
+        <motion.h2 
+          className="text-2xl md:text-3xl font-bold mb-3 text-blue-800"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -10 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {stage.title}
+        </motion.h2>
+        
+        <motion.p 
+          className="text-gray-800 mb-4 leading-relaxed"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          {stage.description}
+        </motion.p>
+        
+        {stage.highlights && stage.highlights.length > 0 && (
+          <motion.ul 
+            className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isActive ? 1 : 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             {stage.highlights.map((highlight, i) => (
-              <li key={i} className="flex items-center text-sm text-gray-700">
-                <svg className="w-4 h-4 text-blue-500 mr-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                </svg>
-                {highlight}
-              </li>
+              <motion.li 
+                key={i} 
+                className="flex items-center text-sm text-blue-700"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
+                transition={{ duration: 0.5, delay: 0.4 + (i * 0.1) }}
+              >
+                <motion.div 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: isActive ? 1 : 0 }}
+                  transition={{ 
+                    type: "spring", 
+                    stiffness: 300, 
+                    delay: 0.5 + (i * 0.1) 
+                  }}
+                >
+                  <CheckCircle className="h-4 w-4 mr-2 text-blue-600 flex-shrink-0" />
+                </motion.div>
+                <span>{highlight}</span>
+              </motion.li>
             ))}
-          </ul>
-        </div>
-      )}
+          </motion.ul>
+        )}
+      </motion.div>
     </motion.div>
   );
 };
