@@ -8,18 +8,16 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const InteractiveDemo = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-
+  const [isLoaded, setIsLoaded] = useState(true); // Changed to true to avoid initial loading state
+  
   useEffect(() => {
-    // Simulate loading time for assets
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 1000);
-    return () => clearTimeout(timer);
+    // Add a debugging message to the console
+    console.log("InteractiveDemo component loaded");
+    document.body.style.overflow = "auto"; // Ensure scrolling is enabled
   }, []);
 
   return (
-    <div className="min-h-screen bg-white overflow-hidden relative">
+    <div className="min-h-screen bg-white overflow-visible relative">
       <Helmet>
         <title>Interactive Demo | S10.AI - Experience the Future of Healthcare AI</title>
         <meta name="description" content="Experience an interactive demonstration of S10.AI's end-to-end healthcare automation platform, from patient engagement to AI medical scribing and clinical workflow optimization." />
@@ -59,7 +57,7 @@ const InteractiveDemo = () => {
       )}
 
       {/* Main content */}
-      <div className={`transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+      <div className="transition-opacity duration-1000 opacity-100">
         {/* Hero section */}
         <section className="min-h-screen flex flex-col items-center justify-center text-gray-800 px-4 relative">
           <motion.h1 

@@ -9,7 +9,7 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentStage, totalStages }) => {
   return (
-    <div className="fixed right-6 md:right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50 bg-white p-4 rounded-xl shadow-xl border border-blue-500">
+    <div className="fixed right-6 md:right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-4 z-50 bg-white p-4 rounded-xl shadow-xl border-2 border-blue-600">
       {Array.from({ length: totalStages }).map((_, index) => (
         <motion.div
           key={index}
