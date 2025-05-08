@@ -23,11 +23,11 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
   ];
 
   return (
-    <div className="w-full h-full relative bg-gradient-to-b from-black via-[#0a1a2a] to-black">
+    <div className="w-full h-full relative bg-white">
       {/* Animated background elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(30,174,219,0.1),rgba(0,0,0,0))]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),rgba(255,255,255,0))]" />
       <motion.div 
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.08),rgba(0,0,0,0)_70%)]"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(59,130,246,0.04),rgba(255,255,255,0)_70%)]"
         animate={{
           opacity: [0.3, 0.7, 0.3],
           scale: [1, 1.05, 1],
@@ -41,7 +41,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       />
       
       {/* Dynamic grid lines */}
-      <div className="absolute inset-0 overflow-hidden opacity-20">
+      <div className="absolute inset-0 overflow-hidden opacity-10">
         <motion.div 
           className="absolute w-full h-px bg-gradient-to-r from-transparent via-blue-500 to-transparent top-1/4"
           animate={{ x: ["-100%", "100%"] }}
@@ -92,11 +92,11 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
             }}
             style={{ position: 'absolute', display: currentStage === index ? 'block' : 'none' }}
           >
-            <div className="relative aspect-video bg-gradient-to-br from-blue-900/20 to-teal-900/20 rounded-xl border border-blue-500/20 overflow-hidden flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.15)]">
+            <div className="relative aspect-video bg-gradient-to-br from-blue-50 to-white rounded-xl border border-blue-100 overflow-hidden flex items-center justify-center shadow-lg">
               <motion.img 
                 src={stageIllustrations[index]} 
                 alt={stage.title} 
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain p-4"
                 initial={{ scale: 0.95, opacity: 0.5 }}
                 animate={{ 
                   scale: currentStage === index ? 1 : 0.95,
@@ -137,7 +137,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
       {/* Animated UI elements that appear based on stage */}
       {currentStage === 1 && (
         <motion.div 
-          className="absolute right-4 bottom-4 md:right-1/4 md:bottom-1/4 bg-black/70 backdrop-blur-sm p-4 rounded-lg border border-blue-500/30 text-sm text-white max-w-xs z-20"
+          className="absolute right-4 bottom-4 md:right-1/4 md:bottom-1/4 bg-white p-4 rounded-lg border border-blue-200 text-sm text-gray-800 max-w-xs z-20 shadow-md"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5 }}
@@ -153,7 +153,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
               Recording
             </span>
           </div>
-          <div className="font-mono text-xs text-blue-300 mb-2">
+          <div className="font-mono text-xs text-blue-600 mb-2">
             <motion.span
               initial={{ width: 0 }}
               animate={{ width: "100%" }}
@@ -163,9 +163,9 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
               "Patient reports headache that started three days ago..."
             </motion.span>
           </div>
-          <div className="bg-blue-900/30 p-2 rounded border border-blue-700/30">
-            <p className="text-xs text-blue-200">Generating SOAP Note...</p>
-            <div className="h-1 w-full bg-blue-900/50 rounded-full mt-1 overflow-hidden">
+          <div className="bg-blue-50 p-2 rounded border border-blue-100">
+            <p className="text-xs text-blue-700">Generating SOAP Note...</p>
+            <div className="h-1 w-full bg-blue-100 rounded-full mt-1 overflow-hidden">
               <motion.div 
                 className="h-full bg-blue-500 rounded-full"
                 initial={{ width: "0%" }}
@@ -187,7 +187,7 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
           {['Prescription', 'Lab Order', 'Referral', 'Visit Summary'].map((task, i) => (
             <motion.div 
               key={task}
-              className="bg-black/70 backdrop-blur-sm p-3 rounded-lg border border-teal-500/30 text-white flex items-center gap-3"
+              className="bg-white p-3 rounded-lg border border-blue-200 text-gray-800 flex items-center gap-3 shadow-sm"
               initial={{ opacity: 0, x: -20 }}
               animate={{ 
                 opacity: 1, 
@@ -227,20 +227,20 @@ export const DemoScene: React.FC<DemoSceneProps> = ({ currentStage, stages }) =>
           ].map((stat, i) => (
             <motion.div 
               key={i}
-              className="bg-black/70 backdrop-blur-sm p-6 rounded-lg border border-blue-500/30 text-center flex-1"
+              className="bg-white p-6 rounded-lg border border-blue-200 text-center flex-1 shadow-md"
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ delay: 0.3 + (i * 0.2), duration: 0.5 }}
             >
               <motion.div 
-                className="text-4xl md:text-5xl font-bold text-blue-400 mb-2"
+                className="text-4xl md:text-5xl font-bold text-blue-600 mb-2"
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.6 + (i * 0.2), duration: 0.6, type: "spring" }}
               >
                 {stat.metric}
               </motion.div>
-              <div className="text-white text-sm md:text-base">{stat.label}</div>
+              <div className="text-gray-700 text-sm md:text-base">{stat.label}</div>
             </motion.div>
           ))}
         </motion.div>

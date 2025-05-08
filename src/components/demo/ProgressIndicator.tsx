@@ -9,7 +9,7 @@ interface ProgressIndicatorProps {
 
 export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentStage, totalStages }) => {
   return (
-    <div className="fixed right-6 md:right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-20">
+    <div className="fixed right-6 md:right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-3 z-20 bg-white/80 p-2 rounded-lg shadow-md">
       {Array.from({ length: totalStages }).map((_, index) => (
         <motion.div
           key={index}
@@ -24,12 +24,12 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
                 ? 'bg-blue-400' 
                 : index < currentStage 
                   ? 'bg-blue-600' 
-                  : 'bg-white/30'
+                  : 'bg-gray-300'
             }`}
             initial={{ scale: 1 }}
             animate={{ 
               scale: index === currentStage ? [1, 1.3, 1] : 1,
-              backgroundColor: index === currentStage ? "#3b82f6" : (index < currentStage ? "#1d4ed8" : "rgba(255,255,255,0.3)")
+              backgroundColor: index === currentStage ? "#3b82f6" : (index < currentStage ? "#1d4ed8" : "#d1d5db")
             }}
             transition={{ 
               scale: {
@@ -57,7 +57,7 @@ export const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ currentSta
             }}
             transition={{ duration: 0.3 }}
           >
-            <div className="bg-blue-900/80 px-2 py-1 rounded text-xs text-white whitespace-nowrap">
+            <div className="bg-white px-2 py-1 rounded text-xs text-blue-900 whitespace-nowrap border border-blue-200 shadow-sm">
               {index === 0 && "Patient Engagement"}
               {index === 1 && "AI Medical Scribe"}
               {index === 2 && "Admin Tasks"}

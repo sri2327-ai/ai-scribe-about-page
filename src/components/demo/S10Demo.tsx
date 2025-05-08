@@ -1,6 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import { DemoScene } from './DemoScene';
 import { DemoStageContent } from './DemoStageContent';
 import { ProgressIndicator } from './ProgressIndicator';
@@ -109,7 +109,7 @@ export const S10Demo = () => {
   }, [scrollYProgress, stages.length]);
 
   return (
-    <div ref={containerRef} className="relative">
+    <div ref={containerRef} className="relative bg-white">
       {/* Fixed position 3D scene that changes based on scroll */}
       <div className="sticky top-0 h-screen w-full">
         <DemoScene 
@@ -141,17 +141,17 @@ export const S10Demo = () => {
       <div style={{ height: `${stages.length * 100}vh` }}></div>
       
       {/* Final CTA section */}
-      <section className="bg-gradient-to-b from-black to-[#143151] min-h-screen flex flex-col items-center justify-center text-white px-4">
+      <section className="bg-gradient-to-b from-blue-50 to-white min-h-screen flex flex-col items-center justify-center text-gray-800 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Automate Your Clinic?</h2>
-          <p className="text-lg md:text-xl mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-blue-800">Ready to Automate Your Clinic?</h2>
+          <p className="text-lg md:text-xl mb-8 text-gray-600">
             Start your journey with S10.AI—where every step of care is intelligent, efficient, and human-centered.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white py-3 px-6 rounded-lg hover:opacity-90 transition-opacity">
+            <button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg hover:opacity-90 transition-opacity shadow-md">
               Request a Demo
             </button>
-            <button className="border border-white text-white py-3 px-6 rounded-lg hover:bg-white/10 transition-colors">
+            <button className="border border-blue-600 text-blue-600 py-3 px-6 rounded-lg hover:bg-blue-50 transition-colors">
               Download ROI Report
             </button>
           </div>

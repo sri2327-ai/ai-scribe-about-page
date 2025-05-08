@@ -21,7 +21,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
       transition={{ duration: 0.5 }}
     >
       <motion.div 
-        className="bg-black/70 backdrop-blur-md rounded-2xl p-6 max-w-md border border-blue-500/30 shadow-[0_0_15px_rgba(30,174,219,0.15)]"
+        className="bg-white rounded-2xl p-6 max-w-md border border-blue-200 shadow-lg"
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ 
           opacity: isActive ? 1 : 0, 
@@ -34,11 +34,11 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
           initial={{ width: "0%" }}
           animate={{ width: isActive ? "100%" : "0%" }}
           transition={{ duration: 0.7, ease: "easeInOut" }}
-          className="h-0.5 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full mb-4"
+          className="h-1 bg-gradient-to-r from-blue-500 to-teal-400 rounded-full mb-4"
         />
         
         <motion.h2 
-          className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"
+          className="text-2xl md:text-3xl font-bold mb-3 text-blue-700"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -10 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -47,7 +47,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
         </motion.h2>
         
         <motion.p 
-          className="text-gray-200 mb-4 leading-relaxed"
+          className="text-gray-700 mb-4 leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -65,7 +65,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
             {stage.highlights.map((highlight, i) => (
               <motion.li 
                 key={i} 
-                className="flex items-center text-sm text-blue-200"
+                className="flex items-center text-sm text-blue-600"
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -10 }}
                 transition={{ duration: 0.5, delay: 0.4 + (i * 0.1) }}
@@ -79,7 +79,7 @@ export const DemoStageContent: React.FC<DemoStageContentProps> = ({ stage, isAct
                     delay: 0.5 + (i * 0.1) 
                   }}
                 >
-                  <CheckCircle className="h-4 w-4 mr-2 text-blue-400 flex-shrink-0" />
+                  <CheckCircle className="h-4 w-4 mr-2 text-blue-500 flex-shrink-0" />
                 </motion.div>
                 <span>{highlight}</span>
               </motion.li>
