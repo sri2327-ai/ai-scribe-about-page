@@ -37,15 +37,84 @@ export const FirstSection = () => {
                   },
                   letterSpacing: '-0.02em',
                   fontWeight: 700,
-                  color: '#000000',
+                  color: '#143151',
+                  mb: { xs: 2, md: 4 }
+                }}
+              >
+                AI Scribing & Patient Engagement Built for Clinicians Like You
+              </Typography>
+
+              <Typography
+                variant="body1"
+                sx={{
+                  fontSize: {
+                    xs: '1rem',
+                    sm: '1.125rem',
+                    md: '1.25rem'
+                  },
+                  lineHeight: 1.6,
+                  color: '#4a5568',
+                  mb: { xs: 4, md: 6 },
+                  maxWidth: '90%'
+                }}
+              >
+                Don't adapt to your AI—make it work for you.
+                S10.AI's AI medical scribe and patient engagement agent integrate seamlessly with Epic, Cerner, your preferred EHR, and 7,000+ other apps. Trusted by over 1,000 clinics worldwide.
+              </Typography>
+
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: 2,
                   mb: { xs: 4, md: 6 }
                 }}
               >
-                Innovative<br />
-                Ambient AI<br />
-                Solutions<br />
-                For Healthcare
-              </Typography>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    backgroundColor: 'rgba(20, 49, 81, 0.1)',
+                    borderRadius: '12px',
+                    py: 1,
+                    px: 2
+                  }}
+                >
+                  <Box 
+                    component="span" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      color: '#143151' 
+                    }}
+                  >
+                    30%
+                  </Box>
+                  <Box component="span">faster charting</Box>
+                </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    backgroundColor: 'rgba(56, 126, 137, 0.1)',
+                    borderRadius: '12px',
+                    py: 1,
+                    px: 2
+                  }}
+                >
+                  <Box 
+                    component="span" 
+                    sx={{ 
+                      fontWeight: 700, 
+                      color: '#387E89' 
+                    }}
+                  >
+                    20%
+                  </Box>
+                  <Box component="span">higher patient satisfaction</Box>
+                </Box>
+              </Box>
 
               <Button 
                 variant="contained" 
@@ -145,6 +214,22 @@ export const FirstSection = () => {
                         mb: 2
                       }}
                     >
+                      Customize workflows to save time, stay HIPAA-compliant, and see results in days
+                    </Typography>
+                    
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        color: '#000000',
+                        fontSize: {
+                          xs: '0.875rem',
+                          sm: '1rem'
+                        },
+                        lineHeight: 1.7,
+                        fontWeight: 400,
+                        mb: 2
+                      }}
+                    >
                       Cut Charting Time by 75%: CRUSH AI scribe automates documentation with up to 99% accuracy.
                     </Typography>
                     
@@ -173,26 +258,10 @@ export const FirstSection = () => {
                           sm: '1rem'
                         },
                         lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
-                      }}
-                    >
-                      Works with Your Chosen EHR: Effortless integration with Epic, Cerner, and over 100+ EHR platforms.
-                    </Typography>
-                    
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
                         fontWeight: 400
                       }}
                     >
-                      Focus on Patients, Not Paperwork: Trusted by over 1,000 clinicians.
+                      Works with Your Chosen EHR: Effortless integration with Epic, Cerner, and over 100+ EHR platforms.
                     </Typography>
                   </Box>
                   
