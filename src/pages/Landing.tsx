@@ -9,7 +9,7 @@ import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector'
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import { motion } from 'framer-motion';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -50,7 +50,12 @@ const Landing = () => {
   };
 
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <motion.main 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-white overflow-x-hidden"
+    >
       <Helmet>
         {/* Add preconnect for critical domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
@@ -64,18 +69,20 @@ const Landing = () => {
         </script>
       </Helmet>
 
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbItem>
-            <BreadcrumbLink asChild>
-              <Link to="/pricing">Pricing</Link>
-            </BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+      <nav className="max-w-7xl mx-auto px-4 py-4">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link to="/pricing">Pricing</Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </nav>
 
       <FirstSection />
       
@@ -101,7 +108,7 @@ const Landing = () => {
       <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
       </Suspense>
-    </main>
+    </motion.main>
   );
 };
 

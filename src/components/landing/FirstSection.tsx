@@ -5,8 +5,24 @@ import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight, ClipboardCheck, CalendarCheck, PieChart } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
+import { motion } from 'framer-motion';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerChildren = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2
+    }
+  }
+};
 
 export const FirstSection = () => {
   const theme = useTheme();
@@ -17,13 +33,18 @@ export const FirstSection = () => {
         <div className="flex flex-col space-y-12 md:space-y-20">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
             <Box
+              component={motion.div}
+              initial="hidden"
+              animate="visible"
+              variants={staggerChildren}
               sx={{
                 maxWidth: { xs: '100%', md: '50%' },
                 pr: { md: 4 }
               }}
             >
               <Typography
-                variant="h1"
+                component={motion.h1}
+                variants={fadeInUp}
                 sx={{
                   fontSize: {
                     xs: '2.5rem',
@@ -45,7 +66,8 @@ export const FirstSection = () => {
               </Typography>
 
               <Typography
-                variant="h3"
+                component={motion.h3}
+                variants={fadeInUp}
                 sx={{
                   fontSize: {
                     xs: '1.25rem',
@@ -62,6 +84,8 @@ export const FirstSection = () => {
               </Typography>
 
               <Box
+                component={motion.div}
+                variants={fadeInUp}
                 sx={{
                   display: 'flex',
                   flexWrap: 'wrap',
@@ -77,7 +101,12 @@ export const FirstSection = () => {
                     backgroundColor: 'rgba(20, 49, 81, 0.1)',
                     borderRadius: '12px',
                     py: 1,
-                    px: 2
+                    px: 2,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(20, 49, 81, 0.1)'
+                    }
                   }}
                 >
                   <Box 
@@ -99,7 +128,12 @@ export const FirstSection = () => {
                     backgroundColor: 'rgba(56, 126, 137, 0.1)',
                     borderRadius: '12px',
                     py: 1,
-                    px: 2
+                    px: 2,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(56, 126, 137, 0.1)'
+                    }
                   }}
                 >
                   <Box 
@@ -116,6 +150,8 @@ export const FirstSection = () => {
               </Box>
 
               <Button 
+                component={motion.button}
+                variants={fadeInUp}
                 variant="contained" 
                 sx={{ 
                   textTransform: "none",
@@ -169,6 +205,10 @@ export const FirstSection = () => {
             </Box>
 
             <Box
+              component={motion.div}
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
               sx={{
                 width: { xs: '100%', md: '45%' },
                 position: 'relative',
@@ -199,6 +239,11 @@ export const FirstSection = () => {
                     gap: { xs: 4, md: 5 },
                     position: 'relative',
                     overflow: 'hidden',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      boxShadow: '0 15px 50px rgba(0, 0, 0, 0.2)',
+                      transform: 'translateY(-5px)'
+                    },
                     '&::before': {
                       content: '""',
                       position: 'absolute',
@@ -227,8 +272,16 @@ export const FirstSection = () => {
                     Customize workflows to save time, stay HIPAA-compliant, and see results in days
                   </Typography>
                   
-                  <Box className="flex flex-col space-y-5">
+                  <Box 
+                    className="flex flex-col space-y-5"
+                    component={motion.div}
+                    initial="hidden"
+                    animate="visible"
+                    variants={staggerChildren}
+                  >
                     <Box 
+                      component={motion.div}
+                      variants={fadeInUp}
                       sx={{
                         display: 'flex',
                         alignItems: 'flex-start',
@@ -288,6 +341,8 @@ export const FirstSection = () => {
                     </Box>
                     
                     <Box 
+                      component={motion.div}
+                      variants={fadeInUp}
                       sx={{
                         display: 'flex',
                         alignItems: 'flex-start',
@@ -347,6 +402,8 @@ export const FirstSection = () => {
                     </Box>
                     
                     <Box 
+                      component={motion.div}
+                      variants={fadeInUp}
                       sx={{
                         display: 'flex',
                         alignItems: 'flex-start',
@@ -407,6 +464,10 @@ export const FirstSection = () => {
                   </Box>
                   
                   <Box 
+                    component={motion.div}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 0.8 }}
                     sx={{
                       display: 'flex',
                       justifyContent: 'center',
@@ -425,6 +486,10 @@ export const FirstSection = () => {
           </div>
 
           <Box
+            component={motion.div}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
             sx={{
               background: 'rgba(243, 244, 246, 0.6)',
               backdropFilter: 'blur(10px)',
@@ -433,7 +498,11 @@ export const FirstSection = () => {
               border: '1px solid rgba(209, 213, 219, 0.3)',
               boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
               width: '100%',
-              mt: { xs: 4, md: 0 }
+              mt: { xs: 4, md: 0 },
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: '0 8px 30px rgba(0, 0, 0, 0.1)',
+              }
             }}
           >
             <Typography
