@@ -94,63 +94,52 @@ const Index = () => {
         >
           <Card className="bg-white/15 backdrop-blur-lg border-white/20 hover:border-blue-500/40 transition-all duration-300">
             <CardContent className="p-6">
+              <h3 className="text-xl font-bold text-white mb-4 text-center">Customize workflows to save time, stay HIPAA-compliant, and see results in days</h3>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div className="flex flex-col">
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/15 transition-all duration-300">
                   <div className="flex items-center mb-3">
                     <div className="w-10 h-10 rounded-full bg-blue-600/30 flex items-center justify-center mr-3">
                       <ClipboardCheck className="w-5 h-5 text-blue-300" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">CRUSH AI Scribe</h3>
+                    <h3 className="text-lg font-bold text-white">Don't adapt to your AI</h3>
                   </div>
-                  <p className="text-gray-300 mb-4">Automates documentation with up to 99% accuracy, reducing charting time by 75%</p>
-                  <ul className="space-y-2 mt-auto">
+                  <p className="text-gray-300 mb-3">S10.AI's medical scribe adapts to your practice workflow</p>
+                  <ul className="space-y-2">
                     <li className="flex items-start">
                       <Check className="w-4 h-4 text-blue-400 mt-1 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">Real-time note creation during visits</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="w-4 h-4 text-blue-400 mt-1 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">Customized to your specialty</span>
+                      <span className="text-sm text-gray-300">Tailored to your specialty</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/15 transition-all duration-300">
                   <div className="flex items-center mb-3">
                     <div className="w-10 h-10 rounded-full bg-blue-600/30 flex items-center justify-center mr-3">
                       <CalendarCheck className="w-5 h-5 text-blue-300" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">BRAVO AI Agent</h3>
+                    <h3 className="text-lg font-bold text-white">Seamless Integration</h3>
                   </div>
-                  <p className="text-gray-300 mb-4">Optimizes scheduling and patient communication, cutting no-shows by 50%</p>
-                  <ul className="space-y-2 mt-auto">
+                  <p className="text-gray-300 mb-3">Works with Epic, Cerner, and 7,000+ apps</p>
+                  <ul className="space-y-2">
                     <li className="flex items-start">
                       <Check className="w-4 h-4 text-blue-400 mt-1 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">Automated follow-ups and reminders</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="w-4 h-4 text-blue-400 mt-1 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">Intelligent scheduling optimization</span>
+                      <span className="text-sm text-gray-300">Trusted by 1,000+ clinics</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="flex flex-col">
+                <div className="bg-white/10 backdrop-blur-sm p-4 rounded-xl hover:bg-white/15 transition-all duration-300">
                   <div className="flex items-center mb-3">
                     <div className="w-10 h-10 rounded-full bg-blue-600/30 flex items-center justify-center mr-3">
                       <FileCheck className="w-5 h-5 text-blue-300" />
                     </div>
-                    <h3 className="text-lg font-bold text-white">EHR Integration</h3>
+                    <h3 className="text-lg font-bold text-white">Immediate Results</h3>
                   </div>
-                  <p className="text-gray-300 mb-4">Seamless integration with Epic, Cerner, and 100+ other EHR platforms</p>
-                  <ul className="space-y-2 mt-auto">
+                  <p className="text-gray-300 mb-3">Stay HIPAA-compliant with rapid implementation</p>
+                  <ul className="space-y-2">
                     <li className="flex items-start">
                       <Check className="w-4 h-4 text-blue-400 mt-1 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">HIPAA-compliant workflows</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Check className="w-4 h-4 text-blue-400 mt-1 mr-2 flex-shrink-0" />
-                      <span className="text-sm text-gray-300">No disruption to existing systems</span>
+                      <span className="text-sm text-gray-300">See tangible improvements within days</span>
                     </li>
                   </ul>
                 </div>

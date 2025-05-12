@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ClipboardCheck, CalendarCheck, PieChart } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
@@ -42,6 +42,23 @@ export const FirstSection = () => {
                 }}
               >
                 AI Scribing & Patient Engagement Built for Clinicians Like You
+              </Typography>
+
+              <Typography
+                variant="h3"
+                sx={{
+                  fontSize: {
+                    xs: '1.25rem',
+                    sm: '1.5rem',
+                    md: '1.75rem'
+                  },
+                  lineHeight: 1.4,
+                  color: '#387E89',
+                  mb: { xs: 3, md: 4 },
+                  fontWeight: 600
+                }}
+              >
+                The AI that adapts to your workflow, not the other way around
               </Typography>
 
               <Typography
@@ -88,7 +105,7 @@ export const FirstSection = () => {
                       color: '#143151' 
                     }}
                   >
-                    30%
+                    75%
                   </Box>
                   <Box component="span">faster charting</Box>
                 </Box>
@@ -110,7 +127,7 @@ export const FirstSection = () => {
                       color: '#387E89' 
                     }}
                   >
-                    20%
+                    60%
                   </Box>
                   <Box component="span">higher patient satisfaction</Box>
                 </Box>
@@ -188,81 +205,220 @@ export const FirstSection = () => {
               >
                 <Box
                   sx={{
-                    background: 'rgba(255, 255, 255, 0.1)',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 244, 246, 0.8))',
                     backdropFilter: 'blur(10px)',
-                    borderRadius: '16px',
+                    borderRadius: '20px',
                     p: { xs: 4, sm: 5 },
-                    border: '1px solid rgba(209, 213, 219, 0.3)',
-                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+                    border: '1px solid rgba(209, 213, 219, 0.4)',
+                    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
                     height: 'auto',
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: { xs: 4, md: 5 }
+                    gap: { xs: 4, md: 5 },
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '6px',
+                      background: 'linear-gradient(90deg, #143151, #387E89)'
+                    }
                   }}
                 >
-                  <Box className="space-y-4">
-                    <Typography
-                      variant="body1"
+                  <Typography
+                    variant="h4"
+                    sx={{
+                      color: '#143151',
+                      fontSize: {
+                        xs: '1.25rem',
+                        sm: '1.5rem',
+                        md: '1.75rem'
+                      },
+                      fontWeight: 700,
+                      mb: 2,
+                      textAlign: 'center'
+                    }}
+                  >
+                    Customize workflows to save time, stay HIPAA-compliant, and see results in days
+                  </Typography>
+                  
+                  <Box className="flex flex-col space-y-5">
+                    <Box 
                       sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: 2,
+                        background: 'rgba(20, 49, 81, 0.04)',
+                        p: 2.5,
+                        borderRadius: '12px',
+                        border: '1px solid rgba(20, 49, 81, 0.08)',
+                        transition: 'transform 0.2s ease',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(20, 49, 81, 0.08)'
+                        }
                       }}
                     >
-                      Customize workflows to save time, stay HIPAA-compliant, and see results in days
-                    </Typography>
+                      <Box 
+                        sx={{
+                          minWidth: '42px',
+                          height: '42px',
+                          borderRadius: '50%',
+                          backgroundColor: 'rgba(20, 49, 81, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <ClipboardCheck color="#143151" size={24} />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: '#143151',
+                            fontSize: {
+                              xs: '1rem',
+                              sm: '1.1rem'
+                            },
+                            lineHeight: 1.5,
+                            fontWeight: 600,
+                            mb: 0.5
+                          }}
+                        >
+                          Don't adapt to your AI—make it work for you
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#4a5568',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.5
+                          }}
+                        >
+                          S10.AI's medical scribe adapts to your practice, not the other way around
+                        </Typography>
+                      </Box>
+                    </Box>
                     
-                    <Typography
-                      variant="body1"
+                    <Box 
                       sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: 2,
+                        background: 'rgba(56, 126, 137, 0.04)',
+                        p: 2.5,
+                        borderRadius: '12px',
+                        border: '1px solid rgba(56, 126, 137, 0.08)',
+                        transition: 'transform 0.2s ease',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(56, 126, 137, 0.08)'
+                        }
                       }}
                     >
-                      Cut Charting Time by 75%: CRUSH AI scribe automates documentation with up to 99% accuracy.
-                    </Typography>
+                      <Box 
+                        sx={{
+                          minWidth: '42px',
+                          height: '42px',
+                          borderRadius: '50%',
+                          backgroundColor: 'rgba(56, 126, 137, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <CalendarCheck color="#387E89" size={24} />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: '#143151',
+                            fontSize: {
+                              xs: '1rem',
+                              sm: '1.1rem'
+                            },
+                            lineHeight: 1.5,
+                            fontWeight: 600,
+                            mb: 0.5
+                          }}
+                        >
+                          Seamless EHR Integration
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#4a5568',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.5
+                          }}
+                        >
+                          Works with Epic, Cerner, and 7,000+ apps - trusted by over 1,000 clinics
+                        </Typography>
+                      </Box>
+                    </Box>
                     
-                    <Typography
-                      variant="body1"
+                    <Box 
                       sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: 2,
+                        background: 'rgba(81, 146, 174, 0.04)',
+                        p: 2.5,
+                        borderRadius: '12px',
+                        border: '1px solid rgba(81, 146, 174, 0.08)',
+                        transition: 'transform 0.2s ease',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 12px rgba(81, 146, 174, 0.08)'
+                        }
                       }}
                     >
-                      Cut No-Shows by 50%: BRAVO AI agent optimizes scheduling and patient communication.
-                    </Typography>
-                    
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400
-                      }}
-                    >
-                      Works with Your Chosen EHR: Effortless integration with Epic, Cerner, and over 100+ EHR platforms.
-                    </Typography>
+                      <Box 
+                        sx={{
+                          minWidth: '42px',
+                          height: '42px',
+                          borderRadius: '50%',
+                          backgroundColor: 'rgba(81, 146, 174, 0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <PieChart color="#5192AE" size={24} />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          sx={{
+                            color: '#143151',
+                            fontSize: {
+                              xs: '1rem',
+                              sm: '1.1rem'
+                            },
+                            lineHeight: 1.5,
+                            fontWeight: 600,
+                            mb: 0.5
+                          }}
+                        >
+                          Immediate Results
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: '#4a5568',
+                            fontSize: '0.95rem',
+                            lineHeight: 1.5
+                          }}
+                        >
+                          Stay HIPAA-compliant and see tangible improvements within days
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Box>
                   
                   <Box 
