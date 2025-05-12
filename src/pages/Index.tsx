@@ -1,7 +1,6 @@
 
 import { Link } from "react-router-dom";
 import rippleStyles from "@/styles/RippleEffect.module.css";
-import { LampSection } from "@/components/ui/lamp";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -28,7 +27,7 @@ const Index = () => {
         </motion.h1>
         
         <motion.p 
-          className="text-xl md:text-2xl text-gray-300 mb-5 max-w-3xl mx-auto font-medium"
+          className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-medium"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
@@ -50,16 +49,6 @@ const Index = () => {
             <span className="text-blue-300 font-bold mr-2">60%</span> higher patient satisfaction
           </div>
         </motion.div>
-        
-        <motion.p 
-          className="text-md text-gray-300 mb-8 max-w-3xl mx-auto"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          Don't adapt to your AI—make it work for you.
-          S10.AI's AI medical scribe and patient engagement agent integrate seamlessly with Epic, Cerner, your preferred EHR, and 7,000+ other apps. Trusted by over 1,000 clinics worldwide. Customize workflows to save time, stay HIPAA-compliant, and see results in days.
-        </motion.p>
         
         <motion.div 
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"

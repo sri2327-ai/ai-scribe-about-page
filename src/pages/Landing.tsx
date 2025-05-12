@@ -77,21 +77,6 @@ const Landing = () => {
         </BreadcrumbList>
       </Breadcrumb>
 
-      {/* Add a debug button for testing - we can remove this later */}
-      <div className="fixed top-20 right-4 z-50">
-        <Button 
-          size="sm" 
-          variant="outline" 
-          className="bg-white shadow-md"
-          onClick={() => {
-            console.log("Navigating to pricing");
-            window.location.href = "/pricing";
-          }}
-        >
-          View Pricing
-        </Button>
-      </div>
-
       <FirstSection />
       
       <Suspense fallback={<SectionLoader />}>

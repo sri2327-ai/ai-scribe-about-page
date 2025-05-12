@@ -61,24 +61,6 @@ export const FirstSection = () => {
                 The AI that adapts to your workflow, not the other way around
               </Typography>
 
-              <Typography
-                variant="body1"
-                sx={{
-                  fontSize: {
-                    xs: '1rem',
-                    sm: '1.125rem',
-                    md: '1.25rem'
-                  },
-                  lineHeight: 1.6,
-                  color: '#4a5568',
-                  mb: { xs: 4, md: 6 },
-                  maxWidth: '90%'
-                }}
-              >
-                Don't adapt to your AI—make it work for you.
-                S10.AI's AI medical scribe and patient engagement agent integrate seamlessly with Epic, Cerner, your preferred EHR, and 7,000+ other apps. Trusted by over 1,000 clinics worldwide.
-              </Typography>
-
               <Box
                 sx={{
                   display: 'flex',
@@ -205,12 +187,12 @@ export const FirstSection = () => {
               >
                 <Box
                   sx={{
-                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(243, 244, 246, 0.8))',
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(243, 244, 246, 0.9))',
                     backdropFilter: 'blur(10px)',
                     borderRadius: '20px',
                     p: { xs: 4, sm: 5 },
                     border: '1px solid rgba(209, 213, 219, 0.4)',
-                    boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+                    boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
                     height: 'auto',
                     display: 'flex',
                     flexDirection: 'column',
@@ -238,7 +220,7 @@ export const FirstSection = () => {
                         md: '1.75rem'
                       },
                       fontWeight: 700,
-                      mb: 2,
+                      mb: 1,
                       textAlign: 'center'
                     }}
                   >
@@ -251,29 +233,30 @@ export const FirstSection = () => {
                         display: 'flex',
                         alignItems: 'flex-start',
                         gap: 2,
-                        background: 'rgba(20, 49, 81, 0.04)',
-                        p: 2.5,
-                        borderRadius: '12px',
-                        border: '1px solid rgba(20, 49, 81, 0.08)',
-                        transition: 'transform 0.2s ease',
+                        background: 'rgba(20, 49, 81, 0.06)',
+                        p: 3,
+                        borderRadius: '14px',
+                        border: '1px solid rgba(20, 49, 81, 0.1)',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 4px 12px rgba(20, 49, 81, 0.08)'
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 8px 20px rgba(20, 49, 81, 0.1)',
+                          background: 'rgba(20, 49, 81, 0.08)'
                         }
                       }}
                     >
                       <Box 
                         sx={{
-                          minWidth: '42px',
-                          height: '42px',
+                          minWidth: '48px',
+                          height: '48px',
                           borderRadius: '50%',
-                          backgroundColor: 'rgba(20, 49, 81, 0.08)',
+                          backgroundColor: 'rgba(20, 49, 81, 0.1)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center'
                         }}
                       >
-                        <ClipboardCheck color="#143151" size={24} />
+                        <ClipboardCheck color="#143151" size={26} />
                       </Box>
                       <Box>
                         <Typography
@@ -281,22 +264,22 @@ export const FirstSection = () => {
                           sx={{
                             color: '#143151',
                             fontSize: {
-                              xs: '1rem',
-                              sm: '1.1rem'
+                              xs: '1.1rem',
+                              sm: '1.2rem'
                             },
-                            lineHeight: 1.5,
-                            fontWeight: 600,
-                            mb: 0.5
+                            lineHeight: 1.4,
+                            fontWeight: 700,
+                            mb: 0.75
                           }}
                         >
-                          Don't adapt to your AI—make it work for you
+                          AI That Works For You
                         </Typography>
                         <Typography
                           variant="body2"
                           sx={{
                             color: '#4a5568',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.5
+                            fontSize: '1rem',
+                            lineHeight: 1.6
                           }}
                         >
                           S10.AI's medical scribe adapts to your practice, not the other way around
@@ -309,29 +292,30 @@ export const FirstSection = () => {
                         display: 'flex',
                         alignItems: 'flex-start',
                         gap: 2,
-                        background: 'rgba(56, 126, 137, 0.04)',
-                        p: 2.5,
-                        borderRadius: '12px',
-                        border: '1px solid rgba(56, 126, 137, 0.08)',
-                        transition: 'transform 0.2s ease',
+                        background: 'rgba(56, 126, 137, 0.06)',
+                        p: 3,
+                        borderRadius: '14px',
+                        border: '1px solid rgba(56, 126, 137, 0.1)',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 4px 12px rgba(56, 126, 137, 0.08)'
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 8px 20px rgba(56, 126, 137, 0.1)',
+                          background: 'rgba(56, 126, 137, 0.08)'
                         }
                       }}
                     >
                       <Box 
                         sx={{
-                          minWidth: '42px',
-                          height: '42px',
+                          minWidth: '48px',
+                          height: '48px',
                           borderRadius: '50%',
-                          backgroundColor: 'rgba(56, 126, 137, 0.08)',
+                          backgroundColor: 'rgba(56, 126, 137, 0.1)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center'
                         }}
                       >
-                        <CalendarCheck color="#387E89" size={24} />
+                        <CalendarCheck color="#387E89" size={26} />
                       </Box>
                       <Box>
                         <Typography
@@ -339,12 +323,12 @@ export const FirstSection = () => {
                           sx={{
                             color: '#143151',
                             fontSize: {
-                              xs: '1rem',
-                              sm: '1.1rem'
+                              xs: '1.1rem',
+                              sm: '1.2rem'
                             },
-                            lineHeight: 1.5,
-                            fontWeight: 600,
-                            mb: 0.5
+                            lineHeight: 1.4,
+                            fontWeight: 700,
+                            mb: 0.75
                           }}
                         >
                           Seamless EHR Integration
@@ -353,8 +337,8 @@ export const FirstSection = () => {
                           variant="body2"
                           sx={{
                             color: '#4a5568',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.5
+                            fontSize: '1rem',
+                            lineHeight: 1.6
                           }}
                         >
                           Works with Epic, Cerner, and 7,000+ apps - trusted by over 1,000 clinics
@@ -367,29 +351,30 @@ export const FirstSection = () => {
                         display: 'flex',
                         alignItems: 'flex-start',
                         gap: 2,
-                        background: 'rgba(81, 146, 174, 0.04)',
-                        p: 2.5,
-                        borderRadius: '12px',
-                        border: '1px solid rgba(81, 146, 174, 0.08)',
-                        transition: 'transform 0.2s ease',
+                        background: 'rgba(81, 146, 174, 0.06)',
+                        p: 3,
+                        borderRadius: '14px',
+                        border: '1px solid rgba(81, 146, 174, 0.1)',
+                        transition: 'all 0.3s ease',
                         '&:hover': {
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 4px 12px rgba(81, 146, 174, 0.08)'
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 8px 20px rgba(81, 146, 174, 0.1)',
+                          background: 'rgba(81, 146, 174, 0.08)'
                         }
                       }}
                     >
                       <Box 
                         sx={{
-                          minWidth: '42px',
-                          height: '42px',
+                          minWidth: '48px',
+                          height: '48px',
                           borderRadius: '50%',
-                          backgroundColor: 'rgba(81, 146, 174, 0.08)',
+                          backgroundColor: 'rgba(81, 146, 174, 0.1)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center'
                         }}
                       >
-                        <PieChart color="#5192AE" size={24} />
+                        <PieChart color="#5192AE" size={26} />
                       </Box>
                       <Box>
                         <Typography
@@ -397,12 +382,12 @@ export const FirstSection = () => {
                           sx={{
                             color: '#143151',
                             fontSize: {
-                              xs: '1rem',
-                              sm: '1.1rem'
+                              xs: '1.1rem',
+                              sm: '1.2rem'
                             },
-                            lineHeight: 1.5,
-                            fontWeight: 600,
-                            mb: 0.5
+                            lineHeight: 1.4,
+                            fontWeight: 700,
+                            mb: 0.75
                           }}
                         >
                           Immediate Results
@@ -411,8 +396,8 @@ export const FirstSection = () => {
                           variant="body2"
                           sx={{
                             color: '#4a5568',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.5
+                            fontSize: '1rem',
+                            lineHeight: 1.6
                           }}
                         >
                           Stay HIPAA-compliant and see tangible improvements within days
@@ -428,7 +413,8 @@ export const FirstSection = () => {
                       alignItems: 'center',
                       transform: { xs: 'scale(0.9)', md: 'scale(1)' },
                       maxWidth: '100%',
-                      overflow: 'hidden'
+                      overflow: 'hidden',
+                      mt: 2
                     }}
                   >
                     <VoiceAnimation />
@@ -440,12 +426,12 @@ export const FirstSection = () => {
 
           <Box
             sx={{
-              background: 'rgba(243, 244, 246, 0.1)',
+              background: 'rgba(243, 244, 246, 0.6)',
               backdropFilter: 'blur(10px)',
               borderRadius: '16px',
               p: { xs: 3, sm: 4 },
               border: '1px solid rgba(209, 213, 219, 0.3)',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06)',
               width: '100%',
               mt: { xs: 4, md: 0 }
             }}
@@ -453,7 +439,7 @@ export const FirstSection = () => {
             <Typography
               variant="h6"
               sx={{
-                color: '#000000',
+                color: '#143151',
                 mb: { xs: 2, sm: 3 },
                 fontSize: {
                   xs: '0.875rem',
