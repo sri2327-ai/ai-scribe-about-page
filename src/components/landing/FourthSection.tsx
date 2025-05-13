@@ -1,109 +1,88 @@
 
 import React from 'react';
-import { Box, Typography, Grid, Container } from "@mui/material";
+import { motion } from 'framer-motion';
+import { Box, Typography, Grid } from "@mui/material";
 import { landingPageStyles } from '@/styles/landing-page-utils';
+import SectionHeading from './shared/SectionHeading';
+import LandingCard from './shared/LandingCard';
+import { FileCheck, Users, Clock, ShieldCheck } from 'lucide-react';
+
+// Feature data
+const features = [
+  {
+    icon: <FileCheck size={24} color={landingPageStyles.colors.secondary} />,
+    title: "Automated Documentation",
+    description: "Generate accurate clinical notes automatically from patient conversations, saving hours of documentation time daily."
+  },
+  {
+    icon: <Users size={24} color={landingPageStyles.colors.secondary} />,
+    title: "Patient Engagement",
+    description: "Reduce no-shows by 50% with intelligent AI follow-ups and automated appointment reminders."
+  },
+  {
+    icon: <Clock size={24} color={landingPageStyles.colors.secondary} />,
+    title: "Time-Saving Workflows",
+    description: "Streamline administrative tasks with smart clinical workflows tailored to your specialty."
+  },
+  {
+    icon: <ShieldCheck size={24} color={landingPageStyles.colors.secondary} />,
+    title: "HIPAA Compliant",
+    description: "Enterprise-grade security with full HIPAA compliance to protect sensitive patient information."
+  }
+];
 
 export const FourthSection = () => {
-  const features = [
-    {
-      title: "Fast Implementation",
-      description: "Get up and running quickly with minimal IT overhead. Our platform integrates with your existing systems seamlessly."
-    },
-    {
-      title: "Specialty-Specific AI",
-      description: "Tailored to your medical specialty with terminology recognition and workflow patterns specific to your practice area."
-    },
-    {
-      title: "Continuous Learning",
-      description: "Our AI continuously improves based on your feedback and preferences, becoming more accurate over time."
-    },
-    {
-      title: "Privacy & Security",
-      description: "HIPAA-compliant and SOC 2 certified, with end-to-end encryption and rigorous data protection protocols."
-    }
-  ];
-
   return (
-    <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#FCFDFD" }}>
-      <Container maxWidth="lg">
-        <Box 
-          sx={{ 
-            textAlign: "center", 
-            mb: { xs: 5, md: 8 }
-          }}
-        >
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
-              fontWeight: 600,
-              lineHeight: 1.2,
-              color: landingPageStyles.colors.primary,
-              mb: 2,
-              letterSpacing: '-0.025em'
-            }}
-          >
-            Features Designed for Healthcare Professionals
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              fontSize: { xs: '1rem', sm: '1.125rem' },
-              lineHeight: 1.6,
-              color: landingPageStyles.colors.gray[600],
-              maxWidth: '800px',
-              mx: 'auto'
-            }}
-          >
-            Our AI-powered platform is built specifically for healthcare providers to streamline 
-            documentation, enhance patient communication, and improve clinical workflows.
-          </Typography>
-        </Box>
+    <motion.section
+      className="py-16 md:py-20 lg:py-24 bg-white"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+    >
+      <div className="container mx-auto px-4 md:px-8">
+        <SectionHeading
+          title="Transform Your Healthcare Practice"
+          subtitle="Discover how S10.AI's innovative solutions can transform your practice workflow, reduce burnout, and enhance patient care."
+          className="mb-12"
+        />
 
-        <Grid container spacing={4}>
+        <Grid container spacing={4} justifyContent="center">
           {features.map((feature, index) => (
             <Grid item xs={12} sm={6} md={6} lg={3} key={index}>
-              <Box
-                sx={{
-                  height: '100%',
-                  p: 3,
-                  borderRadius: '12px',
-                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08)',
-                  border: '1px solid #E5E7EB',
-                  backgroundColor: 'white',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-5px)',
-                    boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.12)'
-                  }
-                }}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontSize: '1.25rem',
-                    fontWeight: 500,
-                    color: landingPageStyles.colors.primary,
-                    mb: 1.5
-                  }}
-                >
-                  {feature.title}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontSize: '1rem',
-                    lineHeight: 1.5,
-                    color: landingPageStyles.colors.gray[600]
-                  }}
-                >
-                  {feature.description}
-                </Typography>
-              </Box>
+                <LandingCard
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                />
+              </motion.div>
             </Grid>
           ))}
         </Grid>
-      </Container>
-    </Box>
+
+        <Box sx={{ mt: 8, display: 'flex', justifyContent: 'center' }}>
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <button 
+              className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-6 py-3 rounded-full text-lg font-medium shadow-md hover:shadow-lg transition-all duration-300"
+              style={{ 
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+                minHeight: '48px'
+              }}
+            >
+              Schedule a Demo
+            </button>
+          </motion.div>
+        </Box>
+      </div>
+    </motion.section>
   );
 };
