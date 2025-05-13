@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -51,7 +52,7 @@ export const FirstSection = () => {
     },
     {
       id: "patient-engagement",
-      title: "Patient Engagement",
+      title: "Patient Engagement Agent",
       icon: <MessageSquare className="w-6 h-6 mr-2" />,
       description: "Seamless communication tools that improve patient satisfaction and clinical outcomes.",
       benefit: "Boost satisfaction by 20%"
