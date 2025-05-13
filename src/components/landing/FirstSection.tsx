@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -44,7 +45,7 @@ export const FirstSection = () => {
     text: "Integrates with your EHR"
   }];
 
-  // Feature tab data - simplified for better UX
+  // Feature tab data - simplified for better UX, combining EHR and Apps
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -64,16 +65,10 @@ export const FirstSection = () => {
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
     benefit: "30+ specialty workflows"
   }, {
-    id: "ehr-integration",
-    title: "Any EHR",
+    id: "ehr-integrations",
+    title: "Complete Integrations",
     icon: <Database className="w-6 h-6 mr-2" />,
-    description: "Works with your existing systems without disrupting your workflow.",
-    benefit: "40+ EHR systems supported"
-  }, {
-    id: "apps-ecosystem",
-    title: "7000+ Apps",
-    icon: <Layout className="w-6 h-6 mr-2" />,
-    description: "Integrate with thousands of healthcare and productivity applications.",
+    description: "Works with any EHR system and connects to 7000+ healthcare and productivity apps.",
     benefit: "Your entire tech stack connected"
   }];
   return <section className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative" ref={sectionRef}>
@@ -135,7 +130,7 @@ export const FirstSection = () => {
             </motion.div>
           </div>
           
-          {/* Right column - Simplified feature showcase */}
+          {/* Right column - Improved feature showcase */}
           <motion.div initial={{
           opacity: 0,
           scale: 0.95
@@ -145,23 +140,25 @@ export const FirstSection = () => {
         }} transition={{
           duration: 0.7,
           delay: 0.3
-        }} className="lg:col-span-3 relative mt-4 lg:mt-0">
+        }} className="lg:col-span-3 relative mt-10 lg:mt-8">
             <div className="relative">
               {/* Doctor illustration or image would go here */}
               <div className="absolute top-0 right-0 -mt-6 -mr-6 w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
                 <PenTool className="text-[#387E89] w-10 h-10" />
               </div>
               
-              {/* Simplified Feature tabs showcase */}
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-                <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-center text-sm font-medium">Clinical AI Solutions That Save You Time</div>
+              {/* Improved Feature tabs showcase */}
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300 transform">
+                <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-center font-semibold">
+                  Clinical AI Solutions That Save You Time
+                </div>
                 
                 <Tabs defaultValue="ai-scribe" className="w-full">
-                  <div className="px-4 pt-4 overflow-x-auto">
-                    <TabsList className="w-full justify-start md:justify-between overflow-x-auto gap-2">
-                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-3 py-1.5">
+                  <div className="p-4 pb-0 overflow-x-auto">
+                    <TabsList className="w-full justify-start md:justify-between overflow-x-auto gap-2 bg-gray-50/70 p-2 rounded-lg">
+                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-3 py-2.5 gap-2">
                           {tab.icon}
-                          <span className="hidden sm:inline">{tab.title}</span>
+                          <span>{tab.title}</span>
                         </TabsTrigger>)}
                     </TabsList>
                   </div>
@@ -170,16 +167,16 @@ export const FirstSection = () => {
                     {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-0 focus-visible:outline-none focus-visible:ring-0">
                         <div className="space-y-6">
                           <div className="flex justify-between items-start">
-                            <div>
-                              <h3 className="text-lg font-semibold text-[#143151]">{tab.title}</h3>
-                              <p className="text-sm text-gray-600 mt-1">{tab.description}</p>
+                            <div className="max-w-[80%]">
+                              <h3 className="text-xl font-semibold text-[#143151]">{tab.title}</h3>
+                              <p className="text-gray-600 mt-2 leading-relaxed">{tab.description}</p>
                             </div>
-                            <div className="hidden md:flex">
+                            <div className="hidden md:flex bg-blue-50/50 p-3 rounded-full">
                               {tab.icon}
                             </div>
                           </div>
                           
-                          <div className="bg-gray-50/80 p-4 rounded-lg flex items-center justify-between">
+                          <div className="bg-gradient-to-r from-gray-50 to-blue-50/40 p-4 rounded-lg flex items-center justify-between">
                             <div className="flex items-center space-x-2">
                               <CheckCircle className="w-5 h-5 text-[#387E89]" />
                               <span className="font-semibold text-[#387E89]">{tab.benefit}</span>
