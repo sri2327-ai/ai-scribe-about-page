@@ -1,17 +1,19 @@
 
-import React, { useEffect, useRef } from 'react';
-import { Box, Button, Typography } from "@mui/material";
+import React, { useEffect, useRef, useState } from 'react';
+import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, PenTool, CheckCircle, Shield } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
   
   // Add intersection observer for scroll animations
   useEffect(() => {
@@ -31,349 +33,196 @@ export const FirstSection = () => {
     };
   }, []);
 
+  const clinicianBenefits = [
+    { icon: <Clock className="w-5 h-5 text-[#387E89]" />, text: "30% faster charting" },
+    { icon: <Stethoscope className="w-5 h-5 text-[#387E89]" />, text: "Focus on patients" },
+    { icon: <Shield className="w-5 h-5 text-[#387E89]" />, text: "HIPAA compliant" },
+    { icon: <CheckCircle className="w-5 h-5 text-[#387E89]" />, text: "Integrates with your EHR" }
+  ];
+
   return (
     <section 
-      className="min-h-screen bg-white overflow-hidden relative"
+      className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative"
       ref={sectionRef}
     >
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-16 sm:py-20 md:py-24 lg:py-28 relative z-10">
-        <div className="flex flex-col space-y-12 sm:space-y-16 md:space-y-20 w-full">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="animate-on-scroll md:col-span-1"
-            >
-              <Box sx={{
-                pr: {
-                  md: 2,
-                  lg: 4
-                }
-              }}>
-                <Typography variant="h1" sx={{
-                  fontSize: {
-                    xs: '2.5rem',
-                    sm: '3rem',
-                    md: '3.25rem',
-                    lg: '3.75rem',
-                    xl: '4.5rem'
-                  },
-                  lineHeight: {
-                    xs: 1.1,
-                    md: 1
-                  },
-                  letterSpacing: '-0.02em',
-                  fontWeight: 700,
-                  color: '#000000',
-                  mb: {
-                    xs: 4,
-                    md: 6
-                  }
-                }} className="tracking-tight">
-                  AI Scribing &<br />
-                  Patient Engagement<br />
-                  Built for Clinicians<br />
-                  Like You
-                </Typography>
-
-                <motion.div 
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <Button variant="contained" sx={{
-                    textTransform: "none",
-                    background: `linear-gradient(135deg, #143151, #387E89)`,
-                    color: 'white',
-                    px: {
-                      xs: 3,
-                      md: 4
-                    },
-                    py: {
-                      xs: 1.25,
-                      md: 1.5
-                    },
-                    borderRadius: "50px",
-                    transition: 'all 0.3s ease',
-                    "&:hover": {
-                      background: `linear-gradient(135deg, #143151, #387E89)`,
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
-                      ".icon-box": {
-                        transform: "rotate(-270deg)"
-                      }
-                    }
-                  }} startIcon={<Box className="icon-box" sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: {
-                      xs: 20,
-                      md: 25
-                    },
-                    height: {
-                      xs: 20,
-                      md: 25
-                    },
-                    borderRadius: "50%",
-                    color: "white",
-                    border: `2px solid white`,
-                    transition: "transform 0.3s ease",
-                    transform: "rotate(0deg)",
-                    mr: 1
-                  }}>
-                      <ArrowRight className="h-4 w-4" />
-                    </Box>}>
-                    <Typography variant='h6' sx={{
-                      fontSize: {
-                        xs: '0.875rem',
-                        sm: '1rem',
-                        md: '1.125rem'
-                      },
-                      color: "white",
-                      fontWeight: 600
-                    }}>
-                      Request A Demo
-                    </Typography>
-                  </Button>
-                </motion.div>
-              </Box>
-            </motion.div>
-
+      {/* Healthcare-themed background elements */}
+      <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100/20 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-40 left-10 w-72 h-72 bg-teal-100/20 rounded-full blur-3xl"></div>
+      
+      {/* Main content container */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-16 lg:py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 items-center">
+          
+          {/* Left column - Main heading and CTA */}
+          <div className="lg:col-span-2 space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-              className="animate-on-scroll md:col-span-1"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="space-y-6"
             >
-              <Box sx={{
-                position: 'relative',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: {
-                  xs: 'center',
-                  md: 'flex-start'
-                },
-                mt: {
-                  xs: 4,
-                  md: 0
-                }
-              }}>
-                <Box sx={{
-                  width: '100%',
-                  maxWidth: {
-                    xs: '450px',
-                    sm: '500px',
-                    md: '100%'
-                  },
-                  mx: {
-                    xs: 'auto',
-                    md: 0
-                  }
-                }}>
-                  <motion.div
-                    whileHover={{ y: -5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+              {/* Pill badge */}
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 text-[#387E89] text-sm font-medium">
+                <Zap size={14} className="mr-1" />
+                Trusted by 1000+ clinics
+              </div>
+              
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
+                AI Scribing & <br/>
+                <span className="bg-gradient-to-r from-[#143151] to-[#387E89] text-transparent bg-clip-text">
+                  Patient Engagement
+                </span><br/>
+                Built for Clinicians<br/>
+                Like You
+              </h1>
+              
+              <div className="flex flex-wrap gap-3 pt-2">
+                {clinicianBenefits.map((benefit, index) => (
+                  <div 
+                    key={index}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100"
                   >
-                    <Box sx={{
-                      background: 'rgba(255, 255, 255, 0.1)',
-                      backdropFilter: 'blur(10px)',
-                      borderRadius: '16px',
-                      p: {
-                        xs: 4,
-                        sm: 5
-                      },
-                      border: '1px solid rgba(209, 213, 219, 0.3)',
-                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-                      height: 'auto',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: {
-                        xs: 4,
-                        md: 5
-                      },
-                      position: 'relative',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        inset: '-2px',
-                        borderRadius: '18px',
-                        background: 'linear-gradient(135deg, rgba(20, 49, 81, 0.1), rgba(56, 126, 137, 0.1))',
-                        zIndex: -1,
-                      }
-                    }}>
-                      <Box>
-                        <Typography variant="body1" sx={{
-                          color: '#000000',
-                          fontSize: {
-                            xs: '0.875rem',
-                            sm: '1rem'
-                          },
-                          lineHeight: 1.7,
-                          fontWeight: 400
-                        }} className="relative">
-                          Don't adapt to your AI—make it work for you.
-                          
-                          <motion.span 
-                            initial={{ width: 0 }}
-                            animate={{ width: "100%" }}
-                            transition={{ delay: 0.8, duration: 1.5 }}
-                            style={{ 
-                              position: "absolute", 
-                              bottom: -2, 
-                              left: 0, 
-                              height: "1px", 
-                              background: "linear-gradient(to right, rgba(56, 126, 137, 0.3), transparent)" 
-                            }} 
-                          />
-                        </Typography>
-
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.5, duration: 0.8 }}
-                        >
-                          <Typography 
-                            variant="body1" 
-                            sx={{
-                              color: '#000000',
-                              fontSize: {
-                                xs: '0.875rem',
-                                sm: '1rem'
-                              },
-                              lineHeight: 1.7,
-                              fontWeight: 400,
-                              mt: 2
-                            }}
-                          >
-                            S10.AI's AI medical scribe and patient engagement agent integrate seamlessly with Epic, Cerner, your preferred EHR, and 7,000+ other apps. Trusted by over 1,000 clinics worldwide, S10.AI helps you customize workflows to save time, stay HIPAA-compliant, and see results in days: 30% faster charting and over 20% higher patient satisfaction.
-                          </Typography>
-                        </motion.div>
-                      </Box>
-                      
-                      <motion.div
-                        animate={{ 
-                          scale: [0.95, 1, 0.95],
-                          opacity: [0.9, 1, 0.9]
-                        }}
-                        transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        <Box sx={{
-                          display: 'flex',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                          transform: {
-                            xs: 'scale(0.9)',
-                            md: 'scale(1)'
-                          },
-                          maxWidth: '100%',
-                          overflow: 'hidden'
-                        }}>
-                          <VoiceAnimation />
-                        </Box>
-                      </motion.div>
-                    </Box>
+                    {benefit.icon}
+                    <span className="text-sm font-medium text-gray-700">{benefit.text}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="pt-4">
+                <Button
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  className="rounded-full px-6 py-6 text-base font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-white"
+                >
+                  <motion.div
+                    animate={isHovered ? { x: [0, 5, 0] } : {}}
+                    transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                    className="flex items-center gap-2"
+                  >
+                    Request A Demo
+                    <ArrowRight className="h-5 w-5" />
                   </motion.div>
-                </Box>
-              </Box>
+                </Button>
+              </div>
             </motion.div>
           </div>
-
+          
+          {/* Right column - Interactive display */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-            className="animate-on-scroll w-full mt-8 lg:mt-12"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="lg:col-span-3 relative mt-4 lg:mt-0"
           >
-            <Box sx={{
-              background: 'rgba(243, 244, 246, 0.1)',
-              backdropFilter: 'blur(10px)',
-              borderRadius: '16px',
-              p: {
-                xs: 3,
-                sm: 4
-              },
-              border: '1px solid rgba(209, 213, 219, 0.3)',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-              width: '100%',
-              position: 'relative',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                inset: '-1px',
-                borderRadius: '17px',
-                background: 'linear-gradient(135deg, rgba(20, 49, 81, 0.05), rgba(56, 126, 137, 0.05))',
-                zIndex: -1,
-              }
-            }}>
-              <Typography variant="h6" sx={{
-                color: '#000000',
-                mb: {
-                  xs: 2,
-                  sm: 3
-                },
-                fontSize: {
-                  xs: '0.875rem',
-                  sm: '1rem',
-                  md: '1.125rem'
-                },
-                fontWeight: 600,
-                textAlign: 'center'
-              }}>
-                S10.AI Is Recommended by
-              </Typography>
-              <Box sx={{
-                overflow: "hidden",
-                width: '100%',
-                '& .marquee-container': {
-                  minHeight: {
-                    xs: '32px',
-                    sm: '40px'
-                  }
-                }
-              }}>
-                <Marquee gradient={false} speed={50}>
-                  {companyLogos.map((logo, index) => (
+            <div className="relative">
+              {/* Doctor illustration or image would go here */}
+              <div className="absolute top-0 right-0 -mt-6 -mr-6 w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
+                <PenTool className="text-[#387E89] w-10 h-10" />
+              </div>
+              
+              {/* Main feature showcase */}
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-center text-sm font-medium">
+                  Live Demo of S10.AI's Voice Recognition
+                </div>
+                
+                <div className="p-6">
+                  <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-gray-700 font-medium mb-2">Don't adapt to your AI—make it work for you.</p>
+                    <p className="text-sm text-gray-600">
+                      S10.AI's AI medical scribe and patient engagement agent integrate seamlessly with Epic, Cerner, your preferred EHR, and 7,000+ other apps.
+                    </p>
+                  </div>
+                  
+                  <div className="flex justify-center">
                     <motion.div
-                      key={index}
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                      animate={{ 
+                        scale: [0.97, 1, 0.97],
+                        opacity: [0.9, 1, 0.9]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                      className="w-full"
                     >
-                      <Box sx={{
-                        mx: {
-                          xs: 1.5,
-                          md: 2
-                        },
-                        display: 'flex',
-                        alignItems: 'center'
-                      }}>
-                        <img 
-                          src={logo} 
-                          alt={`Company logo ${index + 1}`} 
-                          style={{
-                            width: 'auto',
-                            height: '24px',
-                            objectFit: 'contain'
-                          }} 
-                        />
-                      </Box>
+                      <VoiceAnimation />
                     </motion.div>
-                  ))}
-                </Marquee>
-              </Box>
-            </Box>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="flex items-center">
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-500">Average time saved</div>
+                        <div className="text-lg font-bold text-[#143151]">2+ hours/day</div>
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-500">Patient satisfaction</div>
+                        <div className="text-lg font-bold text-[#143151]">↑ 20%</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
+        
+        {/* Trusted by section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="mt-16"
+        >
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4">
+            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-4">
+              Trusted by Leading Healthcare Institutions
+            </Typography>
+            
+            <Box sx={{
+              overflow: "hidden",
+              width: '100%',
+              '& .marquee-container': {
+                minHeight: {
+                  xs: '40px',
+                  sm: '48px'
+                }
+              }
+            }}>
+              <Marquee gradient={false} speed={40}>
+                {companyLogos.map((logo, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
+                    <Box sx={{
+                      mx: {
+                        xs: 3,
+                        md: 5
+                      },
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}>
+                      <img 
+                        src={logo} 
+                        alt={`Healthcare partner ${index + 1}`} 
+                        style={{
+                          width: 'auto',
+                          height: '32px',
+                          objectFit: 'contain'
+                        }} 
+                      />
+                    </Box>
+                  </motion.div>
+                ))}
+              </Marquee>
+            </Box>
+          </div>
+        </motion.div>
       </div>
-      
-      {/* Subtle background decorations */}
-      <div className="absolute top-1/4 left-5 w-24 h-24 bg-gradient-to-r from-[rgba(20,49,81,0.03)] to-[rgba(56,126,137,0.03)] rounded-full blur-3xl" />
-      <div className="absolute bottom-1/3 right-5 w-32 h-32 bg-gradient-to-r from-[rgba(56,126,137,0.03)] to-[rgba(20,49,81,0.03)] rounded-full blur-3xl" />
     </section>
   );
 };
