@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -46,7 +45,7 @@ export const FirstSection = () => {
     text: "Integrates with your EHR"
   }];
 
-  // Feature tab data - updated "Patient Engagement" to "Patient Engagement Agent"
+  // Feature tab data - updated "Patient Engagement Agent" to "Patient Agent"
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -55,7 +54,7 @@ export const FirstSection = () => {
     benefit: "Save 2+ hours per day"
   }, {
     id: "patient-engagement",
-    title: "Patient Engagement Agent",
+    title: "Patient Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
     benefit: "Boost satisfaction by 20%"
