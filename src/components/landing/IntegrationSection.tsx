@@ -18,7 +18,14 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-3xl font-bold text-white mb-4"
+            className="text-3xl font-medium text-white mb-4"
+            style={{
+              fontWeight: 500,
+              fontSize: '2.5rem',
+              lineHeight: '3rem',
+              letterSpacing: '-0.025em',
+              marginBottom: 0
+            }}
           >
             Compatible with Your Preferred Software
           </motion.h2>
@@ -27,7 +34,13 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-white max-w-2xl mx-auto"
+            className="text-lg text-white max-w-2xl mx-auto mt-4"
+            style={{
+              fontWeight: 400,
+              fontSize: '1rem',
+              lineHeight: '1.5rem',
+              letterSpacing: '-0.03em'
+            }}
           >
             From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
             Try our compatibility checker below.

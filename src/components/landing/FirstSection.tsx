@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight } from "lucide-react";
@@ -14,7 +14,7 @@ export const FirstSection = () => {
   return (
     <section className="min-h-screen bg-white overflow-hidden">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-12 md:py-16 lg:py-20">
-        <div className="flex flex-col space-y-12 md:space-y-20">
+        <div className="flex flex-col space-y-12 md:space-y-16">
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
             <Box
               sx={{
@@ -25,18 +25,11 @@ export const FirstSection = () => {
               <Typography
                 variant="h1"
                 sx={{
-                  fontSize: {
-                    xs: '2.5rem',
-                    sm: '3rem',
-                    md: '3.5rem',
-                    lg: '4rem'
-                  },
-                  lineHeight: {
-                    xs: 1.1,
-                    md: 1
-                  },
-                  letterSpacing: '-0.02em',
-                  fontWeight: 700,
+                  fontWeight: 500,
+                  fontSize: '2.5rem',
+                  lineHeight: '3rem',
+                  letterSpacing: '-0.025em',
+                  marginBottom: 0,
                   color: '#000000',
                   mb: { xs: 4, md: 6 }
                 }}
@@ -88,7 +81,6 @@ export const FirstSection = () => {
                 }
               >
                 <Typography
-                  variant='h6' 
                   sx={{
                     fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
                     color: "white",
@@ -131,69 +123,128 @@ export const FirstSection = () => {
                     gap: { xs: 4, md: 5 }
                   }}
                 >
-                  <Box className="space-y-4">
+                  <Box className="space-y-5">
                     <Typography
-                      variant="body1"
+                      variant="h3"
                       sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
+                        fontWeight: 500,
+                        fontSize: '1.5rem',
+                        lineHeight: '2rem',
+                        letterSpacing: '-0.025em',
+                        color: '#143151',
+                        mb: 3
                       }}
                     >
-                      Cut Charting Time by 75%: CRUSH AI scribe automates documentation with up to 99% accuracy.
+                      AI That Works For You
                     </Typography>
+
+                    <Box className="mb-4">
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: '1.1rem',
+                          lineHeight: '1.5rem',
+                          color: '#143151',
+                          mb: 1
+                        }}
+                      >
+                        Customize Workflows
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: '#000000',
+                          fontWeight: 400,
+                          fontSize: '1rem',
+                          lineHeight: '1.5rem',
+                          letterSpacing: '-0.03em',
+                        }}
+                      >
+                        S10.AI's medical scribe adapts to your practice, not the other way around.
+                      </Typography>
+                    </Box>
                     
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
-                      }}
-                    >
-                      Cut No-Shows by 50%: BRAVO AI agent optimizes scheduling and patient communication.
-                    </Typography>
+                    <Box className="mb-4">
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: '1.1rem',
+                          lineHeight: '1.5rem',
+                          color: '#143151',
+                          mb: 1
+                        }}
+                      >
+                        Seamless EHR Integration
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: '#000000',
+                          fontWeight: 400,
+                          fontSize: '1rem',
+                          lineHeight: '1.5rem',
+                          letterSpacing: '-0.03em',
+                        }}
+                      >
+                        Works with Epic, Cerner, and 7,000+ apps - trusted by over 1,000 clinics.
+                      </Typography>
+                    </Box>
                     
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400,
-                        mb: 2
-                      }}
-                    >
-                      Works with Your Chosen EHR: Effortless integration with Epic, Cerner, and over 100+ EHR platforms.
-                    </Typography>
+                    <Box className="mb-4">
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: '1.1rem',
+                          lineHeight: '1.5rem',
+                          color: '#143151',
+                          mb: 1
+                        }}
+                      >
+                        Patient AI Engagement
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: '#000000',
+                          fontWeight: 400,
+                          fontSize: '1rem',
+                          lineHeight: '1.5rem',
+                          letterSpacing: '-0.03em',
+                        }}
+                      >
+                        Reduce no-shows by 50% with our AI agent for patient communication.
+                      </Typography>
+                    </Box>
                     
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        color: '#000000',
-                        fontSize: {
-                          xs: '0.875rem',
-                          sm: '1rem'
-                        },
-                        lineHeight: 1.7,
-                        fontWeight: 400
-                      }}
-                    >
-                      Focus on Patients, Not Paperwork: Trusted by over 1,000 clinicians.
-                    </Typography>
+                    <Box>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontWeight: 500,
+                          fontSize: '1.1rem',
+                          lineHeight: '1.5rem',
+                          color: '#143151',
+                          mb: 1
+                        }}
+                      >
+                        Immediate Results
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          color: '#000000',
+                          fontWeight: 400,
+                          fontSize: '1rem',
+                          lineHeight: '1.5rem',
+                          letterSpacing: '-0.03em',
+                        }}
+                      >
+                        Stay HIPAA-compliant and see tangible improvements within days.
+                      </Typography>
+                    </Box>
                   </Box>
                   
                   <Box 
@@ -228,14 +279,12 @@ export const FirstSection = () => {
             <Typography
               variant="h6"
               sx={{
+                fontWeight: 500,
+                fontSize: '1.1rem',
+                lineHeight: '1.5rem',
+                letterSpacing: '-0.025em',
                 color: '#000000',
                 mb: { xs: 2, sm: 3 },
-                fontSize: {
-                  xs: '0.875rem',
-                  sm: '1rem',
-                  md: '1.125rem'
-                },
-                fontWeight: 600,
                 textAlign: 'center'
               }}
             >

@@ -69,10 +69,11 @@ const TestimonialCard = ({ data }) => (
         variant="body1" 
         sx={{ 
           color: "#000000",
-          fontWeight: 500,
+          fontWeight: 400,
+          fontSize: '1rem',
+          lineHeight: '1.5rem',
+          letterSpacing: '-0.03em',
           textAlign: "center",
-          lineHeight: 1.6,
-          fontSize: { xs: '0.85rem', sm: '0.9rem', md: '1.05rem' },
           mb: 2
         }}
       >
@@ -83,9 +84,9 @@ const TestimonialCard = ({ data }) => (
         sx={{ 
           color: "#000000",
           fontWeight: 600,
+          fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' },
           textAlign: "center",
           mt: 'auto',
-          fontSize: { xs: '0.75rem', sm: '0.85rem', md: '1rem' },
           wordBreak: 'break-word',
           whiteSpace: 'normal'
         }}
@@ -130,10 +131,11 @@ export const SecondSection = () => {
           sx={{ 
             textAlign: "center",
             color: "#143151",
-            fontWeight: 700,
+            fontWeight: 500,
+            fontSize: '2.5rem',
+            lineHeight: '3rem',
+            letterSpacing: '-0.025em',
             mb: { xs: 4, md: 6 },
-            fontSize: { xs: "1.2rem", sm: "1.4rem", md: "1.7rem" },
-            letterSpacing: 0.1,
           }}
         >
           Trusted By Leading Healthcare Organisations

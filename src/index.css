@@ -15,3 +15,25 @@
 .animate-skew-scroll {
   animation: skew-scroll 20s linear infinite;
 }
+
+/* Adding typography base styles to match the requirements */
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin-bottom: 0;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 3rem;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 0;
+  }
+}

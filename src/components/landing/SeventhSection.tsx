@@ -24,7 +24,19 @@ export const SeventhSection = () => {
           gap: { xs: 6, md: 8 },
           maxWidth: '1280px',
           mx: 'auto',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)'
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.06)',
+          '& h1, & h2, & h3, & h4, & h5, & h6': {
+            fontWeight: 500,
+            letterSpacing: '-0.025em',
+            marginBottom: 0,
+          },
+          '& p': {
+            fontWeight: 400,
+            fontSize: '1rem',
+            lineHeight: '1.5rem',
+            letterSpacing: '-0.03em',
+            marginBottom: 0,
+          }
         }}
         useFlexGap
       >
@@ -38,4 +50,3 @@ export const SeventhSection = () => {
 };
 
 export default SeventhSection;
-

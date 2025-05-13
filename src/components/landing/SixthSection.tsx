@@ -35,10 +35,11 @@ export const SixthSection = () => {
             sx={{ 
               textAlign: "center", 
               color: "#143151",
-              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem', lg: '2rem' },
-              lineHeight: { xs: 1.3, md: 1.4 },
+              fontWeight: 500,
+              fontSize: '2.5rem',
+              lineHeight: '3rem',
+              letterSpacing: '-0.025em',
               maxWidth: '90%',
-              fontWeight: 700
             }}
           >
             Reduce Administrative Fatigue. Enhance Productivity. Improve Patient Care. 
@@ -84,7 +85,6 @@ export const SixthSection = () => {
             }
           >
             <Typography
-              variant='h6' 
               sx={{
                 fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
                 color: "white",
