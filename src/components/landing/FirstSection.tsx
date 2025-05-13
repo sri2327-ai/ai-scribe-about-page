@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -104,7 +103,7 @@ export const FirstSection = () => {
               {/* Pill badge */}
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 text-[#387E89] text-sm font-medium">
                 <Zap size={14} className="mr-1" />
-                Trusted by 1000+ clinics
+                Trusted by 1000+ Healthcare Providers
               </div>
               
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
