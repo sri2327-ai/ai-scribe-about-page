@@ -62,11 +62,10 @@ export const FeatureCards = () => {
             variant="h3"
             sx={{
               color: 'white',
-              fontWeight: 500,
-              fontSize: '2.5rem',
-              lineHeight: '3rem',
-              letterSpacing: '-0.025em',
-              marginBottom: '1rem'
+              fontWeight: 800,
+              fontSize: { xs: '1.8rem', sm: '2.2rem', md: '2.5rem' },
+              lineHeight: 1.2,
+              mb: 2
             }}
           >
             AI Solutions Designed for Every Medical Specialty
@@ -134,11 +133,9 @@ export const FeatureCards = () => {
                   variant="h5"
                   sx={{
                     color: '#143151',
-                    fontWeight: 500,
-                    fontSize: '1.25rem',
-                    lineHeight: '1.75rem',
-                    letterSpacing: '-0.025em',
-                    marginBottom: '0.75rem'
+                    fontSize: { xs: '1.12rem', sm: '1.18rem', md: '1.26rem' },
+                    fontWeight: 700,
+                    mb: 1.5
                   }}
                 >
                   {item.title}
@@ -148,10 +145,9 @@ export const FeatureCards = () => {
                   sx={{
                     color: '#27425B',
                     opacity: 0.85,
+                    fontSize: { xs: '0.97rem', sm: '1rem' },
                     fontWeight: 400,
-                    fontSize: '1rem',
-                    lineHeight: '1.5rem',
-                    letterSpacing: '-0.03em',
+                    lineHeight: 1.5,
                   }}
                 >
                   {item.description}

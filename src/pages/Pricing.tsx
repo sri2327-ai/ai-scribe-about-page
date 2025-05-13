@@ -108,20 +108,6 @@ const Pricing = () => {
       <Helmet>
         <title>Pricing - S10.AI | CRUSH & BRAVO AI Solutions</title>
         <meta name="description" content="Discover flexible pricing options for S10.AI's CRUSH AI Scribe and BRAVO Patient Engagement solutions. Save hours daily, starting at just $99/month." />
-        
-        {/* Open Graph Meta Tags for Social Sharing */}
-        <meta property="og:title" content="S10.AI Pricing - AI Solutions for Healthcare Providers" />
-        <meta property="og:description" content="Save 2+ hours daily with our AI solutions for healthcare providers. CRUSH AI scribe and BRAVO patient engagement starting at $99/month." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://s10.ai/pricing" />
-        <meta property="og:image" content="https://s10.ai/social-share-image.jpg" />
-        <meta property="og:site_name" content="S10.AI" />
-        
-        {/* Twitter Card Tags */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="S10.AI Pricing - AI Solutions for Healthcare Providers" />
-        <meta name="twitter:description" content="Save 2+ hours daily with our AI solutions for healthcare providers. CRUSH AI scribe and BRAVO patient engagement starting at $99/month." />
-        <meta name="twitter:image" content="https://s10.ai/social-share-image.jpg" />
       </Helmet>
 
       {/* Hero Section - Updated to fit first viewport */}
@@ -144,21 +130,19 @@ const Pricing = () => {
             <p className="text-base md:text-lg mb-6 md:mb-7 max-w-3xl mx-auto text-[#387E89]">
               Eliminate endless charting and no-shows with our HIPAA-compliant AI medical scribe and patient engagement tools. Save over 2 hours per day—plans start at just $99/month!
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Button 
-                size="lg"
-                className="rounded-full px-4 md:px-8 py-4 md:py-5 text-base md:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 hover:scale-105"
-                onClick={() => {
-                  const pricingSection = document.getElementById('pricing');
-                  if (pricingSection) {
-                    pricingSection.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                Try Risk-Free for 30 Days
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-              </Button>
-            </div>
+            <Button 
+              size="lg"
+              className="rounded-full px-4 md:px-8 py-4 md:py-5 text-base md:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 hover:scale-105"
+              onClick={() => {
+                const pricingSection = document.getElementById('pricing');
+                if (pricingSection) {
+                  pricingSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              Try Risk-Free for 30 Days
+              <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+            </Button>
             <p className="mt-3 md:mt-4 text-xs md:text-sm text-[#143151]/70">30-Day Money-Back Guarantee • No Credit Card Required</p>
           </motion.div>
         </div>
@@ -561,4 +545,3 @@ const Pricing = () => {
 };
 
 export default Pricing;
-

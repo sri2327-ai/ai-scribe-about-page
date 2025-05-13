@@ -208,17 +208,17 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'solo': { 
         name: 'CRUSH Basic', 
         description: 'Perfect for solo providers', 
-        price: pricingData.crush.basic
+        price: pricingData.crush.noEhr
       },
       'small': { 
-        name: 'CRUSH Pro', 
+        name: 'CRUSH Plus', 
         description: 'Ideal for small practices', 
-        price: pricingData.crush.pro
+        price: pricingData.crush.withEhr
       },
       'clinic': { 
         name: 'CRUSH Enterprise', 
         description: 'Complete solution for clinics & groups', 
-        price: pricingData.crush.enterprise
+        price: pricingData.crush.pro
       },
       'specialty': { 
         name: 'CRUSH Pro', 
@@ -230,17 +230,17 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'solo': { 
         name: 'BRAVO Basic', 
         description: 'Streamlined patient management', 
-        price: pricingData.bravo.basic
+        price: pricingData.bravo.noEhr
       },
       'small': { 
         name: 'BRAVO Pro', 
         description: 'Enhanced patient engagement', 
-        price: pricingData.bravo.pro
+        price: pricingData.bravo.withEhr
       },
       'clinic': { 
         name: 'BRAVO Enterprise', 
         description: 'Multi-clinic management', 
-        price: pricingData.bravo.enterprise
+        price: pricingData.bravo.pro
       },
       'specialty': { 
         name: 'BRAVO Pro', 
@@ -252,17 +252,17 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'solo': { 
         name: 'Basic Bundle', 
         description: 'CRUSH + BRAVO with discount', 
-        price: pricingData.bundle.basic
+        price: pricingData.bundle.noEhr
       },
       'small': { 
-        name: 'Pro Bundle', 
+        name: 'Plus Bundle', 
         description: 'Premium integration package', 
-        price: pricingData.bundle.pro
+        price: pricingData.bundle.withEhr
       },
       'clinic': { 
         name: 'Enterprise Bundle', 
         description: 'Complete enterprise solution', 
-        price: pricingData.bundle.enterprise
+        price: pricingData.bundle.pro
       },
       'specialty': { 
         name: 'Pro Bundle', 
@@ -368,7 +368,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Basic
+                              CRUSH
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bravo', e)}
@@ -378,7 +378,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Pro
+                              BRAVO
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bundle', e)}
@@ -388,7 +388,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Enterprise
+                              Bundle
                             </button>
                           </div>
                         </div>
@@ -476,7 +476,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Basic
+                              CRUSH
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bravo', e)}
@@ -486,7 +486,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Pro
+                              BRAVO
                             </button>
                             <button 
                               onClick={(e) => handleTabChange(type.id, 'bundle', e)}
@@ -496,7 +496,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
                                   : 'hover:bg-gray-200'
                               }`}
                             >
-                              Enterprise
+                              Bundle
                             </button>
                           </div>
                         </div>
