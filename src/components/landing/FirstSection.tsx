@@ -1,9 +1,8 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Stethoscope, Clock, PenTool, CheckCircle, Shield, FileText, MessageSquare, Users, Database, Apps, ChartBar } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, PenTool, CheckCircle, Shield, FileText, MessageSquare, Users, Database, Layout, ChartBar } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -118,7 +117,7 @@ export const FirstSection = () => {
     {
       id: "apps-ecosystem",
       title: "7000+ Apps",
-      icon: <Apps className="w-6 h-6 mr-2" />,
+      icon: <Layout className="w-6 h-6 mr-2" />,
       content: {
         title: "Comprehensive App Ecosystem",
         description: "Integrate with thousands of healthcare and productivity applications.",
