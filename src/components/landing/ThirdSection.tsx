@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -10,6 +11,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  CarouselApi,
 } from "@/components/ui/carousel";
 import { TestimonialCard } from './TestimonialCard';
 import { useMediaQuery } from '@mui/material';
@@ -161,10 +163,28 @@ export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
   const isMobile = useMediaQuery('(max-width:768px)');
   const [activeSlide, setActiveSlide] = useState(0);
+  const [api, setApi] = useState<CarouselApi>();
   
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+
+  // Setup effect to track the current slide
+  React.useEffect(() => {
+    if (!api) return;
+    
+    const onSelect = () => {
+      setActiveSlide(api.selectedScrollSnap());
+    };
+    
+    api.on("select", onSelect);
+    // Call it once to set the initial slide
+    onSelect();
+    
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
   return (
     <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-8 sm:py-10 md:py-12 px-3 sm:px-4 md:px-6 lg:px-8 w-full max-w-[100vw] bg-gradient-to-b from-white to-gray-50">
@@ -322,10 +342,7 @@ export const ThirdSection = () => {
               align: "center",
               loop: true,
             }}
-            onSelect={(api) => {
-              const currentIndex = api?.selectedScrollSnap() || 0;
-              setActiveSlide(currentIndex);
-            }}
+            setApi={setApi}
           >
             <CarouselContent>
               {testimonials.map((testimonial, index) => (
@@ -346,6 +363,7 @@ export const ThirdSection = () => {
                     activeSlide === index ? "bg-[#387E89] scale-125" : "bg-gray-300"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
+                  onClick={() => api?.scrollTo(index)}
                 />
               ))}
             </div>
