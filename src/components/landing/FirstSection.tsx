@@ -34,7 +34,7 @@ export const FirstSection = () => {
   }, []);
 
   const clinicianBenefits = [
-    { icon: <Clock className="w-5 h-5 text-[#387E89]" />, text: "30% faster charting" },
+    { icon: <Clock className="w-5 h-5 text-[#387E89]" />, text: "75% faster charting" },
     { icon: <Stethoscope className="w-5 h-5 text-[#387E89]" />, text: "Focus on patients" },
     { icon: <Shield className="w-5 h-5 text-[#387E89]" />, text: "HIPAA compliant" },
     { icon: <CheckCircle className="w-5 h-5 text-[#387E89]" />, text: "Integrates with your EHR" }
