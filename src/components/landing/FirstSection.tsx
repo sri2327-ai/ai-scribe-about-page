@@ -1,13 +1,13 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Stethoscope, Clock, PenTool, CheckCircle, Shield, FileText, MessageSquare, Users, Database, Layout } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, CheckCircle, MessageSquare, Users, Database, Layout } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
@@ -140,23 +140,25 @@ export const FirstSection = () => {
         }} transition={{
           duration: 0.7,
           delay: 0.3
-        }} className="lg:col-span-3 relative mt-10 lg:mt-8">
+        }} className="lg:col-span-3 relative mt-16 lg:mt-10">
             <div className="relative">
-              {/* Doctor illustration or image would go here */}
-              <div className="absolute top-0 right-0 -mt-6 -mr-6 w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center">
-                <PenTool className="text-[#387E89] w-10 h-10" />
+              {/* Doctor icon badge positioned correctly */}
+              <div className="absolute -top-10 right-6 w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center shadow-md z-10">
+                <Layout className="text-[#387E89] w-10 h-10" />
               </div>
               
               {/* Improved Feature tabs showcase */}
-              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300 transform">
-                <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-center font-semibold">
+              <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
+                {/* Improved header with better spacing and more attention-grabbing gradient */}
+                <div className="p-4 bg-gradient-to-r from-[#143151] via-[#265470] to-[#387E89] text-white text-center font-semibold text-lg flex items-center justify-center">
+                  <Clock className="w-5 h-5 mr-2 animate-pulse" />
                   Clinical AI Solutions That Save You Time
                 </div>
                 
                 <Tabs defaultValue="ai-scribe" className="w-full">
-                  <div className="p-4 pb-0 overflow-x-auto">
+                  <div className="px-4 pt-4 overflow-x-auto">
                     <TabsList className="w-full justify-start md:justify-between overflow-x-auto gap-2 bg-gray-50/70 p-2 rounded-lg">
-                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-3 py-2.5 gap-2">
+                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-4 py-2.5 gap-2">
                           {tab.icon}
                           <span>{tab.title}</span>
                         </TabsTrigger>)}
