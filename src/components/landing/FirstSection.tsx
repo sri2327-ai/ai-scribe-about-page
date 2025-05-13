@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -35,19 +36,14 @@ export const FirstSection = () => {
       className="min-h-screen bg-white overflow-hidden relative"
       ref={sectionRef}
     >
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28 relative z-10 flex flex-col items-center"
-      >
-        <div className="flex flex-col space-y-12 sm:space-y-16 md:space-y-20 w-full max-w-[1400px]">
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 sm:gap-10 md:gap-12 lg:gap-16">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 py-16 sm:py-20 md:py-24 lg:py-28 relative z-10">
+        <div className="flex flex-col space-y-12 sm:space-y-16 md:space-y-20 w-full">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="animate-on-scroll w-full md:w-1/2 lg:w-5/12"
+              className="animate-on-scroll md:col-span-1"
             >
               <Box sx={{
                 pr: {
@@ -61,7 +57,7 @@ export const FirstSection = () => {
                     sm: '3rem',
                     md: '3.25rem',
                     lg: '3.75rem',
-                    xl: '4rem'
+                    xl: '4.5rem'
                   },
                   lineHeight: {
                     xs: 1.1,
@@ -149,7 +145,7 @@ export const FirstSection = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="animate-on-scroll w-full md:w-1/2 lg:w-7/12"
+              className="animate-on-scroll md:col-span-1"
             >
               <Box sx={{
                 position: 'relative',
@@ -157,7 +153,7 @@ export const FirstSection = () => {
                 flexDirection: 'column',
                 alignItems: {
                   xs: 'center',
-                  md: 'flex-end'
+                  md: 'flex-start'
                 },
                 mt: {
                   xs: 4,
@@ -169,8 +165,7 @@ export const FirstSection = () => {
                   maxWidth: {
                     xs: '450px',
                     sm: '500px',
-                    md: '100%',
-                    lg: '90%'
+                    md: '100%'
                   },
                   mx: {
                     xs: 'auto',
@@ -293,7 +288,7 @@ export const FirstSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.6 }}
-            className="animate-on-scroll"
+            className="animate-on-scroll w-full mt-8 lg:mt-12"
           >
             <Box sx={{
               background: 'rgba(243, 244, 246, 0.1)',
@@ -374,7 +369,7 @@ export const FirstSection = () => {
             </Box>
           </motion.div>
         </div>
-      </motion.div>
+      </div>
       
       {/* Subtle background decorations */}
       <div className="absolute top-1/4 left-5 w-24 h-24 bg-gradient-to-r from-[rgba(20,49,81,0.03)] to-[rgba(56,126,137,0.03)] rounded-full blur-3xl" />
