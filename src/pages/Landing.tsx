@@ -9,7 +9,7 @@ import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector'
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -50,12 +50,7 @@ const Landing = () => {
   };
 
   return (
-    <motion.main 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-white overflow-x-hidden"
-    >
+    <main className="min-h-screen bg-white overflow-x-hidden">
       <Helmet>
         {/* Add preconnect for critical domains */}
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
@@ -69,20 +64,33 @@ const Landing = () => {
         </script>
       </Helmet>
 
-      <nav className="max-w-7xl mx-auto px-4 py-4">
-        <Breadcrumb>
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/pricing">Pricing</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </nav>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/pricing">Pricing</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
+      {/* Add a debug button for testing - we can remove this later */}
+      <div className="fixed top-20 right-4 z-50">
+        <Button 
+          size="sm" 
+          variant="outline" 
+          className="bg-white shadow-md"
+          onClick={() => {
+            console.log("Navigating to pricing");
+            window.location.href = "/pricing";
+          }}
+        >
+          View Pricing
+        </Button>
+      </div>
 
       <FirstSection />
       
@@ -108,7 +116,7 @@ const Landing = () => {
       <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
       </Suspense>
-    </motion.main>
+    </main>
   );
 };
 
