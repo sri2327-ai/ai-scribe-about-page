@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Box, Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -40,31 +39,29 @@ export const FirstSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="w-full max-w-[1400px] mx-auto px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-28 relative z-10"
+        className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-16 sm:py-20 md:py-24 lg:py-28 relative z-10 flex flex-col items-center"
       >
-        <div className="flex flex-col space-y-16 md:space-y-24">
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 md:gap-16 lg:gap-20">
+        <div className="flex flex-col space-y-12 sm:space-y-16 md:space-y-20 w-full max-w-[1400px]">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-8 sm:gap-10 md:gap-12 lg:gap-16">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="animate-on-scroll"
+              className="animate-on-scroll w-full md:w-1/2 lg:w-5/12"
             >
               <Box sx={{
-                maxWidth: {
-                  xs: '100%',
-                  md: '50%'
-                },
                 pr: {
-                  md: 4
+                  md: 2,
+                  lg: 4
                 }
               }}>
                 <Typography variant="h1" sx={{
                   fontSize: {
                     xs: '2.5rem',
                     sm: '3rem',
-                    md: '3.5rem',
-                    lg: '4rem'
+                    md: '3.25rem',
+                    lg: '3.75rem',
+                    xl: '4rem'
                   },
                   lineHeight: {
                     xs: 1.1,
@@ -152,13 +149,9 @@ export const FirstSection = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="animate-on-scroll"
+              className="animate-on-scroll w-full md:w-1/2 lg:w-7/12"
             >
               <Box sx={{
-                width: {
-                  xs: '100%',
-                  md: '45%'
-                },
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
@@ -175,7 +168,9 @@ export const FirstSection = () => {
                   width: '100%',
                   maxWidth: {
                     xs: '450px',
-                    md: '100%'
+                    sm: '500px',
+                    md: '100%',
+                    lg: '90%'
                   },
                   mx: {
                     xs: 'auto',
