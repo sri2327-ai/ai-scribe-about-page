@@ -1,3 +1,4 @@
+
 import { Box, Stack, Typography } from "@mui/material";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Lightbulb, Shield, Award, Rocket } from "lucide-react";
@@ -9,21 +10,25 @@ export const NinthSection = () => {
       title: "Science-Driven AI",
       description:
         "Truth-first, responsible AI powered by S10's patented IPKO for smarter automation. Specialty-specific medical terminology understanding.",
+      link: "/technology",
     },
     {
       title: "Cross-Lingual Precision",
       description:
         "Advanced ASR and AI-powered speech-to-text for healthcare, offering unparalleled accuracy in speech recognition. Clinically validated accuracy rates of 98%+.",
+      link: "/specialty",
     },
     {
       title: "Clinician-Centric",
       description:
         "AI that adapts to workflows, not disrupts them. Seamless integration with existing systems.",
+      link: "/bravo",
     },
     {
       title: "Seamless Automation",
       description:
         "AI for physician workflows with robotic interoperability. Real-time EHR synchronization. Automated coding and billing optimization.",
+      link: "/crush-ai",
     },
   ];
 
@@ -113,6 +118,8 @@ export const NinthSection = () => {
                 style={{ height: "100%" }}
               >
                 <Box
+                  component="a"
+                  href={card.link}
                   sx={{
                     height: "100%",
                     width: "100%",
@@ -128,6 +135,8 @@ export const NinthSection = () => {
                     cursor: "pointer",
                     transition: "all 0.34s",
                     overflow: "hidden",
+                    textDecoration: "none",
+                    position: "relative",
                     "&:hover": {
                       background: "linear-gradient(135deg, #143151, #387E89)",
                       ".title": { color: "#FFF" },
@@ -138,6 +147,10 @@ export const NinthSection = () => {
                       ".icon-svg": {
                         color: "#FFF",
                         filter: "drop-shadow(0 4px 12px #387E8966)",
+                      },
+                      ".arrow-icon": {
+                        transform: "translate(-8px, -8px)",
+                        opacity: 1,
                       },
                     },
                   }}
@@ -195,6 +208,32 @@ export const NinthSection = () => {
                   >
                     {card.description}
                   </Typography>
+                  
+                  {/* Arrow icon to indicate link */}
+                  <Box
+                    className="arrow-icon"
+                    sx={{
+                      position: "absolute",
+                      bottom: 16,
+                      right: 16,
+                      width: 36,
+                      height: 36,
+                      borderRadius: "50%",
+                      background: "rgba(255, 255, 255, 0.2)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      transition: "all 0.3s ease",
+                      opacity: 0.7,
+                      backdropFilter: "blur(4px)",
+                    }}
+                  >
+                    <ArrowUpRight
+                      size={20}
+                      className="text-blue-800 group-hover:text-white"
+                      strokeWidth={2.5}
+                    />
+                  </Box>
                 </Box>
               </motion.div>
             );
