@@ -193,9 +193,7 @@ export const FirstSection = () => {
         delay: 0.6
       }} className="mt-16">
           <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4">
-            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-4">
-              Trusted by Leading Healthcare Institutions
-            </Typography>
+            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-4">S10.AI is recommended by</Typography>
             
             <Box sx={{
             overflow: "hidden",
