@@ -41,10 +41,10 @@ export const FirstSection = () => {
                   mb: { xs: 4, md: 6 }
                 }}
               >
-                Innovative<br />
-                Ambient AI<br />
-                Solutions<br />
-                For Healthcare
+                AI Scribing &<br />
+                Patient Engagement<br />
+                Built for Clinicians<br />
+                Like You
               </Typography>
 
               <Button 
