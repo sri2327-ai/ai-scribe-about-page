@@ -45,7 +45,7 @@ export const FirstSection = () => {
     text: "Integrates with your EHR"
   }];
 
-  // Feature tab data - simplified for better UX, combining EHR and Apps
+  // Feature tab data - updated "Patient Engagement" to "Patient Engagement Agent"
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -54,9 +54,9 @@ export const FirstSection = () => {
     benefit: "Save 2+ hours per day"
   }, {
     id: "patient-engagement",
-    title: "Patient Engagement",
+    title: "Patient Engagement Agent",
     icon: <MessageSquare className="w-5 h-5" />,
-    description: "Seamless communication tools that improve patient satisfaction and clinical outcomes.",
+    description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
     benefit: "Boost satisfaction by 20%"
   }, {
     id: "custom-agents",
