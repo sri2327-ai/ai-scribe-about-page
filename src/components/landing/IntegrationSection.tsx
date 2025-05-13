@@ -107,7 +107,7 @@ const IntegrationSection = () => {
 
         <Grid container spacing={3} justifyContent="center">
           {integrationPartners.map((partner, index) => (
-            <Grid key={index} xs={6} sm={4} md={4} lg={2}>
+            <Grid item xs={6} sm={4} md={4} lg={2} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

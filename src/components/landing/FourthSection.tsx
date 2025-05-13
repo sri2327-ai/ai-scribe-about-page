@@ -49,7 +49,7 @@ export const FourthSection = () => {
 
         <Grid container spacing={4} justifyContent="center">
           {features.map((feature, index) => (
-            <Grid key={index} xs={12} sm={6} md={6} lg={3}>
+            <Grid item xs={12} sm={6} md={6} lg={3} key={index}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
