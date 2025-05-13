@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, CheckCircle, MessageSquare, Users, Database } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, CheckCircle, MessageSquare, Users, Database, Star } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -143,59 +143,86 @@ export const FirstSection = () => {
           delay: 0.3
         }} className="lg:col-span-3 relative mt-16 lg:mt-10">
             <div className="relative">
-              {/* Removed the doctor icon badge that was positioned above the card */}
               
-              {/* Improved Feature tabs showcase */}
+              {/* Completely redesigned feature showcase */}
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
-                {/* Improved header with better spacing and more attention-grabbing gradient */}
-                <div className="p-4 bg-gradient-to-r from-[#143151] via-[#265470] to-[#387E89] text-white text-center font-semibold text-lg flex items-center justify-center">
-                  <Clock className="w-5 h-5 mr-2 animate-pulse" />
-                  Clinical AI Solutions That Save You Time
+                {/* Enhanced header with subtle particle effect */}
+                <div className="relative p-5 bg-gradient-to-r from-[#143151] via-[#265470] to-[#387E89] text-white">
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-0 left-0 w-20 h-20 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+                    <div className="absolute top-1/3 right-1/4 w-12 h-12 bg-white/10 rounded-full"></div>
+                    <div className="absolute bottom-0 right-1/3 w-16 h-16 bg-white/10 rounded-full translate-y-1/2"></div>
+                  </div>
+                  
+                  <div className="relative z-10 flex items-center justify-center">
+                    <Star className="w-6 h-6 mr-3 text-yellow-200 animate-pulse" />
+                    <h3 className="font-semibold text-lg md:text-xl">Clinical AI Solutions That Save You Time</h3>
+                  </div>
                 </div>
                 
                 <Tabs defaultValue="ai-scribe" className="w-full">
-                  {/* Fixed the tab list to prevent scrolling */}
                   <div className="px-4 pt-4">
-                    <TabsList className="w-full flex flex-wrap justify-start md:justify-between bg-gray-50/70 p-2 rounded-lg">
-                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-4 py-2.5 gap-2 my-1 flex-grow md:flex-grow-0">
-                          {tab.icon}
-                          <span>{tab.title}</span>
-                        </TabsTrigger>)}
+                    <TabsList className="w-full flex flex-wrap justify-center gap-2 bg-gray-50/70 p-2 rounded-lg">
+                      {featureTabs.map(tab => (
+                        <TabsTrigger 
+                          key={tab.id} 
+                          value={tab.id} 
+                          className="flex items-center whitespace-nowrap px-4 py-3 gap-2 my-1 rounded-lg transition-all"
+                        >
+                          <span className="flex items-center justify-center bg-opacity-20 rounded-full p-1">
+                            {tab.icon}
+                          </span>
+                          <span className="font-medium">{tab.title}</span>
+                        </TabsTrigger>
+                      ))}
                     </TabsList>
                   </div>
                   
                   <div className="p-6">
-                    {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-0 focus-visible:outline-none focus-visible:ring-0">
+                    {featureTabs.map(tab => (
+                      <TabsContent key={tab.id} value={tab.id} className="mt-0 focus-visible:outline-none focus-visible:ring-0">
                         <div className="space-y-6">
-                          <div className="flex justify-between items-start">
+                          <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                            className="flex justify-between items-start"
+                          >
                             <div className="max-w-[80%]">
                               <h3 className="text-xl font-semibold text-[#143151]">{tab.title}</h3>
                               <p className="text-gray-600 mt-2 leading-relaxed">{tab.description}</p>
                             </div>
-                            <div className="hidden md:flex bg-blue-50/50 p-3 rounded-full">
+                            <div className="hidden md:flex bg-gradient-to-br from-blue-50 to-teal-50 p-4 rounded-full shadow-sm">
                               {tab.icon}
                             </div>
-                          </div>
+                          </motion.div>
                           
-                          <div className="bg-gradient-to-r from-gray-50 to-blue-50/40 p-4 rounded-lg flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                              <CheckCircle className="w-5 h-5 text-[#387E89]" />
+                          <div className="bg-gradient-to-r from-gray-50 via-blue-50/20 to-teal-50/20 p-5 rounded-lg flex items-center justify-between border border-blue-100/20">
+                            <div className="flex items-center space-x-3">
+                              <div className="bg-[#387E89] rounded-full p-1.5">
+                                <CheckCircle className="w-5 h-5 text-white" />
+                              </div>
                               <span className="font-semibold text-[#387E89]">{tab.benefit}</span>
                             </div>
                             
-                            <motion.div animate={{
-                          scale: [0.97, 1, 0.97],
-                          opacity: [0.9, 1, 0.9]
-                        }} transition={{
-                          duration: 4,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }} className="w-12">
+                            <motion.div 
+                              animate={{
+                                scale: [0.97, 1, 0.97],
+                                opacity: [0.9, 1, 0.9]
+                              }} 
+                              transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: "easeInOut"
+                              }} 
+                              className="w-14 h-14 flex items-center justify-center"
+                            >
                               <VoiceAnimation />
                             </motion.div>
                           </div>
                         </div>
-                      </TabsContent>)}
+                      </TabsContent>
+                    ))}
                   </div>
                 </Tabs>
               </div>
