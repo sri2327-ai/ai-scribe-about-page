@@ -1,101 +1,128 @@
 
+import React from 'react';
 import { Box, Typography, Button, Stack } from "@mui/material";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { landingPageStyles } from '@/styles/landing-page-utils';
 
 export const SixthSection = () => {
   return(
-    <section 
-      className="relative py-12 md:py-16" 
+    <motion.section 
+      className="relative py-16 md:py-20 lg:py-24" 
       style={{ 
         minHeight: 'unset', 
         background: `linear-gradient(180deg, #143151, #387E89)` 
       }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
     >
       <Box sx={{ 
         display: 'flex', 
         justifyContent: 'center',
         px: { xs: 2, sm: 3, md: 4 } 
       }}>
-        <Stack
-          spacing={{ xs: 2, md: 3 }}
-          direction="column"
-          sx={{
-            width: '100%',
-            maxWidth: { xs: '85%', sm: '500px', md: '600px', lg: '650px' },
-            alignItems: "center",
-            background: 'white', 
-            borderRadius: { xs: 2, md: 4 }, 
-            p: { xs: 2.5, sm: 3, md: 4 },
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-          }}
-          useFlexGap
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          viewport={{ once: true }}
         >
-          <Typography 
-            variant="h4"
-            sx={{ 
-              textAlign: "center", 
-              color: "#143151",
-              fontWeight: 500,
-              fontSize: '2.5rem',
-              lineHeight: '3rem',
-              letterSpacing: '-0.025em',
-              maxWidth: '90%',
+          <Stack
+            spacing={{ xs: 3, md: 4 }}
+            direction="column"
+            sx={{
+              width: '100%',
+              maxWidth: { xs: '90%', sm: '500px', md: '600px', lg: '650px' },
+              alignItems: "center",
+              background: 'white', 
+              borderRadius: landingPageStyles.card.borderRadius,
+              p: { xs: 3, sm: 4, md: 5 },
+              boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.12)',
             }}
+            useFlexGap
           >
-            Reduce Administrative Fatigue. Enhance Productivity. Improve Patient Care. 
-          </Typography>
-          <Button 
-            variant="contained" 
-            sx={{ 
-              textTransform: "none",
-              background: `linear-gradient(135deg, #143151, #387E89)`,
-              color: 'white',
-              px: { xs: 3, md: 4 },
-              py: { xs: 1.25, md: 1.5 },
-              borderRadius: "50px",
-              transition: 'all 0.3s ease',
-              "&:hover": {
-                background: `linear-gradient(135deg, #143151, #387E89)`,
-                transform: 'translateY(-2px)',
-                boxShadow: '0 4px 12px rgba(56, 126, 137, 0.3)',
-                ".icon-box": {
-                  transform: "rotate(-270deg)",
-                },
-              },
-            }}
-            startIcon={
-              <Box
-                className="icon-box"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: { xs: 20, md: 25 },
-                  height: { xs: 20, md: 25 },
-                  borderRadius: "50%", 
-                  color: "white",
-                  border: `2px solid white`,
-                  transition: "transform 0.3s ease",
-                  transform: "rotate(0deg)",
-                  mr: 1
-                }}
-              >
-                <ArrowRight className="h-4 w-4" />
-              </Box>
-            }
-          >
-            <Typography
-              sx={{
-                fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
-                color: "white",
-                fontWeight: 600
+            <Typography 
+              variant="h2"
+              sx={{ 
+                textAlign: "center", 
+                color: landingPageStyles.colors.primary,
+                fontWeight: landingPageStyles.typography.h2.fontWeight,
+                fontSize: landingPageStyles.typography.h2.fontSize,
+                lineHeight: 1.2,
+                letterSpacing: landingPageStyles.typography.h2.letterSpacing,
+                maxWidth: '90%',
               }}
             >
-              Book A Demo
+              Reduce Administrative Fatigue. Enhance Productivity. Improve Patient Care. 
             </Typography>
-          </Button>
-        </Stack>
+            <motion.div
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Button 
+                variant="contained" 
+                sx={{ 
+                  textTransform: "none",
+                  background: `linear-gradient(135deg, #143151, #387E89)`,
+                  color: 'white',
+                  px: { xs: 3, md: 4 },
+                  py: { xs: 1.25, md: 1.5 },
+                  borderRadius: "50px",
+                  minHeight: '48px',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+                  "&:hover": {
+                    background: `linear-gradient(135deg, #122a45, #306973)`,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0px 6px 15px rgba(0, 0, 0, 0.2)',
+                    ".icon-box": {
+                      transform: "rotate(-45deg)",
+                    },
+                  },
+                  "&:focus": {
+                    boxShadow: '0px 0px 0px 3px rgba(255, 255, 255, 0.5)',
+                  },
+                }}
+                startIcon={
+                  <Box
+                    className="icon-box"
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: { xs: 24, md: 28 },
+                      height: { xs: 24, md: 28 },
+                      borderRadius: "50%", 
+                      color: "white",
+                      border: `2px solid white`,
+                      transition: "transform 0.3s ease",
+                      mr: 1
+                    }}
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </Box>
+                }
+                aria-label="Book a demo"
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
+                    color: "white",
+                    fontWeight: 600
+                  }}
+                >
+                  Book A Demo
+                </Typography>
+              </Button>
+            </motion.div>
+          </Stack>
+        </motion.div>
       </Box>
-    </section>
+    </motion.section>
   );
 };
+
+export default SixthSection;

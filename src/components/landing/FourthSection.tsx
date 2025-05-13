@@ -1,173 +1,88 @@
+
 import React from 'react';
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield } from "lucide-react";
-import CrushIllustration from './illustrations/CrushIllustration';
-import BravoIllustration from './illustrations/BravoIllustration';
+import { motion } from 'framer-motion';
+import { Box, Typography, Grid } from "@mui/material";
+import { landingPageStyles } from '@/styles/landing-page-utils';
+import SectionHeading from './shared/SectionHeading';
+import LandingCard from './shared/LandingCard';
+import { FileCheck, Users, Clock, ShieldCheck } from 'lucide-react';
 
-const compatibleSystems = {
-  crush: ["Epic", "Cerner", "Athena", "AllScripts", "and any other EHR"],
-  bravo: ["Epic", "Cerner", "Athena", "AllScripts", "any EHR", "PMS", "VOIP"]
-};
-
-const allSpecialties = [
-  "Primary Care",
-  "Cardiology", 
-  "Neurology", 
-  "Internal Medicine",
-  "Family Practice",
-  "Pediatrics",
-  "And More"
+// Feature data
+const features = [
+  {
+    icon: <FileCheck size={24} color={landingPageStyles.colors.secondary} />,
+    title: "Automated Documentation",
+    description: "Generate accurate clinical notes automatically from patient conversations, saving hours of documentation time daily."
+  },
+  {
+    icon: <Users size={24} color={landingPageStyles.colors.secondary} />,
+    title: "Patient Engagement",
+    description: "Reduce no-shows by 50% with intelligent AI follow-ups and automated appointment reminders."
+  },
+  {
+    icon: <Clock size={24} color={landingPageStyles.colors.secondary} />,
+    title: "Time-Saving Workflows",
+    description: "Streamline administrative tasks with smart clinical workflows tailored to your specialty."
+  },
+  {
+    icon: <ShieldCheck size={24} color={landingPageStyles.colors.secondary} />,
+    title: "HIPAA Compliant",
+    description: "Enterprise-grade security with full HIPAA compliance to protect sensitive patient information."
+  }
 ];
-
-const SpecialtyBadge = ({ name }: { name: string }) => (
-  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 mb-2">
-    {name}
-  </div>
-);
-
-const MetricCard = ({ icon: Icon, title, value }: { icon: any, title: string, value: string }) => (
-  <div className="flex items-start gap-3 p-2 rounded-lg bg-gray-50 hover:-translate-y-1 transition-transform duration-200">
-    <div className="p-2 rounded-lg bg-white">
-      <Icon className="w-4 h-4 text-[#387E89]" />
-    </div>
-    <div>
-      <p className="text-sm font-medium text-gray-600">{title}</p>
-      <p className="text-lg font-semibold text-[#143151]">{value}</p>
-    </div>
-  </div>
-);
-
-const ProductCard = ({ 
-  title, 
-  subtitle, 
-  description, 
-  Illustration,
-  metrics,
-  isUniversal = false
-}: {
-  title: string;
-  subtitle: string;
-  description: string;
-  Illustration: React.ComponentType;
-  metrics: { title: string; value: string; icon: any }[];
-  isUniversal?: boolean;
-}) => (
-  <div className="bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-    <div className="p-5 flex flex-col gap-4">
-      <div className="h-64 w-full bg-gray-50 rounded-lg overflow-hidden relative group">
-        <div className="w-full h-full flex items-center justify-center p-4 group-hover:opacity-0 transition-opacity duration-300">
-          <div className="w-3/4 h-3/4">
-            <Illustration />
-          </div>
-        </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <p className="text-white text-center text-lg font-medium px-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-            Click to see {title} in action
-          </p>
-        </div>
-      </div>
-      
-      <div className="space-y-3">
-        <div className="text-center">
-          <h3 className="text-xl font-bold text-[#143151]">{title}</h3>
-          <h4 className="text-base font-semibold text-[#387E89]">{subtitle}</h4>
-        </div>
-        
-        <p className="text-gray-600 text-center text-xs">{description}</p>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {metrics.map((metric, idx) => (
-            <MetricCard key={idx} {...metric} />
-          ))}
-        </div>
-        
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <Stethoscope className="w-4 h-4 text-[#387E89]" />
-            <p className="text-xs font-medium text-gray-700">Works with all specialties:</p>
-          </div>
-          <div className="flex flex-wrap gap-1">
-            {allSpecialties.map((specialty, idx) => (
-              <SpecialtyBadge key={idx} name={specialty} />
-            ))}
-          </div>
-        </div>
-        
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#387E89]" />
-            <p className="text-xs font-medium text-gray-700">Compatible with:</p>
-          </div>
-          <div className="flex flex-wrap gap-1">
-            {(title === "C.R.U.S.H" ? compatibleSystems.crush : compatibleSystems.bravo).map((system, idx) => (
-              <span
-                key={idx}
-                className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600 hover:scale-105 transition-transform duration-200"
-              >
-                {system}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <Button 
-        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:from-[#0d1f31] hover:to-[#2c6269] shadow-xl"
-      >
-        See {title} Demo
-        <ArrowRight className="ml-2 h-4 w-4" />
-      </Button>
-    </div>
-  </div>
-);
 
 export const FourthSection = () => {
   return (
-    <section className="py-10 px-4 md:px-8 lg:px-16 bg-white">
-      <div className="max-w-[1400px] mx-auto flex flex-col gap-6">
-        <div className="max-w-[900px] mx-auto text-center">
-          <h3 className="text-3xl md:text-4xl font-bold text-black mb-4">
-            Meet Bravo & CRUSH – A S10'ing Experience
-          </h3>
-          <p className="text-base text-gray-700 leading-relaxed">
-            From AI scribes to AI agents, Crush & Bravo solve medical office challenges by streamlining documentation, 
-            optimizing real-time clinical prompts, automating clinical workflows, and improving medical decision-making.
-          </p>
-        </div>
-        
-        <div className="flex flex-col md:flex-row gap-4 lg:gap-6 items-center justify-center">
-          <div className="w-full md:w-auto max-w-[550px]">
-            <ProductCard 
-              title="C.R.U.S.H"
-              subtitle="AI Medical Scribe Assistant"
-              description="Crush automates documentation, transcribes in real time using generative AI, and integrates with your preferred EHR, reducing burnout and freeing you to focus on care."
-              Illustration={CrushIllustration}
-              metrics={[
-                { icon: Clock, title: "Documentation Time", value: "-75%" },
-                { icon: FileText, title: "Note Accuracy", value: "99%" },
-                { icon: Heart, title: "Patient Face Time", value: "+40%" },
-                { icon: Shield, title: "Compliance Rate", value: "100%" }
-              ]}
-            />
-          </div>
-          <div className="w-full md:w-auto max-w-[550px]">
-            <ProductCard 
-              title="B.R.A.V.O"
-              subtitle="AI Patient Care Agent"
-              description="Bravo automates scheduling, patient communication, insurance verification, and follow-ups, keeping your clinic efficient and patients engaged."
-              Illustration={BravoIllustration}
-              metrics={[
-                { icon: Clock, title: "Admin Tasks", value: "-85%" },
-                { icon: FileText, title: "Patient Satisfaction", value: "+60%" },
-                { icon: Brain, title: "AI Accuracy", value: "98%" },
-                { icon: Stethoscope, title: "Care Quality", value: "+45%" }
-              ]}
-            />
-          </div>
-        </div>
+    <motion.section
+      className="py-16 md:py-20 lg:py-24 bg-white"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+    >
+      <div className="container mx-auto px-4 md:px-8">
+        <SectionHeading
+          title="Transform Your Healthcare Practice"
+          subtitle="Discover how S10.AI's innovative solutions can transform your practice workflow, reduce burnout, and enhance patient care."
+          className="mb-12"
+        />
+
+        <Grid container spacing={4} justifyContent="center">
+          {features.map((feature, index) => (
+            <Grid item xs={12} sm={6} md={6} lg={3} key={index}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <LandingCard
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                />
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box sx={{ mt: 8, display: 'flex', justifyContent: 'center' }}>
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <button 
+              className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-6 py-3 rounded-full text-lg font-medium shadow-md hover:shadow-lg transition-all duration-300"
+              style={{ 
+                boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
+                minHeight: '48px'
+              }}
+            >
+              Schedule a Demo
+            </button>
+          </motion.div>
+        </Box>
       </div>
-    </section>
+    </motion.section>
   );
 };
-
-export default FourthSection;

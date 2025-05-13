@@ -1,0 +1,76 @@
+
+/* Focus indicators - part of our UX enhancement */
+:focus-visible {
+  outline: 3px solid #387E89;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Skip link for keyboard users */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-to-content:focus {
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  background: white;
+  z-index: 9999;
+  color: #143151;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Enhanced button and input focus states */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(56, 126, 137, 0.5);
+  outline-offset: 2px;
+}
+
+/* Improved touch targets */
+@media (max-width: 768px) {
+  button, 
+  a,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .touch-target {
+    position: relative;
+  }
+  
+  .touch-target::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+    z-index: -1;
+  }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
