@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -18,7 +19,7 @@ export const FirstSection = () => {
   const [isHovered, setIsHovered] = useState(false);
   const { width } = useWindowSize();
   const isMobile = useIsMobile();
-
+  
   // Add intersection observer for scroll animations
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -133,7 +134,7 @@ export const FirstSection = () => {
             </motion.div>
           </div>
           
-          {/* Right column - Simplified feature cards */}
+          {/* Right column - Simplified feature cards with improved mobile navigation */}
           <motion.div initial={{
           opacity: 0,
           scale: 0.95
@@ -153,11 +154,18 @@ export const FirstSection = () => {
               
               <Tabs defaultValue="ai-scribe" className="w-full">
                 <div className="px-3 sm:px-4 pt-3 sm:pt-4">
-                  <TabsList className="w-full flex overflow-x-auto hide-scrollbar gap-1 bg-gray-50/70 p-1 rounded-lg">
-                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center px-2 sm:px-3 py-1 gap-1 sm:gap-1.5 my-1 rounded-lg data-[state=active]:shadow-none text-xs sm:text-sm whitespace-nowrap">
-                        <span className="flex items-center justify-center">{tab.icon}</span>
-                        <span>{tab.title}</span>
-                      </TabsTrigger>)}
+                  {/* Enhanced mobile tab navigation */}
+                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg">
+                    {featureTabs.map(tab => (
+                      <TabsTrigger 
+                        key={tab.id} 
+                        value={tab.id} 
+                        className="flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium whitespace-normal sm:whitespace-nowrap"
+                      >
+                        <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
+                        <span className="truncate">{tab.title}</span>
+                      </TabsTrigger>
+                    ))}
                   </TabsList>
                 </div>
                 
