@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -64,7 +63,7 @@ export const FirstSection = () => {
     title: "Patient Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
-    benefit: "Boost satisfaction by 20%"
+    benefit: "Boost satisfaction by +60%"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
