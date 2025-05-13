@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield, CheckCircle } from "lucide-react";
@@ -22,7 +23,7 @@ const allSpecialties = [
 ];
 
 const SpecialtyBadge = ({ name }: { name: string }) => (
-  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2 mb-2">
+  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 mr-2 mb-2">
     <CheckCircle className="w-3 h-3 mr-1" />
     {name}
   </div>
@@ -41,26 +42,14 @@ const MetricCard = ({
 }) => (
   <motion.div 
     whileHover={{ y: -5 }}
-    className={cn(
-      "flex items-start gap-3 p-3 rounded-lg shadow-sm transition-all duration-200",
-      positive ? "bg-green-50" : "bg-blue-50"
-    )}
+    className="flex items-start gap-3 p-3 rounded-lg shadow-sm transition-all duration-200 bg-green-50"
   >
-    <div className={cn(
-      "p-2 rounded-lg",
-      positive ? "bg-green-100" : "bg-blue-100"
-    )}>
-      <Icon className={cn(
-        "w-5 h-5",
-        positive ? "text-green-600" : "text-blue-600"
-      )} />
+    <div className="p-2 rounded-lg bg-green-100">
+      <Icon className="w-5 h-5 text-green-600" />
     </div>
     <div>
       <p className="text-sm font-medium text-gray-600">{title}</p>
-      <p className={cn(
-        "text-lg font-bold",
-        positive ? "text-green-700" : "text-blue-700"
-      )}>{value}</p>
+      <p className="text-lg font-bold text-green-700">{value}</p>
     </div>
   </motion.div>
 );
@@ -101,7 +90,7 @@ const ProductCard = ({
     className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 h-full flex flex-col"
   >
     <div className="p-5 flex flex-col gap-4 h-full">
-      <div className="h-56 w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden relative group">
+      <div className="h-56 w-full bg-gradient-to-br from-green-50 to-green-100 rounded-lg overflow-hidden relative group">
         <motion.div 
           className="w-full h-full flex items-center justify-center p-4 transition-opacity duration-300"
           whileHover={{ scale: 1.05 }}
@@ -110,7 +99,7 @@ const ProductCard = ({
             <Illustration />
           </div>
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-green-500 opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
           <p className="text-white text-center text-lg font-medium px-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Click to see {title} in action
           </p>
@@ -119,14 +108,14 @@ const ProductCard = ({
       
       <div className="space-y-4 flex-grow">
         <div className="text-center">
-          <h3 className="text-2xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">{title}</h3>
+          <h3 className="text-2xl font-bold bg-gradient-to-r from-green-700 to-green-500 bg-clip-text text-transparent">{title}</h3>
           <h4 className="text-base font-semibold text-gray-600">{subtitle}</h4>
         </div>
         
-        <p className="text-gray-600 text-sm leading-relaxed border-l-4 border-gray-200 pl-3 py-1">{description}</p>
+        <p className="text-gray-600 text-sm leading-relaxed border-l-4 border-green-200 pl-3 py-1">{description}</p>
         
         {features.length > 0 && (
-          <div className="space-y-1 bg-gray-50 p-3 rounded-lg">
+          <div className="space-y-1 bg-green-50 p-3 rounded-lg">
             <h5 className="font-medium text-sm text-gray-700 mb-2">Key Benefits</h5>
             {features.map((feature, idx) => (
               <FeatureBullet key={idx} text={feature} />
@@ -138,15 +127,14 @@ const ProductCard = ({
           {metrics.map((metric, idx) => (
             <MetricCard 
               key={idx} 
-              {...metric} 
-              positive={metric.positive !== undefined ? metric.positive : isPositive} 
+              {...metric}
             />
           ))}
         </div>
         
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Stethoscope className="w-4 h-4 text-[#387E89]" />
+            <Stethoscope className="w-4 h-4 text-green-600" />
             <p className="text-xs font-medium text-gray-700">Compatible with all specialties:</p>
           </div>
           <div className="flex flex-wrap gap-1">
@@ -158,14 +146,14 @@ const ProductCard = ({
         
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#387E89]" />
+            <Shield className="w-4 h-4 text-green-600" />
             <p className="text-xs font-medium text-gray-700">Compatible with:</p>
           </div>
           <div className="flex flex-wrap gap-1">
             {(title === "C.R.U.S.H" ? compatibleSystems.crush : compatibleSystems.bravo).map((system, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600 hover:scale-105 transition-transform duration-200"
+                className="px-2 py-1 text-xs rounded bg-green-100 text-green-700 hover:scale-105 transition-transform duration-200"
               >
                 {system}
               </span>
@@ -175,7 +163,7 @@ const ProductCard = ({
       </div>
 
       <Button 
-        className="w-full shadow-xl transition-all duration-300 text-white font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269]"
+        className="w-full shadow-xl transition-all duration-300 text-white font-medium bg-gradient-to-r from-green-700 to-green-500 hover:from-green-800 hover:to-green-600"
       >
         {ctaText}
         <ArrowRight className="ml-2 h-4 w-4" />
@@ -195,8 +183,8 @@ export const FourthSection = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl md:text-4xl font-bold text-[#143151] mb-4">
-              Meet <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#387E89] to-[#143151]">Bravo & CRUSH</span> – A S10'ing Experience
+            <h3 className="text-3xl md:text-4xl font-bold text-green-700 mb-4">
+              Meet <span className="bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-green-500">Bravo & CRUSH</span> – A S10'ing Experience
             </h3>
             <p className="text-base text-gray-700 leading-relaxed">
               Our AI solutions streamline medical workflows and improve patient care through intelligent automation. Designed specifically for clinicians, these tools adapt to your specialty and integrate seamlessly with your existing systems.
@@ -218,7 +206,7 @@ export const FourthSection = () => {
               Illustration={CrushIllustration}
               isPositive={true}
               metrics={[
-                { icon: Clock, title: "Documentation Time", value: "-75%", positive: true },
+                { icon: Clock, title: "Documentation Time", value: "-75%" },
                 { icon: FileText, title: "Note Accuracy", value: "99%" },
                 { icon: Heart, title: "Patient Face Time", value: "+40%" },
                 { icon: Shield, title: "Compliance Rate", value: "100%" }
@@ -239,7 +227,7 @@ export const FourthSection = () => {
               Illustration={BravoIllustration}
               isPositive={false}
               metrics={[
-                { icon: Clock, title: "Admin Tasks", value: "-85%", positive: true },
+                { icon: Clock, title: "Admin Tasks", value: "-85%" },
                 { icon: FileText, title: "Patient Satisfaction", value: "+60%" },
                 { icon: Brain, title: "AI Accuracy", value: "98%" },
                 { icon: Stethoscope, title: "Care Quality", value: "+45%" }
