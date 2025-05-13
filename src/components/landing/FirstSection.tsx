@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, CheckCircle, MessageSquare, Users, Database, Layout } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, CheckCircle, MessageSquare, Users, Database } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -143,10 +143,7 @@ export const FirstSection = () => {
           delay: 0.3
         }} className="lg:col-span-3 relative mt-16 lg:mt-10">
             <div className="relative">
-              {/* Doctor icon badge positioned correctly */}
-              <div className="absolute -top-10 right-6 w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center shadow-md z-10">
-                <Layout className="text-[#387E89] w-10 h-10" />
-              </div>
+              {/* Removed the doctor icon badge that was positioned above the card */}
               
               {/* Improved Feature tabs showcase */}
               <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300">
@@ -157,9 +154,10 @@ export const FirstSection = () => {
                 </div>
                 
                 <Tabs defaultValue="ai-scribe" className="w-full">
-                  <div className="px-4 pt-4 overflow-x-auto">
-                    <TabsList className="w-full justify-start md:justify-between overflow-x-auto gap-2 bg-gray-50/70 p-2 rounded-lg">
-                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-4 py-2.5 gap-2">
+                  {/* Fixed the tab list to prevent scrolling */}
+                  <div className="px-4 pt-4">
+                    <TabsList className="w-full flex flex-wrap justify-start md:justify-between bg-gray-50/70 p-2 rounded-lg">
+                      {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center whitespace-nowrap px-4 py-2.5 gap-2 my-1 flex-grow md:flex-grow-0">
                           {tab.icon}
                           <span>{tab.title}</span>
                         </TabsTrigger>)}
