@@ -84,7 +84,7 @@ export const LandingButton: React.FC<LandingButtonProps> = ({
       <MuiButton
         variant={variant === 'primary' ? 'contained' : 'outlined'}
         onClick={onClick}
-        aria-label={ariaLabel || typeof children === 'string' ? children : undefined}
+        aria-label={ariaLabel}
         sx={{
           background: selectedVariant.background,
           color: selectedVariant.color,
