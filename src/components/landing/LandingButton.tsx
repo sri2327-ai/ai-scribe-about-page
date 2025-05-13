@@ -84,7 +84,7 @@ export const LandingButton: React.FC<LandingButtonProps> = ({
       <MuiButton
         variant={variant === 'primary' ? 'contained' : 'outlined'}
         onClick={onClick}
-        aria-label={ariaLabel || typeof children === 'string' ? children : undefined}
+        aria-label={ariaLabel || (typeof children === 'string' ? children : undefined)}
         sx={{
           background: selectedVariant.background,
           color: selectedVariant.color,
@@ -110,7 +110,7 @@ export const LandingButton: React.FC<LandingButtonProps> = ({
             outline: 'none',
           },
         }}
-        startIcon={icon && (
+        startIcon={icon ? (
           <div
             className="icon-box"
             style={{
@@ -130,7 +130,7 @@ export const LandingButton: React.FC<LandingButtonProps> = ({
               className="transition-transform duration-300"
             />
           </div>
-        )}
+        ) : null}
       >
         {children}
       </MuiButton>
