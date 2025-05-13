@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield, CheckCircle } from "lucide-react";
@@ -176,12 +175,7 @@ const ProductCard = ({
       </div>
 
       <Button 
-        className={cn(
-          "w-full shadow-xl transition-all duration-300 text-white font-medium",
-          isPositive 
-            ? "bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-700 hover:to-teal-600" 
-            : "bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269]"
-        )}
+        className="w-full shadow-xl transition-all duration-300 text-white font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269]"
       >
         {ctaText}
         <ArrowRight className="ml-2 h-4 w-4" />
