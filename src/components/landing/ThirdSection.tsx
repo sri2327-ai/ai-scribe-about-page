@@ -3,7 +3,7 @@ import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield } from "lucide-react";
+import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -160,6 +160,7 @@ const testimonials = [
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
   const isMobile = useMediaQuery('(max-width:768px)');
+  const [activeSlide, setActiveSlide] = useState(0);
   
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -314,12 +315,18 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        <div className="mt-8 sm:mt-10 md:mt-12 relative px-2 sm:px-4 w-full max-w-3xl mx-auto">
-          <Carousel className="w-full max-w-4xl mx-auto"
+        <div className="mt-8 sm:mt-10 md:mt-12 relative w-full max-w-3xl mx-auto">
+          <Carousel 
+            className="w-full max-w-4xl mx-auto relative"
             opts={{
               align: "center",
               loop: true,
-            }}>
+            }}
+            onSelect={(api) => {
+              const currentIndex = api?.selectedScrollSnap() || 0;
+              setActiveSlide(currentIndex);
+            }}
+          >
             <CarouselContent>
               {testimonials.map((testimonial, index) => (
                 <CarouselItem key={index}>
@@ -329,13 +336,36 @@ export const ThirdSection = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-center gap-2 mt-4 md:hidden">
-              <button className="w-3 h-3 rounded-full bg-gray-300"></button>
-              <button className="w-3 h-3 rounded-full bg-[#387E89]"></button>
-              <button className="w-3 h-3 rounded-full bg-gray-300"></button>
+            
+            {/* Mobile pagination dots with better visibility */}
+            <div className="flex justify-center gap-3 mt-6 md:hidden">
+              {testimonials.map((_, index) => (
+                <button 
+                  key={index}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                    activeSlide === index ? "bg-[#387E89] scale-125" : "bg-gray-300"
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
-            <CarouselPrevious className="hidden md:flex" />
-            <CarouselNext className="hidden md:flex" />
+            
+            {/* Improved navigation buttons with arrows */}
+            <CarouselPrevious 
+              className="absolute left-0 sm:-left-6 md:-left-12 top-1/2 -translate-y-1/2 flex md:flex bg-white hover:bg-[#387E89] hover:text-white border border-gray-200 shadow-md z-10 transition-all duration-300"
+              size="icon"
+            >
+              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="sr-only">Previous slide</span>
+            </CarouselPrevious>
+            
+            <CarouselNext 
+              className="absolute right-0 sm:-right-6 md:-right-12 top-1/2 -translate-y-1/2 flex md:flex bg-white hover:bg-[#387E89] hover:text-white border border-gray-200 shadow-md z-10 transition-all duration-300"
+              size="icon"
+            >
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="sr-only">Next slide</span>
+            </CarouselNext>
           </Carousel>
         </div>
       </Box>
