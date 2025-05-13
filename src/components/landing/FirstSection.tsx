@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -9,7 +8,6 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
-
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
@@ -73,7 +71,6 @@ export const FirstSection = () => {
     description: "Works with any EHR system and connects to 7000+ healthcare apps.",
     benefit: "Seamless connectivity"
   }];
-  
   return <section className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative" ref={sectionRef}>
       {/* Healthcare-themed background elements - kept subtle */}
       <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100/10 rounded-full blur-3xl"></div>
@@ -147,29 +144,22 @@ export const FirstSection = () => {
             <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
               <div className="p-4 bg-gray-50 border-b border-gray-100">
                 <h3 className="font-medium text-gray-900 text-lg flex items-center">
-                  Our Solutions <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full">Clinician Focused</span>
+                  Our Solutions <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full">AI-Powered</span>
                 </h3>
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full">
                 <div className="px-4 pt-4">
                   <TabsList className="w-full flex overflow-x-auto hide-scrollbar gap-1 bg-gray-50/70 p-1 rounded-lg">
-                    {featureTabs.map(tab => (
-                      <TabsTrigger 
-                        key={tab.id} 
-                        value={tab.id} 
-                        className="flex items-center px-3 py-1 gap-1.5 my-1 rounded-lg data-[state=active]:shadow-none"
-                      >
+                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center px-3 py-1 gap-1.5 my-1 rounded-lg data-[state=active]:shadow-none">
                         <span className="flex items-center justify-center">{tab.icon}</span>
                         <span>{tab.title}</span>
-                      </TabsTrigger>
-                    ))}
+                      </TabsTrigger>)}
                   </TabsList>
                 </div>
                 
                 <div className="p-4">
-                  {featureTabs.map(tab => (
-                    <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
+                  {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
                       <CardContent className="p-0">
                         <div className="flex flex-col md:flex-row gap-4 items-start p-2">
                           <div className="w-full space-y-2">
@@ -187,8 +177,7 @@ export const FirstSection = () => {
                           </div>
                         </div>
                       </CardContent>
-                    </TabsContent>
-                  ))}
+                    </TabsContent>)}
                 </div>
               </Tabs>
             </Card>
