@@ -1,141 +1,93 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Button as MuiButton } from '@mui/material';
-import { ArrowRight } from 'lucide-react';
-import { landingPageStyles } from '@/styles/landing-page-utils';
+import { Button as MuiButton } from "@mui/material";
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from "lucide-react";
 
 interface LandingButtonProps {
+  variant?: 'contained' | 'outlined';
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: 'primary' | 'secondary';
-  size?: 'small' | 'medium' | 'large';
-  icon?: boolean;
-  className?: string;
+  href?: string;
+  startIcon?: React.ReactNode;
+  endIcon?: React.ReactNode;
   ariaLabel?: string;
+  className?: string;
+  useMuiButton?: boolean;
 }
 
-export const LandingButton: React.FC<LandingButtonProps> = ({
+export const LandingButton = ({
+  variant = 'contained',
   children,
   onClick,
-  variant = 'primary',
-  size = 'medium',
-  icon = true,
-  className = '',
+  href,
+  startIcon,
+  endIcon,
   ariaLabel,
-}) => {
-  // Define size-based styles
-  const sizeStyles = {
-    small: {
-      px: { xs: 2, md: 3 },
-      py: { xs: 1, md: 1.25 },
-      fontSize: { xs: '0.875rem', md: '0.9375rem' },
-      iconSize: 18,
-      boxSize: { xs: 22, md: 24 }
+  className = '',
+  useMuiButton = false
+}: LandingButtonProps) => {
+  const isPrimary = variant === 'contained';
+  const buttonStyles = {
+    background: isPrimary ? 'linear-gradient(135deg, #143151, #387E89)' : 'transparent',
+    color: isPrimary ? 'white' : '#143151',
+    border: isPrimary ? 'none' : '1px solid #143151',
+    borderRadius: '50px',
+    fontWeight: 500,
+    padding: '10px 24px',
+    fontSize: '1rem',
+    boxShadow: isPrimary ? '0px 4px 12px rgba(20, 49, 81, 0.2)' : 'none',
+    textTransform: 'none',
+    transition: 'all 0.3s ease',
+    "&:hover": {
+      background: isPrimary ? 'linear-gradient(135deg, #0f243d, #2c6069)' : 'rgba(20, 49, 81, 0.05)',
+      boxShadow: isPrimary ? '0px 6px 15px rgba(20, 49, 81, 0.25)' : 'none',
+      transform: 'translateY(-2px)',
     },
-    medium: {
-      px: { xs: 3, md: 4 },
-      py: { xs: 1.5, md: 1.75 },
-      fontSize: { xs: '1rem', md: '1.0625rem' },
-      iconSize: 20,
-      boxSize: { xs: 26, md: 28 }
-    },
-    large: {
-      px: { xs: 4, md: 5 },
-      py: { xs: 2, md: 2.25 },
-      fontSize: { xs: '1.125rem', md: '1.25rem' },
-      iconSize: 24,
-      boxSize: { xs: 30, md: 32 }
-    },
+    "&:focus": {
+      boxShadow: `0px 0px 0px 3px ${isPrimary ? 'rgba(56, 126, 137, 0.3)' : 'rgba(20, 49, 81, 0.2)'}`,
+    }
   };
   
-  // Selected size style
-  const selectedSize = sizeStyles[size];
-
-  // Variant styles
-  const variantStyles = {
-    primary: {
-      background: `linear-gradient(135deg, ${landingPageStyles.colors.primary}, ${landingPageStyles.colors.secondary})`,
-      hoverBackground: `linear-gradient(135deg, ${landingPageStyles.colors.primary}, ${landingPageStyles.colors.secondary})`,
-      color: 'white',
-      borderColor: 'transparent',
-      boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.15)',
-      hoverBoxShadow: '0px 4px 12px rgba(0, 0, 0, 0.2)',
-    },
-    secondary: {
-      background: 'white',
-      hoverBackground: '#F5F9FF',
-      color: landingPageStyles.colors.primary,
-      borderColor: landingPageStyles.colors.primary,
-      boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.08)',
-      hoverBoxShadow: '0px 4px 10px rgba(0, 0, 0, 0.12)',
-    },
-  };
-  
-  // Selected variant style
-  const selectedVariant = variantStyles[variant];
-
-  return (
-    <motion.div
-      whileHover={{ scale: 1.03 }}
-      whileTap={{ scale: 0.97 }}
-      className={className}
-    >
+  if (useMuiButton) {
+    return (
       <MuiButton
-        variant={variant === 'primary' ? 'contained' : 'outlined'}
+        variant={variant}
         onClick={onClick}
-        aria-label={ariaLabel || typeof children === 'string' ? children : undefined}
-        sx={{
-          background: selectedVariant.background,
-          color: selectedVariant.color,
-          border: variant === 'secondary' ? `1px solid ${selectedVariant.borderColor}` : 'none',
-          px: selectedSize.px,
-          py: selectedSize.py,
-          borderRadius: '50px',
-          fontSize: selectedSize.fontSize,
-          fontWeight: 600,
-          boxShadow: selectedVariant.boxShadow,
-          textTransform: 'none',
-          minHeight: '48px', // Ensure touch-friendly size
-          transition: 'all 0.3s ease',
-          "&:hover": {
-            background: selectedVariant.hoverBackground,
-            boxShadow: selectedVariant.hoverBoxShadow,
-            ".icon-box": {
-              transform: "rotate(-45deg)",
-            },
-          },
-          "&:focus": {
-            boxShadow: '0px 0px 0px 3px rgba(56, 126, 137, 0.3)',
-            outline: 'none',
-          },
-        }}
-        startIcon={icon && (
-          <div
-            className="icon-box"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: selectedSize.boxSize.xs,
-              height: selectedSize.boxSize.xs,
-              borderRadius: "50%",
-              border: `2px solid ${selectedVariant.color}`,
-              transition: "transform 0.3s ease",
-              marginRight: 8
-            }}
-          >
-            <ArrowRight
-              size={selectedSize.iconSize}
-              className="transition-transform duration-300"
-            />
-          </div>
-        )}
+        href={href}
+        aria-label={ariaLabel || (typeof children === 'string' ? children : undefined)}
+        sx={buttonStyles}
+        startIcon={startIcon}
+        endIcon={endIcon || (isPrimary ? <ArrowRight className="h-4 w-4" /> : null)}
       >
         {children}
       </MuiButton>
-    </motion.div>
+    );
+  }
+
+  // ShadCN Button
+  return (
+    <Button
+      variant={isPrimary ? "default" : "outline"}
+      onClick={onClick}
+      asChild={!!href}
+      className={`rounded-full ${isPrimary ? 'bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0f243d] hover:to-[#2c6069]' : 'border-[#143151] text-[#143151]'} ${className}`}
+    >
+      {href ? (
+        <a href={href} aria-label={ariaLabel}>
+          {startIcon && <span className="mr-2">{startIcon}</span>}
+          {children}
+          {endIcon && <span className="ml-2">{endIcon}</span>}
+          {!endIcon && isPrimary && <ArrowRight className="ml-2 h-4 w-4" />}
+        </a>
+      ) : (
+        <>
+          {startIcon && <span className="mr-2">{startIcon}</span>}
+          {children}
+          {endIcon && <span className="ml-2">{endIcon}</span>}
+          {!endIcon && isPrimary && <ArrowRight className="ml-2 h-4 w-4" />}
+        </>
+      )}
+    </Button>
   );
 };
-
-export default LandingButton;

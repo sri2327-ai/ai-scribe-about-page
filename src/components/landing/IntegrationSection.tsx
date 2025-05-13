@@ -1,137 +1,206 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Box, Typography, Card, CardContent, Grid, useTheme } from "@mui/material";
-import { useMediaQuery } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Grid, Container, Tabs, Tab, useTheme } from "@mui/material";
+import { motion } from "framer-motion";
 import { landingPageStyles } from '@/styles/landing-page-utils';
-import LandingButton from './LandingButton';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
-// Integration partners data
-const integrationPartners = [
-  { name: "Epic", logo: "/HeaderLogo.png" },
-  { name: "Cerner", logo: "/HeaderLogo.png" },
-  { name: "Athenahealth", logo: "/HeaderLogo.png" },
-  { name: "Allscripts", logo: "/HeaderLogo.png" },
-  { name: "NextGen", logo: "/HeaderLogo.png" },
-  { name: "eClinicalWorks", logo: "/HeaderLogo.png" }
-];
-
-const IntegrationCard = ({ name, logo }) => (
-  <motion.div
-    whileHover={{ y: -5, boxShadow: landingPageStyles.card.hoverShadow }}
-    transition={{ duration: 0.3 }}
-  >
-    <Card 
-      sx={{ 
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 140,
-        borderRadius: landingPageStyles.card.borderRadius,
-        boxShadow: landingPageStyles.card.boxShadow,
-        p: 2,
-        backgroundColor: 'white',
-        transition: 'all 0.3s ease',
-      }}
+// Integration Card Component
+const IntegrationCard = ({ title, description, imgSrc, index }) => {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.1, duration: 0.5 }}
+      className="h-full"
     >
-      <CardContent sx={{ p: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
-        <img 
-          src={logo} 
-          alt={`${name} logo`} 
-          style={{ height: '40px', objectFit: 'contain' }}
-          loading="lazy"
-        />
-        <Typography 
-          variant="subtitle1" 
-          sx={{ 
+      <Box
+        sx={{
+          height: '100%',
+          p: { xs: 3, md: 4 },
+          borderRadius: '12px',
+          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.08)',
+          border: '1px solid #E5E7EB',
+          backgroundColor: 'white',
+          transition: 'all 0.3s ease',
+          display: 'flex',
+          flexDirection: 'column',
+          '&:hover': {
+            transform: 'translateY(-5px)',
+            boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.12)'
+          }
+        }}
+      >
+        <Box sx={{ mb: 2, height: '60px', display: 'flex', alignItems: 'center' }}>
+          <img 
+            src={imgSrc} 
+            alt={title} 
+            style={{ 
+              maxHeight: '50px', 
+              maxWidth: '100%', 
+              objectFit: 'contain' 
+            }} 
+            loading="lazy"
+          />
+        </Box>
+        <Typography
+          variant="h6"
+          sx={{
+            fontSize: '1.25rem',
             fontWeight: 500,
-            fontSize: '1rem',
-            color: landingPageStyles.colors.primary
+            color: landingPageStyles.colors.primary,
+            mb: 1.5
           }}
         >
-          {name}
+          {title}
         </Typography>
-      </CardContent>
-    </Card>
-  </motion.div>
-);
-
-const IntegrationSection = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
-  return (
-    <motion.section 
-      className="py-16 md:py-20 bg-gray-50"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.7 }}
-      viewport={{ once: true }}
-    >
-      <Box className="container mx-auto px-4">
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+        <Typography
+          variant="body2"
+          sx={{
+            fontSize: '1rem',
+            lineHeight: 1.5,
+            color: landingPageStyles.colors.gray[600],
+            flexGrow: 1
+          }}
         >
-          <Typography 
-            variant="h2" 
+          {description}
+        </Typography>
+      </Box>
+    </motion.div>
+  );
+};
+
+export default function IntegrationSection() {
+  const theme = useTheme();
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+
+  const integrations = [
+    {
+      title: "Epic Integration",
+      description: "Seamlessly connect with Epic EHR for complete clinical workflow automation and documentation.",
+      imgSrc: "/aws.png",
+    },
+    {
+      title: "Cerner Integration",
+      description: "Synchronize patient data and clinical documentation with Cerner systems in real-time.",
+      imgSrc: "/aws.png",
+    },
+    {
+      title: "Calendar Apps",
+      description: "Integrate with Google Calendar, Outlook, and other scheduling tools for appointment management.",
+      imgSrc: "/aws.png",
+    },
+    {
+      title: "Patient Portals",
+      description: "Connect with patient portals for streamlined engagement and communication.",
+      imgSrc: "/aws.png",
+    },
+  ];
+
+  const integrationsByCategory = [
+    {
+      category: "EHR Systems",
+      items: integrations.slice(0, 2)
+    },
+    {
+      category: "Practice Management",
+      items: integrations.slice(2, 4)
+    },
+    {
+      category: "Communication",
+      items: integrations.slice(0, 2)
+    },
+  ];
+
+  return (
+    <Box sx={{ py: { xs: 6, md: 10 }, backgroundColor: "#F5F9FF" }}>
+      <Container maxWidth="lg">
+        <Box 
+          sx={{ 
+            textAlign: "center", 
+            mb: { xs: 5, md: 8 }
+          }}
+        >
+          <Typography
             component="h2"
             sx={{
-              fontWeight: landingPageStyles.typography.h2.fontWeight,
-              fontSize: landingPageStyles.typography.h2.fontSize,
-              lineHeight: landingPageStyles.typography.h2.lineHeight,
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+              fontWeight: 600,
+              lineHeight: 1.2,
               color: landingPageStyles.colors.primary,
-              mb: 2
+              mb: 2,
+              letterSpacing: '-0.025em'
             }}
           >
-            Seamless Integration with Your Existing Systems
+            Seamless Integrations
           </Typography>
-          <Typography 
-            variant="body1"
+          <Typography
             sx={{
-              fontWeight: landingPageStyles.typography.body1.fontWeight,
-              fontSize: landingPageStyles.typography.body1.fontSize,
-              lineHeight: landingPageStyles.typography.body1.lineHeight,
+              fontSize: { xs: '1rem', sm: '1.125rem' },
+              lineHeight: 1.6,
               color: landingPageStyles.colors.gray[600],
               maxWidth: '800px',
               mx: 'auto'
             }}
           >
-            S10.AI works with all major healthcare systems and tools, ensuring smooth implementation and workflow continuity.
+            Connect S10.AI with your existing tools and platforms. Our solution integrates 
+            with over 7,000 applications to enhance your clinical workflow.
           </Typography>
-        </motion.div>
+        </Box>
 
-        <Grid container spacing={3} justifyContent="center">
-          {integrationPartners.map((partner, index) => (
-            <Grid item xs={6} sm={4} md={4} lg={2} key={index}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <IntegrationCard name={partner.name} logo={partner.logo} />
-              </motion.div>
+        <Box sx={{ mb: 4 }}>
+          <Tabs 
+            value={activeTab} 
+            onChange={handleTabChange}
+            sx={{
+              '& .MuiTabs-flexContainer': {
+                justifyContent: 'center',
+              },
+              '& .MuiTab-root': {
+                fontSize: '1rem',
+                fontWeight: 500,
+                px: 3,
+                py: 1.5
+              },
+              '& .Mui-selected': {
+                color: landingPageStyles.colors.secondary
+              },
+              '& .MuiTabs-indicator': {
+                backgroundColor: landingPageStyles.colors.secondary
+              }
+            }}
+          >
+            {integrationsByCategory.map((cat, idx) => (
+              <Tab key={idx} label={cat.category} />
+            ))}
+          </Tabs>
+        </Box>
+
+        <Grid container spacing={4}>
+          {integrationsByCategory[activeTab].items.map((integration, index) => (
+            <Grid xs={12} sm={6} md={6} lg={3} key={index} item>
+              <IntegrationCard 
+                title={integration.title}
+                description={integration.description}
+                imgSrc={integration.imgSrc}
+                index={index}
+              />
             </Grid>
           ))}
         </Grid>
-
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 6 }}>
-          <LandingButton 
-            variant="primary" 
-            size="medium" 
-            ariaLabel="Check integration compatibility"
-          >
-            Check Compatibility
-          </LandingButton>
+        
+        <Box sx={{ textAlign: 'center', mt: 6 }}>
+          <Button variant="default" className="bg-[#143151] hover:bg-[#0f243d] text-white">
+            Explore All Integrations
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
         </Box>
-      </Box>
-    </motion.section>
+      </Container>
+    </Box>
   );
 };
-
-export default IntegrationSection;
