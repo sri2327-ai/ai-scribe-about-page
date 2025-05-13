@@ -122,23 +122,9 @@ export const SecondSection = () => {
   };
   return <section className="py-10 px-2 md:px-8 lg:px-16 bg-white overflow-hidden">
       <Box className="container mx-auto max-w-6xl flex flex-col items-center">
-        <Typography variant="h5" sx={{
-        textAlign: "center",
-        color: "#143151",
-        fontWeight: 700,
-        mb: {
-          xs: 4,
-          md: 6
-        },
-        fontSize: {
-          xs: "1.2rem",
-          sm: "1.4rem",
-          md: "1.7rem"
-        },
-        letterSpacing: 0.1
-      }} className="">
+        <h5 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 text-center">
           Trusted By Leading Healthcare Organisations
-        </Typography>
+        </h5>
 
         {isMobile ?
       // Mobile view with Slider
