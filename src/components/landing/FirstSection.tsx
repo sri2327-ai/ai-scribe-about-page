@@ -8,11 +8,16 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
+import { useWindowSize } from '@/hooks/use-window-size';
+import { useIsMobile } from '@/hooks/use-mobile';
+
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const { width } = useWindowSize();
+  const isMobile = useIsMobile();
 
   // Add intersection observer for scroll animations
   useEffect(() => {
@@ -31,6 +36,7 @@ export const FirstSection = () => {
       elements?.forEach(el => observer.unobserve(el));
     };
   }, []);
+  
   const clinicianBenefits = [{
     icon: <Clock className="w-5 h-5 text-[#387E89]" />,
     text: "75% faster charting"
@@ -76,12 +82,12 @@ export const FirstSection = () => {
       <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-40 left-10 w-72 h-72 bg-teal-100/10 rounded-full blur-3xl"></div>
       
-      {/* Main content container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-16 lg:py-20 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 items-center">
+      {/* Main content container - improved responsiveness */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 sm:py-16 lg:py-20 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8 items-center">
           
           {/* Left column - Main heading and CTA */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-6 sm:space-y-8">
             <motion.div initial={{
             opacity: 0,
             y: 20
@@ -91,11 +97,11 @@ export const FirstSection = () => {
           }} transition={{
             duration: 0.7,
             delay: 0.1
-          }} className="space-y-6">
+          }} className="space-y-4 sm:space-y-6">
               {/* Pill badge */}
               
               
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-gray-900">
                 AI Scribing & <br />
                 <span className="bg-gradient-to-r from-[#143151] to-[#387E89] text-transparent bg-clip-text">
                   Patient Engagement
@@ -104,23 +110,23 @@ export const FirstSection = () => {
                 Like You
               </h1>
               
-              <div className="flex flex-wrap gap-3 pt-2">
-                {clinicianBenefits.map((benefit, index) => <div key={index} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100">
+              <div className="flex flex-wrap gap-2 sm:gap-3 pt-2">
+                {clinicianBenefits.map((benefit, index) => <div key={index} className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100">
                     {benefit.icon}
-                    <span className="text-sm font-medium text-gray-700">{benefit.text}</span>
+                    <span className="text-xs sm:text-sm font-medium text-gray-700">{benefit.text}</span>
                   </div>)}
               </div>
               
-              <div className="pt-4">
-                <Button onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="rounded-full px-6 py-6 text-base font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-white">
+              <div className="pt-2 sm:pt-4">
+                <Button onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="rounded-full px-4 sm:px-6 py-5 sm:py-6 text-sm sm:text-base font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-white">
                   <motion.div animate={isHovered ? {
                   x: [0, 5, 0]
                 } : {}} transition={{
                   duration: 1,
                   repeat: isHovered ? Infinity : 0
-                }} className="flex items-center gap-2">
+                }} className="flex items-center gap-1 sm:gap-2">
                     Request A Demo
-                    <ArrowRight className="h-5 w-5" />
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                   </motion.div>
                 </Button>
               </div>
@@ -137,35 +143,35 @@ export const FirstSection = () => {
         }} transition={{
           duration: 0.7,
           delay: 0.3
-        }} className="lg:col-span-3 relative mt-8 lg:mt-4">
+        }} className="lg:col-span-3 relative mt-6 sm:mt-8 lg:mt-0">
             <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-              <div className="p-4 bg-gray-50 border-b border-gray-100">
-                <h3 className="font-medium text-gray-900 text-lg flex items-center">
+              <div className="p-3 sm:p-4 bg-gray-50 border-b border-gray-100">
+                <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center">
                   Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full">Clinician-First</span>
                 </h3>
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full">
-                <div className="px-4 pt-4">
+                <div className="px-3 sm:px-4 pt-3 sm:pt-4">
                   <TabsList className="w-full flex overflow-x-auto hide-scrollbar gap-1 bg-gray-50/70 p-1 rounded-lg">
-                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center px-3 py-1 gap-1.5 my-1 rounded-lg data-[state=active]:shadow-none">
+                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center px-2 sm:px-3 py-1 gap-1 sm:gap-1.5 my-1 rounded-lg data-[state=active]:shadow-none text-xs sm:text-sm whitespace-nowrap">
                         <span className="flex items-center justify-center">{tab.icon}</span>
                         <span>{tab.title}</span>
                       </TabsTrigger>)}
                   </TabsList>
                 </div>
                 
-                <div className="p-4">
+                <div className="p-3 sm:p-4">
                   {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
                       <CardContent className="p-0">
-                        <div className="flex flex-col md:flex-row gap-4 items-start p-2">
+                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2">
                           <div className="w-full space-y-2">
-                            <h3 className="text-xl font-medium text-[#143151]">{tab.title}</h3>
-                            <p className="text-gray-600">{tab.description}</p>
+                            <h3 className="text-lg sm:text-xl font-medium text-[#143151]">{tab.title}</h3>
+                            <p className="text-sm sm:text-base text-gray-600">{tab.description}</p>
                             
-                            <div className="flex items-center gap-2 mt-4 bg-blue-50/50 p-3 rounded-lg">
-                              <CheckCircle className="w-5 h-5 text-[#387E89]" />
-                              <span className="font-medium text-[#387E89]">{tab.benefit}</span>
+                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg">
+                              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89]" />
+                              <span className="font-medium text-sm sm:text-base text-[#387E89]">{tab.benefit}</span>
                               
                               <div className="ml-auto">
                                 <VoiceAnimation />
@@ -191,17 +197,18 @@ export const FirstSection = () => {
       }} transition={{
         duration: 0.7,
         delay: 0.6
-      }} className="mt-16">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4">
-            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-4">S10.AI is recommended by</Typography>
+      }} className="mt-10 sm:mt-16">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-3 sm:p-4">
+            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-2 sm:mb-4 text-sm sm:text-base">S10.AI is recommended by</Typography>
             
             <Box sx={{
             overflow: "hidden",
             width: '100%',
             '& .marquee-container': {
               minHeight: {
-                xs: '40px',
-                sm: '48px'
+                xs: '32px',
+                sm: '40px',
+                md: '48px'
               }
             }
           }}>
@@ -215,7 +222,8 @@ export const FirstSection = () => {
               }}>
                     <Box sx={{
                   mx: {
-                    xs: 3,
+                    xs: 2,
+                    sm: 3,
                     md: 5
                   },
                   display: 'flex',
@@ -223,7 +231,7 @@ export const FirstSection = () => {
                 }}>
                       <img src={logo} alt={`Healthcare partner ${index + 1}`} style={{
                     width: 'auto',
-                    height: '32px',
+                    height: isMobile ? '24px' : '32px',
                     objectFit: 'contain'
                   }} />
                     </Box>
