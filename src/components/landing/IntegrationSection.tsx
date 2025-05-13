@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Info } from "lucide-react";
 import { IntegrationChecker } from './IntegrationChecker';
 import { Link } from 'react-router-dom';
 
@@ -42,6 +42,22 @@ const IntegrationSection = () => {
           className="mb-12"
         >
           <IntegrationChecker />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex items-center justify-center mb-6"
+        >
+          <div className="bg-white/10 rounded-lg p-3 max-w-lg flex items-start gap-3 backdrop-blur-sm">
+            <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
+            <p className="text-sm text-white text-left">
+              <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
+              Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
+            </p>
+          </div>
         </motion.div>
 
         <motion.div
