@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -141,7 +142,7 @@ export const FirstSection = () => {
             <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
               <div className="p-4 bg-gray-50 border-b border-gray-100">
                 <h3 className="font-medium text-gray-900 text-lg flex items-center">
-                  Our Solutions <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full">AI-Powered</span>
+                  Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full">Clinician-First</span>
                 </h3>
               </div>
               
