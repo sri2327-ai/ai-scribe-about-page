@@ -1,15 +1,17 @@
 
 import React, { memo } from "react";
 import { Box, Stack, Typography } from "@mui/material";
-import { ShieldCheck, ShieldHalf, Leaf, Database, Lock } from "lucide-react";
+import { ShieldCheck, ShieldHalf, Leaf, Database, Lock, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
+import { Button } from "@/components/ui/button"; 
 
 interface ComplianceCardData {
   title: string;
   icon: React.ComponentType<any>;
   description: string;
   details: string[];
+  link: string; // Added link property for "Learn More" button
 }
 
 interface ComplianceCardProps {
@@ -26,7 +28,8 @@ const complianceCards: ComplianceCardData[] = [
       'Strict patient data confidentiality',
       'Comprehensive privacy safeguards',
       'Regulated access controls'
-    ]
+    ],
+    link: '/security/hipaa'
   },
   { 
     title: 'PIPEDA Compliant', 
@@ -36,7 +39,8 @@ const complianceCards: ComplianceCardData[] = [
       'Canadian privacy law adherence',
       'Transparent data handling',
       'Consent-based information management'
-    ]
+    ],
+    link: '/security/pipeda'
   },
   { 
     title: 'GDPR Compliant', 
@@ -46,7 +50,8 @@ const complianceCards: ComplianceCardData[] = [
       'European data protection standards',
       'Individual privacy rights',
       'Cross-border data transfer protocols'
-    ]
+    ],
+    link: '/security/gdpr'
   },
   { 
     title: 'ISO 27001 Certified', 
@@ -56,7 +61,8 @@ const complianceCards: ComplianceCardData[] = [
       'AES-256 encryption',
       'Rigorous security audits',
       'Continuous risk management'
-    ]
+    ],
+    link: '/security/iso27001'
   },
   { 
     title: 'Automated Data Erasure', 
@@ -66,7 +72,8 @@ const complianceCards: ComplianceCardData[] = [
       'Secure post-documentation deletion',
       'Automated data lifecycle management',
       'Minimal data footprint'
-    ]
+    ],
+    link: '/security/data-erasure'
   },
   { 
     title: 'U.S. & Canada Compliance', 
@@ -76,7 +83,8 @@ const complianceCards: ComplianceCardData[] = [
       'Multi-jurisdictional compliance',
       'Adaptive regulatory adherence',
       'Cross-border data protection'
-    ]
+    ],
+    link: '/security/us-canada-compliance'
   }
 ];
 
@@ -95,7 +103,7 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
           background: 'white',
           borderRadius: '12px',
           // Ensures enough space for ALL content & prevents clipping:
-          minHeight: { xs: 320, sm: 320, md: 320, lg: 340 },
+          minHeight: { xs: 320, sm: 320, md: 320, lg: 380 }, // Increased for Learn More button
           height: "100%", // let ResponsiveCarousel manage actual pixel height
           display: 'flex',
           flexDirection: 'column',
@@ -175,6 +183,20 @@ const ComplianceCard = memo(({ card, index }: ComplianceCardProps) => {
               <li key={idx}>{detail}</li>
             ))}
           </Typography>
+          
+          {/* Learn More button */}
+          <Box sx={{ mt: 3, width: '100%', textAlign: 'center' }}>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="text-[#387E89] border-[#387E89] hover:bg-[#387E89]/10 transition-all duration-300"
+              asChild
+            >
+              <a href={card.link} className="flex items-center gap-1">
+                Learn more <ArrowRight className="h-4 w-4 ml-1" />
+              </a>
+            </Button>
+          </Box>
         </Box>
       </Box>
     </motion.div>
@@ -253,7 +275,7 @@ const TenthSection = () => {
               showControls={true}
               controlsBelow={true} // Moves arrow controls below & centers them
               itemWidth={370} // Wider card to fit more text, especially long titles/details
-              itemHeight={340} // Give enough space to never cut content
+              itemHeight={380} // Increased height to accommodate Learn More button
               cardClassName="flex flex-col h-full justify-between"
               itemKey={(card, idx) => `${card.title}-${idx}`}
               renderItem={(card, index) => (
