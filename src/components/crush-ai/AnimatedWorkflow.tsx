@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
@@ -14,10 +13,10 @@ const stepColors = {
   start: "#046f90",       // Blue
   previous: "#387E89",    // Teal
   notes: "#5192AE",       // Light Blue
-  referral: "#143151",    // Dark Blue
+  referral: "#9b87f5",    // Purple for "create referral letters" (changed)
   labs: "#f06292",        // Pink
-  instructions: "#8B5CF6", // Purple
-  ehr: "#0EA5E9"          // Sky Blue
+  instructions: "#1EAEDB", // Bright Blue for "generate patient instructions" (changed)
+  ehr: "#4CAF50"          // Green for "push to ehr" (changed)
 };
 
 const workflowSteps = [
