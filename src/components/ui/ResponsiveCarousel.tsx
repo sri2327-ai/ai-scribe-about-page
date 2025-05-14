@@ -123,8 +123,8 @@ export function ResponsiveCarousel<T>({
               <div
                 className={cn(
                   cardClassName ?? "", 
-                  shadowStyles.carousel,
-                  "transition-all duration-300 hover:translate-y-[-3px]"
+                  shadowStyles.cardHover,
+                  "transition-all duration-300 rounded-xl border border-gray-100"
                 )}
                 style={{
                   height: "100%",
@@ -132,6 +132,7 @@ export function ResponsiveCarousel<T>({
                   flexDirection: "column",
                   width: "100%",
                   borderRadius: "0.75rem",
+                  overflow: "hidden",
                 }}
               >
                 {renderItem(item, idx)}
@@ -143,9 +144,9 @@ export function ResponsiveCarousel<T>({
           <>
             <CarouselPrevious
               className={cn(
-                "!rounded-full h-10 w-10 bg-white shadow-lg border absolute",
+                "!rounded-full h-10 w-10 bg-white shadow-xl border absolute",
                 "z-20 top-1/2 -translate-y-1/2",
-                "opacity-85 hover:opacity-100 transition-opacity duration-200",
+                "opacity-90 hover:opacity-100 transition-opacity duration-200",
                 "left-2 md:left-4",
                 "text-gray-800",
                 "border-gray-100",
@@ -155,9 +156,9 @@ export function ResponsiveCarousel<T>({
             />
             <CarouselNext
               className={cn(
-                "!rounded-full h-10 w-10 bg-white shadow-lg border absolute",
+                "!rounded-full h-10 w-10 bg-white shadow-xl border absolute",
                 "z-20 top-1/2 -translate-y-1/2",
-                "opacity-85 hover:opacity-100 transition-opacity duration-200",
+                "opacity-90 hover:opacity-100 transition-opacity duration-200",
                 "right-2 md:right-4",
                 "text-gray-800",
                 "border-gray-100",
@@ -171,24 +172,24 @@ export function ResponsiveCarousel<T>({
           <div className="flex justify-center gap-4 mt-6">
             <CarouselPrevious
               className={cn(
-                "static relative left-0 translate-y-0 !rounded-full h-10 w-10 bg-white border",
-                "opacity-90 hover:opacity-100 transition-opacity duration-200",
+                "static relative left-0 translate-y-0 !rounded-full h-11 w-11 bg-white border",
+                "opacity-90 hover:opacity-100 transition-all duration-300",
                 "text-gray-800",
                 "border-gray-200",
-                shadowStyles.subtle,
+                shadowStyles.button,
                 "flex items-center justify-center",
-                "hover:translate-y-[-2px] transition-all duration-300"
+                "hover:translate-y-[-2px]"
               )}
             />
             <CarouselNext
               className={cn(
-                "static relative left-0 translate-y-0 !rounded-full h-10 w-10 bg-white border",
-                "opacity-90 hover:opacity-100 transition-opacity duration-200", 
+                "static relative left-0 translate-y-0 !rounded-full h-11 w-11 bg-white border",
+                "opacity-90 hover:opacity-100 transition-all duration-300", 
                 "text-gray-800",
                 "border-gray-200",
-                shadowStyles.subtle,
+                shadowStyles.button,
                 "flex items-center justify-center",
-                "hover:translate-y-[-2px] transition-all duration-300"
+                "hover:translate-y-[-2px]"
               )}
             />
           </div>

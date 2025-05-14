@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -198,7 +197,6 @@ const CarouselPrevious = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
   return (
     <Button
@@ -206,12 +204,12 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute rounded-full h-8 w-8 sm:h-9 sm:w-9",
-        "bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-lg border-none",
+        "absolute rounded-full h-9 w-9 sm:h-10 sm:w-10",
+        "bg-white text-gray-800 shadow-[0_5px_15px_rgba(0,0,0,0.15)] border-gray-100 hover:bg-gray-50",
         orientation === "horizontal"
           ? "-left-8 sm:-left-12 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        "opacity-90 hover:opacity-100",
+        "transition-all duration-300 hover:scale-105",
         className
       )}
       disabled={!canScrollPrev}
@@ -230,7 +228,6 @@ const CarouselNext = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
-  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
   return (
     <Button
@@ -238,12 +235,12 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute rounded-full h-8 w-8 sm:h-9 sm:w-9",
-        "bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-lg border-none",
+        "absolute rounded-full h-9 w-9 sm:h-10 sm:w-10",
+        "bg-white text-gray-800 shadow-[0_5px_15px_rgba(0,0,0,0.15)] border-gray-100 hover:bg-gray-50",
         orientation === "horizontal"
           ? "-right-8 sm:-right-12 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        "opacity-90 hover:opacity-100",
+        "transition-all duration-300 hover:scale-105",
         className
       )}
       disabled={!canScrollNext}

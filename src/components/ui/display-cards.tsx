@@ -32,17 +32,19 @@ function DisplayCard({
   return (
     <motion.div
       className={cn(
-        "relative flex h-full min-h-[180px] w-full -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 transition-all duration-700 hover:border-gray-300 hover:bg-gray-50 [&>*]:flex [&>*]:items-center [&>*]:gap-2",
+        "relative flex h-full min-h-[180px] w-full -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 transition-all duration-500",
+        "hover:border-gray-300 hover:bg-gray-50 hover:-translate-y-1",
+        "[&>*]:flex [&>*]:items-center [&>*]:gap-2",
         cardClassName || "",
         className,
-        shadowStyles.card
+        shadowStyles.depthEffect
       )}
       onClick={() => setIsExpanded(!isExpanded)}
       whileHover={{ scale: 1.02 }}
       layout
     >
       <div>
-        <span className={cn("relative inline-block rounded-full bg-gray-100 p-2", iconClassName)}>
+        <span className={cn("relative inline-block rounded-full bg-gray-100 p-2 shadow-md", iconClassName)}>
           {icon}
         </span>
         <p className={cn("text-lg font-medium", titleClassName)}>{title}</p>
@@ -50,7 +52,7 @@ function DisplayCard({
       <AnimatePresence>
         {isExpanded ? (
           <motion.div 
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/85"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -70,7 +72,7 @@ function DisplayCard({
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className={cn("relative inline-block rounded-full bg-gray-100 p-2", iconClassName)}>
+                <span className={cn("relative inline-block rounded-full bg-gray-100 p-2 shadow-md", iconClassName)}>
                   {icon}
                 </span>
                 <p className={cn("text-2xl font-medium", titleClassName)}>{title}</p>
@@ -80,7 +82,7 @@ function DisplayCard({
               <button 
                 className={cn(
                   "mt-4 bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded-md transition-colors",
-                  shadowStyles.subtle
+                  shadowStyles.button
                 )}
                 onClick={(e) => {
                   e.stopPropagation();

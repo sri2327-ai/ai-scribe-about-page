@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { shadowStyles } from "@/lib/shadow-utils";
 
 type Testimonial = {
   name: string;
@@ -82,10 +83,16 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom bg-black rounded-3xl flex items-center justify-center p-6 sm:p-8 border border-white/30"
+                  className={cn(
+                    "absolute inset-0 origin-bottom bg-black rounded-3xl flex items-center justify-center p-6 sm:p-8 border border-white/30",
+                    shadowStyles.depthEffect
+                  )}
                 >
                   <div className="text-center">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white mb-4 sm:mb-6 flex items-center justify-center mx-auto border border-white/30">
+                    <div className={cn(
+                      "w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-white mb-4 sm:mb-6 flex items-center justify-center mx-auto border border-white/30",
+                      shadowStyles.button
+                    )}>
                       <span className="text-xl sm:text-2xl font-bold text-black">{testimonial.name.charAt(0)}</span>
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold text-white">{testimonial.name}</h3>
@@ -130,13 +137,21 @@ export const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-8 md:pt-0">
             <button
               onClick={handlePrev}
-              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-transparent flex items-center justify-center group/button border border-white"
+              className={cn(
+                "h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-transparent flex items-center justify-center group/button border border-white hover:bg-white/10",
+                "transition-all duration-300 hover:scale-105",
+                shadowStyles.subtle
+              )}
             >
               <ArrowLeft className="h-5 w-5 sm:h-6 sm:w-6 text-white group-hover/button:translate-x-[-2px] transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-transparent flex items-center justify-center group/button border border-white"
+              className={cn(
+                "h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-transparent flex items-center justify-center group/button border border-white hover:bg-white/10",
+                "transition-all duration-300 hover:scale-105",
+                shadowStyles.subtle
+              )}
             >
               <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 text-white group-hover/button:translate-x-[2px] transition-transform duration-300" />
             </button>
