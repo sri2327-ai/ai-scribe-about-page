@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -17,6 +18,7 @@ const workflowSteps = [
     title: "Start Encounter",
     icon: <Send size={30} className="text-black" />,
     description: "Recording patient conversation...",
+    color: "#046f90",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box
@@ -68,6 +70,7 @@ const workflowSteps = [
     title: "Previous Visit Context",
     icon: <History size={30} className="text-black" />,
     description: "Reviewing patient history for context...",
+    color: "#387E89",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
@@ -137,6 +140,7 @@ const workflowSteps = [
     title: "Generate Clinical Notes",
     icon: <FileText size={30} className="text-black" />,
     description: "Creating comprehensive documentation using your preferred templates...",
+    color: "#5192AE",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
@@ -221,6 +225,7 @@ const workflowSteps = [
     title: "Create Referral Letters",
     icon: <ClipboardList size={30} className="text-black" />,
     description: "Preparing specialist referrals...",
+    color: "#143151",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
@@ -286,6 +291,7 @@ const workflowSteps = [
     title: "Process Lab & Prescription Orders",
     icon: <TestTube size={30} className="text-black" />,
     description: "Submitting necessary lab work and prescriptions...",
+    color: "#f06292",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -337,6 +343,7 @@ const workflowSteps = [
     title: "Generate Patient Instructions",
     icon: <Mail size={30} className="text-black" />,
     description: "Creating personalized care instructions...",
+    color: "#387E89",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
@@ -404,6 +411,7 @@ const workflowSteps = [
     title: "Push Notes to EHR",
     icon: <Database size={30} className="text-black" />,
     description: "Secure integration with all EHR systems",
+    color: "#5192AE",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center' }}>
@@ -499,6 +507,13 @@ export function AnimatedWorkflow() {
         overflow: "hidden"
       }}
     >
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+        <div className="absolute w-32 h-32 rounded-full bg-blue-400 blur-3xl"></div>
+        <div className="absolute w-24 h-24 rounded-full bg-pink-400 blur-3xl -translate-x-20 translate-y-10"></div>
+        <div className="absolute w-24 h-24 rounded-full bg-teal-400 blur-3xl translate-x-16 -translate-y-12"></div>
+      </div>
+
       <Box 
         sx={{ 
           flex: 1,
@@ -506,7 +521,9 @@ export function AnimatedWorkflow() {
           flexDirection: "column",
           gap: 2,
           overflowY: "auto",
-          maxHeight: { xs: "450px", sm: "500px" }
+          maxHeight: { xs: "450px", sm: "500px" },
+          position: "relative",
+          zIndex: 1
         }}
       >
         {workflowSteps.map((step, index) => {
@@ -517,84 +534,98 @@ export function AnimatedWorkflow() {
           return (
             <motion.div
               key={step.id}
-              initial={{ opacity: 0, height: 0 }}
+              initial={false}
               animate={{ 
-                opacity: isActive ? 1 : 0.5,
-                height: isActive ? "auto" : "64px",
-                x: isActive ? 0 : -5
+                opacity: isActive ? 1 : 0.7,
+                y: 0,
+                height: "auto"
               }}
-              transition={{ 
-                duration: 0.5,
-                ease: "easeOut"
-              }}
-              className="relative overflow-hidden"
+              className={`relative rounded-lg ${isActive ? 'bg-gray-50/50' : ''} hover:bg-gray-50/30 transition-all duration-300`}
               onClick={() => handleStepClick(index)}
+              style={{
+                borderLeft: isActive ? `3px solid ${step.color}` : '3px solid transparent',
+                overflow: 'visible'
+              }}
             >
               <motion.div
-                className="flex flex-col gap-4 cursor-pointer"
-                whileHover={{ 
-                  scale: 1.02,
-                  transition: { duration: 0.3 }
-                }}
+                className="flex flex-col gap-2 cursor-pointer p-3"
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.2 }}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <motion.div 
-                    className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                     style={{ 
-                      backgroundColor: `${crushAIColors.primary}10`,
+                      backgroundColor: `${step.color}15`,
+                      boxShadow: isActive ? `0 0 0 2px ${step.color}40` : 'none',
                       transition: "all 0.3s ease" 
-                    }}
-                    whileHover={{ 
-                      scale: 1.1,
-                      transition: { duration: 0.2 }
                     }}
                   >
                     {step.icon}
                   </motion.div>
                   <div>
-                    <motion.h3 
-                      className="text-lg font-semibold text-gray-900"
-                    >
+                    <h3 className="text-base md:text-lg font-semibold" style={{ color: isActive ? step.color : '#333' }}>
                       {step.title}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-sm text-gray-600"
-                    >
+                    </h3>
+                    <p className="text-xs md:text-sm text-gray-600">
                       {step.description}
-                    </motion.p>
+                    </p>
                   </div>
+                  
+                  {isActive && (
+                    <div className="ml-auto">
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: step.color }}></div>
+                    </div>
+                  )}
                 </div>
                 
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20, height: 0 }}
-                      animate={{ opacity: 1, y: 0, height: "auto" }}
-                      exit={{ opacity: 0, y: -20, height: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="ml-16"
-                    >
+                {/* Content area - key fix: no AnimatePresence to prevent content disappearing */}
+                {isActive && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    transition={{ duration: 0.3 }}
+                    className="ml-12 mb-2 mt-1"
+                    style={{ overflow: 'visible' }}
+                  >
+                    <div className="relative bg-white rounded-lg shadow-sm border border-gray-100 overflow-visible">
                       {step.detailContent}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
               
+              {/* Connector line between steps */}
               {index < workflowSteps.length - 1 && (
-                <motion.div
-                  className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
-                  style={{
-                    background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
+                <div 
+                  className="absolute left-5 top-10 w-[1px] h-[calc(100%-10px)]" 
+                  style={{ 
+                    background: `linear-gradient(to bottom, ${step.color}, ${workflowSteps[index + 1].color})`,
+                    opacity: 0.3
                   }}
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: isActive ? 1 : 0.5 }}
-                  transition={{ duration: 0.5 }}
                 />
               )}
             </motion.div>
           );
         })}
       </Box>
+
+      {/* Step indicator dots */}
+      <div className="flex justify-center gap-1.5 mt-4 pb-2">
+        {workflowSteps.map((step, index) => (
+          <button
+            key={index}
+            onClick={() => handleStepClick(index)}
+            className="transition-all duration-300"
+            aria-label={`View ${step.title}`}
+          >
+            <div 
+              className={`rounded-full transition-all duration-300 ${currentStep === index ? 'w-4' : 'w-1.5'} h-1.5`}
+              style={{ backgroundColor: currentStep === index ? step.color : '#e5e7eb' }}
+            />
+          </button>
+        ))}
+      </div>
 
       {/* Add the color pulse animation styles */}
       <style dangerouslySetInnerHTML={{
