@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -75,17 +74,23 @@ const WorkflowCard = ({ icon: Icon, title, description, number }) => {
             <Icon className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1">
-            <div className="text-xs sm:text-sm font-medium mb-1 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">Step {number}</div>
+            <div className="text-xs sm:text-sm font-medium mb-1 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">STEP {number}</div>
             <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-900">{title}</h3>
           </div>
         </div>
         <p className="text-xs sm:text-sm leading-relaxed text-gray-600">{description}</p>
       </div>
       <div 
-        className="absolute -bottom-6 -right-6 text-[80px] sm:text-[120px] font-bold leading-none bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent opacity-60"
+        className="absolute -bottom-2 -right-2 text-[80px] sm:text-[100px] font-bold text-white bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] flex items-center justify-center shadow-lg"
       >
         {number}
       </div>
+      <motion.div 
+        className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#143151] to-[#387E89]"
+        initial={{ height: 0 }}
+        whileHover={{ height: "100%" }}
+        transition={{ duration: 0.3 }}
+      />
     </Card>
   );
 };
@@ -257,7 +262,10 @@ const FifthSection = () => {
             Follow our 7-step process to transform your practice
           </Typography>
 
-          <div>
+          <div className="relative">
+            {/* Step connection line */}
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-0 h-full w-1 bg-gradient-to-b from-[#143151] to-[#387E89] opacity-20 rounded-full" />
+            
             <Carousel
               opts={{
                 align: "start",
@@ -275,19 +283,18 @@ const FifthSection = () => {
 
               {!isMobile && (
                 <div className="flex justify-center gap-2 mt-6 w-full">
-                  <CarouselPrevious />
-                  <div className="flex items-center gap-1 text-sm">
-                    <span className="text-gray-500">Steps</span>
-                    <span className="font-medium bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">1-7</span>
+                  <CarouselPrevious className="relative left-0" />
+                  <div className="flex items-center gap-1 text-sm bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full">
+                    <span className="font-medium">7-Step Workflow</span>
                   </div>
-                  <CarouselNext />
+                  <CarouselNext className="relative right-0" />
                 </div>
               )}
             </Carousel>
             {isMobile && (
               <div className="flex justify-center mt-4">
-                <div className="flex items-center gap-1 text-gray-500 text-xs sm:text-sm select-none">
-                  <span>Swipe to see next</span>
+                <div className="flex items-center gap-1 text-gray-500 text-xs sm:text-sm select-none bg-gray-50 px-3 py-2 rounded-full border border-gray-200">
+                  <span>Swipe to see next step</span>
                   <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" style={{ animation: 'moveRight 1.5s ease-in-out infinite' }} />
                 </div>
               </div>
