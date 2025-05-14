@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LocalHospitalRounded, VideoCall, CalendarToday, Email, ArrowLeft, ArrowRight } from '@mui/icons-material';
 import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -42,8 +42,15 @@ const tabs = [
 
 export default function IntegrationTabs() {
   const isMobile = useIsMobile();
+  const [activeTab, setActiveTab] = useState('ehr');
   const [visibleTabsIndex, setVisibleTabsIndex] = useState(0);
   const tabsToShow = isMobile ? 2 : 4;
+  
+  // Handle viewport changes
+  useEffect(() => {
+    // Reset visible tabs when screen size changes
+    setVisibleTabsIndex(0);
+  }, [isMobile]);
   
   const handlePrevTab = () => {
     setVisibleTabsIndex(prev => Math.max(0, prev - 1));
@@ -51,6 +58,19 @@ export default function IntegrationTabs() {
   
   const handleNextTab = () => {
     setVisibleTabsIndex(prev => Math.min(tabs.length - tabsToShow, prev + 1));
+  };
+  
+  // When selecting a tab that's not visible, scroll to make it visible
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    const tabIndex = tabs.findIndex(tab => tab.value === value);
+    
+    // Check if the selected tab is currently visible
+    if (tabIndex < visibleTabsIndex || tabIndex >= visibleTabsIndex + tabsToShow) {
+      // Calculate the new visibleTabsIndex to make the selected tab visible
+      const newVisibleTabsIndex = Math.max(0, Math.min(tabIndex, tabs.length - tabsToShow));
+      setVisibleTabsIndex(newVisibleTabsIndex);
+    }
   };
 
   return (
@@ -81,24 +101,31 @@ export default function IntegrationTabs() {
         </Typography>
       </div>
 
-      <Tabs defaultValue="ehr" className="w-full max-w-4xl mx-auto">
+      <Tabs 
+        defaultValue="ehr" 
+        value={activeTab} 
+        onValueChange={handleTabChange} 
+        className="w-full max-w-4xl mx-auto"
+      >
         <div className="relative flex items-center mb-6">
           {visibleTabsIndex > 0 && (
             <button 
               onClick={handlePrevTab}
-              className="absolute left-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md"
+              className="absolute left-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
               aria-label="Previous tabs"
+              type="button"
             >
               <ArrowLeft fontSize="small" />
             </button>
           )}
           
-          <TabsList className="scrollbar-hide overflow-x-auto w-full flex flex-nowrap justify-start sm:justify-center bg-transparent gap-2 pl-6 pr-6">
+          <TabsList className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm scrollbar-hide overflow-x-auto w-full flex flex-nowrap justify-start sm:justify-center gap-2 px-10">
             {tabs.slice(visibleTabsIndex, visibleTabsIndex + tabsToShow).map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
                 className="flex-none flex flex-col items-center gap-1 p-2 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-transparent transition-all duration-300 min-w-[120px]"
+                onClick={() => handleTabChange(tab.value)}
               >
                 <div className="icon-wrapper w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                   {tab.icon}
@@ -118,8 +145,9 @@ export default function IntegrationTabs() {
           {visibleTabsIndex < tabs.length - tabsToShow && (
             <button 
               onClick={handleNextTab}
-              className="absolute right-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md"
+              className="absolute right-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
               aria-label="Next tabs"
+              type="button"
             >
               <ArrowRight fontSize="small" />
             </button>
