@@ -149,9 +149,9 @@ export const FirstSection = () => {
               
               <Tabs defaultValue="ai-scribe" className="w-full">
                 <div className="px-3 sm:px-4 pt-3 sm:pt-4">
-                  {/* Enhanced mobile tab navigation */}
-                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
-                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white">
+                  {/* Enhanced tab navigation with better spacing for desktop/laptop */}
+                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
+                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center justify-center px-2 py-2 md:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium md:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white">
                         <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
                         <span className="truncate">{tab.title}</span>
                       </TabsTrigger>)}
