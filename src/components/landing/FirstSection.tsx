@@ -153,7 +153,7 @@ export const FirstSection = () => {
                   <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
                     {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center justify-center px-2 py-2 md:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs md:text-[0.7rem] font-medium dark:text-gray-300 dark:data-[state=active]:text-white">
                         <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
-                        <span className="md:text-[0.7rem] md:leading-tight md:flex md:flex-wrap md:justify-center md:h-auto md:max-w-[80px]">{tab.title}</span>
+                        <span className="md:text-[0.7rem] md:leading-tight md:flex md:flex-wrap md:justify-center md:h-auto md:max-w-[90px]">{tab.title}</span>
                       </TabsTrigger>)}
                   </TabsList>
                 </div>
