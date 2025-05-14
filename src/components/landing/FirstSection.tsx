@@ -12,12 +12,14 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
+import { cn } from '@/lib/utils';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeTab, setActiveTab] = useState("ai-scribe");
   const { width } = useWindowSize();
   const isMobile = useIsMobile();
   
@@ -53,31 +55,35 @@ export const FirstSection = () => {
     text: "Integrates with your EHR"
   }];
 
-  // Feature tab data - updated "Patient Engagement Agent" to "Patient Agent"
+  // Feature tab data
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
     icon: <FileText className="w-5 h-5" />,
     description: "Automated documentation that captures the full patient story while you focus on care.",
-    benefit: "Save 2+ hours per day"
+    benefit: "Save 2+ hours per day",
+    color: "#143151"
   }, {
     id: "patient-engagement",
     title: "Patient Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
-    benefit: "Boost satisfaction by +60%"
+    benefit: "Boost satisfaction by +60%",
+    color: "#387E89"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
     icon: <Users className="w-5 h-5" />,
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
-    benefit: "30+ specialty workflows"
+    benefit: "30+ specialty workflows",
+    color: "#5192AE"
   }, {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
     description: "Works with any EHR system and connects to 7000+ healthcare apps.",
-    benefit: "Seamless connectivity"
+    benefit: "Seamless connectivity",
+    color: "#A5CCF3"
   }];
 
   return (
@@ -139,38 +145,52 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature cards - exactly 50% on desktop */}
+          {/* Right column - Enhanced Feature cards with brand colors */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="relative"
           >
-            <Card className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
-              <div className="p-3 sm:p-4 bg-gray-50/80 border-b border-gray-100 dark:bg-gray-800/50 dark:border-gray-700/50">
-                <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center dark:text-white">
-                  Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
+            <Card className={`bg-gradient-to-b from-white to-blue-50/60 border-0 rounded-xl transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800`}>
+              <div className="p-3 sm:p-4 bg-gradient-to-r from-[#143151] to-[#387E89] border-b dark:border-gray-700/50">
+                <h3 className="font-medium text-white text-base sm:text-lg flex items-center justify-between">
+                  <span>Don't adapt to your AI—make it work for you</span>
+                  <span className="inline-block ml-2 px-2 py-0.5 bg-white/20 text-white text-xs rounded-full backdrop-blur-sm">Clinician-First</span>
                 </h3>
               </div>
               
-              <Tabs defaultValue="ai-scribe" className="w-full">
-                <div className="px-3 sm:px-4 pt-3 sm:pt-4">
-                  {/* Enhanced mobile tab navigation */}
-                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
+              <Tabs 
+                value={activeTab} 
+                onValueChange={setActiveTab} 
+                className="w-full"
+              >
+                <div className="px-3 sm:px-4 pt-4 sm:pt-5">
+                  {/* Enhanced mobile tab navigation with brand colors */}
+                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1.5 rounded-lg dark:bg-gray-800/30">
                     {featureTabs.map(tab => (
                       <TabsTrigger 
                         key={tab.id} 
-                        value={tab.id} 
-                        className="flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white"
+                        value={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={cn(
+                          "flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-md text-xs font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white transition-all duration-300",
+                          activeTab === tab.id 
+                            ? "text-white" 
+                            : "text-gray-700 hover:bg-gray-100/50"
+                        )}
+                        style={{
+                          background: activeTab === tab.id ? `linear-gradient(to right, ${tab.color}, ${tab.color}CC)` : undefined,
+                        }}
                       >
-                        <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
+                        <span className={`flex items-center justify-center shrink-0 ${activeTab === tab.id ? 'text-white' : 'text-gray-600'}`}>{tab.icon}</span>
                         <span className="truncate">{tab.title}</span>
                       </TabsTrigger>
                     ))}
                   </TabsList>
                 </div>
                 
-                <div className="p-3 sm:p-4">
+                <div className="p-4 sm:p-5">
                   {featureTabs.map(tab => (
                     <TabsContent 
                       key={tab.id} 
@@ -178,21 +198,45 @@ export const FirstSection = () => {
                       className="mt-2 focus-visible:outline-none focus-visible:ring-0"
                     >
                       <CardContent className="p-0">
-                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2 transition-all duration-300">
-                          <div className="w-full space-y-2">
-                            <h3 className="text-lg sm:text-xl font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
-                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{tab.description}</p>
+                        <motion.div 
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex flex-col md:flex-row gap-3 sm:gap-4 items-start p-2 transition-all duration-300"
+                        >
+                          <div className="w-full space-y-3">
+                            <h3 className="text-lg sm:text-xl font-medium" 
+                              style={{ color: tab.color }}>
+                              {tab.title}
+                            </h3>
+                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 leading-relaxed">
+                              {tab.description}
+                            </p>
                             
-                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
-                              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
-                              <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
+                            <div className="flex items-center gap-2 mt-3 sm:mt-4 rounded-lg p-3 sm:p-4"
+                              style={{ backgroundColor: `${tab.color}15` }}>
+                              <CheckCircle className="w-5 h-5 sm:w-5 sm:h-5" style={{ color: tab.color }} />
+                              <span className="font-medium text-sm sm:text-base" style={{ color: tab.color }}>
+                                {tab.benefit}
+                              </span>
                               
                               <div className="ml-auto">
                                 <VoiceAnimation />
                               </div>
                             </div>
+
+                            <div className="pt-2">
+                              <Button 
+                                variant="outline" 
+                                size="sm"
+                                className="mt-2 rounded-full border border-gray-200 hover:bg-gray-50 text-sm"
+                              >
+                                Learn more
+                                <ArrowRight className="ml-1 h-3.5 w-3.5" />
+                              </Button>
+                            </div>
                           </div>
-                        </div>
+                        </motion.div>
                       </CardContent>
                     </TabsContent>
                   ))}
