@@ -1,10 +1,12 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { 
   FileText, HardDrive, Send, CheckCircle, 
   ClipboardList, TestTube, Mail, Mic, 
-  Clock, Heart, Database, History
+  Clock, Heart, Database, History,
+  Globe
 } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
@@ -13,10 +15,22 @@ const stepColors = {
   start: "#046f90",       // Blue
   previous: "#387E89",    // Teal
   notes: "#5192AE",       // Light Blue
-  referral: "#9b87f5",    // Purple for "create referral letters" (changed)
+  referral: "#9b87f5",    // Purple for "create referral letters"
   labs: "#f06292",        // Pink
-  instructions: "#1EAEDB", // Bright Blue for "generate patient instructions" (changed)
-  ehr: "#4CAF50"          // Green for "push to ehr" (changed)
+  instructions: "#1EAEDB", // Bright Blue for "generate patient instructions"
+  ehr: "#4CAF50"          // Green for "push to ehr"
+};
+
+// Typography component to avoid repetition
+const Typography = ({ children, component = "p", sx = {} }) => {
+  const defaultSx = {
+    margin: 0,
+    padding: 0,
+    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif',
+    ...sx
+  };
+  
+  return React.createElement(component, { style: defaultSx }, children);
 };
 
 const workflowSteps = [
@@ -87,32 +101,62 @@ const workflowSteps = [
             ))}
           </Box>
           
-          {/* Figma-style illustration */}
+          {/* Enhanced Figma-style illustration with multilingual capabilities */}
           <motion.div 
             className="mt-3 bg-white rounded-lg shadow-sm p-3 w-full border border-gray-100"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <div className="flex gap-3 items-start">
-              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex items-center gap-2">
                 <Mic className="w-4 h-4 text-blue-600" />
+                <span className="text-sm text-blue-600 font-medium">Live Transcription</span>
               </div>
-              <div className="flex-1">
-                <div className="bg-blue-50 rounded-2xl p-3 max-w-[90%]">
-                  <div className="h-2 w-3/4 bg-blue-200 rounded mb-2"></div>
-                  <div className="h-2 w-1/2 bg-blue-200 rounded"></div>
-                </div>
+              <div className="flex items-center gap-1">
+                <Globe className="w-3.5 h-3.5 text-blue-500" />
+                <span className="text-xs text-blue-500">Multi-lingual</span>
               </div>
             </div>
-            <div className="flex gap-3 items-start mt-2 justify-end">
-              <div className="flex-1">
-                <div className="bg-gray-50 rounded-2xl p-3 max-w-[90%] ml-auto">
-                  <div className="h-2 w-full bg-gray-200 rounded mb-2"></div>
-                  <div className="h-2 w-2/3 bg-gray-200 rounded"></div>
+            <div className="space-y-2">
+              <div className="flex gap-3 items-start">
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                  <Mic className="w-4 h-4 text-blue-600" />
+                </div>
+                <div className="flex-1">
+                  <div className="bg-blue-50 rounded-2xl p-3 max-w-[90%]">
+                    <div className="h-2 w-3/4 bg-blue-200 rounded mb-2"></div>
+                    <div className="h-2 w-1/2 bg-blue-200 rounded"></div>
+                  </div>
                 </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-gray-100 shrink-0"></div>
+              <div className="flex gap-3 items-start justify-end">
+                <div className="flex-1">
+                  <div className="bg-gray-50 rounded-2xl p-3 max-w-[90%] ml-auto">
+                    <div className="h-2 w-full bg-gray-200 rounded mb-2"></div>
+                    <div className="h-2 w-2/3 bg-gray-200 rounded"></div>
+                  </div>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-gray-100 shrink-0"></div>
+              </div>
+
+              {/* Language selector indicator */}
+              <motion.div 
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 }}
+                className="mt-2 flex flex-wrap gap-1 justify-center"
+              >
+                {["English", "Español", "Français", "中文", "日本語"].map((lang, i) => (
+                  <motion.div 
+                    key={lang} 
+                    className={`px-2 py-0.5 rounded-full text-xs ${i === 0 ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    {lang}
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
           </motion.div>
         </Box>
@@ -244,8 +288,6 @@ const workflowSteps = [
     color: stepColors.notes,
     detailContent: () => (
       <Box sx={{ mt: 2 }}>
-        {/* Removed the animation with clinical content */}
-        
         {/* Enhanced Figma-style document illustration with the content integrated */}
         <motion.div 
           className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
@@ -833,18 +875,6 @@ const workflowSteps = [
   }
 ];
 
-// Typography component to avoid repetition
-const Typography = ({ children, component = "p", sx = {} }) => {
-  const defaultSx = {
-    margin: 0,
-    padding: 0,
-    fontFamily: '"Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", sans-serif',
-    ...sx
-  };
-  
-  return React.createElement(component, { style: defaultSx }, children);
-};
-
 export function AnimatedWorkflow() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
@@ -1069,8 +1099,25 @@ export function AnimatedWorkflow() {
             opacity: 0.5;
           }
         }
+
+        /* Improve responsiveness */
+        @media (max-width: 640px) {
+          .text-xs {
+            font-size: 0.65rem;
+          }
+          .text-sm {
+            font-size: 0.75rem;
+          }
+          .p-3 {
+            padding: 0.5rem;
+          }
+          .gap-2 {
+            gap: 0.35rem;
+          }
+        }
         `
       }} />
     </Box>
   );
 }
+
