@@ -144,7 +144,7 @@ export const FirstSection = () => {
           delay: 0.3
         }} className="relative">
             <Card className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
-              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm border-b border-gray-100 dark:border-gray-700/50">
+              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to- magenta pink-500/10 backdrop-blur-sm border-b border-gray-100 dark:border-gray-700/50">
                 <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center dark:text-white">
                   Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
                 </h3>
