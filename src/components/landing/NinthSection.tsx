@@ -230,7 +230,8 @@ export const NinthSection = () => {
                   >
                     <ArrowUpRight
                       size={20}
-                      className="text-blue-800 group-hover:text-white"
+                      color="#000000"
+                      className="group-hover:text-white"
                       strokeWidth={2.5}
                     />
                   </Box>
