@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -165,11 +164,20 @@ export const FirstSection = () => {
                       <TabsTrigger 
                         key={tab.id} 
                         value={tab.id} 
-                        className="flex flex-col items-center justify-center px-2 py-2 gap-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium dark:text-gray-300 dark:data-[state=active]:text-white"
+                        className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white"
                         onClick={() => setActiveTab(tab.id)}
                       >
-                        <span className="flex items-center justify-center">{tab.icon}</span>
+                        <span className="flex items-center justify-center p-1.5 bg-gray-50 rounded-full data-[state=active]:bg-white/20 transition-all">{tab.icon}</span>
                         <span className="text-xs leading-tight">{tab.title}</span>
+                        {activeTab === tab.id && (
+                          <motion.div 
+                            layoutId="activeTabIndicator"
+                            className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                          />
+                        )}
                       </TabsTrigger>
                     ))}
                   </TabsList>
