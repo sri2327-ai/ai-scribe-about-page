@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -50,7 +51,7 @@ export const FirstSection = () => {
     text: "HIPAA compliant"
   }];
 
-  // Feature tab data - updated "Patient Agent" to "AI Staffing Engagement"
+  // Feature tab data - updated "AI Staffing Engagement" to "AI Staffing Agent"
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -59,10 +60,10 @@ export const FirstSection = () => {
     benefit: "Save 2+ hours per day"
   }, {
     id: "patient-engagement",
-    title: "AI Staffing Engagement",
+    title: "AI Staffing Agent",
     icon: <MessageSquare className="w-5 h-5" />,
-    description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
-    benefit: "Boost patient satisfaction by +60%"
+    description: "AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.",
+    benefit: "Reduce admin workload by 40%"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
