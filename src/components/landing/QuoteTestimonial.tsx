@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 interface QuoteTestimonialProps {
   quote: string;
@@ -11,7 +13,10 @@ interface QuoteTestimonialProps {
 
 export const QuoteTestimonial = ({ quote, author, role, image }: QuoteTestimonialProps) => {
   return (
-    <div className="bg-white/10 backdrop-blur-xl rounded-lg p-6 border border-white/20 shadow-lg transition-all duration-300 hover:bg-white/15">
+    <div className={cn(
+      "bg-white/10 backdrop-blur-xl rounded-lg p-6 border border-white/20 transition-all duration-300 hover:bg-white/15",
+      shadowStyles.testimonial
+    )}>
       <p className="text-black italic mb-4 text-base leading-relaxed">{quote}</p>
       <div className="flex items-center gap-4">
         <Avatar className="h-12 w-12 border-2 border-[#387E89]/30">

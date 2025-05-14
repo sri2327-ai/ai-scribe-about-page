@@ -1,6 +1,8 @@
+
 "use client";
 
 import { cn } from "@/lib/utils";
+import { shadowStyles } from "@/lib/shadow-utils";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -30,9 +32,10 @@ function DisplayCard({
   return (
     <motion.div
       className={cn(
-        "relative flex h-full min-h-[180px] w-full -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-gray-200 bg-white shadow-sm p-6 transition-all duration-700 hover:border-gray-300 hover:bg-gray-50 [&>*]:flex [&>*]:items-center [&>*]:gap-2",
+        "relative flex h-full min-h-[180px] w-full -skew-y-[3deg] select-none flex-col justify-between rounded-xl border border-gray-200 bg-white p-6 transition-all duration-700 hover:border-gray-300 hover:bg-gray-50 [&>*]:flex [&>*]:items-center [&>*]:gap-2",
         cardClassName || "",
-        className
+        className,
+        shadowStyles.card
       )}
       onClick={() => setIsExpanded(!isExpanded)}
       whileHover={{ scale: 1.02 }}
@@ -57,7 +60,10 @@ function DisplayCard({
             }}
           >
             <motion.div 
-              className="w-full max-w-md bg-white border border-gray-300 rounded-xl p-6 text-left -skew-y-[3deg] shadow-lg"
+              className={cn(
+                "w-full max-w-md bg-white border border-gray-300 rounded-xl p-6 text-left -skew-y-[3deg]",
+                shadowStyles.floating
+              )}
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
@@ -72,7 +78,10 @@ function DisplayCard({
               <p className="text-gray-700 text-base leading-relaxed mb-4">{description}</p>
               {date && <p className="text-gray-500 text-sm">{date}</p>}
               <button 
-                className="mt-4 bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded-md transition-colors"
+                className={cn(
+                  "mt-4 bg-gray-100 hover:bg-gray-200 text-black py-2 px-4 rounded-md transition-colors",
+                  shadowStyles.subtle
+                )}
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsExpanded(false);

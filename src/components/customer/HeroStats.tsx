@@ -1,8 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 interface Stats {
   chartsSigned: number;
@@ -14,7 +16,10 @@ interface Stats {
 const StatCard = ({ title, value }: { title: string; value: number }) => {
   return (
     <motion.div
-      className="bg-white p-6 rounded-lg shadow-lg text-center transition-transform duration-500 hover:scale-105"
+      className={cn(
+        "bg-white p-6 rounded-lg text-center transition-transform duration-500 hover:scale-105",
+        shadowStyles.card
+      )}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -73,7 +78,10 @@ const HeroStats = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <button className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300 hover:scale-105">
+          <button className={cn(
+            "rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white transition-all duration-300 hover:scale-105",
+            shadowStyles.prominent
+          )}>
             Book a Demo
           </button>
         </motion.div>

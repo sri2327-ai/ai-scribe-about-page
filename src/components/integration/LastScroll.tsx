@@ -5,6 +5,8 @@ import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
 import { ResponsiveCarousel } from '../ui/ResponsiveCarousel';
 import { Card, CardContent } from "@/components/ui/card";
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -31,7 +33,10 @@ const features = [
 ];
 
 const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
-  <Card className="h-full bg-white rounded-xl shadow-md transition-shadow hover:shadow-lg">
+  <Card className={cn(
+    "h-full bg-white rounded-xl transition-shadow hover:shadow-lg",
+    shadowStyles.card
+  )}>
     <CardContent className="p-6 flex flex-col items-center text-center">
       <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white mb-4">
         {icon}
@@ -109,7 +114,10 @@ export default function LastScroll() {
           Elevate Healthcare Efficiency with S10.AI — Get Started Now!
         </Typography>
         <button
-          className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl transition-all duration-300"
+          className={cn(
+            "rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white transition-all duration-300",
+            shadowStyles.prominent
+          )}
         >
           REQUEST A DEMO
         </button>

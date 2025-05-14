@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Typography } from '@mui/material';
 import { useIsMobile } from "@/hooks/use-mobile";
 import HeroPieChartIllustration from './HeroPieChartIllustration';
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 const IntegrationHeroSection = () => {
   const isMobile = useIsMobile();
@@ -65,7 +67,10 @@ const IntegrationHeroSection = () => {
           </Typography>
           
           <motion.button
-            className="rounded-full px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 text-sm sm:text-base bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all font-semibold"
+            className={cn(
+              "rounded-full px-5 py-2.5 sm:px-6 sm:py-3 md:px-7 md:py-3.5 text-sm sm:text-base bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white transition-all font-semibold",
+              shadowStyles.prominent
+            )}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -79,7 +84,7 @@ const IntegrationHeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="max-w-[320px] sm:max-w-[400px] w-full">
+          <div className={cn("max-w-[320px] sm:max-w-[400px] w-full", shadowStyles.subtle)}>
             <HeroPieChartIllustration />
           </div>
         </motion.div>

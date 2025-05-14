@@ -10,6 +10,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 interface ResponsiveCarouselProps<T> {
   items: T[];
@@ -119,7 +121,7 @@ export function ResponsiveCarousel<T>({
               }}
             >
               <div
-                className={cardClassName ?? ""}
+                className={cn(cardClassName ?? "", shadowStyles.carousel)}
                 style={{
                   height: "100%",
                   display: "flex",
@@ -135,42 +137,52 @@ export function ResponsiveCarousel<T>({
         {!controlsBelow && shouldShowControls && (
           <>
             <CarouselPrevious
-              className="
-                !rounded-full h-9 w-9 bg-white shadow-lg border absolute
-                z-20 
-                top-1/2 
-                -translate-y-1/2
-                opacity-90
-                hover:opacity-100
-                left-2
-                md:left-4
-              "
+              className={cn(
+                "!rounded-full h-10 w-10 bg-white shadow-lg border absolute",
+                "z-20 top-1/2 -translate-y-1/2",
+                "opacity-90 hover:opacity-100",
+                "left-2 md:left-4",
+                "text-gray-800",
+                "border-gray-100",
+                shadowStyles.subtle,
+                "flex items-center justify-center"
+              )}
             />
             <CarouselNext
-              className="
-                !rounded-full h-9 w-9 bg-white shadow-lg border absolute
-                z-20
-                top-1/2
-                -translate-y-1/2
-                opacity-90
-                hover:opacity-100
-                right-2
-                md:right-4
-              "
+              className={cn(
+                "!rounded-full h-10 w-10 bg-white shadow-lg border absolute",
+                "z-20 top-1/2 -translate-y-1/2",
+                "opacity-90 hover:opacity-100",
+                "right-2 md:right-4",
+                "text-gray-800",
+                "border-gray-100",
+                shadowStyles.subtle,
+                "flex items-center justify-center"
+              )}
             />
           </>
         )}
         {controlsBelow && shouldShowControls && (
-          <div className="flex justify-center gap-4 mt-4">
+          <div className="flex justify-center gap-4 mt-6">
             <CarouselPrevious
-              className="
-                static relative left-0 translate-y-0 !rounded-full h-9 w-9 bg-white shadow border
-                opacity-90 hover:opacity-100"
+              className={cn(
+                "static relative left-0 translate-y-0 !rounded-full h-10 w-10 bg-white border",
+                "opacity-90 hover:opacity-100",
+                "text-gray-800",
+                "border-gray-200",
+                shadowStyles.subtle,
+                "flex items-center justify-center"
+              )}
             />
             <CarouselNext
-              className="
-                static relative left-0 translate-y-0 !rounded-full h-9 w-9 bg-white shadow border
-                opacity-90 hover:opacity-100"
+              className={cn(
+                "static relative left-0 translate-y-0 !rounded-full h-10 w-10 bg-white border",
+                "opacity-90 hover:opacity-100", 
+                "text-gray-800",
+                "border-gray-200",
+                shadowStyles.subtle,
+                "flex items-center justify-center"
+              )}
             />
           </div>
         )}

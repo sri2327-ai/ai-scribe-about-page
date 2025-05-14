@@ -4,6 +4,8 @@ import { Typography } from '@mui/material';
 import { Shield, Zap, Scale, Clock, Check, Database } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { ResponsiveCarousel } from '../ui/ResponsiveCarousel';
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -12,7 +14,10 @@ interface FeatureCardProps {
 }
 
 const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
-  <div className="bg-white rounded-xl shadow-md p-6 h-full border border-gray-100 hover:shadow-lg transition-shadow">
+  <div className={cn(
+    "bg-white rounded-xl p-6 h-full border border-gray-100 hover:shadow-lg transition-shadow",
+    shadowStyles.card
+  )}>
     <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white mb-4">
       {icon}
     </div>

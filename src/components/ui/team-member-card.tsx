@@ -3,6 +3,8 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Typography, Box } from "@mui/material";
+import { shadowStyles } from "@/lib/shadow-utils";
+import { cn } from "@/lib/utils";
 
 interface TeamMemberCardProps {
   name: string;
@@ -18,7 +20,10 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
   imageSrc
 }) => {
   return (
-    <Card className="bg-white shadow-md hover:shadow-lg transition-shadow duration-300">
+    <Card className={cn(
+      "bg-white transition-shadow duration-300 hover:shadow-lg", 
+      shadowStyles.card
+    )}>
       <CardContent className="p-6">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
@@ -37,7 +42,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
                 borderRadius: '50%',
                 objectFit: 'cover',
                 mb: 2,
-                mx: 'auto'
+                mx: 'auto',
+                boxShadow: '0 4px 10px rgba(0,0,0,0.1)'
               }}
             />
           ) : (
@@ -54,7 +60,8 @@ const TeamMemberCard: React.FC<TeamMemberCardProps> = ({
                 mx: 'auto',
                 color: '#9e9e9e',
                 fontSize: '1.5rem',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                boxShadow: '0 4px 10px rgba(0,0,0,0.07)'
               }}
             >
               {name.charAt(0)}
