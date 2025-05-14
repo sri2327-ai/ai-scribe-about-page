@@ -97,9 +97,9 @@ export const FirstSection = () => {
           delay: 0.1
         }} className="space-y-6 md:space-y-8">
             <div className="space-y-4 md:space-y-6">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-gray-900">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-black">
                 AI Scribing &<br />
-                <span className="bg-gradient-to-r from-[#143151] to-[#387E89] text-transparent bg-clip-text">
+                <span className="text-black">
                   Patient Engagement
                 </span><br />
                 Built for Clinicians<br />
