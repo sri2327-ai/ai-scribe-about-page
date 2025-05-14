@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -162,12 +162,34 @@ const testimonials = [
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
   const isMobile = useMediaQuery('(max-width:768px)');
+  const isTablet = useMediaQuery('(max-width:1024px)');
   const [activeSlide, setActiveSlide] = useState(0);
   const [api, setApi] = useState<CarouselApi>();
+  const [visibleTabsStart, setVisibleTabsStart] = useState(0);
+  
+  const tabKeys = Object.keys(tabAccData);
+  const tabsToShow = isMobile ? 1 : isTablet ? 2 : 4;
   
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
   };
+
+  const handlePrevTabs = () => {
+    setVisibleTabsStart(prev => Math.max(0, prev - 1));
+  };
+
+  const handleNextTabs = () => {
+    setVisibleTabsStart(prev => Math.min(tabKeys.length - tabsToShow, prev + 1));
+  };
+
+  // Update visible tabs when screen size changes
+  useEffect(() => {
+    if (tabValue >= visibleTabsStart + tabsToShow) {
+      setVisibleTabsStart(Math.max(0, tabValue - tabsToShow + 1));
+    } else if (tabValue < visibleTabsStart) {
+      setVisibleTabsStart(tabValue);
+    }
+  }, [tabValue, tabsToShow, visibleTabsStart]);
 
   // Setup effect to track the current slide
   React.useEffect(() => {
@@ -214,56 +236,84 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        <Box component="nav" className="w-full flex justify-center mb-2">
-          <Tabs
-            value={tabValue}
-            onChange={handleChange}
-            variant="scrollable"
-            scrollButtons="auto"
-            allowScrollButtonsMobile
-            aria-label="healthcare ai tabs"
-            sx={{
-              "& .MuiTabs-indicator": { 
-                backgroundColor: '#387E89',
-                height: '3px',
-                borderRadius: '3px'
-              },
-              "& .MuiTabs-flexContainer": {
-                gap: {xs: 0.5, sm: 1},
-                flexWrap: {xs: "wrap", md: "nowrap"}
-              },
-              "& .MuiTab-root": {
-                fontSize: {xs: "0.875rem", sm: "1rem"},
-                textTransform: "none",
-                minWidth: {xs: "auto", sm: "auto"},
-                px: {xs: 1.5, sm: 2, md: 3},
-                py: {xs: 1, sm: 1.5, md: 2},
-                color: "#666666",
-                "&.Mui-selected": {
-                  color: "#387E89",
-                  fontWeight: "600"
+        <Box component="nav" className="w-full flex justify-center mb-2 relative">
+          <div className="relative w-full max-w-3xl mx-auto">
+            {visibleTabsStart > 0 && (
+              <button 
+                onClick={handlePrevTabs}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow-md p-1 border border-gray-100 hover:bg-gray-50"
+                aria-label="Previous tabs"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
+            )}
+            
+            <Tabs
+              value={tabValue}
+              onChange={handleChange}
+              variant="scrollable"
+              scrollButtons={false}
+              aria-label="healthcare ai tabs"
+              sx={{
+                "& .MuiTabs-indicator": { 
+                  backgroundColor: '#387E89',
+                  height: '3px',
+                  borderRadius: '3px'
+                },
+                "& .MuiTabs-flexContainer": {
+                  gap: {xs: 0.5, sm: 1},
+                  justifyContent: 'center',
+                },
+                "& .MuiTabs-scroller": {
+                  overflow: 'hidden !important',
+                  scrollbarWidth: 'none',
+                  '&::-webkit-scrollbar': {
+                    display: 'none'
+                  },
+                },
+                "& .MuiTab-root": {
+                  fontSize: {xs: "0.875rem", sm: "1rem"},
+                  textTransform: "none",
+                  minWidth: {xs: "auto", sm: "auto"},
+                  px: {xs: 1.5, sm: 2, md: 3},
+                  py: {xs: 1, sm: 1.5, md: 2},
+                  color: "#666666",
+                  "&.Mui-selected": {
+                    color: "#387E89",
+                    fontWeight: "600"
+                  }
                 }
-              }
-            }}
-          >
-            {Object.keys(tabAccData).map((value, index) => (
-              <Tab 
-                key={index}
-                label={value}
-                id={`tab-${index}`}
-                aria-controls={`tabpanel-${index}`}
-                sx={{
-                  fontSize: {xs: '0.75rem', sm: '0.875rem', md: '1rem'}
-                }}
-              />
-            ))}
-          </Tabs>
+              }}
+            >
+              {tabKeys.slice(visibleTabsStart, visibleTabsStart + tabsToShow).map((value, index) => (
+                <Tab 
+                  key={index + visibleTabsStart}
+                  label={value}
+                  id={`tab-${index + visibleTabsStart}`}
+                  aria-controls={`tabpanel-${index + visibleTabsStart}`}
+                  sx={{
+                    fontSize: {xs: '0.75rem', sm: '0.875rem', md: '1rem'}
+                  }}
+                />
+              ))}
+            </Tabs>
+            
+            {visibleTabsStart < tabKeys.length - tabsToShow && (
+              <button 
+                onClick={handleNextTabs}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow-md p-1 border border-gray-100 hover:bg-gray-50"
+                aria-label="Next tabs"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            )}
+          </div>
         </Box>
 
         <Box className={`grid ${isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-12 gap-4 sm:gap-6 lg:gap-8'} w-full`}>
           <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              {Object.values(tabAccData).map((value, index) => (
+              {Object.entries(tabAccData).map(([key, value], index) => (
                 tabValue === index && (
                   <motion.div
                     key={index}
