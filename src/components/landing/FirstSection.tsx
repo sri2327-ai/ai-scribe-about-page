@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, CheckCircle, MessageSquare, Users, Database } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, MessageSquare, Users, Database } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -47,9 +47,6 @@ export const FirstSection = () => {
   }, {
     icon: <Shield className="w-5 h-5 text-[#387E89]" />,
     text: "HIPAA compliant"
-  }, {
-    icon: <CheckCircle className="w-5 h-5 text-[#387E89]" />,
-    text: "Integrates with your EHR"
   }];
 
   // Feature tab data - updated "Patient Engagement Agent" to "Patient Agent"
