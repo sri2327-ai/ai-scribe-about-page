@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
@@ -245,86 +244,9 @@ const workflowSteps = [
     color: stepColors.notes,
     detailContent: () => (
       <Box sx={{ mt: 2 }}>
-        <Box 
-          sx={{ 
-            border: `1px solid ${stepColors.notes}30`, 
-            p: 1.5, 
-            borderRadius: 1,
-            bgcolor: `${stepColors.notes}05`,
-            fontSize: '0.75rem',
-            fontFamily: 'monospace',
-            position: 'relative',
-            height: '100px',
-            overflow: 'hidden'
-          }}
-        >
-          <Typography 
-            component="div" 
-            sx={{ 
-              position: 'absolute',
-              top: '8px',
-              left: '12px',
-              fontSize: '0.75rem',
-              fontFamily: 'monospace',
-              animation: 'typing 2s steps(40, end)',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              color: stepColors.notes
-            }}
-          >
-            <span style={{ color: stepColors.notes }}>SUBJECTIVE:</span> Patient presents with acute abdominal pain...
-          </Typography>
-          <Typography 
-            component="div" 
-            sx={{ 
-              position: 'absolute',
-              top: '28px',
-              left: '12px',
-              fontSize: '0.75rem',
-              fontFamily: 'monospace',
-              animation: 'typing 2s 0.5s steps(40, end)',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              color: stepColors.notes
-            }}
-          >
-            <span style={{ color: stepColors.notes }}>OBJECTIVE:</span> Temp 101.2°F, tender RLQ with guarding...
-          </Typography>
-          <Typography 
-            component="div" 
-            sx={{ 
-              position: 'absolute',
-              top: '48px',
-              left: '12px',
-              fontSize: '0.75rem',
-              fontFamily: 'monospace',
-              animation: 'typing 2s 1s steps(40, end)',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              color: stepColors.notes
-            }}
-          >
-            <span style={{ color: stepColors.notes }}>ICD-10:</span> K35.80 (Unspecified acute appendicitis)
-          </Typography>
-          <Typography 
-            component="div" 
-            sx={{ 
-              position: 'absolute',
-              top: '68px',
-              left: '12px',
-              fontSize: '0.75rem',
-              fontFamily: 'monospace',
-              animation: 'typing 2s 1.5s steps(40, end)',
-              whiteSpace: 'nowrap',
-              overflow: 'hidden',
-              color: stepColors.notes
-            }}
-          >
-            <span style={{ color: stepColors.notes }}>CPT/E&M:</span> 99203 (New patient, detailed exam)
-          </Typography>
-        </Box>
+        {/* Removed the animation with clinical content */}
         
-        {/* Figma-style document illustration */}
+        {/* Enhanced Figma-style document illustration with the content integrated */}
         <motion.div 
           className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
           initial={{ opacity: 0, y: 10 }}
@@ -341,33 +263,53 @@ const workflowSteps = [
             </div>
           </div>
           
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div>
-              <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>Chief Complaint</div>
-              <motion.div 
-                className="h-3 bg-blue-100 rounded w-3/4"
-                animate={{ width: ['30%', '75%'] }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
-              />
+              <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>SUBJECTIVE</div>
+              <div className="bg-blue-50 p-2 rounded-md text-xs text-blue-800">
+                Patient presents with acute abdominal pain...
+              </div>
             </div>
+            
             <div>
-              <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>History of Present Illness</div>
-              <div className="space-y-1">
-                <motion.div 
-                  className="h-2 bg-blue-100 rounded w-full"
-                  animate={{ width: ['40%', '100%'] }}
-                  transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse', delay: 0.2 }}
+              <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>OBJECTIVE</div>
+              <div className="bg-blue-50 p-2 rounded-md text-xs text-blue-800">
+                Temp 101.2°F, tender RLQ with guarding...
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2">
+              <div>
+                <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>ICD-10</div>
+                <div className="bg-blue-50 p-2 rounded-md text-xs text-blue-800">
+                  K35.80 (Unspecified acute appendicitis)
+                </div>
+              </div>
+              
+              <div>
+                <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>CPT/E&M</div>
+                <div className="bg-blue-50 p-2 rounded-md text-xs text-blue-800">
+                  99203 (New patient, detailed exam)
+                </div>
+              </div>
+            </div>
+            
+            <div className="pt-2">
+              <motion.div
+                className="w-full h-1 bg-blue-100 rounded-full overflow-hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
+                <motion.div
+                  className="h-full bg-blue-500"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 2.5, repeat: Infinity, repeatType: "loop", repeatDelay: 0.5 }}
                 />
-                <motion.div 
-                  className="h-2 bg-blue-100 rounded w-5/6"
-                  animate={{ width: ['30%', '83%'] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', delay: 0.4 }}
-                />
-                <motion.div 
-                  className="h-2 bg-blue-100 rounded w-4/6"
-                  animate={{ width: ['20%', '67%'] }}
-                  transition={{ duration: 1.7, repeat: Infinity, repeatType: 'reverse', delay: 0.6 }}
-                />
+              </motion.div>
+              <div className="flex justify-end mt-1">
+                <div className="text-xs text-blue-400">Processing...</div>
               </div>
             </div>
           </div>
