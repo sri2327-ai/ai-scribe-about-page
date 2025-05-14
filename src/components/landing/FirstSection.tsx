@@ -12,6 +12,7 @@ import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Separator } from '@/components/ui/separator';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
@@ -89,7 +90,7 @@ export const FirstSection = () => {
       {/* Main content container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
         {/* Updated grid with card taking less space */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
           
           {/* Left column - Main heading and CTA - expanded to 7 columns */}
           <motion.div 
@@ -139,7 +140,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature cards - reduced to 5 columns */}
+          {/* Right column - Feature cards - responsive adjustments */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -147,7 +148,7 @@ export const FirstSection = () => {
             className="relative lg:col-span-5"
           >
             <Card 
-              className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.cardHover} ring-1 ring-gray-100/70 backdrop-blur-sm dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}
+              className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.cardHover} ring-1 ring-gray-100/70 backdrop-blur-sm dark:bg-gray-900/95 dark:border-gray-800 max-w-sm mx-auto w-full sm:max-w-md`}
             >
               <div className="p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                 <h3 className="font-medium text-gray-900 text-base flex items-center dark:text-white">
@@ -157,34 +158,42 @@ export const FirstSection = () => {
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full" value={activeTab} onValueChange={setActiveTab}>
-                <div className="px-3 pt-3">
-                  {/* Enhanced tab navigation with better indicators */}
-                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
-                    {featureTabs.map(tab => (
-                      <TabsTrigger 
-                        key={tab.id} 
-                        value={tab.id} 
-                        className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white"
-                        onClick={() => setActiveTab(tab.id)}
-                      >
-                        <span className="flex items-center justify-center p-1.5 bg-gray-50 rounded-full data-[state=active]:bg-white/20 transition-all">{tab.icon}</span>
-                        <span className="text-xs leading-tight">{tab.title}</span>
-                        {activeTab === tab.id && (
-                          <motion.div 
-                            layoutId="activeTabIndicator"
-                            className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 0.3 }}
-                          />
+                <div className="px-2 pt-3">
+                  {/* Enhanced tab navigation with dividers and improved visibility */}
+                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30 overflow-hidden relative">
+                    {featureTabs.map((tab, index) => (
+                      <React.Fragment key={tab.id}>
+                        <TabsTrigger 
+                          value={tab.id} 
+                          className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white"
+                          onClick={() => setActiveTab(tab.id)}
+                        >
+                          <span className="flex items-center justify-center p-1.5 bg-gray-100 rounded-full data-[state=active]:bg-white/20 transition-all">
+                            {tab.icon}
+                          </span>
+                          <span className="text-xs leading-tight">{tab.title}</span>
+                          {activeTab === tab.id && (
+                            <motion.div 
+                              layoutId="activeTabIndicator"
+                              className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                            />
+                          )}
+                        </TabsTrigger>
+                        {index < featureTabs.length - 1 && (
+                          <div className="absolute h-8 top-1/2 -translate-y-1/2" style={{left: `${(index + 1) * 25}%`}}>
+                            <Separator orientation="vertical" className="h-full bg-gray-200/50 dark:bg-gray-700/30" />
+                          </div>
                         )}
-                      </TabsTrigger>
+                      </React.Fragment>
                     ))}
                   </TabsList>
                 </div>
                 
                 <div className="p-3">
-                  {featureTabs.map(tab => (
+                  {featureTabs.map((tab) => (
                     <TabsContent 
                       key={tab.id} 
                       value={tab.id} 
@@ -220,7 +229,7 @@ export const FirstSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.6 }}
-          className="mt-10 sm:mt-16"
+          className="mt-8 sm:mt-12 lg:mt-16"
         >
           <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-3 sm:p-4">
             <Typography variant="h6" className="text-center text-gray-800 font-medium mb-2 sm:mb-4 text-sm sm:text-base">S10.AI is recommended by</Typography>
