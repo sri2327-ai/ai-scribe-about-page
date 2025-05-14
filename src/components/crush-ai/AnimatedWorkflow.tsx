@@ -343,13 +343,17 @@ const workflowSteps = [
                 animation: `slideIn 0.3s ${i * 0.15}s both`
               }}
             >
-              <Typography sx={{ 
-                fontSize: '0.75rem', 
-                color: item.type === 'Rx' ? '#b45309' : stepColors.labs
-              }}>
+              <Typography 
+                component="div"
+                sx={{ 
+                  fontSize: '0.75rem', 
+                  color: item.type === 'Rx' ? '#b45309' : stepColors.labs
+                }}
+              >
                 {item.name}
               </Typography>
               <Typography 
+                component="div"
                 sx={{ 
                   fontSize: '0.7rem', 
                   color: 'green',
@@ -388,7 +392,10 @@ const workflowSteps = [
             overflow: 'hidden'
           }}
         >
-          <Typography variant="caption" sx={{ display: 'block', mb: 1, color: stepColors.instructions }}>
+          <Typography 
+            component="div"
+            sx={{ display: 'block', mb: 1, color: stepColors.instructions }}
+          >
             <Mail size={12} style={{ display: 'inline', marginRight: '4px', color: stepColors.instructions }} /> Sent via secure email
           </Typography>
           <Typography 
@@ -448,7 +455,10 @@ const workflowSteps = [
     color: stepColors.ehr,
     detailContent: () => (
       <Box sx={{ mt: 2 }}>
-        <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center', color: stepColors.ehr }}>
+        <Typography 
+          component="div"
+          sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center', color: stepColors.ehr }}
+        >
           All documents pushed to your preferred fields in your EHR
         </Typography>
         <Box 
@@ -466,8 +476,7 @@ const workflowSteps = [
             border: `1px dashed ${stepColors.ehr}30`
           }}
         >
-          <Typography
-            component={motion.div}
+          <motion.div
             animate={{ 
               opacity: [0.5, 1, 0.5],
               scale: [0.98, 1, 0.98]
@@ -476,7 +485,7 @@ const workflowSteps = [
               repeat: Infinity, 
               duration: 2
             }}
-            sx={{ 
+            style={{ 
               fontSize: '0.8rem',
               textAlign: 'center',
               fontStyle: 'italic',
@@ -484,7 +493,7 @@ const workflowSteps = [
             }}
           >
             Secure integration with all EHR systems
-          </Typography>
+          </motion.div>
         </Box>
       </Box>
     )
