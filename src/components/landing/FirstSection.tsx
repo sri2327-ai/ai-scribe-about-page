@@ -75,7 +75,7 @@ export const FirstSection = () => {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
-    description: "Works with any EHR system and connects to 7000+ healthcare apps.",
+    description: "Works with any EHR system and connects to 7000+ apps.",
     benefit: "Seamless connectivity"
   }];
 
