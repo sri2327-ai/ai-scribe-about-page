@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Info } from "lucide-react";
 import { IntegrationChecker } from './IntegrationChecker';
 import { Link } from 'react-router-dom';
+import { typography, withTypography } from '@/lib/typography';
 
 const IntegrationSection = () => {
   console.log("Rendering Integration Section on landing page");
@@ -18,7 +19,7 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-3xl font-bold text-white mb-4"
+            className={withTypography(typography.h2, "text-white mb-4")}
           >
             Compatible with Your Preferred Software
           </motion.h2>
@@ -27,7 +28,7 @@ const IntegrationSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-lg text-white max-w-2xl mx-auto"
+            className={withTypography(typography.description, "text-white max-w-2xl mx-auto")}
           >
             From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
             Try our compatibility checker below.
@@ -49,11 +50,11 @@ const IntegrationSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex items-center justify-center mb-6"
+          className="flex items-center justify-center mb-8"
         >
-          <div className="bg-white/10 rounded-lg p-3 max-w-lg flex items-start gap-3 backdrop-blur-sm">
+          <div className="bg-white/10 rounded-lg p-3 md:p-4 max-w-lg flex items-start gap-3 backdrop-blur-sm">
             <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
-            <p className="text-sm text-white text-left">
+            <p className={withTypography(typography.body.sm, "text-white text-left")}>
               <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
               Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
             </p>
@@ -69,7 +70,7 @@ const IntegrationSection = () => {
         >
           <Link to="/integration">
             <Button 
-              className="rounded-full px-8 py-6 text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
+              className="rounded-full px-6 py-2 md:px-8 md:py-6 text-base md:text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
             >
               Learn More About Integrations
               <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />

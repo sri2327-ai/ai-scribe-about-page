@@ -12,6 +12,7 @@ import { GradientSection } from "@/components/ui/gradient-section";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { CrushTooltip } from "@/components/crush-ai/CrushTooltip";
 import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { typography } from "@/lib/typography";
 
 export const HeroSection = () => {
   const muiTheme = useMuiTheme();
@@ -54,6 +55,35 @@ export const HeroSection = () => {
     }
   ];
 
+  // Keep existing styles for MUI components, but apply consistent typography styling
+  const typographyStyles = {
+    heroTitle: {
+      fontSize: { xs: '1.7rem', sm: '2rem', md: '2.5rem' },
+      fontWeight: 800,
+      mb: 2,
+      color: crushAIColors.text.primary,
+      letterSpacing: '-0.02em',
+      lineHeight: 1.1
+    },
+    heroSubtitle: {
+      mb: 4,
+      color: crushAIColors.text.secondary,
+      fontSize: { xs: '0.85rem', sm: '0.95rem', md: '1.05rem' },
+      fontWeight: 400,
+      lineHeight: 1.5
+    },
+    complianceText: {
+      fontSize: '0.875rem',
+      fontWeight: 600,
+      color: 'white',
+      mb: 1
+    },
+    complianceDescription: {
+      fontSize: '0.75rem',
+      color: 'rgba(255, 255, 255, 0.7)'
+    }
+  };
+
   return (
     <GradientSection 
       variant="linear"
@@ -69,6 +99,7 @@ export const HeroSection = () => {
       }}
     >
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
+        {/* Mobile and tablet layout */}
         {(isMobile || isTablet) && (
           <Box sx={{ 
             display: 'flex', 
@@ -91,14 +122,7 @@ export const HeroSection = () => {
             >
               <Typography 
                 variant="h1" 
-                sx={{ 
-                  fontSize: { xs: '1.7rem', sm: '2rem' }, 
-                  fontWeight: 800,
-                  mb: 2,
-                  color: crushAIColors.text.primary,
-                  letterSpacing: '-0.02em',
-                  lineHeight: 1.1
-                }}
+                sx={typographyStyles.heroTitle}
               >
                 <Box 
                   component="span" 
@@ -118,13 +142,7 @@ export const HeroSection = () => {
 
               <Typography 
                 variant="h6" 
-                sx={{ 
-                  mb: 4, 
-                  color: crushAIColors.text.secondary,
-                  fontSize: { xs: '0.85rem', sm: '0.95rem' },
-                  fontWeight: 400,
-                  lineHeight: 1.5
-                }}
+                sx={typographyStyles.heroSubtitle}
               >
                 AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
                 Workflows—So You Can Focus on Patient Care!
@@ -176,10 +194,10 @@ export const HeroSection = () => {
                       </Box>
                     </HoverCardTrigger>
                     <HoverCardContent className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20">
-                      <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
+                      <Typography sx={typographyStyles.complianceText}>
                         {item.name}
                       </Typography>
-                      <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                      <Typography sx={typographyStyles.complianceDescription}>
                         {item.description}
                       </Typography>
                     </HoverCardContent>
@@ -226,6 +244,7 @@ export const HeroSection = () => {
           </Box>
         )}
 
+        {/* Desktop layout */}
         {!isMobile && !isTablet && (
           <Box sx={{ 
             display: 'flex', 
@@ -253,14 +272,7 @@ export const HeroSection = () => {
               >
                 <Typography 
                   variant="h1" 
-                  sx={{ 
-                    fontSize: '2.3rem', 
-                    fontWeight: 800,
-                    mb: 2,
-                    color: crushAIColors.text.primary,
-                    letterSpacing: '-0.02em',
-                    lineHeight: 1.1
-                  }}
+                  sx={typographyStyles.heroTitle}
                 >
                   <Box 
                     component="span" 
@@ -279,13 +291,7 @@ export const HeroSection = () => {
 
                 <Typography 
                   variant="h6" 
-                  sx={{ 
-                    mb: 4, 
-                    color: crushAIColors.text.secondary,
-                    fontSize: '0.95rem',
-                    fontWeight: 400,
-                    lineHeight: 1.5
-                  }}
+                  sx={typographyStyles.heroSubtitle}
                 >
                   AI-Powered Assistant – Automating Clinical Documentation, Referrals, Prescriptions &
                   Workflows—So You Can Focus on Patient Care!
@@ -337,10 +343,10 @@ export const HeroSection = () => {
                         </Box>
                       </HoverCardTrigger>
                       <HoverCardContent className="w-64 bg-gradient-to-r from-[#143151] to-[#387E89] border border-white/20">
-                        <Typography sx={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', mb: 1 }}>
+                        <Typography sx={typographyStyles.complianceText}>
                           {item.name}
                         </Typography>
-                        <Typography sx={{ fontSize: '0.75rem', color: 'rgba(255, 255, 255, 0.7)' }}>
+                        <Typography sx={typographyStyles.complianceDescription}>
                           {item.description}
                         </Typography>
                       </HoverCardContent>
@@ -386,8 +392,6 @@ export const HeroSection = () => {
             </Box>
           </Box>
         )}
-
-        {/* Remove the separate compliance icons section at the bottom */}
       </Container>
     </GradientSection>
   );
