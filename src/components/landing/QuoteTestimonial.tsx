@@ -3,6 +3,7 @@ import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { shadowStyles } from "@/lib/shadow-utils";
 import { cn } from "@/lib/utils";
+import { typography } from "@/lib/typography";
 
 interface QuoteTestimonialProps {
   quote: string;
@@ -17,7 +18,7 @@ export const QuoteTestimonial = ({ quote, author, role, image }: QuoteTestimonia
       "bg-white rounded-xl p-6 border border-gray-100 transition-all duration-300 hover:-translate-y-1",
       shadowStyles.testimonial
     )}>
-      <p className="text-black italic mb-5 text-base leading-relaxed">{quote}</p>
+      <p className={cn(typography.body, "italic mb-5")}>{quote}</p>
       <div className="flex items-center gap-4">
         <Avatar className="h-12 w-12 border-2 border-[#387E89]/30 shadow-md">
           <AvatarImage src={image} alt={author} className="object-cover" />
@@ -26,8 +27,8 @@ export const QuoteTestimonial = ({ quote, author, role, image }: QuoteTestimonia
           </AvatarFallback>
         </Avatar>
         <div>
-          <p className="font-semibold text-black text-base">{author}</p>
-          <p className="text-sm text-gray-700">{role}</p>
+          <p className={cn(typography.subheading)}>{author}</p>
+          <p className={cn(typography.caption)}>{role}</p>
         </div>
       </div>
     </div>
