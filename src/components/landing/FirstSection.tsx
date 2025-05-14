@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -43,7 +44,7 @@ export const FirstSection = () => {
     text: "75% faster charting"
   }, {
     icon: <Stethoscope className="w-5 h-5 text-[#387E89]" />,
-    text: "Focus on patients"
+    text: "AI staffing assistance"
   }, {
     icon: <Shield className="w-5 h-5 text-[#387E89]" />,
     text: "HIPAA compliant"
