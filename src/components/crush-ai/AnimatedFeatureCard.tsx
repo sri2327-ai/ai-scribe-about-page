@@ -36,9 +36,9 @@ export const AnimatedFeatureCard = memo(({
   description, 
   className,
   animationDelay = 0,
-  primaryColor = "#046f90",
-  secondaryColor = "#5192AE",
-  tertiaryColor = "#A5CCF3",
+  primaryColor = "#143151",  // Updated to brand color
+  secondaryColor = "#387E89", // Updated to brand color
+  tertiaryColor = "#A5CCF3",  // Updated to brand color
   iconBackground = "#F5F9FF",
   iconSize = 24,
   children

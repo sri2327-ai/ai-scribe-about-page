@@ -47,45 +47,45 @@ export const FirstSection = () => {
   }, []);
   
   const clinicianBenefits = [{
-    icon: <Clock className="w-5 h-5 text-[#387E89]" />,
+    icon: <Clock className="w-5 h-5 text-[#143151]" />,
     text: "75% faster charting"
   }, {
-    icon: <Users className="w-5 h-5 text-[#387E89]" />,
+    icon: <Users className="w-5 h-5 text-[#143151]" />,
     text: "AI staffing assistance"
   }, {
-    icon: <Shield className="w-5 h-5 text-[#387E89]" />,
+    icon: <Shield className="w-5 h-5 text-[#143151]" />,
     text: "HIPAA compliant"
   }];
 
-  // Feature tab data
+  // Feature tab data with improved color scheme aligned with brand
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
     icon: <FileText className="w-5 h-5" />,
     description: "Automated documentation that captures the full patient story while you focus on care.",
     benefit: "Save 2+ hours per day",
-    color: "#3B82F6"
+    color: "#143151" // Dark Blue Primary
   }, {
     id: "patient-engagement",
     title: "AI Staffing Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.",
     benefit: "Reduce admin workload by 40%",
-    color: "#10B981"
+    color: "#387E89" // Teal Secondary
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
     icon: <Users className="w-5 h-5" />,
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
     benefit: "30+ specialty workflows",
-    color: "#8B5CF6"
+    color: "#5192AE" // Medium Blue Tertiary
   }, {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
     description: "Works with any EHR system and connects to 7000+ apps.",
     benefit: "Seamless connectivity",
-    color: "#EC4899"
+    color: "#A5CCF3" // Light Blue Accent
   }];
   
   return <section className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative" ref={sectionRef}>
@@ -146,7 +146,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - COMPLETELY REDESIGNED FEATURE SHOWCASE CARD */}
+          {/* Right column - REDESIGNED FEATURE SHOWCASE CARD with improved visuals */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -154,22 +154,22 @@ export const FirstSection = () => {
             className="relative lg:col-span-5"
           >
             <Card 
-              className="backdrop-blur-sm bg-white/80 border-0 overflow-visible shadow-2xl rounded-2xl"
+              className="backdrop-blur-sm bg-white/95 border border-gray-100 overflow-visible shadow-xl rounded-2xl"
             >
-              {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-blue-200 to-purple-200 rounded-full opacity-60 blur-xl"></div>
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-tr from-teal-200 to-blue-200 rounded-full opacity-60 blur-xl"></div>
+              {/* Improved decorative elements with brand colors */}
+              <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-[#A5CCF3] to-[#5192AE] rounded-full opacity-60 blur-xl"></div>
+              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-tr from-[#5192AE] to-[#143151] rounded-full opacity-60 blur-xl"></div>
               
-              {/* Header with glowing effect */}
-              <div className="relative p-5 rounded-t-2xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-sm overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 animate-pulse"></div>
+              {/* Header with improved subtle gradient effect */}
+              <div className="relative p-5 rounded-t-2xl bg-gradient-to-r from-[#143151]/5 via-[#387E89]/5 to-[#A5CCF3]/5 backdrop-blur-sm overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 animate-pulse"></div>
                 <h3 className="relative z-10 font-semibold text-gray-900 text-lg flex items-center dark:text-white">
                   Don't change for AI—make it work for you
                   <motion.span 
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.8, duration: 0.5 }}
-                    className="inline-flex items-center ml-2 px-2.5 py-0.5 bg-gradient-to-r from-blue-50 to-blue-100 text-[#387E89] text-xs rounded-full border border-blue-200/30 shadow-sm"
+                    className="inline-flex items-center ml-2 px-2.5 py-0.5 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 text-[#143151] text-xs rounded-full border border-[#143151]/20 shadow-sm"
                   >
                     Clinician-First
                   </motion.span>
@@ -177,7 +177,7 @@ export const FirstSection = () => {
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full" value={activeTab} onValueChange={setActiveTab}>
-                {/* Improved tabs navigation */}
+                {/* Improved tabs navigation with consistent brand colors */}
                 <div className="px-5 pt-5">
                   <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/80 p-2 rounded-xl border border-gray-100 gap-2">
                     {featureTabs.map((tab, index) => (
@@ -194,10 +194,13 @@ export const FirstSection = () => {
                               : 'bg-white/60 text-gray-500'}`}
                           style={{
                             background: activeTab === tab.id ? `linear-gradient(135deg, ${tab.color}, ${tab.color}CC)` : '',
-                            boxShadow: activeTab === tab.id ? `0 2px 8px ${tab.color}40` : ''
+                            boxShadow: activeTab === tab.id ? `0 2px 6px ${tab.color}40` : ''
                           }}
                         >
-                          {tab.icon}
+                          {React.cloneElement(tab.icon as React.ReactElement, {
+                            className: `w-5 h-5 ${activeTab === tab.id ? 'text-white' : ''}`,
+                            strokeWidth: 2
+                          })}
                         </div>
                         
                         <div className="flex flex-col items-center">
@@ -206,7 +209,7 @@ export const FirstSection = () => {
                           </span>
                         </div>
                         
-                        {/* Active indicator dot */}
+                        {/* Active indicator with brand color */}
                         {activeTab === tab.id && (
                           <motion.div 
                             layoutId="activeTabIndicator"
@@ -220,7 +223,7 @@ export const FirstSection = () => {
                   </TabsList>
                 </div>
                 
-                {/* Enhanced tab content with animations */}
+                {/* Enhanced tab content with improved animations and brand colors */}
                 <div className="p-5">
                   {featureTabs.map((tab) => (
                     <TabsContent 
@@ -229,14 +232,18 @@ export const FirstSection = () => {
                       className="mt-2 focus-visible:outline-none focus-visible:ring-0"
                     >
                       <AnimatedFeatureCard
-                        icon={tab.icon}
+                        icon={React.cloneElement(tab.icon as React.ReactElement, {
+                          size: 24,
+                          className: "stroke-[1.5]",
+                          style: { color: tab.color }
+                        })}
                         title={tab.title}
                         description={tab.description}
                         primaryColor={tab.color}
                         secondaryColor={`${tab.color}CC`}
-                        tertiaryColor={`${tab.color}33`}
+                        tertiaryColor={`${tab.color}20`}
                         iconBackground={`${tab.color}10`}
-                        className="border-0 shadow-none"
+                        className="border border-gray-100 shadow-md"
                       >
                         <div className="flex items-center gap-3 mt-5 bg-gradient-to-r from-gray-50 to-gray-100/80 p-4 rounded-xl border border-gray-100 shadow-sm">
                           <motion.div
@@ -252,8 +259,7 @@ export const FirstSection = () => {
                             initial={{ x: -10, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 0.3 }}
-                            className="font-medium text-sm"
-                            style={{ color: tab.color }}
+                            className="font-medium text-sm text-[#143151]"
                           >
                             {tab.benefit}
                           </motion.span>
