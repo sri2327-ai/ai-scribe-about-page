@@ -8,6 +8,7 @@ import { useAnimate, stagger } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { QuoteIcon } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { shadowStyles } from "@/lib/shadow-utils";
 
 const TextGenerateEffect = ({
   words,
@@ -44,7 +45,7 @@ const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              className="text-black opacity-0" // Updated to use black text
+              className="text-black opacity-0" 
               style={{
                 filter: filter ? "blur(10px)" : "none",
               }}
@@ -60,7 +61,7 @@ const TextGenerateEffect = ({
   return (
     <div className={cn("font-bold", className)}>
       <div className="mt-4">
-        <div className="text-black text-xl md:text-2xl leading-snug tracking-tight"> {/* Updated to black */}
+        <div className="text-black text-xl md:text-2xl leading-snug tracking-tight">
           {renderWords()}
         </div>
       </div>
@@ -110,7 +111,17 @@ export const TestimonialGenerateSection = () => {
             maxWidth: 900,
             mx: "auto",
             position: "relative",
-            zIndex: 5
+            zIndex: 5,
+            borderRadius: "1.5rem",
+            padding: { xs: 2, sm: 4, md: 6 },
+            background: "rgba(255, 255, 255, 0.8)",
+            backdropFilter: "blur(8px)",
+            boxShadow: theme => shadowStyles.prominent,
+            "&:hover": {
+              boxShadow: theme => shadowStyles.floating,
+              transform: "translateY(-5px)",
+            },
+            transition: "all 0.4s ease"
           }}
         >
           <Box 
@@ -147,10 +158,9 @@ export const TestimonialGenerateSection = () => {
               textAlign: "center", 
               mb: 6,
               position: "relative",
-              px: { xs: 2, sm: 0 } // Better padding on mobile
+              px: { xs: 2, sm: 0 }
             }}
           >
-            {/* Radial gradient background for text */}
             <Box 
               className="absolute -inset-1 rounded-lg blur-md"
               sx={{
@@ -175,9 +185,9 @@ export const TestimonialGenerateSection = () => {
                 variant="h6"
                 sx={{
                   fontWeight: 600,
-                  color: crushAIColors.text.primary, // Updated to black
+                  color: crushAIColors.text.primary,
                   mb: 1,
-                  letterSpacing: "-0.01em" // x.ai-style typography
+                  letterSpacing: "-0.01em"
                 }}
               >
                 Dr. Sarah Johnson
@@ -186,7 +196,7 @@ export const TestimonialGenerateSection = () => {
               <Typography
                 variant="body2"
                 sx={{
-                  color: crushAIColors.text.secondary, // Updated to black
+                  color: crushAIColors.text.secondary,
                   fontWeight: 500
                 }}
               >
@@ -197,7 +207,6 @@ export const TestimonialGenerateSection = () => {
         </Box>
       </Container>
       
-      {/* Background dots/particles effect */}
       <Box
         sx={{
           position: "absolute",
@@ -233,11 +242,12 @@ export const TestimonialGenerateSection = () => {
             }}
             sx={{
               position: "absolute",
-              width: Math.random() * 3 + 1, // Slightly smaller particles for more x.ai-like aesthetic
+              width: Math.random() * 3 + 1,
               height: Math.random() * 3 + 1,
               borderRadius: "50%",
               backgroundColor: `rgba(${parseInt(crushAIColors.tertiary.slice(1, 3), 16)},${parseInt(crushAIColors.tertiary.slice(3, 5), 16)},${parseInt(crushAIColors.tertiary.slice(5, 7), 16)},0.4)`,
               border: "0.5px solid rgba(0,0,0,0.2)",
+              boxShadow: "0 0 5px rgba(255,255,255,0.3)",
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}

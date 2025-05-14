@@ -3,6 +3,7 @@ import React, { memo, useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar } from "@/components/ui/avatar";
+import { shadowStyles } from "@/lib/shadow-utils";
 
 interface Testimonial {
   quote: string;
@@ -63,7 +64,7 @@ const benefits: Benefit[] = [
 // Memoized testimonial card for better performance
 const TestimonialCard = memo(({ testimonial }: { testimonial: Testimonial }) => {
   return (
-    <Card className="bg-white border-none shadow-md h-full">
+    <Card className={`bg-white border-none ${shadowStyles.testimonial} transition-all duration-300 hover:shadow-lg hover:translate-y-[-2px]`}>
       <CardContent className="p-6">
         <div className="flex flex-col h-full">
           <div className="mb-4">
@@ -71,8 +72,8 @@ const TestimonialCard = memo(({ testimonial }: { testimonial: Testimonial }) => 
           </div>
           
           <div className="mt-auto flex items-center gap-3">
-            <Avatar>
-              <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+            <Avatar className="border-2 border-blue-100 shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center text-blue-600 font-medium">
                 {testimonial.author.charAt(0)}
               </div>
             </Avatar>
@@ -97,8 +98,12 @@ const BenefitItem = memo(({ benefit, index }: { benefit: Benefit, index: number 
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true, amount: 0.3 }}
-      className="bg-white/80 backdrop-blur-sm p-5 rounded-lg shadow-md"
+      className={`bg-white/80 backdrop-blur-sm p-5 rounded-lg ${shadowStyles.subtle} hover:${shadowStyles.card} transition-all duration-300`}
       style={{ willChange: 'transform, opacity' }}
+      whileHover={{ 
+        y: -5,
+        transition: { duration: 0.2 }
+      }}
     >
       <h3 className="text-lg font-bold text-blue-800 mb-2">{benefit.title}</h3>
       <p className="text-gray-600">{benefit.description}</p>
@@ -121,8 +126,9 @@ export const TestimonialsBenefitsSection = memo(() => {
           viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 relative inline-block">
             Real Results From Real Practices
+            <div className="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent"></div>
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             See how healthcare providers like you are transforming their practices with BRAVO
@@ -139,7 +145,7 @@ export const TestimonialsBenefitsSection = memo(() => {
               className="space-y-4"
             >
               {testimonials.map((testimonial, index) => (
-                <div key={index} className={activeIndex === index ? "block" : "hidden md:block opacity-70"}>
+                <div key={index} className={activeIndex === index ? "block" : "hidden md:block md:opacity-70 md:transform md:scale-95 md:transition-all md:duration-300"}>
                   <TestimonialCard testimonial={testimonial} />
                 </div>
               ))}
@@ -149,7 +155,7 @@ export const TestimonialsBenefitsSection = memo(() => {
                   <button
                     key={index}
                     onClick={() => setActiveIndex(index)}
-                    className={`w-2 h-2 rounded-full ${activeIndex === index ? 'bg-blue-600' : 'bg-gray-300'}`}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${activeIndex === index ? 'bg-blue-600 scale-110' : 'bg-gray-300'}`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}
@@ -165,7 +171,10 @@ export const TestimonialsBenefitsSection = memo(() => {
               viewport={{ once: true, amount: 0.3 }}
               className="space-y-4"
             >
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Benefits You'll Experience</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6 relative inline-block">
+                Benefits You'll Experience
+                <div className="absolute -bottom-2 left-0 w-1/4 h-1 bg-gradient-to-r from-blue-500 to-transparent"></div>
+              </h3>
               
               <div className="grid grid-cols-1 gap-4">
                 {benefits.map((benefit, index) => (

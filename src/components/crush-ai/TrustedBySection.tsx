@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Users } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { crushAIColors } from "@/theme/crush-ai-theme";
+import { shadowStyles } from "@/lib/shadow-utils";
 
 export const TrustedBySection = () => {
   // Sample data for avatars
@@ -41,10 +42,23 @@ export const TrustedBySection = () => {
         py: { xs: 6, md: 10 },
         background: 'linear-gradient(109.6deg, rgba(223,234,247,1) 11.2%, rgba(244,248,252,1) 91.1%)',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderTop: '1px solid rgba(0,0,0,0.05)',
+        borderBottom: '1px solid rgba(0,0,0,0.05)',
       }}
     >
-      <Container maxWidth="lg">
+      {/* Glass backdrop effect */}
+      <Box
+        sx={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(255,255,255,0.4)',
+          backdropFilter: 'blur(5px)',
+          zIndex: 1
+        }}
+      />
+
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2 }}>
         <Box
           sx={{
             display: 'flex',
@@ -57,7 +71,19 @@ export const TrustedBySection = () => {
           <Box
             component={motion.div}
             style={{ scale, opacity, y }}
-            sx={{ mb: 5 }}
+            sx={{ 
+              mb: 5,
+              p: 4,
+              background: 'rgba(255,255,255,0.7)',
+              borderRadius: '1rem',
+              backdropFilter: 'blur(10px)',
+              boxShadow: shadowStyles.card,
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                boxShadow: shadowStyles.prominent,
+                transform: 'translateY(-5px)'
+              }
+            }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 2 }}>
               <Box
@@ -68,7 +94,9 @@ export const TrustedBySection = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  mr: 2
+                  mr: 2,
+                  background: 'rgba(255,255,255,0.8)',
+                  boxShadow: '0 5px 15px rgba(0,0,0,0.1)',
                 }}
               >
                 <Users size={28} className={`text-[${crushAIColors.primaryFlat}]`} />
@@ -78,7 +106,8 @@ export const TrustedBySection = () => {
                 sx={{ 
                   fontWeight: 700,
                   color: crushAIColors.text.primary, 
-                  fontSize: { xs: '2rem', md: '2.5rem' }
+                  fontSize: { xs: '2rem', md: '2.5rem' },
+                  textShadow: '0 2px 10px rgba(0,0,0,0.05)'
                 }}
               >
                 1000+
@@ -144,12 +173,22 @@ export const TrustedBySection = () => {
                     type: "spring",
                     stiffness: 100 
                   }}
+                  whileHover={{ 
+                    y: -8, 
+                    scale: 1.05, 
+                    transition: { duration: 0.2 } 
+                  }}
                 >
-                  <Avatar className="border border-gray-200 h-12 w-12 transition-all hover:scale-110">
+                  <Avatar 
+                    className={`border-2 border-white h-14 w-14 transition-all shadow-lg hover:shadow-xl`}
+                    style={{ boxShadow: shadowStyles.testimonial }}
+                  >
                     {clinician.image ? (
                       <AvatarImage src={clinician.image} alt={`Clinician ${index + 1}`} />
                     ) : (
-                      <AvatarFallback className="bg-gray-100 text-[#046f90] font-medium">
+                      <AvatarFallback 
+                        className="bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 font-medium text-lg"
+                      >
                         {clinician.initials}
                       </AvatarFallback>
                     )}
@@ -161,18 +200,50 @@ export const TrustedBySection = () => {
               sx={{ 
                 width: '100%',
                 pt: 2,
-                borderTop: '1px solid #e5e7eb',
+                borderTop: '1px solid rgba(0,0,0,0.1)',
                 display: 'flex',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                mt: 2,
+                px: 3,
+                py: 2,
+                backgroundColor: 'rgba(255,255,255,0.7)',
+                backdropFilter: 'blur(5px)',
+                borderRadius: '1rem',
+                boxShadow: shadowStyles.subtle
               }}
             >
-              <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, fontSize: '0.875rem', fontWeight: 400 }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  color: crushAIColors.text.secondary, 
+                  fontSize: '0.875rem', 
+                  fontWeight: 400,
+                  fontStyle: 'italic'
+                }}
+              >
                 + Thousands more clinicians making better use of their time
               </Typography>
             </Box>
           </Box>
         </Box>
       </Container>
+      
+      {/* Background decorative elements */}
+      <Box 
+        sx={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%', 
+          height: '100%',
+          opacity: 0.05,
+          background: 'url(/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          mixBlendMode: 'overlay',
+          zIndex: 0
+        }} 
+      />
     </Box>
   );
 };

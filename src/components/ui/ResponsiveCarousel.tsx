@@ -121,12 +121,17 @@ export function ResponsiveCarousel<T>({
               }}
             >
               <div
-                className={cn(cardClassName ?? "", shadowStyles.carousel)}
+                className={cn(
+                  cardClassName ?? "", 
+                  shadowStyles.carousel,
+                  "transition-all duration-300 hover:translate-y-[-3px]"
+                )}
                 style={{
                   height: "100%",
                   display: "flex",
                   flexDirection: "column",
                   width: "100%",
+                  borderRadius: "0.75rem",
                 }}
               >
                 {renderItem(item, idx)}
@@ -140,11 +145,11 @@ export function ResponsiveCarousel<T>({
               className={cn(
                 "!rounded-full h-10 w-10 bg-white shadow-lg border absolute",
                 "z-20 top-1/2 -translate-y-1/2",
-                "opacity-90 hover:opacity-100",
+                "opacity-85 hover:opacity-100 transition-opacity duration-200",
                 "left-2 md:left-4",
                 "text-gray-800",
                 "border-gray-100",
-                shadowStyles.subtle,
+                shadowStyles.prominent,
                 "flex items-center justify-center"
               )}
             />
@@ -152,11 +157,11 @@ export function ResponsiveCarousel<T>({
               className={cn(
                 "!rounded-full h-10 w-10 bg-white shadow-lg border absolute",
                 "z-20 top-1/2 -translate-y-1/2",
-                "opacity-90 hover:opacity-100",
+                "opacity-85 hover:opacity-100 transition-opacity duration-200",
                 "right-2 md:right-4",
                 "text-gray-800",
                 "border-gray-100",
-                shadowStyles.subtle,
+                shadowStyles.prominent,
                 "flex items-center justify-center"
               )}
             />
@@ -167,21 +172,23 @@ export function ResponsiveCarousel<T>({
             <CarouselPrevious
               className={cn(
                 "static relative left-0 translate-y-0 !rounded-full h-10 w-10 bg-white border",
-                "opacity-90 hover:opacity-100",
+                "opacity-90 hover:opacity-100 transition-opacity duration-200",
                 "text-gray-800",
                 "border-gray-200",
                 shadowStyles.subtle,
-                "flex items-center justify-center"
+                "flex items-center justify-center",
+                "hover:translate-y-[-2px] transition-all duration-300"
               )}
             />
             <CarouselNext
               className={cn(
                 "static relative left-0 translate-y-0 !rounded-full h-10 w-10 bg-white border",
-                "opacity-90 hover:opacity-100", 
+                "opacity-90 hover:opacity-100 transition-opacity duration-200", 
                 "text-gray-800",
                 "border-gray-200",
                 shadowStyles.subtle,
-                "flex items-center justify-center"
+                "flex items-center justify-center",
+                "hover:translate-y-[-2px] transition-all duration-300"
               )}
             />
           </div>
