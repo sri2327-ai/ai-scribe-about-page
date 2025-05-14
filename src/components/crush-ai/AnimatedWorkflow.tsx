@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
@@ -1036,7 +1035,7 @@ export function AnimatedWorkflow() {
                       {/* Pass the timerDisplay prop to the first step */}
                       {index === 0 
                         ? step.detailContent({ timerDisplay }) 
-                        : step.detailContent()
+                        : step.detailContent({ timerDisplay })  // Fixed: Added timerDisplay param to all calls
                       }
                     </div>
                   </motion.div>
@@ -1120,4 +1119,3 @@ export function AnimatedWorkflow() {
     </Box>
   );
 }
-
