@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle } from "lucide-react";
+import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Award, StethoscopeIcon, LightbulbIcon } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
+import { Badge } from "@/components/ui/badge";
+
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
@@ -98,6 +100,18 @@ export const FirstSection = () => {
           delay: 0.1
         }} className="space-y-6 md:space-y-8">
             <div className="space-y-4 md:space-y-6">
+              {/* New badges section above title */}
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="outline" className="bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200 px-3 py-1 flex items-center gap-1.5 font-medium">
+                  <Award className="w-3.5 h-3.5" />
+                  Pioneering Smarter, AI-First Healthcare
+                </Badge>
+                <Badge variant="outline" className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200 px-3 py-1 flex items-center gap-1.5 font-medium">
+                  <Users className="w-3.5 h-3.5" />
+                  Trusted by 1000+ Clinicians
+                </Badge>
+              </div>
+              
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-black">
                 AI Scribing &<br />
                 <span className="text-black">
