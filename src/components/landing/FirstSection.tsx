@@ -100,16 +100,32 @@ export const FirstSection = () => {
           delay: 0.1
         }} className="space-y-6 md:space-y-8">
             <div className="space-y-4 md:space-y-6">
-              {/* New badges section above title */}
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="outline" className="bg-blue-50 hover:bg-blue-100 text-blue-700 border-blue-200 px-3 py-1 flex items-center gap-1.5 font-medium">
-                  <Award className="w-3.5 h-3.5" />
-                  Pioneering Smarter, AI-First Healthcare
-                </Badge>
-                <Badge variant="outline" className="bg-green-50 hover:bg-green-100 text-green-700 border-green-200 px-3 py-1 flex items-center gap-1.5 font-medium">
-                  <Users className="w-3.5 h-3.5" />
-                  Trusted by 1000+ Clinicians
-                </Badge>
+              {/* Enhanced badges section above title */}
+              <div className="flex flex-wrap gap-2.5 mb-2">
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                >
+                  <Badge variant="outline" className={`${shadowStyles.subtle} bg-gradient-to-r from-blue-50 to-blue-100/80 text-blue-700 border-blue-200/50 px-3.5 py-1.5 flex items-center gap-2 rounded-full hover:shadow-md transition-all duration-300`}>
+                    <span className="bg-blue-100/80 p-1 rounded-full">
+                      <Award className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="font-semibold">Pioneering Smarter, AI-First Healthcare</span>
+                  </Badge>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.4 }}
+                >
+                  <Badge variant="outline" className={`${shadowStyles.subtle} bg-gradient-to-r from-green-50 to-green-100/80 text-green-700 border-green-200/50 px-3.5 py-1.5 flex items-center gap-2 rounded-full hover:shadow-md transition-all duration-300`}>
+                    <span className="bg-green-100/80 p-1 rounded-full">
+                      <Users className="w-3.5 h-3.5" />
+                    </span>
+                    <span className="font-semibold">Trusted by 1000+ Clinicians</span>
+                  </Badge>
+                </motion.div>
               </div>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-black">
