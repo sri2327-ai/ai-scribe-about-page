@@ -197,10 +197,7 @@ export const FirstSection = () => {
                             boxShadow: activeTab === tab.id ? `0 2px 8px ${tab.color}40` : ''
                           }}
                         >
-                          {React.cloneElement(tab.icon, { 
-                            strokeWidth: 2,
-                            className: `w-5 h-5 ${activeTab === tab.id ? 'text-white' : ''}`
-                          })}
+                          {tab.icon}
                         </div>
                         
                         <div className="flex flex-col items-center">
