@@ -83,15 +83,7 @@ export const FeatureCards = () => {
               lineHeight: 1.2,
               mb: 2,
               position: 'relative',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                width: '40px',
-                height: '3px',
-                background: 'rgba(255,255,255,0.5)',
-                bottom: '-12px',
-                left: 0
-              }
+              // Removed the &::before pseudo-element that created the underline
             }}
           >
             AI Solutions Designed for Every Medical Specialty
