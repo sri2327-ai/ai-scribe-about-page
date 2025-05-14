@@ -152,7 +152,7 @@ export const FirstSection = () => {
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full">
-                <div className="px-3 sm:px-4 pt-3 sm:pt-4">
+                <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm p-3 sm:p-4 pt-3 sm:pt-4">
                   {/* Enhanced mobile tab navigation */}
                   <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg">
                     {featureTabs.map(tab => (
