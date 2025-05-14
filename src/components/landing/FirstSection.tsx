@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Award, StethoscopeIcon, LightbulbIcon } from "lucide-react";
+import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -11,8 +11,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
-import { Badge } from "@/components/ui/badge";
-
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
@@ -100,34 +98,6 @@ export const FirstSection = () => {
           delay: 0.1
         }} className="space-y-6 md:space-y-8">
             <div className="space-y-4 md:space-y-6">
-              {/* Enhanced badges section above title */}
-              <div className="flex flex-wrap gap-2.5 mb-2">
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2 }}
-                >
-                  <Badge variant="outline" className={`${shadowStyles.subtle} bg-gradient-to-r from-blue-50 to-blue-100/80 text-blue-700 border-blue-200/50 px-3.5 py-1.5 flex items-center gap-2 rounded-full hover:shadow-md transition-all duration-300`}>
-                    <span className="bg-blue-100/80 p-1 rounded-full">
-                      <Award className="w-3.5 h-3.5" />
-                    </span>
-                    <span className="font-semibold">Pioneering Smarter, AI-First Healthcare</span>
-                  </Badge>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.4 }}
-                >
-                  <Badge variant="outline" className={`${shadowStyles.subtle} bg-gradient-to-r from-green-50 to-green-100/80 text-green-700 border-green-200/50 px-3.5 py-1.5 flex items-center gap-2 rounded-full hover:shadow-md transition-all duration-300`}>
-                    <span className="bg-green-100/80 p-1 rounded-full">
-                      <Users className="w-3.5 h-3.5" />
-                    </span>
-                    <span className="font-semibold">Trusted by 1000+ Clinicians</span>
-                  </Badge>
-                </motion.div>
-              </div>
-              
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-black">
                 AI Scribing &<br />
                 <span className="text-black">
