@@ -32,14 +32,13 @@ StepIcon.displayName = 'StepIcon';
 
 // Voice wave animation component for the Mic step
 const VoiceWaveAnimation = memo(() => {
-  const waveRef = useRef<HTMLDivElement>(null);
-  
   return (
-    <div className="flex items-center justify-center h-6 mt-1 mb-2 space-x-1">
+    <div className="flex items-center justify-center h-8 mt-2 mb-2 space-x-1">
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={i}
-          className="w-1 bg-blue-400 rounded-full"
+          className="w-1 rounded-full"
+          style={{ backgroundColor: steps[0].color }}
           animate={{
             height: [6, 12 + i * 2, 6],
             opacity: [0.4, 1, 0.4]
@@ -127,11 +126,14 @@ const CrushIllustration = memo(() => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center gap-2 bg-white p-4 rounded-lg shadow-md z-10 min-w-[140px]"
+          className="flex flex-col items-center gap-2 bg-white/90 p-4 rounded-lg shadow-lg z-10 min-w-[140px]"
           style={{ 
             willChange: 'transform, opacity',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-            border: '1px solid rgba(0,0,0,0.08)'
+            boxShadow: `0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
+                       currentStep === 1 ? '56,126,137,0.1' : 
+                       currentStep === 2 ? '81,146,174,0.1' : 
+                       currentStep === 3 ? '20,49,81,0.1' : '240,98,146,0.1'})`,
+            borderTop: `3px solid ${steps[currentStep].color}`
           }}
         >
           <StepIcon Icon={steps[currentStep].Icon} isActive={true} color={steps[currentStep].color} />
@@ -142,8 +144,70 @@ const CrushIllustration = memo(() => {
           {/* Voice wave animation for the Mic/Voice Input step */}
           {currentStep === 0 && <VoiceWaveAnimation />}
           
+          {/* Step content based on current step */}
+          <div className="mt-1 w-full">
+            {currentStep === 0 && (
+              <div className="text-xs text-center text-gray-500">
+                Recording patient conversation...
+              </div>
+            )}
+            {currentStep === 1 && (
+              <div className="flex justify-center">
+                <motion.div 
+                  className="h-2 w-32 bg-gray-200 rounded-full overflow-hidden"
+                  style={{ padding: 0 }}
+                >
+                  <motion.div
+                    className="h-full rounded-full" 
+                    style={{ backgroundColor: steps[1].color }}
+                    initial={{ width: "0%" }}
+                    animate={{ width: "100%" }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                </motion.div>
+              </div>
+            )}
+            {currentStep === 2 && (
+              <div className="flex flex-col items-center">
+                <motion.div 
+                  className="w-full h-3 flex space-x-1"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {[...Array(5)].map((_, i) => (
+                    <div key={i} className="h-2 rounded-sm flex-1" style={{ backgroundColor: `${steps[2].color}${50 + i*10}` }}></div>
+                  ))}
+                </motion.div>
+              </div>
+            )}
+            {currentStep === 3 && (
+              <div className="flex justify-center">
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  className="w-5 h-5 border-2 border-t-transparent rounded-full"
+                  style={{ borderColor: steps[3].color }}
+                />
+              </div>
+            )}
+            {currentStep === 4 && (
+              <div className="flex justify-center space-x-1">
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: steps[4].color }}
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+          
           {/* Step indicator dots */}
-          <div className="flex gap-1.5 mt-1.5">
+          <div className="flex gap-1.5 mt-2">
             {steps.map((step, idx) => (
               <div 
                 key={idx} 
