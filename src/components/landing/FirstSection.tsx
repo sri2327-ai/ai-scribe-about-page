@@ -59,29 +59,25 @@ export const FirstSection = () => {
     title: "AI Medical Scribe",
     icon: <FileText className="w-5 h-5" />,
     description: "Automated documentation that captures the full patient story while you focus on care.",
-    benefit: "Save 2+ hours per day",
-    color: "#046f90" // Adding colors for each tab
+    benefit: "Save 2+ hours per day"
   }, {
     id: "patient-engagement",
     title: "Patient Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
-    benefit: "Boost satisfaction by +60%",
-    color: "#387E89"
+    benefit: "Boost satisfaction by +60%"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
     icon: <Users className="w-5 h-5" />,
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
-    benefit: "30+ specialty workflows",
-    color: "#143151"
+    benefit: "30+ specialty workflows"
   }, {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
     description: "Works with any EHR system and connects to 7000+ healthcare apps.",
-    benefit: "Seamless connectivity",
-    color: "#5192AE"
+    benefit: "Seamless connectivity"
   }];
 
   return (
@@ -150,91 +146,53 @@ export const FirstSection = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
             className="relative"
           >
-            <Card className={`bg-white border border-gray-100/80 transition-all duration-300 overflow-hidden rounded-xl ${shadowStyles.brandGlow} hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
-              <div className="p-4 bg-gradient-to-r from-[#f8f9fc] to-[#f1f5fa] border-b border-gray-100 dark:bg-gradient-to-r dark:from-gray-800/80 dark:to-gray-800/50 dark:border-gray-700/50">
-                <h3 className="font-medium text-gray-900 text-lg sm:text-xl flex items-center gap-2 dark:text-white">
-                  <span className="relative">
-                    Don't adapt to your AI—make it work for you
-                    <motion.span 
-                      initial={{ width: 0 }} 
-                      animate={{ width: '100%' }} 
-                      transition={{ delay: 0.6, duration: 1 }}
-                      className="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full"
-                    />
-                  </span>
-                  <span className="inline-block ml-2 px-3 py-1 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 text-[#387E89] text-xs rounded-full font-semibold uppercase tracking-wide border border-[#387E89]/20 dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
+            <Card className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
+              <div className="p-3 sm:p-4 bg-gray-50/80 border-b border-gray-100 dark:bg-gray-800/50 dark:border-gray-700/50">
+                <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center dark:text-white">
+                  Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
                 </h3>
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full">
-                <div className="px-4 pt-4">
-                  {/* Enhanced tabs navigation */}
-                  <TabsList className="w-full grid grid-cols-2 md:flex md:flex-wrap overflow-visible bg-gray-50/70 p-1.5 rounded-lg gap-1 dark:bg-gray-800/30">
-                    {featureTabs.map((tab, index) => (
+                <div className="px-3 sm:px-4 pt-3 sm:pt-4">
+                  {/* Enhanced mobile tab navigation */}
+                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
+                    {featureTabs.map(tab => (
                       <TabsTrigger 
                         key={tab.id} 
                         value={tab.id} 
-                        className="flex items-center justify-center px-3 py-2.5 gap-2 text-center rounded-lg data-[state=active]:shadow-md text-sm font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white transition-all duration-200 relative group"
+                        className="flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white"
                       >
-                        <span 
-                          className="flex items-center justify-center shrink-0 bg-white/80 h-8 w-8 rounded-full shadow-sm group-data-[state=active]:bg-[var(--tab-color)] group-data-[state=active]:text-white transition-all duration-200"
-                          style={{ 
-                            // Using CSS custom property with type assertion to fix the TypeScript error
-                            '--tab-color': tab.color
-                          } as React.CSSProperties}
-                        >
-                          {tab.icon}
-                        </span>
-                        <span className="truncate font-medium">{tab.title}</span>
+                        <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
+                        <span className="truncate">{tab.title}</span>
                       </TabsTrigger>
                     ))}
                   </TabsList>
                 </div>
                 
-                <div className="p-4">
-                  {featureTabs.map((tab) => (
+                <div className="p-3 sm:p-4">
+                  {featureTabs.map(tab => (
                     <TabsContent 
                       key={tab.id} 
                       value={tab.id} 
                       className="mt-2 focus-visible:outline-none focus-visible:ring-0"
                     >
                       <CardContent className="p-0">
-                        <motion.div 
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="flex flex-col md:flex-row gap-4 items-start p-4 bg-gradient-to-br from-white to-gray-50/80 rounded-lg border border-gray-100/80 dark:from-gray-900/60 dark:to-gray-800/60 dark:border-gray-700/30"
-                        >
-                          <div className="w-full space-y-3">
-                            <div className="flex items-center gap-2">
-                              <div className="p-2 rounded-lg bg-white shadow-sm border border-gray-100 dark:bg-gray-800 dark:border-gray-700">
-                                {tab.icon}
-                              </div>
-                              <h3 className="text-xl font-semibold" style={{ color: tab.color }}>{tab.title}</h3>
-                            </div>
+                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2 transition-all duration-300">
+                          <div className="w-full space-y-2">
+                            <h3 className="text-lg sm:text-xl font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
+                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{tab.description}</p>
                             
-                            <p className="text-base text-gray-600 dark:text-gray-300 leading-relaxed">{tab.description}</p>
-                            
-                            <div className="flex items-center gap-3 mt-4 bg-gradient-to-r from-[#046f90]/5 to-[#387E89]/10 p-3 rounded-lg border border-[#387E89]/10">
-                              <CheckCircle className="w-5 h-5 text-[#387E89]" />
-                              <span className="font-medium text-[#387E89]">{tab.benefit}</span>
+                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
+                              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
+                              <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
                               
                               <div className="ml-auto">
                                 <VoiceAnimation />
                               </div>
                             </div>
-                            
-                            <div className="pt-2">
-                              <Button 
-                                variant="outline" 
-                                className="rounded-full border-[#387E89]/20 text-[#387E89] hover:bg-[#387E89]/10 hover:text-[#046f90] transition-colors"
-                              >
-                                Learn more
-                                <ArrowRight className="h-4 w-4 ml-1" />
-                              </Button>
-                            </div>
                           </div>
-                        </motion.div>
+                        </div>
                       </CardContent>
                     </TabsContent>
                   ))}
