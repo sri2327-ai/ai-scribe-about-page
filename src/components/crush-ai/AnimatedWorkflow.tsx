@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
@@ -37,7 +38,14 @@ const workflowSteps = [
             py: 2
           }}
         >
-          <Mic size={36} style={{ color: stepColors.start }} />
+          <div className="relative">
+            <Mic size={36} style={{ color: stepColors.start }} />
+            <motion.div
+              className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-red-500"
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
           <Typography 
             component="div"
             sx={{ 
@@ -48,6 +56,8 @@ const workflowSteps = [
           >
             {props.timerDisplay}
           </Typography>
+          
+          {/* Voice waves visualization */}
           <Box 
             sx={{ 
               width: '100%', 
@@ -77,6 +87,35 @@ const workflowSteps = [
               />
             ))}
           </Box>
+          
+          {/* Figma-style illustration */}
+          <motion.div 
+            className="mt-3 bg-white rounded-lg shadow-sm p-3 w-full border border-gray-100"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            <div className="flex gap-3 items-start">
+              <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
+                <Mic className="w-4 h-4 text-blue-600" />
+              </div>
+              <div className="flex-1">
+                <div className="bg-blue-50 rounded-2xl p-3 max-w-[90%]">
+                  <div className="h-2 w-3/4 bg-blue-200 rounded mb-2"></div>
+                  <div className="h-2 w-1/2 bg-blue-200 rounded"></div>
+                </div>
+              </div>
+            </div>
+            <div className="flex gap-3 items-start mt-2 justify-end">
+              <div className="flex-1">
+                <div className="bg-gray-50 rounded-2xl p-3 max-w-[90%] ml-auto">
+                  <div className="h-2 w-full bg-gray-200 rounded mb-2"></div>
+                  <div className="h-2 w-2/3 bg-gray-200 rounded"></div>
+                </div>
+              </div>
+              <div className="w-8 h-8 rounded-full bg-gray-100 shrink-0"></div>
+            </div>
+          </motion.div>
         </Box>
       </Box>
     )
@@ -151,6 +190,50 @@ const workflowSteps = [
             <span style={{ color: stepColors.previous }}>Plan:</span> MRI ordered, follow-up in two weeks
           </Typography>
         </Box>
+        
+        {/* Figma-style calendar illustration */}
+        <motion.div 
+          className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <History className="w-4 h-4" style={{ color: stepColors.previous }} />
+            <span className="text-sm font-medium" style={{ color: stepColors.previous }}>Patient History</span>
+          </div>
+          
+          <div className="grid grid-cols-4 gap-2 text-center mb-2">
+            {['2025', 'Jan', 'Feb', 'Mar'].map((month, i) => (
+              <div 
+                key={i} 
+                className={`text-xs p-1 rounded ${i === 0 ? 'bg-gray-100 font-medium' : i === 3 ? `bg-teal-50 text-teal-700` : ''}`}
+              >
+                {month}
+              </div>
+            ))}
+          </div>
+          
+          <div className="grid grid-cols-7 gap-1">
+            {['M','T','W','T','F','S','S'].map((day, i) => (
+              <div key={i} className="text-center text-xs text-gray-500">{day}</div>
+            ))}
+            {Array(31).fill(0).map((_, i) => {
+              const isHighlighted = i + 1 === 12;
+              return (
+                <motion.div 
+                  key={i}
+                  className={`text-center text-xs p-1 rounded-full ${isHighlighted ? 'bg-teal-500 text-white' : ''}`}
+                  whileHover={{ scale: isHighlighted ? 1.2 : 1 }}
+                  animate={isHighlighted ? { scale: [1, 1.1, 1], boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 4px 8px rgba(0,0,0,0.1)', '0px 0px 0px rgba(0,0,0,0)'] } : {}}
+                  transition={{ repeat: isHighlighted ? Infinity : 0, repeatDelay: 2, duration: 0.8 }}
+                >
+                  {i + 1}
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
       </Box>
     )
   },
@@ -240,6 +323,55 @@ const workflowSteps = [
             <span style={{ color: stepColors.notes }}>CPT/E&M:</span> 99203 (New patient, detailed exam)
           </Typography>
         </Box>
+        
+        {/* Figma-style document illustration */}
+        <motion.div 
+          className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4" style={{ color: stepColors.notes }} />
+              <span className="text-sm font-medium" style={{ color: stepColors.notes }}>Clinical Note</span>
+            </div>
+            <div className="text-xs px-2 py-1 bg-green-50 text-green-700 rounded">
+              Generating...
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <div>
+              <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>Chief Complaint</div>
+              <motion.div 
+                className="h-3 bg-blue-100 rounded w-3/4"
+                animate={{ width: ['30%', '75%'] }}
+                transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
+              />
+            </div>
+            <div>
+              <div className="text-xs font-medium mb-1" style={{ color: stepColors.notes }}>History of Present Illness</div>
+              <div className="space-y-1">
+                <motion.div 
+                  className="h-2 bg-blue-100 rounded w-full"
+                  animate={{ width: ['40%', '100%'] }}
+                  transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse', delay: 0.2 }}
+                />
+                <motion.div 
+                  className="h-2 bg-blue-100 rounded w-5/6"
+                  animate={{ width: ['30%', '83%'] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', delay: 0.4 }}
+                />
+                <motion.div 
+                  className="h-2 bg-blue-100 rounded w-4/6"
+                  animate={{ width: ['20%', '67%'] }}
+                  transition={{ duration: 1.7, repeat: Infinity, repeatType: 'reverse', delay: 0.6 }}
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </Box>
     )
   },
@@ -309,6 +441,69 @@ const workflowSteps = [
             Urgent surgical consultation is recommended...
           </Typography>
         </Box>
+        
+        {/* Figma-style referral illustration */}
+        <motion.div 
+          className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <ClipboardList className="w-4 h-4" style={{ color: stepColors.referral }} />
+            <span className="text-sm font-medium" style={{ color: stepColors.referral }}>Specialty Referral</span>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="bg-purple-50 rounded-lg p-2 border border-purple-100">
+              <div className="text-xs text-purple-700 mb-1 font-medium">Cardiology</div>
+              <motion.div
+                className="w-full h-1 bg-purple-200 rounded-full overflow-hidden"
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.div
+                  className="h-full bg-purple-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 1.5 }}
+                />
+              </motion.div>
+            </div>
+            <div className="bg-blue-50 rounded-lg p-2 border border-blue-100">
+              <div className="text-xs text-blue-700 mb-1 font-medium">Gastroenterology</div>
+              <div className="w-full h-1 bg-blue-200 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-blue-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: '80%' }}
+                  transition={{ duration: 1.2, delay: 0.2 }}
+                />
+              </div>
+            </div>
+            <div className="bg-green-50 rounded-lg p-2 border border-green-100">
+              <div className="text-xs text-green-700 mb-1 font-medium">Neurology</div>
+              <div className="w-full h-1 bg-green-200 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-green-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: '60%' }}
+                  transition={{ duration: 0.9, delay: 0.4 }}
+                />
+              </div>
+            </div>
+            <div className="bg-red-50 rounded-lg p-2 border border-red-100">
+              <div className="text-xs text-red-700 mb-1 font-medium">Surgery</div>
+              <div className="w-full h-1 bg-red-200 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-red-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: '90%' }}
+                  transition={{ duration: 1.3, delay: 0.6 }}
+                />
+              </div>
+            </div>
+          </div>
+        </motion.div>
       </Box>
     )
   },
@@ -368,6 +563,58 @@ const workflowSteps = [
             </Box>
           ))}
         </Box>
+        
+        {/* Figma-style lab illustration */}
+        <motion.div 
+          className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <TestTube className="w-4 h-4" style={{ color: stepColors.labs }} />
+            <span className="text-sm font-medium" style={{ color: stepColors.labs }}>Laboratory Orders</span>
+          </div>
+          
+          <div className="grid grid-cols-2 gap-2 mb-3">
+            {[
+              { icon: TestTube, name: "Blood Work", count: 3 },
+              { icon: TestTube, name: "Imaging", count: 1 },
+              { icon: TestTube, name: "Pathology", count: 0 },
+              { icon: TestTube, name: "Cultures", count: 2 }
+            ].map((item, i) => (
+              <motion.div 
+                key={i}
+                className="flex items-center gap-2 bg-pink-50 p-2 rounded-lg border border-pink-100"
+                whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + (i * 0.1) }}
+              >
+                <div className="w-6 h-6 rounded-full bg-pink-200 flex items-center justify-center">
+                  <item.icon className="w-3 h-3 text-pink-600" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-xs font-medium text-pink-700">{item.name}</div>
+                  {item.count > 0 && (
+                    <div className="text-[10px] text-pink-500">{item.count} orders</div>
+                  )}
+                </div>
+                {item.count > 0 && (
+                  <div className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
+                )}
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="p-2 bg-yellow-50 rounded-lg border border-yellow-100">
+            <div className="flex items-center gap-2">
+              <TestTube className="w-4 h-4 text-yellow-600" />
+              <div className="text-xs font-medium text-yellow-700">Prescription</div>
+            </div>
+            <div className="mt-1 text-[10px] text-yellow-600">1 medication ordered • Ready in 30 mins</div>
+          </div>
+        </motion.div>
       </Box>
     )
   },
@@ -443,6 +690,67 @@ const workflowSteps = [
             </Typography>
           </Box>
         </Box>
+        
+        {/* Figma-style instruction illustration */}
+        <motion.div 
+          className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4" style={{ color: stepColors.instructions }} />
+              <span className="text-sm font-medium" style={{ color: stepColors.instructions }}>Patient Instructions</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+              <span className="text-[10px] text-green-600">Ready to send</span>
+            </div>
+          </div>
+          
+          <div className="border border-dashed border-blue-200 rounded-lg p-2 mb-3">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
+                <span className="text-[10px] text-blue-600">1</span>
+              </div>
+              <span className="text-xs text-blue-800 font-medium">Rest & Recovery</span>
+            </div>
+            <div className="pl-7">
+              <motion.div 
+                className="h-2 bg-blue-50 rounded w-full mb-1"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <motion.div 
+                className="h-2 bg-blue-50 rounded w-4/5"
+                animate={{ opacity: [0.4, 0.8, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+              />
+            </div>
+          </div>
+          
+          <div className="border border-dashed border-blue-200 rounded-lg p-2">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
+                <span className="text-[10px] text-blue-600">2</span>
+              </div>
+              <span className="text-xs text-blue-800 font-medium">Medication Schedule</span>
+            </div>
+            <div className="pl-7">
+              <motion.div 
+                className="h-2 bg-blue-50 rounded w-full mb-1"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
+              />
+              <motion.div 
+                className="h-2 bg-blue-50 rounded w-3/4"
+                animate={{ opacity: [0.4, 0.8, 0.4] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+              />
+            </div>
+          </div>
+        </motion.div>
       </Box>
     )
   },
@@ -494,6 +802,90 @@ const workflowSteps = [
             Secure integration with all EHR systems
           </motion.div>
         </Box>
+        
+        {/* Figma-style EHR illustration */}
+        <motion.div 
+          className="mt-3 bg-white rounded-lg shadow-sm p-3 border border-gray-100"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="flex items-center gap-2 mb-3">
+            <Database className="w-4 h-4" style={{ color: stepColors.ehr }} />
+            <span className="text-sm font-medium" style={{ color: stepColors.ehr }}>EHR Integration</span>
+          </div>
+          
+          <div className="space-y-3">
+            <motion.div 
+              className="p-2 rounded-lg bg-green-50 border border-green-100 relative overflow-hidden"
+              animate={{ boxShadow: ['0 1px 3px rgba(0,0,0,0.1)', '0 3px 6px rgba(0,0,0,0.2)', '0 1px 3px rgba(0,0,0,0.1)'] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center bg-green-200">
+                  <FileText size={12} className="text-green-700" />
+                </div>
+                <div>
+                  <div className="text-xs font-medium text-green-800">Clinical Note</div>
+                  <div className="text-[10px] text-green-700">Successfully synced</div>
+                </div>
+                <CheckCircle size={16} className="text-green-600 ml-auto" />
+              </div>
+              <motion.div 
+                className="absolute bottom-0 left-0 h-1 bg-green-300"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 0.8 }}
+              />
+            </motion.div>
+            
+            <motion.div 
+              className="p-2 rounded-lg bg-green-50 border border-green-100 relative overflow-hidden"
+              animate={{ boxShadow: ['0 1px 3px rgba(0,0,0,0.1)', '0 3px 6px rgba(0,0,0,0.2)', '0 1px 3px rgba(0,0,0,0.1)'] }}
+              transition={{ repeat: Infinity, duration: 2, delay: 0.5 }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center bg-green-200">
+                  <TestTube size={12} className="text-green-700" />
+                </div>
+                <div>
+                  <div className="text-xs font-medium text-green-800">Labs & Orders</div>
+                  <div className="text-[10px] text-green-700">Successfully synced</div>
+                </div>
+                <CheckCircle size={16} className="text-green-600 ml-auto" />
+              </div>
+              <motion.div 
+                className="absolute bottom-0 left-0 h-1 bg-green-300"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              />
+            </motion.div>
+            
+            <motion.div 
+              className="p-2 rounded-lg bg-green-50 border border-green-100 relative overflow-hidden"
+              animate={{ boxShadow: ['0 1px 3px rgba(0,0,0,0.1)', '0 3px 6px rgba(0,0,0,0.2)', '0 1px 3px rgba(0,0,0,0.1)'] }}
+              transition={{ repeat: Infinity, duration: 2, delay: 1 }}
+            >
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-full flex items-center justify-center bg-green-200">
+                  <ClipboardList size={12} className="text-green-700" />
+                </div>
+                <div>
+                  <div className="text-xs font-medium text-green-800">Referrals</div>
+                  <div className="text-[10px] text-green-700">Successfully synced</div>
+                </div>
+                <CheckCircle size={16} className="text-green-600 ml-auto" />
+              </div>
+              <motion.div 
+                className="absolute bottom-0 left-0 h-1 bg-green-300"
+                initial={{ width: 0 }}
+                animate={{ width: '100%' }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              />
+            </motion.div>
+          </div>
+        </motion.div>
       </Box>
     )
   }
