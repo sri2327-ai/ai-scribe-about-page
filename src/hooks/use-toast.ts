@@ -1,5 +1,5 @@
 
-import { useToast as useToastOriginal } from "@/components/ui/use-toast"
-import { toast } from "@/components/ui/use-toast"
+// Re-export toast functionality from the original implementation
+import { toast, useToast } from "@/components/ui/use-toast";
 
-export { toast, useToastOriginal as useToast }
+export { toast, useToast };
