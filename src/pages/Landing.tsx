@@ -64,60 +64,58 @@ const Landing = () => {
         </script>
       </Helmet>
 
-      <div className="max-w-screen-2xl mx-auto px-4 sm:px-6">
-        <Breadcrumb className="py-4 md:py-6">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Home</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/pricing">Pricing</Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/">Home</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/pricing">Pricing</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-        {/* Add a debug button for testing - we can remove this later */}
-        <div className="fixed top-20 right-4 z-50">
-          <Button 
-            size="sm" 
-            variant="outline" 
-            className="bg-white shadow-md"
-            onClick={() => {
-              console.log("Navigating to pricing");
-              window.location.href = "/pricing";
-            }}
-          >
-            View Pricing
-          </Button>
-        </div>
-
-        <FirstSection />
-        
-        <Suspense fallback={<SectionLoader />}>
-          <SecondSection />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <ThirdSection />
-        </Suspense>
-        <FourthSection />
-        <IntegrationSection />
-        <Suspense fallback={<SectionLoader />}>
-          <FifthSection />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <SeventhSection />
-        </Suspense>
-        <Suspense fallback={<SectionLoader />}>
-          <NinthSection />
-        </Suspense>
-        <TenthSection />
-        <PracticeTypeSelector onSelect={handlePracticeTypeSelect} />
-        <Suspense fallback={<SectionLoader />}>
-          <EleventhSection />
-        </Suspense>
+      {/* Add a debug button for testing - we can remove this later */}
+      <div className="fixed top-20 right-4 z-50">
+        <Button 
+          size="sm" 
+          variant="outline" 
+          className="bg-white shadow-md"
+          onClick={() => {
+            console.log("Navigating to pricing");
+            window.location.href = "/pricing";
+          }}
+        >
+          View Pricing
+        </Button>
       </div>
+
+      <FirstSection />
+      
+      <Suspense fallback={<SectionLoader />}>
+        <SecondSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <ThirdSection />
+      </Suspense>
+      <FourthSection />
+      <IntegrationSection />
+      <Suspense fallback={<SectionLoader />}>
+        <FifthSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <SeventhSection />
+      </Suspense>
+      <Suspense fallback={<SectionLoader />}>
+        <NinthSection />
+      </Suspense>
+      <TenthSection />
+      <PracticeTypeSelector onSelect={handlePracticeTypeSelect} />
+      <Suspense fallback={<SectionLoader />}>
+        <EleventhSection />
+      </Suspense>
     </main>
   );
 };

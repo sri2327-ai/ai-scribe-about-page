@@ -3,26 +3,24 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import MedicalSpecialtiesIllustration from './MedicalSpecialtiesIllustration';
 import { motion } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { typography } from '@/lib/typography';
 
 const SpecialtiesBanner = () => {
   return (
     <section className="w-full bg-white pt-4 md:pt-10">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-10">
-        <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10">
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10">
           <motion.div 
-            className="w-full md:w-1/2 text-left space-y-4 md:space-y-6"
+            className="w-full md:w-1/2 text-left space-y-3 md:space-y-5"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className={cn(typography.h1, "text-[#143151] leading-tight")}>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#143151] leading-tight">
               Transforming Healthcare,<br className="hidden sm:block" />
               One Specialty at a Time
             </h1>
             
-            <p className={cn(typography.description, "text-left mx-0 max-w-xl")}>
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 max-w-xl">
               The Leading Ambient AI Platform with AI Models Designed
               to Capture the Unique Details of Every Medical Field.
             </p>

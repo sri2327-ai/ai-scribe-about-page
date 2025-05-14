@@ -1,85 +1,82 @@
 
 import React from 'react';
-import { Container, Typography, Box } from '@mui/material';
-import { Card } from '@/components/ui/card';
 import { motion } from 'framer-motion';
-import { typography } from '@/lib/typography';
-import { cn } from '@/lib/utils';
-import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
-
-const integrationPartners = [
-  { name: 'AWS', logo: '/aws.png' },
-  { name: 'Epic', logo: '/img.png' },
-  { name: 'Cerner', logo: '/img.png' },
-  { name: 'Allscripts', logo: '/img.png' },
-  { name: 'NextGen', logo: '/img.png' },
-  { name: 'Athenahealth', logo: '/img.png' },
-  { name: 'eClinicalWorks', logo: '/img.png' },
-  { name: 'DrChrono', logo: '/img.png' },
-];
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Info } from "lucide-react";
+import { IntegrationChecker } from './IntegrationChecker';
+import { Link } from 'react-router-dom';
 
 const IntegrationSection = () => {
+  console.log("Rendering Integration Section on landing page");
+  
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-b from-white to-blue-50/30">
-      <Container maxWidth="lg" className="px-4 sm:px-6 lg:px-8">
-        <motion.div 
+    <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89]">
+      <div className="max-w-[1400px] mx-auto">
+        <div className="text-center mb-12">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl font-bold text-white mb-4"
+          >
+            Compatible with Your Preferred Software
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-lg text-white max-w-2xl mx-auto"
+          >
+            From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
+            Try our compatibility checker below.
+          </motion.p>
+        </div>
+
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-10 sm:mb-14"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mb-12"
         >
-          <h2 className={cn(typography.h2, "mb-4")}>
-            Seamless Integration with Your Workflow
-          </h2>
-          <p className={cn(typography.description, "mb-6")}>
-            S10.AI connects with your existing healthcare systems through our secure, 
-            HIPAA-compliant integration platform. We support all major EHR systems and thousands 
-            of healthcare applications.
-          </p>
+          <IntegrationChecker />
         </motion.div>
 
-        <div className="mt-8 sm:mt-12">
-          <Card className="p-6 sm:p-8 border border-gray-100 shadow-sm bg-white/80 backdrop-blur-sm">
-            <h3 className={cn(typography.h3, "mb-6 text-center")}>
-              Integration Partners
-            </h3>
-            
-            <ResponsiveCarousel
-              items={integrationPartners}
-              renderItem={(item) => (
-                <div className="flex items-center justify-center p-4 h-full">
-                  <div className="relative aspect-video w-full h-full flex items-center justify-center">
-                    <img 
-                      src={item.logo} 
-                      alt={`${item.name} logo`} 
-                      className="max-h-16 sm:max-h-20 object-contain"
-                    />
-                  </div>
-                  <p className={cn(typography.caption, "absolute bottom-2 text-center w-full")}>
-                    {item.name}
-                  </p>
-                </div>
-              )}
-              columnsDesktop={4}
-              columnsTablet={3}
-              columnsMobile={2}
-              showControls={true}
-              autoPlay={true}
-            />
-            
-            <div className="mt-8 text-center">
-              <p className={cn(typography.body, "mb-4 italic")}>
-                "S10.AI's integration with our EHR system was smooth and the support team 
-                was responsive throughout the process."
-              </p>
-              <p className={cn(typography.caption, "font-semibold")}>
-                — Dr. Emily Chen, Chief Medical Officer
-              </p>
-            </div>
-          </Card>
-        </div>
-      </Container>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex items-center justify-center mb-6"
+        >
+          <div className="bg-white/10 rounded-lg p-3 max-w-lg flex items-start gap-3 backdrop-blur-sm">
+            <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
+            <p className="text-sm text-white text-left">
+              <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
+              Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="text-center"
+        >
+          <Link to="/integration">
+            <Button 
+              className="rounded-full px-8 py-6 text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
+            >
+              Learn More About Integrations
+              <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
+            </Button>
+          </Link>
+        </motion.div>
+      </div>
     </section>
   );
 };
