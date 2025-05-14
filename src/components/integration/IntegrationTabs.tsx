@@ -53,11 +53,23 @@ export default function IntegrationTabs() {
   }, [isMobile]);
   
   const handlePrevTab = () => {
-    setVisibleTabsIndex(prev => Math.max(0, prev - 1));
+    // If we have previous tabs to show, update the index and also update the active tab
+    if (visibleTabsIndex > 0) {
+      const newIndex = Math.max(0, visibleTabsIndex - 1);
+      setVisibleTabsIndex(newIndex);
+      // Make the first visible tab active
+      setActiveTab(tabs[newIndex].value);
+    }
   };
   
   const handleNextTab = () => {
-    setVisibleTabsIndex(prev => Math.min(tabs.length - tabsToShow, prev + 1));
+    // If we have more tabs to show, update the index and also update the active tab
+    if (visibleTabsIndex < tabs.length - tabsToShow) {
+      const newIndex = Math.min(tabs.length - tabsToShow, visibleTabsIndex + 1);
+      setVisibleTabsIndex(newIndex);
+      // Make the first visible tab active
+      setActiveTab(tabs[newIndex].value);
+    }
   };
   
   // When selecting a tab that's not visible, scroll to make it visible
@@ -108,16 +120,19 @@ export default function IntegrationTabs() {
         className="w-full max-w-4xl mx-auto"
       >
         <div className="relative flex items-center mb-6">
-          {visibleTabsIndex > 0 && (
-            <button 
-              onClick={handlePrevTab}
-              className="absolute left-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
-              aria-label="Previous tabs"
-              type="button"
-            >
-              <ArrowLeft fontSize="small" />
-            </button>
-          )}
+          <button 
+            onClick={handlePrevTab}
+            className={`absolute left-0 z-10 flex items-center justify-center h-8 w-8 rounded-full shadow-md transition-all duration-200 ${
+              visibleTabsIndex > 0 
+                ? "bg-white hover:bg-gray-100 opacity-100 pointer-events-auto" 
+                : "bg-gray-100 opacity-50 pointer-events-none"
+            }`}
+            aria-label="Previous tabs"
+            type="button"
+            disabled={visibleTabsIndex === 0}
+          >
+            <ArrowLeft fontSize="small" />
+          </button>
           
           <TabsList className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm scrollbar-hide overflow-x-auto w-full flex flex-nowrap justify-start sm:justify-center gap-2 px-10">
             {tabs.slice(visibleTabsIndex, visibleTabsIndex + tabsToShow).map((tab) => (
@@ -125,7 +140,6 @@ export default function IntegrationTabs() {
                 key={tab.value}
                 value={tab.value}
                 className="flex-none flex flex-col items-center gap-1 p-2 border-b-2 border-transparent data-[state=active]:border-[#387E89] bg-transparent hover:bg-transparent transition-all duration-300 min-w-[120px]"
-                onClick={() => handleTabChange(tab.value)}
               >
                 <div className="icon-wrapper w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                   {tab.icon}
@@ -142,16 +156,19 @@ export default function IntegrationTabs() {
             ))}
           </TabsList>
           
-          {visibleTabsIndex < tabs.length - tabsToShow && (
-            <button 
-              onClick={handleNextTab}
-              className="absolute right-0 z-10 flex items-center justify-center h-8 w-8 bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors duration-200"
-              aria-label="Next tabs"
-              type="button"
-            >
-              <ArrowRight fontSize="small" />
-            </button>
-          )}
+          <button 
+            onClick={handleNextTab}
+            className={`absolute right-0 z-10 flex items-center justify-center h-8 w-8 rounded-full shadow-md transition-all duration-200 ${
+              visibleTabsIndex < tabs.length - tabsToShow 
+                ? "bg-white hover:bg-gray-100 opacity-100 pointer-events-auto" 
+                : "bg-gray-100 opacity-50 pointer-events-none"
+            }`}
+            aria-label="Next tabs"
+            type="button"
+            disabled={visibleTabsIndex >= tabs.length - tabsToShow}
+          >
+            <ArrowRight fontSize="small" />
+          </button>
         </div>
 
         <div className="mt-6">
