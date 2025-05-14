@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
@@ -142,15 +141,15 @@ const workflowSteps = [
     illustration: (
       <div className="w-full h-40 relative flex items-center justify-center">
         <div className="absolute left-10 w-16 h-18 rounded-md shadow-md p-2 flex flex-col"
-          style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.15 }}>
+          style={{ backgroundColor: "#E1EDF5", opacity: 0.8 }}>
           <div className="w-full h-2 mb-1.5 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary }}></div>
+            style={{ backgroundColor: "#6B8E9F" }}></div>
           <div className="w-3/4 h-2 mb-1.5 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary }}></div>
+            style={{ backgroundColor: "#6B8E9F" }}></div>
           <div className="w-full h-2 mb-1.5 rounded-sm" 
-            style={{ backgroundColor: darkBlueTheme.primary }}></div>
+            style={{ backgroundColor: "#6B8E9F" }}></div>
           <div className="w-2/3 h-2 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary }}></div>
+            style={{ backgroundColor: "#6B8E9F" }}></div>
         </div>
 
         <motion.div
@@ -160,7 +159,6 @@ const workflowSteps = [
           }}
           transition={{ repeat: Infinity, duration: 3 }}
           className="absolute z-10"
-          style={{ color: "#6B8E9F" }} // More subtle blue-gray
         >
           <FileCheck size={28} style={{ color: "#6B8E9F" }} />
         </motion.div>
@@ -173,7 +171,7 @@ const workflowSteps = [
         />
 
         <div className="absolute right-10 w-16 h-18 rounded-md shadow-md p-2 flex flex-col"
-          style={{ backgroundColor: "#E1EDF5", opacity: 0.8 }}> {/* Subtle light blue */}
+          style={{ backgroundColor: "#E1EDF5", opacity: 0.8 }}>
           <div className="w-full flex items-center justify-between mb-1">
             <div className="w-3 h-3 rounded-full"
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
@@ -181,7 +179,7 @@ const workflowSteps = [
               style={{ backgroundColor: "#6B8E9F" }}></div>
           </div>
           <div className="w-full h-10 rounded-sm mb-1 flex items-center justify-center"
-            style={{ backgroundColor: "#D3E1EC", opacity: 0.6 }}> {/* Even lighter blue */}
+            style={{ backgroundColor: "#D3E1EC", opacity: 0.6 }}>
             <motion.div
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ repeat: Infinity, duration: 2 }}
@@ -203,24 +201,24 @@ const workflowSteps = [
     illustration: (
       <div className="w-full h-40 relative flex items-center justify-center">
         <div className="absolute left-8 w-16 h-18 rounded-lg shadow-md p-2 flex flex-col"
-          style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.15 }}>
+          style={{ backgroundColor: "#DCE9F2", opacity: 0.7 }}>
           <div className="w-full flex mb-2">
             <div className="w-3 h-3 rounded-sm mr-1"
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
             <div className="flex-1 h-3 rounded-sm"
-              style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.5 }}></div>
+              style={{ backgroundColor: "#A2B9CA", opacity: 0.5 }}></div>
           </div>
           <div className="w-full flex mb-2">
             <div className="w-3 h-3 rounded-sm mr-1"
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
             <div className="flex-1 h-3 rounded-sm"
-              style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.5 }}></div>
+              style={{ backgroundColor: "#A2B9CA", opacity: 0.5 }}></div>
           </div>
           <div className="w-full flex">
             <div className="w-3 h-3 rounded-sm mr-1" 
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
             <div className="flex-1 h-3 rounded-sm"
-              style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.5 }}></div>
+              style={{ backgroundColor: "#A2B9CA", opacity: 0.5 }}></div>
           </div>
         </div>
         
@@ -246,11 +244,11 @@ const workflowSteps = [
           animate={{ x: [0, 30, 30], opacity: [0.6, 1, 0] }}
           transition={{ repeat: Infinity, duration: 2.5, repeatDelay: 0.5 }}
           className="absolute h-0.5 w-24"
-          style={{ backgroundColor: "#A2B9CA" }} // More subtle blue-gray
+          style={{ backgroundColor: "#A2B9CA" }}
         />
         
         <div className="absolute right-8 w-16 h-18 rounded-lg shadow-md p-2 flex flex-col"
-          style={{ backgroundColor: "#DCE9F2", opacity: 0.7 }}> {/* Subtle light blue background */}
+          style={{ backgroundColor: "#DCE9F2", opacity: 0.7 }}>
           <motion.div
             animate={{ opacity: [0.7, 1, 0.7] }}
             transition={{ repeat: Infinity, duration: 2, repeatDelay: 0.5 }}
@@ -275,15 +273,15 @@ const workflowSteps = [
     illustration: (
       <div className="w-full h-40 relative flex items-center justify-center">
         <div className="absolute left-8 w-16 h-20 rounded-md shadow-md p-2 flex flex-col"
-          style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.15 }}>
+          style={{ backgroundColor: "#D8E5EE", opacity: 0.7 }}>
           <div className="w-full h-3 mb-1.5 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary }}></div>
+            style={{ backgroundColor: "#7794A6" }}></div>
           <div className="w-full h-3 mb-1.5 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.8 }}></div>
+            style={{ backgroundColor: "#7794A6", opacity: 0.8 }}></div>
           <div className="w-3/4 h-3 mb-1.5 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.6 }}></div>
+            style={{ backgroundColor: "#7794A6", opacity: 0.6 }}></div>
           <div className="w-1/2 h-3 rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.4 }}></div>
+            style={{ backgroundColor: "#7794A6", opacity: 0.4 }}></div>
         </div>
         
         <motion.div
@@ -295,7 +293,7 @@ const workflowSteps = [
           className="absolute z-10"
         >
           <div className="flex flex-col items-center">
-            <FileText size={20} style={{ color: "#7794A6" }} /> {/* Muted blue-gray */}
+            <FileText size={20} style={{ color: "#7794A6" }} />
             <div className="mt-1 text-xs font-medium"
               style={{ color: "#7794A6" }}>PDF</div>
           </div>
@@ -312,12 +310,12 @@ const workflowSteps = [
         />
         
         <div className="absolute right-8 w-16 h-20 rounded-md shadow-md p-2 flex flex-col items-start space-y-1.5"
-          style={{ backgroundColor: "#D8E5EE", opacity: 0.7 }}> {/* Subtle light blue */}
+          style={{ backgroundColor: "#D8E5EE", opacity: 0.7 }}>
           <div className="w-full flex items-center">
             <div className="w-3 h-3 rounded-sm mr-1"
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
             <div className="flex-1 h-3 rounded-sm"
-              style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.5 }}></div>
+              style={{ backgroundColor: "#7794A6", opacity: 0.5 }}></div>
           </div>
           <motion.div
             animate={{ opacity: [0.6, 1, 0.6] }}
@@ -327,16 +325,16 @@ const workflowSteps = [
             <div className="w-3 h-3 rounded-sm mr-1"
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
             <div className="flex-1 h-3 rounded-sm"
-              style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.7 }}></div>
+              style={{ backgroundColor: "#7794A6", opacity: 0.7 }}></div>
           </motion.div>
           <div className="w-full flex items-center">
             <div className="w-3 h-3 rounded-sm mr-1"
               style={{ backgroundColor: darkBlueTheme.primary }}></div>
             <div className="flex-1 h-3 rounded-sm"
-              style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.5 }}></div>
+              style={{ backgroundColor: "#7794A6", opacity: 0.5 }}></div>
           </div>
           <div className="w-3/4 h-3 self-end rounded-sm"
-            style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.3 }}></div>
+            style={{ backgroundColor: "#7794A6", opacity: 0.3 }}></div>
         </div>
       </div>
     )
@@ -390,7 +388,7 @@ const workflowSteps = [
         />
         
         <div className="absolute right-8 bottom-2 w-16 h-16 rounded-lg shadow-md p-2 flex flex-col"
-          style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.15 }}> {/* Dark blue background instead of green */}
+          style={{ backgroundColor: darkBlueTheme.primary, opacity: 0.15 }}>
           <motion.div
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ repeat: Infinity, duration: 2 }}
