@@ -1,8 +1,9 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle } from "lucide-react";
+import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Calendar, Bell, ClipboardCheck } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -11,11 +12,15 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
+import BravoIllustration from './illustrations/BravoIllustration';
+
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
+
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [activeFeature, setActiveFeature] = useState(0);
   const {
     width
   } = useWindowSize();
@@ -39,6 +44,15 @@ export const FirstSection = () => {
     };
   }, []);
   
+  // Auto-rotate through features
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeature(prev => (prev + 1) % featureTabs.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
   const clinicianBenefits = [{
     icon: <Clock className="w-5 h-5 text-[#387E89]" />,
     text: "75% faster charting"
@@ -50,31 +64,89 @@ export const FirstSection = () => {
     text: "HIPAA compliant"
   }];
 
-  // Feature tab data - updated "AI Staffing Engagement" to "AI Staffing Agent"
+  // Feature tab data
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
     icon: <FileText className="w-5 h-5" />,
     description: "Automated documentation that captures the full patient story while you focus on care.",
-    benefit: "Save 2+ hours per day"
+    benefit: "Save 2+ hours per day",
+    illustration: (
+      <div className="flex items-center justify-center">
+        <motion.div 
+          className="relative w-16 h-16 bg-blue-50 rounded-lg flex items-center justify-center"
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <FileText className="w-8 h-8 text-[#143151]" />
+          <motion.div 
+            className="absolute -top-2 -right-2 w-6 h-6 bg-[#387E89] rounded-full flex items-center justify-center"
+            animate={{ rotate: [0, 360] }}
+            transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
+          >
+            <Zap className="w-3 h-3 text-white" />
+          </motion.div>
+        </motion.div>
+      </div>
+    )
   }, {
     id: "patient-engagement",
     title: "AI Staffing Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.",
-    benefit: "Reduce admin workload by 40%"
+    benefit: "Reduce admin workload by 40%",
+    illustration: (
+      <div className="flex items-center justify-center">
+        <BravoIllustration />
+      </div>
+    )
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
     icon: <Users className="w-5 h-5" />,
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
-    benefit: "30+ specialty workflows"
+    benefit: "30+ specialty workflows",
+    illustration: (
+      <div className="flex items-center justify-center">
+        <motion.div 
+          className="relative w-16 h-16 bg-teal-50 rounded-lg flex items-center justify-center"
+          animate={{ y: [0, -3, 0] }}
+          transition={{ repeat: Infinity, duration: 2 }}
+        >
+          <Users className="w-8 h-8 text-[#143151]" />
+          <motion.div 
+            className="absolute -bottom-2 -right-2 w-6 h-6 bg-[#387E89] rounded-full flex items-center justify-center"
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 2 }}
+          >
+            <CheckCircle className="w-3 h-3 text-white" />
+          </motion.div>
+        </motion.div>
+      </div>
+    )
   }, {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
     description: "Works with any EHR system and connects to 7000+ apps.",
-    benefit: "Seamless connectivity"
+    benefit: "Seamless connectivity",
+    illustration: (
+      <div className="flex items-center justify-center">
+        <motion.div 
+          className="relative w-16 h-16 bg-indigo-50 rounded-lg flex items-center justify-center"
+          animate={{ rotateY: [0, 180, 360] }}
+          transition={{ repeat: Infinity, duration: 4 }}
+          style={{ transformStyle: 'preserve-3d' }}
+        >
+          <Database className="w-8 h-8 text-[#143151]" />
+          <motion.div 
+            className="absolute -top-2 -left-2 w-6 h-6 bg-[#387E89] rounded-full flex items-center justify-center"
+          >
+            <CheckCircle className="w-3 h-3 text-white" />
+          </motion.div>
+        </motion.div>
+      </div>
+    )
   }];
   return <section className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative" ref={sectionRef}>
       {/* Healthcare-themed background elements - kept subtle */}
@@ -148,11 +220,16 @@ export const FirstSection = () => {
                 </h3>
               </div>
               
-              <Tabs defaultValue="ai-scribe" className="w-full">
+              <Tabs value={featureTabs[activeFeature].id} className="w-full">
                 <div className="px-3 sm:px-4 pt-3 sm:pt-4">
                   {/* Enhanced tab navigation with two-line labels for desktop/laptop */}
                   <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
-                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center justify-center px-2 py-2 md:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs md:text-[0.7rem] font-medium dark:text-gray-300 dark:data-[state=active]:text-white">
+                    {featureTabs.map((tab, index) => <TabsTrigger 
+                      key={tab.id} 
+                      value={tab.id} 
+                      className="flex items-center justify-center px-2 py-2 md:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs md:text-[0.7rem] font-medium dark:text-gray-300 dark:data-[state=active]:text-white"
+                      onClick={() => setActiveFeature(index)}
+                    >
                         <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
                         <span className="md:text-[0.7rem] md:leading-tight md:flex md:flex-wrap md:justify-center md:h-auto md:max-w-[90px]">{tab.title}</span>
                       </TabsTrigger>)}
@@ -160,22 +237,53 @@ export const FirstSection = () => {
                 </div>
                 
                 <div className="p-3 sm:p-4">
-                  {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
+                  {featureTabs.map((tab, index) => <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
                       <CardContent className="p-0">
-                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2 transition-all duration-300">
-                          <div className="w-full space-y-2">
-                            <h3 className="text-lg sm:text-xl font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
-                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{tab.description}</p>
+                        <div className="flex flex-col md:flex-row gap-4 sm:gap-6 items-center p-4 transition-all duration-300">
+                          <div className="w-full md:w-2/3 space-y-3">
+                            <motion.h3 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              key={`title-${tab.id}`}
+                              className="text-lg sm:text-xl font-medium text-[#143151] dark:text-blue-300"
+                            >
+                              {tab.title}
+                            </motion.h3>
                             
-                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
+                            <motion.p 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 }}
+                              key={`desc-${tab.id}`}
+                              className="text-sm sm:text-base text-gray-600 dark:text-gray-300"
+                            >
+                              {tab.description}
+                            </motion.p>
+                            
+                            <motion.div 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.2 }}
+                              key={`benefit-${tab.id}`}
+                              className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20"
+                            >
                               <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
                               <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
                               
                               <div className="ml-auto">
                                 <VoiceAnimation />
                               </div>
-                            </div>
+                            </motion.div>
                           </div>
+                          
+                          <motion.div 
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            key={`illus-${tab.id}`}
+                            className="w-full md:w-1/3 flex justify-center"
+                          >
+                            {tab.illustration}
+                          </motion.div>
                         </div>
                       </CardContent>
                     </TabsContent>)}
