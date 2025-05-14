@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -165,12 +166,12 @@ export const FirstSection = () => {
                       <React.Fragment key={tab.id}>
                         <TabsTrigger 
                           value={tab.id} 
-                          className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white cursor-pointer"
+                          className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white cursor-pointer ring-offset-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
                           onClick={() => setActiveTab(tab.id)}
                         >
-                          <span className={`flex items-center justify-center p-1.5 rounded-full transition-all 
+                          <span className={`flex items-center justify-center p-2 rounded-full transition-all 
                             ${activeTab === tab.id 
-                              ? 'bg-white/20 text-white' 
+                              ? 'bg-white/30 text-white' 
                               : 'bg-gray-100 text-gray-700 dark:bg-gray-700/40 dark:text-gray-300'}`}
                           >
                             {React.cloneElement(tab.icon, { 
@@ -178,8 +179,14 @@ export const FirstSection = () => {
                               strokeWidth: 2
                             })}
                           </span>
-                          <span className={`text-xs leading-tight ${activeTab === tab.id ? 'text-white font-semibold' : 'text-gray-700 dark:text-gray-300'}`}>
-                            {tab.title}
+                          <span className={`text-xs leading-tight mt-1 ${activeTab === tab.id ? 'text-white font-semibold' : 'text-gray-700 dark:text-gray-300'}`}>
+                            {tab.title.split(' ').map((word, i) => (
+                              <React.Fragment key={i}>
+                                {word}
+                                {i < tab.title.split(' ').length - 1 && i !== 0 && i % 2 === 0 && <br />}
+                                {i < tab.title.split(' ').length - 1 && !(i !== 0 && i % 2 === 0) && " "}
+                              </React.Fragment>
+                            ))}
                           </span>
                           {activeTab === tab.id && (
                             <motion.div 
@@ -201,7 +208,7 @@ export const FirstSection = () => {
                   </TabsList>
                 </div>
                 
-                <div className="p-3">
+                <div className="p-4">
                   {featureTabs.map((tab) => (
                     <TabsContent 
                       key={tab.id} 
@@ -210,12 +217,12 @@ export const FirstSection = () => {
                     >
                       <CardContent className="p-0">
                         <div className="flex flex-col gap-3 transition-all duration-300">
-                          <div className="space-y-2">
+                          <div className="space-y-3">
                             <h3 className="text-lg font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
                             <p className="text-sm text-gray-600 dark:text-gray-300">{tab.description}</p>
                             
-                            <div className="flex items-center gap-2 mt-3 bg-blue-50/50 p-3 rounded-lg dark:bg-blue-900/20">
-                              <CheckCircle className="w-4 h-4 text-[#387E89] dark:text-[#5abecb]" />
+                            <div className="flex items-center gap-2 mt-4 bg-blue-50/60 p-3 rounded-lg dark:bg-blue-900/20 border border-blue-100/40 shadow-sm">
+                              <CheckCircle className="w-5 h-5 text-[#387E89] dark:text-[#5abecb]" />
                               <span className="font-medium text-sm text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
                               
                               <div className="ml-auto">
