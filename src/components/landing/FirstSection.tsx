@@ -165,13 +165,22 @@ export const FirstSection = () => {
                       <React.Fragment key={tab.id}>
                         <TabsTrigger 
                           value={tab.id} 
-                          className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] data-[state=active]:text-white text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white"
+                          className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white cursor-pointer"
                           onClick={() => setActiveTab(tab.id)}
                         >
-                          <span className="flex items-center justify-center p-1.5 bg-gray-100 rounded-full data-[state=active]:bg-white/20 transition-all">
-                            {tab.icon}
+                          <span className={`flex items-center justify-center p-1.5 rounded-full transition-all 
+                            ${activeTab === tab.id 
+                              ? 'bg-white/20 text-white' 
+                              : 'bg-gray-100 text-gray-700 dark:bg-gray-700/40 dark:text-gray-300'}`}
+                          >
+                            {React.cloneElement(tab.icon, { 
+                              className: `w-5 h-5 ${activeTab === tab.id ? 'text-white' : 'text-gray-700 dark:text-gray-300'}`,
+                              strokeWidth: 2
+                            })}
                           </span>
-                          <span className="text-xs leading-tight">{tab.title}</span>
+                          <span className={`text-xs leading-tight ${activeTab === tab.id ? 'text-white font-semibold' : 'text-gray-700 dark:text-gray-300'}`}>
+                            {tab.title}
+                          </span>
                           {activeTab === tab.id && (
                             <motion.div 
                               layoutId="activeTabIndicator"
