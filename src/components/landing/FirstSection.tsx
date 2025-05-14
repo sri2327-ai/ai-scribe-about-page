@@ -101,7 +101,7 @@ export const FirstSection = () => {
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-black">
                 AI Scribing &<br />
                 <span className="text-black">
-                  Patient Engagement
+                  AI Staffing Agent
                 </span><br />
                 Built for Clinicians<br />
                 Like You
