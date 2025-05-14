@@ -7,7 +7,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import styles from "@/styles/AnimatedCards.module.css";
 
 interface AnimatedFeatureCardProps {
-  icon: React.ReactNode;
+  icon: LucideIcon;
   title: string;
   description: string;
   className?: string;
@@ -17,7 +17,6 @@ interface AnimatedFeatureCardProps {
   tertiaryColor?: string;
   iconBackground?: string;
   iconSize?: number;
-  children?: React.ReactNode;
 }
 
 const iconAnimationVariants = {
@@ -31,17 +30,16 @@ const contentAnimationVariants = {
 };
 
 export const AnimatedFeatureCard = memo(({ 
-  icon, 
+  icon: Icon, 
   title, 
   description, 
   className,
   animationDelay = 0,
-  primaryColor = "#143151",  // Updated to brand color
-  secondaryColor = "#387E89", // Updated to brand color
-  tertiaryColor = "#A5CCF3",  // Updated to brand color
+  primaryColor = "#046f90",
+  secondaryColor = "#5192AE",
+  tertiaryColor = "#A5CCF3",
   iconBackground = "#F5F9FF",
-  iconSize = 24,
-  children
+  iconSize = 24
 }: AnimatedFeatureCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   
@@ -94,7 +92,7 @@ export const AnimatedFeatureCard = memo(({
             }
           } : "animate"}
         >
-          {icon}
+          <Icon size={iconSize} className="stroke-[1.5]" style={{ color: primaryColor }} />
         </motion.div>
         
         <motion.div
@@ -112,8 +110,6 @@ export const AnimatedFeatureCard = memo(({
           <p className="text-black">{description}</p>
         </motion.div>
       </div>
-
-      {children}
     </motion.div>
   );
 });

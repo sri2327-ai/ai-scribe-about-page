@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -14,7 +13,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Separator } from '@/components/ui/separator';
-import { AnimatedFeatureCard } from '../crush-ai/AnimatedFeatureCard';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
@@ -47,45 +45,41 @@ export const FirstSection = () => {
   }, []);
   
   const clinicianBenefits = [{
-    icon: <Clock className="w-5 h-5 text-[#143151]" />,
+    icon: <Clock className="w-5 h-5 text-[#387E89]" />,
     text: "75% faster charting"
   }, {
-    icon: <Users className="w-5 h-5 text-[#143151]" />,
+    icon: <Users className="w-5 h-5 text-[#387E89]" />,
     text: "AI staffing assistance"
   }, {
-    icon: <Shield className="w-5 h-5 text-[#143151]" />,
+    icon: <Shield className="w-5 h-5 text-[#387E89]" />,
     text: "HIPAA compliant"
   }];
 
-  // Feature tab data with improved color scheme aligned with brand
+  // Feature tab data
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
     icon: <FileText className="w-5 h-5" />,
     description: "Automated documentation that captures the full patient story while you focus on care.",
-    benefit: "Save 2+ hours per day",
-    color: "#143151" // Dark Blue Primary
+    benefit: "Save 2+ hours per day"
   }, {
     id: "patient-engagement",
     title: "AI Staffing Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.",
-    benefit: "Reduce admin workload by 40%",
-    color: "#387E89" // Teal Secondary
+    benefit: "Reduce admin workload by 40%"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
     icon: <Users className="w-5 h-5" />,
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
-    benefit: "30+ specialty workflows",
-    color: "#5192AE" // Medium Blue Tertiary
+    benefit: "30+ specialty workflows"
   }, {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
     description: "Works with any EHR system and connects to 7000+ apps.",
-    benefit: "Seamless connectivity",
-    color: "#A5CCF3" // Light Blue Accent
+    benefit: "Seamless connectivity"
   }];
   
   return <section className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative" ref={sectionRef}>
@@ -146,7 +140,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - REDESIGNED FEATURE SHOWCASE CARD with improved visuals */}
+          {/* Right column - Feature cards - responsive adjustments */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -154,121 +148,89 @@ export const FirstSection = () => {
             className="relative lg:col-span-5"
           >
             <Card 
-              className="backdrop-blur-sm bg-white/95 border border-gray-100 overflow-visible shadow-xl rounded-2xl"
+              className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.cardHover} ring-1 ring-gray-100/70 backdrop-blur-sm dark:bg-gray-900/95 dark:border-gray-800 max-w-sm mx-auto w-full sm:max-w-md`}
             >
-              {/* Improved decorative elements with brand colors */}
-              <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-br from-[#A5CCF3] to-[#5192AE] rounded-full opacity-60 blur-xl"></div>
-              <div className="absolute -bottom-8 -left-8 w-24 h-24 bg-gradient-to-tr from-[#5192AE] to-[#143151] rounded-full opacity-60 blur-xl"></div>
-              
-              {/* Header with improved subtle gradient effect */}
-              <div className="relative p-5 rounded-t-2xl bg-gradient-to-r from-[#143151]/5 via-[#387E89]/5 to-[#A5CCF3]/5 backdrop-blur-sm overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 animate-pulse"></div>
-                <h3 className="relative z-10 font-semibold text-gray-900 text-lg flex items-center dark:text-white">
-                  Don't change for AI—make it work for you
-                  <motion.span 
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.8, duration: 0.5 }}
-                    className="inline-flex items-center ml-2 px-2.5 py-0.5 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 text-[#143151] text-xs rounded-full border border-[#143151]/20 shadow-sm"
-                  >
-                    Clinician-First
-                  </motion.span>
+              <div className="p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
+                <h3 className="font-medium text-gray-900 text-base flex items-center dark:text-white">
+                  Don't change for AI—make it work for you 
+                  <span className="inline-flex items-center ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
                 </h3>
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full" value={activeTab} onValueChange={setActiveTab}>
-                {/* Improved tabs navigation with consistent brand colors */}
-                <div className="px-5 pt-5">
-                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/80 p-2 rounded-xl border border-gray-100 gap-2">
+                <div className="px-2 pt-3">
+                  {/* Enhanced tab navigation with dividers and improved visibility */}
+                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30 overflow-hidden relative">
                     {featureTabs.map((tab, index) => (
-                      <TabsTrigger 
-                        key={tab.id}
-                        value={tab.id} 
-                        className="group flex flex-col items-center justify-center px-2 py-3 gap-2 rounded-lg border border-transparent data-[state=active]:border-gray-200/50 data-[state=active]:shadow-sm data-[state=active]:bg-white text-xs font-medium relative transition-all duration-300 cursor-pointer hover:bg-white/80"
-                        onClick={() => setActiveTab(tab.id)}
-                      >
-                        <div 
-                          className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all group-hover:shadow-md
-                            ${activeTab === tab.id 
-                              ? `shadow-inner bg-white text-white` 
-                              : 'bg-white/60 text-gray-500'}`}
-                          style={{
-                            background: activeTab === tab.id ? `linear-gradient(135deg, ${tab.color}, ${tab.color}CC)` : '',
-                            boxShadow: activeTab === tab.id ? `0 2px 6px ${tab.color}40` : ''
-                          }}
+                      <React.Fragment key={tab.id}>
+                        <TabsTrigger 
+                          value={tab.id} 
+                          className="flex flex-col items-center justify-center px-2 py-2.5 gap-1.5 text-center rounded-md data-[state=active]:shadow-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#143151] data-[state=active]:to-[#387E89] text-xs font-medium relative hover:bg-gray-100/80 dark:hover:bg-gray-700/20 transition-all duration-200 dark:text-gray-300 dark:data-[state=active]:text-white cursor-pointer border border-transparent hover:border-gray-200 focus:outline-none active:scale-95"
+                          onClick={() => setActiveTab(tab.id)}
                         >
-                          {React.cloneElement(tab.icon as React.ReactElement, {
-                            className: `w-5 h-5 ${activeTab === tab.id ? 'text-white' : ''}`,
-                            strokeWidth: 2
-                          })}
-                        </div>
-                        
-                        <div className="flex flex-col items-center">
-                          <span className={`text-xs font-medium leading-tight text-center ${activeTab === tab.id ? 'text-gray-900' : 'text-gray-600'}`}>
-                            {tab.title.split(' ')[0]}<br/>{tab.title.split(' ').slice(1).join(' ')}
+                          <span className={`flex items-center justify-center p-2 rounded-full transition-all 
+                            ${activeTab === tab.id 
+                              ? 'bg-white/30 text-white' 
+                              : 'bg-gray-100 text-gray-700 dark:bg-gray-700/40 dark:text-gray-300'}`}
+                          >
+                            {React.cloneElement(tab.icon, { 
+                              className: `w-5 h-5 ${activeTab === tab.id ? 'text-white' : 'text-gray-700 dark:text-gray-300'}`,
+                              strokeWidth: 2
+                            })}
                           </span>
-                        </div>
-                        
-                        {/* Active indicator with brand color */}
-                        {activeTab === tab.id && (
-                          <motion.div 
-                            layoutId="activeTabIndicator"
-                            className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full"
-                            style={{ background: tab.color }}
-                            transition={{ duration: 0.3 }}
-                          />
+                          <span className={`text-xs leading-tight mt-1 ${activeTab === tab.id ? 'text-white font-semibold' : 'text-gray-700 dark:text-gray-300'}`}>
+                            {tab.title.split(' ').map((word, i) => (
+                              <React.Fragment key={i}>
+                                {word}
+                                {i < tab.title.split(' ').length - 1 && i !== 0 && i % 2 === 0 && <br />}
+                                {i < tab.title.split(' ').length - 1 && !(i !== 0 && i % 2 === 0) && " "}
+                              </React.Fragment>
+                            ))}
+                          </span>
+                          {activeTab === tab.id && (
+                            <motion.div 
+                              layoutId="activeTabIndicator"
+                              className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-white rounded-full"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ duration: 0.3 }}
+                            />
+                          )}
+                        </TabsTrigger>
+                        {index < featureTabs.length - 1 && (
+                          <div className="absolute h-8 top-1/2 -translate-y-1/2" style={{left: `${(index + 1) * 25}%`}}>
+                            <Separator orientation="vertical" className="h-full bg-gray-200/50 dark:bg-gray-700/30" />
+                          </div>
                         )}
-                      </TabsTrigger>
+                      </React.Fragment>
                     ))}
                   </TabsList>
                 </div>
                 
-                {/* Enhanced tab content with improved animations and brand colors */}
-                <div className="p-5">
+                <div className="p-4">
                   {featureTabs.map((tab) => (
                     <TabsContent 
                       key={tab.id} 
                       value={tab.id} 
                       className="mt-2 focus-visible:outline-none focus-visible:ring-0"
                     >
-                      <AnimatedFeatureCard
-                        icon={React.cloneElement(tab.icon as React.ReactElement, {
-                          size: 24,
-                          className: "stroke-[1.5]",
-                          style: { color: tab.color }
-                        })}
-                        title={tab.title}
-                        description={tab.description}
-                        primaryColor={tab.color}
-                        secondaryColor={`${tab.color}CC`}
-                        tertiaryColor={`${tab.color}20`}
-                        iconBackground={`${tab.color}10`}
-                        className="border border-gray-100 shadow-md"
-                      >
-                        <div className="flex items-center gap-3 mt-5 bg-gradient-to-r from-gray-50 to-gray-100/80 p-4 rounded-xl border border-gray-100 shadow-sm">
-                          <motion.div
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                            style={{ color: tab.color }}
-                            className="flex-shrink-0"
-                          >
-                            <CheckCircle className="w-5 h-5" />
-                          </motion.div>
-                          <motion.span 
-                            initial={{ x: -10, opacity: 0 }}
-                            animate={{ x: 0, opacity: 1 }}
-                            transition={{ delay: 0.3 }}
-                            className="font-medium text-sm text-[#143151]"
-                          >
-                            {tab.benefit}
-                          </motion.span>
-                          
-                          <div className="ml-auto">
-                            <VoiceAnimation />
+                      <CardContent className="p-0">
+                        <div className="flex flex-col gap-3 transition-all duration-300">
+                          <div className="space-y-3">
+                            <h3 className="text-lg font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">{tab.description}</p>
+                            
+                            <div className="flex items-center gap-2 mt-4 bg-blue-50/60 p-3 rounded-lg dark:bg-blue-900/20 border border-blue-100/40 shadow-sm">
+                              <CheckCircle className="w-5 h-5 text-[#387E89] dark:text-[#5abecb]" />
+                              <span className="font-medium text-sm text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
+                              
+                              <div className="ml-auto">
+                                <VoiceAnimation />
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </AnimatedFeatureCard>
+                      </CardContent>
                     </TabsContent>
                   ))}
                 </div>
