@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, MessageSquare, Users, Database } from "lucide-react";
+import { ArrowRight, Zap, Stethoscope, Clock, FileText, Shield, MessageSquare, Users, Database, CheckCircle } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
