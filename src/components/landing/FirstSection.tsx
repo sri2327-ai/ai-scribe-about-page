@@ -150,11 +150,39 @@ export const FirstSection = () => {
               
               <Tabs defaultValue="ai-scribe" className="w-full">
                 <div className="px-3 sm:px-4 pt-3 sm:pt-4">
-                  {/* Enhanced tab navigation with two-line labels for desktop/laptop */}
-                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
-                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center justify-center px-2 py-2 md:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs md:text-[0.7rem] font-medium dark:text-gray-300 dark:data-[state=active]:text-white">
-                        <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
-                        <span className="md:text-[0.7rem] md:leading-tight md:flex md:flex-wrap md:justify-center md:h-auto md:max-w-[90px]">{tab.title}</span>
+                  {/* Enhanced tab navigation with improved clickable styling */}
+                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1.5 rounded-lg dark:bg-gray-800/30">
+                    {featureTabs.map(tab => <TabsTrigger 
+                      key={tab.id} 
+                      value={tab.id} 
+                      className="flex items-center justify-center px-2 py-2.5 md:py-2 gap-1.5 sm:gap-2 my-0.5 text-center rounded-lg 
+                        relative overflow-hidden
+                        transition-all duration-200 ease-in-out
+                        text-xs md:text-sm font-medium 
+                        bg-white/40 hover:bg-white/80
+                        shadow-sm hover:shadow-md
+                        border border-transparent hover:border-blue-100
+                        text-gray-600 hover:text-[#143151]
+                        data-[state=active]:border-[#387E89]/30
+                        data-[state=active]:bg-white
+                        data-[state=active]:shadow-md
+                        data-[state=active]:text-[#143151]
+                        data-[state=active]:font-semibold
+                        dark:bg-gray-800/50 dark:hover:bg-gray-800/80
+                        dark:text-gray-300 dark:hover:text-white
+                        dark:data-[state=active]:bg-gray-800
+                        dark:data-[state=active]:border-[#387E89]/50
+                        dark:data-[state=active]:text-white
+                        group"
+                    >
+                        <span className="flex items-center justify-center shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full bg-white/70 group-hover:bg-[#387E89]/10 group-data-[state=active]:bg-[#387E89]/20 p-1 transition-colors duration-200">
+                          {tab.icon}
+                        </span>
+                        <span className="md:leading-tight md:flex md:flex-wrap md:justify-center md:h-auto md:max-w-[90px]">
+                          {tab.title}
+                        </span>
+                        {/* Indicator dot for active tab */}
+                        <span className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-[#387E89] opacity-0 scale-0 transition-all duration-200 group-data-[state=active]:opacity-100 group-data-[state=active]:scale-100"></span>
                       </TabsTrigger>)}
                   </TabsList>
                 </div>
