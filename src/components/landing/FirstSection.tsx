@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -10,6 +11,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { shadowStyles } from '@/lib/shadow-utils';
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
@@ -144,22 +146,22 @@ export const FirstSection = () => {
           duration: 0.7,
           delay: 0.3
         }} className="lg:col-span-3 relative mt-6 sm:mt-8 lg:mt-0">
-            <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
-              <div className="p-3 sm:p-4 bg-gray-50 border-b border-gray-100">
-                <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center">
-                  Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full">Clinician-First</span>
+            <Card className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
+              <div className="p-3 sm:p-4 bg-gray-50/80 border-b border-gray-100 dark:bg-gray-800/50 dark:border-gray-700/50">
+                <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center dark:text-white">
+                  Don't adapt to your AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
                 </h3>
               </div>
               
               <Tabs defaultValue="ai-scribe" className="w-full">
                 <div className="px-3 sm:px-4 pt-3 sm:pt-4">
                   {/* Enhanced mobile tab navigation */}
-                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg">
+                  <TabsList className="w-full grid grid-cols-2 sm:flex sm:flex-wrap overflow-visible bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
                     {featureTabs.map(tab => (
                       <TabsTrigger 
                         key={tab.id} 
                         value={tab.id} 
-                        className="flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium whitespace-normal sm:whitespace-nowrap"
+                        className="flex items-center justify-center px-2 py-2.5 sm:px-3 sm:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white"
                       >
                         <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
                         <span className="truncate">{tab.title}</span>
@@ -171,14 +173,14 @@ export const FirstSection = () => {
                 <div className="p-3 sm:p-4">
                   {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
                       <CardContent className="p-0">
-                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2">
+                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2 transition-all duration-300">
                           <div className="w-full space-y-2">
-                            <h3 className="text-lg sm:text-xl font-medium text-[#143151]">{tab.title}</h3>
-                            <p className="text-sm sm:text-base text-gray-600">{tab.description}</p>
+                            <h3 className="text-lg sm:text-xl font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
+                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{tab.description}</p>
                             
-                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg">
-                              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89]" />
-                              <span className="font-medium text-sm sm:text-base text-[#387E89]">{tab.benefit}</span>
+                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
+                              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
+                              <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
                               
                               <div className="ml-auto">
                                 <VoiceAnimation />
@@ -250,3 +252,4 @@ export const FirstSection = () => {
       </div>
     </section>;
 };
+
