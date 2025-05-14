@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -69,22 +70,23 @@ const WorkflowCard = ({ icon: Icon, title, description, number }) => {
   return (
     <Card className="relative h-[280px] p-4 sm:p-6 transition-all duration-300 hover:shadow-lg border border-gray-100 bg-white overflow-hidden">
       <div className="flex flex-col h-full">
-        <div className="flex items-start gap-4 mb-4">
-          <div className="p-2 sm:p-3 rounded-lg bg-gradient-to-r from-[#143151] to-[#387E89]">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
             <Icon className="w-5 h-5 text-white" />
           </div>
-          <div className="flex-1">
-            <div className="text-xs sm:text-sm font-medium mb-1 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">STEP {number}</div>
-            <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-900">{title}</h3>
-          </div>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">{title}</h3>
         </div>
-        <p className="text-xs sm:text-sm leading-relaxed text-gray-600">{description}</p>
+        <p className="text-xs sm:text-sm leading-relaxed text-gray-600 mb-4">{description}</p>
       </div>
+      
+      {/* Step number circle with consistent positioning */}
       <div 
-        className="absolute -bottom-2 -right-2 text-[80px] sm:text-[100px] font-bold text-white bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full w-[70px] h-[70px] sm:w-[80px] sm:h-[80px] flex items-center justify-center shadow-lg"
+        className="absolute -bottom-2 -right-2 text-[28px] font-bold text-white bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] flex items-center justify-center shadow-md"
       >
         {number}
       </div>
+      
+      {/* Left border animation on hover */}
       <motion.div 
         className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#143151] to-[#387E89]"
         initial={{ height: 0 }}
@@ -259,11 +261,11 @@ const FifthSection = () => {
             textAlign="center"
             sx={{ mb: 6, color: 'gray', fontSize: { xs: '0.875rem', sm: '1rem' } }}
           >
-            Follow our 7-step process to transform your practice
+            Our 7-step process transforms your practice
           </Typography>
 
           <div className="relative">
-            {/* Step connection line */}
+            {/* Step connection line for visual continuity */}
             <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 top-0 h-full w-1 bg-gradient-to-b from-[#143151] to-[#387E89] opacity-20 rounded-full" />
             
             <Carousel
@@ -285,7 +287,7 @@ const FifthSection = () => {
                 <div className="flex justify-center gap-2 mt-6 w-full">
                   <CarouselPrevious className="relative left-0" />
                   <div className="flex items-center gap-1 text-sm bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full">
-                    <span className="font-medium">7-Step Workflow</span>
+                    <span className="font-medium">Workflow Steps</span>
                   </div>
                   <CarouselNext className="relative right-0" />
                 </div>
