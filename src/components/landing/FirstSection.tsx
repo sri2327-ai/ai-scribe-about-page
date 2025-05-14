@@ -61,7 +61,7 @@ export const FirstSection = () => {
     title: "Patient Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
-    benefit: "Boost satisfaction by +60%"
+    benefit: "Boost patient satisfaction by +60%"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
