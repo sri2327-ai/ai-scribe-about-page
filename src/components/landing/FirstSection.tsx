@@ -50,7 +50,7 @@ export const FirstSection = () => {
     text: "HIPAA compliant"
   }];
 
-  // Feature tab data - updated "Patient Engagement Agent" to "Patient Agent"
+  // Feature tab data - updated "Patient Agent" to "AI Staffing Engagement"
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -59,7 +59,7 @@ export const FirstSection = () => {
     benefit: "Save 2+ hours per day"
   }, {
     id: "patient-engagement",
-    title: "Patient Agent",
+    title: "AI Staffing Engagement",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered communication assistant that improves patient satisfaction and clinical outcomes.",
     benefit: "Boost patient satisfaction by +60%"
