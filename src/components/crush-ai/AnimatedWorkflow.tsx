@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
+import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { 
   FileText, HardDrive, Send, CheckCircle, 
   ClipboardList, TestTube, Mail, Mic, 
   Clock, Heart, Database, History
 } from "lucide-react";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
 // Define primary color for consistency
@@ -16,7 +16,7 @@ const workflowSteps = [
   {
     id: "start",
     title: "Start Encounter",
-    icon: <Send size={30} className="text-black" />,
+    icon: <Send size={30} style={{ color: "#046f90" }} />,
     description: "Recording patient conversation...",
     color: "#046f90",
     detailContent: (
@@ -30,7 +30,7 @@ const workflowSteps = [
             py: 2
           }}
         >
-          <Mic size={36} className="text-gray-600" />
+          <Mic size={36} style={{ color: "#046f90" }} />
           <Typography 
             sx={{ 
               color: '#666',
@@ -49,14 +49,22 @@ const workflowSteps = [
             }}
           >
             {Array(20).fill(0).map((_, i) => (
-              <Box 
+              <motion.div 
                 key={i}
-                sx={{ 
-                  width: '2px', 
-                  height: '8px', 
-                  borderRadius: '1px',
-                  bgcolor: 'rgba(0,0,0,0.2)',
-                  animation: i % 2 === 0 ? 'pulse 1.5s infinite' : 'none'
+                animate={{ 
+                  height: [8, i % 3 === 0 ? 18 : 12, 8],
+                  opacity: [0.5, 1, 0.5]
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 1.5, 
+                  delay: i * 0.05,
+                  ease: "easeInOut"
+                }}
+                style={{
+                  width: '2px',
+                  backgroundColor: `${i % 2 === 0 ? '#046f90' : '#5192AE'}`,
+                  borderRadius: '1px'
                 }}
               />
             ))}
@@ -68,17 +76,17 @@ const workflowSteps = [
   {
     id: "previous",
     title: "Previous Visit Context",
-    icon: <History size={30} className="text-black" />,
+    icon: <History size={30} style={{ color: "#387E89" }} />,
     description: "Reviewing patient history for context...",
     color: "#387E89",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
           sx={{ 
-            border: '1px solid rgba(0,0,0,0.1)', 
+            border: '1px solid rgba(56, 126, 137, 0.3)', 
             p: 1.5, 
             borderRadius: 1,
-            bgcolor: 'rgba(0,0,0,0.02)',
+            bgcolor: 'rgba(56, 126, 137, 0.05)',
             fontSize: '0.75rem',
             fontFamily: 'monospace',
             position: 'relative',
@@ -96,10 +104,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#387E89'
             }}
           >
-            <span className="font-semibold">Visit Date:</span> March 12, 2025
+            <span style={{ fontWeight: 500, color: '#387E89' }}>Visit Date:</span> March 12, 2025
           </Typography>
           <Typography 
             component="div" 
@@ -111,10 +120,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s 0.5s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#387E89'
             }}
           >
-            <span className="font-semibold">Symptoms:</span> Recurring headaches, vision changes
+            <span style={{ fontWeight: 500, color: '#387E89' }}>Symptoms:</span> Recurring headaches, vision changes
           </Typography>
           <Typography 
             component="div" 
@@ -126,10 +136,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s 1s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#387E89'
             }}
           >
-            <span className="font-semibold">Plan:</span> MRI ordered, follow-up in two weeks
+            <span style={{ fontWeight: 500, color: '#387E89' }}>Plan:</span> MRI ordered, follow-up in two weeks
           </Typography>
         </Box>
       </Box>
@@ -138,17 +149,17 @@ const workflowSteps = [
   {
     id: "notes",
     title: "Generate Clinical Notes",
-    icon: <FileText size={30} className="text-black" />,
+    icon: <FileText size={30} style={{ color: "#5192AE" }} />,
     description: "Creating comprehensive documentation using your preferred templates...",
     color: "#5192AE",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
           sx={{ 
-            border: '1px solid rgba(0,0,0,0.1)', 
+            border: '1px solid rgba(81, 146, 174, 0.3)', 
             p: 1.5, 
             borderRadius: 1,
-            bgcolor: 'rgba(0,0,0,0.02)',
+            bgcolor: 'rgba(81, 146, 174, 0.05)',
             fontSize: '0.75rem',
             fontFamily: 'monospace',
             position: 'relative',
@@ -166,10 +177,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#5192AE'
             }}
           >
-            <span className="font-semibold">SUBJECTIVE:</span> Patient presents with acute abdominal pain...
+            <span style={{ fontWeight: 500, color: '#5192AE' }}>SUBJECTIVE:</span> Patient presents with acute abdominal pain...
           </Typography>
           <Typography 
             component="div" 
@@ -181,10 +193,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s 0.5s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#5192AE'
             }}
           >
-            <span className="font-semibold">OBJECTIVE:</span> Temp 101.2°F, tender RLQ with guarding...
+            <span style={{ fontWeight: 500, color: '#5192AE' }}>OBJECTIVE:</span> Temp 101.2°F, tender RLQ with guarding...
           </Typography>
           <Typography 
             component="div" 
@@ -196,10 +209,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s 1s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#5192AE'
             }}
           >
-            <span className="font-semibold">ICD-10:</span> K35.80 (Unspecified acute appendicitis)
+            <span style={{ fontWeight: 500, color: '#5192AE' }}>ICD-10:</span> K35.80 (Unspecified acute appendicitis)
           </Typography>
           <Typography 
             component="div" 
@@ -211,10 +225,11 @@ const workflowSteps = [
               fontFamily: 'monospace',
               animation: 'typing 2s 1.5s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#5192AE'
             }}
           >
-            <span className="font-semibold">CPT/E&M:</span> 99203 (New patient, detailed exam)
+            <span style={{ fontWeight: 500, color: '#5192AE' }}>CPT/E&M:</span> 99203 (New patient, detailed exam)
           </Typography>
         </Box>
       </Box>
@@ -223,17 +238,17 @@ const workflowSteps = [
   {
     id: "referral",
     title: "Create Referral Letters",
-    icon: <ClipboardList size={30} className="text-black" />,
+    icon: <ClipboardList size={30} style={{ color: "#143151" }} />,
     description: "Preparing specialist referrals...",
     color: "#143151",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
           sx={{ 
-            border: '1px solid rgba(0,0,0,0.1)', 
+            border: '1px solid rgba(20, 49, 81, 0.3)', 
             p: 1.5, 
             borderRadius: 1,
-            bgcolor: 'rgba(0,0,0,0.02)',
+            bgcolor: 'rgba(20, 49, 81, 0.05)',
             fontSize: '0.75rem',
             height: '80px',
             position: 'relative',
@@ -249,7 +264,8 @@ const workflowSteps = [
               fontSize: '0.75rem',
               animation: 'typing 2s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#143151'
             }}
           >
             Dear Dr. John Doe,
@@ -263,7 +279,8 @@ const workflowSteps = [
               fontSize: '0.75rem',
               animation: 'typing 2s 0.7s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#143151'
             }}
           >
             I'm referring a patient with suspected acute appendicitis...
@@ -277,7 +294,8 @@ const workflowSteps = [
               fontSize: '0.75rem',
               animation: 'typing 2s 1.4s steps(40, end)',
               whiteSpace: 'nowrap',
-              overflow: 'hidden'
+              overflow: 'hidden',
+              color: '#143151'
             }}
           >
             Urgent surgical consultation is recommended...
@@ -289,7 +307,7 @@ const workflowSteps = [
   {
     id: "labs",
     title: "Process Lab & Prescription Orders",
-    icon: <TestTube size={30} className="text-black" />,
+    icon: <TestTube size={30} style={{ color: "#f06292" }} />,
     description: "Submitting necessary lab work and prescriptions...",
     color: "#f06292",
     detailContent: (
@@ -310,13 +328,16 @@ const workflowSteps = [
                 px: 1.5,
                 py: 0.5,
                 borderRadius: 1,
-                bgcolor: item.type === 'Rx' ? 'rgba(252, 211, 77, 0.1)' : 'rgba(96, 165, 250, 0.1)',
-                border: item.type === 'Rx' ? '1px solid rgba(252, 211, 77, 0.3)' : '1px solid rgba(96, 165, 250, 0.3)',
+                bgcolor: item.type === 'Rx' ? 'rgba(252, 211, 77, 0.1)' : 'rgba(240, 98, 146, 0.1)',
+                border: item.type === 'Rx' ? '1px solid rgba(252, 211, 77, 0.3)' : '1px solid rgba(240, 98, 146, 0.3)',
                 fontSize: '0.75rem',
                 animation: `slideIn 0.3s ${i * 0.15}s both`
               }}
             >
-              <Typography sx={{ fontSize: '0.75rem', color: '#333' }}>
+              <Typography sx={{ 
+                fontSize: '0.75rem', 
+                color: item.type === 'Rx' ? '#b45309' : '#9d174d'
+              }}>
                 {item.name}
               </Typography>
               <Typography 
@@ -341,32 +362,33 @@ const workflowSteps = [
   {
     id: "instructions",
     title: "Generate Patient Instructions",
-    icon: <Mail size={30} className="text-black" />,
+    icon: <Mail size={30} style={{ color: "#387E89" }} />,
     description: "Creating personalized care instructions...",
     color: "#387E89",
     detailContent: (
       <Box sx={{ mt: 2 }}>
         <Box 
           sx={{ 
-            border: '1px solid rgba(0,0,0,0.1)', 
+            border: '1px solid rgba(56, 126, 137, 0.3)', 
             p: 1.5, 
             borderRadius: 1,
-            bgcolor: 'rgba(0,0,0,0.02)',
+            bgcolor: 'rgba(56, 126, 137, 0.05)',
             fontSize: '0.75rem',
             position: 'relative',
             height: '100px',
             overflow: 'hidden'
           }}
         >
-          <Typography variant="caption" sx={{ display: 'block', mb: 1, color: '#666' }}>
-            <Mail size={12} className="inline mr-1" /> Sent via secure email
+          <Typography variant="caption" sx={{ display: 'block', mb: 1, color: '#387E89' }}>
+            <Mail size={12} style={{ display: 'inline', marginRight: '4px', color: '#387E89' }} /> Sent via secure email
           </Typography>
           <Typography 
             component="div" 
             sx={{ 
               fontSize: '0.75rem',
               mb: 0.5,
-              animation: 'fadeIn 0.5s'
+              animation: 'fadeIn 0.5s',
+              color: '#387E89'
             }}
           >
             Dear Patient,
@@ -376,7 +398,8 @@ const workflowSteps = [
             sx={{ 
               fontSize: '0.75rem',
               mb: 1,
-              animation: 'fadeIn 0.5s 0.3s both'
+              animation: 'fadeIn 0.5s 0.3s both',
+              color: '#387E89'
             }}
           >
             Thank you for choosing Medical Center for your care. Below are your instructions following your appendectomy on April 14, 2025:
@@ -387,7 +410,8 @@ const workflowSteps = [
               sx={{ 
                 fontSize: '0.75rem', 
                 mb: 0.5,
-                animation: 'fadeIn 0.5s 0.6s both'
+                animation: 'fadeIn 0.5s 0.6s both',
+                color: '#387E89'
               }}
             >
               • Medication: Take Ibuprofen 400 mg every 6 hours for pain...
@@ -396,7 +420,8 @@ const workflowSteps = [
               component="div" 
               sx={{ 
                 fontSize: '0.75rem',
-                animation: 'fadeIn 0.5s 0.9s both'
+                animation: 'fadeIn 0.5s 0.9s both',
+                color: '#387E89'
               }}
             >
               • Rest for 48 hours; avoid lifting heavy objects...
@@ -409,12 +434,12 @@ const workflowSteps = [
   {
     id: "ehr",
     title: "Push Notes to EHR",
-    icon: <Database size={30} className="text-black" />,
+    icon: <Database size={30} style={{ color: "#5192AE" }} />,
     description: "Secure integration with all EHR systems",
     color: "#5192AE",
     detailContent: (
       <Box sx={{ mt: 2 }}>
-        <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center' }}>
+        <Typography variant="body2" sx={{ fontSize: '0.8rem', mb: 1, textAlign: 'center', color: '#5192AE' }}>
           All documents pushed to your preferred fields in your EHR
         </Typography>
         <Box 
@@ -427,9 +452,9 @@ const workflowSteps = [
             justifyContent: 'center',
             alignItems: 'center',
             p: 2,
-            bgcolor: 'rgba(0,0,0,0.03)',
+            bgcolor: 'rgba(81, 146, 174, 0.05)',
             borderRadius: 1,
-            border: '1px dashed rgba(0,0,0,0.1)'
+            border: '1px dashed rgba(81, 146, 174, 0.3)'
           }}
         >
           <Typography
@@ -446,7 +471,7 @@ const workflowSteps = [
               fontSize: '0.8rem',
               textAlign: 'center',
               fontStyle: 'italic',
-              color: '#555'
+              color: '#5192AE'
             }}
           >
             Secure integration with all EHR systems
@@ -462,7 +487,7 @@ export function AnimatedWorkflow() {
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   
-  const theme = useTheme();
+  const theme = useMuiTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
 
@@ -564,7 +589,7 @@ export function AnimatedWorkflow() {
                     {step.icon}
                   </motion.div>
                   <div>
-                    <h3 className="text-base md:text-lg font-semibold" style={{ color: isActive ? step.color : '#333' }}>
+                    <h3 className="text-base md:text-lg" style={{ color: isActive ? step.color : '#333', fontWeight: 'normal' }}>
                       {step.title}
                     </h3>
                     <p className="text-xs md:text-sm text-gray-600">
@@ -594,17 +619,6 @@ export function AnimatedWorkflow() {
                   </motion.div>
                 )}
               </motion.div>
-              
-              {/* Connector line between steps */}
-              {index < workflowSteps.length - 1 && (
-                <div 
-                  className="absolute left-5 top-10 w-[1px] h-[calc(100%-10px)]" 
-                  style={{ 
-                    background: `linear-gradient(to bottom, ${step.color}, ${workflowSteps[index + 1].color})`,
-                    opacity: 0.3
-                  }}
-                />
-              )}
             </motion.div>
           );
         })}
