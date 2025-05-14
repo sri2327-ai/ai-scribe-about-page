@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope } from 'lucide-react';
 
@@ -29,6 +29,34 @@ const StepIcon = memo(({ Icon, isActive, color }: { Icon: React.ComponentType<an
 ));
 
 StepIcon.displayName = 'StepIcon';
+
+// Voice wave animation component for the Mic step
+const VoiceWaveAnimation = memo(() => {
+  const waveRef = useRef<HTMLDivElement>(null);
+  
+  return (
+    <div className="flex items-center justify-center h-6 mt-1 mb-2 space-x-1">
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="w-1 bg-blue-400 rounded-full"
+          animate={{
+            height: [6, 12 + i * 2, 6],
+            opacity: [0.4, 1, 0.4]
+          }}
+          transition={{
+            repeat: Infinity,
+            duration: 0.8,
+            delay: i * 0.1,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
+  );
+});
+
+VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -68,11 +96,18 @@ const CrushIllustration = memo(() => {
         <div className="absolute w-24 h-24 rounded-full bg-teal-400 blur-3xl translate-x-16 -translate-y-12"></div>
       </div>
       
-      {/* Path for animation */}
+      {/* Path for animation - only the outer line */}
       <svg 
         className="absolute w-48 h-2 top-1/2 -translate-y-1/2"
         style={{ transform: 'translateZ(0)' }} // Hardware acceleration
       >
+        <defs>
+          <linearGradient id="crush-gradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#046f90" />
+            <stop offset="50%" stopColor="#387E89" />
+            <stop offset="100%" stopColor="#f06292" />
+          </linearGradient>
+        </defs>
         <motion.path
           d="M 5,1 L 180,1"
           stroke="url(#crush-gradient)"
@@ -82,13 +117,6 @@ const CrushIllustration = memo(() => {
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, repeat: Infinity }}
         />
-        <defs>
-          <linearGradient id="crush-gradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#046f90" />
-            <stop offset="50%" stopColor="#387E89" />
-            <stop offset="100%" stopColor="#f06292" />
-          </linearGradient>
-        </defs>
       </svg>
 
       {/* Use AnimatePresence for smooth transitions between items */}
@@ -110,6 +138,9 @@ const CrushIllustration = memo(() => {
           <p className="text-sm font-medium text-center" style={{ color: steps[currentStep].color }}>
             {steps[currentStep].label}
           </p>
+          
+          {/* Voice wave animation for the Mic/Voice Input step */}
+          {currentStep === 0 && <VoiceWaveAnimation />}
           
           {/* Step indicator dots */}
           <div className="flex gap-1.5 mt-1.5">
