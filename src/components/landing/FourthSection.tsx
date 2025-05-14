@@ -41,26 +41,14 @@ const MetricCard = ({
 }) => (
   <motion.div 
     whileHover={{ y: -5 }}
-    className={cn(
-      "flex items-start gap-3 p-3 rounded-lg shadow-sm transition-all duration-200",
-      positive ? "bg-gray-50" : "bg-blue-50"
-    )}
+    className="flex items-start gap-3 p-3 rounded-lg shadow-sm transition-all duration-200 bg-gray-50"
   >
-    <div className={cn(
-      "p-2 rounded-lg",
-      positive ? "bg-gray-100" : "bg-blue-100"
-    )}>
-      <Icon className={cn(
-        "w-5 h-5",
-        positive ? "text-gray-600" : "text-blue-600"
-      )} />
+    <div className="p-2 rounded-lg bg-gray-100">
+      <Icon className="w-5 h-5 text-gray-600" />
     </div>
     <div>
       <p className="text-sm font-medium text-gray-600">{title}</p>
-      <p className={cn(
-        "text-lg font-bold",
-        positive ? "text-gray-700" : "text-blue-700"
-      )}>{value}</p>
+      <p className="text-lg font-bold text-gray-700">{value}</p>
     </div>
   </motion.div>
 );
