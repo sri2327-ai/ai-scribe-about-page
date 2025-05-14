@@ -175,16 +175,13 @@ export const FirstSection = () => {
                         key={tab.id} 
                         value={tab.id} 
                         className="flex items-center justify-center px-3 py-2.5 gap-2 text-center rounded-lg data-[state=active]:shadow-md text-sm font-medium whitespace-normal sm:whitespace-nowrap dark:text-gray-300 dark:data-[state=active]:text-white transition-all duration-200 relative group"
-                        style={{
-                          // Dynamic styling based on active state using data-state provided by Radix
-                          backgroundColor: 'var(--tab-bg, transparent)'
-                        }}
                       >
-                        <span className="flex items-center justify-center shrink-0 bg-white/80 h-8 w-8 rounded-full shadow-sm group-data-[state=active]:bg-[var(--tab-color)] group-data-[state=active]:text-white transition-all duration-200"
+                        <span 
+                          className="flex items-center justify-center shrink-0 bg-white/80 h-8 w-8 rounded-full shadow-sm group-data-[state=active]:bg-[var(--tab-color)] group-data-[state=active]:text-white transition-all duration-200"
                           style={{ 
-                            // Setting CSS variable to use in other styles
-                            '--tab-color': tab.color 
-                          }}
+                            // Using CSS custom property with type assertion to fix the TypeScript error
+                            '--tab-color': tab.color
+                          } as React.CSSProperties}
                         >
                           {tab.icon}
                         </span>
