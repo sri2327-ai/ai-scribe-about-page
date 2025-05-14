@@ -8,7 +8,6 @@ import EHRTab from './tabs/EHRTab';
 import SIPTab from './tabs/SIPTab';
 import CalendarTab from './tabs/CalendarTab';
 import EmailTab from './tabs/EmailTab';
-import { useToast } from "@/components/ui/use-toast";
 
 const tabs = [
   {
@@ -46,7 +45,6 @@ export default function IntegrationTabs() {
   const [activeTab, setActiveTab] = useState('ehr');
   const [visibleTabsIndex, setVisibleTabsIndex] = useState(0);
   const tabsToShow = isMobile ? 2 : 4;
-  const { toast } = useToast();
   
   // Handle viewport changes
   useEffect(() => {
@@ -55,54 +53,35 @@ export default function IntegrationTabs() {
   }, [isMobile]);
   
   const handlePrevTab = () => {
+    // If we have previous tabs to show, update the index and also update the active tab
     if (visibleTabsIndex > 0) {
-      const newIndex = visibleTabsIndex - 1;
+      const newIndex = Math.max(0, visibleTabsIndex - 1);
       setVisibleTabsIndex(newIndex);
-      
-      // Only change the active tab if the current active tab would be out of view
-      const currentTabIndex = tabs.findIndex(tab => tab.value === activeTab);
-      if (currentTabIndex < newIndex) {
-        setActiveTab(tabs[newIndex].value);
-        toast({
-          title: "Navigation",
-          description: `Moved to ${tabs[newIndex].label}`,
-          duration: 2000,
-        });
-      }
+      // Make the first visible tab active
+      setActiveTab(tabs[newIndex].value);
     }
   };
   
   const handleNextTab = () => {
+    // If we have more tabs to show, update the index and also update the active tab
     if (visibleTabsIndex < tabs.length - tabsToShow) {
-      const newIndex = visibleTabsIndex + 1;
+      const newIndex = Math.min(tabs.length - tabsToShow, visibleTabsIndex + 1);
       setVisibleTabsIndex(newIndex);
-      
-      // Only change the active tab if the current active tab would be out of view
-      const currentTabIndex = tabs.findIndex(tab => tab.value === activeTab);
-      if (currentTabIndex < newIndex) {
-        setActiveTab(tabs[newIndex].value);
-        toast({
-          title: "Navigation",
-          description: `Moved to ${tabs[newIndex].label}`,
-          duration: 2000,
-        });
-      }
+      // Make the first visible tab active
+      setActiveTab(tabs[newIndex].value);
     }
   };
   
-  // Handle tab change from the TabsTrigger click
-  const handleTabChange = (value) => {
+  // When selecting a tab that's not visible, scroll to make it visible
+  const handleTabChange = (value: string) => {
     setActiveTab(value);
-    
-    // Find the index of the selected tab
     const tabIndex = tabs.findIndex(tab => tab.value === value);
     
     // Check if the selected tab is currently visible
     if (tabIndex < visibleTabsIndex || tabIndex >= visibleTabsIndex + tabsToShow) {
-      // Calculate a new visibleTabsIndex to make the selected tab visible
-      // If possible, make the tab appear at the beginning of the visible tabs
-      const newVisibleTabsIndex = Math.min(tabIndex, tabs.length - tabsToShow);
-      setVisibleTabsIndex(Math.max(0, newVisibleTabsIndex));
+      // Calculate the new visibleTabsIndex to make the selected tab visible
+      const newVisibleTabsIndex = Math.max(0, Math.min(tabIndex, tabs.length - tabsToShow));
+      setVisibleTabsIndex(newVisibleTabsIndex);
     }
   };
 
@@ -136,8 +115,8 @@ export default function IntegrationTabs() {
 
       <Tabs 
         defaultValue="ehr" 
-        value={activeTab}
-        onValueChange={handleTabChange}
+        value={activeTab} 
+        onValueChange={handleTabChange} 
         className="w-full max-w-4xl mx-auto"
       >
         <div className="relative flex items-center mb-6">
