@@ -165,7 +165,7 @@ export const FirstSection = () => {
             <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
               <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm">
                 <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
-                  Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#143151] text-white text-xs rounded-full dark:bg-[#143151]/80">Clinician-First</span>
+                  Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#A5CCF3] text-gray-700 text-xs rounded-full dark:bg-[#A5CCF3]/80">Clinician-First</span>
                 </h3>
               </div>
               
