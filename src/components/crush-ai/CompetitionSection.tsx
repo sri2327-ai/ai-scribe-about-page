@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback, useMemo } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -165,7 +164,7 @@ const ComparisonRow = React.memo(({ feature, index }: { feature: ComparisonFeatu
   <TableRow 
     className={index % 2 === 0 ? "bg-gray-100/90" : "bg-white/90"}
   >
-    <TableCell className="font-medium text-gray-900">{feature.title}</TableCell>
+    <TableCell className="font-bold text-gray-900 text-base">{feature.title}</TableCell>
     <TableCell>
       <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
         <Box
@@ -178,7 +177,7 @@ const ComparisonRow = React.memo(({ feature, index }: { feature: ComparisonFeatu
           <CheckCircle size={20} />
         </Box>
         <Box>
-          <Typography variant="body2" sx={{ color: crushAIColors.text.primary }}>
+          <Typography variant="body2" sx={{ color: crushAIColors.text.primary, fontWeight: 500 }}>
             {feature.crushDescription}
           </Typography>
           
@@ -241,7 +240,7 @@ const FeatureButton = React.memo(({
     <Typography 
       variant="subtitle1" 
       sx={{ 
-        fontWeight: 500, 
+        fontWeight: 700, 
         color: crushAIColors.text.primary,
         fontSize: { xs: '0.95rem', md: '1rem' }
       }}
