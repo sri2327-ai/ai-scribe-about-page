@@ -174,7 +174,7 @@ export const FirstSection = () => {
               <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
                 <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                   <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
-                    Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#D3E4FD] text-[#555555] text-xs rounded-full dark:bg-[#D3E4FD]/80">Clinician-First</span>
+                    Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#D3E4FD] text-[#555555] text-xs sm:text-sm rounded-full dark:bg-[#D3E4FD]/80">Clinician-First</span>
                   </h3>
                 </div>
                 
@@ -248,7 +248,11 @@ export const FirstSection = () => {
                                       <span className="font-medium text-xs text-[#387E89]">{tab.benefit}</span>
                                       
                                       <div className="ml-auto">
-                                        <VoiceAnimation size="sm" />
+                                        <VoiceAnimation 
+                                          size={isMobile ? "xs" : "sm"}
+                                          color={tab.color} 
+                                          isAnimating={isActive}
+                                        />
                                       </div>
                                     </div>
                                   </div>
