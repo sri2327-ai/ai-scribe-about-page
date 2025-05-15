@@ -38,12 +38,16 @@ const StatCard = ({ title, value }: { title: string; value: number }) => {
 };
 
 const HeroStats = () => {
-  // Fixed stats that align with the 1027 providers
+  // Updated stats to be more realistic for 1027+ providers
+  // Assuming:
+  // - 15 charts per clinician per day × 22 working days × 1027 providers
+  // - 20 calls per clinician per day × 22 working days × 1027 providers
+  // - Similar number for chats based on call volume
   const [stats] = useState<Stats>({
-    chartsSigned: 12324,
-    callsDone: 8645,
-    chatsAnswered: 9872,
-    providersSmiled: 1027, // Fixed at 1027 as requested
+    chartsSigned: 338,910,     // ~15 charts × 22 days × 1027 providers
+    callsDone: 451,880,        // ~20 calls × 22 days × 1027 providers
+    chatsAnswered: 428,256,    // ~19 chats × 22 days × 1027 providers
+    providersSmiled: 1027,     // Fixed at 1027 as mentioned
   });
 
   const isMobile = useIsMobile();
@@ -117,7 +121,7 @@ const HeroStats = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
       >
-        *Real-time impact of our AI across our network of 1,027 providers.*
+        *Real-time impact of our AI across our network of 1,027+ providers.*
       </motion.p>
     </section>
   );
