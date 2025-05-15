@@ -170,7 +170,7 @@ const ComparisonRow = React.memo(({ feature, index }: { feature: ComparisonFeatu
       <Box sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}>
         <Box
           sx={{ 
-            color: crushAIColors.icons.primary,
+            color: "#4CAF50", // Green color for the tick
             flexShrink: 0,
             mt: 0.5
           }}
@@ -326,7 +326,7 @@ const FeatureDetail = React.memo(({
             flexShrink: 0
           }}
         >
-          <CheckCircle size={24} color={crushAIColors.icons.primary} />
+          <CheckCircle size={24} color="#4CAF50" />
         </Box>
         <Box>
           <Typography 
