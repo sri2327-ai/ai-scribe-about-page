@@ -180,70 +180,98 @@ export const FirstSection = () => {
                 </div>
                 
                 <div className="p-3 sm:p-4">
-                  {/* Improved workflow cards with click-based navigation and ensured content visibility */}
+                  {/* Compact feature tabs with click to expand functionality */}
                   <div className="grid grid-cols-1 gap-3 sm:gap-4">
                     {featureTabs.map((tab, index) => {
-                    const isActive = activeTabIndex === index;
-                    return <motion.div key={tab.id} animate={{
-                      opacity: isActive ? 1 : 0.75,
-                      scale: isActive ? 1 : 0.98,
-                      y: isActive ? 0 : 0
-                    }} transition={{
-                      duration: 0.3,
-                      ease: "easeOut"
-                    }} className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} onClick={() => handleTabClick(index)}>
-                          <motion.div className={`flex flex-col gap-3 rounded-lg p-3 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`} whileHover={{
-                        scale: 1.01,
-                        backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
-                        transition: {
-                          duration: 0.2
-                        }
-                      }}>
+                      const isActive = activeTabIndex === index;
+                      return (
+                        <motion.div 
+                          key={tab.id} 
+                          animate={{
+                            opacity: isActive ? 1 : 0.75,
+                            scale: isActive ? 1 : 0.98,
+                          }} 
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} 
+                          onClick={() => handleTabClick(index)}
+                        >
+                          <motion.div 
+                            className={`flex flex-col rounded-lg p-3 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`}
+                            whileHover={{
+                              scale: 1.01,
+                              backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
+                              transition: { duration: 0.2 }
+                            }}
+                          >
                             <div className="flex items-center gap-3">
-                              <motion.div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{
-                            backgroundColor: `${tab.color}10`
-                          }} whileHover={{
-                            scale: 1.1,
-                            backgroundColor: `${tab.color}20`,
-                            transition: {
-                              duration: 0.2
-                            }
-                          }}>
+                              <motion.div 
+                                className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" 
+                                style={{ backgroundColor: `${tab.color}10` }}
+                                whileHover={{
+                                  scale: 1.1,
+                                  backgroundColor: `${tab.color}20`,
+                                  transition: { duration: 0.2 }
+                                }}
+                              >
                                 {React.cloneElement(tab.icon, {
-                              style: {
-                                color: tab.color
-                              },
-                              className: "w-5 h-5"
-                            })}
+                                  style: { color: tab.color },
+                                  className: "w-4 h-4"
+                                })}
                               </motion.div>
                               <div>
-                                <motion.h3 className="text-base font-semibold text-gray-900">
+                                <motion.h3 className="text-sm font-semibold text-gray-900">
                                   {tab.title}
                                 </motion.h3>
-                                <motion.p className="text-xs text-gray-600">
-                                  {tab.description}
-                                </motion.p>
                               </div>
                             </div>
                             
-                            <div className="ml-13">
-                              <div className="flex items-center gap-2 mt-1 sm:mt-2 bg-blue-50/50 p-2 rounded-lg dark:bg-blue-900/20">
-                                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] dark:text-[#5abecb]" />
-                                <span className="font-medium text-xs sm:text-sm text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
-                                
-                                <div className="ml-auto">
-                                  <VoiceAnimation size="sm" />
-                                </div>
-                              </div>
-                            </div>
+                            <AnimatePresence>
+                              {isActive && (
+                                <motion.div
+                                  initial={{ opacity: 0, height: 0 }}
+                                  animate={{ opacity: 1, height: 'auto' }}
+                                  exit={{ opacity: 0, height: 0 }}
+                                  transition={{ duration: 0.3 }}
+                                  className="overflow-hidden"
+                                >
+                                  <motion.p 
+                                    initial={{ opacity: 0, y: 5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 }}
+                                    className="text-xs text-gray-600 mt-2 ml-11"
+                                  >
+                                    {tab.description}
+                                  </motion.p>
+                                  
+                                  <div className="ml-11 mt-2">
+                                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/10 p-2 rounded-lg">
+                                      <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" />
+                                      <span className="font-medium text-xs text-[#387E89]">{tab.benefit}</span>
+                                      
+                                      <div className="ml-auto">
+                                        <VoiceAnimation size="sm" />
+                                      </div>
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              )}
+                            </AnimatePresence>
                           </motion.div>
-                        </motion.div>;
+                        </motion.div>
+                      );
                     })}
                   </div>
 
                   {/* Navigation indicator dots */}
                   <div className="flex justify-center gap-2 mt-4">
-                    {featureTabs.map((_, idx) => <button key={idx} onClick={() => handleTabClick(idx)} className={`w-2 h-2 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`} aria-label={`View ${featureTabs[idx].title}`} />)}
+                    {featureTabs.map((_, idx) => (
+                      <button 
+                        key={idx} 
+                        onClick={() => handleTabClick(idx)} 
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`}
+                        aria-label={`View ${featureTabs[idx].title}`} 
+                      />
+                    ))}
                   </div>
                 </div>
               </Card>
