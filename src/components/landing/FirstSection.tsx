@@ -42,15 +42,6 @@ export const FirstSection = () => {
       elements?.forEach(el => observer.unobserve(el));
     };
   }, []);
-
-  // Auto-rotate tabs like in BravoWorkflowAnimation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveTabIndex(prevIndex => (prevIndex + 1) % featureTabs.length);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
   
   const clinicianBenefits = [{
     icon: <Clock className="w-5 h-5 text-[#387E89]" />,
@@ -165,7 +156,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature workflow animation - smaller and more engaging */}
+          {/* Right column - Feature workflow now with click-based navigation */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -173,14 +164,14 @@ export const FirstSection = () => {
             className="relative"
           >
             <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
-              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-teal-500/10 backdrop-blur-sm">
+              <div className="p-3 sm:p-4 bg-[#FFDEE2]/60 backdrop-blur-sm">
                 <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
-                  Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
+                  Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#FFDEE2] text-[#387E89] text-xs rounded-full dark:bg-[#FFDEE2]/80 dark:text-blue-900">Clinician-First</span>
                 </h3>
               </div>
               
               <div className="p-3 sm:p-4">
-                {/* Improved workflow animation container */}
+                {/* Improved workflow cards with click-based navigation */}
                 <div className="grid grid-cols-1 gap-3 sm:gap-4">
                   {featureTabs.map((tab, index) => {
                     const isActive = activeTabIndex === index;
@@ -188,23 +179,23 @@ export const FirstSection = () => {
                     return (
                       <motion.div
                         key={tab.id}
-                        initial={{ opacity: 0, height: 0 }}
                         animate={{ 
-                          opacity: isActive ? 1 : 0.5,
-                          height: isActive ? "auto" : "56px",
-                          x: isActive ? 0 : -5
+                          opacity: isActive ? 1 : 0.75,
+                          scale: isActive ? 1 : 0.98,
+                          y: isActive ? 0 : 0
                         }}
                         transition={{ 
-                          duration: 0.4,
+                          duration: 0.3,
                           ease: "easeOut"
                         }}
-                        className="relative overflow-hidden"
+                        className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`}
                         onClick={() => handleTabClick(index)}
                       >
                         <motion.div
-                          className="flex flex-col gap-3 cursor-pointer rounded-lg p-2 hover:bg-gray-50/50"
+                          className={`flex flex-col gap-3 rounded-lg p-3 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`}
                           whileHover={{ 
                             scale: 1.01,
+                            backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)', 
                             transition: { duration: 0.2 }
                           }}
                         >
@@ -251,38 +242,21 @@ export const FirstSection = () => {
                             )}
                           </AnimatePresence>
                         </motion.div>
-                        
-                        {index < featureTabs.length - 1 && (
-                          <motion.div
-                            className="absolute left-5 top-10 w-[1px] h-[calc(100%-0.5rem)]"
-                            style={{
-                              background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
-                            }}
-                            initial={{ scaleY: 0, opacity: 0.5 }}
-                            animate={{ 
-                              scaleY: isActive ? 1 : 0.7,
-                              opacity: isActive ? 0.8 : 0.4
-                            }}
-                            transition={{ duration: 0.4 }}
-                          />
-                        )}
                       </motion.div>
                     );
                   })}
                 </div>
 
-                {/* Subtle animation indicator dots */}
-                <div className="flex justify-center gap-1.5 mt-3">
+                {/* Navigation indicator dots */}
+                <div className="flex justify-center gap-2 mt-4">
                   {featureTabs.map((_, idx) => (
-                    <motion.div
+                    <button
                       key={idx}
-                      className="w-1.5 h-1.5 rounded-full bg-gray-300"
-                      animate={{ 
-                        scale: activeTabIndex === idx ? 1.3 : 1,
-                        backgroundColor: activeTabIndex === idx ? '#387E89' : '#e5e7eb' 
-                      }}
-                      transition={{ duration: 0.3 }}
                       onClick={() => handleTabClick(idx)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                      aria-label={`View ${featureTabs[idx].title}`}
                     />
                   ))}
                 </div>
@@ -291,7 +265,7 @@ export const FirstSection = () => {
           </motion.div>
         </div>
         
-        {/* Trusted by section - improved animation */}
+        {/* Trusted by section - improved to fit screen better */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -299,44 +273,48 @@ export const FirstSection = () => {
           className="mt-8 sm:mt-12"
         >
           <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-3">
-            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-2 text-xs sm:text-sm">S10.AI is recommended by</Typography>
+            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-2 text-xs sm:text-sm px-2 truncate">
+              S10.AI is recommended by
+            </Typography>
             
             <Box sx={{
-            overflow: "hidden",
-            width: '100%',
-            '& .marquee-container': {
-              minHeight: {
-                xs: '28px',
-                sm: '32px',
-                md: '40px'
+              overflow: "hidden",
+              width: '100%',
+              '& .marquee-container': {
+                minHeight: {
+                  xs: '24px',
+                  sm: '28px',
+                  md: '32px'
+                }
               }
-            }
-          }}>
-              <Marquee gradient={false} speed={30}>
-                {companyLogos.map((logo, index) => (
-                  <motion.div 
-                    key={index} 
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                  >
-                    <Box sx={{
-                      mx: { xs: 2, sm: 3, md: 4 },
-                      display: 'flex',
-                      alignItems: 'center'
-                    }}>
-                      <img 
-                        src={logo} 
-                        alt={`Healthcare partner ${index + 1}`} 
-                        style={{
-                          width: 'auto',
-                          height: isMobile ? '20px' : '28px',
-                          objectFit: 'contain'
-                        }} 
-                      />
-                    </Box>
-                  </motion.div>
-                ))}
-              </Marquee>
+            }}>
+              <div className="overflow-hidden w-full">
+                <Marquee gradient={true} gradientWidth={50} speed={25}>
+                  {companyLogos.map((logo, index) => (
+                    <motion.div 
+                      key={index} 
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                    >
+                      <Box sx={{
+                        mx: { xs: 1.5, sm: 2, md: 3 },
+                        display: 'flex',
+                        alignItems: 'center'
+                      }}>
+                        <img 
+                          src={logo} 
+                          alt={`Healthcare partner ${index + 1}`} 
+                          style={{
+                            width: 'auto',
+                            height: isMobile ? '18px' : '24px',
+                            objectFit: 'contain'
+                          }} 
+                        />
+                      </Box>
+                    </motion.div>
+                  ))}
+                </Marquee>
+              </div>
             </Box>
           </div>
         </motion.div>
