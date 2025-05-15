@@ -1,24 +1,26 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle } from "lucide-react";
 import { VoiceAnimation } from './animations/VoiceAnimation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
+
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
+
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const {
-    width
-  } = useWindowSize();
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const { width } = useWindowSize();
   const isMobile = useIsMobile();
 
   // Add intersection observer for scroll animations
@@ -32,11 +34,22 @@ export const FirstSection = () => {
     }, {
       threshold: 0.1
     });
+    
     const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
     elements?.forEach(el => observer.observe(el));
+    
     return () => {
       elements?.forEach(el => observer.unobserve(el));
     };
+  }, []);
+
+  // Auto-rotate tabs like in BravoWorkflowAnimation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTabIndex(prevIndex => (prevIndex + 1) % featureTabs.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
   }, []);
   
   const clinicianBenefits = [{
@@ -56,26 +69,36 @@ export const FirstSection = () => {
     title: "AI Medical Scribe",
     icon: <FileText className="w-5 h-5" />,
     description: "Automated documentation that captures the full patient story while you focus on care.",
-    benefit: "Save 2+ hours per day"
+    benefit: "Save 2+ hours per day",
+    color: "#143151"
   }, {
     id: "patient-engagement",
     title: "AI Staffing Agent",
     icon: <MessageSquare className="w-5 h-5" />,
     description: "AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.",
-    benefit: "Reduce admin workload by 40%"
+    benefit: "Reduce admin workload by 40%",
+    color: "#387E89"
   }, {
     id: "custom-agents",
     title: "Custom AI Agents",
     icon: <Users className="w-5 h-5" />,
     description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
-    benefit: "30+ specialty workflows"
+    benefit: "30+ specialty workflows",
+    color: "#5192AE"
   }, {
     id: "ehr-integrations",
     title: "EHR Integrations",
     icon: <Database className="w-5 h-5" />,
     description: "Works with any EHR system and connects to 7000+ apps.",
-    benefit: "Seamless connectivity"
+    benefit: "Seamless connectivity",
+    color: "#143151"
   }];
+
+  // Handle tab click (manual interaction)
+  const handleTabClick = (index: number) => {
+    setActiveTabIndex(index);
+  };
+
   return <section className="min-h-screen bg-gradient-to-b from-white to-blue-50/30 overflow-hidden relative" ref={sectionRef}>
       {/* Healthcare-themed background elements - kept subtle */}
       <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100/10 rounded-full blur-3xl"></div>
@@ -130,17 +153,13 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature cards - exactly 50% on desktop */}
-          <motion.div initial={{
-          opacity: 0,
-          scale: 0.95
-        }} animate={{
-          opacity: 1,
-          scale: 1
-        }} transition={{
-          duration: 0.7,
-          delay: 0.3
-        }} className="relative">
+          {/* Right column - Feature cards styled like Bravo workflow animation */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="relative"
+          >
             <Card className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
               <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm ">
                 <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center dark:text-white">
@@ -148,39 +167,94 @@ export const FirstSection = () => {
                 </h3>
               </div>
               
-              <Tabs defaultValue="ai-scribe" className="w-full">
-                <div className="px-3 sm:px-4 pt-3 sm:pt-4">
-                  {/* Enhanced tab navigation with two-line labels for desktop/laptop */}
-                  <TabsList className="w-full grid grid-cols-2 md:grid-cols-4 bg-gray-50/70 p-1 rounded-lg dark:bg-gray-800/30">
-                    {featureTabs.map(tab => <TabsTrigger key={tab.id} value={tab.id} className="flex items-center justify-center px-2 py-2 md:py-1.5 gap-1 sm:gap-1.5 my-1 text-center rounded-lg data-[state=active]:shadow-none text-xs md:text-[0.7rem] font-medium dark:text-gray-300 dark:data-[state=active]:text-white">
-                        <span className="flex items-center justify-center shrink-0">{tab.icon}</span>
-                        <span className="md:text-[0.7rem] md:leading-tight md:flex md:flex-wrap md:justify-center md:h-auto md:max-w-[90px]">{tab.title}</span>
-                      </TabsTrigger>)}
-                  </TabsList>
-                </div>
-                
-                <div className="p-3 sm:p-4">
-                  {featureTabs.map(tab => <TabsContent key={tab.id} value={tab.id} className="mt-2 focus-visible:outline-none focus-visible:ring-0">
-                      <CardContent className="p-0">
-                        <div className="flex flex-col md:flex-row gap-2 sm:gap-4 items-start p-2 transition-all duration-300">
-                          <div className="w-full space-y-2">
-                            <h3 className="text-lg sm:text-xl font-medium text-[#143151] dark:text-blue-300">{tab.title}</h3>
-                            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300">{tab.description}</p>
-                            
-                            <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
-                              <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
-                              <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
-                              
-                              <div className="ml-auto">
-                                <VoiceAnimation />
-                              </div>
+              <div className="p-4">
+                {/* Bravo-style animated workflow display */}
+                <div className="grid grid-cols-1 gap-6">
+                  {featureTabs.map((tab, index) => {
+                    const isActive = activeTabIndex === index;
+
+                    return (
+                      <motion.div
+                        key={tab.id}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ 
+                          opacity: isActive ? 1 : 0.5,
+                          height: isActive ? "auto" : "64px",
+                          x: isActive ? 0 : -5
+                        }}
+                        transition={{ 
+                          duration: 0.5,
+                          ease: "easeOut"
+                        }}
+                        className="relative overflow-hidden"
+                        onClick={() => handleTabClick(index)}
+                      >
+                        <motion.div
+                          className="flex flex-col gap-4 cursor-pointer"
+                          whileHover={{ 
+                            scale: 1.02,
+                            transition: { duration: 0.3 }
+                          }}
+                        >
+                          <div className="flex items-center gap-4">
+                            <motion.div 
+                              className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                              style={{ backgroundColor: `${tab.color}10` }}
+                              whileHover={{ 
+                                scale: 1.1,
+                                transition: { duration: 0.2 }
+                              }}
+                            >
+                              {React.cloneElement(tab.icon, { style: { color: tab.color }, className: "w-6 h-6" })}
+                            </motion.div>
+                            <div>
+                              <motion.h3 className="text-lg font-semibold text-gray-900">
+                                {tab.title}
+                              </motion.h3>
+                              <motion.p className="text-sm text-gray-600">
+                                {tab.description}
+                              </motion.p>
                             </div>
                           </div>
-                        </div>
-                      </CardContent>
-                    </TabsContent>)}
+                          
+                          <AnimatePresence>
+                            {isActive && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 20, height: 0 }}
+                                animate={{ opacity: 1, y: 0, height: "auto" }}
+                                exit={{ opacity: 0, y: -20, height: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="ml-16"
+                              >
+                                <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
+                                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
+                                  <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
+                                  
+                                  <div className="ml-auto">
+                                    <VoiceAnimation />
+                                  </div>
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.div>
+                        
+                        {index < featureTabs.length - 1 && (
+                          <motion.div
+                            className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
+                            style={{
+                              background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
+                            }}
+                            initial={{ scaleY: 0 }}
+                            animate={{ scaleY: isActive ? 1 : 0.5 }}
+                            transition={{ duration: 0.5 }}
+                          />
+                        )}
+                      </motion.div>
+                    );
+                  })}
                 </div>
-              </Tabs>
+              </div>
             </Card>
           </motion.div>
         </div>
