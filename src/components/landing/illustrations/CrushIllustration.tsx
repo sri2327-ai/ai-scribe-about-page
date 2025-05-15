@@ -1,7 +1,8 @@
 
-import React, { useEffect, useState, memo, useCallback } from 'react';
+import React, { useEffect, useState, memo, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const steps = [
   { Icon: Mic, label: "Voice Input", delay: 0, color: "#046f90" },
@@ -60,40 +61,70 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [userInteracted, setUserInteracted] = useState(false);
+  const [lastInteractionTime, setLastInteractionTime] = useState<number>(Date.now());
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const autoPlayIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isMobile = useIsMobile();
 
   // Function to handle step clicks for interactive usage
   const handleStepClick = useCallback((index: number) => {
-    setUserInteracted(true);
     setIsAutoPlaying(false);
     setCurrentStep(index);
-    
-    // Resume auto-play after 15 seconds of inactivity
-    const inactivityTimer = setTimeout(() => {
-      setIsAutoPlaying(true);
-    }, 15000);
-    
-    return () => clearTimeout(inactivityTimer);
+    setLastInteractionTime(Date.now());
   }, []);
+  
+  // Function to restart auto-play if user has been inactive
+  const checkInactivity = useCallback(() => {
+    const now = Date.now();
+    const inactiveTime = now - lastInteractionTime;
+    
+    // Resume auto-play after 10 seconds of inactivity
+    if (inactiveTime > 10000 && !isAutoPlaying) {
+      setIsAutoPlaying(true);
+    }
+  }, [lastInteractionTime, isAutoPlaying]);
 
+  // Set up auto-play cycle and inactivity checker
   useEffect(() => {
-    // Set loaded state to prevent initial animation issues
     setIsLoaded(true);
     
-    // Auto-cycling of steps when autoplay is enabled
-    let interval: NodeJS.Timeout | null = null;
+    // Clear any existing interval
+    if (autoPlayIntervalRef.current) {
+      clearInterval(autoPlayIntervalRef.current);
+      autoPlayIntervalRef.current = null;
+    }
     
     if (isAutoPlaying) {
-      interval = setInterval(() => {
-        setCurrentStep((prev) => (prev + 1) % steps.length);
+      autoPlayIntervalRef.current = setInterval(() => {
+        setCurrentStep(prev => (prev + 1) % steps.length);
       }, 3000);
     }
     
+    // Check for inactivity every 2 seconds
+    const inactivityInterval = setInterval(checkInactivity, 2000);
+    
     return () => {
-      if (interval) clearInterval(interval);
+      if (autoPlayIntervalRef.current) clearInterval(autoPlayIntervalRef.current);
+      clearInterval(inactivityInterval);
     };
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, checkInactivity]);
+
+  // Track user interactions
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      setLastInteractionTime(Date.now());
+    };
+    
+    window.addEventListener('mousemove', handleUserInteraction);
+    window.addEventListener('touchstart', handleUserInteraction);
+    window.addEventListener('click', handleUserInteraction);
+    
+    return () => {
+      window.removeEventListener('mousemove', handleUserInteraction);
+      window.removeEventListener('touchstart', handleUserInteraction);
+      window.removeEventListener('click', handleUserInteraction);
+    };
+  }, []);
 
   // Don't render until component is fully mounted
   if (!isLoaded) {
@@ -103,6 +134,10 @@ const CrushIllustration = memo(() => {
       </div>
     );
   }
+  
+  const cardWidth = isMobile ? 'min-w-[120px]' : 'min-w-[140px]';
+  const cardPadding = isMobile ? 'p-3' : 'p-4';
+  const iconSize = isMobile ? 'w-10 h-10' : 'w-12 h-12';
 
   return (
     <div 
@@ -116,9 +151,9 @@ const CrushIllustration = memo(() => {
         <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-teal-400 blur-3xl translate-x-12 -translate-y-10 sm:translate-x-16 sm:-translate-y-12"></div>
       </div>
       
-      {/* Path for animation - only the outer line */}
+      {/* Path for animation - only the outer line, optimized for mobile */}
       <svg 
-        className="absolute w-40 h-2 top-1/2 -translate-y-1/2"
+        className="absolute w-32 sm:w-40 h-2 top-1/2 -translate-y-1/2"
         style={{ transform: 'translateZ(0)' }} // Hardware acceleration
       >
         <defs>
@@ -147,7 +182,7 @@ const CrushIllustration = memo(() => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center gap-2 bg-white/90 p-4 rounded-lg shadow-lg z-10 min-w-[130px] sm:min-w-[140px]"
+          className={`flex flex-col items-center gap-2 bg-white/90 ${cardPadding} rounded-lg shadow-lg z-10 ${cardWidth} max-w-[90%]`}
           style={{ 
             willChange: 'transform, opacity',
             boxShadow: `0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
@@ -165,7 +200,7 @@ const CrushIllustration = memo(() => {
           {/* Voice wave animation for the Mic/Voice Input step */}
           {currentStep === 0 && <VoiceWaveAnimation />}
           
-          {/* Step content based on current step */}
+          {/* Step content based on current step - simplified for mobile */}
           <div className="mt-1 w-full">
             {currentStep === 0 && (
               <div className="text-xs text-center text-gray-500">
@@ -175,8 +210,7 @@ const CrushIllustration = memo(() => {
             {currentStep === 1 && (
               <div className="flex justify-center">
                 <motion.div 
-                  className="h-2 w-28 sm:w-32 bg-gray-200 rounded-full overflow-hidden"
-                  style={{ padding: 0 }}
+                  className="h-2 w-full max-w-[90%] bg-gray-200 rounded-full overflow-hidden"
                 >
                   <motion.div
                     className="h-full rounded-full" 
@@ -227,13 +261,18 @@ const CrushIllustration = memo(() => {
             )}
           </div>
           
-          {/* Interactive Step indicators */}
-          <div className="flex gap-1.5 mt-2">
+          {/* Interactive Step indicators - improved for mobile touch */}
+          <div className="flex gap-2 mt-2">
             {steps.map((step, idx) => (
-              <motion.div 
+              <motion.button 
                 key={idx} 
-                className={`rounded-full transition-all duration-300 cursor-pointer ${currentStep === idx ? 'w-4' : 'w-1.5'} h-1.5`}
-                style={{ backgroundColor: currentStep === idx ? steps[idx].color : '#e5e7eb' }}
+                className={`rounded-full transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 h-2.5`}
+                style={{ 
+                  backgroundColor: currentStep === idx ? steps[idx].color : '#e5e7eb',
+                  width: currentStep === idx ? '1rem' : '0.5rem',
+                  boxShadow: currentStep === idx ? `0 0 8px ${steps[idx].color}80` : 'none',
+                  focusRing: steps[idx].color
+                }}
                 onClick={() => handleStepClick(idx)}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.95 }}
