@@ -175,7 +175,7 @@ export const FirstSection = () => {
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                   <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center justify-between flex-wrap dark:text-white">
                     <span className="pr-2">Don't change for AI—make it work for you</span> 
-                    <span className="inline-flex items-center justify-center px-2.5 py-0.5 text-xs xs:text-sm sm:text-sm rounded-full bg-[#D3E4FD] text-[#555555] dark:bg-[#D3E4FD]/80 whitespace-nowrap mt-1 xs:mt-0">
+                    <span className="inline-flex items-center justify-center px-2.5 py-0.5 text-xs xs:text-sm sm:text-sm rounded-full bg-[#D3E4FD] text-[#143151] dark:bg-[#D3E4FD]/90 whitespace-nowrap mt-1 xs:mt-0 font-medium">
                       Clinician-First
                     </span>
                   </h3>
@@ -183,7 +183,7 @@ export const FirstSection = () => {
                 
                 <div className="p-2 sm:p-3">
                   {/* Compact feature tabs with click to expand functionality */}
-                  <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
+                  <div className="p-2 sm:p-3 bg-gradient-to-r from-[#F5F9FF] to-[#F0F6FF] backdrop-blur-sm rounded-lg border border-gray-100/60">
                     {featureTabs.map((tab, index) => {
                     const isActive = activeTabIndex === index;
                     return <motion.div key={tab.id} animate={{
@@ -202,10 +202,10 @@ export const FirstSection = () => {
                       }}>
                             <div className="flex items-center gap-2">
                               <motion.div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{
-                            backgroundColor: `${tab.color}10`
+                            backgroundColor: isActive ? `${tab.color}20` : `${tab.color}10`
                           }} whileHover={{
                             scale: 1.1,
-                            backgroundColor: `${tab.color}20`,
+                            backgroundColor: `${tab.color}30`,
                             transition: {
                               duration: 0.2
                             }
@@ -252,7 +252,7 @@ export const FirstSection = () => {
                                   <div className="ml-9 mt-2">
                                     <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/10 p-1.5 rounded-lg">
                                       <CheckCircle className="w-3 h-3 text-[#387E89]" />
-                                      <span className="font-medium text-xs text-[#387E89]">{tab.benefit}</span>
+                                      <span className="font-medium text-xs text-[#143151]">{tab.benefit}</span>
                                       
                                       <div className="ml-auto">
                                         <VoiceAnimation size={isMobile ? "xs" : "sm"} color={tab.color} isAnimating={isActive} />
