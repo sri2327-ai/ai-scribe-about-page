@@ -95,11 +95,11 @@ const steps = [
                 <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ repeat: Infinity, duration: 2 }}
-                  sx={{ 
+                  style={{ 
                     width: 6, 
                     height: 6, 
                     borderRadius: '50%', 
-                    bgcolor: crushAIColors.icons.primary 
+                    backgroundColor: crushAIColors.icons.primary 
                   }} 
                 />
                 <Typography variant="caption" sx={{ fontSize: '0.7rem', color: crushAIColors.text.primary }}>
@@ -493,7 +493,12 @@ const steps = [
                       <motion.div 
                         animate={{ scale: [1, 1.15, 1] }}
                         transition={{ repeat: Infinity, duration: 2 }}
-                        sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: crushAIColors.icons.primary }}
+                        style={{ 
+                          width: 4, 
+                          height: 4, 
+                          borderRadius: '50%', 
+                          backgroundColor: crushAIColors.icons.primary 
+                        }}
                       />
                       <Typography 
                         variant="caption" 
@@ -785,23 +790,20 @@ export const HowItWorksSection = () => {
                       animate={{ scale: 1 }}
                       sx={{ ml: 'auto', position: 'relative', zIndex: 1 }}
                     >
-                      <Box 
-                        sx={{ 
-                          width: 8, 
-                          height: 8, 
-                          borderRadius: '50%', 
-                          bgcolor: uiColors.softPink
-                        }}
-                        component={motion.div}
-                        animate={{ 
-                          scale: [1, 1.3, 1],
-                          opacity: [0.5, 1, 0.5] 
-                        }}
-                        transition={{
-                          repeat: Infinity,
-                          duration: 1.5
-                        }}
-                      />
+                      <div className="w-2 h-2 rounded-full bg-pink-200">
+                        <motion.div
+                          animate={{ 
+                            scale: [1, 1.3, 1],
+                            opacity: [0.5, 1, 0.5] 
+                          }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 1.5
+                          }}
+                          className="w-full h-full rounded-full"
+                          style={{ backgroundColor: uiColors.softPink }}
+                        />
+                      </div>
                     </Box>
                   )}
                 </Box>
