@@ -7,12 +7,19 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { Button as ShadcnButton } from "@/components/ui/button";
 
+// Define vibrant colors for each step animation
+const stepAnimationColors = {
+  selectPatient: "#046f90", // Blue
+  startSpeaking: "#387E89", // Teal
+  reviewSign: "#5192AE"     // Light Blue
+};
+
 const steps = [
   {
     id: "select-patient",
     title: "Select a Patient",
     description: "Launch CRUSH on any device and instantly access patient data.",
-    icon: <Stethoscope className="h-8 w-8" style={{ color: crushAIColors.icons.primary }} />,
+    icon: <Stethoscope className="h-8 w-8" style={{ color: stepAnimationColors.selectPatient }} />,
     details: [
       {
         title: "Patient Database",
@@ -49,7 +56,7 @@ const steps = [
         >
           <motion.div
             animate={active ? { 
-              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(56,126,137,0.4)', '0px 0px 0px rgba(0,0,0,0)'],
+              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', `0px 0px 20px ${stepAnimationColors.selectPatient}40`, '0px 0px 0px rgba(0,0,0,0)'],
             } : {}}
             transition={{ 
               repeat: Infinity, 
@@ -58,13 +65,13 @@ const steps = [
             style={{
               padding: 12,
               borderRadius: 12,
-              border: `2px solid ${crushAIColors.icons.primary}`,
+              border: `2px solid ${stepAnimationColors.selectPatient}`,
               background: 'white'
             }}
           >
-            <Stethoscope size={32} style={{ color: crushAIColors.icons.primary }} />
+            <Stethoscope size={32} style={{ color: stepAnimationColors.selectPatient }} />
           </motion.div>
-          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? crushAIColors.icons.primary : '#666' }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? stepAnimationColors.selectPatient : '#666' }}>
             Patient Database
           </Typography>
           {active && (
@@ -79,15 +86,15 @@ const steps = [
                 alignItems: 'center', 
                 p: 1, 
                 borderRadius: 1,
-                bgcolor: `rgba(56,126,137, 0.1)`
+                bgcolor: `${stepAnimationColors.selectPatient}10`
               }}>
                 <Box sx={{ 
                   width: 6, 
                   height: 6, 
                   borderRadius: '50%', 
-                  bgcolor: crushAIColors.icons.primary 
+                  bgcolor: stepAnimationColors.selectPatient 
                 }} />
-                <Typography variant="caption" sx={{ fontSize: '0.7rem', color: crushAIColors.text.primary }}>
+                <Typography variant="caption" sx={{ fontSize: '0.7rem', color: stepAnimationColors.selectPatient }}>
                   Connected to EHR
                 </Typography>
               </Box>
@@ -101,15 +108,15 @@ const steps = [
     id: "start-speaking",
     title: "Start Speaking",
     description: "Speak naturally in any supported language. Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time.",
-    icon: <Mic className="h-8 w-8" style={{ color: crushAIColors.icons.primary }} />,
+    icon: <Mic className="h-8 w-8" style={{ color: stepAnimationColors.startSpeaking }} />,
     details: [
       {
-        icon: <History className="h-6 w-6" style={{ color: crushAIColors.icons.primary }} />,
+        icon: <History className="h-6 w-6" style={{ color: stepAnimationColors.startSpeaking }} />,
         title: "AI Context Awareness",
         description: "Pulls past visit history for highly accurate documentation."
       },
       {
-        icon: <Languages className="h-6 w-6" style={{ color: crushAIColors.icons.primary }} />,
+        icon: <Languages className="h-6 w-6" style={{ color: stepAnimationColors.startSpeaking }} />,
         title: "Telemedicine-Ready",
         description: "Works for in-person, video, chat, or phone consultations."
       }
@@ -143,11 +150,11 @@ const steps = [
               style={{
                 padding: 16,
                 borderRadius: '50%',
-                border: `2px solid ${crushAIColors.icons.primary}`,
-                background: active ? `rgba(56,126,137, 0.1)` : 'white'
+                border: `2px solid ${stepAnimationColors.startSpeaking}`,
+                background: active ? `${stepAnimationColors.startSpeaking}10` : 'white'
               }}
             >
-              <Mic size={36} style={{ color: crushAIColors.icons.primary }} />
+              <Mic size={36} style={{ color: stepAnimationColors.startSpeaking }} />
             </motion.div>
             
             {active && (
@@ -168,7 +175,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: `2px solid ${crushAIColors.icons.primary}80`
+                      border: `2px solid ${stepAnimationColors.startSpeaking}80`
                     }}
                   />
                 </Box>
@@ -189,7 +196,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: `2px solid ${crushAIColors.icons.primary}50`
+                      border: `2px solid ${stepAnimationColors.startSpeaking}50`
                     }}
                   />
                 </Box>
@@ -197,7 +204,7 @@ const steps = [
             )}
           </Box>
           
-          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? crushAIColors.icons.primary : '#666' }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: active ? stepAnimationColors.startSpeaking : '#666' }}>
             {active ? 'Recording...' : 'Ready to record'}
           </Typography>
           
@@ -209,7 +216,7 @@ const steps = [
                 transition={{ duration: 8 }}
                 style={{
                   height: 4,
-                  background: `linear-gradient(90deg, rgba(20,49,81, 0.4) 0%, ${crushAIColors.icons.primary} 100%)`,
+                  background: `linear-gradient(90deg, rgba(20,49,81, 0.4) 0%, ${stepAnimationColors.startSpeaking} 100%)`,
                   borderRadius: 2
                 }}
               />
@@ -235,7 +242,7 @@ const steps = [
                   <Typography 
                     variant="caption" 
                     sx={{ 
-                      color: crushAIColors.icons.primary, 
+                      color: stepAnimationColors.startSpeaking, 
                       fontWeight: 600, 
                       cursor: 'pointer',
                       fontSize: '0.75rem',
@@ -257,20 +264,20 @@ const steps = [
     id: "review-sign",
     title: "Review & Sign Off",
     description: "Instantly generates EHR-ready medical notes with AI-powered insights.",
-    icon: <FileCheck className="h-8 w-8" style={{ color: crushAIColors.icons.primary }} />,
+    icon: <FileCheck className="h-8 w-8" style={{ color: stepAnimationColors.reviewSign }} />,
     details: [
       {
-        icon: <Upload className="h-6 w-6" style={{ color: crushAIColors.icons.primary }} />,
+        icon: <Upload className="h-6 w-6" style={{ color: stepAnimationColors.reviewSign }} />,
         title: "Smart Workflow Automation",
         description: "Auto-handles prescriptions, referrals, labs, follow-ups."
       },
       {
-        icon: <FileText className="h-6 w-6" style={{ color: crushAIColors.icons.primary }} />,
+        icon: <FileText className="h-6 w-6" style={{ color: stepAnimationColors.reviewSign }} />,
         title: "After-Visit Summaries",
         description: "Auto-generated in the patient's preferred language."
       },
       {
-        icon: <CheckCircle className="h-6 w-6" style={{ color: crushAIColors.icons.primary }} />,
+        icon: <CheckCircle className="h-6 w-6" style={{ color: stepAnimationColors.reviewSign }} />,
         title: "AI-Powered Coding",
         description: "Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
       }
@@ -296,20 +303,20 @@ const steps = [
             style={{
               padding: 12,
               borderRadius: 8,
-              border: `2px solid ${crushAIColors.icons.primary}`,
+              border: `2px solid ${stepAnimationColors.reviewSign}`,
               background: 'white',
               position: 'relative'
             }}
           >
             <Box sx={{ mb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="caption" sx={{ fontWeight: 600, fontSize: { xs: '0.65rem', sm: '0.75rem' }, color: crushAIColors.text.primary }}>Medical Note</Typography>
+              <Typography variant="caption" sx={{ fontWeight: 600, fontSize: { xs: '0.65rem', sm: '0.75rem' }, color: stepAnimationColors.reviewSign }}>Medical Note</Typography>
               {active && (
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 1 }}
                 >
-                  <CheckCircle size={16} style={{ color: crushAIColors.icons.primary }} />
+                  <CheckCircle size={16} style={{ color: stepAnimationColors.reviewSign }} />
                 </motion.div>
               )}
             </Box>
@@ -334,14 +341,14 @@ const steps = [
                           fontWeight: 600, 
                           mr: 1,
                           fontSize: { xs: '0.6rem', sm: '0.7rem' },
-                          color: crushAIColors.icons.primary
+                          color: stepAnimationColors.reviewSign
                         }}>
                           {section}
                         </Typography>
                         <Box sx={{ 
                           height: 3, 
                           flex: 1, 
-                          bgcolor: `rgba(56,126,137, 0.3)`,
+                          bgcolor: `${stepAnimationColors.reviewSign}30`,
                           borderRadius: 1
                         }} />
                       </Box>
@@ -378,7 +385,7 @@ const steps = [
                     <Typography 
                       variant="caption" 
                       sx={{ 
-                        color: crushAIColors.icons.primary, 
+                        color: stepAnimationColors.reviewSign, 
                         fontWeight: 600, 
                         fontSize: '0.75rem'
                       }}
@@ -412,7 +419,7 @@ const steps = [
               <Typography 
                 variant="caption" 
                 sx={{ 
-                  color: crushAIColors.icons.primary, 
+                  color: stepAnimationColors.reviewSign, 
                   fontWeight: 600, 
                   cursor: 'pointer',
                   fontSize: '0.75rem',
