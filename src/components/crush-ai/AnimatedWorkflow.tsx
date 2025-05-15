@@ -1,6 +1,7 @@
+
 import React, { useState, useEffect } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { 
   FileText, Send, CheckCircle, 
   ClipboardList, TestTube, Mail, 
