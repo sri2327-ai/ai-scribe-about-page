@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box, Container, Typography, Button } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload, ArrowRight } from "lucide-react";
+import { Mic, FileText, CheckCircle, Stethoscope, History, Languages, FileCheck, Upload, ArrowRight, PlayCircle } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { Button as ShadcnButton } from "@/components/ui/button";
@@ -49,7 +49,7 @@ const steps = [
         >
           <motion.div
             animate={active ? { 
-              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(0,0,0,0.3)', '0px 0px 0px rgba(0,0,0,0)'],
+              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(56,126,137,0.4)', '0px 0px 0px rgba(0,0,0,0)'],
             } : {}}
             transition={{ 
               repeat: Infinity, 
@@ -79,7 +79,7 @@ const steps = [
                 alignItems: 'center', 
                 p: 1, 
                 borderRadius: 1,
-                bgcolor: `rgba(136, 136, 136, 0.1)`
+                bgcolor: `rgba(56,126,137, 0.1)`
               }}>
                 <Box sx={{ 
                   width: 6, 
@@ -144,7 +144,7 @@ const steps = [
                 padding: 16,
                 borderRadius: '50%',
                 border: `2px solid ${crushAIColors.icons.primary}`,
-                background: active ? `rgba(136, 136, 136, 0.1)` : 'white'
+                background: active ? `rgba(56,126,137, 0.1)` : 'white'
               }}
             >
               <Mic size={36} style={{ color: crushAIColors.icons.primary }} />
@@ -209,7 +209,7 @@ const steps = [
                 transition={{ duration: 8 }}
                 style={{
                   height: 4,
-                  background: `linear-gradient(90deg, rgba(136, 136, 136, 0.4) 0%, ${crushAIColors.icons.primary} 100%)`,
+                  background: `linear-gradient(90deg, rgba(20,49,81, 0.4) 0%, ${crushAIColors.icons.primary} 100%)`,
                   borderRadius: 2
                 }}
               />
@@ -341,7 +341,7 @@ const steps = [
                         <Box sx={{ 
                           height: 3, 
                           flex: 1, 
-                          bgcolor: `rgba(136, 136, 136, 0.3)`,
+                          bgcolor: `rgba(56,126,137, 0.3)`,
                           borderRadius: 1
                         }} />
                       </Box>
@@ -466,9 +466,9 @@ export const HowItWorksSection = () => {
       }}
     >
       <div className={rippleStyles.rippleBackground}>
-        <div className={rippleStyles.ripple}></div>
-        <div className={rippleStyles.ripple}></div>
-        <div className={rippleStyles.ripple}></div>
+        <div className={`${rippleStyles.ripple} bg-blue-100/30`}></div>
+        <div className={`${rippleStyles.ripple} bg-teal-100/30`}></div>
+        <div className={`${rippleStyles.ripple} bg-blue-50/20`}></div>
       </div>
       
       <Container maxWidth="lg">
@@ -486,7 +486,10 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: crushAIColors.primary
+              color: crushAIColors.primary,
+              background: `linear-gradient(135deg, ${crushAIColors.primary}, #387E89)`,
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent"
             }}
           >
             How CRUSH Works
@@ -550,11 +553,13 @@ export const HowItWorksSection = () => {
                   animate={{ 
                     opacity: isActive || isCompleted ? 1 : 0.7,
                     x: 0,
-                    backgroundColor: isActive ? 'rgba(0, 0, 0, 0.03)' : 'transparent'
+                    backgroundColor: isActive ? 'rgba(56,126,137, 0.05)' : 'transparent',
+                    boxShadow: isActive ? '0 4px 20px rgba(56,126,137, 0.1)' : 'none',
                   }}
                   whileHover={{ 
                     scale: 1.02,
-                    backgroundColor: 'rgba(0, 0, 0, 0.02)' 
+                    backgroundColor: 'rgba(56,126,137, 0.02)',
+                    boxShadow: '0 4px 15px rgba(56,126,137, 0.07)'
                   }}
                   transition={{ duration: 0.2 }}
                   onClick={() => setActiveStep(index)}
@@ -562,26 +567,33 @@ export const HowItWorksSection = () => {
                     p: 2,
                     borderRadius: 2,
                     border: '1px solid',
-                    borderColor: isActive ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                    boxShadow: isActive ? '0 4px 12px rgba(0, 0, 0, 0.05)' : 'none',
+                    borderColor: isActive ? 'rgba(56,126,137, 0.2)' : 'rgba(0, 0, 0, 0.05)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 2,
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease'
+                    transition: 'all 0.3s ease'
                   }}
                 >
                   <Box
+                    component={motion.div}
+                    animate={isActive ? {
+                      boxShadow: ['0px 0px 0px rgba(56,126,137,0)', '0px 0px 15px rgba(56,126,137,0.3)', '0px 0px 0px rgba(56,126,137,0)'],
+                    } : {}}
+                    transition={{
+                      repeat: isActive ? Infinity : 0,
+                      duration: 2
+                    }}
                     sx={{
                       width: 40,
                       height: 40,
                       borderRadius: '50%',
-                      bgcolor: isCompleted ? '#10b981' : isActive ? 'rgba(0, 0, 0, 0.05)' : 'rgba(0, 0, 0, 0.02)',
+                      bgcolor: isCompleted ? '#10b981' : isActive ? 'rgba(56,126,137, 0.15)' : 'rgba(0, 0, 0, 0.02)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0,
-                      border: isActive && !isCompleted ? '1px solid rgba(0, 0, 0, 0.1)' : 'none'
+                      border: isActive && !isCompleted ? '1px solid rgba(56,126,137, 0.3)' : 'none'
                     }}
                   >
                     {isCompleted ? (
@@ -660,14 +672,18 @@ export const HowItWorksSection = () => {
               alignItems: 'center',
               justifyContent: 'center',
               borderRadius: 4,
-              bgcolor: 'rgba(0, 0, 0, 0.01)',
-              border: '1px solid rgba(0, 0, 0, 0.05)',
+              bgcolor: 'rgba(56,126,137, 0.02)',
+              border: '1px solid rgba(56,126,137, 0.1)',
               p: { xs: 2, sm: 4 },
               minHeight: 400,
               position: 'relative',
               overflow: 'hidden'
             }}
           >
+            {/* Decorative elements */}
+            <Box sx={{ position: 'absolute', top: -10, right: -10, width: 100, height: 100, borderRadius: '50%', bgcolor: 'rgba(56,126,137, 0.03)' }} />
+            <Box sx={{ position: 'absolute', bottom: -20, left: -20, width: 150, height: 150, borderRadius: '50%', bgcolor: 'rgba(20,49,81, 0.02)' }} />
+            
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeStep}
@@ -691,9 +707,24 @@ export const HowItWorksSection = () => {
                       fontWeight: 700,
                       color: crushAIColors.text.primary,
                       textAlign: 'center',
-                      fontSize: { xs: '1.5rem', sm: '1.75rem' }
+                      fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                      position: 'relative'
                     }}
                   >
+                    <Box 
+                      component={motion.span}
+                      initial={{ width: 0 }}
+                      animate={{ width: '50%' }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      sx={{ 
+                        position: 'absolute', 
+                        height: '4px', 
+                        bottom: '-8px', 
+                        left: '25%', 
+                        borderRadius: '2px',
+                        background: `linear-gradient(90deg, rgba(20,49,81, 0.5) 0%, ${crushAIColors.icons.primary} 100%)`,
+                      }}
+                    />
                     {steps[activeStep].title}
                   </Typography>
                   
@@ -745,6 +776,10 @@ export const HowItWorksSection = () => {
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: i * 0.1 + 0.3 }}
+                              whileHover={{ 
+                                scale: 1.02,
+                                boxShadow: '0 4px 15px rgba(56,126,137, 0.1)'
+                              }}
                             >
                               <Box 
                                 sx={{ 
@@ -752,9 +787,10 @@ export const HowItWorksSection = () => {
                                   alignItems: 'flex-start',
                                   p: 2,
                                   borderRadius: 2,
-                                  bgcolor: 'rgba(0,0,0,0.02)',
-                                  border: '1px solid rgba(0,0,0,0.05)',
-                                  height: '100%'
+                                  bgcolor: 'rgba(56,126,137,0.03)',
+                                  border: '1px solid rgba(56,126,137,0.1)',
+                                  height: '100%',
+                                  transition: 'all 0.3s ease'
                                 }}
                               >
                                 {detail.icon && (
@@ -808,14 +844,24 @@ export const HowItWorksSection = () => {
                   fontSize: '0.875rem',
                   fontWeight: 600,
                   borderRadius: 1.5,
+                  position: 'relative',
+                  overflow: 'hidden',
                   '&:hover': {
                     borderColor: crushAIColors.primary,
-                    bgcolor: 'rgba(0, 0, 0, 0.05)'
+                    bgcolor: 'rgba(56,126,137, 0.05)'
                   }
                 }}
               >
-                {activeStep === steps.length - 1 ? 'Start Over' : 'Next Step'}
-                <ArrowRight size={16} className="ml-1" />
+                <motion.span 
+                  className="absolute inset-0 bg-[#387E89]/10"
+                  initial={{ x: '-100%' }}
+                  whileHover={{ x: '100%' }}
+                  transition={{ duration: 0.6, ease: 'easeInOut' }}
+                />
+                <span className="relative z-10 flex items-center">
+                  {activeStep === steps.length - 1 ? 'Start Over' : 'Next Step'}
+                  <ArrowRight size={16} className="ml-1" />
+                </span>
               </Button>
             </Box>
           </Box>
@@ -831,14 +877,23 @@ export const HowItWorksSection = () => {
         >
           <ShadcnButton 
             size="lg" 
-            className="text-white rounded-full px-8 py-6 text-lg shadow-lg"
-            style={{ background: crushAIColors.button.gradient }}
+            className="text-white rounded-full px-8 py-6 text-lg shadow-lg relative overflow-hidden group"
+            style={{ 
+              background: `linear-gradient(90deg, #143151, #387E89)`,
+            }}
           >
-            <ArrowRight size={16} className="mr-2" />
-            REQUEST A DEMO
+            <motion.span 
+              className="absolute inset-0 bg-white/10"
+              initial={{ x: '-100%' }}
+              whileHover={{ x: '100%' }}
+              transition={{ duration: 0.6, ease: 'easeInOut' }}
+            />
+            <PlayCircle size={20} className="mr-2 animate-pulse" />
+            <span className="relative z-10">REQUEST A DEMO</span>
           </ShadcnButton>
         </Box>
       </Container>
     </Box>
   );
 };
+
