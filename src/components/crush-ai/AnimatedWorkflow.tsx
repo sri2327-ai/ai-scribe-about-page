@@ -1,14 +1,13 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, useMotionValue, useTransform, animate, AnimatePresence } from "framer-motion";
 import { 
-  FileText, Send, CheckCircle, 
-  ClipboardList, TestTube, Mail, 
-  Mic, History, Globe, Database 
+  FileText, HardDrive, Send, CheckCircle, 
+  ClipboardList, TestTube, Mail, Mic, 
+  Clock, Heart, Database, History,
+  Globe
 } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 // Define vibrant colors inspired by the Bravo workflow animation
 const stepColors = {
@@ -883,9 +882,8 @@ export function AnimatedWorkflow() {
   const [timerDisplay, setTimerDisplay] = useState<string>("00:00");
   
   const theme = useMuiTheme();
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
 
   // Update timer when on the first step
   useEffect(() => {
@@ -912,104 +910,52 @@ export function AnimatedWorkflow() {
     };
   }, [currentStep]);
 
-  // Auto-advance steps with improved timing
+  // Auto-advance steps
   useEffect(() => {
     if (isAutoPlaying) {
       const timer = setInterval(() => {
         setCurrentStep((prev) => (prev + 1) % workflowSteps.length);
-      }, isMobile ? 7000 : 6000); // Slightly longer time on mobile for better readability
+      }, 6000);
       return () => clearInterval(timer);
     }
-  }, [isAutoPlaying, isMobile]);
+  }, [isAutoPlaying]);
 
-  // Handler for step clicks with haptic feedback simulation
   const handleStepClick = (index: number) => {
     setUserInteracted(true);
     setIsAutoPlaying(false);
     setCurrentStep(index);
     
-    // For mobile, attempt to use vibration API if available
-    if (typeof navigator !== 'undefined' && navigator.vibrate && isMobile) {
-      try {
-        navigator.vibrate(40); // Subtle feedback
-      } catch (e) {
-        console.log('Vibration not supported');
-      }
-    }
-    
-    // Resume auto-play after inactivity (20s on desktop, 30s on mobile)
+    // Resume auto-play after 15 seconds of inactivity
     const inactivityTimer = setTimeout(() => {
       setIsAutoPlaying(true);
-    }, isMobile ? 30000 : 20000);
+    }, 15000);
     
     return () => clearTimeout(inactivityTimer);
   };
-
-  // Pause autoplay when tab is not visible
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        setIsAutoPlaying(false);
-      } else {
-        // Only resume if user hasn't interacted
-        if (!userInteracted) {
-          setIsAutoPlaying(true);
-        }
-      }
-    };
-    
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [userInteracted]);
 
   return (
     <Box 
       sx={{
         position: "relative",
-        p: isMobile ? 2 : { xs: 2, sm: 3, md: 4 }, 
+        p: { xs: 2, sm: 3, md: 4 }, 
         bgcolor: "#ffffff",
-        borderRadius: { xs: 1.5, sm: 2 },
+        borderRadius: 2,
         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
         height: "100%",
         display: "flex",
         flexDirection: "column",
         border: "1px solid rgba(0, 0, 0, 0.08)",
         width: "100%",
-        maxWidth: { xs: "100%", sm: "100%", md: "540px", lg: "560px" }, 
+        maxWidth: { xs: "100%", sm: "100%", md: "500px" }, 
         margin: "0 auto",
-        overflow: "hidden",
-        transition: "all 0.3s ease"
+        overflow: "hidden"
       }}
     >
-      {/* Enhanced background decorative elements */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-        <motion.div 
-          className="absolute w-32 h-32 rounded-full bg-blue-400 blur-3xl opacity-10"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.05, 0.1, 0.05] 
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div 
-          className="absolute w-24 h-24 rounded-full bg-pink-400 blur-3xl opacity-10 -translate-x-20 translate-y-10"
-          animate={{ 
-            scale: [1, 1.1, 1],
-            opacity: [0.05, 0.15, 0.05] 
-          }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        />
-        <motion.div 
-          className="absolute w-24 h-24 rounded-full bg-teal-400 blur-3xl opacity-10 translate-x-16 -translate-y-12"
-          animate={{ 
-            scale: [1, 1.15, 1],
-            opacity: [0.05, 0.12, 0.05] 
-          }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+        <div className="absolute w-32 h-32 rounded-full bg-blue-400 blur-3xl"></div>
+        <div className="absolute w-24 h-24 rounded-full bg-pink-400 blur-3xl -translate-x-20 translate-y-10"></div>
+        <div className="absolute w-24 h-24 rounded-full bg-teal-400 blur-3xl translate-x-16 -translate-y-12"></div>
       </div>
 
       <Box 
@@ -1017,36 +963,11 @@ export function AnimatedWorkflow() {
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          gap: isMobile ? 1.5 : 2,
+          gap: 2,
           overflowY: "auto",
-          overflowX: "hidden",
-          maxHeight: { 
-            xs: "420px", 
-            sm: "450px",
-            md: "500px",
-            lg: "550px" 
-          },
+          maxHeight: { xs: "450px", sm: "500px" },
           position: "relative",
-          zIndex: 1,
-          px: isMobile ? 0.5 : 1, // Add horizontal padding for better mobile scrolling
-          pb: 1, // Bottom padding for better scroll experience
-          // Improved scrollbar styling for better UX
-          '&::-webkit-scrollbar': {
-            width: '6px',
-          },
-          '&::-webkit-scrollbar-track': {
-            borderRadius: '10px',
-            backgroundColor: 'rgba(0, 0, 0, 0.03)'
-          },
-          '&::-webkit-scrollbar-thumb': {
-            borderRadius: '10px',
-            backgroundColor: 'rgba(0, 0, 0, 0.1)',
-            '&:hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.15)'
-            }
-          },
-          scrollbarWidth: 'thin',
-          scrollbarColor: 'rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.03)'
+          zIndex: 1
         }}
       >
         {workflowSteps.map((step, index) => {
@@ -1060,36 +981,18 @@ export function AnimatedWorkflow() {
               animate={{ 
                 opacity: isActive ? 1 : 0.7,
                 y: 0,
-                height: "auto",
-                scale: isActive ? 1 : 0.99
+                height: "auto"
               }}
               className={`relative rounded-lg ${isActive ? 'bg-gray-50/50' : ''} hover:bg-gray-50/30 transition-all duration-300`}
               onClick={() => handleStepClick(index)}
               style={{
                 borderLeft: isActive ? `3px solid ${step.color}` : '3px solid transparent',
-                overflow: 'visible',
-                transformOrigin: 'center left'
-              }}
-              whileHover={{ 
-                scale: 1.01,
-                transition: { duration: 0.2 }
-              }}
-              whileTap={{ 
-                scale: 0.99, 
-                transition: { duration: 0.1 }
-              }}
-              aria-label={`Step ${index + 1}: ${step.title}`}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handleStepClick(index);
-                  e.preventDefault();
-                }
+                overflow: 'visible'
               }}
             >
               <motion.div
                 className="flex flex-col gap-2 cursor-pointer p-3"
+                whileHover={{ scale: 1.01 }}
                 transition={{ duration: 0.2 }}
               >
                 <div className="flex items-center gap-3">
@@ -1100,85 +1003,57 @@ export function AnimatedWorkflow() {
                       boxShadow: isActive ? `0 0 0 2px ${step.color}40` : 'none',
                       transition: "all 0.3s ease" 
                     }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={false}
-                    animate={isActive ? {
-                      scale: [1, 1.05, 1],
-                      transition: { duration: 0.5, times: [0, 0.5, 1] }
-                    } : {}}
                   >
                     {step.icon}
                   </motion.div>
-                  <div className="flex-1 min-w-0">
-                    <h3 
-                      className="text-base md:text-lg font-semibold truncate" 
-                      style={{ color: isActive ? step.color : '#333' }}
-                    >
+                  <div>
+                    <h3 className="text-base md:text-lg font-normal" style={{ color: isActive ? step.color : '#333' }}>
                       {step.title}
                     </h3>
-                    <p className="text-xs md:text-sm text-gray-600 line-clamp-2">
+                    <p className="text-xs md:text-sm text-gray-600">
                       {step.description}
                     </p>
                   </div>
                   
                   {isActive && (
                     <div className="ml-auto">
-                      <motion.div 
-                        className="w-2 h-2 rounded-full" 
-                        style={{ backgroundColor: step.color }}
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      />
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: step.color }}></div>
                     </div>
                   )}
                 </div>
                 
-                {/* Content area with improved transitions and accessibility */}
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0, transition: { duration: 0.2 } }}
-                      transition={{ duration: 0.3 }}
-                      className="ml-12 mb-2 mt-1"
-                      style={{ overflow: 'visible' }}
-                      role="region"
-                      aria-label={`Details for ${step.title}`}
-                    >
-                      <div className="relative bg-white rounded-lg shadow-sm border border-gray-100 overflow-visible">
-                        {/* Pass the timerDisplay prop to step content */}
-                        {step.detailContent({ timerDisplay })}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Content area */}
+                {isActive && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    transition={{ duration: 0.3 }}
+                    className="ml-12 mb-2 mt-1"
+                    style={{ overflow: 'visible' }}
+                  >
+                    <div className="relative bg-white rounded-lg shadow-sm border border-gray-100 overflow-visible">
+                      {/* Pass the timerDisplay prop to the first step */}
+                      {index === 0 
+                        ? step.detailContent({ timerDisplay }) 
+                        : step.detailContent({ timerDisplay })  // Fixed: Added timerDisplay param to all calls
+                      }
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             </motion.div>
           );
         })}
       </Box>
 
-      {/* Enhanced step indicator dots with improved interaction and accessibility */}
-      <div 
-        className="flex justify-center gap-1.5 mt-4 pb-2" 
-        role="tablist"
-        aria-label="Workflow step navigation"
-      >
+      {/* Step indicator dots */}
+      <div className="flex justify-center gap-1.5 mt-4 pb-2">
         {workflowSteps.map((step, index) => (
           <button
             key={index}
             onClick={() => handleStepClick(index)}
-            className="transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus-visible:ring-blue-500"
-            style={{ 
-              padding: isMobile ? '4px 2px' : '4px',  // Larger touch target for mobile 
-              borderRadius: '4px',
-              touchAction: 'manipulation' // Improves touch handling
-            }}
-            aria-label={`Go to step ${index + 1}: ${step.title}`}
-            aria-current={currentStep === index ? "step" : undefined}
-            role="tab"
+            className="transition-all duration-300"
+            aria-label={`View ${step.title}`}
           >
             <div 
               className={`rounded-full transition-all duration-300 ${currentStep === index ? 'w-4' : 'w-1.5'} h-1.5`}
@@ -1188,28 +1063,7 @@ export function AnimatedWorkflow() {
         ))}
       </div>
 
-      {/* Toggle button for autoplay (enhances user control) */}
-      <div className="flex justify-center mt-2">
-        <button
-          onClick={() => setIsAutoPlaying(prev => !prev)}
-          className={`text-xs flex items-center gap-1 px-2 py-1 rounded-full transition-colors 
-          ${isAutoPlaying ? 'bg-blue-50 text-blue-700' : 'bg-gray-50 text-gray-500'}`}
-          aria-pressed={isAutoPlaying}
-          aria-label={isAutoPlaying ? "Pause animation" : "Play animation"}
-        >
-          {isAutoPlaying ? (
-            <>
-              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" /> Auto
-            </>
-          ) : (
-            <>
-              <span className="w-2 h-2 bg-gray-400 rounded-full" /> Manual
-            </>
-          )}
-        </button>
-      </div>
-
-      {/* Add the color pulse animation styles with improved mobile optimizations */}
+      {/* Add the color pulse animation styles */}
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes typing {
@@ -1245,44 +1099,20 @@ export function AnimatedWorkflow() {
           }
         }
 
-        /* Enhanced responsive styling with better fluid typography */
+        /* Improve responsiveness */
         @media (max-width: 640px) {
           .text-xs {
-            font-size: 0.675rem;
-          }
-          .text-sm {
-            font-size: 0.775rem;
-          }
-          .text-[10px] {
             font-size: 0.65rem;
           }
+          .text-sm {
+            font-size: 0.75rem;
+          }
           .p-3 {
-            padding: 0.65rem;
+            padding: 0.5rem;
           }
           .gap-2 {
-            gap: 0.375rem;
+            gap: 0.35rem;
           }
-          
-          /* Improved touch targets for mobile */
-          button, [role="button"] {
-            min-height: 28px;
-            min-width: 28px;
-          }
-        }
-        
-        /* Reduce motion preference support */
-        @media (prefers-reduced-motion: reduce) {
-          *, ::before, ::after {
-            animation-duration: 0.01ms !important;
-            animation-iteration-count: 1 !important;
-            transition-duration: 0.01ms !important;
-            scroll-behavior: auto !important;
-          }
-        }
-        
-        /* Smooth scrolling for better UX */
-        .smooth-scroll {
-          scroll-behavior: smooth;
         }
         `
       }} />
