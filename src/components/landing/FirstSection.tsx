@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -173,8 +174,11 @@ export const FirstSection = () => {
             }} className="relative">
               <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
                 <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
-                  <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
-                    Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#D3E4FD] text-[#555555] text-xs sm:text-sm rounded-full dark:bg-[#D3E4FD]/80">Clinician-First</span>
+                  <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center justify-between flex-wrap dark:text-white">
+                    <span className="pr-2">Don't change for AI—make it work for you</span> 
+                    <span className="inline-flex items-center justify-center px-2.5 py-0.5 text-xs xs:text-sm sm:text-sm rounded-full bg-[#D3E4FD] text-[#555555] dark:bg-[#D3E4FD]/80 whitespace-nowrap mt-1 xs:mt-0">
+                      Clinician-First
+                    </span>
                   </h3>
                 </div>
                 
