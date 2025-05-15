@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -80,12 +81,13 @@ const Landing = () => {
           
           <Button 
             size="sm" 
-            variant="outline" 
-            className="bg-white shadow-sm border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all group"
+            variant="ghost" 
+            className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-1.5 rounded-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 group relative overflow-hidden"
             onClick={() => window.open('#watch-demo', '_self')} 
           >
-            <PlayCircle className="mr-2 w-4 h-4 text-[#1EAEDB] group-hover:animate-pulse" />
-            <span className="text-gray-700 group-hover:text-gray-900">Watch Demo</span>
+            <span className="absolute inset-0 bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-[-100%] transition-transform duration-700 ease-in-out"></span>
+            <PlayCircle className="mr-2 w-4 h-4 text-white group-hover:text-white animate-pulse" />
+            <span className="relative z-10">Watch Demo</span>
           </Button>
         </Breadcrumb>
       </div>
