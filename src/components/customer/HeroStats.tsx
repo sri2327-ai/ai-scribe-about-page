@@ -44,9 +44,9 @@ const HeroStats = () => {
   // - 20 calls per clinician per day × 22 working days × 1027 providers
   // - Similar number for chats based on call volume
   const [stats] = useState<Stats>({
-    chartsSigned: 338,910,     // ~15 charts × 22 days × 1027 providers
-    callsDone: 451,880,        // ~20 calls × 22 days × 1027 providers
-    chatsAnswered: 428,256,    // ~19 chats × 22 days × 1027 providers
+    chartsSigned: 338910,     // ~15 charts × 22 days × 1027 providers
+    callsDone: 451880,        // ~20 calls × 22 days × 1027 providers
+    chatsAnswered: 428256,    // ~19 chats × 22 days × 1027 providers
     providersSmiled: 1027,     // Fixed at 1027 as mentioned
   });
 
