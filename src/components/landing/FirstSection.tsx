@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -13,7 +12,6 @@ import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
 import { LazyLoad } from '@/components/ui/lazy-load';
-
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
@@ -163,15 +161,15 @@ export const FirstSection = () => {
           {/* Right column - Feature workflow now wrapped with LazyLoad component */}
           <LazyLoad threshold={0.1} rootMargin="200px">
             <motion.div initial={{
-              opacity: 0,
-              scale: 0.95
-            }} animate={{
-              opacity: 1,
-              scale: 1
-            }} transition={{
-              duration: 0.7,
-              delay: 0.3
-            }} className="relative">
+            opacity: 0,
+            scale: 0.95
+          }} animate={{
+            opacity: 1,
+            scale: 1
+          }} transition={{
+            duration: 0.7,
+            delay: 0.3
+          }} className="relative">
               {/* Reducing the max-height and making the card more compact */}
               <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto max-h-[420px]`}>
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
@@ -185,42 +183,39 @@ export const FirstSection = () => {
                 
                 <div className="p-2 sm:p-3">
                   {/* Compact feature tabs with click to expand functionality */}
-                  <div className="grid grid-cols-1 gap-2 sm:gap-3">
+                  <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                     {featureTabs.map((tab, index) => {
-                      const isActive = activeTabIndex === index;
-                      return (
-                        <motion.div 
-                          key={tab.id} 
-                          animate={{
-                            opacity: isActive ? 1 : 0.75,
-                            scale: isActive ? 1 : 0.98,
-                          }} 
-                          transition={{ duration: 0.3, ease: "easeOut" }}
-                          className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} 
-                          onClick={() => handleTabClick(index)}
-                        >
-                          <motion.div 
-                            className={`flex flex-col rounded-lg p-2 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`}
-                            whileHover={{
-                              scale: 1.01,
-                              backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
-                              transition: { duration: 0.2 }
-                            }}
-                          >
+                    const isActive = activeTabIndex === index;
+                    return <motion.div key={tab.id} animate={{
+                      opacity: isActive ? 1 : 0.75,
+                      scale: isActive ? 1 : 0.98
+                    }} transition={{
+                      duration: 0.3,
+                      ease: "easeOut"
+                    }} className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} onClick={() => handleTabClick(index)}>
+                          <motion.div className={`flex flex-col rounded-lg p-2 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`} whileHover={{
+                        scale: 1.01,
+                        backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
+                        transition: {
+                          duration: 0.2
+                        }
+                      }}>
                             <div className="flex items-center gap-2">
-                              <motion.div 
-                                className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" 
-                                style={{ backgroundColor: `${tab.color}10` }}
-                                whileHover={{
-                                  scale: 1.1,
-                                  backgroundColor: `${tab.color}20`,
-                                  transition: { duration: 0.2 }
-                                }}
-                              >
+                              <motion.div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{
+                            backgroundColor: `${tab.color}10`
+                          }} whileHover={{
+                            scale: 1.1,
+                            backgroundColor: `${tab.color}20`,
+                            transition: {
+                              duration: 0.2
+                            }
+                          }}>
                                 {React.cloneElement(tab.icon, {
-                                  style: { color: tab.color },
-                                  className: "w-4 h-4"
-                                })}
+                              style: {
+                                color: tab.color
+                              },
+                              className: "w-4 h-4"
+                            })}
                               </motion.div>
                               <div>
                                 <motion.h3 className="text-sm font-semibold text-gray-900">
@@ -230,20 +225,27 @@ export const FirstSection = () => {
                             </div>
                             
                             <AnimatePresence>
-                              {isActive && (
-                                <motion.div
-                                  initial={{ opacity: 0, height: 0 }}
-                                  animate={{ opacity: 1, height: 'auto' }}
-                                  exit={{ opacity: 0, height: 0 }}
-                                  transition={{ duration: 0.3 }}
-                                  className="overflow-hidden"
-                                >
-                                  <motion.p 
-                                    initial={{ opacity: 0, y: 5 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.1 }}
-                                    className="text-xs text-gray-600 mt-2 ml-9"
-                                  >
+                              {isActive && <motion.div initial={{
+                            opacity: 0,
+                            height: 0
+                          }} animate={{
+                            opacity: 1,
+                            height: 'auto'
+                          }} exit={{
+                            opacity: 0,
+                            height: 0
+                          }} transition={{
+                            duration: 0.3
+                          }} className="overflow-hidden">
+                                  <motion.p initial={{
+                              opacity: 0,
+                              y: 5
+                            }} animate={{
+                              opacity: 1,
+                              y: 0
+                            }} transition={{
+                              delay: 0.1
+                            }} className="text-xs text-gray-600 mt-2 ml-9">
                                     {tab.description}
                                   </motion.p>
                                   
@@ -253,33 +255,20 @@ export const FirstSection = () => {
                                       <span className="font-medium text-xs text-[#387E89]">{tab.benefit}</span>
                                       
                                       <div className="ml-auto">
-                                        <VoiceAnimation 
-                                          size={isMobile ? "xs" : "sm"}
-                                          color={tab.color} 
-                                          isAnimating={isActive}
-                                        />
+                                        <VoiceAnimation size={isMobile ? "xs" : "sm"} color={tab.color} isAnimating={isActive} />
                                       </div>
                                     </div>
                                   </div>
-                                </motion.div>
-                              )}
+                                </motion.div>}
                             </AnimatePresence>
                           </motion.div>
-                        </motion.div>
-                      );
-                    })}
+                        </motion.div>;
+                  })}
                   </div>
 
                   {/* Navigation indicator dots */}
                   <div className="flex justify-center gap-2 mt-3">
-                    {featureTabs.map((_, idx) => (
-                      <button 
-                        key={idx} 
-                        onClick={() => handleTabClick(idx)} 
-                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`}
-                        aria-label={`View ${featureTabs[idx].title}`} 
-                      />
-                    ))}
+                    {featureTabs.map((_, idx) => <button key={idx} onClick={() => handleTabClick(idx)} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`} aria-label={`View ${featureTabs[idx].title}`} />)}
                   </div>
                 </div>
               </Card>
