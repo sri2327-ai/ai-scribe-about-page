@@ -182,8 +182,8 @@ export const FirstSection = () => {
                 </div>
                 
                 <div className="p-2 sm:p-3">
-                  {/* Compact feature tabs with click to expand functionality */}
-                  <div className="p-2 sm:p-3 bg-gradient-to-r from-[#F5F9FF] to-[#F0F6FF] backdrop-blur-sm rounded-lg border border-gray-100/60">
+                  {/* Enhanced feature tabs container with improved visual hierarchy */}
+                  <div className="p-3 sm:p-4 bg-gradient-to-r from-[#F8FAFF] to-[#F2F8FF] backdrop-blur-sm rounded-lg border border-blue-50 shadow-sm">
                     {featureTabs.map((tab, index) => {
                     const isActive = activeTabIndex === index;
                     return <motion.div key={tab.id} animate={{
@@ -192,20 +192,20 @@ export const FirstSection = () => {
                     }} transition={{
                       duration: 0.3,
                       ease: "easeOut"
-                    }} className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} onClick={() => handleTabClick(index)}>
-                          <motion.div className={`flex flex-col rounded-lg p-2 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`} whileHover={{
+                    }} className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'} mb-2 last:mb-0`} onClick={() => handleTabClick(index)}>
+                          <motion.div className={`flex flex-col rounded-lg p-3 ${isActive ? 'border border-blue-100 bg-white shadow-md' : 'border border-transparent bg-gray-50/50'}`} whileHover={{
                         scale: 1.01,
                         backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
                         transition: {
                           duration: 0.2
                         }
                       }}>
-                            <div className="flex items-center gap-2">
-                              <motion.div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{
-                            backgroundColor: isActive ? `${tab.color}20` : `${tab.color}10`
+                            <div className="flex items-center gap-2.5">
+                              <motion.div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style={{
+                            backgroundColor: isActive ? `${tab.color}25` : `${tab.color}15`
                           }} whileHover={{
                             scale: 1.1,
-                            backgroundColor: `${tab.color}30`,
+                            backgroundColor: `${tab.color}35`,
                             transition: {
                               duration: 0.2
                             }
@@ -218,7 +218,7 @@ export const FirstSection = () => {
                             })}
                               </motion.div>
                               <div>
-                                <motion.h3 className="text-sm font-semibold text-gray-900">
+                                <motion.h3 className={`text-sm font-semibold ${isActive ? 'text-gray-900' : 'text-gray-700'}`}>
                                   {tab.title}
                                 </motion.h3>
                               </div>
@@ -245,13 +245,13 @@ export const FirstSection = () => {
                               y: 0
                             }} transition={{
                               delay: 0.1
-                            }} className="text-xs text-gray-600 mt-2 ml-9">
+                            }} className="text-xs text-gray-600 mt-2.5 ml-10 leading-relaxed">
                                     {tab.description}
                                   </motion.p>
                                   
-                                  <div className="ml-9 mt-2">
-                                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/10 p-1.5 rounded-lg">
-                                      <CheckCircle className="w-3 h-3 text-[#387E89]" />
+                                  <div className="ml-10 mt-2.5">
+                                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/15 p-2 rounded-lg">
+                                      <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" />
                                       <span className="font-medium text-xs text-[#143151]">{tab.benefit}</span>
                                       
                                       <div className="ml-auto">
@@ -266,9 +266,20 @@ export const FirstSection = () => {
                   })}
                   </div>
 
-                  {/* Navigation indicator dots */}
-                  <div className="flex justify-center gap-2 mt-3">
-                    {featureTabs.map((_, idx) => <button key={idx} onClick={() => handleTabClick(idx)} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`} aria-label={`View ${featureTabs[idx].title}`} />)}
+                  {/* Enhanced navigation indicator dots */}
+                  <div className="flex justify-center gap-2.5 mt-3.5">
+                    {featureTabs.map((_, idx) => (
+                      <button 
+                        key={idx} 
+                        onClick={() => handleTabClick(idx)} 
+                        className={`transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300 ${
+                          activeTabIndex === idx 
+                            ? 'w-6 h-2 bg-[#387E89] rounded-full' 
+                            : 'w-2 h-2 bg-gray-300 hover:bg-gray-400 rounded-full'
+                        }`}
+                        aria-label={`View ${featureTabs[idx].title}`} 
+                      />
+                    ))}
                   </div>
                 </div>
               </Card>
