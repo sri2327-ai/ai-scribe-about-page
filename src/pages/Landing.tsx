@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -11,6 +10,7 @@ import TenthSection from '@/components/landing/TenthSection';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { typography } from '@/lib/typography';
+import { PlayCircle } from 'lucide-react';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -66,7 +66,7 @@ const Landing = () => {
       </Helmet>
 
       <div className={typography.spacing.container}>
-        <Breadcrumb className="py-4">
+        <Breadcrumb className="py-4 flex justify-between items-center">
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -77,6 +77,16 @@ const Landing = () => {
               </BreadcrumbLink>
             </BreadcrumbItem>
           </BreadcrumbList>
+          
+          <Button 
+            size="sm" 
+            variant="outline" 
+            className="bg-white shadow-sm border border-gray-200 hover:bg-gray-50 hover:border-gray-300 transition-all group"
+            onClick={() => window.open('#watch-demo', '_self')} 
+          >
+            <PlayCircle className="mr-2 w-4 h-4 text-[#1EAEDB] group-hover:animate-pulse" />
+            <span className="text-gray-700 group-hover:text-gray-900">Watch Demo</span>
+          </Button>
         </Breadcrumb>
       </div>
 
