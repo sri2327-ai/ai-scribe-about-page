@@ -1,15 +1,18 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { shadowStyles } from "@/lib/shadow-utils";
 import { cn } from "@/lib/utils";
+
 interface Stats {
   chartsSigned: number;
   callsDone: number;
   chatsAnswered: number;
   providersSmiled: number;
 }
+
 const StatCard = ({
   title,
   value
@@ -38,6 +41,7 @@ const StatCard = ({
       <p className="mt-2 text-gray-600 font-medium">{title}</p>
     </motion.div>;
 };
+
 const HeroStats = () => {
   // Base stats for 1027+ providers
   // Assuming:
@@ -55,25 +59,27 @@ const HeroStats = () => {
   };
   const [stats, setStats] = useState<Stats>(baseStats);
 
-  // Calculate increments per second based on daily activity
-  // For realistic continuous updates that show progress
-  const incrementsPerSecond = {
-    chartsSigned: Math.max(1, Math.floor(baseStats.chartsSigned / (22 * 8 * 60 * 60))),
-    // Daily charts / seconds in workday
-    callsDone: Math.max(1, Math.floor(baseStats.callsDone / (22 * 8 * 60 * 60))),
-    // Daily calls / seconds in workday
-    chatsAnswered: Math.max(1, Math.floor(baseStats.chatsAnswered / (22 * 8 * 60 * 60))) // Daily chats / seconds in workday
+  // Calculate increments per update based on daily activity
+  // Make it slower by dividing by a larger factor (decreased frequency of updates)
+  const incrementsPerUpdate = {
+    chartsSigned: Math.max(1, Math.floor(baseStats.chartsSigned / (22 * 8 * 60 * 60 * 3))), 
+    // Daily charts / (seconds in workday * 3 for slower pace)
+    callsDone: Math.max(1, Math.floor(baseStats.callsDone / (22 * 8 * 60 * 60 * 3))), 
+    // Daily calls / (seconds in workday * 3 for slower pace)
+    chatsAnswered: Math.max(1, Math.floor(baseStats.chatsAnswered / (22 * 8 * 60 * 60 * 3))) 
+    // Daily chats / (seconds in workday * 3 for slower pace)
   };
+
   useEffect(() => {
-    // Update stats every second to simulate real-time activity
+    // Update stats at a slower pace - every 3 seconds instead of every second
     const interval = setInterval(() => {
       setStats(prevStats => ({
-        chartsSigned: prevStats.chartsSigned + incrementsPerSecond.chartsSigned,
-        callsDone: prevStats.callsDone + incrementsPerSecond.callsDone,
-        chatsAnswered: prevStats.chatsAnswered + incrementsPerSecond.chatsAnswered,
+        chartsSigned: prevStats.chartsSigned + incrementsPerUpdate.chartsSigned,
+        callsDone: prevStats.callsDone + incrementsPerUpdate.callsDone,
+        chatsAnswered: prevStats.chatsAnswered + incrementsPerUpdate.chatsAnswered,
         providersSmiled: prevStats.providersSmiled // Keep this constant
       }));
-    }, 1000);
+    }, 3000); // Increased from 1000 to 3000 milliseconds (3 seconds)
 
     // Clean up the interval on component unmount
     return () => clearInterval(interval);
@@ -146,4 +152,5 @@ const HeroStats = () => {
     }}>*No AI hype—just real results, delivered in real time across our network of 1,027+ providers.*</motion.p>
     </section>;
 };
+
 export default HeroStats;
