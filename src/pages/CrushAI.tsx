@@ -290,6 +290,12 @@ const CrushAI = () => {
       </LazyLoadSection>
 
       <LazyLoadSection>
+        <Suspense fallback={<SectionLoader />}>
+          <ClinicianTestimonialsSection />
+        </Suspense>
+      </LazyLoadSection>
+
+      <LazyLoadSection>
         <GradientSection 
           variant="linear"
           intensity="medium"
@@ -306,12 +312,6 @@ const CrushAI = () => {
             </Suspense>
           </Box>
         </GradientSection>
-      </LazyLoadSection>
-
-      <LazyLoadSection>
-        <Suspense fallback={<SectionLoader />}>
-          <ClinicianTestimonialsSection />
-        </Suspense>
       </LazyLoadSection>
 
       <LazyLoadSection>

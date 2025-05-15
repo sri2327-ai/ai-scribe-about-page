@@ -7,21 +7,6 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { Button as ShadcnButton } from "@/components/ui/button";
 
-// Updated pastel colors for more realistic UI with better pink and dark blue balance
-const uiColors = {
-  softPink: "#FFDEE2",
-  darkPink: "#FFA9B7",
-  softPeach: "#FDE1D3",
-  lightMint: "#E2F5EA",
-  paleBlue: "#E6F4F9",
-  softLavender: "#F1EBF5",
-  pastelCyan: "#D6F5F5",
-  lightestPink: "#FFF0F3",
-  darkBlue: "#143151",
-  mediumBlue: "#387E89",
-  lightBlue: "#A5CCF3",
-}
-
 const steps = [
   {
     id: "select-patient",
@@ -64,7 +49,7 @@ const steps = [
         >
           <motion.div
             animate={active ? { 
-              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(240,98,146,0.25)', '0px 0px 0px rgba(0,0,0,0)'],
+              boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '0px 0px 20px rgba(56,126,137,0.4)', '0px 0px 0px rgba(0,0,0,0)'],
             } : {}}
             transition={{ 
               repeat: Infinity, 
@@ -74,7 +59,7 @@ const steps = [
               padding: 12,
               borderRadius: 12,
               border: `2px solid ${crushAIColors.icons.primary}`,
-              background: uiColors.lightestPink
+              background: 'white'
             }}
           >
             <Stethoscope size={32} style={{ color: crushAIColors.icons.primary }} />
@@ -94,18 +79,14 @@ const steps = [
                 alignItems: 'center', 
                 p: 1, 
                 borderRadius: 1,
-                bgcolor: uiColors.softPink
+                bgcolor: `rgba(56,126,137, 0.1)`
               }}>
-                <motion.div
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                  style={{ 
-                    width: 6, 
-                    height: 6, 
-                    borderRadius: '50%', 
-                    backgroundColor: crushAIColors.icons.primary 
-                  }} 
-                />
+                <Box sx={{ 
+                  width: 6, 
+                  height: 6, 
+                  borderRadius: '50%', 
+                  bgcolor: crushAIColors.icons.primary 
+                }} />
                 <Typography variant="caption" sx={{ fontSize: '0.7rem', color: crushAIColors.text.primary }}>
                   Connected to EHR
                 </Typography>
@@ -163,7 +144,7 @@ const steps = [
                 padding: 16,
                 borderRadius: '50%',
                 border: `2px solid ${crushAIColors.icons.primary}`,
-                background: active ? uiColors.softPink : 'white'
+                background: active ? `rgba(56,126,137, 0.1)` : 'white'
               }}
             >
               <Mic size={36} style={{ color: crushAIColors.icons.primary }} />
@@ -187,8 +168,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: `2px solid ${uiColors.softPink}`,
-                      background: `${uiColors.softPink}20`
+                      border: `2px solid ${crushAIColors.icons.primary}80`
                     }}
                   />
                 </Box>
@@ -209,8 +189,7 @@ const steps = [
                       width: '100%',
                       height: '100%',
                       borderRadius: '50%',
-                      border: `2px solid ${uiColors.softPink}`,
-                      background: `${uiColors.softPink}10`
+                      border: `2px solid ${crushAIColors.icons.primary}50`
                     }}
                   />
                 </Box>
@@ -230,7 +209,7 @@ const steps = [
                 transition={{ duration: 8 }}
                 style={{
                   height: 4,
-                  background: `linear-gradient(90deg, ${uiColors.softPink} 0%, ${crushAIColors.icons.primary} 100%)`,
+                  background: `linear-gradient(90deg, rgba(20,49,81, 0.4) 0%, ${crushAIColors.icons.primary} 100%)`,
                   borderRadius: 2
                 }}
               />
@@ -245,35 +224,6 @@ const steps = [
                 <span>0:00</span>
                 <span>Recording...</span>
               </Box>
-              
-              {/* Voice wave visualization */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 2 }}
-                className="mt-2 flex justify-center gap-1 h-6"
-              >
-                {[...Array(5)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="w-1.5 rounded-full"
-                    animate={{
-                      height: [6, 14 + i * 2, 6],
-                      backgroundColor: [
-                        uiColors.softPink,
-                        crushAIColors.icons.primary,
-                        uiColors.softPink
-                      ]
-                    }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 0.8,
-                      delay: i * 0.1,
-                      ease: "easeInOut"
-                    }}
-                  />
-                ))}
-              </motion.div>
               
               {active && (
                 <motion.div
@@ -348,42 +298,10 @@ const steps = [
               borderRadius: 8,
               border: `2px solid ${crushAIColors.icons.primary}`,
               background: 'white',
-              position: 'relative',
-              boxShadow: active ? `0 4px 12px ${uiColors.softPink}40` : 'none',
-              overflow: 'hidden'
+              position: 'relative'
             }}
           >
-            {/* Add decorative elements to the note for flat UI style */}
-            {active && (
-              <>
-                <motion.div 
-                  style={{ 
-                    position: 'absolute', 
-                    top: '-10px', 
-                    right: '-10px',
-                    width: '40px',
-                    height: '40px',
-                    borderRadius: '50%',
-                    background: `${uiColors.softPink}30`,
-                    zIndex: 0
-                  }}
-                />
-                <motion.div 
-                  style={{ 
-                    position: 'absolute', 
-                    bottom: '-15px', 
-                    left: '-15px',
-                    width: '50px',
-                    height: '50px',
-                    borderRadius: '50%',
-                    background: `${uiColors.lightestPink}50`,
-                    zIndex: 0
-                  }}
-                />
-              </>
-            )}
-            
-            <Box sx={{ mb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 1 }}>
+            <Box sx={{ mb: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="caption" sx={{ fontWeight: 600, fontSize: { xs: '0.65rem', sm: '0.75rem' }, color: crushAIColors.text.primary }}>Medical Note</Typography>
               {active && (
                 <motion.div
@@ -397,7 +315,7 @@ const steps = [
             </Box>
             
             {active ? (
-              <Box sx={{ position: 'relative', zIndex: 1 }}>
+              <Box>
                 <AnimatePresence>
                   {['S:', 'O:', 'A:', 'P:'].map((section, i) => (
                     <motion.div
@@ -422,9 +340,9 @@ const steps = [
                         </Typography>
                         <Box sx={{ 
                           height: 3, 
-                          flex: 1,
-                          borderRadius: 1,
-                          background: `linear-gradient(90deg, ${uiColors.softPink} 0%, ${uiColors.softPink}30 100%)`
+                          flex: 1, 
+                          bgcolor: `rgba(56,126,137, 0.3)`,
+                          borderRadius: 1
                         }} />
                       </Box>
                     </motion.div>
@@ -439,10 +357,7 @@ const steps = [
                     marginTop: 8,
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'center',
-                    background: `${uiColors.lightestPink}50`,
-                    padding: '4px 8px',
-                    borderRadius: '4px'
+                    alignItems: 'center'
                   }}
                 >
                   <Typography sx={{ fontSize: { xs: '0.55rem', sm: '0.65rem' }, color: crushAIColors.text.light }}>
@@ -453,29 +368,6 @@ const steps = [
                   </Typography>
                 </motion.div>
                 
-                {/* Flat UI style code snippets */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.8 }}
-                >
-                  {[...Array(2)].map((_, index) => (
-                    <motion.div 
-                      key={index}
-                      initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ delay: 1.8 + (index * 0.2) }}
-                      style={{
-                        height: 3,
-                        marginTop: 5,
-                        backgroundColor: index % 2 === 0 ? `${uiColors.softPink}60` : `${uiColors.softPink}30`,
-                        width: index % 2 === 0 ? '80%' : '60%',
-                        borderRadius: 2
-                      }}
-                    />
-                  ))}
-                </motion.div>
-                
                 {active && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -483,38 +375,16 @@ const steps = [
                     transition={{ delay: 2 }}
                     className="mt-4 flex justify-center"
                   >
-                    <Box
+                    <Typography 
+                      variant="caption" 
                       sx={{ 
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 0.5,
-                        px: 1.5,
-                        py: 0.5,
-                        borderRadius: 1,
-                        background: `${uiColors.softPink}30`
+                        color: crushAIColors.icons.primary, 
+                        fontWeight: 600, 
+                        fontSize: '0.75rem'
                       }}
                     >
-                      <motion.div 
-                        animate={{ scale: [1, 1.15, 1] }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        style={{ 
-                          width: 4, 
-                          height: 4, 
-                          borderRadius: '50%', 
-                          backgroundColor: crushAIColors.icons.primary 
-                        }}
-                      />
-                      <Typography 
-                        variant="caption" 
-                        sx={{ 
-                          color: crushAIColors.icons.primary, 
-                          fontWeight: 600, 
-                          fontSize: '0.75rem'
-                        }}
-                      >
-                        Generated in under 1 minute
-                      </Typography>
-                    </Box>
+                      Generated in under 1 minute
+                    </Typography>
                   </motion.div>
                 )}
               </Box>
@@ -523,9 +393,7 @@ const steps = [
                 height: { xs: 40, sm: 50 }, 
                 display: 'flex', 
                 alignItems: 'center', 
-                justifyContent: 'center',
-                position: 'relative',
-                zIndex: 1
+                justifyContent: 'center' 
               }}>
                 <Typography variant="caption" sx={{ color: crushAIColors.text.light, fontStyle: 'italic', fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
                   Waiting for consultation...
@@ -598,9 +466,9 @@ export const HowItWorksSection = () => {
       }}
     >
       <div className={rippleStyles.rippleBackground}>
-        <div className={`${rippleStyles.ripple} bg-pink-100/40`} style={{ background: `${uiColors.softPink}30` }}></div>
-        <div className={`${rippleStyles.ripple} bg-pink-50/30`} style={{ background: `${uiColors.softPink}20` }}></div>
-        <div className={`${rippleStyles.ripple} bg-blue-50/20`} style={{ background: `${uiColors.paleBlue}30` }}></div>
+        <div className={`${rippleStyles.ripple} bg-blue-100/30`}></div>
+        <div className={`${rippleStyles.ripple} bg-teal-100/30`}></div>
+        <div className={`${rippleStyles.ripple} bg-blue-50/20`}></div>
       </div>
       
       <Container maxWidth="lg">
@@ -618,8 +486,8 @@ export const HowItWorksSection = () => {
               fontSize: { xs: "2rem", md: "2.75rem" },
               fontWeight: 800,
               mb: 3,
-              color: crushAIColors.text.primary,
-              background: `linear-gradient(135deg, ${uiColors.darkBlue}, ${uiColors.darkPink})`,
+              color: crushAIColors.primary,
+              background: `linear-gradient(135deg, ${crushAIColors.primary}, #387E89)`,
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent"
             }}
@@ -685,12 +553,12 @@ export const HowItWorksSection = () => {
                   animate={{ 
                     opacity: isActive || isCompleted ? 1 : 0.7,
                     x: 0,
-                    backgroundColor: isActive ? `${uiColors.softPink}15` : 'transparent',
-                    boxShadow: isActive ? `0 4px 20px ${uiColors.softPink}30` : 'none',
+                    backgroundColor: isActive ? 'rgba(56,126,137, 0.05)' : 'transparent',
+                    boxShadow: isActive ? '0 4px 20px rgba(56,126,137, 0.1)' : 'none',
                   }}
                   whileHover={{ 
                     scale: 1.02,
-                    backgroundColor: `${uiColors.softPink}10`,
+                    backgroundColor: 'rgba(56,126,137, 0.02)',
                     boxShadow: '0 4px 15px rgba(56,126,137, 0.07)'
                   }}
                   transition={{ duration: 0.2 }}
@@ -699,38 +567,18 @@ export const HowItWorksSection = () => {
                     p: 2,
                     borderRadius: 2,
                     border: '1px solid',
-                    borderColor: isActive ? `${uiColors.softPink}40` : 'rgba(0, 0, 0, 0.05)',
+                    borderColor: isActive ? 'rgba(56,126,137, 0.2)' : 'rgba(0, 0, 0, 0.05)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: 2,
                     cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden'
+                    transition: 'all 0.3s ease'
                   }}
                 >
-                  {/* Background decorative element for flat UI style */}
-                  {isActive && (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 0.05 }}
-                      style={{
-                        position: 'absolute',
-                        width: '150px',
-                        height: '150px',
-                        borderRadius: '50%',
-                        right: '-50px',
-                        top: '-75px',
-                        background: uiColors.darkPink,
-                        zIndex: 0
-                      }}
-                    />
-                  )}
-                  
                   <Box
                     component={motion.div}
                     animate={isActive ? {
-                      boxShadow: ['0px 0px 0px rgba(0,0,0,0)', `0px 0px 15px ${uiColors.softPink}50`, '0px 0px 0px rgba(0,0,0,0)'],
+                      boxShadow: ['0px 0px 0px rgba(56,126,137,0)', '0px 0px 15px rgba(56,126,137,0.3)', '0px 0px 0px rgba(56,126,137,0)'],
                     } : {}}
                     transition={{
                       repeat: isActive ? Infinity : 0,
@@ -740,31 +588,29 @@ export const HowItWorksSection = () => {
                       width: 40,
                       height: 40,
                       borderRadius: '50%',
-                      bgcolor: isCompleted ? '#10b981' : isActive ? `${uiColors.softPink}30` : 'rgba(0, 0, 0, 0.02)',
+                      bgcolor: isCompleted ? '#10b981' : isActive ? 'rgba(56,126,137, 0.15)' : 'rgba(0, 0, 0, 0.02)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0,
-                      border: isActive && !isCompleted ? `1px solid ${uiColors.darkPink}40` : 'none',
-                      position: 'relative',
-                      zIndex: 1
+                      border: isActive && !isCompleted ? '1px solid rgba(56,126,137, 0.3)' : 'none'
                     }}
                   >
                     {isCompleted ? (
                       <CheckCircle size={20} className="text-white" />
                     ) : (
-                      <Typography sx={{ fontWeight: 600, color: isActive ? uiColors.darkPink : uiColors.darkBlue }}>
+                      <Typography sx={{ fontWeight: 600, color: crushAIColors.icons.primary }}>
                         {index + 1}
                       </Typography>
                     )}
                   </Box>
                   
-                  <Box sx={{ position: 'relative', zIndex: 1 }}>
+                  <Box>
                     <Typography
                       variant="subtitle1"
                       sx={{
                         fontWeight: isActive ? 600 : 500,
-                        color: isActive ? uiColors.darkPink : crushAIColors.text.primary,
+                        color: crushAIColors.text.primary,
                         fontSize: { xs: '0.9rem', sm: '1rem' }
                       }}
                     >
@@ -792,22 +638,25 @@ export const HowItWorksSection = () => {
                       component={motion.div}
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      sx={{ ml: 'auto', position: 'relative', zIndex: 1 }}
+                      sx={{ ml: 'auto' }}
                     >
-                      <div className="w-2 h-2 rounded-full bg-pink-200">
-                        <motion.div
-                          animate={{ 
-                            scale: [1, 1.3, 1],
-                            opacity: [0.5, 1, 0.5] 
-                          }}
-                          transition={{
-                            repeat: Infinity,
-                            duration: 1.5
-                          }}
-                          className="w-full h-full rounded-full"
-                          style={{ backgroundColor: uiColors.darkPink }}
-                        />
-                      </div>
+                      <Box 
+                        sx={{ 
+                          width: 8, 
+                          height: 8, 
+                          borderRadius: '50%', 
+                          bgcolor: crushAIColors.icons.primary
+                        }}
+                        component={motion.div}
+                        animate={{ 
+                          scale: [1, 1.3, 1],
+                          opacity: [0.5, 1, 0.5] 
+                        }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 1.5
+                        }}
+                      />
                     </Box>
                   )}
                 </Box>
@@ -823,19 +672,17 @@ export const HowItWorksSection = () => {
               alignItems: 'center',
               justifyContent: 'center',
               borderRadius: 4,
-              bgcolor: 'rgba(255,255,255,0.7)',
-              backdropFilter: 'blur(8px)',
-              border: `1px solid ${uiColors.lightestPink}`,
+              bgcolor: 'rgba(56,126,137, 0.02)',
+              border: '1px solid rgba(56,126,137, 0.1)',
               p: { xs: 2, sm: 4 },
               minHeight: 400,
               position: 'relative',
-              overflow: 'hidden',
-              boxShadow: `0 8px 32px ${uiColors.softPink}15`
+              overflow: 'hidden'
             }}
           >
             {/* Decorative elements */}
-            <Box sx={{ position: 'absolute', top: -10, right: -10, width: 100, height: 100, borderRadius: '50%', bgcolor: `${uiColors.softPink}10` }} />
-            <Box sx={{ position: 'absolute', bottom: -20, left: -20, width: 150, height: 150, borderRadius: '50%', bgcolor: `${uiColors.lightBlue}10` }} />
+            <Box sx={{ position: 'absolute', top: -10, right: -10, width: 100, height: 100, borderRadius: '50%', bgcolor: 'rgba(56,126,137, 0.03)' }} />
+            <Box sx={{ position: 'absolute', bottom: -20, left: -20, width: 150, height: 150, borderRadius: '50%', bgcolor: 'rgba(20,49,81, 0.02)' }} />
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -858,7 +705,7 @@ export const HowItWorksSection = () => {
                     variant="h4"
                     sx={{
                       fontWeight: 700,
-                      color: uiColors.darkBlue,
+                      color: crushAIColors.text.primary,
                       textAlign: 'center',
                       fontSize: { xs: '1.5rem', sm: '1.75rem' },
                       position: 'relative'
@@ -875,7 +722,7 @@ export const HowItWorksSection = () => {
                         bottom: '-8px', 
                         left: '25%', 
                         borderRadius: '2px',
-                        background: `linear-gradient(90deg, ${uiColors.softPink} 0%, ${uiColors.darkPink} 100%)`,
+                        background: `linear-gradient(90deg, rgba(20,49,81, 0.5) 0%, ${crushAIColors.icons.primary} 100%)`,
                       }}
                     />
                     {steps[activeStep].title}
@@ -931,7 +778,7 @@ export const HowItWorksSection = () => {
                               transition={{ delay: i * 0.1 + 0.3 }}
                               whileHover={{ 
                                 scale: 1.02,
-                                boxShadow: `0 4px 15px ${uiColors.softPink}20`
+                                boxShadow: '0 4px 15px rgba(56,126,137, 0.1)'
                               }}
                             >
                               <Box 
@@ -940,45 +787,24 @@ export const HowItWorksSection = () => {
                                   alignItems: 'flex-start',
                                   p: 2,
                                   borderRadius: 2,
-                                  bgcolor: `${uiColors.lightestPink}30`,
-                                  border: `1px solid ${uiColors.lightestPink}40`,
+                                  bgcolor: 'rgba(56,126,137,0.03)',
+                                  border: '1px solid rgba(56,126,137,0.1)',
                                   height: '100%',
-                                  transition: 'all 0.3s ease',
-                                  position: 'relative',
-                                  overflow: 'hidden'
+                                  transition: 'all 0.3s ease'
                                 }}
                               >
-                                {/* Background decoration for flat UI style */}
-                                <motion.div
-                                  style={{
-                                    position: 'absolute',
-                                    width: '80px',
-                                    height: '80px',
-                                    borderRadius: '50%',
-                                    right: '-40px',
-                                    top: '-40px',
-                                    background: `${uiColors.softPink}15`,
-                                    zIndex: 0
-                                  }}
-                                />
-                                
                                 {detail.icon && (
                                   <Box sx={{ 
                                     mr: 1.5, 
                                     mt: 0.5,
-                                    color: uiColors.darkPink,
-                                    flexShrink: 0,
-                                    position: 'relative',
-                                    zIndex: 1,
-                                    background: `${uiColors.softPink}20`,
-                                    borderRadius: '8px',
-                                    p: 0.7
+                                    color: crushAIColors.icons.primary,
+                                    flexShrink: 0
                                   }}>
                                     {detail.icon}
                                   </Box>
                                 )}
-                                <Box sx={{ position: 'relative', zIndex: 1 }}>
-                                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: uiColors.darkBlue }}>
+                                <Box>
+                                  <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5, color: crushAIColors.text.primary }}>
                                     {detail.title}
                                   </Typography>
                                   <Typography variant="body2" sx={{ color: crushAIColors.text.secondary, fontSize: '0.8rem' }}>
@@ -1011,8 +837,8 @@ export const HowItWorksSection = () => {
                 variant="outlined"
                 onClick={handleNextStep}
                 sx={{
-                  borderColor: uiColors.darkPink,
-                  color: uiColors.darkBlue,
+                  borderColor: crushAIColors.primary,
+                  color: crushAIColors.primary,
                   py: 1,
                   px: 3,
                   fontSize: '0.875rem',
@@ -1021,17 +847,16 @@ export const HowItWorksSection = () => {
                   position: 'relative',
                   overflow: 'hidden',
                   '&:hover': {
-                    borderColor: uiColors.darkPink,
-                    bgcolor: `${uiColors.softPink}15`
+                    borderColor: crushAIColors.primary,
+                    bgcolor: 'rgba(56,126,137, 0.05)'
                   }
                 }}
               >
                 <motion.span 
-                  className="absolute inset-0"
+                  className="absolute inset-0 bg-[#387E89]/10"
                   initial={{ x: '-100%' }}
                   whileHover={{ x: '100%' }}
                   transition={{ duration: 0.6, ease: 'easeInOut' }}
-                  style={{ background: `${uiColors.softPink}20` }}
                 />
                 <span className="relative z-10 flex items-center">
                   {activeStep === steps.length - 1 ? 'Start Over' : 'Next Step'}
@@ -1054,23 +879,16 @@ export const HowItWorksSection = () => {
             size="lg" 
             className="text-white rounded-full px-8 py-6 text-lg shadow-lg relative overflow-hidden group"
             style={{ 
-              background: `linear-gradient(90deg, ${uiColors.darkBlue}, ${uiColors.darkPink})`,
+              background: `linear-gradient(90deg, #143151, #387E89)`,
             }}
           >
             <motion.span 
-              className="absolute inset-0"
+              className="absolute inset-0 bg-white/10"
               initial={{ x: '-100%' }}
               whileHover={{ x: '100%' }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
-              style={{ background: `${uiColors.softPink}30` }}
             />
-            <PlayCircle 
-              size={20} 
-              className="mr-2"
-              style={{
-                animation: 'pulse 2s infinite'
-              }}
-            />
+            <PlayCircle size={20} className="mr-2 animate-pulse" />
             <span className="relative z-10">REQUEST A DEMO</span>
           </ShadcnButton>
         </Box>
@@ -1078,3 +896,4 @@ export const HowItWorksSection = () => {
     </Box>
   );
 };
+
