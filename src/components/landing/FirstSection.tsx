@@ -172,8 +172,9 @@ export const FirstSection = () => {
               duration: 0.7,
               delay: 0.3
             }} className="relative">
-              <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
-                <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
+              {/* Reducing the max-height and making the card more compact */}
+              <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto max-h-[420px]`}>
+                <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                   <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center justify-between flex-wrap dark:text-white">
                     <span className="pr-2">Don't change for AI—make it work for you</span> 
                     <span className="inline-flex items-center justify-center px-2.5 py-0.5 text-xs xs:text-sm sm:text-sm rounded-full bg-[#D3E4FD] text-[#555555] dark:bg-[#D3E4FD]/80 whitespace-nowrap mt-1 xs:mt-0">
@@ -182,9 +183,9 @@ export const FirstSection = () => {
                   </h3>
                 </div>
                 
-                <div className="p-3 sm:p-4">
+                <div className="p-2 sm:p-3">
                   {/* Compact feature tabs with click to expand functionality */}
-                  <div className="grid grid-cols-1 gap-3 sm:gap-4">
+                  <div className="grid grid-cols-1 gap-2 sm:gap-3">
                     {featureTabs.map((tab, index) => {
                       const isActive = activeTabIndex === index;
                       return (
@@ -199,16 +200,16 @@ export const FirstSection = () => {
                           onClick={() => handleTabClick(index)}
                         >
                           <motion.div 
-                            className={`flex flex-col rounded-lg p-3 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`}
+                            className={`flex flex-col rounded-lg p-2 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`}
                             whileHover={{
                               scale: 1.01,
                               backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
                               transition: { duration: 0.2 }
                             }}
                           >
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
                               <motion.div 
-                                className="w-8 h-8 rounded-full flex items-center justify-center shrink-0" 
+                                className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" 
                                 style={{ backgroundColor: `${tab.color}10` }}
                                 whileHover={{
                                   scale: 1.1,
@@ -241,14 +242,14 @@ export const FirstSection = () => {
                                     initial={{ opacity: 0, y: 5 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.1 }}
-                                    className="text-xs text-gray-600 mt-2 ml-11"
+                                    className="text-xs text-gray-600 mt-2 ml-9"
                                   >
                                     {tab.description}
                                   </motion.p>
                                   
-                                  <div className="ml-11 mt-2">
-                                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/10 p-2 rounded-lg">
-                                      <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" />
+                                  <div className="ml-9 mt-2">
+                                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/10 p-1.5 rounded-lg">
+                                      <CheckCircle className="w-3 h-3 text-[#387E89]" />
                                       <span className="font-medium text-xs text-[#387E89]">{tab.benefit}</span>
                                       
                                       <div className="ml-auto">
@@ -270,12 +271,12 @@ export const FirstSection = () => {
                   </div>
 
                   {/* Navigation indicator dots */}
-                  <div className="flex justify-center gap-2 mt-4">
+                  <div className="flex justify-center gap-2 mt-3">
                     {featureTabs.map((_, idx) => (
                       <button 
                         key={idx} 
                         onClick={() => handleTabClick(idx)} 
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`}
+                        className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`}
                         aria-label={`View ${featureTabs[idx].title}`} 
                       />
                     ))}
