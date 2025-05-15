@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, memo, useRef } from 'react';
+import React, { useEffect, useState, memo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope } from 'lucide-react';
 
@@ -60,19 +60,40 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  // Function to handle step clicks for interactive usage
+  const handleStepClick = useCallback((index: number) => {
+    setUserInteracted(true);
+    setIsAutoPlaying(false);
+    setCurrentStep(index);
+    
+    // Resume auto-play after 15 seconds of inactivity
+    const inactivityTimer = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 15000);
+    
+    return () => clearTimeout(inactivityTimer);
+  }, []);
 
   useEffect(() => {
     // Set loaded state to prevent initial animation issues
     setIsLoaded(true);
     
-    const interval = setInterval(() => {
-      setCurrentStep((prev) => (prev + 1) % steps.length);
-    }, 3000);
+    // Auto-cycling of steps when autoplay is enabled
+    let interval: NodeJS.Timeout | null = null;
+    
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        setCurrentStep((prev) => (prev + 1) % steps.length);
+      }, 3000);
+    }
     
     return () => {
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
     };
-  }, []);
+  }, [isAutoPlaying]);
 
   // Don't render until component is fully mounted
   if (!isLoaded) {
@@ -85,19 +106,19 @@ const CrushIllustration = memo(() => {
 
   return (
     <div 
-      className="relative w-full h-full flex items-center justify-center p-4 overflow-hidden"
+      className="relative w-full h-full flex items-center justify-center p-3 sm:p-4 overflow-hidden"
       style={{ contain: 'content' }}
     >
       {/* Decorative background elements */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-        <div className="absolute w-32 h-32 rounded-full bg-blue-400 blur-3xl"></div>
-        <div className="absolute w-24 h-24 rounded-full bg-pink-400 blur-3xl -translate-x-20 translate-y-10"></div>
-        <div className="absolute w-24 h-24 rounded-full bg-teal-400 blur-3xl translate-x-16 -translate-y-12"></div>
+        <div className="absolute w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-blue-400 blur-3xl"></div>
+        <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-pink-400 blur-3xl -translate-x-16 translate-y-8 sm:-translate-x-20 sm:translate-y-10"></div>
+        <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-teal-400 blur-3xl translate-x-12 -translate-y-10 sm:translate-x-16 sm:-translate-y-12"></div>
       </div>
       
       {/* Path for animation - only the outer line */}
       <svg 
-        className="absolute w-48 h-2 top-1/2 -translate-y-1/2"
+        className="absolute w-40 h-2 top-1/2 -translate-y-1/2"
         style={{ transform: 'translateZ(0)' }} // Hardware acceleration
       >
         <defs>
@@ -108,7 +129,7 @@ const CrushIllustration = memo(() => {
           </linearGradient>
         </defs>
         <motion.path
-          d="M 5,1 L 180,1"
+          d="M 5,1 L 155,1"
           stroke="url(#crush-gradient)"
           strokeWidth="2"
           strokeDasharray="3,3"
@@ -126,7 +147,7 @@ const CrushIllustration = memo(() => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center gap-2 bg-white/90 p-4 rounded-lg shadow-lg z-10 min-w-[140px]"
+          className="flex flex-col items-center gap-2 bg-white/90 p-4 rounded-lg shadow-lg z-10 min-w-[130px] sm:min-w-[140px]"
           style={{ 
             willChange: 'transform, opacity',
             boxShadow: `0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
@@ -154,7 +175,7 @@ const CrushIllustration = memo(() => {
             {currentStep === 1 && (
               <div className="flex justify-center">
                 <motion.div 
-                  className="h-2 w-32 bg-gray-200 rounded-full overflow-hidden"
+                  className="h-2 w-28 sm:w-32 bg-gray-200 rounded-full overflow-hidden"
                   style={{ padding: 0 }}
                 >
                   <motion.div
@@ -206,13 +227,25 @@ const CrushIllustration = memo(() => {
             )}
           </div>
           
-          {/* Step indicator dots */}
+          {/* Interactive Step indicators */}
           <div className="flex gap-1.5 mt-2">
             {steps.map((step, idx) => (
-              <div 
+              <motion.div 
                 key={idx} 
-                className={`rounded-full transition-all duration-300 ${currentStep === idx ? 'w-4' : 'w-1.5'} h-1.5`}
+                className={`rounded-full transition-all duration-300 cursor-pointer ${currentStep === idx ? 'w-4' : 'w-1.5'} h-1.5`}
                 style={{ backgroundColor: currentStep === idx ? steps[idx].color : '#e5e7eb' }}
+                onClick={() => handleStepClick(idx)}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.95 }}
+                role="button"
+                aria-label={`View ${step.label} step`}
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    handleStepClick(idx);
+                  }
+                }}
               />
             ))}
           </div>
