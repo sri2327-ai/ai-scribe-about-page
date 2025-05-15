@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -12,8 +11,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
-import { LazyLoad } from '@/components/ui/lazy-load';
-
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 export const FirstSection = () => {
   const theme = useTheme();
@@ -160,111 +157,109 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature workflow now with click-based navigation and lazy loading */}
-          <LazyLoad threshold={0.1} rootMargin="100px">
-            <motion.div initial={{
-              opacity: 0,
-              scale: 0.95
-            }} animate={{
-              opacity: 1,
-              scale: 1
-            }} transition={{
-              duration: 0.7,
-              delay: 0.3
-            }} className="relative">
-              <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
-                <div className="p-3 sm:p-4 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 backdrop-blur-sm">
-                  <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
-                    Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#D3E4FD] text-[#555555] text-xs rounded-full dark:bg-[#D3E4FD]/80">Clinician-First</span>
-                  </h3>
-                </div>
-                
-                <div className="p-3 sm:p-4 bg-gradient-to-br from-white to-[#D3E4FD]/20">
-                  {/* Improved workflow cards with click-based navigation */}
-                  <div className="grid grid-cols-1 gap-3 sm:gap-4">
-                    {featureTabs.map((tab, index) => {
-                    const isActive = activeTabIndex === index;
-                    return <motion.div key={tab.id} animate={{
-                      opacity: isActive ? 1 : 0.75,
-                      scale: isActive ? 1 : 0.98,
-                      y: isActive ? 0 : 0
-                    }} transition={{
-                      duration: 0.3,
-                      ease: "easeOut"
-                    }} className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} onClick={() => handleTabClick(index)}>
-                          <motion.div className={`flex flex-col gap-3 rounded-lg p-3 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`} whileHover={{
-                        scale: 1.01,
-                        backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
-                        transition: {
-                          duration: 0.2
-                        }
-                      }}>
-                            <div className="flex items-center gap-3">
-                              <motion.div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{
-                            backgroundColor: `${tab.color}10`
-                          }} whileHover={{
-                            scale: 1.1,
-                            backgroundColor: `${tab.color}20`,
-                            transition: {
-                              duration: 0.2
-                            }
-                          }}>
-                                {React.cloneElement(tab.icon, {
-                              style: {
-                                color: tab.color
-                              },
-                              className: "w-5 h-5"
-                            })}
-                              </motion.div>
-                              <div>
-                                <motion.h3 className="text-base font-semibold text-gray-900">
-                                  {tab.title}
-                                </motion.h3>
-                                <motion.p className="text-xs text-gray-600 line-clamp-1">
-                                  {tab.description}
-                                </motion.p>
-                              </div>
+          {/* Right column - Feature workflow now with click-based navigation */}
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95
+        }} animate={{
+          opacity: 1,
+          scale: 1
+        }} transition={{
+          duration: 0.7,
+          delay: 0.3
+        }} className="relative">
+            <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
+              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 backdrop-blur-sm">
+                <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
+                  Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-[#D3E4FD] text-[#555555] text-xs rounded-full dark:bg-[#D3E4FD]/80">Clinician-First</span>
+                </h3>
+              </div>
+              
+              <div className="p-3 sm:p-4">
+                {/* Improved workflow cards with click-based navigation */}
+                <div className="grid grid-cols-1 gap-3 sm:gap-4">
+                  {featureTabs.map((tab, index) => {
+                  const isActive = activeTabIndex === index;
+                  return <motion.div key={tab.id} animate={{
+                    opacity: isActive ? 1 : 0.75,
+                    scale: isActive ? 1 : 0.98,
+                    y: isActive ? 0 : 0
+                  }} transition={{
+                    duration: 0.3,
+                    ease: "easeOut"
+                  }} className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'}`} onClick={() => handleTabClick(index)}>
+                        <motion.div className={`flex flex-col gap-3 rounded-lg p-3 border ${isActive ? 'border-gray-200 bg-white shadow-sm' : 'border-transparent bg-gray-50/50'}`} whileHover={{
+                      scale: 1.01,
+                      backgroundColor: isActive ? 'rgba(255,255,255,1)' : 'rgba(243,244,246,0.8)',
+                      transition: {
+                        duration: 0.2
+                      }
+                    }}>
+                          <div className="flex items-center gap-3">
+                            <motion.div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{
+                          backgroundColor: `${tab.color}10`
+                        }} whileHover={{
+                          scale: 1.1,
+                          backgroundColor: `${tab.color}20`,
+                          transition: {
+                            duration: 0.2
+                          }
+                        }}>
+                              {React.cloneElement(tab.icon, {
+                            style: {
+                              color: tab.color
+                            },
+                            className: "w-5 h-5"
+                          })}
+                            </motion.div>
+                            <div>
+                              <motion.h3 className="text-base font-semibold text-gray-900">
+                                {tab.title}
+                              </motion.h3>
+                              <motion.p className="text-xs text-gray-600 line-clamp-1">
+                                {tab.description}
+                              </motion.p>
                             </div>
-                            
-                            <AnimatePresence>
-                              {isActive && <motion.div initial={{
-                            opacity: 0,
-                            y: 10,
-                            height: 0
-                          }} animate={{
-                            opacity: 1,
-                            y: 0,
-                            height: "auto"
-                          }} exit={{
-                            opacity: 0,
-                            y: -10,
-                            height: 0
-                          }} transition={{
-                            duration: 0.3
-                          }} className="ml-13">
-                                  <div className="flex items-center gap-2 mt-1 sm:mt-2 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 p-2 rounded-lg dark:bg-blue-900/20">
-                                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] dark:text-[#5abecb]" />
-                                    <span className="font-medium text-xs sm:text-sm text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
-                                    
-                                    <div className="ml-auto">
-                                      <VoiceAnimation size="sm" />
-                                    </div>
+                          </div>
+                          
+                          <AnimatePresence>
+                            {isActive && <motion.div initial={{
+                          opacity: 0,
+                          y: 10,
+                          height: 0
+                        }} animate={{
+                          opacity: 1,
+                          y: 0,
+                          height: "auto"
+                        }} exit={{
+                          opacity: 0,
+                          y: -10,
+                          height: 0
+                        }} transition={{
+                          duration: 0.3
+                        }} className="ml-13">
+                                <div className="flex items-center gap-2 mt-1 sm:mt-2 bg-blue-50/50 p-2 rounded-lg dark:bg-blue-900/20">
+                                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] dark:text-[#5abecb]" />
+                                  <span className="font-medium text-xs sm:text-sm text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
+                                  
+                                  <div className="ml-auto">
+                                    <VoiceAnimation size="sm" />
                                   </div>
-                                </motion.div>}
-                            </AnimatePresence>
-                          </motion.div>
-                        </motion.div>;
-                  })}
-                  </div>
-
-                  {/* Navigation indicator dots */}
-                  <div className="flex justify-center gap-2 mt-4">
-                    {featureTabs.map((_, idx) => <button key={idx} onClick={() => handleTabClick(idx)} className={`w-2 h-2 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`} aria-label={`View ${featureTabs[idx].title}`} />)}
-                  </div>
+                                </div>
+                              </motion.div>}
+                          </AnimatePresence>
+                        </motion.div>
+                      </motion.div>;
+                })}
                 </div>
-              </Card>
-            </motion.div>
-          </LazyLoad>
+
+                {/* Navigation indicator dots */}
+                <div className="flex justify-center gap-2 mt-4">
+                  {featureTabs.map((_, idx) => <button key={idx} onClick={() => handleTabClick(idx)} className={`w-2 h-2 rounded-full transition-all duration-300 ${activeTabIndex === idx ? 'bg-[#387E89] scale-125' : 'bg-gray-300 hover:bg-gray-400'}`} aria-label={`View ${featureTabs[idx].title}`} />)}
+                </div>
+              </div>
+            </Card>
+          </motion.div>
         </div>
         
         {/* Trusted by section - improved to fit screen better */}
@@ -327,4 +322,3 @@ export const FirstSection = () => {
       </div>
     </section>;
 };
-
