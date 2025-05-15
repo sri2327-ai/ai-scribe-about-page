@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -38,17 +37,42 @@ const StatCard = ({ title, value }: { title: string; value: number }) => {
 };
 
 const HeroStats = () => {
-  // Updated stats to be more realistic for 1027+ providers
+  // Base stats for 1027+ providers
   // Assuming:
   // - 15 charts per clinician per day × 22 working days × 1027 providers
   // - 20 calls per clinician per day × 22 working days × 1027 providers
   // - Similar number for chats based on call volume
-  const [stats] = useState<Stats>({
+  const baseStats: Stats = {
     chartsSigned: 338910,     // ~15 charts × 22 days × 1027 providers
     callsDone: 451880,        // ~20 calls × 22 days × 1027 providers
     chatsAnswered: 428256,    // ~19 chats × 22 days × 1027 providers
     providersSmiled: 1027,     // Fixed at 1027 as mentioned
-  });
+  };
+
+  const [stats, setStats] = useState<Stats>(baseStats);
+  
+  // Calculate increments per second based on daily activity
+  // For realistic continuous updates that show progress
+  const incrementsPerSecond = {
+    chartsSigned: Math.max(1, Math.floor(baseStats.chartsSigned / (22 * 8 * 60 * 60))), // Daily charts / seconds in workday
+    callsDone: Math.max(1, Math.floor(baseStats.callsDone / (22 * 8 * 60 * 60))), // Daily calls / seconds in workday
+    chatsAnswered: Math.max(1, Math.floor(baseStats.chatsAnswered / (22 * 8 * 60 * 60))), // Daily chats / seconds in workday
+  };
+
+  useEffect(() => {
+    // Update stats every second to simulate real-time activity
+    const interval = setInterval(() => {
+      setStats(prevStats => ({
+        chartsSigned: prevStats.chartsSigned + incrementsPerSecond.chartsSigned,
+        callsDone: prevStats.callsDone + incrementsPerSecond.callsDone,
+        chatsAnswered: prevStats.chatsAnswered + incrementsPerSecond.chatsAnswered,
+        providersSmiled: prevStats.providersSmiled, // Keep this constant
+      }));
+    }, 1000);
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, []); // Empty dependency array ensures this effect runs only once
 
   const isMobile = useIsMobile();
   const statCards = [
