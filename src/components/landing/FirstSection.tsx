@@ -63,7 +63,7 @@ export const FirstSection = () => {
     text: "HIPAA compliant"
   }];
 
-  // Feature tab data - updated "AI Staffing Engagement" to "AI Staffing Agent"
+  // Feature tab data
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -104,23 +104,19 @@ export const FirstSection = () => {
       <div className="absolute top-20 right-20 w-64 h-64 bg-blue-100/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-40 left-10 w-72 h-72 bg-teal-100/10 rounded-full blur-3xl"></div>
       
-      {/* Main content container - improved for true 50-50 split */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
+      {/* Main content container with improved responsive spacing */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 relative z-10">
         {/* Updated grid to true 50-50 split on larger screens */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
           
-          {/* Left column - Main heading and CTA - exactly 50% on desktop */}
-          <motion.div initial={{
-          opacity: 0,
-          y: 20
-        }} animate={{
-          opacity: 1,
-          y: 0
-        }} transition={{
-          duration: 0.7,
-          delay: 0.1
-        }} className="space-y-6 md:space-y-8">
-            <div className="space-y-4 md:space-y-6">
+          {/* Left column - Main heading and CTA */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.7, delay: 0.1 }} 
+            className="space-y-5 md:space-y-7"
+          >
+            <div className="space-y-4 md:space-y-5">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight text-black">
                 AI Scribing &<br />
                 <span className="text-black">
@@ -130,46 +126,62 @@ export const FirstSection = () => {
                 Like You
               </h1>
               
-              <div className="flex flex-wrap gap-2 sm:gap-3 pt-2 md:pt-4">
-                {clinicianBenefits.map((benefit, index) => <div key={index} className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100">
+              <div className="flex flex-wrap gap-2 sm:gap-3 pt-2 md:pt-3">
+                {clinicianBenefits.map((benefit, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                    className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 bg-white/80 backdrop-blur-sm rounded-lg shadow-sm border border-gray-100"
+                  >
                     {benefit.icon}
                     <span className="text-xs sm:text-sm font-medium text-gray-700">{benefit.text}</span>
-                  </div>)}
+                  </motion.div>
+                ))}
               </div>
               
-              <div className="pt-6 md:pt-8">
-                <Button onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="rounded-full px-6 py-6 text-base sm:text-lg font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-white">
-                  <motion.div animate={isHovered ? {
-                  x: [0, 5, 0]
-                } : {}} transition={{
-                  duration: 1,
-                  repeat: isHovered ? Infinity : 0
-                }} className="flex items-center gap-2">
+              <motion.div 
+                className="pt-5 md:pt-7"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.5 }}
+              >
+                <Button 
+                  onMouseEnter={() => setIsHovered(true)} 
+                  onMouseLeave={() => setIsHovered(false)} 
+                  className="rounded-full px-6 py-6 text-base sm:text-lg font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:shadow-lg hover:translate-y-[-2px] transition-all duration-300 text-white"
+                >
+                  <motion.div 
+                    animate={isHovered ? { x: [0, 5, 0] } : {}} 
+                    transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }} 
+                    className="flex items-center gap-2"
+                  >
                     Request A Demo
                     <ArrowRight className="h-5 w-5" />
                   </motion.div>
                 </Button>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
           
-          {/* Right column - Feature cards styled like Bravo workflow animation */}
+          {/* Right column - Feature workflow animation - smaller and more engaging */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="relative"
           >
-            <Card className={`bg-white border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:-translate-y-1 dark:bg-gray-900/95 dark:border-gray-800`}>
-              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm ">
-                <h3 className="font-medium text-gray-900 text-base sm:text-lg flex items-center dark:text-white">
+            <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto`}>
+              <div className="p-3 sm:p-4 bg-gradient-to-r from-blue-500/10 to-teal-500/10 backdrop-blur-sm">
+                <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center dark:text-white">
                   Don't change for AI—make it work for you <span className="inline-block ml-2 px-2 py-0.5 bg-blue-50 text-[#387E89] text-xs rounded-full dark:bg-blue-900/30 dark:text-blue-300">Clinician-First</span>
                 </h3>
               </div>
               
-              <div className="p-4">
-                {/* Bravo-style animated workflow display */}
-                <div className="grid grid-cols-1 gap-6">
+              <div className="p-3 sm:p-4">
+                {/* Improved workflow animation container */}
+                <div className="grid grid-cols-1 gap-3 sm:gap-4">
                   {featureTabs.map((tab, index) => {
                     const isActive = activeTabIndex === index;
 
@@ -179,39 +191,40 @@ export const FirstSection = () => {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ 
                           opacity: isActive ? 1 : 0.5,
-                          height: isActive ? "auto" : "64px",
+                          height: isActive ? "auto" : "56px",
                           x: isActive ? 0 : -5
                         }}
                         transition={{ 
-                          duration: 0.5,
+                          duration: 0.4,
                           ease: "easeOut"
                         }}
                         className="relative overflow-hidden"
                         onClick={() => handleTabClick(index)}
                       >
                         <motion.div
-                          className="flex flex-col gap-4 cursor-pointer"
+                          className="flex flex-col gap-3 cursor-pointer rounded-lg p-2 hover:bg-gray-50/50"
                           whileHover={{ 
-                            scale: 1.02,
-                            transition: { duration: 0.3 }
+                            scale: 1.01,
+                            transition: { duration: 0.2 }
                           }}
                         >
-                          <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-3">
                             <motion.div 
-                              className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+                              className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                               style={{ backgroundColor: `${tab.color}10` }}
                               whileHover={{ 
                                 scale: 1.1,
+                                backgroundColor: `${tab.color}20`,
                                 transition: { duration: 0.2 }
                               }}
                             >
-                              {React.cloneElement(tab.icon, { style: { color: tab.color }, className: "w-6 h-6" })}
+                              {React.cloneElement(tab.icon, { style: { color: tab.color }, className: "w-5 h-5" })}
                             </motion.div>
                             <div>
-                              <motion.h3 className="text-lg font-semibold text-gray-900">
+                              <motion.h3 className="text-base font-semibold text-gray-900">
                                 {tab.title}
                               </motion.h3>
-                              <motion.p className="text-sm text-gray-600">
+                              <motion.p className="text-xs text-gray-600 line-clamp-1">
                                 {tab.description}
                               </motion.p>
                             </div>
@@ -220,18 +233,18 @@ export const FirstSection = () => {
                           <AnimatePresence>
                             {isActive && (
                               <motion.div
-                                initial={{ opacity: 0, y: 20, height: 0 }}
+                                initial={{ opacity: 0, y: 10, height: 0 }}
                                 animate={{ opacity: 1, y: 0, height: "auto" }}
-                                exit={{ opacity: 0, y: -20, height: 0 }}
+                                exit={{ opacity: 0, y: -10, height: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="ml-16"
+                                className="ml-13"
                               >
-                                <div className="flex items-center gap-2 mt-2 sm:mt-4 bg-blue-50/50 p-2 sm:p-3 rounded-lg dark:bg-blue-900/20">
-                                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] dark:text-[#5abecb]" />
-                                  <span className="font-medium text-sm sm:text-base text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
+                                <div className="flex items-center gap-2 mt-1 sm:mt-2 bg-blue-50/50 p-2 rounded-lg dark:bg-blue-900/20">
+                                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#387E89] dark:text-[#5abecb]" />
+                                  <span className="font-medium text-xs sm:text-sm text-[#387E89] dark:text-[#5abecb]">{tab.benefit}</span>
                                   
                                   <div className="ml-auto">
-                                    <VoiceAnimation />
+                                    <VoiceAnimation size="sm" />
                                   </div>
                                 </div>
                               </motion.div>
@@ -241,73 +254,88 @@ export const FirstSection = () => {
                         
                         {index < featureTabs.length - 1 && (
                           <motion.div
-                            className="absolute left-6 top-12 w-[1px] h-[calc(100%+1.5rem)]"
+                            className="absolute left-5 top-10 w-[1px] h-[calc(100%-0.5rem)]"
                             style={{
                               background: 'linear-gradient(to bottom, #e5e7eb 60%, transparent)'
                             }}
-                            initial={{ scaleY: 0 }}
-                            animate={{ scaleY: isActive ? 1 : 0.5 }}
-                            transition={{ duration: 0.5 }}
+                            initial={{ scaleY: 0, opacity: 0.5 }}
+                            animate={{ 
+                              scaleY: isActive ? 1 : 0.7,
+                              opacity: isActive ? 0.8 : 0.4
+                            }}
+                            transition={{ duration: 0.4 }}
                           />
                         )}
                       </motion.div>
                     );
                   })}
                 </div>
+
+                {/* Subtle animation indicator dots */}
+                <div className="flex justify-center gap-1.5 mt-3">
+                  {featureTabs.map((_, idx) => (
+                    <motion.div
+                      key={idx}
+                      className="w-1.5 h-1.5 rounded-full bg-gray-300"
+                      animate={{ 
+                        scale: activeTabIndex === idx ? 1.3 : 1,
+                        backgroundColor: activeTabIndex === idx ? '#387E89' : '#e5e7eb' 
+                      }}
+                      transition={{ duration: 0.3 }}
+                      onClick={() => handleTabClick(idx)}
+                    />
+                  ))}
+                </div>
               </div>
             </Card>
           </motion.div>
         </div>
         
-        {/* Trusted by section */}
-        <motion.div initial={{
-        opacity: 0,
-        y: 20
-      }} animate={{
-        opacity: 1,
-        y: 0
-      }} transition={{
-        duration: 0.7,
-        delay: 0.6
-      }} className="mt-10 sm:mt-16">
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-3 sm:p-4">
-            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-2 sm:mb-4 text-sm sm:text-base">S10.AI is recommended by</Typography>
+        {/* Trusted by section - improved animation */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.6 }}
+          className="mt-8 sm:mt-12"
+        >
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-100 overflow-hidden p-3">
+            <Typography variant="h6" className="text-center text-gray-800 font-medium mb-2 text-xs sm:text-sm">S10.AI is recommended by</Typography>
             
             <Box sx={{
             overflow: "hidden",
             width: '100%',
             '& .marquee-container': {
               minHeight: {
-                xs: '32px',
-                sm: '40px',
-                md: '48px'
+                xs: '28px',
+                sm: '32px',
+                md: '40px'
               }
             }
           }}>
-              <Marquee gradient={false} speed={40}>
-                {companyLogos.map((logo, index) => <motion.div key={index} whileHover={{
-                scale: 1.1
-              }} transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 10
-              }}>
+              <Marquee gradient={false} speed={30}>
+                {companyLogos.map((logo, index) => (
+                  <motion.div 
+                    key={index} 
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  >
                     <Box sx={{
-                  mx: {
-                    xs: 2,
-                    sm: 3,
-                    md: 5
-                  },
-                  display: 'flex',
-                  alignItems: 'center'
-                }}>
-                      <img src={logo} alt={`Healthcare partner ${index + 1}`} style={{
-                    width: 'auto',
-                    height: isMobile ? '24px' : '32px',
-                    objectFit: 'contain'
-                  }} />
+                      mx: { xs: 2, sm: 3, md: 4 },
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}>
+                      <img 
+                        src={logo} 
+                        alt={`Healthcare partner ${index + 1}`} 
+                        style={{
+                          width: 'auto',
+                          height: isMobile ? '20px' : '28px',
+                          objectFit: 'contain'
+                        }} 
+                      />
                     </Box>
-                  </motion.div>)}
+                  </motion.div>
+                ))}
               </Marquee>
             </Box>
           </div>
