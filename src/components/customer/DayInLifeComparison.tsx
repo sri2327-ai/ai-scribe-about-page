@@ -5,6 +5,8 @@ import { Clock, Calendar, FileText, MessageSquare, Laptop, Smile, Home } from "l
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { shadowStyles } from "@/lib/shadow-utils";
+import { Toggle } from "@/components/ui/toggle";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 type TimelineStep = {
   time: string;
@@ -107,6 +109,12 @@ const DayInLifeComparison = () => {
     show: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
+  const handleViewToggle = (value: string) => {
+    if (value === 'before' || value === 'after') {
+      setActiveView(value);
+    }
+  };
+
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-6xl mx-auto">
@@ -132,27 +140,42 @@ const DayInLifeComparison = () => {
               "p-1 rounded-xl bg-gray-200 flex w-full max-w-xs",
               shadowStyles.subtle
             )}>
-              {['before', 'after'].map((view) => (
-                <button
-                  key={view}
-                  className={cn(
-                    "relative flex-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm",
-                    activeView === view 
-                      ? "bg-white text-blue-900" 
-                      : "text-gray-600 hover:text-gray-900"
-                  )}
-                  onClick={() => setActiveView(view as 'before' | 'after')}
-                >
-                  {view === 'before' ? 'Without S10.AI' : 'With S10.AI'}
-                  {activeView === view && (
-                    <motion.div
-                      className="absolute inset-0 bg-white rounded-lg z-0"
-                      layoutId="bubble"
-                      transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </button>
-              ))}
+              <button
+                className={cn(
+                  "relative flex-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm",
+                  activeView === 'before' 
+                    ? "bg-white text-blue-900" 
+                    : "text-gray-600 hover:text-gray-900"
+                )}
+                onClick={() => setActiveView('before')}
+              >
+                Without S10.AI
+                {activeView === 'before' && (
+                  <motion.div
+                    className="absolute inset-0 bg-white rounded-lg z-0"
+                    layoutId="bubble"
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </button>
+              <button
+                className={cn(
+                  "relative flex-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm",
+                  activeView === 'after' 
+                    ? "bg-white text-blue-900" 
+                    : "text-gray-600 hover:text-gray-900"
+                )}
+                onClick={() => setActiveView('after')}
+              >
+                With S10.AI
+                {activeView === 'after' && (
+                  <motion.div
+                    className="absolute inset-0 bg-white rounded-lg z-0"
+                    layoutId="bubble"
+                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </button>
             </div>
           </div>
         )}
@@ -174,6 +197,7 @@ const DayInLifeComparison = () => {
               <motion.div 
                 className="relative flex flex-col space-y-8"
                 variants={itemVariants}
+                key="before-timeline"
               >
                 <div className="text-center mb-4">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-800">Without S10.AI</h3>
@@ -230,6 +254,7 @@ const DayInLifeComparison = () => {
               <motion.div 
                 className="relative flex flex-col space-y-8"
                 variants={itemVariants}
+                key="after-timeline"
               >
                 <div className="text-center mb-4">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-800">With S10.AI</h3>
@@ -283,7 +308,7 @@ const DayInLifeComparison = () => {
           </motion.div>
         </div>
 
-        {/* Key Results */}
+        {/* Key Results - with color-coded result boxes to ensure they match active section */}
         <motion.div 
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
           initial={{ opacity: 0, y: 20 }}
