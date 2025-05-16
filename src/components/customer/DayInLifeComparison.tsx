@@ -5,6 +5,7 @@ import { Clock, Calendar, FileText, MessageSquare, Laptop, Smile, Home } from "l
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { shadowStyles } from "@/lib/shadow-utils";
+import { Switch } from "@/components/ui/switch";
 
 type TimelineStep = {
   time: string;
@@ -125,48 +126,16 @@ const DayInLifeComparison = () => {
           </p>
         </motion.div>
 
-        {/* Toggle between Before/After - Always visible regardless of viewport */}
-        <div className="flex justify-center mb-8">
-          <div className={cn(
-            "p-1 rounded-xl bg-gray-200 flex w-full max-w-xs",
-            shadowStyles.subtle
-          )}>
-            <button
-              className={cn(
-                "relative z-10 flex-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm",
-                activeView === 'before' 
-                  ? "bg-white text-blue-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              )}
-              onClick={() => setActiveView('before')}
-            >
-              Without S10.AI
-              {activeView === 'before' && (
-                <motion.div
-                  className="absolute inset-0 bg-white rounded-lg z-0"
-                  layoutId="bubble"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </button>
-            <button
-              className={cn(
-                "relative z-10 flex-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm",
-                activeView === 'after' 
-                  ? "bg-white text-blue-900" 
-                  : "text-gray-600 hover:text-gray-900"
-              )}
-              onClick={() => setActiveView('after')}
-            >
-              With S10.AI
-              {activeView === 'after' && (
-                <motion.div
-                  className="absolute inset-0 bg-white rounded-lg z-0"
-                  layoutId="bubble"
-                  transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-                />
-              )}
-            </button>
+        {/* Toggle between Before/After - Using the Switch component from shadcn */}
+        <div className="flex flex-col items-center justify-center mb-8">
+          <div className="flex items-center justify-center gap-4 p-4 bg-gray-100 rounded-xl w-full max-w-xs">
+            <span className={`font-medium ${activeView === 'before' ? 'text-blue-900' : 'text-gray-500'}`}>Without S10.AI</span>
+            <Switch 
+              checked={activeView === 'after'}
+              onCheckedChange={(checked) => setActiveView(checked ? 'after' : 'before')}
+              className="data-[state=checked]:bg-blue-600"
+            />
+            <span className={`font-medium ${activeView === 'after' ? 'text-blue-900' : 'text-gray-500'}`}>With S10.AI</span>
           </div>
         </div>
 
@@ -302,7 +271,7 @@ const DayInLifeComparison = () => {
           </motion.div>
         </div>
 
-        {/* Key Results - with color-coded result boxes that change based on active view */}
+        {/* Key Results - Always displaying the data for the active view */}
         <motion.div 
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
           initial={{ opacity: 0, y: 20 }}
@@ -310,9 +279,12 @@ const DayInLifeComparison = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
+          {/* First stat */}
           <div className={cn(
             "p-6 rounded-lg text-center",
-            activeView === 'before' ? "bg-white border-2 border-red-300" : "bg-white",
+            activeView === 'before' 
+              ? "bg-white border-2 border-red-300" 
+              : "bg-white border-2 border-green-300",
             shadowStyles.card
           )}>
             <div className={cn(
@@ -325,9 +297,13 @@ const DayInLifeComparison = () => {
               {activeView === 'before' ? 'Less patient time per day' : 'Additional patient time per day'}
             </p>
           </div>
+          
+          {/* Second stat */}
           <div className={cn(
             "p-6 rounded-lg text-center",
-            activeView === 'before' ? "bg-white border-2 border-red-300" : "bg-white",
+            activeView === 'before' 
+              ? "bg-white border-2 border-red-300" 
+              : "bg-white border-2 border-green-300",
             shadowStyles.card
           )}>
             <div className={cn(
@@ -336,13 +312,15 @@ const DayInLifeComparison = () => {
             )}>
               {activeView === 'before' ? '40%' : '98%'}
             </div>
-            <p className="text-gray-700">
-              {activeView === 'before' ? 'Documentation completed during office hours' : 'Documentation completed during office hours'}
-            </p>
+            <p className="text-gray-700">Documentation completed during office hours</p>
           </div>
+          
+          {/* Third stat */}
           <div className={cn(
             "p-6 rounded-lg text-center",
-            activeView === 'before' ? "bg-white border-2 border-red-300" : "bg-white",
+            activeView === 'before' 
+              ? "bg-white border-2 border-red-300" 
+              : "bg-white border-2 border-green-300",
             shadowStyles.card
           )}>
             <div className={cn(
