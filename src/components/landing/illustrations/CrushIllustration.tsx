@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope, FileOutput, Upload } from 'lucide-react';
@@ -62,7 +61,47 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [stepsContainerHeight, setStepsContainerHeight] = useState("auto");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stepsRef = useRef<HTMLDivElement>(null);
+  const isScrollingRef = useRef(false);
+
+  // Function to scroll the container to show the current step
+  const scrollToCurrentStep = () => {
+    if (!stepsRef.current || isScrollingRef.current) return;
+    
+    // Get all step indicator dots
+    const stepIndicators = stepsRef.current.querySelectorAll(".step-indicator");
+    if (!stepIndicators.length || !stepIndicators[currentStep]) return;
+    
+    // Scroll the current step into view
+    isScrollingRef.current = true;
+    
+    // Calculate position to scroll to (center the current step)
+    const container = stepsRef.current;
+    const indicator = stepIndicators[currentStep] as HTMLElement;
+    const containerRect = container.getBoundingClientRect();
+    const indicatorRect = indicator.getBoundingClientRect();
+    
+    // Calculate the desired position to make the indicator centered
+    const scrollPosition = 
+      (indicatorRect.left + indicatorRect.width / 2) - 
+      (containerRect.left + containerRect.width / 2);
+    
+    // Scroll the container
+    if (containerRef.current) {
+      containerRef.current.scrollTo({
+        left: container.scrollLeft + scrollPosition,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Reset scrolling flag after animation completes
+    setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 500);
+  };
 
   useEffect(() => {
     // Set loaded state to prevent initial animation issues
@@ -89,6 +128,26 @@ const CrushIllustration = memo(() => {
     };
   }, []);
 
+  // When current step changes, scroll to make it visible
+  useEffect(() => {
+    scrollToCurrentStep();
+  }, [currentStep]);
+  
+  // Update container height for responsive layout
+  useEffect(() => {
+    const updateHeight = () => {
+      if (containerRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        // Adjust container height based on width for responsive design
+        setStepsContainerHeight(containerWidth < 500 ? "60px" : "auto");
+      }
+    };
+    
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   // Don't render until component is fully mounted
   if (!isLoaded) {
     return (
@@ -100,7 +159,8 @@ const CrushIllustration = memo(() => {
 
   return (
     <div 
-      className="relative w-full h-full flex items-center justify-center p-4 overflow-hidden"
+      ref={containerRef}
+      className="relative w-full h-full flex flex-col items-center justify-center p-4 overflow-hidden"
       style={{ contain: 'content' }}
     >
       {/* Decorative background elements */}
@@ -229,18 +289,39 @@ const CrushIllustration = memo(() => {
             )}
           </div>
           
-          {/* Step indicator dots */}
-          <div className="flex gap-1.5 mt-2">
+          {/* Step indicator dots - now scrollable */}
+          <div 
+            ref={stepsRef}
+            className="flex gap-1.5 mt-2 overflow-x-auto pb-1 scroll-smooth no-scrollbar"
+            style={{ 
+              height: stepsContainerHeight,
+              whiteSpace: 'nowrap',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+          >
             {steps.map((step, idx) => (
               <div 
                 key={idx} 
-                className={`rounded-full transition-all duration-300 ${currentStep === idx ? 'w-4' : 'w-1.5'} h-1.5`}
-                style={{ backgroundColor: currentStep === idx ? steps[idx].color : '#e5e7eb' }}
+                className={`rounded-full transition-all duration-300 ${currentStep === idx ? 'w-4' : 'w-1.5'} h-1.5 step-indicator`}
+                style={{ backgroundColor: currentStep === idx ? steps[idx].color : '#e5e7eb', flexShrink: 0 }}
+                onClick={() => setCurrentStep(idx)}
               />
             ))}
           </div>
         </motion.div>
       </AnimatePresence>
+      
+      {/* Add custom CSS for hiding scrollbars but keeping functionality */}
+      <style jsx>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 });
