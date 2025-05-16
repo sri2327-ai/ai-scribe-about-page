@@ -110,8 +110,11 @@ const DayInLifeComparison = () => {
   };
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+      {/* Add a subtle background pattern for better visibility */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5" />
+      
+      <div className="max-w-6xl mx-auto relative">
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
@@ -127,7 +130,7 @@ const DayInLifeComparison = () => {
           </p>
         </motion.div>
 
-        {/* Desktop view: Visual comparison header */}
+        {/* Desktop view: Visual comparison header with enhanced visibility */}
         {!isMobile && (
           <motion.div 
             className="hidden md:block mb-8"
@@ -136,15 +139,15 @@ const DayInLifeComparison = () => {
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <Card className="bg-white p-4 shadow-md">
+            <Card className="bg-white p-4 shadow-lg border-2 border-gray-200">
               <div className="grid grid-cols-2 gap-8 items-center">
-                <div className="text-center p-4 border-r border-gray-200">
-                  <h3 className="text-xl font-bold text-red-600">WITHOUT S10.AI</h3>
-                  <p className="text-gray-600 mt-1">Longer days, more stress</p>
+                <div className="text-center p-6 border-r-4 border-red-300 bg-red-50 rounded-lg">
+                  <h3 className="text-2xl font-bold text-red-600">WITHOUT S10.AI</h3>
+                  <p className="text-gray-700 mt-1 font-medium">Longer days, more stress</p>
                 </div>
-                <div className="text-center p-4">
-                  <h3 className="text-xl font-bold text-green-600">WITH S10.AI</h3>
-                  <p className="text-gray-600 mt-1">Better balance, improved efficiency</p>
+                <div className="text-center p-6 border-l-4 border-green-300 bg-green-50 rounded-lg">
+                  <h3 className="text-2xl font-bold text-green-600">WITH S10.AI</h3>
+                  <p className="text-gray-700 mt-1 font-medium">Better balance, improved efficiency</p>
                 </div>
               </div>
             </Card>
@@ -153,7 +156,7 @@ const DayInLifeComparison = () => {
 
         {/* Toggle between Before/After - Only shown on mobile */}
         <div className="flex flex-col items-center justify-center mb-8 md:hidden">
-          <div className="flex items-center justify-center gap-4 p-4 bg-gray-100 rounded-xl w-full max-w-xs">
+          <div className="flex items-center justify-center gap-4 p-4 bg-gray-100 rounded-xl w-full max-w-xs shadow-md">
             <span className={`font-medium ${activeView === 'before' ? 'text-blue-900' : 'text-gray-500'}`}>Without S10.AI</span>
             <Switch 
               checked={activeView === 'after'}
@@ -164,7 +167,7 @@ const DayInLifeComparison = () => {
           </div>
         </div>
 
-        {/* Timeline Visualization - Responsive layout */}
+        {/* Timeline Visualization - Enhanced for better desktop visibility */}
         <div className="relative mt-8">
           <motion.div
             className="grid grid-cols-1 md:grid-cols-2 md:gap-8"
@@ -173,17 +176,17 @@ const DayInLifeComparison = () => {
             whileInView="show"
             viewport={{ once: true }}
           >
-            {/* Before Column - Always visible on desktop, conditionally on mobile */}
+            {/* Before Column - Enhanced visibility on desktop */}
             {(!isMobile || activeView === 'before') && (
               <motion.div 
-                className="relative flex flex-col space-y-8 md:border-r md:border-gray-300 md:pr-8"
+                className="relative flex flex-col space-y-8 md:border-r md:border-gray-300 md:pr-8 md:bg-white/70 md:p-6 md:rounded-lg md:shadow-lg"
                 variants={itemVariants}
                 key="before-timeline"
                 initial={isMobile ? "hidden" : undefined}
                 animate={isMobile ? "show" : undefined}
               >
                 <div className="text-center mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-800">Without S10.AI</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 bg-red-100 py-2 px-4 rounded-full inline-block">Without S10.AI</h3>
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <Clock className="h-5 w-5 text-red-500" />
                     <p className="text-red-500 font-medium">12+ hour workday</p>
@@ -192,8 +195,8 @@ const DayInLifeComparison = () => {
                 
                 {/* Timeline items */}
                 <div className="relative">
-                  {/* Vertical line */}
-                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-red-200" />
+                  {/* Vertical line - Made more visible */}
+                  <div className="absolute left-8 top-0 bottom-0 w-1 bg-red-300" />
                   
                   {/* Steps */}
                   {beforeTimeline.map((step, index) => (
@@ -208,6 +211,7 @@ const DayInLifeComparison = () => {
                       <div className={cn(
                         "min-w-16 h-16 rounded-full flex items-center justify-center z-10",
                         step.highlight ? "bg-red-100" : "bg-white",
+                        "border-2 border-red-200", // Added border for better visibility
                         shadowStyles.subtle
                       )}>
                         {step.icon}
@@ -215,6 +219,7 @@ const DayInLifeComparison = () => {
                       <div className={cn(
                         "ml-6 p-4 rounded-lg flex-1",
                         step.highlight ? "bg-red-50 border-l-4 border-red-400" : "bg-white",
+                        "border border-red-100", // Added border for better visibility
                         shadowStyles.card
                       )}>
                         <div className="flex justify-between items-center mb-1">
@@ -232,26 +237,26 @@ const DayInLifeComparison = () => {
               </motion.div>
             )}
             
-            {/* Desktop Comparison Arrow - Only shown on desktop */}
+            {/* Desktop Comparison Arrow - Enhanced for better visibility */}
             {!isMobile && (
-              <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                <div className="bg-white rounded-full p-3 shadow-lg">
-                  <ArrowRight className="h-8 w-8 text-blue-500" />
+              <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                <div className="bg-white rounded-full p-4 shadow-xl border-2 border-blue-300 pulse-animation">
+                  <ArrowRight className="h-10 w-10 text-blue-600" />
                 </div>
               </div>
             )}
             
-            {/* After Column - Always visible on desktop, conditionally on mobile */}
+            {/* After Column - Enhanced visibility on desktop */}
             {(!isMobile || activeView === 'after') && (
               <motion.div 
-                className="relative flex flex-col space-y-8 md:pl-8"
+                className="relative flex flex-col space-y-8 md:pl-8 md:bg-white/70 md:p-6 md:rounded-lg md:shadow-lg"
                 variants={itemVariants}
                 key="after-timeline"
                 initial={isMobile ? "hidden" : undefined}
                 animate={isMobile ? "show" : undefined}
               >
                 <div className="text-center mb-4">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-800">With S10.AI</h3>
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-800 bg-green-100 py-2 px-4 rounded-full inline-block">With S10.AI</h3>
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <Clock className="h-5 w-5 text-green-500" />
                     <p className="text-green-500 font-medium">8-hour workday</p>
@@ -260,8 +265,8 @@ const DayInLifeComparison = () => {
                 
                 {/* Timeline items */}
                 <div className="relative">
-                  {/* Vertical line */}
-                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-green-200" />
+                  {/* Vertical line - Made more visible */}
+                  <div className="absolute left-8 top-0 bottom-0 w-1 bg-green-300" />
                   
                   {/* Steps */}
                   {afterTimeline.map((step, index) => (
@@ -276,6 +281,7 @@ const DayInLifeComparison = () => {
                       <div className={cn(
                         "min-w-16 h-16 rounded-full flex items-center justify-center z-10",
                         step.highlight ? "bg-green-100" : "bg-white",
+                        "border-2 border-green-200", // Added border for better visibility
                         shadowStyles.subtle
                       )}>
                         {step.icon}
@@ -283,6 +289,7 @@ const DayInLifeComparison = () => {
                       <div className={cn(
                         "ml-6 p-4 rounded-lg flex-1",
                         step.highlight ? "bg-green-50 border-l-4 border-green-400" : "bg-white",
+                        "border border-green-100", // Added border for better visibility
                         shadowStyles.card
                       )}>
                         <div className="flex justify-between items-center mb-1">
@@ -302,7 +309,7 @@ const DayInLifeComparison = () => {
           </motion.div>
         </div>
 
-        {/* Key Results - Desktop shows both, mobile shows active view */}
+        {/* Key Results - Enhanced for better desktop visibility */}
         <motion.div 
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
           initial={{ opacity: 0, y: 20 }}
@@ -310,36 +317,35 @@ const DayInLifeComparison = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {/* First stat */}
+          {/* First stat - Enhanced contrast */}
           <div className={cn(
             "p-6 rounded-lg text-center",
             isMobile 
               ? (activeView === 'before' 
                   ? "bg-white border-2 border-red-300" 
                   : "bg-white border-2 border-green-300")
-              : "bg-gradient-to-r from-red-50 to-green-50 border border-gray-200",
-            shadowStyles.card
+              : "bg-gradient-to-r from-red-50 via-white to-green-50 border-2 border-gray-300 shadow-lg",
           )}>
             <div className="flex md:flex-row flex-col justify-center md:space-x-6">
-              {/* Before stat - Always visible on desktop, conditionally on mobile */}
+              {/* Before stat */}
               {(!isMobile || activeView === 'before') && (
-                <div className="text-center md:border-r md:pr-6 md:border-gray-300 mb-4 md:mb-0">
+                <div className="text-center md:border-r-2 md:pr-6 md:border-gray-300 mb-4 md:mb-0 md:bg-red-50 md:p-3 md:rounded-lg">
                   <div className="text-3xl md:text-4xl font-bold mb-2 text-red-500">
                     -2 hrs
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm font-medium">
                     Less patient time per day
                   </p>
                 </div>
               )}
 
-              {/* After stat - Always visible on desktop, conditionally on mobile */}
+              {/* After stat */}
               {(!isMobile || activeView === 'after') && (
-                <div className="text-center md:pl-0">
+                <div className="text-center md:pl-0 md:bg-green-50 md:p-3 md:rounded-lg">
                   <div className="text-3xl md:text-4xl font-bold mb-2 text-green-500">
                     +2 hrs
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm font-medium">
                     Additional patient time per day
                   </p>
                 </div>
@@ -347,24 +353,23 @@ const DayInLifeComparison = () => {
             </div>
           </div>
           
-          {/* Second stat */}
+          {/* Second stat - Enhanced contrast */}
           <div className={cn(
             "p-6 rounded-lg text-center",
             isMobile 
               ? (activeView === 'before' 
                   ? "bg-white border-2 border-red-300" 
                   : "bg-white border-2 border-green-300")
-              : "bg-gradient-to-r from-red-50 to-green-50 border border-gray-200",
-            shadowStyles.card
+              : "bg-gradient-to-r from-red-50 via-white to-green-50 border-2 border-gray-300 shadow-lg",
           )}>
             <div className="flex md:flex-row flex-col justify-center md:space-x-6">
               {/* Before stat */}
               {(!isMobile || activeView === 'before') && (
-                <div className="text-center md:border-r md:pr-6 md:border-gray-300 mb-4 md:mb-0">
+                <div className="text-center md:border-r-2 md:pr-6 md:border-gray-300 mb-4 md:mb-0 md:bg-red-50 md:p-3 md:rounded-lg">
                   <div className="text-3xl md:text-4xl font-bold mb-2 text-red-500">
                     40%
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm font-medium">
                     Documentation completed during office hours
                   </p>
                 </div>
@@ -372,11 +377,11 @@ const DayInLifeComparison = () => {
 
               {/* After stat */}
               {(!isMobile || activeView === 'after') && (
-                <div className="text-center md:pl-0">
+                <div className="text-center md:pl-0 md:bg-green-50 md:p-3 md:rounded-lg">
                   <div className="text-3xl md:text-4xl font-bold mb-2 text-green-500">
                     98%
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm font-medium">
                     Documentation completed during office hours
                   </p>
                 </div>
@@ -384,24 +389,23 @@ const DayInLifeComparison = () => {
             </div>
           </div>
           
-          {/* Third stat */}
+          {/* Third stat - Enhanced contrast */}
           <div className={cn(
             "p-6 rounded-lg text-center",
             isMobile 
               ? (activeView === 'before' 
                   ? "bg-white border-2 border-red-300" 
                   : "bg-white border-2 border-green-300")
-              : "bg-gradient-to-r from-red-50 to-green-50 border border-gray-200",
-            shadowStyles.card
+              : "bg-gradient-to-r from-red-50 via-white to-green-50 border-2 border-gray-300 shadow-lg",
           )}>
             <div className="flex md:flex-row flex-col justify-center md:space-x-6">
               {/* Before stat */}
               {(!isMobile || activeView === 'before') && (
-                <div className="text-center md:border-r md:pr-6 md:border-gray-300 mb-4 md:mb-0">
+                <div className="text-center md:border-r-2 md:pr-6 md:border-gray-300 mb-4 md:mb-0 md:bg-red-50 md:p-3 md:rounded-lg">
                   <div className="text-3xl md:text-4xl font-bold mb-2 text-red-500">
                     -3 hrs
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm font-medium">
                     Work-life balance reduced daily
                   </p>
                 </div>
@@ -409,11 +413,11 @@ const DayInLifeComparison = () => {
 
               {/* After stat */}
               {(!isMobile || activeView === 'after') && (
-                <div className="text-center md:pl-0">
+                <div className="text-center md:pl-0 md:bg-green-50 md:p-3 md:rounded-lg">
                   <div className="text-3xl md:text-4xl font-bold mb-2 text-green-500">
                     3 hrs
                   </div>
-                  <p className="text-gray-700 text-sm">
+                  <p className="text-gray-700 text-sm font-medium">
                     Work-life balance improved daily
                   </p>
                 </div>
@@ -422,6 +426,31 @@ const DayInLifeComparison = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Add CSS for pulse animation */}
+      <style jsx>{`
+        .pulse-animation {
+          animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+          0% {
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
+          }
+          70% {
+            box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+          }
+          100% {
+            box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+          }
+        }
+        
+        .bg-grid-pattern {
+          background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+                           linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+      `}</style>
     </section>
   );
 };
