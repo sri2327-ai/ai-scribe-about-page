@@ -61,11 +61,17 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showStepNav, setShowStepNav] = useState(true); // Always show navigation arrows
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
   
+  // Show more prominent step navigation to make all steps visible
+  useEffect(() => {
+    setShowStepNav(true);
+  }, []);
+
   // Function to scroll the container to show the current step
   const scrollToCurrentStep = () => {
     if (!stepsRef.current || isScrollingRef.current) return;
@@ -293,27 +299,29 @@ const CrushIllustration = memo(() => {
           
           {/* Enhanced Step navigation with better visibility */}
           <div className="mt-4 flex justify-center items-center">
-            {/* Previous button - always visible with improved styling */}
+            {/* Previous button - always visible */}
             <motion.button
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handlePrevStep}
-              className="flex justify-center items-center w-8 h-8 rounded-full bg-white border border-gray-200 hover:bg-gray-100 transition-colors mr-2 shadow-sm"
+              className="flex justify-center items-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors mr-2"
               aria-label="Previous step"
             >
-              <ArrowLeft size={16} className="text-gray-600" />
+              <ArrowLeft size={16} />
             </motion.button>
             
-            {/* Improved step indicator bar with clearer visibility */}
+            {/* Step indicator dots - now with clearer visibility and labels */}
             <div 
               ref={stepsRef} 
-              className="flex items-center justify-center gap-4 border border-gray-200 rounded-full px-4 py-2 bg-white shadow-sm overflow-x-auto no-scrollbar"
-              style={{ minWidth: '200px' }}
+              className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm overflow-x-auto no-scrollbar"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {steps.map((step, idx) => (
                 <motion.button 
                   key={idx} 
-                  className="flex flex-col items-center cursor-pointer"
+                  className="flex flex-col items-center"
                   onClick={() => setCurrentStep(idx)}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -321,9 +329,8 @@ const CrushIllustration = memo(() => {
                   aria-label={`Go to step ${idx + 1}: ${step.label}`}
                   aria-current={currentStep === idx ? "step" : undefined}
                 >
-                  {/* Improved step indicator dots with more prominence */}
                   <div 
-                    className={`w-4 h-4 rounded-full transition-all duration-300 step-indicator relative mb-1
+                    className={`w-3 h-3 rounded-full transition-all duration-300 step-indicator relative mb-1
                       ${currentStep === idx ? 'ring-2 ring-offset-2 ring-offset-white' : 'hover:ring-1 hover:ring-offset-1'}
                     `}
                     style={{ 
@@ -341,33 +348,29 @@ const CrushIllustration = memo(() => {
                       />
                     )}
                   </div>
-                  {/* Added step numbers under dots for better clarity */}
-                  <span className="text-[10px] font-medium" 
-                    style={{ 
-                      color: currentStep === idx ? step.color : 'gray' 
-                    }}
-                  >
-                    {idx + 1}
-                  </span>
+                  {/* Small step number under dot for better clarity */}
+                  <span className="text-[10px] text-gray-500 font-medium">{idx + 1}</span>
                 </motion.button>
               ))}
             </div>
             
-            {/* Next button - always visible with improved styling */}
+            {/* Next button - always visible */}
             <motion.button
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleNextStep}
-              className="flex justify-center items-center w-8 h-8 rounded-full bg-white border border-gray-200 hover:bg-gray-100 transition-colors ml-2 shadow-sm"
+              className="flex justify-center items-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ml-2"
               aria-label="Next step"
             >
-              <ArrowRight size={16} className="text-gray-600" />
+              <ArrowRight size={16} />
             </motion.button>
           </div>
           
-          {/* Clearer progress text indicator - shows current step and total */}
-          <div className="mt-3 text-xs font-medium py-1 px-3 bg-gray-50 rounded-full border border-gray-100">
-            Step {currentStep + 1} of {steps.length}: <span style={{ color: steps[currentStep].color }}>{steps[currentStep].label}</span>
+          {/* Progress text indicator - shows current step and total */}
+          <div className="mt-2 text-[10px] text-gray-500 font-medium">
+            Step {currentStep + 1} of {steps.length}: {steps[currentStep].label}
           </div>
         </motion.div>
       </AnimatePresence>
