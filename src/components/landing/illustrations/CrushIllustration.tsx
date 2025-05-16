@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope, FileOutput, Upload, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -62,26 +61,16 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [stepsContainerHeight, setStepsContainerHeight] = useState("auto");
-  const [showStepNav, setShowStepNav] = useState(false);
+  const [showStepNav, setShowStepNav] = useState(true); // Always show navigation arrows
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
   
-  // Show step navigation when there are more steps than can fit in view
+  // Show more prominent step navigation to make all steps visible
   useEffect(() => {
-    const checkOverflow = () => {
-      if (stepsRef.current) {
-        const container = stepsRef.current;
-        setShowStepNav(container.scrollWidth > container.clientWidth);
-      }
-    };
-    
-    checkOverflow();
-    window.addEventListener('resize', checkOverflow);
-    return () => window.removeEventListener('resize', checkOverflow);
-  }, [isLoaded]);
+    setShowStepNav(true);
+  }, []);
 
   // Function to scroll the container to show the current step
   const scrollToCurrentStep = () => {
@@ -146,29 +135,24 @@ const CrushIllustration = memo(() => {
   useEffect(() => {
     scrollToCurrentStep();
   }, [currentStep]);
-  
-  // Update container height for responsive layout
-  useEffect(() => {
-    const updateHeight = () => {
-      if (containerRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        // Adjust container height based on width for responsive design
-        setStepsContainerHeight(containerWidth < 500 ? "60px" : "auto");
-      }
-    };
-    
-    updateHeight();
-    window.addEventListener('resize', updateHeight);
-    return () => window.removeEventListener('resize', updateHeight);
-  }, []);
 
   // Navigate to previous step
   const handlePrevStep = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    
     setCurrentStep((prev) => (prev - 1 + steps.length) % steps.length);
   };
 
   // Navigate to next step
   const handleNextStep = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    
     setCurrentStep((prev) => (prev + 1) % steps.length);
   };
 
@@ -313,95 +297,83 @@ const CrushIllustration = memo(() => {
             )}
           </div>
           
-          {/* Step navigation buttons */}
-          <div className="mt-3 flex justify-center items-center gap-1">
-            <div className="w-6 h-6 flex justify-center items-center">
-              {showStepNav && (
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={handlePrevStep}
-                  className="flex justify-center items-center w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-                  aria-label="Previous step"
-                >
-                  <ArrowLeft size={12} />
-                </motion.button>
-              )}
-            </div>
-            
-            {/* Step indicator dots - now with better visibility and scrolling */}
-            <div 
-              ref={stepsRef}
-              className="flex gap-1.5 overflow-x-auto scroll-smooth no-scrollbar"
-              style={{ 
-                height: stepsContainerHeight,
-                whiteSpace: 'nowrap',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                padding: '0 4px',
-                maxWidth: '160px'
-              }}
+          {/* Enhanced Step navigation with better visibility */}
+          <div className="mt-4 flex justify-center items-center">
+            {/* Previous button - always visible */}
+            <motion.button
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handlePrevStep}
+              className="flex justify-center items-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors mr-2"
+              aria-label="Previous step"
             >
+              <ArrowLeft size={16} />
+            </motion.button>
+            
+            {/* Step indicator dots - now with clearer visibility and labels */}
+            <div className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm">
               {steps.map((step, idx) => (
                 <motion.button 
                   key={idx} 
-                  className={`rounded-full transition-all duration-300 ${
-                    currentStep === idx ? 'w-6 h-1.5' : 'w-1.5 h-1.5'
-                  } step-indicator relative`}
-                  style={{ 
-                    backgroundColor: currentStep === idx ? steps[idx].color : '#e5e7eb',
-                    flexShrink: 0,
-                    flexGrow: currentStep === idx ? 1 : 0,
-                    cursor: 'pointer'
-                  }}
+                  className="flex flex-col items-center"
                   onClick={() => setCurrentStep(idx)}
-                  whileHover={{ scale: 1.2 }}
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   title={step.label}
                   aria-label={`Go to step ${idx + 1}: ${step.label}`}
+                  aria-current={currentStep === idx ? "step" : undefined}
                 >
-                  {currentStep === idx && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full"
-                      initial={{ opacity: 0.5, scale: 1 }}
-                      animate={{ opacity: 0, scale: 1.5 }}
-                      transition={{ repeat: Infinity, duration: 2 }}
-                      style={{ backgroundColor: steps[idx].color }}
-                    />
-                  )}
+                  <div 
+                    className={`w-3 h-3 rounded-full transition-all duration-300 step-indicator relative mb-1
+                      ${currentStep === idx ? 'ring-2 ring-offset-2' : 'hover:ring-1 hover:ring-offset-1'}
+                    `}
+                    style={{ 
+                      backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
+                      ringColor: step.color,
+                      ringOffsetColor: 'white',
+                    }}
+                  >
+                    {currentStep === idx && (
+                      <motion.div
+                        className="absolute inset-0 rounded-full"
+                        initial={{ opacity: 0.5, scale: 1 }}
+                        animate={{ opacity: 0, scale: 1.5 }}
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        style={{ backgroundColor: step.color }}
+                      />
+                    )}
+                  </div>
+                  {/* Small step number under dot for better clarity */}
+                  <span className="text-[10px] text-gray-500">{idx + 1}</span>
                 </motion.button>
               ))}
             </div>
             
-            <div className="w-6 h-6 flex justify-center items-center">
-              {showStepNav && (
-                <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={handleNextStep}
-                  className="flex justify-center items-center w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
-                  aria-label="Next step"
-                >
-                  <ArrowRight size={12} />
-                </motion.button>
-              )}
-            </div>
+            {/* Next button - always visible */}
+            <motion.button
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={handleNextStep}
+              className="flex justify-center items-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ml-2"
+              aria-label="Next step"
+            >
+              <ArrowRight size={16} />
+            </motion.button>
           </div>
           
           {/* Progress text indicator - shows current step and total */}
-          <div className="mt-1 text-[10px] text-gray-500">
-            Step {currentStep + 1} of {steps.length}
+          <div className="mt-2 text-[10px] text-gray-500 font-medium">
+            Step {currentStep + 1} of {steps.length}: {steps[currentStep].label}
           </div>
         </motion.div>
       </AnimatePresence>
       
       {/* Add custom CSS for hiding scrollbars but keeping functionality */}
-      <style>
-        {`
+      <style dangerouslySetInnerHTML={{ __html: `
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
@@ -409,8 +381,7 @@ const CrushIllustration = memo(() => {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-        `}
-      </style>
+      `}} />
     </div>
   );
 });
