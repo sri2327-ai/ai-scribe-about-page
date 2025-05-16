@@ -427,8 +427,9 @@ const DayInLifeComparison = () => {
         </motion.div>
       </div>
 
-      {/* Add CSS for pulse animation */}
-      <style jsx>{`
+      {/* Add CSS for pulse animation - Fixed the style element */}
+      <style>
+        {`
         .pulse-animation {
           animation: pulse 2s infinite;
         }
@@ -450,7 +451,8 @@ const DayInLifeComparison = () => {
                            linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
           background-size: 20px 20px;
         }
-      `}</style>
+        `}
+      </style>
     </section>
   );
 };
