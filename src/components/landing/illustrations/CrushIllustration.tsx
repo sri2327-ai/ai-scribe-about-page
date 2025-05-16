@@ -60,17 +60,31 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Set loaded state to prevent initial animation issues
     setIsLoaded(true);
     
-    const interval = setInterval(() => {
-      setCurrentStep((prev) => (prev + 1) % steps.length);
+    // Clear any existing interval
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    
+    // Set new interval for cycling through steps
+    intervalRef.current = setInterval(() => {
+      setCurrentStep((prev) => {
+        // Ensure we cycle through all steps (0 to 4)
+        const nextStep = (prev + 1) % steps.length;
+        return nextStep;
+      });
     }, 3000);
     
     return () => {
-      clearInterval(interval);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
     };
   }, []);
 

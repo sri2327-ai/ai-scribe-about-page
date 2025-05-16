@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 import { GradientTracing } from "@/components/ui/gradient-tracing";
@@ -420,15 +420,55 @@ const workflowSteps = [
 export const CAWorkflowAnimation = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+        autoPlayTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (isAutoPlaying) {
-      const timer = setInterval(() => {
-        setCurrentStep((prev) => (prev + 1) % workflowSteps.length);
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+      
+      autoPlayTimeoutRef.current = setTimeout(() => {
+        setCurrentStep((prev) => {
+          const nextStep = (prev + 1) % workflowSteps.length;
+          console.log(`Advancing from step ${prev} to step ${nextStep}`);
+          return nextStep;
+        });
       }, 4000);
-      return () => clearInterval(timer);
     }
-  }, [isAutoPlaying]);
+    
+    return () => {
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+        autoPlayTimeoutRef.current = null;
+      }
+    };
+  }, [isAutoPlaying, currentStep]);
+
+  const handleStepClick = (index: number) => {
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    
+    setCurrentStep(index);
+    setIsAutoPlaying(false);
+    
+    const inactivityTimer = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 15000);
+    
+    return () => clearTimeout(inactivityTimer);
+  };
 
   return (
     <div className="relative w-full flex items-center justify-center overflow-hidden">
@@ -507,10 +547,7 @@ export const CAWorkflowAnimation = () => {
           {workflowSteps.map((step, index) => (
             <button
               key={step.id}
-              onClick={() => {
-                setCurrentStep(index);
-                setIsAutoPlaying(false);
-              }}
+              onClick={() => handleStepClick(index)}
               className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full transition-all duration-300`}
               style={{
                 backgroundColor: currentStep === index ? darkBlueTheme.primary : '#d1d5db',

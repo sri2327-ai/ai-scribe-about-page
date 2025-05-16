@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { PhoneCall, MessageSquare, Calendar, ClipboardCheck, Bell, FileText, CalendarPlus, Phone, Mail } from 'lucide-react';
 
@@ -188,24 +189,52 @@ export const BravoWorkflowAnimation = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
+  // Add reference to manage timeout
+  const autoPlayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Clean up on unmount
+  useEffect(() => {
+    return () => {
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Auto-advance steps
   useEffect(() => {
     if (isAutoPlaying) {
-      const interval = setInterval(() => {
+      // Clear any existing timeout to prevent multiple timers
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+      
+      // Set timeout for advancing to the next step
+      autoPlayTimeoutRef.current = setTimeout(() => {
         setCurrentStep((prev) => {
-          if (prev >= steps.length - 1) {
-            return 0;
-          }
-          return prev + 1;
+          // Explicitly cycle through all steps
+          const nextStep = prev >= steps.length - 1 ? 0 : prev + 1;
+          console.log(`Advancing from step ${prev} to step ${nextStep}`);
+          return nextStep;
         });
       }, 6000); // Show each step for 6 seconds
 
-      return () => clearInterval(interval);
+      return () => {
+        if (autoPlayTimeoutRef.current) {
+          clearTimeout(autoPlayTimeoutRef.current);
+          autoPlayTimeoutRef.current = null;
+        }
+      };
     }
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, currentStep]); // Added currentStep as dependency
 
   const handleStepClick = (index: number) => {
+    // Clear existing timeout when user interacts
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    
     setUserInteracted(true);
     setIsAutoPlaying(false);
     setCurrentStep(index);
