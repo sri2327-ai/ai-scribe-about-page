@@ -9,12 +9,14 @@ import PromoBanner from '@/components/customer/PromoBanner';
 import StunningCaseStudies from '@/components/customer/StunningCaseStudies';
 import LogoScroll from '@/components/customer/LogoScroll';
 import HeroSection from '@/components/customer/HeroSection';
+import DayInLifeComparison from '@/components/customer/DayInLifeComparison';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const Customer = () => {
   const isMobile = useIsMobile();
   
   const sections = [
+    { Component: DayInLifeComparison, id: 'day-in-life' },
     { Component: TestimonialCarousel, id: 'testimonials' },
     { Component: StunningCaseStudies, id: 'case-studies' },
     { Component: LogoScroll, id: 'logos' },
