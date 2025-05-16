@@ -880,6 +880,7 @@ export function AnimatedWorkflow() {
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const [recordingTime, setRecordingTime] = useState<number>(0);
   const [timerDisplay, setTimerDisplay] = useState<string>("00:00");
+  const autoPlayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const theme = useMuiTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -913,14 +914,33 @@ export function AnimatedWorkflow() {
   // Auto-advance steps
   useEffect(() => {
     if (isAutoPlaying) {
-      const timer = setInterval(() => {
+      // Clear any existing timeout to prevent multiple timers
+      if (autoPlayTimeoutRef.current) {
+        clearTimeout(autoPlayTimeoutRef.current);
+      }
+      
+      autoPlayTimeoutRef.current = setTimeout(() => {
+        // Only advance if we haven't reached the end of the workflow steps
         setCurrentStep((prev) => (prev + 1) % workflowSteps.length);
       }, 6000);
-      return () => clearInterval(timer);
+      
+      // Clean up timeout on unmount or when dependencies change
+      return () => {
+        if (autoPlayTimeoutRef.current) {
+          clearTimeout(autoPlayTimeoutRef.current);
+          autoPlayTimeoutRef.current = null;
+        }
+      };
     }
-  }, [isAutoPlaying]);
+  }, [isAutoPlaying, currentStep]);
 
   const handleStepClick = (index: number) => {
+    // Clear any existing timeout when user manually changes step
+    if (autoPlayTimeoutRef.current) {
+      clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = null;
+    }
+    
     setUserInteracted(true);
     setIsAutoPlaying(false);
     setCurrentStep(index);
