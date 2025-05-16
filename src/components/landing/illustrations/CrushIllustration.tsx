@@ -1,14 +1,16 @@
 
 import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mic, Brain, FileText, FileCog, Stethoscope } from 'lucide-react';
+import { Mic, Brain, FileText, FileCog, Stethoscope, FileOutput, Upload } from 'lucide-react';
 
+// Updated steps array to include all workflow steps
 const steps = [
   { Icon: Mic, label: "Voice Input", delay: 0, color: "#046f90" },
   { Icon: Brain, label: "AI Processing", delay: 1, color: "#387E89" },
   { Icon: FileText, label: "Documentation", delay: 2, color: "#5192AE" },
-  { Icon: FileCog, label: "EHR Integration", delay: 3, color: "#143151" },
-  { Icon: Stethoscope, label: "Orders & Prescriptions", delay: 4, color: "#f06292" }
+  { Icon: FileOutput, label: "Patient Instructions", delay: 3, color: "#143151" },
+  { Icon: FileCog, label: "EHR Integration", delay: 4, color: "#046f90" },
+  { Icon: Upload, label: "Push Notes to EHR", delay: 5, color: "#f06292" }
 ];
 
 // Memoize icon components to prevent recreation
@@ -74,9 +76,8 @@ const CrushIllustration = memo(() => {
     // Set new interval for cycling through steps
     intervalRef.current = setInterval(() => {
       setCurrentStep((prev) => {
-        // Ensure we cycle through all steps (0 to 4)
-        const nextStep = (prev + 1) % steps.length;
-        return nextStep;
+        // Ensure we cycle through all steps (0 to 5)
+        return (prev + 1) % steps.length;
       });
     }, 3000);
     
@@ -146,7 +147,8 @@ const CrushIllustration = memo(() => {
             boxShadow: `0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
                        currentStep === 1 ? '56,126,137,0.1' : 
                        currentStep === 2 ? '81,146,174,0.1' : 
-                       currentStep === 3 ? '20,49,81,0.1' : '240,98,146,0.1'})`,
+                       currentStep === 3 ? '20,49,81,0.1' : 
+                       currentStep === 4 ? '4,111,144,0.1' : '240,98,146,0.1'})`,
             borderTop: `3px solid ${steps[currentStep].color}`
           }}
         >
@@ -197,21 +199,28 @@ const CrushIllustration = memo(() => {
             )}
             {currentStep === 3 && (
               <div className="flex justify-center">
+                <div className="text-xs text-center text-gray-500">
+                  Generating patient instructions...
+                </div>
+              </div>
+            )}
+            {currentStep === 4 && (
+              <div className="flex justify-center">
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                   className="w-5 h-5 border-2 border-t-transparent rounded-full"
-                  style={{ borderColor: steps[3].color }}
+                  style={{ borderColor: steps[4].color }}
                 />
               </div>
             )}
-            {currentStep === 4 && (
+            {currentStep === 5 && (
               <div className="flex justify-center space-x-1">
                 {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
                     className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: steps[4].color }}
+                    style={{ backgroundColor: steps[5].color }}
                     animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
                     transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
                   />
