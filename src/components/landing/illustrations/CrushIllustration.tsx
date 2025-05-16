@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope, FileOutput, Upload, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -332,12 +331,11 @@ const CrushIllustration = memo(() => {
                 >
                   <div 
                     className={`w-3 h-3 rounded-full transition-all duration-300 step-indicator relative mb-1
-                      ${currentStep === idx ? 'ring-2 ring-offset-2' : 'hover:ring-1 hover:ring-offset-1'}
+                      ${currentStep === idx ? 'ring-2 ring-offset-2 ring-offset-white' : 'hover:ring-1 hover:ring-offset-1'}
                     `}
                     style={{ 
                       backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
-                      border: currentStep === idx ? `1px solid ${step.color}` : 'none',
-                      ringOffsetColor: 'white'
+                      border: currentStep === idx ? `1px solid ${step.color}` : 'none'
                     }}
                   >
                     {currentStep === idx && (
