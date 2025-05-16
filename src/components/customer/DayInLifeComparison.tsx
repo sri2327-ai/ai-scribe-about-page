@@ -1,11 +1,12 @@
 
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
-import { Clock, Calendar, FileText, MessageSquare, Laptop, Smile, Home } from "lucide-react";
+import { Clock, Calendar, FileText, MessageSquare, Laptop, Smile, Home, ArrowRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { shadowStyles } from "@/lib/shadow-utils";
 import { Switch } from "@/components/ui/switch";
+import { Card } from "@/components/ui/card";
 
 type TimelineStep = {
   time: string;
@@ -126,8 +127,32 @@ const DayInLifeComparison = () => {
           </p>
         </motion.div>
 
-        {/* Toggle between Before/After - Using the Switch component from shadcn */}
-        <div className="flex flex-col items-center justify-center mb-8">
+        {/* Desktop view: Visual comparison header */}
+        {!isMobile && (
+          <motion.div 
+            className="hidden md:block mb-8"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <Card className="bg-white p-4 shadow-md">
+              <div className="grid grid-cols-2 gap-8 items-center">
+                <div className="text-center p-4 border-r border-gray-200">
+                  <h3 className="text-xl font-bold text-red-600">WITHOUT S10.AI</h3>
+                  <p className="text-gray-600 mt-1">Longer days, more stress</p>
+                </div>
+                <div className="text-center p-4">
+                  <h3 className="text-xl font-bold text-green-600">WITH S10.AI</h3>
+                  <p className="text-gray-600 mt-1">Better balance, improved efficiency</p>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        )}
+
+        {/* Toggle between Before/After - Only shown on mobile */}
+        <div className="flex flex-col items-center justify-center mb-8 md:hidden">
           <div className="flex items-center justify-center gap-4 p-4 bg-gray-100 rounded-xl w-full max-w-xs">
             <span className={`font-medium ${activeView === 'before' ? 'text-blue-900' : 'text-gray-500'}`}>Without S10.AI</span>
             <Switch 
@@ -139,13 +164,10 @@ const DayInLifeComparison = () => {
           </div>
         </div>
 
-        {/* Timeline Visualization */}
+        {/* Timeline Visualization - Responsive layout */}
         <div className="relative mt-8">
           <motion.div
-            className={cn(
-              "grid",
-              isMobile ? "grid-cols-1" : "grid-cols-2 gap-16"
-            )}
+            className="grid grid-cols-1 md:grid-cols-2 md:gap-8"
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -154,7 +176,7 @@ const DayInLifeComparison = () => {
             {/* Before Column - Always visible on desktop, conditionally on mobile */}
             {(!isMobile || activeView === 'before') && (
               <motion.div 
-                className="relative flex flex-col space-y-8"
+                className="relative flex flex-col space-y-8 md:border-r md:border-gray-300 md:pr-8"
                 variants={itemVariants}
                 key="before-timeline"
                 initial={isMobile ? "hidden" : undefined}
@@ -171,7 +193,7 @@ const DayInLifeComparison = () => {
                 {/* Timeline items */}
                 <div className="relative">
                   {/* Vertical line */}
-                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300" />
+                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-red-200" />
                   
                   {/* Steps */}
                   {beforeTimeline.map((step, index) => (
@@ -210,10 +232,19 @@ const DayInLifeComparison = () => {
               </motion.div>
             )}
             
+            {/* Desktop Comparison Arrow - Only shown on desktop */}
+            {!isMobile && (
+              <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="bg-white rounded-full p-3 shadow-lg">
+                  <ArrowRight className="h-8 w-8 text-blue-500" />
+                </div>
+              </div>
+            )}
+            
             {/* After Column - Always visible on desktop, conditionally on mobile */}
             {(!isMobile || activeView === 'after') && (
               <motion.div 
-                className="relative flex flex-col space-y-8"
+                className="relative flex flex-col space-y-8 md:pl-8"
                 variants={itemVariants}
                 key="after-timeline"
                 initial={isMobile ? "hidden" : undefined}
@@ -230,7 +261,7 @@ const DayInLifeComparison = () => {
                 {/* Timeline items */}
                 <div className="relative">
                   {/* Vertical line */}
-                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300" />
+                  <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-green-200" />
                   
                   {/* Steps */}
                   {afterTimeline.map((step, index) => (
@@ -271,7 +302,7 @@ const DayInLifeComparison = () => {
           </motion.div>
         </div>
 
-        {/* Key Results - Always displaying the data for the active view */}
+        {/* Key Results - Desktop shows both, mobile shows active view */}
         <motion.div 
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
           initial={{ opacity: 0, y: 20 }}
@@ -282,56 +313,112 @@ const DayInLifeComparison = () => {
           {/* First stat */}
           <div className={cn(
             "p-6 rounded-lg text-center",
-            activeView === 'before' 
-              ? "bg-white border-2 border-red-300" 
-              : "bg-white border-2 border-green-300",
+            isMobile 
+              ? (activeView === 'before' 
+                  ? "bg-white border-2 border-red-300" 
+                  : "bg-white border-2 border-green-300")
+              : "bg-gradient-to-r from-red-50 to-green-50 border border-gray-200",
             shadowStyles.card
           )}>
-            <div className={cn(
-              "text-3xl md:text-4xl font-bold mb-2",
-              activeView === 'before' ? "text-red-500" : "text-green-500"
-            )}>
-              {activeView === 'before' ? '-2 hrs' : '+2 hrs'}
+            <div className="flex md:flex-row flex-col justify-center md:space-x-6">
+              {/* Before stat - Always visible on desktop, conditionally on mobile */}
+              {(!isMobile || activeView === 'before') && (
+                <div className="text-center md:border-r md:pr-6 md:border-gray-300 mb-4 md:mb-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-red-500">
+                    -2 hrs
+                  </div>
+                  <p className="text-gray-700 text-sm">
+                    Less patient time per day
+                  </p>
+                </div>
+              )}
+
+              {/* After stat - Always visible on desktop, conditionally on mobile */}
+              {(!isMobile || activeView === 'after') && (
+                <div className="text-center md:pl-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-green-500">
+                    +2 hrs
+                  </div>
+                  <p className="text-gray-700 text-sm">
+                    Additional patient time per day
+                  </p>
+                </div>
+              )}
             </div>
-            <p className="text-gray-700">
-              {activeView === 'before' ? 'Less patient time per day' : 'Additional patient time per day'}
-            </p>
           </div>
           
           {/* Second stat */}
           <div className={cn(
             "p-6 rounded-lg text-center",
-            activeView === 'before' 
-              ? "bg-white border-2 border-red-300" 
-              : "bg-white border-2 border-green-300",
+            isMobile 
+              ? (activeView === 'before' 
+                  ? "bg-white border-2 border-red-300" 
+                  : "bg-white border-2 border-green-300")
+              : "bg-gradient-to-r from-red-50 to-green-50 border border-gray-200",
             shadowStyles.card
           )}>
-            <div className={cn(
-              "text-3xl md:text-4xl font-bold mb-2",
-              activeView === 'before' ? "text-red-500" : "text-green-500"
-            )}>
-              {activeView === 'before' ? '40%' : '98%'}
+            <div className="flex md:flex-row flex-col justify-center md:space-x-6">
+              {/* Before stat */}
+              {(!isMobile || activeView === 'before') && (
+                <div className="text-center md:border-r md:pr-6 md:border-gray-300 mb-4 md:mb-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-red-500">
+                    40%
+                  </div>
+                  <p className="text-gray-700 text-sm">
+                    Documentation completed during office hours
+                  </p>
+                </div>
+              )}
+
+              {/* After stat */}
+              {(!isMobile || activeView === 'after') && (
+                <div className="text-center md:pl-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-green-500">
+                    98%
+                  </div>
+                  <p className="text-gray-700 text-sm">
+                    Documentation completed during office hours
+                  </p>
+                </div>
+              )}
             </div>
-            <p className="text-gray-700">Documentation completed during office hours</p>
           </div>
           
           {/* Third stat */}
           <div className={cn(
             "p-6 rounded-lg text-center",
-            activeView === 'before' 
-              ? "bg-white border-2 border-red-300" 
-              : "bg-white border-2 border-green-300",
+            isMobile 
+              ? (activeView === 'before' 
+                  ? "bg-white border-2 border-red-300" 
+                  : "bg-white border-2 border-green-300")
+              : "bg-gradient-to-r from-red-50 to-green-50 border border-gray-200",
             shadowStyles.card
           )}>
-            <div className={cn(
-              "text-3xl md:text-4xl font-bold mb-2",
-              activeView === 'before' ? "text-red-500" : "text-green-500"
-            )}>
-              {activeView === 'before' ? '-3 hrs' : '3 hrs'}
+            <div className="flex md:flex-row flex-col justify-center md:space-x-6">
+              {/* Before stat */}
+              {(!isMobile || activeView === 'before') && (
+                <div className="text-center md:border-r md:pr-6 md:border-gray-300 mb-4 md:mb-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-red-500">
+                    -3 hrs
+                  </div>
+                  <p className="text-gray-700 text-sm">
+                    Work-life balance reduced daily
+                  </p>
+                </div>
+              )}
+
+              {/* After stat */}
+              {(!isMobile || activeView === 'after') && (
+                <div className="text-center md:pl-0">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-green-500">
+                    3 hrs
+                  </div>
+                  <p className="text-gray-700 text-sm">
+                    Work-life balance improved daily
+                  </p>
+                </div>
+              )}
             </div>
-            <p className="text-gray-700">
-              {activeView === 'before' ? 'Work-life balance reduced daily' : 'Work-life balance improved daily'}
-            </p>
           </div>
         </motion.div>
       </div>
