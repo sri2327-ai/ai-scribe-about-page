@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope, FileOutput, Upload, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -315,7 +316,8 @@ const CrushIllustration = memo(() => {
             {/* Step indicator dots - now with clearer visibility and labels */}
             <div 
               ref={stepsRef} 
-              className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm"
+              className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm overflow-x-auto no-scrollbar"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {steps.map((step, idx) => (
                 <motion.button 
@@ -335,6 +337,7 @@ const CrushIllustration = memo(() => {
                     style={{ 
                       backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
                       border: currentStep === idx ? `1px solid ${step.color}` : 'none',
+                      ringOffsetColor: 'white'
                     }}
                   >
                     {currentStep === idx && (
@@ -348,7 +351,7 @@ const CrushIllustration = memo(() => {
                     )}
                   </div>
                   {/* Small step number under dot for better clarity */}
-                  <span className="text-[10px] text-gray-500">{idx + 1}</span>
+                  <span className="text-[10px] text-gray-500 font-medium">{idx + 1}</span>
                 </motion.button>
               ))}
             </div>
