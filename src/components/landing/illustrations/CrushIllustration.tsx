@@ -313,7 +313,10 @@ const CrushIllustration = memo(() => {
             </motion.button>
             
             {/* Step indicator dots - now with clearer visibility and labels */}
-            <div className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm">
+            <div 
+              ref={stepsRef} 
+              className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm"
+            >
               {steps.map((step, idx) => (
                 <motion.button 
                   key={idx} 
@@ -331,8 +334,7 @@ const CrushIllustration = memo(() => {
                     `}
                     style={{ 
                       backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
-                      ringColor: step.color,
-                      ringOffsetColor: 'white',
+                      border: currentStep === idx ? `1px solid ${step.color}` : 'none',
                     }}
                   >
                     {currentStep === idx && (
