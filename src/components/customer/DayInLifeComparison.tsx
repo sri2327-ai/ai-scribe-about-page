@@ -127,7 +127,7 @@ const DayInLifeComparison = () => {
 
         {/* Toggle between Before/After - Only visible on mobile */}
         {isMobile && (
-          <div className="flex justify-center mb-10">
+          <div className="flex justify-center mb-8">
             <div className={cn(
               "p-1 rounded-xl bg-gray-200 flex w-full max-w-xs",
               shadowStyles.subtle
@@ -136,7 +136,7 @@ const DayInLifeComparison = () => {
                 <button
                   key={view}
                   className={cn(
-                    "relative flex-1 px-4 py-3 rounded-lg transition-all duration-300 font-medium text-sm md:text-base",
+                    "relative flex-1 px-4 py-2 rounded-lg transition-all duration-300 font-medium text-sm",
                     activeView === view 
                       ? "bg-white text-blue-900" 
                       : "text-gray-600 hover:text-gray-900"
@@ -157,12 +157,12 @@ const DayInLifeComparison = () => {
           </div>
         )}
 
-        {/* Timeline Visualization */}
-        <div className={cn("relative", isMobile ? "pb-8" : "pb-0")}>
+        {/* Timeline Visualization with fixed layout for mobile */}
+        <div className="relative">
           <motion.div
             className={cn(
-              "grid gap-8",
-              isMobile ? "grid-cols-1" : "grid-cols-2 gap-16"
+              "grid",
+              isMobile ? "grid-cols-1 gap-12" : "grid-cols-2 gap-16"
             )}
             variants={containerVariants}
             initial="hidden"
@@ -171,17 +171,17 @@ const DayInLifeComparison = () => {
           >
             {/* Before Column - Always visible on desktop, conditionally on mobile */}
             {(!isMobile || activeView === 'before') && (
-              <div className="relative flex flex-col space-y-8">
-                <motion.div 
-                  className="text-center mb-4"
-                  variants={itemVariants}
-                >
+              <motion.div 
+                className="relative flex flex-col space-y-8"
+                variants={itemVariants}
+              >
+                <div className="text-center mb-4">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-800">Without S10.AI</h3>
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <Clock className="h-5 w-5 text-red-500" />
                     <p className="text-red-500 font-medium">12+ hour workday</p>
                   </div>
-                </motion.div>
+                </div>
                 
                 {/* Timeline items */}
                 <div className="relative">
@@ -206,7 +206,7 @@ const DayInLifeComparison = () => {
                         {step.icon}
                       </div>
                       <div className={cn(
-                        "ml-6 p-4 rounded-lg",
+                        "ml-6 p-4 rounded-lg flex-1",
                         step.highlight ? "bg-red-50 border-l-4 border-red-400" : "bg-white",
                         shadowStyles.card
                       )}>
@@ -222,22 +222,22 @@ const DayInLifeComparison = () => {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             )}
             
             {/* After Column - Always visible on desktop, conditionally on mobile */}
             {(!isMobile || activeView === 'after') && (
-              <div className="relative flex flex-col space-y-8">
-                <motion.div 
-                  className="text-center mb-4"
-                  variants={itemVariants}
-                >
+              <motion.div 
+                className="relative flex flex-col space-y-8"
+                variants={itemVariants}
+              >
+                <div className="text-center mb-4">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-800">With S10.AI</h3>
                   <div className="flex items-center justify-center gap-2 mt-2">
                     <Clock className="h-5 w-5 text-green-500" />
                     <p className="text-green-500 font-medium">8-hour workday</p>
                   </div>
-                </motion.div>
+                </div>
                 
                 {/* Timeline items */}
                 <div className="relative">
@@ -262,7 +262,7 @@ const DayInLifeComparison = () => {
                         {step.icon}
                       </div>
                       <div className={cn(
-                        "ml-6 p-4 rounded-lg",
+                        "ml-6 p-4 rounded-lg flex-1",
                         step.highlight ? "bg-green-50 border-l-4 border-green-400" : "bg-white",
                         shadowStyles.card
                       )}>
@@ -278,7 +278,7 @@ const DayInLifeComparison = () => {
                     </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             )}
           </motion.div>
         </div>
