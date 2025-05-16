@@ -302,7 +302,7 @@ const DayInLifeComparison = () => {
           </motion.div>
         </div>
 
-        {/* Key Results - with color-coded result boxes to ensure they match active section */}
+        {/* Key Results - with color-coded result boxes that change based on active view */}
         <motion.div 
           className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6"
           initial={{ opacity: 0, y: 20 }}
@@ -311,25 +311,49 @@ const DayInLifeComparison = () => {
           viewport={{ once: true }}
         >
           <div className={cn(
-            "bg-white p-6 rounded-lg text-center",
+            "p-6 rounded-lg text-center",
+            activeView === 'before' ? "bg-white border-2 border-red-300" : "bg-white",
             shadowStyles.card
           )}>
-            <div className="text-3xl md:text-4xl font-bold text-green-500 mb-2">+2 hrs</div>
-            <p className="text-gray-700">Additional patient time per day</p>
+            <div className={cn(
+              "text-3xl md:text-4xl font-bold mb-2",
+              activeView === 'before' ? "text-red-500" : "text-green-500"
+            )}>
+              {activeView === 'before' ? '-2 hrs' : '+2 hrs'}
+            </div>
+            <p className="text-gray-700">
+              {activeView === 'before' ? 'Less patient time per day' : 'Additional patient time per day'}
+            </p>
           </div>
           <div className={cn(
-            "bg-white p-6 rounded-lg text-center",
+            "p-6 rounded-lg text-center",
+            activeView === 'before' ? "bg-white border-2 border-red-300" : "bg-white",
             shadowStyles.card
           )}>
-            <div className="text-3xl md:text-4xl font-bold text-green-500 mb-2">98%</div>
-            <p className="text-gray-700">Documentation completed during office hours</p>
+            <div className={cn(
+              "text-3xl md:text-4xl font-bold mb-2",
+              activeView === 'before' ? "text-red-500" : "text-green-500"
+            )}>
+              {activeView === 'before' ? '40%' : '98%'}
+            </div>
+            <p className="text-gray-700">
+              {activeView === 'before' ? 'Documentation completed during office hours' : 'Documentation completed during office hours'}
+            </p>
           </div>
           <div className={cn(
-            "bg-white p-6 rounded-lg text-center",
+            "p-6 rounded-lg text-center",
+            activeView === 'before' ? "bg-white border-2 border-red-300" : "bg-white",
             shadowStyles.card
           )}>
-            <div className="text-3xl md:text-4xl font-bold text-green-500 mb-2">3 hrs</div>
-            <p className="text-gray-700">Work-life balance improved daily</p>
+            <div className={cn(
+              "text-3xl md:text-4xl font-bold mb-2",
+              activeView === 'before' ? "text-red-500" : "text-green-500"
+            )}>
+              {activeView === 'before' ? '-3 hrs' : '3 hrs'}
+            </div>
+            <p className="text-gray-700">
+              {activeView === 'before' ? 'Work-life balance reduced daily' : 'Work-life balance improved daily'}
+            </p>
           </div>
         </motion.div>
       </div>
