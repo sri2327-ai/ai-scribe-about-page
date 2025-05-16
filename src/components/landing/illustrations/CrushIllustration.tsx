@@ -313,7 +313,8 @@ const CrushIllustration = memo(() => {
       </AnimatePresence>
       
       {/* Add custom CSS for hiding scrollbars but keeping functionality */}
-      <style jsx>{`
+      <style>
+        {`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
@@ -321,7 +322,8 @@ const CrushIllustration = memo(() => {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-      `}</style>
+        `}
+      </style>
     </div>
   );
 });
