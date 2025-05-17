@@ -1,8 +1,10 @@
+
 import React from "react";
 import { HeroSection } from "./HeroSection";
 import { AdvantagesSection } from "./AdvantagesSection";
 import { FinalCTA } from "./FinalCTA";
 import { ScriptLoader } from "./ScriptLoader";
+import { S10AISection } from "./S10AISection";
 
 export const AdvantagesContent = () => {
   return (
@@ -74,6 +76,7 @@ export const AdvantagesContent = () => {
         <HeroSection />
         <AdvantagesSection />
         <FinalCTA />
+        <S10AISection />
       </div>
     </ScriptLoader>
   );

@@ -103,13 +103,24 @@ export default {
 					'0%': { transform: 'translateX(0%)' },
 					'50%': { transform: 'translateX(-75%)' },
 					'100%': { transform: 'translateX(0%)' },
-				}
+				},
+				highlight: {
+					"0%": { backgroundColor: "transparent" },
+					"100%": { backgroundColor: "var(--highlight)" },
+				},
+				flash: {
+					"0%": { backgroundColor: "hsl(var(--card))" },
+					"50%": { backgroundColor: "var(--highlight)" },
+					"100%": { backgroundColor: "hsl(var(--card))" },
+				},
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'star-movement-top': 'star-movement-top 6s linear infinite',
 				'star-movement-bottom': 'star-movement-bottom 6s linear infinite',
+				'highlight': 'highlight 0.6s ease forwards',
+				'flash': 'flash 0.6s ease forwards',
 			}
 		}
 	},
