@@ -1,0 +1,54 @@
+
+import React from "react";
+import { motion } from "framer-motion";
+
+export const FinalCTA: React.FC = () => {
+  return (
+    <section id="contact" className="bg-black text-white py-20 md:py-28 px-6 rounded-t-2xl shadow-2xl mt-0">
+      <div className="container mx-auto max-w-3xl text-center">
+        <motion.h2 
+          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 tracking-tight"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          Ready to Experience the S10.AI Transformation?
+        </motion.h2>
+        
+        <motion.p 
+          className="text-lg sm:text-xl md:text-2xl mb-12 leading-relaxed text-gray-300"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Reduce burnout, enhance patient care, and reclaim your time. Discover how S10.AI can be tailored to your practice's unique needs.
+        </motion.p>
+        
+        <motion.a 
+          href="#" 
+          className="cta-button-primary bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 sm:py-4 sm:px-12 rounded-lg shadow-lg text-lg sm:text-xl inline-block transform transition-all duration-300"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Schedule Your Personalized Demo
+        </motion.a>
+        
+        <motion.p 
+          className="mt-8 text-md text-gray-400"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          Or, <a href="#" className="underline hover:text-teal-300 transition-colors">contact our specialists</a> to learn more.
+        </motion.p>
+      </div>
+    </section>
+  );
+};

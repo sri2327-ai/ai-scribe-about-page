@@ -1,541 +1,168 @@
-'use client'
-import React, { useState } from "react";
-import { useTheme } from "@mui/material/styles";
-import { 
-  AppBar, 
-  Box, 
-  Button, 
-  ButtonGroup, 
-  Container, 
-  Divider, 
-  ListSubheader, 
-  IconButton, 
-  MenuItem, 
-  MenuList, 
-  Popover, 
-  Typography, 
-  Toolbar, 
-  useMediaQuery 
-} from "@mui/material";
-import { Link, useLocation } from "react-router-dom";
-import MenuIcon from '@mui/icons-material/Menu';
-import CloseIcon from '@mui/icons-material/Close';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import styles from "../styles/header.module.css";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import classNames from "classnames";
+import styles from "@/styles/header.module.css";
+import { motion } from "framer-motion";
 
-const Header = () => {
-  const theme = useTheme();
+const navLinkClass =
+  "px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors";
+const activeNavLinkClass =
+  "px-3 py-2 rounded-full font-medium text-tealBlueBright bg-tealBlueBright/10";
+
+interface HeaderProps {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (isOpen: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
-  const pathname = location.pathname;
-  const isMobTabHead = useMediaQuery("(max-width:800px)");
 
-  // Teal blue highlight color
-  const highlightColor = "#1EAEDB";
-  const highlightColorHover = "rgba(30, 174, 219, 0.15)";
+  useEffect(() => {
+    const handleScroll = () => {
+      if (headerRef.current) {
+        const headerHeight = headerRef.current.offsetHeight;
+        setIsScrolled(window.scrollY > headerHeight);
+      }
+    };
 
-  const tabMenus = {
-    "Solutions": [
-      { 'label': "CRUSH - AI Medical Scribe Assistant", 'path': "/solution/medical-scribe" },
-      { 'label': "BRAVO - AI Patient Care Agent", 'path': "/solution/patient-engagement" },
-    ],
-    "About": [
-      { 'label': "S10 Story", 'path': "/about" },
-      { 'label': "Trust & Technology", 'path': "/technology" },
-      { 'label': "Integrations", 'path': "/integrations" },
-      { 'label': "Specialties", 'path': "/specialties" },
-    ],
-    "Resources": [
-      { 'label': "Blog", 'path': "/blog" },
-      { 'label': "FAQs", 'path': "/faq" },
-      { 'label': "Customers", 'path': "/resources/stunning" },
-      { 'label': "Case Studies", 'path': "/resources/casestudies" },
-      { 'label': "Changelog", 'path': "/changelog" }
-    ]
-  }
+    window.addEventListener("scroll", handleScroll);
 
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [menuStatus, setMenuStatus] = useState<boolean>(false);
-  const [currentAcco, setCurrentAcco] = useState<string | null>(null);
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-    setMenuStatus(true);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    setIsSidebarOpen(false);
+  }, [location, setIsSidebarOpen]);
+
+  const closeMenu = () => {
+    setIsSidebarOpen(false);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-    setMenuStatus(false);
-    setCurrentAcco(null);
-  };
-
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [currentMenu, setCurrentMenu] = useState<string | null>(null);
-
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>, menu: string) => {
-    setAnchorEl(event.currentTarget);
-    setCurrentMenu(menu);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    setCurrentMenu(null);
-  };
+  const headerClasses = classNames(
+    "fixed top-0 left-0 w-full z-50 transition-shadow duration-300",
+    isScrolled ? "bg-white/90 backdrop-blur shadow-md" : "bg-transparent",
+    styles.header_main
+  );
 
   return (
-    <main className={styles.header_main}>
-      <AppBar 
-        position="fixed"
-        sx={{
-          backgroundColor: "transparent",
-          boxShadow: "none",
-        }} 
-      >
-        <Container maxWidth="xl" sx={{ display: 'flex', minHeight: '10vh' }}>
-          <Toolbar disableGutters sx={{ display: 'flex', minHeight: '10vh !important', paddingTop: '.5vh', paddingBottom:'.5vh', flexGrow:1, justifyContent:"space-between" }} >
-            <Box sx={{ display: 'flex' }}>
-              <Link to="/" className={styles.header_logo}>
-                <img src="/lovable-uploads/a72050cf-4ed6-4347-83df-a477f191bd59.png" alt="Logo" className={styles.header_logo_img}/>
-              </Link>
-            </Box>
-            {isMobTabHead ? 
-              <>
-                <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'end' }}>
-                  <IconButton
-                    size="large"
-                    aria-label="tab-menu"
-                    aria-controls="menu-appbar"
-                    aria-haspopup="true"
-                    onClick={menuStatus ? handleCloseNavMenu : handleOpenNavMenu}
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 35,
-                      height: 35,
-                      borderRadius: 2, 
-                      color: highlightColor,
-                      border: `1px solid ${highlightColor}`,
-                      "&:hover": {
-                        border: "1px solid transparent",
-                        backgroundColor: highlightColor,
-                        color: theme.palette.text.secondary
-                      },
-                    }}
-                  >
-                    {menuStatus ? <CloseIcon /> : <MenuIcon />}
-                  </IconButton>
-                  <Popover
-                    id={'tab-menu-popup'}
-                    open={menuStatus}
-                    anchorEl={anchorElNav}
-                    transformOrigin={{ vertical: "top", horizontal: "center" }}
-                    onClose={() => {}}
-                    anchorReference="none"
-                    slotProps={{
-                      root: { style: { pointerEvents: "none" } },
-                      paper: {
-                        sx: {
-                          pointerEvents: "auto",
-                          width: "100vw",
-                          height: "90vh",
-                          top: "10vh",
-                          maxWidth: "unset",
-                          borderRadius: 0,
-                          py: 3,
-                          px: 2,
-                          backgroundColor: "rgba(18, 18, 18, 0.9)",
-                          backdropFilter: "blur(10px)",
-                        },
-                      },
-                    }}
-                    disableScrollLock
-                  >
-                    {Object.entries(tabMenus).map(([key, value]) => {
-                      let isCurMenu = value.some(item => item.path === pathname);
-                      return (
-                        <Box key={key}
-                          onMouseEnter={() => setCurrentAcco(key)}
-                          onMouseLeave={() => setCurrentAcco(null)}
-                          sx={{
-                            px: 2,
-                            py: 1,
-                            "&:hover": {
-                              [`.${key}-button`]: {
-                                background: highlightColor,
-                                color: theme.palette.text.secondary,
-                                border: 'none',
-                              }, 
-                              [`.${key}-arrow`]: {
-                                color: theme.palette.text.secondary,
-                                transform: "rotate(180deg)",
-                                transition: "transform 0.3s ease",
-                              },
-                              [`.${key}-pointer`]: {
-                                color: theme.palette.text.secondary,
-                                transform: "translateX(0)",
-                                opacity: 1
-                              },
-                            },
-                          }}
-                        >
-                          <ListSubheader
-                            className={`${key}-button`}
-                            sx={{ 
-                              color: theme.palette.text.primary,
-                              background: isCurMenu ? 'none' : 'rgba(255, 255, 255, 0.08)',
-                              border: isCurMenu ? `1px solid ${theme.palette.text.primary}` : 'none',
-                              display: 'flex',
-                              flexDirection: 'row',
-                              alignItems:'center',
-                              borderRadius: '50px',
-                              gap: 1,
-                              px: 2,
-                              py: 1
-                            }}
-                          >
-                            <Box
-                              className={`${key}-pointer`}
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                color: isCurMenu ? theme.palette.text.primary : theme.palette.text.secondary,
-                                transition: "transform 0.3s ease, opacity 0.3s ease",
-                                transform: isCurMenu ? "translateX(0)" : "translateX(-20px)",
-                                opacity: isCurMenu ? 1 : 0,
+    <header className={classNames(headerClasses)} ref={headerRef}>
+      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div className="flex items-center">
+          <Link to="/" className={classNames(styles.header_logo)}>
+            <img
+              src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png"
+              alt="S10.AI Logo"
+              className={classNames(styles.header_logo_img)}
+            />
+          </Link>
+        </div>
 
-                              }}
-                            >
-                              <Typography variant='h6' fontWeight="semiBold">•</Typography>
-                            </Box>
-                            <Typography variant='h6' fontWeight="semiBold" sx={{ display: "flex", flexGrow:1 }}>{key}</Typography>
-                            <Box
-                              className={`${key}-arrow`}
-                              sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                color: theme.palette.text.primary,
-                                transition: "transform 0.3s ease",
-                                transform: "rotate(0deg)",
-                              }}
-                            >
-                              <ExpandMoreIcon />
-                            </Box>
-                          </ListSubheader>
-                          {
-                            currentAcco === key && Object.values(value).map((values, index) => {
-                              let isCurSubMenu = values.path === pathname;
-                              return(
-                                <Link key={index} to={values.path} className={styles.header_link}>
-                                  <MenuItem 
-                                    onClick={handleCloseNavMenu}
-                                    sx={{
-                                      color: isCurSubMenu ? highlightColor : theme.palette.text.primary,
-                                      "&:hover": {
-                                          color: highlightColor,
-                                      },
-                                    }}
-                                  ><Typography variant='subtitle1' fontWeight="semiBold" sx={{ ml: 1 }}>{values.label}</Typography>
-                                  </MenuItem>
-                                </Link>
-                              )
-                            })
-                          }
-                        </Box>
-                      )
-                      })
-                    }
-                    <Divider variant="middle" flexItem sx={{ my: 1 }} /> 
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent:'center',
-                        p: 2
-                      }}
-                    >
+        <div className="flex-1 hidden md:block">
+          <div className="flex justify-center">
+            <nav className={classNames("flex space-x-1", isScrolled && styles.glassmorphism, "px-4 py-2")}>
+              <NavLink
+                to="/about"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                About
+              </NavLink>
 
-                      <Link to="/contactus">
-                      <Button 
-                      variant="text" 
-                        sx={{ 
-                          textTransform: "capitalize",
-                          "&:hover .icon-box": {
-                            transform: "rotate(-270deg)",
-                            color: highlightColor,
-                            borderColor: highlightColor,
-                          },
-                          "&:hover .button-text": {
-                            color: highlightColor,
-                          },
-                        }}
-                        startIcon={
-                          <Box
-                            className="icon-box"
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              width: 25,
-                              height: 25,
-                              borderRadius: "50%", 
-                              color: theme.palette.text.primary,
-                              border: `2px solid ${theme.palette.text.primary}`,
-                              transition: "transform 0.3s ease",
-                              transform: "rotate(0deg)",
-                              mr: 1
-                            }}
-                          >
-                            <ArrowForwardIcon fontSize="small" />
-                          </Box>
-                        }
-                      >
-                        <Typography
-                          className="button-text"
-                          variant='h6' 
-                          fontWeight="semiBold" 
-                          sx={{
-                            color: theme.palette.text.primary,
-                            transition: "color 0.3s ease"
-                          }}
-                        >
-                          Contact Us
-                        </Typography>
-                      </Button>
-                      </Link>
-                    </Box>
-                    
-                  </Popover>
-                </Box>
-              </>
-              :
-              <>
-                <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-                  <ButtonGroup
-                    size="large"
-                    aria-label="Large button group"
-                    disableElevation
-                    className={styles.glassmorphism}
-                    sx={{
-                      display: 'flex',
-                      gap: 1,
-                      padding: "6px 12px",
-                      "& .MuiButtonGroup-firstButton": {
-                        border: "none",
-                        borderRadius: "50px",
-                      },
-                      "& .MuiButtonGroup-middleButton": {
-                        border: "none",
-                        borderRadius: "50px",
-                      },
-                      "& .MuiButtonGroup-lastButton": {
-                        border: "none",
-                        borderRadius: "50px",
-                      }
-                    }}
-                  >
-                    {Object.entries(tabMenus).map(([key, value]) => {
-                      let isCurMenu = value.some(item => item.path === pathname);
-                      return (
-                        <Box key={key}
-                          sx={{
-                            "&:hover": {
-                              [`.${key}-button`]: {
-                                background: highlightColor,
-                                color: theme.palette.text.secondary,
-                              }, 
-                              [`.${key}-arrow`]: {
-                                color: theme.palette.text.secondary,
-                                transform: "rotate(180deg)",
-                                transition: "transform 0.3s ease",
-                              },
-                              [`.${key}-pointer`]: {
-                                color: theme.palette.text.secondary,
-                                transform: "translateX(0)",
-                                opacity: 1
-                              },
-                            },
-                          }}
-                        >
-                          <Button
-                            className={`${key}-button`}
-                            aria-owns={currentMenu === key ? `${key}-popup` : undefined}
-                            aria-haspopup="true"
-                            onMouseEnter={(e) => handleMenuOpen(e, key)}
-                            onMouseLeave={handleMenuClose}
-                            sx={{ 
-                              textTransform: "capitalize", 
-                              color: theme.palette.text.primary,
-                              background: isCurMenu ? 'rgba(30, 174, 219, 0.2)' : 'transparent',
-                            }}
-                            startIcon={
-                              <Box
-                                className={`${key}-pointer`}
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  color: isCurMenu ? theme.palette.text.primary : theme.palette.text.secondary,
-                                  transition: "transform 0.3s ease, opacity 0.3s ease",
-                                  transform: isCurMenu ? "translateX(0)" : "translateX(-20px)",
-                                  opacity: isCurMenu ? 1 : 0
-                                }}
-                              >
-                                <Typography variant='subtitle1' fontWeight="semiBold">•</Typography>
-                              </Box>
-                            }
-                            endIcon={
-                              <Box
-                                className={`${key}-arrow`}
-                                sx={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  color: theme.palette.text.primary,
-                                  transition: "transform 0.3s ease",
-                                  transform: "rotate(0deg)",
-                                }}
-                              >
-                                <ExpandMoreIcon fontSize="small" />
-                              </Box>
-                            }
-                          >
-                            <Typography variant='subtitle1' fontWeight="semiBold">{key}</Typography>
-                          </Button>
-                          <Popover
-                            id={`${key}-popup`}
-                            sx={{ 
-                              pointerEvents: 'none',
-                              mt: 1,
-                              "& .MuiPaper-root": {
-                                overflow: "visible",
-                                "&::before": {
-                                  content: '""',
-                                  display: "block",
-                                  position: "absolute",
-                                  top: -8,
-                                  left: "calc(50% - 8px)",
-                                  width: 16,
-                                  height: 16,
-                                  bgcolor: "rgba(22, 22, 22, 0.85)",
-                                  transform: "rotate(45deg)",
-                                  zIndex: 0,
-                                  borderTop: "1px solid rgba(255, 255, 255, 0.1)",
-                                  borderLeft: "1px solid rgba(255, 255, 255, 0.1)",
-                                },
-                              },
-                              "&:hover": {
-                                [`.${key}-button`]: {
-                                  background: 'rgba(30, 174, 219, 0.2)',
-                                },
-                              },
-                            }}
-                            open={currentMenu === key}
-                            anchorEl={anchorEl}
-                            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-                            transformOrigin={{ vertical: "top", horizontal: "center" }}
-                            onClose={handleMenuClose}
-                            disableAutoFocus
-                            disablePortal
-                            disableScrollLock
-                            disableEnforceFocus
-                            slotProps={{
-                              paper: {
-                                className: styles.glassmorphism_dropdown,
-                              }
-                            }}
-                          >
-                            <MenuList
-                              sx={{ pointerEvents: 'auto', p: 1 }}
-                              onMouseEnter={() => { setAnchorEl(anchorEl); setCurrentMenu(key); }}
-                              onMouseLeave={handleMenuClose}
-                            >
-                            {Object.values(value).map((values, index) => {
-                              let isCurSubMenu = values.path === pathname;
-                              return(
-                                <Link key={index} to={values.path} className={styles.header_link}>
-                                  <MenuItem 
-                                    className={styles.dropdown_item_hover}
-                                    onClick={handleMenuClose}
-                                    sx={{
-                                      px: 2,
-                                      py: 1.5,
-                                      borderRadius: "8px",
-                                      color: isCurSubMenu ? highlightColor : theme.palette.text.primary,
-                                      "&:hover": {
-                                          color: highlightColor,
-                                      },
-                                    }}
-                                  ><Typography variant='subtitle1' fontWeight="semiBold">{values.label}</Typography>
-                                  </MenuItem>
-                                </Link>
-                              )
-                            }
-                            )}
-                            </MenuList>
-                          </Popover>
-                        </Box>
-                      )
-                    }
-                    )}
-                  </ButtonGroup>
-                </Box>
-                <Divider orientation="vertical" flexItem sx={{ mr: 2 }}/>
+              <NavLink
+                to="/crush-ai"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                CRUSH.AI
+              </NavLink>
 
-                <Link to="/contactus">
-                <Button 
-                  variant="text" 
-                  sx={{ 
-                    textTransform: "capitalize",
-                    "&:hover .icon-box": {
-                      transform: "rotate(-270deg)",
-                      color: highlightColor,
-                      borderColor: highlightColor,
-                    },
-                    "&:hover .button-text": {
-                      color: highlightColor,
-                    },
-                  }}
-                  startIcon={
-                    <Box
-                      className="icon-box"
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: 25,
-                        height: 25,
-                        borderRadius: "50%", 
-                        color: theme.palette.text.primary,
-                        border: `2px solid ${theme.palette.text.primary}`,
-                        transition: "transform 0.3s ease",
-                        transform: "rotate(0deg)",
-                        mr: 1
-                      }}
-                    >
-                      <ArrowForwardIcon fontSize="small" />
-                    </Box>
-                  }
-                >
-                  <Typography
-                    className="button-text"
-                    variant='h6' 
-                    fontWeight="semiBold" 
-                    sx={{
-                      color: theme.palette.text.primary,
-                      transition: "color 0.3s ease"
-                    }}
-                  >
-                    Contact Us
-                  </Typography>
-                </Button>
-                </Link>
-              </>
-            }
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </main>
+              <NavLink
+                to="/bravo"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                BRAVO
+              </NavLink>
+
+              <NavLink
+                to="/custom-ai-agent"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                Custom AI
+              </NavLink>
+              
+              <NavLink
+                to="/advantages"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                Advantages
+              </NavLink>
+
+              <NavLink
+                to="/pricing"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                Pricing
+              </NavLink>
+            </nav>
+          </div>
+        </div>
+
+        <div className="hidden md:flex items-center space-x-4">
+          <Link
+            to="/contact"
+            className={classNames(
+              "bg-tealBlue hover:bg-tealBlueBright text-white font-medium py-2.5 px-6 rounded-full transition-colors"
+            )}
+          >
+            Contact Us
+          </Link>
+        </div>
+
+        <div className="md:hidden">
+          <motion.button
+            className="text-gray-700 focus:outline-none"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </motion.button>
+        </div>
+      </div>
+    </header>
   );
 };
 
