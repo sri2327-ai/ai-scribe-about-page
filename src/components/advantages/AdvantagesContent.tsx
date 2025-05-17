@@ -7,7 +7,7 @@ import { FinalCTA } from "./FinalCTA";
 export const AdvantagesContent = () => {
   return (
     <div className="bg-black min-h-screen text-gray-100 antialiased overflow-x-hidden">
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         .hero-text-content-wrapper { 
           position: relative;
           z-index: 10; 
@@ -69,7 +69,7 @@ export const AdvantagesContent = () => {
           width: 100%; 
           height: auto; /* Ensure height is determined by content */
         }
-      `}</style>
+      `}} />
       <HeroSection />
       <AdvantagesSection />
       <FinalCTA />
