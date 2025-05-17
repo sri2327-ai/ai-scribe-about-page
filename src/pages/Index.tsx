@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 
@@ -47,10 +48,10 @@ const Index = () => {
         </div>
       </div>
       
-      <div className="text-center my-4">
-        <a href="/advantages" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded">
-          View Advantages Page
-        </a>
+      <div className="absolute bottom-8 w-full flex justify-center space-x-4 z-10">
+        <Link to="/advantages" className="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded transition-all duration-300">
+          View Advantages
+        </Link>
       </div>
     </div>
   );

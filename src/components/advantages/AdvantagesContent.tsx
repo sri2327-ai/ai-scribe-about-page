@@ -1,4 +1,3 @@
-
 import React from "react";
 import { HeroSection } from "./HeroSection";
 import { AdvantagesSection } from "./AdvantagesSection";
@@ -75,8 +74,8 @@ export const AdvantagesContent = () => {
         `}} />
         <HeroSection />
         <AdvantagesSection />
-        <FinalCTA />
         <S10AISection />
+        <FinalCTA />
       </div>
     </ScriptLoader>
   );
