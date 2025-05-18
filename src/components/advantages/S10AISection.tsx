@@ -51,7 +51,7 @@ export const S10AISection = () => {
             colorScheme={{
               bg: "bg-black",
               border: "border-gray-800",
-              activeBg: "bg-teal-600/90 dark:bg-teal-500/90", // Updated to more teal-blue color
+              activeBg: "bg-emerald-700/95 dark:bg-emerald-600/95", // More vibrant and dark green
               activeText: "text-white",
               inactiveBg: "bg-gray-900/80 dark:bg-gray-900/70",
               inactiveText: "text-gray-600",
@@ -59,7 +59,7 @@ export const S10AISection = () => {
           />
         </motion.div>
         <motion.p 
-          className="text-center mt-8 text-xl md:text-2xl font-medium text-gray-500" // Updated to lighter gray (text-gray-500)
+          className="text-center mt-8 text-xl md:text-2xl font-medium text-gray-500" 
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.2 }}
