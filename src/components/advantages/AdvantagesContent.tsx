@@ -71,13 +71,6 @@ export const AdvantagesContent = () => {
           width: 100%; 
           height: auto; /* Ensure height is determined by content */
         }
-        
-        /* Add styles for the final CTA container */
-        #finalCTA-container {
-          position: relative;
-          width: 100%;
-          height: 100%;
-        }
 
         /* Mobile optimizations */
         @media (max-width: 640px) {
@@ -110,9 +103,7 @@ export const AdvantagesContent = () => {
         <Separator className="my-0 bg-gray-800/60 h-px" />
       </div>
       
-      <div id="finalCTA-container" className="relative">
-        <FinalCTA />
-      </div>
+      <FinalCTA />
     </div>
   );
 };
