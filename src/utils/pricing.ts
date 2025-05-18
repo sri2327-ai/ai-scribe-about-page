@@ -1,3 +1,4 @@
+
 import { CurrencyCode, currencySymbols } from "@/components/pricing/CurrencySelector";
 
 export interface PricingData {
@@ -25,22 +26,22 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     bundleEnterprise?: string
   }> = {
     USD: { 
-      // CRUSH pricing
+      // CRUSH pricing - updated pricing here
       crushBasic: 99, 
-      crushPro: {min: 140, max: 199},
+      crushPro: {min: 120, max: 199},  // Changed min from 140 to 120
       crushEnterprise: 'Custom Quote',
       // BRAVO pricing
       bravoBasic: 99,
       bravoPro: {max: 299},
       bravoEnterprise: 'Custom pricing',
-      // Bundle pricing (already calculated with 10% discount)
+      // Bundle pricing (calculated with 10% discount)
       bundleBasic: 143, // (99+99) * 0.9 = 178.2 * 0.9 = 143.1 ≈ 143
-      bundlePro: 'From $198', // Min of (140+up to 299) = 439 * 0.9 = 395.1
+      bundlePro: 'From $198', // Min of (120+up to 299) = 419 * 0.9 = 377.1 ≈ 377
       bundleEnterprise: 'Custom pricing'
     },
     CAD: { 
       crushBasic: 129, 
-      crushPro: {min: 182, max: 259},
+      crushPro: {min: 156, max: 259},  // Adjusted to reflect USD pricing change
       crushEnterprise: 'Custom Quote',
       bravoBasic: 129,
       bravoPro: {max: 389},
@@ -51,7 +52,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     },
     AUD: { 
       crushBasic: 149, 
-      crushPro: {min: 210, max: 299},
+      crushPro: {min: 180, max: 299},  // Adjusted to reflect USD pricing change
       crushEnterprise: 'Custom Quote',
       bravoBasic: 149,
       bravoPro: {max: 449},
@@ -62,7 +63,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     },
     GBP: { 
       crushBasic: 79, 
-      crushPro: {min: 110, max: 159},
+      crushPro: {min: 95, max: 159},  // Adjusted to reflect USD pricing change
       crushEnterprise: 'Custom Quote',
       bravoBasic: 79,
       bravoPro: {max: 239},
@@ -73,7 +74,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     },
     EUR: { 
       crushBasic: 89, 
-      crushPro: {min: 125, max: 179},
+      crushPro: {min: 108, max: 179},  // Adjusted to reflect USD pricing change
       crushEnterprise: 'Custom Quote',
       bravoBasic: 89,
       bravoPro: {max: 269},
@@ -84,7 +85,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     },
     NZD: { 
       crushBasic: 159, 
-      crushPro: {min: 220, max: 319},
+      crushPro: {min: 191, max: 319},  // Adjusted to reflect USD pricing change
       crushEnterprise: 'Custom Quote',
       bravoBasic: 159,
       bravoPro: {max: 479},
@@ -95,7 +96,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     },
     AED: { 
       crushBasic: 363, 
-      crushPro: {min: 505, max: 729},
+      crushPro: {min: 440, max: 729},  // Adjusted to reflect USD pricing change
       crushEnterprise: 'Custom Quote',
       bravoBasic: 363,
       bravoPro: {max: 1099},
