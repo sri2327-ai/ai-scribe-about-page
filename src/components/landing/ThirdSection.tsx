@@ -302,8 +302,8 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        {/* Simple CTA with arrow icon - updated to match reference */}
-        <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-3xl mx-auto text-left">
+        {/* Simple CTA with arrow icon - updated with gradient background and left alignment */}
+        <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-7xl mx-auto">
           <motion.a 
             href="#key-differences" 
             className="group inline-flex items-center text-black hover:text-gray-700 text-lg sm:text-xl transition-colors duration-300"
@@ -312,7 +312,7 @@ export const ThirdSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="mr-3 w-10 h-10 rounded-md bg-[#5D2B70] flex items-center justify-center flex-shrink-0">
+            <div className="mr-3 w-10 h-10 rounded-md bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center flex-shrink-0">
               <ArrowRight className="h-5 w-5 text-white" />
             </div>
             <span>See S10.AI's 5 Key Differences</span>
