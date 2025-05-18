@@ -131,7 +131,7 @@ export const PricingCalculator = () => {
       id: 'bundle',
       name: 'Bundle (Best Value)',
       description: 'CRUSH + BRAVO with 10% discount',
-      price: 'From $159/month',
+      price: 'From $178/month',
       savings: 'Most comprehensive solution'
     }
   ];

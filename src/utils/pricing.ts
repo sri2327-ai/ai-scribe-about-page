@@ -120,10 +120,10 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(price * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
-  // Format price range
+  // Format price range - MODIFIED to use "Starts at" instead of a range
   const formatPriceRange = (min: number, max: number) => {
-    // Fix: Ensure we only add '/mo' or '/yr' once
-    return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
+    // Now returns "Starts at" format instead of a range
+    return `Starts at ${symbol}${(min * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
 
   // Format for "Up to" pricing - modified to handle annual pricing
@@ -132,18 +132,18 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `Up to ${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
-  // Format "From" price text - modified to handle annual pricing
+  // Format "From" price text - modified to handle annual pricing and use "Starts at" for bundle
   const formatFromPrice = (text: string) => {
     if (!text.startsWith('From')) return text;
     
-    // For strings like "From $198", replace with annual calculation
+    // For strings like "From $198", replace with "Starts at $X" format for annual calculation
     if (billingCycle === 'annual' && text.startsWith('From')) {
       // Extract the currency symbol and number
       const matches = text.match(/From\s+([^\d]*)(\d+)/);
       if (matches && matches.length === 3) {
         const currSymbol = matches[1]; // e.g., "$", "€"
         const amount = parseInt(matches[2], 10); // e.g., 198
-        return `From ${currSymbol}${(amount * 10).toLocaleString()}/yr`; // 10 months price instead of 12
+        return `Starts at ${currSymbol}${(amount * 10).toLocaleString()}/yr`; // 10 months price instead of 12
       }
     } else if (billingCycle === 'monthly' && text.startsWith('From')) {
       // Extract the currency symbol and number
@@ -151,7 +151,7 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       if (matches && matches.length === 3) {
         const currSymbol = matches[1]; // e.g., "$", "€"
         const amount = parseInt(matches[2], 10); // e.g., 198
-        return `From ${currSymbol}${amount.toLocaleString()}/mo`;
+        return `Starts at ${currSymbol}${amount.toLocaleString()}/mo`;
       }
     }
     
