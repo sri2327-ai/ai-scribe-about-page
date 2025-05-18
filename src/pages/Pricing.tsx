@@ -311,14 +311,14 @@ const Pricing = () => {
             <motion.h2 
               variants={fadeInUpVariants}
               custom={0}
-              className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-5 text-white"
+              className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-5 text-[#143151]"
             >
               Why CRUSH & BRAVO Are the Ultimate AI-Powered Solutions
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-white/90"
+              className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-[#387E89]"
             >
               Discover time-saving, customizable features that set CRUSH and BRAVO apart, boosting efficiency and patient satisfaction.
             </motion.p>
