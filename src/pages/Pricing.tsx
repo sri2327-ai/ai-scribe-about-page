@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -186,31 +187,32 @@ const Pricing = () => {
             <CurrencySelector selectedCurrency={selectedCurrency} onChange={handleCurrencyChange} showPerProviderNote={true} />
           </div>
 
-          {/* Tabs - Improved mobile responsiveness */}
+          {/* Tabs - Improved alignment and UX */}
           <div className="flex flex-col items-center">
             <Tabs 
               value={activeTab}
               onValueChange={handleTabChange}
               className="w-full flex flex-col items-center"
             >
-              <TabsList className="mb-6 md:mb-8 flex w-full max-w-md overflow-x-auto justify-center p-1 bg-gray-100/70 rounded-full">
+              {/* Improved TabsList for better alignment and spacing */}
+              <TabsList className="mb-6 md:mb-8 grid grid-cols-3 w-full max-w-md gap-1 p-1 bg-gray-100/70 rounded-full">
                 <TabsTrigger 
                   value="crush" 
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap min-w-[100px]"
+                  className="px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap rounded-full"
                 >
                   {isMobile ? "CRUSH" : "CRUSH AI Scribe"}
                 </TabsTrigger>
                 <TabsTrigger 
                   value="bravo" 
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap min-w-[100px]"
+                  className="px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap rounded-full"
                 >
                   {isMobile ? "BRAVO" : "BRAVO Staffing Agent"}
                 </TabsTrigger>
                 <TabsTrigger 
                   value="bundle" 
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap min-w-[100px]"
+                  className="px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap rounded-full"
                 >
-                  {isMobile ? "BUNDLE" : "Bundle"}
+                  {isMobile ? "BUNDLE" : "Bundle & Save"}
                 </TabsTrigger>
               </TabsList>
 
