@@ -311,14 +311,14 @@ const Pricing = () => {
             <motion.h2 
               variants={fadeInUpVariants}
               custom={0}
-              className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-5 text-[#143151]"
+              className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 md:mb-5 text-white"
             >
               Why CRUSH & BRAVO Are the Ultimate AI-Powered Solutions
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-[#387E89]"
+              className="text-base md:text-lg lg:text-xl max-w-3xl mx-auto text-white/90"
             >
               Discover time-saving, customizable features that set CRUSH and BRAVO apart, boosting efficiency and patient satisfaction.
             </motion.p>
@@ -438,14 +438,14 @@ const Pricing = () => {
             <motion.h2 
               variants={fadeInUpVariants}
               custom={0}
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-[#143151]"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white"
             >
               Why Clinicians Trust CRUSH & BRAVO
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-base md:text-lg max-w-3xl mx-auto text-[#387E89]"
+              className="text-base md:text-lg max-w-3xl mx-auto text-white/90"
             >
               Ditch outdated tools. Our HIPAA-compliant, AI-powered solutions are built for clinicians.
             </motion.p>
@@ -515,14 +515,14 @@ const Pricing = () => {
             <motion.h2 
               variants={fadeInUpVariants}
               custom={0}
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-[#143151]"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white"
             >
               Industry-Leading Security & Compliance
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-base md:text-lg max-w-3xl mx-auto text-[#387E89]"
+              className="text-base md:text-lg max-w-3xl mx-auto text-white/90"
             >
               Our HIPAA-compliant solutions protect your patients' data with top-tier standards.
             </motion.p>
@@ -539,7 +539,7 @@ const Pricing = () => {
             {['HIPAA', 'SOC 2', 'HITECH', 'GDPR', 'ISO 27001', 'HITRUST', 'PHIPA'].map((badge, index) => (
               <Badge 
                 key={index} 
-                className="text-sm md:text-base font-medium py-1 md:py-2 px-3 md:px-4 bg-[#143151] hover:bg-[#143151]"
+                className="text-sm md:text-base font-medium py-1 md:py-2 px-3 md:px-4 bg-white/20 hover:bg-white/30 text-white border-none"
               >
                 {badge}
               </Badge>
