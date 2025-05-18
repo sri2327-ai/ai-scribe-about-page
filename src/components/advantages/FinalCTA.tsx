@@ -17,7 +17,7 @@ export const FinalCTA: React.FC = () => {
           Ready to Experience the S10.AI Transformation?
         </motion.h2>
         
-        {/* ROI Stats Section - Improved Grid Layout with smaller boxes in one line */}
+        {/* ROI Stats Section - Single row layout for larger screens */}
         <motion.div 
           className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 md:mb-12 mx-auto"
           initial={{ opacity: 0, y: 20 }}
@@ -25,66 +25,68 @@ export const FinalCTA: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2, staggerChildren: 0.1 }}
         >
-          {/* All boxes have identical size, but smaller than before */}
-          <motion.div 
-            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <Clock className="h-6 w-6 mb-2 text-white" />
-            <span className="text-xl sm:text-2xl font-bold">75%</span>
-            <span className="text-xs mt-1 text-white/80">Reduction in documentation time</span>
-          </motion.div>
-          
-          <motion.div 
-            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <DollarSign className="h-6 w-6 mb-2 text-white" />
-            <span className="text-xl sm:text-2xl font-bold">40%</span>
-            <span className="text-xs mt-1 text-white/80">Increase in practice revenue</span>
-          </motion.div>
-          
-          <motion.div 
-            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
-            <Heart className="h-6 w-6 mb-2 text-white" />
-            <span className="text-xl sm:text-2xl font-bold">95%</span>
-            <span className="text-xs mt-1 text-white/80">Patient satisfaction rates</span>
-          </motion.div>
-          
-          <motion.div 
-            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <TrendingUp className="h-6 w-6 mb-2 text-white" />
-            <span className="text-xl sm:text-2xl font-bold">$150K+</span>
-            <span className="text-xs mt-1 text-white/80">Annual cost savings</span>
-          </motion.div>
-          
-          <motion.div 
-            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-          >
-            <Users className="h-6 w-6 mb-2 text-white" />
-            <span className="text-xl sm:text-2xl font-bold">30%</span>
-            <span className="text-xs mt-1 text-white/80">Increase in patient volume</span>
-          </motion.div>
+          {/* Adjusted for single-line layout on larger screens */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4 w-full justify-items-center">
+            <motion.div 
+              className="flex flex-col items-center justify-center p-3 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[110px] h-[110px]"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <Clock className="h-5 w-5 mb-1 text-white" />
+              <span className="text-lg sm:text-xl font-bold">75%</span>
+              <span className="text-xs mt-1 text-white/80">Less documentation time</span>
+            </motion.div>
+            
+            <motion.div 
+              className="flex flex-col items-center justify-center p-3 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[110px] h-[110px]"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <DollarSign className="h-5 w-5 mb-1 text-white" />
+              <span className="text-lg sm:text-xl font-bold">40%</span>
+              <span className="text-xs mt-1 text-white/80">Increased revenue</span>
+            </motion.div>
+            
+            <motion.div 
+              className="flex flex-col items-center justify-center p-3 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[110px] h-[110px]"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <Heart className="h-5 w-5 mb-1 text-white" />
+              <span className="text-lg sm:text-xl font-bold">95%</span>
+              <span className="text-xs mt-1 text-white/80">Patient satisfaction</span>
+            </motion.div>
+            
+            <motion.div 
+              className="flex flex-col items-center justify-center p-3 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[110px] h-[110px]"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <TrendingUp className="h-5 w-5 mb-1 text-white" />
+              <span className="text-lg sm:text-xl font-bold">$150K+</span>
+              <span className="text-xs mt-1 text-white/80">Annual savings</span>
+            </motion.div>
+            
+            <motion.div 
+              className="flex flex-col items-center justify-center p-3 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[110px] h-[110px]"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <Users className="h-5 w-5 mb-1 text-white" />
+              <span className="text-lg sm:text-xl font-bold">30%</span>
+              <span className="text-xs mt-1 text-white/80">More patients</span>
+            </motion.div>
+          </div>
         </motion.div>
         
         <motion.div
