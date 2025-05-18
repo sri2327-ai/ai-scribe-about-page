@@ -49,7 +49,7 @@ export const S10AISection = () => {
             gridSize={{ rows: 9, cols: 30 }}
             animationIntensity={isHovered ? 2 : isInView ? 1 : 0.5} 
             colorScheme={{
-              bg: "bg-gray-900",
+              bg: "bg-black",
               border: "border-gray-800",
               activeBg: "bg-teal-800/90 dark:bg-teal-700/90", // Darker green for better visibility
               activeText: "text-white",

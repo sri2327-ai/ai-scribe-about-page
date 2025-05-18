@@ -48,7 +48,7 @@ export const FinalCTA: React.FC = () => {
         
         <motion.a 
           href="#" 
-          className="cta-button-primary bg-transparent border-2 border-white text-white font-medium py-3 px-6 sm:py-4 sm:px-10 md:px-12 rounded-lg shadow-lg text-base sm:text-lg md:text-xl inline-block transform transition-all duration-300 flex items-center justify-center gap-2 mx-auto"
+          className="bg-black border-2 border-white text-white font-medium py-3 px-6 sm:py-4 sm:px-10 md:px-12 rounded-lg shadow-lg text-base sm:text-lg md:text-xl inline-block transform transition-all duration-300 flex items-center justify-center gap-2 mx-auto hover:bg-gray-900"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

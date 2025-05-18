@@ -5,7 +5,7 @@ import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 
 export const HeroSection: React.FC = () => {
   return (
-    <div className="relative w-full h-[75vh] md:h-[85vh] flex flex-col items-center justify-center text-center text-white overflow-hidden">
+    <div className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden">
       <AnimatedGradientBackground
         Breathing={true}
         animationSpeed={0.015}
@@ -30,28 +30,20 @@ export const HeroSection: React.FC = () => {
         transition={{ duration: 0.8, delay: 0.2 }}
       >
         <motion.h1 
-          className="text-3xl sm:text-4xl md:text-5xl font-medium mb-6 tracking-tight text-gray-100"
+          className="text-3xl sm:text-4xl md:text-5xl font-medium mb-5 tracking-tight text-gray-100"
           style={{ textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}
         >
           The S10.AI Difference
-          <motion.span 
-            className="block"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            More Than AI
-          </motion.span>
         </motion.h1>
         
         <motion.p 
-          className="text-2xl sm:text-3xl md:text-4xl font-light mb-10 text-gray-200"
+          className="text-xl sm:text-2xl md:text-3xl font-light mb-10 text-gray-200"
           style={{ textShadow: '0 1px 8px rgba(0,0,0,0.2)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7, duration: 0.8 }}
         >
-          It's Your Practice, <span className="font-semibold text-gray-400">Transformed.</span>
+          More Than AI - It's Your Practice, <span className="font-semibold text-gray-400">Transformed.</span>
         </motion.p>
         
         <motion.a 

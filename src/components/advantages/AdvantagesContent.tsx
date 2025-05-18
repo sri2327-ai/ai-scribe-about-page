@@ -43,24 +43,24 @@ export const AdvantagesContent = () => {
           }
           
           .tubelight-active-bg {
-            background: linear-gradient(to right, #0D9488, #2563EB); 
+            background: linear-gradient(to right, #065f6b, #0d4a6b); 
             box-shadow: inset 0 0 10px 3px rgba(255, 255, 255, 0.08), 
-                        0 0 18px 4px rgba(20, 184, 166, 0.45), 
-                        0 0 18px 4px rgba(37, 99, 235, 0.35); 
+                        0 0 18px 4px rgba(6, 95, 107, 0.45), 
+                        0 0 18px 4px rgba(13, 74, 107, 0.35); 
           }
           .tubelight-glow-main {
-             background: linear-gradient(to right, #2DD4BF, #60A5FA); 
+             background: linear-gradient(to right, #0d9488, #0d4a6b); 
              height: 3px; 
-             box-shadow: 0 0 12px 3px rgba(45, 212, 191, 0.8), 
-                         0 0 12px 3px rgba(96, 165, 250, 0.6); 
+             box-shadow: 0 0 12px 3px rgba(13, 148, 136, 0.8), 
+                         0 0 12px 3px rgba(13, 74, 107, 0.6); 
           }
           .tubelight-glow-blur1 {
-            background-color: rgba(20, 184, 166, 0.3); 
+            background-color: rgba(13, 148, 136, 0.3); 
             height: 14px; 
             filter: blur(12px); 
           }
           .tubelight-glow-blur2 {
-            background-color: rgba(37, 99, 235, 0.25); 
+            background-color: rgba(13, 74, 107, 0.25); 
             height: 14px;
             filter: blur(12px);
           }
