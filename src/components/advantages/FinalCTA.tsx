@@ -7,23 +7,24 @@ import { SplashCursor } from "@/components/ui/splash-cursor";
 export const FinalCTA: React.FC = () => {
   return (
     <section id="contact" className="bg-black text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
-      {/* Fluid background effect with teal-blue and green colors */}
+      {/* Subtle fluid background effect with muted teal-blue and green colors */}
       <SplashCursor 
         SIM_RESOLUTION={128}
         DYE_RESOLUTION={1024}
-        DENSITY_DISSIPATION={3.5}
-        VELOCITY_DISSIPATION={2}
-        PRESSURE={0.1}
-        CURL={3}
-        SPLAT_RADIUS={0.2}
-        SPLAT_FORCE={6000}
-        COLOR_UPDATE_SPEED={10}
+        DENSITY_DISSIPATION={4.5}  // Increased to make effect dissipate faster
+        VELOCITY_DISSIPATION={3}   // Increased to make movement fade quicker
+        PRESSURE={0.05}           // Reduced pressure for more subtle movement
+        CURL={2}                  // Reduced curl for less swirling
+        SPLAT_RADIUS={0.15}       // Smaller radius for less prominent splats
+        SPLAT_FORCE={3000}        // Reduced force for gentler effect
+        COLOR_UPDATE_SPEED={7}    // Slower color transitions
         BACK_COLOR={{ r: 0, g: 0, b: 0 }}
         TRANSPARENT={true}
         COLOR_PALETTE={[
-          { r: 5/255, g: 150/255, b: 105/255 }, // Emerald green (matching S10AI grid)
-          { r: 14/255, g: 165/255, b: 233/255 }, // Sky blue
-          { r: 15/255, g: 118/255, b: 110/255 }  // Teal
+          // Very subtle colors with low opacity
+          { r: 2/255, g: 60/255, b: 45/255 },  // Very dark muted teal
+          { r: 5/255, g: 50/255, b: 60/255 },  // Very dark muted blue
+          { r: 3/255, g: 40/255, b: 30/255 }   // Very dark muted green
         ]}
         containerId="finalCTA-container"
         respondToScroll={true}
