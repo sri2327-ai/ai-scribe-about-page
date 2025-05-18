@@ -1,9 +1,11 @@
+
+"use client"
+ 
 import * as React from "react"
+import { ArrowLeft, ArrowRight } from "lucide-react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 
@@ -130,6 +132,7 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          plugins,
         }}
       >
         <div
@@ -204,19 +207,17 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute rounded-full h-9 w-9 sm:h-10 sm:w-10",
-        "bg-white text-gray-800 shadow-[0_5px_15px_rgba(0,0,0,0.15)] border-gray-100 hover:bg-gray-50",
+        "absolute rounded-full",
         orientation === "horizontal"
-          ? "-left-8 sm:-left-12 top-1/2 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        "transition-all duration-300 hover:scale-105",
+          ? "left-2 top-1/2 -translate-y-1/2"
+          : "top-2 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
-      <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+      <ArrowLeft className="h-4 w-4" />
       <span className="sr-only">Previous slide</span>
     </Button>
   )
@@ -235,19 +236,17 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute rounded-full h-9 w-9 sm:h-10 sm:w-10",
-        "bg-white text-gray-800 shadow-[0_5px_15px_rgba(0,0,0,0.15)] border-gray-100 hover:bg-gray-50",
+        "absolute rounded-full",
         orientation === "horizontal"
-          ? "-right-8 sm:-right-12 top-1/2 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        "transition-all duration-300 hover:scale-105",
+          ? "right-2 top-1/2 -translate-y-1/2"
+          : "bottom-2 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
       disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+      <ArrowRight className="h-4 w-4" />
       <span className="sr-only">Next slide</span>
     </Button>
   )
