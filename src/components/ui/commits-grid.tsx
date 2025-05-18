@@ -1,8 +1,10 @@
+
 "use client";
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import type { CSSProperties } from "react";
+
 export const CommitsGrid = ({
   text
 }: {
@@ -14,6 +16,7 @@ export const CommitsGrid = ({
     const allowedChars = Object.keys(letterPatterns);
     return withoutAccents.split("").filter(char => allowedChars.includes(char)).join("");
   };
+
   const generateHighlightedCells = (text: string) => {
     const cleanedText = cleanString(text);
     const width = Math.max(cleanedText.length * 6, 6) + 1;
@@ -36,26 +39,61 @@ export const CommitsGrid = ({
       height: 9 // 7+2 for the top and bottom borders
     };
   };
+
   const {
     cells: highlightedCells,
     width: gridWidth,
     height: gridHeight
   } = generateHighlightedCells(text);
+
   const getRandomColor = () => {
     // Use much brighter green colors with higher contrast for better visibility
-    const commitColors = ["#22C55E",
-    // Green-500 (brighter)
-    "#4ADE80",
-    // Green-400 (very bright)
-    "#34D399" // Emerald-400 (bright)
+    const commitColors = [
+      "#22C55E", // Green-500 (brighter)
+      "#4ADE80", // Green-400 (very bright)
+      "#34D399"  // Emerald-400 (bright)
     ];
     const randomIndex = Math.floor(Math.random() * commitColors.length);
     return commitColors[randomIndex];
   };
+
   const getRandomDelay = () => `${(Math.random() * 0.8).toFixed(1)}s`;
   const getRandomFlash = () => +(Math.random() < 0.25);
-  return;
+
+  return (
+    <section
+      className="w-full max-w-xl bg-gray-900 border border-gray-700 grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]"
+      style={{
+        gridTemplateColumns: `repeat(${gridWidth}, minmax(0, 1fr))`,
+        gridTemplateRows: `repeat(${gridHeight}, minmax(0, 1fr))`,
+      }}
+    >
+      {Array.from({ length: gridWidth * gridHeight }).map((_, index) => {
+        const isHighlighted = highlightedCells.includes(index);
+        const shouldFlash = !isHighlighted && getRandomFlash();
+
+        return (
+          <div
+            key={index}
+            className={cn(
+              `border border-gray-800 h-full w-full aspect-square rounded-[4px] sm:rounded-[3px]`,
+              isHighlighted ? "animate-highlight" : "",
+              shouldFlash ? "animate-flash" : "",
+              !isHighlighted && !shouldFlash ? "bg-gray-900" : ""
+            )}
+            style={
+              {
+                animationDelay: getRandomDelay(),
+                "--highlight": getRandomColor(),
+              } as CSSProperties
+            }
+          />
+        );
+      })}
+    </section>
+  );
 };
+
 const letterPatterns: {
   [key: string]: number[];
 } = {
