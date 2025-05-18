@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -100,7 +101,7 @@ export const CommitsGrid = ({
                 duration: 0.3, 
                 delay: i * 0.001 * (animationIntensity > 0 ? 1 : 0)
               }}
-              whileHover={{ scale: 1.2, backgroundColor: "#0d4429" }}
+              whileHover={{ scale: 1.2, backgroundColor: "#016d32" }}
             />
           );
         })}
