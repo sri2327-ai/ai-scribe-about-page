@@ -3,7 +3,7 @@ import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight, ArrowRight as ArrowRightIcon } from "lucide-react";
+import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight } from "lucide-react";
 import { useMediaQuery } from '@mui/material';
 import { shadowStyles } from "@/lib/shadow-utils";
 
@@ -302,18 +302,20 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        {/* Simple CTA with arrow icon */}
-        <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-3xl mx-auto">
+        {/* Simple CTA with arrow icon - updated to match reference */}
+        <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-3xl mx-auto text-left">
           <motion.a 
             href="#key-differences" 
-            className="group inline-flex items-center text-[#5D2B70] hover:text-[#4D2460] font-medium text-lg sm:text-xl transition-colors duration-300"
+            className="group inline-flex items-center text-black hover:text-gray-700 text-lg sm:text-xl transition-colors duration-300"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
+            <div className="mr-3 w-10 h-10 rounded-md bg-[#5D2B70] flex items-center justify-center flex-shrink-0">
+              <ArrowRight className="h-5 w-5 text-white" />
+            </div>
             <span>See S10.AI's 5 Key Differences</span>
-            <ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </motion.a>
         </div>
       </Box>
