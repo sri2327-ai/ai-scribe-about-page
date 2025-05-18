@@ -57,11 +57,11 @@ export const CommitsGrid = ({ text }: { text: string }) => {
   } = generateHighlightedCells(text);
 
   const getRandomColor = () => {
-    // Use brighter green colors with higher contrast for better visibility
+    // Use much brighter green colors with higher contrast for better visibility
     const commitColors = [
       "#22C55E", // Green-500 (brighter)
-      "#10B981", // Emerald-500
       "#4ADE80", // Green-400 (very bright)
+      "#34D399", // Emerald-400 (bright)
     ];
     const randomIndex = Math.floor(Math.random() * commitColors.length);
     return commitColors[randomIndex];
@@ -180,5 +180,3 @@ const letterPatterns: { [key: string]: number[] } = {
   " ": [],
   ".": [300, 301],
 };
-
-
