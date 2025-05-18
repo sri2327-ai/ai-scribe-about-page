@@ -1,9 +1,7 @@
-
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TubelightNavBar } from "./TubelightNavBar";
 import { Card, CardContent } from "./Card";
-import { FingerprintScannerIcon } from "./FingerprintScannerIcon";
 import { cn } from "@/lib/utils";
 import { 
   Brain, 
@@ -95,22 +93,21 @@ export const AdvantagesSection: React.FC = () => {
   const currentAdvantage = advantagesData.find(adv => adv.name === activeTab);
 
   const getIcon = (iconName?: string, customIcon?: string, size: number = 24) => {
-    switch(customIcon) {
-      case "fingerprint":
-        return <Fingerprint size={size} strokeWidth={1.5} className="text-white" />;
+    if (customIcon === "fingerprint") {
+      return <Fingerprint size={size} strokeWidth={1.5} className="text-white" />;
+    }
+    
+    switch(iconName) {
+      case "brain":
+        return <Brain size={size} strokeWidth={1.5} className="text-white" />;
+      case "cog":
+        return <Cog size={size} strokeWidth={1.5} className="text-white" />;
+      case "link":
+        return <Link size={size} strokeWidth={1.5} className="text-white" />;
+      case "user-cog":
+        return <UserCog size={size} strokeWidth={1.5} className="text-white" />;
       default:
-        switch(iconName) {
-          case "brain":
-            return <Brain size={size} strokeWidth={1.5} className="text-white" />;
-          case "cog":
-            return <Cog size={size} strokeWidth={1.5} className="text-white" />;
-          case "link":
-            return <Link size={size} strokeWidth={1.5} className="text-white" />;
-          case "user-cog":
-            return <UserCog size={size} strokeWidth={1.5} className="text-white" />;
-          default:
-            return null;
-        }
+        return null;
     }
   };
 
@@ -149,11 +146,7 @@ export const AdvantagesSection: React.FC = () => {
                       transition={{ duration: 0.5, delay: 0.1 }}
                     >
                       <div className="w-16 h-16 flex items-center justify-center mb-5">
-                        {currentAdvantage.customIcon === "fingerprint" ? (
-                          <FingerprintScannerIcon className="text-white" size="w-16 h-16" />
-                        ) : (
-                          getIcon(currentAdvantage.iconName, undefined, 42)
-                        )}
+                        {getIcon(currentAdvantage.iconName, currentAdvantage.customIcon, 42)}
                       </div>
                       <motion.h3 
                         className="text-2xl md:text-3xl font-medium mb-3 text-white"

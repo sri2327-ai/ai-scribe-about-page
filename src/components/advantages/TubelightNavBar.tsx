@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { FingerprintScannerIcon } from "./FingerprintScannerIcon";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Brain, Cog, Link, UserCog, Fingerprint } from "lucide-react";
 
 interface NavItem {
   name: string;
@@ -26,6 +27,26 @@ export const TubelightNavBar: React.FC<TubelightNavBarProps> = ({
   setActiveTab 
 }) => {
   const isMobile = useIsMobile();
+  
+  // Helper function to get the appropriate icon based on iconName or customIcon
+  const getIcon = (iconName?: string, customIcon?: string) => {
+    if (customIcon === "fingerprint") {
+      return <Fingerprint className="w-5 h-5" strokeWidth={1.5} />;
+    }
+    
+    switch (iconName) {
+      case "brain":
+        return <Brain className="w-5 h-5" strokeWidth={1.5} />;
+      case "cog":
+        return <Cog className="w-5 h-5" strokeWidth={1.5} />;
+      case "link":
+        return <Link className="w-5 h-5" strokeWidth={1.5} />;
+      case "user-cog":
+        return <UserCog className="w-5 h-5" strokeWidth={1.5} />;
+      default:
+        return null;
+    }
+  };
   
   return (
     <div
@@ -54,14 +75,13 @@ export const TubelightNavBar: React.FC<TubelightNavBarProps> = ({
               >
                 <div className="flex items-center justify-center">
                   {isMobile ? ( 
-                    item.customIcon === "fingerprint" ? 
-                    <FingerprintScannerIcon className={cn("w-5 h-5", isActive ? "text-white" : "text-gray-300")} size="" /> : 
-                    <i className={cn(item.iconName, "text-xl w-5 h-5 flex items-center justify-center", isActive ? "text-white" : "text-gray-300")}></i>
+                    <span className="flex items-center justify-center">
+                      {getIcon(item.iconName, item.customIcon)}
+                    </span>
                   ) : ( 
                     <>
-                      {item.customIcon === "fingerprint" && <FingerprintScannerIcon className={cn("w-5 h-5 mr-2", isActive ? "text-white" : "text-gray-300")} size="" />}
-                      {item.iconName && !item.customIcon && <i className={cn(item.iconName, "text-xl mr-2", isActive ? "text-white" : "text-gray-300")}></i>}
-                      <span>{item.name}</span>
+                      {getIcon(item.iconName, item.customIcon)}
+                      <span className="ml-2">{item.name}</span>
                     </>
                   )}
                 </div>
