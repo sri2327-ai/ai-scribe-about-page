@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -81,13 +80,13 @@ export const CommitsGrid = ({
             animate={{ 
               scale: 1, 
               opacity: 1,
-              backgroundColor: isActive ? "rgba(5, 150, 105, 0.9)" : "rgba(31, 41, 55, 0.7)"
+              backgroundColor: isActive ? "#48d55d" : "rgba(31, 41, 55, 0.7)"
             }}
             transition={{ 
               duration: 0.3, 
               delay: i * 0.001 * (animationIntensity > 0 ? 1 : 0)
             }}
-            whileHover={{ scale: 1.2, backgroundColor: "rgba(4, 120, 87, 0.95)" }}
+            whileHover={{ scale: 1.2, backgroundColor: "#0d4429" }}
           />
         ))}
     </div>
