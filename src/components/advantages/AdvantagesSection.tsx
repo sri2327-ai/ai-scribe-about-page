@@ -11,6 +11,7 @@ import {
   UserCog, 
   Shield 
 } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AdvantageData {
   id: number;
@@ -89,6 +90,7 @@ export const AdvantagesSection: React.FC = () => {
   ];
   
   const [activeTab, setActiveTab] = useState(advantagesData[0].name);
+  const isMobile = useIsMobile();
 
   const navBarItems = advantagesData.map(adv => ({
     name: adv.name,
@@ -157,11 +159,18 @@ export const AdvantagesSection: React.FC = () => {
                       </div>
                       <motion.div className="text-center">
                         <h3 
-                          className="text-xl sm:text-2xl md:text-3xl font-medium mb-2 text-white"
+                          className={cn(
+                            "font-medium mb-2 text-white break-words hyphens-auto px-2",
+                            isMobile ? "text-xl sm:text-2xl" : "text-xl sm:text-2xl md:text-3xl"
+                          )}
                         >
                           {currentAdvantage.title.replace("s10.ai", "S10.AI")}
                         </h3>
-                        <p className="text-lg sm:text-xl text-gray-300">
+                        <p className={cn(
+                            "text-gray-300 px-2", 
+                            isMobile ? "text-base" : "text-lg sm:text-xl"
+                          )}
+                        >
                           {currentAdvantage.subtitle.replace("s10.ai", "S10.AI")}
                         </p>
                       </motion.div>
