@@ -181,3 +181,4 @@ const letterPatterns: { [key: string]: number[] } = {
   ".": [300, 301],
 };
 
+
