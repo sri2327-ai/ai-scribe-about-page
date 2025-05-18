@@ -1,4 +1,3 @@
-
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, DollarSign, Heart, Users, TrendingUp, FileText, Calendar } from "lucide-react";
@@ -50,7 +49,7 @@ export const FinalCTA: React.FC = () => {
       
       <div className="container mx-auto max-w-4xl text-center relative z-10">
         <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6 md:mb-8 tracking-tight"
+          className="text-2xl sm:text-3xl md:text-4xl font-medium mb-6 md:mb-8 tracking-tight"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
