@@ -1,3 +1,4 @@
+
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, DollarSign, Heart, Users, TrendingUp, FileText, Calendar } from "lucide-react";
@@ -16,77 +17,77 @@ export const FinalCTA: React.FC = () => {
           Ready to Experience the S10.AI Transformation?
         </motion.h2>
         
-        {/* ROI Stats Section */}
+        {/* ROI Stats Section - Redesigned */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 md:mb-12"
+          className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-5 mb-8 md:mb-12 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2, staggerChildren: 0.1 }}
         >
           <motion.div 
-            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg"
+            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/40 backdrop-blur-sm hover:border-white/50 transition-all duration-300 transform hover:scale-105"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Clock className="h-8 w-8 mb-2 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">75%</span>
+            <Clock className="h-6 w-6 sm:h-8 sm:w-8 mb-2 text-teal-300" />
+            <span className="text-xl sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-teal-300 bg-clip-text text-transparent">75%</span>
             <span className="text-xs sm:text-sm mt-1 text-white/80">Reduction in documentation time</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg"
+            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/40 backdrop-blur-sm hover:border-white/50 transition-all duration-300 transform hover:scale-105"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <DollarSign className="h-8 w-8 mb-2 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">40%</span>
+            <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 mb-2 text-teal-300" />
+            <span className="text-xl sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-teal-300 bg-clip-text text-transparent">40%</span>
             <span className="text-xs sm:text-sm mt-1 text-white/80">Increase in practice revenue</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg col-span-2 md:col-span-1"
+            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/40 backdrop-blur-sm hover:border-white/50 transition-all duration-300 transform hover:scale-105"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Heart className="h-8 w-8 mb-2 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">95%</span>
+            <Heart className="h-6 w-6 sm:h-8 sm:w-8 mb-2 text-teal-300" />
+            <span className="text-xl sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-teal-300 bg-clip-text text-transparent">95%</span>
             <span className="text-xs sm:text-sm mt-1 text-white/80">Patient satisfaction rates</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg"
+            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/40 backdrop-blur-sm hover:border-white/50 transition-all duration-300 transform hover:scale-105"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <TrendingUp className="h-8 w-8 mb-2 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">$150K+</span>
+            <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 mb-2 text-teal-300" />
+            <span className="text-xl sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-teal-300 bg-clip-text text-transparent">$150K+</span>
             <span className="text-xs sm:text-sm mt-1 text-white/80">Annual cost savings</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg"
+            className="flex flex-col items-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/40 backdrop-blur-sm hover:border-white/50 transition-all duration-300 transform hover:scale-105 col-span-2 md:col-span-1"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Users className="h-8 w-8 mb-2 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">30%</span>
+            <Users className="h-6 w-6 sm:h-8 sm:w-8 mb-2 text-teal-300" />
+            <span className="text-xl sm:text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-teal-300 bg-clip-text text-transparent">30%</span>
             <span className="text-xs sm:text-sm mt-1 text-white/80">Increase in patient volume</span>
           </motion.div>
         </motion.div>
         
         <motion.p 
-          className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed text-gray-300 font-normal"
+          className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed text-gray-300 font-normal max-w-2xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -104,7 +105,7 @@ export const FinalCTA: React.FC = () => {
         >
           <motion.a 
             href="#" 
-            className="bg-black border-2 border-white text-white font-medium py-3 px-6 sm:py-4 sm:px-10 md:px-12 rounded-lg shadow-lg text-base sm:text-lg md:text-xl flex items-center justify-center gap-2 w-full sm:w-auto hover:bg-gray-900 transition-all duration-300"
+            className="bg-black border-2 border-white text-white font-medium py-3 px-6 sm:py-4 sm:px-10 md:px-12 rounded-lg shadow-lg text-base sm:text-lg md:text-xl flex items-center justify-center gap-2 w-full sm:w-auto hover:bg-gray-900 hover:border-teal-300 hover:text-teal-300 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -114,7 +115,7 @@ export const FinalCTA: React.FC = () => {
           
           <motion.a 
             href="#" 
-            className="bg-black border border-white/70 text-white font-medium py-3 px-6 sm:py-4 sm:px-8 rounded-lg shadow-lg text-base sm:text-lg flex items-center justify-center gap-2 w-full sm:w-auto hover:bg-gray-900 transition-all duration-300"
+            className="bg-black border border-white/70 text-white font-medium py-3 px-6 sm:py-4 sm:px-8 rounded-lg shadow-lg text-base sm:text-lg flex items-center justify-center gap-2 w-full sm:w-auto hover:bg-gray-900 hover:border-teal-300/70 hover:text-teal-300/90 transition-all duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
