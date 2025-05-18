@@ -32,6 +32,9 @@ export const CommitsGrid = ({
 }: CommitsGridProps) => {
   const [grid, setGrid] = useState<boolean[][]>([]);
   
+  // Define the three green shades for alternation
+  const greenShades = ["#48d55d", "#016d32", "#0d4429"];
+  
   // Initialize the grid with the full text pattern
   useEffect(() => {
     const fullWordGrid = generateFullWordPattern(text, gridSize);
@@ -60,6 +63,12 @@ export const CommitsGrid = ({
     
     return () => clearInterval(timer);
   }, [animationIntensity, gridSize]);
+
+  // Function to determine which green shade to use based on cell position
+  const getCellColor = (rowIndex: number, colIndex: number) => {
+    const cellIndex = (rowIndex + colIndex) % 3;
+    return greenShades[cellIndex];
+  };
   
   return (
     <div className={`commits-grid w-full max-w-xl ${colorScheme.bg} border ${colorScheme.border} grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]`}
@@ -70,25 +79,31 @@ export const CommitsGrid = ({
       }}
     >
       {grid.length > 0 &&
-        grid.flat().map((isActive, i) => (
-          <motion.div
-            key={i}
-            className={`aspect-square rounded-sm sm:rounded transition-colors duration-300 ${
-              isActive ? colorScheme.activeBg : colorScheme.inactiveBg
-            }`}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ 
-              scale: 1, 
-              opacity: 1,
-              backgroundColor: isActive ? "#48d55d" : "rgba(31, 41, 55, 0.7)"
-            }}
-            transition={{ 
-              duration: 0.3, 
-              delay: i * 0.001 * (animationIntensity > 0 ? 1 : 0)
-            }}
-            whileHover={{ scale: 1.2, backgroundColor: "#0d4429" }}
-          />
-        ))}
+        grid.flat().map((isActive, i) => {
+          const rowIndex = Math.floor(i / gridSize.cols);
+          const colIndex = i % gridSize.cols;
+          const activeColor = isActive ? getCellColor(rowIndex, colIndex) : "rgba(31, 41, 55, 0.7)";
+          
+          return (
+            <motion.div
+              key={i}
+              className={`aspect-square rounded-sm sm:rounded transition-colors duration-300 ${
+                isActive ? colorScheme.activeBg : colorScheme.inactiveBg
+              }`}
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ 
+                scale: 1, 
+                opacity: 1,
+                backgroundColor: activeColor
+              }}
+              transition={{ 
+                duration: 0.3, 
+                delay: i * 0.001 * (animationIntensity > 0 ? 1 : 0)
+              }}
+              whileHover={{ scale: 1.2, backgroundColor: "#0d4429" }}
+            />
+          );
+        })}
     </div>
   );
 };
