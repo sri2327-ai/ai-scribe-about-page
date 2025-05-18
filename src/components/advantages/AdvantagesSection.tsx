@@ -158,9 +158,6 @@ export const AdvantagesSection: React.FC = () => {
                       <motion.div className="text-center">
                         <h3 
                           className="text-2xl md:text-3xl font-medium mb-2 text-white"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
                         >
                           {currentAdvantage.title.replace("s10.ai", "S10.AI")}
                         </h3>
@@ -227,7 +224,9 @@ export const AdvantagesSection: React.FC = () => {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: 0.5 }}
                         >
-                          <h4 className="font-medium text-lg mb-3 text-gray-100">What this means for you:</h4>
+                          <motion.h4 className="font-medium text-lg mb-3 text-gray-100">
+                            What this means for you:
+                          </motion.h4>
                           <p className="leading-relaxed text-gray-300 text-sm md:text-base">
                             {currentAdvantage.meansForYou.replace("s10.ai", "S10.AI")}
                           </p>
@@ -240,7 +239,9 @@ export const AdvantagesSection: React.FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.6 }}
                       >
-                        <h4 className="font-medium text-lg mb-3 text-gray-100 border-b border-sky-800/30 pb-2">The S10.AI Edge:</h4>
+                        <motion.h4 className="font-medium text-lg mb-3 text-gray-100 border-b border-sky-800/30 pb-2">
+                          The S10.AI Edge:
+                        </motion.h4>
                         <p className="leading-relaxed text-gray-300 text-sm md:text-base">
                           {currentAdvantage.edge.replace("s10.ai", "S10.AI")}
                         </p>
@@ -272,3 +273,4 @@ export const AdvantagesSection: React.FC = () => {
     </section>
   );
 };
+
