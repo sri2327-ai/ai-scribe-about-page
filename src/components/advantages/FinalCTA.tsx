@@ -14,27 +14,27 @@ export const FinalCTA: React.FC = () => {
   // Define ROI stats with their icons and values
   const roiStats = [
     {
-      icon: <Clock className="h-6 w-6 sm:h-7 sm:w-7 mb-1 text-teal-500" />,
+      icon: <Clock className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
       value: "75%",
       label: "Less documentation time"
     },
     {
-      icon: <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 mb-1 text-teal-500" />,
+      icon: <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
       value: "40%",
       label: "Increased revenue"
     },
     {
-      icon: <Heart className="h-6 w-6 sm:h-7 sm:w-7 mb-1 text-teal-500" />,
+      icon: <Heart className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
       value: "95%",
       label: "Patient satisfaction"
     },
     {
-      icon: <TrendingUp className="h-6 w-6 sm:h-7 sm:w-7 mb-1 text-teal-500" />,
+      icon: <TrendingUp className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
       value: "$150K+",
       label: "Annual savings"
     },
     {
-      icon: <Users className="h-6 w-6 sm:h-7 sm:w-7 mb-1 text-teal-500" />,
+      icon: <Users className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
       value: "30%",
       label: "More patients"
     }
@@ -83,7 +83,9 @@ export const FinalCTA: React.FC = () => {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       style={{ boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
                     >
-                      <div className="text-teal-500 mb-1">{stat.icon}</div>
+                      <div className="flex items-center justify-center mb-2">
+                        {stat.icon}
+                      </div>
                       <span className="text-lg sm:text-xl font-bold text-white">{stat.value}</span>
                       <span className="text-xs mt-1 text-white/80">{stat.label}</span>
                     </motion.div>
@@ -107,7 +109,7 @@ export const FinalCTA: React.FC = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   style={{ boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
                 >
-                  <div className="text-center mb-1 flex items-center justify-center">
+                  <div className="flex items-center justify-center mb-2">
                     {stat.icon}
                   </div>
                   <span className="text-lg sm:text-xl font-bold text-white">{stat.value}</span>
@@ -175,3 +177,4 @@ export const FinalCTA: React.FC = () => {
     </section>
   );
 };
+
