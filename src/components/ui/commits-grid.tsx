@@ -35,7 +35,7 @@ export const CommitsGrid = ({
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const characters = text.split("");
   
-  // Generate grid pattern for each letter
+  // Generate grid pattern for each letter with improved clarity
   const letterPatterns = characters.map((char) => generatePatternForLetter(char.toUpperCase(), gridSize));
   
   // Initialize the grid
@@ -112,24 +112,91 @@ export const CommitsGrid = ({
   );
 };
 
-// Helper function to generate grid pattern for a letter
+// Helper function to generate grid pattern for a letter - Improved patterns for clearer display
 function generatePatternForLetter(letter: string, gridSize: { rows: number; cols: number }) {
   const { rows, cols } = gridSize;
   const grid = Array(rows).fill(0).map(() => Array(cols).fill(false));
   
+  // Enhanced patterns with more defined character shapes
   const patterns: Record<string, number[][]> = {
-    S: [[1,1,1], [1,0,0], [1,1,1], [0,0,1], [1,1,1]],
-    '1': [[0,1,0], [1,1,0], [0,1,0], [0,1,0], [1,1,1]],
-    '0': [[1,1,1], [1,0,1], [1,0,1], [1,0,1], [1,1,1]],
-    A: [[1,1,1], [1,0,1], [1,1,1], [1,0,1], [1,0,1]],
-    I: [[1,1,1], [0,1,0], [0,1,0], [0,1,0], [1,1,1]],
-    L: [[1,0,0], [1,0,0], [1,0,0], [1,0,0], [1,1,1]],
-    O: [[1,1,1], [1,0,1], [1,0,1], [1,0,1], [1,1,1]],
-    V: [[1,0,1], [1,0,1], [1,0,1], [1,0,1], [0,1,0]],
-    B: [[1,1,0], [1,0,1], [1,1,0], [1,0,1], [1,1,0]],
-    E: [[1,1,1], [1,0,0], [1,1,0], [1,0,0], [1,1,1]],
+    S: [
+      [0,1,1,1,0],
+      [1,0,0,0,0],
+      [0,1,1,0,0],
+      [0,0,0,1,0],
+      [1,1,1,0,0]
+    ],
+    '1': [
+      [0,0,1,0,0],
+      [0,1,1,0,0],
+      [0,0,1,0,0],
+      [0,0,1,0,0],
+      [0,1,1,1,0]
+    ],
+    '0': [
+      [0,1,1,0,0],
+      [1,0,0,1,0],
+      [1,0,0,1,0],
+      [1,0,0,1,0],
+      [0,1,1,0,0]
+    ],
+    A: [
+      [0,1,1,0,0],
+      [1,0,0,1,0],
+      [1,1,1,1,0],
+      [1,0,0,1,0],
+      [1,0,0,1,0]
+    ],
+    I: [
+      [1,1,1,0],
+      [0,1,0,0],
+      [0,1,0,0],
+      [0,1,0,0],
+      [1,1,1,0]
+    ],
+    L: [
+      [1,0,0,0],
+      [1,0,0,0],
+      [1,0,0,0],
+      [1,0,0,0],
+      [1,1,1,0]
+    ],
+    O: [
+      [0,1,1,0,0],
+      [1,0,0,1,0],
+      [1,0,0,1,0],
+      [1,0,0,1,0],
+      [0,1,1,0,0]
+    ],
+    V: [
+      [1,0,0,1,0],
+      [1,0,0,1,0],
+      [1,0,0,1,0],
+      [0,1,0,1,0],
+      [0,0,1,0,0]
+    ],
+    B: [
+      [1,1,1,0,0],
+      [1,0,0,1,0],
+      [1,1,1,0,0],
+      [1,0,0,1,0],
+      [1,1,1,0,0]
+    ],
+    E: [
+      [1,1,1,1,0],
+      [1,0,0,0,0],
+      [1,1,1,0,0],
+      [1,0,0,0,0],
+      [1,1,1,1,0]
+    ],
     // Default pattern for unsupported characters
-    DEFAULT: [[0,1,0], [1,0,1], [1,1,1], [1,0,1], [1,0,1]]
+    DEFAULT: [
+      [0,1,0,0],
+      [1,0,1,0],
+      [1,1,1,0],
+      [1,0,1,0],
+      [1,0,1,0]
+    ]
   };
   
   // Get pattern for this letter or use default
@@ -150,14 +217,17 @@ function generatePatternForLetter(letter: string, gridSize: { rows: number; cols
     }
   }
   
-  // Add random active cells
+  // Add fewer random active cells for cleaner appearance
   const totalCells = rows * cols;
-  const numRandomCells = Math.floor(totalCells * 0.1); // 10% of cells will be randomly active
+  const numRandomCells = Math.floor(totalCells * 0.05); // Reduced from 10% to 5%
   
   for (let i = 0; i < numRandomCells; i++) {
     const randomRow = Math.floor(Math.random() * rows);
     const randomCol = Math.floor(Math.random() * cols);
-    grid[randomRow][randomCol] = true;
+    // Avoid overwriting the main pattern
+    if (!grid[randomRow][randomCol]) {
+      grid[randomRow][randomCol] = Math.random() > 0.7; // Only 30% chance of activating
+    }
   }
   
   return grid;

@@ -17,7 +17,8 @@ export const S10AISection = () => {
         const gridElement = gridRef.current?.querySelector(".commits-grid");
         if (gridElement) {
           gridElement.classList.remove("commits-grid");
-          void gridElement.offsetWidth; // Trigger reflow
+          // Use a safer way to trigger reflow
+          void gridElement.getBoundingClientRect();
           gridElement.classList.add("commits-grid");
         }
       }, 100);
@@ -45,16 +46,25 @@ export const S10AISection = () => {
         >
           <CommitsGrid 
             text="S10.AI" 
+            gridSize={{ rows: 9, cols: 25 }} // Increased grid size for better resolution
             animationIntensity={isHovered ? 2 : isInView ? 1.5 : 0} 
+            colorScheme={{
+              bg: "bg-gray-900",
+              border: "border-gray-700",
+              activeBg: "bg-teal-400/50 dark:bg-teal-400/40", // Brighter, more visible active cells
+              activeText: "text-white",
+              inactiveBg: "bg-gray-800/70 dark:bg-gray-800/50", // More subtle inactive cells
+              inactiveText: "text-gray-500",
+            }}
           />
         </motion.div>
         <motion.p 
-          className="text-center mt-4 text-xl"
+          className="text-center mt-8 text-xl font-semibold"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <span className="text-gray-400">Making Life Easy For Clinicians</span>
+          <span className="text-teal-400">Making Life Easy For Clinicians</span>
         </motion.p>
       </div>
     </section>
