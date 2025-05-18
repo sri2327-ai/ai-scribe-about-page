@@ -7,7 +7,7 @@ import { SplashCursor } from "@/components/ui/splash-cursor";
 export const FinalCTA: React.FC = () => {
   return (
     <section id="contact" className="bg-black text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
-      {/* Fluid background effect - Only applied to this section */}
+      {/* Fluid background effect with teal-blue and green colors */}
       <SplashCursor 
         SIM_RESOLUTION={128}
         DYE_RESOLUTION={1024}
@@ -20,6 +20,11 @@ export const FinalCTA: React.FC = () => {
         COLOR_UPDATE_SPEED={10}
         BACK_COLOR={{ r: 0, g: 0, b: 0 }}
         TRANSPARENT={true}
+        COLOR_PALETTE={[
+          { r: 5/255, g: 150/255, b: 105/255 }, // Emerald green (matching S10AI grid)
+          { r: 14/255, g: 165/255, b: 233/255 }, // Sky blue
+          { r: 15/255, g: 118/255, b: 110/255 }  // Teal
+        ]}
         containerId="finalCTA-container"
         respondToScroll={true}
         respondToHover={true}
@@ -27,7 +32,7 @@ export const FinalCTA: React.FC = () => {
       
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-medium mb-6 md:mb-8 tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6 md:mb-8 tracking-tight"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -37,7 +42,7 @@ export const FinalCTA: React.FC = () => {
         </motion.h2>
         
         <motion.p 
-          className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 leading-relaxed text-gray-300"
+          className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 leading-relaxed text-gray-300 font-normal"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -61,7 +66,7 @@ export const FinalCTA: React.FC = () => {
         </motion.a>
         
         <motion.p 
-          className="mt-6 sm:mt-8 text-sm sm:text-md text-gray-400"
+          className="mt-6 sm:mt-8 text-sm sm:text-md text-gray-400 font-normal"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

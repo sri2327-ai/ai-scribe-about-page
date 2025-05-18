@@ -19,12 +19,12 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
   Breathing = false,
   gradientColors = [
     "#0A0A0A",
-    "#0E7490", // Updated to teal-600
-    "#0891B2", // Updated to teal-500
-    "#06B6D4", // Updated to teal-400 (subtle)
-    "#67E8F9", // Lighter teal
-    "#2DD4BF", // Subtle green-teal
-    "#14B8A6"  // Subtle teal-green
+    "#0E7490", // teal-600
+    "#0891B2", // teal-500
+    "#06B6D4", // teal-400
+    "#67E8F9", // teal-200
+    "#059669", // emerald-600
+    "#10B981"  // emerald-500
   ],
   gradientStops = [35, 50, 60, 70, 80, 90, 100],
   animationSpeed = 0.02,
@@ -76,9 +76,9 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
   return (
     <motion.div
       key="animated-gradient-background"
-      initial={{ opacity: 0, scale: 1.5 }}
+      initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
       className={`absolute inset-0 overflow-hidden ${containerClassName}`}
     >
       <div

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TubelightNavBar } from "./TubelightNavBar";
@@ -48,7 +47,7 @@ export const AdvantagesSection: React.FC = () => {
       description: "Clinical documentation is only one piece of the puzzle. S10.AI offers a holistic automation strategy to address burnout and inefficiency across your entire practice:", 
       bullets: [
         "C.R.U.S.H. (Clinical Real-time Universal Scribe Helper): Your AI Medical Scribe for meticulous clinical documentation, accurate coding, and seamless in-encounter workflow assistance.", 
-        "B.R.A.V.O. (Bot for Real-time Administrative & Virtual Operations): Your AI Patient Care Agent that automates the entire patient journey – from intelligent scheduling, automated triage, and pre-visit intake to patient engagement and critical Revenue Cycle Management (RCM) functions."
+        "B.R.A.V.O. (Bot for Real-time Administrative & Virtual Operations): Your AI Staffing Agent that automates the entire patient journey – from intelligent scheduling, automated triage, and pre-visit intake to patient engagement and critical Revenue Cycle Management (RCM) functions."
       ], 
       edge: "This powerful, integrated suite lightens the load for your entire team, delivering true end-to-end practice transformation. Don't just scribe, thrive.", 
       cta: "Explore Full Practice Automation" 
@@ -273,4 +272,3 @@ export const AdvantagesSection: React.FC = () => {
     </section>
   );
 };
-
