@@ -33,77 +33,77 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
       // BRAVO pricing
       bravoBasic: 99,
       bravoPro: 'Starts at $299',
-      bravoEnterprise: 'Custom pricing',
+      bravoEnterprise: 'Custom Quote',
       // Bundle pricing (calculated with 10% discount)
       bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
-      bundlePro: 'Custom pricing', // Both are custom so bundle is custom
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote', // Both are custom so bundle is custom
+      bundleEnterprise: 'Custom Quote'
     },
     CAD: { 
       crushBasic: 99, 
-      crushPro: 'Custom pricing',
+      crushPro: 'Custom Quote',
       crushEnterprise: 'Custom Quote',
       bravoBasic: 99,
-      bravoPro: 'Custom pricing',
-      bravoEnterprise: 'Custom pricing',
+      bravoPro: 'Custom Quote',
+      bravoEnterprise: 'Custom Quote',
       bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
-      bundlePro: 'Custom pricing',
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote',
+      bundleEnterprise: 'Custom Quote'
     },
     AUD: { 
       crushBasic: 99, 
-      crushPro: 'Custom pricing',
+      crushPro: 'Custom Quote',
       crushEnterprise: 'Custom Quote',
       bravoBasic: 99,
-      bravoPro: 'Custom pricing',
-      bravoEnterprise: 'Custom pricing',
+      bravoPro: 'Custom Quote',
+      bravoEnterprise: 'Custom Quote',
       bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
-      bundlePro: 'Custom pricing',
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote',
+      bundleEnterprise: 'Custom Quote'
     },
     GBP: { 
       crushBasic: 49, 
-      crushPro: 'Custom pricing',
+      crushPro: 'Custom Quote',
       crushEnterprise: 'Custom Quote',
       bravoBasic: 59,
-      bravoPro: 'Custom pricing',
-      bravoEnterprise: 'Custom pricing',
+      bravoPro: 'Custom Quote',
+      bravoEnterprise: 'Custom Quote',
       bundleBasic: 97, // (49+59) * 0.9 = 97.2 ≈ 97
-      bundlePro: 'Custom pricing',
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote',
+      bundleEnterprise: 'Custom Quote'
     },
     EUR: { 
       crushBasic: 59, 
-      crushPro: 'Custom pricing',
+      crushPro: 'Custom Quote',
       crushEnterprise: 'Custom Quote',
       bravoBasic: 69,
-      bravoPro: 'Custom pricing',
-      bravoEnterprise: 'Custom pricing',
+      bravoPro: 'Custom Quote',
+      bravoEnterprise: 'Custom Quote',
       bundleBasic: 115, // (59+69) * 0.9 = 115.2 ≈ 115
-      bundlePro: 'Custom pricing',
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote',
+      bundleEnterprise: 'Custom Quote'
     },
     NZD: { 
       crushBasic: 99, 
-      crushPro: 'Custom pricing',
+      crushPro: 'Custom Quote',
       crushEnterprise: 'Custom Quote',
       bravoBasic: 99,
-      bravoPro: 'Custom pricing',
-      bravoEnterprise: 'Custom pricing',
+      bravoPro: 'Custom Quote',
+      bravoEnterprise: 'Custom Quote',
       bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
-      bundlePro: 'Custom pricing',
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote',
+      bundleEnterprise: 'Custom Quote'
     },
     AED: { 
       crushBasic: 263, 
-      crushPro: 'Custom pricing',
+      crushPro: 'Custom Quote',
       crushEnterprise: 'Custom Quote',
       bravoBasic: 263,
-      bravoPro: 'Custom pricing',
-      bravoEnterprise: 'Custom pricing',
+      bravoPro: 'Custom Quote',
+      bravoEnterprise: 'Custom Quote',
       bundleBasic: 473, // (263+263) * 0.9 = 473.4 ≈ 473
-      bundlePro: 'Custom pricing',
-      bundleEnterprise: 'Custom pricing'
+      bundlePro: 'Custom Quote',
+      bundleEnterprise: 'Custom Quote'
     },
   };
   
@@ -120,9 +120,9 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(price * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
-  // Format for "Custom pricing" strings
+  // Format for "Custom Quote" strings
   const formatCustomString = (text: string) => {
-    if (text === 'Custom pricing' || text === 'Custom Quote') {
+    if (text === 'Custom Quote') {
       return text;
     }
     

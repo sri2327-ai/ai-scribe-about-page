@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -161,7 +162,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Pricing
+                Contact For Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -214,7 +215,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Pricing
+                Contact For Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -330,7 +331,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Pricing
+                Contact For Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -382,7 +383,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact Us
+                Contact For Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Custom pricing for your needs</p>
@@ -476,7 +477,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Pricing
+                Contact For Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -533,7 +534,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact for Pro Bundle Quote
+                Contact For Custom Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
