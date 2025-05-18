@@ -4,11 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, ChevronLeft, Check } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export const InteractiveTestimonials = () => {
   const [activeCategory, setActiveCategory] = useState<'physicians' | 'practices' | 'specialists'>('physicians');
   const [currentIndex, setCurrentIndex] = useState(0);
   const testimonialsRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const testimonials = {
     physicians: [
@@ -141,39 +143,39 @@ export const InteractiveTestimonials = () => {
           </p>
         </motion.div>
 
-        <div className="flex justify-center gap-4 mb-12 flex-wrap">
+        <div className="flex justify-center gap-2 sm:gap-3 md:gap-4 mb-8 md:mb-12 overflow-x-auto px-2 pb-2 -mx-2 md:flex-wrap">
           <motion.div
             variants={categoryVariants}
             animate={activeCategory === 'physicians' ? 'active' : 'inactive'}
             onClick={() => setActiveCategory('physicians')}
-            className={`px-5 py-2 rounded-full cursor-pointer transition-colors ${
+            className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full cursor-pointer transition-all shadow-sm ${
               activeCategory === 'physicians' 
-                ? 'bg-[#143151] text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-gradient-to-r from-[#143151] to-[#2a5783] text-white shadow-md' 
+                : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300'
             }`}
           >
-            Individual Physicians
+            {isMobile ? "Physicians" : "Individual Physicians"}
           </motion.div>
           <motion.div
             variants={categoryVariants}
             animate={activeCategory === 'practices' ? 'active' : 'inactive'}
             onClick={() => setActiveCategory('practices')}
-            className={`px-5 py-2 rounded-full cursor-pointer transition-colors ${
+            className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full cursor-pointer transition-all shadow-sm ${
               activeCategory === 'practices' 
-                ? 'bg-[#143151] text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-gradient-to-r from-[#143151] to-[#2a5783] text-white shadow-md' 
+                : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300'
             }`}
           >
-            Medical Practices
+            {isMobile ? "Practices" : "Medical Practices"}
           </motion.div>
           <motion.div
             variants={categoryVariants}
             animate={activeCategory === 'specialists' ? 'active' : 'inactive'}
             onClick={() => setActiveCategory('specialists')}
-            className={`px-5 py-2 rounded-full cursor-pointer transition-colors ${
+            className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full cursor-pointer transition-all shadow-sm ${
               activeCategory === 'specialists' 
-                ? 'bg-[#143151] text-white' 
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-gradient-to-r from-[#143151] to-[#2a5783] text-white shadow-md' 
+                : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-700 hover:from-gray-200 hover:to-gray-300'
             }`}
           >
             Specialists
