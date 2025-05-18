@@ -5,6 +5,7 @@ import { AdvantagesSection } from "./AdvantagesSection";
 import { FinalCTA } from "./FinalCTA";
 import { ScriptLoader } from "./ScriptLoader";
 import { S10AISection } from "./S10AISection";
+import { Separator } from "@/components/ui/separator";
 
 export const AdvantagesContent = () => {
   return (
@@ -83,6 +84,12 @@ export const AdvantagesContent = () => {
         <HeroSection />
         <AdvantagesSection />
         <S10AISection />
+        
+        {/* Add the separator before the FinalCTA section */}
+        <div className="container mx-auto px-4">
+          <Separator className="my-0 bg-gray-800/60 h-px" />
+        </div>
+        
         <div id="finalCTA-container" className="relative">
           <FinalCTA />
         </div>

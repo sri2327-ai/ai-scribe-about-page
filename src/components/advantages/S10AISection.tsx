@@ -28,11 +28,11 @@ export const S10AISection = () => {
   }, [isInView]);
   
   return (
-    <section className="bg-black py-16 px-4">
+    <section className="bg-black py-16 md:py-24 px-4 sm:px-6">
       <div className="container mx-auto flex flex-col items-center justify-center">
         <motion.div 
           ref={gridRef}
-          className="mb-6 w-full max-w-xl"
+          className="mb-6 w-full max-w-2xl"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
           transition={{ duration: 0.7 }}
@@ -59,7 +59,7 @@ export const S10AISection = () => {
           />
         </motion.div>
         <motion.p 
-          className="text-center mt-8 text-xl font-semibold"
+          className="text-center mt-8 text-xl md:text-2xl font-medium" // Updated font weight
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.2 }}

@@ -113,7 +113,7 @@ export const AdvantagesSection: React.FC = () => {
                 transition={{ duration: 0.35, ease: "easeInOut" }}
                 className="advantage-content-display"
               >
-                <Card className="bg-gray-900/70 backdrop-blur-lg border border-gray-700/50 shadow-2xl">
+                <Card className="bg-black border border-gray-800/50 shadow-2xl">
                   <CardContent className="relative pt-8 md:pt-10 pb-8 md:pb-10">
                     <motion.div 
                       className="flex flex-col items-center text-center mb-6 md:mb-8"
@@ -127,7 +127,7 @@ export const AdvantagesSection: React.FC = () => {
                         <i className={cn(currentAdvantage.iconName, "text-5xl md:text-6xl text-white opacity-90 mb-4")}></i>
                       )}
                       <motion.h3 
-                        className="text-2xl md:text-3xl font-semibold mb-3 text-white"
+                        className="text-2xl md:text-3xl font-medium mb-3 text-white"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.2 }}
@@ -137,7 +137,7 @@ export const AdvantagesSection: React.FC = () => {
                     </motion.div>
                     
                     <motion.p 
-                      className="mb-6 text-gray-300 leading-relaxed text-md text-center md:text-left"
+                      className="mb-6 text-gray-300 leading-relaxed text-md md:text-lg text-center md:text-left"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.3 }}
@@ -169,7 +169,7 @@ export const AdvantagesSection: React.FC = () => {
                     
                     {currentAdvantage.meansForYou && (
                       <motion.div 
-                        className="my-6 p-5 bg-gray-800/60 border border-gray-700/40 rounded-lg shadow-md"
+                        className="my-6 p-5 bg-gray-900/60 border border-gray-700/40 rounded-lg shadow-md"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
@@ -203,7 +203,7 @@ export const AdvantagesSection: React.FC = () => {
                     >
                       <motion.a 
                         href="#contact" 
-                        className="cta-button-secondary bg-gray-600 hover:bg-gray-500 text-gray-100 font-semibold py-3 px-8 rounded-lg inline-block text-base sm:text-lg transform transition-all duration-300"
+                        className="cta-button-secondary bg-gray-800 hover:bg-gray-700 text-gray-100 font-medium py-3 px-8 rounded-lg inline-block text-base sm:text-lg transform transition-all duration-300"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >

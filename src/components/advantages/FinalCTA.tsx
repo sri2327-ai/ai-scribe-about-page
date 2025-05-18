@@ -6,7 +6,7 @@ import { SplashCursor } from "@/components/ui/splash-cursor";
 
 export const FinalCTA: React.FC = () => {
   return (
-    <section id="contact" className="bg-black text-white py-20 md:py-28 px-6 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
+    <section id="contact" className="bg-black text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
       {/* Fluid background effect - Only applied to this section */}
       <SplashCursor 
         SIM_RESOLUTION={128}
@@ -27,7 +27,7 @@ export const FinalCTA: React.FC = () => {
       
       <div className="container mx-auto max-w-3xl text-center relative z-10">
         <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 tracking-tight"
+          className="text-3xl sm:text-4xl md:text-5xl font-medium mb-6 md:mb-8 tracking-tight"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -37,7 +37,7 @@ export const FinalCTA: React.FC = () => {
         </motion.h2>
         
         <motion.p 
-          className="text-lg sm:text-xl md:text-2xl mb-12 leading-relaxed text-gray-300"
+          className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 leading-relaxed text-gray-300"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -48,7 +48,7 @@ export const FinalCTA: React.FC = () => {
         
         <motion.a 
           href="#" 
-          className="cta-button-primary bg-transparent border-2 border-white text-white font-bold py-3 px-8 sm:py-4 sm:px-12 rounded-lg shadow-lg text-lg sm:text-xl inline-block transform transition-all duration-300 flex items-center justify-center gap-2"
+          className="cta-button-primary bg-transparent border-2 border-white text-white font-medium py-3 px-6 sm:py-4 sm:px-10 md:px-12 rounded-lg shadow-lg text-base sm:text-lg md:text-xl inline-block transform transition-all duration-300 flex items-center justify-center gap-2 mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -61,7 +61,7 @@ export const FinalCTA: React.FC = () => {
         </motion.a>
         
         <motion.p 
-          className="mt-8 text-md text-gray-400"
+          className="mt-6 sm:mt-8 text-sm sm:text-md text-gray-400"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
