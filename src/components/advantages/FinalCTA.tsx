@@ -14,27 +14,27 @@ export const FinalCTA: React.FC = () => {
   // Define ROI stats with their icons and values
   const roiStats = [
     {
-      icon: <Clock className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
+      icon: <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-white" />,
       value: "75%",
       label: "Less documentation time"
     },
     {
-      icon: <DollarSign className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
+      icon: <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-white" />,
       value: "40%",
       label: "Increased revenue"
     },
     {
-      icon: <Heart className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
+      icon: <Heart className="h-5 w-5 sm:h-6 sm:w-6 text-white" />,
       value: "95%",
       label: "Patient satisfaction"
     },
     {
-      icon: <TrendingUp className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
+      icon: <TrendingUp className="h-5 w-5 sm:h-6 sm:w-6 text-white" />,
       value: "$150K+",
       label: "Annual savings"
     },
     {
-      icon: <Users className="h-6 w-6 sm:h-7 sm:w-7 text-white" />,
+      icon: <Users className="h-5 w-5 sm:h-6 sm:w-6 text-white" />,
       value: "30%",
       label: "More patients"
     }
@@ -83,11 +83,11 @@ export const FinalCTA: React.FC = () => {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       style={{ boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
                     >
-                      <div className="flex items-center justify-center mb-2">
+                      <div className="flex items-center justify-center mb-1">
                         {stat.icon}
                       </div>
-                      <span className="text-lg sm:text-xl font-bold text-white">{stat.value}</span>
-                      <span className="text-xs mt-1 text-white/80">{stat.label}</span>
+                      <span className="text-base sm:text-lg font-bold text-white">{stat.value}</span>
+                      <span className="text-xs text-white/80">{stat.label}</span>
                     </motion.div>
                   </CarouselItem>
                 ))}
@@ -98,22 +98,22 @@ export const FinalCTA: React.FC = () => {
               </div>
             </Carousel>
           ) : (
-            <div className="grid grid-cols-5 gap-4 w-full justify-items-center">
+            <div className="grid grid-cols-5 gap-3 w-full justify-items-center">
               {roiStats.map((stat, index) => (
                 <motion.div 
                   key={index}
-                  className="flex flex-col items-center justify-center p-3 border border-white/20 rounded-lg bg-black/60 backdrop-blur-sm w-[100px] h-[100px]"
+                  className="flex flex-col items-center justify-center p-2 border border-white/20 rounded-lg bg-black/60 backdrop-blur-sm w-[95px] h-[95px] md:w-[100px] md:h-[100px] lg:w-[110px] lg:h-[110px]"
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   style={{ boxShadow: "0 4px 15px rgba(0,0,0,0.1)" }}
                 >
-                  <div className="flex items-center justify-center mb-2">
+                  <div className="flex items-center justify-center mb-1">
                     {stat.icon}
                   </div>
-                  <span className="text-lg sm:text-xl font-bold text-white">{stat.value}</span>
-                  <span className="text-xs mt-1 text-white/80">{stat.label}</span>
+                  <span className="text-base lg:text-lg font-bold text-white">{stat.value}</span>
+                  <span className="text-[10px] md:text-xs text-white/80 text-center">{stat.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -177,4 +177,3 @@ export const FinalCTA: React.FC = () => {
     </section>
   );
 };
-
