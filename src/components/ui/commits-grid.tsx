@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -56,11 +57,11 @@ export const CommitsGrid = ({ text }: { text: string }) => {
   } = generateHighlightedCells(text);
 
   const getRandomColor = () => {
-    // Use vibrant green colors for the S10.AI text
+    // Use bright green colors for the S10.AI text
     const commitColors = [
-      "#48d55d",
-      "#10b981", 
-      "#059669"
+      "#4ADE80",
+      "#10B981", 
+      "#34D399"
     ];
     const randomIndex = Math.floor(Math.random() * commitColors.length);
     return commitColors[randomIndex];
@@ -177,4 +178,5 @@ const letterPatterns: { [key: string]: number[] } = {
   ],
   "9": [1, 2, 3, 50, 100, 151, 152, 153, 154, 204, 254, 304, 54, 104],
   " ": [],
+  ".": [300, 301],
 };
