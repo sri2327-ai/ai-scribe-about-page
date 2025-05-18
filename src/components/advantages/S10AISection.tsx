@@ -46,14 +46,14 @@ export const S10AISection = () => {
         >
           <CommitsGrid 
             text="S10.AI" 
-            gridSize={{ rows: 9, cols: 30 }} // Wider grid for better letter display
-            animationIntensity={isHovered ? 2 : isInView ? 1.5 : 0} 
+            gridSize={{ rows: 9, cols: 30 }}
+            animationIntensity={isHovered ? 2 : isInView ? 1 : 0.5} 
             colorScheme={{
               bg: "bg-gray-900",
               border: "border-gray-800",
-              activeBg: "bg-teal-800/70 dark:bg-teal-800/80", // Darker, more visible active cells
+              activeBg: "bg-teal-700/90 dark:bg-teal-700/90", // Darker green for better visibility
               activeText: "text-white",
-              inactiveBg: "bg-gray-900/80 dark:bg-gray-900/70", // More subtle inactive cells
+              inactiveBg: "bg-gray-900/80 dark:bg-gray-900/70",
               inactiveText: "text-gray-600",
             }}
           />

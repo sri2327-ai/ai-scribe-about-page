@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 interface CommitsGridProps {
@@ -32,35 +32,12 @@ export const CommitsGrid = ({
   animationIntensity = 1,
 }: CommitsGridProps) => {
   const [grid, setGrid] = useState<boolean[][]>([]);
-  const [activeLetterIndex, setActiveLetterIndex] = useState(0);
-  const characters = text.split("");
   
-  // Generate grid pattern for each letter with improved clarity
-  const letterPatterns = characters.map((char) => generatePatternForLetter(char.toUpperCase(), gridSize));
-  
-  // Initialize the grid
+  // Initialize the grid with the full text pattern
   useEffect(() => {
-    setGrid(letterPatterns[0]);
-  }, []);
-  
-  // Update active letter over time
-  useEffect(() => {
-    if (animationIntensity <= 0) return;
-    
-    const speed = 3000 / Math.max(0.5, animationIntensity); // Faster with higher intensity
-    const timer = setInterval(() => {
-      setActiveLetterIndex((prev) => (prev + 1) % characters.length);
-    }, speed);
-    
-    return () => clearInterval(timer);
-  }, [characters.length, animationIntensity]);
-  
-  // Update grid when active letter changes
-  useEffect(() => {
-    if (letterPatterns[activeLetterIndex]) {
-      setGrid(letterPatterns[activeLetterIndex]);
-    }
-  }, [activeLetterIndex]);
+    const fullWordGrid = generateFullWordPattern(text, gridSize);
+    setGrid(fullWordGrid);
+  }, [text, gridSize]);
   
   // Random cell activation for ambient animation
   useEffect(() => {
@@ -72,13 +49,18 @@ export const CommitsGrid = ({
         const newGrid = [...prevGrid.map(row => [...row])];
         const row = Math.floor(Math.random() * gridSize.rows);
         const col = Math.floor(Math.random() * gridSize.cols);
-        newGrid[row][col] = !newGrid[row][col];
+        // Only change inactive cells occasionally to preserve the word pattern
+        if (!newGrid[row][col]) {
+          newGrid[row][col] = Math.random() < 0.2;
+        } else if (Math.random() < 0.05) { // Very low chance to deactivate a pattern cell
+          newGrid[row][col] = false;
+        }
         return newGrid;
       });
     }, interval);
     
     return () => clearInterval(timer);
-  }, [animationIntensity]);
+  }, [animationIntensity, gridSize]);
   
   return (
     <div className={`commits-grid w-full max-w-xl ${colorScheme.bg} border ${colorScheme.border} grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]`}
@@ -99,7 +81,7 @@ export const CommitsGrid = ({
             animate={{ 
               scale: 1, 
               opacity: 1,
-              backgroundColor: isActive ? "rgba(15, 118, 110, 0.5)" : "rgba(31, 41, 55, 0.7)"
+              backgroundColor: isActive ? "rgba(15, 118, 110, 0.8)" : "rgba(31, 41, 55, 0.7)"
             }}
             transition={{ 
               duration: 0.3, 
@@ -112,152 +94,106 @@ export const CommitsGrid = ({
   );
 };
 
-// Helper function to generate grid pattern for a letter - Improved patterns for clearer display
-function generatePatternForLetter(letter: string, gridSize: { rows: number; cols: number }) {
+// Helper function to generate a grid pattern for the full word
+function generateFullWordPattern(text: string, gridSize: { rows: number; cols: number }) {
   const { rows, cols } = gridSize;
   const grid = Array(rows).fill(0).map(() => Array(cols).fill(false));
+  const characters = text.split("");
   
-  // Enhanced patterns with clearer, more defined character shapes
+  // Define clear patterns for each letter
   const patterns: Record<string, number[][]> = {
     S: [
-      [0,1,1,1,1,0],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [0,1,1,1,0,0],
-      [0,0,0,1,1,0],
-      [0,0,0,1,1,0],
-      [1,1,1,1,0,0]
+      [1,1,1],
+      [1,0,0],
+      [1,1,1],
+      [0,0,1],
+      [1,1,1],
     ],
     '1': [
-      [0,0,1,1,0,0],
-      [0,1,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,1,1,1,1,0]
+      [0,1,0],
+      [1,1,0],
+      [0,1,0],
+      [0,1,0],
+      [1,1,1],
     ],
     '0': [
-      [0,1,1,1,0,0],
-      [1,1,0,1,1,0],
-      [1,1,0,1,1,0],
-      [1,1,0,1,1,0],
-      [1,1,0,1,1,0],
-      [1,1,0,1,1,0],
-      [0,1,1,1,0,0]
+      [1,1,1],
+      [1,0,1],
+      [1,0,1],
+      [1,0,1],
+      [1,1,1],
     ],
     A: [
-      [0,0,1,1,0,0],
-      [0,1,1,1,1,0],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,1,1,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1]
+      [1,1,1],
+      [1,0,1],
+      [1,1,1],
+      [1,0,1],
+      [1,0,1],
     ],
     I: [
-      [1,1,1,1,1,1],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0],
-      [1,1,1,1,1,1]
-    ],
-    L: [
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,1,1,1,1]
-    ],
-    O: [
-      [0,1,1,1,1,0],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [0,1,1,1,1,0]
-    ],
-    V: [
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [1,1,0,0,1,1],
-      [0,1,1,1,1,0],
-      [0,0,1,1,0,0]
-    ],
-    B: [
-      [1,1,1,1,0,0],
-      [1,1,0,1,1,0],
-      [1,1,0,1,1,0],
-      [1,1,1,1,0,0],
-      [1,1,0,1,1,0],
-      [1,1,0,1,1,0],
-      [1,1,1,1,0,0]
-    ],
-    E: [
-      [1,1,1,1,1,1],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,1,1,1,0],
-      [1,1,0,0,0,0],
-      [1,1,0,0,0,0],
-      [1,1,1,1,1,1]
+      [1,1,1],
+      [0,1,0],
+      [0,1,0],
+      [0,1,0],
+      [1,1,1],
     ],
     '.': [
-      [0,0,0,0,0,0],
-      [0,0,0,0,0,0],
-      [0,0,0,0,0,0],
-      [0,0,0,0,0,0],
-      [0,0,0,0,0,0],
-      [0,0,1,1,0,0],
-      [0,0,1,1,0,0]
+      [0,0,0],
+      [0,0,0],
+      [0,0,0],
+      [0,0,0],
+      [0,1,0],
     ],
-    // Default pattern for unsupported characters
     DEFAULT: [
-      [0,1,1,1,1,0],
-      [1,0,0,0,0,1],
-      [1,0,0,0,0,1],
-      [1,0,0,0,0,1],
-      [1,0,0,0,0,1],
-      [1,0,0,0,0,1],
-      [0,1,1,1,1,0]
+      [1,1,1],
+      [1,0,1],
+      [1,0,1],
+      [1,0,1],
+      [1,1,1],
     ]
   };
   
-  // Get pattern for this letter or use default
-  const pattern = patterns[letter] || patterns.DEFAULT;
+  // Calculate space needed for each character and spacing
+  const charWidth = 3; // Width of each character pattern
+  const spacing = 1; // Space between characters
+  const totalCharsWidth = characters.length * charWidth + (characters.length - 1) * spacing;
   
-  // Calculate center placement
-  const patternRows = pattern.length;
-  const patternCols = pattern[0].length;
-  const startRow = Math.floor((rows - patternRows) / 2);
-  const startCol = Math.floor((cols - patternCols) / 2);
+  // Calculate starting position to center the word
+  const startRow = Math.floor((rows - 5) / 2); // Assuming character height is 5
+  const startCol = Math.floor((cols - totalCharsWidth) / 2);
   
-  // Place the pattern in the grid
-  for (let r = 0; r < patternRows; r++) {
-    for (let c = 0; c < patternCols; c++) {
-      if (startRow + r >= 0 && startRow + r < rows && startCol + c >= 0 && startCol + c < cols) {
-        grid[startRow + r][startCol + c] = !!pattern[r][c];
+  // Place each character side by side
+  characters.forEach((char, charIndex) => {
+    const pattern = patterns[char.toUpperCase()] || patterns.DEFAULT;
+    
+    // Calculate position for this character
+    const charStartCol = startCol + charIndex * (charWidth + spacing);
+    
+    // Place this character's pattern
+    for (let r = 0; r < pattern.length; r++) {
+      for (let c = 0; c < pattern[0].length; c++) {
+        if (
+          startRow + r >= 0 && 
+          startRow + r < rows && 
+          charStartCol + c >= 0 && 
+          charStartCol + c < cols
+        ) {
+          grid[startRow + r][charStartCol + c] = !!pattern[r][c];
+        }
       }
     }
-  }
+  });
   
-  // Add fewer random active cells for cleaner appearance
+  // Add fewer random active cells for a cleaner appearance
   const totalCells = rows * cols;
-  const numRandomCells = Math.floor(totalCells * 0.03); // Reduced from 5% to 3%
+  const numRandomCells = Math.floor(totalCells * 0.01); // Only 1% random noise
   
   for (let i = 0; i < numRandomCells; i++) {
     const randomRow = Math.floor(Math.random() * rows);
     const randomCol = Math.floor(Math.random() * cols);
-    // Avoid overwriting the main pattern
+    // Avoid overwriting the pattern
     if (!grid[randomRow][randomCol]) {
-      grid[randomRow][randomCol] = Math.random() > 0.8; // Only 20% chance of activating
+      grid[randomRow][randomCol] = Math.random() > 0.8;
     }
   }
   
