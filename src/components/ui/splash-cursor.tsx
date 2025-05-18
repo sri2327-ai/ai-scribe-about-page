@@ -44,7 +44,7 @@ interface DoubleFBO {
 
 // Define the return type for getWebGLContext
 interface WebGLContextResult {
-  gl: WebGLRenderingContext;
+  gl: WebGLRenderingContext;  // Changed from WebGL2RenderingContext to WebGLRenderingContext
   ext: {
     formatRGBA: { internalFormat: number; format: number } | null;
     formatRG: { internalFormat: number; format: number } | null;
@@ -160,6 +160,7 @@ function SplashCursor({
         preserveDrawingBuffer: false,
       };
       
+      // Try to get WebGL2 context first, then fall back to WebGL1
       let gl = canvas.getContext("webgl2", params) as WebGL2RenderingContext | null;
       const isWebGL2 = !!gl;
       
@@ -171,7 +172,7 @@ function SplashCursor({
       
       if (!gl) throw new Error("WebGL not supported");
       
-      // Ensure gl is cast to WebGLRenderingContext to match the expected return type
+      // Explicitly cast to WebGLRenderingContext which is compatible with both WebGL1 and WebGL2 operations we use
       const webglContext = gl as WebGLRenderingContext;
       
       let halfFloat: any = null;
@@ -1076,7 +1077,6 @@ function SplashCursor({
       );
       blit(velocity.write);
       velocity.swap();
-
       if (!ext.supportLinearFiltering)
         gl!.uniform2f(
           advectionProgram.uniforms.dyeTexelSize as WebGLUniformLocation,
