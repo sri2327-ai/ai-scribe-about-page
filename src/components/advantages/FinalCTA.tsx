@@ -2,11 +2,27 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { SplashCursor } from "@/components/ui/splash-cursor";
 
 export const FinalCTA: React.FC = () => {
   return (
-    <section id="contact" className="bg-black text-white py-20 md:py-28 px-6 rounded-t-2xl shadow-2xl mt-0">
-      <div className="container mx-auto max-w-3xl text-center">
+    <section id="contact" className="bg-black text-white py-20 md:py-28 px-6 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
+      {/* Fluid background effect */}
+      <SplashCursor 
+        SIM_RESOLUTION={128}
+        DYE_RESOLUTION={1024}
+        DENSITY_DISSIPATION={3.5}
+        VELOCITY_DISSIPATION={2}
+        PRESSURE={0.1}
+        CURL={3}
+        SPLAT_RADIUS={0.2}
+        SPLAT_FORCE={6000}
+        COLOR_UPDATE_SPEED={10}
+        BACK_COLOR={{ r: 0, g: 0, b: 0 }}
+        TRANSPARENT={true}
+      />
+      
+      <div className="container mx-auto max-w-3xl text-center relative z-10">
         <motion.h2 
           className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 tracking-tight"
           initial={{ opacity: 0, y: 30 }}
