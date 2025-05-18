@@ -14,11 +14,11 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   const currencyPricing: Record<CurrencyCode, {
     // CRUSH
     crushBasic: number | string, 
-    crushPro: {min: number, max: number} | string,
+    crushPro: number | {min: number} | string,
     crushEnterprise: string,
     // BRAVO
     bravoBasic: number | string,
-    bravoPro: number | {max: number} | string,
+    bravoPro: number | string,
     bravoEnterprise: string,
     // BUNDLE
     bundleBasic?: number | string,
@@ -28,81 +28,81 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     USD: { 
       // CRUSH pricing
       crushBasic: 99, 
-      crushPro: {min: 120, max: 199},
+      crushPro: 'Starts at $150',
       crushEnterprise: 'Custom Quote',
       // BRAVO pricing
       bravoBasic: 99,
-      bravoPro: {max: 299},
+      bravoPro: 'Starts at $299',
       bravoEnterprise: 'Custom pricing',
       // Bundle pricing (calculated with 10% discount)
       bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
-      bundlePro: 'From $377', // Min of (120+299) = 419 * 0.9 = 377.1 ≈ 377
+      bundlePro: 'Custom pricing', // Both are custom so bundle is custom
       bundleEnterprise: 'Custom pricing'
     },
     CAD: { 
-      crushBasic: 129, 
-      crushPro: {min: 156, max: 259},
+      crushBasic: 99, 
+      crushPro: 'Custom pricing',
       crushEnterprise: 'Custom Quote',
-      bravoBasic: 129,
-      bravoPro: {max: 389},
+      bravoBasic: 99,
+      bravoPro: 'Custom pricing',
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 232, // (129+129) * 0.9 = 232.2 ≈ 232
-      bundlePro: 'From C$490', // Min of (156+389) * 0.9 = 490.5 ≈ 490
+      bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
+      bundlePro: 'Custom pricing',
       bundleEnterprise: 'Custom pricing'
     },
     AUD: { 
-      crushBasic: 149, 
-      crushPro: {min: 180, max: 299},
+      crushBasic: 99, 
+      crushPro: 'Custom pricing',
       crushEnterprise: 'Custom Quote',
-      bravoBasic: 149,
-      bravoPro: {max: 449},
+      bravoBasic: 99,
+      bravoPro: 'Custom pricing',
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 268, // (149+149) * 0.9 = 268.2 ≈ 268
-      bundlePro: 'From A$566', // Min of (180+449) * 0.9 = 566.1 ≈ 566
+      bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
+      bundlePro: 'Custom pricing',
       bundleEnterprise: 'Custom pricing'
     },
     GBP: { 
-      crushBasic: 79, 
-      crushPro: {min: 95, max: 159},
+      crushBasic: 49, 
+      crushPro: 'Custom pricing',
       crushEnterprise: 'Custom Quote',
-      bravoBasic: 79,
-      bravoPro: {max: 239},
+      bravoBasic: 59,
+      bravoPro: 'Custom pricing',
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 142, // (79+79) * 0.9 = 142.2 ≈ 142
-      bundlePro: 'From £301', // Min of (95+239) * 0.9 = 300.6 ≈ 301
+      bundleBasic: 97, // (49+59) * 0.9 = 97.2 ≈ 97
+      bundlePro: 'Custom pricing',
       bundleEnterprise: 'Custom pricing'
     },
     EUR: { 
-      crushBasic: 89, 
-      crushPro: {min: 108, max: 179},
+      crushBasic: 59, 
+      crushPro: 'Custom pricing',
       crushEnterprise: 'Custom Quote',
-      bravoBasic: 89,
-      bravoPro: {max: 269},
+      bravoBasic: 69,
+      bravoPro: 'Custom pricing',
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 160, // (89+89) * 0.9 = 160.2 ≈ 160
-      bundlePro: 'From €339', // Min of (108+269) * 0.9 = 339.3 ≈ 339
+      bundleBasic: 115, // (59+69) * 0.9 = 115.2 ≈ 115
+      bundlePro: 'Custom pricing',
       bundleEnterprise: 'Custom pricing'
     },
     NZD: { 
-      crushBasic: 159, 
-      crushPro: {min: 191, max: 319},
+      crushBasic: 99, 
+      crushPro: 'Custom pricing',
       crushEnterprise: 'Custom Quote',
-      bravoBasic: 159,
-      bravoPro: {max: 479},
+      bravoBasic: 99,
+      bravoPro: 'Custom pricing',
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 286, // (159+159) * 0.9 = 286.2 ≈ 286
-      bundlePro: 'From NZ$603', // Min of (191+479) * 0.9 = 603 ≈ 603
+      bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
+      bundlePro: 'Custom pricing',
       bundleEnterprise: 'Custom pricing'
     },
     AED: { 
-      crushBasic: 363, 
-      crushPro: {min: 440, max: 729},
+      crushBasic: 263, 
+      crushPro: 'Custom pricing',
       crushEnterprise: 'Custom Quote',
-      bravoBasic: 363,
-      bravoPro: {max: 1099},
+      bravoBasic: 263,
+      bravoPro: 'Custom pricing',
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 653, // (363+363) * 0.9 = 653.4 ≈ 653
-      bundlePro: 'From د.إ1385', // Min of (440+1099) * 0.9 = 1385.1 ≈ 1385
+      bundleBasic: 473, // (263+263) * 0.9 = 473.4 ≈ 473
+      bundlePro: 'Custom pricing',
       bundleEnterprise: 'Custom pricing'
     },
   };
@@ -120,39 +120,22 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     return `${symbol}${(price * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
-  // Format price range - MODIFIED to use "Starts at" instead of a range
-  const formatPriceRange = (min: number, max: number) => {
-    // Now returns "Starts at" format instead of a range
-    return `Starts at ${symbol}${(min * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
-  };
-
-  // Format for "Up to" pricing - modified to handle annual pricing
-  const formatUpTo = (max: number) => {
-    // Fix: Ensure we only add '/mo' or '/yr' once
-    return `Up to ${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
-  };
-  
-  // Format "From" price text - modified to handle annual pricing and use "Starts at" for bundle
-  const formatFromPrice = (text: string) => {
-    if (!text.startsWith('From')) return text;
+  // Format for "Custom pricing" strings
+  const formatCustomString = (text: string) => {
+    if (text === 'Custom pricing' || text === 'Custom Quote') {
+      return text;
+    }
     
-    // For strings like "From $198", replace with "Starts at $X" format for annual calculation
-    if (billingCycle === 'annual' && text.startsWith('From')) {
-      // Extract the currency symbol and number
-      const matches = text.match(/From\s+([^\d]*)(\d+)/);
+    // Handle "Starts at" strings differently for annual vs monthly
+    if (text.startsWith('Starts at') && billingCycle === 'annual') {
+      // Extract the currency symbol and number if present
+      const matches = text.match(/Starts at ([^\d]*)(\d+)/);
       if (matches && matches.length === 3) {
         const currSymbol = matches[1]; // e.g., "$", "€"
-        const amount = parseInt(matches[2], 10); // e.g., 198
+        const amount = parseInt(matches[2], 10); // e.g., 150, 299
         return `Starts at ${currSymbol}${(amount * 10).toLocaleString()}/yr`; // 10 months price instead of 12
       }
-    } else if (billingCycle === 'monthly' && text.startsWith('From')) {
-      // Extract the currency symbol and number
-      const matches = text.match(/From\s+([^\d]*)(\d+)/);
-      if (matches && matches.length === 3) {
-        const currSymbol = matches[1]; // e.g., "$", "€"
-        const amount = parseInt(matches[2], 10); // e.g., 198
-        return `Starts at ${currSymbol}${amount.toLocaleString()}/mo`;
-      }
+      return text.replace('/mo', '/yr');
     }
     
     return text;
@@ -162,18 +145,18 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   return {
     crush: {
       basic: typeof pricing.crushBasic === 'number' ? formatPrice(pricing.crushBasic) : pricing.crushBasic as string,
-      pro: typeof pricing.crushPro === 'object' && 'min' in pricing.crushPro ? formatPriceRange(pricing.crushPro.min, pricing.crushPro.max) : pricing.crushPro as string,
-      enterprise: pricing.crushEnterprise
+      pro: typeof pricing.crushPro === 'string' ? formatCustomString(pricing.crushPro as string) : formatPrice(pricing.crushPro as number),
+      enterprise: formatCustomString(pricing.crushEnterprise)
     },
     bravo: {
       basic: typeof pricing.bravoBasic === 'number' ? formatPrice(pricing.bravoBasic) : pricing.bravoBasic as string,
-      pro: typeof pricing.bravoPro === 'object' && 'max' in pricing.bravoPro ? formatUpTo(pricing.bravoPro.max) : pricing.bravoPro as string,
-      enterprise: pricing.bravoEnterprise
+      pro: typeof pricing.bravoPro === 'string' ? formatCustomString(pricing.bravoPro as string) : formatPrice(pricing.bravoPro as number),
+      enterprise: formatCustomString(pricing.bravoEnterprise)
     },
     bundle: {
       basic: typeof pricing.bundleBasic === 'number' ? formatPrice(pricing.bundleBasic) : pricing.bundleBasic as string,
-      pro: typeof pricing.bundlePro === 'string' ? formatFromPrice(pricing.bundlePro as string) : pricing.bundlePro as string,
-      enterprise: pricing.bundleEnterprise as string
+      pro: typeof pricing.bundlePro === 'string' ? formatCustomString(pricing.bundlePro as string) : pricing.bundlePro as string,
+      enterprise: formatCustomString(pricing.bundleEnterprise as string)
     }
   };
 };

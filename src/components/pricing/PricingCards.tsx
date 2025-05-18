@@ -72,7 +72,6 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.crush.basic}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
@@ -134,7 +133,6 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.crush.pro}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -239,7 +237,6 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.bravo.basic}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
@@ -297,8 +294,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  Starts at $299
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
+                  {pricingData.bravo.pro}
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -410,7 +406,6 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bundle.basic}
-                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
