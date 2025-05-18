@@ -8,8 +8,8 @@ export const HeroSection: React.FC = () => {
     <div className="relative w-full h-screen flex flex-col items-center justify-center text-center text-white overflow-hidden">
       <AnimatedGradientBackground
         Breathing={true}
-        animationSpeed={0.015}
-        breathingRange={15}
+        animationSpeed={0.010} // Reduced from 0.015
+        breathingRange={10} // Reduced from 15
         startingGap={100}
         gradientColors={[
           "#020617",
@@ -19,7 +19,7 @@ export const HeroSection: React.FC = () => {
           "#06B6D4",
           "#020617",
         ]}
-        gradientStops={[0, 60, 75, 85, 90, 100]}
+        gradientStops={[0, 70, 80, 85, 90, 100]} // Adjusted stops for subtlety
         topOffset={0}
       />
       

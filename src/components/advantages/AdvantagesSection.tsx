@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { TubelightNavBar } from "./TubelightNavBar";
@@ -118,10 +119,10 @@ export const AdvantagesSection: React.FC = () => {
   };
 
   return (
-    <section id="advantages" className="py-16 md:py-24 px-4 sm:px-6 bg-black">
+    <section id="advantages" className="py-12 md:py-24 px-3 sm:px-6 bg-black">
       <div className="container mx-auto max-w-5xl"> 
         <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-medium text-center mb-10 md:mb-16 text-gray-100"
+          className="text-2xl sm:text-3xl md:text-5xl font-medium text-center mb-8 md:mb-16 text-gray-100"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }} 
@@ -132,7 +133,7 @@ export const AdvantagesSection: React.FC = () => {
 
         <TubelightNavBar items={navBarItems} activeTab={activeTab} setActiveTab={setActiveTab} />
 
-        <div id="advantageContentDisplayWrapper" className="mt-8"> 
+        <div id="advantageContentDisplayWrapper" className="mt-6 sm:mt-8"> 
           <AnimatePresence mode="wait">
             {currentAdvantage && (
               <motion.div
@@ -144,23 +145,23 @@ export const AdvantagesSection: React.FC = () => {
                 className="advantage-content-display"
               >
                 <Card className="bg-black border border-gray-800/50 shadow-2xl">
-                  <CardContent className="relative pt-8 md:pt-10 pb-8 md:pb-10 px-4 sm:px-6 md:px-8">
+                  <CardContent className="relative pt-6 md:pt-10 pb-6 md:pb-10 px-3 sm:px-6 md:px-8">
                     <motion.div 
-                      className="flex flex-col items-center text-center mb-8 md:mb-10"
+                      className="flex flex-col items-center text-center mb-6 md:mb-10"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                      <div className="w-16 h-16 flex items-center justify-center mb-5">
+                      <div className="w-16 h-16 flex items-center justify-center mb-4">
                         {getIcon(currentAdvantage.iconName, currentAdvantage.customIcon, 42)}
                       </div>
                       <motion.div className="text-center">
                         <h3 
-                          className="text-2xl md:text-3xl font-medium mb-2 text-white"
+                          className="text-xl sm:text-2xl md:text-3xl font-medium mb-2 text-white"
                         >
                           {currentAdvantage.title.replace("s10.ai", "S10.AI")}
                         </h3>
-                        <p className="text-xl text-gray-300">
+                        <p className="text-lg sm:text-xl text-gray-300">
                           {currentAdvantage.subtitle.replace("s10.ai", "S10.AI")}
                         </p>
                       </motion.div>
@@ -173,7 +174,7 @@ export const AdvantagesSection: React.FC = () => {
                       transition={{ duration: 0.5, delay: 0.3 }}
                     >
                       <motion.p 
-                        className="mb-6 text-gray-300 leading-relaxed text-md md:text-lg text-left"
+                        className="mb-5 text-gray-300 leading-relaxed text-sm md:text-lg text-left"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.3 }}
@@ -183,7 +184,7 @@ export const AdvantagesSection: React.FC = () => {
                       
                       {currentAdvantage.bullets && (
                         <motion.ul 
-                          className="list-none my-6 text-gray-300 space-y-4"
+                          className="list-none my-5 text-gray-300 space-y-3"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ duration: 0.5, delay: 0.4 }}
@@ -191,12 +192,12 @@ export const AdvantagesSection: React.FC = () => {
                           {currentAdvantage.bullets.map((bullet, i) => (
                             <motion.li 
                               key={i} 
-                              className="flex items-start text-sm md:text-base"
+                              className="flex items-start text-xs sm:text-sm md:text-base"
                               initial={{ opacity: 0, x: -10 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ duration: 0.3, delay: 0.4 + i * 0.1 }}
                             >
-                              <div className="h-6 w-6 mr-3 mt-0.5 flex-shrink-0">
+                              <div className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 mt-0.5 flex-shrink-0">
                                 {i === 0 ? 
                                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" className="text-gray-400">
                                     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
@@ -218,43 +219,43 @@ export const AdvantagesSection: React.FC = () => {
                       
                       {currentAdvantage.meansForYou && (
                         <motion.div 
-                          className="my-6 p-5 bg-black border border-gray-700/40 rounded-lg shadow-md"
+                          className="my-5 p-4 sm:p-5 bg-black border border-gray-700/40 rounded-lg shadow-md"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ duration: 0.5, delay: 0.5 }}
                         >
-                          <motion.h4 className="font-medium text-lg mb-3 text-gray-100">
+                          <motion.h4 className="font-medium text-base sm:text-lg mb-2 sm:mb-3 text-gray-100">
                             What this means for you:
                           </motion.h4>
-                          <p className="leading-relaxed text-gray-300 text-sm md:text-base">
+                          <p className="leading-relaxed text-gray-300 text-xs sm:text-sm md:text-base">
                             {currentAdvantage.meansForYou.replace("s10.ai", "S10.AI")}
                           </p>
                         </motion.div>
                       )}
                       
                       <motion.div 
-                        className="my-6 p-5 bg-black border border-sky-800/50 rounded-lg shadow-xl"
+                        className="my-5 p-4 sm:p-5 bg-black border border-sky-800/50 rounded-lg shadow-xl"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.6 }}
                       >
-                        <motion.h4 className="font-medium text-lg mb-3 text-gray-100 border-b border-sky-800/30 pb-2">
+                        <motion.h4 className="font-medium text-base sm:text-lg mb-2 sm:mb-3 text-gray-100 border-b border-sky-800/30 pb-2">
                           The S10.AI Edge:
                         </motion.h4>
-                        <p className="leading-relaxed text-gray-300 text-sm md:text-base">
+                        <p className="leading-relaxed text-gray-300 text-xs sm:text-sm md:text-base">
                           {currentAdvantage.edge.replace("s10.ai", "S10.AI")}
                         </p>
                       </motion.div>
                       
                       <motion.div 
-                        className="mt-8 text-center"
+                        className="mt-6 sm:mt-8 text-center"
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.5, delay: 0.7 }}
                       >
                         <motion.a 
                           href="#contact" 
-                          className="bg-black border-2 border-white text-white font-medium py-3 px-8 rounded-lg inline-block text-base sm:text-lg transform transition-all duration-300 hover:bg-gray-900"
+                          className="bg-black border-2 border-white text-white font-medium py-2 sm:py-3 px-6 sm:px-8 rounded-lg inline-block text-sm sm:text-base transform transition-all duration-300 hover:bg-gray-900"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >
