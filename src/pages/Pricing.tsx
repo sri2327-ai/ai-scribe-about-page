@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BadgePercent } from "lucide-react";
+import { ArrowRight, BadgePercent, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { crushAIColors } from "@/theme/crush-ai-theme";
@@ -16,6 +16,7 @@ import { CurrencySelector, CurrencyCode } from "@/components/pricing/CurrencySel
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
@@ -322,48 +323,91 @@ const Pricing = () => {
             </motion.p>
           </motion.div>
 
-          {/* Feature Toggle - Improved mobile responsiveness */}
+          {/* Feature Toggle - Improved for all devices */}
           <Tabs defaultValue="crush" className="w-full flex flex-col items-center">
-            <TabsList className="mb-6 md:mb-10 flex w-full max-w-md justify-center p-1 bg-gray-100/70 rounded-full">
+            <TabsList className="mb-6 md:mb-10 flex w-full max-w-md justify-center p-1 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full shadow-sm">
               <TabsTrigger 
                 value="crush"
-                className="flex-1 px-4 py-2 text-xs sm:text-sm"
+                className="flex-1 px-4 py-2 text-xs sm:text-sm md:text-base font-medium transition-all"
               >
                 CRUSH Features
               </TabsTrigger>
               <TabsTrigger 
                 value="bravo"
-                className="flex-1 px-4 py-2 text-xs sm:text-sm"
+                className="flex-1 px-4 py-2 text-xs sm:text-sm md:text-base font-medium transition-all"
               >
                 BRAVO Features
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="crush" className="w-full">
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
-              >
-                <div className="min-w-[768px] md:min-w-0">
+            {/* Desktop view */}
+            <div className="hidden md:block w-full">
+              <TabsContent value="crush" className="w-full">
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <EnhancedFeatureTable product="crush" />
-                </div>
-              </motion.div>
-            </TabsContent>
-            
-            <TabsContent value="bravo" className="w-full">
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0"
-              >
-                <div className="min-w-[768px] md:min-w-0">
+                </motion.div>
+              </TabsContent>
+              
+              <TabsContent value="bravo" className="w-full">
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <EnhancedFeatureTable product="bravo" />
+                </motion.div>
+              </TabsContent>
+            </div>
+            
+            {/* Mobile view with accordion-style UI */}
+            <div className="md:hidden w-full">
+              <TabsContent value="crush" className="w-full">
+                <div className="space-y-3">
+                  {/* Using Collapsible for accordion behavior */}
+                  <Collapsible className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
+                    <CollapsibleTrigger className="flex justify-between items-center w-full p-4 text-left font-medium bg-gradient-to-r from-[#f8f9fa] to-[#e9ecef]">
+                      <span>View CRUSH Features</span>
+                      <ChevronDown className="h-5 w-5 text-[#387E89] transition-transform duration-300 ease-in-out ui-expanded:rotate-180" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="p-2 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
+                      <div className="overflow-x-auto pb-2">
+                        <EnhancedFeatureTable product="crush" />
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                  
+                  <div className="flex justify-center items-center text-sm text-[#387E89] bg-white/80 py-2 px-4 rounded-full shadow-sm border border-gray-100">
+                    <ChevronDown className="mr-1 h-4 w-4 animate-bounce" />
+                    <span>Tap to expand features</span>
+                  </div>
                 </div>
-              </motion.div>
-            </TabsContent>
+              </TabsContent>
+              
+              <TabsContent value="bravo" className="w-full">
+                <div className="space-y-3">
+                  <Collapsible className="border border-gray-200 rounded-lg overflow-hidden bg-white shadow-sm">
+                    <CollapsibleTrigger className="flex justify-between items-center w-full p-4 text-left font-medium bg-gradient-to-r from-[#f8f9fa] to-[#e9ecef]">
+                      <span>View BRAVO Features</span>
+                      <ChevronDown className="h-5 w-5 text-[#387E89] transition-transform duration-300 ease-in-out ui-expanded:rotate-180" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="p-2 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
+                      <div className="overflow-x-auto pb-2">
+                        <EnhancedFeatureTable product="bravo" />
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                  
+                  <div className="flex justify-center items-center text-sm text-[#387E89] bg-white/80 py-2 px-4 rounded-full shadow-sm border border-gray-100">
+                    <ChevronDown className="mr-1 h-4 w-4 animate-bounce" />
+                    <span>Tap to expand features</span>
+                  </div>
+                </div>
+              </TabsContent>
+            </div>
           </Tabs>
           
           {/* Mobile scroll indicator - Improved visibility */}
