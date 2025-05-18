@@ -4,39 +4,52 @@ import { motion } from "framer-motion";
 import { ArrowRight, Clock, DollarSign, Heart, Users, TrendingUp, FileText, Calendar } from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { ChemicalBurnEffect } from "@/components/ui/chemical-burn-effect";
+import { cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const FinalCTA: React.FC = () => {
   const isMobile = useIsMobile();
   
   // Stats data for reuse
   const statsData = [
-    { icon: <Clock className="h-5 w-5 mb-1 text-white" />, value: "75%", label: "Less documentation time" },
-    { icon: <DollarSign className="h-5 w-5 mb-1 text-white" />, value: "40%", label: "Increased revenue" },
-    { icon: <Heart className="h-5 w-5 mb-1 text-white" />, value: "95%", label: "Patient satisfaction" },
-    { icon: <TrendingUp className="h-5 w-5 mb-1 text-white" />, value: "$150K+", label: "Annual savings" },
-    { icon: <Users className="h-5 w-5 mb-1 text-white" />, value: "30%", label: "More patients" }
+    { icon: <Clock className="h-4 w-4 text-teal-300" />, value: "75%", label: "Less documentation time" },
+    { icon: <DollarSign className="h-4 w-4 text-teal-300" />, value: "40%", label: "Increased revenue" },
+    { icon: <Heart className="h-4 w-4 text-teal-300" />, value: "95%", label: "Patient satisfaction" },
+    { icon: <TrendingUp className="h-4 w-4 text-teal-300" />, value: "$150K+", label: "Annual savings" },
+    { icon: <Users className="h-4 w-4 text-teal-300" />, value: "30%", label: "More patients" }
   ];
   
-  // Renders a single stat box for both grid and carousel
+  // Renders a single stat box with improved styling
   const renderStatBox = (item: typeof statsData[0], idx: number) => (
     <motion.div 
-      className="flex flex-col items-center justify-center p-3 border border-white/20 rounded-lg bg-black/60 backdrop-blur-sm w-full h-full"
+      className={cn(
+        "flex flex-col items-center justify-center py-2 px-3 border border-white/10 rounded-lg backdrop-blur-sm",
+        "bg-gradient-to-br from-gray-900/80 to-black/90 w-full h-full"
+      )}
       initial={{ opacity: 0, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: idx * 0.1 }}
     >
-      {item.icon}
-      <span className="text-lg sm:text-xl font-bold">{item.value}</span>
-      <span className="text-xs mt-1 text-white/80 text-center">{item.label}</span>
+      <div className="mb-1">{item.icon}</div>
+      <span className="text-md sm:text-lg font-bold text-white">{item.value}</span>
+      <span className="text-xs text-white/70 text-center leading-tight">{item.label}</span>
     </motion.div>
   );
   
   return (
-    <section id="contact" className="bg-black text-white py-16 md:py-24 px-4 sm:px-6 lg:px-8 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
-      <div className="container mx-auto max-w-4xl text-center relative z-10">
+    <section id="contact" className="bg-black text-white py-12 md:py-20 px-4 sm:px-6 lg:px-8 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
+      {/* Background effect for visual interest */}
+      <ChemicalBurnEffect 
+        className="opacity-30" 
+        colors={['#0d9488', '#0d4a6b', '#164e63']} 
+        intensity={0.4}
+      />
+      
+      <div className="container mx-auto max-w-5xl text-center relative z-10">
         <motion.h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-semibold mb-6 md:mb-8 tracking-tight"
+          className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-5 md:mb-8 tracking-tight"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -47,14 +60,14 @@ export const FinalCTA: React.FC = () => {
         
         {/* ROI Stats Section - Responsive Layout */}
         <motion.div 
-          className="mb-8 md:mb-12 mx-auto"
+          className="mb-6 md:mb-10 mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
+          {/* For mobile view: Enhanced Carousel experience */}
           {isMobile ? (
-            // Mobile/Tablet: Carousel
             <div className="mt-2 mb-6">
               <ResponsiveCarousel
                 items={statsData}
@@ -63,19 +76,20 @@ export const FinalCTA: React.FC = () => {
                 columnsTablet={3}
                 columnsMobile={2}
                 showControls={true}
-                itemWidth={{ xs: 160, sm: 170 }}
-                itemHeight={{ xs: 100, sm: 100 }}
-                gap={12}
-                autoPlay={false}
-                cardClassName="bg-black border border-white/20"
+                itemWidth={{ xs: 140, sm: 150 }}
+                itemHeight={{ xs: 80, sm: 85 }}
+                gap={8}
+                autoPlay={true}
+                autoPlayInterval={4000}
+                cardClassName="bg-transparent border-0"
                 className="mx-auto"
               />
             </div>
           ) : (
-            // Desktop: Single Line Grid
-            <div className="grid grid-cols-5 gap-3 sm:gap-4 w-full justify-center mx-auto">
+            // Desktop: Single Row Grid
+            <div className="grid grid-cols-5 gap-2 sm:gap-3 w-full max-w-4xl justify-center mx-auto">
               {statsData.map((item, idx) => (
-                <div key={idx} className="w-[90px] h-[90px] mx-auto">
+                <div key={idx} className="h-[85px]">
                   {renderStatBox(item, idx)}
                 </div>
               ))}
@@ -91,14 +105,15 @@ export const FinalCTA: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
         >
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed text-gray-300 font-normal"
+            className="text-base sm:text-lg md:text-xl mb-6 md:mb-8 leading-relaxed text-gray-300 font-normal"
           >
             Reduce burnout, enhance patient care, and reclaim your time. Discover how S10.AI can be tailored to your practice's unique needs.
           </motion.p>
         </motion.div>
         
+        {/* CTA Buttons - Improved layout and visual hierarchy */}
         <motion.div 
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -106,27 +121,38 @@ export const FinalCTA: React.FC = () => {
         >
           <motion.a 
             href="#" 
-            className="bg-black border-2 border-white text-white font-medium py-3 px-6 sm:py-4 sm:px-10 md:px-12 rounded-lg shadow-lg text-base sm:text-lg md:text-xl flex items-center justify-center gap-2 w-full sm:w-auto hover:bg-gray-900 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className={cn(
+              "bg-gradient-to-r from-teal-600 to-blue-700 text-white font-medium",
+              "py-2.5 px-6 sm:py-3 sm:px-8 rounded-lg shadow-lg", 
+              "text-base sm:text-lg flex items-center justify-center gap-2",
+              "w-full sm:w-auto hover:opacity-90 transition-all duration-300",
+              "border border-white/10"
+            )}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <Calendar className="h-5 w-5" />
+            <Calendar className="h-4 w-4" />
             Schedule Your Demo
           </motion.a>
           
           <motion.a 
             href="#" 
-            className="bg-black border border-white/70 text-white font-medium py-3 px-6 sm:py-4 sm:px-8 rounded-lg shadow-lg text-base sm:text-lg flex items-center justify-center gap-2 w-full sm:w-auto hover:bg-gray-900 transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className={cn(
+              "bg-black border border-white/20 text-white font-medium", 
+              "py-2.5 px-6 sm:py-3 sm:px-8 rounded-lg shadow-lg",
+              "text-base flex items-center justify-center gap-2",
+              "w-full sm:w-auto hover:bg-gray-900 transition-all duration-300"
+            )}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <FileText className="h-5 w-5" />
+            <FileText className="h-4 w-4" />
             View ROI Case Studies
           </motion.a>
         </motion.div>
         
         <motion.p 
-          className="mt-6 text-sm sm:text-md text-gray-400 font-normal"
+          className="mt-5 text-sm text-gray-400 font-normal"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
