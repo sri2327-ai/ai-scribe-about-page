@@ -249,6 +249,11 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="border-t border-gray-100 my-4"></div>
               <ul className="mb-6 md:mb-8 space-y-2 md:space-y-3 flex-grow text-sm md:text-base">
                 {[
+                  '170 Minutes included',
+                  'Then $0.09/min',
+                  '17 Concurrent calls',
+                  'Real-Time Booking',
+                  'Human Transfer',
                   'Appointment Management',
                   'Patient Registration & Check-In',
                   'EHR/PMS/RCM integration',
@@ -293,7 +298,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {pricingData.bravo.pro}
+                  Starts at $299
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -306,6 +312,10 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                   <span className="text-gray-700 font-semibold">All Basic features</span>
                 </li>
                 {[
+                  '515 Minutes included',
+                  '51 Concurrent calls',
+                  'Then $0.09/min',
+                  'Multilingual language support',
                   'Refill Processing',
                   'Pre-Visit Assistance',
                   'Patient Education & Adherence',
@@ -354,6 +364,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                   <span className="text-gray-700 font-semibold">All Pro features</span>
                 </li>
                 {[
+                  'Custom minute packages',
+                  'Custom concurrent call limits',
                   'Multi-clinic management',
                   'Advanced reporting',
                   'Dedicated account manager',
