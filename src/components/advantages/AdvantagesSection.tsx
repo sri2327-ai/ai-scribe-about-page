@@ -5,6 +5,13 @@ import { TubelightNavBar } from "./TubelightNavBar";
 import { Card, CardContent } from "./Card";
 import { FingerprintScannerIcon } from "./FingerprintScannerIcon";
 import { cn } from "@/lib/utils";
+import { 
+  Brain, 
+  Cog, 
+  Link, 
+  UserCog, 
+  Fingerprint 
+} from "lucide-react";
 
 interface AdvantageData {
   id: number;
@@ -24,7 +31,7 @@ export const AdvantagesSection: React.FC = () => {
     { 
       id: 0, 
       name: "Medically Wise AI", 
-      iconName: "fas fa-brain", 
+      iconName: "brain", 
       title: "Medically Wise AI: Our Proprietary IPKO™ Engine", 
       description: "Tired of AI that needs endless training? At the heart of S10.AI lies our Intelligent Physician Knowledge Orchestrator (IPKO™) engine. Unlike general AI models retrofitted for healthcare, IPKO™ is purpose-built from the ground up with deep medical knowledge and sophisticated machine learning.", 
       meansForYou: "IPKO™ possesses an inherent, structured understanding of complex medical contexts, terminologies, and specialty-specific nuances. It dynamically adapts to your unique dictation style, preferences, and workflow often with minimal to no manual setup.", 
@@ -34,7 +41,7 @@ export const AdvantagesSection: React.FC = () => {
     { 
       id: 1, 
       name: "Total Automation", 
-      iconName: "fas fa-cogs", 
+      iconName: "cog", 
       title: "Comprehensive Automation: C.R.U.S.H.™ + B.R.A.V.O.™", 
       description: "Clinical documentation is only one piece of the puzzle. S10.AI offers a holistic automation strategy to address burnout and inefficiency across your entire practice:", 
       bullets: [
@@ -57,7 +64,7 @@ export const AdvantagesSection: React.FC = () => {
     { 
       id: 3, 
       name: "EHR Seamlessness", 
-      iconName: "fas fa-link", 
+      iconName: "link", 
       title: "Seamless Integration: Universal \"Any EHR\" Compatibility – Your EHR, Supercharged.", 
       description: "AI tools should simplify, not complicate, your existing setup. S10.AI is engineered for true universal EHR integration:", 
       meansForYou: "Our platform is designed to work seamlessly with any EHR system – yes, even yours. Features like \"autopilot entry\" intelligently populate notes and data directly into your system, providing deep, easily configurable interoperability.", 
@@ -67,7 +74,7 @@ export const AdvantagesSection: React.FC = () => {
     { 
       id: 4, 
       name: "Physician-Centric AI", 
-      iconName: "fas fa-user-cog", 
+      iconName: "user-cog", 
       title: "Truly Physician-Centric: AI That Learns You – Your Workflow, Your Words, Our AI.", 
       description: "Experience AI that feels like an extension of yourself, not another system to learn. Our IPKO™ engine powers our \"Physician Workflow Mimicry\":", 
       meansForYou: "S10.AI doesn't just listen; it learns you. It dynamically adapts to your individual dictation patterns, preferred note formats, common orders, and unique clinical style – all without requiring tedious, extensive manual setup.", 
@@ -86,6 +93,26 @@ export const AdvantagesSection: React.FC = () => {
   }));
 
   const currentAdvantage = advantagesData.find(adv => adv.name === activeTab);
+
+  const getIcon = (iconName?: string, customIcon?: string, size: number = 24) => {
+    switch(customIcon) {
+      case "fingerprint":
+        return <Fingerprint size={size} strokeWidth={1.5} className="text-white" />;
+      default:
+        switch(iconName) {
+          case "brain":
+            return <Brain size={size} strokeWidth={1.5} className="text-white" />;
+          case "cog":
+            return <Cog size={size} strokeWidth={1.5} className="text-white" />;
+          case "link":
+            return <Link size={size} strokeWidth={1.5} className="text-white" />;
+          case "user-cog":
+            return <UserCog size={size} strokeWidth={1.5} className="text-white" />;
+          default:
+            return null;
+        }
+    }
+  };
 
   return (
     <section id="advantages" className="py-16 md:py-24 px-4 sm:px-6 bg-black">
@@ -116,16 +143,18 @@ export const AdvantagesSection: React.FC = () => {
                 <Card className="bg-black border border-gray-800/50 shadow-2xl">
                   <CardContent className="relative pt-8 md:pt-10 pb-8 md:pb-10">
                     <motion.div 
-                      className="flex flex-col items-center text-center mb-6 md:mb-8"
+                      className="flex flex-col items-center text-center mb-8 md:mb-10"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.1 }}
                     >
-                      {currentAdvantage.customIcon === "fingerprint" ? (
-                        <FingerprintScannerIcon className="text-white opacity-90 mb-4" size="text-5xl md:text-6xl" />
-                      ) : (
-                        <i className={cn(currentAdvantage.iconName, "text-5xl md:text-6xl text-white opacity-90 mb-4")}></i>
-                      )}
+                      <div className="w-16 h-16 flex items-center justify-center mb-5">
+                        {currentAdvantage.customIcon === "fingerprint" ? (
+                          <FingerprintScannerIcon className="text-white" size="w-16 h-16" />
+                        ) : (
+                          getIcon(currentAdvantage.iconName, undefined, 42)
+                        )}
+                      </div>
                       <motion.h3 
                         className="text-2xl md:text-3xl font-medium mb-3 text-white"
                         initial={{ opacity: 0 }}
@@ -137,7 +166,7 @@ export const AdvantagesSection: React.FC = () => {
                     </motion.div>
                     
                     <motion.p 
-                      className="mb-6 text-gray-300 leading-relaxed text-md md:text-lg text-center md:text-left"
+                      className="mb-6 text-gray-300 leading-relaxed text-md md:text-lg text-left px-2 md:px-4"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.3 }}
@@ -147,7 +176,7 @@ export const AdvantagesSection: React.FC = () => {
                     
                     {currentAdvantage.bullets && (
                       <motion.ul 
-                        className="list-none my-6 text-gray-300 space-y-3 pl-0 md:pl-2"
+                        className="list-none my-6 text-gray-300 space-y-4 px-2 md:px-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5, delay: 0.4 }}
@@ -160,7 +189,20 @@ export const AdvantagesSection: React.FC = () => {
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.3, delay: 0.4 + i * 0.1 }}
                           >
-                            <i className={cn(i === 0 ? "fas fa-stethoscope" : "fas fa-robot", "text-teal-400 mr-3 mt-1 text-lg flex-shrink-0")}></i>
+                            <div className="h-6 w-6 mr-3 mt-0.5 flex-shrink-0">
+                              {i === 0 ? 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" className="text-gray-400">
+                                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                                </svg> : 
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" className="text-gray-400">
+                                  <rect x="3" y="11" width="18" height="10" rx="2" />
+                                  <circle cx="12" cy="5" r="2" />
+                                  <path d="M12 7v4" />
+                                  <line x1="8" y1="16" x2="8" y2="16" />
+                                  <line x1="16" y1="16" x2="16" y2="16" />
+                                </svg>
+                              }
+                            </div>
                             <span>{bullet.replace("s10.ai", "S10.AI")}</span>
                           </motion.li>
                         ))}
@@ -169,38 +211,27 @@ export const AdvantagesSection: React.FC = () => {
                     
                     {currentAdvantage.meansForYou && (
                       <motion.div 
-                        className="my-6 p-5 bg-gray-900/60 border border-gray-700/40 rounded-lg shadow-md"
+                        className="my-6 p-5 bg-gray-900/60 border border-gray-700/40 rounded-lg shadow-md mx-2 md:mx-4"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 0.5 }}
                       >
-                        <h4 className="font-medium text-lg mb-2 text-gray-100">What this means for you:</h4>
+                        <h4 className="font-medium text-lg mb-3 text-gray-100">What this means for you:</h4>
                         <p className="leading-relaxed text-gray-300 text-sm md:text-base">
                           {currentAdvantage.meansForYou.replace("s10.ai", "S10.AI")}
                         </p>
                       </motion.div>
                     )}
                     
-                    {/* Updated S10.AI Edge section with black background and circle effect for heading */}
                     <motion.div 
-                      className="my-6 p-5 bg-black border border-sky-800/50 rounded-lg shadow-xl"
+                      className="my-6 p-5 bg-black border border-sky-800/50 rounded-lg shadow-xl mx-2 md:mx-4"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.6 }}
                     >
-                      <div className="flex items-center mb-3">
-                        <div className="relative mr-3">
-                          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-700 to-sky-900 opacity-30 animate-pulse"></div>
-                          <div className="relative flex items-center justify-center w-10 h-10 bg-black rounded-full border border-sky-700/70">
-                            <span className="text-sky-400 text-xs font-bold">S10</span>
-                          </div>
-                        </div>
-                        <h4 className="font-medium text-lg text-gray-100">The S10.AI Edge:</h4>
-                      </div>
-                      <p className="leading-relaxed text-gray-200 text-sm md:text-base">
-                        <strong className="text-sky-300">
-                          {currentAdvantage.edge.replace("s10.ai", "S10.AI")}
-                        </strong>
+                      <h4 className="font-medium text-lg mb-3 text-gray-100 border-b border-sky-800/30 pb-2">The S10.AI Edge:</h4>
+                      <p className="leading-relaxed text-gray-300 text-sm md:text-base">
+                        {currentAdvantage.edge.replace("s10.ai", "S10.AI")}
                       </p>
                     </motion.div>
                     
@@ -210,7 +241,6 @@ export const AdvantagesSection: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5, delay: 0.7 }}
                     >
-                      {/* Updated button with black background and white outline */}
                       <motion.a 
                         href="#contact" 
                         className="bg-black border-2 border-white text-white font-medium py-3 px-8 rounded-lg inline-block text-base sm:text-lg transform transition-all duration-300 hover:bg-gray-900"
