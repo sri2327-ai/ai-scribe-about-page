@@ -7,7 +7,7 @@ import { SplashCursor } from "@/components/ui/splash-cursor";
 export const FinalCTA: React.FC = () => {
   return (
     <section id="contact" className="bg-black text-white py-20 md:py-28 px-6 rounded-t-2xl shadow-2xl mt-0 relative overflow-hidden">
-      {/* Fluid background effect */}
+      {/* Fluid background effect - Only applied to this section */}
       <SplashCursor 
         SIM_RESOLUTION={128}
         DYE_RESOLUTION={1024}
@@ -20,6 +20,7 @@ export const FinalCTA: React.FC = () => {
         COLOR_UPDATE_SPEED={10}
         BACK_COLOR={{ r: 0, g: 0, b: 0 }}
         TRANSPARENT={true}
+        containerId="finalCTA-container"
       />
       
       <div className="container mx-auto max-w-3xl text-center relative z-10">

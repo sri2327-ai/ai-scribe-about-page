@@ -1,4 +1,3 @@
-
 "use client";
 import { useEffect, useRef } from "react";
 
@@ -55,8 +54,24 @@ interface WebGLContextResult {
   };
 }
 
-function SplashCursor({
+interface SplashCursorProps {
   // Add whatever props you like for customization
+  SIM_RESOLUTION?: number;
+  DYE_RESOLUTION?: number;
+  DENSITY_DISSIPATION?: number;
+  VELOCITY_DISSIPATION?: number;
+  PRESSURE?: number;
+  CURL?: number;
+  SPLAT_RADIUS?: number;
+  SPLAT_FORCE?: number;
+  SHADING?: boolean;
+  COLOR_UPDATE_SPEED?: number;
+  BACK_COLOR?: { r: number; g: number; b: number };
+  TRANSPARENT?: boolean;
+  containerId?: string; // New prop for container ID
+}
+
+function SplashCursor({
   SIM_RESOLUTION = 128,
   DYE_RESOLUTION = 1024,
   DENSITY_DISSIPATION = 3.5,
@@ -69,12 +84,30 @@ function SplashCursor({
   COLOR_UPDATE_SPEED = 10,
   BACK_COLOR = { r: 0, g: 0, b: 0 },
   TRANSPARENT = true,
-}) {
+  containerId = "fluid" // Default ID if none provided
+}: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    // Create canvas element dynamically for the container
+    let canvas: HTMLCanvasElement | null = null;
+    const container = document.getElementById(containerId);
+    
+    // Only proceed if the container exists
+    if (!container) {
+      console.error(`Container with ID ${containerId} not found`);
+      return;
+    }
+    
+    // Create canvas in the container
+    canvas = document.createElement('canvas');
+    canvas.id = `${containerId}-canvas`;
+    canvas.className = 'absolute inset-0 w-full h-full';
+    canvas.style.zIndex = '5';
+    container.appendChild(canvas);
+    canvasRef.current = canvas;
+    
+    // ... keep existing code (pointerPrototype function)
 
     function pointerPrototype() {
       this.id = -1;
@@ -108,8 +141,10 @@ function SplashCursor({
     };
 
     let pointers = [new (pointerPrototype as any)()];
-
+    
+    // Initialize the WebGL context
     const { gl, ext } = getWebGLContext(canvas);
+    
     if (!ext.supportLinearFiltering) {
       config.DYE_RESOLUTION = 256;
       config.SHADING = false;
@@ -130,7 +165,7 @@ function SplashCursor({
       // If WebGL2 is not supported, fall back to WebGL1
       if (!isWebGL2) {
         gl = (canvas.getContext("webgl", params) ||
-          canvas.getContext("experimental-webgl", params)) as WebGLRenderingContext | null;
+          canvas.getContext("experimental-webgl", params)) as WebGLRenderingContext;
       }
       
       if (!gl) throw new Error("WebGL not supported");
@@ -1134,7 +1169,7 @@ function SplashCursor({
 
     function updatePointerMoveData(pointer: any, posX: number, posY: number, color: any) {
       pointer.prevTexcoordX = pointer.texcoordX;
-      pointer.prevTexcoordY = pointer.texcoordY;
+      pointer.prevTexcoordY = pointer.prevTexcoordY;
       pointer.texcoordX = posX / canvas.width;
       pointer.texcoordY = 1.0 - posY / canvas.height;
       pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
@@ -1325,13 +1360,11 @@ function SplashCursor({
     COLOR_UPDATE_SPEED,
     BACK_COLOR,
     TRANSPARENT,
+    containerId, // Added containerId to dependency array
   ]);
 
-  return (
-    <div className="fixed top-0 left-0 z-0 pointer-events-none">
-      <canvas ref={canvasRef} id="fluid" className="w-screen h-screen" />
-    </div>
-  );
+  // Don't render an actual canvas element - it will be created dynamically
+  return null;
 }
 
 export { SplashCursor };

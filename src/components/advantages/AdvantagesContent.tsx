@@ -72,11 +72,20 @@ export const AdvantagesContent = () => {
             width: 100%; 
             height: auto; /* Ensure height is determined by content */
           }
+          
+          /* Add styles for the final CTA container */
+          #finalCTA-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
         `}} />
         <HeroSection />
         <AdvantagesSection />
         <S10AISection />
-        <FinalCTA />
+        <div id="finalCTA-container" className="relative">
+          <FinalCTA />
+        </div>
       </div>
     </ScriptLoader>
   );
