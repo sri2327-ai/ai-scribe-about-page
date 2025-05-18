@@ -17,86 +17,89 @@ export const FinalCTA: React.FC = () => {
           Ready to Experience the S10.AI Transformation?
         </motion.h2>
         
-        {/* ROI Stats Section - Improved Grid Layout */}
+        {/* ROI Stats Section - Improved Grid Layout with smaller boxes in one line */}
         <motion.div 
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-8 md:mb-12"
+          className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 md:mb-12 mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.2, staggerChildren: 0.1 }}
         >
-          {/* All boxes have identical height with aspect-ratio utility */}
+          {/* All boxes have identical size, but smaller than before */}
           <motion.div 
-            className="flex flex-col items-center justify-center p-4 sm:p-5 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm aspect-square"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Clock className="h-8 w-8 mb-3 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">75%</span>
-            <span className="text-xs sm:text-sm mt-1 text-white/80">Reduction in documentation time</span>
+            <Clock className="h-6 w-6 mb-2 text-white" />
+            <span className="text-xl sm:text-2xl font-bold">75%</span>
+            <span className="text-xs mt-1 text-white/80">Reduction in documentation time</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center justify-center p-4 sm:p-5 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm aspect-square"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <DollarSign className="h-8 w-8 mb-3 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">40%</span>
-            <span className="text-xs sm:text-sm mt-1 text-white/80">Increase in practice revenue</span>
+            <DollarSign className="h-6 w-6 mb-2 text-white" />
+            <span className="text-xl sm:text-2xl font-bold">40%</span>
+            <span className="text-xs mt-1 text-white/80">Increase in practice revenue</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center justify-center p-4 sm:p-5 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm aspect-square"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Heart className="h-8 w-8 mb-3 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">95%</span>
-            <span className="text-xs sm:text-sm mt-1 text-white/80">Patient satisfaction rates</span>
+            <Heart className="h-6 w-6 mb-2 text-white" />
+            <span className="text-xl sm:text-2xl font-bold">95%</span>
+            <span className="text-xs mt-1 text-white/80">Patient satisfaction rates</span>
           </motion.div>
           
-          {/* Fixed layout for mobile and tablet */}
           <motion.div 
-            className="flex flex-col items-center justify-center p-4 sm:p-5 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm aspect-square"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <TrendingUp className="h-8 w-8 mb-3 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">$150K+</span>
-            <span className="text-xs sm:text-sm mt-1 text-white/80">Annual cost savings</span>
+            <TrendingUp className="h-6 w-6 mb-2 text-white" />
+            <span className="text-xl sm:text-2xl font-bold">$150K+</span>
+            <span className="text-xs mt-1 text-white/80">Annual cost savings</span>
           </motion.div>
           
           <motion.div 
-            className="flex flex-col items-center justify-center p-4 sm:p-5 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm aspect-square md:col-span-2 lg:col-span-1"
+            className="flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-white/30 rounded-lg bg-black/60 backdrop-blur-sm w-[140px] h-[140px] sm:w-[160px] sm:h-[160px]"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.4 }}
           >
-            <Users className="h-8 w-8 mb-3 text-white" />
-            <span className="text-2xl sm:text-3xl md:text-4xl font-bold">30%</span>
-            <span className="text-xs sm:text-sm mt-1 text-white/80">Increase in patient volume</span>
+            <Users className="h-6 w-6 mb-2 text-white" />
+            <span className="text-xl sm:text-2xl font-bold">30%</span>
+            <span className="text-xs mt-1 text-white/80">Increase in patient volume</span>
           </motion.div>
         </motion.div>
         
-        <motion.p 
-          className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed text-gray-300 font-normal"
+        <motion.div
+          className="mx-auto max-w-3xl"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          Reduce burnout, enhance patient care, and reclaim your time. Discover how S10.AI can be tailored to your practice's unique needs.
-        </motion.p>
+          <motion.p 
+            className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-10 leading-relaxed text-gray-300 font-normal"
+          >
+            Reduce burnout, enhance patient care, and reclaim your time. Discover how S10.AI can be tailored to your practice's unique needs.
+          </motion.p>
+        </motion.div>
         
         <motion.div 
           className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
