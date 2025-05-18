@@ -1,10 +1,9 @@
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { FingerprintScannerIcon } from "./FingerprintScannerIcon";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Brain, Cog, Link, UserCog, Fingerprint } from "lucide-react";
+import { Brain, Cog, Link, UserCog, Shield } from "lucide-react";
 
 interface NavItem {
   name: string;
@@ -30,8 +29,8 @@ export const TubelightNavBar: React.FC<TubelightNavBarProps> = ({
   
   // Helper function to get the appropriate icon based on iconName or customIcon
   const getIcon = (iconName?: string, customIcon?: string) => {
-    if (customIcon === "fingerprint") {
-      return <Fingerprint className="w-5 h-5" strokeWidth={1.5} />;
+    if (customIcon === "shield") {
+      return <Shield className="w-5 h-5" strokeWidth={1.5} />;
     }
     
     switch (iconName) {
@@ -55,7 +54,7 @@ export const TubelightNavBar: React.FC<TubelightNavBarProps> = ({
         className
       )}
     >
-      <div className="flex items-center gap-1 sm:gap-2 bg-black/60 border border-gray-700/50 backdrop-blur-xl py-2 px-2 rounded-full shadow-2xl">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2 bg-black/60 border border-gray-700/50 backdrop-blur-xl py-3 px-3 rounded-full shadow-2xl">
         <AnimatePresence>
           {items.map((item) => {
             const isActive = activeTab === item.name;
@@ -79,10 +78,7 @@ export const TubelightNavBar: React.FC<TubelightNavBarProps> = ({
                       {getIcon(item.iconName, item.customIcon)}
                     </span>
                   ) : ( 
-                    <>
-                      {getIcon(item.iconName, item.customIcon)}
-                      <span className="ml-2">{item.name}</span>
-                    </>
+                    <span>{item.name}</span>
                   )}
                 </div>
                 

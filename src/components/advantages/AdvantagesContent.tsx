@@ -80,6 +80,14 @@ export const AdvantagesContent = () => {
             width: 100%;
             height: 100%;
           }
+
+          /* Mobile optimizations */
+          @media (max-width: 640px) {
+            .content-container {
+              padding-left: 8px;
+              padding-right: 8px;
+            }
+          }
         `}} />
         <HeroSection />
         <AdvantagesSection />

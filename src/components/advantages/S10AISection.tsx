@@ -59,12 +59,12 @@ export const S10AISection = () => {
           />
         </motion.div>
         <motion.p 
-          className="text-center mt-8 text-xl md:text-2xl font-medium" // Updated font weight
+          className="text-center mt-8 text-xl md:text-2xl font-medium text-gray-400" // Updated color to lighter gray
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <span className="text-teal-400">Making Life Easy For Clinicians</span>
+          Making Life Easy For Clinicians
         </motion.p>
       </div>
     </section>
