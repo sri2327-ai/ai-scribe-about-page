@@ -19,12 +19,12 @@ export const AnimatedGradientBackground: React.FC<AnimatedGradientBackgroundProp
   Breathing = false,
   gradientColors = [
     "#0A0A0A",
-    "#2979FF",
-    "#FF80AB",
-    "#FF6D00",
-    "#FFD600",
-    "#00E676",
-    "#3D5AFE"
+    "#0E7490", // Updated to teal-600
+    "#0891B2", // Updated to teal-500
+    "#06B6D4", // Updated to teal-400 (subtle)
+    "#67E8F9", // Lighter teal
+    "#2DD4BF", // Subtle green-teal
+    "#14B8A6"  // Subtle teal-green
   ],
   gradientStops = [35, 50, 60, 70, 80, 90, 100],
   animationSpeed = 0.02,
