@@ -1,139 +1,164 @@
 
 "use client";
 
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import type { CSSProperties } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { motion } from "framer-motion";
+
+interface CommitsGridProps {
+  text?: string;
+  gridSize?: { rows: number; cols: number };
+  colorScheme?: {
+    bg: string;
+    border: string;
+    activeBg: string;
+    activeText: string;
+    inactiveBg: string;
+    inactiveText: string;
+  };
+  animationIntensity?: number;
+}
 
 export const CommitsGrid = ({
-  text
-}: {
-  text: string;
-}) => {
-  const cleanString = (str: string): string => {
-    const upperStr = str.toUpperCase();
-    const withoutAccents = upperStr.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const allowedChars = Object.keys(letterPatterns);
-    return withoutAccents.split("").filter(char => allowedChars.includes(char)).join("");
-  };
-
-  const generateHighlightedCells = (text: string) => {
-    const cleanedText = cleanString(text);
-    const width = Math.max(cleanedText.length * 6, 6) + 1;
-    let currentPosition = 1; // we start at 1 to leave space for the top border
-    const highlightedCells: number[] = [];
-    cleanedText.toUpperCase().split("").forEach(char => {
-      if (letterPatterns[char]) {
-        const pattern = letterPatterns[char].map(pos => {
-          const row = Math.floor(pos / 50);
-          const col = pos % 50;
-          return (row + 1) * width + col + currentPosition;
-        });
-        highlightedCells.push(...pattern);
-      }
-      currentPosition += 6;
-    });
-    return {
-      cells: highlightedCells,
-      width,
-      height: 9 // 7+2 for the top and bottom borders
-    };
-  };
-
-  const {
-    cells: highlightedCells,
-    width: gridWidth,
-    height: gridHeight
-  } = generateHighlightedCells(text);
-
-  const getRandomColor = () => {
-    // Use much brighter green colors with higher contrast for better visibility
-    const commitColors = [
-      "#22C55E", // Green-500 (brighter)
-      "#4ADE80", // Green-400 (very bright)
-      "#34D399"  // Emerald-400 (bright)
-    ];
-    const randomIndex = Math.floor(Math.random() * commitColors.length);
-    return commitColors[randomIndex];
-  };
-
-  const getRandomDelay = () => `${(Math.random() * 0.8).toFixed(1)}s`;
-  const getRandomFlash = () => +(Math.random() < 0.25);
-
+  text = "LOVABLE",
+  gridSize = { rows: 7, cols: 20 },
+  colorScheme = {
+    bg: "bg-gray-900",
+    border: "border-gray-700",
+    activeBg: "bg-teal-500/30 dark:bg-teal-500/20",
+    activeText: "text-white",
+    inactiveBg: "bg-gray-800 dark:bg-gray-800/70",
+    inactiveText: "text-gray-500",
+  },
+  animationIntensity = 1,
+}: CommitsGridProps) => {
+  const [grid, setGrid] = useState<boolean[][]>([]);
+  const [activeLetterIndex, setActiveLetterIndex] = useState(0);
+  const characters = text.split("");
+  
+  // Generate grid pattern for each letter
+  const letterPatterns = characters.map((char) => generatePatternForLetter(char.toUpperCase(), gridSize));
+  
+  // Initialize the grid
+  useEffect(() => {
+    setGrid(letterPatterns[0]);
+  }, []);
+  
+  // Update active letter over time
+  useEffect(() => {
+    if (animationIntensity <= 0) return;
+    
+    const speed = 3000 / Math.max(0.5, animationIntensity); // Faster with higher intensity
+    const timer = setInterval(() => {
+      setActiveLetterIndex((prev) => (prev + 1) % characters.length);
+    }, speed);
+    
+    return () => clearInterval(timer);
+  }, [characters.length, animationIntensity]);
+  
+  // Update grid when active letter changes
+  useEffect(() => {
+    if (letterPatterns[activeLetterIndex]) {
+      setGrid(letterPatterns[activeLetterIndex]);
+    }
+  }, [activeLetterIndex]);
+  
+  // Random cell activation for ambient animation
+  useEffect(() => {
+    if (animationIntensity <= 0) return;
+    
+    const interval = 100 / Math.max(0.2, animationIntensity);
+    const timer = setInterval(() => {
+      setGrid((prevGrid) => {
+        const newGrid = [...prevGrid.map(row => [...row])];
+        const row = Math.floor(Math.random() * gridSize.rows);
+        const col = Math.floor(Math.random() * gridSize.cols);
+        newGrid[row][col] = !newGrid[row][col];
+        return newGrid;
+      });
+    }, interval);
+    
+    return () => clearInterval(timer);
+  }, [animationIntensity]);
+  
   return (
-    <section
-      className="w-full max-w-xl bg-gray-900 border border-gray-700 grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]"
+    <div className={`commits-grid w-full max-w-xl ${colorScheme.bg} border ${colorScheme.border} grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]`}
       style={{
-        gridTemplateColumns: `repeat(${gridWidth}, minmax(0, 1fr))`,
-        gridTemplateRows: `repeat(${gridHeight}, minmax(0, 1fr))`,
+        gridTemplateRows: `repeat(${gridSize.rows}, 1fr)`,
+        gridTemplateColumns: `repeat(${gridSize.cols}, 1fr)`,
+        transition: "all 0.3s ease",
       }}
     >
-      {Array.from({ length: gridWidth * gridHeight }).map((_, index) => {
-        const isHighlighted = highlightedCells.includes(index);
-        const shouldFlash = !isHighlighted && getRandomFlash();
-
-        return (
-          <div
-            key={index}
-            className={cn(
-              `border border-gray-800 h-full w-full aspect-square rounded-[4px] sm:rounded-[3px]`,
-              isHighlighted ? "animate-highlight" : "",
-              shouldFlash ? "animate-flash" : "",
-              !isHighlighted && !shouldFlash ? "bg-gray-900" : ""
-            )}
-            style={
-              {
-                animationDelay: getRandomDelay(),
-                "--highlight": getRandomColor(),
-              } as CSSProperties
-            }
+      {grid.length > 0 &&
+        grid.flat().map((isActive, i) => (
+          <motion.div
+            key={i}
+            className={`aspect-square rounded-sm sm:rounded transition-colors duration-300 ${
+              isActive ? colorScheme.activeBg : colorScheme.inactiveBg
+            }`}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ 
+              scale: 1, 
+              opacity: 1,
+              backgroundColor: isActive ? "rgba(20, 184, 166, 0.3)" : "rgba(31, 41, 55, 0.7)"
+            }}
+            transition={{ 
+              duration: 0.3, 
+              delay: i * 0.001 * (animationIntensity > 0 ? 1 : 0)
+            }}
+            whileHover={{ scale: 1.2, backgroundColor: "rgba(20, 184, 166, 0.8)" }}
           />
-        );
-      })}
-    </section>
+        ))}
+    </div>
   );
 };
 
-const letterPatterns: {
-  [key: string]: number[];
-} = {
-  A: [1, 2, 3, 50, 100, 150, 200, 250, 300, 54, 104, 154, 204, 254, 304, 151, 152, 153],
-  B: [0, 1, 2, 3, 4, 50, 100, 150, 151, 200, 250, 300, 301, 302, 303, 304, 54, 104, 152, 153, 204, 254, 303],
-  C: [0, 1, 2, 3, 4, 50, 100, 150, 200, 250, 300, 301, 302, 303, 304],
-  D: [0, 1, 2, 3, 50, 100, 150, 200, 250, 300, 301, 302, 54, 104, 154, 204, 254, 303],
-  E: [0, 1, 2, 3, 4, 50, 100, 150, 200, 250, 300, 301, 302, 303, 304, 151, 152],
-  F: [0, 1, 2, 3, 4, 50, 100, 150, 200, 250, 300, 151, 152, 153],
-  G: [0, 1, 2, 3, 4, 50, 100, 150, 200, 250, 300, 301, 302, 303, 153, 204, 154, 304, 254],
-  H: [0, 50, 100, 150, 200, 250, 300, 151, 152, 153, 4, 54, 104, 154, 204, 254, 304],
-  I: [0, 1, 2, 3, 4, 52, 102, 152, 202, 252, 300, 301, 302, 303, 304],
-  J: [0, 1, 2, 3, 4, 52, 102, 152, 202, 250, 252, 302, 300, 301],
-  K: [0, 4, 50, 100, 150, 200, 250, 300, 151, 152, 103, 54, 203, 254, 304],
-  L: [0, 50, 100, 150, 200, 250, 300, 301, 302, 303, 304],
-  M: [0, 50, 100, 150, 200, 250, 300, 51, 102, 53, 4, 54, 104, 154, 204, 254, 304],
-  N: [0, 50, 100, 150, 200, 250, 300, 51, 102, 153, 204, 4, 54, 104, 154, 204, 254, 304],
-  Ñ: [0, 50, 100, 150, 200, 250, 300, 51, 102, 153, 204, 4, 54, 104, 154, 204, 254, 304],
-  O: [1, 2, 3, 50, 100, 150, 200, 250, 301, 302, 303, 54, 104, 154, 204, 254],
-  P: [0, 50, 100, 150, 200, 250, 300, 1, 2, 3, 54, 104, 151, 152, 153],
-  Q: [1, 2, 3, 50, 100, 150, 200, 250, 301, 302, 54, 104, 154, 204, 202, 253, 304],
-  R: [0, 50, 100, 150, 200, 250, 300, 1, 2, 3, 54, 104, 151, 152, 153, 204, 254, 304],
-  S: [1, 2, 3, 4, 50, 100, 151, 152, 153, 204, 254, 300, 301, 302, 303],
-  T: [0, 1, 2, 3, 4, 52, 102, 152, 202, 252, 302],
-  U: [0, 50, 100, 150, 200, 250, 301, 302, 303, 4, 54, 104, 154, 204, 254],
-  V: [0, 50, 100, 150, 200, 251, 302, 4, 54, 104, 154, 204, 253],
-  W: [0, 50, 100, 150, 200, 250, 301, 152, 202, 252, 4, 54, 104, 154, 204, 254, 303],
-  X: [0, 50, 203, 254, 304, 4, 54, 152, 101, 103, 201, 250, 300],
-  Y: [0, 50, 101, 152, 202, 252, 302, 4, 54, 103],
-  Z: [0, 1, 2, 3, 4, 54, 103, 152, 201, 250, 300, 301, 302, 303, 304],
-  "0": [1, 2, 3, 50, 100, 150, 200, 250, 301, 302, 303, 54, 104, 154, 204, 254],
-  "1": [1, 52, 102, 152, 202, 252, 302, 0, 2, 300, 301, 302, 303, 304],
-  "2": [0, 1, 2, 3, 54, 104, 152, 153, 201, 250, 300, 301, 302, 303, 304],
-  "3": [0, 1, 2, 3, 54, 104, 152, 153, 204, 254, 300, 301, 302, 303],
-  "4": [0, 50, 100, 150, 4, 54, 104, 151, 152, 153, 154, 204, 254, 304],
-  "5": [0, 1, 2, 3, 4, 50, 100, 151, 152, 153, 204, 254, 300, 301, 302, 303],
-  "6": [1, 2, 3, 50, 100, 150, 151, 152, 153, 200, 250, 301, 302, 204, 254, 303],
-  "7": [0, 1, 2, 3, 4, 54, 103, 152, 201, 250, 300],
-  "8": [1, 2, 3, 50, 100, 151, 152, 153, 200, 250, 301, 302, 303, 54, 104, 204, 254],
-  "9": [1, 2, 3, 50, 100, 151, 152, 153, 154, 204, 254, 304, 54, 104],
-  " ": [],
-  ".": [300, 301]
-};
+// Helper function to generate grid pattern for a letter
+function generatePatternForLetter(letter: string, gridSize: { rows: number; cols: number }) {
+  const { rows, cols } = gridSize;
+  const grid = Array(rows).fill(0).map(() => Array(cols).fill(false));
+  
+  const patterns: Record<string, number[][]> = {
+    S: [[1,1,1], [1,0,0], [1,1,1], [0,0,1], [1,1,1]],
+    '1': [[0,1,0], [1,1,0], [0,1,0], [0,1,0], [1,1,1]],
+    '0': [[1,1,1], [1,0,1], [1,0,1], [1,0,1], [1,1,1]],
+    A: [[1,1,1], [1,0,1], [1,1,1], [1,0,1], [1,0,1]],
+    I: [[1,1,1], [0,1,0], [0,1,0], [0,1,0], [1,1,1]],
+    L: [[1,0,0], [1,0,0], [1,0,0], [1,0,0], [1,1,1]],
+    O: [[1,1,1], [1,0,1], [1,0,1], [1,0,1], [1,1,1]],
+    V: [[1,0,1], [1,0,1], [1,0,1], [1,0,1], [0,1,0]],
+    B: [[1,1,0], [1,0,1], [1,1,0], [1,0,1], [1,1,0]],
+    E: [[1,1,1], [1,0,0], [1,1,0], [1,0,0], [1,1,1]],
+    // Default pattern for unsupported characters
+    DEFAULT: [[0,1,0], [1,0,1], [1,1,1], [1,0,1], [1,0,1]]
+  };
+  
+  // Get pattern for this letter or use default
+  const pattern = patterns[letter] || patterns.DEFAULT;
+  
+  // Calculate center placement
+  const patternRows = pattern.length;
+  const patternCols = pattern[0].length;
+  const startRow = Math.floor((rows - patternRows) / 2);
+  const startCol = Math.floor((cols - patternCols) / 2);
+  
+  // Place the pattern in the grid
+  for (let r = 0; r < patternRows; r++) {
+    for (let c = 0; c < patternCols; c++) {
+      if (startRow + r >= 0 && startRow + r < rows && startCol + c >= 0 && startCol + c < cols) {
+        grid[startRow + r][startCol + c] = !!pattern[r][c];
+      }
+    }
+  }
+  
+  // Add random active cells
+  const totalCells = rows * cols;
+  const numRandomCells = Math.floor(totalCells * 0.1); // 10% of cells will be randomly active
+  
+  for (let i = 0; i < numRandomCells; i++) {
+    const randomRow = Math.floor(Math.random() * rows);
+    const randomCol = Math.floor(Math.random() * cols);
+    grid[randomRow][randomCol] = true;
+  }
+  
+  return grid;
+}

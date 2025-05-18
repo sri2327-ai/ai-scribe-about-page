@@ -55,7 +55,6 @@ interface WebGLContextResult {
 }
 
 interface SplashCursorProps {
-  // Add whatever props you like for customization
   SIM_RESOLUTION?: number;
   DYE_RESOLUTION?: number;
   DENSITY_DISSIPATION?: number;
@@ -68,7 +67,9 @@ interface SplashCursorProps {
   COLOR_UPDATE_SPEED?: number;
   BACK_COLOR?: { r: number; g: number; b: number };
   TRANSPARENT?: boolean;
-  containerId?: string; // New prop for container ID
+  containerId?: string; 
+  respondToScroll?: boolean;
+  respondToHover?: boolean;
 }
 
 function SplashCursor({
@@ -84,7 +85,9 @@ function SplashCursor({
   COLOR_UPDATE_SPEED = 10,
   BACK_COLOR = { r: 0, g: 0, b: 0 },
   TRANSPARENT = true,
-  containerId = "fluid" // Default ID if none provided
+  containerId = "fluid",
+  respondToScroll = true,
+  respondToHover = true
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -107,8 +110,6 @@ function SplashCursor({
     container.appendChild(canvas);
     canvasRef.current = canvas;
     
-    // ... keep existing code (pointerPrototype function)
-
     function pointerPrototype() {
       this.id = -1;
       this.texcoordX = 0;
@@ -165,27 +166,30 @@ function SplashCursor({
       // If WebGL2 is not supported, fall back to WebGL1
       if (!isWebGL2) {
         gl = (canvas.getContext("webgl", params) ||
-          canvas.getContext("experimental-webgl", params)) as WebGLRenderingContext;
+          canvas.getContext("experimental-webgl", params)) as WebGLRenderingContext | null;
       }
       
       if (!gl) throw new Error("WebGL not supported");
+      
+      // Ensure gl is cast to WebGLRenderingContext to match the expected return type
+      const webglContext = gl as WebGLRenderingContext;
       
       let halfFloat: any = null;
       let supportLinearFiltering: boolean = false;
       
       if (isWebGL2) {
-        gl.getExtension("EXT_color_buffer_float");
-        supportLinearFiltering = !!gl.getExtension("OES_texture_float_linear");
+        (gl as WebGL2RenderingContext).getExtension("EXT_color_buffer_float");
+        supportLinearFiltering = !!(gl as WebGL2RenderingContext).getExtension("OES_texture_float_linear");
       } else {
-        halfFloat = gl.getExtension("OES_texture_half_float");
-        supportLinearFiltering = !!gl.getExtension("OES_texture_half_float_linear");
+        halfFloat = webglContext.getExtension("OES_texture_half_float");
+        supportLinearFiltering = !!webglContext.getExtension("OES_texture_half_float_linear");
       }
       
-      gl.clearColor(0.0, 0.0, 0.0, 1.0);
+      webglContext.clearColor(0.0, 0.0, 0.0, 1.0);
       
       const halfFloatTexType = isWebGL2
         ? (gl as WebGL2RenderingContext).HALF_FLOAT
-        : halfFloat ? halfFloat.HALF_FLOAT_OES : gl.UNSIGNED_BYTE;
+        : halfFloat ? halfFloat.HALF_FLOAT_OES : webglContext.UNSIGNED_BYTE;
         
       let formatRGBA: { internalFormat: number; format: number } | null;
       let formatRG: { internalFormat: number; format: number } | null;
@@ -193,31 +197,31 @@ function SplashCursor({
 
       if (isWebGL2) {
         formatRGBA = getSupportedFormat(
-          gl,
+          webglContext,
           (gl as WebGL2RenderingContext).RGBA16F,
-          gl.RGBA,
+          webglContext.RGBA,
           halfFloatTexType
         );
         formatRG = getSupportedFormat(
-          gl,
+          webglContext,
           (gl as WebGL2RenderingContext).RG16F,
           (gl as WebGL2RenderingContext).RG,
           halfFloatTexType
         );
         formatR = getSupportedFormat(
-          gl,
+          webglContext,
           (gl as WebGL2RenderingContext).R16F,
           (gl as WebGL2RenderingContext).RED,
           halfFloatTexType
         );
       } else {
-        formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
-        formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
-        formatR = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
+        formatRGBA = getSupportedFormat(webglContext, webglContext.RGBA, webglContext.RGBA, halfFloatTexType);
+        formatRG = getSupportedFormat(webglContext, webglContext.RGBA, webglContext.RGBA, halfFloatTexType);
+        formatR = getSupportedFormat(webglContext, webglContext.RGBA, webglContext.RGBA, halfFloatTexType);
       }
 
       return {
-        gl,
+        gl: webglContext,
         ext: {
           formatRGBA,
           formatRG,
@@ -901,6 +905,21 @@ function SplashCursor({
     let lastUpdateTime = Date.now();
     let colorUpdateTimer = 0.0;
 
+    // Create initial effects on load
+    setTimeout(() => {
+      for (let i = 0; i < 5; i++) {
+        const x = Math.random();
+        const y = Math.random();
+        const dx = (Math.random() - 0.5) * 20;
+        const dy = (Math.random() - 0.5) * 20;
+        const color = generateColor();
+        color.r *= 10.0;
+        color.g *= 10.0;
+        color.b *= 10.0;
+        splat(x, y, dx, dy, color);
+      }
+    }, 100);
+
     function updateFrame() {
       const dt = calcDeltaTime();
       if (resizeCanvas()) initFramebuffers();
@@ -1169,7 +1188,7 @@ function SplashCursor({
 
     function updatePointerMoveData(pointer: any, posX: number, posY: number, color: any) {
       pointer.prevTexcoordX = pointer.texcoordX;
-      pointer.prevTexcoordY = pointer.prevTexcoordY;
+      pointer.prevTexcoordY = pointer.texcoordY;
       pointer.texcoordX = posX / canvas.width;
       pointer.texcoordY = 1.0 - posY / canvas.height;
       pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
@@ -1270,83 +1289,36 @@ function SplashCursor({
 
     // Event handlers
     window.addEventListener("mousedown", (e) => {
-      let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
-      updatePointerDownData(pointer, -1, posX, posY);
-      clickSplat(pointer);
+      if (!respondToHover) return;
+      
+      // Get element coordinates accounting for scrolling
+      const rect = canvas.getBoundingClientRect();
+      if (e.clientX >= rect.left && e.clientX <= rect.right &&
+          e.clientY >= rect.top && e.clientY <= rect.bottom) {
+        let pointer = pointers[0];
+        let posX = scaleByPixelRatio(e.clientX - rect.left);
+        let posY = scaleByPixelRatio(e.clientY - rect.top);
+        updatePointerDownData(pointer, -1, posX, posY);
+        clickSplat(pointer);
+      }
     });
 
-    document.body.addEventListener(
+    canvas.addEventListener(
       "mousemove",
-      function handleFirstMouseMove(e) {
+      function handleMouseMove(e) {
+        if (!respondToHover) return;
+        
+        // Get element coordinates accounting for scrolling
+        const rect = canvas.getBoundingClientRect();
         let pointer = pointers[0];
-        let posX = scaleByPixelRatio(e.clientX);
-        let posY = scaleByPixelRatio(e.clientY);
-        let color = generateColor();
-        updateFrame(); // start animation loop
-        updatePointerMoveData(pointer, posX, posY, color);
-        document.body.removeEventListener("mousemove", handleFirstMouseMove);
+        let posX = scaleByPixelRatio(e.clientX - rect.left);
+        let posY = scaleByPixelRatio(e.clientY - rect.top);
+        updatePointerMoveData(pointer, posX, posY, generateColor());
       }
     );
 
-    window.addEventListener("mousemove", (e) => {
-      let pointer = pointers[0];
-      let posX = scaleByPixelRatio(e.clientX);
-      let posY = scaleByPixelRatio(e.clientY);
-      let color = pointer.color;
-      updatePointerMoveData(pointer, posX, posY, color);
-    });
-
-    document.body.addEventListener(
-      "touchstart",
-      function handleFirstTouchStart(e) {
-        const touches = e.targetTouches;
-        let pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          let posX = scaleByPixelRatio(touches[i].clientX);
-          let posY = scaleByPixelRatio(touches[i].clientY);
-          updateFrame(); // start animation loop
-          updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-        }
-        document.body.removeEventListener("touchstart", handleFirstTouchStart);
-      }
-    );
-
-    window.addEventListener("touchstart", (e) => {
-      const touches = e.targetTouches;
-      let pointer = pointers[0];
-      for (let i = 0; i < touches.length; i++) {
-        let posX = scaleByPixelRatio(touches[i].clientX);
-        let posY = scaleByPixelRatio(touches[i].clientY);
-        updatePointerDownData(pointer, touches[i].identifier, posX, posY);
-      }
-    });
-
-    window.addEventListener(
-      "touchmove",
-      (e) => {
-        const touches = e.targetTouches;
-        let pointer = pointers[0];
-        for (let i = 0; i < touches.length; i++) {
-          let posX = scaleByPixelRatio(touches[i].clientX);
-          let posY = scaleByPixelRatio(touches[i].clientY);
-          updatePointerMoveData(pointer, posX, posY, pointer.color);
-        }
-      },
-      false
-    );
-
-    window.addEventListener("touchend", (e) => {
-      const touches = e.changedTouches;
-      let pointer = pointers[0];
-      for (let i = 0; i < touches.length; i++) {
-        updatePointerUpData(pointer);
-      }
-    });
-
+    // Create an initial effect
     updateFrame();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     SIM_RESOLUTION,
     DYE_RESOLUTION,
@@ -1360,7 +1332,9 @@ function SplashCursor({
     COLOR_UPDATE_SPEED,
     BACK_COLOR,
     TRANSPARENT,
-    containerId, // Added containerId to dependency array
+    containerId,
+    respondToScroll,
+    respondToHover,
   ]);
 
   // Don't render an actual canvas element - it will be created dynamically

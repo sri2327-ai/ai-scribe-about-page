@@ -21,6 +21,8 @@ export const FinalCTA: React.FC = () => {
         BACK_COLOR={{ r: 0, g: 0, b: 0 }}
         TRANSPARENT={true}
         containerId="finalCTA-container"
+        respondToScroll={true}
+        respondToHover={true}
       />
       
       <div className="container mx-auto max-w-3xl text-center relative z-10">
