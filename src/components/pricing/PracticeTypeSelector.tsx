@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -235,7 +236,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'small': { 
         name: 'BRAVO Pro', 
         description: 'Enhanced patient engagement', 
-        price: pricingData.bravo.pro
+        price: 'Starts at $299/mo'
       },
       'clinic': { 
         name: 'BRAVO Enterprise', 
@@ -245,7 +246,7 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
       'specialty': { 
         name: 'BRAVO Pro', 
         description: 'Specialty-specific workflows', 
-        price: pricingData.bravo.pro
+        price: 'Starts at $299/mo'
       }
     },
     bundle: {
