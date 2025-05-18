@@ -3,7 +3,7 @@ import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
+import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight, ArrowRight as ArrowRightIcon } from "lucide-react";
 import { useMediaQuery } from '@mui/material';
 import { shadowStyles } from "@/lib/shadow-utils";
 
@@ -302,22 +302,18 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        {/* New CTA button replacing the carousel */}
+        {/* Simple CTA with arrow icon */}
         <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-3xl mx-auto">
           <motion.a 
             href="#key-differences" 
-            className={`group flex items-center justify-between w-full bg-[#5D2B70] hover:bg-[#4D2460] text-white py-3.5 px-5 rounded-lg transition-all duration-300 ${shadowStyles.button}`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="group inline-flex items-center text-[#5D2B70] hover:text-[#4D2460] font-medium text-lg sm:text-xl transition-colors duration-300"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <span className="text-lg sm:text-xl font-medium">See S10.AI's 5 Key Differences</span>
-            <div className="bg-white bg-opacity-20 p-2 rounded-full flex items-center justify-center group-hover:bg-opacity-30 transition-all">
-              <ChevronRight className="h-5 w-5 text-white" />
-            </div>
+            <span>See S10.AI's 5 Key Differences</span>
+            <ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </motion.a>
         </div>
       </Box>
