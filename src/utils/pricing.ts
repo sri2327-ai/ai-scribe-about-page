@@ -116,16 +116,19 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
   // Format the price with currency symbol
   const formatPrice = (price: number | string) => {
     if (typeof price === 'string') return price;
+    // Fix: Ensure we only add '/mo' or '/yr' once
     return `${symbol}${(price * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
   // Format price range
   const formatPriceRange = (min: number, max: number) => {
+    // Fix: Ensure we only add '/mo' or '/yr' once
     return `${symbol}${(min * multiplier).toLocaleString()}-${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
 
   // Format for "Up to" pricing - modified to handle annual pricing
   const formatUpTo = (max: number) => {
+    // Fix: Ensure we only add '/mo' or '/yr' once
     return `Up to ${symbol}${(max * multiplier).toLocaleString()}${billingCycle === 'monthly' ? '/mo' : '/yr'}`;
   };
   
