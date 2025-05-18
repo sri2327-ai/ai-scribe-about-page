@@ -122,7 +122,7 @@ export const PricingCalculator = () => {
     },
     {
       id: 'bravo',
-      name: 'BRAVO (Patient Engagement)',
+      name: 'BRAVO (Staffing Agent)',
       description: 'Smart scheduling and patient communication',
       price: 'From $99/month',
       savings: 'Reduce no-shows by up to 30%'

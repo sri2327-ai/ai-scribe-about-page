@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
@@ -16,12 +15,14 @@ import { InteractiveTestimonials } from "@/components/pricing/InteractiveTestimo
 import { CurrencySelector, CurrencyCode } from "@/components/pricing/CurrencySelector";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const Pricing = () => {
   console.log("Rendering Pricing page");
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
   const [activeTab, setActiveTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
+  const isMobile = useIsMobile();
   
   useEffect(() => {
     console.log("Pricing page mounted");
@@ -194,21 +195,21 @@ const Pricing = () => {
               <TabsList className="mb-6 md:mb-8 flex w-full max-w-md overflow-x-auto justify-center p-1 bg-gray-100/70 rounded-full">
                 <TabsTrigger 
                   value="crush" 
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm whitespace-nowrap min-w-[80px]"
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap min-w-[100px]"
                 >
-                  CRUSH (AI Scribe)
+                  {isMobile ? "CRUSH" : "CRUSH AI Scribe"}
                 </TabsTrigger>
                 <TabsTrigger 
                   value="bravo" 
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm whitespace-nowrap min-w-[80px]"
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap min-w-[100px]"
                 >
-                  BRAVO (Patient Engagement)
+                  {isMobile ? "BRAVO" : "BRAVO Staffing Agent"}
                 </TabsTrigger>
                 <TabsTrigger 
                   value="bundle" 
-                  className="flex-1 px-3 py-2 text-xs sm:text-sm whitespace-nowrap min-w-[80px]"
+                  className="flex-1 px-3 py-2 text-xs sm:text-sm md:text-base whitespace-nowrap min-w-[100px]"
                 >
-                  Bundle
+                  {isMobile ? "BUNDLE" : "Bundle"}
                 </TabsTrigger>
               </TabsList>
 
