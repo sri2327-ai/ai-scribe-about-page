@@ -54,6 +54,13 @@ interface WebGLContextResult {
   };
 }
 
+// Added ColorType interface for the COLOR_PALETTE property
+interface ColorType {
+  r: number;
+  g: number;
+  b: number;
+}
+
 interface SplashCursorProps {
   SIM_RESOLUTION?: number;
   DYE_RESOLUTION?: number;
@@ -70,6 +77,7 @@ interface SplashCursorProps {
   containerId?: string; 
   respondToScroll?: boolean;
   respondToHover?: boolean;
+  COLOR_PALETTE?: ColorType[]; // Added the missing COLOR_PALETTE prop
 }
 
 function SplashCursor({
@@ -87,7 +95,8 @@ function SplashCursor({
   TRANSPARENT = true,
   containerId = "fluid",
   respondToScroll = true,
-  respondToHover = true
+  respondToHover = true,
+  COLOR_PALETTE // Added to destructured props
 }: SplashCursorProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
@@ -1177,7 +1186,7 @@ function SplashCursor({
       pointer.texcoordX = posX / canvas.width;
       pointer.texcoordY = 1.0 - posY / canvas.height;
       pointer.prevTexcoordX = pointer.texcoordX;
-      pointer.prevTexcoordY = pointer.texcoordY;
+      pointer.prevTexcoordY = pointer.prevTexcoordY;
       pointer.deltaX = 0;
       pointer.deltaY = 0;
       pointer.color = generateColor();
@@ -1185,7 +1194,7 @@ function SplashCursor({
 
     function updatePointerMoveData(pointer: any, posX: number, posY: number, color: any) {
       pointer.prevTexcoordX = pointer.texcoordX;
-      pointer.prevTexcoordY = pointer.texcoordY;
+      pointer.prevTexcoordY = pointer.prevTexcoordY;
       pointer.texcoordX = posX / canvas.width;
       pointer.texcoordY = 1.0 - posY / canvas.height;
       pointer.deltaX = correctDeltaX(pointer.texcoordX - pointer.prevTexcoordX);
@@ -1212,14 +1221,23 @@ function SplashCursor({
     }
 
     function generateColor() {
-      let c = HSVtoRGB(Math.random(), 1.0, 1.0);
-      c.r *= 0.15;
-      c.g *= 0.15;
-      c.b *= 0.15;
-      return c;
+      // Modified to use COLOR_PALETTE if available
+      if (COLOR_PALETTE && COLOR_PALETTE.length > 0) {
+        // Use a random color from the palette
+        const randomIndex = Math.floor(Math.random() * COLOR_PALETTE.length);
+        return COLOR_PALETTE[randomIndex];
+      } else {
+        // Use the original HSV to RGB conversion if no palette is provided
+        let c = HSVtoRGB(Math.random(), 1.0, 1.0);
+        c.r *= 0.15;
+        c.g *= 0.15;
+        c.b *= 0.15;
+        return c;
+      }
     }
 
     function HSVtoRGB(h: number, s: number, v: number) {
+      // ... keep existing code (HSV to RGB conversion)
       let r: number, g: number, b: number;
       const i = Math.floor(h * 6);
       const f = h * 6 - i;
@@ -1332,6 +1350,7 @@ function SplashCursor({
     containerId,
     respondToScroll,
     respondToHover,
+    COLOR_PALETTE, // Add COLOR_PALETTE to dependency array
   ]);
 
   // Don't render an actual canvas element - it will be created dynamically
