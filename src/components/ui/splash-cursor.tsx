@@ -1,9 +1,10 @@
+
 "use client";
 import { useEffect, useRef } from "react";
 
 // Add TypeScript interfaces for our custom classes
 interface MaterialUniforms {
-  [key: string]: WebGLUniformLocation;
+  [key: string]: WebGLUniformLocation | null;
 }
 
 interface MaterialClass {
@@ -20,6 +21,26 @@ interface ProgramClass {
   uniforms: MaterialUniforms;
   program: WebGLProgram;
   bind(): void;
+}
+
+interface FBO {
+  texture: WebGLTexture;
+  fbo: WebGLFramebuffer;
+  width: number;
+  height: number;
+  texelSizeX: number;
+  texelSizeY: number;
+  attach(id: number): number;
+}
+
+interface DoubleFBO {
+  width: number;
+  height: number;
+  texelSizeX: number;
+  texelSizeY: number;
+  read: FBO;
+  write: FBO;
+  swap(): void;
 }
 
 function SplashCursor({
@@ -125,12 +146,22 @@ function SplashCursor({
       if (isWebGL2) {
         formatRGBA = getSupportedFormat(
           gl,
-          gl.RGBA16F,
+          (gl as WebGL2RenderingContext).RGBA16F,
           gl.RGBA,
           halfFloatTexType
         );
-        formatRG = getSupportedFormat(gl, gl.RG16F, gl.RG, halfFloatTexType);
-        formatR = getSupportedFormat(gl, gl.R16F, gl.RED, halfFloatTexType);
+        formatRG = getSupportedFormat(
+          gl,
+          (gl as WebGL2RenderingContext).RG16F,
+          (gl as WebGL2RenderingContext).RG,
+          halfFloatTexType
+        );
+        formatR = getSupportedFormat(
+          gl,
+          (gl as WebGL2RenderingContext).R16F,
+          (gl as WebGL2RenderingContext).RED,
+          halfFloatTexType
+        );
       } else {
         formatRGBA = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
         formatRG = getSupportedFormat(gl, gl.RGBA, gl.RGBA, halfFloatTexType);
@@ -152,10 +183,10 @@ function SplashCursor({
     function getSupportedFormat(gl: WebGLRenderingContext | WebGL2RenderingContext, internalFormat: number, format: number, type: number) {
       if (!supportRenderTextureFormat(gl, internalFormat, format, type)) {
         switch (internalFormat) {
-          case gl.R16F:
-            return getSupportedFormat(gl, gl.RG16F, gl.RG, type);
-          case gl.RG16F:
-            return getSupportedFormat(gl, gl.RGBA16F, gl.RGBA, type);
+          case (gl as WebGL2RenderingContext).R16F:
+            return getSupportedFormat(gl, (gl as WebGL2RenderingContext).RG16F, (gl as WebGL2RenderingContext).RG, type);
+          case (gl as WebGL2RenderingContext).RG16F:
+            return getSupportedFormat(gl, (gl as WebGL2RenderingContext).RGBA16F, gl.RGBA, type);
           default:
             return null;
         }
@@ -265,7 +296,7 @@ function SplashCursor({
       let uniformCount = gl!.getProgramParameter(program, gl!.ACTIVE_UNIFORMS);
       for (let i = 0; i < uniformCount; i++) {
         const uniformName = gl!.getActiveUniform(program, i)!.name;
-        uniforms[uniformName] = gl!.getUniformLocation(program, uniformName)!;
+        uniforms[uniformName] = gl!.getUniformLocation(program, uniformName);
       }
       return uniforms;
     }
@@ -584,25 +615,103 @@ function SplashCursor({
       `
     );
 
-    // Define types for blitting and framebuffers
-    interface FBO {
-      texture: WebGLTexture;
-      fbo: WebGLFramebuffer;
-      width: number;
-      height: number;
-      texelSizeX: number;
-      texelSizeY: number;
-      attach(id: number): number;
+    // Define the FBO creation functions
+    function createFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO {
+      gl!.activeTexture(gl!.TEXTURE0);
+      let texture = gl!.createTexture()!;
+      gl!.bindTexture(gl!.TEXTURE_2D, texture);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MIN_FILTER, param);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_MAG_FILTER, param);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_S, gl!.CLAMP_TO_EDGE);
+      gl!.texParameteri(gl!.TEXTURE_2D, gl!.TEXTURE_WRAP_T, gl!.CLAMP_TO_EDGE);
+      gl!.texImage2D(
+        gl!.TEXTURE_2D,
+        0,
+        internalFormat,
+        w,
+        h,
+        0,
+        format,
+        type,
+        null
+      );
+
+      let fbo = gl!.createFramebuffer()!;
+      gl!.bindFramebuffer(gl!.FRAMEBUFFER, fbo);
+      gl!.framebufferTexture2D(
+        gl!.FRAMEBUFFER,
+        gl!.COLOR_ATTACHMENT0,
+        gl!.TEXTURE_2D,
+        texture,
+        0
+      );
+      gl!.viewport(0, 0, w, h);
+      gl!.clear(gl!.COLOR_BUFFER_BIT);
+
+      let texelSizeX = 1.0 / w;
+      let texelSizeY = 1.0 / h;
+      
+      return {
+        texture,
+        fbo,
+        width: w,
+        height: h,
+        texelSizeX,
+        texelSizeY,
+        attach(id: number) {
+          gl!.activeTexture(gl!.TEXTURE0 + id);
+          gl!.bindTexture(gl!.TEXTURE_2D, texture);
+          return id;
+        },
+      };
     }
 
-    interface DoubleFBO {
-      width: number;
-      height: number;
-      texelSizeX: number;
-      texelSizeY: number;
-      read: FBO;
-      write: FBO;
-      swap(): void;
+    function createDoubleFBO(w: number, h: number, internalFormat: number, format: number, type: number, param: number): DoubleFBO {
+      let fbo1 = createFBO(w, h, internalFormat, format, type, param);
+      let fbo2 = createFBO(w, h, internalFormat, format, type, param);
+      
+      return {
+        width: w,
+        height: h,
+        texelSizeX: fbo1.texelSizeX,
+        texelSizeY: fbo1.texelSizeY,
+        get read() {
+          return fbo1;
+        },
+        set read(value) {
+          fbo1 = value;
+        },
+        get write() {
+          return fbo2;
+        },
+        set write(value) {
+          fbo2 = value;
+        },
+        swap() {
+          let temp = fbo1;
+          fbo1 = fbo2;
+          fbo2 = temp;
+        },
+      };
+    }
+
+    function resizeFBO(target: FBO, w: number, h: number, internalFormat: number, format: number, type: number, param: number): FBO {
+      let newFBO = createFBO(w, h, internalFormat, format, type, param);
+      copyProgram.bind();
+      gl!.uniform1i(copyProgram.uniforms.uTexture as WebGLUniformLocation, target.attach(0));
+      blit(newFBO);
+      return newFBO;
+    }
+
+    function resizeDoubleFBO(target: DoubleFBO, w: number, h: number, internalFormat: number, format: number, type: number, param: number): DoubleFBO {
+      if (target.width === w && target.height === h) return target;
+      target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+      target.write = createFBO(w, h, internalFormat, format, type, param);
+      target.width = w;
+      target.height = h;
+      target.texelSizeX = 1.0 / w;
+      target.texelSizeY = 1.0 / h;
+      return target;
     }
 
     const blit = (() => {
@@ -622,17 +731,17 @@ function SplashCursor({
       gl.enableVertexAttribArray(0);
       return (target: FBO | null, clear = false) => {
         if (target == null) {
-          gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-          gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+          gl!.viewport(0, 0, gl!.drawingBufferWidth, gl!.drawingBufferHeight);
+          gl!.bindFramebuffer(gl!.FRAMEBUFFER, null);
         } else {
-          gl.viewport(0, 0, target.width, target.height);
-          gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
+          gl!.viewport(0, 0, target.width, target.height);
+          gl!.bindFramebuffer(gl!.FRAMEBUFFER, target.fbo);
         }
         if (clear) {
-          gl.clearColor(0.0, 0.0, 0.0, 1.0);
-          gl.clear(gl.COLOR_BUFFER_BIT);
+          gl!.clearColor(0.0, 0.0, 0.0, 1.0);
+          gl!.clear(gl!.COLOR_BUFFER_BIT);
         }
-        gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+        gl!.drawElements(gl!.TRIANGLES, 6, gl!.UNSIGNED_SHORT, 0);
       };
     })();
 
@@ -663,9 +772,9 @@ function SplashCursor({
       const rgba = ext.formatRGBA;
       const rg = ext.formatRG;
       const r = ext.formatR;
-      const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
+      const filtering = ext.supportLinearFiltering ? gl!.LINEAR : gl!.NEAREST;
       
-      gl.disable(gl.BLEND);
+      gl!.disable(gl!.BLEND);
 
       if (!dye)
         dye = createDoubleFBO(
@@ -713,7 +822,7 @@ function SplashCursor({
         r!.internalFormat,
         r!.format,
         texType,
-        gl.NEAREST
+        gl!.NEAREST
       );
       curl = createFBO(
         simRes.width,
@@ -721,7 +830,7 @@ function SplashCursor({
         r!.internalFormat,
         r!.format,
         texType,
-        gl.NEAREST
+        gl!.NEAREST
       );
       pressure = createDoubleFBO(
         simRes.width,
@@ -729,7 +838,7 @@ function SplashCursor({
         r!.internalFormat,
         r!.format,
         texType,
-        gl.NEAREST
+        gl!.NEAREST
       );
     }
 
@@ -793,66 +902,66 @@ function SplashCursor({
     }
 
     function step(dt: number) {
-      gl.disable(gl.BLEND);
+      gl!.disable(gl!.BLEND);
       
       // Curl
       curlProgram.bind();
-      gl.uniform2f(
-        curlProgram.uniforms.texelSize,
+      gl!.uniform2f(
+        curlProgram.uniforms.texelSize as WebGLUniformLocation,
         velocity.texelSizeX,
         velocity.texelSizeY
       );
-      gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.read.attach(0));
+      gl!.uniform1i(curlProgram.uniforms.uVelocity as WebGLUniformLocation, velocity.read.attach(0));
       blit(curl);
 
       // Vorticity
       vorticityProgram.bind();
-      gl.uniform2f(
-        vorticityProgram.uniforms.texelSize,
+      gl!.uniform2f(
+        vorticityProgram.uniforms.texelSize as WebGLUniformLocation,
         velocity.texelSizeX,
         velocity.texelSizeY
       );
-      gl.uniform1i(
-        vorticityProgram.uniforms.uVelocity,
+      gl!.uniform1i(
+        vorticityProgram.uniforms.uVelocity as WebGLUniformLocation,
         velocity.read.attach(0)
       );
-      gl.uniform1i(vorticityProgram.uniforms.uCurl, curl.attach(1));
-      gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
-      gl.uniform1f(vorticityProgram.uniforms.dt, dt);
+      gl!.uniform1i(vorticityProgram.uniforms.uCurl as WebGLUniformLocation, curl.attach(1));
+      gl!.uniform1f(vorticityProgram.uniforms.curl as WebGLUniformLocation, config.CURL);
+      gl!.uniform1f(vorticityProgram.uniforms.dt as WebGLUniformLocation, dt);
       blit(velocity.write);
       velocity.swap();
 
       // Divergence
       divergenceProgram.bind();
-      gl.uniform2f(
-        divergenceProgram.uniforms.texelSize,
+      gl!.uniform2f(
+        divergenceProgram.uniforms.texelSize as WebGLUniformLocation,
         velocity.texelSizeX,
         velocity.texelSizeY
       );
-      gl.uniform1i(
-        divergenceProgram.uniforms.uVelocity,
+      gl!.uniform1i(
+        divergenceProgram.uniforms.uVelocity as WebGLUniformLocation,
         velocity.read.attach(0)
       );
       blit(divergence);
 
       // Clear pressure
       clearProgram.bind();
-      gl.uniform1i(clearProgram.uniforms.uTexture, pressure.read.attach(0));
-      gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE);
+      gl!.uniform1i(clearProgram.uniforms.uTexture as WebGLUniformLocation, pressure.read.attach(0));
+      gl!.uniform1f(clearProgram.uniforms.value as WebGLUniformLocation, config.PRESSURE);
       blit(pressure.write);
       pressure.swap();
 
       // Pressure
       pressureProgram.bind();
-      gl.uniform2f(
-        pressureProgram.uniforms.texelSize,
+      gl!.uniform2f(
+        pressureProgram.uniforms.texelSize as WebGLUniformLocation,
         velocity.texelSizeX,
         velocity.texelSizeY
       );
-      gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence.attach(0));
+      gl!.uniform1i(pressureProgram.uniforms.uDivergence as WebGLUniformLocation, divergence.attach(0));
       for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
-        gl.uniform1i(
-          pressureProgram.uniforms.uPressure,
+        gl!.uniform1i(
+          pressureProgram.uniforms.uPressure as WebGLUniformLocation,
           pressure.read.attach(1)
         );
         blit(pressure.write);
@@ -861,17 +970,17 @@ function SplashCursor({
 
       // Gradient Subtract
       gradienSubtractProgram.bind();
-      gl.uniform2f(
-        gradienSubtractProgram.uniforms.texelSize,
+      gl!.uniform2f(
+        gradienSubtractProgram.uniforms.texelSize as WebGLUniformLocation,
         velocity.texelSizeX,
         velocity.texelSizeY
       );
-      gl.uniform1i(
-        gradienSubtractProgram.uniforms.uPressure,
+      gl!.uniform1i(
+        gradienSubtractProgram.uniforms.uPressure as WebGLUniformLocation,
         pressure.read.attach(0)
       );
-      gl.uniform1i(
-        gradienSubtractProgram.uniforms.uVelocity,
+      gl!.uniform1i(
+        gradienSubtractProgram.uniforms.uVelocity as WebGLUniformLocation,
         velocity.read.attach(1)
       );
       blit(velocity.write);
@@ -879,41 +988,41 @@ function SplashCursor({
 
       // Advection
       advectionProgram.bind();
-      gl.uniform2f(
-        advectionProgram.uniforms.texelSize,
+      gl!.uniform2f(
+        advectionProgram.uniforms.texelSize as WebGLUniformLocation,
         velocity.texelSizeX,
         velocity.texelSizeY
       );
       if (!ext.supportLinearFiltering)
-        gl.uniform2f(
-          advectionProgram.uniforms.dyeTexelSize,
+        gl!.uniform2f(
+          advectionProgram.uniforms.dyeTexelSize as WebGLUniformLocation,
           velocity.texelSizeX,
           velocity.texelSizeY
         );
       let velocityId = velocity.read.attach(0);
-      gl.uniform1i(advectionProgram.uniforms.uVelocity, velocityId);
-      gl.uniform1i(advectionProgram.uniforms.uSource, velocityId);
-      gl.uniform1f(advectionProgram.uniforms.dt, dt);
-      gl.uniform1f(
-        advectionProgram.uniforms.dissipation,
+      gl!.uniform1i(advectionProgram.uniforms.uVelocity as WebGLUniformLocation, velocityId);
+      gl!.uniform1i(advectionProgram.uniforms.uSource as WebGLUniformLocation, velocityId);
+      gl!.uniform1f(advectionProgram.uniforms.dt as WebGLUniformLocation, dt);
+      gl!.uniform1f(
+        advectionProgram.uniforms.dissipation as WebGLUniformLocation,
         config.VELOCITY_DISSIPATION
       );
       blit(velocity.write);
       velocity.swap();
 
       if (!ext.supportLinearFiltering)
-        gl.uniform2f(
-          advectionProgram.uniforms.dyeTexelSize,
+        gl!.uniform2f(
+          advectionProgram.uniforms.dyeTexelSize as WebGLUniformLocation,
           dye.texelSizeX,
           dye.texelSizeY
         );
-      gl.uniform1i(
-        advectionProgram.uniforms.uVelocity,
+      gl!.uniform1i(
+        advectionProgram.uniforms.uVelocity as WebGLUniformLocation,
         velocity.read.attach(0)
       );
-      gl.uniform1i(advectionProgram.uniforms.uSource, dye.read.attach(1));
-      gl.uniform1f(
-        advectionProgram.uniforms.dissipation,
+      gl!.uniform1i(advectionProgram.uniforms.uSource as WebGLUniformLocation, dye.read.attach(1));
+      gl!.uniform1f(
+        advectionProgram.uniforms.dissipation as WebGLUniformLocation,
         config.DENSITY_DISSIPATION
       );
       blit(dye.write);
@@ -921,22 +1030,22 @@ function SplashCursor({
     }
 
     function render(target: FBO | null) {
-      gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-      gl.enable(gl.BLEND);
+      gl!.blendFunc(gl!.ONE, gl!.ONE_MINUS_SRC_ALPHA);
+      gl!.enable(gl!.BLEND);
       drawDisplay(target);
     }
 
     function drawDisplay(target: FBO | null) {
-      let width = target == null ? gl.drawingBufferWidth : target.width;
-      let height = target == null ? gl.drawingBufferHeight : target.height;
+      let width = target == null ? gl!.drawingBufferWidth : target.width;
+      let height = target == null ? gl!.drawingBufferHeight : target.height;
       displayMaterial.bind();
       if (config.SHADING)
-        gl.uniform2f(
-          displayMaterial.uniforms.texelSize,
+        gl!.uniform2f(
+          displayMaterial.uniforms.texelSize as WebGLUniformLocation,
           1.0 / width,
           1.0 / height
         );
-      gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
+      gl!.uniform1i(displayMaterial.uniforms.uTexture as WebGLUniformLocation, dye.read.attach(0));
       blit(target);
     }
 
@@ -971,22 +1080,22 @@ function SplashCursor({
 
     function splat(x: number, y: number, dx: number, dy: number, color: any) {
       splatProgram.bind();
-      gl.uniform1i(splatProgram.uniforms.uTarget, velocity.read.attach(0));
-      gl.uniform1f(
-        splatProgram.uniforms.aspectRatio,
+      gl!.uniform1i(splatProgram.uniforms.uTarget as WebGLUniformLocation, velocity.read.attach(0));
+      gl!.uniform1f(
+        splatProgram.uniforms.aspectRatio as WebGLUniformLocation,
         canvas.width / canvas.height
       );
-      gl.uniform2f(splatProgram.uniforms.point, x, y);
-      gl.uniform3f(splatProgram.uniforms.color, dx, dy, 0.0);
-      gl.uniform1f(
-        splatProgram.uniforms.radius,
+      gl!.uniform2f(splatProgram.uniforms.point as WebGLUniformLocation, x, y);
+      gl!.uniform3f(splatProgram.uniforms.color as WebGLUniformLocation, dx, dy, 0.0);
+      gl!.uniform1f(
+        splatProgram.uniforms.radius as WebGLUniformLocation,
         correctRadius(config.SPLAT_RADIUS / 100.0)
       );
       blit(velocity.write);
       velocity.swap();
 
-      gl.uniform1i(splatProgram.uniforms.uTarget, dye.read.attach(0));
-      gl.uniform3f(splatProgram.uniforms.color, color.r, color.g, color.b);
+      gl!.uniform1i(splatProgram.uniforms.uTarget as WebGLUniformLocation, dye.read.attach(0));
+      gl!.uniform3f(splatProgram.uniforms.color as WebGLUniformLocation, color.r, color.g, color.b);
       blit(dye.write);
       dye.swap();
     }
@@ -1087,11 +1196,11 @@ function SplashCursor({
     }
 
     function getResolution(resolution: number) {
-      let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
+      let aspectRatio = gl!.drawingBufferWidth / gl!.drawingBufferHeight;
       if (aspectRatio < 1) aspectRatio = 1.0 / aspectRatio;
       const min = Math.round(resolution);
       const max = Math.round(resolution * aspectRatio);
-      if (gl.drawingBufferWidth > gl.drawingBufferHeight)
+      if (gl!.drawingBufferWidth > gl!.drawingBufferHeight)
         return { width: max, height: min };
       else return { width: min, height: max };
     }
@@ -1189,6 +1298,7 @@ function SplashCursor({
     });
 
     updateFrame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     SIM_RESOLUTION,
     DYE_RESOLUTION,
@@ -1212,3 +1322,4 @@ function SplashCursor({
 }
 
 export { SplashCursor };
+
