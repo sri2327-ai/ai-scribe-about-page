@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -252,8 +251,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                   '170 Minutes included',
                   'Then $0.09/min',
                   '17 Concurrent calls',
-                  'Real-Time Booking ✓',
-                  'Human Transfer ✓',
+                  'Real-Time Booking',
+                  'Human Transfer',
                   'Appointment Management',
                   'Patient Registration & Check-In',
                   'EHR/PMS/RCM integration',
@@ -315,9 +314,9 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                   '515 Minutes included',
                   '51 Concurrent calls',
                   'Then $0.09/min',
-                  'Multilingual language support ✓',
-                  'Real-Time Booking ✓',
-                  'Human Transfer ✓',
+                  'Multilingual language support',
+                  'Real-Time Booking',
+                  'Human Transfer',
                   'Refill Processing',
                   'Pre-Visit Assistance',
                   'Patient Education & Adherence',
@@ -368,9 +367,9 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                 {[
                   'Custom minute packages',
                   'Custom concurrent call limits',
-                  'Multilingual language support ✓',
-                  'Real-Time Booking ✓',
-                  'Human Transfer ✓',
+                  'Multilingual language support',
+                  'Real-Time Booking',
+                  'Human Transfer',
                   'Multi-clinic management',
                   'Advanced reporting',
                   'Dedicated account manager',
@@ -422,8 +421,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                 {[
                   'CRUSH Basic (No EHR)',
                   'BRAVO Basic',
-                  'Real-Time Booking ✓',
-                  'Human Transfer ✓',
+                  'Real-Time Booking',
+                  'Human Transfer',
                   '10% discount vs. separate'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
@@ -466,9 +465,9 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                 {[
                   'CRUSH Pro (With EHR)',
                   'BRAVO Pro',
-                  'Real-Time Booking ✓',
-                  'Human Transfer ✓',
-                  'Multilingual support ✓',
+                  'Real-Time Booking',
+                  'Human Transfer',
+                  'Multilingual support',
                   '10% discount vs. separate'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
@@ -521,9 +520,9 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
                 {[
                   'CRUSH Enterprise',
                   'BRAVO Enterprise',
-                  'Real-Time Booking ✓',
-                  'Human Transfer ✓',
-                  'Multilingual support ✓',
+                  'Real-Time Booking',
+                  'Human Transfer',
+                  'Multilingual support',
                   '10% discount vs. separate',
                   'Enhanced integration',
                   'Priority onboarding'
@@ -618,4 +617,3 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
     </>
   );
 };
-

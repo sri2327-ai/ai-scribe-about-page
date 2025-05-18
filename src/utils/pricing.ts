@@ -10,7 +10,7 @@ export interface PricingData {
 export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'monthly' | 'annual'): Record<'crush' | 'bravo' | 'bundle', PricingData> => {
   const symbol = currencySymbols[currency];
   
-  // Define pricing for different currencies
+  // Define pricing for different currencies - ensuring consistent pricing and conversion rates
   const currencyPricing: Record<CurrencyCode, {
     // CRUSH
     crushBasic: number | string, 
@@ -26,88 +26,88 @@ export const getPricingByCurrency = (currency: CurrencyCode, billingCycle: 'mont
     bundleEnterprise?: string
   }> = {
     USD: { 
-      // CRUSH pricing - updated pricing here
+      // CRUSH pricing
       crushBasic: 99, 
-      crushPro: {min: 120, max: 199},  // Changed min from 140 to 120
+      crushPro: {min: 120, max: 199},
       crushEnterprise: 'Custom Quote',
       // BRAVO pricing
       bravoBasic: 99,
       bravoPro: {max: 299},
       bravoEnterprise: 'Custom pricing',
       // Bundle pricing (calculated with 10% discount)
-      bundleBasic: 143, // (99+99) * 0.9 = 178.2 * 0.9 = 143.1 ≈ 143
-      bundlePro: 'From $198', // Min of (120+up to 299) = 419 * 0.9 = 377.1 ≈ 377
+      bundleBasic: 178, // (99+99) * 0.9 = 178.2 ≈ 178
+      bundlePro: 'From $377', // Min of (120+299) = 419 * 0.9 = 377.1 ≈ 377
       bundleEnterprise: 'Custom pricing'
     },
     CAD: { 
       crushBasic: 129, 
-      crushPro: {min: 156, max: 259},  // Adjusted to reflect USD pricing change
+      crushPro: {min: 156, max: 259},
       crushEnterprise: 'Custom Quote',
       bravoBasic: 129,
       bravoPro: {max: 389},
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 186, // (129+129) * 0.9 = 232.2
-      bundlePro: 'From C$258',
+      bundleBasic: 232, // (129+129) * 0.9 = 232.2 ≈ 232
+      bundlePro: 'From C$490', // Min of (156+389) * 0.9 = 490.5 ≈ 490
       bundleEnterprise: 'Custom pricing'
     },
     AUD: { 
       crushBasic: 149, 
-      crushPro: {min: 180, max: 299},  // Adjusted to reflect USD pricing change
+      crushPro: {min: 180, max: 299},
       crushEnterprise: 'Custom Quote',
       bravoBasic: 149,
       bravoPro: {max: 449},
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 215, // (149+149) * 0.9 = 268.2
-      bundlePro: 'From A$298',
+      bundleBasic: 268, // (149+149) * 0.9 = 268.2 ≈ 268
+      bundlePro: 'From A$566', // Min of (180+449) * 0.9 = 566.1 ≈ 566
       bundleEnterprise: 'Custom pricing'
     },
     GBP: { 
       crushBasic: 79, 
-      crushPro: {min: 95, max: 159},  // Adjusted to reflect USD pricing change
+      crushPro: {min: 95, max: 159},
       crushEnterprise: 'Custom Quote',
       bravoBasic: 79,
       bravoPro: {max: 239},
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 114, // (79+79) * 0.9 = 142.2
-      bundlePro: 'From £157',
+      bundleBasic: 142, // (79+79) * 0.9 = 142.2 ≈ 142
+      bundlePro: 'From £301', // Min of (95+239) * 0.9 = 300.6 ≈ 301
       bundleEnterprise: 'Custom pricing'
     },
     EUR: { 
       crushBasic: 89, 
-      crushPro: {min: 108, max: 179},  // Adjusted to reflect USD pricing change
+      crushPro: {min: 108, max: 179},
       crushEnterprise: 'Custom Quote',
       bravoBasic: 89,
       bravoPro: {max: 269},
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 129, // (89+89) * 0.9 = 160.2
-      bundlePro: 'From €178',
+      bundleBasic: 160, // (89+89) * 0.9 = 160.2 ≈ 160
+      bundlePro: 'From €339', // Min of (108+269) * 0.9 = 339.3 ≈ 339
       bundleEnterprise: 'Custom pricing'
     },
     NZD: { 
       crushBasic: 159, 
-      crushPro: {min: 191, max: 319},  // Adjusted to reflect USD pricing change
+      crushPro: {min: 191, max: 319},
       crushEnterprise: 'Custom Quote',
       bravoBasic: 159,
       bravoPro: {max: 479},
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 229, // (159+159) * 0.9 = 286.2
-      bundlePro: 'From NZ$315',
+      bundleBasic: 286, // (159+159) * 0.9 = 286.2 ≈ 286
+      bundlePro: 'From NZ$603', // Min of (191+479) * 0.9 = 603 ≈ 603
       bundleEnterprise: 'Custom pricing'
     },
     AED: { 
       crushBasic: 363, 
-      crushPro: {min: 440, max: 729},  // Adjusted to reflect USD pricing change
+      crushPro: {min: 440, max: 729},
       crushEnterprise: 'Custom Quote',
       bravoBasic: 363,
       bravoPro: {max: 1099},
       bravoEnterprise: 'Custom pricing',
-      bundleBasic: 524, // (363+363) * 0.9 = 653.4
-      bundlePro: 'From د.إ715',
+      bundleBasic: 653, // (363+363) * 0.9 = 653.4 ≈ 653
+      bundlePro: 'From د.إ1385', // Min of (440+1099) * 0.9 = 1385.1 ≈ 1385
       bundleEnterprise: 'Custom pricing'
     },
   };
   
-  // Apply annual discount if needed (approximately 16% discount - 12 months for price of 10)
+  // Apply annual discount consistently (16% discount - 12 months for price of 10)
   const multiplier = billingCycle === 'annual' ? 10 : 1;
   
   // Get pricing for selected currency
