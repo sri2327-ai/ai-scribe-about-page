@@ -47,20 +47,20 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
         { 
           name: 'Pinpoint Documentation Accuracy', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Rapid Documentation Time – Complete notes in under 90 seconds', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'AI-Powered Medical Coding – ICD-10, CPT, E/M, HCC', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         }
       ]
     },
@@ -70,50 +70,50 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
         { 
           name: 'Specialty-Specific Templates – All medical specialties supported', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Custom AI Template Builder', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'EHR Integration – All EHRs supported', 
           basic: false, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Advanced Patient Instructions', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Prior Authorization Documentation', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Letter of Medical Necessity', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Referral Letters', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         },
         { 
           name: 'Template Library', 
           basic: true, 
-          basicEHR: true, 
-          pro: true 
+          pro: true, 
+          enterprise: true 
         }
       ]
     },
@@ -123,26 +123,26 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
         { 
           name: 'Pre-Charting & Document Management', 
           basic: false, 
-          basicEHR: false, 
-          pro: true 
+          pro: false, 
+          enterprise: true 
         },
         { 
           name: 'Prescription & Lab Management – Streamlined custom workflows', 
           basic: false, 
-          basicEHR: false, 
-          pro: true 
+          pro: false, 
+          enterprise: true 
         },
         { 
           name: 'Clinical Decision Support', 
           basic: false, 
-          basicEHR: false, 
-          pro: true 
+          pro: false, 
+          enterprise: true 
         },
         { 
           name: 'Longitudinal Intelligence – Patient history tracking & insights', 
           basic: false, 
-          basicEHR: false, 
-          pro: true 
+          pro: false, 
+          enterprise: true 
         }
       ]
     },
@@ -152,8 +152,8 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
         { 
           name: 'RCM Support – Insurance verification, prior authorizations, payment posting, denials management, payer follow-up', 
           basic: false, 
-          basicEHR: false, 
-          pro: true 
+          pro: false, 
+          enterprise: true 
         }
       ]
     }
@@ -331,16 +331,16 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
                       {product === 'crush' ? (
                         <>
                           <div className="p-2 bg-gray-50 rounded-lg">
-                            <div className="text-xs text-gray-500 mb-2 font-medium">Basic<br/>(No EHR)</div>
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Basic</div>
                             {renderCheckmark(feature.basic)}
-                          </div>
-                          <div className="p-2 bg-gray-50 rounded-lg">
-                            <div className="text-xs text-gray-500 mb-2 font-medium">Basic<br/>(With EHR)</div>
-                            {renderCheckmark(feature.basicEHR)}
                           </div>
                           <div className="p-2 bg-gray-50 rounded-lg">
                             <div className="text-xs text-gray-500 mb-2 font-medium">Pro</div>
                             {renderCheckmark(feature.pro)}
+                          </div>
+                          <div className="p-2 bg-gray-50 rounded-lg">
+                            <div className="text-xs text-gray-500 mb-2 font-medium">Enterprise</div>
+                            {renderCheckmark(feature.enterprise)}
                           </div>
                         </>
                       ) : (
@@ -370,7 +370,7 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
     );
   };
 
-  // Desktop view remains the same
+  // Desktop view updated with consistent plan names
   const showDesktopView = () => {
     return (
       <div className="hidden md:block overflow-x-auto">
@@ -380,9 +380,9 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
               <TableHead className="w-1/3 px-6 py-4 text-left font-bold text-[#143151]">Feature</TableHead>
               {product === 'crush' ? (
                 <>
-                  <TableHead className="px-6 py-4 text-center font-bold text-[#143151] whitespace-nowrap">Basic (No EHR)</TableHead>
-                  <TableHead className="px-6 py-4 text-center font-bold text-[#143151] whitespace-nowrap">Basic (With EHR)</TableHead>
+                  <TableHead className="px-6 py-4 text-center font-bold text-[#143151] whitespace-nowrap">Basic</TableHead>
                   <TableHead className="px-6 py-4 text-center font-bold text-[#143151] whitespace-nowrap">Pro</TableHead>
+                  <TableHead className="px-6 py-4 text-center font-bold text-[#143151] whitespace-nowrap">Enterprise</TableHead>
                 </>
               ) : (
                 <>
@@ -409,8 +409,8 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
                       <TableRow key={`feature-${featureIndex}`} className={featureIndex % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}>
                         <TableCell className="px-6 py-4 text-gray-800">{feature.name}</TableCell>
                         <TableCell className="px-6 py-4 text-center">{renderCheckmark(feature.basic)}</TableCell>
-                        <TableCell className="px-6 py-4 text-center">{renderCheckmark(feature.basicEHR)}</TableCell>
                         <TableCell className="px-6 py-4 text-center">{renderCheckmark(feature.pro)}</TableCell>
+                        <TableCell className="px-6 py-4 text-center">{renderCheckmark(feature.enterprise)}</TableCell>
                       </TableRow>
                     ))}
                   </React.Fragment>
