@@ -3,10 +3,10 @@ import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
-import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight } from "lucide-react";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from "@/components/ui/carousel";
-import { TestimonialCard } from './TestimonialCard';
+import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import { useMediaQuery } from '@mui/material';
+import { shadowStyles } from "@/lib/shadow-utils";
+
 const tabAccData = {
   "The S10.AI Advantage": [{
     icon: <FileCheck className="w-5 h-5" />,
@@ -126,8 +126,6 @@ export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
   const isMobile = useMediaQuery('(max-width:768px)');
   const isTablet = useMediaQuery('(max-width:1024px)');
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [api, setApi] = useState<CarouselApi>();
   const [visibleTabsStart, setVisibleTabsStart] = useState(0);
   const tabKeys = Object.keys(tabAccData);
   const tabsToShow = isMobile ? 1 : isTablet ? 2 : 4;
@@ -150,19 +148,6 @@ export const ThirdSection = () => {
     }
   }, [tabValue, tabsToShow, visibleTabsStart]);
 
-  // Setup effect to track the current slide
-  React.useEffect(() => {
-    if (!api) return;
-    const onSelect = () => {
-      setActiveSlide(api.selectedScrollSnap());
-    };
-    api.on("select", onSelect);
-    // Call it once to set the initial slide
-    onSelect();
-    return () => {
-      api.off("select", onSelect);
-    };
-  }, [api]);
   return <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-8 sm:py-10 md:py-12 px-3 sm:px-4 md:px-6 lg:px-8 w-full max-w-[100vw] bg-gradient-to-b from-white to-gray-50">
       <Box sx={{
       display: 'flex',
@@ -298,10 +283,6 @@ export const ThirdSection = () => {
                     </Accordion>
                   </motion.div>)}
             </Box>
-
-            <div className="mt-5 sm:mt-6 md:mt-8 flex justify-center">
-              
-            </div>
           </Box>
 
           <Box component="aside" className={isMobile ? "mt-5" : "col-span-5"}>
@@ -321,37 +302,26 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        <div className="mt-8 sm:mt-10 md:mt-12 relative w-full max-w-3xl mx-auto">
-          <Carousel className="w-full max-w-4xl mx-auto relative" opts={{
-          align: "center",
-          loop: true
-        }} setApi={setApi}>
-            <CarouselContent>
-              {testimonials.map((testimonial, index) => <CarouselItem key={index}>
-                  <div className="p-1">
-                    <TestimonialCard {...testimonial} />
-                  </div>
-                </CarouselItem>)}
-            </CarouselContent>
-            
-            {/* Mobile pagination dots with better visibility */}
-            <div className="flex justify-center gap-3 mt-6 md:hidden">
-              {testimonials.map((_, index) => <button key={index} className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${activeSlide === index ? "bg-[#387E89] scale-125" : "bg-gray-300"}`} aria-label={`Go to slide ${index + 1}`} onClick={() => api?.scrollTo(index)} />)}
+        {/* New CTA button replacing the carousel */}
+        <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-3xl mx-auto">
+          <motion.a 
+            href="#key-differences" 
+            className={`group flex items-center justify-between w-full bg-[#5D2B70] hover:bg-[#4D2460] text-white py-3.5 px-5 rounded-lg transition-all duration-300 ${shadowStyles.button}`}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-lg sm:text-xl font-medium">See S10.AI's 5 Key Differences</span>
+            <div className="bg-white bg-opacity-20 p-2 rounded-full flex items-center justify-center group-hover:bg-opacity-30 transition-all">
+              <ChevronRight className="h-5 w-5 text-white" />
             </div>
-            
-            {/* Improved navigation buttons with arrows */}
-            <CarouselPrevious className="absolute left-0 sm:-left-6 md:-left-12 top-1/2 -translate-y-1/2 flex md:flex bg-white hover:bg-[#387E89] hover:text-white border border-gray-200 shadow-md z-10 transition-all duration-300" size="icon">
-              <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="sr-only">Previous slide</span>
-            </CarouselPrevious>
-            
-            <CarouselNext className="absolute right-0 sm:-right-6 md:-right-12 top-1/2 -translate-y-1/2 flex md:flex bg-white hover:bg-[#387E89] hover:text-white border border-gray-200 shadow-md z-10 transition-all duration-300" size="icon">
-              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
-              <span className="sr-only">Next slide</span>
-            </CarouselNext>
-          </Carousel>
+          </motion.a>
         </div>
       </Box>
     </section>;
 };
+
 export default ThirdSection;
