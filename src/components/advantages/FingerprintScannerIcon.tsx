@@ -15,7 +15,7 @@ export const FingerprintScannerIcon: React.FC<FingerprintScannerIconProps> = ({
     <svg viewBox="0 0 100 100" className={`inline-block fill-current overflow-visible ${size} ${className}`} width="1em" height="1em">
       <defs>
         <clipPath id="fingerprintClip">
-          <rect x="15" y="15" width="70" height="70" rx="10" />
+          <rect x="10" y="10" width="80" height="80" rx="10" />
         </clipPath>
         <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="2" result="blur" />
@@ -28,66 +28,119 @@ export const FingerprintScannerIcon: React.FC<FingerprintScannerIconProps> = ({
         </filter>
       </defs>
       <g clipPath="url(#fingerprintClip)" filter="url(#glow)">
-        {/* Outer ridges */}
-        <motion.path
-          d="M25 30 C 35 20, 65 20, 75 30 S 85 60, 75 70 S 35 80, 25 70 S 15 40, 25 30"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0.7 }}
-          animate={{ pathLength: 1, opacity: 0.7 }}
-          transition={{ duration: 1.2, delay: 0.2, ease: "easeInOut", repeat: Infinity, repeatType: "loop", repeatDelay: 2 }}
-        />
-        
-        {/* Middle ridges */}
-        <motion.path
-          d="M35 35 C 42 30, 58 30, 65 35 S 70 55, 65 60 S 42 65, 35 60 S 28 40, 35 35"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0.7 }}
-          animate={{ pathLength: 1, opacity: 0.7 }}
-          transition={{ duration: 1.5, delay: 0.4, ease: "easeInOut", repeat: Infinity, repeatType: "loop", repeatDelay: 2 }}
-        />
-        
-        {/* Inner ridges */}
-        <motion.path
-          d="M45 40 C 48 38, 52 38, 55 40 S 58 48, 55 52 S 48 55, 45 52 S 42 44, 45 40"
-          stroke="currentColor"
-          strokeWidth="3"
-          strokeLinecap="round"
-          fill="none"
-          initial={{ pathLength: 0, opacity: 0.7 }}
-          animate={{ pathLength: 1, opacity: 0.7 }}
-          transition={{ duration: 1.8, delay: 0.6, ease: "easeInOut", repeat: Infinity, repeatType: "loop", repeatDelay: 2 }}
-        />
-        
-        {/* Core */}
-        <motion.circle
+        {/* Thumbprint core */}
+        <motion.ellipse
           cx="50"
-          cy="45"
-          r="5"
+          cy="35"
+          rx="18"
+          ry="20"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, delay: 2, ease: "easeOut", repeat: Infinity, repeatType: "loop", repeatDelay: 2 }}
+          strokeDasharray="2 1"
+          initial={{ opacity: 0.2 }}
+          animate={{ opacity: 0.8 }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+        />
+        
+        {/* Outer whorls */}
+        <motion.path
+          d="M20 60 C 30 25, 70 25, 80 60"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0.7 }}
+          animate={{ pathLength: 1, opacity: 0.7 }}
+          transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
+        />
+        
+        {/* Middle whorls */}
+        <motion.path
+          d="M25 65 C 35 35, 65 35, 75 65"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0.7 }}
+          animate={{ pathLength: 1, opacity: 0.7 }}
+          transition={{ duration: 1.8, delay: 0.3, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
+        />
+        
+        {/* Inner whorls */}
+        <motion.path
+          d="M32 70 C 40 45, 60 45, 68 70"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0.7 }}
+          animate={{ pathLength: 1, opacity: 0.7 }}
+          transition={{ duration: 1.6, delay: 0.6, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
+        />
+        
+        {/* Bottom arch */}
+        <motion.path
+          d="M35 75 C 42 60, 58 60, 65 75"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0.7 }}
+          animate={{ pathLength: 1, opacity: 0.7 }}
+          transition={{ duration: 1.4, delay: 0.9, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.5 }}
+        />
+        
+        {/* Side ridges - left */}
+        <motion.path
+          d="M30 40 C 25 45, 22 55, 25 65"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0.6 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 1.5, delay: 0.2, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.7 }}
+        />
+        
+        {/* Side ridges - right */}
+        <motion.path
+          d="M70 40 C 75 45, 78 55, 75 65"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          fill="none"
+          initial={{ pathLength: 0, opacity: 0.6 }}
+          animate={{ pathLength: 1, opacity: 0.6 }}
+          transition={{ duration: 1.5, delay: 0.2, repeat: Infinity, repeatType: "reverse", repeatDelay: 0.7 }}
         />
       </g>
       
-      {/* Scanning effect */}
+      {/* Enhanced scanning effect with better glow */}
       <motion.rect
-        x="15"
-        width="70"
-        height="3"
+        x="10"
+        width="80"
+        height="4"
         fill="#0d9488" 
-        rx="1.5"
-        animate={{ y: [20, 65, 20] }}
-        transition={{ duration: 3, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
-        style={{ filter: "drop-shadow(0 0 6px #0d9488)" }} 
+        rx="2"
+        animate={{ y: [15, 75, 15] }}
+        transition={{ duration: 4, repeat: Infinity, repeatType: "loop", ease: "easeInOut" }}
+        style={{ filter: "drop-shadow(0 0 8px #0d9488)" }} 
+      />
+      
+      {/* Additional pulse effect around the fingerprint */}
+      <motion.rect
+        x="10" 
+        y="10" 
+        width="80" 
+        height="80" 
+        rx="10"
+        fill="none"
+        stroke="#0d9488"
+        strokeWidth="1"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 0.5, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
       />
     </svg>
   );

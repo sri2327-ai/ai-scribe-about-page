@@ -181,13 +181,22 @@ export const AdvantagesSection: React.FC = () => {
                       </motion.div>
                     )}
                     
+                    {/* Updated S10.AI Edge section with black background and circle effect for heading */}
                     <motion.div 
-                      className="my-6 p-5 bg-sky-900/50 border border-sky-800/40 rounded-lg shadow-md"
+                      className="my-6 p-5 bg-black border border-sky-800/50 rounded-lg shadow-xl"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: 0.6 }}
                     >
-                      <h4 className="font-medium text-lg mb-2 text-gray-100">The S10.AI Edge:</h4>
+                      <div className="flex items-center mb-3">
+                        <div className="relative mr-3">
+                          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-700 to-sky-900 opacity-30 animate-pulse"></div>
+                          <div className="relative flex items-center justify-center w-10 h-10 bg-black rounded-full border border-sky-700/70">
+                            <span className="text-sky-400 text-xs font-bold">S10</span>
+                          </div>
+                        </div>
+                        <h4 className="font-medium text-lg text-gray-100">The S10.AI Edge:</h4>
+                      </div>
                       <p className="leading-relaxed text-gray-200 text-sm md:text-base">
                         <strong className="text-sky-300">
                           {currentAdvantage.edge.replace("s10.ai", "S10.AI")}
@@ -201,9 +210,10 @@ export const AdvantagesSection: React.FC = () => {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.5, delay: 0.7 }}
                     >
+                      {/* Updated button with black background and white outline */}
                       <motion.a 
                         href="#contact" 
-                        className="cta-button-secondary bg-gray-800 hover:bg-gray-700 text-gray-100 font-medium py-3 px-8 rounded-lg inline-block text-base sm:text-lg transform transition-all duration-300"
+                        className="bg-black border-2 border-white text-white font-medium py-3 px-8 rounded-lg inline-block text-base sm:text-lg transform transition-all duration-300 hover:bg-gray-900"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
