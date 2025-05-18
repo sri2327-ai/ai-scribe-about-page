@@ -51,7 +51,7 @@ export const S10AISection = () => {
             colorScheme={{
               bg: "bg-gray-900",
               border: "border-gray-800",
-              activeBg: "bg-teal-700/90 dark:bg-teal-700/90", // Darker green for better visibility
+              activeBg: "bg-teal-800/90 dark:bg-teal-700/90", // Darker green for better visibility
               activeText: "text-white",
               inactiveBg: "bg-gray-900/80 dark:bg-gray-900/70",
               inactiveText: "text-gray-600",
