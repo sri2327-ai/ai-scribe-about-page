@@ -302,20 +302,21 @@ export const ThirdSection = () => {
           </Box>
         </Box>
 
-        {/* Simple CTA with arrow icon - updated with gradient background and left alignment */}
+        {/* Enhanced CTA with improved UI/UX */}
         <div className="mt-8 sm:mt-10 md:mt-12 w-full max-w-7xl mx-auto">
           <motion.a 
             href="#key-differences" 
-            className="group inline-flex items-center text-black hover:text-gray-700 text-lg sm:text-xl transition-colors duration-300"
+            className="group inline-flex items-center text-black hover:text-gray-800 text-lg sm:text-xl font-medium transition-all duration-300"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
+            whileHover={{ x: 5 }}
           >
-            <div className="mr-3 w-10 h-10 rounded-md bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center flex-shrink-0">
-              <ArrowRight className="h-5 w-5 text-white" />
+            <div className="mr-3 w-10 h-10 rounded-md bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center flex-shrink-0 shadow-md group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+              <ArrowRight className="h-5 w-5 text-white group-hover:animate-pulse" />
             </div>
-            <span>See S10.AI's 5 Key Differences</span>
+            <span className="relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-black after:transition-all after:duration-300 group-hover:after:w-full">See S10.AI's 5 Key Differences</span>
           </motion.a>
         </div>
       </Box>
