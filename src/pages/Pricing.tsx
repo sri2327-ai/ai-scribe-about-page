@@ -539,7 +539,7 @@ const Pricing = () => {
             {['HIPAA', 'SOC 2', 'HITECH', 'GDPR', 'ISO 27001', 'HITRUST', 'PHIPA'].map((badge, index) => (
               <Badge 
                 key={index} 
-                className="text-sm md:text-base font-medium py-1 md:py-2 px-3 md:px-4 bg-white/20 hover:bg-white/30 text-white border-none"
+                className="text-sm md:text-base font-medium py-1 md:py-2 px-3 md:px-4 bg-gradient-to-r from-[#143151] to-[#387E89] hover:bg-gradient-to-r hover:from-[#0e2238] hover:to-[#2c6269] text-white border-none shadow-sm"
               >
                 {badge}
               </Badge>
