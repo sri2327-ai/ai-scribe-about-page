@@ -57,22 +57,22 @@ export const CommitsGrid = ({ text }: { text: string }) => {
   } = generateHighlightedCells(text);
 
   const getRandomColor = () => {
-    // Use bright green colors for the S10.AI text
+    // Use brighter green colors with higher contrast for better visibility
     const commitColors = [
-      "#4ADE80",
-      "#10B981", 
-      "#34D399"
+      "#22C55E", // Green-500 (brighter)
+      "#10B981", // Emerald-500
+      "#4ADE80", // Green-400 (very bright)
     ];
     const randomIndex = Math.floor(Math.random() * commitColors.length);
     return commitColors[randomIndex];
   };
 
-  const getRandomDelay = () => `${(Math.random() * 0.6).toFixed(1)}s`;
-  const getRandomFlash = () => +(Math.random() < 0.3);
+  const getRandomDelay = () => `${(Math.random() * 0.8).toFixed(1)}s`;
+  const getRandomFlash = () => +(Math.random() < 0.25);
 
   return (
     <section
-      className="w-full max-w-xl bg-card border grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]"
+      className="w-full max-w-xl bg-gray-900 border border-gray-800 grid p-1.5 sm:p-3 gap-0.5 sm:gap-1 rounded-[10px] sm:rounded-[15px]"
       style={{
         gridTemplateColumns: `repeat(${gridWidth}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${gridHeight}, minmax(0, 1fr))`,
@@ -86,10 +86,10 @@ export const CommitsGrid = ({ text }: { text: string }) => {
           <div
             key={index}
             className={cn(
-              `border h-full w-full aspect-square rounded-[4px] sm:rounded-[3px]`,
+              `border border-gray-800 h-full w-full aspect-square rounded-[3px]`,
               isHighlighted ? "animate-highlight" : "",
               shouldFlash ? "animate-flash" : "",
-              !isHighlighted && !shouldFlash ? "bg-card" : ""
+              !isHighlighted && !shouldFlash ? "bg-gray-900" : ""
             )}
             style={
               {
@@ -180,3 +180,4 @@ const letterPatterns: { [key: string]: number[] } = {
   " ": [],
   ".": [300, 301],
 };
+
