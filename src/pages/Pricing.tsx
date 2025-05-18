@@ -515,14 +515,14 @@ const Pricing = () => {
             <motion.h2 
               variants={fadeInUpVariants}
               custom={0}
-              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-white"
+              className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4 text-[#143151]"
             >
               Industry-Leading Security & Compliance
             </motion.h2>
             <motion.p 
               variants={fadeInUpVariants}
               custom={1}
-              className="text-base md:text-lg max-w-3xl mx-auto text-white/90"
+              className="text-base md:text-lg max-w-3xl mx-auto text-[#387E89]"
             >
               Our HIPAA-compliant solutions protect your patients' data with top-tier standards.
             </motion.p>
