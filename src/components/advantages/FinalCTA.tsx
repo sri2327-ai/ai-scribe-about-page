@@ -1,6 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export const FinalCTA: React.FC = () => {
   return (
@@ -28,7 +29,7 @@ export const FinalCTA: React.FC = () => {
         
         <motion.a 
           href="#" 
-          className="cta-button-primary bg-teal-500 hover:bg-teal-600 text-white font-bold py-3 px-8 sm:py-4 sm:px-12 rounded-lg shadow-lg text-lg sm:text-xl inline-block transform transition-all duration-300"
+          className="cta-button-primary bg-transparent border-2 border-white text-white font-bold py-3 px-8 sm:py-4 sm:px-12 rounded-lg shadow-lg text-lg sm:text-xl inline-block transform transition-all duration-300 flex items-center justify-center gap-2"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -36,6 +37,7 @@ export const FinalCTA: React.FC = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
+          <ArrowRight className="h-5 w-5" />
           Schedule Your Personalized Demo
         </motion.a>
         
