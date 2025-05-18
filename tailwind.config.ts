@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -112,6 +113,10 @@ export default {
 					"50%": { backgroundColor: "var(--highlight)" },
 					"100%": { backgroundColor: "hsl(var(--card))" },
 				},
+				'text-shimmer': {
+					'0%': { backgroundPosition: '-200% 0' },
+					'100%': { backgroundPosition: '200% 0' }
+				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -120,6 +125,7 @@ export default {
 				'star-movement-bottom': 'star-movement-bottom 6s linear infinite',
 				'highlight': 'highlight 0.6s ease forwards',
 				'flash': 'flash 0.6s ease forwards',
+				'text-shimmer': 'text-shimmer 3s ease-in-out infinite'
 			}
 		}
 	},
