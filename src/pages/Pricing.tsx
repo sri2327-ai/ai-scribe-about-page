@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -17,12 +17,16 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+
 const Pricing = () => {
   console.log("Rendering Pricing page");
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
   const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
   const [activeTab, setActiveTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
+  // Add refresh key to force re-render when needed
+  const [refreshKey, setRefreshKey] = useState(0);
   const isMobile = useIsMobile();
+
   useEffect(() => {
     console.log("Pricing page mounted");
     document.title = "Pricing - S10.AI | CRUSH & BRAVO Solutions";
@@ -39,11 +43,16 @@ const Pricing = () => {
       setBillingCycle(storedCycle as 'monthly' | 'annual');
     }
 
+    // Force refresh of components
+    setRefreshKey(prev => prev + 1);
+
     // Listen for pricing tab change events from practice selector
     const handlePricingTabChange = (e: Event) => {
       const event = e as CustomEvent;
       if (event.detail && event.detail.tab) {
         setActiveTab(event.detail.tab);
+        // Force refresh when tab changes
+        setRefreshKey(prev => prev + 1);
       }
       if (event.detail && event.detail.billing) {
         setBillingCycle(event.detail.billing);
@@ -94,6 +103,14 @@ const Pricing = () => {
     });
     window.dispatchEvent(event);
   };
+
+  // Memoize the EnhancedFeatureTable to prevent unnecessary re-renders
+  const featureTable = useMemo(() => {
+    return {
+      crush: <EnhancedFeatureTable key={`crush-${refreshKey}`} product="crush" />,
+      bravo: <EnhancedFeatureTable key={`bravo-${refreshKey}`} product="bravo" />
+    };
+  }, [refreshKey]);
 
   // Animate in variants
   const fadeInUpVariants = {
@@ -280,7 +297,7 @@ const Pricing = () => {
               </TabsTrigger>
             </TabsList>
 
-            {/* Desktop view */}
+            {/* Desktop view - Use memoized feature tables */}
             <div className="hidden md:block w-full">
               <TabsContent value="crush" className="w-full">
                 <motion.div initial={{
@@ -290,7 +307,7 @@ const Pricing = () => {
               }} transition={{
                 duration: 0.3
               }}>
-                  <EnhancedFeatureTable product="crush" />
+                  {featureTable.crush}
                 </motion.div>
               </TabsContent>
               
@@ -302,12 +319,12 @@ const Pricing = () => {
               }} transition={{
                 duration: 0.3
               }}>
-                  <EnhancedFeatureTable product="bravo" />
+                  {featureTable.bravo}
                 </motion.div>
               </TabsContent>
             </div>
             
-            {/* Mobile view with accordion-style UI */}
+            {/* Mobile view with accordion-style UI - Also use memoized feature tables */}
             <div className="md:hidden w-full">
               <TabsContent value="crush" className="w-full">
                 <div className="space-y-3">
@@ -319,7 +336,7 @@ const Pricing = () => {
                     </CollapsibleTrigger>
                     <CollapsibleContent className="p-2 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                       <div className="overflow-x-auto pb-2">
-                        <EnhancedFeatureTable product="crush" />
+                        {featureTable.crush}
                       </div>
                     </CollapsibleContent>
                   </Collapsible>
@@ -340,7 +357,7 @@ const Pricing = () => {
                     </CollapsibleTrigger>
                     <CollapsibleContent className="p-2 data-[state=open]:animate-accordion-down data-[state=closed]:animate-accordion-up">
                       <div className="overflow-x-auto pb-2">
-                        <EnhancedFeatureTable product="bravo" />
+                        {featureTable.bravo}
                       </div>
                     </CollapsibleContent>
                   </Collapsible>
@@ -472,4 +489,5 @@ const Pricing = () => {
       </section>
     </main>;
 };
+
 export default Pricing;

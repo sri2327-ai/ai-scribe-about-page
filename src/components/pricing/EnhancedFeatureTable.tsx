@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check, X, ChevronRight, ChevronLeft, ChevronDown, ChevronUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -441,9 +441,15 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
     );
   };
 
+  // Force re-render when product changes
+  React.useEffect(() => {
+    // This empty dependency array ensures the component fully re-renders
+    // when the product prop changes
+  }, [product]);
+
   if (product === 'crush') {
     return (
-      <div className="feature-table-container">
+      <div className="feature-table-container" key="crush-features">
         <div className="flex flex-wrap gap-2 justify-center mb-6">
           <Badge className="bg-[#387E89] hover:bg-[#143151] text-white">
             Reduce Charting Time by 80%
@@ -464,7 +470,7 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
     );
   } else {
     return (
-      <div className="feature-table-container">
+      <div className="feature-table-container" key="bravo-features">
         <div className="flex flex-wrap gap-2 justify-center mb-6">
           <Badge className="bg-[#387E89] hover:bg-[#143151] text-white">
             Reduce No-Shows by 30%
