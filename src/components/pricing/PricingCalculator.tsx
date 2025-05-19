@@ -62,7 +62,6 @@ export const PricingCalculator = () => {
       if (isNaN(providersNum) || isNaN(patientsNum) || providersNum < 1 || patientsNum < 1) {
         setShowError(true);
         setSavingsResult('');
-        setTimeSaved('');
         toast({
           title: "Invalid input",
           description: "Please enter valid numbers for providers and patients.",
@@ -77,23 +76,19 @@ export const PricingCalculator = () => {
       let hoursSaved = 0;
       let weeklyHours = 0;
       
-      // Updated cost factors based on the product type
       if (product === 'crush') {
-        // CRUSH savings calculation
         costSavings = providersNum * patientsNum * 95;
         hoursSaved = providersNum * 2;
+        weeklyHours = hoursSaved * 5;
       } else if (product === 'bravo') {
-        // BRAVO savings calculation
         costSavings = providersNum * patientsNum * 50;
         hoursSaved = providersNum * 1;
+        weeklyHours = hoursSaved * 5;
       } else {
-        // Bundle savings calculation (CRUSH + BRAVO with slight discount)
-        costSavings = providersNum * patientsNum * 145;  // 95 + 50 = 145
-        hoursSaved = providersNum * 3;  // 2 + 1 = 3
+        costSavings = providersNum * patientsNum * 145;
+        hoursSaved = providersNum * 3;
+        weeklyHours = hoursSaved * 5;
       }
-      
-      // Calculate weekly hours saved (5 working days)
-      weeklyHours = hoursSaved * 5;
       
       setSavingsResult(`$${costSavings.toLocaleString()}/month`);
       setTimeSaved(`${hoursSaved} hours daily | ${weeklyHours} hours weekly`);
@@ -167,7 +162,7 @@ export const PricingCalculator = () => {
             </motion.p>
           </motion.div>
 
-          <Card className="bg-gradient-to-r from-[#f8f9fa] to-[#e9ecef] rounded-2xl shadow-xl p-6 md:p-8 lg:p-10 border border-gray-100">
+          <Card className="bg-white rounded-2xl shadow-xl p-6 md:p-8 lg:p-10 border border-gray-100">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-10">
               <div className="lg:col-span-3">
                 <div className="flex flex-col gap-6 md:gap-8">
@@ -336,4 +331,3 @@ export const PricingCalculator = () => {
     </section>
   );
 };
-

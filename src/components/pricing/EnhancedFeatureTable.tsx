@@ -193,7 +193,7 @@ export const EnhancedFeatureTable: React.FC<EnhancedFeatureTableProps> = ({ prod
       category: 'COMMUNICATION',
       features: [
         { 
-          name: 'Automated Call, Text & Email Reminders', 
+          name: 'Automated Text & Email Reminders', 
           basic: true, 
           pro: true, 
           enterprise: true 

@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -73,6 +72,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.crush.basic}
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
@@ -134,6 +134,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.crush.pro}
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -162,7 +163,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Quote
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -215,7 +216,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Quote
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -238,6 +239,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
                   {pricingData.bravo.basic}
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
@@ -295,7 +297,8 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <h3 className="text-lg md:text-xl font-semibold mb-2 text-[#143151]">Pro</h3>
               <div className="mb-4">
                 <p className="text-2xl md:text-4xl font-bold text-[#143151]">
-                  {pricingData.bravo.pro}
+                  Starts at $299
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   Tailored to your practice
@@ -331,7 +334,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Quote
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -383,7 +386,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Quote
+                Contact Us
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Custom pricing for your needs</p>
@@ -407,6 +410,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <div className="mb-4">
                 <p className="text-2xl md:text-3xl font-bold text-[#143151]">
                   {pricingData.bundle.basic}
+                  <span className="text-base md:text-lg text-gray-500">/{billingCycle === 'monthly' ? 'mo' : 'yr'}</span>
                 </p>
                 <p className="text-xs md:text-sm text-gray-500 mt-1">
                   {billingCycle === 'monthly' ? 'Billed monthly' : 'Billed annually (save 16%)'}
@@ -477,7 +481,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Quote
+                Contact For Custom Pricing
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
@@ -534,7 +538,7 @@ export const PricingCards = ({ activePlan, billingCycle, selectedCurrency }: Pri
               <Button 
                 className="w-full rounded-full py-3 md:py-6 text-xs md:text-sm font-semibold bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg transition-all duration-300 whitespace-normal"
               >
-                Contact For Custom Quote
+                Contact for Pro Bundle Quote
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 flex-shrink-0" />
               </Button>
               <p className="text-xs text-center text-gray-500 mt-3 md:mt-4">Tailored to your needs</p>
