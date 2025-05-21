@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import { Info, DollarSign, FileText, Award } from 'lucide-react';
+import { Info, DollarSign, FileText, FileCog, Award } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { crushAIColors } from '@/theme/crush-ai-theme';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -357,7 +357,7 @@ export const BeforeAfterNoteComparison = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: 6, sm: 8, md: 12 },
+        py: { xs: 4, sm: 6, md: 8, lg: 12 }, // More responsive padding
         bgcolor: 'white',
         position: 'relative',
         overflow: 'hidden'
@@ -369,14 +369,14 @@ export const BeforeAfterNoteComparison = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-6 md:mb-10"
+          className="text-center mb-4 md:mb-6 lg:mb-10"
         >
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.75rem' },
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem', lg: '2.5rem' }, // More granular font sizing
               fontWeight: 800,
-              mb: { xs: 1, md: 2 },
+              mb: { xs: 1, sm: 1.5, md: 2 },
               color: crushAIColors.text.primary,
               letterSpacing: '-0.02em',
               lineHeight: 1.2
@@ -388,28 +388,29 @@ export const BeforeAfterNoteComparison = () => {
             variant="body1"
             sx={{
               color: crushAIColors.text.secondary,
-              fontSize: { xs: '0.9rem', sm: '0.95rem', md: '1.1rem' },
-              mb: 2,
+              fontSize: { xs: '0.85rem', sm: '0.9rem', md: '0.95rem', lg: '1.1rem' }, // More granular font sizing
+              mb: { xs: 1.5, sm: 2 },
               maxWidth: '800px',
               mx: 'auto',
+              px: { xs: 2, sm: 0 }, // Add padding on small screens
               fontWeight: 400
             }}
           >
             See how specialty-specific, AI-powered clinical documentation enhances quality while saving hours of documentation time
           </Typography>
           
-          {/* Added clinician value proposition tags */}
-          <div className="flex flex-wrap justify-center gap-2 mt-3">
-            <span className="px-3 py-1 text-xs md:text-sm bg-blue-50 text-blue-700 rounded-full border border-blue-100">
+          {/* Added clinician value proposition tags - improved for small screens */}
+          <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mt-2 sm:mt-3 px-2 sm:px-0">
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-blue-50 text-blue-700 rounded-full border border-blue-100">
               Save 2+ hours daily
             </span>
-            <span className="px-3 py-1 text-xs md:text-sm bg-green-50 text-green-700 rounded-full border border-green-100">
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-green-50 text-green-700 rounded-full border border-green-100">
               Specialty-specific templates
             </span>
-            <span className="px-3 py-1 text-xs md:text-sm bg-purple-50 text-purple-700 rounded-full border border-purple-100">
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-purple-50 text-purple-700 rounded-full border border-purple-100">
               Complete notes in real-time
             </span>
-            <span className="px-3 py-1 text-xs md:text-sm bg-amber-50 text-amber-700 rounded-full border border-amber-100">
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-amber-50 text-amber-700 rounded-full border border-amber-100">
               Improve billing accuracy
             </span>
           </div>
@@ -421,24 +422,23 @@ export const BeforeAfterNoteComparison = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gray-50 p-3 sm:p-4 rounded-xl shadow-lg overflow-hidden">
+          <div className="bg-gray-50 p-2 sm:p-3 md:p-4 rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
             <Tabs
               defaultValue={activeTab}
               onValueChange={setActiveTab}
               className="w-full"
             >
-              <div className="flex justify-center mb-4 overflow-x-auto pb-2 scrollbar-thin">
+              <div className="flex justify-center mb-2 md:mb-4 overflow-x-auto pb-1 sm:pb-2 scrollbar-thin">
                 <TabsList className={cn(
-                  "bg-gray-100 p-1",
-                  isSmallScreen ? "flex flex-nowrap overflow-x-auto max-w-full scrollbar-hide" : ""
+                  "bg-gray-100 p-0.5 sm:p-1",
+                  "flex flex-nowrap overflow-x-auto max-w-full scrollbar-hide"
                 )}>
                   {examples.map(example => (
                     <TabsTrigger
                       key={example.id}
                       value={example.id}
                       className={cn(
-                        "px-3 py-1.5 whitespace-nowrap text-sm",
-                        isSmallScreen ? "flex-shrink-0" : ""
+                        "px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
                       )}
                     >
                       {example.label}
@@ -449,171 +449,167 @@ export const BeforeAfterNoteComparison = () => {
 
               {examples.map(example => (
                 <TabsContent key={example.id} value={example.id} className="pt-1 md:pt-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
                     {/* BEFORE: Traditional Clinical Note */}
                     <motion.div 
-                      className="relative bg-white rounded-lg shadow-md overflow-hidden border border-red-100"
+                      className="relative bg-white rounded-md sm:rounded-lg shadow-sm sm:shadow-md overflow-hidden border border-red-100"
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="bg-red-50 p-2 sm:p-3 border-b border-red-100 flex justify-between items-center">
-                        <h3 className="font-bold text-base sm:text-lg text-gray-800">BEFORE: Traditional Clinical Note</h3>
-                        {!isSmallScreen && (
-                          <span className="text-xs text-red-600 bg-white px-2 py-1 rounded-full border border-red-200">
-                            ~25 min documentation time
-                          </span>
-                        )}
+                      <div className="bg-red-50 p-2 border-b border-red-100 flex justify-between items-center">
+                        <h3 className="font-bold text-sm sm:text-base md:text-lg text-gray-800">BEFORE: Traditional Clinical Note</h3>
+                        <span className="text-xs text-red-600 bg-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full border border-red-200 hidden sm:inline-block">
+                          ~25 min documentation time
+                        </span>
                       </div>
                       <div className={cn(
-                        "p-3 sm:p-4 overflow-y-auto font-mono text-sm",
-                        isSmallScreen ? "h-[400px]" : "h-[500px]" 
+                        "p-2 sm:p-3 md:p-4 overflow-y-auto font-mono text-xs sm:text-sm",
+                        "h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]" 
                       )}>
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Patient Demographics:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.before.demographics}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Patient Demographics:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.demographics}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Chief Complaint:</p>
-                          <p className="text-gray-700 text-xs sm:text-sm">{example.before.chiefComplaint}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Chief Complaint:</p>
+                          <p className="text-gray-700 text-xs">{example.before.chiefComplaint}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">HPI:</p>
-                          <p className="text-gray-700 text-xs sm:text-sm">{example.before.hpi}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">HPI:</p>
+                          <p className="text-gray-700 text-xs">{example.before.hpi}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Past Medical History:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.before.pmh}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Past Medical History:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.pmh}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Medications:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.before.medications}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Medications:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.medications}</p>
                         </div>
 
-                        {isSmallScreen && (
-                          <div className="mt-6 py-2 px-3 bg-red-50 rounded-md border border-red-100">
-                            <p className="text-red-600 text-xs font-medium">Documentation Time: ~25 minutes after visit</p>
-                          </div>
-                        )}
+                        {/* Mobile timing info */}
+                        <div className="mt-4 py-1.5 px-2 bg-red-50 rounded-md border border-red-100 sm:hidden">
+                          <p className="text-red-600 text-xs font-medium">Documentation Time: ~25 minutes after visit</p>
+                        </div>
                       </div>
                     </motion.div>
 
                     {/* AFTER: CRUSH AI Scribe Note */}
                     <motion.div 
-                      className="relative bg-white rounded-lg shadow-md overflow-hidden border border-blue-100"
+                      className="relative bg-white rounded-md sm:rounded-lg shadow-sm sm:shadow-md overflow-hidden border border-blue-100"
                       initial={{ x: 20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="bg-blue-50 p-2 sm:p-3 border-b border-blue-100 flex justify-between items-center">
-                        <h3 className="font-bold text-base sm:text-lg text-gray-800">AFTER: CRUSH AI Scribe Note</h3>
-                        {!isSmallScreen && (
-                          <span className="text-xs text-green-600 bg-white px-2 py-1 rounded-full border border-green-200">
-                            ~60 seconds completion time
-                          </span>
-                        )}
+                      <div className="bg-blue-50 p-2 border-b border-blue-100 flex justify-between items-center">
+                        <h3 className="font-bold text-sm sm:text-base md:text-lg text-gray-800">AFTER: CRUSH AI Scribe Note</h3>
+                        <span className="text-xs text-green-600 bg-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full border border-green-200 hidden sm:inline-block">
+                          ~60 seconds completion time
+                        </span>
                       </div>
                       <div className={cn(
-                        "p-3 sm:p-4 overflow-y-auto font-mono text-sm",
-                        isSmallScreen ? "h-[400px]" : "h-[500px]" 
+                        "p-2 sm:p-3 md:p-4 overflow-y-auto font-mono text-xs sm:text-sm",
+                        "h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]" 
                       )}>
-                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
                           <FeatureTooltip title="Pre-Charting Info">
                             <p>CRUSH AI automatically imports relevant patient information from your EHR before the visit, saving time and reducing manual data entry.</p>
                           </FeatureTooltip>
-                          <p className="font-bold mb-1 text-sm">Patient Demographics:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.demographics}</p>
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Patient Demographics:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.demographics}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Chief Complaint:</p>
-                          <p className="text-gray-700 text-xs sm:text-sm">{example.after.chiefComplaint}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Chief Complaint:</p>
+                          <p className="text-gray-700 text-xs">{example.after.chiefComplaint}</p>
                         </div>
 
-                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
-                          <div className="flex items-center mb-1">
-                            <p className="font-bold text-sm">HPI:</p>
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">HPI:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Context-Aware Documentation">
                                 <p>CRUSH AI captures and structures the conversation naturally, maintaining context while highlighting important clinical details specific to each specialty.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 text-xs sm:text-sm">{example.after.hpi}</p>
+                          <p className="text-gray-700 text-xs">{example.after.hpi}</p>
                         </div>
 
-                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
-                          <div className="flex items-center mb-1">
-                            <p className="font-bold text-sm">HCC Risk Factors:</p>
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">HCC Risk Factors:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="HCC Code Insights">
                                 <p>CRUSH AI automatically identifies and suggests appropriate HCC codes based on the patient encounter, ensuring proper risk adjustment and reimbursement.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.hcc}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.hcc}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Past Medical History:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.pmh}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Past Medical History:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.pmh}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="font-bold mb-1 text-sm">Medications:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.medications}</p>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Medications:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.medications}</p>
                         </div>
 
-                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
-                          <div className="flex items-center mb-1">
-                            <p className="font-bold text-sm">Assessment & Plan:</p>
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">Assessment & Plan:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Coding Intelligence">
                                 <p>CRUSH AI automatically suggests appropriate ICD-10 and CPT codes based on the documented care, improving coding accuracy and billing efficiency.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.assessment}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.assessment}</p>
                         </div>
 
-                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
-                          <div className="flex items-center mb-1">
-                            <p className="font-bold text-sm">Patient Education & Summary:</p>
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">Patient Education & Summary:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Automated Patient Visit Summary">
                                 <p>CRUSH AI automatically generates a clear, comprehensive summary for patients, improving understanding and compliance with treatment plans.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.education}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.education}</p>
                         </div>
 
-                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
-                          <div className="flex items-center mb-1">
-                            <p className="font-bold text-sm">
-                              <DollarSign className="inline-block h-4 w-4 mr-1" /> Billing & Coding:
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-start sm:items-center mb-0.5 sm:mb-1">
+                            <DollarSign className="inline-block h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-1" />
+                            <p className="font-bold text-xs sm:text-sm">
+                              Billing & Coding:
                             </p>
-                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Smart Billing Optimization">
                                 <p>CRUSH AI automatically suggests appropriate billing codes, quality measures, and risk adjustment factors to maximize appropriate reimbursement and quality reporting.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm bg-white p-2 rounded border border-blue-100">{example.after.billing}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs bg-white p-1.5 sm:p-2 rounded border border-blue-100">{example.after.billing}</p>
                         </div>
 
-                        <div className="p-2 mt-4 bg-gray-50 rounded-md border border-gray-200">
+                        <div className="p-1.5 sm:p-2 mt-3 sm:mt-4 bg-gray-50 rounded-md border border-gray-200">
                           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
                             <FeatureTooltip title="Seamless EHR Integration">
                               <p>CRUSH AI Scribe integrates with a wide range of Electronic Health Record systems, ensuring seamless data flow and documentation without disrupting your existing workflow.</p>
                             </FeatureTooltip>
-                            <div className="flex items-center space-x-2 mt-2 sm:mt-0">
+                            <div className="flex items-center space-x-1 sm:space-x-2 mt-1.5 sm:mt-0">
                               <div className="flex items-center">
-                                <svg className="h-4 w-4 text-blue-500 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mr-0.5 sm:mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span className="text-xs text-blue-700">Data Synced with Your EHR</span>
@@ -621,11 +617,10 @@ export const BeforeAfterNoteComparison = () => {
                             </div>
                           </div>
                           
-                          {isSmallScreen && (
-                            <div className="mt-2 py-1.5 px-3 bg-green-50 rounded-md border border-green-100 inline-block">
-                              <p className="text-green-600 text-xs font-medium">Completion Time: <span className="font-bold">~60 seconds</span></p>
-                            </div>
-                          )}
+                          {/* Mobile timing info */}
+                          <div className="mt-1.5 sm:mt-2 py-1 px-2 bg-green-50 rounded-md border border-green-100 inline-block sm:hidden">
+                            <p className="text-green-600 text-xs font-medium">Completion Time: <span className="font-bold">~60 seconds</span></p>
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -636,24 +631,24 @@ export const BeforeAfterNoteComparison = () => {
           </div>
 
           <motion.div 
-            className="mt-6 md:mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-4 sm:p-6 text-white shadow-lg"
+            className="mt-4 sm:mt-6 lg:mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 text-white shadow-md sm:shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             viewport={{ once: true }}
           >
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-4 md:mb-0 text-center md:text-left">
-                <h3 className="text-lg sm:text-xl font-bold">Ready to see CRUSH in action with your EHR?</h3>
-                <p className="text-white/90 text-sm sm:text-base">Experience the difference with a personalized demo</p>
+              <div className="mb-3 md:mb-0 text-center md:text-left">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold">Ready to see CRUSH in action with your EHR?</h3>
+                <p className="text-white/90 text-xs sm:text-sm md:text-base">Experience the difference with a personalized demo</p>
               </div>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-[#143151] font-medium py-2 px-5 sm:px-6 rounded-full shadow-xl flex items-center text-sm sm:text-base"
+                className="bg-white text-[#143151] font-medium py-1.5 sm:py-2 px-4 sm:px-5 md:px-6 rounded-full shadow-lg sm:shadow-xl flex items-center text-xs sm:text-sm md:text-base"
               >
                 Schedule a Demo
-                <svg className="ml-2 h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none">
+                <svg className="ml-1.5 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </motion.button>
@@ -662,17 +657,17 @@ export const BeforeAfterNoteComparison = () => {
 
           {/* Enhanced Disclaimer */}
           <motion.div 
-            className="mt-6 p-3 sm:p-4 border border-amber-200 bg-amber-50 rounded-lg text-xs sm:text-sm text-amber-800"
+            className="mt-4 sm:mt-6 p-2 sm:p-3 md:p-4 border border-amber-200 bg-amber-50 rounded-md sm:rounded-lg text-xs sm:text-sm text-amber-800"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
             viewport={{ once: true }}
           >
             <div className="flex items-start">
-              <Info className="h-5 w-5 mr-2 flex-shrink-0 mt-0.5" />
+              <Info className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5" />
               <div>
-                <p className="font-medium mb-1">Disclaimer</p>
-                <p>The clinical notes shown above are for demonstration purposes only and do not contain real patient information. The templates can be tailored to individual clinician preferences, specialty requirements, and institutional protocols. CRUSH AI adapts to your specific documentation style and workflow needs.</p>
+                <p className="font-medium mb-0.5 sm:mb-1">Disclaimer</p>
+                <p className="text-xs sm:text-sm">The clinical notes shown above are for demonstration purposes only and do not contain real patient information. The templates can be tailored to individual clinician preferences, specialty requirements, and institutional protocols. CRUSH AI adapts to your specific documentation style and workflow needs.</p>
               </div>
             </div>
           </motion.div>
@@ -683,54 +678,54 @@ export const BeforeAfterNoteComparison = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
             viewport={{ once: true }}
-            className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+            className="mt-4 sm:mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
           >
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
-                  <svg className="h-4 w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="font-medium">Time Savings</h4>
+                <h4 className="font-medium text-sm sm:text-base">Time Savings</h4>
               </div>
-              <p className="text-sm text-gray-600">Reduce documentation time by up to 75%, finishing notes during or immediately after visits.</p>
+              <p className="text-xs sm:text-sm text-gray-600">Reduce documentation time by up to 75%, finishing notes during or immediately after visits.</p>
             </div>
             
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-2">
-                  <svg className="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-green-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="font-medium">Improved Quality</h4>
+                <h4 className="font-medium text-sm sm:text-base">Improved Quality</h4>
               </div>
-              <p className="text-sm text-gray-600">Generate comprehensive, specialty-specific notes with proper coding and thorough documentation.</p>
+              <p className="text-xs sm:text-sm text-gray-600">Generate comprehensive, specialty-specific notes with proper coding and thorough documentation.</p>
             </div>
             
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-2">
-                  <svg className="h-4 w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                 </div>
-                <h4 className="font-medium">Patient Focus</h4>
+                <h4 className="font-medium text-sm sm:text-base">Patient Focus</h4>
               </div>
-              <p className="text-sm text-gray-600">Maintain eye contact and meaningful connections while CRUSH handles documentation in the background.</p>
+              <p className="text-xs sm:text-sm text-gray-600">Maintain eye contact and meaningful connections while CRUSH handles documentation in the background.</p>
             </div>
             
-            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-2">
-                <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mr-2">
-                  <svg className="h-4 w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h4 className="font-medium">Revenue Impact</h4>
+                <h4 className="font-medium text-sm sm:text-base">Revenue Impact</h4>
               </div>
-              <p className="text-sm text-gray-600">Maximize reimbursements with accurate HCC risk adjustment coding and comprehensive documentation.</p>
+              <p className="text-xs sm:text-sm text-gray-600">Maximize reimbursements with accurate HCC risk adjustment coding and comprehensive documentation.</p>
             </div>
           </motion.div>
         </motion.div>
@@ -757,6 +752,12 @@ export const BeforeAfterNoteComparison = () => {
         .scrollbar-thin::-webkit-scrollbar-thumb {
           background: #ccc;
           border-radius: 4px;
+        }
+
+        @media (max-width: 640px) {
+          .tooltip-content {
+            max-width: 260px;
+          }
         }
         `
       }}/>
