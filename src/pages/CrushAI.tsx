@@ -10,6 +10,7 @@ import { crushAIColors } from "@/theme/crush-ai-theme";
 import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
 import { PricingHeroSection } from "@/components/crush-ai/PricingHeroSection";
+import { BeforeAfterNoteComparison } from "@/components/crush-ai/BeforeAfterNoteComparison";
 
 // Use dynamic imports with prefetch to improve loading performance
 const EhrIntegrationSection = lazy(() => {
@@ -336,6 +337,13 @@ const CrushAI = () => {
       </LazyLoadSection>
       
       <TestimonialGenerateSection />
+      
+      {/* New section: Why CRUSH Crushes the Competition */}
+      <LazyLoadSection>
+        <Suspense fallback={<SectionLoader />}>
+          <BeforeAfterNoteComparison />
+        </Suspense>
+      </LazyLoadSection>
       
       <LazyLoadSection>
         <Box sx={{ bgcolor: crushAIColors.background.white }}>
