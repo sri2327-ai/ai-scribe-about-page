@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { Info } from 'lucide-react'; // Changed from InfoCircledIcon to Info from lucide-react
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { crushAIColors } from '@/theme/crush-ai-theme';
 
@@ -19,7 +19,7 @@ const FeatureTooltip = ({ title, children }: FeatureTooltipProps) => (
       <TooltipTrigger asChild>
         <div className="inline-flex items-center cursor-help">
           <span className="mr-1">{title}</span>
-          <InfoCircledIcon className="h-4 w-4 text-blue-500" />
+          <Info className="h-4 w-4 text-blue-500" /> {/* Changed from InfoCircledIcon to Info */}
         </div>
       </TooltipTrigger>
       <TooltipContent 
