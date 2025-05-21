@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
@@ -157,13 +156,6 @@ export const BeforeAfterNoteComparison = () => {
                           <p className="text-gray-700">- Metformin 1000mg BID</p>
                           <p className="text-gray-700">- Lisinopril 10mg daily</p>
                           <p className="text-gray-700">- Atorvastatin 20mg daily</p>
-                        </div>
-
-                        <div className="mb-4">
-                          <p className="font-bold mb-1">Assessment/Plan:</p>
-                          <p className="text-gray-700">1. Diabetes - A1c is 7.2, continue metformin. Check labs in 3 months.</p>
-                          <p className="text-gray-700">2. HTN - BP controlled, continue lisinopril.</p>
-                          <p className="text-gray-700">3. Hyperlipidemia - LDL 110, continue atorvastatin.</p>
                         </div>
 
                         <div className="mb-4">
