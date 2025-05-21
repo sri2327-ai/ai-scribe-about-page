@@ -91,13 +91,10 @@ export const BeforeAfterNoteComparison = () => {
         medications: "- Metformin 1000mg BID\n- Lisinopril 10mg daily\n- Atorvastatin 20mg daily"
       },
       after: {
-        demographics: "Patient ID: FM-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private Insurance\nLast Visit: 3 months ago",
+        demographics: "Patient ID: FM-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private Insurance\nLast Visit: [REDACTED]",
         chiefComplaint: "Follow up on diabetes and hypertension.",
         hpi: "Patient is a 58-year-old male with history of type 2 diabetes and hypertension presenting for routine follow-up. He reports his blood sugars have been well-controlled, ranging between 130-150 mg/dL in the mornings. He states he has been adherent with his metformin regimen and has not experienced any side effects. His hypertension has been stable with no symptoms, and he denies any chest pain, shortness of breath, or dizziness. Patient has been following a low-carb diet and walking 30 minutes 3 times weekly. He has lost 5 pounds since his last visit.",
-        hcc: "- Type 2 diabetes without complications [E11.9]\n- Essential hypertension [I10]",
-        pmh: "- Type 2 diabetes diagnosed 2015, well controlled\n- Hypertension diagnosed 2013, well controlled\n- Hyperlipidemia, moderately controlled",
-        medications: "- Metformin 1000mg BID\n- Lisinopril 10mg daily\n- Atorvastatin 20mg daily",
-        assessment: "1. Type 2 Diabetes (E11.9)\n   - A1c improved to 7.2% from 7.5% previously\n   - Continue Metformin 1000mg BID\n   - Commended patient on dietary changes and weight loss\n   - Order: Comprehensive metabolic panel & A1c in 3 months\n\n2. Hypertension (I10)\n   - BP today: 132/78, at target\n   - Continue Lisinopril 10mg daily\n   - Encouraged continued sodium restriction\n\n3. Hyperlipidemia (E78.5)\n   - Recent LDL: 110, slightly above target of <100\n   - Continue Atorvastatin 20mg daily\n   - Order: Lipid panel in 6 months\n\n4. Preventive Health\n   - Due for colonoscopy screening\n   - Order: Colonoscopy referral",
+        hcc: "- Type 2 Diabetes (E11.9)\n   - A1c improved to 7.2% from 7.5% previously\n   - Continue Metformin 1000mg BID\n   - Commended patient on dietary changes and weight loss\n   - Order: Comprehensive metabolic panel & A1c in 3 months\n\n2. Hypertension (I10)\n   - BP today: 132/78, at target\n   - Continue Lisinopril 10mg daily\n   - Encouraged continued sodium restriction\n\n3. Hyperlipidemia (E78.5)\n   - Recent LDL: 110, slightly above target of <100\n   - Continue Atorvastatin 20mg daily\n   - Order: Lipid panel in 6 months\n\n4. Preventive Health\n   - Due for colonoscopy screening\n   - Order: Colonoscopy referral",
         education: "- Continue all medications as prescribed\n- Maintain low-carb diet and exercise regimen\n- Schedule colonoscopy within next month\n- Return in 3 months for follow-up and lab work\n- Call office if blood sugars consistently >200 mg/dL",
         billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Time-based billing: 25 minutes\n- DM management: G0108\n- CCM coordination: 99490\n- Quality Measures: Blood pressure screening (G8783)\n- Risk Adjustment: HCC19 (Diabetes), HCC85 (Hypertension)"
       }
@@ -113,7 +110,7 @@ export const BeforeAfterNoteComparison = () => {
         medications: "- Metoprolol 25mg BID\n- Lisinopril 20mg daily\n- Furosemide 40mg daily\n- Apixaban 5mg BID\n- Atorvastatin 40mg daily"
       },
       after: {
-        demographics: "Patient ID: CV-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Medicare Advantage\nLast Visit: Hospital Discharge (3 weeks ago)",
+        demographics: "Patient ID: CV-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Medicare Advantage\nLast Visit: [REDACTED]",
         chiefComplaint: "Follow up after recent hospitalization for heart failure exacerbation.",
         hpi: "Patient is a 62-year-old female with history of CHF (EF 35%), CAD s/p stent to LAD 2021, and paroxysmal atrial fibrillation presenting for follow-up after hospitalization for acute decompensated heart failure 3 weeks ago. She reports improvement in symptoms with current medication regimen. Dyspnea has improved but persists with moderate exertion (can climb 1 flight of stairs without stopping, NYHA Class II). Reports reduced bilateral ankle edema. Notes occasional dizziness with metoprolol, typically within 1-2 hours after morning dose. No syncope, chest pain, palpitations, orthopnea, or PND.",
         hcc: "- Systolic Heart Failure [I50.20]\n- CAD with history of PTCA [I25.10]\n- Paroxysmal Atrial Fibrillation [I48.0]",
@@ -135,7 +132,7 @@ export const BeforeAfterNoteComparison = () => {
         medications: "- Sertraline 100mg daily\n- Lorazepam 0.5mg PRN for anxiety"
       },
       after: {
-        demographics: "Patient ID: PSY-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Commercial Insurance\nLast Visit: 6 weeks ago",
+        demographics: "Patient ID: PSY-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Commercial Insurance\nLast Visit: [REDACTED]",
         chiefComplaint: "Follow up for depression and anxiety.",
         hpi: "Patient is a 35-year-old male with history of major depressive disorder and generalized anxiety disorder presenting for medication management follow-up. He reports partial response to sertraline 100mg daily with improvement in depressed mood (rates mood as 5/10 compared to 3/10 at last visit) but continues to experience anhedonia and fatigue. Sleep remains disrupted with difficulty initiating sleep (takes 1-2 hours to fall asleep) and early morning awakening (4-5AM). Reports functioning at work has improved somewhat but still struggles with concentration during meetings and deadlines. Using lorazepam approximately twice weekly for acute anxiety. Denies current suicidal or homicidal ideation, intent, or plan. No psychotic symptoms.",
         hcc: "- Major Depressive Disorder, recurrent, moderate [F33.1]\n- Generalized Anxiety Disorder [F41.1]\n- Insomnia, chronic [G47.00]",
@@ -157,7 +154,7 @@ export const BeforeAfterNoteComparison = () => {
         medications: "- Amlodipine 5mg daily\n- Rosuvastatin 10mg daily\n- Acetaminophen PRN for joint pain"
       },
       after: {
-        demographics: "Patient ID: IM-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Medicare Part B\nLast Visit: 1 year ago",
+        demographics: "Patient ID: IM-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Medicare Part B\nLast Visit: [REDACTED]",
         chiefComplaint: "Annual physical and medication review.",
         hpi: "Patient is a 66-year-old male presenting for annual physical examination and medication review. Reports his hypertension and dyslipidemia are well-controlled on current medication regimen. Notes occasional mild bilateral knee pain after prolonged activity, relieved with acetaminophen and rest. Current exercise regimen includes walking 30 minutes three times weekly and light gardening. Last colonoscopy was performed four years ago with normal findings. Has not received pneumonia or shingles vaccinations. Reports adequate energy levels, stable weight, and good appetite. No difficulty with urination, bowel movements, or sleep. No chest pain, shortness of breath, dizziness, or falls.",
         hcc: "- Essential Hypertension [I10]\n- Hyperlipidemia [E78.5]\n- Osteoarthritis, localized, knee [M17.9]",
@@ -179,7 +176,7 @@ export const BeforeAfterNoteComparison = () => {
         medications: "- Tamoxifen 20mg daily\n- Lisinopril 10mg daily\n- Levothyroxine 75mcg daily"
       },
       after: {
-        demographics: "Patient ID: ONC-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private Insurance\nLast Visit: 1 month ago",
+        demographics: "Patient ID: ONC-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private Insurance\nLast Visit: [REDACTED]",
         chiefComplaint: "Follow up for breast cancer treatment.",
         hpi: "Patient is a 58-year-old female with history of stage II (T2N0M0) invasive ductal carcinoma of right breast, ER/PR+, HER2-, diagnosed 8 months ago, presenting for routine follow-up. She underwent right breast lumpectomy with sentinel lymph node biopsy (0/3 nodes positive) on 08/20/2023, followed by 4 cycles of adjuvant chemotherapy with doxorubicin and cyclophosphamide completed on 01/10/2024. Currently on adjuvant hormonal therapy with tamoxifen initiated on 01/25/2024. Reports moderate fatigue (5/10) with gradual improvement since completing chemotherapy. Experiencing 3-5 hot flashes daily, mild-moderate intensity. Denies breast pain, masses, skin changes, or axillary lymphadenopathy. No bone pain, shortness of breath, or neurological symptoms. Completed 10 of 30 planned radiation treatments with minimal skin reaction.",
         hcc: "- Malignant neoplasm of breast, specified as right breast [C50.911]\n- Essential Hypertension [I10]\n- Hypothyroidism [E03.9]",
@@ -201,7 +198,7 @@ export const BeforeAfterNoteComparison = () => {
         medications: "- Ibuprofen 600mg PRN for pain\n- Lisinopril 20mg daily\n- Omeprazole 20mg daily"
       },
       after: {
-        demographics: "Patient ID: ORT-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private PPO\nLast Visit: Post-op week 2 (4 weeks ago)",
+        demographics: "Patient ID: ORT-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private PPO\nLast Visit: [REDACTED]",
         chiefComplaint: "Right knee pain following meniscus repair.",
         hpi: "Patient is a 52-year-old male presenting for 6-week follow-up after arthroscopic repair of right medial meniscus tear performed on 03/09/2024. He reports significant improvement in pain (now 3/10 from previous 7/10) but continues to experience morning stiffness lasting 15-20 minutes and stiffness after prolonged sitting. Has been attending physical therapy twice weekly with good compliance to home exercise program. ROM has improved but not yet at baseline. Currently using ibuprofen 600mg once daily or every other day for pain management. Denies locking, catching, or instability of the knee. Able to walk without assistive devices and navigate stairs with minimal discomfort. Has returned to desk work but not yet resumed recreational activities (golf, swimming).",
         hcc: "- Tear of medial meniscus of right knee, current [S83.211A]\n- Status post arthroscopic meniscus repair [Z98.89]\n- Essential Hypertension [I10]\n- Gastroesophageal reflux disease [K21.9]",
@@ -213,17 +210,17 @@ export const BeforeAfterNoteComparison = () => {
       }
     },
     {
-      id: 'chiropractor',
-      label: 'Chiropractor',
+      id: 'chiropractic',
+      label: 'Chiropractic',
       before: {
-        demographics: "Sarah Johnson, 42F\nDOB: 09/30/1982\nMRN: 67890123",
+        demographics: "Patient ID: CH-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Lower back pain with radiation to left leg.",
         hpi: "Patient is a 42-year-old female presenting with lower back pain that started after moving furniture 2 weeks ago. Pain radiates to left buttock and posterior thigh. Reports pain is worse with sitting and bending forward. Has been taking OTC ibuprofen with minimal relief.",
         pmh: "- Previous episode of back pain 3 years ago, resolved with chiropractic care\n- Seasonal allergies",
         medications: "- Ibuprofen 400mg PRN for pain\n- Cetirizine 10mg daily PRN for allergies"
       },
       after: {
-        demographics: "Sarah Johnson, 42F\nDOB: 09/30/1982\nMRN: 67890123\nInsurance: Aetna Choice POS II\nLast Visit: First visit to this practice",
+        demographics: "Patient ID: CH-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Lower back pain with radiation to left leg.",
         hpi: "Patient is a 42-year-old female presenting with lower back pain that began acutely after moving furniture 2 weeks ago. Pain is located primarily in the lumbar region with radiation to the left buttock and posterior thigh, stopping above the knee. Describes pain as dull and achy at baseline (5/10) with sharp exacerbations (8/10) during certain movements. Reports pain is worse with prolonged sitting, bending forward, and when getting up from seated position. Minimal relief with position changes and OTC ibuprofen 400mg taken 2-3 times daily. Denies bowel or bladder incontinence, saddle anesthesia, bilateral leg weakness, or fever. Previous episode of similar but less severe back pain 3 years ago resolved after 6 sessions of chiropractic care. Patient works as an administrative assistant with prolonged sitting at desk. Exercise routine includes walking 2-3 times weekly.",
         hcc: "- Lumbar radiculopathy [M54.16]\n- Lumbar segmental dysfunction [M99.03]",
@@ -238,14 +235,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'functional-medicine',
       label: 'Functional Medicine',
       before: {
-        demographics: "Emma Wilson, 38F\nDOB: 12/03/1986\nMRN: 78901234",
+        demographics: "Patient ID: FM-002\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Chronic fatigue, digestive issues, and brain fog.",
         hpi: "Patient is a 38-year-old female with 8-month history of increasing fatigue, digestive issues including bloating and constipation, and cognitive difficulties. Has seen multiple providers without clear diagnosis. Recent labs from PCP were reportedly normal. Diet consists of typical American diet. Sleep is disrupted with difficulty staying asleep.",
         pmh: "- Hypothyroidism diagnosed 5 years ago\n- Migraine headaches\n- Anxiety",
         medications: "- Levothyroxine 50mcg daily\n- Sumatriptan PRN for migraines\n- Multivitamin daily"
       },
       after: {
-        demographics: "Emma Wilson, 38F\nDOB: 12/03/1986\nMRN: 78901234\nInsurance: Self-pay (will submit superbill)\nLast Visit: First visit to this practice",
+        demographics: "Patient ID: FM-002\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Chronic fatigue, digestive issues, and brain fog.",
         hpi: "Patient is a 38-year-old female presenting with an 8-month history of progressive fatigue, digestive disturbances, and cognitive difficulties. She reports fatigue is worst in the morning despite sleeping 7-8 hours, with temporary improvement after caffeine. Digestive symptoms include postprandial bloating, abdominal discomfort, and constipation (bowel movements every 2-3 days). Cognitive symptoms described as difficulty concentrating, word-finding problems, and memory lapses affecting work performance. Reports significant life stressors including job change 10 months ago and relocation 12 months ago. Diet consists primarily of processed convenience foods, daily coffee, and occasional alcohol (2-3 glasses of wine weekly). Exercise limited to weekend activities only. Sleep disrupted with 1-2 awakenings nightly and difficulty returning to sleep. Has consulted with PCP, gastroenterologist, and neurologist without definitive diagnosis. Previous thyroid labs (TSH, T4) within normal limits but has not had full thyroid panel or advanced nutritional testing.",
         hcc: "- Chronic fatigue, unspecified [R53.82]\n- Irritable bowel syndrome [K58.9]\n- Hypothyroidism [E03.9]\n- Sleep maintenance insomnia [G47.01]",
@@ -260,14 +257,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'ent',
       label: 'ENT',
       before: {
-        demographics: "Thomas Brown, 47M\nDOB: 08/14/1977\nMRN: 89012345",
+        demographics: "Patient ID: ENT-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Recurrent sinusitis and hearing loss in right ear.",
         hpi: "Patient is a 47-year-old male with 3-month history of nasal congestion, facial pressure, and post-nasal drip. Also reports gradually worsening hearing in right ear over past 6 months. Has tried OTC decongestants and nasal steroids with temporary relief. Completed 10-day course of amoxicillin 3 weeks ago prescribed by PCP with partial improvement.",
         pmh: "- Seasonal allergies\n- Deviated nasal septum (diagnosed previously)\n- Asthma, mild intermittent",
         medications: "- Fluticasone nasal spray daily\n- Loratadine 10mg daily\n- Albuterol inhaler PRN"
       },
       after: {
-        demographics: "Thomas Brown, 47M\nDOB: 08/14/1977\nMRN: 89012345\nInsurance: Blue Shield PPO\nLast Visit: 04/01/2024 (PCP visit)",
+        demographics: "Patient ID: ENT-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Recurrent sinusitis and hearing loss in right ear.",
         hpi: "Patient is a 47-year-old male presenting with symptoms of chronic rhinosinusitis including nasal congestion, facial pressure (maxillary and frontal), and post-nasal drip for the past 3 months. Reports thick yellow-green nasal discharge, particularly in the mornings. Symptoms worsen with weather changes and in prone position. Additionally reports gradually progressive right-sided hearing loss over 6 months, associated with intermittent tinnitus and sensation of ear fullness. No vertigo, otalgia, or otorrhea. Has completed course of amoxicillin 500mg TID for 10 days 3 weeks ago with partial improvement in sinus symptoms but continued hearing deficit. Using fluticasone nasal spray daily and loratadine with minimal relief. Works as accountant with significant computer use daily. Reports history of frequent swimming in local pool during summer months.",
         hcc: "- Chronic rhinosinusitis [J32.9]\n- Conductive hearing loss, right ear [H90.11]\n- Deviated nasal septum [J34.2]\n- Seasonal allergic rhinitis [J30.2]",
@@ -282,14 +279,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'neurology', 
       label: 'Neurology',
       before: {
-        demographics: "Robert Johnson, 45M\nDOB: 11/30/1978\nMRN: 56784321",
+        demographics: "Patient ID: NEU-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Follow up for migraine management.",
         hpi: "Patient is a 45-year-old male with history of chronic migraine headaches. Reports having 3-4 migraines in the past month despite propranolol prophylaxis. Sumatriptan provides relief but causes fatigue. Headaches typically preceded by visual aura and accompanied by photophobia, phonophobia, and nausea.",
         pmh: "- Chronic migraine with aura\n- Seasonal allergies\n- Insomnia",
         medications: "- Propranolol 80mg daily\n- Sumatriptan 50mg PRN\n- Loratadine 10mg daily\n- Melatonin 3mg nightly"
       },
       after: {
-        demographics: "Robert Johnson, 45M\nDOB: 11/30/1978\nMRN: 56784321\nInsurance: United Healthcare\nLast Visit: 02/15/2023",
+        demographics: "Patient ID: NEU-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Follow up for migraine management.",
         hpi: "Patient is a 45-year-old male with history of chronic migraine with aura presenting for follow-up. He reports experiencing 3-4 migraine episodes in the past month despite propranolol prophylaxis. Episodes are characterized by pulsating, unilateral headache (7-8/10 intensity) lasting 4-12 hours. Each episode is preceded by visual aura (scintillating scotoma) lasting approximately 20-30 minutes. Associated symptoms include photophobia, phonophobia, and nausea without vomiting. Sumatriptan provides effective relief within 1-2 hours but causes significant fatigue for the remainder of the day. Patient identifies stress at work and irregular sleep patterns as potential triggers.",
         hcc: "- Migraine with aura [G43.109]",
@@ -304,16 +301,16 @@ export const BeforeAfterNoteComparison = () => {
       id: 'pediatrics', 
       label: 'Pediatrics',
       before: {
-        demographics: "Emily Chen, 7F\nDOB: 05/12/2016\nMRN: 43215678",
+        demographics: "Patient ID: PED-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Well-child visit and immunizations.",
         hpi: "Emily is a 7-year-old female presenting for annual well-child check. Parent reports normal growth and development. No concerns with vision or hearing. Doing well in 2nd grade. Active in gymnastics. No acute illnesses since last visit.",
         pmh: "- History of otitis media (last episode 2 years ago)\n- Fully immunized through age 5",
         medications: "- Children's multivitamin daily\n- No regular medications"
       },
       after: {
-        demographics: "Emily Chen, 7F\nDOB: 05/12/2016\nMRN: 43215678\nInsurance: Aetna\nLast Visit: 05/20/2022",
+        demographics: "Patient ID: PED-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Well-child visit and immunizations.",
-        hpi: "Emily is a 7-year-old female presenting for her annual well-child examination. Parents report normal growth and development with no new health concerns. She is meeting all developmental milestones and performing well academically in 2nd grade (reading above grade level). She participates in gymnastics twice weekly and enjoys art activities. Sleep pattern is regular with 9-10 hours nightly. Diet consists of varied foods but parent reports she is somewhat picky with vegetables. Screen time is limited to 1-2 hours daily. No recent acute illnesses. No concerns with vision or hearing.",
+        hpi: "7-year-old female presenting for her annual well-child examination. Parents report normal growth and development with no new health concerns. She is meeting all developmental milestones and performing well academically in 2nd grade (reading above grade level). She participates in gymnastics twice weekly and enjoys art activities. Sleep pattern is regular with 9-10 hours nightly. Diet consists of varied foods but parent reports she is somewhat picky with vegetables. Screen time is limited to 1-2 hours daily. No recent acute illnesses. No concerns with vision or hearing.",
         pmh: "- History of recurrent otitis media (resolved, last episode 2 years ago)\n- Fully immunized through age 5\n- Normal growth trajectory (consistently tracking at 65th percentile for height, 50th percentile for weight)",
         medications: "- Children's multivitamin gummy daily\n- No regular prescription medications",
         assessment: "1. Well Child Examination (Z00.129)\n   - Growth appropriate: Height 123 cm (65th percentile), Weight 23 kg (50th percentile), BMI 15.2 (50th percentile)\n   - Development: Age-appropriate; meeting all milestones\n   - Vitals WNL: BP 98/62, HR 88, RR 18, Temp 98.6°F\n   - Physical exam normal\n   - Vision screening: 20/20 OU\n   - Hearing screening passed\n\n2. Immunizations\n   - Administered: Influenza vaccine (current season)\n   - Due next visit: None until 11 years of age\n\n3. Preventive Counseling\n   - Discussed healthy nutrition and increasing vegetable intake\n   - Reviewed water safety and importance of swim lessons\n   - Screen time limits appropriate and should be maintained\n   - Dental care: Regular brushing and flossing, dental visit completed 3 months ago",
@@ -325,16 +322,16 @@ export const BeforeAfterNoteComparison = () => {
       id: 'ophthalmology', 
       label: 'Ophthalmology',
       before: {
-        demographics: "Michael Garcia, 65M\nDOB: 08/03/1958\nMRN: 76543210",
+        demographics: "Patient ID: OPH-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Follow-up for diabetic retinopathy and glaucoma.",
         hpi: "Patient is a 65-year-old male with type 2 diabetes and primary open-angle glaucoma. Has been using latanoprost as prescribed. Reports occasional blurry vision but no significant changes since last visit. Diabetes generally under control with recent A1c of 7.1%.",
         pmh: "- Type 2 diabetes since 2010\n- Primary open-angle glaucoma\n- Hypertension\n- Cataract, right eye, early stage",
         medications: "- Latanoprost 0.005% drops HS OU\n- Brimonidine 0.2% TID OU\n- Metformin 1000mg BID\n- Lisinopril 20mg daily"
       },
       after: {
-        demographics: "Michael Garcia, 65M\nDOB: 08/03/1958\nMRN: 76543210\nInsurance: Medicare\nLast Visit: 02/10/2023",
+        demographics: "Patient ID: OPH-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Follow-up for diabetic retinopathy and glaucoma.",
-        hpi: "Patient is a 65-year-old male with type 2 diabetes and primary open-angle glaucoma presenting for scheduled follow-up. Patient reports good compliance with all eye medications. He notes occasional blurry vision, primarily in the right eye when reading, which improves with his current reading glasses. No flashes, floaters, eye pain, or significant changes in vision since last visit. His diabetes is generally well-controlled with most recent A1c of 7.1% (measured 2 weeks ago). Last eye exam was 6 months ago showing mild non-proliferative diabetic retinopathy and stable intraocular pressures on current glaucoma regimen.",
+        hpi: "65-year-old male with type 2 diabetes and primary open-angle glaucoma presenting for scheduled follow-up. Patient reports good compliance with all eye medications. He notes occasional blurry vision, primarily in the right eye when reading, which improves with his current reading glasses. No flashes, floaters, eye pain, or significant changes in vision since last visit. His diabetes is generally well-controlled with most recent A1c of 7.1% (measured 2 weeks ago). Last eye exam was 6 months ago showing mild non-proliferative diabetic retinopathy and stable intraocular pressures on current glaucoma regimen.",
         hcc: "- Type 2 diabetes with mild non-proliferative diabetic retinopathy [E11.329]\n- Primary open-angle glaucoma [H40.11X3]\n- Cataract, right eye [H25.011]",
         pmh: "- Type 2 diabetes since 2010, well-controlled\n- Primary open-angle glaucoma, diagnosed 2018\n- Hypertension, well-controlled\n- Cataract, right eye, early stage",
         medications: "- Latanoprost 0.005% drops HS OU\n- Brimonidine 0.2% TID OU\n- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Artificial tears PRN",
@@ -347,16 +344,16 @@ export const BeforeAfterNoteComparison = () => {
       id: 'gastroenterology',
       label: 'Gastroenterology',
       before: {
-        demographics: "Jennifer Adams, 51F\nDOB: 05/28/1973\nMRN: 90123456",
+        demographics: "Patient ID: GAS-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Abdominal pain and reflux symptoms.",
         hpi: "Patient is a 51-year-old female with 3-month history of intermittent epigastric pain and acid reflux. Symptoms worse after meals and when lying down. Has been taking OTC antacids with some relief. Reports occasional nausea but no vomiting. Denies weight loss or blood in stool.",
         pmh: "- Hypertension\n- Hyperlipidemia\n- Anxiety",
         medications: "- Lisinopril 10mg daily\n- Atorvastatin 20mg daily\n- Calcium carbonate antacids PRN\n- Escitalopram 10mg daily"
       },
       after: {
-        demographics: "Jennifer Adams, 51F\nDOB: 05/28/1973\nMRN: 90123456\nInsurance: Cigna Open Access Plus\nLast Visit: First visit to gastroenterology",
+        demographics: "Patient ID: GAS-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Abdominal pain and reflux symptoms.",
-        hpi: "Patient is a 51-year-old female presenting with 3-month history of intermittent epigastric pain and acid reflux symptoms. She describes the pain as burning and gnawing (5-7/10 intensity), located primarily in the epigastrium with occasional radiation to the chest. Symptoms worsen 30-60 minutes after meals (particularly spicy, fatty, or acidic foods) and when lying flat. Nighttime symptoms disrupt sleep 2-3 times weekly. Reports occasional nausea without vomiting and bitter taste in mouth in mornings. Has been taking OTC calcium carbonate antacids with partial, temporary relief. Denies dysphagia, odynophagia, hematemesis, hematochezia, melena, weight loss, or early satiety. No improvement with dietary modifications attempted (avoiding caffeine and spicy foods). Family history significant for father with Barrett's esophagus and maternal uncle with gastric cancer.",
+        hpi: "51-year-old female presenting with 3-month history of intermittent epigastric pain and acid reflux symptoms. She describes the pain as burning and gnawing (5-7/10 intensity), located primarily in the epigastrium with occasional radiation to the chest. Symptoms worsen 30-60 minutes after meals (particularly spicy, fatty, or acidic foods) and when lying flat. Nighttime symptoms disrupt sleep 2-3 times weekly. Reports occasional nausea without vomiting and bitter taste in mouth in mornings. Has been taking OTC calcium carbonate antacids with partial, temporary relief. Denies dysphagia, odynophagia, hematemesis, hematochezia, melena, weight loss, or early satiety. No improvement with dietary modifications attempted (avoiding caffeine and spicy foods). Family history significant for father with Barrett's esophagus and maternal uncle with gastric cancer.",
         hcc: "- Gastroesophageal reflux disease [K21.9]\n- Dyspepsia [K30]\n- Essential Hypertension [I10]\n- Hyperlipidemia [E78.5]\n- Generalized anxiety disorder [F41.1]",
         pmh: "- Hypertension, diagnosed 2018, well-controlled\n- Hyperlipidemia, diagnosed 2018, well-controlled\n- Generalized anxiety disorder\n- Cholecystectomy 2010\n- Appendectomy 1985",
         medications: "- Lisinopril 10mg daily\n- Atorvastatin 20mg daily\n- Calcium carbonate antacids PRN\n- Escitalopram 10mg daily\n- Multivitamin daily",
@@ -369,16 +366,16 @@ export const BeforeAfterNoteComparison = () => {
       id: 'podiatry',
       label: 'Podiatry',
       before: {
-        demographics: "Anthony Lopez, 62M\nDOB: 01/15/1962\nMRN: 10293847",
+        demographics: "Patient ID: POD-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Right heel pain and diabetic foot check.",
         hpi: "Patient is a 62-year-old male with type 2 diabetes presenting with right heel pain for 2 months. Pain worst in morning with first steps and after prolonged standing. Works as retail manager requiring extended periods on feet. Has been using gel inserts without relief.",
         pmh: "- Type 2 diabetes for 10 years\n- Hypertension\n- Peripheral neuropathy\n- Obesity",
         medications: "- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Gabapentin 300mg TID\n- Aspirin 81mg daily"
       },
       after: {
-        demographics: "Anthony Lopez, 62M\nDOB: 01/15/1962\nMRN: 10293847\nInsurance: Medicare with United Healthcare supplement\nLast Visit: 03/10/2024 (PCP visit)",
+        demographics: "Patient ID: POD-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: [REDACTED]\nVisit: [REDACTED]",
         chiefComplaint: "Right heel pain and diabetic foot check.",
-        hpi: "Patient is a 62-year-old male with 10-year history of type 2 diabetes presenting with right heel pain of 2-month duration and routine diabetic foot examination. He describes sharp, stabbing pain (7/10) in the plantar aspect of right heel, worst with first steps in morning (10/10) and after prolonged standing or walking. Pain improves slightly throughout day but returns after periods of rest. Has been using OTC gel heel inserts and NSAIDs with minimal relief. Works as retail manager requiring 8+ hours of standing daily. Reports wearing dress shoes at work. Has not tried night splint, stretching exercises, or prescription orthotics. Additionally reports chronic numbness and tingling in both feet, consistent with known diabetic peripheral neuropathy. Recent A1c was 7.8%. Last comprehensive diabetic foot exam was 1 year ago.",
+        hpi: "62-year-old male with 10-year history of type 2 diabetes presenting with right heel pain of 2-month duration and routine diabetic foot examination. He describes sharp, stabbing pain (7/10) in the plantar aspect of right heel, worst with first steps in morning (10/10) and after prolonged standing or walking. Pain improves slightly throughout day but returns after periods of rest. Has been using OTC gel heel inserts and NSAIDs with minimal relief. Works as retail manager requiring 8+ hours of standing daily. Reports wearing dress shoes at work. Has not tried night splint, stretching exercises, or prescription orthotics. Additionally reports chronic numbness and tingling in both feet, consistent with known diabetic peripheral neuropathy. Recent A1c was 7.8%. Last comprehensive diabetic foot exam was 1 year ago.",
         hcc: "- Type 2 diabetes with peripheral neuropathy [E11.42]\n- Plantar fasciitis, right foot [M72.2]\n- Essential Hypertension [I10]\n- Obesity [E66.9]",
         pmh: "- Type 2 diabetes, diagnosed 2014, suboptimal control\n- Diabetic peripheral neuropathy, diagnosed 2019\n- Hypertension, well-controlled\n- Obesity, BMI 34.2\n- Hyperlipidemia",
         medications: "- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Gabapentin 300mg TID\n- Aspirin 81mg daily\n- Atorvastatin 40mg daily\n- Acetaminophen 500mg PRN pain",
@@ -400,58 +397,6 @@ export const BeforeAfterNoteComparison = () => {
       }}
     >
       <Container maxWidth="xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mb-4 md:mb-6 lg:mb-10"
-        >
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem', lg: '2.5rem' }, // More granular font sizing
-              fontWeight: 800,
-              mb: { xs: 1, sm: 1.5, md: 2 },
-              color: crushAIColors.text.primary,
-              letterSpacing: '-0.02em',
-              lineHeight: 1.2
-            }}
-          >
-            Experience Note Perfection: <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#143151] via-[#2A5A7B] to-[#387E89]">Before & After CRUSH AI Scribe</span>
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: crushAIColors.text.secondary,
-              fontSize: { xs: '0.85rem', sm: '0.9rem', md: '0.95rem', lg: '1.1rem' }, // More granular font sizing
-              mb: { xs: 1.5, sm: 2 },
-              maxWidth: '800px',
-              mx: 'auto',
-              px: { xs: 2, sm: 0 }, // Add padding on small screens
-              fontWeight: 400
-            }}
-          >
-            See how specialty-specific, AI-powered clinical documentation enhances quality while saving hours of documentation time
-          </Typography>
-          
-          {/* Added clinician value proposition tags - improved for small screens */}
-          <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mt-2 sm:mt-3 px-2 sm:px-0">
-            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-blue-50 text-blue-700 rounded-full border border-blue-100">
-              Save 2+ hours daily
-            </span>
-            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-green-50 text-green-700 rounded-full border border-green-100">
-              Specialty-specific templates
-            </span>
-            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-purple-50 text-purple-700 rounded-full border border-purple-100">
-              Complete notes in real-time
-            </span>
-            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-amber-50 text-amber-700 rounded-full border border-amber-100">
-              Improve billing accuracy
-            </span>
-          </div>
-        </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -534,45 +479,13 @@ export const BeforeAfterNoteComparison = () => {
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="bg-red-50 p-2 border-b border-red-100 flex justify-between items-center">
-                        <h3 className="font-bold text-sm sm:text-base md:text-lg text-gray-800">BEFORE: Traditional Clinical Note</h3>
-                        <span className="text-xs text-red-600 bg-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full border border-red-200 hidden sm:inline-block">
-                          ~25 min documentation time
-                        </span>
-                      </div>
-                      <div className={cn(
-                        "p-2 sm:p-3 md:p-4 overflow-y-auto font-mono text-xs sm:text-sm",
-                        "h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]" 
-                      )}>
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Patient Demographics:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.demographics}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Chief Complaint:</p>
-                          <p className="text-gray-700 text-xs">{example.before.chiefComplaint}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">HPI:</p>
-                          <p className="text-gray-700 text-xs">{example.before.hpi}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Past Medical History:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.pmh}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Medications:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.medications}</p>
-                        </div>
-
-                        {/* Mobile timing info */}
-                        <div className="mt-4 py-1.5 px-2 bg-red-50 rounded-md border border-red-100 sm:hidden">
-                          <p className="text-red-600 text-xs font-medium">Documentation Time: ~25 minutes after visit</p>
-                        </div>
+                      <div className="p-4">
+                        <Typography variant="h6" className="font-bold">Before</Typography>
+                        <Typography variant="body2" className="mt-2">{example.before.demographics}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>Chief Complaint:</strong> {example.before.chiefComplaint}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>HPI:</strong> {example.before.hpi}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>PMH:</strong> {example.before.pmh}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>Medications:</strong> {example.before.medications}</Typography>
                       </div>
                     </motion.div>
 
@@ -583,122 +496,13 @@ export const BeforeAfterNoteComparison = () => {
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="bg-blue-50 p-2 border-b border-blue-100 flex justify-between items-center">
-                        <h3 className="font-bold text-sm sm:text-base md:text-lg text-gray-800">AFTER: CRUSH AI Scribe Note</h3>
-                        <span className="text-xs text-green-600 bg-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full border border-green-200 hidden sm:inline-block">
-                          ~60 seconds completion time
-                        </span>
-                      </div>
-                      <div className={cn(
-                        "p-2 sm:p-3 md:p-4 overflow-y-auto font-mono text-xs sm:text-sm",
-                        "h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]" 
-                      )}>
-                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
-                          <FeatureTooltip title="Pre-Charting Info">
-                            <p>CRUSH AI automatically imports relevant patient information from your EHR before the visit, saving time and reducing manual data entry.</p>
-                          </FeatureTooltip>
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Patient Demographics:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.demographics}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Chief Complaint:</p>
-                          <p className="text-gray-700 text-xs">{example.after.chiefComplaint}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
-                          <div className="flex items-center mb-0.5 sm:mb-1">
-                            <p className="font-bold text-xs sm:text-sm">HPI:</p>
-                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
-                              <FeatureTooltip title="Context-Aware Documentation">
-                                <p>CRUSH AI captures and structures the conversation naturally, maintaining context while highlighting important clinical details specific to each specialty.</p>
-                              </FeatureTooltip>
-                            </span>
-                          </div>
-                          <p className="text-gray-700 text-xs">{example.after.hpi}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
-                          <div className="flex items-center mb-0.5 sm:mb-1">
-                            <p className="font-bold text-xs sm:text-sm">HCC Risk Factors:</p>
-                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
-                              <FeatureTooltip title="HCC Code Insights">
-                                <p>CRUSH AI automatically identifies and suggests appropriate HCC codes based on the patient encounter, ensuring proper risk adjustment and reimbursement.</p>
-                              </FeatureTooltip>
-                            </span>
-                          </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.hcc}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Past Medical History:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.pmh}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4">
-                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Medications:</p>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.medications}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
-                          <div className="flex items-center mb-0.5 sm:mb-1">
-                            <p className="font-bold text-xs sm:text-sm">Assessment & Plan:</p>
-                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
-                              <FeatureTooltip title="Coding Intelligence">
-                                <p>CRUSH AI automatically suggests appropriate ICD-10 and CPT codes based on the documented care, improving coding accuracy and billing efficiency.</p>
-                              </FeatureTooltip>
-                            </span>
-                          </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.assessment}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
-                          <div className="flex items-center mb-0.5 sm:mb-1">
-                            <p className="font-bold text-xs sm:text-sm">Patient Education & Summary:</p>
-                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
-                              <FeatureTooltip title="Automated Patient Visit Summary">
-                                <p>CRUSH AI automatically generates a clear, comprehensive summary for patients, improving understanding and compliance with treatment plans.</p>
-                              </FeatureTooltip>
-                            </span>
-                          </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.education}</p>
-                        </div>
-
-                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
-                          <div className="flex items-start sm:items-center mb-0.5 sm:mb-1">
-                            <DollarSign className="inline-block h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-1" />
-                            <p className="font-bold text-xs sm:text-sm">
-                              Billing & Coding:
-                            </p>
-                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
-                              <FeatureTooltip title="Smart Billing Optimization">
-                                <p>CRUSH AI automatically suggests appropriate billing codes, quality measures, and risk adjustment factors to maximize appropriate reimbursement and quality reporting.</p>
-                              </FeatureTooltip>
-                            </span>
-                          </div>
-                          <p className="text-gray-700 whitespace-pre-line text-xs bg-white p-1.5 sm:p-2 rounded border border-blue-100">{example.after.billing}</p>
-                        </div>
-
-                        <div className="p-1.5 sm:p-2 mt-3 sm:mt-4 bg-gray-50 rounded-md border border-gray-200">
-                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
-                            <FeatureTooltip title="Seamless EHR Integration">
-                              <p>CRUSH AI Scribe integrates with a wide range of Electronic Health Record systems, ensuring seamless data flow and documentation without disrupting your existing workflow.</p>
-                            </FeatureTooltip>
-                            <div className="flex items-center space-x-1 sm:space-x-2 mt-1.5 sm:mt-0">
-                              <div className="flex items-center">
-                                <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mr-0.5 sm:mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <path d="M9 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                                </svg>
-                                <span className="text-xs text-blue-700">Data Synced with Your EHR</span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* Mobile timing info */}
-                          <div className="mt-1.5 sm:mt-2 py-1 px-2 bg-green-50 rounded-md border border-green-100 inline-block sm:hidden">
-                            <p className="text-green-600 text-xs font-medium">Completion Time: <span className="font-bold">~60 seconds</span></p>
-                          </div>
-                        </div>
+                      <div className="p-4">
+                        <Typography variant="h6" className="font-bold">After</Typography>
+                        <Typography variant="body2" className="mt-2">{example.after.demographics}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>Chief Complaint:</strong> {example.after.chiefComplaint}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>HPI:</strong> {example.after.hpi}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>PMH:</strong> {example.after.pmh}</Typography>
+                        <Typography variant="body2" className="mt-2"><strong>Medications:</strong> {example.after.medications}</Typography>
                       </div>
                     </motion.div>
                   </div>
@@ -706,105 +510,6 @@ export const BeforeAfterNoteComparison = () => {
               ))}
             </Tabs>
           </div>
-
-          <motion.div 
-            className="mt-4 sm:mt-6 lg:mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 text-white shadow-md sm:shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-3 md:mb-0 text-center md:text-left">
-                <h3 className="text-base sm:text-lg md:text-xl font-bold">Ready to see CRUSH in action with your EHR?</h3>
-                <p className="text-white/90 text-xs sm:text-sm md:text-base">Experience the difference with a personalized demo</p>
-              </div>
-              <motion.button 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-[#143151] font-medium py-1.5 sm:py-2 px-4 sm:px-5 md:px-6 rounded-full shadow-lg sm:shadow-xl flex items-center text-xs sm:text-sm md:text-base"
-              >
-                Schedule a Demo
-                <svg className="ml-1.5 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </motion.button>
-            </div>
-          </motion.div>
-
-          {/* Enhanced Disclaimer */}
-          <motion.div 
-            className="mt-4 sm:mt-6 p-2 sm:p-3 md:p-4 border border-amber-200 bg-amber-50 rounded-md sm:rounded-lg text-xs sm:text-sm text-amber-800"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            viewport={{ once: true }}
-          >
-            <div className="flex items-start">
-              <Info className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5" />
-              <div>
-                <p className="font-medium mb-0.5 sm:mb-1">Disclaimer</p>
-                <p className="text-xs sm:text-sm">The clinical notes shown above are for demonstration purposes only and do not contain real patient information. The templates can be tailored to individual clinician preferences, specialty requirements, and institutional protocols. CRUSH AI adapts to your specific documentation style and workflow needs.</p>
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Added clinician benefits section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            viewport={{ once: true }}
-            className="mt-4 sm:mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
-          >
-            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-1 sm:mb-2">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center mr-1.5 sm:mr-2">
-                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h4 className="font-medium text-sm sm:text-base">Time Savings</h4>
-              </div>
-              <p className="text-xs sm:text-sm text-gray-600">Reduce documentation time by up to 75%, finishing notes during or immediately after visits.</p>
-            </div>
-            
-            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-1 sm:mb-2">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-green-100 flex items-center justify-center mr-1.5 sm:mr-2">
-                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h4 className="font-medium text-sm sm:text-base">Improved Quality</h4>
-              </div>
-              <p className="text-xs sm:text-sm text-gray-600">Generate comprehensive, specialty-specific notes with proper coding and thorough documentation.</p>
-            </div>
-            
-            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-1 sm:mb-2">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 flex items-center justify-center mr-1.5 sm:mr-2">
-                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 6c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h4 className="font-medium text-sm sm:text-base">Patient Focus</h4>
-              </div>
-              <p className="text-xs sm:text-sm text-gray-600">Maintain eye contact and meaningful connections while CRUSH handles documentation in the background.</p>
-            </div>
-            
-            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
-              <div className="flex items-center mb-1 sm:mb-2">
-                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-100 flex items-center justify-center mr-1.5 sm:mr-2">
-                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h4 className="font-medium text-sm sm:text-base">Revenue Impact</h4>
-              </div>
-              <p className="text-xs sm:text-sm text-gray-600">Maximize reimbursements with accurate HCC risk adjustment coding and comprehensive documentation.</p>
-            </div>
-          </motion.div>
         </motion.div>
       </Container>
       
