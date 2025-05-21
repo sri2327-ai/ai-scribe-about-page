@@ -260,7 +260,7 @@ export const BeforeAfterNoteComparison = () => {
                           <p className="text-gray-700">   - Encouraged continued sodium restriction</p>
                           
                           <p className="text-gray-700 mt-2">3. Hyperlipidemia (E78.5)</p>
-                          <p className="text-gray-700">   - Recent LDL: 110, slightly above target of <100</p>
+                          <p className="text-gray-700">   - Recent LDL: 110, slightly above target of &lt;100</p>
                           <p className="text-gray-700">   - Continue Atorvastatin 20mg daily</p>
                           <p className="text-gray-700">   - <span className="text-green-600">Order: Lipid panel in 6 months</span></p>
                           
