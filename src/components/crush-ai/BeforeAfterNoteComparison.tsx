@@ -1,10 +1,10 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import { Info, DollarSign, FileText, FileCog, Award } from 'lucide-react';
+import { Info, DollarSign, FileText, FileCog, Award, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { crushAIColors } from '@/theme/crush-ai-theme';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -38,9 +38,46 @@ export const BeforeAfterNoteComparison = () => {
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
   const isMobileHook = useIsMobile();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
   
   // Use a combination of both methods to ensure proper responsiveness
   const isSmallScreen = isMobile || isMobileHook;
+
+  // Handle scrolling of tabs
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsRef.current) {
+      const scrollAmount = 200;
+      if (direction === 'left') {
+        tabsRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        tabsRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
+  };
+
+  // Check scroll position to show/hide arrows
+  const handleScroll = () => {
+    if (tabsRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tabsRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  // Add scroll event listener
+  useEffect(() => {
+    const currentTabsRef = tabsRef.current;
+    if (currentTabsRef) {
+      currentTabsRef.addEventListener('scroll', handleScroll);
+      // Initial check
+      handleScroll();
+    }
+    return () => {
+      currentTabsRef?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Define the examples we'll be showing with specialty-specific content
   const examples = [
@@ -428,23 +465,64 @@ export const BeforeAfterNoteComparison = () => {
               onValueChange={setActiveTab}
               className="w-full"
             >
-              <div className="flex justify-center mb-2 md:mb-4 overflow-x-auto pb-1 sm:pb-2 scrollbar-thin">
-                <TabsList className={cn(
-                  "bg-gray-100 p-0.5 sm:p-1",
-                  "flex flex-nowrap overflow-x-auto max-w-full scrollbar-hide"
-                )}>
-                  {examples.map(example => (
-                    <TabsTrigger
-                      key={example.id}
-                      value={example.id}
-                      className={cn(
-                        "px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm whitespace-nowrap flex-shrink-0"
-                      )}
-                    >
-                      {example.label}
-                    </TabsTrigger>
-                  ))}
-                </TabsList>
+              <div className="relative">
+                {/* Left Scroll Arrow */}
+                {showLeftArrow && (
+                  <button 
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-1 rounded-full shadow-md flex items-center justify-center"
+                    onClick={() => scrollTabs('left')}
+                    aria-label="Scroll left"
+                  >
+                    <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </button>
+                )}
+                
+                <div className="flex justify-center mb-2 md:mb-4 relative overflow-hidden">
+                  <div 
+                    ref={tabsRef}
+                    className={cn(
+                      "overflow-x-auto pb-1 sm:pb-2 scrollbar-thin no-scrollbar",
+                      "mx-6 sm:mx-8" // Space for arrows
+                    )}
+                  >
+                    <TabsList className={cn(
+                      "bg-gray-100 p-0.5 sm:p-1 min-w-max",
+                      "flex flex-nowrap"
+                    )}>
+                      {examples.map(example => (
+                        <TabsTrigger
+                          key={example.id}
+                          value={example.id}
+                          className={cn(
+                            "px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm whitespace-nowrap flex-shrink-0",
+                            "transition-all hover:bg-blue-50"
+                          )}
+                        >
+                          {example.label}
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
+                  </div>
+                </div>
+                
+                {/* Right Scroll Arrow */}
+                {showRightArrow && (
+                  <button 
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-1 rounded-full shadow-md flex items-center justify-center"
+                    onClick={() => scrollTabs('right')}
+                    aria-label="Scroll right"
+                  >
+                    <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Specialty Customization Message */}
+              <div className="text-center mb-3">
+                <span className="inline-block text-xs sm:text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                  <Info className="inline-block w-3 h-3 mr-1" />
+                  CRUSH AI adapts to any medical specialty, even those not shown
+                </span>
               </div>
 
               {examples.map(example => (
@@ -738,6 +816,13 @@ export const BeforeAfterNoteComparison = () => {
           display: none;
         }
         .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }

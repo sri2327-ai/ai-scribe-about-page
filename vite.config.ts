@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      jsxImportSource: 'react', // Changed from '@emotion/react' to 'react'
+      jsxImportSource: 'react', 
       plugins: [['@swc/plugin-emotion', {}]],
     }),
     mode === 'development' &&
