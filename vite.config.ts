@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      jsxImportSource: '@emotion/react',
+      jsxImportSource: 'react', // Changed from '@emotion/react' to 'react'
       plugins: [['@swc/plugin-emotion', {}]],
     }),
     mode === 'development' &&
@@ -26,22 +26,20 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       external: [
-        "@splinetool/runtime", 
-        "@emotion/react", 
-        "@emotion/styled", 
-        "@emotion/react/jsx-runtime",
-        "@emotion/react/jsx-dev-runtime"
+        "@splinetool/runtime",
       ]
     }
   },
   optimizeDeps: {
-    exclude: [
-      '@splinetool/runtime', 
-      '@splinetool/react-spline', 
-      '@emotion/react', 
-      '@emotion/styled', 
+    include: [
+      '@emotion/react',
+      '@emotion/styled',
       '@emotion/react/jsx-runtime',
       '@emotion/react/jsx-dev-runtime'
+    ],
+    exclude: [
+      '@splinetool/runtime', 
+      '@splinetool/react-spline'
     ]
   }
 }));
