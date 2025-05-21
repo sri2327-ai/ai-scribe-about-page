@@ -4,6 +4,29 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
+// Define emotion packages for consistent usage
+const emotionPackages = [
+  '@emotion/react',
+  '@emotion/styled',
+  '@emotion/cache',
+  '@emotion/serialize',
+  '@emotion/utils',
+  '@emotion/hash',
+  '@emotion/unitless',
+  '@emotion/memoize',
+  '@emotion/weak-memoize',
+  '@emotion/is-prop-valid',
+  '@emotion/sheet',
+  '@emotion/css',
+  '@emotion/react/jsx-runtime',
+  '@emotion/react/jsx-dev-runtime'
+];
+
+const splinetoolPackages = [
+  "@splinetool/runtime",
+  "@splinetool/react-spline"
+];
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
@@ -26,30 +49,13 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       external: [
-        "@splinetool/runtime",
+        ...splinetoolPackages,
+        ...emotionPackages
       ]
     }
   },
   optimizeDeps: {
-    include: [
-      '@emotion/react',
-      '@emotion/styled',
-      '@emotion/cache',
-      '@emotion/serialize',
-      '@emotion/utils',
-      '@emotion/hash',
-      '@emotion/unitless',
-      '@emotion/memoize',
-      '@emotion/weak-memoize',
-      '@emotion/is-prop-valid',
-      '@emotion/sheet',
-      '@emotion/css',
-      '@emotion/react/jsx-runtime',
-      '@emotion/react/jsx-dev-runtime'
-    ],
-    exclude: [
-      "@splinetool/runtime", 
-      "@splinetool/react-spline"
-    ]
+    include: emotionPackages,
+    exclude: splinetoolPackages
   }
 }));
