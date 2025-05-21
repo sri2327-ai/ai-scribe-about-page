@@ -16,13 +16,16 @@ interface SplineSceneProps {
 }
 
 export function SplineScene({ scene, className }: SplineSceneProps) {
-  // Fixed type assertion to avoid TypeScript errors
+  // Use dynamic import with explicit error handling
   const Spline = lazy(() => 
     import('@splinetool/react-spline')
       .then(module => ({ default: module.default as ComponentType<SplineProps> }))
-      .catch(() => ({ 
-        default: () => <div className="p-4 text-center text-red-500">Failed to load Spline</div> 
-      }))
+      .catch(error => {
+        console.error("Failed to load Spline component:", error);
+        return { 
+          default: () => <div className="p-4 text-center text-red-500">Failed to load Spline visualization</div> 
+        };
+      })
   )
 
   return (
