@@ -215,7 +215,8 @@ export const SpecialtiesCarousel = () => {
         </DialogContent>
       </Dialog>
 
-      <style jsx>{`
+      <style>
+        {`
         .responsive-icon {
           width: auto;
           height: auto;
@@ -238,7 +239,9 @@ export const SpecialtiesCarousel = () => {
             height: 26px;
           }
         }
-      `}</style>
+        `}
+      </style>
     </Box>
   );
 };
+
