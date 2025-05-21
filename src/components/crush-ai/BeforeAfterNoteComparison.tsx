@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { crushAIColors } from '@/theme/crush-ai-theme';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface FeatureTooltipProps {
   title: string;
@@ -36,6 +37,10 @@ export const BeforeAfterNoteComparison = () => {
   const [activeTab, setActiveTab] = useState('family-medicine');
   const muiTheme = useTheme();
   const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isMobileHook = useIsMobile();
+  
+  // Use a combination of both methods to ensure proper responsiveness
+  const isSmallScreen = isMobile || isMobileHook;
 
   // Define the examples we'll be showing with specialty-specific content
   const examples = [
@@ -128,7 +133,7 @@ export const BeforeAfterNoteComparison = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: 8, md: 12 },
+        py: { xs: 6, sm: 8, md: 12 },
         bgcolor: 'white',
         position: 'relative',
         overflow: 'hidden'
@@ -140,32 +145,50 @@ export const BeforeAfterNoteComparison = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-10"
+          className="text-center mb-6 md:mb-10"
         >
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: '1.75rem', md: '2.75rem' },
-              fontWeight: 700,
-              mb: 2,
-              color: crushAIColors.text.primary
+              fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2.75rem' },
+              fontWeight: 800,
+              mb: { xs: 1, md: 2 },
+              color: crushAIColors.text.primary,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
             }}
           >
-            Why CRUSH <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#143151] to-[#387E89]">Crushes</span> the Competition
+            Experience Note Perfection: <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#143151] via-[#2A5A7B] to-[#387E89]">Before & After CRUSH AI Scribe</span>
           </Typography>
           <Typography
             variant="body1"
             sx={{
               color: crushAIColors.text.secondary,
-              fontSize: { xs: '0.95rem', md: '1.1rem' },
+              fontSize: { xs: '0.9rem', sm: '0.95rem', md: '1.1rem' },
               mb: 2,
               maxWidth: '800px',
               mx: 'auto',
               fontWeight: 400
             }}
           >
-            See how our specialty-specific, AI-powered clinical notes drastically improve quality and efficiency across medical specialties
+            See how specialty-specific, AI-powered clinical documentation enhances quality while saving hours of documentation time
           </Typography>
+          
+          {/* Added clinician value proposition tags */}
+          <div className="flex flex-wrap justify-center gap-2 mt-3">
+            <span className="px-3 py-1 text-xs md:text-sm bg-blue-50 text-blue-700 rounded-full border border-blue-100">
+              Save 2+ hours daily
+            </span>
+            <span className="px-3 py-1 text-xs md:text-sm bg-green-50 text-green-700 rounded-full border border-green-100">
+              Specialty-specific templates
+            </span>
+            <span className="px-3 py-1 text-xs md:text-sm bg-purple-50 text-purple-700 rounded-full border border-purple-100">
+              Complete notes in real-time
+            </span>
+            <span className="px-3 py-1 text-xs md:text-sm bg-amber-50 text-amber-700 rounded-full border border-amber-100">
+              Improve billing accuracy
+            </span>
+          </div>
         </motion.div>
 
         <motion.div
@@ -174,19 +197,25 @@ export const BeforeAfterNoteComparison = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <div className="bg-gray-50 p-4 rounded-xl shadow-lg overflow-hidden">
+          <div className="bg-gray-50 p-3 sm:p-4 rounded-xl shadow-lg overflow-hidden">
             <Tabs
               defaultValue={activeTab}
               onValueChange={setActiveTab}
               className="w-full"
             >
-              <div className="flex justify-center mb-6">
-                <TabsList className="bg-gray-100 p-1">
+              <div className="flex justify-center mb-4 overflow-x-auto pb-2 scrollbar-thin">
+                <TabsList className={cn(
+                  "bg-gray-100 p-1",
+                  isSmallScreen ? "flex flex-nowrap overflow-x-auto max-w-full scrollbar-hide" : ""
+                )}>
                   {examples.map(example => (
                     <TabsTrigger
                       key={example.id}
                       value={example.id}
-                      className="px-4 py-2"
+                      className={cn(
+                        "px-3 py-1.5 whitespace-nowrap text-sm",
+                        isSmallScreen ? "flex-shrink-0" : ""
+                      )}
                     >
                       {example.label}
                     </TabsTrigger>
@@ -195,8 +224,8 @@ export const BeforeAfterNoteComparison = () => {
               </div>
 
               {examples.map(example => (
-                <TabsContent key={example.id} value={example.id} className="pt-2">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                <TabsContent key={example.id} value={example.id} className="pt-1 md:pt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
                     {/* BEFORE: Traditional Clinical Note */}
                     <motion.div 
                       className="relative bg-white rounded-lg shadow-md overflow-hidden border border-red-100"
@@ -204,38 +233,48 @@ export const BeforeAfterNoteComparison = () => {
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="bg-red-50 p-3 border-b border-red-100">
-                        <h3 className="font-bold text-lg text-gray-800">BEFORE: Traditional Clinical Note</h3>
+                      <div className="bg-red-50 p-2 sm:p-3 border-b border-red-100 flex justify-between items-center">
+                        <h3 className="font-bold text-base sm:text-lg text-gray-800">BEFORE: Traditional Clinical Note</h3>
+                        {!isSmallScreen && (
+                          <span className="text-xs text-red-600 bg-white px-2 py-1 rounded-full border border-red-200">
+                            ~25 min documentation time
+                          </span>
+                        )}
                       </div>
-                      <div className="p-4 h-[500px] overflow-y-auto font-mono text-sm">
+                      <div className={cn(
+                        "p-3 sm:p-4 overflow-y-auto font-mono text-sm",
+                        isSmallScreen ? "h-[400px]" : "h-[500px]" 
+                      )}>
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Patient Demographics:</p>
-                          <p className="text-gray-700 whitespace-pre-line">{example.before.demographics}</p>
+                          <p className="font-bold mb-1 text-sm">Patient Demographics:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.before.demographics}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Chief Complaint:</p>
-                          <p className="text-gray-700">{example.before.chiefComplaint}</p>
+                          <p className="font-bold mb-1 text-sm">Chief Complaint:</p>
+                          <p className="text-gray-700 text-xs sm:text-sm">{example.before.chiefComplaint}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">HPI:</p>
-                          <p className="text-gray-700">{example.before.hpi}</p>
+                          <p className="font-bold mb-1 text-sm">HPI:</p>
+                          <p className="text-gray-700 text-xs sm:text-sm">{example.before.hpi}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Past Medical History:</p>
-                          <p className="text-gray-700 whitespace-pre-line">{example.before.pmh}</p>
+                          <p className="font-bold mb-1 text-sm">Past Medical History:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.before.pmh}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Medications:</p>
-                          <p className="text-gray-700 whitespace-pre-line">{example.before.medications}</p>
+                          <p className="font-bold mb-1 text-sm">Medications:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.before.medications}</p>
                         </div>
 
-                        <div className="mb-4">
-                          <p className="text-gray-700 text-xs italic">Completion Time: ~25 minutes after visit</p>
-                        </div>
+                        {isSmallScreen && (
+                          <div className="mt-6 py-2 px-3 bg-red-50 rounded-md border border-red-100">
+                            <p className="text-red-600 text-xs font-medium">Documentation Time: ~25 minutes after visit</p>
+                          </div>
+                        )}
                       </div>
                     </motion.div>
 
@@ -246,97 +285,109 @@ export const BeforeAfterNoteComparison = () => {
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="bg-blue-50 p-3 border-b border-blue-100">
-                        <h3 className="font-bold text-lg text-gray-800">AFTER: CRUSH AI Scribe Note</h3>
+                      <div className="bg-blue-50 p-2 sm:p-3 border-b border-blue-100 flex justify-between items-center">
+                        <h3 className="font-bold text-base sm:text-lg text-gray-800">AFTER: CRUSH AI Scribe Note</h3>
+                        {!isSmallScreen && (
+                          <span className="text-xs text-green-600 bg-white px-2 py-1 rounded-full border border-green-200">
+                            ~60 seconds completion time
+                          </span>
+                        )}
                       </div>
-                      <div className="p-4 h-[500px] overflow-y-auto font-mono text-sm">
+                      <div className={cn(
+                        "p-3 sm:p-4 overflow-y-auto font-mono text-sm",
+                        isSmallScreen ? "h-[400px]" : "h-[500px]" 
+                      )}>
                         <div className="mb-4 bg-blue-50 p-2 rounded-md">
                           <FeatureTooltip title="Pre-Charting Info">
                             <p>CRUSH AI automatically imports relevant patient information from your EHR before the visit, saving time and reducing manual data entry.</p>
                           </FeatureTooltip>
-                          <p className="font-bold mb-1">Patient Demographics:</p>
-                          <p className="text-gray-700 whitespace-pre-line">{example.after.demographics}</p>
+                          <p className="font-bold mb-1 text-sm">Patient Demographics:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.demographics}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Chief Complaint:</p>
-                          <p className="text-gray-700">{example.after.chiefComplaint}</p>
+                          <p className="font-bold mb-1 text-sm">Chief Complaint:</p>
+                          <p className="text-gray-700 text-xs sm:text-sm">{example.after.chiefComplaint}</p>
                         </div>
 
                         <div className="mb-4 bg-blue-50 p-2 rounded-md">
                           <div className="flex items-center mb-1">
-                            <p className="font-bold">HPI:</p>
+                            <p className="font-bold text-sm">HPI:</p>
                             <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Context-Aware Documentation">
                                 <p>CRUSH AI captures and structures the conversation naturally, maintaining context while highlighting important clinical details specific to each specialty.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700">{example.after.hpi}</p>
+                          <p className="text-gray-700 text-xs sm:text-sm">{example.after.hpi}</p>
                         </div>
 
                         <div className="mb-4 bg-blue-50 p-2 rounded-md">
                           <div className="flex items-center mb-1">
-                            <p className="font-bold">HCC Risk Factors:</p>
+                            <p className="font-bold text-sm">HCC Risk Factors:</p>
                             <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="HCC Code Insights">
                                 <p>CRUSH AI automatically identifies and suggests appropriate HCC codes based on the patient encounter, ensuring proper risk adjustment and reimbursement.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line">{example.after.hcc}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.hcc}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Past Medical History:</p>
-                          <p className="text-gray-700 whitespace-pre-line">{example.after.pmh}</p>
+                          <p className="font-bold mb-1 text-sm">Past Medical History:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.pmh}</p>
                         </div>
 
                         <div className="mb-4">
-                          <p className="font-bold mb-1">Medications:</p>
-                          <p className="text-gray-700 whitespace-pre-line">{example.after.medications}</p>
+                          <p className="font-bold mb-1 text-sm">Medications:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.medications}</p>
                         </div>
 
                         <div className="mb-4 bg-blue-50 p-2 rounded-md">
                           <div className="flex items-center mb-1">
-                            <p className="font-bold">Assessment & Plan:</p>
+                            <p className="font-bold text-sm">Assessment & Plan:</p>
                             <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Coding Intelligence">
                                 <p>CRUSH AI automatically suggests appropriate ICD-10 and CPT codes based on the documented care, improving coding accuracy and billing efficiency.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line">{example.after.assessment}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.assessment}</p>
                         </div>
 
                         <div className="mb-4 bg-blue-50 p-2 rounded-md">
                           <div className="flex items-center mb-1">
-                            <p className="font-bold">Patient Education & Summary:</p>
+                            <p className="font-bold text-sm">Patient Education & Summary:</p>
                             <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
                               <FeatureTooltip title="Automated Patient Visit Summary">
                                 <p>CRUSH AI automatically generates a clear, comprehensive summary for patients, improving understanding and compliance with treatment plans.</p>
                               </FeatureTooltip>
                             </span>
                           </div>
-                          <p className="text-gray-700 whitespace-pre-line">{example.after.education}</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.education}</p>
                         </div>
 
-                        <div className="p-2 mt-6 bg-gray-50 rounded-md border border-gray-200">
-                          <div className="flex items-center justify-between">
+                        <div className="p-2 mt-4 bg-gray-50 rounded-md border border-gray-200">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
                             <FeatureTooltip title="Seamless EHR Integration">
                               <p>CRUSH AI Scribe integrates with a wide range of Electronic Health Record systems, ensuring seamless data flow and documentation without disrupting your existing workflow.</p>
                             </FeatureTooltip>
-                            <div className="flex items-center space-x-2">
+                            <div className="flex items-center space-x-2 mt-2 sm:mt-0">
                               <div className="flex items-center">
                                 <svg className="h-4 w-4 text-blue-500 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 <span className="text-xs text-blue-700">Data Synced with Your EHR</span>
                               </div>
-                              <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Broad EHR Compatibility</span>
                             </div>
-                            <p className="text-gray-700 text-xs italic">Completion Time: <span className="font-bold text-green-600">~60 seconds</span></p>
                           </div>
+                          
+                          {isSmallScreen && (
+                            <div className="mt-2 py-1.5 px-3 bg-green-50 rounded-md border border-green-100 inline-block">
+                              <p className="text-green-600 text-xs font-medium">Completion Time: <span className="font-bold">~60 seconds</span></p>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </motion.div>
@@ -347,33 +398,33 @@ export const BeforeAfterNoteComparison = () => {
           </div>
 
           <motion.div 
-            className="mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-6 text-white shadow-lg"
+            className="mt-6 md:mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-4 sm:p-6 text-white shadow-lg"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
             viewport={{ once: true }}
           >
             <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-4 md:mb-0">
-                <h3 className="text-xl font-bold">Ready to see CRUSH in action with your EHR?</h3>
-                <p className="text-white/90">Experience the difference with a personalized demo</p>
+              <div className="mb-4 md:mb-0 text-center md:text-left">
+                <h3 className="text-lg sm:text-xl font-bold">Ready to see CRUSH in action with your EHR?</h3>
+                <p className="text-white/90 text-sm sm:text-base">Experience the difference with a personalized demo</p>
               </div>
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-white text-[#143151] font-medium py-2 px-6 rounded-full shadow-xl flex items-center"
+                className="bg-white text-[#143151] font-medium py-2 px-5 sm:px-6 rounded-full shadow-xl flex items-center text-sm sm:text-base"
               >
                 Schedule a Demo
-                <svg className="ml-2 h-5 w-5" viewBox="0 0 24 24" fill="none">
+                <svg className="ml-2 h-4 w-4 sm:h-5 sm:w-5" viewBox="0 0 24 24" fill="none">
                   <path d="M5 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </motion.button>
             </div>
           </motion.div>
 
-          {/* Disclaimer */}
+          {/* Enhanced Disclaimer */}
           <motion.div 
-            className="mt-6 p-4 border border-amber-200 bg-amber-50 rounded-lg text-sm text-amber-800"
+            className="mt-6 p-3 sm:p-4 border border-amber-200 bg-amber-50 rounded-lg text-xs sm:text-sm text-amber-800"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -387,8 +438,90 @@ export const BeforeAfterNoteComparison = () => {
               </div>
             </div>
           </motion.div>
+          
+          {/* Added clinician benefits section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
+          >
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-2">
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                  <svg className="h-4 w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-medium">Time Savings</h4>
+              </div>
+              <p className="text-sm text-gray-600">Reduce documentation time by up to 75%, finishing notes during or immediately after visits.</p>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-2">
+                <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                  <svg className="h-4 w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-medium">Improved Quality</h4>
+              </div>
+              <p className="text-sm text-gray-600">Generate comprehensive, specialty-specific notes with proper coding and thorough documentation.</p>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-2">
+                <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-2">
+                  <svg className="h-4 w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <h4 className="font-medium">Patient Focus</h4>
+              </div>
+              <p className="text-sm text-gray-600">Maintain eye contact and meaningful connections while CRUSH handles documentation in the background.</p>
+            </div>
+            
+            <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-2">
+                <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center mr-2">
+                  <svg className="h-4 w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-medium">Revenue Impact</h4>
+              </div>
+              <p className="text-sm text-gray-600">Maximize reimbursements with accurate HCC risk adjustment coding and comprehensive documentation.</p>
+            </div>
+          </motion.div>
         </motion.div>
       </Container>
+      
+      {/* Add mobile-specific scrollbar styles */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-thin::-webkit-scrollbar {
+          height: 4px;
+          width: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 4px;
+        }
+        `
+      }}/>
     </Box>
   );
 };
