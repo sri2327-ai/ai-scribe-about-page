@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
@@ -213,9 +212,9 @@ export const BeforeAfterNoteComparison = () => {
         billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Time-based billing: 25 minutes\n- Orthopedic evaluation: 29876\n- Post-operative visit: 99024\n- Quality Measures: Pain assessment and follow-up (G8730)\n- Risk Adjustment: HCC85 (Hypertension), HCC39 (Bone/Joint/Muscle Conditions)"
       }
     },
-    {
-      id: 'chiropractor',
-      label: 'Chiropractor',
+    { 
+      id: 'chiropractic',
+      label: 'Chiropractic',
       before: {
         demographics: "Sarah Johnson, 42F\nDOB: 09/30/1982\nMRN: 67890123",
         chiefComplaint: "Lower back pain with radiation to left leg.",
@@ -688,7 +687,7 @@ export const BeforeAfterNoteComparison = () => {
                             <div className="flex items-center space-x-1 sm:space-x-2 mt-1.5 sm:mt-0">
                               <div className="flex items-center">
                                 <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mr-0.5 sm:mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  <path d="M9 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 <span className="text-xs text-blue-700">Data Synced with Your EHR</span>
                               </div>
@@ -798,7 +797,7 @@ export const BeforeAfterNoteComparison = () => {
               <div className="flex items-center mb-1 sm:mb-2">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-100 flex items-center justify-center mr-1.5 sm:mr-2">
                   <svg className="h-3 w-3 sm:h-4 sm:w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0-2.08.402-2.599-1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <h4 className="font-medium text-sm sm:text-base">Revenue Impact</h4>
