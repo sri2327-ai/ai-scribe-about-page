@@ -3,7 +3,6 @@
 
 import { SplineScene } from "@/components/ui/splite";
 import { getGradient } from "@/components/ui/effects/gradient-utils";
-import { Suspense } from "react";
 
 export function SplineSceneBasic() {
   return (
@@ -44,18 +43,14 @@ export function SplineSceneBasic() {
           </p>
         </div>
 
-        {/* Right content */}
+        {/* Right content - simplified to avoid complex nesting */}
         <div className="flex-1 relative">
-          <Suspense fallback={
-            <div className="w-full h-full flex items-center justify-center bg-gray-900">
-              <div className="text-gray-400">Loading 3D visualization...</div>
-            </div>
-          }>
+          <div className="w-full h-full">
             <SplineScene 
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
             />
-          </Suspense>
+          </div>
         </div>
       </div>
     </div>
