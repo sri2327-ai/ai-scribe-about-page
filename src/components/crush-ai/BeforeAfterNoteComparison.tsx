@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
@@ -85,14 +84,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'family-medicine', 
       label: 'Family Medicine',
       before: {
-        demographics: "John Doe, 58M\nDOB: 07/15/1965\nMRN: 12345678",
+        demographics: "Patient ID: FM-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Follow up on diabetes and hypertension.",
         hpi: "Patient is a 58-year-old male with history of type 2 diabetes and hypertension. He reports that his blood sugars have been running between 130-150 in the mornings and that he's been taking his metformin regularly. No issues with his hypertension medication. Denies polyuria, polydipsia, or polyphagia. No chest pain, SOB, dizziness.",
         pmh: "- Type 2 diabetes diagnosed 2015\n- Hypertension diagnosed 2013\n- Hyperlipidemia",
         medications: "- Metformin 1000mg BID\n- Lisinopril 10mg daily\n- Atorvastatin 20mg daily"
       },
       after: {
-        demographics: "John Doe, 58M\nDOB: 07/15/1965\nMRN: 12345678\nInsurance: Blue Cross Blue Shield\nLast Visit: 03/15/2023",
+        demographics: "Patient ID: FM-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private Insurance\nLast Visit: 3 months ago",
         chiefComplaint: "Follow up on diabetes and hypertension.",
         hpi: "Patient is a 58-year-old male with history of type 2 diabetes and hypertension presenting for routine follow-up. He reports his blood sugars have been well-controlled, ranging between 130-150 mg/dL in the mornings. He states he has been adherent with his metformin regimen and has not experienced any side effects. His hypertension has been stable with no symptoms, and he denies any chest pain, shortness of breath, or dizziness. Patient has been following a low-carb diet and walking 30 minutes 3 times weekly. He has lost 5 pounds since his last visit.",
         hcc: "- Type 2 diabetes without complications [E11.9]\n- Essential hypertension [I10]",
@@ -107,14 +106,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'cardiology', 
       label: 'Cardiology',
       before: {
-        demographics: "Jane Smith, 62F\nDOB: 03/22/1961\nMRN: 87654321",
+        demographics: "Patient ID: CV-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Follow up after recent hospitalization for heart failure exacerbation.",
         hpi: "Patient is a 62-year-old female with history of CHF (EF 35%), CAD s/p stent to LAD 2 years ago, and paroxysmal atrial fibrillation. She was hospitalized 3 weeks ago with acute decompensated heart failure. Reports some improvement in dyspnea and edema since discharge. Still has dyspnea with moderate exertion. Taking medications as prescribed but notes occasional dizziness with metoprolol.",
         pmh: "- CHF (EF 35%)\n- CAD s/p stent to LAD 2021\n- Paroxysmal atrial fibrillation\n- Hypertension\n- Hyperlipidemia",
         medications: "- Metoprolol 25mg BID\n- Lisinopril 20mg daily\n- Furosemide 40mg daily\n- Apixaban 5mg BID\n- Atorvastatin 40mg daily"
       },
       after: {
-        demographics: "Jane Smith, 62F\nDOB: 03/22/1961\nMRN: 87654321\nInsurance: Medicare Advantage\nLast Visit: 11/02/2023 (Hospital Discharge)",
+        demographics: "Patient ID: CV-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Medicare Advantage\nLast Visit: Hospital Discharge (3 weeks ago)",
         chiefComplaint: "Follow up after recent hospitalization for heart failure exacerbation.",
         hpi: "Patient is a 62-year-old female with history of CHF (EF 35%), CAD s/p stent to LAD 2021, and paroxysmal atrial fibrillation presenting for follow-up after hospitalization for acute decompensated heart failure 3 weeks ago. She reports improvement in symptoms with current medication regimen. Dyspnea has improved but persists with moderate exertion (can climb 1 flight of stairs without stopping, NYHA Class II). Reports reduced bilateral ankle edema. Notes occasional dizziness with metoprolol, typically within 1-2 hours after morning dose. No syncope, chest pain, palpitations, orthopnea, or PND.",
         hcc: "- Systolic Heart Failure [I50.20]\n- CAD with history of PTCA [I25.10]\n- Paroxysmal Atrial Fibrillation [I48.0]",
@@ -129,14 +128,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'psychiatry',
       label: 'Psychiatry',
       before: {
-        demographics: "David Wilson, 35M\nDOB: 09/12/1989\nMRN: 45678901",
+        demographics: "Patient ID: PSY-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Follow up for depression and anxiety.",
         hpi: "Patient is a 35-year-old male with major depressive disorder and generalized anxiety. Reports mild improvement in mood with sertraline but still having trouble sleeping. Anxiety continues to affect work performance. Denies suicidal ideation or plans.",
         pmh: "- Major Depressive Disorder\n- Generalized Anxiety Disorder\n- Mild Insomnia",
         medications: "- Sertraline 100mg daily\n- Lorazepam 0.5mg PRN for anxiety"
       },
       after: {
-        demographics: "David Wilson, 35M\nDOB: 09/12/1989\nMRN: 45678901\nInsurance: Cigna\nLast Visit: 04/02/2024",
+        demographics: "Patient ID: PSY-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Commercial Insurance\nLast Visit: 6 weeks ago",
         chiefComplaint: "Follow up for depression and anxiety.",
         hpi: "Patient is a 35-year-old male with history of major depressive disorder and generalized anxiety disorder presenting for medication management follow-up. He reports partial response to sertraline 100mg daily with improvement in depressed mood (rates mood as 5/10 compared to 3/10 at last visit) but continues to experience anhedonia and fatigue. Sleep remains disrupted with difficulty initiating sleep (takes 1-2 hours to fall asleep) and early morning awakening (4-5AM). Reports functioning at work has improved somewhat but still struggles with concentration during meetings and deadlines. Using lorazepam approximately twice weekly for acute anxiety. Denies current suicidal or homicidal ideation, intent, or plan. No psychotic symptoms.",
         hcc: "- Major Depressive Disorder, recurrent, moderate [F33.1]\n- Generalized Anxiety Disorder [F41.1]\n- Insomnia, chronic [G47.00]",
@@ -151,14 +150,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'internal-medicine',
       label: 'Internal Medicine',
       before: {
-        demographics: "Richard Taylor, 66M\nDOB: 11/04/1958\nMRN: 23456789",
+        demographics: "Patient ID: IM-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Annual physical and medication review.",
         hpi: "Patient is a 66-year-old male presenting for annual physical. Has controlled hypertension and dyslipidemia. Reports occasional mild joint pain but generally feels well. Exercise routine includes walking 30 minutes 3x/week. Last colonoscopy 4 years ago was normal. Due for pneumonia vaccine.",
         pmh: "- Hypertension for 12 years\n- Dyslipidemia\n- Osteoarthritis of knees",
         medications: "- Amlodipine 5mg daily\n- Rosuvastatin 10mg daily\n- Acetaminophen PRN for joint pain"
       },
       after: {
-        demographics: "Richard Taylor, 66M\nDOB: 11/04/1958\nMRN: 23456789\nInsurance: Medicare Part B\nLast Visit: 05/10/2023",
+        demographics: "Patient ID: IM-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Medicare Part B\nLast Visit: 1 year ago",
         chiefComplaint: "Annual physical and medication review.",
         hpi: "Patient is a 66-year-old male presenting for annual physical examination and medication review. Reports his hypertension and dyslipidemia are well-controlled on current medication regimen. Notes occasional mild bilateral knee pain after prolonged activity, relieved with acetaminophen and rest. Current exercise regimen includes walking 30 minutes three times weekly and light gardening. Last colonoscopy was performed four years ago with normal findings. Has not received pneumonia or shingles vaccinations. Reports adequate energy levels, stable weight, and good appetite. No difficulty with urination, bowel movements, or sleep. No chest pain, shortness of breath, dizziness, or falls.",
         hcc: "- Essential Hypertension [I10]\n- Hyperlipidemia [E78.5]\n- Osteoarthritis, localized, knee [M17.9]",
@@ -173,14 +172,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'oncology',
       label: 'Oncology',
       before: {
-        demographics: "Patricia Moore, 58F\nDOB: 02/25/1966\nMRN: 34567891",
+        demographics: "Patient ID: ONC-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Follow up for breast cancer treatment.",
         hpi: "Patient is a 58-year-old female with history of stage II invasive ductal carcinoma of right breast, ER/PR+, HER2-, diagnosed 8 months ago s/p lumpectomy and axillary lymph node dissection. Completed 4 cycles of adjuvant chemotherapy with doxorubicin and cyclophosphamide 3 months ago. Currently on tamoxifen. Reports fatigue and occasional hot flashes but otherwise tolerating treatment well.",
         pmh: "- Stage II invasive ductal carcinoma, right breast\n- Hypertension\n- Hypothyroidism",
         medications: "- Tamoxifen 20mg daily\n- Lisinopril 10mg daily\n- Levothyroxine 75mcg daily"
       },
       after: {
-        demographics: "Patricia Moore, 58F\nDOB: 02/25/1966\nMRN: 34567891\nInsurance: UnitedHealthcare\nLast Visit: 04/15/2024",
+        demographics: "Patient ID: ONC-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private Insurance\nLast Visit: 1 month ago",
         chiefComplaint: "Follow up for breast cancer treatment.",
         hpi: "Patient is a 58-year-old female with history of stage II (T2N0M0) invasive ductal carcinoma of right breast, ER/PR+, HER2-, diagnosed 8 months ago, presenting for routine follow-up. She underwent right breast lumpectomy with sentinel lymph node biopsy (0/3 nodes positive) on 08/20/2023, followed by 4 cycles of adjuvant chemotherapy with doxorubicin and cyclophosphamide completed on 01/10/2024. Currently on adjuvant hormonal therapy with tamoxifen initiated on 01/25/2024. Reports moderate fatigue (5/10) with gradual improvement since completing chemotherapy. Experiencing 3-5 hot flashes daily, mild-moderate intensity. Denies breast pain, masses, skin changes, or axillary lymphadenopathy. No bone pain, shortness of breath, or neurological symptoms. Completed 10 of 30 planned radiation treatments with minimal skin reaction.",
         hcc: "- Malignant neoplasm of breast, specified as right breast [C50.911]\n- Essential Hypertension [I10]\n- Hypothyroidism [E03.9]",
@@ -195,14 +194,14 @@ export const BeforeAfterNoteComparison = () => {
       id: 'orthopedics',
       label: 'Orthopedics',
       before: {
-        demographics: "Michael Roberts, 52M\nDOB: 06/18/1972\nMRN: 56789012",
+        demographics: "Patient ID: ORT-001\nDOB: [REDACTED]\nMRN: [REDACTED]",
         chiefComplaint: "Right knee pain following meniscus repair.",
         hpi: "Patient is a 52-year-old male presenting for follow-up 6 weeks after arthroscopic repair of right medial meniscus tear. Reports improved pain but still has stiffness in the morning and after prolonged sitting. Has been attending physical therapy twice weekly. Using NSAIDs for pain management.",
         pmh: "- Right medial meniscus tear\n- Hypertension\n- Gastroesophageal reflux disease",
         medications: "- Ibuprofen 600mg PRN for pain\n- Lisinopril 20mg daily\n- Omeprazole 20mg daily"
       },
       after: {
-        demographics: "Michael Roberts, 52M\nDOB: 06/18/1972\nMRN: 56789012\nInsurance: Anthem BlueCross\nLast Visit: 03/23/2024 (Post-op week 2)",
+        demographics: "Patient ID: ORT-001\nDOB: [REDACTED]\nMRN: [REDACTED]\nInsurance: Private PPO\nLast Visit: Post-op week 2 (4 weeks ago)",
         chiefComplaint: "Right knee pain following meniscus repair.",
         hpi: "Patient is a 52-year-old male presenting for 6-week follow-up after arthroscopic repair of right medial meniscus tear performed on 03/09/2024. He reports significant improvement in pain (now 3/10 from previous 7/10) but continues to experience morning stiffness lasting 15-20 minutes and stiffness after prolonged sitting. Has been attending physical therapy twice weekly with good compliance to home exercise program. ROM has improved but not yet at baseline. Currently using ibuprofen 600mg once daily or every other day for pain management. Denies locking, catching, or instability of the knee. Able to walk without assistive devices and navigate stairs with minimal discomfort. Has returned to desk work but not yet resumed recreational activities (golf, swimming).",
         hcc: "- Tear of medial meniscus of right knee, current [S83.211A]\n- Status post arthroscopic meniscus repair [Z98.89]\n- Essential Hypertension [I10]\n- Gastroesophageal reflux disease [K21.9]",
@@ -688,7 +687,7 @@ export const BeforeAfterNoteComparison = () => {
                             <div className="flex items-center space-x-1 sm:space-x-2 mt-1.5 sm:mt-0">
                               <div className="flex items-center">
                                 <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mr-0.5 sm:mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  <path d="M9 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                                 <span className="text-xs text-blue-700">Data Synced with Your EHR</span>
                               </div>
@@ -762,7 +761,7 @@ export const BeforeAfterNoteComparison = () => {
               <div className="flex items-center mb-1 sm:mb-2">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center mr-1.5 sm:mr-2">
                   <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <h4 className="font-medium text-sm sm:text-base">Time Savings</h4>
@@ -786,7 +785,7 @@ export const BeforeAfterNoteComparison = () => {
               <div className="flex items-center mb-1 sm:mb-2">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 flex items-center justify-center mr-1.5 sm:mr-2">
                   <svg className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    <path d="M12 6c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <h4 className="font-medium text-sm sm:text-base">Patient Focus</h4>
