@@ -34,12 +34,22 @@ export default defineConfig(({ mode }) => ({
     include: [
       '@emotion/react',
       '@emotion/styled',
+      '@emotion/cache',
+      '@emotion/serialize',
+      '@emotion/utils',
+      '@emotion/hash',
+      '@emotion/unitless',
+      '@emotion/memoize',
+      '@emotion/weak-memoize',
+      '@emotion/is-prop-valid',
+      '@emotion/sheet',
+      '@emotion/css',
       '@emotion/react/jsx-runtime',
       '@emotion/react/jsx-dev-runtime'
     ],
     exclude: [
-      '@splinetool/runtime', 
-      '@splinetool/react-spline'
+      "@splinetool/runtime", 
+      "@splinetool/react-spline"
     ]
   }
 }));
