@@ -29,7 +29,8 @@ export default defineConfig(({ mode }) => ({
         "@splinetool/runtime", 
         "@emotion/react", 
         "@emotion/styled", 
-        "@emotion/react/jsx-runtime"
+        "@emotion/react/jsx-runtime",
+        "@emotion/react/jsx-dev-runtime"
       ]
     }
   },
@@ -39,7 +40,8 @@ export default defineConfig(({ mode }) => ({
       '@splinetool/react-spline', 
       '@emotion/react', 
       '@emotion/styled', 
-      '@emotion/react/jsx-runtime'
+      '@emotion/react/jsx-runtime',
+      '@emotion/react/jsx-dev-runtime'
     ]
   }
 }));
