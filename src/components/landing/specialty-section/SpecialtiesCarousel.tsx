@@ -17,7 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const allSpecialties = [
   { name: "Cardiology", icon: Heart, complex: true },
   { name: "Neurology", icon: Brain, complex: true },
-  { name: "Pulmonology", icon: Activity, complex: true }, // Changed from Lungs to Activity
+  { name: "Pulmonology", icon: Activity, complex: true },
   { name: "Endocrinology", icon: Microscope, complex: true },
   { name: "Oncology", icon: CircleDot, complex: true },
   { name: "Rheumatology", icon: Bone, complex: true },
@@ -25,10 +25,10 @@ const allSpecialties = [
   { name: "Nephrology", icon: Droplets, complex: true },
   { name: "Hematology", icon: FlaskConical, complex: true },
   { name: "Infectious Disease", icon: Pill, complex: true },
-  { name: "Orthopedics", icon: Activity },
+  { name: "Orthopedics", icon: Bone },
   { name: "Urology", icon: Droplets },
   { name: "Pediatrics", icon: User },
-  { name: "Ophthalmology", icon: Eye },
+  { name: "Ophthalmology", icon: Eye, complex: true },
   { name: "Hospital Medicine", icon: Building2 },
   { name: "Gynecology", icon: HeartPulse },
   { name: "Psychiatry", icon: Brain },
@@ -42,11 +42,10 @@ const allSpecialties = [
   { name: "Immunology", icon: Dna },
   { name: "Surgery", icon: Scissors },
   { name: "Neonatology", icon: Baby },
-  { name: "Pain Management", icon: Activity }, // Changed from Thermostat to Activity
+  { name: "Pain Management", icon: Activity },
   { name: "Allergy", icon: Syringe }
 ];
 
-// Smaller, equal card size everywhere
 const SpecialtyCard = ({ specialty, IconComponent }) => (
   <Box 
     sx={{
@@ -56,13 +55,13 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
       justifyContent: 'center',
       background: '#FFF',
       borderRadius: 2.5,
-      py: 2,
-      px: 1,
+      py: { xs: 1.5, sm: 2 },
+      px: { xs: 0.5, sm: 1 },
       minWidth: '100%',
       height: '100%',
       boxShadow: '0 2px 10px 0 rgba(0,0,0,0.04)',
       border: specialty.complex ? '1px solid #387E89' : '1px solid #E0E0E0',
-      gap: 1,
+      gap: { xs: 0.5, sm: 1 },
       transition: 'transform 0.23s, box-shadow 0.22s',
       "&:hover": {
         transform: 'translateY(-4px) scale(1.025)',
@@ -71,7 +70,12 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
     }}
   >
     <div>
-      <IconComponent size={26} color={specialty.complex ? "#387E89" : "#143151"} />
+      <IconComponent 
+        size={{ xs: 20, sm: 24, md: 26 }[Object.keys({ xs: 20, sm: 24, md: 26 }).find(breakpoint => 
+          window.matchMedia(`(min-width: ${breakpoint === 'xs' ? '0' : breakpoint === 'sm' ? '600' : '900'}px)`).matches
+        ) || 'xs']} 
+        color={specialty.complex ? "#387E89" : "#143151"} 
+      />
     </div>
     <Typography 
       variant="body1" 
@@ -81,8 +85,9 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
         background: 'linear-gradient(135deg, #143151, #387E89)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
-        fontSize: { xs: '0.9rem', sm: '0.97rem', md: '1rem' },
-        mt: 0.5
+        fontSize: { xs: '0.75rem', sm: '0.9rem', md: '1rem' },
+        mt: 0.5,
+        lineHeight: 1.2
       }}
     >
       {specialty.name}
@@ -92,10 +97,10 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
 
 export const SpecialtiesCarousel = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const initialSpecialties = allSpecialties.slice(0, 18); // Show first 18 specialties
+  const initialSpecialties = allSpecialties.slice(0, 18);
 
   return (
-    <Box sx={{ mt: 10, maxWidth: '1400px', mx: 'auto' }}>
+    <Box sx={{ mt: { xs: 6, sm: 8, md: 10 }, maxWidth: '1400px', mx: 'auto' }}>
       <Typography 
         variant="h3" 
         sx={{ 
@@ -113,12 +118,12 @@ export const SpecialtiesCarousel = () => {
         <ResponsiveCarousel
           items={initialSpecialties}
           columnsDesktop={6}
-          columnsTablet={3}
-          columnsMobile={2}
-          gap={16}
+          columnsTablet={4}
+          columnsMobile={3}
+          gap={12}
           showControls={true}
-          itemWidth={140}
-          itemHeight={115}
+          itemWidth={{ xs: 90, sm: 120, md: 140 }}
+          itemHeight={{ xs: 90, sm: 100, md: 115 }}
           cardClassName="flex flex-col items-center justify-center h-full"
           autoPlay={true}
           autoPlayInterval={3500}
@@ -131,7 +136,7 @@ export const SpecialtiesCarousel = () => {
           }}
         />
         
-        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'center', mt: { xs: 3, md: 4 } }}>
           <Button 
             variant="outlined" 
             onClick={() => setIsDialogOpen(true)}
@@ -139,7 +144,9 @@ export const SpecialtiesCarousel = () => {
               borderColor: '#387E89',
               color: '#143151',
               borderRadius: '24px',
-              px: 4, 
+              px: { xs: 2, sm: 3, md: 4 },
+              py: { xs: 0.75, md: 1 },
+              fontSize: { xs: '0.8rem', sm: '0.9rem', md: '1rem' },
               '&:hover': {
                 borderColor: '#143151',
                 backgroundColor: 'rgba(56,126,137,0.04)'
@@ -153,14 +160,14 @@ export const SpecialtiesCarousel = () => {
       </Box>
       
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh]">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-center text-gray-800">
+        <DialogContent className="max-w-4xl max-h-[90vh] p-0">
+          <DialogHeader className="p-4 border-b">
+            <DialogTitle className="text-xl md:text-2xl font-bold text-center text-gray-800">
               All Medical Specialties
             </DialogTitle>
           </DialogHeader>
-          <ScrollArea className="h-[60vh] pr-4">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          <ScrollArea className="h-[60vh] md:h-[70vh]">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 p-3 md:p-4 lg:p-5">
               {allSpecialties.map((specialty, index) => {
                 const IconComponent = specialty.icon;
                 return (
@@ -170,9 +177,9 @@ export const SpecialtiesCarousel = () => {
                   >
                     <IconComponent 
                       size={20} 
-                      className={specialty.complex ? 'text-blue-600' : 'text-gray-700'}
+                      className={specialty.complex ? 'text-blue-600 flex-shrink-0' : 'text-gray-700 flex-shrink-0'}
                     />
-                    <span className="ml-2 font-medium">
+                    <span className="ml-2 font-medium text-sm md:text-base">
                       {specialty.name}
                     </span>
                   </div>

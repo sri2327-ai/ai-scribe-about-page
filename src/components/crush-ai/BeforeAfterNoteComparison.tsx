@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
-import { Info } from 'lucide-react';
+import { Info, DollarSign, FileText, Award } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { crushAIColors } from '@/theme/crush-ai-theme';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -61,8 +61,9 @@ export const BeforeAfterNoteComparison = () => {
         hcc: "- Type 2 diabetes without complications [E11.9]\n- Essential hypertension [I10]",
         pmh: "- Type 2 diabetes diagnosed 2015, well controlled\n- Hypertension diagnosed 2013, well controlled\n- Hyperlipidemia, moderately controlled",
         medications: "- Metformin 1000mg BID\n- Lisinopril 10mg daily\n- Atorvastatin 20mg daily",
-        assessment: "1. Type 2 Diabetes (E11.9)\n   - A1c improved to 7.2% from 7.5% previously\n   - Continue Metformin 1000mg BID\n   - Commended patient on dietary changes and weight loss\n   - Order: Comprehensive metabolic panel & A1c in 3 months\n\n2. Hypertension (I10)\n   - BP today: 132/78, at target\n   - Continue Lisinopril 10mg daily\n   - Encouraged continued sodium restriction\n\n3. Hyperlipidemia (E78.5)\n   - Recent LDL: 110, slightly above target of &lt;100\n   - Continue Atorvastatin 20mg daily\n   - Order: Lipid panel in 6 months\n\n4. Preventive Health\n   - Due for colonoscopy screening\n   - Order: Colonoscopy referral",
-        education: "- Continue all medications as prescribed\n- Maintain low-carb diet and exercise regimen\n- Schedule colonoscopy within next month\n- Return in 3 months for follow-up and lab work\n- Call office if blood sugars consistently >200 mg/dL"
+        assessment: "1. Type 2 Diabetes (E11.9)\n   - A1c improved to 7.2% from 7.5% previously\n   - Continue Metformin 1000mg BID\n   - Commended patient on dietary changes and weight loss\n   - Order: Comprehensive metabolic panel & A1c in 3 months\n\n2. Hypertension (I10)\n   - BP today: 132/78, at target\n   - Continue Lisinopril 10mg daily\n   - Encouraged continued sodium restriction\n\n3. Hyperlipidemia (E78.5)\n   - Recent LDL: 110, slightly above target of <100\n   - Continue Atorvastatin 20mg daily\n   - Order: Lipid panel in 6 months\n\n4. Preventive Health\n   - Due for colonoscopy screening\n   - Order: Colonoscopy referral",
+        education: "- Continue all medications as prescribed\n- Maintain low-carb diet and exercise regimen\n- Schedule colonoscopy within next month\n- Return in 3 months for follow-up and lab work\n- Call office if blood sugars consistently >200 mg/dL",
+        billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Time-based billing: 25 minutes\n- DM management: G0108\n- CCM coordination: 99490\n- Quality Measures: Blood pressure screening (G8783)\n- Risk Adjustment: HCC19 (Diabetes), HCC85 (Hypertension)"
       }
     },
     { 
@@ -83,7 +84,8 @@ export const BeforeAfterNoteComparison = () => {
         pmh: "- CHF (EF 35% per echo 11/1/2023)\n- CAD s/p stent to LAD 2021\n- Paroxysmal atrial fibrillation, CHA₂DS₂-VASc score: 4\n- Hypertension, well controlled\n- Hyperlipidemia",
         medications: "- Metoprolol 25mg BID\n- Lisinopril 20mg daily\n- Furosemide 40mg daily\n- Apixaban 5mg BID\n- Atorvastatin 40mg daily\n- Spironolactone 25mg daily (added during hospitalization)",
         assessment: "1. Heart Failure with reduced EF (I50.20)\n   - Improved since hospitalization but still NYHA Class II\n   - Continue current HF medications\n   - Consider reducing metoprolol to 12.5mg BID due to reported dizziness\n   - Daily weight monitoring to continue\n   - Order: BNP, BMP, CBC in 2 weeks\n\n2. Coronary Artery Disease (I25.10)\n   - Stable since PCI in 2021\n   - Continue high-intensity statin\n   - Order: Lipid panel at next visit\n\n3. Paroxysmal Atrial Fibrillation (I48.0)\n   - No recent episodes reported\n   - Continue anticoagulation with apixaban\n   - EKG today shows NSR\n   - Order: EKG and Holter monitor for 48 hours",
-        education: "- Take metoprolol with food to reduce dizziness\n- Maintain sodium restriction (≤2g/day)\n- Contact office if weight increases >2kg in 3 days\n- Continue daily weight logs\n- Schedule echo in 3 months to reassess EF\n- Return for follow-up in 4 weeks"
+        education: "- Take metoprolol with food to reduce dizziness\n- Maintain sodium restriction (≤2g/day)\n- Contact office if weight increases >2kg in 3 days\n- Continue daily weight logs\n- Schedule echo in 3 months to reassess EF\n- Return for follow-up in 4 weeks",
+        billing: "- E/M: 99215 (Level 5 Follow-up visit)\n- Time-based billing: 40 minutes\n- Chronic care management: 99490\n- Post-discharge transition: 99495\n- EKG interpretation: 93010\n- Quality Measures: Heart failure management (G8427)\n- Risk Adjustment: HCC85 (Hypertension), HCC83 (Heart Failure), HCC96 (Atrial Fibrillation)"
       }
     },
     { 
@@ -104,7 +106,8 @@ export const BeforeAfterNoteComparison = () => {
         pmh: "- Chronic migraine with aura, diagnosed 2015\n- Seasonal allergies\n- Insomnia\n- Normal MRI brain with contrast (2021)",
         medications: "- Propranolol 80mg daily\n- Sumatriptan 50mg PRN for migraine\n- Loratadine 10mg daily\n- Melatonin 3mg nightly",
         assessment: "1. Chronic Migraine with Aura (G43.109)\n   - Inadequate control with current prophylaxis\n   - Increase propranolol to 120mg daily\n   - Consider adding topiramate as second-line prophylactic agent\n   - Switch from sumatriptan to rizatriptan 10mg for acute treatment\n   - Order: CBC, CMP, Vitamin D level\n\n2. Insomnia, contributing to migraine frequency\n   - Provided sleep hygiene education\n   - Consider CBT for insomnia\n   - Continue melatonin\n\n3. Lifestyle factors affecting migraine control\n   - Discussed stress management techniques\n   - Recommended consistent sleep schedule\n   - Suggested migraine diary to identify additional triggers",
-        education: "- Gradually increase propranolol over 2 weeks\n- Try rizatriptan for next migraine attack\n- Download recommended migraine tracking app\n- Maintain regular sleep-wake cycle\n- Practice stress reduction techniques daily\n- Return in 6 weeks to evaluate medication changes"
+        education: "- Gradually increase propranolol over 2 weeks\n- Try rizatriptan for next migraine attack\n- Download recommended migraine tracking app\n- Maintain regular sleep-wake cycle\n- Practice stress reduction techniques daily\n- Return in 6 weeks to evaluate medication changes",
+        billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Neurological examination: 96116\n- Time-based billing: 30 minutes\n- Quality Measures: Pain assessment (G8730)\n- Risk Adjustment: HCC79 (Migraine and Chronic Headache)"
       }
     },
     { 
@@ -124,7 +127,30 @@ export const BeforeAfterNoteComparison = () => {
         pmh: "- History of recurrent otitis media (resolved, last episode 2 years ago)\n- Fully immunized through age 5\n- Normal growth trajectory (consistently tracking at 65th percentile for height, 50th percentile for weight)",
         medications: "- Children's multivitamin gummy daily\n- No regular prescription medications",
         assessment: "1. Well Child Examination (Z00.129)\n   - Growth appropriate: Height 123 cm (65th percentile), Weight 23 kg (50th percentile), BMI 15.2 (50th percentile)\n   - Development: Age-appropriate; meeting all milestones\n   - Vitals WNL: BP 98/62, HR 88, RR 18, Temp 98.6°F\n   - Physical exam normal\n   - Vision screening: 20/20 OU\n   - Hearing screening passed\n\n2. Immunizations\n   - Administered: Influenza vaccine (current season)\n   - Due next visit: None until 11 years of age\n\n3. Preventive Counseling\n   - Discussed healthy nutrition and increasing vegetable intake\n   - Reviewed water safety and importance of swim lessons\n   - Screen time limits appropriate and should be maintained\n   - Dental care: Regular brushing and flossing, dental visit completed 3 months ago",
-        education: "- Continue regular physical activity\n- Maintain limited recreational screen time\n- Strategies for increasing vegetable consumption provided\n- Resources for age-appropriate reading materials given\n- Return for next well-child exam at age 8\n- Call for acute concerns or illnesses"
+        education: "- Continue regular physical activity\n- Maintain limited recreational screen time\n- Strategies for increasing vegetable consumption provided\n- Resources for age-appropriate reading materials given\n- Return for next well-child exam at age 8\n- Call for acute concerns or illnesses",
+        billing: "- E/M: 99393 (Well-child visit, established patient, age 5-11)\n- Time-based billing: 25 minutes\n- Preventive Medicine: 99382\n- Immunization admin: 90460 (Influenza vaccine)\n- Vision screening: 99173\n- Hearing screening: 92551\n- Quality Measures: BMI assessment (G8417), developmental screening (G8510)"
+      }
+    },
+    { 
+      id: 'ophthalmology', 
+      label: 'Ophthalmology',
+      before: {
+        demographics: "Michael Garcia, 65M\nDOB: 08/03/1958\nMRN: 76543210",
+        chiefComplaint: "Follow-up for diabetic retinopathy and glaucoma.",
+        hpi: "Patient is a 65-year-old male with type 2 diabetes and primary open-angle glaucoma. Has been using latanoprost as prescribed. Reports occasional blurry vision but no significant changes since last visit. Diabetes generally under control with recent A1c of 7.1%.",
+        pmh: "- Type 2 diabetes since 2010\n- Primary open-angle glaucoma\n- Hypertension\n- Cataract, right eye, early stage",
+        medications: "- Latanoprost 0.005% drops HS OU\n- Brimonidine 0.2% TID OU\n- Metformin 1000mg BID\n- Lisinopril 20mg daily"
+      },
+      after: {
+        demographics: "Michael Garcia, 65M\nDOB: 08/03/1958\nMRN: 76543210\nInsurance: Medicare\nLast Visit: 02/10/2023",
+        chiefComplaint: "Follow-up for diabetic retinopathy and glaucoma.",
+        hpi: "Patient is a 65-year-old male with type 2 diabetes and primary open-angle glaucoma presenting for scheduled follow-up. Patient reports good compliance with all eye medications. He notes occasional blurry vision, primarily in the right eye when reading, which improves with his current reading glasses. No flashes, floaters, eye pain, or significant changes in vision since last visit. His diabetes is generally well-controlled with most recent A1c of 7.1% (measured 2 weeks ago). Last eye exam was 6 months ago showing mild non-proliferative diabetic retinopathy and stable intraocular pressures on current glaucoma regimen.",
+        hcc: "- Type 2 diabetes with mild non-proliferative diabetic retinopathy [E11.329]\n- Primary open-angle glaucoma [H40.11X3]\n- Cataract, right eye [H25.011]",
+        pmh: "- Type 2 diabetes since 2010, well-controlled\n- Primary open-angle glaucoma, diagnosed 2018\n- Hypertension, well-controlled\n- Cataract, right eye, early stage",
+        medications: "- Latanoprost 0.005% drops HS OU\n- Brimonidine 0.2% TID OU\n- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Artificial tears PRN",
+        assessment: "1. Primary Open-Angle Glaucoma, both eyes (H40.11X3)\n   - IOP: 18 mmHg OD, 17 mmHg OS (target range <21 mmHg)\n   - OCT shows stable retinal nerve fiber layer thickness \n   - Visual fields: Slight progression in right superior field defect\n   - Continue current medication regimen\n   - Order: Repeat visual fields in 3 months\n\n2. Non-proliferative Diabetic Retinopathy, mild, bilateral (E11.329)\n   - No clinically significant macular edema\n   - Microaneurysms stable compared to previous exam\n   - OCT macula: No evidence of macular edema\n   - Encouraged continued glucose control\n\n3. Cataract, right eye, nuclear sclerosis (H25.011)\n   - Gradually progressing but not visually significant\n   - Visual acuity: 20/30-2 OD, 20/25+2 OS with correction\n   - Will monitor; not requiring surgery at this time",
+        education: "- Continue all eye drops as prescribed\n- Maintain glucose and blood pressure control\n- Use artificial tears for dry eye symptoms as needed\n- Wear sunglasses outdoors\n- Return to clinic in 4 months for follow-up\n- Call immediately if sudden vision changes, eye pain, flashes, or floaters",
+        billing: "- E/M: 92014 (Eye exam, established patient)\n- Extended ophthalmoscopy: 92225\n- Visual field testing: 92083\n- Gonioscopy: 92020\n- OCT: 92134 (Retinal scan)\n- Quality Measures: Diabetic eye exam (G8397)\n- Risk Adjustment: HCC18 (Diabetes with chronic complications), HCC124 (Glaucoma)"
       }
     }
   ];
@@ -366,6 +392,20 @@ export const BeforeAfterNoteComparison = () => {
                             </span>
                           </div>
                           <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm">{example.after.education}</p>
+                        </div>
+
+                        <div className="mb-4 bg-blue-50 p-2 rounded-md">
+                          <div className="flex items-center mb-1">
+                            <p className="font-bold text-sm">
+                              <DollarSign className="inline-block h-4 w-4 mr-1" /> Billing & Coding:
+                            </p>
+                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
+                              <FeatureTooltip title="Smart Billing Optimization">
+                                <p>CRUSH AI automatically suggests appropriate billing codes, quality measures, and risk adjustment factors to maximize appropriate reimbursement and quality reporting.</p>
+                              </FeatureTooltip>
+                            </span>
+                          </div>
+                          <p className="text-gray-700 whitespace-pre-line text-xs sm:text-sm bg-white p-2 rounded border border-blue-100">{example.after.billing}</p>
                         </div>
 
                         <div className="p-2 mt-4 bg-gray-50 rounded-md border border-gray-200">
