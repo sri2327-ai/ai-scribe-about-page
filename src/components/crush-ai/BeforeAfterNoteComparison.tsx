@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
@@ -274,7 +275,7 @@ export const BeforeAfterNoteComparison = () => {
                           <p className="text-gray-700">- Maintain low-carb diet and exercise regimen</p>
                           <p className="text-gray-700">- Schedule colonoscopy within next month</p>
                           <p className="text-gray-700">- Return in 3 months for follow-up and lab work</p>
-                          <p className="text-gray-700">- Call office if blood sugars consistently >200 mg/dL</p>
+                          <p className="text-gray-700">- Call office if blood sugars consistently &gt;200 mg/dL</p>
                         </div>
 
                         <div className="p-2 mt-6 bg-gray-50 rounded-md border border-gray-200">
