@@ -225,7 +225,7 @@ export const BeforeAfterNoteComparison = () => {
       after: {
         demographics: "Sarah Johnson, 42F\nDOB: 09/30/1982\nMRN: 67890123\nInsurance: Aetna Choice POS II\nLast Visit: First visit to this practice",
         chiefComplaint: "Lower back pain with radiation to left leg.",
-        hpi: "Patient is a 42-year-old female presenting with lower back pain that began acutely after moving furniture 2 weeks ago. Pain is located primarily in the lumbar region with radiation to the left buttock and posterior thigh, stopping above the knee. Describes pain as dull and achy at baseline (5/10) with sharp exacerbations (8/10) during certain movements. Reports pain is worse with prolonged sitting, bending forward, and when getting up from seated position. Minimal relief with position changes and OTC ibuprofen 400mg taken 2-3 times daily. Denies bowel or bladder incontinence, saddle anesthesia, bilateral leg weakness, or fever. Previous episode of similar but less severe back pain 3 years ago resolved after 6 sessions of chiropractic care. Patient works as an administrative assistant with prolonged sitting at desk. Exercise routine includes walking 2-3 times weekly.",
+        hpi: "Patient is a 42-year-old female presenting with lower back pain that began acutely after moving furniture 2 weeks ago. Pain is located primarily in the lumbar region with radiation to the left buttock and posterior thigh, stopping above the knee. Describes pain as dull and achy at baseline (5/10) with sharp exacerbations (8/10) during certain movements. Reports pain is worse with prolonged sitting, bending forward, and when getting up from seated position. Minimal relief with position changes and OTC ibuprofen 400mg taken 2-3 times daily. Denies bowel or bladder incontinence, saddle anesthesia, bilateral leg weakness, or fever. Previous episode of similar but less severe back pain 3 years ago resolved after 6 sessions of chiropractic care. Patient works as administrative assistant with prolonged sitting at desk. Exercise routine includes walking 2-3 times weekly.",
         hcc: "- Lumbar radiculopathy [M54.16]\n- Lumbar segmental dysfunction [M99.03]",
         pmh: "- Previous lumbar strain with radiculopathy 2021, resolved\n- Seasonal allergies\n- No surgeries",
         medications: "- Ibuprofen 400mg PRN for pain\n- Cetirizine 10mg daily PRN for allergies\n- No known drug allergies",
@@ -569,6 +569,19 @@ export const BeforeAfterNoteComparison = () => {
                           <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.medications}</p>
                         </div>
 
+                        {/* Added indicator that note is incomplete */}
+                        <div className="mt-4 py-2 px-3 bg-red-50 rounded-md border border-red-100">
+                          <div className="flex items-center">
+                            <div className="animate-pulse mr-2 h-2 w-2 bg-red-500 rounded-full"></div>
+                            <p className="text-red-600 text-xs">
+                              <span className="font-medium">Still typing...</span> (Note incomplete after 25 minutes)
+                            </p>
+                          </div>
+                          <p className="text-red-500 text-xs mt-1 italic">
+                            Sections missing: Assessment, Plan, Patient Education, Billing
+                          </p>
+                        </div>
+
                         {/* Mobile timing info */}
                         <div className="mt-4 py-1.5 px-2 bg-red-50 rounded-md border border-red-100 sm:hidden">
                           <p className="text-red-600 text-xs font-medium">Documentation Time: ~25 minutes after visit</p>
@@ -842,6 +855,18 @@ export const BeforeAfterNoteComparison = () => {
           .tooltip-content {
             max-width: 260px;
           }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         `
       }}/>
