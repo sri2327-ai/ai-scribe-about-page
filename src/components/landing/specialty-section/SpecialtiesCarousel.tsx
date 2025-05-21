@@ -8,7 +8,8 @@ import {
   HeartPulse, Ear, Microscope, ShieldPlus, 
   Syringe, Bone, Dna, 
   Pill, Baby, Scissors,
-  MoreHorizontal
+  MoreHorizontal, Utensils, Footprints, UserRound,
+  Users, Spine, Bandage, Cancer, Medicine
 } from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -19,9 +20,9 @@ const allSpecialties = [
   { name: "Neurology", icon: Brain, complex: true },
   { name: "Pulmonology", icon: Activity, complex: true },
   { name: "Endocrinology", icon: Microscope, complex: true },
-  { name: "Oncology", icon: CircleDot, complex: true },
+  { name: "Oncology", icon: Cancer, complex: true },
   { name: "Rheumatology", icon: Bone, complex: true },
-  { name: "Gastroenterology", icon: Apple, complex: true },
+  { name: "Gastroenterology", icon: Utensils, complex: true },
   { name: "Nephrology", icon: Droplets, complex: true },
   { name: "Hematology", icon: FlaskConical, complex: true },
   { name: "Infectious Disease", icon: Pill, complex: true },
@@ -35,7 +36,7 @@ const allSpecialties = [
   { name: "Geriatrics", icon: Activity },
   { name: "Emergency Medicine", icon: Ambulance },
   { name: "Hepatology", icon: CircleDot },
-  { name: "Internal Medicine", icon: Stethoscope },
+  { name: "Internal Medicine", icon: Medicine },
   { name: "Urgent Care", icon: HeartPulse },
   { name: "ENT", icon: Ear },
   { name: "Dermatology", icon: ShieldPlus },
@@ -43,7 +44,11 @@ const allSpecialties = [
   { name: "Surgery", icon: Scissors },
   { name: "Neonatology", icon: Baby },
   { name: "Pain Management", icon: Activity },
-  { name: "Allergy", icon: Syringe }
+  { name: "Allergy", icon: Syringe },
+  { name: "Chiropractor", icon: Spine },
+  { name: "Functional Medicine", icon: Activity },
+  { name: "Podiatry", icon: Footprints },
+  { name: "Therapist", icon: UserRound }
 ];
 
 const SpecialtyCard = ({ specialty, IconComponent }) => (
@@ -69,12 +74,11 @@ const SpecialtyCard = ({ specialty, IconComponent }) => (
       }
     }}
   >
-    <div>
+    <div className="flex items-center justify-center">
       <IconComponent 
-        size={{ xs: 20, sm: 24, md: 26 }[Object.keys({ xs: 20, sm: 24, md: 26 }).find(breakpoint => 
-          window.matchMedia(`(min-width: ${breakpoint === 'xs' ? '0' : breakpoint === 'sm' ? '600' : '900'}px)`).matches
-        ) || 'xs']} 
+        size={window?.innerWidth < 600 ? 20 : window?.innerWidth < 900 ? 24 : 26}
         color={specialty.complex ? "#387E89" : "#143151"} 
+        className="responsive-icon"
       />
     </div>
     <Typography 
@@ -189,6 +193,32 @@ export const SpecialtiesCarousel = () => {
           </ScrollArea>
         </DialogContent>
       </Dialog>
+
+      {/* Add CSS for responsive icons */}
+      <style jsx global>{`
+        .responsive-icon {
+          width: auto;
+          height: auto;
+        }
+        @media (max-width: 600px) {
+          .responsive-icon {
+            width: 20px;
+            height: 20px;
+          }
+        }
+        @media (min-width: 601px) and (max-width: 900px) {
+          .responsive-icon {
+            width: 24px;
+            height: 24px;
+          }
+        }
+        @media (min-width: 901px) {
+          .responsive-icon {
+            width: 26px;
+            height: 26px;
+          }
+        }
+      `}</style>
     </Box>
   );
 };
