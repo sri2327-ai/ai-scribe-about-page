@@ -178,14 +178,15 @@ export const BeforeAfterNoteComparison = () => {
     setCurrentMode(currentMode === 'split' ? 'side-by-side' : 'split');
   };
   
+  // Fix the TypeScript errors by using proper React CSSProperties types
   const beforeStyle = {
     height: currentMode === 'split' ? 'auto' : `${biggestHeight}px`,
-    overflowY: currentMode === 'split' ? 'auto' : 'hidden',
+    overflowY: currentMode === 'split' ? 'auto' as const : 'hidden' as const,
   };
   
   const afterStyle = {
     height: currentMode === 'split' ? 'auto' : `${biggestHeight}px`,
-    overflowY: currentMode === 'split' ? 'auto' : 'hidden',
+    overflowY: currentMode === 'split' ? 'auto' as const : 'hidden' as const,
   };
 
   return (
