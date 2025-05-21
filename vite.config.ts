@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [
     react({
-      jsxImportSource: 'react', 
+      jsxImportSource: '@emotion/react', 
       plugins: [['@swc/plugin-emotion', {}]],
     }),
     mode === 'development' &&
@@ -50,7 +50,6 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       external: [
         ...splinetoolPackages,
-        ...emotionPackages
       ]
     }
   },
