@@ -480,7 +480,7 @@ export const BeforeAfterNoteComparison = () => {
                   <div 
                     ref={tabsRef}
                     className={cn(
-                      "overflow-x-auto pb-1 sm:pb-2 scrollbar-thin no-scrollbar",
+                      "overflow-x-auto pb-1 sm:pb-2 scrollbar-hide",
                       "mx-6 sm:mx-8" // Space for arrows
                     )}
                   >
@@ -520,7 +520,7 @@ export const BeforeAfterNoteComparison = () => {
               <div className="text-center mb-3">
                 <span className="inline-block text-xs sm:text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
                   <Info className="inline-block w-3 h-3 mr-1" />
-                  CRUSH AI adapts to any medical specialty, even those not shown
+                  CRUSH AI adapts to any medical specialty and is customizable to any template, even those not shown
                 </span>
               </div>
 
@@ -761,7 +761,7 @@ export const BeforeAfterNoteComparison = () => {
               <div className="flex items-center mb-1 sm:mb-2">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center mr-1.5 sm:mr-2">
                   <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    <path d="M12 8v4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <h4 className="font-medium text-sm sm:text-base">Time Savings</h4>
@@ -785,7 +785,7 @@ export const BeforeAfterNoteComparison = () => {
               <div className="flex items-center mb-1 sm:mb-2">
                 <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 flex items-center justify-center mr-1.5 sm:mr-2">
                   <svg className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    <path d="M12 6c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0-2.08.402-2.599-1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
                 <h4 className="font-medium text-sm sm:text-base">Patient Focus</h4>
