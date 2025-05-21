@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
@@ -331,7 +330,7 @@ export const BeforeAfterNoteComparison = () => {
         <NoteCard>
           <NoteTitle>After</NoteTitle>
           <NoteContent>{currentExample.after.demographics}</NoteContent>
-           <NoteContent>{`Chief Complaint: ${currentExample.after.chiefComplaint}`}</NoteContent>
+          <NoteContent>{`Chief Complaint: ${currentExample.after.chiefComplaint}`}</NoteContent>
           <NoteContent>{`Exam: ${currentExample.after.exam}`}</NoteContent>
           <NoteContent>{`Assessment: ${currentExample.after.assessment}`}</NoteContent>
           <NoteContent>{`Plan: ${currentExample.after.plan}`}</NoteContent>
