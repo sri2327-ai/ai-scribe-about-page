@@ -25,10 +25,21 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      external: ["@splinetool/runtime", "@emotion/react", "@emotion/styled"]
+      external: [
+        "@splinetool/runtime", 
+        "@emotion/react", 
+        "@emotion/styled", 
+        "@emotion/react/jsx-runtime"
+      ]
     }
   },
   optimizeDeps: {
-    exclude: ['@splinetool/runtime', '@splinetool/react-spline', '@emotion/react', '@emotion/styled']
+    exclude: [
+      '@splinetool/runtime', 
+      '@splinetool/react-spline', 
+      '@emotion/react', 
+      '@emotion/styled', 
+      '@emotion/react/jsx-runtime'
+    ]
   }
 }));
