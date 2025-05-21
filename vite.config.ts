@@ -11,7 +11,10 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
   plugins: [
-    react(),
+    react({
+      jsxImportSource: '@emotion/react',
+      plugins: [['@swc/plugin-emotion', {}]],
+    }),
     mode === 'development' &&
     componentTagger(),
   ].filter(Boolean),
@@ -22,10 +25,10 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     rollupOptions: {
-      external: ["@splinetool/runtime", "@emotion/react"]
+      external: ["@splinetool/runtime", "@emotion/react", "@emotion/styled"]
     }
   },
   optimizeDeps: {
-    exclude: ['@splinetool/runtime', '@splinetool/react-spline', '@emotion/react']
+    exclude: ['@splinetool/runtime', '@splinetool/react-spline', '@emotion/react', '@emotion/styled']
   }
 }));
