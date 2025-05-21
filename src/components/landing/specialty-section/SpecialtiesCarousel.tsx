@@ -6,8 +6,8 @@ import {
   Building2, FlaskConical, Apple, Ambulance, 
   CircleDot, Stethoscope, Droplets, Activity, 
   HeartPulse, Ear, Microscope, ShieldPlus, 
-  Syringe, Bone, Lungs, Dna, 
-  Pill, Baby, Scissors, Thermostat,
+  Syringe, Bone, Dna, 
+  Pill, Baby, Scissors,
   MoreHorizontal
 } from "lucide-react";
 import { ResponsiveCarousel } from "@/components/ui/ResponsiveCarousel";
@@ -17,7 +17,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const allSpecialties = [
   { name: "Cardiology", icon: Heart, complex: true },
   { name: "Neurology", icon: Brain, complex: true },
-  { name: "Pulmonology", icon: Lungs, complex: true },
+  { name: "Pulmonology", icon: Activity, complex: true }, // Changed from Lungs to Activity
   { name: "Endocrinology", icon: Microscope, complex: true },
   { name: "Oncology", icon: CircleDot, complex: true },
   { name: "Rheumatology", icon: Bone, complex: true },
@@ -42,7 +42,7 @@ const allSpecialties = [
   { name: "Immunology", icon: Dna },
   { name: "Surgery", icon: Scissors },
   { name: "Neonatology", icon: Baby },
-  { name: "Pain Management", icon: Thermostat },
+  { name: "Pain Management", icon: Activity }, // Changed from Thermostat to Activity
   { name: "Allergy", icon: Syringe }
 ];
 
