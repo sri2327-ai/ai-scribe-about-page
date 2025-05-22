@@ -160,7 +160,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature workflow - Modified for SEO and crawlability */}
+          {/* Right column - Feature tabs with improved SEO structure */}
           <div className="relative">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -168,7 +168,7 @@ export const FirstSection = () => {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="relative"
             >
-              {/* SEO-friendly card with proper HTML structure for crawlers */}
+              {/* Improved SEO-friendly card with better HTML structure for crawlers */}
               <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto h-[420px] w-full`}>
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                   <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center justify-between flex-wrap dark:text-white">
@@ -180,55 +180,42 @@ export const FirstSection = () => {
                 </div>
                 
                 <div className="p-2 sm:p-3 overflow-auto" style={{ height: "calc(100% - 54px)" }}>
-                  {/* Modified feature tabs container with proper HTML structure for better SEO */}
+                  {/* Fully accessible feature tabs with initial server-rendered content for SEO */}
                   <div className="p-3 sm:p-4 bg-gradient-to-r from-[#F8FAFF] to-[#F2F8FF] backdrop-blur-sm rounded-lg border border-blue-50 shadow-sm h-full">
-                    <div role="tablist" aria-label="AI Features">
-                      {/* Render all feature tabs as static HTML first (for SEO) */}
-                      {featureTabs.map((tab, index) => {
-                        const isActive = activeTabIndex === index;
-                        
-                        return (
-                          <div
-                            key={tab.id}
-                            role="tab"
-                            tabIndex={isActive ? 0 : -1}
-                            aria-selected={isActive}
-                            aria-controls={`panel-${tab.id}`}
-                            id={`tab-${tab.id}`}
-                            className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'} mb-2 last:mb-0`}
-                            onClick={() => handleTabClick(index)}
-                          >
-                            {/* Static HTML content for crawlers */}
+                    {/* Main content for all tabs - always present in HTML for crawlers */}
+                    <div className="mb-4">
+                      <h4 className="sr-only">S10.AI Features Overview</h4>
+                      <ul className="space-y-2">
+                        {featureTabs.map((tab, index) => (
+                          <li key={tab.id}>
                             <div
-                              className={`flex flex-col rounded-lg p-3 ${isActive ? 'border border-blue-100 bg-white shadow-md' : 'border border-transparent bg-gray-50/50'}`}
+                              onClick={() => handleTabClick(index)}
+                              className={`flex flex-col rounded-lg p-3 cursor-pointer transition-all ${
+                                activeTabIndex === index 
+                                  ? 'border border-blue-100 bg-white shadow-md' 
+                                  : 'border border-transparent bg-gray-50/50'
+                              }`}
                             >
                               <div className="flex items-center gap-2.5">
                                 <div
                                   className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-                                  style={{ backgroundColor: isActive ? `${tab.color}25` : `${tab.color}15` }}
-                                  aria-hidden="true"
+                                  style={{ backgroundColor: activeTabIndex === index ? `${tab.color}25` : `${tab.color}15` }}
                                 >
-                                  {/* Icon with accessible label */}
-                                  <span className="sr-only">{tab.title} icon</span>
                                   {React.cloneElement(tab.icon, {
                                     style: { color: tab.color },
                                     className: "w-4 h-4",
                                     "aria-hidden": "true"
                                   })}
                                 </div>
-                                <div>
-                                  <h3 className={`text-sm font-semibold ${isActive ? 'text-gray-900' : 'text-gray-700'}`}>
-                                    {tab.title}
-                                  </h3>
-                                </div>
+                                <h3 className={`text-sm font-semibold ${activeTabIndex === index ? 'text-gray-900' : 'text-gray-700'}`}>
+                                  {tab.title}
+                                </h3>
                               </div>
                               
-                              {/* Tab panel - always rendered in the DOM but only visible when active */}
-                              <div
-                                role="tabpanel"
-                                id={`panel-${tab.id}`}
-                                aria-labelledby={`tab-${tab.id}`}
-                                className={isActive ? "block mt-2.5" : "hidden"} // Changed from sr-only to hidden
+                              {/* Tab content - visible only for active tab but present in DOM for all tabs */}
+                              <div 
+                                className={activeTabIndex === index ? "block mt-2.5" : "opacity-0 h-0 overflow-hidden"} 
+                                aria-hidden={activeTabIndex !== index}
                               >
                                 <p className="text-xs text-gray-600 mt-1 ml-10 leading-relaxed">
                                   {tab.description}
@@ -239,33 +226,31 @@ export const FirstSection = () => {
                                     <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" aria-hidden="true" />
                                     <span className="font-medium text-xs text-[#143151]">{tab.benefit}</span>
                                     
-                                    <div className="ml-auto" aria-hidden="true">
-                                      <VoiceAnimation size={isMobile ? "xs" : "sm"} color={tab.color} isAnimating={isActive} />
-                                    </div>
+                                    {activeTabIndex === index && (
+                                      <div className="ml-auto">
+                                        <VoiceAnimation size={isMobile ? "xs" : "sm"} color={tab.color} isAnimating={true} />
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        );
-                      })}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
 
-                    {/* Add a noscript fallback to ensure content is visible even without JS */}
-                    <noscript>
-                      <div className="p-4 bg-blue-50 rounded-lg mt-3">
-                        <h4 className="font-medium text-blue-900">Our AI Features:</h4>
-                        <ul className="list-disc pl-5 mt-2">
-                          {featureTabs.map(tab => (
-                            <li key={tab.id} className="mb-2">
-                              <strong>{tab.title}</strong> - {tab.description} <em>({tab.benefit})</em>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </noscript>
+                    {/* Static visible content summary that's always present and fully visible */}
+                    <div className="bg-blue-50/50 rounded-lg p-3 mt-4 border border-blue-100/50">
+                      <h4 className="text-sm font-medium text-[#143151] mb-2">Our AI Solutions Include:</h4>
+                      <ul className="text-xs text-gray-700 space-y-1.5 list-disc pl-4">
+                        {featureTabs.map(tab => (
+                          <li key={`summary-${tab.id}`}><strong>{tab.title}</strong> - {tab.benefit}</li>
+                        ))}
+                      </ul>
+                    </div>
 
-                    {/* Enhanced navigation indicator dots with proper ARIA attributes */}
+                    {/* Navigation indicator dots with proper ARIA attributes */}
                     <div className="flex justify-center gap-2.5 mt-3.5" role="group" aria-label="Feature navigation">
                       {featureTabs.map((tab, idx) => (
                         <button 
@@ -278,6 +263,7 @@ export const FirstSection = () => {
                           }`}
                           aria-label={`View ${featureTabs[idx].title}`}
                           aria-pressed={activeTabIndex === idx}
+                          aria-controls={`feature-content-${tab.id}`}
                         />
                       ))}
                     </div>
@@ -322,16 +308,23 @@ export const FirstSection = () => {
                   ))}
                 </div>
                 
-                {/* Static version of logos for SEO/crawlers */}
-                <div className="sr-only">
-                  <h4>Our trusted partners include:</h4>
-                  <ul>
-                    {companyLogos.map((logo, index) => (
-                      <li key={index}>Healthcare Partner {index + 1}</li>
-                    ))}
-                  </ul>
+                {/* Static visible logos for SEO/crawlers */}
+                <div className="flex flex-wrap justify-center gap-4 mb-3">
+                  {companyLogos.slice(0, 4).map((logo, index) => (
+                    <div key={`static-${index}`} className="w-16 h-8">
+                      <OptimizedImage 
+                        src={logo} 
+                        alt={`Healthcare partner ${index + 1}`} 
+                        width={72}
+                        height={18}
+                        priority={true}
+                        className="object-contain w-full h-full"
+                      />
+                    </div>
+                  ))}
                 </div>
                 
+                {/* Interactive marquee for users */}
                 <Marquee gradient={true} gradientWidth={50} speed={25}>
                   {companyLogos.map((logo, index) => (
                     <div key={index} className="mx-4">
