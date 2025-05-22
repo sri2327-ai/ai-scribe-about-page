@@ -260,8 +260,15 @@ const StepVisualizer = memo(({ activeStep }: StepVisualizerProps) => {
 
 StepVisualizer.displayName = 'StepVisualizer';
 
+// Add proper interface for StepIndicators component
+interface StepIndicatorsProps {
+  steps: number;
+  activeStep: number;
+  onStepChange: (index: number) => void;
+}
+
 // New component for step indicators with better UX
-const StepIndicators = memo(({ steps, activeStep, onStepChange }) => {
+const StepIndicators = memo(({ steps, activeStep, onStepChange }: StepIndicatorsProps) => {
   return (
     <div className="flex flex-wrap justify-center gap-4 mt-8" role="tablist" aria-label="Step indicators">
       {Array.from({ length: steps }).map((_, index) => (
