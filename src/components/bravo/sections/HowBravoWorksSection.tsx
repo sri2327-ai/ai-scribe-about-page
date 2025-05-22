@@ -1,114 +1,90 @@
 
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import React, { useState, useRef, useEffect, memo } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
 import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
 import { 
   ArrowRight, 
-  Plug, 
   Phone, 
-  FileText, 
+  Copy, 
   Database, 
   Calendar, 
-  ClipboardCheck, 
-  FileCheck, 
   MessageSquare, 
-  Bell, 
   UserCheck, 
-  CreditCard,
-  Bot,
-  Copy
+  ClipboardCheck, 
+  Bell, 
+  FileText, 
+  CreditCard, 
+  FileCheck
 } from 'lucide-react';
 import { DeployBravoPreview } from '../animations/DeployBravoPreview';
 import { FrontOfficePreview } from '../animations/FrontOfficePreview';
 import { SeamlessSyncPreview } from '../animations/SeamlessSyncPreview';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const stepVariants = {
-  initial: { opacity: 0, y: 30 },
+  initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -30 }
+  exit: { opacity: 0, y: -20 }
 };
 
 const itemVariants = {
-  initial: { opacity: 0, x: -10 },
+  initial: { opacity: 0, x: -5 },
   animate: i => ({ 
     opacity: 1, 
     x: 0,
-    transition: { delay: i * 0.1, duration: 0.5 }
+    transition: { delay: i * 0.08, duration: 0.4 }
   }),
-  hover: { scale: 1.02, x: 10 }
+  hover: { scale: 1.01, x: 5 }
 };
 
-const iconContainerVariants = {
-  initial: { scale: 0.8, opacity: 0 },
-  animate: { scale: 1, opacity: 1, transition: { duration: 0.5 } },
-  pulse: {
-    scale: [1, 1.05, 1],
-    transition: { duration: 2, repeat: Infinity }
-  }
-};
+// Memoized step icon to prevent rerendering
+const StepIcon = memo(({ icon: Icon, isActive, color }) => (
+  <div 
+    className="p-2 rounded-full transition-all duration-300"
+    style={{ 
+      backgroundColor: isActive ? `${color}20` : `${color}10`,
+      transform: isActive ? 'scale(1)' : 'scale(0.95)', 
+      opacity: isActive ? 1 : 0.7,
+    }}
+  >
+    <Icon size={20} style={{ color }} />
+  </div>
+));
 
-const branchVariants = {
-  initial: { pathLength: 0 },
-  animate: { pathLength: 1, transition: { duration: 1.5, ease: "easeInOut" } }
-};
+StepIcon.displayName = 'StepIcon';
 
-interface StepItemProps {
-  index: number;
-  title: string; 
-  description: string;
-  items: { icon: any; text: string }[];
-  isActive: boolean;
-  onActivate: () => void;
-  stepNumber: string;
-}
-
-const StepItem: React.FC<StepItemProps> = ({ 
+// Memoized step item to reduce re-renders
+const StepItem = memo(({ 
   index,
   title, 
   description, 
   items, 
   isActive, 
   onActivate,
-  stepNumber
+  stepNumber,
+  isInView
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { 
-    once: false,
-    amount: 0.5,
-    margin: "-100px 0px -100px 0px" // Detect earlier than default
-  });
-  
-  useEffect(() => {
-    if (isInView && !isActive) {
-      const timer = setTimeout(() => {
-        onActivate();
-      }, 150); // Small delay to avoid thrashing
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, isActive, onActivate]);
-
   return (
     <div 
-      ref={ref}
-      className={`relative px-6 py-8 rounded-xl transition-all duration-300 cursor-pointer ${
-        isActive ? "bg-gray-50 shadow-lg" : "hover:bg-gray-50"
+      className={`relative px-6 py-8 rounded-xl transition-all duration-300 md:cursor-pointer ${
+        isActive ? "bg-gray-50 shadow-lg border border-gray-100" : "hover:bg-gray-50/50"
       }`}
       onClick={onActivate}
+      style={{ scrollMarginTop: '80px' }}
     >
       <div className="flex items-start gap-4">
         <motion.div
-          variants={iconContainerVariants}
-          initial="initial"
-          animate={isActive ? "pulse" : "animate"}
-          className="flex-shrink-0 w-16 h-16 rounded-full flex items-center justify-center"
+          initial={{ scale: 0.9, opacity: 0.7 }}
+          animate={isActive ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0.8 }}
+          className="flex-shrink-0 w-14 h-14 rounded-full flex items-center justify-center"
           style={{ 
-            backgroundColor: `${bravoColors.tertiary}20`,
-            border: isActive ? `2px solid ${bravoColors.tertiary}` : `1px solid ${bravoColors.tertiary}50`
+            backgroundColor: `${bravoColors.tertiary}15`,
+            border: isActive ? `2px solid ${bravoColors.tertiary}` : `1px solid ${bravoColors.tertiary}40`
           }}
         >
           <span 
-            className="text-2xl font-bold" 
+            className="text-xl font-bold" 
             style={{ color: 'black' }}
           >
             {stepNumber}
@@ -117,7 +93,7 @@ const StepItem: React.FC<StepItemProps> = ({
         
         <div className="flex-1">
           <motion.h3 
-            className="text-2xl font-bold mb-2 text-black" 
+            className="text-xl sm:text-2xl font-bold mb-2 text-black" 
             variants={stepVariants}
             initial="initial"
             animate="animate"
@@ -126,7 +102,7 @@ const StepItem: React.FC<StepItemProps> = ({
           </motion.h3>
           
           <motion.p 
-            className="text-lg mb-6 text-black" 
+            className="text-base sm:text-lg mb-6 text-black" 
             variants={stepVariants}
             initial="initial"
             animate="animate"
@@ -138,31 +114,33 @@ const StepItem: React.FC<StepItemProps> = ({
           <AnimatePresence>
             {isActive && (
               <motion.div 
-                className="space-y-4"
+                className="space-y-3"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.25 }}
               >
                 {items.map((item, i) => {
                   const Icon = item.icon;
                   return (
                     <motion.div 
                       key={i}
-                      className="flex items-center gap-3 p-3 bg-white/10 rounded-lg"
+                      className="flex items-center gap-3 p-3 rounded-lg"
                       custom={i}
                       variants={itemVariants}
                       initial="initial"
-                      animate="animate"
-                      whileHover="hover"
-                      transition={{ delay: i * 0.1 }}
+                      animate={isInView ? "animate" : "initial"}
+                      style={{
+                        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                        border: '1px solid rgba(0, 0, 0, 0.05)'
+                      }}
                     >
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center" 
-                        style={{ backgroundColor: `${bravoColors.secondary}20` }}
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center" 
+                        style={{ backgroundColor: `${bravoColors.secondary}15` }}
                       >
-                        <Icon size={20} style={{ color: 'black' }} />
+                        <Icon size={18} style={{ color: 'black' }} />
                       </div>
-                      <p className="flex-1 text-black">
+                      <p className="flex-1 text-sm sm:text-base text-black">
                         {item.text}
                       </p>
                     </motion.div>
@@ -175,9 +153,12 @@ const StepItem: React.FC<StepItemProps> = ({
       </div>
     </div>
   );
-};
+});
 
-const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
+StepItem.displayName = 'StepItem';
+
+// Memoized visual component to prevent re-renders
+const StepVisualizer = memo(({ activeStep }) => {
   const PreviewComponent = () => {
     switch(activeStep) {
       case 0:
@@ -198,26 +179,28 @@ const StepVisualizer = ({ activeStep }: { activeStep: number }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
         className="w-full"
       >
         <PreviewComponent />
       </motion.div>
     </div>
   );
-};
+});
+
+StepVisualizer.displayName = 'StepVisualizer';
 
 export const HowBravoWorksSection = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
-  const intervalRef = useRef<number | null>(null);
-  const lastScrollTime = useRef<number>(0);
+  const [isInView, setIsInView] = useState(false);
+  const sectionRef = useRef(null);
+  const stepRefs = useRef([]);
+  const scrollListenerActive = useRef(true);
+  const isMobile = useIsMobile();
   
   const steps = [
     {
-      number: "1️",
+      number: "1",
       title: "Deploy BRAVO",
       description: "Seamlessly integrate with:",
       items: [
@@ -236,7 +219,7 @@ export const HowBravoWorksSection = () => {
       ]
     },
     {
-      number: "2️",
+      number: "2",
       title: "AI-Powered Front Office Automation",
       description: "BRAVO handles every patient engagement & admin task:",
       items: [
@@ -263,7 +246,7 @@ export const HowBravoWorksSection = () => {
       ]
     },
     {
-      number: "3️",
+      number: "3",
       title: "Seamless Sync with EHR, PMS & RCM",
       description: "BRAVO ensures a fully automated front-office workflow:",
       items: [
@@ -283,143 +266,150 @@ export const HowBravoWorksSection = () => {
     }
   ];
 
-  // Function to check which element is most visible in viewport
-  const findMostVisibleElement = () => {
-    if (!isInView) return null;
-    
-    const stepElements = stepRefs.current.filter(Boolean);
-    if (stepElements.length === 0) return null;
-    
-    let mostVisibleIndex = -1;
-    let highestVisibility = 0;
-    const viewportHeight = window.innerHeight;
-    
-    stepElements.forEach((el, index) => {
-      if (!el) return;
-      
-      const rect = el.getBoundingClientRect();
-      
-      // Calculate how much of the element is in view
-      const visibleTop = Math.max(0, rect.top);
-      const visibleBottom = Math.min(viewportHeight, rect.bottom);
-      
-      // Skip if element is not visible at all
-      if (visibleBottom <= visibleTop) return;
-      
-      const visibleHeight = visibleBottom - visibleTop;
-      const percentVisible = visibleHeight / rect.height;
-      
-      // Prioritize elements closer to the center of the screen
-      const elementCenter = (rect.top + rect.bottom) / 2;
-      const viewportCenter = viewportHeight / 2;
-      const distanceFromCenter = Math.abs(elementCenter - viewportCenter);
-      const centerFactor = 1 - Math.min(distanceFromCenter / (viewportHeight / 2), 1);
-      
-      // Combined visibility score
-      const visibilityScore = percentVisible * centerFactor * 1.5;
-      
-      if (visibilityScore > highestVisibility) {
-        highestVisibility = visibilityScore;
-        mostVisibleIndex = index;
-      }
-    });
-    
-    return mostVisibleIndex >= 0 && highestVisibility > 0.25 ? mostVisibleIndex : null;
-  };
-  
-  // Handle scroll events
-  useEffect(() => {
-    let scrollTimeout: number;
-    
-    const handleScroll = () => {
-      // Record last scroll time
-      lastScrollTime.current = Date.now();
-      
-      // Pause auto-rotation during scrolling
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      
-      // Find most visible element
-      const mostVisibleIndex = findMostVisibleElement();
-      
-      // Update active step if a different element is most visible
-      if (mostVisibleIndex !== null && mostVisibleIndex !== activeStep) {
-        setActiveStep(mostVisibleIndex);
-      }
-      
-      // Clear existing timeout
-      clearTimeout(scrollTimeout);
-      
-      // Set new timeout to start auto-rotation after scrolling stops
-      scrollTimeout = window.setTimeout(() => {
-        if (!intervalRef.current && isInView) {
-          const newIntervalId = window.setInterval(() => {
-            setActiveStep(prev => (prev + 1) % steps.length);
-          }, 8000);
-          intervalRef.current = newIntervalId;
-        }
-      }, 2000);
-    };
-    
-    // Set up scroll event listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Run once on mount to initialize
-    handleScroll();
-    
-    // Clean up
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      clearTimeout(scrollTimeout);
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
-  }, [activeStep, isInView, steps.length]);
-  
-  // Auto-rotation when component is in view
-  useEffect(() => {
-    if (isInView && !intervalRef.current) {
-      // Only start auto-rotation if not currently scrolling
-      const timeSinceLastScroll = Date.now() - lastScrollTime.current;
-      if (timeSinceLastScroll > 1000) {
-        const id = window.setInterval(() => {
-          setActiveStep(prev => (prev + 1) % steps.length);
-        }, 8000);
-        intervalRef.current = id;
-      }
-    }
-    
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    };
-  }, [isInView, steps.length]);
-  
-  // Handle manual step activation
-  const handleActivateStep = (index: number) => {
-    // Stop auto-rotation when user clicks on a step
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
-    
-    setActiveStep(index);
-  };
-  
-  // Initialize ref array for step elements
+  // Initialize step refs
   useEffect(() => {
     stepRefs.current = stepRefs.current.slice(0, steps.length);
   }, [steps.length]);
   
+  // Setup intersection observer for section
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+    
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+  
+  // Better scroll handling with debounce and improved visibility detection
+  useEffect(() => {
+    if (!isInView || isMobile) return;
+    
+    let timeout;
+    let isScrolling = false;
+    
+    const calculateVisibility = () => {
+      if (!scrollListenerActive.current) return;
+      
+      const stepElements = stepRefs.current.filter(Boolean);
+      if (stepElements.length === 0) return;
+      
+      // Find most visible element
+      const viewportHeight = window.innerHeight;
+      let mostVisibleIndex = 0;
+      let maxVisibleRatio = 0;
+      
+      stepElements.forEach((el, idx) => {
+        if (!el) return;
+        
+        const rect = el.getBoundingClientRect();
+        const elementHeight = rect.height;
+        
+        // Calculate visible portion
+        const visibleTop = Math.max(0, rect.top);
+        const visibleBottom = Math.min(viewportHeight, rect.bottom);
+        
+        // Skip if not visible
+        if (visibleBottom <= visibleTop) return;
+        
+        const visibleHeight = visibleBottom - visibleTop;
+        const visibilityRatio = visibleHeight / elementHeight;
+        
+        // Center preference
+        const elementMiddle = (rect.top + rect.bottom) / 2;
+        const viewportMiddle = viewportHeight / 2;
+        const closenessToCenter = 1 - Math.min(Math.abs(elementMiddle - viewportMiddle) / (viewportHeight / 2), 1);
+        
+        // Combined score with strong center preference
+        const score = visibilityRatio * 0.6 + closenessToCenter * 0.4;
+        
+        if (score > maxVisibleRatio) {
+          maxVisibleRatio = score;
+          mostVisibleIndex = idx;
+        }
+      });
+      
+      // Only update if we have a good visibility
+      if (maxVisibleRatio > 0.3 && mostVisibleIndex !== activeStep) {
+        setActiveStep(mostVisibleIndex);
+      }
+    };
+
+    // Debounced scroll handler
+    const handleScroll = () => {
+      if (!isScrolling) {
+        window.requestAnimationFrame(() => {
+          calculateVisibility();
+          isScrolling = false;
+        });
+        isScrolling = true;
+      }
+      
+      clearTimeout(timeout);
+      timeout = setTimeout(calculateVisibility, 100);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    // Initial calculation
+    calculateVisibility();
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeout);
+    };
+  }, [isInView, activeStep, isMobile]);
+  
+  // Handle manual step activation with smooth scroll
+  const handleActivateStep = (index) => {
+    // Prevent scroll event from changing the active step during animation
+    scrollListenerActive.current = false;
+    setActiveStep(index);
+    
+    // Scroll to the step if not in view
+    if (stepRefs.current[index]) {
+      const yOffset = -80; // Offset to account for sticky headers
+      const element = stepRefs.current[index];
+      const elementTop = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      
+      window.scrollTo({
+        top: elementTop,
+        behavior: 'smooth'
+      });
+      
+      // Re-enable scroll listener after animation completes
+      setTimeout(() => {
+        scrollListenerActive.current = true;
+      }, 800);
+    }
+  };
+  
+  // Track view with analytics
+  useEffect(() => {
+    if (isInView) {
+      try {
+        // Analytics tracking - uncomment if analytics library is available
+        // analytics.track('Section Viewed', { section: 'How BRAVO Works' });
+      } catch (e) {
+        console.error('Analytics error:', e);
+      }
+    }
+  }, [isInView]);
+
   return (
-    <section className="bg-white py-20" ref={sectionRef}>
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+    <section className="bg-white py-16 sm:py-20" ref={sectionRef}>
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="text-center mb-12 sm:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -428,22 +418,27 @@ export const HowBravoWorksSection = () => {
           >
             <SparklesTextAdvanced 
               text="How BRAVO Works" 
-              className="text-4xl md:text-5xl font-bold tracking-tight mb-2 no-underline text-black"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-2 no-underline text-black"
               colors={{ first: "#143151", second: "#387E89" }}
             />
           </motion.div>
-          <p className="text-lg text-black opacity-80">
+          <p className="text-lg text-black opacity-80 max-w-2xl mx-auto">
             Discover how BRAVO transforms your front office workflow
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
-          <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+          {/* Left column with steps - improved accessibility */}
+          <div className="space-y-4 sm:space-y-6" role="tablist" aria-label="BRAVO workflow steps">
             {steps.map((step, index) => (
               <div 
                 key={index}
                 ref={el => stepRefs.current[index] = el}
-                className="scroll-mt-24"
+                id={`step-${index + 1}`}
+                role="tab"
+                aria-selected={activeStep === index}
+                aria-controls={`step-content-${index + 1}`}
+                tabIndex={activeStep === index ? 0 : -1}
               >
                 <StepItem
                   index={index}
@@ -453,32 +448,97 @@ export const HowBravoWorksSection = () => {
                   isActive={activeStep === index}
                   onActivate={() => handleActivateStep(index)}
                   stepNumber={step.number}
+                  isInView={isInView && activeStep === index}
                 />
               </div>
             ))}
           </div>
           
-          <div className="hidden md:block sticky top-24 self-start">
+          {/* Right column - fixed on desktop view */}
+          <div className="hidden lg:block sticky top-24 self-start">
             <AnimatePresence mode="wait">
-              <StepVisualizer activeStep={activeStep} />
+              <div 
+                id={`step-content-${activeStep + 1}`} 
+                role="tabpanel" 
+                aria-labelledby={`step-${activeStep + 1}`}
+              >
+                <StepVisualizer activeStep={activeStep} />
+              </div>
             </AnimatePresence>
+            
+            {/* Step indicators - improved accessibility */}
+            <div className="flex justify-center gap-3 mt-6" aria-hidden="true">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleActivateStep(index)}
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
+                  aria-label={`Go to step ${index + 1}`}
+                >
+                  <div
+                    className={`transition-all duration-300 ${
+                      activeStep === index 
+                        ? 'w-8 h-2 rounded-full' 
+                        : 'w-2 h-2 rounded-full hover:bg-gray-400'
+                    }`}
+                    style={{
+                      backgroundColor: activeStep === index 
+                        ? bravoColors.primary 
+                        : '#E0E0E0'
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          {/* Mobile version of visuals - show below each active step */}
+          <div className="lg:hidden mt-4">
+            {activeStep === 0 && <DeployBravoPreview />}
+            {activeStep === 1 && <FrontOfficePreview />}
+            {activeStep === 2 && <SeamlessSyncPreview />}
+            
+            {/* Mobile step indicators */}
+            <div className="flex justify-center gap-3 mt-8">
+              {steps.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleActivateStep(index)}
+                  aria-label={`Go to step ${index + 1}`}
+                  className="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
+                >
+                  <div
+                    className={`transition-all duration-300 ${
+                      activeStep === index 
+                        ? 'w-6 h-2 rounded-full' 
+                        : 'w-2 h-2 rounded-full'
+                    }`}
+                    style={{
+                      backgroundColor: activeStep === index 
+                        ? bravoColors.primary 
+                        : '#E0E0E0'
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
           </div>
         </div>
         
         <motion.div 
-          className="text-center mt-12"
+          className="text-center mt-12 sm:mt-16"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
         >
-          <p className="text-2xl font-semibold mb-8 text-black">
+          <p className="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8 text-black">
             Faster Check-Ins. Smarter Scheduling. Effortless Coordination.
           </p>
           
           <motion.button
-            className="px-8 py-6 text-lg rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl inline-flex items-center hover:shadow-2xl transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="px-6 sm:px-8 py-4 sm:py-5 text-base sm:text-lg rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-lg inline-flex items-center hover:shadow-xl transition-all duration-300"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
           >
             REQUEST A DEMO
             <ArrowRight className="ml-2 h-5 w-5 text-white" />
