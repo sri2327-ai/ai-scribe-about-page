@@ -160,7 +160,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature workflow now with SEO-friendly and crawlable content */}
+          {/* Right column - Feature workflow - Modified for SEO and crawlability */}
           <div className="relative">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -168,7 +168,7 @@ export const FirstSection = () => {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="relative"
             >
-              {/* Server-side rendered card with SEO-friendly content and improved layout stability */}
+              {/* SEO-friendly card with proper HTML structure for crawlers */}
               <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto h-[420px] w-full`}>
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                   <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center justify-between flex-wrap dark:text-white">
@@ -180,11 +180,13 @@ export const FirstSection = () => {
                 </div>
                 
                 <div className="p-2 sm:p-3 overflow-auto" style={{ height: "calc(100% - 54px)" }}>
-                  {/* Enhanced feature tabs container with improved visual hierarchy and SEO-friendly structure */}
+                  {/* Modified feature tabs container with proper HTML structure for better SEO */}
                   <div className="p-3 sm:p-4 bg-gradient-to-r from-[#F8FAFF] to-[#F2F8FF] backdrop-blur-sm rounded-lg border border-blue-50 shadow-sm h-full">
                     <div role="tablist" aria-label="AI Features">
+                      {/* Render all feature tabs as static HTML first (for SEO) */}
                       {featureTabs.map((tab, index) => {
                         const isActive = activeTabIndex === index;
+                        
                         return (
                           <div
                             key={tab.id}
@@ -196,6 +198,7 @@ export const FirstSection = () => {
                             className={`relative overflow-hidden cursor-pointer ${isActive ? 'z-10' : 'z-0'} mb-2 last:mb-0`}
                             onClick={() => handleTabClick(index)}
                           >
+                            {/* Static HTML content for crawlers */}
                             <div
                               className={`flex flex-col rounded-lg p-3 ${isActive ? 'border border-blue-100 bg-white shadow-md' : 'border border-transparent bg-gray-50/50'}`}
                             >
@@ -203,7 +206,10 @@ export const FirstSection = () => {
                                 <div
                                   className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
                                   style={{ backgroundColor: isActive ? `${tab.color}25` : `${tab.color}15` }}
+                                  aria-hidden="true"
                                 >
+                                  {/* Icon with accessible label */}
+                                  <span className="sr-only">{tab.title} icon</span>
                                   {React.cloneElement(tab.icon, {
                                     style: { color: tab.color },
                                     className: "w-4 h-4",
@@ -217,14 +223,12 @@ export const FirstSection = () => {
                                 </div>
                               </div>
                               
-                              {/* Tab panel - visible both for users and crawlers */}
+                              {/* Tab panel - always rendered in the DOM but only visible when active */}
                               <div
                                 role="tabpanel"
                                 id={`panel-${tab.id}`}
                                 aria-labelledby={`tab-${tab.id}`}
-                                tabIndex={0}
-                                hidden={!isActive}
-                                className={isActive ? "block mt-2.5" : "sr-only"}
+                                className={isActive ? "block mt-2.5" : "hidden"} // Changed from sr-only to hidden
                               >
                                 <p className="text-xs text-gray-600 mt-1 ml-10 leading-relaxed">
                                   {tab.description}
@@ -246,6 +250,20 @@ export const FirstSection = () => {
                         );
                       })}
                     </div>
+
+                    {/* Add a noscript fallback to ensure content is visible even without JS */}
+                    <noscript>
+                      <div className="p-4 bg-blue-50 rounded-lg mt-3">
+                        <h4 className="font-medium text-blue-900">Our AI Features:</h4>
+                        <ul className="list-disc pl-5 mt-2">
+                          {featureTabs.map(tab => (
+                            <li key={tab.id} className="mb-2">
+                              <strong>{tab.title}</strong> - {tab.description} <em>({tab.benefit})</em>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </noscript>
 
                     {/* Enhanced navigation indicator dots with proper ARIA attributes */}
                     <div className="flex justify-center gap-2.5 mt-3.5" role="group" aria-label="Feature navigation">
@@ -302,6 +320,16 @@ export const FirstSection = () => {
                   {companyLogos.map((logo, idx) => (
                     <link key={idx} rel="preload" href={logo} as="image" />
                   ))}
+                </div>
+                
+                {/* Static version of logos for SEO/crawlers */}
+                <div className="sr-only">
+                  <h4>Our trusted partners include:</h4>
+                  <ul>
+                    {companyLogos.map((logo, index) => (
+                      <li key={index}>Healthcare Partner {index + 1}</li>
+                    ))}
+                  </ul>
                 </div>
                 
                 <Marquee gradient={true} gradientWidth={50} speed={25}>
