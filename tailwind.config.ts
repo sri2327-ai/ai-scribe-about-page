@@ -116,6 +116,11 @@ export default {
 				'text-shimmer': {
 					'0%': { backgroundPosition: '-200% 0' },
 					'100%': { backgroundPosition: '200% 0' }
+				},
+				rainbow: {
+					'0%': { backgroundPosition: '0% 50%' },
+					'50%': { backgroundPosition: '100% 50%' },
+					'100%': { backgroundPosition: '0% 50%' },
 				}
 			},
 			animation: {
@@ -125,7 +130,8 @@ export default {
 				'star-movement-bottom': 'star-movement-bottom 6s linear infinite',
 				'highlight': 'highlight 0.6s ease forwards',
 				'flash': 'flash 0.6s ease forwards',
-				'text-shimmer': 'text-shimmer 3s ease-in-out infinite'
+				'text-shimmer': 'text-shimmer 3s ease-in-out infinite',
+				'rainbow': 'rainbow 3s ease-in-out infinite',
 			}
 		}
 	},

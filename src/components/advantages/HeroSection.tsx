@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 export const HeroSection: React.FC = () => {
   return (
@@ -46,17 +47,24 @@ export const HeroSection: React.FC = () => {
           More Than AI - It's Your Practice, <span className="font-semibold text-gray-400">Transformed.</span>
         </motion.p>
         
-        <motion.a 
-          href="#advantages" 
-          className="rounded-full px-6 py-4 sm:px-8 sm:py-6 text-base sm:text-lg text-white border-2 border-white hover:bg-white hover:text-teal-600 transition-all duration-300 shadow-lg inline-block"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          Explore the Advantages
-        </motion.a>
+          <style jsx global>{`
+            :root {
+              --color-1: 215 100% 60%; /* Blue */
+              --color-2: 149 100% 60%; /* Green */
+              --color-3: 301 100% 60%; /* Purple */
+              --color-4: 358 100% 60%; /* Red */
+              --color-5: 43 100% 60%;  /* Yellow */
+            }
+          `}</style>
+          <RainbowButton onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}>
+            Explore the Advantages
+          </RainbowButton>
+        </motion.div>
       </motion.div>
     </div>
   );
