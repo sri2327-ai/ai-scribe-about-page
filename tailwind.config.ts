@@ -117,6 +117,14 @@ export default {
 					'0%': { backgroundPosition: '-200% 0' },
 					'100%': { backgroundPosition: '200% 0' }
 				},
+				'shimmer-slide': {
+					'from': { transform: 'translateY(-100%) translateX(-100%)' },
+					'to': { transform: 'translateY(100%) translateX(100%)' },
+				},
+				'spin-around': {
+					'from': { transform: 'rotate(0deg)' },
+					'to': { transform: 'rotate(360deg)' },
+				},
 				rainbow: {
 					'0%': { backgroundPosition: '0% 50%' },
 					'50%': { backgroundPosition: '100% 50%' },
@@ -132,6 +140,8 @@ export default {
 				'flash': 'flash 0.6s ease forwards',
 				'text-shimmer': 'text-shimmer 3s ease-in-out infinite',
 				'rainbow': 'rainbow 3s ease-in-out infinite',
+				'shimmer-slide': 'shimmer-slide var(--speed) ease-in-out infinite alternate',
+				'spin-around': 'spin-around calc(var(--speed) * 2.5) linear infinite',
 			}
 		}
 	},

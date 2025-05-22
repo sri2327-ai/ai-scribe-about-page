@@ -16,10 +16,21 @@
   animation: skew-scroll 20s linear infinite;
 }
 
-/* Add custom rainbow animation */
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Shimmer effect animations */
+@keyframes shimmer-slide {
+  from {
+    transform: translateY(-100%) translateX(-100%);
+  }
+  to {
+    transform: translateY(100%) translateX(100%);
+  }
 }
 
+@keyframes spin-around {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
