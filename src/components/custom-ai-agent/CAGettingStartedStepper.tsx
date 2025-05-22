@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -16,11 +15,6 @@ interface Step {
 const IllustrationFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 aspect-video w-full h-full flex items-center justify-center relative overflow-hidden">
     {children}
-    
-    {/* Added semi-transparent instruction overlay */}
-    <div className="absolute top-2 left-2 bg-blue-50 bg-opacity-80 px-2 py-1 rounded text-xs text-blue-700 font-medium">
-      Animation Preview
-    </div>
   </div>
 );
 
@@ -352,7 +346,7 @@ export const CAGettingStartedStepper = () => {
           </p>
 
           {/* Mobile View - Stacked Layout */}
-          <div className="md:hidden flex flex-col">
+          <div className="sm:hidden flex flex-col">
             {/* Visual content - Animation Display */}
             <div className="relative h-[300px] mb-8">
               <AnimatePresence mode="wait">
@@ -448,15 +442,15 @@ export const CAGettingStartedStepper = () => {
             </div>
           </div>
 
-          {/* Desktop View - Side-by-side Layout with improved UX */}
-          <div className="hidden md:grid md:grid-cols-12 gap-8 mb-12">
+          {/* Tablet and Desktop View - Improved Layout */}
+          <div className="hidden sm:flex flex-col lg:grid lg:grid-cols-12 gap-8 mb-12">
             {/* Animation Display - Larger and more prominent */}
             <div 
-              className="col-span-7 flex flex-col"
+              className="w-full lg:col-span-7 flex flex-col"
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
             >
-              <div className="relative h-[450px] bg-white rounded-xl shadow-lg overflow-hidden mb-4">
+              <div className="relative h-[350px] sm:h-[400px] lg:h-[450px] bg-white rounded-xl shadow-lg overflow-hidden mb-4">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeStep}
@@ -473,16 +467,6 @@ export const CAGettingStartedStepper = () => {
                 {/* Added floating step indicator */}
                 <div className="absolute top-4 right-4 bg-white shadow-md rounded-full px-3 py-1 font-medium text-sm" style={{ color: customAIAgentColors.primary }}>
                   Step {activeStep + 1} of {steps.length}
-                </div>
-                
-                {/* Added animation label with improved visibility */}
-                <div className="absolute top-4 left-4 bg-blue-50 bg-opacity-90 px-3 py-1.5 rounded text-sm font-medium shadow-sm border border-blue-100 flex items-center gap-2" style={{ color: customAIAgentColors.primary }}>
-                  <motion.div 
-                    animate={{ scale: [1, 1.2, 1] }} 
-                    transition={{ repeat: Infinity, duration: 2 }}
-                    className="w-2 h-2 rounded-full bg-blue-400"
-                  />
-                  Animation Preview
                 </div>
                 
                 {/* Added playback controls */}
@@ -573,7 +557,7 @@ export const CAGettingStartedStepper = () => {
             </div>
             
             {/* Steps list - with improved visual hierarchy */}
-            <div className="col-span-5 space-y-3">
+            <div className="w-full lg:col-span-5 space-y-3">
               {steps.map((step, index) => (
                 <motion.div
                   key={index}
