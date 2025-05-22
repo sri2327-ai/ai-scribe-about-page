@@ -187,23 +187,25 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        {/* SEO-friendly hidden content summary for all tab content */}
+        {/* Enhanced SEO-friendly content - Fully indexed version for search engines */}
         <div className="sr-only">
-          <h2>S10.AI Healthcare AI Solutions</h2>
-          {tabKeys.map((tabKey) => (
-            <div key={`seo-${tabKey}`}>
-              <h3>{tabKey}</h3>
-              <ul>
-                {tabAccData[tabKey].map((item, idx) => (
-                  <li key={`seo-item-${tabKey}-${idx}`}>
-                    <h4>{item.title}</h4>
-                    <p>{item.content}</p>
-                    <p>Key Metric: {item.metric}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <h2>S10.AI Healthcare AI Solutions - Complete Feature Overview</h2>
+          <div>
+            {Object.entries(tabAccData).map(([categoryName, items], index) => (
+              <div key={`seo-category-${index}`}>
+                <h3>{categoryName}</h3>
+                <ul>
+                  {items.map((item, itemIndex) => (
+                    <li key={`seo-item-${categoryName}-${itemIndex}`}>
+                      <h4>{item.title}</h4>
+                      <p>{item.content}</p>
+                      <p>Key Metric: {item.metric}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         <Box component="nav" className="w-full flex justify-center mb-2 relative">
@@ -277,25 +279,40 @@ export const ThirdSection = () => {
         <Box className={`grid ${isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-12 gap-4 sm:gap-6 lg:gap-8'} w-full`}>
           <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              {/* SEO-friendly rendering of all tabs content */}
+              {/* Static crawlable content with proper SEO structure - hidden visually but available to crawlers */}
+              <div className="hidden">
+                {Object.entries(tabAccData).map(([tabName, items], tabIdx) => (
+                  <section key={`static-section-${tabIdx}`} className="mb-8">
+                    <h3 className="text-xl font-bold mb-4">{tabName}</h3>
+                    {items.map((item, itemIdx) => (
+                      <article key={`static-item-${tabIdx}-${itemIdx}`} className="mb-6 pb-4 border-b">
+                        <h4 className="text-lg font-semibold mb-2">{item.title}</h4>
+                        <p className="mb-2">{item.content}</p>
+                        <div className="text-[#387E89] font-medium">{item.metric}</div>
+                      </article>
+                    ))}
+                  </section>
+                ))}
+              </div>
+              
+              {/* Interactive tabs and accordions for users */}
               <div className="w-full">
-                {/* Visually show the active tab with animations */}
-                {Object.entries(tabAccData).map(([key, value], index) => (
+                {tabKeys.map((tabKey, tabIndex) => (
                   <div 
-                    key={`tab-content-${index}`} 
+                    key={`tab-content-${tabIndex}`} 
                     role="tabpanel"
-                    id={`tabpanel-${index}`}
-                    aria-labelledby={`tab-${index}`}
-                    className={tabValue === index ? '' : 'hidden'}
+                    id={`tabpanel-${tabIndex}`}
+                    aria-labelledby={`tab-${tabIndex}`}
+                    className={`${tabValue === tabIndex ? '' : 'hidden'}`}
                   >
-                    {tabValue === index && (
+                    {tabValue === tabIndex && (
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.5 }}
                       >
                         <Accordion type="single" collapsible className="w-full space-y-2 sm:space-y-3" defaultValue="item-0">
-                          {value.map((item: any, itemIndex) => (
+                          {tabAccData[tabKey].map((item: any, itemIndex) => (
                             <AccordionItem value={`item-${itemIndex}`} key={itemIndex} className="border border-gray-100 rounded-lg overflow-hidden hover:border-[#387E89] transition-all duration-200 data-[state=open]:shadow-md">
                               <AccordionTrigger className="px-3 sm:px-4 py-2 sm:py-3 hover:no-underline">
                                 <div className="flex items-center gap-2 sm:gap-3">
@@ -318,25 +335,24 @@ export const ThirdSection = () => {
                     )}
                   </div>
                 ))}
-
-                {/* Non-interactive static HTML for crawlers with proper semantic structure */}
-                <div className="hidden" aria-hidden="true">
-                  {Object.entries(tabAccData).map(([key, items], tabIndex) => (
-                    <div key={`static-${tabIndex}`} className="mb-6">
-                      <h3 className="text-lg font-bold mb-3">{key}</h3>
-                      <div className="space-y-4">
-                        {items.map((item: any, itemIndex) => (
-                          <div key={`static-item-${tabIndex}-${itemIndex}`} className="border rounded-lg p-4">
-                            <h4 className="font-semibold text-base">{item.title}</h4>
-                            <p className="my-2 text-sm">{item.content}</p>
-                            <div className="text-sm font-medium text-[#387E89]">{item.metric}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
+              
+              {/* Machine-readable structured data for advanced SEO */}
+              <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "ItemList",
+                  "itemListElement": Object.entries(tabAccData).flatMap(([category, items], catIndex) =>
+                    items.map((item, itemIndex) => ({
+                      "@type": "ListItem",
+                      "position": catIndex * 100 + itemIndex + 1,
+                      "name": item.title,
+                      "description": item.content,
+                      "url": `https://s10.ai/#healthcare-ai-benefits-${category.toLowerCase().replace(/\s+/g, '-')}-${item.title.toLowerCase().replace(/\s+/g, '-')}`,
+                    }))
+                  )
+                })
+              }} />
             </Box>
           </Box>
 
