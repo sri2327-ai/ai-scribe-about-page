@@ -187,25 +187,28 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        {/* SEO-friendly hidden content summary for all tab content */}
-        <div className="sr-only">
-          <h2>S10.AI Healthcare AI Solutions</h2>
-          {tabKeys.map((tabKey) => (
-            <div key={`seo-${tabKey}`}>
-              <h3>{tabKey}</h3>
-              <ul>
-                {tabAccData[tabKey].map((item, idx) => (
-                  <li key={`seo-item-${tabKey}-${idx}`}>
-                    <h4>{item.title}</h4>
-                    <p>{item.content}</p>
-                    <p>Key Metric: {item.metric}</p>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        {/* Complete SEO-optimized content - visible in source code for crawlers */}
+        <div className="w-full">
+          <h2 className="sr-only">S10.AI Healthcare Solutions Categories</h2>
+          <div className="block print:block">
+            {Object.entries(tabAccData).map(([category, items]) => (
+              <div key={`seo-content-${category}`} className="print:block">
+                <h3 className="text-lg font-bold mb-3">{category}</h3>
+                <div className="space-y-4">
+                  {items.map((item, idx) => (
+                    <div key={`seo-item-${category}-${idx}`} className="mb-4">
+                      <h4 className="font-semibold text-base mb-1">{item.title}</h4>
+                      <p className="text-sm text-gray-600 mb-1">{item.content}</p>
+                      <p className="text-sm font-medium text-[#387E89]">{item.metric}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Interactive UI for users (visually hidden static content above) */}
         <Box component="nav" className="w-full flex justify-center mb-2 relative">
           <div className="relative w-full max-w-3xl mx-auto">
             {visibleTabsStart > 0 && <button onClick={handlePrevTabs} className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white rounded-full shadow-md p-1 border border-gray-100 hover:bg-gray-50" aria-label="Previous tabs">
@@ -277,9 +280,8 @@ export const ThirdSection = () => {
         <Box className={`grid ${isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-12 gap-4 sm:gap-6 lg:gap-8'} w-full`}>
           <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              {/* SEO-friendly rendering of all tabs content */}
+              {/* Interactive tab contents for users */}
               <div className="w-full">
-                {/* Visually show the active tab with animations */}
                 {Object.entries(tabAccData).map(([key, value], index) => (
                   <div 
                     key={`tab-content-${index}`} 
@@ -318,24 +320,6 @@ export const ThirdSection = () => {
                     )}
                   </div>
                 ))}
-
-                {/* Non-interactive static HTML for crawlers with proper semantic structure */}
-                <div className="hidden" aria-hidden="true">
-                  {Object.entries(tabAccData).map(([key, items], tabIndex) => (
-                    <div key={`static-${tabIndex}`} className="mb-6">
-                      <h3 className="text-lg font-bold mb-3">{key}</h3>
-                      <div className="space-y-4">
-                        {items.map((item: any, itemIndex) => (
-                          <div key={`static-item-${tabIndex}-${itemIndex}`} className="border rounded-lg p-4">
-                            <h4 className="font-semibold text-base">{item.title}</h4>
-                            <p className="my-2 text-sm">{item.content}</p>
-                            <div className="text-sm font-medium text-[#387E89]">{item.metric}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </Box>
           </Box>
