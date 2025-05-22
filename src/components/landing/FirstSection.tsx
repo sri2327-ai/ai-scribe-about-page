@@ -4,7 +4,6 @@ import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
 import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle } from "lucide-react";
-import { VoiceAnimation } from './animations/VoiceAnimation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -14,6 +13,52 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { shadowStyles } from '@/lib/shadow-utils';
 import { LazyLoad } from '@/components/ui/lazy-load';
 import OptimizedImage from '@/components/ui/optimized-image';
+
+// More efficient voice animation component
+const VoiceAnimation = ({ size = "md", color = "#387E89", isAnimating = true }) => {
+  const barCount = size === "xs" ? 3 : size === "sm" ? 4 : 5;
+  const maxHeight = size === "xs" ? 8 : size === "sm" ? 12 : 16;
+  
+  return (
+    <div 
+      className="flex items-end gap-0.5 h-6" 
+      aria-hidden="true"
+      style={{ height: size === "xs" ? "12px" : size === "sm" ? "16px" : "24px" }}
+    >
+      {isAnimating ? (
+        <div className="flex items-end gap-0.5">
+          {Array(barCount).fill(0).map((_, idx) => (
+            <div 
+              key={idx}
+              className="rounded-full animate-pulse"
+              style={{
+                backgroundColor: color,
+                width: "2px",
+                height: `${Math.max(2, Math.random() * maxHeight)}px`,
+                animationDelay: `${idx * 100}ms`,
+                animationDuration: `${800 + Math.random() * 400}ms`,
+              }}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="flex items-end gap-0.5">
+          {Array(barCount).fill(0).map((_, idx) => (
+            <div 
+              key={idx}
+              className="rounded-full"
+              style={{
+                backgroundColor: color,
+                width: "2px",
+                height: "2px"
+              }}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
@@ -160,7 +205,7 @@ export const FirstSection = () => {
             </div>
           </motion.div>
           
-          {/* Right column - Feature tabs with improved SEO structure */}
+          {/* Right column - Feature tabs with improved DOM efficiency */}
           <div className="relative">
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
@@ -168,7 +213,7 @@ export const FirstSection = () => {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="relative"
             >
-              {/* Improved SEO-friendly card with better HTML structure for crawlers */}
+              {/* Improved SEO-friendly card with better HTML structure and less DOM nodes */}
               <Card className={`bg-white/90 border-0 border-gray-100 transition-all duration-300 overflow-hidden ${shadowStyles.brandGlow} ring-1 ring-gray-100/70 backdrop-blur-sm hover:shadow-xl dark:bg-gray-900/95 dark:border-gray-800 max-w-md mx-auto h-[420px] w-full`}>
                 <div className="p-2 sm:p-3 bg-gradient-to-r from-blue-500/10 to-pink-500/10 backdrop-blur-sm">
                   <h3 className="font-medium text-gray-900 text-sm sm:text-base flex items-center justify-between flex-wrap dark:text-white">
@@ -180,7 +225,7 @@ export const FirstSection = () => {
                 </div>
                 
                 <div className="p-2 sm:p-3 overflow-auto" style={{ height: "calc(100% - 54px)" }}>
-                  {/* Fully accessible feature tabs with initial server-rendered content for SEO */}
+                  {/* Fully accessible feature tabs with reduced DOM nodes */}
                   <div className="p-3 sm:p-4 bg-gradient-to-r from-[#F8FAFF] to-[#F2F8FF] backdrop-blur-sm rounded-lg border border-blue-50 shadow-sm h-full">
                     {/* Main content for all tabs - always present in HTML for crawlers */}
                     <div className="mb-4">
@@ -226,6 +271,7 @@ export const FirstSection = () => {
                                     <CheckCircle className="w-3.5 h-3.5 text-[#387E89]" aria-hidden="true" />
                                     <span className="font-medium text-xs text-[#143151]">{tab.benefit}</span>
                                     
+                                    {/* Replace complex DOM with simplified animation component */}
                                     {activeTabIndex === index && (
                                       <div className="ml-auto">
                                         <VoiceAnimation size={isMobile ? "xs" : "sm"} color={tab.color} isAnimating={true} />
@@ -250,7 +296,7 @@ export const FirstSection = () => {
                       </ul>
                     </div>
 
-                    {/* Navigation indicator dots with proper ARIA attributes */}
+                    {/* Navigation indicator dots with proper ARIA attributes and reduced DOM */}
                     <div className="flex justify-center gap-2.5 mt-3.5" role="group" aria-label="Feature navigation">
                       {featureTabs.map((tab, idx) => (
                         <button 
@@ -274,7 +320,7 @@ export const FirstSection = () => {
           </div>
         </div>
         
-        {/* Trusted by section - improved for layout stability */}
+        {/* Trusted by section - with DOM optimization */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -303,37 +349,37 @@ export const FirstSection = () => {
               <div className="overflow-hidden w-full">
                 {/* Preload images to prevent layout shifts */}
                 <div className="hidden">
-                  {companyLogos.map((logo, idx) => (
+                  {companyLogos.slice(0, 2).map((logo, idx) => (
                     <link key={idx} rel="preload" href={logo} as="image" />
                   ))}
                 </div>
                 
-                {/* Static visible logos for SEO/crawlers */}
+                {/* Static visible logos for SEO/crawlers - reduced number */}
                 <div className="flex flex-wrap justify-center gap-4 mb-3">
-                  {companyLogos.slice(0, 4).map((logo, index) => (
+                  {companyLogos.slice(0, 3).map((logo, index) => (
                     <div key={`static-${index}`} className="w-16 h-8">
                       <OptimizedImage 
                         src={logo} 
                         alt={`Healthcare partner ${index + 1}`} 
                         width={72}
                         height={18}
-                        priority={true}
+                        priority={index < 2}
                         className="object-contain w-full h-full"
                       />
                     </div>
                   ))}
                 </div>
                 
-                {/* Interactive marquee for users */}
+                {/* Interactive marquee for users - with fewer duplicates */}
                 <Marquee gradient={true} gradientWidth={50} speed={25}>
-                  {companyLogos.map((logo, index) => (
+                  {companyLogos.slice(0, 5).map((logo, index) => (
                     <div key={index} className="mx-4">
                       <OptimizedImage 
                         src={logo} 
                         alt={`Healthcare partner ${index + 1}`} 
                         width={isMobile ? 72 : 96}
                         height={isMobile ? 18 : 24}
-                        priority={index < 3}
+                        priority={index < 2}
                         className="object-contain"
                       />
                     </div>
@@ -347,3 +393,6 @@ export const FirstSection = () => {
     </section>
   );
 };
+
+// Export the VoiceAnimation component separately for use in other files
+export { VoiceAnimation };
