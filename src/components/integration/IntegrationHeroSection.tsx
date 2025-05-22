@@ -84,8 +84,12 @@ const IntegrationHeroSection = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className={cn("max-w-[320px] sm:max-w-[400px] w-full", shadowStyles.subtle)}>
-            <HeroPieChartIllustration />
+          <div className="w-full flex justify-center items-center">
+            <div className={cn("w-full max-w-full sm:max-w-[400px] overflow-visible", shadowStyles.subtle)}>
+              <div className="transform-gpu scale-[0.85] sm:scale-[0.9] md:scale-100 origin-center">
+                <HeroPieChartIllustration />
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

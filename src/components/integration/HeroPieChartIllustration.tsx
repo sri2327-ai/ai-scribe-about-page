@@ -10,6 +10,7 @@ import {
   CircleCheck,
   SquarePlus,
 } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const PIE_SEGMENTS = [
   { label: "EHR",           icon: SquareCheck,   gradient: "from-[#95e8ff] via-[#9b87f5] to-[#0ea5e9]" },
@@ -22,12 +23,6 @@ const PIE_SEGMENTS = [
   { label: "Email",         icon: Mail,          gradient: "from-[#f0e6fe] to-[#aec6cf]" },
 ];
 
-const cx = 128;
-const cy = 128;
-const r = 102;
-const size = 256;
-const segmentAngle = 360 / PIE_SEGMENTS.length;
-
 function FloatingSegmentBadge({
   x,
   y,
@@ -35,6 +30,7 @@ function FloatingSegmentBadge({
   label,
   gradient,
   delay,
+  isMobile,
 }: {
   x: number;
   y: number;
@@ -42,18 +38,22 @@ function FloatingSegmentBadge({
   label: string;
   gradient: string;
   delay: number;
+  isMobile: boolean;
 }) {
+  const scaleFactor = isMobile ? 0.8 : 1;
+  
   return (
     <div
       style={{
         position: "absolute",
-        left: x,
-        top: y,
+        left: `${x}px`,
+        top: `${y}px`,
         transform: "translate(-50%, -50%)",
         zIndex: 3,
         pointerEvents: "none",
         animation: "fade-in 0.7s cubic-bezier(.39,1.36,.57,1) both",
         animationDelay: `${delay}ms`,
+        scale: scaleFactor,
       }}
       className="group"
     >
@@ -68,7 +68,7 @@ function FloatingSegmentBadge({
           group-hover:scale-110
         `}
         style={{
-          minWidth: 66,
+          minWidth: isMobile ? 56 : 66,
           border: "1.5px solid #e3e4f6",
           boxShadow: "0 2px 8px 0 #b5b5b54a",
           background: `linear-gradient(110deg, ${gradient})`,
@@ -85,9 +85,9 @@ function FloatingSegmentBadge({
             boxShadow: "0 2px 7px 0 #cdf6ff52",
           }}
         >
-          <Icon size={19} className="text-[#387E89]" strokeWidth={2} />
+          <Icon size={isMobile ? 16 : 19} className="text-[#387E89]" strokeWidth={2} />
         </span>
-        <span className="text-xs font-bold text-[#143151] drop-shadow-sm" style={{ letterSpacing: "-0.011em" }}>
+        <span className={`${isMobile ? 'text-[10px]' : 'text-xs'} font-bold text-[#143151] drop-shadow-sm`} style={{ letterSpacing: "-0.011em" }}>
           {label}
         </span>
       </div>
@@ -108,11 +108,17 @@ function PieSegment({
   endAngle,
   colorId,
   delay,
+  cx,
+  cy,
+  r,
 }: {
   startAngle: number;
   endAngle: number;
   colorId: string;
   delay: number;
+  cx: number;
+  cy: number;
+  r: number;
 }) {
   const start = polarToCartesian(cx, cy, r, endAngle);
   const end = polarToCartesian(cx, cy, r, startAngle);
@@ -152,27 +158,38 @@ function polarToCartesian(
 }
 
 const PieChartModern: React.FC = () => {
+  const isMobile = useIsMobile();
+  
+  // Dynamic sizing based on screen size
+  const size = isMobile ? 220 : 256;
+  const cx = size / 2;
+  const cy = size / 2;
+  const r = (size / 2) - 26;
+  
   let angle = 0;
+  const segmentAngle = 360 / PIE_SEGMENTS.length;
+  
   return (
     <div 
-      className="relative w-[330px] h-[335px] flex items-center justify-center"
+      className="relative w-full h-full flex items-center justify-center"
       style={{
-        minWidth: 260,
-        minHeight: 260,
+        minWidth: isMobile ? 220 : 260,
+        minHeight: isMobile ? 220 : 260,
       }}
     >
       {PIE_SEGMENTS.map((seg, i) => {
         const midAngle = angle + segmentAngle / 2;
-        const badgePos = getPositionOnArc(cx, cy, r, midAngle, 46);
+        const badgePos = getPositionOnArc(cx, cy, r, midAngle, isMobile ? 38 : 46);
         const out = (
           <FloatingSegmentBadge
             key={seg.label}
-            x={badgePos.x - 66}
-            y={badgePos.y - 77}
+            x={badgePos.x - (isMobile ? 56 : 66)}
+            y={badgePos.y - (isMobile ? 67 : 77)}
             icon={seg.icon}
             label={seg.label}
             gradient={seg.gradient}
             delay={i * 60 + 100}
+            isMobile={isMobile}
           />
         );
         angle += segmentAngle;
@@ -180,15 +197,16 @@ const PieChartModern: React.FC = () => {
       })}
 
       <svg
-        width={size}
-        height={size}
-        viewBox="0 0 256 256"
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${size} ${size}`}
         className="block z-10"
         style={{
           borderRadius: 40,
           background: "transparent",
           boxShadow: "0 4px 20px #d2e1ff33",
           overflow: "visible",
+          maxWidth: isMobile ? "260px" : "350px",
         }}
       >
         <defs>
@@ -231,16 +249,16 @@ const PieChartModern: React.FC = () => {
 
         <ellipse
           cx={cx}
-          cy={cy + 17}
-          rx={108}
-          ry={38}
+          cy={cy + 17 * (isMobile ? 0.8 : 1)}
+          rx={r + 6}
+          ry={38 * (isMobile ? 0.8 : 1)}
           fill="#b7bef63b"
           opacity={0.21}
         />
         <circle
           cx={cx}
           cy={cy}
-          r={112}
+          r={r + 10}
           fill="url(#modern-glass)"
           opacity={0.91}
           style={{
@@ -257,6 +275,9 @@ const PieChartModern: React.FC = () => {
               endAngle={endAngle}
               colorId={`seg${i}`}
               delay={i * 68 + 28}
+              cx={cx}
+              cy={cy}
+              r={r}
             />
           );
         })}
@@ -264,7 +285,7 @@ const PieChartModern: React.FC = () => {
         <circle
           cx={cx}
           cy={cy}
-          r={58}
+          r={isMobile ? 48 : 58}
           fill="#0ea5e9"
           opacity={0.95}
           style={{
@@ -274,7 +295,7 @@ const PieChartModern: React.FC = () => {
         <circle
           cx={cx}
           cy={cy}
-          r={47}
+          r={isMobile ? 38 : 47}
           fill="#fff"
           opacity={0.99}
           style={{
@@ -289,7 +310,7 @@ const PieChartModern: React.FC = () => {
           fill="#387E89"
           fontWeight="bold"
           fontFamily="'Inter',sans-serif"
-          fontSize="2.07rem"
+          fontSize={isMobile ? "1.7rem" : "2.07rem"}
           style={{
             letterSpacing: "-1.9px",
             filter: "drop-shadow(0 2px 14px #8b5cf675) drop-shadow(0 2.5px 8px #87e1ea80)",
@@ -317,30 +338,30 @@ const PieChartModern: React.FC = () => {
   );
 };
 
-const HeroPieChartIllustration = () => (
-  <div className="flex flex-col items-center">
-    <div
-      className="hover-scale"
-      style={{
-        maxWidth: 410,
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "linear-gradient(109.6deg,rgba(223,234,247,0.70) 11.2%,rgba(244,248,252,0.35) 91.1%)",
-        borderRadius: 32,
-        padding: "1.37rem 1.1rem",
-        boxShadow: "0 7px 38px rgba(24, 65, 96, 0.10), 0 3.5px 18px 0 rgba(17, 17, 17, 0.12)",
-        backdropFilter: "blur(6.5px)",
-        WebkitBackdropFilter: "blur(6.5px)",
-        transition: "box-shadow 0.24s cubic-bezier(.17,.67,.82,.31)",
-        minWidth: 260,
-        minHeight: 260,
-      }}
-    >
-      <PieChartModern />
+const HeroPieChartIllustration = () => {
+  return (
+    <div className="flex flex-col items-center">
+      <div
+        className="hover-scale"
+        style={{
+          maxWidth: "100%",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          background: "linear-gradient(109.6deg,rgba(223,234,247,0.70) 11.2%,rgba(244,248,252,0.35) 91.1%)",
+          borderRadius: 32,
+          padding: "1.37rem 1.1rem",
+          boxShadow: "0 7px 38px rgba(24, 65, 96, 0.10), 0 3.5px 18px 0 rgba(17, 17, 17, 0.12)",
+          backdropFilter: "blur(6.5px)",
+          WebkitBackdropFilter: "blur(6.5px)",
+          transition: "box-shadow 0.24s cubic-bezier(.17,.67,.82,.31)",
+        }}
+      >
+        <PieChartModern />
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default HeroPieChartIllustration;
