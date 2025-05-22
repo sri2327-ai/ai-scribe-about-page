@@ -52,15 +52,15 @@ export const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          <style jsx global>{`
-            :root {
-              --color-1: 215 100% 60%; /* Blue */
-              --color-2: 149 100% 60%; /* Green */
-              --color-3: 301 100% 60%; /* Purple */
-              --color-4: 358 100% 60%; /* Red */
-              --color-5: 43 100% 60%;  /* Yellow */
-            }
-          `}</style>
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              :root {
+                --teal-1: 174 80% 40%; /* Darker teal */
+                --teal-2: 160 84% 45%; /* Medium teal */
+                --teal-3: 152 76% 50%; /* Lighter green-teal */
+              }
+            `
+          }} />
           <RainbowButton onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}>
             Explore the Advantages
           </RainbowButton>
