@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +6,7 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 import { FileCheck, MessageSquarePlus, Clock, ShieldCheck, FileText, Users, Shield, ArrowLeft, ArrowRight } from "lucide-react";
 import { useMediaQuery } from '@mui/material';
 import { shadowStyles } from "@/lib/shadow-utils";
+import { YouTubeFacade } from "@/components/ui/youtube-facade";
 
 const tabAccData = {
   "The S10.AI Advantage": [{
@@ -358,10 +358,13 @@ export const ThirdSection = () => {
 
           <Box component="aside" className={isMobile ? "mt-5" : "col-span-5"}>
             <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white h-fit">
+              {/* Replace iframe with YouTubeFacade component */}
               <div className="aspect-video w-full">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/unmWENGNuo4" title="S10.AI Healthcare Solutions Demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen style={{
-                border: "none"
-              }} loading="lazy" />
+                <YouTubeFacade 
+                  videoId="unmWENGNuo4" 
+                  title="S10.AI Healthcare Solutions Demo"
+                  thumbnailQuality="maxresdefault"
+                />
               </div>
               <div className="p-4 sm:p-6">
                 <h4 className="text-lg sm:text-xl font-semibold text-[#387E89] mb-2">Watch Our Solution in Action</h4>

@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -17,6 +16,7 @@ import {
 } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { YouTubeFacade } from '@/components/ui/youtube-facade';
 
 const beforeAfterComparison = {
   before: {
