@@ -1,7 +1,8 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 
 interface Step {
@@ -12,8 +13,13 @@ interface Step {
 }
 
 const IllustrationFrame: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <div className="bg-white rounded-xl shadow-lg p-6 aspect-video w-full flex items-center justify-center">
+  <div className="bg-white rounded-xl shadow-lg p-6 aspect-video w-full flex items-center justify-center relative">
     {children}
+    
+    {/* Added semi-transparent instruction overlay */}
+    <div className="absolute top-2 left-2 bg-blue-50 bg-opacity-80 px-2 py-1 rounded text-xs text-blue-700 font-medium">
+      Animation Preview
+    </div>
   </div>
 );
 
@@ -320,7 +326,8 @@ export const CAGettingStartedStepper = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-            <div className="space-y-8">
+            {/* Steps list - left side */}
+            <div className="space-y-6">
               {steps.map((step, index) => (
                 <motion.div
                   key={index}
@@ -353,30 +360,95 @@ export const CAGettingStartedStepper = () => {
                         {step.description}
                       </p>
                     </div>
+                    
+                    {/* Added completion indicator */}
+                    {activeStep === index && (
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="ml-auto"
+                      >
+                        <CheckCircle 
+                          size={18} 
+                          className="text-green-500"
+                        />
+                      </motion.div>
+                    )}
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            <div className="relative h-[400px] flex items-center justify-center bg-white rounded-xl shadow-lg p-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeStep}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="w-full h-full"
+            {/* Visual content - right side */}
+            <div className="flex flex-col">
+              {/* Animation display area with improved visibility */}
+              <div className="relative h-[400px] flex items-center justify-center bg-white rounded-xl shadow-lg p-8 mb-4">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeStep}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full"
+                  >
+                    <IllustrationFrame>
+                      {steps[activeStep].illustration}
+                    </IllustrationFrame>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              
+              {/* Added navigation controls */}
+              <div className="flex justify-between items-center mt-4">
+                <Button
+                  variant="outline"
+                  onClick={prevStep}
+                  className="flex items-center gap-1"
+                  style={{
+                    borderColor: customAIAgentColors.primary,
+                    color: customAIAgentColors.primary
+                  }}
                 >
-                  <IllustrationFrame>
-                    {steps[activeStep].illustration}
-                  </IllustrationFrame>
-                </motion.div>
-              </AnimatePresence>
+                  <ArrowLeft size={16} />
+                  <span>Previous</span>
+                </Button>
+                
+                {/* Step indicators */}
+                <div className="flex gap-1.5">
+                  {steps.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveStep(idx)}
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                        activeStep === idx ? "scale-125" : "opacity-60"
+                      }`}
+                      style={{
+                        backgroundColor: activeStep === idx 
+                          ? customAIAgentColors.primary 
+                          : customAIAgentColors.text.secondary
+                      }}
+                      aria-label={`Go to step ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+                
+                <Button
+                  onClick={nextStep}
+                  className="flex items-center gap-1"
+                  style={{
+                    backgroundColor: customAIAgentColors.primary,
+                    color: "white"
+                  }}
+                >
+                  <span>Next</span>
+                  <ArrowRight size={16} />
+                </Button>
+              </div>
             </div>
           </div>
 
-          <div className="text-center">
+          <div className="text-center mt-12">
             <Button 
               className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
             >
