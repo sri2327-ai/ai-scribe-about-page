@@ -311,6 +311,10 @@ export const HowBravoWorksSection = () => {
   const isMobile = useIsMobile();
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const lastScrollTime = useRef(Date.now());
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const resizeTimeout = useRef<NodeJS.Timeout | null>(null);
+  const interactionTimeout = useRef<NodeJS.Timeout | null>(null);
+  const scrollY = useRef(0);
   
   const steps = [
     {
@@ -385,7 +389,7 @@ export const HowBravoWorksSection = () => {
     stepRefs.current = stepRefs.current.slice(0, steps.length);
   }, [steps.length]);
   
-  // Setup intersection observer for section
+  // Setup intersection observer for section with improved thresholds
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -396,8 +400,11 @@ export const HowBravoWorksSection = () => {
           setCompletedSteps([]);
         }
       },
-      // Increased threshold for better mobile experience
-      { threshold: isMobile ? 0.1 : 0.2, rootMargin: '0px 0px -5% 0px' }
+      // Improved threshold configuration for better detection
+      { 
+        threshold: [0.05, 0.1, 0.2, 0.3, 0.4], 
+        rootMargin: '0px 0px -10% 0px' 
+      }
     );
     
     if (sectionRef.current) {
@@ -409,63 +416,82 @@ export const HowBravoWorksSection = () => {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, [completedSteps.length, steps.length, isMobile]);
+  }, [completedSteps.length, steps.length]);
   
-  // Improved scroll detection for mobile and tablets
+  // Enhanced scroll detection with optimized performance
   const calculateVisibility = useCallback(() => {
-    if (!scrollListenerActive.current) return;
+    if (!scrollListenerActive.current || !isInView) return;
     
     const stepElements = stepRefs.current.filter(Boolean);
     if (stepElements.length === 0) return;
     
-    // Find most visible element with improved algorithm
+    // Get current scroll position for scroll direction detection
+    const currentScrollY = window.scrollY;
+    const scrollingDown = currentScrollY > scrollY.current;
+    scrollY.current = currentScrollY;
+    
+    // Get viewport dimensions
     const viewportHeight = window.innerHeight;
-    let mostVisibleIndex = activeStep;
-    let maxVisibleRatio = 0;
+    const viewportMiddle = viewportHeight / 2;
+    
+    // Enhanced algorithm with weights for different factors
+    let bestStepIndex = activeStep;
+    let bestScore = -1;
     
     stepElements.forEach((el, idx) => {
       if (!el) return;
       
       const rect = el.getBoundingClientRect();
+      
+      // Calculate element's position relative to viewport
+      const elementTop = rect.top;
+      const elementBottom = rect.bottom;
       const elementHeight = rect.height;
+      const elementMiddle = (elementTop + elementBottom) / 2;
       
-      // Calculate visible portion considering element's position in viewport
-      const visibleTop = Math.max(0, rect.top);
-      const visibleBottom = Math.min(viewportHeight, rect.bottom);
+      // Skip if completely out of view
+      if (elementBottom <= 0 || elementTop >= viewportHeight) return;
       
-      // Skip if not visible
-      if (visibleBottom <= visibleTop) return;
-      
+      // Calculate visibility metrics
+      const visibleTop = Math.max(0, elementTop);
+      const visibleBottom = Math.min(viewportHeight, elementBottom);
       const visibleHeight = visibleBottom - visibleTop;
-      // For mobile, give more weight to elements that are more visible
-      const visibilityRatio = isMobile ? 
-        (visibleHeight / elementHeight) * (1.5 - (visibleTop / viewportHeight)) : 
-        visibleHeight / elementHeight;
+      const visibilityRatio = visibleHeight / elementHeight;
       
-      // Center preference - more weight to elements in center of viewport
-      const elementMiddle = (rect.top + rect.bottom) / 2;
-      const viewportMiddle = viewportHeight / 2;
-      const distanceFromCenter = Math.abs(elementMiddle - viewportMiddle) / (viewportHeight / 2);
-      const closenessToCenter = 1 - distanceFromCenter;
+      // Calculate center alignment (how close is element to screen center)
+      const distanceFromCenter = Math.abs(elementMiddle - viewportMiddle);
+      const maxDistance = viewportHeight / 2;
+      const centerAlignment = 1 - (distanceFromCenter / maxDistance);
       
-      // Combined score with better mobile optimization
-      const score = isMobile ? 
-        (visibilityRatio * 0.7) + (closenessToCenter * 0.3) : 
-        (visibilityRatio * 0.5) + (closenessToCenter * 0.4);
+      // Calculate position bias (prefer elements in upper part of screen when scrolling down)
+      // and lower part when scrolling up
+      const positionBias = scrollingDown 
+        ? 1 - (elementMiddle / viewportHeight) 
+        : elementMiddle / viewportHeight;
       
-      if (score > maxVisibleRatio) {
-        maxVisibleRatio = score;
-        mostVisibleIndex = idx;
+      // Combined score with optimized weights for different devices
+      const visibilityWeight = isMobile ? 0.4 : 0.35;
+      const centerWeight = isMobile ? 0.35 : 0.4;
+      const biasWeight = isMobile ? 0.25 : 0.25;
+      
+      const score = (visibilityRatio * visibilityWeight) + 
+                    (centerAlignment * centerWeight) + 
+                    (positionBias * biasWeight);
+      
+      // Choose the step with the best score
+      if (score > bestScore) {
+        bestScore = score;
+        bestStepIndex = idx;
       }
     });
     
-    // Lower threshold for mobile to make it more responsive
-    const thresholdValue = isMobile ? 0.3 : 0.4;
+    // Determine if score is high enough to trigger change
+    // Higher threshold makes changes more deliberate
+    const threshold = isMobile ? 0.5 : 0.6;
     
-    // Only update if we have a good visibility threshold and it's different
-    if (maxVisibleRatio > thresholdValue && mostVisibleIndex !== activeStep) {
+    if (bestScore > threshold && bestStepIndex !== activeStep) {
       // Add previous step to completed steps
-      if (mostVisibleIndex > activeStep) {
+      if (bestStepIndex > activeStep) {
         setCompletedSteps(prev => {
           if (!prev.includes(activeStep)) {
             return [...prev, activeStep];
@@ -474,42 +500,87 @@ export const HowBravoWorksSection = () => {
         });
       }
       
-      setActiveStep(mostVisibleIndex);
+      setActiveStep(bestStepIndex);
     }
-  }, [activeStep, isMobile]);
-
-  // More responsive scroll handling with improved debouncing for mobile
+  }, [activeStep, isMobile, isInView]);
+  
+  // Optimized scroll handler with improved debouncing
   useEffect(() => {
     if (!isInView) return;
     
+    // Clear any existing timeouts when scroll handler is set up
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+    
     const handleScroll = () => {
-      // Rate limit scroll events more aggressively on mobile
+      // Cancel any pending calculations
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+      
       const now = Date.now();
       const timeSinceLastScroll = now - lastScrollTime.current;
       
-      // More aggressive throttling for mobile to prevent jittery behavior
-      if (isMobile && timeSinceLastScroll < 150) return;
+      // Skip rapid scroll events to prevent too many calculations
+      const scrollThrottle = isMobile ? 100 : 50; // ms
+      if (timeSinceLastScroll < scrollThrottle) {
+        // Schedule a check after throttle time instead of skipping completely
+        scrollTimeout.current = setTimeout(() => {
+          lastScrollTime.current = Date.now();
+          window.requestAnimationFrame(calculateVisibility);
+        }, scrollThrottle);
+        return;
+      }
+      
       lastScrollTime.current = now;
       
-      // Use requestAnimationFrame for smoother handling
-      window.requestAnimationFrame(() => {
-        calculateVisibility();
-      });
+      // Use requestAnimationFrame for smoother performance
+      window.requestAnimationFrame(calculateVisibility);
+      
+      // Schedule another check after scroll has likely stopped
+      // This helps catch the final position
+      scrollTimeout.current = setTimeout(() => {
+        window.requestAnimationFrame(calculateVisibility);
+      }, 100);
+    };
+
+    // Handle window resize which can change element positions
+    const handleResize = () => {
+      if (resizeTimeout.current) {
+        clearTimeout(resizeTimeout.current);
+      }
+      
+      resizeTimeout.current = setTimeout(() => {
+        window.requestAnimationFrame(calculateVisibility);
+      }, 200);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
     
-    // Initial calculation
-    calculateVisibility();
+    // Initial calculation with slight delay to ensure accurate positions
+    setTimeout(() => calculateVisibility(), 200);
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+      
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+      if (resizeTimeout.current) {
+        clearTimeout(resizeTimeout.current);
+      }
+      if (interactionTimeout.current) {
+        clearTimeout(interactionTimeout.current);
+      }
     };
-  }, [isInView, calculateVisibility, isMobile]);
+  }, [calculateVisibility, isInView, isMobile]);
   
-  // Handle manual step activation with improved scroll behavior for mobile
+  // Improved manual step activation with smooth scrolling
   const handleActivateStep = useCallback((index) => {
-    // Record user interaction
+    // Record user interaction and prevent auto-advance
     setHasUserInteracted(true);
     
     // Only proceed if this is a different step
@@ -533,34 +604,55 @@ export const HowBravoWorksSection = () => {
     
     setActiveStep(index);
     
-    // Scroll to the step if not in view - improved for mobile
+    // Enhanced scroll with better positioning and smoothness
     if (stepRefs.current[index]) {
-      // Different offset for mobile/tablet/desktop
-      const offset = isMobile ? -20 : -80;
       const element = stepRefs.current[index];
-      const elementTop = element.getBoundingClientRect().top + window.pageYOffset + offset;
+      if (!element) return;
       
-      // Use smoother scrolling behavior on mobile
+      const elementRect = element.getBoundingClientRect();
+      
+      // Calculate optimal scroll position based on device type
+      // For mobile: position the step near the top of the viewport
+      // For desktop: position the step more centered
+      const viewportHeight = window.innerHeight;
+      const optimalPosition = isMobile 
+        ? viewportHeight * 0.15  // 15% from the top on mobile
+        : viewportHeight * 0.25; // 25% from the top on desktop
+      
+      const targetScrollY = window.scrollY + elementRect.top - optimalPosition;
+      
+      // Use better scrolling behavior with smoother animation
       window.scrollTo({
-        top: elementTop,
+        top: targetScrollY,
         behavior: 'smooth'
       });
       
-      // Longer delay for mobile to account for slower scroll animations
-      const reEnableDelay = isMobile ? 1200 : 800;
+      // Adaptive re-enable timing based on distance scrolled
+      // Further scrolls need more time to complete
+      const scrollDistance = Math.abs(targetScrollY - window.scrollY);
+      const baseDelay = isMobile ? 800 : 600;
+      const additionalDelay = Math.min(scrollDistance / 4, 600); // Max 600ms additional
+      const reEnableDelay = baseDelay + additionalDelay;
       
-      // Re-enable scroll listener after animation completes with a slight delay
-      setTimeout(() => {
+      // Re-enable scroll listener after animation completes
+      if (interactionTimeout.current) {
+        clearTimeout(interactionTimeout.current);
+      }
+      
+      interactionTimeout.current = setTimeout(() => {
         scrollListenerActive.current = true;
+        // Force a recalculation once scrolling is complete to ensure sync
+        calculateVisibility();
       }, reEnableDelay);
     }
-  }, [activeStep, isMobile]);
+  }, [activeStep, isMobile, calculateVisibility]);
   
-  // Auto-advance timer for demonstration - improved for mobile
+  // Optimized auto-advance with improved UX
   useEffect(() => {
-    let timer;
+    let timer: NodeJS.Timeout | null = null;
     
-    // Only auto-advance when section is in view, user hasn't interacted, and we're not on mobile
+    // Only auto-advance when section is in view, user hasn't interacted,
+    // completed steps is empty, and we're not on mobile
     if (isInView && !hasUserInteracted && completedSteps.length === 0 && !isMobile) {
       timer = setTimeout(() => {
         // Auto-advance to next step
@@ -570,7 +662,11 @@ export const HowBravoWorksSection = () => {
       }, 8000); // 8-second delay before auto-advancing
     }
     
-    return () => clearTimeout(timer);
+    return () => {
+      if (timer) {
+        clearTimeout(timer);
+      }
+    };
   }, [isInView, activeStep, steps.length, completedSteps.length, handleActivateStep, hasUserInteracted, isMobile]);
   
   // Track view with analytics
