@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowLeft, CheckCircle } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle, Info } from "lucide-react";
 import { customAIAgentColors } from '@/theme/custom-ai-agent-theme';
 
 interface Step {
@@ -16,9 +16,10 @@ const IllustrationFrame: React.FC<{ children: React.ReactNode }> = ({ children }
   <div className="bg-white rounded-xl shadow-lg p-6 aspect-video w-full flex items-center justify-center relative">
     {children}
     
-    {/* Added semi-transparent instruction overlay */}
-    <div className="absolute top-2 left-2 bg-blue-50 bg-opacity-80 px-2 py-1 rounded text-xs text-blue-700 font-medium">
-      Animation Preview
+    {/* Enhanced animation indicator with better visibility */}
+    <div className="absolute top-2 left-2 bg-blue-100 px-3 py-1.5 rounded-full text-xs text-blue-700 font-medium flex items-center gap-1.5">
+      <Info size={14} />
+      <span>Animation Preview</span>
     </div>
   </div>
 );
@@ -313,76 +314,24 @@ export const CAGettingStartedStepper = () => {
       backgroundColor: customAIAgentColors.background.light
     }}>
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-8" style={{
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-center" style={{
             color: customAIAgentColors.primary
           }}>
             Getting Started with Custom AI Agents
           </h2>
-          <p className="text-lg mb-12" style={{
+          <p className="text-lg mb-12 text-center max-w-3xl mx-auto" style={{
             color: customAIAgentColors.text.secondary
           }}>
             Picture an AI designed specifically for you. Our Custom AI Agents optimize unique workflows, driving significant results across specialties. Here's how to begin:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-            {/* Steps list - left side */}
-            <div className="space-y-6">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  className={`p-6 rounded-xl transition-all duration-300 cursor-pointer ${
-                    activeStep === index ? "bg-white shadow-lg" : "hover:bg-white/50"
-                  }`}
-                  onClick={() => setActiveStep(index)}
-                  whileHover={{ scale: 1.02 }}
-                  animate={{ opacity: activeStep === index ? 1 : 0.7 }}
-                >
-                  <div className="flex items-start gap-4">
-                    <motion.div
-                      className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center"
-                      style={{ 
-                        backgroundColor: `${customAIAgentColors.tertiary}20`,
-                        border: activeStep === index ? `2px solid ${customAIAgentColors.tertiary}` : `1px solid ${customAIAgentColors.tertiary}50`
-                      }}
-                      animate={{ scale: activeStep === index ? [1, 1.1, 1] : 1 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <span className="text-xl font-bold" style={{ color: customAIAgentColors.primary }}>
-                        {step.number}
-                      </span>
-                    </motion.div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2" style={{ color: customAIAgentColors.primary }}>
-                        {step.title}
-                      </h3>
-                      <p className="text-sm" style={{ color: customAIAgentColors.text.secondary }}>
-                        {step.description}
-                      </p>
-                    </div>
-                    
-                    {/* Added completion indicator */}
-                    {activeStep === index && (
-                      <motion.div 
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="ml-auto"
-                      >
-                        <CheckCircle 
-                          size={18} 
-                          className="text-green-500"
-                        />
-                      </motion.div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Visual content - right side */}
-            <div className="flex flex-col">
-              {/* Animation display area with improved visibility */}
-              <div className="relative h-[400px] flex items-center justify-center bg-white rounded-xl shadow-lg p-8 mb-4">
+          {/* Changed to vertical layout on all screens for clarity */}
+          <div className="space-y-12">
+            {/* Visual content - now at the top for better visibility */}
+            <div className="relative">
+              {/* Enlarged animation display area */}
+              <div className="relative h-[450px] flex items-center justify-center bg-white rounded-xl shadow-lg p-8 overflow-hidden border border-gray-100">
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={activeStep}
@@ -397,14 +346,19 @@ export const CAGettingStartedStepper = () => {
                     </IllustrationFrame>
                   </motion.div>
                 </AnimatePresence>
+                
+                {/* Added floating step indicator on top */}
+                <div className="absolute top-2 right-2 px-3 py-1.5 bg-gray-800 bg-opacity-75 text-white rounded-full text-sm font-medium">
+                  Step {activeStep + 1} of {steps.length}
+                </div>
               </div>
               
-              {/* Added navigation controls */}
-              <div className="flex justify-between items-center mt-4">
+              {/* Enhanced navigation controls with better spacing */}
+              <div className="flex justify-between items-center mt-6 px-4">
                 <Button
                   variant="outline"
                   onClick={prevStep}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 px-6 py-5"
                   style={{
                     borderColor: customAIAgentColors.primary,
                     color: customAIAgentColors.primary
@@ -414,14 +368,14 @@ export const CAGettingStartedStepper = () => {
                   <span>Previous</span>
                 </Button>
                 
-                {/* Step indicators */}
-                <div className="flex gap-1.5">
+                {/* Step indicators with improved visibility */}
+                <div className="flex gap-3">
                   {steps.map((_, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveStep(idx)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        activeStep === idx ? "scale-125" : "opacity-60"
+                      className={`h-4 rounded-full transition-all duration-300 flex items-center justify-center ${
+                        activeStep === idx ? "w-8" : "w-4 opacity-60"
                       }`}
                       style={{
                         backgroundColor: activeStep === idx 
@@ -429,13 +383,17 @@ export const CAGettingStartedStepper = () => {
                           : customAIAgentColors.text.secondary
                       }}
                       aria-label={`Go to step ${idx + 1}`}
-                    />
+                    >
+                      {activeStep === idx && (
+                        <span className="text-white text-[10px] font-bold">{idx + 1}</span>
+                      )}
+                    </button>
                   ))}
                 </div>
                 
                 <Button
                   onClick={nextStep}
-                  className="flex items-center gap-1"
+                  className="flex items-center gap-1 px-6 py-5"
                   style={{
                     backgroundColor: customAIAgentColors.primary,
                     color: "white"
@@ -445,6 +403,63 @@ export const CAGettingStartedStepper = () => {
                   <ArrowRight size={16} />
                 </Button>
               </div>
+            </div>
+            
+            {/* Steps list - now below the animation */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={index}
+                  className={`p-6 rounded-xl transition-all duration-300 cursor-pointer h-full ${
+                    activeStep === index 
+                      ? "bg-white shadow-xl border-2 border-blue-50" 
+                      : "bg-white/70 shadow-sm border border-gray-100 hover:bg-white/90"
+                  }`}
+                  onClick={() => setActiveStep(index)}
+                  whileHover={{ scale: 1.02 }}
+                  animate={{ opacity: activeStep === index ? 1 : 0.8 }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="flex items-start gap-4 mb-3">
+                      <motion.div
+                        className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ 
+                          backgroundColor: `${customAIAgentColors.tertiary}20`,
+                          border: activeStep === index ? `2px solid ${customAIAgentColors.tertiary}` : `1px solid ${customAIAgentColors.tertiary}50`
+                        }}
+                        animate={{ scale: activeStep === index ? [1, 1.1, 1] : 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <span className="text-xl font-bold" style={{ color: customAIAgentColors.primary }}>
+                          {step.number}
+                        </span>
+                      </motion.div>
+                      <div>
+                        <h3 className="text-lg font-semibold mb-1" style={{ color: customAIAgentColors.primary }}>
+                          {step.title}
+                        </h3>
+                      </div>
+                      
+                      {/* Completion indicator */}
+                      {activeStep === index && (
+                        <motion.div 
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="ml-auto"
+                        >
+                          <CheckCircle 
+                            size={18} 
+                            className="text-green-500"
+                          />
+                        </motion.div>
+                      )}
+                    </div>
+                    <p className="text-sm" style={{ color: customAIAgentColors.text.secondary }}>
+                      {step.description}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
 
