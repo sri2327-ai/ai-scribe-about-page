@@ -61,6 +61,11 @@ const Landing = () => {
         <title>S10.AI - Next Generation Clinical AI for Healthcare Providers</title>
         <meta name="description" content="S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions." />
         <link rel="canonical" href="https://s10.ai" />
+        
+        {/* Preload critical resources */}
+        <link rel="preload" href="/HeaderLogo.png" as="image" />
+        
+        {/* Structured data for SEO */}
         <script type="application/ld+json">
           {JSON.stringify(schemaMarkup)}
         </script>
@@ -86,48 +91,42 @@ const Landing = () => {
             onClick={() => window.open('#watch-demo', '_self')} 
           >
             <span className="absolute inset-0 bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-[-100%] transition-transform duration-700 ease-in-out"></span>
-            <PlayCircle className="mr-2 w-4 h-4 text-white group-hover:text-white animate-pulse" />
+            <PlayCircle className="mr-2 w-4 h-4 text-white group-hover:text-white" />
             <span className="relative z-10">Watch Demo</span>
           </Button>
         </Breadcrumb>
       </div>
 
-      {/* Add a debug button for testing - we can remove this later */}
-      <div className="fixed top-20 right-4 z-50">
-        <Button 
-          size="sm" 
-          variant="outline" 
-          className="bg-white shadow-md"
-          onClick={() => {
-            console.log("Navigating to pricing");
-            window.location.href = "/pricing";
-          }}
-        >
-          View Pricing
-        </Button>
-      </div>
-
+      {/* First section is render-critical */}
       <FirstSection />
       
+      {/* All other sections use lazy loading with suspense fallbacks */}
       <Suspense fallback={<SectionLoader />}>
         <SecondSection />
       </Suspense>
+      
       <Suspense fallback={<SectionLoader />}>
         <ThirdSection />
       </Suspense>
+      
       <FourthSection />
       <IntegrationSection />
+      
       <Suspense fallback={<SectionLoader />}>
         <FifthSection />
       </Suspense>
+      
       <Suspense fallback={<SectionLoader />}>
         <SeventhSection />
       </Suspense>
+      
       <Suspense fallback={<SectionLoader />}>
         <NinthSection />
       </Suspense>
+      
       <TenthSection />
       <PracticeTypeSelector onSelect={handlePracticeTypeSelect} />
+      
       <Suspense fallback={<SectionLoader />}>
         <EleventhSection />
       </Suspense>

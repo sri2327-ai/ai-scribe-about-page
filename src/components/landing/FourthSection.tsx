@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield, CheckCircle } from "lucide-react";
@@ -39,10 +40,7 @@ const MetricCard = ({
   value: string,
   positive?: boolean
 }) => (
-  <motion.div 
-    whileHover={{ y: -5 }}
-    className="flex items-start gap-3 p-3 rounded-lg shadow-sm transition-all duration-200 bg-gray-50"
-  >
+  <div className="flex items-start gap-3 p-3 rounded-lg shadow-sm transition-all duration-200 bg-gray-50">
     <div className="p-2 rounded-lg bg-gray-100">
       <Icon className="w-5 h-5 text-gray-600" />
     </div>
@@ -50,7 +48,7 @@ const MetricCard = ({
       <p className="text-sm font-medium text-gray-600">{title}</p>
       <p className="text-lg font-bold text-gray-700">{value}</p>
     </div>
-  </motion.div>
+  </div>
 );
 
 const FeatureBullet = ({ text }: { text: string }) => (
@@ -81,23 +79,18 @@ const ProductCard = ({
   ctaText?: string;
   isUniversal?: boolean;
 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5 }}
-    viewport={{ once: true }}
-    className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 h-full flex flex-col"
-  >
+  <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 h-full flex flex-col">
     <div className="p-5 flex flex-col gap-4 h-full">
-      <div className="h-56 w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden relative group">
-        <motion.div 
-          className="w-full h-full flex items-center justify-center p-4 transition-opacity duration-300"
-          whileHover={{ scale: 1.05 }}
-        >
+      {/* Set fixed dimensions for the illustration container to prevent layout shifts */}
+      <div 
+        className="h-56 w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden relative group"
+        style={{ minHeight: '224px' }}
+      >
+        <div className="w-full h-full flex items-center justify-center p-4 transition-opacity duration-300">
           <div className="w-3/4 h-3/4">
             <Illustration />
           </div>
-        </motion.div>
+        </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
           <p className="text-white text-center text-lg font-medium px-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Click to see {title} in action
@@ -169,27 +162,25 @@ const ProductCard = ({
         <ArrowRight className="ml-2 h-4 w-4" />
       </Button>
     </div>
-  </motion.div>
+  </div>
 );
 
 export const FourthSection = () => {
   return (
-    <section className="py-16 px-4 md:px-8 lg:px-16 bg-white">
+    <section 
+      className="py-16 px-4 md:px-8 lg:px-16 bg-white" 
+      style={{ minHeight: '800px' }} // Reserve vertical space to prevent layout shifts
+    >
       <div className="max-w-[1400px] mx-auto flex flex-col gap-8">
         <div className="max-w-[900px] mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <h3 className="text-3xl md:text-4xl font-bold text-[#143151] mb-4">
               Meet <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#387E89] to-[#143151]">Bravo & CRUSH</span> – A S10'ing Experience
             </h3>
             <p className="text-base text-gray-700 leading-relaxed">
               Our AI solutions streamline medical workflows and improve patient care through intelligent automation. Designed specifically for clinicians, these tools adapt to your specialty and integrate seamlessly with your existing systems.
             </p>
-          </motion.div>
+          </div>
         </div>
         
         <div className="flex flex-col md:flex-row gap-6 lg:gap-8 items-stretch justify-center">
@@ -214,6 +205,7 @@ export const FourthSection = () => {
               ctaText="See CRUSH Demo"
             />
           </div>
+          
           <div className="w-full md:w-1/2 max-w-[550px]">
             <ProductCard 
               title="B.R.A.V.O"
