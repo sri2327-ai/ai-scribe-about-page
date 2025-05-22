@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect, memo } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { bravoColors } from '@/theme/bravo-theme';
@@ -15,7 +14,8 @@ import {
   Bell, 
   FileText, 
   CreditCard, 
-  FileCheck
+  FileCheck,
+  LucideIcon
 } from 'lucide-react';
 import { DeployBravoPreview } from '../animations/DeployBravoPreview';
 import { FrontOfficePreview } from '../animations/FrontOfficePreview';
@@ -38,8 +38,15 @@ const itemVariants = {
   hover: { scale: 1.01, x: 5 }
 };
 
+// Define proper TypeScript interfaces for our components
+interface StepIconProps {
+  icon: LucideIcon;
+  isActive: boolean;
+  color: string;
+}
+
 // Memoized step icon to prevent rerendering
-const StepIcon = memo(({ icon: Icon, isActive, color }) => (
+const StepIcon = memo(({ icon: Icon, isActive, color }: StepIconProps) => (
   <div 
     className="p-2 rounded-full transition-all duration-300"
     style={{ 
@@ -54,6 +61,17 @@ const StepIcon = memo(({ icon: Icon, isActive, color }) => (
 
 StepIcon.displayName = 'StepIcon';
 
+interface StepItemProps {
+  index: number;
+  title: string;
+  description: string;
+  items: { icon: LucideIcon; text: string; }[];
+  isActive: boolean;
+  onActivate: () => void;
+  stepNumber: string;
+  isInView: boolean;
+}
+
 // Memoized step item to reduce re-renders
 const StepItem = memo(({ 
   index,
@@ -64,7 +82,7 @@ const StepItem = memo(({
   onActivate,
   stepNumber,
   isInView
-}) => {
+}: StepItemProps) => {
   return (
     <div 
       className={`relative px-6 py-8 rounded-xl transition-all duration-300 md:cursor-pointer ${
@@ -157,8 +175,12 @@ const StepItem = memo(({
 
 StepItem.displayName = 'StepItem';
 
+interface StepVisualizerProps {
+  activeStep: number;
+}
+
 // Memoized visual component to prevent re-renders
-const StepVisualizer = memo(({ activeStep }) => {
+const StepVisualizer = memo(({ activeStep }: StepVisualizerProps) => {
   const PreviewComponent = () => {
     switch(activeStep) {
       case 0:
