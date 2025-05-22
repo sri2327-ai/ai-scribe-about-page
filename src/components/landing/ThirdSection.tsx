@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -122,6 +123,7 @@ const testimonials = [{
   organization: "Westside Family Medicine",
   image: "/placeholder.svg"
 }];
+
 export const ThirdSection = () => {
   const [tabValue, setTabValue] = useState(0);
   const isMobile = useMediaQuery('(max-width:768px)');
@@ -184,6 +186,25 @@ export const ThirdSection = () => {
             Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.
           </Typography>
         </Box>
+
+        {/* SEO-friendly hidden content summary for all tab content */}
+        <div className="sr-only">
+          <h2>S10.AI Healthcare AI Solutions</h2>
+          {tabKeys.map((tabKey) => (
+            <div key={`seo-${tabKey}`}>
+              <h3>{tabKey}</h3>
+              <ul>
+                {tabAccData[tabKey].map((item, idx) => (
+                  <li key={`seo-item-${tabKey}-${idx}`}>
+                    <h4>{item.title}</h4>
+                    <p>{item.content}</p>
+                    <p>Key Metric: {item.metric}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
 
         <Box component="nav" className="w-full flex justify-center mb-2 relative">
           <div className="relative w-full max-w-3xl mx-auto">
@@ -256,32 +277,66 @@ export const ThirdSection = () => {
         <Box className={`grid ${isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-12 gap-4 sm:gap-6 lg:gap-8'} w-full`}>
           <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              {Object.entries(tabAccData).map(([key, value], index) => tabValue === index && <motion.div key={index} initial={{
-              opacity: 0
-            }} animate={{
-              opacity: 1
-            }} transition={{
-              duration: 0.5
-            }}>
-                    <Accordion type="single" collapsible className="w-full space-y-2 sm:space-y-3" defaultValue="item-0">
-                      {value.map((item: any, itemIndex) => <AccordionItem value={`item-${itemIndex}`} key={itemIndex} className="border border-gray-100 rounded-lg overflow-hidden hover:border-[#387E89] transition-all duration-200 data-[state=open]:shadow-md">
-                          <AccordionTrigger className="px-3 sm:px-4 py-2 sm:py-3 hover:no-underline">
-                            <div className="flex items-center gap-2 sm:gap-3">
-                              <div className="p-1.5 sm:p-2 rounded-lg bg-[#387E89]/10">
-                                {item.icon}
-                              </div>
-                              <span className="text-base sm:text-lg font-semibold text-gray-900">{item.title}</span>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="px-3 sm:px-4 pb-3 sm:pb-4">
-                            <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3 leading-relaxed">{item.content}</p>
-                            {item.metric && <span className="inline-block bg-[#387E89]/10 text-[#387E89] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
-                                {item.metric}
-                              </span>}
-                          </AccordionContent>
-                        </AccordionItem>)}
-                    </Accordion>
-                  </motion.div>)}
+              {/* SEO-friendly rendering of all tabs content */}
+              <div className="w-full">
+                {/* Visually show the active tab with animations */}
+                {Object.entries(tabAccData).map(([key, value], index) => (
+                  <div 
+                    key={`tab-content-${index}`} 
+                    role="tabpanel"
+                    id={`tabpanel-${index}`}
+                    aria-labelledby={`tab-${index}`}
+                    className={tabValue === index ? '' : 'hidden'}
+                  >
+                    {tabValue === index && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      >
+                        <Accordion type="single" collapsible className="w-full space-y-2 sm:space-y-3" defaultValue="item-0">
+                          {value.map((item: any, itemIndex) => (
+                            <AccordionItem value={`item-${itemIndex}`} key={itemIndex} className="border border-gray-100 rounded-lg overflow-hidden hover:border-[#387E89] transition-all duration-200 data-[state=open]:shadow-md">
+                              <AccordionTrigger className="px-3 sm:px-4 py-2 sm:py-3 hover:no-underline">
+                                <div className="flex items-center gap-2 sm:gap-3">
+                                  <div className="p-1.5 sm:p-2 rounded-lg bg-[#387E89]/10">
+                                    {item.icon}
+                                  </div>
+                                  <span className="text-base sm:text-lg font-semibold text-gray-900">{item.title}</span>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent className="px-3 sm:px-4 pb-3 sm:pb-4">
+                                <p className="text-sm sm:text-base text-gray-600 mb-2 sm:mb-3 leading-relaxed">{item.content}</p>
+                                {item.metric && <span className="inline-block bg-[#387E89]/10 text-[#387E89] px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium">
+                                    {item.metric}
+                                  </span>}
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
+                      </motion.div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Non-interactive static HTML for crawlers with proper semantic structure */}
+                <div className="hidden" aria-hidden="true">
+                  {Object.entries(tabAccData).map(([key, items], tabIndex) => (
+                    <div key={`static-${tabIndex}`} className="mb-6">
+                      <h3 className="text-lg font-bold mb-3">{key}</h3>
+                      <div className="space-y-4">
+                        {items.map((item: any, itemIndex) => (
+                          <div key={`static-item-${tabIndex}-${itemIndex}`} className="border rounded-lg p-4">
+                            <h4 className="font-semibold text-base">{item.title}</h4>
+                            <p className="my-2 text-sm">{item.content}</p>
+                            <div className="text-sm font-medium text-[#387E89]">{item.metric}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </Box>
           </Box>
 
