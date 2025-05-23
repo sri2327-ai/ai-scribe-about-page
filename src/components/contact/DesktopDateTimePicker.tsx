@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -96,7 +95,7 @@ const DesktopDateTimePicker = ({
         className="w-[95vw] max-w-[600px] h-[90vh] max-h-[600px] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 flex flex-col"
         hideCloseButton={true}
       >
-        {/* Custom Close Button */}
+        {/* Custom Close Button with proper spacing */}
         <button
           onClick={() => onOpenChange(false)}
           className="absolute right-3 top-3 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white shadow-sm p-1.5"
@@ -105,15 +104,15 @@ const DesktopDateTimePicker = ({
           <span className="sr-only">Close</span>
         </button>
 
-        {/* Header with Progress */}
-        <DialogHeader className="px-4 pt-4 pb-3 pr-12 bg-white border-b border-gray-100 flex-shrink-0">
+        {/* Header with Progress - added proper padding to avoid close button overlap */}
+        <DialogHeader className="px-4 pt-4 pb-3 pr-16 bg-white border-b border-gray-100 flex-shrink-0">
           <div className="flex items-center justify-between mb-3">
             <DialogTitle className="text-xl font-bold text-[#133255]">Schedule Demo</DialogTitle>
-            <div className="text-xs text-gray-500">Step {getStepNumber()} of 4</div>
+            <div className="text-xs text-gray-500 pr-2">Step {getStepNumber()} of 4</div>
           </div>
           
           {/* Progress Bar */}
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 pr-12">
             {['date', 'timezone', 'time', 'confirm'].map((step, index) => (
               <div
                 key={step}

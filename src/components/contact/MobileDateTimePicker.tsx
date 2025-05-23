@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Sheet,
@@ -106,15 +105,15 @@ const MobileDateTimePicker = ({
           <span className="sr-only">Close</span>
         </button>
 
-        {/* Header with Progress */}
-        <SheetHeader className="px-4 pt-4 pb-3 pr-12 bg-white border-b border-gray-100 flex-shrink-0">
+        {/* Header with Progress - added proper padding to avoid close button overlap */}
+        <SheetHeader className="px-4 pt-4 pb-3 pr-16 bg-white border-b border-gray-100 flex-shrink-0">
           <div className="flex items-center justify-between mb-3">
             <SheetTitle className="text-xl font-bold text-[#133255]">Schedule Demo</SheetTitle>
-            <div className="text-xs text-gray-500">Step {getStepNumber()} of 4</div>
+            <div className="text-xs text-gray-500 pr-2">Step {getStepNumber()} of 4</div>
           </div>
           
           {/* Progress Bar */}
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 pr-12">
             {['date', 'timezone', 'time', 'confirm'].map((step, index) => (
               <div
                 key={step}
