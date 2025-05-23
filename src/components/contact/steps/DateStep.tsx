@@ -50,7 +50,11 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
           value={dateInputValue}
           min={today}
           onChange={handleDateChange}
-          className="w-full h-12 px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white"
+          className="w-full h-14 sm:h-12 px-4 py-3 text-base sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white appearance-none"
+          style={{
+            WebkitAppearance: 'none',
+            MozAppearance: 'textfield'
+          }}
         />
         {selectedDate && (
           <div className="mt-4 text-center p-3 bg-green-50 rounded-lg border border-green-200">

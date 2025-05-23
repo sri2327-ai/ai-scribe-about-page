@@ -18,10 +18,10 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
   // Comprehensive timezone groups with proper geographical organization
   const timezoneGroups = {
     "🇺🇸 US/Canada": [
-      { value: "America/New_York", label: "Eastern Time (EST/EDT)", subtext: "New York, Toronto, Boston", popular: true },
-      { value: "America/Chicago", label: "Central Time (CST/CDT)", subtext: "Chicago, Dallas, Houston", popular: true },
-      { value: "America/Denver", label: "Mountain Time (MST/MDT)", subtext: "Denver, Phoenix, Calgary", popular: true },
-      { value: "America/Los_Angeles", label: "Pacific Time (PST/PDT)", subtext: "Los Angeles, Seattle, Vancouver", popular: true },
+      { value: "America/New_York", label: "Eastern Time (EST/EDT)", subtext: "New York, Toronto, Boston" },
+      { value: "America/Chicago", label: "Central Time (CST/CDT)", subtext: "Chicago, Dallas, Houston" },
+      { value: "America/Denver", label: "Mountain Time (MST/MDT)", subtext: "Denver, Phoenix, Calgary" },
+      { value: "America/Los_Angeles", label: "Pacific Time (PST/PDT)", subtext: "Los Angeles, Seattle, Vancouver" },
       { value: "America/Anchorage", label: "Alaska Time (AKST/AKDT)", subtext: "Anchorage, Fairbanks" },
       { value: "Pacific/Honolulu", label: "Hawaii Time (HST)", subtext: "Honolulu, Hilo" },
       { value: "America/Halifax", label: "Atlantic Time (AST/ADT)", subtext: "Halifax, Moncton" },
@@ -29,7 +29,7 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
     ],
     "🌎 America": [
       { value: "America/Mexico_City", label: "Central Time (CST)", subtext: "Mexico City, Guadalajara" },
-      { value: "America/Sao_Paulo", label: "Brasília Time (BRT)", subtext: "São Paulo, Rio de Janeiro", popular: true },
+      { value: "America/Sao_Paulo", label: "Brasília Time (BRT)", subtext: "São Paulo, Rio de Janeiro" },
       { value: "America/Buenos_Aires", label: "Argentina Time (ART)", subtext: "Buenos Aires, Córdoba" },
       { value: "America/Lima", label: "Peru Time (PET)", subtext: "Lima, Arequipa" },
       { value: "America/Bogota", label: "Colombia Time (COT)", subtext: "Bogotá, Medellín" },
@@ -37,8 +37,8 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
       { value: "America/Caracas", label: "Venezuela Time (VET)", subtext: "Caracas, Maracaibo" },
     ],
     "🌍 Europe": [
-      { value: "Europe/London", label: "Greenwich Mean Time (GMT/BST)", subtext: "London, Dublin, Edinburgh", popular: true },
-      { value: "Europe/Paris", label: "Central European Time (CET/CEST)", subtext: "Paris, Berlin, Rome", popular: true },
+      { value: "Europe/London", label: "Greenwich Mean Time (GMT/BST)", subtext: "London, Dublin, Edinburgh" },
+      { value: "Europe/Paris", label: "Central European Time (CET/CEST)", subtext: "Paris, Berlin, Rome" },
       { value: "Europe/Madrid", label: "Central European Time (CET/CEST)", subtext: "Madrid, Barcelona" },
       { value: "Europe/Amsterdam", label: "Central European Time (CET/CEST)", subtext: "Amsterdam, Brussels" },
       { value: "Europe/Stockholm", label: "Central European Time (CET/CEST)", subtext: "Stockholm, Oslo, Copenhagen" },
@@ -47,26 +47,26 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
       { value: "Europe/Zurich", label: "Central European Time (CET/CEST)", subtext: "Zurich, Vienna" },
     ],
     "🌏 Asia": [
-      { value: "Asia/Tokyo", label: "Japan Standard Time (JST)", subtext: "Tokyo, Osaka, Kyoto", popular: true },
-      { value: "Asia/Shanghai", label: "China Standard Time (CST)", subtext: "Beijing, Shanghai, Shenzhen", popular: true },
-      { value: "Asia/Singapore", label: "Singapore Time (SGT)", subtext: "Singapore, Kuala Lumpur", popular: true },
-      { value: "Asia/Hong_Kong", label: "Hong Kong Time (HKT)", subtext: "Hong Kong, Macau", popular: true },
+      { value: "Asia/Tokyo", label: "Japan Standard Time (JST)", subtext: "Tokyo, Osaka, Kyoto" },
+      { value: "Asia/Shanghai", label: "China Standard Time (CST)", subtext: "Beijing, Shanghai, Shenzhen" },
+      { value: "Asia/Singapore", label: "Singapore Time (SGT)", subtext: "Singapore, Kuala Lumpur" },
+      { value: "Asia/Hong_Kong", label: "Hong Kong Time (HKT)", subtext: "Hong Kong, Macau" },
       { value: "Asia/Seoul", label: "Korea Standard Time (KST)", subtext: "Seoul, Busan" },
       { value: "Asia/Bangkok", label: "Indochina Time (ICT)", subtext: "Bangkok, Ho Chi Minh City" },
-      { value: "Asia/Kolkata", label: "India Standard Time (IST)", subtext: "Mumbai, Delhi, Bangalore", popular: true },
+      { value: "Asia/Kolkata", label: "India Standard Time (IST)", subtext: "Mumbai, Delhi, Bangalore" },
       { value: "Asia/Dubai", label: "Gulf Standard Time (GST)", subtext: "Dubai, Abu Dhabi, Doha" },
       { value: "Asia/Karachi", label: "Pakistan Standard Time (PKT)", subtext: "Karachi, Lahore" },
       { value: "Asia/Manila", label: "Philippines Time (PST)", subtext: "Manila, Cebu" },
     ],
     "🌊 Pacific": [
-      { value: "Pacific/Auckland", label: "New Zealand Time (NZST/NZDT)", subtext: "Auckland, Wellington", popular: true },
-      { value: "Pacific/Sydney", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Sydney, Melbourne", popular: true },
+      { value: "Pacific/Auckland", label: "New Zealand Time (NZST/NZDT)", subtext: "Auckland, Wellington" },
+      { value: "Pacific/Sydney", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Sydney, Melbourne" },
       { value: "Pacific/Fiji", label: "Fiji Time (FJT)", subtext: "Suva, Nadi" },
       { value: "Pacific/Tahiti", label: "Tahiti Time (TAHT)", subtext: "Papeete" },
       { value: "Pacific/Guam", label: "Chamorro Time (ChST)", subtext: "Guam, Saipan" },
     ],
     "🇦🇺 Australia": [
-      { value: "Australia/Sydney", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Sydney, Melbourne, Brisbane", popular: true },
+      { value: "Australia/Sydney", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Sydney, Melbourne, Brisbane" },
       { value: "Australia/Perth", label: "Australian Western Time (AWST)", subtext: "Perth, Mandurah" },
       { value: "Australia/Adelaide", label: "Australian Central Time (ACST/ACDT)", subtext: "Adelaide, Darwin" },
       { value: "Australia/Hobart", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Hobart, Launceston" },
@@ -74,7 +74,7 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
     "🌍 Africa": [
       { value: "Africa/Cairo", label: "Eastern European Time (EET)", subtext: "Cairo, Alexandria" },
       { value: "Africa/Lagos", label: "West Africa Time (WAT)", subtext: "Lagos, Abuja, Accra" },
-      { value: "Africa/Johannesburg", label: "South Africa Time (SAST)", subtext: "Johannesburg, Cape Town", popular: true },
+      { value: "Africa/Johannesburg", label: "South Africa Time (SAST)", subtext: "Johannesburg, Cape Town" },
       { value: "Africa/Nairobi", label: "East Africa Time (EAT)", subtext: "Nairobi, Kampala, Addis Ababa" },
       { value: "Africa/Casablanca", label: "Western European Time (WET)", subtext: "Casablanca, Rabat" },
     ],
@@ -85,7 +85,7 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
       { value: "Atlantic/Bermuda", label: "Atlantic Time (AST/ADT)", subtext: "Hamilton, Bermuda" },
     ],
     "🌐 UTC": [
-      { value: "UTC", label: "Coordinated Universal Time (UTC)", subtext: "Universal Standard Time", popular: true },
+      { value: "UTC", label: "Coordinated Universal Time (UTC)", subtext: "Universal Standard Time" },
       { value: "GMT", label: "Greenwich Mean Time (GMT)", subtext: "GMT+0, London Winter Time" },
     ],
   };
@@ -105,19 +105,10 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
           <Globe className="h-4 w-4 md:h-5 md:w-5" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="mb-1">
             <span className="font-semibold text-xs md:text-sm truncate">
               {zone.label}
             </span>
-            {zone.popular && (
-              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium flex-shrink-0 ${
-                timeZone === zone.value 
-                  ? 'bg-white/20 text-white' 
-                  : 'bg-orange-100 text-orange-700'
-              }`}>
-                Popular
-              </span>
-            )}
           </div>
           <div className={`text-xs truncate ${
             timeZone === zone.value ? 'text-white/80' : 'text-gray-500'
