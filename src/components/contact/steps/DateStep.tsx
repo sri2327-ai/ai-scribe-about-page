@@ -50,12 +50,22 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
           value={dateInputValue}
           min={today}
           onChange={handleDateChange}
+          placeholder="Click to select date"
           className="w-full h-14 sm:h-12 px-4 py-3 text-base sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white appearance-none"
           style={{
             WebkitAppearance: 'none',
             MozAppearance: 'textfield'
           }}
         />
+        
+        {/* Helper text to guide users */}
+        {!selectedDate && (
+          <div className="mt-2 text-center text-xs text-gray-500 flex items-center justify-center gap-1">
+            <CalendarIcon className="w-3 h-3" />
+            <span>Click the field above to open date picker</span>
+          </div>
+        )}
+        
         {selectedDate && (
           <div className="mt-4 text-center p-3 bg-green-50 rounded-lg border border-green-200">
             <p className="text-xs text-green-700">Selected date:</p>
