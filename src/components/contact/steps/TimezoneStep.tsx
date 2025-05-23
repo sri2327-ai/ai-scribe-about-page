@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Globe, Check } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -94,19 +93,19 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
     <button
       type="button"
       onClick={() => handleTimezoneSelect(zone.value)}
-      className={`w-full p-3 md:p-4 flex items-center justify-between text-left transition-all duration-200 rounded-xl border-2 hover:scale-[1.01] ${
+      className={`w-full p-3 flex items-center justify-between text-left transition-all duration-200 rounded-lg border-2 hover:scale-[1.01] ${
         timeZone === zone.value 
           ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg transform scale-[1.01]' 
           : 'bg-white hover:bg-[#387E89]/10 hover:border-[#387E89] border-gray-200 text-gray-700 shadow-sm'
       }`}
     >
-      <div className="flex items-start gap-2 md:gap-3 flex-1 min-w-0">
+      <div className="flex items-start gap-2 flex-1 min-w-0">
         <div className="flex-shrink-0 mt-0.5">
-          <Globe className="h-4 w-4 md:h-5 md:w-5" />
+          <Globe className="h-4 w-4" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="mb-1">
-            <span className="font-semibold text-xs md:text-sm truncate">
+            <span className="font-semibold text-sm truncate">
               {zone.label}
             </span>
           </div>
@@ -118,34 +117,34 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
         </div>
       </div>
       {timeZone === zone.value && (
-        <Check className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0 ml-2" />
+        <Check className="h-4 w-4 flex-shrink-0 ml-2" />
       )}
     </button>
   );
 
   return (
-    <div className="h-full flex flex-col">
-      {/* Header */}
-      <div className="text-center p-3 md:p-4 flex-shrink-0">
-        <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full mb-3 md:mb-4">
-          <Globe className="w-6 h-6 md:w-8 md:h-8 text-[#387E89]" />
+    <div className="h-full flex flex-col max-h-[400px]">
+      {/* Compact Header */}
+      <div className="text-center p-2 pb-3 flex-shrink-0">
+        <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-2">
+          <Globe className="w-6 h-6 text-[#387E89]" />
         </div>
-        <h3 className="text-lg md:text-2xl font-bold text-[#133255] mb-2">Select Your Timezone</h3>
-        <p className="text-xs md:text-base text-gray-600">Choose your preferred timezone for the demo</p>
+        <h3 className="text-lg font-bold text-[#133255] mb-1">Select Your Timezone</h3>
+        <p className="text-sm text-gray-600">Choose your preferred timezone for the demo</p>
       </div>
 
-      {/* Timezone list */}
-      <div className="flex-1 px-3 md:px-6 pb-3 md:pb-6 overflow-hidden">
+      {/* Timezone list with fixed height and scrolling */}
+      <div className="flex-1 min-h-0 overflow-hidden px-2">
         <ScrollArea className="h-full w-full">
-          <div className="space-y-4 md:space-y-6 pr-1 md:pr-2">
+          <div className="space-y-3 pr-2">
             {Object.entries(timezoneGroups).map(([groupName, zones]) => (
-              <div key={groupName} className="space-y-2 md:space-y-3">
-                <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pb-1 md:pb-2">
-                  <h4 className="text-sm md:text-lg font-bold text-[#133255] border-b-2 border-[#387E89] pb-1 md:pb-2">
+              <div key={groupName} className="space-y-2">
+                <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pb-1">
+                  <h4 className="text-sm font-bold text-[#133255] border-b-2 border-[#387E89] pb-1">
                     {groupName}
                   </h4>
                 </div>
-                <div className="space-y-2 md:space-y-3">
+                <div className="space-y-2">
                   {zones.map((zone) => (
                     <TimezoneButton key={zone.value} zone={zone} />
                   ))}
@@ -154,23 +153,20 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
             ))}
           </div>
         </ScrollArea>
-        
-        {/* Selected timezone confirmation */}
-        {timeZone && (
-          <div className="mt-3 md:mt-4 text-center p-3 md:p-4 bg-green-50 rounded-xl border-2 border-green-200 shadow-sm">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <Check className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
-              <p className="text-xs md:text-sm font-medium text-green-700">Selected Timezone</p>
-            </div>
-            <p className="text-sm md:text-lg font-bold text-green-800">
-              {Object.values(timezoneGroups).flat().find(z => z.value === timeZone)?.label || timeZone}
-            </p>
-            <p className="text-xs text-green-600 mt-1">
-              {Object.values(timezoneGroups).flat().find(z => z.value === timeZone)?.subtext}
-            </p>
-          </div>
-        )}
       </div>
+
+      {/* Selected timezone confirmation */}
+      {timeZone && (
+        <div className="mt-2 text-center p-2 bg-green-50 rounded-lg border border-green-200 flex-shrink-0">
+          <div className="flex items-center justify-center gap-2 mb-1">
+            <Check className="h-4 w-4 text-green-600" />
+            <p className="text-xs font-medium text-green-700">Selected Timezone</p>
+          </div>
+          <p className="text-sm font-bold text-green-800">
+            {Object.values(timezoneGroups).flat().find(z => z.value === timeZone)?.label || timeZone}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
