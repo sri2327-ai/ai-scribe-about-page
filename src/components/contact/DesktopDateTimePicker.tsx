@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Dialog,
@@ -93,31 +92,31 @@ const DesktopDateTimePicker = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent 
-        className="w-[90vw] sm:w-[85vw] md:w-[80vw] lg:w-[75vw] xl:w-[70vw] 2xl:w-[65vw] max-w-4xl h-[85vh] sm:h-[80vh] md:h-[85vh] lg:h-[80vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 flex flex-col"
+        className="w-[95vw] max-w-[1200px] h-[90vh] max-h-[800px] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 flex flex-col"
         hideCloseButton={true}
       >
         {/* Custom Close Button */}
         <button
           onClick={() => onOpenChange(false)}
-          className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white shadow-sm p-2"
+          className="absolute right-3 top-3 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white shadow-sm p-1.5"
         >
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </button>
 
         {/* Header with Progress */}
-        <DialogHeader className="px-4 md:px-6 lg:px-8 pt-4 md:pt-6 pb-4 pr-16 bg-white border-b border-gray-100 flex-shrink-0">
-          <div className="flex items-center justify-between mb-4">
-            <DialogTitle className="text-xl md:text-2xl lg:text-3xl font-bold text-[#133255]">Schedule Demo</DialogTitle>
-            <div className="text-sm text-gray-500">Step {getStepNumber()} of 4</div>
+        <DialogHeader className="px-4 lg:px-6 pt-4 lg:pt-5 pb-3 lg:pb-4 pr-12 bg-white border-b border-gray-100 flex-shrink-0">
+          <div className="flex items-center justify-between mb-3 lg:mb-4">
+            <DialogTitle className="text-xl lg:text-2xl xl:text-3xl font-bold text-[#133255]">Schedule Demo</DialogTitle>
+            <div className="text-xs lg:text-sm text-gray-500">Step {getStepNumber()} of 4</div>
           </div>
           
           {/* Progress Bar */}
-          <div className="flex space-x-3">
+          <div className="flex space-x-2 lg:space-x-3">
             {['date', 'timezone', 'time', 'confirm'].map((step, index) => (
               <div
                 key={step}
-                className={`flex-1 h-2 rounded-full transition-all duration-300 ${
+                className={`flex-1 h-1.5 lg:h-2 rounded-full transition-all duration-300 ${
                   getStepNumber() > index + 1 
                     ? 'bg-green-500' 
                     : getStepNumber() === index + 1 
@@ -131,9 +130,9 @@ const DesktopDateTimePicker = ({
 
         {/* Content Area - Responsive Layout */}
         <div className="flex-1 overflow-hidden">
-          <div className="h-full p-4 md:p-6 lg:p-8">
+          <div className="h-full p-4 lg:p-6 xl:p-8">
             {currentStep === 'date' && (
-              <div className="max-w-md mx-auto h-full">
+              <div className="max-w-sm lg:max-w-md mx-auto h-full">
                 <DateStep 
                   selectedDate={selectedDate} 
                   setSelectedDate={setSelectedDate} 
@@ -142,7 +141,7 @@ const DesktopDateTimePicker = ({
             )}
 
             {currentStep === 'timezone' && (
-              <div className="max-w-3xl mx-auto h-full">
+              <div className="max-w-2xl lg:max-w-4xl xl:max-w-5xl mx-auto h-full">
                 <TimezoneStep 
                   timeZone={timeZone} 
                   setTimeZone={setTimeZone} 
@@ -152,7 +151,7 @@ const DesktopDateTimePicker = ({
             )}
 
             {currentStep === 'time' && (
-              <div className="max-w-2xl mx-auto h-full">
+              <div className="max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto h-full">
                 <TimeStep 
                   selectedDate={selectedDate}
                   selectedTime={selectedTime}
@@ -163,7 +162,7 @@ const DesktopDateTimePicker = ({
             )}
 
             {currentStep === 'confirm' && (
-              <div className="max-w-md mx-auto h-full">
+              <div className="max-w-sm lg:max-w-md mx-auto h-full">
                 <ConfirmStep 
                   selectedDate={selectedDate}
                   selectedTime={selectedTime}
@@ -175,14 +174,14 @@ const DesktopDateTimePicker = ({
         </div>
 
         {/* Bottom Navigation */}
-        <div className="px-4 md:px-6 lg:px-8 pb-4 md:pb-6 bg-white border-t border-gray-100 flex-shrink-0">
+        <div className="px-4 lg:px-6 xl:px-8 pb-4 lg:pb-5 bg-white border-t border-gray-100 flex-shrink-0">
           {currentStep !== 'confirm' ? (
-            <div className="flex gap-4 max-w-2xl mx-auto">
+            <div className="flex gap-3 lg:gap-4 max-w-xl lg:max-w-2xl mx-auto">
               {currentStep !== 'date' && (
                 <Button
                   variant="outline"
                   onClick={handleBackStep}
-                  className="flex-1 h-12 text-base"
+                  className="flex-1 h-10 lg:h-12 text-sm lg:text-base"
                 >
                   Back
                 </Button>
@@ -190,7 +189,7 @@ const DesktopDateTimePicker = ({
               <Button
                 onClick={handleNextStep}
                 disabled={!canProceed()}
-                className={`h-12 text-base transition-all duration-200 ${
+                className={`h-10 lg:h-12 text-sm lg:text-base transition-all duration-200 ${
                   currentStep === 'date' ? 'flex-1' : 'flex-[2]'
                 } ${
                   canProceed() 
@@ -199,24 +198,24 @@ const DesktopDateTimePicker = ({
                 }`}
               >
                 Continue
-                <ChevronRight className="ml-2 h-5 w-5" />
+                <ChevronRight className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
               </Button>
             </div>
           ) : (
-            <div className="flex gap-4 max-w-2xl mx-auto">
+            <div className="flex gap-3 lg:gap-4 max-w-xl lg:max-w-2xl mx-auto">
               <Button
                 variant="outline"
                 onClick={handleBackStep}
-                className="flex-1 h-12 text-base"
+                className="flex-1 h-10 lg:h-12 text-sm lg:text-base"
               >
                 Back
               </Button>
               <Button
                 onClick={handleConfirm}
-                className="flex-[2] h-12 text-base bg-green-600 hover:bg-green-700 text-white"
+                className="flex-[2] h-10 lg:h-12 text-sm lg:text-base bg-green-600 hover:bg-green-700 text-white"
               >
                 Confirm Demo
-                <CheckCircle2 className="ml-2 h-5 w-5" />
+                <CheckCircle2 className="ml-2 h-4 w-4 lg:h-5 lg:w-5" />
               </Button>
             </div>
           )}
