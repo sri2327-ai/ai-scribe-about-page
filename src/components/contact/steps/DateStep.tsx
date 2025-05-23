@@ -31,7 +31,7 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
   const displayDate = selectedDate ? format(selectedDate, 'MM/dd/yyyy') : '';
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 h-full flex flex-col justify-center">
       <div className="text-center">
         <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
           <CalendarIcon className="w-8 h-8 text-[#387E89]" />
@@ -40,8 +40,8 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
         <p className="text-gray-600">Select a convenient day for your demo</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        <label htmlFor="date-picker" className="block text-sm font-medium text-gray-700 mb-2">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 max-w-sm mx-auto w-full">
+        <label htmlFor="date-picker" className="block text-sm font-medium text-gray-700 mb-3">
           Select Date
         </label>
         <input
@@ -53,9 +53,9 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
           className="w-full h-14 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white"
         />
         {selectedDate && (
-          <div className="mt-3 text-center">
-            <p className="text-sm text-gray-600">Selected date:</p>
-            <p className="text-lg font-medium text-[#133255]">{displayDate}</p>
+          <div className="mt-4 text-center p-3 bg-green-50 rounded-lg border border-green-200">
+            <p className="text-sm text-green-700">Selected date:</p>
+            <p className="text-lg font-medium text-green-800">{displayDate}</p>
           </div>
         )}
       </div>
