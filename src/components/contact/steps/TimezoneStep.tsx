@@ -18,43 +18,79 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
     setTimeZone(zone);
   };
 
-  // Enhanced timezone groups with better organization
+  // Comprehensive timezone groups with proper geographical organization
   const timezoneGroups = {
-    "🇺🇸 United States & Canada": [
-      { value: "America/New_York", label: "Eastern Time", subtext: "New York, Toronto", popular: true },
-      { value: "America/Chicago", label: "Central Time", subtext: "Chicago, Dallas", popular: true },
-      { value: "America/Denver", label: "Mountain Time", subtext: "Denver, Phoenix", popular: true },
-      { value: "America/Los_Angeles", label: "Pacific Time", subtext: "Los Angeles, Vancouver", popular: true },
-      { value: "America/Anchorage", label: "Alaska Time", subtext: "Anchorage" },
-      { value: "Pacific/Honolulu", label: "Hawaii Time", subtext: "Honolulu" },
-      { value: "America/Halifax", label: "Atlantic Time", subtext: "Halifax" },
+    "🇺🇸 US/Canada": [
+      { value: "America/New_York", label: "Eastern Time (EST/EDT)", subtext: "New York, Toronto, Boston", popular: true },
+      { value: "America/Chicago", label: "Central Time (CST/CDT)", subtext: "Chicago, Dallas, Houston", popular: true },
+      { value: "America/Denver", label: "Mountain Time (MST/MDT)", subtext: "Denver, Phoenix, Calgary", popular: true },
+      { value: "America/Los_Angeles", label: "Pacific Time (PST/PDT)", subtext: "Los Angeles, Seattle, Vancouver", popular: true },
+      { value: "America/Anchorage", label: "Alaska Time (AKST/AKDT)", subtext: "Anchorage, Fairbanks" },
+      { value: "Pacific/Honolulu", label: "Hawaii Time (HST)", subtext: "Honolulu, Hilo" },
+      { value: "America/Halifax", label: "Atlantic Time (AST/ADT)", subtext: "Halifax, Moncton" },
+      { value: "America/St_Johns", label: "Newfoundland Time (NST/NDT)", subtext: "St. John's" },
+    ],
+    "🌎 America": [
+      { value: "America/Mexico_City", label: "Central Time (CST)", subtext: "Mexico City, Guadalajara" },
+      { value: "America/Sao_Paulo", label: "Brasília Time (BRT)", subtext: "São Paulo, Rio de Janeiro", popular: true },
+      { value: "America/Buenos_Aires", label: "Argentina Time (ART)", subtext: "Buenos Aires, Córdoba" },
+      { value: "America/Lima", label: "Peru Time (PET)", subtext: "Lima, Arequipa" },
+      { value: "America/Bogota", label: "Colombia Time (COT)", subtext: "Bogotá, Medellín" },
+      { value: "America/Santiago", label: "Chile Time (CLT)", subtext: "Santiago, Valparaíso" },
+      { value: "America/Caracas", label: "Venezuela Time (VET)", subtext: "Caracas, Maracaibo" },
     ],
     "🌍 Europe": [
-      { value: "Europe/London", label: "GMT", subtext: "London, Dublin", popular: true },
-      { value: "Europe/Paris", label: "CET", subtext: "Paris, Berlin, Rome", popular: true },
-      { value: "Europe/Madrid", label: "CET", subtext: "Madrid, Barcelona" },
-      { value: "Europe/Amsterdam", label: "CET", subtext: "Amsterdam, Brussels" },
-      { value: "Europe/Stockholm", label: "CET", subtext: "Stockholm, Oslo" },
-      { value: "Europe/Moscow", label: "MSK", subtext: "Moscow" },
-      { value: "Europe/Athens", label: "EET", subtext: "Athens, Helsinki" }
+      { value: "Europe/London", label: "Greenwich Mean Time (GMT/BST)", subtext: "London, Dublin, Edinburgh", popular: true },
+      { value: "Europe/Paris", label: "Central European Time (CET/CEST)", subtext: "Paris, Berlin, Rome", popular: true },
+      { value: "Europe/Madrid", label: "Central European Time (CET/CEST)", subtext: "Madrid, Barcelona" },
+      { value: "Europe/Amsterdam", label: "Central European Time (CET/CEST)", subtext: "Amsterdam, Brussels" },
+      { value: "Europe/Stockholm", label: "Central European Time (CET/CEST)", subtext: "Stockholm, Oslo, Copenhagen" },
+      { value: "Europe/Athens", label: "Eastern European Time (EET/EEST)", subtext: "Athens, Helsinki, Bucharest" },
+      { value: "Europe/Moscow", label: "Moscow Time (MSK)", subtext: "Moscow, St. Petersburg" },
+      { value: "Europe/Zurich", label: "Central European Time (CET/CEST)", subtext: "Zurich, Vienna" },
     ],
-    "🌏 Asia Pacific": [
-      { value: "Asia/Tokyo", label: "JST", subtext: "Tokyo, Osaka", popular: true },
-      { value: "Asia/Shanghai", label: "CST", subtext: "Beijing, Shanghai", popular: true },
-      { value: "Asia/Singapore", label: "SGT", subtext: "Singapore, Kuala Lumpur", popular: true },
-      { value: "Asia/Hong_Kong", label: "HKT", subtext: "Hong Kong" },
-      { value: "Asia/Seoul", label: "KST", subtext: "Seoul" },
-      { value: "Asia/Bangkok", label: "ICT", subtext: "Bangkok, Jakarta" },
-      { value: "Asia/Kolkata", label: "IST", subtext: "Mumbai, Delhi", popular: true },
-      { value: "Asia/Dubai", label: "GST", subtext: "Dubai, Abu Dhabi" }
+    "🌏 Asia": [
+      { value: "Asia/Tokyo", label: "Japan Standard Time (JST)", subtext: "Tokyo, Osaka, Kyoto", popular: true },
+      { value: "Asia/Shanghai", label: "China Standard Time (CST)", subtext: "Beijing, Shanghai, Shenzhen", popular: true },
+      { value: "Asia/Singapore", label: "Singapore Time (SGT)", subtext: "Singapore, Kuala Lumpur", popular: true },
+      { value: "Asia/Hong_Kong", label: "Hong Kong Time (HKT)", subtext: "Hong Kong, Macau", popular: true },
+      { value: "Asia/Seoul", label: "Korea Standard Time (KST)", subtext: "Seoul, Busan" },
+      { value: "Asia/Bangkok", label: "Indochina Time (ICT)", subtext: "Bangkok, Ho Chi Minh City" },
+      { value: "Asia/Kolkata", label: "India Standard Time (IST)", subtext: "Mumbai, Delhi, Bangalore", popular: true },
+      { value: "Asia/Dubai", label: "Gulf Standard Time (GST)", subtext: "Dubai, Abu Dhabi, Doha" },
+      { value: "Asia/Karachi", label: "Pakistan Standard Time (PKT)", subtext: "Karachi, Lahore" },
+      { value: "Asia/Manila", label: "Philippines Time (PST)", subtext: "Manila, Cebu" },
     ],
-    "🇦🇺 Australia & Oceania": [
-      { value: "Australia/Sydney", label: "AEST", subtext: "Sydney, Melbourne", popular: true },
-      { value: "Australia/Perth", label: "AWST", subtext: "Perth" },
-      { value: "Australia/Adelaide", label: "ACST", subtext: "Adelaide" },
-      { value: "Australia/Brisbane", label: "AEST", subtext: "Brisbane" },
-      { value: "Pacific/Auckland", label: "NZST", subtext: "Auckland" }
-    ]
+    "🌊 Pacific": [
+      { value: "Pacific/Auckland", label: "New Zealand Time (NZST/NZDT)", subtext: "Auckland, Wellington", popular: true },
+      { value: "Pacific/Sydney", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Sydney, Melbourne", popular: true },
+      { value: "Pacific/Fiji", label: "Fiji Time (FJT)", subtext: "Suva, Nadi" },
+      { value: "Pacific/Tahiti", label: "Tahiti Time (TAHT)", subtext: "Papeete" },
+      { value: "Pacific/Guam", label: "Chamorro Time (ChST)", subtext: "Guam, Saipan" },
+    ],
+    "🇦🇺 Australia": [
+      { value: "Australia/Sydney", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Sydney, Melbourne, Brisbane", popular: true },
+      { value: "Australia/Perth", label: "Australian Western Time (AWST)", subtext: "Perth, Mandurah" },
+      { value: "Australia/Adelaide", label: "Australian Central Time (ACST/ACDT)", subtext: "Adelaide, Darwin" },
+      { value: "Australia/Hobart", label: "Australian Eastern Time (AEST/AEDT)", subtext: "Hobart, Launceston" },
+    ],
+    "🌍 Africa": [
+      { value: "Africa/Cairo", label: "Eastern European Time (EET)", subtext: "Cairo, Alexandria" },
+      { value: "Africa/Lagos", label: "West Africa Time (WAT)", subtext: "Lagos, Abuja, Accra" },
+      { value: "Africa/Johannesburg", label: "South Africa Time (SAST)", subtext: "Johannesburg, Cape Town", popular: true },
+      { value: "Africa/Nairobi", label: "East Africa Time (EAT)", subtext: "Nairobi, Kampala, Addis Ababa" },
+      { value: "Africa/Casablanca", label: "Western European Time (WET)", subtext: "Casablanca, Rabat" },
+    ],
+    "🌊 Atlantic": [
+      { value: "Atlantic/Azores", label: "Azores Time (AZOT/AZOST)", subtext: "Azores, Portugal" },
+      { value: "Atlantic/Cape_Verde", label: "Cape Verde Time (CVT)", subtext: "Praia, Mindelo" },
+      { value: "Atlantic/Reykjavik", label: "Greenwich Mean Time (GMT)", subtext: "Reykjavik" },
+      { value: "Atlantic/Bermuda", label: "Atlantic Time (AST/ADT)", subtext: "Hamilton, Bermuda" },
+    ],
+    "🌐 UTC": [
+      { value: "UTC", label: "Coordinated Universal Time (UTC)", subtext: "Universal Standard Time", popular: true },
+      { value: "GMT", label: "Greenwich Mean Time (GMT)", subtext: "GMT+0, London Winter Time" },
+    ],
   };
 
   // Filter timezones based on search
@@ -74,23 +110,23 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
     <button
       type="button"
       onClick={() => handleTimezoneSelect(zone.value)}
-      className={`w-full p-4 md:p-5 flex items-center justify-between text-left transition-all duration-200 rounded-xl border-2 hover:scale-[1.02] ${
+      className={`w-full p-3 md:p-4 flex items-center justify-between text-left transition-all duration-200 rounded-xl border-2 hover:scale-[1.01] ${
         timeZone === zone.value 
-          ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg transform scale-[1.02]' 
+          ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg transform scale-[1.01]' 
           : 'bg-white hover:bg-[#387E89]/10 hover:border-[#387E89] border-gray-200 text-gray-700 shadow-sm'
       }`}
     >
-      <div className="flex items-start gap-3 flex-1 min-w-0">
-        <div className="flex-shrink-0 mt-1">
-          <Globe className="h-5 w-5" />
+      <div className="flex items-start gap-2 md:gap-3 flex-1 min-w-0">
+        <div className="flex-shrink-0 mt-0.5">
+          <Globe className="h-4 w-4 md:h-5 md:w-5" />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
-            <span className="font-bold text-sm md:text-base truncate">
+            <span className="font-semibold text-xs md:text-sm truncate">
               {zone.label}
             </span>
             {zone.popular && (
-              <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+              <span className={`text-xs px-1.5 py-0.5 rounded-full font-medium flex-shrink-0 ${
                 timeZone === zone.value 
                   ? 'bg-white/20 text-white' 
                   : 'bg-orange-100 text-orange-700'
@@ -99,7 +135,7 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
               </span>
             )}
           </div>
-          <div className={`text-xs md:text-sm truncate ${
+          <div className={`text-xs truncate ${
             timeZone === zone.value ? 'text-white/80' : 'text-gray-500'
           }`}>
             {zone.subtext}
@@ -107,7 +143,7 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
         </div>
       </div>
       {timeZone === zone.value && (
-        <Check className="h-5 w-5 flex-shrink-0 ml-2" />
+        <Check className="h-4 w-4 md:h-5 md:w-5 flex-shrink-0 ml-2" />
       )}
     </button>
   );
@@ -115,38 +151,38 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="text-center p-4 md:p-6 flex-shrink-0">
-        <div className="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-green-100 rounded-full mb-4">
-          <Globe className="w-7 h-7 md:w-8 md:h-8 text-[#387E89]" />
+      <div className="text-center p-3 md:p-6 flex-shrink-0">
+        <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full mb-3 md:mb-4">
+          <Globe className="w-6 h-6 md:w-8 md:h-8 text-[#387E89]" />
         </div>
-        <h3 className="text-xl md:text-2xl font-bold text-[#133255] mb-2">Select Your Timezone</h3>
-        <p className="text-sm md:text-base text-gray-600 mb-4">Choose your preferred timezone for the demo</p>
+        <h3 className="text-lg md:text-2xl font-bold text-[#133255] mb-2">Select Your Timezone</h3>
+        <p className="text-xs md:text-base text-gray-600 mb-3 md:mb-4">Choose your preferred timezone for the demo</p>
         
         {/* Search bar */}
-        <div className="relative max-w-sm mx-auto">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+        <div className="relative max-w-xs md:max-w-sm mx-auto">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 md:h-4 md:w-4 text-gray-400" />
           <Input
             type="text"
             placeholder="Search timezones..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+            className="pl-8 md:pl-10 h-9 md:h-11 text-xs md:text-sm border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
           />
         </div>
       </div>
 
       {/* Timezone list */}
-      <div className="flex-1 px-4 md:px-6 pb-4 md:pb-6 overflow-hidden">
+      <div className="flex-1 px-3 md:px-6 pb-3 md:pb-6 overflow-hidden">
         <ScrollArea className="h-full w-full">
-          <div className="space-y-6 pr-2">
+          <div className="space-y-4 md:space-y-6 pr-1 md:pr-2">
             {Object.entries(filteredGroups).map(([groupName, zones]) => (
-              <div key={groupName} className="space-y-3">
-                <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pb-2">
-                  <h4 className="text-base md:text-lg font-bold text-[#133255] border-b-2 border-[#387E89] pb-2">
+              <div key={groupName} className="space-y-2 md:space-y-3">
+                <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pb-1 md:pb-2">
+                  <h4 className="text-sm md:text-lg font-bold text-[#133255] border-b-2 border-[#387E89] pb-1 md:pb-2">
                     {groupName}
                   </h4>
                 </div>
-                <div className="space-y-3">
+                <div className="space-y-2 md:space-y-3">
                   {zones.map((zone) => (
                     <TimezoneButton key={zone.value} zone={zone} />
                   ))}
@@ -155,9 +191,9 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
             ))}
             
             {Object.keys(filteredGroups).length === 0 && (
-              <div className="text-center py-8">
-                <Globe className="h-12 w-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">No timezones found matching your search</p>
+              <div className="text-center py-6 md:py-8">
+                <Globe className="h-10 w-10 md:h-12 md:w-12 text-gray-300 mx-auto mb-2 md:mb-3" />
+                <p className="text-gray-500 text-sm md:text-base">No timezones found matching your search</p>
               </div>
             )}
           </div>
@@ -165,12 +201,12 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
         
         {/* Selected timezone confirmation */}
         {timeZone && (
-          <div className="mt-4 text-center p-4 bg-green-50 rounded-xl border-2 border-green-200 shadow-sm">
+          <div className="mt-3 md:mt-4 text-center p-3 md:p-4 bg-green-50 rounded-xl border-2 border-green-200 shadow-sm">
             <div className="flex items-center justify-center gap-2 mb-1">
-              <Check className="h-5 w-5 text-green-600" />
-              <p className="text-sm font-medium text-green-700">Selected Timezone</p>
+              <Check className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
+              <p className="text-xs md:text-sm font-medium text-green-700">Selected Timezone</p>
             </div>
-            <p className="text-lg font-bold text-green-800">
+            <p className="text-sm md:text-lg font-bold text-green-800">
               {Object.values(timezoneGroups).flat().find(z => z.value === timeZone)?.label || timeZone}
             </p>
             <p className="text-xs text-green-600 mt-1">
