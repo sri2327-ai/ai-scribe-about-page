@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import {
   Sheet,
@@ -95,17 +94,18 @@ const MobileDateTimePicker = ({
       <SheetContent 
         side="bottom" 
         className="h-[95vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 flex flex-col"
+        hideCloseButton={true}
       >
-        {/* Custom Close Button - positioned to avoid overlap */}
+        {/* Custom Close Button */}
         <button
           onClick={() => onOpenChange(false)}
-          className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white shadow-sm p-1"
+          className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white shadow-sm p-2"
         >
           <X className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </button>
 
-        {/* Header with Progress - adjusted padding to avoid close button */}
+        {/* Header with Progress */}
         <SheetHeader className="px-4 pt-4 pb-3 pr-12 bg-white border-b border-gray-100 flex-shrink-0">
           <div className="flex items-center justify-between mb-3">
             <SheetTitle className="text-xl font-bold text-[#133255]">Schedule Demo</SheetTitle>
