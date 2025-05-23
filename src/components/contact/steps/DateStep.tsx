@@ -50,8 +50,9 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
           value={dateInputValue}
           min={today}
           onChange={handleDateChange}
+          readOnly
           placeholder="Click to select date"
-          className="w-full h-14 sm:h-12 px-4 py-3 text-base sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white appearance-none"
+          className="w-full h-14 sm:h-12 px-4 py-3 text-base sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white appearance-none cursor-pointer"
           style={{
             WebkitAppearance: 'none',
             MozAppearance: 'textfield'
