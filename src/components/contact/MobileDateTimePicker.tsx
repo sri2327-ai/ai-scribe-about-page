@@ -7,7 +7,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, CheckCircle2 } from "lucide-react";
+import { ChevronRight, CheckCircle2, X } from "lucide-react";
 import DateStep from './steps/DateStep';
 import TimezoneStep from './steps/TimezoneStep';
 import TimeStep from './steps/TimeStep';
@@ -96,8 +96,17 @@ const MobileDateTimePicker = ({
         side="bottom" 
         className="h-[95vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 flex flex-col"
       >
-        {/* Header with Progress */}
-        <SheetHeader className="px-4 pt-4 pb-3 bg-white border-b border-gray-100 flex-shrink-0">
+        {/* Custom Close Button - positioned to avoid overlap */}
+        <button
+          onClick={() => onOpenChange(false)}
+          className="absolute right-4 top-4 z-50 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 bg-white shadow-sm p-1"
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </button>
+
+        {/* Header with Progress - adjusted padding to avoid close button */}
+        <SheetHeader className="px-4 pt-4 pb-3 pr-12 bg-white border-b border-gray-100 flex-shrink-0">
           <div className="flex items-center justify-between mb-3">
             <SheetTitle className="text-xl font-bold text-[#133255]">Schedule Demo</SheetTitle>
             <div className="text-xs text-gray-500">Step {getStepNumber()} of 4</div>
