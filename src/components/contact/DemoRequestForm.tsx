@@ -1,402 +1,297 @@
-import React, { useState, useEffect } from 'react';
-import { format } from "date-fns";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import { Button } from "@/components/ui/button";
-import { CalendarIcon, Clock, X } from "lucide-react";
-import DemoSuccessMessage from './DemoSuccessMessage';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogClose,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import { toast } from "sonner";
-import { useIsMobile } from '@/hooks/use-mobile';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CalendarIcon, Clock, Globe, User, Building, Mail, Phone } from "lucide-react";
+import { format } from "date-fns";
 import MobileDateTimePicker from './MobileDateTimePicker';
+import DesktopDateTimePicker from './DesktopDateTimePicker';
+import { useIsMobile } from '@/hooks/use-mobile';
+import DemoSuccessMessage from './DemoSuccessMessage';
+
+const formSchema = z.object({
+  firstName: z.string().min(2, 'First name must be at least 2 characters'),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().min(10, 'Please enter a valid phone number'),
+  practiceType: z.string().min(1, 'Please select a practice type'),
+  practiceSize: z.string().min(1, 'Please select practice size'),
+  selectedDate: z.date().optional(),
+  selectedTime: z.string().optional(),
+  timeZone: z.string().min(1, 'Please select a timezone'),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+const practiceTypes = [
+  'Family Medicine',
+  'Internal Medicine', 
+  'Cardiology',
+  'Dermatology',
+  'Gastroenterology',
+  'Neurology',
+  'Orthopedics',
+  'Pediatrics',
+  'Psychiatry',
+  'Radiology',
+  'Other'
+];
+
+const practiceSizes = [
+  '1-2 providers',
+  '3-5 providers',
+  '6-10 providers',
+  '11-25 providers',
+  '25+ providers'
+];
 
 const timeSlots = [
-  "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM",
-  "11:00 AM", "11:30 AM", "2:00 PM", "2:30 PM",
-  "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM"
+  '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+  '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
+  '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM'
 ];
 
-const timeZoneOptions = [
-  "UTC",
-  "America/New_York", // Eastern Time
-  "America/Chicago", // Central Time
-  "America/Denver", // Mountain Time
-  "America/Los_Angeles", // Pacific Time
-  "America/Anchorage", // Alaska Time
-  "Pacific/Honolulu", // Hawaii Time
-  "America/Toronto",
-  "America/Vancouver",
-  "America/Mexico_City",
-  "America/Bogota",
-  "America/Lima",
-  "America/Santiago",
-  "America/Sao_Paulo",
-  "Europe/London",
-  "Europe/Berlin",
-  "Europe/Paris",
-  "Europe/Rome",
-  "Europe/Madrid",
-  "Europe/Amsterdam",
-  "Africa/Cairo",
-  "Asia/Dubai",
-  "Asia/Kolkata",
-  "Asia/Singapore",
-  "Asia/Tokyo",
-  "Asia/Seoul",
-  "Australia/Sydney",
-  "Australia/Melbourne",
-  "Pacific/Auckland"
-];
+const timeZoneOptions = ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles'];
 
 const DemoRequestForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    requirements: "",
-    companyName: "",
-    specialty: "",
-  });
-
-  const [showDateTimePicker, setShowDateTimePicker] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>();
-  const [selectedTime, setSelectedTime] = useState<string>();
-  const [timeZone, setTimeZone] = useState<string>("");
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDateTimePickerOpen, setIsDateTimePickerOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+  const [selectedTime, setSelectedTime] = useState<string | undefined>();
+  const [timeZone, setTimeZone] = useState<string>('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const isMobile = useIsMobile();
 
-  useEffect(() => {
-    try {
-      const detectedTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      setTimeZone(detectedTimeZone);
-    } catch (error) {
-      console.error("Error detecting timezone:", error);
-      setTimeZone("UTC");
-    }
-  }, []);
+  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
+    resolver: zodResolver(formSchema)
+  });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const onSubmit = (data: FormData) => {
+    console.log('Form submitted:', {
+      ...data,
+      selectedDate,
+      selectedTime,
+      timeZone
+    });
+    setIsSubmitted(true);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!selectedDate || !selectedTime) {
-      toast.error("Please select a date and time for your demo");
-      return;
-    }
-
-    setIsSubmitting(true);
-    
-    try {
-      console.log("Form Data:", {
-        ...formData,
-        selectedDate,
-        selectedTime,
-        timeZone,
-      });
-      
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      toast.success("Demo scheduled successfully!");
-      setShowSuccess(true);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast.error("Failed to schedule demo. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  if (showSuccess) {
-    return (
-      <DemoSuccessMessage 
-        dateTime={`${format(selectedDate!, "PPP")} at ${selectedTime} ${timeZone}`}
-        onClose={() => setShowSuccess(false)}
-      />
-    );
+  if (isSubmitted) {
+    return <DemoSuccessMessage />;
   }
 
+  const DateTimePicker = isMobile ? MobileDateTimePicker : DesktopDateTimePicker;
+
   return (
-    <Card className="p-6 shadow-lg bg-white border border-gray-200">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label htmlFor="firstName" className="block text-sm font-medium">First Name</label>
-            <Input
-              id="firstName"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
-              placeholder="John"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="lastName" className="block text-sm font-medium">Last Name</label>
-            <Input
-              id="lastName"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
-              placeholder="Doe"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label htmlFor="email" className="block text-sm font-medium">Email</label>
-            <Input
-              id="email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
-              placeholder="john@example.com"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="phone" className="block text-sm font-medium">Phone</label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
-              placeholder="(123) 456-7890"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label htmlFor="companyName" className="block text-sm font-medium">Practice/Hospital Name</label>
-            <Input
-              id="companyName"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
-              required
-              className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white truncate"
-              placeholder="Your Practice Name"
-            />
-          </div>
-          <div className="space-y-2">
-            <label htmlFor="specialty" className="block text-sm font-medium">Medical Specialty</label>
-            <Select
-              value={formData.specialty}
-              onValueChange={(value) => setFormData(prev => ({ ...prev, specialty: value }))}
-            >
-              <SelectTrigger id="specialty" className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
-                <SelectValue placeholder="Select your specialty" />
-              </SelectTrigger>
-              <SelectContent className="bg-white border border-gray-200">
-                <SelectItem value="family-medicine">Family Medicine</SelectItem>
-                <SelectItem value="internal-medicine">Internal Medicine</SelectItem>
-                <SelectItem value="pediatrics">Pediatrics</SelectItem>
-                <SelectItem value="cardiology">Cardiology</SelectItem>
-                <SelectItem value="orthopedics">Orthopedics</SelectItem>
-                <SelectItem value="other">Other Specialty</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Requirements</label>
-          <Select
-            value={formData.requirements}
-            onValueChange={(value) => setFormData(prev => ({ ...prev, requirements: value }))}
-          >
-            <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-[#387E89] bg-white text-gray-900">
-              <SelectValue placeholder="What interests you most?" />
-            </SelectTrigger>
-            <SelectContent className="bg-white border border-gray-200 max-h-[300px]">
-              <SelectItem value="clinical-documentation">Clinical Documentation & Notes</SelectItem>
-              <SelectItem value="patient-scheduling">Patient Scheduling & Management</SelectItem>
-              <SelectItem value="practice-management">Practice Management</SelectItem>
-              <SelectItem value="patient-communication">Patient Communication</SelectItem>
-              <SelectItem value="voice-commands">Voice Commands & AI Assistant</SelectItem>
-              <SelectItem value="full-demo">Full Product Demo</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Select Date & Time</label>
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full justify-start text-left font-normal hover:bg-[#E9F4FD] hover:text-[#387E89] bg-white truncate"
-            onClick={() => setShowDateTimePicker(true)}
-          >
-            <CalendarIcon className="mr-2 h-4 w-4" />
-            {selectedDate && selectedTime ? (
-              `${format(selectedDate, "PPP")} at ${selectedTime} (${timeZone})`
-            ) : (
-              "Pick a date and time"
-            )}
-          </Button>
-        </div>
-
-        {isMobile ? (
-          <MobileDateTimePicker
-            open={showDateTimePicker}
-            onOpenChange={setShowDateTimePicker}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            selectedTime={selectedTime}
-            setSelectedTime={setSelectedTime}
-            timeZone={timeZone}
-            setTimeZone={setTimeZone}
-            timeSlots={timeSlots}
-            timeZoneOptions={timeZoneOptions}
-          />
-        ) : (
-          <Dialog open={showDateTimePicker} onOpenChange={setShowDateTimePicker}>
-            <DialogContent className="bg-white p-0 gap-0 sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
-              <DialogHeader className="p-6 pb-2 sticky top-0 bg-white z-10 border-b">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h2 className="text-2xl font-bold text-[#133255]">Schedule Your Demo</h2>
-                    <p className="text-gray-600">
-                      Pick a convenient date and time for your demo
-                    </p>
-                  </div>
-                  <DialogClose className="absolute right-4 top-4 rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 hover:bg-gray-200">
-                    <X className="h-4 w-4" />
-                  </DialogClose>
-                </div>
-              </DialogHeader>
+    <>
+      <Card className="shadow-xl rounded-2xl bg-white border border-gray-200 overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-[#387E89] to-[#2c6269] text-white p-6">
+          <CardTitle className="text-2xl font-bold text-center">Request Your Demo</CardTitle>
+          <p className="text-center text-white/90 mt-2">
+            Fill out the form below and we'll schedule your personalized demo
+          </p>
+        </CardHeader>
+        
+        <CardContent className="p-6 space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            {/* Personal Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-[#133255] flex items-center gap-2">
+                <User className="h-5 w-5" />
+                Personal Information
+              </h3>
               
-              <div className="flex flex-col max-h-[calc(100vh-200px)]">
-                <div className="p-6 grid md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h3 className="font-semibold text-[#133255]">Select Date</h3>
-                    <Calendar
-                      mode="single"
-                      selected={selectedDate}
-                      onSelect={setSelectedDate}
-                      className="rounded-md border bg-white pointer-events-auto"
-                      disabled={(date) => 
-                        date < new Date() || 
-                        date.getDay() === 0 || 
-                        date.getDay() === 6
-                      }
-                    />
-                    <div className="text-sm text-gray-500">
-                      * Weekend dates are not available
-                    </div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div className="space-y-4">
-                      <h3 className="font-semibold text-[#133255]">Select Time</h3>
-                      <div className="grid grid-cols-2 gap-3">
-                        {timeSlots.map((time) => (
-                          <Button
-                            key={time}
-                            type="button"
-                            variant="outline"
-                            className={`
-                              flex items-center gap-2 ${
-                                selectedTime === time 
-                                  ? 'bg-[#387E89] text-white hover:bg-[#2c6269]' 
-                                  : 'bg-white hover:bg-[#E9F4FD] hover:text-[#387E89]'
-                              }
-                            `}
-                            onClick={() => setSelectedTime(time)}
-                          >
-                            <Clock className="h-4 w-4" />
-                            {time}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-4">
-                      <h3 className="font-semibold text-[#133255]">Time Zone</h3>
-                      <Select value={timeZone} onValueChange={setTimeZone}>
-                        <SelectTrigger className="w-full bg-white border-gray-200">
-                          <SelectValue placeholder="Select time zone" />
-                        </SelectTrigger>
-                        <SelectContent 
-                          className="max-h-[200px] overflow-y-auto bg-white z-[100]"
-                          position="popper"
-                          sideOffset={5}
-                        >
-                          {timeZoneOptions.map((tz) => (
-                            <SelectItem key={tz} value={tz}>
-                              {tz}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
+                    First Name *
+                  </Label>
+                  <Input
+                    id="firstName"
+                    {...register('firstName')}
+                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="Enter your first name"
+                  />
+                  {errors.firstName && (
+                    <p className="text-sm text-red-600">{errors.firstName.message}</p>
+                  )}
                 </div>
-
-                <div className="border-t p-6 bg-gray-50 sticky bottom-0 mt-auto">
-                  {selectedDate && selectedTime ? (
-                    <div className="text-center">
-                      <div className="text-lg font-medium text-[#133255]">
-                        Your demo is scheduled for
-                      </div>
-                      <div className="text-lg md:text-xl font-bold text-[#387E89] mb-4">
-                        {format(selectedDate, "PPPP")} at {selectedTime} ({timeZone})
-                      </div>
-                      <Button 
-                        onClick={() => setShowDateTimePicker(false)}
-                        className="bg-[#387E89] hover:bg-[#2c6269] text-white"
-                      >
-                        Confirm Selection
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="text-center text-gray-500">
-                      Please select both a date and time
-                    </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="lastName" className="text-sm font-medium text-gray-700">
+                    Last Name *
+                  </Label>
+                  <Input
+                    id="lastName"
+                    {...register('lastName')}
+                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="Enter your last name"
+                  />
+                  {errors.lastName && (
+                    <p className="text-sm text-red-600">{errors.lastName.message}</p>
                   )}
                 </div>
               </div>
-            </DialogContent>
-          </Dialog>
-        )}
 
-        <Button 
-          type="submit" 
-          className="w-full rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
-          disabled={!selectedDate || !selectedTime || isSubmitting}
-        >
-          {isSubmitting ? "Scheduling..." : "Schedule Demo"}
-        </Button>
-      </form>
-    </Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <Mail className="h-4 w-4" />
+                    Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    {...register('email')}
+                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="your.email@practice.com"
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-red-600">{errors.email.message}</p>
+                  )}
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-sm font-medium text-gray-700 flex items-center gap-1">
+                    <Phone className="h-4 w-4" />
+                    Phone Number *
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    {...register('phone')}
+                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-red-600">{errors.phone.message}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Practice Information */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-[#133255] flex items-center gap-2">
+                <Building className="h-5 w-5" />
+                Practice Information
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="practiceType" className="text-sm font-medium text-gray-700">
+                    Practice Type *
+                  </Label>
+                  <Select onValueChange={(value) => setValue('practiceType', value)}>
+                    <SelectTrigger className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]">
+                      <SelectValue placeholder="Select practice type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {practiceTypes.map((type) => (
+                        <SelectItem key={type} value={type}>{type}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.practiceType && (
+                    <p className="text-sm text-red-600">{errors.practiceType.message}</p>
+                  )}
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="practiceSize" className="text-sm font-medium text-gray-700">
+                    Practice Size *
+                  </Label>
+                  <Select onValueChange={(value) => setValue('practiceSize', value)}>
+                    <SelectTrigger className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]">
+                      <SelectValue placeholder="Select practice size" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {practiceSizes.map((size) => (
+                        <SelectItem key={size} value={size}>{size}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  {errors.practiceSize && (
+                    <p className="text-sm text-red-600">{errors.practiceSize.message}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Demo Scheduling */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold text-[#133255] flex items-center gap-2">
+                <CalendarIcon className="h-5 w-5" />
+                Schedule Your Demo
+              </h3>
+              
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full h-16 border-2 border-dashed border-gray-300 hover:border-[#387E89] hover:bg-[#387E89]/5 transition-all duration-200 text-left justify-start"
+                onClick={() => setIsDateTimePickerOpen(true)}
+              >
+                <div className="flex items-center gap-3 w-full">
+                  <div className="flex gap-2">
+                    <CalendarIcon className="h-5 w-5 text-[#387E89]" />
+                    <Clock className="h-5 w-5 text-[#387E89]" />
+                    <Globe className="h-5 w-5 text-[#387E89]" />
+                  </div>
+                  <div className="flex-1">
+                    {selectedDate && selectedTime && timeZone ? (
+                      <div className="space-y-1">
+                        <div className="font-medium text-[#133255]">
+                          {format(selectedDate, 'EEEE, MMMM do, yyyy')} at {selectedTime}
+                        </div>
+                        <div className="text-sm text-gray-600">
+                          {timeZone.replace(/_/g, ' ').replace('America/', '').replace('Europe/', '')}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-gray-600">
+                        Click to select your preferred date, time, and timezone
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Button>
+            </div>
+
+            {/* Submit Button */}
+            <Button
+              type="submit"
+              className="w-full h-12 bg-gradient-to-r from-[#387E89] to-[#2c6269] hover:from-[#2c6269] hover:to-[#1f4d54] text-white font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+              disabled={!selectedDate || !selectedTime || !timeZone}
+            >
+              Schedule My Demo
+            </Button>
+            
+            {(!selectedDate || !selectedTime || !timeZone) && (
+              <p className="text-sm text-center text-gray-500">
+                Please select a date, time, and timezone to continue
+              </p>
+            )}
+          </form>
+        </CardContent>
+      </Card>
+
+      <DateTimePicker
+        open={isDateTimePickerOpen}
+        onOpenChange={setIsDateTimePickerOpen}
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        selectedTime={selectedTime}
+        setSelectedTime={setSelectedTime}
+        timeZone={timeZone}
+        setTimeZone={setTimeZone}
+        timeSlots={timeSlots}
+        timeZoneOptions={timeZoneOptions}
+      />
+    </>
   );
 };
 
