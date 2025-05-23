@@ -110,24 +110,24 @@ const DemoRequestForm = () => {
 
   return (
     <>
-      <Card className="shadow-xl rounded-2xl bg-white border border-gray-200 overflow-hidden">
-        <CardHeader className="bg-gradient-to-r from-[#387E89] to-[#2c6269] text-white p-6">
-          <CardTitle className="text-2xl font-bold text-center">Request Your Demo</CardTitle>
-          <p className="text-center text-white/90 mt-2">
+      <Card className="shadow-xl rounded-2xl bg-white border border-gray-200 overflow-hidden w-full max-w-4xl mx-auto">
+        <CardHeader className="bg-gradient-to-r from-[#387E89] to-[#2c6269] text-white p-4 sm:p-6">
+          <CardTitle className="text-xl sm:text-2xl font-bold text-center">Request Your Demo</CardTitle>
+          <p className="text-center text-white/90 mt-2 text-sm sm:text-base">
             Fill out the form below and we'll schedule your personalized demo
           </p>
         </CardHeader>
         
-        <CardContent className="p-6 space-y-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-6">
             {/* Personal Information */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-[#133255] flex items-center gap-2">
-                <User className="h-5 w-5" />
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="text-base sm:text-lg font-semibold text-[#133255] flex items-center gap-2">
+                <User className="h-4 w-4 sm:h-5 sm:w-5" />
                 Personal Information
               </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="firstName" className="text-sm font-medium text-gray-700">
                     First Name *
@@ -135,11 +135,11 @@ const DemoRequestForm = () => {
                   <Input
                     id="firstName"
                     {...register('firstName')}
-                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    className="h-10 sm:h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89] text-sm sm:text-base"
                     placeholder="Enter your first name"
                   />
                   {errors.firstName && (
-                    <p className="text-sm text-red-600">{errors.firstName.message}</p>
+                    <p className="text-xs sm:text-sm text-red-600">{errors.firstName.message}</p>
                   )}
                 </div>
                 
@@ -150,76 +150,76 @@ const DemoRequestForm = () => {
                   <Input
                     id="lastName"
                     {...register('lastName')}
-                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    className="h-10 sm:h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89] text-sm sm:text-base"
                     placeholder="Enter your last name"
                   />
                   {errors.lastName && (
-                    <p className="text-sm text-red-600">{errors.lastName.message}</p>
+                    <p className="text-xs sm:text-sm text-red-600">{errors.lastName.message}</p>
                   )}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="email" className="text-sm font-medium text-gray-700 flex items-center gap-1">
-                    <Mail className="h-4 w-4" />
+                    <Mail className="h-3 w-3 sm:h-4 sm:w-4" />
                     Email Address *
                   </Label>
                   <Input
                     id="email"
                     type="email"
                     {...register('email')}
-                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    className="h-10 sm:h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89] text-sm sm:text-base"
                     placeholder="your.email@practice.com"
                   />
                   {errors.email && (
-                    <p className="text-sm text-red-600">{errors.email.message}</p>
+                    <p className="text-xs sm:text-sm text-red-600">{errors.email.message}</p>
                   )}
                 </div>
                 
                 <div className="space-y-2">
                   <Label htmlFor="phone" className="text-sm font-medium text-gray-700 flex items-center gap-1">
-                    <Phone className="h-4 w-4" />
+                    <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
                     Phone Number *
                   </Label>
                   <Input
                     id="phone"
                     type="tel"
                     {...register('phone')}
-                    className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    className="h-10 sm:h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89] text-sm sm:text-base"
                     placeholder="+1 (555) 123-4567"
                   />
                   {errors.phone && (
-                    <p className="text-sm text-red-600">{errors.phone.message}</p>
+                    <p className="text-xs sm:text-sm text-red-600">{errors.phone.message}</p>
                   )}
                 </div>
               </div>
             </div>
 
             {/* Practice Information */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-[#133255] flex items-center gap-2">
-                <Building className="h-5 w-5" />
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="text-base sm:text-lg font-semibold text-[#133255] flex items-center gap-2">
+                <Building className="h-4 w-4 sm:h-5 sm:w-5" />
                 Practice Information
               </h3>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="practiceType" className="text-sm font-medium text-gray-700">
                     Practice Type *
                   </Label>
                   <Select onValueChange={(value) => setValue('practiceType', value)}>
-                    <SelectTrigger className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]">
+                    <SelectTrigger className="h-10 sm:h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89] text-sm sm:text-base">
                       <SelectValue placeholder="Select practice type" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="max-h-60 overflow-y-auto">
                       {practiceTypes.map((type) => (
-                        <SelectItem key={type} value={type}>{type}</SelectItem>
+                        <SelectItem key={type} value={type} className="text-sm sm:text-base">{type}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                   {errors.practiceType && (
-                    <p className="text-sm text-red-600">{errors.practiceType.message}</p>
+                    <p className="text-xs sm:text-sm text-red-600">{errors.practiceType.message}</p>
                   )}
                 </div>
                 
@@ -228,53 +228,53 @@ const DemoRequestForm = () => {
                     Practice Size *
                   </Label>
                   <Select onValueChange={(value) => setValue('practiceSize', value)}>
-                    <SelectTrigger className="h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]">
+                    <SelectTrigger className="h-10 sm:h-11 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89] text-sm sm:text-base">
                       <SelectValue placeholder="Select practice size" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="max-h-60 overflow-y-auto">
                       {practiceSizes.map((size) => (
-                        <SelectItem key={size} value={size}>{size}</SelectItem>
+                        <SelectItem key={size} value={size} className="text-sm sm:text-base">{size}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                   {errors.practiceSize && (
-                    <p className="text-sm text-red-600">{errors.practiceSize.message}</p>
+                    <p className="text-xs sm:text-sm text-red-600">{errors.practiceSize.message}</p>
                   )}
                 </div>
               </div>
             </div>
 
             {/* Demo Scheduling */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-[#133255] flex items-center gap-2">
-                <CalendarIcon className="h-5 w-5" />
+            <div className="space-y-3 sm:space-y-4">
+              <h3 className="text-base sm:text-lg font-semibold text-[#133255] flex items-center gap-2">
+                <CalendarIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                 Schedule Your Demo
               </h3>
               
               <Button
                 type="button"
                 variant="outline"
-                className="w-full h-16 border-2 border-dashed border-gray-300 hover:border-[#387E89] hover:bg-[#387E89]/5 transition-all duration-200 text-left justify-start"
+                className="w-full h-14 sm:h-16 border-2 border-dashed border-gray-300 hover:border-[#387E89] hover:bg-[#387E89]/5 transition-all duration-200 text-left justify-start p-3 sm:p-4"
                 onClick={() => setIsDateTimePickerOpen(true)}
               >
-                <div className="flex items-center gap-3 w-full">
-                  <div className="flex gap-2">
-                    <CalendarIcon className="h-5 w-5 text-[#387E89]" />
-                    <Clock className="h-5 w-5 text-[#387E89]" />
-                    <Globe className="h-5 w-5 text-[#387E89]" />
+                <div className="flex items-center gap-2 sm:gap-3 w-full">
+                  <div className="flex gap-1.5 sm:gap-2 flex-shrink-0">
+                    <CalendarIcon className="h-4 w-4 sm:h-5 sm:w-5 text-[#387E89]" />
+                    <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-[#387E89]" />
+                    <Globe className="h-4 w-4 sm:h-5 sm:w-5 text-[#387E89]" />
                   </div>
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     {selectedDate && selectedTime && timeZone ? (
                       <div className="space-y-1">
-                        <div className="font-medium text-[#133255]">
+                        <div className="font-medium text-[#133255] text-sm sm:text-base truncate">
                           {format(selectedDate, 'EEEE, MMMM do, yyyy')} at {selectedTime}
                         </div>
-                        <div className="text-sm text-gray-600">
+                        <div className="text-xs sm:text-sm text-gray-600 truncate">
                           {timeZone.replace(/_/g, ' ').replace('America/', '').replace('Europe/', '')}
                         </div>
                       </div>
                     ) : (
-                      <div className="text-gray-600">
+                      <div className="text-gray-600 text-sm sm:text-base">
                         Click to select your preferred date, time, and timezone
                       </div>
                     )}
@@ -286,14 +286,14 @@ const DemoRequestForm = () => {
             {/* Submit Button */}
             <Button
               type="submit"
-              className="w-full h-12 bg-gradient-to-r from-[#387E89] to-[#2c6269] hover:from-[#2c6269] hover:to-[#1f4d54] text-white font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+              className="w-full h-11 sm:h-12 bg-gradient-to-r from-[#387E89] to-[#2c6269] hover:from-[#2c6269] hover:to-[#1f4d54] text-white font-semibold text-base sm:text-lg transition-all duration-200 shadow-lg hover:shadow-xl"
               disabled={!selectedDate || !selectedTime || !timeZone}
             >
               Schedule My Demo
             </Button>
             
             {(!selectedDate || !selectedTime || !timeZone) && (
-              <p className="text-sm text-center text-gray-500">
+              <p className="text-xs sm:text-sm text-center text-gray-500">
                 Please select a date, time, and timezone to continue
               </p>
             )}
