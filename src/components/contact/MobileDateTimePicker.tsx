@@ -36,7 +36,7 @@ const MobileDateTimePicker = ({
   timeSlots,
   timeZoneOptions,
 }: MobileDateTimePickerProps) => {
-  const [currentStep, setCurrentStep] = useState<'date' | 'time' | 'timezone' | 'confirm'>('date');
+  const [currentStep, setCurrentStep] = useState<'date' | 'timezone' | 'time' | 'confirm'>('date');
 
   const handleConfirm = () => {
     if (selectedDate && selectedTime && timeZone) {
@@ -51,29 +51,29 @@ const MobileDateTimePicker = ({
     console.log('Time zone:', timeZone);
 
     if (currentStep === 'date' && selectedDate) {
-      setCurrentStep('time');
-    } else if (currentStep === 'time' && selectedTime) {
       setCurrentStep('timezone');
     } else if (currentStep === 'timezone' && timeZone) {
+      setCurrentStep('time');
+    } else if (currentStep === 'time' && selectedTime) {
       setCurrentStep('confirm');
     }
   };
 
   const handleBackStep = () => {
-    if (currentStep === 'time') {
+    if (currentStep === 'timezone') {
       setCurrentStep('date');
-    } else if (currentStep === 'timezone') {
-      setCurrentStep('time');
-    } else if (currentStep === 'confirm') {
+    } else if (currentStep === 'time') {
       setCurrentStep('timezone');
+    } else if (currentStep === 'confirm') {
+      setCurrentStep('time');
     }
   };
 
   const getStepNumber = () => {
     switch (currentStep) {
       case 'date': return 1;
-      case 'time': return 2;
-      case 'timezone': return 3;
+      case 'timezone': return 2;
+      case 'time': return 3;
       case 'confirm': return 4;
       default: return 1;
     }
@@ -82,8 +82,8 @@ const MobileDateTimePicker = ({
   const canProceed = () => {
     switch (currentStep) {
       case 'date': return !!selectedDate;
-      case 'time': return !!selectedTime;
       case 'timezone': return !!timeZone;
+      case 'time': return !!selectedTime;
       default: return false;
     }
   };
@@ -126,7 +126,7 @@ const MobileDateTimePicker = ({
           
           {/* Progress Bar */}
           <div className="flex space-x-2">
-            {['date', 'time', 'timezone', 'confirm'].map((step, index) => (
+            {['date', 'timezone', 'time', 'confirm'].map((step, index) => (
               <div
                 key={step}
                 className={`flex-1 h-2 rounded-full transition-all duration-300 ${
@@ -174,41 +174,6 @@ const MobileDateTimePicker = ({
             </div>
           )}
 
-          {/* Time Selection */}
-          {currentStep === 'time' && (
-            <div className="p-6 space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
-                  <Clock className="w-8 h-8 text-[#387E89]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#133255] mb-2">Pick Your Time</h3>
-                <p className="text-gray-600">
-                  {selectedDate && `${format(selectedDate, "EEEE, MMMM d")}`}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {timeSlots.map((time) => (
-                  <Button
-                    key={time}
-                    type="button"
-                    variant="outline"
-                    size="lg"
-                    className={`h-14 flex items-center justify-center gap-3 text-base transition-all duration-200 ${
-                      selectedTime === time 
-                        ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg scale-105' 
-                        : 'bg-white hover:bg-gray-50 hover:border-[#387E89] hover:text-[#387E89]'
-                    }`}
-                    onClick={() => handleTimeSelect(time)}
-                  >
-                    <Clock className="h-5 w-5" />
-                    {time}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Timezone Selection */}
           {currentStep === 'timezone' && (
             <div className="p-6 space-y-6">
@@ -237,6 +202,39 @@ const MobileDateTimePicker = ({
             </div>
           )}
 
+          {/* Time Selection */}
+          {currentStep === 'time' && (
+            <div className="p-6 space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
+                  <Clock className="w-8 h-8 text-[#387E89]" />
+                </div>
+                <h3 className="text-xl font-semibold text-[#133255] mb-2">Pick Your Time</h3>
+                <p className="text-gray-600">
+                  {selectedDate && `${format(selectedDate, "EEEE, MMMM d")}`}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {timeSlots.map((time) => (
+                  <button
+                    key={time}
+                    type="button"
+                    onClick={() => handleTimeSelect(time)}
+                    className={`h-14 flex items-center justify-center gap-3 text-base transition-all duration-200 rounded-lg border-2 font-medium ${
+                      selectedTime === time 
+                        ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg scale-105' 
+                        : 'bg-white hover:bg-gray-50 hover:border-[#387E89] hover:text-[#387E89] border-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <Clock className="h-5 w-5" />
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Confirmation */}
           {currentStep === 'confirm' && (
             <div className="p-6 space-y-6">
@@ -256,12 +254,12 @@ const MobileDateTimePicker = ({
                   </span>
                 </div>
                 <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <span className="text-gray-600">Time</span>
-                  <span className="font-medium text-[#133255]">{selectedTime}</span>
-                </div>
-                <div className="flex items-center justify-between py-3">
                   <span className="text-gray-600">Timezone</span>
                   <span className="font-medium text-[#133255]">{timeZone}</span>
+                </div>
+                <div className="flex items-center justify-between py-3">
+                  <span className="text-gray-600">Time</span>
+                  <span className="font-medium text-[#133255]">{selectedTime}</span>
                 </div>
               </div>
 
