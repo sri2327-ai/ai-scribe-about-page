@@ -7,9 +7,11 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { format, parse } from "date-fns";
-import { Clock, CalendarIcon, MapPin, CheckCircle2, ChevronRight } from "lucide-react";
+import { ChevronRight, CheckCircle2 } from "lucide-react";
+import DateStep from './steps/DateStep';
+import TimezoneStep from './steps/TimezoneStep';
+import TimeStep from './steps/TimeStep';
+import ConfirmStep from './steps/ConfirmStep';
 
 interface MobileDateTimePickerProps {
   open: boolean;
@@ -88,29 +90,6 @@ const MobileDateTimePicker = ({
     }
   };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const dateValue = e.target.value;
-    console.log('Date input changed:', dateValue);
-    if (dateValue) {
-      const newDate = new Date(dateValue + 'T00:00:00');
-      console.log('Parsed date:', newDate);
-      setSelectedDate(newDate);
-    } else {
-      setSelectedDate(undefined);
-    }
-  };
-
-  const handleTimeSelect = (time: string) => {
-    console.log('Time selected:', time);
-    setSelectedTime(time);
-  };
-
-  // Get today's date in YYYY-MM-DD format for min attribute
-  const today = new Date().toISOString().split('T')[0];
-  
-  // Format selected date for input value
-  const dateInputValue = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '';
-
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
@@ -143,132 +122,36 @@ const MobileDateTimePicker = ({
 
         {/* Content Area */}
         <div className="flex-1 overflow-y-auto">
-          {/* Date Selection */}
           {currentStep === 'date' && (
-            <div className="p-6 space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-                  <CalendarIcon className="w-8 h-8 text-[#387E89]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#133255] mb-2">Choose Your Date</h3>
-                <p className="text-gray-600">Select a convenient day for your demo</p>
-              </div>
-
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                <label htmlFor="date-picker" className="block text-sm font-medium text-gray-700 mb-2">
-                  Select Date
-                </label>
-                <input
-                  id="date-picker"
-                  type="date"
-                  value={dateInputValue}
-                  min={today}
-                  onChange={handleDateChange}
-                  className="w-full h-14 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white"
-                />
-              </div>
-              
-              <div className="text-center text-sm text-gray-500">
-                * Weekends are not available for demos
-              </div>
-            </div>
+            <DateStep 
+              selectedDate={selectedDate} 
+              setSelectedDate={setSelectedDate} 
+            />
           )}
 
-          {/* Timezone Selection */}
           {currentStep === 'timezone' && (
-            <div className="p-6 space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
-                  <MapPin className="w-8 h-8 text-[#387E89]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#133255] mb-2">Confirm Timezone</h3>
-                <p className="text-gray-600">We've detected your timezone</p>
-              </div>
-
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-                <Select value={timeZone} onValueChange={setTimeZone}>
-                  <SelectTrigger className="w-full h-14 text-base bg-white border-gray-200">
-                    <SelectValue placeholder="Select your timezone" />
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[300px] overflow-y-auto bg-white z-[9999]">
-                    {timeZoneOptions.map((tz) => (
-                      <SelectItem key={tz} value={tz} className="py-3">
-                        {tz}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+            <TimezoneStep 
+              timeZone={timeZone} 
+              setTimeZone={setTimeZone} 
+              timeZoneOptions={timeZoneOptions} 
+            />
           )}
 
-          {/* Time Selection */}
           {currentStep === 'time' && (
-            <div className="p-6 space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-4">
-                  <Clock className="w-8 h-8 text-[#387E89]" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#133255] mb-2">Pick Your Time</h3>
-                <p className="text-gray-600">
-                  {selectedDate && `${format(selectedDate, "EEEE, MMMM d")}`}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                {timeSlots.map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    onClick={() => handleTimeSelect(time)}
-                    className={`h-14 flex items-center justify-center gap-3 text-base transition-all duration-200 rounded-lg border-2 font-medium ${
-                      selectedTime === time 
-                        ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg scale-105' 
-                        : 'bg-white hover:bg-gray-50 hover:border-[#387E89] hover:text-[#387E89] border-gray-200 text-gray-700'
-                    }`}
-                  >
-                    <Clock className="h-5 w-5" />
-                    {time}
-                  </button>
-                ))}
-              </div>
-            </div>
+            <TimeStep 
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              setSelectedTime={setSelectedTime}
+              timeSlots={timeSlots}
+            />
           )}
 
-          {/* Confirmation */}
           {currentStep === 'confirm' && (
-            <div className="p-6 space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-                  <CheckCircle2 className="w-8 h-8 text-green-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-[#133255] mb-2">Confirm Your Demo</h3>
-                <p className="text-gray-600">Please review your selection</p>
-              </div>
-
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 space-y-4">
-                <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <span className="text-gray-600">Date</span>
-                  <span className="font-medium text-[#133255]">
-                    {selectedDate && format(selectedDate, "EEEE, MMMM d, yyyy")}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between py-3 border-b border-gray-100">
-                  <span className="text-gray-600">Timezone</span>
-                  <span className="font-medium text-[#133255]">{timeZone}</span>
-                </div>
-                <div className="flex items-center justify-between py-3">
-                  <span className="text-gray-600">Time</span>
-                  <span className="font-medium text-[#133255]">{selectedTime}</span>
-                </div>
-              </div>
-
-              <div className="bg-blue-50 rounded-xl p-4">
-                <p className="text-sm text-blue-800 text-center">
-                  🎯 You'll receive a calendar invite and reminder email before your demo
-                </p>
-              </div>
-            </div>
+            <ConfirmStep 
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              timeZone={timeZone}
+            />
           )}
         </div>
 
