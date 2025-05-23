@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -64,6 +65,7 @@ const DemoRequestForm = () => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>();
   const [timeZone, setTimeZone] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedDateTime, setSubmittedDateTime] = useState<string>('');
   const isMobile = useIsMobile();
 
   const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<FormData>({
@@ -77,11 +79,31 @@ const DemoRequestForm = () => {
       selectedTime,
       timeZone
     });
+    
+    // Format the date and time for display
+    if (selectedDate && selectedTime && timeZone) {
+      const formattedDateTime = `${format(selectedDate, 'EEEE, MMMM do, yyyy')} at ${selectedTime} (${timeZone.replace(/_/g, ' ').replace('America/', '').replace('Europe/', '')})`;
+      setSubmittedDateTime(formattedDateTime);
+    }
+    
     setIsSubmitted(true);
   };
 
+  const handleCloseSuccessMessage = () => {
+    setIsSubmitted(false);
+    setSelectedDate(undefined);
+    setSelectedTime(undefined);
+    setTimeZone('');
+    setSubmittedDateTime('');
+  };
+
   if (isSubmitted) {
-    return <DemoSuccessMessage />;
+    return (
+      <DemoSuccessMessage 
+        dateTime={submittedDateTime}
+        onClose={handleCloseSuccessMessage}
+      />
+    );
   }
 
   const DateTimePicker = isMobile ? MobileDateTimePicker : DesktopDateTimePicker;
