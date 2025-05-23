@@ -90,8 +90,10 @@ const MobileDateTimePicker = ({
   };
 
   const handleDateSelect = (date: Date | undefined) => {
-    console.log('Date selected:', date);
-    setSelectedDate(date);
+    console.log('Date selected in handler:', date);
+    if (date) {
+      setSelectedDate(date);
+    }
   };
 
   const handleTimeSelect = (time: string) => {
@@ -103,7 +105,7 @@ const MobileDateTimePicker = ({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="bottom" 
-        className="h-[95vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 pointer-events-auto"
+        className="h-[95vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0"
       >
         {/* Header with Progress */}
         <SheetHeader className="px-6 pt-6 pb-4 bg-white border-b border-gray-100">
@@ -130,7 +132,7 @@ const MobileDateTimePicker = ({
         </SheetHeader>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-y-auto pointer-events-auto">
+        <div className="flex-1 overflow-y-auto">
           {/* Date Selection */}
           {currentStep === 'date' && (
             <div className="p-6 space-y-6">
@@ -142,12 +144,12 @@ const MobileDateTimePicker = ({
                 <p className="text-gray-600">Select a convenient day for your demo</p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 pointer-events-auto">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
                 <Calendar
                   mode="single"
                   selected={selectedDate}
                   onSelect={handleDateSelect}
-                  className="w-full mx-auto pointer-events-auto"
+                  className="w-full mx-auto"
                   disabled={(date) => 
                     date < new Date() || 
                     date.getDay() === 0 || 
@@ -182,7 +184,7 @@ const MobileDateTimePicker = ({
                     type="button"
                     variant="outline"
                     size="lg"
-                    className={`h-14 flex items-center justify-center gap-3 text-base transition-all duration-200 pointer-events-auto ${
+                    className={`h-14 flex items-center justify-center gap-3 text-base transition-all duration-200 ${
                       selectedTime === time 
                         ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg scale-105' 
                         : 'bg-white hover:bg-gray-50 hover:border-[#387E89] hover:text-[#387E89]'
@@ -208,14 +210,14 @@ const MobileDateTimePicker = ({
                 <p className="text-gray-600">We've detected your timezone</p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 pointer-events-auto">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
                 <Select value={timeZone} onValueChange={setTimeZone}>
-                  <SelectTrigger className="w-full h-14 text-base bg-white border-gray-200 pointer-events-auto">
+                  <SelectTrigger className="w-full h-14 text-base bg-white border-gray-200">
                     <SelectValue placeholder="Select your timezone" />
                   </SelectTrigger>
-                  <SelectContent className="max-h-[300px] overflow-y-auto bg-white z-[9999] pointer-events-auto">
+                  <SelectContent className="max-h-[300px] overflow-y-auto bg-white z-[9999]">
                     {timeZoneOptions.map((tz) => (
-                      <SelectItem key={tz} value={tz} className="py-3 pointer-events-auto">
+                      <SelectItem key={tz} value={tz} className="py-3">
                         {tz}
                       </SelectItem>
                     ))}
@@ -263,14 +265,14 @@ const MobileDateTimePicker = ({
         </div>
 
         {/* Bottom Navigation */}
-        <div className="p-6 bg-white border-t border-gray-100 space-y-4 pointer-events-auto">
+        <div className="p-6 bg-white border-t border-gray-100 space-y-4">
           {currentStep !== 'confirm' ? (
             <div className="flex gap-3">
               {currentStep !== 'date' && (
                 <Button
                   variant="outline"
                   onClick={handleBackStep}
-                  className="flex-1 h-12 text-base pointer-events-auto"
+                  className="flex-1 h-12 text-base"
                 >
                   Back
                 </Button>
@@ -278,7 +280,7 @@ const MobileDateTimePicker = ({
               <Button
                 onClick={handleNextStep}
                 disabled={!canProceed()}
-                className={`h-12 text-base transition-all duration-200 pointer-events-auto ${
+                className={`h-12 text-base transition-all duration-200 ${
                   currentStep === 'date' ? 'flex-1' : 'flex-[2]'
                 } ${
                   canProceed() 
@@ -295,13 +297,13 @@ const MobileDateTimePicker = ({
               <Button
                 variant="outline"
                 onClick={handleBackStep}
-                className="flex-1 h-12 text-base pointer-events-auto"
+                className="flex-1 h-12 text-base"
               >
                 Back
               </Button>
               <Button
                 onClick={handleConfirm}
-                className="flex-[2] h-12 text-base bg-green-600 hover:bg-green-700 text-white pointer-events-auto"
+                className="flex-[2] h-12 text-base bg-green-600 hover:bg-green-700 text-white"
               >
                 Confirm Demo
                 <CheckCircle2 className="ml-2 h-5 w-5" />
