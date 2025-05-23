@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 export const HeroSection: React.FC = () => {
   return (
@@ -52,15 +52,18 @@ export const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
         >
-          <ShimmerButton 
-            shimmerColor="#0FA0CE" 
-            onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}
-            background="rgba(0, 0, 0, 0.4)"
-            borderRadius="8px"
-            className="font-medium"
-          >
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              :root {
+                --teal-1: 174 80% 40%; /* Darker teal */
+                --teal-2: 160 84% 45%; /* Medium teal */
+                --teal-3: 152 76% 50%; /* Lighter green-teal */
+              }
+            `
+          }} />
+          <RainbowButton onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}>
             Explore the Advantages
-          </ShimmerButton>
+          </RainbowButton>
         </motion.div>
       </motion.div>
     </div>
