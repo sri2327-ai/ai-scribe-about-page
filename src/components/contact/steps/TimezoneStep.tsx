@@ -1,8 +1,7 @@
 
 import React, { useState } from 'react';
-import { Globe, Check, Search } from "lucide-react";
+import { Globe, Check } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
 
 interface TimezoneStepProps {
   timeZone: string;
@@ -11,8 +10,6 @@ interface TimezoneStepProps {
 }
 
 const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
   const handleTimezoneSelect = (zone: string) => {
     console.log('Timezone selected:', zone);
     setTimeZone(zone);
@@ -93,19 +90,6 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
     ],
   };
 
-  // Filter timezones based on search
-  const filteredGroups = Object.entries(timezoneGroups).reduce((acc, [groupName, zones]) => {
-    const filteredZones = zones.filter(zone => 
-      zone.label.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      zone.subtext.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      zone.value.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    if (filteredZones.length > 0) {
-      acc[groupName] = filteredZones;
-    }
-    return acc;
-  }, {} as typeof timezoneGroups);
-
   const TimezoneButton = ({ zone }: { zone: any }) => (
     <button
       type="button"
@@ -151,31 +135,19 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
   return (
     <div className="h-full flex flex-col">
       {/* Header */}
-      <div className="text-center p-3 md:p-6 flex-shrink-0">
+      <div className="text-center p-3 md:p-4 flex-shrink-0">
         <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-full mb-3 md:mb-4">
           <Globe className="w-6 h-6 md:w-8 md:h-8 text-[#387E89]" />
         </div>
         <h3 className="text-lg md:text-2xl font-bold text-[#133255] mb-2">Select Your Timezone</h3>
-        <p className="text-xs md:text-base text-gray-600 mb-3 md:mb-4">Choose your preferred timezone for the demo</p>
-        
-        {/* Search bar */}
-        <div className="relative max-w-xs md:max-w-sm mx-auto">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 md:h-4 md:w-4 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="Search timezones..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-8 md:pl-10 h-9 md:h-11 text-xs md:text-sm border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
-          />
-        </div>
+        <p className="text-xs md:text-base text-gray-600">Choose your preferred timezone for the demo</p>
       </div>
 
       {/* Timezone list */}
       <div className="flex-1 px-3 md:px-6 pb-3 md:pb-6 overflow-hidden">
         <ScrollArea className="h-full w-full">
           <div className="space-y-4 md:space-y-6 pr-1 md:pr-2">
-            {Object.entries(filteredGroups).map(([groupName, zones]) => (
+            {Object.entries(timezoneGroups).map(([groupName, zones]) => (
               <div key={groupName} className="space-y-2 md:space-y-3">
                 <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pb-1 md:pb-2">
                   <h4 className="text-sm md:text-lg font-bold text-[#133255] border-b-2 border-[#387E89] pb-1 md:pb-2">
@@ -189,13 +161,6 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
                 </div>
               </div>
             ))}
-            
-            {Object.keys(filteredGroups).length === 0 && (
-              <div className="text-center py-6 md:py-8">
-                <Globe className="h-10 w-10 md:h-12 md:w-12 text-gray-300 mx-auto mb-2 md:mb-3" />
-                <p className="text-gray-500 text-sm md:text-base">No timezones found matching your search</p>
-              </div>
-            )}
           </div>
         </ScrollArea>
         
