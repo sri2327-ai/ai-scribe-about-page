@@ -54,7 +54,7 @@ const MobileDateTimePicker = ({
 
     if (currentStep === 'date' && selectedDate) {
       setCurrentStep('timezone');
-    } else if (currentStep === 'timezone' && timeZone && timeZone.trim() !== '') {
+    } else if (currentStep === 'timezone' && timeZone && timeZone.length > 0) {
       setCurrentStep('time');
     } else if (currentStep === 'time' && selectedTime) {
       setCurrentStep('confirm');
@@ -84,7 +84,7 @@ const MobileDateTimePicker = ({
   const canProceed = () => {
     switch (currentStep) {
       case 'date': return !!selectedDate;
-      case 'timezone': return !!timeZone && timeZone.trim() !== '';
+      case 'timezone': return !!(timeZone && timeZone.length > 0);
       case 'time': return !!selectedTime;
       default: return false;
     }
@@ -94,13 +94,13 @@ const MobileDateTimePicker = ({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent 
         side="bottom" 
-        className="h-[95vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0"
+        className="h-[95vh] bg-gradient-to-b from-white to-gray-50 overflow-hidden p-0 flex flex-col"
       >
         {/* Header with Progress */}
-        <SheetHeader className="px-6 pt-6 pb-4 bg-white border-b border-gray-100">
-          <div className="flex items-center justify-between mb-4">
-            <SheetTitle className="text-2xl font-bold text-[#133255]">Schedule Demo</SheetTitle>
-            <div className="text-sm text-gray-500">Step {getStepNumber()} of 4</div>
+        <SheetHeader className="px-4 pt-4 pb-3 bg-white border-b border-gray-100 flex-shrink-0">
+          <div className="flex items-center justify-between mb-3">
+            <SheetTitle className="text-xl font-bold text-[#133255]">Schedule Demo</SheetTitle>
+            <div className="text-xs text-gray-500">Step {getStepNumber()} of 4</div>
           </div>
           
           {/* Progress Bar */}
@@ -120,8 +120,8 @@ const MobileDateTimePicker = ({
           </div>
         </SheetHeader>
 
-        {/* Content Area */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Content Area - Scrollable */}
+        <div className="flex-1 overflow-hidden">
           {currentStep === 'date' && (
             <DateStep 
               selectedDate={selectedDate} 
@@ -156,7 +156,7 @@ const MobileDateTimePicker = ({
         </div>
 
         {/* Bottom Navigation */}
-        <div className="p-6 bg-white border-t border-gray-100 space-y-4">
+        <div className="p-4 bg-white border-t border-gray-100 flex-shrink-0">
           {currentStep !== 'confirm' ? (
             <div className="flex gap-3">
               {currentStep !== 'date' && (

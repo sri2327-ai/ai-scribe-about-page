@@ -31,16 +31,16 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
   const displayDate = selectedDate ? format(selectedDate, 'MM/dd/yyyy') : '';
 
   return (
-    <div className="p-6 space-y-6 h-full flex flex-col justify-center">
-      <div className="text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-          <CalendarIcon className="w-8 h-8 text-[#387E89]" />
+    <div className="h-full flex flex-col justify-center p-4">
+      <div className="text-center mb-6">
+        <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 rounded-full mb-3">
+          <CalendarIcon className="w-6 h-6 text-[#387E89]" />
         </div>
-        <h3 className="text-xl font-semibold text-[#133255] mb-2">Choose Your Date</h3>
-        <p className="text-gray-600">Select a convenient day for your demo</p>
+        <h3 className="text-lg font-semibold text-[#133255] mb-1">Choose Your Date</h3>
+        <p className="text-sm text-gray-600">Select a convenient day for your demo</p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 max-w-sm mx-auto w-full">
+      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 max-w-sm mx-auto w-full">
         <label htmlFor="date-picker" className="block text-sm font-medium text-gray-700 mb-3">
           Select Date
         </label>
@@ -50,17 +50,17 @@ const DateStep = ({ selectedDate, setSelectedDate }: DateStepProps) => {
           value={dateInputValue}
           min={today}
           onChange={handleDateChange}
-          className="w-full h-14 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white"
+          className="w-full h-12 px-4 py-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white"
         />
         {selectedDate && (
           <div className="mt-4 text-center p-3 bg-green-50 rounded-lg border border-green-200">
-            <p className="text-sm text-green-700">Selected date:</p>
-            <p className="text-lg font-medium text-green-800">{displayDate}</p>
+            <p className="text-xs text-green-700">Selected date:</p>
+            <p className="text-sm font-medium text-green-800">{displayDate}</p>
           </div>
         )}
       </div>
       
-      <div className="text-center text-sm text-gray-500">
+      <div className="text-center text-xs text-gray-500 mt-4">
         * Weekends are not available for demos
       </div>
     </div>
