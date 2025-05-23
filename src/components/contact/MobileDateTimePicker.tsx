@@ -6,10 +6,9 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { format } from "date-fns";
+import { format, parse } from "date-fns";
 import { Clock, CalendarIcon, MapPin, CheckCircle2, ChevronRight } from "lucide-react";
 
 interface MobileDateTimePickerProps {
@@ -89,10 +88,15 @@ const MobileDateTimePicker = ({
     }
   };
 
-  const handleDateSelect = (date: Date | undefined) => {
-    console.log('Date selected in handler:', date);
-    if (date) {
-      setSelectedDate(date);
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dateValue = e.target.value;
+    console.log('Date input changed:', dateValue);
+    if (dateValue) {
+      const newDate = new Date(dateValue + 'T00:00:00');
+      console.log('Parsed date:', newDate);
+      setSelectedDate(newDate);
+    } else {
+      setSelectedDate(undefined);
     }
   };
 
@@ -100,6 +104,12 @@ const MobileDateTimePicker = ({
     console.log('Time selected:', time);
     setSelectedTime(time);
   };
+
+  // Get today's date in YYYY-MM-DD format for min attribute
+  const today = new Date().toISOString().split('T')[0];
+  
+  // Format selected date for input value
+  const dateInputValue = selectedDate ? format(selectedDate, 'yyyy-MM-dd') : '';
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -144,17 +154,17 @@ const MobileDateTimePicker = ({
                 <p className="text-gray-600">Select a convenient day for your demo</p>
               </div>
 
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-4">
-                <Calendar
-                  mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateSelect}
-                  className="w-full mx-auto"
-                  disabled={(date) => 
-                    date < new Date() || 
-                    date.getDay() === 0 || 
-                    date.getDay() === 6
-                  }
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <label htmlFor="date-picker" className="block text-sm font-medium text-gray-700 mb-2">
+                  Select Date
+                </label>
+                <input
+                  id="date-picker"
+                  type="date"
+                  value={dateInputValue}
+                  min={today}
+                  onChange={handleDateChange}
+                  className="w-full h-14 px-4 py-3 text-lg border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] bg-white"
                 />
               </div>
               
