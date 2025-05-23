@@ -65,20 +65,20 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
                       key={zone}
                       type="button"
                       onClick={() => handleTimezoneSelect(zone)}
-                      className={`w-full p-3 flex items-center justify-between text-left transition-all duration-200 rounded-lg border ${
+                      className={`w-full p-4 flex items-center justify-between text-left transition-all duration-200 rounded-lg border-2 ${
                         timeZone === zone 
-                          ? 'bg-[#387E89] text-white border-[#387E89] shadow-md' 
+                          ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg transform scale-[1.02]' 
                           : 'bg-white hover:bg-gray-50 hover:border-[#387E89] border-gray-200 text-gray-700'
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <Globe className="h-4 w-4 flex-shrink-0" />
-                        <span className="text-sm font-medium">
+                        <Globe className="h-5 w-5 flex-shrink-0" />
+                        <span className="text-base font-medium">
                           {formatTimezoneName(zone)}
                         </span>
                       </div>
                       {timeZone === zone && (
-                        <Check className="h-4 w-4 flex-shrink-0" />
+                        <Check className="h-5 w-5 flex-shrink-0" />
                       )}
                     </button>
                   ))}
@@ -89,9 +89,9 @@ const TimezoneStep = ({ timeZone, setTimeZone, timeZoneOptions }: TimezoneStepPr
         </ScrollArea>
         
         {timeZone && (
-          <div className="text-center p-3 bg-green-50 rounded-lg border border-green-200">
+          <div className="text-center p-4 bg-green-50 rounded-lg border border-green-200">
             <p className="text-sm text-green-700">Selected timezone:</p>
-            <p className="text-base font-medium text-green-800">{formatTimezoneName(timeZone)}</p>
+            <p className="text-lg font-medium text-green-800">{formatTimezoneName(timeZone)}</p>
           </div>
         )}
       </div>

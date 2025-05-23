@@ -54,7 +54,7 @@ const MobileDateTimePicker = ({
 
     if (currentStep === 'date' && selectedDate) {
       setCurrentStep('timezone');
-    } else if (currentStep === 'timezone' && timeZone) {
+    } else if (currentStep === 'timezone' && timeZone && timeZone.trim() !== '') {
       setCurrentStep('time');
     } else if (currentStep === 'time' && selectedTime) {
       setCurrentStep('confirm');
@@ -84,7 +84,7 @@ const MobileDateTimePicker = ({
   const canProceed = () => {
     switch (currentStep) {
       case 'date': return !!selectedDate;
-      case 'timezone': return !!timeZone;
+      case 'timezone': return !!timeZone && timeZone.trim() !== '';
       case 'time': return !!selectedTime;
       default: return false;
     }
