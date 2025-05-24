@@ -21,7 +21,7 @@ const TimeStep = ({ selectedDate, selectedTime, setSelectedTime, timeSlots }: Ti
     <button
       type="button"
       onClick={() => handleTimeSelect(time)}
-      className={`w-full h-8 flex items-center justify-center p-2 text-xs transition-all duration-200 rounded-lg border-2 font-medium hover:scale-105 ${
+      className={`w-full h-10 sm:h-8 flex items-center justify-center p-2 text-sm sm:text-xs transition-all duration-200 rounded-lg border-2 font-medium hover:scale-105 ${
         selectedTime === time 
           ? 'bg-[#387E89] text-white border-[#387E89] shadow-lg transform scale-105' 
           : 'bg-white hover:bg-[#387E89]/10 hover:border-[#387E89] hover:text-[#387E89] border-gray-200 text-gray-700 shadow-sm'
@@ -50,12 +50,12 @@ const TimeStep = ({ selectedDate, selectedTime, setSelectedTime, timeSlots }: Ti
         </p>
       </div>
 
-      {/* Time slots grid with proper scrolling */}
+      {/* Time slots grid with proper scrolling and responsive design */}
       <div className="flex-1 min-h-0 overflow-hidden px-3">
         <ScrollArea className="h-full w-full">
           <div className="pr-2">
-            {/* Responsive grid for desktop/tablet */}
-            <div className="grid grid-cols-4 gap-2">
+            {/* Responsive grid: 2 columns on mobile, 3 on small tablets, 4 on larger screens */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-2">
               {timeSlots.map((time) => (
                 <TimeSlotButton key={time} time={time} />
               ))}
