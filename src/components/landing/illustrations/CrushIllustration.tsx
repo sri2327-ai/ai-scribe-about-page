@@ -17,7 +17,7 @@ const steps = [
 const StepIcon = memo(({ Icon, isActive, color, isMobile }: { Icon: React.ComponentType<any>; isActive: boolean; color: string; isMobile?: boolean }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className={`${isMobile ? 'p-1.5' : 'p-2'} rounded-full`}
+    className={`${isMobile ? 'p-2' : 'p-3'} rounded-full`}
     style={{ 
       background: `linear-gradient(135deg, ${color}, ${color}99)`,
       transform: isActive ? 'scale(1)' : 'scale(0.9)', 
@@ -26,7 +26,7 @@ const StepIcon = memo(({ Icon, isActive, color, isMobile }: { Icon: React.Compon
       boxShadow: isActive ? `0 4px 12px ${color}40` : 'none'
     }}
   >
-    <Icon size={isMobile ? 16 : 24} color="white" strokeWidth={1.5} />
+    <Icon size={isMobile ? 20 : 28} color="white" strokeWidth={1.5} />
   </motion.div>
 ));
 
@@ -35,14 +35,14 @@ StepIcon.displayName = 'StepIcon';
 // Voice wave animation component for the Mic step
 const VoiceWaveAnimation = memo(({ isMobile }: { isMobile?: boolean }) => {
   return (
-    <div className={`flex items-center justify-center ${isMobile ? 'h-6 mt-1 mb-1' : 'h-8 mt-2 mb-2'} space-x-1`}>
+    <div className={`flex items-center justify-center ${isMobile ? 'h-8 mt-2 mb-2' : 'h-10 mt-3 mb-3'} space-x-1`}>
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={i}
           className="w-1 rounded-full"
           style={{ backgroundColor: steps[0].color }}
           animate={{
-            height: [4, (isMobile ? 8 : 12) + i * (isMobile ? 1 : 2), 4],
+            height: [4, (isMobile ? 12 : 16) + i * (isMobile ? 2 : 3), 4],
             opacity: [0.4, 1, 0.4]
           }}
           transition={{
@@ -62,12 +62,9 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showStepNav, setShowStepNav] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const stepsRef = useRef<HTMLDivElement>(null);
-  const isScrollingRef = useRef(false);
   
   // Check if mobile on mount and resize
   useEffect(() => {
@@ -80,45 +77,6 @@ const CrushIllustration = memo(() => {
     
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-
-  // Show more prominent step navigation to make all steps visible
-  useEffect(() => {
-    setShowStepNav(true);
-  }, []);
-
-  // Function to scroll the container to show the current step
-  const scrollToCurrentStep = () => {
-    if (!stepsRef.current || isScrollingRef.current) return;
-    
-    // Get all step indicator dots
-    const stepIndicators = stepsRef.current.querySelectorAll(".step-indicator");
-    if (!stepIndicators.length || !stepIndicators[currentStep]) return;
-    
-    // Scroll the current step into view
-    isScrollingRef.current = true;
-    
-    // Calculate position to scroll to (center the current step)
-    const container = stepsRef.current;
-    const indicator = stepIndicators[currentStep] as HTMLElement;
-    const containerRect = container.getBoundingClientRect();
-    const indicatorRect = indicator.getBoundingClientRect();
-    
-    // Calculate the desired position to make the indicator centered
-    const scrollPosition = 
-      (indicatorRect.left + indicatorRect.width / 2) - 
-      (containerRect.left + containerRect.width / 2);
-    
-    // Scroll the container
-    container.scrollTo({
-      left: container.scrollLeft + scrollPosition,
-      behavior: 'smooth'
-    });
-    
-    // Reset scrolling flag after animation completes
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 500);
-  };
 
   useEffect(() => {
     // Set loaded state to prevent initial animation issues
@@ -144,11 +102,6 @@ const CrushIllustration = memo(() => {
       }
     };
   }, []);
-
-  // When current step changes, scroll to make it visible
-  useEffect(() => {
-    scrollToCurrentStep();
-  }, [currentStep]);
 
   // Navigate to previous step
   const handlePrevStep = () => {
@@ -182,19 +135,19 @@ const CrushIllustration = memo(() => {
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden"
-      style={{ contain: 'content', position: 'relative' }}
+      className={`relative w-full h-full flex flex-col items-center justify-center ${isMobile ? 'p-3' : 'p-6'} overflow-hidden`}
+      style={{ contain: 'content', position: 'relative', minHeight: isMobile ? '400px' : '500px' }}
     >
-      {/* Decorative background elements - responsive sizes */}
+      {/* Decorative background elements - better mobile sizing */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-        <div className={`absolute ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} rounded-full bg-blue-400 blur-3xl`}></div>
-        <div className={`absolute ${isMobile ? 'w-16 h-16' : 'w-24 h-24'} rounded-full bg-pink-400 blur-3xl ${isMobile ? '-translate-x-12 translate-y-6' : '-translate-x-20 translate-y-10'}`}></div>
-        <div className={`absolute ${isMobile ? 'w-16 h-16' : 'w-24 h-24'} rounded-full bg-teal-400 blur-3xl ${isMobile ? 'translate-x-10 -translate-y-8' : 'translate-x-16 -translate-y-12'}`}></div>
+        <div className={`absolute ${isMobile ? 'w-24 h-24' : 'w-40 h-40'} rounded-full bg-blue-400 blur-3xl`}></div>
+        <div className={`absolute ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} rounded-full bg-pink-400 blur-3xl ${isMobile ? '-translate-x-16 translate-y-8' : '-translate-x-24 translate-y-12'}`}></div>
+        <div className={`absolute ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} rounded-full bg-teal-400 blur-3xl ${isMobile ? 'translate-x-14 -translate-y-10' : 'translate-x-20 -translate-y-16'}`}></div>
       </div>
       
-      {/* Path for animation - responsive width */}
+      {/* Path for animation - better mobile sizing */}
       <svg 
-        className={`absolute ${isMobile ? 'w-32 h-2' : 'w-48 h-2'} top-1/2 -translate-y-1/2`}
+        className={`absolute ${isMobile ? 'w-40 h-3' : 'w-56 h-3'} top-1/2 -translate-y-1/2`}
         style={{ transform: 'translateZ(0)' }}
       >
         <defs>
@@ -205,10 +158,10 @@ const CrushIllustration = memo(() => {
           </linearGradient>
         </defs>
         <motion.path
-          d={`M 5,1 L ${isMobile ? '120' : '180'},1`}
+          d={`M 8,1.5 L ${isMobile ? '150' : '210'},1.5`}
           stroke="url(#crush-gradient)"
-          strokeWidth="2"
-          strokeDasharray="3,3"
+          strokeWidth="3"
+          strokeDasharray="4,4"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -223,36 +176,36 @@ const CrushIllustration = memo(() => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5 }}
-          className={`flex flex-col items-center gap-2 bg-white/90 ${isMobile ? 'p-3' : 'p-4'} rounded-lg shadow-lg z-10 ${isMobile ? 'min-w-[120px]' : 'min-w-[140px]'}`}
+          className={`flex flex-col items-center gap-3 bg-white/95 ${isMobile ? 'p-4 rounded-xl' : 'p-6 rounded-2xl'} shadow-xl z-10 ${isMobile ? 'min-w-[280px] max-w-[320px]' : 'min-w-[360px]'} backdrop-blur-sm`}
           style={{ 
             willChange: 'transform, opacity',
-            boxShadow: `0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
+            boxShadow: `0 12px 32px rgba(0,0,0,0.15), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
                        currentStep === 1 ? '56,126,137,0.1' : 
                        currentStep === 2 ? '81,146,174,0.1' : 
                        currentStep === 3 ? '20,49,81,0.1' : 
                        currentStep === 4 ? '4,111,144,0.1' : '240,98,146,0.1'})`,
-            borderTop: `3px solid ${steps[currentStep].color}`
+            borderTop: `4px solid ${steps[currentStep].color}`
           }}
         >
           <StepIcon Icon={steps[currentStep].Icon} isActive={true} color={steps[currentStep].color} isMobile={isMobile} />
-          <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-medium text-center`} style={{ color: steps[currentStep].color }}>
+          <p className={`${isMobile ? 'text-base' : 'text-lg'} font-semibold text-center`} style={{ color: steps[currentStep].color }}>
             {steps[currentStep].label}
           </p>
           
           {/* Voice wave animation for the Mic/Voice Input step */}
           {currentStep === 0 && <VoiceWaveAnimation isMobile={isMobile} />}
           
-          {/* Step content based on current step - responsive sizes */}
-          <div className="mt-1 w-full">
+          {/* Step content based on current step - better mobile sizing */}
+          <div className="mt-2 w-full">
             {currentStep === 0 && (
-              <div className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-center text-gray-500`}>
+              <div className={`${isMobile ? 'text-sm' : 'text-base'} text-center text-gray-600 font-medium`}>
                 Recording patient conversation...
               </div>
             )}
             {currentStep === 1 && (
               <div className="flex justify-center">
                 <motion.div 
-                  className={`h-2 ${isMobile ? 'w-20' : 'w-32'} bg-gray-200 rounded-full overflow-hidden`}
+                  className={`h-3 ${isMobile ? 'w-32' : 'w-40'} bg-gray-200 rounded-full overflow-hidden`}
                   style={{ padding: 0 }}
                 >
                   <motion.div
@@ -268,20 +221,20 @@ const CrushIllustration = memo(() => {
             {currentStep === 2 && (
               <div className="flex flex-col items-center">
                 <motion.div 
-                  className={`w-full ${isMobile ? 'h-2' : 'h-3'} flex space-x-1`}
+                  className={`w-full ${isMobile ? 'h-3' : 'h-4'} flex space-x-1`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {[...Array(isMobile ? 3 : 5)].map((_, i) => (
-                    <div key={i} className="h-2 rounded-sm flex-1" style={{ backgroundColor: `${steps[2].color}${50 + i*10}` }}></div>
+                  {[...Array(isMobile ? 4 : 6)].map((_, i) => (
+                    <div key={i} className="h-full rounded-sm flex-1" style={{ backgroundColor: `${steps[2].color}${60 + i*8}` }}></div>
                   ))}
                 </motion.div>
               </div>
             )}
             {currentStep === 3 && (
               <div className="flex justify-center">
-                <div className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-center text-gray-500`}>
+                <div className={`${isMobile ? 'text-sm' : 'text-base'} text-center text-gray-600 font-medium`}>
                   Generating patient instructions...
                 </div>
               </div>
@@ -291,17 +244,17 @@ const CrushIllustration = memo(() => {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} border-2 border-t-transparent rounded-full`}
+                  className={`${isMobile ? 'w-6 h-6' : 'w-8 h-8'} border-3 border-t-transparent rounded-full`}
                   style={{ borderColor: steps[4].color }}
                 />
               </div>
             )}
             {currentStep === 5 && (
-              <div className="flex justify-center space-x-1">
+              <div className="flex justify-center space-x-2">
                 {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className={`${isMobile ? 'w-1.5 h-1.5' : 'w-2 h-2'} rounded-full`}
+                    className={`${isMobile ? 'w-2.5 h-2.5' : 'w-3 h-3'} rounded-full`}
                     style={{ backgroundColor: steps[5].color }}
                     animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
                     transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
@@ -311,94 +264,79 @@ const CrushIllustration = memo(() => {
             )}
           </div>
           
-          {/* Enhanced Step navigation with better visibility - responsive */}
-          <div className={`${isMobile ? 'mt-2' : 'mt-4'} flex justify-center items-center`}>
-            {/* Previous button - responsive size */}
-            <motion.button
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handlePrevStep}
-              className={`flex justify-center items-center ${isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ${isMobile ? 'mr-1' : 'mr-2'}`}
-              aria-label="Previous step"
-            >
-              <ArrowLeft size={isMobile ? 12 : 16} />
-            </motion.button>
-            
-            {/* Step indicator dots - responsive spacing and size */}
-            <div 
-              ref={stepsRef} 
-              className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'} border border-gray-100 rounded-full ${isMobile ? 'px-2 py-1' : 'px-3 py-1.5'} bg-white shadow-sm overflow-x-auto no-scrollbar`}
-              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {steps.map((step, idx) => (
-                <motion.button 
-                  key={idx} 
-                  className="flex flex-col items-center"
-                  onClick={() => setCurrentStep(idx)}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  title={step.label}
-                  aria-label={`Go to step ${idx + 1}: ${step.label}`}
-                  aria-current={currentStep === idx ? "step" : undefined}
-                >
-                  <div 
-                    className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} rounded-full transition-all duration-300 step-indicator relative ${isMobile ? 'mb-0.5' : 'mb-1'}
-                      ${currentStep === idx ? 'ring-2 ring-offset-2 ring-offset-white' : 'hover:ring-1 hover:ring-offset-1'}
-                    `}
-                    style={{ 
-                      backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
-                      border: currentStep === idx ? `1px solid ${step.color}` : 'none'
-                    }}
+          {/* Mobile-optimized navigation */}
+          <div className={`${isMobile ? 'mt-4' : 'mt-6'} w-full`}>
+            {/* Navigation arrows and dots */}
+            <div className="flex justify-between items-center">
+              {/* Previous button - larger touch target for mobile */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handlePrevStep}
+                className={`flex justify-center items-center ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md`}
+                aria-label="Previous step"
+              >
+                <ArrowLeft size={isMobile ? 18 : 20} />
+              </motion.button>
+              
+              {/* Step indicator dots - better mobile layout */}
+              <div className={`flex items-center ${isMobile ? 'gap-3' : 'gap-4'} bg-white/90 rounded-full ${isMobile ? 'px-4 py-2' : 'px-6 py-3'} shadow-lg border border-gray-100`}>
+                {steps.map((step, idx) => (
+                  <motion.button 
+                    key={idx} 
+                    className="flex flex-col items-center"
+                    onClick={() => setCurrentStep(idx)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    title={step.label}
+                    aria-label={`Go to step ${idx + 1}: ${step.label}`}
+                    aria-current={currentStep === idx ? "step" : undefined}
                   >
-                    {currentStep === idx && (
-                      <motion.div
-                        className="absolute inset-0 rounded-full"
-                        initial={{ opacity: 0.5, scale: 1 }}
-                        animate={{ opacity: 0, scale: 1.5 }}
-                        transition={{ repeat: Infinity, duration: 2 }}
-                        style={{ backgroundColor: step.color }}
-                      />
-                    )}
-                  </div>
-                  {/* Small step number under dot for better clarity - responsive */}
-                  <span className={`${isMobile ? 'text-[8px]' : 'text-[10px]'} text-gray-500 font-medium`}>{idx + 1}</span>
-                </motion.button>
-              ))}
+                    <div 
+                      className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} rounded-full transition-all duration-300 relative ${isMobile ? 'mb-1' : 'mb-1.5'}
+                        ${currentStep === idx ? 'ring-2 ring-offset-2 ring-offset-white' : 'hover:ring-1 hover:ring-offset-1'}
+                      `}
+                      style={{ 
+                        backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
+                        border: currentStep === idx ? `2px solid ${step.color}` : 'none',
+                        ringColor: currentStep === idx ? step.color : '#9ca3af'
+                      }}
+                    >
+                      {currentStep === idx && (
+                        <motion.div
+                          className="absolute inset-0 rounded-full"
+                          initial={{ opacity: 0.6, scale: 1 }}
+                          animate={{ opacity: 0, scale: 1.8 }}
+                          transition={{ repeat: Infinity, duration: 2 }}
+                          style={{ backgroundColor: step.color }}
+                        />
+                      )}
+                    </div>
+                    {/* Step number - better mobile sizing */}
+                    <span className={`${isMobile ? 'text-xs' : 'text-sm'} text-gray-600 font-semibold`}>{idx + 1}</span>
+                  </motion.button>
+                ))}
+              </div>
+              
+              {/* Next button - larger touch target for mobile */}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={handleNextStep}
+                className={`flex justify-center items-center ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md`}
+                aria-label="Next step"
+              >
+                <ArrowRight size={isMobile ? 18 : 20} />
+              </motion.button>
             </div>
-            
-            {/* Next button - responsive size */}
-            <motion.button
-              initial={{ opacity: 1 }}
-              animate={{ opacity: 1 }}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={handleNextStep}
-              className={`flex justify-center items-center ${isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ${isMobile ? 'ml-1' : 'ml-2'}`}
-              aria-label="Next step"
-            >
-              <ArrowRight size={isMobile ? 12 : 16} />
-            </motion.button>
           </div>
           
-          {/* Progress text indicator - responsive font size */}
-          <div className={`${isMobile ? 'mt-1' : 'mt-2'} ${isMobile ? 'text-[8px]' : 'text-[10px]'} text-gray-500 font-medium text-center`}>
+          {/* Progress text indicator - better mobile sizing */}
+          <div className={`${isMobile ? 'mt-2' : 'mt-3'} ${isMobile ? 'text-xs' : 'text-sm'} text-gray-500 font-medium text-center`}>
             Step {currentStep + 1} of {steps.length}: {steps[currentStep].label}
           </div>
         </motion.div>
       </AnimatePresence>
-      
-      {/* Add custom CSS for hiding scrollbars but keeping functionality */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}} />
     </div>
   );
 });
