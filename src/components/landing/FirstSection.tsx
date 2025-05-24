@@ -127,7 +127,7 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight text-center lg:text-left text-black"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.9] tracking-tight text-center lg:text-left text-black"
               >
                 <span className="block">
                   AI Scribing &
@@ -155,12 +155,7 @@ export const FirstSection = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                  className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-3 bg-white rounded-full shadow-lg border-2 border-transparent bg-clip-padding transform hover:scale-105 transition-all duration-300"
-                  style={{
-                    backgroundImage: `linear-gradient(white, white), linear-gradient(135deg, #143151, #387E89, #5192AE)`,
-                    backgroundOrigin: 'border-box',
-                    backgroundClip: 'content-box, border-box'
-                  }}
+                  className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-3 bg-white rounded-full shadow-lg border border-gray-300 transform hover:scale-105 transition-all duration-300"
                 >
                   {React.cloneElement(benefit.icon, {
                     className: "w-3 h-3 sm:w-4 sm:h-4",
