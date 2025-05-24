@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -127,16 +128,16 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl font-black leading-[0.9] tracking-tight text-center lg:text-left text-black"
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black leading-[0.9] tracking-tight text-left text-black"
               >
                 <span className="block">
                   AI Scribing &
                 </span>
-                <span className="bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] bg-clip-text text-transparent block">
+                <span className="block text-black">
                   AI Staffing Agent
                 </span>
                 <span className="block">Built for</span>
-                <span className="bg-gradient-to-r from-[#387E89] to-[#143151] bg-clip-text text-transparent block">
+                <span className="block text-black">
                   Clinicians Like You
                 </span>
               </motion.h1>
@@ -147,7 +148,7 @@ export const FirstSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start"
+              className="flex flex-wrap gap-2 sm:gap-3 justify-start"
             >
               {clinicianBenefits.map((benefit, index) => (
                 <motion.div 
@@ -178,7 +179,7 @@ export const FirstSection = () => {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="pt-2 sm:pt-4"
             >
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center lg:items-start">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
                 <Button 
                   onMouseEnter={() => setIsHovered(true)} 
                   onMouseLeave={() => setIsHovered(false)} 
@@ -195,7 +196,7 @@ export const FirstSection = () => {
                   </motion.div>
                 </Button>
                 
-                <div className="text-xs sm:text-sm text-gray-600 pt-1 sm:pt-2 text-center lg:text-left">
+                <div className="text-xs sm:text-sm text-gray-600 pt-1 sm:pt-2 text-left">
                   <p className="font-medium">✓ Free 30-minute consultation</p>
                   <p>✓ Custom implementation plan</p>
                 </div>
