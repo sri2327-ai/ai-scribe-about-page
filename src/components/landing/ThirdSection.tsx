@@ -358,7 +358,7 @@ export const ThirdSection = () => {
 
           <Box component="aside" className={isMobile ? "mt-5" : "col-span-5"}>
             <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white h-fit">
-              {/* Updated YouTube video with new ID and title */}
+              {/* Updated YouTube video with correct video ID */}
               <div className="aspect-video w-full">
                 <YouTubeFacade 
                   videoId="Xu0BH3oO5bA" 
