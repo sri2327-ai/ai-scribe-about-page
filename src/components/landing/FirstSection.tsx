@@ -100,15 +100,15 @@ export const FirstSection = () => {
       
       {/* Main content container */}
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-10 md:py-14 lg:py-20 relative z-10">
-        {/* Hero section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 items-center min-h-[85vh] sm:min-h-[80vh]">
+        {/* Hero section - Fixed mobile layout */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 lg:items-center min-h-[85vh] sm:min-h-[80vh]">
           
-          {/* Left column - Main content */}
+          {/* Left column - Main content - Always first on mobile */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="space-y-4 sm:space-y-6 lg:space-y-8 order-2 lg:order-1"
+            className="space-y-4 sm:space-y-6 lg:space-y-8 order-1"
           >
             {/* Trust indicator */}
             <motion.div 
@@ -128,7 +128,7 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight text-center lg:text-left"
               >
                 <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent block">
                   AI Scribing &
@@ -147,7 +147,7 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 leading-relaxed max-w-2xl"
+                className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 leading-relaxed max-w-2xl text-center lg:text-left mx-auto lg:mx-0"
               >
                 Transform your practice with AI that <span className="font-semibold text-[#387E89]">reduces documentation time by 75%</span> and <span className="font-semibold text-[#143151]">increases patient face-time by 40%</span> on average.
               </motion.p>
@@ -158,7 +158,7 @@ export const FirstSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap gap-2 sm:gap-3"
+              className="flex flex-wrap gap-2 sm:gap-3 justify-center lg:justify-start"
             >
               {clinicianBenefits.map((benefit, index) => (
                 <motion.div 
@@ -181,7 +181,7 @@ export const FirstSection = () => {
               transition={{ duration: 0.8, delay: 0.7 }}
               className="pt-2 sm:pt-4"
             >
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center lg:items-start">
                 <Button 
                   onMouseEnter={() => setIsHovered(true)} 
                   onMouseLeave={() => setIsHovered(false)} 
@@ -198,7 +198,7 @@ export const FirstSection = () => {
                   </motion.div>
                 </Button>
                 
-                <div className="text-xs sm:text-sm text-gray-600 pt-1 sm:pt-2">
+                <div className="text-xs sm:text-sm text-gray-600 pt-1 sm:pt-2 text-center lg:text-left">
                   <p className="font-medium">✓ Free 30-minute consultation</p>
                   <p>✓ Custom implementation plan</p>
                 </div>
@@ -206,12 +206,12 @@ export const FirstSection = () => {
             </motion.div>
           </motion.div>
           
-          {/* Right column - Feature showcase */}
+          {/* Right column - Feature showcase - Always second on mobile */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative order-1 lg:order-2"
+            className="relative order-2 mt-8 lg:mt-0"
           >
             <Card className="relative bg-white/95 backdrop-blur-sm border-0 shadow-2xl shadow-[#387E89]/10 ring-1 ring-gray-200/50 overflow-hidden w-full max-w-md sm:max-w-lg mx-auto">
               {/* Header */}
