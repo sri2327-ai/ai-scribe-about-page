@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -45,15 +44,15 @@ export const FirstSection = () => {
   const isMobile = useIsMobile();
 
   const clinicianBenefits = [{
-    icon: <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-white" />,
+    icon: <Clock className="w-3 h-3 sm:w-4 sm:h-4" />,
     text: "75% faster charting",
     color: "from-blue-500 to-blue-600"
   }, {
-    icon: <Users className="w-3 h-3 sm:w-4 sm:h-4 text-white" />,
+    icon: <Users className="w-3 h-3 sm:w-4 sm:h-4" />,
     text: "AI staffing assistance",
     color: "from-teal-500 to-teal-600"
   }, {
-    icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4 text-white" />,
+    icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4" />,
     text: "HIPAA compliant",
     color: "from-green-500 to-green-600"
   }];
@@ -128,29 +127,19 @@ export const FirstSection = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight text-center lg:text-left"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-black leading-[0.9] tracking-tight text-center lg:text-left text-black"
               >
-                <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent block">
+                <span className="block">
                   AI Scribing &
                 </span>
                 <span className="bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] bg-clip-text text-transparent block">
                   AI Staffing Agent
                 </span>
-                <span className="text-gray-900 block">Built for</span>
+                <span className="block">Built for</span>
                 <span className="bg-gradient-to-r from-[#387E89] to-[#143151] bg-clip-text text-transparent block">
                   Clinicians Like You
                 </span>
               </motion.h1>
-              
-              {/* Subtitle */}
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-600 leading-relaxed max-w-2xl text-center lg:text-left mx-auto lg:mx-0"
-              >
-                Transform your practice with AI that <span className="font-semibold text-[#387E89]">reduces documentation time by 75%</span> and <span className="font-semibold text-[#143151]">increases patient face-time by 40%</span> on average.
-              </motion.p>
             </div>
             
             {/* Benefit pills */}
@@ -166,10 +155,23 @@ export const FirstSection = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-3 bg-gradient-to-r ${benefit.color} rounded-full shadow-lg border border-white/20 backdrop-blur-sm transform hover:scale-105 transition-all duration-300`}
+                  className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-3 bg-white rounded-full shadow-lg border-2 border-transparent bg-clip-padding transform hover:scale-105 transition-all duration-300"
+                  style={{
+                    backgroundImage: `linear-gradient(white, white), linear-gradient(135deg, #143151, #387E89, #5192AE)`,
+                    backgroundOrigin: 'border-box',
+                    backgroundClip: 'content-box, border-box'
+                  }}
                 >
-                  {benefit.icon}
-                  <span className="text-xs sm:text-sm font-semibold text-white">{benefit.text}</span>
+                  {React.cloneElement(benefit.icon, {
+                    className: "w-3 h-3 sm:w-4 sm:h-4",
+                    style: {
+                      background: 'linear-gradient(135deg, #143151, #387E89, #5192AE)',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text'
+                    }
+                  })}
+                  <span className="text-xs sm:text-sm font-semibold text-gray-800">{benefit.text}</span>
                 </motion.div>
               ))}
             </motion.div>
