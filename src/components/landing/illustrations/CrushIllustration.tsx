@@ -135,19 +135,19 @@ const CrushIllustration = memo(() => {
   return (
     <div 
       ref={containerRef}
-      className={`relative w-full h-full flex flex-col items-center justify-center ${isMobile ? 'p-3' : 'p-6'} overflow-hidden`}
-      style={{ contain: 'content', position: 'relative', minHeight: isMobile ? '400px' : '500px' }}
+      className={`relative w-full h-full flex flex-col items-center justify-center ${isMobile ? 'p-2 min-h-[300px]' : 'p-6 min-h-[500px]'} overflow-hidden`}
+      style={{ contain: 'content', position: 'relative' }}
     >
       {/* Decorative background elements - better mobile sizing */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-        <div className={`absolute ${isMobile ? 'w-24 h-24' : 'w-40 h-40'} rounded-full bg-blue-400 blur-3xl`}></div>
-        <div className={`absolute ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} rounded-full bg-pink-400 blur-3xl ${isMobile ? '-translate-x-16 translate-y-8' : '-translate-x-24 translate-y-12'}`}></div>
-        <div className={`absolute ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} rounded-full bg-teal-400 blur-3xl ${isMobile ? 'translate-x-14 -translate-y-10' : 'translate-x-20 -translate-y-16'}`}></div>
+        <div className={`absolute ${isMobile ? 'w-16 h-16' : 'w-40 h-40'} rounded-full bg-blue-400 blur-3xl`}></div>
+        <div className={`absolute ${isMobile ? 'w-12 h-12' : 'w-32 h-32'} rounded-full bg-pink-400 blur-3xl ${isMobile ? '-translate-x-8 translate-y-4' : '-translate-x-24 translate-y-12'}`}></div>
+        <div className={`absolute ${isMobile ? 'w-12 h-12' : 'w-32 h-32'} rounded-full bg-teal-400 blur-3xl ${isMobile ? 'translate-x-6 -translate-y-6' : 'translate-x-20 -translate-y-16'}`}></div>
       </div>
       
       {/* Path for animation - better mobile sizing */}
       <svg 
-        className={`absolute ${isMobile ? 'w-40 h-3' : 'w-56 h-3'} top-1/2 -translate-y-1/2`}
+        className={`absolute ${isMobile ? 'w-32 h-3' : 'w-56 h-3'} top-1/2 -translate-y-1/2`}
         style={{ transform: 'translateZ(0)' }}
       >
         <defs>
@@ -158,7 +158,7 @@ const CrushIllustration = memo(() => {
           </linearGradient>
         </defs>
         <motion.path
-          d={`M 8,1.5 L ${isMobile ? '150' : '210'},1.5`}
+          d={`M 8,1.5 L ${isMobile ? '120' : '210'},1.5`}
           stroke="url(#crush-gradient)"
           strokeWidth="3"
           strokeDasharray="4,4"
@@ -176,7 +176,7 @@ const CrushIllustration = memo(() => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5 }}
-          className={`flex flex-col items-center gap-3 bg-white/95 ${isMobile ? 'p-4 rounded-xl' : 'p-6 rounded-2xl'} shadow-xl z-10 ${isMobile ? 'min-w-[280px] max-w-[320px]' : 'min-w-[360px]'} backdrop-blur-sm`}
+          className={`flex flex-col items-center gap-2 bg-white/95 ${isMobile ? 'p-3 rounded-lg mx-2' : 'p-6 rounded-2xl'} shadow-xl z-10 ${isMobile ? 'w-full max-w-[280px]' : 'min-w-[360px]'} backdrop-blur-sm`}
           style={{ 
             willChange: 'transform, opacity',
             boxShadow: `0 12px 32px rgba(0,0,0,0.15), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
@@ -188,7 +188,7 @@ const CrushIllustration = memo(() => {
           }}
         >
           <StepIcon Icon={steps[currentStep].Icon} isActive={true} color={steps[currentStep].color} isMobile={isMobile} />
-          <p className={`${isMobile ? 'text-base' : 'text-lg'} font-semibold text-center`} style={{ color: steps[currentStep].color }}>
+          <p className={`${isMobile ? 'text-sm' : 'text-lg'} font-semibold text-center`} style={{ color: steps[currentStep].color }}>
             {steps[currentStep].label}
           </p>
           
@@ -196,16 +196,16 @@ const CrushIllustration = memo(() => {
           {currentStep === 0 && <VoiceWaveAnimation isMobile={isMobile} />}
           
           {/* Step content based on current step - better mobile sizing */}
-          <div className="mt-2 w-full">
+          <div className="mt-1 w-full">
             {currentStep === 0 && (
-              <div className={`${isMobile ? 'text-sm' : 'text-base'} text-center text-gray-600 font-medium`}>
+              <div className={`${isMobile ? 'text-xs' : 'text-base'} text-center text-gray-600 font-medium`}>
                 Recording patient conversation...
               </div>
             )}
             {currentStep === 1 && (
               <div className="flex justify-center">
                 <motion.div 
-                  className={`h-3 ${isMobile ? 'w-32' : 'w-40'} bg-gray-200 rounded-full overflow-hidden`}
+                  className={`h-2 ${isMobile ? 'w-24' : 'w-40'} bg-gray-200 rounded-full overflow-hidden`}
                   style={{ padding: 0 }}
                 >
                   <motion.div
@@ -221,12 +221,12 @@ const CrushIllustration = memo(() => {
             {currentStep === 2 && (
               <div className="flex flex-col items-center">
                 <motion.div 
-                  className={`w-full ${isMobile ? 'h-3' : 'h-4'} flex space-x-1`}
+                  className={`w-full ${isMobile ? 'h-2' : 'h-4'} flex space-x-1`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {[...Array(isMobile ? 4 : 6)].map((_, i) => (
+                  {[...Array(isMobile ? 3 : 6)].map((_, i) => (
                     <div key={i} className="h-full rounded-sm flex-1" style={{ backgroundColor: `${steps[2].color}${60 + i*8}` }}></div>
                   ))}
                 </motion.div>
@@ -234,7 +234,7 @@ const CrushIllustration = memo(() => {
             )}
             {currentStep === 3 && (
               <div className="flex justify-center">
-                <div className={`${isMobile ? 'text-sm' : 'text-base'} text-center text-gray-600 font-medium`}>
+                <div className={`${isMobile ? 'text-xs' : 'text-base'} text-center text-gray-600 font-medium`}>
                   Generating patient instructions...
                 </div>
               </div>
@@ -244,17 +244,17 @@ const CrushIllustration = memo(() => {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  className={`${isMobile ? 'w-6 h-6' : 'w-8 h-8'} border-3 border-t-transparent rounded-full`}
+                  className={`${isMobile ? 'w-4 h-4' : 'w-8 h-8'} border-2 border-t-transparent rounded-full`}
                   style={{ borderColor: steps[4].color }}
                 />
               </div>
             )}
             {currentStep === 5 && (
-              <div className="flex justify-center space-x-2">
+              <div className="flex justify-center space-x-1">
                 {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className={`${isMobile ? 'w-2.5 h-2.5' : 'w-3 h-3'} rounded-full`}
+                    className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} rounded-full`}
                     style={{ backgroundColor: steps[5].color }}
                     animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
                     transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
@@ -265,7 +265,7 @@ const CrushIllustration = memo(() => {
           </div>
           
           {/* Mobile-optimized navigation */}
-          <div className={`${isMobile ? 'mt-4' : 'mt-6'} w-full`}>
+          <div className={`${isMobile ? 'mt-3' : 'mt-6'} w-full`}>
             {/* Navigation arrows and dots */}
             <div className="flex justify-between items-center">
               {/* Previous button - larger touch target for mobile */}
@@ -273,14 +273,14 @@ const CrushIllustration = memo(() => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handlePrevStep}
-                className={`flex justify-center items-center ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md`}
+                className={`flex justify-center items-center ${isMobile ? 'w-8 h-8' : 'w-12 h-12'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md`}
                 aria-label="Previous step"
               >
-                <ArrowLeft size={isMobile ? 18 : 20} />
+                <ArrowLeft size={isMobile ? 16 : 20} />
               </motion.button>
               
               {/* Step indicator dots - better mobile layout */}
-              <div className={`flex items-center ${isMobile ? 'gap-3' : 'gap-4'} bg-white/90 rounded-full ${isMobile ? 'px-4 py-2' : 'px-6 py-3'} shadow-lg border border-gray-100`}>
+              <div className={`flex items-center ${isMobile ? 'gap-2' : 'gap-4'} bg-white/90 rounded-full ${isMobile ? 'px-3 py-2' : 'px-6 py-3'} shadow-lg border border-gray-100`}>
                 {steps.map((step, idx) => (
                   <motion.button 
                     key={idx} 
@@ -293,13 +293,11 @@ const CrushIllustration = memo(() => {
                     aria-current={currentStep === idx ? "step" : undefined}
                   >
                     <div 
-                      className={`${isMobile ? 'w-3 h-3' : 'w-4 h-4'} rounded-full transition-all duration-300 relative ${isMobile ? 'mb-1' : 'mb-1.5'}
-                        ${currentStep === idx ? 'ring-2 ring-offset-2 ring-offset-white' : 'hover:ring-1 hover:ring-offset-1'}
-                      `}
+                      className={`${isMobile ? 'w-2.5 h-2.5' : 'w-4 h-4'} rounded-full transition-all duration-300 relative ${isMobile ? 'mb-0.5' : 'mb-1.5'}`}
                       style={{ 
                         backgroundColor: currentStep === idx ? step.color : '#e5e7eb',
                         border: currentStep === idx ? `2px solid ${step.color}` : 'none',
-                        ringColor: currentStep === idx ? step.color : '#9ca3af'
+                        boxShadow: currentStep === idx ? `0 0 0 2px white, 0 0 0 4px ${step.color}` : 'none'
                       }}
                     >
                       {currentStep === idx && (
@@ -323,10 +321,10 @@ const CrushIllustration = memo(() => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={handleNextStep}
-                className={`flex justify-center items-center ${isMobile ? 'w-10 h-10' : 'w-12 h-12'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md`}
+                className={`flex justify-center items-center ${isMobile ? 'w-8 h-8' : 'w-12 h-12'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors shadow-md`}
                 aria-label="Next step"
               >
-                <ArrowRight size={isMobile ? 18 : 20} />
+                <ArrowRight size={isMobile ? 16 : 20} />
               </motion.button>
             </div>
           </div>
