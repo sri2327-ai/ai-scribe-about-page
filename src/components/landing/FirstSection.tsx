@@ -6,61 +6,35 @@ import Marquee from "react-fast-marquee";
 import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Star, TrendingUp } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { shadowStyles } from '@/lib/shadow-utils';
-import { LazyLoad } from '@/components/ui/lazy-load';
 import OptimizedImage from '@/components/ui/optimized-image';
 
-// More efficient voice animation component
+// Simplified voice animation component
 const VoiceAnimation = ({ size = "md", color = "#387E89", isAnimating = true }) => {
   const barCount = size === "xs" ? 3 : size === "sm" ? 4 : 5;
   const maxHeight = size === "xs" ? 8 : size === "sm" ? 12 : 16;
   
   return (
-    <div 
-      className="flex items-end gap-0.5 h-6" 
-      aria-hidden="true"
-      style={{ height: size === "xs" ? "12px" : size === "sm" ? "16px" : "24px" }}
-    >
-      {isAnimating ? (
-        <div className="flex items-end gap-0.5">
-          {Array(barCount).fill(0).map((_, idx) => (
-            <div 
-              key={idx}
-              className="rounded-full animate-pulse"
-              style={{
-                backgroundColor: color,
-                width: "2px",
-                height: `${Math.max(2, Math.random() * maxHeight)}px`,
-                animationDelay: `${idx * 100}ms`,
-                animationDuration: `${800 + Math.random() * 400}ms`,
-              }}
-            />
-          ))}
-        </div>
-      ) : (
-        <div className="flex items-end gap-0.5">
-          {Array(barCount).fill(0).map((_, idx) => (
-            <div 
-              key={idx}
-              className="rounded-full"
-              style={{
-                backgroundColor: color,
-                width: "2px",
-                height: "2px"
-              }}
-            />
-          ))}
-        </div>
-      )}
+    <div className="flex items-end gap-0.5 h-6" aria-hidden="true">
+      {Array(barCount).fill(0).map((_, idx) => (
+        <div 
+          key={idx}
+          className={`rounded-full ${isAnimating ? 'animate-pulse' : ''}`}
+          style={{
+            backgroundColor: color,
+            width: "2px",
+            height: isAnimating ? `${Math.max(2, Math.random() * maxHeight)}px` : "2px",
+            animationDelay: `${idx * 100}ms`,
+          }}
+        />
+      ))}
     </div>
   );
 };
 
-const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
+const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
 export const FirstSection = () => {
   const theme = useTheme();
@@ -69,24 +43,6 @@ export const FirstSection = () => {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const { width } = useWindowSize();
   const isMobile = useIsMobile();
-
-  // Add intersection observer for scroll animations
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-    const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    elements?.forEach(el => observer.observe(el));
-    return () => {
-      elements?.forEach(el => observer.unobserve(el));
-    };
-  }, []);
 
   const clinicianBenefits = [{
     icon: <Clock className="w-4 h-4 text-white" />,
@@ -102,7 +58,7 @@ export const FirstSection = () => {
     color: "from-green-500 to-green-600"
   }];
 
-  // Feature tab data
+  // Simplified feature tabs
   const featureTabs = [{
     id: "ai-scribe",
     title: "AI Medical Scribe",
@@ -133,28 +89,21 @@ export const FirstSection = () => {
     color: "#143151"
   }];
 
-  // Handle tab click (manual interaction)
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
   };
 
   return (
-    <section className="min-h-screen relative overflow-hidden" ref={sectionRef}>
-      {/* Enhanced gradient background with multiple layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-teal-50/40"></div>
+    <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-teal-50/40" ref={sectionRef}>
+      {/* Simplified background */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/50 to-blue-100/20"></div>
-      
-      {/* Animated background elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-200/20 to-transparent rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-teal-200/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-blue-100/10 to-teal-100/10 rounded-full blur-2xl"></div>
       
       {/* Main content container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-20 relative z-10">
-        {/* Hero section with enhanced visual hierarchy */}
+        {/* Hero section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[80vh]">
           
-          {/* Left column - Enhanced main content */}
+          {/* Left column - Main content */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -173,7 +122,7 @@ export const FirstSection = () => {
               <TrendingUp className="w-4 h-4 text-yellow-600" />
             </motion.div>
 
-            {/* Main headline with enhanced typography */}
+            {/* Main headline */}
             <div className="space-y-6">
               <motion.h1 
                 initial={{ opacity: 0, y: 20 }}
@@ -189,16 +138,14 @@ export const FirstSection = () => {
                   AI Staffing Agent
                 </span>
                 <br />
-                <span className="text-gray-900">
-                  Built for Clinicians
-                </span>
+                <span className="text-gray-900">Built for</span>
                 <br />
                 <span className="bg-gradient-to-r from-[#387E89] to-[#143151] bg-clip-text text-transparent">
-                  Like You
+                  Clinicians Like You
                 </span>
               </motion.h1>
               
-              {/* Enhanced subtitle */}
+              {/* Subtitle */}
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -209,7 +156,7 @@ export const FirstSection = () => {
               </motion.p>
             </div>
             
-            {/* Enhanced benefit pills */}
+            {/* Benefit pills */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -230,7 +177,7 @@ export const FirstSection = () => {
               ))}
             </motion.div>
             
-            {/* Enhanced CTA section */}
+            {/* CTA section */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -243,7 +190,6 @@ export const FirstSection = () => {
                   onMouseLeave={() => setIsHovered(false)} 
                   className="group relative rounded-full px-8 py-6 text-lg font-bold bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] hover:shadow-2xl hover:shadow-[#387E89]/25 transform hover:scale-105 transition-all duration-300 text-white border-2 border-white/20 overflow-hidden"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 transform -skew-x-12 translate-x-full group-hover:translate-x-[-200%] transition-transform duration-1000"></div>
                   <motion.div 
                     animate={isHovered ? { x: [0, 5, 0] } : {}} 
                     transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }} 
@@ -263,18 +209,16 @@ export const FirstSection = () => {
             </motion.div>
           </motion.div>
           
-          {/* Right column - Enhanced feature showcase */}
+          {/* Right column - Feature showcase */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95, x: 20 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="relative"
           >
-            {/* Enhanced card with better visual hierarchy */}
-            <Card className="relative bg-white/95 backdrop-blur-sm border-0 shadow-2xl shadow-[#387E89]/10 ring-1 ring-gray-200/50 overflow-hidden max-w-lg mx-auto transform hover:shadow-3xl hover:shadow-[#387E89]/15 transition-all duration-500">
-              {/* Enhanced header with gradient */}
+            <Card className="relative bg-white/95 backdrop-blur-sm border-0 shadow-2xl shadow-[#387E89]/10 ring-1 ring-gray-200/50 overflow-hidden max-w-lg mx-auto">
+              {/* Header */}
               <div className="relative p-4 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] text-white">
-                <div className="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent"></div>
                 <div className="relative z-10">
                   <h3 className="font-bold text-lg flex items-center justify-between">
                     <span>Don't change for AI—make it work for you</span>
@@ -286,10 +230,9 @@ export const FirstSection = () => {
                 </div>
               </div>
               
-              {/* Enhanced content area */}
+              {/* Content area */}
               <div className="p-6">
                 <div className="bg-gradient-to-br from-blue-50 via-white to-teal-50 rounded-xl p-5 border border-blue-100/50 shadow-inner">
-                  {/* Feature tabs with enhanced design */}
                   <div className="space-y-3">
                     {featureTabs.map((tab, index) => (
                       <motion.div
@@ -357,7 +300,7 @@ export const FirstSection = () => {
                     ))}
                   </div>
 
-                  {/* Enhanced navigation dots */}
+                  {/* Navigation dots */}
                   <div className="flex justify-center gap-2 mt-6">
                     {featureTabs.map((_, idx) => (
                       <button 
@@ -377,7 +320,7 @@ export const FirstSection = () => {
           </motion.div>
         </div>
         
-        {/* Enhanced trusted by section */}
+        {/* Trusted by section */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
