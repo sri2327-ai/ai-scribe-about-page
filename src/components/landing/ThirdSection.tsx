@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -358,18 +359,18 @@ export const ThirdSection = () => {
 
           <Box component="aside" className={isMobile ? "mt-5" : "col-span-5"}>
             <div className="sticky top-24 rounded-xl overflow-hidden shadow-lg border border-gray-100 bg-white h-fit">
-              {/* Replace iframe with YouTubeFacade component */}
+              {/* Updated YouTube video with new ID and title */}
               <div className="aspect-video w-full">
                 <YouTubeFacade 
-                  videoId="unmWENGNuo4" 
-                  title="S10.AI Healthcare Solutions Demo"
+                  videoId="Xu0BH3oO5bA" 
+                  title="Ambient AI for Cardiology"
                   thumbnailQuality="maxresdefault"
                 />
               </div>
               <div className="p-4 sm:p-6">
-                <h4 className="text-lg sm:text-xl font-semibold text-[#387E89] mb-2">Watch Our Solution in Action</h4>
+                <h4 className="text-lg sm:text-xl font-semibold text-[#387E89] mb-2">Ambient AI for Cardiology</h4>
                 <p className="text-sm sm:text-base text-gray-600">
-                  See how S10.AI streamlines clinical workflows, automates documentation, and enhances patient care in real-world healthcare settings.
+                  See how S10.AI's specialized ambient AI transforms cardiology workflows, automating documentation and enhancing patient care in cardiovascular medicine.
                 </p>
               </div>
             </div>
