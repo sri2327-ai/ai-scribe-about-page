@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, memo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mic, Brain, FileText, FileCog, Stethoscope, FileOutput, Upload, ArrowLeft, ArrowRight } from 'lucide-react';
@@ -13,10 +14,10 @@ const steps = [
 ];
 
 // Memoize icon components to prevent recreation
-const StepIcon = memo(({ Icon, isActive, color }: { Icon: React.ComponentType<any>; isActive: boolean; color: string }) => (
+const StepIcon = memo(({ Icon, isActive, color, isMobile }: { Icon: React.ComponentType<any>; isActive: boolean; color: string; isMobile?: boolean }) => (
   <motion.div
     whileHover={{ scale: 1.05 }}
-    className="p-2 rounded-full"
+    className={`${isMobile ? 'p-1.5' : 'p-2'} rounded-full`}
     style={{ 
       background: `linear-gradient(135deg, ${color}, ${color}99)`,
       transform: isActive ? 'scale(1)' : 'scale(0.9)', 
@@ -25,23 +26,23 @@ const StepIcon = memo(({ Icon, isActive, color }: { Icon: React.ComponentType<an
       boxShadow: isActive ? `0 4px 12px ${color}40` : 'none'
     }}
   >
-    <Icon size={24} color="white" strokeWidth={1.5} />
+    <Icon size={isMobile ? 16 : 24} color="white" strokeWidth={1.5} />
   </motion.div>
 ));
 
 StepIcon.displayName = 'StepIcon';
 
 // Voice wave animation component for the Mic step
-const VoiceWaveAnimation = memo(() => {
+const VoiceWaveAnimation = memo(({ isMobile }: { isMobile?: boolean }) => {
   return (
-    <div className="flex items-center justify-center h-8 mt-2 mb-2 space-x-1">
+    <div className={`flex items-center justify-center ${isMobile ? 'h-6 mt-1 mb-1' : 'h-8 mt-2 mb-2'} space-x-1`}>
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={i}
           className="w-1 rounded-full"
           style={{ backgroundColor: steps[0].color }}
           animate={{
-            height: [6, 12 + i * 2, 6],
+            height: [4, (isMobile ? 8 : 12) + i * (isMobile ? 1 : 2), 4],
             opacity: [0.4, 1, 0.4]
           }}
           transition={{
@@ -61,12 +62,25 @@ VoiceWaveAnimation.displayName = 'VoiceWaveAnimation';
 const CrushIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showStepNav, setShowStepNav] = useState(true); // Always show navigation arrows
+  const [showStepNav, setShowStepNav] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
   
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   // Show more prominent step navigation to make all steps visible
   useEffect(() => {
     setShowStepNav(true);
@@ -168,20 +182,20 @@ const CrushIllustration = memo(() => {
   return (
     <div 
       ref={containerRef}
-      className="relative w-full h-full flex flex-col items-center justify-center p-4 overflow-hidden"
+      className="relative w-full h-full flex flex-col items-center justify-center p-2 sm:p-4 overflow-hidden"
       style={{ contain: 'content', position: 'relative' }}
     >
-      {/* Decorative background elements */}
+      {/* Decorative background elements - responsive sizes */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-        <div className="absolute w-32 h-32 rounded-full bg-blue-400 blur-3xl"></div>
-        <div className="absolute w-24 h-24 rounded-full bg-pink-400 blur-3xl -translate-x-20 translate-y-10"></div>
-        <div className="absolute w-24 h-24 rounded-full bg-teal-400 blur-3xl translate-x-16 -translate-y-12"></div>
+        <div className={`absolute ${isMobile ? 'w-20 h-20' : 'w-32 h-32'} rounded-full bg-blue-400 blur-3xl`}></div>
+        <div className={`absolute ${isMobile ? 'w-16 h-16' : 'w-24 h-24'} rounded-full bg-pink-400 blur-3xl ${isMobile ? '-translate-x-12 translate-y-6' : '-translate-x-20 translate-y-10'}`}></div>
+        <div className={`absolute ${isMobile ? 'w-16 h-16' : 'w-24 h-24'} rounded-full bg-teal-400 blur-3xl ${isMobile ? 'translate-x-10 -translate-y-8' : 'translate-x-16 -translate-y-12'}`}></div>
       </div>
       
-      {/* Path for animation - only the outer line */}
+      {/* Path for animation - responsive width */}
       <svg 
-        className="absolute w-48 h-2 top-1/2 -translate-y-1/2"
-        style={{ transform: 'translateZ(0)' }} // Hardware acceleration
+        className={`absolute ${isMobile ? 'w-32 h-2' : 'w-48 h-2'} top-1/2 -translate-y-1/2`}
+        style={{ transform: 'translateZ(0)' }}
       >
         <defs>
           <linearGradient id="crush-gradient" x1="0" y1="0" x2="1" y2="0">
@@ -191,7 +205,7 @@ const CrushIllustration = memo(() => {
           </linearGradient>
         </defs>
         <motion.path
-          d="M 5,1 L 180,1"
+          d={`M 5,1 L ${isMobile ? '120' : '180'},1`}
           stroke="url(#crush-gradient)"
           strokeWidth="2"
           strokeDasharray="3,3"
@@ -209,7 +223,7 @@ const CrushIllustration = memo(() => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col items-center gap-2 bg-white/90 p-4 rounded-lg shadow-lg z-10 min-w-[140px]"
+          className={`flex flex-col items-center gap-2 bg-white/90 ${isMobile ? 'p-3' : 'p-4'} rounded-lg shadow-lg z-10 ${isMobile ? 'min-w-[120px]' : 'min-w-[140px]'}`}
           style={{ 
             willChange: 'transform, opacity',
             boxShadow: `0 8px 24px rgba(0,0,0,0.12), 0 0 0 1px rgba(${currentStep === 0 ? '4,111,144,0.1' : 
@@ -220,25 +234,25 @@ const CrushIllustration = memo(() => {
             borderTop: `3px solid ${steps[currentStep].color}`
           }}
         >
-          <StepIcon Icon={steps[currentStep].Icon} isActive={true} color={steps[currentStep].color} />
-          <p className="text-sm font-medium text-center" style={{ color: steps[currentStep].color }}>
+          <StepIcon Icon={steps[currentStep].Icon} isActive={true} color={steps[currentStep].color} isMobile={isMobile} />
+          <p className={`${isMobile ? 'text-xs' : 'text-sm'} font-medium text-center`} style={{ color: steps[currentStep].color }}>
             {steps[currentStep].label}
           </p>
           
           {/* Voice wave animation for the Mic/Voice Input step */}
-          {currentStep === 0 && <VoiceWaveAnimation />}
+          {currentStep === 0 && <VoiceWaveAnimation isMobile={isMobile} />}
           
-          {/* Step content based on current step */}
+          {/* Step content based on current step - responsive sizes */}
           <div className="mt-1 w-full">
             {currentStep === 0 && (
-              <div className="text-xs text-center text-gray-500">
+              <div className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-center text-gray-500`}>
                 Recording patient conversation...
               </div>
             )}
             {currentStep === 1 && (
               <div className="flex justify-center">
                 <motion.div 
-                  className="h-2 w-32 bg-gray-200 rounded-full overflow-hidden"
+                  className={`h-2 ${isMobile ? 'w-20' : 'w-32'} bg-gray-200 rounded-full overflow-hidden`}
                   style={{ padding: 0 }}
                 >
                   <motion.div
@@ -254,12 +268,12 @@ const CrushIllustration = memo(() => {
             {currentStep === 2 && (
               <div className="flex flex-col items-center">
                 <motion.div 
-                  className="w-full h-3 flex space-x-1"
+                  className={`w-full ${isMobile ? 'h-2' : 'h-3'} flex space-x-1`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(isMobile ? 3 : 5)].map((_, i) => (
                     <div key={i} className="h-2 rounded-sm flex-1" style={{ backgroundColor: `${steps[2].color}${50 + i*10}` }}></div>
                   ))}
                 </motion.div>
@@ -267,7 +281,7 @@ const CrushIllustration = memo(() => {
             )}
             {currentStep === 3 && (
               <div className="flex justify-center">
-                <div className="text-xs text-center text-gray-500">
+                <div className={`${isMobile ? 'text-[10px]' : 'text-xs'} text-center text-gray-500`}>
                   Generating patient instructions...
                 </div>
               </div>
@@ -277,7 +291,7 @@ const CrushIllustration = memo(() => {
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  className="w-5 h-5 border-2 border-t-transparent rounded-full"
+                  className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} border-2 border-t-transparent rounded-full`}
                   style={{ borderColor: steps[4].color }}
                 />
               </div>
@@ -287,7 +301,7 @@ const CrushIllustration = memo(() => {
                 {[...Array(3)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="w-2 h-2 rounded-full"
+                    className={`${isMobile ? 'w-1.5 h-1.5' : 'w-2 h-2'} rounded-full`}
                     style={{ backgroundColor: steps[5].color }}
                     animate={{ scale: [1, 1.5, 1], opacity: [0.7, 1, 0.7] }}
                     transition={{ duration: 1, repeat: Infinity, delay: i * 0.3 }}
@@ -297,25 +311,25 @@ const CrushIllustration = memo(() => {
             )}
           </div>
           
-          {/* Enhanced Step navigation with better visibility */}
-          <div className="mt-4 flex justify-center items-center">
-            {/* Previous button - always visible */}
+          {/* Enhanced Step navigation with better visibility - responsive */}
+          <div className={`${isMobile ? 'mt-2' : 'mt-4'} flex justify-center items-center`}>
+            {/* Previous button - responsive size */}
             <motion.button
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handlePrevStep}
-              className="flex justify-center items-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors mr-2"
+              className={`flex justify-center items-center ${isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ${isMobile ? 'mr-1' : 'mr-2'}`}
               aria-label="Previous step"
             >
-              <ArrowLeft size={16} />
+              <ArrowLeft size={isMobile ? 12 : 16} />
             </motion.button>
             
-            {/* Step indicator dots - now with clearer visibility and labels */}
+            {/* Step indicator dots - responsive spacing and size */}
             <div 
               ref={stepsRef} 
-              className="flex items-center gap-3 border border-gray-100 rounded-full px-3 py-1.5 bg-white shadow-sm overflow-x-auto no-scrollbar"
+              className={`flex items-center ${isMobile ? 'gap-2' : 'gap-3'} border border-gray-100 rounded-full ${isMobile ? 'px-2 py-1' : 'px-3 py-1.5'} bg-white shadow-sm overflow-x-auto no-scrollbar`}
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {steps.map((step, idx) => (
@@ -330,7 +344,7 @@ const CrushIllustration = memo(() => {
                   aria-current={currentStep === idx ? "step" : undefined}
                 >
                   <div 
-                    className={`w-3 h-3 rounded-full transition-all duration-300 step-indicator relative mb-1
+                    className={`${isMobile ? 'w-2 h-2' : 'w-3 h-3'} rounded-full transition-all duration-300 step-indicator relative ${isMobile ? 'mb-0.5' : 'mb-1'}
                       ${currentStep === idx ? 'ring-2 ring-offset-2 ring-offset-white' : 'hover:ring-1 hover:ring-offset-1'}
                     `}
                     style={{ 
@@ -348,28 +362,28 @@ const CrushIllustration = memo(() => {
                       />
                     )}
                   </div>
-                  {/* Small step number under dot for better clarity */}
-                  <span className="text-[10px] text-gray-500 font-medium">{idx + 1}</span>
+                  {/* Small step number under dot for better clarity - responsive */}
+                  <span className={`${isMobile ? 'text-[8px]' : 'text-[10px]'} text-gray-500 font-medium`}>{idx + 1}</span>
                 </motion.button>
               ))}
             </div>
             
-            {/* Next button - always visible */}
+            {/* Next button - responsive size */}
             <motion.button
               initial={{ opacity: 1 }}
               animate={{ opacity: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleNextStep}
-              className="flex justify-center items-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ml-2"
+              className={`flex justify-center items-center ${isMobile ? 'w-6 h-6' : 'w-8 h-8'} rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ${isMobile ? 'ml-1' : 'ml-2'}`}
               aria-label="Next step"
             >
-              <ArrowRight size={16} />
+              <ArrowRight size={isMobile ? 12 : 16} />
             </motion.button>
           </div>
           
-          {/* Progress text indicator - shows current step and total */}
-          <div className="mt-2 text-[10px] text-gray-500 font-medium">
+          {/* Progress text indicator - responsive font size */}
+          <div className={`${isMobile ? 'mt-1' : 'mt-2'} ${isMobile ? 'text-[8px]' : 'text-[10px]'} text-gray-500 font-medium text-center`}>
             Step {currentStep + 1} of {steps.length}: {steps[currentStep].label}
           </div>
         </motion.div>
