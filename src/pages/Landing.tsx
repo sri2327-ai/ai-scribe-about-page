@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -82,7 +83,7 @@ const Landing = () => {
                 <BreadcrumbLink asChild>
                   <Link to="/pricing">Pricing</Link>
                 </BreadcrumbLink>
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-lg animate-pulse">
+                <div className="bg-gradient-to-r from-slate-600 to-slate-500 text-white text-xs font-medium px-2 py-1 rounded-full shadow-sm animate-pulse">
                   New
                 </div>
               </div>
