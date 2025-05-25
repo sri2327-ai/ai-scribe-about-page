@@ -586,7 +586,7 @@ export function AnimatedWorkflow() {
       {/* Header with progress indicator */}
       <Box sx={{ mb: 3, textAlign: 'center' }}>
         <Typography 
-          variant="h6" 
+          component="h2"
           sx={{ 
             fontWeight: 600, 
             color: '#333',
@@ -614,7 +614,7 @@ export function AnimatedWorkflow() {
         </Box>
         
         <Typography 
-          variant="caption" 
+          component="span"
           sx={{ 
             color: '#666',
             fontSize: { xs: '0.7rem', sm: '0.75rem' },
