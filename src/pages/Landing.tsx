@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { FourthSection } from '@/components/landing/FourthSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
+import { Badge } from "@/components/ui/badge";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
@@ -78,9 +79,17 @@ const Landing = () => {
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link to="/pricing">Pricing</Link>
-              </BreadcrumbLink>
+              <div className="relative inline-block">
+                <BreadcrumbLink asChild>
+                  <Link to="/pricing">Pricing</Link>
+                </BreadcrumbLink>
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-1 -right-1 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse z-10 min-w-max"
+                >
+                  New
+                </Badge>
+              </div>
             </BreadcrumbItem>
           </BreadcrumbList>
           
