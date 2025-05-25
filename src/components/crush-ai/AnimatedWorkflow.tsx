@@ -682,26 +682,58 @@ export function AnimatedWorkflow() {
         })}
       </Box>
 
-      {/* Mobile-optimized step indicator dots */}
-      <div className="flex justify-center gap-1 mt-3 pb-1">
+      {/* Improved mobile-optimized step indicator dots */}
+      <div className="flex justify-center gap-2 mt-4 pb-2 px-2">
         {workflowSteps.map((step, index) => (
           <button
             key={index}
             onClick={() => handleStepClick(index)}
-            className="transition-all duration-300 p-1"
-            style={{ minWidth: '24px', minHeight: '24px' }}
+            className="relative transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
+            style={{ 
+              minWidth: isMobile ? '44px' : '32px',
+              minHeight: isMobile ? '44px' : '32px',
+              padding: isMobile ? '12px' : '8px'
+            }}
             aria-label={`View ${step.title}`}
           >
-            <div 
-              className={`rounded-full transition-all duration-300 ${
-                currentStep === index 
-                  ? (isMobile ? 'w-3 h-3' : 'w-4 h-4')
-                  : 'w-1.5 h-1.5'
-              }`}
+            {/* Active indicator ring */}
+            {currentStep === index && (
+              <motion.div
+                className="absolute inset-0 rounded-full border-2"
+                style={{ borderColor: step.color }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+            
+            {/* Dot indicator */}
+            <motion.div 
+              className="rounded-full transition-all duration-300 mx-auto"
               style={{ 
-                backgroundColor: currentStep === index ? step.color : '#e5e7eb',
-                margin: 'auto'
+                width: currentStep === index 
+                  ? (isMobile ? '12px' : '16px')
+                  : (isMobile ? '8px' : '6px'),
+                height: currentStep === index 
+                  ? (isMobile ? '12px' : '16px') 
+                  : (isMobile ? '8px' : '6px'),
+                backgroundColor: currentStep === index ? step.color : '#d1d5db',
+                boxShadow: currentStep === index ? `0 2px 8px ${step.color}40` : 'none'
               }}
+              whileTap={{ scale: 0.9 }}
+              animate={{ 
+                scale: currentStep === index ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.2 }}
+            />
+            
+            {/* Ripple effect on tap */}
+            <motion.div
+              className="absolute inset-0 rounded-full"
+              style={{ backgroundColor: step.color }}
+              initial={{ scale: 0, opacity: 0.3 }}
+              whileTap={{ scale: 1.2, opacity: 0 }}
+              transition={{ duration: 0.2 }}
             />
           </button>
         ))}
