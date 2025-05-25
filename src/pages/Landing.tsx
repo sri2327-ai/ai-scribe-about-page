@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -79,16 +78,13 @@ const Landing = () => {
               <BreadcrumbLink href="/">Home</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem>
-              <div className="relative inline-block">
+              <div className="flex items-center gap-2">
                 <BreadcrumbLink asChild>
                   <Link to="/pricing">Pricing</Link>
                 </BreadcrumbLink>
-                <Badge 
-                  variant="destructive" 
-                  className="absolute -top-1 -right-1 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse z-10 min-w-max"
-                >
+                <div className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-lg animate-pulse">
                   New
-                </Badge>
+                </div>
               </div>
             </BreadcrumbItem>
           </BreadcrumbList>
