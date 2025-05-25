@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -116,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 Advantages
               </NavLink>
 
-              <div className="relative">
+              <div className="relative inline-block">
                 <NavLink
                   to="/pricing"
                   onClick={closeMenu}
@@ -128,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 </NavLink>
                 <Badge 
                   variant="destructive" 
-                  className="absolute -top-2 -right-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
+                  className="absolute -top-1 -right-1 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse z-10 min-w-max"
                 >
                   New
                 </Badge>
