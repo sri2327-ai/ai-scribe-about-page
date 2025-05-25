@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
 import styles from "@/styles/header.module.css";
 import { motion } from "framer-motion";
+import { Badge } from "@/components/ui/badge";
 
 const navLinkClass =
   "px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors";
@@ -114,15 +116,23 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 Advantages
               </NavLink>
 
-              <NavLink
-                to="/pricing"
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  isActive ? activeNavLinkClass : navLinkClass
-                }
-              >
-                Pricing
-              </NavLink>
+              <div className="relative">
+                <NavLink
+                  to="/pricing"
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    isActive ? activeNavLinkClass : navLinkClass
+                  }
+                >
+                  Pricing
+                </NavLink>
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
+                >
+                  New
+                </Badge>
+              </div>
             </nav>
           </div>
         </div>
