@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -28,6 +29,7 @@ const VoiceAnimation = ({
     </div>;
 };
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
+
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -84,6 +86,7 @@ export const FirstSection = () => {
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
   };
+
   return <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-teal-50/40" ref={sectionRef}>
       {/* Simplified background */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/50 to-blue-100/20"></div>
@@ -225,6 +228,32 @@ export const FirstSection = () => {
           duration: 0.8,
           delay: 0.4
         }} className="relative order-2 mt-8 lg:mt-0">
+            {/* Static content for SEO - Always visible */}
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-[#143151] mb-4">S10.AI Features for Healthcare Professionals</h2>
+              
+              <div className="space-y-4">
+                {featureTabs.map((tab, index) => (
+                  <div key={tab.id} className="border border-gray-200 rounded-lg p-4 bg-white/95">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-50">
+                        {tab.icon}
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-900 mb-2">{tab.title}</h3>
+                        <p className="text-sm text-gray-600 mb-2">{tab.description}</p>
+                        <div className="inline-flex items-center gap-1.5 bg-[#387E89]/10 text-[#387E89] px-3 py-1 rounded-full text-xs font-medium">
+                          <CheckCircle className="w-3 h-3" />
+                          {tab.benefit}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Interactive Card - Enhancement over static content */}
             <Card className="relative bg-white/95 backdrop-blur-sm border-0 shadow-2xl shadow-[#387E89]/10 ring-1 ring-gray-200/50 overflow-hidden w-full max-w-md sm:max-w-lg mx-auto">
               {/* Header */}
               <div className="relative p-3 sm:p-4 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] text-white">
