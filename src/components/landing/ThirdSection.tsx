@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -105,7 +104,6 @@ const tabAccData = {
     metric: "100% sync accuracy"
   }]
 };
-
 const testimonials = [{
   quote: "S10.AI has transformed our practice workflow. Our providers now spend more time with patients and less time on documentation.",
   author: "Dr. Sarah Johnson",
@@ -189,31 +187,25 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        {/* All content visible for SEO - structured properly */}
-        <div className="w-full max-w-4xl mx-auto mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Complete S10.AI Healthcare Solutions Overview</h2>
-          
-          {Object.entries(tabAccData).map(([categoryName, items], categoryIndex) => (
-            <section key={`category-${categoryIndex}`} className="mb-8 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
-              <h3 className="text-xl font-bold text-[#387E89] mb-4">{categoryName}</h3>
-              <div className="grid gap-4 md:grid-cols-2">
-                {items.map((item, itemIndex) => (
-                  <article key={`item-${categoryIndex}-${itemIndex}`} className="border border-gray-100 rounded-lg p-4">
-                    <div className="flex items-start gap-3 mb-3">
-                      <div className="p-2 rounded-lg bg-[#387E89]/10 text-[#387E89]">
-                        {item.icon}
-                      </div>
-                      <h4 className="font-semibold text-gray-900">{item.title}</h4>
-                    </div>
-                    <p className="text-gray-600 mb-3 text-sm leading-relaxed">{item.content}</p>
-                    <div className="inline-block bg-[#387E89]/10 text-[#387E89] px-3 py-1 rounded-full text-sm font-medium">
-                      {item.metric}
-                    </div>
-                  </article>
-                ))}
+        {/* Enhanced SEO-friendly content - Fully indexed version for search engines */}
+        <div className="sr-only">
+          <h2>S10.AI Healthcare AI Solutions - Complete Feature Overview</h2>
+          <div>
+            {Object.entries(tabAccData).map(([categoryName, items], index) => (
+              <div key={`seo-category-${index}`}>
+                <h3>{categoryName}</h3>
+                <ul>
+                  {items.map((item, itemIndex) => (
+                    <li key={`seo-item-${categoryName}-${itemIndex}`}>
+                      <h4>{item.title}</h4>
+                      <p>{item.content}</p>
+                      <p>Key Metric: {item.metric}</p>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </section>
-          ))}
+            ))}
+          </div>
         </div>
 
         <Box component="nav" className="w-full flex justify-center mb-2 relative">
@@ -287,7 +279,23 @@ export const ThirdSection = () => {
         <Box className={`grid ${isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-12 gap-4 sm:gap-6 lg:gap-8'} w-full`}>
           <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              {/* Interactive tabs and accordions for enhanced UX */}
+              {/* Static crawlable content with proper SEO structure - hidden visually but available to crawlers */}
+              <div className="hidden">
+                {Object.entries(tabAccData).map(([tabName, items], tabIdx) => (
+                  <section key={`static-section-${tabIdx}`} className="mb-8">
+                    <h3 className="text-xl font-bold mb-4">{tabName}</h3>
+                    {items.map((item, itemIdx) => (
+                      <article key={`static-item-${tabIdx}-${itemIdx}`} className="mb-6 pb-4 border-b">
+                        <h4 className="text-lg font-semibold mb-2">{item.title}</h4>
+                        <p className="mb-2">{item.content}</p>
+                        <div className="text-[#387E89] font-medium">{item.metric}</div>
+                      </article>
+                    ))}
+                  </section>
+                ))}
+              </div>
+              
+              {/* Interactive tabs and accordions for users */}
               <div className="w-full">
                 {tabKeys.map((tabKey, tabIndex) => (
                   <div 
@@ -328,6 +336,23 @@ export const ThirdSection = () => {
                   </div>
                 ))}
               </div>
+              
+              {/* Machine-readable structured data for advanced SEO */}
+              <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "ItemList",
+                  "itemListElement": Object.entries(tabAccData).flatMap(([category, items], catIndex) =>
+                    items.map((item, itemIndex) => ({
+                      "@type": "ListItem",
+                      "position": catIndex * 100 + itemIndex + 1,
+                      "name": item.title,
+                      "description": item.content,
+                      "url": `https://s10.ai/#healthcare-ai-benefits-${category.toLowerCase().replace(/\s+/g, '-')}-${item.title.toLowerCase().replace(/\s+/g, '-')}`,
+                    }))
+                  )
+                })
+              }} />
             </Box>
           </Box>
 

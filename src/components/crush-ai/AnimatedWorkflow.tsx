@@ -5,7 +5,7 @@ import {
   FileText, HardDrive, Send, CheckCircle, 
   ClipboardList, TestTube, Mail, Mic, 
   Clock, Heart, Database, History,
-  Globe
+  Globe, ChevronDown, ChevronUp
 } from "lucide-react";
 import { crushAIColors } from "@/theme/crush-ai-theme";
 
@@ -479,6 +479,7 @@ export function AnimatedWorkflow() {
   const [userInteracted, setUserInteracted] = useState<boolean>(false);
   const [recordingTime, setRecordingTime] = useState<number>(0);
   const [timerDisplay, setTimerDisplay] = useState<string>("00:00");
+  const [expandedStep, setExpandedStep] = useState<number | null>(null);
   const autoPlayTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const theme = useMuiTheme();
@@ -512,18 +513,15 @@ export function AnimatedWorkflow() {
 
   // Auto-advance steps
   useEffect(() => {
-    if (isAutoPlaying) {
-      // Clear any existing timeout to prevent multiple timers
+    if (isAutoPlaying && !userInteracted) {
       if (autoPlayTimeoutRef.current) {
         clearTimeout(autoPlayTimeoutRef.current);
       }
       
       autoPlayTimeoutRef.current = setTimeout(() => {
-        // Only advance if we haven't reached the end of the workflow steps
         setCurrentStep((prev) => (prev + 1) % workflowSteps.length);
-      }, isMobile ? 4000 : 6000); // Slower on mobile for better UX
+      }, isMobile ? 5000 : 7000);
       
-      // Clean up timeout on unmount or when dependencies change
       return () => {
         if (autoPlayTimeoutRef.current) {
           clearTimeout(autoPlayTimeoutRef.current);
@@ -531,10 +529,9 @@ export function AnimatedWorkflow() {
         }
       };
     }
-  }, [isAutoPlaying, currentStep, isMobile]);
+  }, [isAutoPlaying, currentStep, isMobile, userInteracted]);
 
   const handleStepClick = (index: number) => {
-    // Clear any existing timeout when user manually changes step
     if (autoPlayTimeoutRef.current) {
       clearTimeout(autoPlayTimeoutRef.current);
       autoPlayTimeoutRef.current = null;
@@ -543,20 +540,27 @@ export function AnimatedWorkflow() {
     setUserInteracted(true);
     setIsAutoPlaying(false);
     setCurrentStep(index);
+    setExpandedStep(expandedStep === index ? null : index);
     
-    // Resume auto-play after 15 seconds of inactivity
+    // Resume auto-play after 20 seconds of inactivity
     const inactivityTimer = setTimeout(() => {
+      setUserInteracted(false);
       setIsAutoPlaying(true);
-    }, 15000);
+    }, 20000);
     
     return () => clearTimeout(inactivityTimer);
+  };
+
+  const toggleExpanded = (index: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpandedStep(expandedStep === index ? null : index);
   };
 
   return (
     <Box 
       sx={{
         position: "relative",
-        p: { xs: 1.5, sm: 3, md: 4 }, 
+        p: { xs: 2, sm: 3, md: 4 }, 
         bgcolor: "#ffffff",
         borderRadius: 2,
         boxShadow: "0 4px 20px rgba(0, 0, 0, 0.05)",
@@ -565,12 +569,12 @@ export function AnimatedWorkflow() {
         flexDirection: "column",
         border: "1px solid rgba(0, 0, 0, 0.08)",
         width: "100%",
-        maxWidth: { xs: "100%", sm: "100%", md: "500px" }, 
+        maxWidth: { xs: "100%", sm: "100%", md: "600px" }, 
         margin: "0 auto",
         overflow: "hidden"
       }}
     >
-      {/* Background decorative elements - reduced for mobile */}
+      {/* Background decorative elements */}
       {!isMobile && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
           <div className="absolute w-32 h-32 rounded-full bg-blue-400 blur-3xl"></div>
@@ -579,20 +583,65 @@ export function AnimatedWorkflow() {
         </div>
       )}
 
+      {/* Header with progress indicator */}
+      <Box sx={{ mb: 3, textAlign: 'center' }}>
+        <Typography 
+          variant="h6" 
+          sx={{ 
+            fontWeight: 600, 
+            color: '#333',
+            fontSize: { xs: '1rem', sm: '1.25rem' },
+            mb: 2
+          }}
+        >
+          CRUSH AI Workflow
+        </Typography>
+        
+        {/* Progress bar */}
+        <Box sx={{ 
+          width: '100%', 
+          height: 4, 
+          bgcolor: 'rgba(0,0,0,0.1)', 
+          borderRadius: 2,
+          overflow: 'hidden'
+        }}>
+          <motion.div
+            className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentStep + 1) / workflowSteps.length) * 100}%` }}
+            transition={{ duration: 0.5 }}
+          />
+        </Box>
+        
+        <Typography 
+          variant="caption" 
+          sx={{ 
+            color: '#666',
+            fontSize: { xs: '0.7rem', sm: '0.75rem' },
+            mt: 1,
+            display: 'block'
+          }}
+        >
+          Step {currentStep + 1} of {workflowSteps.length}
+        </Typography>
+      </Box>
+
       <Box 
         sx={{ 
           flex: 1,
           display: "flex",
           flexDirection: "column",
-          gap: { xs: 1, sm: 2 },
+          gap: { xs: 1, sm: 1.5 },
           overflowY: "auto",
-          maxHeight: { xs: "400px", sm: "500px" },
+          maxHeight: { xs: "500px", sm: "600px" },
           position: "relative",
-          zIndex: 1
+          zIndex: 1,
+          scrollBehavior: 'smooth'
         }}
       >
         {workflowSteps.map((step, index) => {
           const isActive = currentStep === index;
+          const isExpanded = expandedStep === index;
           const isComplete = currentStep > index;
 
           return (
@@ -600,146 +649,205 @@ export function AnimatedWorkflow() {
               key={step.id}
               initial={false}
               animate={{ 
-                opacity: isActive ? 1 : 0.7,
-                y: 0,
-                height: "auto"
+                opacity: isActive ? 1 : (isComplete ? 0.8 : 0.6),
+                scale: isActive ? 1 : 0.98,
+                y: 0
               }}
-              className={`relative rounded-lg ${isActive ? 'bg-gray-50/50' : ''} hover:bg-gray-50/30 transition-all duration-300`}
+              transition={{ duration: 0.3 }}
+              className={`relative rounded-xl transition-all duration-300 ${
+                isActive ? 'bg-gradient-to-r from-blue-50/50 to-purple-50/50 shadow-lg' : 
+                isComplete ? 'bg-green-50/30' : 'bg-gray-50/30'
+              } hover:shadow-md cursor-pointer`}
               onClick={() => handleStepClick(index)}
               style={{
-                borderLeft: isActive ? `3px solid ${step.color}` : '3px solid transparent',
-                overflow: 'visible'
+                borderLeft: isActive ? `4px solid ${step.color}` : 
+                           isComplete ? '4px solid #10b981' : '4px solid transparent',
+                minHeight: isMobile ? '70px' : '80px'
               }}
             >
               <motion.div
-                className="flex flex-col gap-1 cursor-pointer"
-                style={{ padding: isMobile ? '12px' : '16px' }}
-                whileHover={{ scale: isMobile ? 1 : 1.01 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2 }}
+                className="flex flex-col gap-2"
+                style={{ padding: isMobile ? '16px' : '20px' }}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <motion.div 
-                    className="rounded-full flex items-center justify-center shrink-0"
+                    className="rounded-full flex items-center justify-center shrink-0 relative"
                     style={{ 
-                      width: isMobile ? '32px' : '40px',
-                      height: isMobile ? '32px' : '40px',
-                      backgroundColor: `${step.color}15`,
-                      boxShadow: isActive ? `0 0 0 2px ${step.color}40` : 'none',
-                      transition: "all 0.3s ease" 
+                      width: isMobile ? '48px' : '56px',
+                      height: isMobile ? '48px' : '56px',
+                      backgroundColor: isComplete ? '#10b981' : `${step.color}15`,
+                      boxShadow: isActive ? `0 0 0 3px ${step.color}20` : 'none',
+                      transition: "all 0.3s ease"
                     }}
+                    whileHover={{ scale: 1.05 }}
                   >
-                    {React.cloneElement(step.icon, { 
-                      size: isMobile ? 16 : 20 
-                    })}
+                    {isComplete ? (
+                      <CheckCircle size={isMobile ? 24 : 28} className="text-white" />
+                    ) : (
+                      React.cloneElement(step.icon, { 
+                        size: isMobile ? 20 : 24 
+                      })
+                    )}
+                    
+                    {isActive && (
+                      <motion.div
+                        className="absolute inset-0 rounded-full border-2"
+                        style={{ borderColor: step.color }}
+                        animate={{ scale: [1, 1.2, 1], opacity: [0.8, 0, 0.8] }}
+                        transition={{ duration: 2, repeat: Infinity }}
+                      />
+                    )}
                   </motion.div>
+                  
                   <div className="flex-1 min-w-0">
-                    <h3 
-                      className={`font-medium leading-tight ${isMobile ? 'text-sm' : 'text-base'}`}
-                      style={{ color: isActive ? step.color : '#333' }}
-                    >
-                      {step.title}
-                    </h3>
-                    <p className={`text-gray-600 leading-tight ${isMobile ? 'text-xs' : 'text-sm'}`}>
+                    <div className="flex items-center justify-between">
+                      <h3 
+                        className={`font-semibold leading-tight ${isMobile ? 'text-sm' : 'text-base'}`}
+                        style={{ color: isActive ? step.color : '#333' }}
+                      >
+                        {step.title}
+                      </h3>
+                      
+                      {!isMobile && (
+                        <motion.button
+                          onClick={(e) => toggleExpanded(index, e)}
+                          className="p-1 rounded-full hover:bg-gray-100 transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          {isExpanded ? 
+                            <ChevronUp size={16} style={{ color: step.color }} /> : 
+                            <ChevronDown size={16} style={{ color: step.color }} />
+                          }
+                        </motion.button>
+                      )}
+                    </div>
+                    
+                    <p className={`text-gray-600 leading-tight ${isMobile ? 'text-xs' : 'text-sm'} mt-1`}>
                       {step.description}
                     </p>
                   </div>
                   
                   {isActive && (
-                    <div className="ml-auto">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="ml-2"
+                    >
                       <div 
-                        className="w-2 h-2 rounded-full" 
+                        className="w-3 h-3 rounded-full" 
                         style={{ backgroundColor: step.color }}
-                      ></div>
-                    </div>
+                      >
+                        <motion.div
+                          className="w-full h-full rounded-full"
+                          style={{ backgroundColor: step.color }}
+                          animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        />
+                      </div>
+                    </motion.div>
                   )}
                 </div>
                 
-                {/* Content area - improved mobile layout */}
-                {isActive && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    transition={{ duration: 0.3 }}
-                    className="mt-2"
-                    style={{ 
-                      marginLeft: isMobile ? '8px' : '48px',
-                      overflow: 'visible' 
-                    }}
-                  >
-                    <div className="relative bg-white rounded-lg shadow-sm border border-gray-100 overflow-visible">
-                      {/* Pass the timerDisplay prop to the first step */}
-                      {index === 0 
-                        ? step.detailContent({ timerDisplay }) 
-                        : step.detailContent({ timerDisplay })
-                      }
-                    </div>
-                  </motion.div>
-                )}
+                {/* Content area - improved layout */}
+                <AnimatePresence>
+                  {(isActive || isExpanded) && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.4, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div 
+                        className="mt-3 bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden"
+                        style={{ 
+                          marginLeft: isMobile ? '0px' : '20px',
+                          border: `1px solid ${step.color}20`
+                        }}
+                      >
+                        {index === 0 
+                          ? step.detailContent({ timerDisplay }) 
+                          : step.detailContent({ timerDisplay })
+                        }
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
+              
+              {/* Connection line to next step */}
+              {index < workflowSteps.length - 1 && (
+                <motion.div
+                  className="absolute left-6 -bottom-2 w-1 h-4 rounded-full"
+                  style={{
+                    background: isActive ? 
+                      `linear-gradient(to bottom, ${step.color}, ${workflowSteps[index + 1].color})` :
+                      'linear-gradient(to bottom, #e5e7eb, #e5e7eb)',
+                    left: isMobile ? '26px' : '30px'
+                  }}
+                  initial={{ scaleY: 0 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                />
+              )}
             </motion.div>
           );
         })}
       </Box>
 
-      {/* Improved mobile-optimized step indicator dots */}
-      <div className="flex justify-center gap-2 mt-4 pb-2 px-2">
+      {/* Enhanced step indicator dots */}
+      <div className="flex justify-center gap-2 mt-4 pb-2">
         {workflowSteps.map((step, index) => (
-          <button
+          <motion.button
             key={index}
             onClick={() => handleStepClick(index)}
-            className="relative transition-all duration-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
-            style={{ 
-              minWidth: isMobile ? '44px' : '32px',
-              minHeight: isMobile ? '44px' : '32px',
-              padding: isMobile ? '12px' : '8px'
-            }}
+            className="transition-all duration-300 p-2 rounded-full hover:bg-gray-100"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             aria-label={`View ${step.title}`}
           >
-            {/* Active indicator ring */}
-            {currentStep === index && (
-              <motion.div
-                className="absolute inset-0 rounded-full border-2"
-                style={{ borderColor: step.color }}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{ duration: 0.2 }}
-              />
-            )}
-            
-            {/* Dot indicator */}
-            <motion.div 
-              className="rounded-full transition-all duration-300 mx-auto"
+            <div 
+              className={`rounded-full transition-all duration-300 ${
+                currentStep === index 
+                  ? (isMobile ? 'w-4 h-4' : 'w-5 h-5')
+                  : 'w-2 h-2'
+              }`}
               style={{ 
-                width: currentStep === index 
-                  ? (isMobile ? '12px' : '16px')
-                  : (isMobile ? '8px' : '6px'),
-                height: currentStep === index 
-                  ? (isMobile ? '12px' : '16px') 
-                  : (isMobile ? '8px' : '6px'),
-                backgroundColor: currentStep === index ? step.color : '#d1d5db',
-                boxShadow: currentStep === index ? `0 2px 8px ${step.color}40` : 'none'
+                backgroundColor: currentStep === index ? step.color : '#e5e7eb',
+                boxShadow: currentStep === index ? `0 0 0 2px ${step.color}30` : 'none'
               }}
-              whileTap={{ scale: 0.9 }}
-              animate={{ 
-                scale: currentStep === index ? 1 : 0.8,
-              }}
-              transition={{ duration: 0.2 }}
-            />
-            
-            {/* Ripple effect on tap */}
-            <motion.div
-              className="absolute inset-0 rounded-full"
-              style={{ backgroundColor: step.color }}
-              initial={{ scale: 0, opacity: 0.3 }}
-              whileTap={{ scale: 1.2, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            />
-          </button>
+            >
+              {currentStep === index && (
+                <motion.div
+                  className="w-full h-full rounded-full"
+                  style={{ backgroundColor: step.color }}
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.8, 0.4, 0.8] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+              )}
+            </div>
+          </motion.button>
         ))}
       </div>
 
-      {/* Add the animation styles */}
+      {/* Auto-play control */}
+      <div className="flex justify-center mt-2">
+        <motion.button
+          onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+          className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${
+            isAutoPlaying 
+              ? 'bg-blue-100 text-blue-700 hover:bg-blue-200' 
+              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          }`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isAutoPlaying ? 'Pause Auto-play' : 'Resume Auto-play'}
+        </motion.button>
+      </div>
+
+      {/* Animation styles */}
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes typing {
@@ -761,15 +869,31 @@ export function AnimatedWorkflow() {
           }
         }
 
+        /* Improved scrollbar for better UX */
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #c1c1c1;
+          border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #a8a8a8;
+        }
+
         /* Mobile-specific improvements */
         @media (max-width: 640px) {
           .text-xs {
             font-size: 0.7rem;
-            line-height: 1.2;
+            line-height: 1.3;
           }
           .text-sm {
             font-size: 0.8rem;
-            line-height: 1.3;
+            line-height: 1.4;
           }
           .p-3 {
             padding: 0.75rem;

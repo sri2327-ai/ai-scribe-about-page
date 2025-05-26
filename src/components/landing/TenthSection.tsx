@@ -204,6 +204,27 @@ ComplianceCard.displayName = 'ComplianceCard';
 const TenthSection = () => {
   return (
     <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-14 md:py-16 relative overflow-visible bg-gray-50">
+      {/* SEO-friendly hidden content for crawlers - visible only to screen readers and search engines */}
+      <div className="sr-only">
+        <h2>Security, Compliance & Data Protection at S10.AI</h2>
+        <p>
+          S10.AI implements comprehensive security measures including HIPAA, PIPEDA, GDPR compliance, 
+          ISO 27001 certification, automated data erasure, and cross-border North American regulatory adherence.
+        </p>
+        
+        {complianceCards.map((card, idx) => (
+          <div key={`seo-card-${idx}`}>
+            <h3>{card.title}</h3>
+            <p>{card.description}</p>
+            <ul>
+              {card.details.map((detail, detailIdx) => (
+                <li key={`seo-detail-${idx}-${detailIdx}`}>{detail}</li>
+              ))}
+            </ul>
+            <a href={card.link}>Learn more about {card.title}</a>
+          </div>
+        ))}
+      </div>
       
       <Box sx={{
         maxWidth: '1400px',
@@ -263,46 +284,6 @@ const TenthSection = () => {
               </Typography>
             </motion.div>
           </Box>
-
-          {/* Security & Compliance Overview - visible to crawlers */}
-          <div className="w-full max-w-6xl mx-auto mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Complete Security & Compliance Overview</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {complianceCards.map((card, index) => (
-                <article key={`compliance-${index}`} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-[#143151]/5 text-[#143151]">
-                      <card.icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="text-lg font-bold text-[#143151]">{card.title}</h3>
-                  </div>
-                  
-                  <p className="text-gray-600 mb-4 leading-relaxed">{card.description}</p>
-                  
-                  <div className="mb-4">
-                    <h4 className="font-semibold text-gray-900 mb-2">Key Features:</h4>
-                    <ul className="list-disc pl-5 space-y-1 text-sm text-gray-600">
-                      {card.details.map((detail, detailIndex) => (
-                        <li key={`detail-${index}-${detailIndex}`}>{detail}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <a 
-                      href={card.link} 
-                      className="inline-flex items-center gap-2 text-[#387E89] hover:text-[#143151] font-medium text-sm transition-colors"
-                    >
-                      Learn more about {card.title}
-                      <ArrowRight className="h-4 w-4" />
-                    </a>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
           <Box sx={{ width: "100%", mb: 2 }}>
             <ResponsiveCarousel
               items={complianceCards}
@@ -323,6 +304,104 @@ const TenthSection = () => {
           </Box>
         </Stack>
       </Box>
+
+      {/* Static version of the content for SEO (hidden visually but accessible to screen readers and crawlers) */}
+      <div className="hidden print:block">
+        <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-bold mb-6">Security, Compliance &amp; Data Protection at S10.AI</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {complianceCards.map((card, idx) => (
+              <div key={`print-card-${idx}`} className="border p-4 rounded-lg">
+                <h3 className="font-bold text-lg mb-2">{card.title}</h3>
+                <p className="mb-3">{card.description}</p>
+                <h4 className="font-semibold mb-2">Key Features:</h4>
+                <ul className="list-disc pl-5 mb-4">
+                  {card.details.map((detail, detailIdx) => (
+                    <li key={`print-detail-${idx}-${detailIdx}`}>{detail}</li>
+                  ))}
+                </ul>
+                <div>
+                  <a href={card.link} className="text-blue-600 hover:underline">Learn more about {card.title}</a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      {/* Structured data for SEO */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": complianceCards.map((card, idx) => ({
+            "@type": "ListItem",
+            "position": idx + 1,
+            "item": {
+              "@type": "Product",
+              "name": card.title,
+              "description": card.description,
+              "offers": {
+                "@type": "Offer",
+                "url": `https://s10.ai${card.link}`,
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": card.title,
+                  "description": card.description
+                }
+              }
+            }
+          }))
+        })
+      }} />
+      
+      {/* FAQ schema for security compliance */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does S10.AI ensure HIPAA compliance?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "S10.AI maintains HIPAA compliance through strict patient data confidentiality, comprehensive privacy safeguards, and regulated access controls. Our platform is specifically designed to meet healthcare privacy requirements in the US."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is S10.AI compliant with international data protection regulations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, S10.AI is compliant with GDPR (European regulations), PIPEDA (Canadian requirements), and maintains ISO 27001 certification, ensuring global data protection standards are met across jurisdictions."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does S10.AI handle data erasure and retention?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "S10.AI implements automated data erasure protocols with secure post-documentation deletion, automated data lifecycle management, and maintains a minimal data footprint to enhance security and privacy."
+              }
+            }
+          ]
+        })
+      }} />
+      
+      {/* Organization schema with security emphasis */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "MedicalOrganization",
+          "name": "S10.AI",
+          "description": "Provider of AI-powered healthcare solutions with comprehensive security compliance including HIPAA, PIPEDA, GDPR, and ISO 27001 certification.",
+          "medicalSpecialty": ["Healthcare Technology", "Medical Documentation", "Data Security"],
+          "ethicsPolicy": "https://s10.ai/security/privacy-policy",
+          "award": "ISO 27001 Certified"
+        })
+      }} />
     </section>
   );
 };
