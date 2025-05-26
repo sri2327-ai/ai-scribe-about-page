@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -453,97 +452,6 @@ export const FirstSection = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Structured data for SEO - AI Solutions */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          "itemListElement": featureTabs.map((tab, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "item": {
-              "@type": "SoftwareApplication",
-              "name": tab.title,
-              "description": tab.description,
-              "applicationCategory": "Healthcare AI Software",
-              "operatingSystem": "Cloud-based",
-              "offers": {
-                "@type": "Offer",
-                "description": tab.benefit,
-                "url": `https://s10.ai/solutions/${tab.id}`
-              },
-              "featureList": [
-                tab.benefit,
-                "HIPAA Compliant",
-                "EHR Integration",
-                "Real-time Processing"
-              ]
-            }
-          }))
-        })
-      }} />
-
-      {/* Organization structured data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "S10.AI",
-          "url": "https://s10.ai",
-          "logo": "https://s10.ai/logo.png",
-          "description": "AI-powered healthcare solutions including AI medical scribes, AI staffing agents, and custom AI agents for clinical workflows.",
-          "foundingDate": "2023",
-          "numberOfEmployees": "50-100",
-          "industry": "Healthcare Technology",
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "S10.AI Healthcare AI Solutions",
-            "itemListElement": featureTabs.map(tab => ({
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "SoftwareApplication",
-                "name": tab.title,
-                "description": tab.description
-              }
-            }))
-          }
-        })
-      }} />
-
-      {/* FAQ structured data */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "What is S10.AI's AI Medical Scribe?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "S10.AI's AI Medical Scribe provides automated documentation that captures the full patient story while you focus on care. It can save 2+ hours per day by automatically generating accurate clinical notes from patient conversations."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "How does the AI Staffing Agent work?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "The AI Staffing Agent is an AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency. It can reduce admin workload by 40% by automating scheduling, patient communication, and other routine tasks."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Are S10.AI solutions HIPAA compliant?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Yes, all S10.AI solutions are fully HIPAA compliant with enterprise-grade security measures to ensure patient data protection and regulatory compliance."
-              }
-            }
-          ]
-        })
-      }} />
     </section>;
 };
 

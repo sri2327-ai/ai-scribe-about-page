@@ -1,652 +1,685 @@
-
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { User, Building, Building2, Hospital, ArrowRight } from 'lucide-react';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import React, { useState, useEffect } from 'react';
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { ArrowRight, ChevronLeft, ChevronRight, Stethoscope, Building, Users, Heart } from "lucide-react";
+import { crushAIColors } from "@/theme/crush-ai-theme";
+import { getPricingByCurrency, PricingData } from "@/utils/pricing";
+import { CurrencyCode } from "@/components/pricing/CurrencySelector";
 
-interface PracticeType {
-  id: string;
-  title: string;
-  description: string;
-  icon: React.ComponentType<any>;
+interface PracticeTypeSelectorProps {
+  onSelect: (planType: string) => void;
 }
 
-const practiceTypes: PracticeType[] = [{
-  id: "solo",
-  title: "Solo Practitioner",
-  description: "Streamlined and fast—perfect for individual providers who need automated, real-time documentation without the overhead of complex systems.",
-  icon: User
-}, {
-  id: "small",
-  title: "Small Clinic",
-  description: "Collaborative tools that help small teams work in sync. Real-time notes, shared tasks, and seamless coordination.",
-  icon: Building
-}, {
-  id: "multi",
-  title: "Multispecialty Group",
-  description: "Handles complex medical language across departments—perfect for diverse clinical teams with varied documentation needs.",
-  icon: Building2
-}, {
-  id: "large",
-  title: "Large Healthcare System",
-  description: "Built to scale—S10.AI supports high patient volumes, multiple users, and enterprise-level workflows.",
-  icon: Hospital
-}];
-
-export const PracticeTypeSelector = ({
-  onSelect
-}: {
-  onSelect: (type: string) => void;
-}) => {
-  const [selectedType, setSelectedType] = useState(practiceTypes[0].id);
-  const [selectedTab, setSelectedTab] = useState<'crush' | 'bravo' | 'bundle'>('crush');
+export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSelect }) => {
+  const [selectedType, setSelectedType] = useState<string>("solo"); // Default selected
+  const [activeTabs, setActiveTabs] = useState<Record<string, 'crush' | 'bravo' | 'bundle'>>({
+    'solo': 'crush',
+    'small': 'crush',
+    'clinic': 'crush',
+    'specialty': 'crush'
+  });
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedCurrency, setSelectedCurrency] = useState<CurrencyCode>('USD');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>('monthly');
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
   
-  const handleSeeDetails = () => {
-    // Navigate to pricing section
+  // Get dynamic pricing data
+  const pricingData = getPricingByCurrency(selectedCurrency, billingCycle);
+  
+  useEffect(() => {
+    // Select solo by default on component mount
+    onSelect("crush_basic");
+    
+    // Get currency from URL or localStorage if available
+    const urlParams = new URLSearchParams(window.location.search);
+    const currencyParam = urlParams.get('currency');
+    const storedCurrency = localStorage.getItem('selectedCurrency');
+    
+    if (currencyParam && ['USD', 'CAD', 'AUD', 'GBP', 'EUR', 'NZD', 'AED'].includes(currencyParam)) {
+      setSelectedCurrency(currencyParam as CurrencyCode);
+    } else if (storedCurrency && ['USD', 'CAD', 'AUD', 'GBP', 'EUR', 'NZD', 'AED'].includes(storedCurrency)) {
+      setSelectedCurrency(storedCurrency as CurrencyCode);
+    }
+    
+    // Get billing cycle from URL or localStorage if available
+    const cycleParam = urlParams.get('billing');
+    const storedCycle = localStorage.getItem('billingCycle');
+    
+    if (cycleParam === 'annual' || cycleParam === 'monthly') {
+      setBillingCycle(cycleParam);
+    } else if (storedCycle === 'annual' || storedCycle === 'monthly') {
+      setBillingCycle(storedCycle as 'annual' | 'monthly');
+    }
+  }, [onSelect]);
+  
+  // Sync with pricing component's currency changes
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'selectedCurrency' && e.newValue) {
+        if (['USD', 'CAD', 'AUD', 'GBP', 'EUR', 'NZD', 'AED'].includes(e.newValue)) {
+          setSelectedCurrency(e.newValue as CurrencyCode);
+        }
+      }
+      if (e.key === 'billingCycle' && e.newValue) {
+        if (e.newValue === 'annual' || e.newValue === 'monthly') {
+          setBillingCycle(e.newValue as 'annual' | 'monthly');
+        }
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Check if we need to update from events within the same window
+    const handleCurrencyChange = (e: Event) => {
+      const event = e as CustomEvent;
+      if (event.detail && event.detail.currency) {
+        setSelectedCurrency(event.detail.currency);
+      }
+    };
+    
+    const handleBillingChange = (e: Event) => {
+      const event = e as CustomEvent;
+      if (event.detail && event.detail.cycle) {
+        setBillingCycle(event.detail.cycle);
+      }
+    };
+    
+    window.addEventListener('currencyChange', handleCurrencyChange);
+    window.addEventListener('billingCycleChange', handleBillingChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('currencyChange', handleCurrencyChange);
+      window.removeEventListener('billingCycleChange', handleBillingChange);
+    };
+  }, []);
+  
+  const handleSelect = (type: string) => {
+    setSelectedType(type);
+    onSelect(type === 'solo' ? "crush_basic" : 
+             type === 'small' ? "crush_plus" : 
+             type === 'clinic' ? "bundle_enterprise" : "crush_pro");
+  };
+
+  // Fixed the tab handling to prevent event bubbling issues
+  const handleTabChange = (type: string, tabValue: 'crush' | 'bravo' | 'bundle', e: React.MouseEvent) => {
+    // Stop event propagation to prevent the card click handler from firing
+    e.stopPropagation();
+    
+    setActiveTabs(prev => ({
+      ...prev,
+      [type]: tabValue
+    }));
+    
+    // Update the main plan selection based on the tab and practice type
+    const practiceToPlans: Record<string, Record<'crush' | 'bravo' | 'bundle', string>> = {
+      'solo': {
+        'crush': 'crush_basic',
+        'bravo': 'bravo_basic',
+        'bundle': 'bundle_basic'
+      },
+      'small': {
+        'crush': 'crush_plus',
+        'bravo': 'bravo_pro',
+        'bundle': 'bundle_plus'
+      },
+      'clinic': {
+        'crush': 'crush_enterprise',
+        'bravo': 'bravo_enterprise',
+        'bundle': 'bundle_enterprise'
+      },
+      'specialty': {
+        'crush': 'crush_pro',
+        'bravo': 'bravo_pro',
+        'bundle': 'bundle_pro'
+      }
+    };
+    
+    // If type is the currently selected practice type, also update the main plan
+    if (type === selectedType) {
+      onSelect(practiceToPlans[type][tabValue]);
+    }
+  };
+  
+  // Navigate to pricing section and set the correct tab based on selected product
+  const handleSeeFullDetails = (e: React.MouseEvent, practiceType: string) => {
+    e.stopPropagation();
+    
+    // Get the active tab for this practice type
+    const activeTab = activeTabs[practiceType];
+    
+    // Set localStorage values to control which tab is shown in the pricing section
+    localStorage.setItem('activePricingTab', activeTab);
+    
+    // Always ensure we're showing monthly pricing
+    localStorage.setItem('billingCycle', 'monthly');
+    
+    // Create custom event to notify other components about tab changes
+    const tabChangeEvent = new CustomEvent('pricingTabChange', { 
+      detail: { tab: activeTab, billing: 'monthly' } 
+    });
+    window.dispatchEvent(tabChangeEvent);
+    
+    // Scroll to pricing section
     const pricingSection = document.getElementById('pricing');
     if (pricingSection) {
-      pricingSection.scrollIntoView({
-        behavior: 'smooth'
-      });
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
     }
-
-    // Dispatch event to change tab in pricing section
-    const event = new CustomEvent('pricingTabChange', {
-      detail: {
-        tab: selectedTab
+  };
+  
+  // Updated practice types with minor change to description text
+  const practiceTypes = [
+    { 
+      id: 'solo', 
+      name: 'Solo Provider', 
+      icon: Stethoscope,
+      description: 'Perfect for independent providers looking to save time and costs',
+      plan: 'crush_basic'
+    },
+    { 
+      id: 'small', 
+      name: 'Small Practice', 
+      icon: Users,
+      description: '2-5 providers wanting to optimize workflows and reduce no-shows',
+      plan: 'crush_plus'
+    },
+    { 
+      id: 'clinic', 
+      name: 'Clinic/Group', 
+      shortName: 'Clinic/Group',
+      displayName: 'Clinic/Group',
+      icon: Building,
+      description: '6+ providers seeking enterprise-grade solutions at scale',
+      plan: 'bundle_enterprise'
+    },
+    { 
+      id: 'specialty', 
+      name: 'Specialty', 
+      icon: Heart,
+      description: 'For specialty practices with unique documentation needs',
+      plan: 'crush_pro'
+    }
+  ];
+  
+  // Define product recommendations with dynamic pricing
+  const productRecommendations = {
+    crush: {
+      'solo': { 
+        name: 'CRUSH Basic', 
+        description: 'Perfect for solo providers', 
+        price: pricingData.crush.basic
+      },
+      'small': { 
+        name: 'CRUSH Pro', 
+        description: 'Ideal for small practices', 
+        price: pricingData.crush.pro
+      },
+      'clinic': { 
+        name: 'CRUSH Enterprise', 
+        description: 'Complete solution for clinics & groups', 
+        price: pricingData.crush.enterprise
+      },
+      'specialty': { 
+        name: 'CRUSH Pro', 
+        description: 'Advanced features for specialty practices', 
+        price: pricingData.crush.pro
       }
-    });
-    window.dispatchEvent(event);
+    },
+    bravo: {
+      'solo': { 
+        name: 'BRAVO Basic', 
+        description: 'Streamlined patient management with Real-Time Booking & Human Transfer', 
+        price: pricingData.bravo.basic
+      },
+      'small': { 
+        name: 'BRAVO Pro', 
+        description: 'Enhanced patient engagement with Multilingual support', 
+        price: 'Starts at $299/mo'
+      },
+      'clinic': { 
+        name: 'BRAVO Enterprise', 
+        description: 'Multi-clinic management with Multilingual support', 
+        price: pricingData.bravo.enterprise
+      },
+      'specialty': { 
+        name: 'BRAVO Pro', 
+        description: 'Specialty-specific workflows with Multilingual support', 
+        price: 'Starts at $299/mo'
+      }
+    },
+    bundle: {
+      'solo': { 
+        name: 'Basic Bundle', 
+        description: 'CRUSH + BRAVO with discount', 
+        price: pricingData.bundle.basic
+      },
+      'small': { 
+        name: 'Pro Bundle', 
+        description: 'Premium integration package', 
+        price: pricingData.bundle.pro
+      },
+      'clinic': { 
+        name: 'Enterprise Bundle', 
+        description: 'Complete enterprise solution', 
+        price: pricingData.bundle.enterprise
+      },
+      'specialty': { 
+        name: 'Pro Bundle', 
+        description: 'Specialty-specific bundle', 
+        price: pricingData.bundle.pro
+      }
+    }
+  };
+  
+  // For mobile carousel
+  const nextPractice = () => {
+    setCurrentIndex(prev => (prev + 1) % practiceTypes.length);
+    handleSelect(practiceTypes[(currentIndex + 1) % practiceTypes.length].id);
+  };
+  
+  const prevPractice = () => {
+    setCurrentIndex(prev => (prev - 1 + practiceTypes.length) % practiceTypes.length);
+    handleSelect(practiceTypes[(currentIndex - 1 + practiceTypes.length) % practiceTypes.length].id);
+  };
 
-    // Store selected tab in localStorage for persistence
-    localStorage.setItem('activePricingTab', selectedTab);
-
-    // Call onSelect prop
-    onSelect(selectedTab);
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.1,
+        delayChildren: 0.3
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 }
   };
 
   return (
-    <section 
-      id="practice-solutions" 
-      aria-labelledby="practice-solutions-heading"
-      className="w-full py-14 md:py-20 bg-gradient-to-b from-white to-gray-50"
-    >
-      <div className="container mx-auto px-4 max-w-6xl">
-        {/* Enhanced SEO-friendly content for search engines - Comprehensive coverage of all practice types and solutions */}
-        <div className="sr-only">
-          <h2 id="practice-solutions-seo-heading">Tailored S10.AI Solutions for Every Healthcare Practice Type</h2>
-          <p>
-            S10.AI offers specialized AI documentation and staffing solutions for different healthcare practice sizes, 
-            from solo practitioners to large healthcare systems. Each solution is tailored to meet specific 
-            workflow needs and optimize clinical documentation processes with AI medical scribes, AI staffing agents, and custom AI solutions.
-          </p>
-          
-          {/* Solo Practitioner Comprehensive Details */}
-          <section>
-            <h3>Solo Practitioner AI Solutions</h3>
-            <p>Streamlined and fast AI solutions perfect for individual healthcare providers who need automated, real-time documentation without the overhead of complex systems. S10.AI's solo practitioner solutions focus on efficiency and cost-effectiveness.</p>
-            
-            <h4>CRUSH AI Medical Scribe for Solo Practitioners</h4>
-            <p>CRUSH Basic provides automated medical documentation with real-time note generation specifically designed for individual healthcare providers.</p>
-            <ul>
-              <li>Perfect for individual healthcare providers and independent practices</li>
-              <li>Automated real-time medical documentation and clinical note generation</li>
-              <li>Streamlined workflow optimization for solo practice efficiency</li>
-              <li>Cost-effective AI medical scribe solutions with transparent pricing</li>
-              <li>No complex system overhead or unnecessary enterprise features</li>
-              <li>Quick implementation and setup within 24-48 hours</li>
-              <li>Specialty-specific templates for various medical specialties</li>
-              <li>HIPAA-compliant patient data protection</li>
-              <li>Integration with popular solo practice EHR systems</li>
-            </ul>
-            
-            <h4>BRAVO AI Front Office for Solo Practitioners</h4>
-            <p>BRAVO Basic handles patient communication, scheduling, and intake processes for solo practitioners.</p>
-            <ul>
-              <li>Automated appointment scheduling and patient reminders</li>
-              <li>AI-powered patient intake and registration</li>
-              <li>Insurance verification and eligibility checking</li>
-              <li>Patient communication and follow-up automation</li>
-              <li>Basic front office task automation</li>
-            </ul>
-            
-            <h4>Bundle Solutions for Solo Practitioners</h4>
-            <p>Combined CRUSH and BRAVO packages provide comprehensive end-to-end automation for solo medical practices.</p>
-            <ul>
-              <li>Integrated AI medical scribe and front office automation</li>
-              <li>Discounted pricing for combined solutions</li>
-              <li>Unified dashboard for practice management</li>
-              <li>Comprehensive workflow automation</li>
-            </ul>
-            
-            <a href="/pricing?type=solo">View Solo Practitioner Pricing</a>
-          </section>
-          
-          {/* Small Clinic Comprehensive Details */}
-          <section>
-            <h3>Small Clinic AI Solutions</h3>
-            <p>Collaborative tools that help small healthcare teams work in sync. Real-time notes, shared tasks, and seamless coordination designed for small clinics with 2-10 providers.</p>
-            
-            <h4>CRUSH AI Medical Scribe for Small Clinics</h4>
-            <p>CRUSH Pro offers enhanced features for small clinic collaboration and team documentation management.</p>
-            <ul>
-              <li>Designed for small healthcare teams of 2-10 providers</li>
-              <li>Collaborative documentation sharing and team access</li>
-              <li>Real-time clinical note synchronization across providers</li>
-              <li>Task management and assignment features for clinical teams</li>
-              <li>Seamless team coordination tools and communication</li>
-              <li>Affordable per-provider pricing with volume discounts</li>
-              <li>Simplified administrative workflows and reporting</li>
-              <li>Quick onboarding for new team members and providers</li>
-              <li>Multi-provider scheduling and resource management</li>
-              <li>Shared patient documentation and care coordination</li>
-            </ul>
-            
-            <h4>BRAVO AI Front Office for Small Clinics</h4>
-            <p>BRAVO Pro provides enhanced patient engagement with multilingual support for small clinics.</p>
-            <ul>
-              <li>Advanced appointment scheduling for multiple providers</li>
-              <li>Multilingual patient communication support</li>
-              <li>Team-based task management and delegation</li>
-              <li>Enhanced patient intake and registration workflows</li>
-              <li>Insurance verification and prior authorization assistance</li>
-            </ul>
-            
-            <h4>Bundle Solutions for Small Clinics</h4>
-            <p>Pro Bundle combines CRUSH Pro and BRAVO Pro for comprehensive small clinic automation.</p>
-            <ul>
-              <li>Complete clinic management and automation suite</li>
-              <li>Team collaboration and communication tools</li>
-              <li>Integrated reporting and analytics</li>
-              <li>Cost-effective bundle pricing for small teams</li>
-            </ul>
-            
-            <a href="/pricing?type=small">View Small Clinic Pricing</a>
-          </section>
-          
-          {/* Multispecialty Group Comprehensive Details */}
-          <section>
-            <h3>Multispecialty Group AI Solutions</h3>
-            <p>Handles complex medical language across departments—perfect for diverse clinical teams with varied documentation needs. S10.AI supports multiple medical specialties with specialty-specific AI models and workflows.</p>
-            
-            <h4>CRUSH AI Medical Scribe for Multispecialty Groups</h4>
-            <p>CRUSH Enterprise provides specialty-specific documentation models for diverse medical specialties.</p>
-            <ul>
-              <li>Specialty-specific AI documentation models for cardiology, neurology, orthopedics, psychiatry, and more</li>
-              <li>Cross-department collaboration features and shared documentation</li>
-              <li>Support for various medical specialties including primary care, internal medicine, and specialty practices</li>
-              <li>Specialized terminology and medical jargon recognition across specialties</li>
-              <li>Custom templates and workflows for each medical specialty</li>
-              <li>Centralized patient record management across departments</li>
-              <li>Inter-department referral automation and care coordination</li>
-              <li>Unified billing and coding support for multiple specialties</li>
-              <li>Advanced analytics for specialty-specific metrics and performance</li>
-              <li>Department-level reporting and practice management</li>
-            </ul>
-            
-            <h4>BRAVO AI Front Office for Multispecialty Groups</h4>
-            <p>BRAVO Enterprise offers multi-clinic management with multilingual support for complex healthcare organizations.</p>
-            <ul>
-              <li>Multi-department scheduling and resource allocation</li>
-              <li>Specialty-specific patient intake and registration</li>
-              <li>Advanced insurance verification and prior authorization</li>
-              <li>Multilingual support for diverse patient populations</li>
-              <li>Cross-department communication and coordination</li>
-            </ul>
-            
-            <h4>Bundle Solutions for Multispecialty Groups</h4>
-            <p>Enterprise Bundle provides complete automation for multispecialty healthcare organizations.</p>
-            <ul>
-              <li>Comprehensive multispecialty practice management</li>
-              <li>Advanced integration with multiple EHR systems</li>
-              <li>Enterprise-level security and compliance</li>
-              <li>Custom implementation and training programs</li>
-            </ul>
-            
-            <a href="/pricing?type=multispecialty">View Multispecialty Group Pricing</a>
-          </section>
-          
-          {/* Large Healthcare System Comprehensive Details */}
-          <section>
-            <h3>Large Healthcare System AI Solutions</h3>
-            <p>Built to scale—S10.AI supports high patient volumes, multiple users, and enterprise-level workflows for large healthcare systems, hospitals, and health networks.</p>
-            
-            <h4>CRUSH AI Medical Scribe for Large Healthcare Systems</h4>
-            <p>CRUSH Enterprise provides enterprise-grade scaling capabilities for large healthcare organizations.</p>
-            <ul>
-              <li>Enterprise-grade scaling capabilities for unlimited users</li>
-              <li>Support for hundreds of concurrent providers and clinicians</li>
-              <li>High-volume patient documentation handling and processing</li>
-              <li>Advanced security and compliance features for enterprise environments</li>
-              <li>Hospital-wide deployment solutions and implementation</li>
-              <li>Integration with major EHR systems including Epic, Cerner, and Allscripts</li>
-              <li>Administrative hierarchy management and role-based access</li>
-              <li>Department-level analytics and comprehensive reporting</li>
-              <li>Custom API access for system integration and development</li>
-              <li>24/7 enterprise support services and dedicated account management</li>
-              <li>HIPAA and regulatory compliance assurance across all systems</li>
-              <li>Multi-facility coordination and centralized management</li>
-            </ul>
-            
-            <h4>BRAVO AI Front Office for Large Healthcare Systems</h4>
-            <p>BRAVO Enterprise delivers enterprise-level patient engagement and administrative automation.</p>
-            <ul>
-              <li>System-wide appointment scheduling and management</li>
-              <li>Enterprise patient communication and engagement</li>
-              <li>Advanced insurance verification and prior authorization</li>
-              <li>Multi-facility coordination and management</li>
-              <li>Enterprise-level analytics and reporting</li>
-            </ul>
-            
-            <h4>Bundle Solutions for Large Healthcare Systems</h4>
-            <p>Enterprise Bundle offers complete healthcare system automation with custom implementation.</p>
-            <ul>
-              <li>Complete healthcare system automation and integration</li>
-              <li>Custom implementation and deployment services</li>
-              <li>Advanced security and compliance management</li>
-              <li>Dedicated support and account management</li>
-            </ul>
-            
-            <a href="/pricing?type=enterprise">View Large Healthcare System Pricing</a>
-          </section>
-          
-          {/* AI Product Solutions Detailed Description */}
-          <section>
-            <h3>S10.AI Product Solutions Overview</h3>
-            
-            <h4>CRUSH - AI Medical Documentation Platform</h4>
-            <p>CRUSH offers automated medical documentation with real-time note generation, reducing clinician documentation time by up to 75%. Available in Basic, Pro, and Enterprise tiers.</p>
-            <ul>
-              <li>Real-time medical conversation transcription and analysis</li>
-              <li>Automated clinical note generation and documentation</li>
-              <li>Specialty-specific templates and terminology recognition</li>
-              <li>EHR integration with major healthcare systems</li>
-              <li>HIPAA-compliant data processing and storage</li>
-              <li>Customizable workflows for different practice types</li>
-            </ul>
-            
-            <h4>BRAVO - AI Front Office Solution</h4>
-            <p>BRAVO handles patient communication, scheduling, and intake processes, automating administrative tasks for front office staff. Available in Basic, Pro, and Enterprise versions.</p>
-            <ul>
-              <li>Automated appointment scheduling and patient reminders</li>
-              <li>AI-powered patient intake and registration</li>
-              <li>Insurance verification and prior authorization</li>
-              <li>Multilingual patient communication support</li>
-              <li>Patient follow-up and engagement automation</li>
-              <li>Integration with practice management systems</li>
-            </ul>
-            
-            <h4>Bundle Solutions - Complete Practice Automation</h4>
-            <p>Combined CRUSH and BRAVO packages provide comprehensive end-to-end automation for medical practices of all sizes with discounted pricing.</p>
-            <ul>
-              <li>Integrated AI medical scribe and front office automation</li>
-              <li>Unified dashboard and practice management</li>
-              <li>Comprehensive workflow optimization</li>
-              <li>Cost-effective bundle pricing and volume discounts</li>
-              <li>Single point of support and implementation</li>
-            </ul>
-          </section>
-
-          {/* Implementation and Support Details */}
-          <section>
-            <h3>Implementation and Support for All Practice Types</h3>
-            <p>S10.AI provides comprehensive implementation and support services tailored to each practice type and size.</p>
-            <ul>
-              <li>Custom implementation planning and deployment</li>
-              <li>Practice-specific training and onboarding programs</li>
-              <li>24/7 technical support and customer service</li>
-              <li>Regular software updates and feature enhancements</li>
-              <li>Dedicated account management for enterprise clients</li>
-              <li>Compliance and security audit support</li>
-            </ul>
-          </section>
-        </div>
+    <section className="py-10 md:py-16 lg:py-24 bg-white">
+      {/* SEO-friendly content for search engines - Practice Type Benefits */}
+      <div className="sr-only">
+        <h2>S10.AI Practice Type Solutions - Customized AI for Every Healthcare Setting</h2>
+        <p>
+          S10.AI offers tailored AI solutions for different practice types, from solo providers to large healthcare systems. 
+          Our AI medical scribes, staffing agents, and workflow automation adapt to your specific practice needs and size.
+        </p>
         
-        <div className="text-center mb-10 md:mb-12">
-          <h2 
-            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151]"
-            id="practice-solutions-visible-heading"
-          >
-            Tailored Solutions for Every Practice Type
-          </h2>
-          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-normal">
-            S10.AI adapts to your practice size and workflow needs
-          </p>
-        </div>
+        {/* Solo Provider Section */}
+        <section>
+          <h3>Solo Provider AI Solutions</h3>
+          <p>Perfect for independent providers looking to save time and costs with AI medical scribe technology and automated documentation.</p>
+          <h4>Solo Provider Benefits:</h4>
+          <ul>
+            <li>Reduce documentation time by 75% with AI medical scribes</li>
+            <li>Lower overhead costs with virtual AI staff assistance</li>
+            <li>Improve work-life balance with automated administrative tasks</li>
+            <li>HIPAA-compliant solutions designed for small practices</li>
+            <li>Easy integration with existing EHR systems</li>
+            <li>Affordable pricing starting from basic plans</li>
+          </ul>
+          <p><strong>Recommended Solution:</strong> CRUSH Basic - AI medical scribe with essential features</p>
+          <a href="/solutions/solo-provider">Learn more about Solo Provider solutions</a>
+        </section>
 
-        <Tabs defaultValue={practiceTypes[0].id} value={selectedType} onValueChange={setSelectedType} className="w-full">
-          {/* Improved mobile grid layout */}
-          <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4 bg-transparent h-auto p-0 overflow-x-auto">
-            {practiceTypes.map(type => (
-              <TabsTrigger 
-                key={type.id} 
-                value={type.id} 
-                className="data-[state=active]:bg-gradient-to-r from-[#143151] to-[#387E89] data-[state=active]:text-white px-3 md:px-4 py-2 md:py-3 h-auto flex flex-col items-center gap-2 rounded-lg border border-gray-200 hover:border-[#387E89] transition-all min-w-[120px]"
-                aria-label={`Select ${type.title} practice type`}
-              >
-                <type.icon className="w-5 h-5 md:w-6 md:h-6" aria-hidden="true" />
-                <span className="text-xs md:text-sm font-semibold">{type.title}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        {/* Small Practice Section */}
+        <section>
+          <h3>Small Practice AI Solutions (2-5 Providers)</h3>
+          <p>2-5 providers wanting to optimize workflows and reduce no-shows with comprehensive AI automation and patient engagement tools.</p>
+          <h4>Small Practice Benefits:</h4>
+          <ul>
+            <li>Streamlined multi-provider workflows with AI coordination</li>
+            <li>Reduced no-show rates with automated patient reminders</li>
+            <li>Shared AI resources across multiple providers</li>
+            <li>Coordinated scheduling and administrative automation</li>
+            <li>Practice management integration and analytics</li>
+            <li>Scalable solutions that grow with your practice</li>
+          </ul>
+          <p><strong>Recommended Solution:</strong> CRUSH Pro - Advanced AI with multi-provider support</p>
+          <a href="/solutions/small-practice">Learn more about Small Practice solutions</a>
+        </section>
 
-          {practiceTypes.map(type => (
-            <TabsContent 
-              key={type.id} 
-              value={type.id}
-              role="tabpanel"
-              id={`tabpanel-${type.id}`}
-              aria-labelledby={`tab-${type.id}`}
-            >
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }} 
-                animate={{ opacity: 1, y: 0 }} 
-                transition={{ duration: 0.5 }} 
-                className="mt-6"
-              >
-                <Card className="border-2 border-[#387E89]/10 hover:border-[#387E89]/20 transition-all shadow-sm hover:shadow-md overflow-hidden">
-                  <CardHeader className="flex flex-row items-center gap-4 flex-wrap sm:flex-nowrap">
-                    <div className="p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white" aria-hidden="true">
-                      <type.icon className="w-5 h-5 md:w-6 md:h-6" />
+        {/* Clinic/Group Section */}
+        <section>
+          <h3>Clinic and Group Practice AI Solutions (6+ Providers)</h3>
+          <p>6+ providers seeking enterprise-grade solutions at scale with comprehensive AI automation and workflow optimization.</p>
+          <h4>Clinic/Group Practice Benefits:</h4>
+          <ul>
+            <li>Enterprise-grade AI deployment across multiple locations</li>
+            <li>Advanced analytics and reporting for practice management</li>
+            <li>Multi-location coordination and resource optimization</li>
+            <li>Custom AI workflows for different departments</li>
+            <li>Advanced security and compliance features</li>
+            <li>Dedicated support and implementation assistance</li>
+          </ul>
+          <p><strong>Recommended Solution:</strong> Bundle Enterprise - Complete AI suite for large practices</p>
+          <a href="/solutions/clinic-group">Learn more about Clinic/Group solutions</a>
+        </section>
+
+        {/* Specialty Practice Section */}
+        <section>
+          <h3>Specialty Practice AI Solutions</h3>
+          <p>For specialty practices with unique documentation needs and specialized workflows requiring custom AI configuration.</p>
+          <h4>Specialty Practice Benefits:</h4>
+          <ul>
+            <li>Specialty-specific AI training for cardiology, orthopedics, dermatology, and more</li>
+            <li>Custom documentation templates for specialized procedures</li>
+            <li>Integration with specialty-specific equipment and software</li>
+            <li>Advanced clinical decision support for specialized care</li>
+            <li>Compliance with specialty-specific regulations and standards</li>
+            <li>Continuous AI learning from specialty practice patterns</li>
+          </ul>
+          <p><strong>Recommended Solution:</strong> CRUSH Pro - Specialty-configured AI with advanced features</p>
+          <a href="/solutions/specialty-practice">Learn more about Specialty Practice solutions</a>
+        </section>
+
+        {/* Practice Type Comparison */}
+        <section>
+          <h3>Practice Type Comparison and Recommendations</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Practice Type</th>
+                <th>Provider Count</th>
+                <th>Key Features</th>
+                <th>Recommended Plan</th>
+                <th>Starting Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Solo Provider</td>
+                <td>1 provider</td>
+                <td>Basic AI scribe, Essential automation</td>
+                <td>CRUSH Basic</td>
+                <td>Affordable entry-level pricing</td>
+              </tr>
+              <tr>
+                <td>Small Practice</td>
+                <td>2-5 providers</td>
+                <td>Multi-provider workflows, Advanced automation</td>
+                <td>CRUSH Pro</td>
+                <td>Scalable multi-user pricing</td>
+              </tr>
+              <tr>
+                <td>Clinic/Group</td>
+                <td>6+ providers</td>
+                <td>Enterprise features, Multi-location support</td>
+                <td>Bundle Enterprise</td>
+                <td>Enterprise-grade solutions</td>
+              </tr>
+              <tr>
+                <td>Specialty</td>
+                <td>Any size</td>
+                <td>Specialty-specific AI, Custom workflows</td>
+                <td>CRUSH Pro</td>
+                <td>Specialized configuration pricing</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      {/* Desktop View */}
+      <div className="hidden md:block">
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+        >
+          {practiceTypes.map((type) => {
+            const Icon = type.icon;
+            const isSelected = selectedType === type.id;
+            const activeTab = activeTabs[type.id];
+            
+            return (
+              <motion.div key={type.id} variants={itemVariants} className="h-full">
+                <Card 
+                  className={`p-4 md:p-6 lg:p-8 cursor-pointer transition-all duration-300 h-full flex flex-col ${
+                    isSelected 
+                      ? 'border-[#387E89] shadow-lg' 
+                      : 'border-gray-200 hover:border-[#387E89]/50 hover:shadow-md'
+                  }`}
+                  onClick={() => handleSelect(type.id)}
+                >
+                  <div className="flex items-center mb-4">
+                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center ${
+                      isSelected
+                        ? 'bg-gradient-to-r from-[#143151] to-[#387E89]'
+                        : 'bg-gradient-to-r from-gray-200 to-gray-100'
+                    }`}>
+                      <Icon size={20} className={isSelected ? 'text-white' : 'text-gray-600'} />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-bold text-[#143151]">{type.title}</h3>
-                  </CardHeader>
+                    <h3 className="text-lg md:text-xl font-semibold ml-3 md:ml-4 text-[#143151] break-words">
+                      {type.id === 'clinic' ? (
+                        <span>Clinic/Group</span>
+                      ) : type.name}
+                    </h3>
+                  </div>
                   
-                  <CardContent className="space-y-6">
-                    <p className="text-sm md:text-base text-gray-600 leading-relaxed">
-                      {type.description}
-                    </p>
+                  <p className="text-sm md:text-base text-gray-600 mb-4 flex-grow">{type.description}</p>
+                  
+                  {/* Always show recommendations */}
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <h4 className="font-bold text-[#143151] text-base md:text-lg mb-2">Recommended Plans</h4>
                     
-                    {/* Product selection tabs */}
-                    <div className="w-full pt-4">
-                      
-                      
-                      
+                    <div className="w-full bg-gray-100 rounded-md mb-2 overflow-hidden">
+                      <div className="flex justify-between">
+                        <button 
+                          onClick={(e) => handleTabChange(type.id, 'crush', e)}
+                          className={`flex-1 text-xs md:text-sm py-2 px-2 rounded-l-md transition-colors ${
+                            activeTab === 'crush' 
+                              ? 'bg-[#387E89] text-white font-medium' 
+                              : 'hover:bg-gray-200'
+                          }`}
+                        >
+                          Basic
+                        </button>
+                        <button 
+                          onClick={(e) => handleTabChange(type.id, 'bravo', e)}
+                          className={`flex-1 text-xs md:text-sm py-2 px-2 transition-colors ${
+                            activeTab === 'bravo' 
+                              ? 'bg-[#387E89] text-white font-medium' 
+                              : 'hover:bg-gray-200'
+                          }`}
+                        >
+                          Pro
+                        </button>
+                        <button 
+                          onClick={(e) => handleTabChange(type.id, 'bundle', e)}
+                          className={`flex-1 text-xs md:text-sm py-2 px-2 rounded-r-md transition-colors ${
+                            activeTab === 'bundle' 
+                              ? 'bg-[#387E89] text-white font-medium' 
+                              : 'hover:bg-gray-200'
+                          }`}
+                        >
+                          Enterprise
+                        </button>
+                      </div>
                     </div>
-                  </CardContent>
+                    
+                    <div className="mt-3">
+                      {activeTab === 'crush' && (
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 md:p-3 rounded-lg">
+                          <h5 className="font-semibold text-sm md:text-base text-[#387E89]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].name}</h5>
+                          <p className="text-xs md:text-sm text-gray-600">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].description}</p>
+                          <div className="mt-1 md:mt-2 font-bold text-sm md:text-base text-[#143151]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].price}</div>
+                        </div>
+                      )}
+                      
+                      {activeTab === 'bravo' && (
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 md:p-3 rounded-lg">
+                          <h5 className="font-semibold text-sm md:text-base text-[#387E89]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].name}</h5>
+                          <p className="text-xs md:text-sm text-gray-600">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].description}</p>
+                          <div className="mt-1 md:mt-2 font-bold text-sm md:text-base text-[#143151]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].price}</div>
+                        </div>
+                      )}
+                      
+                      {activeTab === 'bundle' && (
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 md:p-3 rounded-lg">
+                          <h5 className="font-semibold text-sm md:text-base text-[#387E89]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].name}</h5>
+                          <p className="text-xs md:text-sm text-gray-600">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].description}</p>
+                          <div className="mt-1 md:mt-2 font-bold text-sm md:text-base text-[#143151]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].price}</div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-3">
+                      <Button
+                        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs md:text-sm py-1 md:py-2"
+                        onClick={(e) => handleSeeFullDetails(e, type.id)}
+                        size="sm"
+                      >
+                        See Full Details
+                        <ArrowRight className="ml-1 h-3 w-3 md:h-4 md:w-4" />
+                      </Button>
+                    </div>
+                  </div>
                 </Card>
               </motion.div>
-            </TabsContent>
-          ))}
-        </Tabs>
-        
-        {/* Static version for search engines and accessibility - Enhanced with comprehensive details */}
-        <div className="hidden print:block">
-          <h2 className="text-2xl font-bold mb-6">S10.AI Solutions by Practice Type</h2>
+            );
+          })}
+        </motion.div>
+      </div>
+      
+      {/* Mobile View with Carousel */}
+      <div className="block md:hidden">
+        <div className="relative">
+          <Card 
+            className="p-4 border-[#387E89] shadow-lg"
+          >
+            {practiceTypes.map((type, index) => {
+              const Icon = type.icon;
+              const isActive = index === currentIndex;
+              const activeTab = activeTabs[type.id];
+              
+              if (!isActive) return null;
+              
+              return (
+                <div key={type.id} className="h-full">
+                  <div className="flex items-center mb-4">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center bg-gradient-to-r from-[#143151] to-[#387E89]">
+                      <Icon size={20} className="text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold ml-3 text-[#143151] break-words">
+                      {type.id === 'clinic' ? 'Clinic/Group' : type.name}
+                    </h3>
+                  </div>
+                  
+                  <p className="text-sm text-gray-600 mb-4">{type.description}</p>
+                  
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <h4 className="font-bold text-[#143151] text-base mb-2">Recommended Plans</h4>
+                    
+                    <div className="w-full bg-gray-100 rounded-md mb-2 overflow-hidden">
+                      <div className="flex justify-between">
+                        <button 
+                          onClick={(e) => handleTabChange(type.id, 'crush', e)}
+                          className={`flex-1 text-xs py-2 px-2 rounded-l-md transition-colors ${
+                            activeTab === 'crush' 
+                              ? 'bg-[#387E89] text-white font-medium' 
+                              : 'hover:bg-gray-200'
+                          }`}
+                        >
+                          Basic
+                        </button>
+                        <button 
+                          onClick={(e) => handleTabChange(type.id, 'bravo', e)}
+                          className={`flex-1 text-xs py-2 px-2 transition-colors ${
+                            activeTab === 'bravo' 
+                              ? 'bg-[#387E89] text-white font-medium' 
+                              : 'hover:bg-gray-200'
+                          }`}
+                        >
+                          Pro
+                        </button>
+                        <button 
+                          onClick={(e) => handleTabChange(type.id, 'bundle', e)}
+                          className={`flex-1 text-xs py-2 px-2 rounded-r-md transition-colors ${
+                            activeTab === 'bundle' 
+                              ? 'bg-[#387E89] text-white font-medium' 
+                              : 'hover:bg-gray-200'
+                          }`}
+                        >
+                          Enterprise
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="mt-3">
+                      {activeTab === 'crush' && (
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 rounded-lg">
+                          <h5 className="font-semibold text-sm text-[#387E89]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].name}</h5>
+                          <p className="text-xs text-gray-600">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].description}</p>
+                          <div className="mt-1 font-bold text-sm text-[#143151]">{productRecommendations.crush[type.id as keyof typeof productRecommendations.crush].price}</div>
+                        </div>
+                      )}
+                      
+                      {activeTab === 'bravo' && (
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 rounded-lg">
+                          <h5 className="font-semibold text-sm text-[#387E89]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].name}</h5>
+                          <p className="text-xs text-gray-600">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].description}</p>
+                          <div className="mt-1 font-bold text-sm text-[#143151]">{productRecommendations.bravo[type.id as keyof typeof productRecommendations.bravo].price}</div>
+                        </div>
+                      )}
+                      
+                      {activeTab === 'bundle' && (
+                        <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 p-2 rounded-lg">
+                          <h5 className="font-semibold text-sm text-[#387E89]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].name}</h5>
+                          <p className="text-xs text-gray-600">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].description}</p>
+                          <div className="mt-1 font-bold text-sm text-[#143151]">{productRecommendations.bundle[type.id as keyof typeof productRecommendations.bundle].price}</div>
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div className="mt-3">
+                      <Button
+                        className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs py-1"
+                        onClick={(e) => handleSeeFullDetails(e, type.id)}
+                        size="sm"
+                      >
+                        See Full Details
+                        <ArrowRight className="ml-1 h-3 w-3" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </Card>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
-            {/* Solo Practitioner Static Content */}
-            <div className="border p-5 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-3">Solo Practitioner</h3>
-              <p className="mb-4">Streamlined and fast—perfect for individual providers who need automated, real-time documentation without the overhead of complex systems.</p>
-              <div className="mt-4">
-                <h4 className="font-semibold mb-2">Key Benefits:</h4>
-                <ul className="list-disc pl-5">
-                  <li>Specialized workflow optimization for individual providers</li>
-                  <li>Documentation tailored to solo practice needs</li>
-                  <li>Efficient patient management and scheduling</li>
-                  <li>Seamless integration with existing solo practice tools</li>
-                  <li>Practice-specific AI assistance and automation</li>
-                  <li>Cost-effective implementation and pricing</li>
-                </ul>
-              </div>
-              <div className="mt-4">
-                <a href="#pricing" className="text-blue-600 hover:underline">
-                  See pricing for Solo Practitioner solutions
-                </a>
-              </div>
+          {/* Navigation arrows */}
+          <div className="flex justify-center items-center gap-4 mt-4">
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full border-[#387E89]"
+              onClick={prevPractice}
+            >
+              <ChevronLeft className="h-4 w-4 text-[#387E89]" />
+            </Button>
+            <div className="text-sm text-[#387E89]">
+              {currentIndex + 1} / {practiceTypes.length}
             </div>
-            
-            {/* Small Clinic Static Content - Enhanced */}
-            <div className="border p-5 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-3">Small Clinic</h3>
-              <p className="mb-4">Collaborative tools that help small teams work in sync. Real-time notes, shared tasks, and seamless coordination.</p>
-              <div className="mt-4">
-                <h4 className="font-semibold mb-2">Key Benefits:</h4>
-                <ul className="list-disc pl-5">
-                  <li>Team collaboration features and shared access</li>
-                  <li>Shared patient documentation and care coordination</li>
-                  <li>Task assignment and tracking for clinical teams</li>
-                  <li>Multi-user access controls and permissions</li>
-                  <li>Small team workflow optimization and efficiency</li>
-                  <li>Resource allocation tools and scheduling</li>
-                  <li>Volume discounts for multiple providers</li>
-                </ul>
-              </div>
-              <div className="mt-4">
-                <a href="#pricing" className="text-blue-600 hover:underline">
-                  See pricing for Small Clinic solutions
-                </a>
-              </div>
-            </div>
-            
-            {/* Multispecialty Group Static Content - Enhanced */}
-            <div className="border p-5 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-3">Multispecialty Group</h3>
-              <p className="mb-4">Handles complex medical language across departments—perfect for diverse clinical teams with varied documentation needs.</p>
-              <div className="mt-4">
-                <h4 className="font-semibold mb-2">Key Benefits:</h4>
-                <ul className="list-disc pl-5">
-                  <li>Specialty-specific documentation models and templates</li>
-                  <li>Cross-department patient management and coordination</li>
-                  <li>Multi-specialty terminology support and recognition</li>
-                  <li>Customizable documentation templates for each specialty</li>
-                  <li>Unified patient records across multiple specialties</li>
-                  <li>Interdepartmental referral automation and workflow</li>
-                  <li>Advanced analytics for specialty-specific metrics</li>
-                </ul>
-              </div>
-              <div className="mt-4">
-                <a href="#pricing" className="text-blue-600 hover:underline">
-                  See pricing for Multispecialty Group solutions
-                </a>
-              </div>
-            </div>
-            
-            {/* Large Healthcare System Static Content - Enhanced */}
-            <div className="border p-5 rounded-lg shadow-sm">
-              <h3 className="text-xl font-bold mb-3">Large Healthcare System</h3>
-              <p className="mb-4">Built to scale—S10.AI supports high patient volumes, multiple users, and enterprise-level workflows.</p>
-              <div className="mt-4">
-                <h4 className="font-semibold mb-2">Key Benefits:</h4>
-                <ul className="list-disc pl-5">
-                  <li>Enterprise-scale deployment and management</li>
-                  <li>High-volume patient processing and documentation</li>
-                  <li>Multi-facility coordination and centralized control</li>
-                  <li>Advanced security features and compliance management</li>
-                  <li>System-wide analytics and comprehensive reporting</li>
-                  <li>Custom implementation services and support</li>
-                  <li>Administrative hierarchy management and access control</li>
-                  <li>24/7 enterprise support and dedicated account management</li>
-                </ul>
-              </div>
-              <div className="mt-4">
-                <a href="#pricing" className="text-blue-600 hover:underline">
-                  See pricing for Large Healthcare System solutions
-                </a>
-              </div>
-            </div>
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-full border-[#387E89]"
+              onClick={nextPractice}
+            >
+              <ChevronRight className="h-4 w-4 text-[#387E89]" />
+            </Button>
           </div>
         </div>
-        
-        {/* Enhanced structured data for SEO - Added more details and specific characteristics for each practice type */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ItemList",
-              "name": "S10.AI Healthcare Solutions by Practice Type",
-              "description": "Comprehensive AI solutions tailored for different healthcare practice sizes and types",
-              "itemListElement": practiceTypes.map((type, idx) => ({
-                "@type": "ListItem",
-                "position": idx + 1,
-                "item": {
-                  "@type": "Product",
-                  "name": `S10.AI for ${type.title}`,
-                  "description": type.description,
-                  "category": "Healthcare AI Software",
-                  "audience": {
-                    "@type": "Audience",
-                    "audienceType": type.title,
-                    "name": `${type.title} Healthcare Providers`
-                  },
-                  "offers": {
-                    "@type": "AggregateOffer",
-                    "highPrice": type.id === "large" ? "Custom" : "899",
-                    "lowPrice": type.id === "solo" ? "199" : "399",
-                    "priceCurrency": "USD",
-                    "offerCount": 3,
-                    "availability": "https://schema.org/InStock"
-                  },
-                  "brand": {
-                    "@type": "Brand",
-                    "name": "S10.AI"
-                  },
-                  "manufacturer": {
-                    "@type": "Organization",
-                    "name": "S10.AI"
-                  }
-                }
-              }))
-            })
-          }}
-        />
-        
-        {/* Enhanced FAQ Schema for practice types with more detailed Q&As */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-              "mainEntity": [
-                {
-                  "@type": "Question",
-                  "name": "How does S10.AI adapt to different healthcare practice sizes?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "S10.AI offers tailored solutions for different practice types, from solo practitioners to large healthcare systems. Each solution is designed to meet the specific workflow needs, documentation requirements, and patient volume of the practice type, with scalable pricing and features."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "What AI features does S10.AI offer for solo practitioners?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "For solo practitioners, S10.AI provides streamlined and fast AI documentation solutions including automated real-time documentation, cost-effective implementation, simplified patient management, and quick setup within 24-48 hours. The CRUSH Basic plan is specifically designed for individual providers."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How does S10.AI support small clinic collaboration?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "S10.AI offers small clinics collaborative tools including shared access to real-time notes, team-based task management, coordinated scheduling, multi-provider documentation sharing, and simplified administrative workflows specifically optimized for small healthcare teams of 2-10 providers."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "What specialty-specific solutions does S10.AI provide for multispecialty groups?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "For multispecialty groups, S10.AI handles complex medical language across departments with specialty-specific AI models for cardiology, neurology, orthopedics, psychiatry, and more. The system includes cross-specialty documentation standards, unified patient records, specialized terminology recognition, and inter-department referral automation."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "How does S10.AI scale for large healthcare systems?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "S10.AI's solutions for large healthcare systems include enterprise-grade scaling for unlimited users, support for hundreds of concurrent providers, high-volume patient documentation, system-wide deployment, advanced security protocols, custom integration capabilities, multi-facility coordination, and 24/7 enterprise support services."
-                  }
-                },
-                {
-                  "@type": "Question",
-                  "name": "What are the differences between CRUSH, BRAVO, and Bundle solutions?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "CRUSH is S10.AI's AI medical documentation platform that reduces charting time by 75%. BRAVO is the AI front office solution that automates patient communication, scheduling, and administrative tasks. Bundle solutions combine both CRUSH and BRAVO with discounted pricing for comprehensive practice automation."
-                  }
-                }
-              ]
-            })
-          }}
-        />
-        
-        {/* Enhanced Medical Software Products structured data */}
-        <script 
-          type="application/ld+json" 
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "MedicalOrganization",
-              "name": "S10.AI",
-              "url": "https://s10.ai",
-              "logo": "https://s10.ai/logo.png",
-              "description": "Provider of AI-powered medical documentation and healthcare workflow automation solutions for all practice sizes",
-              "medicalSpecialty": [
-                "Primary Care",
-                "Family Medicine", 
-                "Internal Medicine",
-                "Cardiology",
-                "Neurology",
-                "Psychiatry",
-                "Orthopedics",
-                "Dermatology",
-                "Emergency Medicine",
-                "Pediatrics"
-              ],
-              "hasOfferCatalog": {
-                "@type": "OfferCatalog",
-                "name": "S10.AI Healthcare Solutions by Practice Type",
-                "itemListElement": [
-                  {
-                    "@type": "Offer",
-                    "itemOffered": {
-                      "@type": "SoftwareApplication",
-                      "name": "CRUSH AI Medical Documentation",
-                      "applicationCategory": "Healthcare AI",
-                      "operatingSystem": "Cloud-based"
-                    },
-                    "description": "AI-powered medical documentation that reduces clinician documentation time by up to 75% for all practice sizes",
-                    "audience": {
-                      "@type": "Audience",
-                      "audienceType": "Healthcare Providers"
-                    }
-                  },
-                  {
-                    "@type": "Offer", 
-                    "itemOffered": {
-                      "@type": "SoftwareApplication",
-                      "name": "BRAVO AI Front Office Solution",
-                      "applicationCategory": "Healthcare AI",
-                      "operatingSystem": "Cloud-based"
-                    },
-                    "description": "AI automation for patient communication, scheduling, and intake processes for practices of all sizes",
-                    "audience": {
-                      "@type": "Audience",
-                      "audienceType": "Healthcare Administrative Staff"
-                    }
-                  }
-                ]
-              },
-              "areaServed": [
-                "Solo Practitioners",
-                "Small Clinics",
-                "Multispecialty Groups", 
-                "Large Healthcare Systems",
-                "Hospitals",
-                "Health Networks"
-              ]
-            })
-          }}
-        />
       </div>
-    </section>
+    </div>
+  </section>
   );
 };
-
-export default PracticeTypeSelector;
