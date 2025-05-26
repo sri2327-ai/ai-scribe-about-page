@@ -204,26 +204,124 @@ ComplianceCard.displayName = 'ComplianceCard';
 const TenthSection = () => {
   return (
     <section id="security-compliance" aria-labelledby="security-heading" className="w-full py-14 md:py-16 relative overflow-visible bg-gray-50">
-      {/* SEO-friendly hidden content for crawlers - visible only to screen readers and search engines */}
+      {/* Enhanced SEO-friendly content for search engines - Comprehensive security and compliance coverage */}
       <div className="sr-only">
-        <h2>Security, Compliance & Data Protection at S10.AI</h2>
+        <h2 id="security-seo-heading">Security, Compliance & Data Protection at S10.AI</h2>
         <p>
           S10.AI implements comprehensive security measures including HIPAA, PIPEDA, GDPR compliance, 
-          ISO 27001 certification, automated data erasure, and cross-border North American regulatory adherence.
+          ISO 27001 certification, automated data erasure, and cross-border North American regulatory adherence. 
+          Our healthcare AI solutions maintain the highest standards of patient data protection and privacy.
         </p>
         
-        {complianceCards.map((card, idx) => (
-          <div key={`seo-card-${idx}`}>
-            <h3>{card.title}</h3>
-            <p>{card.description}</p>
-            <ul>
-              {card.details.map((detail, detailIdx) => (
-                <li key={`seo-detail-${idx}-${detailIdx}`}>{detail}</li>
-              ))}
-            </ul>
-            <a href={card.link}>Learn more about {card.title}</a>
-          </div>
-        ))}
+        {/* HIPAA Compliance Section */}
+        <section>
+          <h3>HIPAA Compliant Healthcare AI</h3>
+          <p>S10.AI adheres to global healthcare privacy laws, ensuring patient data protection according to US HIPAA standards. Our AI medical scribe and staffing solutions maintain strict confidentiality protocols.</p>
+          <h4>HIPAA Compliance Features:</h4>
+          <ul>
+            <li>Strict patient data confidentiality measures</li>
+            <li>Comprehensive privacy safeguards for all AI processing</li>
+            <li>Regulated access controls with role-based permissions</li>
+            <li>Encrypted data transmission and storage</li>
+            <li>Regular compliance audits and monitoring</li>
+            <li>Business Associate Agreement (BAA) compliance</li>
+          </ul>
+          <a href="/security/hipaa">Learn more about S10.AI HIPAA compliance</a>
+        </section>
+
+        {/* PIPEDA Compliance Section */}
+        <section>
+          <h3>PIPEDA Compliant for Canadian Healthcare</h3>
+          <p>Meeting Canadian personal information protection requirements with robust data management. S10.AI ensures compliance with Canada's Personal Information Protection and Electronic Documents Act.</p>
+          <h4>PIPEDA Compliance Features:</h4>
+          <ul>
+            <li>Canadian privacy law adherence for healthcare data</li>
+            <li>Transparent data handling and processing policies</li>
+            <li>Consent-based information management systems</li>
+            <li>Cross-border data protection for US-Canada operations</li>
+            <li>Regular privacy impact assessments</li>
+            <li>Patient consent management and tracking</li>
+          </ul>
+          <a href="/security/pipeda">Learn more about S10.AI PIPEDA compliance</a>
+        </section>
+
+        {/* GDPR Compliance Section */}
+        <section>
+          <h3>GDPR Compliant European Data Protection</h3>
+          <p>Complying with European data protection regulations for comprehensive global privacy standards. S10.AI meets GDPR requirements for healthcare data processing and patient privacy rights.</p>
+          <h4>GDPR Compliance Features:</h4>
+          <ul>
+            <li>European data protection standards implementation</li>
+            <li>Individual privacy rights protection and enforcement</li>
+            <li>Cross-border data transfer protocols and safeguards</li>
+            <li>Right to be forgotten and data portability</li>
+            <li>Data protection by design and by default</li>
+            <li>Regular data protection impact assessments</li>
+          </ul>
+          <a href="/security/gdpr">Learn more about S10.AI GDPR compliance</a>
+        </section>
+
+        {/* ISO 27001 Certification Section */}
+        <section>
+          <h3>ISO 27001 Certified Information Security</h3>
+          <p>International standard for information security management with top-tier AES-256 encryption. S10.AI maintains ISO 27001 certification for comprehensive information security management.</p>
+          <h4>ISO 27001 Security Features:</h4>
+          <ul>
+            <li>AES-256 encryption for all data at rest and in transit</li>
+            <li>Rigorous security audits and continuous monitoring</li>
+            <li>Continuous risk management and threat assessment</li>
+            <li>Information security management system (ISMS)</li>
+            <li>Regular security awareness training</li>
+            <li>Incident response and business continuity planning</li>
+          </ul>
+          <a href="/security/iso27001">Learn more about S10.AI ISO 27001 certification</a>
+        </section>
+
+        {/* Automated Data Erasure Section */}
+        <section>
+          <h3>Automated Data Erasure and Lifecycle Management</h3>
+          <p>Secure and automatic deletion of documentation post-use, ensuring minimal data retention. S10.AI implements automated data lifecycle management to reduce security risks.</p>
+          <h4>Data Erasure Features:</h4>
+          <ul>
+            <li>Secure post-documentation deletion protocols</li>
+            <li>Automated data lifecycle management systems</li>
+            <li>Minimal data footprint and retention policies</li>
+            <li>Secure data destruction and disposal</li>
+            <li>Audit trails for data deletion activities</li>
+            <li>Configurable retention periods by data type</li>
+          </ul>
+          <a href="/security/data-erasure">Learn more about S10.AI data erasure policies</a>
+        </section>
+
+        {/* US & Canada Compliance Section */}
+        <section>
+          <h3>U.S. & Canada Healthcare Compliance</h3>
+          <p>Meeting the highest healthcare standards across North American regulatory frameworks. S10.AI ensures compliance with both US and Canadian healthcare regulations and standards.</p>
+          <h4>North American Compliance Features:</h4>
+          <ul>
+            <li>Multi-jurisdictional compliance across US and Canada</li>
+            <li>Adaptive regulatory adherence to changing requirements</li>
+            <li>Cross-border data protection and transfer protocols</li>
+            <li>State and provincial healthcare regulation compliance</li>
+            <li>Regular compliance monitoring and reporting</li>
+            <li>Healthcare industry best practices implementation</li>
+          </ul>
+          <a href="/security/us-canada-compliance">Learn more about S10.AI North American compliance</a>
+        </section>
+
+        {/* Security Best Practices */}
+        <section>
+          <h3>Healthcare AI Security Best Practices</h3>
+          <p>S10.AI implements industry-leading security practices for healthcare AI applications, ensuring patient data protection and system integrity across all AI-powered solutions.</p>
+          <ul>
+            <li>Zero-trust security architecture</li>
+            <li>End-to-end encryption for all communications</li>
+            <li>Multi-factor authentication and access controls</li>
+            <li>Regular penetration testing and vulnerability assessments</li>
+            <li>24/7 security monitoring and incident response</li>
+            <li>Secure software development lifecycle (SSDLC)</li>
+          </ul>
+        </section>
       </div>
       
       <Box sx={{
@@ -330,33 +428,32 @@ const TenthSection = () => {
         </div>
       </div>
       
-      {/* Structured data for SEO */}
+      {/* Enhanced structured data for SEO - Security and Compliance */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ItemList",
+          "name": "S10.AI Security and Compliance Standards",
+          "description": "Comprehensive security and compliance standards implemented by S10.AI for healthcare data protection",
           "itemListElement": complianceCards.map((card, idx) => ({
             "@type": "ListItem",
             "position": idx + 1,
             "item": {
-              "@type": "Product",
+              "@type": "SecurityStandard",
               "name": card.title,
               "description": card.description,
-              "offers": {
-                "@type": "Offer",
-                "url": `https://s10.ai${card.link}`,
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": card.title,
-                  "description": card.description
-                }
+              "compliance": card.details,
+              "url": `https://s10.ai${card.link}`,
+              "provider": {
+                "@type": "Organization",
+                "name": "S10.AI"
               }
             }
           }))
         })
       }} />
       
-      {/* FAQ schema for security compliance */}
+      {/* Enhanced FAQ schema for security compliance */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
@@ -364,10 +461,10 @@ const TenthSection = () => {
           "mainEntity": [
             {
               "@type": "Question",
-              "name": "How does S10.AI ensure HIPAA compliance?",
+              "name": "How does S10.AI ensure HIPAA compliance for AI medical scribes?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "S10.AI maintains HIPAA compliance through strict patient data confidentiality, comprehensive privacy safeguards, and regulated access controls. Our platform is specifically designed to meet healthcare privacy requirements in the US."
+                "text": "S10.AI maintains HIPAA compliance through strict patient data confidentiality, comprehensive privacy safeguards, regulated access controls, encrypted data transmission, and regular compliance audits. Our AI medical scribe platform is specifically designed to meet healthcare privacy requirements in the US."
               }
             },
             {
@@ -375,31 +472,84 @@ const TenthSection = () => {
               "name": "Is S10.AI compliant with international data protection regulations?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes, S10.AI is compliant with GDPR (European regulations), PIPEDA (Canadian requirements), and maintains ISO 27001 certification, ensuring global data protection standards are met across jurisdictions."
+                "text": "Yes, S10.AI is compliant with GDPR (European regulations), PIPEDA (Canadian requirements), and maintains ISO 27001 certification, ensuring global data protection standards are met across jurisdictions for all AI healthcare solutions."
               }
             },
             {
               "@type": "Question",
-              "name": "How does S10.AI handle data erasure and retention?",
+              "name": "How does S10.AI handle automated data erasure and retention?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "S10.AI implements automated data erasure protocols with secure post-documentation deletion, automated data lifecycle management, and maintains a minimal data footprint to enhance security and privacy."
+                "text": "S10.AI implements automated data erasure protocols with secure post-documentation deletion, automated data lifecycle management, and maintains a minimal data footprint to enhance security and privacy for all AI-processed healthcare data."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What encryption standards does S10.AI use for healthcare data?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "S10.AI uses AES-256 encryption for all data at rest and in transit, implements rigorous security audits, continuous risk management, and maintains ISO 27001 certification for comprehensive information security management."
               }
             }
           ]
         })
       }} />
       
-      {/* Organization schema with security emphasis */}
+      {/* Enhanced Organization schema with security emphasis */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "MedicalOrganization",
           "name": "S10.AI",
           "description": "Provider of AI-powered healthcare solutions with comprehensive security compliance including HIPAA, PIPEDA, GDPR, and ISO 27001 certification.",
-          "medicalSpecialty": ["Healthcare Technology", "Medical Documentation", "Data Security"],
+          "url": "https://s10.ai",
+          "logo": "https://s10.ai/logo.png",
+          "medicalSpecialty": ["Healthcare Technology", "Medical Documentation", "Data Security", "AI Healthcare Solutions"],
           "ethicsPolicy": "https://s10.ai/security/privacy-policy",
-          "award": "ISO 27001 Certified"
+          "award": ["ISO 27001 Certified", "HIPAA Compliant", "GDPR Compliant", "PIPEDA Compliant"],
+          "securityMeasures": [
+            "HIPAA Compliance",
+            "PIPEDA Compliance", 
+            "GDPR Compliance",
+            "ISO 27001 Certification",
+            "AES-256 Encryption",
+            "Automated Data Erasure"
+          ],
+          "compliance": [
+            "HIPAA",
+            "PIPEDA",
+            "GDPR", 
+            "ISO 27001",
+            "US Healthcare Standards",
+            "Canadian Healthcare Standards"
+          ]
+        })
+      }} />
+
+      {/* Software Application schema for AI solutions with security focus */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "S10.AI Healthcare Platform",
+          "description": "Secure, compliant AI-powered healthcare solutions including medical scribes and staffing agents",
+          "applicationCategory": "Healthcare AI Software",
+          "operatingSystem": "Cloud-based",
+          "securityMeasures": "HIPAA, PIPEDA, GDPR compliant with ISO 27001 certification",
+          "offers": {
+            "@type": "Offer",
+            "name": "Secure AI Healthcare Solutions",
+            "description": "Comprehensive AI solutions for healthcare with enterprise-grade security and compliance"
+          },
+          "featureList": [
+            "HIPAA Compliant AI Medical Scribe",
+            "PIPEDA Compliant Data Processing",
+            "GDPR Compliant European Operations",
+            "ISO 27001 Certified Security",
+            "AES-256 Encryption",
+            "Automated Data Erasure",
+            "Cross-border Compliance"
+          ]
         })
       }} />
     </section>

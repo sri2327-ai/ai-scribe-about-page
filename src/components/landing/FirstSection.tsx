@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -84,7 +85,113 @@ export const FirstSection = () => {
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
   };
-  return <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-teal-50/40" ref={sectionRef}>
+  return <section id="ai-solutions-overview" aria-labelledby="hero-heading" className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-teal-50/40" ref={sectionRef}>
+      {/* Enhanced SEO-friendly content for search engines - Comprehensive coverage */}
+      <div className="sr-only">
+        <h1 id="hero-heading">S10.AI - AI Scribing & AI Staffing Agent Built for Clinicians</h1>
+        <p>
+          S10.AI provides innovative AI-powered solutions for healthcare professionals, including AI medical scribes, 
+          AI staffing agents, and custom AI agents designed specifically for clinical workflows. Our solutions help 
+          clinicians save time, reduce administrative burden, and improve patient care.
+        </p>
+        
+        {/* Core Benefits Section */}
+        <section>
+          <h2>Core Benefits for Healthcare Providers</h2>
+          <ul>
+            <li>
+              <h3>75% Faster Charting</h3>
+              <p>Automated medical documentation reduces charting time by up to 75%, allowing clinicians to spend more time with patients and less time on paperwork.</p>
+            </li>
+            <li>
+              <h3>AI Staffing Assistance</h3>
+              <p>Virtual AI staff members handle administrative tasks, appointment scheduling, patient communication, and workflow optimization to reduce staffing shortages.</p>
+            </li>
+            <li>
+              <h3>HIPAA Compliant Security</h3>
+              <p>All AI solutions are fully HIPAA compliant with enterprise-grade security, ensuring patient data protection and regulatory compliance.</p>
+            </li>
+          </ul>
+        </section>
+        
+        {/* AI Solutions Detailed Description */}
+        <section>
+          <h2>S10.AI Solutions Portfolio</h2>
+          
+          <article>
+            <h3>AI Medical Scribe</h3>
+            <p>Automated documentation that captures the full patient story while you focus on care. Our AI medical scribe listens to patient-clinician conversations and generates accurate, comprehensive clinical notes in real-time.</p>
+            <h4>Key Features:</h4>
+            <ul>
+              <li>Real-time conversation transcription and analysis</li>
+              <li>Automated clinical note generation</li>
+              <li>Integration with major EHR systems</li>
+              <li>Specialty-specific documentation templates</li>
+              <li>Voice recognition and natural language processing</li>
+            </ul>
+            <p><strong>Time Savings:</strong> Save 2+ hours per day on documentation</p>
+            <a href="/solutions/ai-medical-scribe">Learn more about AI Medical Scribe</a>
+          </article>
+          
+          <article>
+            <h3>AI Staffing Agent</h3>
+            <p>AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency. Our AI staffing agent works 24/7 to manage appointments, patient communications, and administrative workflows.</p>
+            <h4>Key Features:</h4>
+            <ul>
+              <li>Automated appointment scheduling and management</li>
+              <li>Patient communication and follow-up</li>
+              <li>Insurance verification and prior authorization</li>
+              <li>Administrative task automation</li>
+              <li>Multi-language support for diverse patient populations</li>
+            </ul>
+            <p><strong>Efficiency Gain:</strong> Reduce admin workload by 40%</p>
+            <a href="/solutions/ai-staffing-agent">Learn more about AI Staffing Agent</a>
+          </article>
+          
+          <article>
+            <h3>Custom AI Agents</h3>
+            <p>Purpose-built AI assistants that adapt to your specialty and workflow preferences. These custom agents are trained on specialty-specific protocols and can handle unique workflows for different medical specialties.</p>
+            <h4>Key Features:</h4>
+            <ul>
+              <li>Specialty-specific AI training and optimization</li>
+              <li>Custom workflow integration</li>
+              <li>Adaptive learning from practice patterns</li>
+              <li>Personalized clinical decision support</li>
+              <li>Custom terminology and protocol recognition</li>
+            </ul>
+            <p><strong>Specialty Coverage:</strong> 30+ specialty workflows supported</p>
+            <a href="/solutions/custom-ai-agents">Learn more about Custom AI Agents</a>
+          </article>
+          
+          <article>
+            <h3>EHR Integrations</h3>
+            <p>Works with any EHR system and connects to 7000+ apps. Our integration platform ensures seamless connectivity with existing healthcare technology infrastructure.</p>
+            <h4>Key Features:</h4>
+            <ul>
+              <li>Universal EHR compatibility</li>
+              <li>API-based integration with 7000+ healthcare apps</li>
+              <li>Real-time data synchronization</li>
+              <li>Custom integration development</li>
+              <li>Cloud-based and on-premise deployment options</li>
+            </ul>
+            <p><strong>Integration Quality:</strong> Seamless connectivity with existing systems</p>
+            <a href="/solutions/ehr-integrations">Learn more about EHR Integrations</a>
+          </article>
+        </section>
+        
+        {/* Trusted by Healthcare Organizations */}
+        <section>
+          <h2>Trusted by Leading Healthcare Organizations</h2>
+          <p>S10.AI is recommended by leading healthcare organizations and trusted by 1,000+ healthcare providers worldwide. Our solutions have been implemented across various practice sizes, from solo practitioners to large healthcare systems.</p>
+          <ul>
+            <li>1,000+ healthcare providers using S10.AI solutions</li>
+            <li>Proven results across multiple specialties</li>
+            <li>Enterprise-grade security and compliance</li>
+            <li>24/7 customer support and implementation assistance</li>
+          </ul>
+        </section>
+      </div>
+
       {/* Simplified background */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/50 to-blue-100/20"></div>
       
@@ -346,6 +453,97 @@ export const FirstSection = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Structured data for SEO - AI Solutions */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "itemListElement": featureTabs.map((tab, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "SoftwareApplication",
+              "name": tab.title,
+              "description": tab.description,
+              "applicationCategory": "Healthcare AI Software",
+              "operatingSystem": "Cloud-based",
+              "offers": {
+                "@type": "Offer",
+                "description": tab.benefit,
+                "url": `https://s10.ai/solutions/${tab.id}`
+              },
+              "featureList": [
+                tab.benefit,
+                "HIPAA Compliant",
+                "EHR Integration",
+                "Real-time Processing"
+              ]
+            }
+          }))
+        })
+      }} />
+
+      {/* Organization structured data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "S10.AI",
+          "url": "https://s10.ai",
+          "logo": "https://s10.ai/logo.png",
+          "description": "AI-powered healthcare solutions including AI medical scribes, AI staffing agents, and custom AI agents for clinical workflows.",
+          "foundingDate": "2023",
+          "numberOfEmployees": "50-100",
+          "industry": "Healthcare Technology",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "S10.AI Healthcare AI Solutions",
+            "itemListElement": featureTabs.map(tab => ({
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "SoftwareApplication",
+                "name": tab.title,
+                "description": tab.description
+              }
+            }))
+          }
+        })
+      }} />
+
+      {/* FAQ structured data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What is S10.AI's AI Medical Scribe?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "S10.AI's AI Medical Scribe provides automated documentation that captures the full patient story while you focus on care. It can save 2+ hours per day by automatically generating accurate clinical notes from patient conversations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How does the AI Staffing Agent work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The AI Staffing Agent is an AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency. It can reduce admin workload by 40% by automating scheduling, patient communication, and other routine tasks."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Are S10.AI solutions HIPAA compliant?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, all S10.AI solutions are fully HIPAA compliant with enterprise-grade security measures to ensure patient data protection and regulatory compliance."
+              }
+            }
+          ]
+        })
+      }} />
     </section>;
 };
 
