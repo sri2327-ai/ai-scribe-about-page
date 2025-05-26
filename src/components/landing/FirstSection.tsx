@@ -228,12 +228,12 @@ export const FirstSection = () => {
           duration: 0.8,
           delay: 0.4
         }} className="relative order-2 mt-8 lg:mt-0">
-            {/* All feature content visible for SEO */}
+            {/* Feature content for crawlers - visible */}
             <div className="space-y-4">
               <h2 className="text-xl font-bold text-[#143151] mb-4">S10.AI Features for Healthcare Professionals</h2>
               
               {featureTabs.map((tab, index) => (
-                <div key={tab.id} className="border border-gray-200 rounded-lg p-4 bg-white/95">
+                <article key={tab.id} className="border border-gray-200 rounded-lg p-4 bg-white/95">
                   <div className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-blue-50">
                       {tab.icon}
@@ -247,7 +247,7 @@ export const FirstSection = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
 

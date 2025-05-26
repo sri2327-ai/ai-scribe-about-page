@@ -264,13 +264,13 @@ const TenthSection = () => {
             </motion.div>
           </Box>
 
-          {/* Complete Security & Compliance Overview - Visible to crawlers */}
+          {/* Security & Compliance Overview - visible to crawlers */}
           <div className="w-full max-w-6xl mx-auto mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Complete Security & Compliance Overview</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {complianceCards.map((card, index) => (
-                <div key={`compliance-${index}`} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+                <article key={`compliance-${index}`} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="p-2 rounded-lg bg-[#143151]/5 text-[#143151]">
                       <card.icon className="h-6 w-6" />
@@ -298,7 +298,7 @@ const TenthSection = () => {
                       <ArrowRight className="h-4 w-4" />
                     </a>
                   </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
