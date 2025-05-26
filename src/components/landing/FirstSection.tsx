@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -86,54 +85,6 @@ export const FirstSection = () => {
     setActiveTabIndex(index);
   };
   return <section className="min-h-screen relative overflow-hidden bg-gradient-to-br from-white via-blue-50/30 to-teal-50/40" ref={sectionRef}>
-      {/* SEO-friendly structured content */}
-      <div className="sr-only">
-        <h1>S10.AI - AI Scribing & AI Staffing Agent Built for Clinicians</h1>
-        <p>Advanced healthcare AI platform trusted by 1,000+ healthcare providers for automated documentation, clinical workflow optimization, and AI-powered staffing solutions.</p>
-        
-        <section>
-          <h2>Key Benefits for Healthcare Providers</h2>
-          <ul>
-            <li><strong>75% faster charting:</strong> Dramatically reduce documentation time with AI-powered medical scribing</li>
-            <li><strong>AI staffing assistance:</strong> Virtual AI agents handle administrative tasks and improve workflow efficiency</li>
-            <li><strong>HIPAA compliant:</strong> Full compliance with healthcare privacy regulations and data security standards</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>S10.AI Healthcare Solutions</h2>
-          
-          <article>
-            <h3>AI Medical Scribe</h3>
-            <p>Automated documentation that captures the full patient story while you focus on care. Our AI medical scribe technology reduces charting time by up to 75%, allowing healthcare providers to spend more time with patients and less time on administrative tasks.</p>
-            <p><strong>Key Benefit:</strong> Save 2+ hours per day on documentation</p>
-          </article>
-
-          <article>
-            <h3>AI Staffing Agent</h3>
-            <p>AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency. This intelligent agent can manage scheduling, patient communications, and routine administrative workflows, reducing the burden on your human staff.</p>
-            <p><strong>Key Benefit:</strong> Reduce admin workload by 40%</p>
-          </article>
-
-          <article>
-            <h3>Custom AI Agents</h3>
-            <p>Purpose-built AI assistants that adapt to your specialty and workflow preferences. These specialized agents understand the unique requirements of different medical specialties and can be customized to match your specific practice needs.</p>
-            <p><strong>Key Benefit:</strong> 30+ specialty workflows available</p>
-          </article>
-
-          <article>
-            <h3>EHR Integrations</h3>
-            <p>Works with any EHR system and connects to 7000+ apps. Our platform seamlessly integrates with existing healthcare technology infrastructure, ensuring smooth workflow continuity and data synchronization across all your systems.</p>
-            <p><strong>Key Benefit:</strong> Seamless connectivity with existing systems</p>
-          </article>
-        </section>
-
-        <section>
-          <h2>Trusted Healthcare Partners</h2>
-          <p>S10.AI is recommended by leading healthcare organizations across the United States and internationally. Our platform has been successfully implemented in various healthcare settings, from small private practices to large hospital systems.</p>
-        </section>
-      </div>
-
       {/* Simplified background */}
       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/50 to-blue-100/20"></div>
       
