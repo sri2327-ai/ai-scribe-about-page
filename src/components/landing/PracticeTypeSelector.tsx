@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -679,7 +680,6 @@ export const PracticeTypeSelector: React.FC<PracticeTypeSelectorProps> = ({ onSe
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
   );
 };
