@@ -75,20 +75,26 @@ export const PracticeTypeSelector = ({
     >
       <div className="container mx-auto px-4 max-w-6xl">
         
-        {/* Static SEO-friendly content - Always visible */}
-        <div className="w-full max-w-5xl mx-auto mb-12">
-          <h2 id="practice-solutions-heading" className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151] text-center">
+        {/* Main heading and description */}
+        <div className="text-center mb-10 md:mb-12">
+          <h2 
+            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151]"
+            id="practice-solutions-heading"
+          >
             Tailored S10.AI Solutions for Every Practice Type
           </h2>
-          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-normal text-center mb-8">
+          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-normal">
             S10.AI offers specialized AI documentation solutions for different healthcare practice sizes, 
             from solo practitioners to large healthcare systems. Each solution is tailored to meet specific 
             workflow needs and optimize clinical documentation processes.
           </p>
-          
+        </div>
+        
+        {/* All practice types content visible for SEO */}
+        <div className="w-full max-w-5xl mx-auto mb-12">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {practiceTypes.map((type, index) => (
-              <div key={`static-practice-${index}`} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+              <div key={`practice-${index}`} className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white">
                     <type.icon className="w-5 h-5 md:w-6 md:h-6" />
@@ -167,15 +173,13 @@ export const PracticeTypeSelector = ({
             </div>
           </div>
         </div>
-        
-        <div className="text-center mb-10 md:mb-12">
-          <h2 
-            className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-[#143151]"
-            id="practice-solutions-visible-heading"
-          >
+
+        {/* Interactive selector for enhanced UX */}
+        <div className="text-center mb-6">
+          <h3 className="text-xl font-bold text-[#143151] mb-2">
             Interactive Practice Type Selector
-          </h2>
-          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-normal">
+          </h3>
+          <p className="text-gray-600">
             Choose your practice type for personalized recommendations
           </p>
         </div>

@@ -189,16 +189,16 @@ export const ThirdSection = () => {
           </Typography>
         </Box>
 
-        {/* SEO-friendly static content - Always visible */}
+        {/* All content visible for SEO */}
         <div className="w-full max-w-4xl mx-auto mb-8">
           <h2 className="text-2xl font-bold text-gray-900 mb-6">Complete S10.AI Healthcare Solutions Overview</h2>
           
           {Object.entries(tabAccData).map(([categoryName, items], categoryIndex) => (
-            <div key={`static-category-${categoryIndex}`} className="mb-8 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <div key={`category-${categoryIndex}`} className="mb-8 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
               <h3 className="text-xl font-bold text-[#387E89] mb-4">{categoryName}</h3>
               <div className="grid gap-4 md:grid-cols-2">
                 {items.map((item, itemIndex) => (
-                  <div key={`static-item-${categoryIndex}-${itemIndex}`} className="border border-gray-100 rounded-lg p-4">
+                  <div key={`item-${categoryIndex}-${itemIndex}`} className="border border-gray-100 rounded-lg p-4">
                     <div className="flex items-start gap-3 mb-3">
                       <div className="p-2 rounded-lg bg-[#387E89]/10 text-[#387E89]">
                         {item.icon}
