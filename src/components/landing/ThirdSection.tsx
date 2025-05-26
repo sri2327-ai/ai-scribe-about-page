@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
@@ -151,6 +152,132 @@ export const ThirdSection = () => {
   }, [tabValue, tabsToShow, visibleTabsStart]);
 
   return <section id="healthcare-ai-benefits" aria-labelledby="benefits-heading" className="py-8 sm:py-10 md:py-12 px-3 sm:px-4 md:px-6 lg:px-8 w-full max-w-[100vw] bg-gradient-to-b from-white to-gray-50">
+      {/* SEO-friendly structured content */}
+      <div className="sr-only">
+        <h2>Why Healthcare Leaders Choose S10.AI - Complete AI Solutions Overview</h2>
+        <p>Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.</p>
+        
+        <section>
+          <h3>The S10.AI Advantage</h3>
+          <article>
+            <h4>Maximize Patient Interaction</h4>
+            <p>Reduce documentation time by 75% and increase patient face-time by 40% on average. Our AI medical scribe technology allows healthcare providers to focus on what matters most - patient care.</p>
+            <p><strong>Key Metric:</strong> 75% faster documentation</p>
+          </article>
+          
+          <article>
+            <h4>Boost Efficiency & Well-Being</h4>
+            <p>Save 10-20 hours per week per clinician with intelligent automation and AI for physician burnout reduction. Our platform reduces administrative burden while improving work-life balance.</p>
+            <p><strong>Key Metric:</strong> 20 hours saved weekly</p>
+          </article>
+          
+          <article>
+            <h4>Address Staffing Shortages</h4>
+            <p>Reduce administrative staff needs by 30% while maintaining high-quality patient service. AI agents handle routine tasks, allowing human staff to focus on high-value activities.</p>
+            <p><strong>Key Metric:</strong> 30% staff efficiency gain</p>
+          </article>
+          
+          <article>
+            <h4>Improve Financial Impact</h4>
+            <p>Increase revenue by 15% through improved documentation accuracy and reduced claim denials. Better documentation leads to more accurate coding and faster reimbursements.</p>
+            <p><strong>Key Metric:</strong> 15% revenue increase</p>
+          </article>
+        </section>
+
+        <section>
+          <h3>Streamline Documentation</h3>
+          <article>
+            <h4>Create Clinical Documentation Automatically</h4>
+            <p>Auto-generate accurate, specialty-specific notes from multilingual patient-clinician conversations, even offline. Our AI understands medical terminology and context across various specialties.</p>
+            <p><strong>Key Metric:</strong> 85% faster note creation</p>
+          </article>
+          
+          <article>
+            <h4>Superior Documentation Accuracy</h4>
+            <p>AI-driven medical transcription with Generative AI minimizes human error. Advanced natural language processing ensures clinical notes are accurate and comprehensive.</p>
+            <p><strong>Key Metric:</strong> 99% accuracy rate</p>
+          </article>
+          
+          <article>
+            <h4>Seamless Integration</h4>
+            <p>Fully compatible with any electronic health record (EHR). Our platform works with existing healthcare technology infrastructure without disrupting current workflows.</p>
+            <p><strong>Key Metric:</strong> 100+ EHR integrations</p>
+          </article>
+          
+          <article>
+            <h4>Clinical Decision Support</h4>
+            <p>Instant guidelines, medical insights & jargon clarification. AI-powered clinical decision support helps healthcare providers make informed decisions quickly.</p>
+            <p><strong>Key Metric:</strong> 60% faster decisions</p>
+          </article>
+        </section>
+
+        <section>
+          <h3>AI Powered Front Office</h3>
+          <article>
+            <h4>Smart Appointment Management</h4>
+            <p>AI handles scheduling, reschedules, cancellations, and automated reminders to reduce no-shows. Intelligent scheduling optimization improves practice efficiency and patient satisfaction.</p>
+            <p><strong>Key Metric:</strong> 50% fewer no-shows</p>
+          </article>
+          
+          <article>
+            <h4>Seamless Patient Intake</h4>
+            <p>Automates registration, history updates, and pre-visit documentation for faster onboarding. Streamlined intake processes reduce wait times and improve patient experience.</p>
+            <p><strong>Key Metric:</strong> 80% faster intake</p>
+          </article>
+          
+          <article>
+            <h4>Effortless Refill Processing</h4>
+            <p>Verifies patients, confirms prescriptions, and alerts staff for quick approvals. Automated prescription management reduces phone calls and administrative burden.</p>
+            <p><strong>Key Metric:</strong> 90% faster refills</p>
+          </article>
+          
+          <article>
+            <h4>Proactive Preventative Care</h4>
+            <p>AI-driven screenings (PHQ-9, GAD-7, etc.) and custom health plans enhance patient well-being. Automated health screenings improve preventive care delivery.</p>
+            <p><strong>Key Metric:</strong> 40% better screening</p>
+          </article>
+          
+          <article>
+            <h4>RCM Automation</h4>
+            <p>Streamlines insurance checks, prior authorizations, payment posting, and claim follow-ups for faster reimbursements. Revenue cycle management automation improves cash flow.</p>
+            <p><strong>Key Metric:</strong> 45% faster payments</p>
+          </article>
+        </section>
+
+        <section>
+          <h3>Automate Tasks</h3>
+          <article>
+            <h4>Automated Coding</h4>
+            <p>AI-driven ICD-10 & E/M, CPT & HCC code capture. Accurate medical coding automation reduces coding errors and ensures proper reimbursement.</p>
+            <p><strong>Key Metric:</strong> 95% coding accuracy</p>
+          </article>
+          
+          <article>
+            <h4>Simplified Orders & Prescriptions</h4>
+            <p>Automates medication & lab orders. Streamlined ordering processes reduce errors and improve efficiency in clinical workflows.</p>
+            <p><strong>Key Metric:</strong> 70% faster orders</p>
+          </article>
+          
+          <article>
+            <h4>Instant Summaries</h4>
+            <p>Generates referrals, after-visit notes & letters. Automated document generation saves time and ensures consistent communication.</p>
+            <p><strong>Key Metric:</strong> 85% time saved</p>
+          </article>
+          
+          <article>
+            <h4>Smart Pre-Charting</h4>
+            <p>Prepares charts & retrieves patient history. Intelligent chart preparation ensures providers have all necessary information before patient encounters.</p>
+            <p><strong>Key Metric:</strong> 75% faster prep</p>
+          </article>
+          
+          <article>
+            <h4>Seamless Lab & CRM Sync</h4>
+            <p>Auto-updates lab results & patient records. Automated data synchronization ensures all systems have the most current patient information.</p>
+            <p><strong>Key Metric:</strong> 100% sync accuracy</p>
+          </article>
+        </section>
+      </div>
+
       <Box sx={{
       display: 'flex',
       flexDirection: 'column',
@@ -186,27 +313,6 @@ export const ThirdSection = () => {
             Join 1,000+ healthcare providers who have enhanced their workflows with real-time AI medical scribes, automated documentation, specialty-specific AI workflows, AI agents, and clinical workflow automation.
           </Typography>
         </Box>
-
-        {/* Enhanced SEO-friendly content - Fully indexed version for search engines */}
-        <div className="sr-only">
-          <h2>S10.AI Healthcare AI Solutions - Complete Feature Overview</h2>
-          <div>
-            {Object.entries(tabAccData).map(([categoryName, items], index) => (
-              <div key={`seo-category-${index}`}>
-                <h3>{categoryName}</h3>
-                <ul>
-                  {items.map((item, itemIndex) => (
-                    <li key={`seo-item-${categoryName}-${itemIndex}`}>
-                      <h4>{item.title}</h4>
-                      <p>{item.content}</p>
-                      <p>Key Metric: {item.metric}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
 
         <Box component="nav" className="w-full flex justify-center mb-2 relative">
           <div className="relative w-full max-w-3xl mx-auto">
@@ -279,22 +385,6 @@ export const ThirdSection = () => {
         <Box className={`grid ${isMobile ? 'grid-cols-1 gap-5' : 'grid-cols-12 gap-4 sm:gap-6 lg:gap-8'} w-full`}>
           <Box className={isMobile ? 'col-span-1' : 'col-span-7'}>
             <Box className="bg-white rounded-xl shadow-lg p-4 sm:p-6">
-              {/* Static crawlable content with proper SEO structure - hidden visually but available to crawlers */}
-              <div className="hidden">
-                {Object.entries(tabAccData).map(([tabName, items], tabIdx) => (
-                  <section key={`static-section-${tabIdx}`} className="mb-8">
-                    <h3 className="text-xl font-bold mb-4">{tabName}</h3>
-                    {items.map((item, itemIdx) => (
-                      <article key={`static-item-${tabIdx}-${itemIdx}`} className="mb-6 pb-4 border-b">
-                        <h4 className="text-lg font-semibold mb-2">{item.title}</h4>
-                        <p className="mb-2">{item.content}</p>
-                        <div className="text-[#387E89] font-medium">{item.metric}</div>
-                      </article>
-                    ))}
-                  </section>
-                ))}
-              </div>
-              
               {/* Interactive tabs and accordions for users */}
               <div className="w-full">
                 {tabKeys.map((tabKey, tabIndex) => (
