@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -556,13 +557,15 @@ export const FirstSection = () => {
         </motion.div>
       </div>
 
-      {/* Add CSS keyframes for gradient animation */}
-      <style jsx>{`
-        @keyframes gradient-shift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
-      `}</style>
+      {/* Add CSS for gradient animation using a style element without jsx prop */}
+      <style>
+        {`
+          @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+          }
+        `}
+      </style>
     </section>;
 };
 
