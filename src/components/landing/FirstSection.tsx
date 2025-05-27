@@ -297,7 +297,7 @@ export const FirstSection = () => {
               ))}
             </motion.div>
             
-            {/* Enhanced CTA section */}
+            {/* Enhanced CTA section with animated demo button */}
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -305,21 +305,79 @@ export const FirstSection = () => {
               className="pt-4"
             >
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-                <Button
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                  className="group relative w-full sm:w-auto rounded-full px-8 py-6 text-lg font-bold bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] hover:shadow-2xl hover:shadow-[#387E89]/25 transform hover:scale-105 transition-all duration-300 text-white border-2 border-white/20 overflow-hidden"
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="relative group"
                 >
-                  <motion.div
-                    animate={isHovered ? { x: [0, 5, 0] } : {}}
-                    transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
-                    className="flex items-center justify-center gap-3 relative z-10"
+                  <Button
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    className="group relative w-full sm:w-auto rounded-full px-8 py-6 text-lg font-bold text-white border-2 border-white/20 overflow-hidden transition-all duration-500 transform"
+                    style={{
+                      background: isHovered 
+                        ? 'linear-gradient(45deg, #143151, #387E89, #5192AE, #387E89)' 
+                        : 'linear-gradient(135deg, #143151, #387E89, #5192AE)',
+                      backgroundSize: isHovered ? '200% 200%' : '100% 100%',
+                      animation: isHovered ? 'gradient-shift 2s ease infinite' : 'none',
+                      boxShadow: isHovered 
+                        ? '0 20px 40px rgba(56, 126, 137, 0.4), 0 0 20px rgba(56, 126, 137, 0.3)' 
+                        : '0 10px 25px rgba(56, 126, 137, 0.25)'
+                    }}
                   >
-                    <Zap className="h-5 w-5" />
-                    Request A Demo
-                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-                  </motion.div>
-                </Button>
+                    {/* Animated background glow */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-[#387E89]/30 via-[#5192AE]/30 to-[#143151]/30 rounded-full"
+                      animate={isHovered ? {
+                        scale: [1, 1.1, 1],
+                        opacity: [0.3, 0.6, 0.3]
+                      } : {}}
+                      transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0 }}
+                    />
+                    
+                    {/* Button content with animated elements */}
+                    <div className="flex items-center justify-center gap-3 relative z-10">
+                      <motion.div
+                        animate={isHovered ? { 
+                          rotate: [0, 15, -15, 0],
+                          scale: [1, 1.2, 1]
+                        } : {}}
+                        transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0, repeatDelay: 1 }}
+                      >
+                        <Zap className="h-5 w-5" />
+                      </motion.div>
+                      
+                      <motion.span
+                        animate={isHovered ? { 
+                          scale: [1, 1.05, 1]
+                        } : {}}
+                        transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                        className="font-bold"
+                      >
+                        Request A Demo
+                      </motion.span>
+                      
+                      <motion.div
+                        animate={isHovered ? { 
+                          x: [0, 5, 0],
+                          scale: [1, 1.1, 1]
+                        } : {}}
+                        transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                      >
+                        <ArrowRight className="h-5 w-5" />
+                      </motion.div>
+                    </div>
+                    
+                    {/* Shimmer effect */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                      animate={isHovered ? {
+                        x: ['-200%', '200%']
+                      } : {}}
+                      transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0, repeatDelay: 2 }}
+                    />
+                  </Button>
+                </motion.div>
                 
                 <Button
                   variant="outline"
@@ -497,6 +555,14 @@ export const FirstSection = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Add CSS keyframes for gradient animation */}
+      <style jsx>{`
+        @keyframes gradient-shift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+      `}</style>
     </section>;
 };
 
