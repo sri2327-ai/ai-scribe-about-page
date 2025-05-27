@@ -106,6 +106,8 @@ export const ClinicalWorkflowSection = () => {
   // Card component for mobile view
   const Card = ({ icon: Icon, title, description, index }) => (
     <article className="workflow-feature-card">
+      <h4>{title}</h4>
+      <p>{description}</p>
       <AnimatedFeatureCard 
         icon={Icon} 
         title={title} 
@@ -121,6 +123,17 @@ export const ClinicalWorkflowSection = () => {
   // Render function for mobile view
   const renderFeaturesMobile = (features: any[]) => (
     <section className="workflow-features-mobile">
+      {/* SEO Content */}
+      <div className="sr-only">
+        <h3>Clinical Workflow Features</h3>
+        {features.map((feature, index) => (
+          <article key={index}>
+            <h4>{feature.title}</h4>
+            <p>{feature.description}</p>
+          </article>
+        ))}
+      </div>
+      
       <Carousel className="w-full">
         <CarouselContent>
           {features.map((feature, index) => (
@@ -145,15 +158,42 @@ export const ClinicalWorkflowSection = () => {
   );
 
   return (
-    <Box
-      component="section"
-      sx={{
-        py: { xs: 4, md: 6 },
+    <section
+      aria-labelledby="clinical-workflow-heading"
+      style={{
+        paddingTop: '2rem',
+        paddingBottom: '2rem',
         background: crushAIColors.background.gradient,
         position: "relative",
         overflow: "hidden"
       }}
     >
+      {/* SEO Content for Admin Features */}
+      <div className="sr-only">
+        <h2 id="clinical-workflow-heading">Clinical Workflow Automation</h2>
+        <p>CRUSH is more than an AI medical scribe—it streamlines healthcare workflows, automates tasks, and enhances patient care, transforming how clinics operate.</p>
+        
+        <section>
+          <h3>Admin Workflow Automation Features</h3>
+          {adminFeatures.map((feature, index) => (
+            <article key={index}>
+              <h4>{feature.title}</h4>
+              <p>{feature.description}</p>
+            </article>
+          ))}
+        </section>
+        
+        <section>
+          <h3>Clinical Assistant Features</h3>
+          {clinicalFeatures.map((feature, index) => (
+            <article key={index}>
+              <h4>{feature.title}</h4>
+              <p>{feature.description}</p>
+            </article>
+          ))}
+        </section>
+      </div>
+
       <Container maxWidth="lg" sx={{ position: "relative", zIndex: 5 }}>
         <motion.div
           variants={containerVariants}
@@ -249,6 +289,6 @@ export const ClinicalWorkflowSection = () => {
           </TabsContent>
         </Tabs>
       </Container>
-    </Box>
+    </section>
   );
 };

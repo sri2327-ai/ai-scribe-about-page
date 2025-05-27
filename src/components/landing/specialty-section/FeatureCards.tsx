@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Typography, Button, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -43,6 +42,18 @@ export const FeatureCards = () => {
       className="specialty-ai-solutions"
       aria-labelledby="specialty-solutions-heading"
     >
+      {/* SEO Content */}
+      <div className="sr-only">
+        <h2 id="specialty-solutions-heading">AI Solutions Designed for Every Medical Specialty</h2>
+        <p>Our specialized AI adapts to the unique requirements of each medical field, enhancing diagnostic accuracy and clinical efficiency.</p>
+        {features.map((feature, index) => (
+          <article key={index}>
+            <h3>{feature.title}</h3>
+            <p>{feature.description}</p>
+          </article>
+        ))}
+      </div>
+
       <Box 
         sx={{ 
           width: '100%', 
