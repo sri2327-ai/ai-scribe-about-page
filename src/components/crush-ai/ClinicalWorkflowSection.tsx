@@ -105,39 +105,43 @@ export const ClinicalWorkflowSection = () => {
 
   // Card component for mobile view
   const Card = ({ icon: Icon, title, description, index }) => (
-    <AnimatedFeatureCard 
-      icon={Icon} 
-      title={title} 
-      description={description} 
-      animationDelay={index * 0.1}
-      primaryColor={crushAIColors.primaryFlat}
-      secondaryColor={crushAIColors.secondary}
-      tertiaryColor={crushAIColors.tertiary}
-    />
+    <article className="workflow-feature-card">
+      <AnimatedFeatureCard 
+        icon={Icon} 
+        title={title} 
+        description={description} 
+        animationDelay={index * 0.1}
+        primaryColor={crushAIColors.primaryFlat}
+        secondaryColor={crushAIColors.secondary}
+        tertiaryColor={crushAIColors.tertiary}
+      />
+    </article>
   );
 
   // Render function for mobile view
   const renderFeaturesMobile = (features: any[]) => (
-    <Carousel className="w-full">
-      <CarouselContent>
-        {features.map((feature, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
-              <Card 
-                icon={feature.icon} 
-                title={feature.title} 
-                description={feature.description} 
-                index={index}
-              />
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <div className="flex justify-center mt-4 gap-2">
-        <CarouselPrevious className="relative static left-auto translate-y-0" />
-        <CarouselNext className="relative static right-auto translate-y-0" />
-      </div>
-    </Carousel>
+    <section className="workflow-features-mobile">
+      <Carousel className="w-full">
+        <CarouselContent>
+          {features.map((feature, index) => (
+            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+              <div className="p-1">
+                <Card 
+                  icon={feature.icon} 
+                  title={feature.title} 
+                  description={feature.description} 
+                  index={index}
+                />
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <div className="flex justify-center mt-4 gap-2">
+          <CarouselPrevious className="relative static left-auto translate-y-0" />
+          <CarouselNext className="relative static right-auto translate-y-0" />
+        </div>
+      </Carousel>
+    </section>
   );
 
   return (
@@ -162,6 +166,7 @@ export const ClinicalWorkflowSection = () => {
               variants={itemVariants}
             >
               <Typography 
+                component="h2"
                 variant="h3" 
                 sx={{ 
                   fontWeight: 700, 
@@ -180,6 +185,7 @@ export const ClinicalWorkflowSection = () => {
               variants={itemVariants}
             >
               <Typography 
+                component="p"
                 variant="body1" 
                 sx={{ 
                   color: '#000000',
@@ -210,30 +216,36 @@ export const ClinicalWorkflowSection = () => {
                   value="admin" 
                   className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
                 >
-                  {isMobile ? "Admin" : "Admin Workflow Automation"}
+                  <span>{isMobile ? "Admin" : "Admin Workflow Automation"}</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="clinical" 
                   className="relative py-2.5 px-6 rounded-full transition-all duration-300 data-[state=active]:bg-gradient-to-r from-[#009bca] to-[#0d252b] data-[state=active]:text-white hover:bg-[#046f90]/10"
                 >
-                  {isMobile ? "Clinical" : "Clinical Assistant Features"}
+                  <span>{isMobile ? "Clinical" : "Clinical Assistant Features"}</span>
                 </TabsTrigger>
               </TabsList>
             </Box>
           </motion.div>
           
           <TabsContent value="admin" className="mt-0 focus-visible:outline-none">
-            {isMobile 
-              ? renderFeaturesMobile(adminFeatures) 
-              : <AdminTabContent />
-            }
+            <section className="admin-workflow-features">
+              <h3 className="sr-only">Admin Workflow Automation Features</h3>
+              {isMobile 
+                ? renderFeaturesMobile(adminFeatures) 
+                : <AdminTabContent />
+              }
+            </section>
           </TabsContent>
           
           <TabsContent value="clinical" className="mt-0 focus-visible:outline-none">
-            {isMobile 
-              ? renderFeaturesMobile(clinicalFeatures) 
-              : <ClinicalTabContent />
-            }
+            <section className="clinical-assistant-features">
+              <h3 className="sr-only">Clinical Assistant Features</h3>
+              {isMobile 
+                ? renderFeaturesMobile(clinicalFeatures) 
+                : <ClinicalTabContent />
+              }
+            </section>
           </TabsContent>
         </Tabs>
       </Container>
