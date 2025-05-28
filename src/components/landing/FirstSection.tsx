@@ -343,15 +343,9 @@ export const FirstSection = () => {
                         <Zap className="h-5 w-5" />
                       </motion.div>
                       
-                      <motion.span
-                        animate={{ 
-                          scale: [1, 1.05, 1]
-                        }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                        className="font-bold"
-                      >
+                      <span className="font-bold">
                         Request A Demo
-                      </motion.span>
+                      </span>
                       
                       <motion.div
                         animate={{ 
