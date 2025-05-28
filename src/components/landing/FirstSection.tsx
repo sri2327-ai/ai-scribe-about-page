@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -316,54 +315,50 @@ export const FirstSection = () => {
                     onMouseLeave={() => setIsHovered(false)}
                     className="group relative w-full sm:w-auto rounded-full px-8 py-6 text-lg font-bold text-white border-2 border-white/20 overflow-hidden transition-all duration-500 transform"
                     style={{
-                      background: isHovered 
-                        ? 'linear-gradient(45deg, #143151, #387E89, #5192AE, #387E89)' 
-                        : 'linear-gradient(135deg, #143151, #387E89, #5192AE)',
-                      backgroundSize: isHovered ? '200% 200%' : '100% 100%',
-                      animation: isHovered ? 'gradient-shift 2s ease infinite' : 'none',
-                      boxShadow: isHovered 
-                        ? '0 20px 40px rgba(56, 126, 137, 0.4), 0 0 20px rgba(56, 126, 137, 0.3)' 
-                        : '0 10px 25px rgba(56, 126, 137, 0.25)'
+                      background: 'linear-gradient(45deg, #143151, #387E89, #5192AE, #387E89)',
+                      backgroundSize: '200% 200%',
+                      animation: 'gradient-shift 2s ease infinite',
+                      boxShadow: '0 20px 40px rgba(56, 126, 137, 0.4), 0 0 20px rgba(56, 126, 137, 0.3)'
                     }}
                   >
                     {/* Animated background glow */}
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-[#387E89]/30 via-[#5192AE]/30 to-[#143151]/30 rounded-full"
-                      animate={isHovered ? {
+                      animate={{
                         scale: [1, 1.1, 1],
                         opacity: [0.3, 0.6, 0.3]
-                      } : {}}
-                      transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0 }}
+                      }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
                     />
                     
                     {/* Button content with animated elements */}
                     <div className="flex items-center justify-center gap-3 relative z-10">
                       <motion.div
-                        animate={isHovered ? { 
+                        animate={{ 
                           rotate: [0, 15, -15, 0],
                           scale: [1, 1.2, 1]
-                        } : {}}
-                        transition={{ duration: 0.6, repeat: isHovered ? Infinity : 0, repeatDelay: 1 }}
+                        }}
+                        transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 1 }}
                       >
                         <Zap className="h-5 w-5" />
                       </motion.div>
                       
                       <motion.span
-                        animate={isHovered ? { 
+                        animate={{ 
                           scale: [1, 1.05, 1]
-                        } : {}}
-                        transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                        }}
+                        transition={{ duration: 1, repeat: Infinity }}
                         className="font-bold"
                       >
                         Request A Demo
                       </motion.span>
                       
                       <motion.div
-                        animate={isHovered ? { 
+                        animate={{ 
                           x: [0, 5, 0],
                           scale: [1, 1.1, 1]
-                        } : {}}
-                        transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                        }}
+                        transition={{ duration: 1, repeat: Infinity }}
                       >
                         <ArrowRight className="h-5 w-5" />
                       </motion.div>
@@ -372,10 +367,10 @@ export const FirstSection = () => {
                     {/* Shimmer effect */}
                     <motion.div
                       className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-                      animate={isHovered ? {
+                      animate={{
                         x: ['-200%', '200%']
-                      } : {}}
-                      transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0, repeatDelay: 2 }}
+                      }}
+                      transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
                     />
                   </Button>
                 </motion.div>
