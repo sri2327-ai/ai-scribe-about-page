@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Box, Typography, Button } from "@mui/material";
 import { 
@@ -111,7 +110,7 @@ export const SpecialtiesCarousel = () => {
       className="mt-6 sm:mt-8 md:mt-10 max-w-[1400px] mx-auto"
       aria-labelledby="medical-specialties-heading"
     >
-      {/* Enhanced SEO-friendly content for search engines */}
+      {/* SEO-friendly content for search engines */}
       <div className="sr-only">
         <h1 id="medical-specialties-heading">AI Solutions Specialized for Every Medical Field</h1>
         <p>
@@ -120,172 +119,53 @@ export const SpecialtiesCarousel = () => {
           workflows, terminology, and documentation requirements.
         </p>
         
-        {/* Comprehensive Medical Specialties Coverage */}
         <section>
           <h2>Complete Medical Specialty AI Coverage</h2>
-          <p>
-            Our AI technology adapts to the unique requirements of each medical specialty, providing 
-            specialized documentation, workflow automation, and clinical decision support tailored 
-            to specific healthcare disciplines.
-          </p>
-          
-          {/* Complex Medical Specialties */}
-          <article>
-            <h3>Complex Medical Specialties with Advanced AI Support</h3>
-            <p>These specialties benefit from our most sophisticated AI models with enhanced clinical reasoning:</p>
-            
-            <h4>Cardiology AI Solutions</h4>
-            <p>Specialized AI for cardiac care documentation, EKG interpretation support, cardiac catheterization notes, and heart failure management protocols.</p>
-            
-            <h4>Neurology AI Documentation</h4>
-            <p>Advanced AI for neurological assessments, seizure documentation, movement disorder tracking, and cognitive evaluation notes.</p>
-            
-            <h4>Pulmonology AI Assistant</h4>
-            <p>Respiratory care AI with pulmonary function test integration, ventilator management, and chronic lung disease monitoring.</p>
-            
-            <h4>Endocrinology AI Support</h4>
-            <p>Diabetes management AI, hormone therapy tracking, thyroid disorder documentation, and metabolic syndrome care protocols.</p>
-            
-            <h4>Oncology AI Documentation</h4>
-            <p>Cancer care AI with chemotherapy protocols, tumor board documentation, treatment response tracking, and survivorship care plans.</p>
-            
-            <h4>Rheumatology AI Tools</h4>
-            <p>Autoimmune disease management AI, joint assessment documentation, biologic therapy tracking, and inflammatory marker monitoring.</p>
-            
-            <h4>Gastroenterology AI Assistant</h4>
-            <p>Digestive health AI with endoscopy reporting, inflammatory bowel disease management, and liver function monitoring.</p>
-            
-            <h4>Nephrology AI Support</h4>
-            <p>Kidney care AI with dialysis management, chronic kidney disease progression tracking, and transplant care coordination.</p>
-            
-            <h4>Hematology AI Documentation</h4>
-            <p>Blood disorder AI with coagulation studies, anemia workup protocols, and hematologic malignancy management.</p>
-            
-            <h4>Infectious Disease AI Tools</h4>
-            <p>Antimicrobial stewardship AI, infection control protocols, and complex infectious disease management.</p>
-            
-            <h4>Ophthalmology AI Assistant</h4>
-            <p>Eye care AI with retinal imaging integration, glaucoma monitoring, and surgical procedure documentation.</p>
-          </article>
-          
-          {/* Primary Care and General Specialties */}
-          <article>
-            <h3>Primary Care and General Medical Specialties</h3>
-            <p>Essential AI support for frontline healthcare providers:</p>
-            
-            <h4>Internal Medicine AI Solutions</h4>
-            <p>Comprehensive primary care AI with preventive care reminders, chronic disease management, and annual physical documentation.</p>
-            
-            <h4>Pediatrics AI Documentation</h4>
-            <p>Child healthcare AI with growth tracking, vaccination schedules, developmental milestone monitoring, and pediatric-specific templates.</p>
-            
-            <h4>Psychiatry AI Support</h4>
-            <p>Mental health AI with mood assessment tools, medication management, and therapy session documentation.</p>
-            
-            <h4>Hospital Medicine AI Assistant</h4>
-            <p>Inpatient care AI with admission documentation, discharge planning, and hospital workflow optimization.</p>
-            
-            <h4>Emergency Medicine AI Tools</h4>
-            <p>Emergency care AI with triage documentation, trauma protocols, and rapid assessment templates.</p>
-            
-            <h4>Urgent Care AI Solutions</h4>
-            <p>Immediate care AI with common complaint protocols, minor procedure documentation, and quick assessment tools.</p>
-            
-            <h4>ENT AI Documentation</h4>
-            <p>Ear, nose, and throat AI with hearing assessment tools, sinus procedure notes, and allergy management.</p>
-          </article>
-          
-          {/* Surgical and Procedural Specialties */}
-          <article>
-            <h3>Surgical and Procedural Specialties</h3>
-            <p>Specialized AI for surgical and procedural healthcare disciplines:</p>
-            
-            <h4>Orthopedics AI Support</h4>
-            <p>Musculoskeletal AI with surgical planning, joint replacement protocols, and sports medicine documentation.</p>
-            
-            <h4>Surgery AI Documentation</h4>
-            <p>General surgery AI with operative reports, pre-operative assessments, and post-operative care plans.</p>
-            
-            <h4>Urology AI Tools</h4>
-            <p>Urological care AI with prostate health monitoring, kidney stone management, and urological procedure documentation.</p>
-            
-            <h4>Gynecology AI Assistant</h4>
-            <p>Women's health AI with reproductive health tracking, prenatal care, and gynecological procedure notes.</p>
-            
-            <h4>Dermatology AI Solutions</h4>
-            <p>Skin care AI with lesion documentation, dermatological procedure notes, and cosmetic treatment tracking.</p>
-          </article>
-          
-          {/* Specialized and Alternative Medicine */}
-          <article>
-            <h3>Specialized and Alternative Medicine AI Support</h3>
-            <p>AI solutions for specialized and alternative healthcare approaches:</p>
-            
-            <h4>Functional Medicine AI Tools</h4>
-            <p>Holistic care AI with comprehensive health assessments, nutritional protocols, and integrative treatment plans.</p>
-            
-            <h4>Chiropractor AI Documentation</h4>
-            <p>Chiropractic care AI with spinal assessment tools, treatment protocols, and progress tracking.</p>
-            
-            <h4>Podiatry AI Support</h4>
-            <p>Foot and ankle care AI with diabetic foot monitoring, wound care documentation, and biomechanical assessments.</p>
-            
-            <h4>Therapist AI Assistant</h4>
-            <p>Therapy session AI with treatment planning, progress notes, and outcome measurement tools.</p>
-            
-            <h4>Neonatology AI Documentation</h4>
-            <p>Newborn care AI with NICU protocols, growth monitoring, and developmental assessments.</p>
-            
-            <h4>Pain Management AI Tools</h4>
-            <p>Pain care AI with medication management, procedure documentation, and pain scale tracking.</p>
-            
-            <h4>Allergy and Immunology AI Support</h4>
-            <p>Allergy care AI with allergen testing documentation, immunotherapy tracking, and reaction monitoring.</p>
-            
-            <h4>Geriatrics AI Solutions</h4>
-            <p>Elder care AI with cognitive assessments, medication reconciliation, and age-specific health monitoring.</p>
-            
-            <h4>Hepatology AI Documentation</h4>
-            <p>Liver care AI with hepatitis management, cirrhosis monitoring, and liver transplant protocols.</p>
-          </article>
-          
-          {/* Universal Compatibility */}
-          <article>
-            <h3>Universal AI Compatibility for All Medical Fields</h3>
-            <p>
-              While we showcase specific specialties, S10.AI's adaptive AI technology can be customized for any medical field, 
-              including emerging specialties and subspecialties. Our AI learns from your practice patterns and adapts to 
-              specialty-specific terminology, workflows, and documentation requirements.
-            </p>
-            
-            <h4>Custom AI Training for Any Specialty</h4>
-            <p>
-              Don't see your specialty listed? S10.AI can be trained and customized for any medical field, including:
-              niche subspecialties, emerging medical disciplines, research-focused practices, and unique healthcare delivery models.
-            </p>
-            
-            <h4>Adaptive Learning Technology</h4>
-            <p>
-              Our AI continuously learns from your practice patterns, terminology, and workflows to provide increasingly 
-              accurate and relevant assistance tailored to your specific medical specialty and practice style.
-            </p>
-          </article>
+          <ul>
+            {allSpecialties.map((specialty, index) => (
+              <li key={index}>
+                {specialty.name} - {specialty.complex ? 'Advanced AI support with enhanced clinical reasoning' : 'Specialized AI documentation and workflow support'}
+              </li>
+            ))}
+          </ul>
         </section>
         
-        {/* Implementation and Integration */}
         <section>
-          <h2>Specialty-Specific Implementation</h2>
-          <p>
-            Each medical specialty receives customized AI implementation that respects the unique aspects of their practice:
-          </p>
-          
+          <h3>Complex Medical Specialties with Advanced AI Support</h3>
+          <p>These specialties benefit from our most sophisticated AI models:</p>
           <ul>
-            <li>Specialty-specific documentation templates and workflows</li>
-            <li>Medical terminology and abbreviation recognition for each field</li>
-            <li>Integration with specialty-specific EHR systems and tools</li>
-            <li>Compliance with specialty-specific regulatory requirements</li>
-            <li>Custom training on specialty protocols and best practices</li>
-            <li>Ongoing optimization based on specialty feedback and outcomes</li>
+            <li>Cardiology - cardiac care documentation, EKG interpretation support</li>
+            <li>Neurology - neurological assessments, seizure documentation</li>
+            <li>Pulmonology - respiratory care AI with pulmonary function test integration</li>
+            <li>Endocrinology - diabetes management AI, hormone therapy tracking</li>
+            <li>Oncology - cancer care AI with chemotherapy protocols</li>
+            <li>Rheumatology - autoimmune disease management AI</li>
+            <li>Gastroenterology - digestive health AI with endoscopy reporting</li>
+            <li>Nephrology - kidney care AI with dialysis management</li>
+            <li>Ophthalmology - eye care AI with retinal imaging integration</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Primary Care and General Medical Specialties</h3>
+          <ul>
+            <li>Internal Medicine - comprehensive primary care AI</li>
+            <li>Pediatrics - child healthcare AI with growth tracking</li>
+            <li>Psychiatry - mental health AI with mood assessment tools</li>
+            <li>Emergency Medicine - emergency care AI with triage documentation</li>
+            <li>Hospital Medicine - inpatient care AI with admission documentation</li>
+            <li>Orthopedics - musculoskeletal AI with surgical planning</li>
+            <li>ENT - ear, nose, and throat AI with hearing assessment tools</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h3>Specialized and Alternative Medicine AI Support</h3>
+          <ul>
+            <li>Functional Medicine - holistic care AI with comprehensive health assessments</li>
+            <li>Chiropractor - chiropractic care AI with spinal assessment tools</li>
+            <li>Podiatry - foot and ankle care AI with diabetic foot monitoring</li>
+            <li>Therapist - therapy session AI with treatment planning</li>
           </ul>
         </section>
       </div>
