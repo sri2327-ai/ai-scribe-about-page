@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -81,8 +82,9 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 className={({ isActive }) =>
                   isActive ? activeNavLinkClass : navLinkClass
                 }
+                title="AI Medical Scribe Assistant & Documentation"
               >
-                CRUSH.AI
+                CRUSH
               </NavLink>
 
               <NavLink

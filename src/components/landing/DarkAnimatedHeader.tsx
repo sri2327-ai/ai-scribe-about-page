@@ -745,7 +745,7 @@ const DarkAnimatedHeader = () => {
                 }}>
                   <Button 
                     variant="outline" 
-                    className="w-full border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white transition-all duration-300 hover:scale-105"
+                    className="w-full border-white text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
                     asChild
                   >
                     <Link to="#" className="flex items-center justify-center gap-2">
