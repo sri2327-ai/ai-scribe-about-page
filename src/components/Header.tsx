@@ -159,6 +159,14 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
+          <a
+            href="tel:+16314886390"
+            className="flex items-center gap-2 bg-transparent border border-tealBlue text-tealBlue hover:bg-tealBlue hover:text-white font-medium py-2.5 px-6 rounded-full transition-colors"
+          >
+            <Phone className="w-4 h-4" />
+            Call Sales
+          </a>
+          
           <Link
             to="/contact"
             className={classNames(
@@ -169,6 +177,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </Link>
         </div>
 
+        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <motion.button
             className="text-gray-700 focus:outline-none"
@@ -194,21 +203,18 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
 
-      {/* Mobile Sidebar - FIXED SCROLLING */}
+      {/* Mobile Sidebar - FIXED: Only content area scrolls, header stays fixed */}
       {isSidebarOpen && (
         <div 
-          className="md:hidden fixed inset-0 top-16 bg-white z-50"
+          className="md:hidden fixed inset-0 top-16 bg-white z-50 flex flex-col"
           style={{ 
             height: 'calc(100vh - 64px)',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            WebkitOverflowScrolling: 'touch',
-            touchAction: 'pan-y'
+            overscrollBehavior: 'contain'
           }}
         >
           
-          {/* Call Sales Button - Mobile Only - LIGHT THEME */}
-          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 sticky top-0 z-10 backdrop-blur-sm">
+          {/* Call Sales Button - Mobile Only - LIGHT THEME - FIXED HEADER */}
+          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 flex-shrink-0">
             <a 
               href="tel:+16314886390" 
               className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
@@ -219,70 +225,79 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
             </a>
           </div>
 
-          <div className="flex flex-col pb-20 min-h-full">
-            <NavLink
-              to="/about"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              About
-            </NavLink>
-
-            <NavLink
-              to="/crush-ai"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              CRUSH
-            </NavLink>
-
-            <NavLink
-              to="/bravo"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              BRAVO
-            </NavLink>
-
-            <NavLink
-              to="/custom-ai-agent"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              Custom AI
-            </NavLink>
-
-            <NavLink
-              to="/advantages"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              Advantages
-            </NavLink>
-
-            <div className="relative">
+          {/* Scrollable Content Area */}
+          <div 
+            className="flex-1 overflow-y-auto overflow-x-hidden"
+            style={{
+              WebkitOverflowScrolling: 'touch',
+              touchAction: 'pan-y'
+            }}
+          >
+            <div className="flex flex-col pb-20 min-h-full">
               <NavLink
-                to="/pricing"
+                to="/about"
                 onClick={closeMenu}
                 className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
               >
-                Pricing
-                <Badge 
-                  variant="destructive" 
-                  className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
-                >
-                  New
-                </Badge>
+                About
               </NavLink>
-            </div>
 
-            <Link
-              to="/contact"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
-            >
-              Contact Us
-            </Link>
+              <NavLink
+                to="/crush-ai"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                CRUSH
+              </NavLink>
+
+              <NavLink
+                to="/bravo"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                BRAVO
+              </NavLink>
+
+              <NavLink
+                to="/custom-ai-agent"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                Custom AI
+              </NavLink>
+
+              <NavLink
+                to="/advantages"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                Advantages
+              </NavLink>
+
+              <div className="relative">
+                <NavLink
+                  to="/pricing"
+                  onClick={closeMenu}
+                  className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+                >
+                  Pricing
+                  <Badge 
+                    variant="destructive" 
+                    className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
+                  >
+                    New
+                  </Badge>
+                </NavLink>
+              </div>
+
+              <Link
+                to="/contact"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       )}

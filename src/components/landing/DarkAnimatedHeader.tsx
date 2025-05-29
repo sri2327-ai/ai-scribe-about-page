@@ -463,7 +463,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component
+  // Mobile section component - FIXED: Remove internal scrolling
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -508,10 +508,10 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-5 max-h-80 overflow-y-auto">
+              <div className="p-5">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
-                    // Solutions mobile view with cards
+                    // Solutions mobile view with cards - NO INTERNAL SCROLLING
                     <div className="space-y-4">
                       {items.map((item) => (
                         <Link
@@ -551,7 +551,7 @@ const DarkAnimatedHeader = () => {
                       ))}
                     </div>
                   ) : (
-                    // Other sections mobile view
+                    // Other sections mobile view - NO INTERNAL SCROLLING
                     <>
                       {items.map((item) => (
                         <Link
@@ -693,6 +693,14 @@ const DarkAnimatedHeader = () => {
 
             {/* CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-4">
+              <a 
+                href="tel:+16314886390" 
+                className="flex items-center gap-2 font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/20 hover:border-white/40 px-4 py-2 rounded-full"
+              >
+                <Phone className="w-4 h-4" />
+                Call Sales
+              </a>
+              
               <Button 
                 variant="ghost" 
                 className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/20 hover:border-white/40"
@@ -735,7 +743,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu - FIXED SCROLLING ISSUE */}
+        {/* Mobile Menu - FIXED: Only main container scrolls */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -751,7 +759,7 @@ const DarkAnimatedHeader = () => {
                 overflowY: 'auto',
                 overflowX: 'hidden',
                 WebkitOverflowScrolling: 'touch',
-                touchAction: 'pan-y'
+                overscrollBehavior: 'contain'
               }}
             >
               <div className="max-w-7xl mx-auto h-full">
@@ -772,7 +780,7 @@ const DarkAnimatedHeader = () => {
                   </a>
                 </div>
 
-                <div className="pb-6 min-h-full">
+                <div className="pb-6">
                   {/* Mobile Solutions Section */}
                   <MobileSectionToggle 
                     title="Solutions" 
