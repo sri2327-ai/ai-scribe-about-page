@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, MoreHorizontal, Check, Download } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal, Check, Download, Filter, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -38,6 +39,7 @@ const ResourceLibrary = () => {
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
   const [resources, setResources] = useState<Resource[]>([]);
   const [filters, setFilters] = useState<FilterOption[]>([]);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [pagination, setPagination] = useState<PaginationData>({
     currentPage: 1,
     totalPages: 67,
@@ -192,6 +194,7 @@ const ResourceLibrary = () => {
 
   useEffect(() => {
     fetchResources(activeFilter, 1);
+    setShowMobileFilters(false); // Close mobile filters when filter changes
   }, [activeFilter]);
 
   const getCategoryColor = (category: string) => {
@@ -271,6 +274,7 @@ const ResourceLibrary = () => {
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= pagination.totalPages) {
       fetchResources(activeFilter, page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -280,7 +284,7 @@ const ResourceLibrary = () => {
       onClick={onClick}
       disabled={!onClick}
       className={`
-        min-w-[40px] h-[40px] px-3 rounded-lg border text-sm font-medium transition-all duration-200
+        min-w-[36px] sm:min-w-[40px] h-[36px] sm:h-[40px] px-2 sm:px-3 rounded-lg border text-sm font-medium transition-all duration-200
         ${isActive 
           ? 'bg-black text-white border-black' 
           : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
@@ -294,41 +298,68 @@ const ResourceLibrary = () => {
 
   const renderPagination = () => {
     const { currentPage, totalPages } = pagination;
+    
+    if (totalPages <= 1) return null;
+    
     const pages = [];
+    const isMobile = window.innerWidth < 640;
+    const maxVisiblePages = isMobile ? 3 : 7;
 
-    // Always show first page
-    pages.push(renderPaginationButton(1, currentPage === 1, () => handlePageChange(1)));
+    // Mobile pagination - show fewer pages
+    if (isMobile) {
+      // Always show first page
+      pages.push(renderPaginationButton(1, currentPage === 1, () => handlePageChange(1)));
 
-    // Show pages around current page
-    const startPage = Math.max(2, currentPage - 1);
-    const endPage = Math.min(totalPages - 1, currentPage + 1);
+      if (totalPages > 2) {
+        if (currentPage > 2) {
+          pages.push(renderPaginationButton('...'));
+        }
 
-    if (startPage > 2) {
-      pages.push(renderPaginationButton('...'));
-    }
+        // Show current page if it's not first or last
+        if (currentPage > 1 && currentPage < totalPages) {
+          pages.push(renderPaginationButton(currentPage, true));
+        }
 
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(renderPaginationButton(i, currentPage === i, () => handlePageChange(i)));
-    }
+        if (currentPage < totalPages - 1) {
+          pages.push(renderPaginationButton('...'));
+        }
 
-    if (endPage < totalPages - 1) {
-      pages.push(renderPaginationButton('...'));
-    }
+        // Always show last page
+        pages.push(renderPaginationButton(totalPages, currentPage === totalPages, () => handlePageChange(totalPages)));
+      }
+    } else {
+      // Desktop pagination - show more pages
+      pages.push(renderPaginationButton(1, currentPage === 1, () => handlePageChange(1)));
 
-    // Always show last page if more than 1 page
-    if (totalPages > 1) {
-      pages.push(renderPaginationButton(totalPages, currentPage === totalPages, () => handlePageChange(totalPages)));
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+      if (startPage > 2) {
+        pages.push(renderPaginationButton('...'));
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(renderPaginationButton(i, currentPage === i, () => handlePageChange(i)));
+      }
+
+      if (endPage < totalPages - 1) {
+        pages.push(renderPaginationButton('...'));
+      }
+
+      if (totalPages > 1) {
+        pages.push(renderPaginationButton(totalPages, currentPage === totalPages, () => handlePageChange(totalPages)));
+      }
     }
 
     return (
-      <div className="flex items-center justify-center gap-2 mt-16">
+      <div className="flex items-center justify-center gap-1 sm:gap-2 mt-12 sm:mt-16 px-4">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         >
           <ChevronLeft className="w-4 h-4" />
-          Previous
+          <span className="hidden sm:inline">Previous</span>
         </button>
 
         <div className="flex items-center gap-1">
@@ -338,9 +369,9 @@ const ResourceLibrary = () => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+          className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
         >
-          Next
+          <span className="hidden sm:inline">Next</span>
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
@@ -357,43 +388,43 @@ const ResourceLibrary = () => {
             <meta name="description" content={selectedResource.description} />
           </Helmet>
 
-          <section className="bg-white py-12 sm:py-16">
+          <section className="bg-white py-8 sm:py-12 lg:py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+              <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
                 <div className="lg:w-[55%] text-gray-800">
-                  <span className={`text-sm font-semibold uppercase mb-3 block tracking-wider ${getCategoryColor(selectedResource.category).split(' ')[0]}`}>
+                  <span className={`text-xs sm:text-sm font-semibold uppercase mb-3 block tracking-wider ${getCategoryColor(selectedResource.category).split(' ')[0]}`}>
                     {selectedResource.category}
                   </span>
-                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight">
                     {selectedResource.title}
                   </h1>
-                  <div className="prose prose-lg text-gray-700 max-w-none">
-                    <p className="mb-6 leading-relaxed">
+                  <div className="prose prose-sm sm:prose-lg text-gray-700 max-w-none">
+                    <p className="mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
                       {selectedResource.description}
                     </p>
-                    <ul className="space-y-3 text-base list-none p-0 mb-6">
+                    <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base list-none p-0 mb-4 sm:mb-6">
                       <li className="flex items-start">
-                        <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
-                        Streamline your healthcare workflows with AI-powered solutions
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] mr-2 sm:mr-3 flex-shrink-0 mt-0.5 sm:mt-1" />
+                        <span className="text-sm sm:text-base">Streamline your healthcare workflows with AI-powered solutions</span>
                       </li>
                       <li className="flex items-start">
-                        <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
-                        Get powerful insights and reporting to quantify your ROI
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] mr-2 sm:mr-3 flex-shrink-0 mt-0.5 sm:mt-1" />
+                        <span className="text-sm sm:text-base">Get powerful insights and reporting to quantify your ROI</span>
                       </li>
                       <li className="flex items-start">
-                        <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
-                        Enjoy seamless integrations to drive efficiency
+                        <Check className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] mr-2 sm:mr-3 flex-shrink-0 mt-0.5 sm:mt-1" />
+                        <span className="text-sm sm:text-base">Enjoy seamless integrations to drive efficiency</span>
                       </li>
                     </ul>
                   </div>
                 </div>
 
                 <div className="lg:w-[45%]">
-                  <Card className="p-6 sm:p-10 bg-gradient-to-br from-gray-50 to-white shadow-xl border border-gray-200">
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-2 tracking-tight">Complete the form</h2>
-                    <p className="text-sm text-gray-600 mb-8">to get your resources and unlock insights.</p>
+                  <Card className="p-4 sm:p-6 lg:p-10 bg-gradient-to-br from-gray-50 to-white shadow-xl border border-gray-200">
+                    <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2 tracking-tight">Complete the form</h2>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-6 sm:mb-8">to get your resources and unlock insights.</p>
                     
-                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                    <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-6">
                       <div>
                         <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 mb-1.5">Full name*</Label>
                         <Input
@@ -404,7 +435,7 @@ const ResourceLibrary = () => {
                           placeholder="e.g., Jane Doe"
                           value={formData.fullName}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
                         />
                       </div>
                       
@@ -418,7 +449,7 @@ const ResourceLibrary = () => {
                           placeholder="e.g., S10 Healthcare"
                           value={formData.companyName}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
                         />
                       </div>
                       
@@ -432,7 +463,7 @@ const ResourceLibrary = () => {
                           placeholder="e.g., jane.doe@example.com"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
                         />
                       </div>
                       
@@ -446,7 +477,7 @@ const ResourceLibrary = () => {
                           placeholder="e.g., (555) 123-4567"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
                         />
                       </div>
                       
@@ -458,7 +489,7 @@ const ResourceLibrary = () => {
                           required
                           value={formData.specialty}
                           onChange={handleInputChange}
-                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors"
                         >
                           <option value="" disabled>Select Specialty</option>
                           <option value="cardiology">Cardiology</option>
@@ -469,11 +500,11 @@ const ResourceLibrary = () => {
                         </select>
                       </div>
                       
-                      <div className="pt-3">
+                      <div className="pt-2 sm:pt-3">
                         <Button
                           type="submit"
                           disabled={loading}
-                          className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold h-11 px-6 py-3 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center gap-2"
+                          className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold h-10 sm:h-11 px-4 sm:px-6 py-2 sm:py-3 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base"
                         >
                           {loading ? (
                             <>
@@ -521,49 +552,63 @@ const ResourceLibrary = () => {
         </Helmet>
 
         {/* Hero Section with Gradient Background */}
-        <section className="relative bg-white py-16 sm:py-20 border-b border-gray-200 overflow-hidden">
+        <section className="relative bg-white py-12 sm:py-16 lg:py-20 border-b border-gray-200 overflow-hidden">
           <div className="absolute inset-0 bg-white"></div>
           <GradientBarsBackground />
           <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
           
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Animated Hero Pill */}
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#387E89]/10 to-[#143151]/10 border border-[#387E89]/20 rounded-full text-sm text-[#143151] font-medium mb-6 animate-fade-in">
+            <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-gradient-to-r from-[#387E89]/10 to-[#143151]/10 border border-[#387E89]/20 rounded-full text-xs sm:text-sm text-[#143151] font-medium mb-4 sm:mb-6 animate-fade-in">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
               <span className="transition-all duration-1000">
                 {downloadCount.toLocaleString()}+ healthcare professionals have downloaded our resources
               </span>
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-gray-900 leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 tracking-tight text-gray-900 leading-tight">
               Resource Library
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed px-4">
               Access our comprehensive collection of healthcare guides, templates, checklists, and workbooks designed to optimize your practice with AI-powered solutions.
             </p>
           </div>
         </section>
 
         {/* Filter Section */}
-        <section className="py-8 bg-white sticky top-20 z-30 shadow-sm border-b border-gray-200">
+        <section className="py-6 sm:py-8 bg-white sticky top-16 sm:top-20 z-30 shadow-sm border-b border-gray-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-5">
-              <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-left mb-4 md:mb-0 tracking-tight">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 sm:mb-5">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-900 text-left mb-3 sm:mb-0 tracking-tight">
                 All Resources
               </h2>
               {loading && (
-                <div className="flex items-center gap-2 text-gray-600">
+                <div className="flex items-center gap-2 text-gray-600 text-sm">
                   <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
                   Loading...
                 </div>
               )}
             </div>
-            <div className="flex flex-wrap gap-2 items-center">
+            
+            {/* Mobile Filter Toggle */}
+            <div className="sm:hidden mb-4">
+              <button
+                onClick={() => setShowMobileFilters(!showMobileFilters)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200"
+              >
+                <Filter className="w-4 h-4" />
+                Filters
+                {showMobileFilters ? <X className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {/* Desktop Filters */}
+            <div className="hidden sm:flex flex-wrap gap-2 items-center">
               {filters.map((filter) => (
                 <button
                   key={filter.key}
                   onClick={() => setActiveFilter(filter.key)}
-                  className={`px-4 py-2 text-sm font-medium rounded-md border-2 border-transparent transition-all duration-200 ${
+                  className={`px-3 sm:px-4 py-2 text-sm font-medium rounded-md border-2 border-transparent transition-all duration-200 ${
                     activeFilter === filter.key
                       ? 'text-[#387E89] font-semibold border-b-[#387E89] bg-[#387E89]/5'
                       : 'text-gray-600 hover:text-[#387E89] hover:bg-[#387E89]/10'
@@ -573,34 +618,55 @@ const ResourceLibrary = () => {
                 </button>
               ))}
             </div>
+
+            {/* Mobile Filters Dropdown */}
+            {showMobileFilters && (
+              <div className="sm:hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 animate-fade-in">
+                <div className="grid grid-cols-2 gap-2">
+                  {filters.map((filter) => (
+                    <button
+                      key={filter.key}
+                      onClick={() => setActiveFilter(filter.key)}
+                      className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
+                        activeFilter === filter.key
+                          ? 'text-white bg-[#387E89] font-semibold'
+                          : 'text-gray-600 bg-white border border-gray-300 hover:bg-[#387E89]/10'
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
         {/* Resource Grid */}
-        <main className="bg-white container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <main className="bg-white container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           {loading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {Array.from({ length: 8 }).map((_, index) => (
                 <Card key={index} className="animate-pulse">
                   <div className="aspect-video bg-gray-200 rounded-t-xl" />
-                  <div className="p-5 space-y-3">
-                    <div className="h-4 bg-gray-200 rounded w-1/3" />
-                    <div className="h-5 bg-gray-200 rounded w-3/4" />
-                    <div className="h-4 bg-gray-200 rounded w-full" />
-                    <div className="h-4 bg-gray-200 rounded w-2/3" />
+                  <div className="p-4 sm:p-5 space-y-3">
+                    <div className="h-3 sm:h-4 bg-gray-200 rounded w-1/3" />
+                    <div className="h-4 sm:h-5 bg-gray-200 rounded w-3/4" />
+                    <div className="h-3 sm:h-4 bg-gray-200 rounded w-full" />
+                    <div className="h-3 sm:h-4 bg-gray-200 rounded w-2/3" />
                   </div>
                 </Card>
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
               {resources.map((resource) => (
                 <div
                   key={resource.id}
                   onClick={() => handleResourceClick(resource)}
                   className="group cursor-pointer"
                 >
-                  <Card className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-200 hover:border-[#387E89]">
+                  <Card className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-200 hover:border-[#387E89] transform hover:-translate-y-1">
                     <div className="aspect-video bg-slate-100 overflow-hidden">
                       <img
                         src={resource.img}
@@ -611,19 +677,19 @@ const ResourceLibrary = () => {
                         }}
                       />
                     </div>
-                    <div className="p-5 flex flex-col flex-grow">
-                      <span className={`text-xs font-semibold uppercase mb-2 tracking-wider ${getCategoryColor(resource.category)}`}>
+                    <div className="p-4 sm:p-5 flex flex-col flex-grow">
+                      <span className={`text-xs font-semibold uppercase mb-2 tracking-wider px-2 py-1 rounded-full ${getCategoryColor(resource.category)}`}>
                         {resource.category}
                       </span>
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-tight group-hover:text-[#387E89] transition-colors">
+                      <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 leading-tight group-hover:text-[#387E89] transition-colors line-clamp-2">
                         {resource.title}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">
+                      <p className="text-xs sm:text-sm text-gray-600 mb-4 flex-grow leading-relaxed line-clamp-3">
                         {resource.description}
                       </p>
-                      <span className={`inline-flex items-center text-sm font-medium group-hover:gap-1.5 transition-all duration-200 self-start mt-auto ${getCategoryActionColor(resource.category)}`}>
+                      <span className={`inline-flex items-center text-xs sm:text-sm font-medium group-hover:gap-1.5 transition-all duration-200 self-start mt-auto ${getCategoryActionColor(resource.category)}`}>
                         {resource.actionText}
-                        <ChevronRight className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                        <ChevronRight className="ml-1 w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       </span>
                     </div>
                   </Card>
