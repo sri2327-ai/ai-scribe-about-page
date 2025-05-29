@@ -65,7 +65,7 @@ export const HeroSection: React.FC = () => {
           }} />
           <RainbowButton 
             onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}
-            className="rounded-full px-4 py-3 w-full max-w-xs sm:max-w-sm md:max-w-md flex items-center justify-center gap-2 border-2 border-white/50 hover:border-white/70 transition-all duration-300"
+            className="rounded-full px-4 py-3 w-auto max-w-fit flex items-center justify-center gap-2 border-2 border-white/50 hover:border-white/70 transition-all duration-300"
           >
             <ArrowRight size={16} className="sm:w-5 sm:h-5" />
             <span className="text-sm sm:text-base">Explore the Advantages</span>
