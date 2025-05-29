@@ -52,6 +52,7 @@ export const HeroSection: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.9, duration: 0.6 }}
+          className="flex justify-center"
         >
           <style dangerouslySetInnerHTML={{
             __html: `
@@ -64,10 +65,10 @@ export const HeroSection: React.FC = () => {
           }} />
           <RainbowButton 
             onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}
-            className="rounded-full px-8 py-3 w-64 flex items-center justify-center gap-2"
+            className="rounded-full px-4 py-3 w-full max-w-xs sm:max-w-sm md:max-w-md flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white/50 transition-all duration-300"
           >
-            <ArrowRight size={20} />
-            Explore the Advantages
+            <ArrowRight size={16} className="sm:w-5 sm:h-5" />
+            <span className="text-sm sm:text-base">Explore the Advantages</span>
           </RainbowButton>
         </motion.div>
       </motion.div>
