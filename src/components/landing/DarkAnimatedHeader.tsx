@@ -508,7 +508,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-5" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+              <div className="p-5 max-h-80 overflow-y-auto">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
                     // Solutions mobile view with cards
@@ -706,19 +706,6 @@ const DarkAnimatedHeader = () => {
               
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button 
-                  variant="outline" 
-                  className="font-semibold text-white border-white/50 hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
-                  asChild
-                >
-                  <a href="tel:+16314886390" className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
-                    Call Sales
-                  </a>
-                </Button>
-              </motion.div>
-              
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button 
                   className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold px-6 py-2 rounded-full shadow-2xl border border-[#387E89]/30 hover:shadow-[#387E89]/25"
                   asChild
                 >
@@ -761,13 +748,16 @@ const DarkAnimatedHeader = () => {
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
                 height: 'calc(100vh - 80px)',
-                overflow: 'hidden'
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                WebkitOverflowScrolling: 'touch',
+                touchAction: 'pan-y'
               }}
             >
-              <div className="h-full flex flex-col">
+              <div className="max-w-7xl mx-auto h-full">
                 
                 {/* Call Sales Button - Mobile Only - DARK THEME */}
-                <div className="p-4 border-b border-gray-800/60 flex-shrink-0" style={{
+                <div className="p-4 border-b border-gray-800/60 sticky top-0 z-10" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
@@ -782,12 +772,7 @@ const DarkAnimatedHeader = () => {
                   </a>
                 </div>
 
-                <div className="flex-1 overflow-y-auto overflow-x-hidden" 
-                     style={{ 
-                       WebkitOverflowScrolling: 'touch',
-                       overscrollBehavior: 'contain',
-                       touchAction: 'pan-y'
-                     }}>
+                <div className="pb-6 min-h-full">
                   {/* Mobile Solutions Section */}
                   <MobileSectionToggle 
                     title="Solutions" 
