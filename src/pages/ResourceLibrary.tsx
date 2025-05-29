@@ -348,16 +348,16 @@ const ResourceLibrary = () => {
         </Helmet>
 
         {/* Hero Section with Gradient Background */}
-        <section className="relative bg-gray-950 text-white py-16 sm:py-20 border-b border-gray-800 overflow-hidden">
-          <div className="absolute inset-0 bg-gray-950"></div>
+        <section className="relative bg-white py-16 sm:py-20 border-b border-gray-200 overflow-hidden">
+          <div className="absolute inset-0 bg-white"></div>
           <GradientBarsBackground />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
           
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight text-white">
-              S10.ai Resource Library
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-gray-900 leading-tight">
+              S10.AI Resource Library
             </h1>
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
               Explore our collection of articles, guides, case studies, and more to help you succeed.
             </p>
           </div>
@@ -436,71 +436,48 @@ const ResourceLibrary = () => {
             ))}
           </div>
 
-          {/* Pagination */}
+          {/* Modern Pagination */}
           {filteredResources.length > 0 && (
             <div className="mt-16 flex justify-center">
               <nav role="navigation" aria-label="pagination" className="mx-auto flex w-full justify-center">
-                <ul className="flex flex-row flex-wrap items-center justify-center gap-2 sm:gap-3">
-                  <li>
-                    <Link
-                      to="#"
-                      aria-label="Go to previous page"
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-4 py-2 gap-2 text-gray-700 border border-gray-300 bg-white hover:bg-gray-100 hover:border-gray-400 hover:text-gray-900"
-                    >
-                      <ChevronLeft className="h-4 w-4" />
-                      <span className="hidden sm:inline">Previous</span>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="#"
+                <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-2 py-2 shadow-lg">
+                  <button
+                    className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 h-10 px-3 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
+                    aria-label="Go to previous page"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span className="hidden sm:inline">Previous</span>
+                  </button>
+                  
+                  <div className="flex items-center gap-1 px-2">
+                    <button
+                      className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white shadow-md hover:shadow-lg transition-all duration-200"
                       aria-current="page"
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 w-10 p-0 border-2 border-[#387E89] bg-[#387E89] text-white hover:bg-[#2c6269]"
                     >
                       1
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="#"
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 w-10 p-0 text-gray-700 border border-gray-300 bg-white hover:bg-gray-100 hover:border-gray-400 hover:text-gray-900"
-                    >
+                    </button>
+                    <button className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
                       2
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="#"
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 w-10 p-0 text-gray-700 border border-gray-300 bg-white hover:bg-gray-100 hover:border-gray-400 hover:text-gray-900"
-                    >
+                    </button>
+                    <button className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
                       3
-                    </Link>
-                  </li>
-                  <li className="hidden sm:flex">
-                    <span className="flex h-10 w-10 items-center justify-center text-gray-500 px-1">
+                    </button>
+                    <div className="hidden sm:flex items-center justify-center h-10 w-10 text-gray-400">
                       <MoreHorizontal className="h-4 w-4" />
-                      <span className="sr-only">More pages</span>
-                    </span>
-                  </li>
-                  <li className="hidden sm:inline-block">
-                    <Link
-                      to="#"
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium h-10 w-10 p-0 text-gray-700 border border-gray-300 bg-white hover:bg-gray-100 hover:border-gray-400 hover:text-gray-900"
-                    >
+                    </div>
+                    <button className="hidden sm:inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
                       8
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="#"
-                      aria-label="Go to next page"
-                      className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors h-10 px-4 py-2 gap-2 text-gray-700 border border-gray-300 bg-white hover:bg-gray-100 hover:border-gray-400 hover:text-gray-900"
-                    >
-                      <span className="hidden sm:inline">Next</span>
-                      <ChevronRight className="h-4 w-4" />
-                    </Link>
-                  </li>
-                </ul>
+                    </button>
+                  </div>
+                  
+                  <button
+                    className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 h-10 px-3 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    aria-label="Go to next page"
+                  >
+                    <span className="hidden sm:inline">Next</span>
+                    <ChevronRight className="h-4 w-4" />
+                  </button>
+                </div>
               </nav>
             </div>
           )}
