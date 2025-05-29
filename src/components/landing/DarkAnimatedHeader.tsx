@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -513,7 +512,7 @@ const DarkAnimatedHeader = () => {
                               </div>
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
+                                  <h3 className="font-bold text-white transition-colors duration-300">
                                     {item.title}
                                   </h3>
                                   {item.label && (
@@ -522,11 +521,11 @@ const DarkAnimatedHeader = () => {
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
+                                <p className="text-gray-300 transition-colors duration-300">
                                   {item.description}
                                 </p>
                               </div>
-                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
+                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-all duration-300" />
                             </div>
                           </Card>
                         </Link>
@@ -736,16 +735,16 @@ const DarkAnimatedHeader = () => {
               <div className="max-w-7xl mx-auto">
                 
                 {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
-                <div className="p-4 border-b border-gray-800/60" style={{
+                <div className="p-3 border-b border-gray-800/60" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    className="flex items-center justify-center gap-2 w-full p-3 bg-black border border-white/30 text-white font-semibold text-sm rounded-lg hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
                     onClick={() => console.log("Call sales button clicked")}
                   >
-                    <Phone className="w-5 h-5" />
+                    <Phone className="w-4 h-4" />
                     Call Sales: +1 631 4886 390
                   </a>
                 </div>
