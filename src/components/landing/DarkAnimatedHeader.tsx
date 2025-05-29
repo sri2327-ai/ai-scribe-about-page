@@ -62,7 +62,7 @@ const DarkAnimatedHeader = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 200);
+    }, 150);
   };
 
   const handleDropdownMouseEnter = () => {
@@ -103,24 +103,24 @@ const DarkAnimatedHeader = () => {
       {
         title: 'CRUSH',
         description: 'AI Medical Scribe Assistant & Documentation',
-        icon: <Brain className="w-6 h-6 text-gray-300" />,
+        icon: <Brain className="w-6 h-6 text-[#387E89]" />,
         href: '/crush-ai',
-        bgColor: 'bg-black/90 backdrop-blur-lg border border-gray-600/40',
+        bgColor: 'bg-black/95 backdrop-blur-xl border border-gray-600/50 hover:border-[#387E89]/50',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-15">
-            <Stethoscope className="w-8 h-8 text-gray-300" />
+          <div className="absolute top-2 right-2 opacity-20">
+            <Stethoscope className="w-8 h-8 text-[#387E89]" />
           </div>
         )
       },
       {
         title: 'BRAVO',
         description: 'AI Staffing Agent & Automation',
-        icon: <Zap className="w-6 h-6 text-gray-300" />,
+        icon: <Zap className="w-6 h-6 text-[#5192AE]" />,
         href: '/bravo',
-        bgColor: 'bg-black/90 backdrop-blur-lg border border-gray-600/40',
+        bgColor: 'bg-black/95 backdrop-blur-xl border border-gray-600/50 hover:border-[#5192AE]/50',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-15">
-            <Users className="w-8 h-8 text-gray-300" />
+          <div className="absolute top-2 right-2 opacity-20">
+            <Users className="w-8 h-8 text-[#5192AE]" />
           </div>
         )
       },
@@ -128,12 +128,12 @@ const DarkAnimatedHeader = () => {
         title: 'Custom AI Agents',
         description: 'Tailored AI Solutions',
         label: 'New',
-        icon: <Cpu className="w-6 h-6 text-gray-300" />,
+        icon: <Cpu className="w-6 h-6 text-[#A5CCF3]" />,
         href: '/custom-ai-agent',
-        bgColor: 'bg-black/90 backdrop-blur-lg border border-gray-600/40',
+        bgColor: 'bg-black/95 backdrop-blur-xl border border-gray-600/50 hover:border-[#A5CCF3]/50',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-15">
-            <Award className="w-8 h-8 text-gray-300" />
+          <div className="absolute top-2 right-2 opacity-20">
+            <Award className="w-8 h-8 text-[#A5CCF3]" />
           </div>
         )
       }
@@ -236,62 +236,65 @@ const DarkAnimatedHeader = () => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+          initial={{ opacity: 0, y: -15, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10, scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-          className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50"
+          exit={{ opacity: 0, y: -15, scale: 0.95 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 z-50"
           onMouseEnter={handleDropdownMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <Card 
-            className={`p-6 shadow-2xl border-0 backdrop-blur-xl ${
+            className={`p-6 shadow-2xl border-0 backdrop-blur-2xl ${
               type === 'solutions' 
-                ? 'min-w-[650px] max-w-[700px]' 
-                : 'min-w-[450px] max-w-[500px]'
+                ? 'min-w-[700px] max-w-[750px]' 
+                : 'min-w-[480px] max-w-[520px]'
             }`} 
             style={{
-              backdropFilter: 'blur(20px)',
-              background: 'rgba(0, 0, 0, 0.92)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15) inset'
+              backdropFilter: 'blur(24px)',
+              background: 'rgba(0, 0, 0, 0.95)',
+              boxShadow: '0 32px 64px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 4px 16px rgba(56, 126, 137, 0.2)'
             }}
           >
             {type === 'solutions' ? (
-              <div className="grid grid-cols-1 gap-4">
-                <div className="mb-3">
-                  <h3 className="text-sm font-semibold text-white mb-1">AI Solutions</h3>
-                  <p className="text-xs text-gray-300">Choose your healthcare AI companion</p>
+              <div className="grid grid-cols-1 gap-5">
+                <div className="mb-4">
+                  <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-[#387E89]" />
+                    AI Solutions
+                  </h3>
+                  <p className="text-sm text-gray-300">Choose your healthcare AI companion</p>
                 </div>
                 {items.map((item, index) => (
                   <motion.div
                     key={item.title}
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: index * 0.1, ease: "easeOut" }}
                   >
                     <Link to={item.href} className="block group">
-                      <Card className={`p-5 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:border-[#387E89]/30`}>
+                      <Card className={`p-6 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.03] relative overflow-hidden group-hover:shadow-2xl`}>
                         {item.illustration}
                         <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-gray-800/70 backdrop-blur-sm rounded-xl border border-gray-600/30 group-hover:bg-gray-700/70 transition-colors">
+                          <div className="p-3 bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:border-current group-hover:shadow-lg transition-all duration-300">
                             {item.icon}
                           </div>
                           <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-bold text-white text-lg group-hover:text-[#387E89] transition-colors">
+                            <div className="flex items-center gap-3 mb-2">
+                              <h3 className="font-bold text-white text-xl group-hover:text-current transition-colors duration-300">
                                 {item.title}
                               </h3>
                               {item.label && (
-                                <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
+                                <span className="px-3 py-1 bg-gradient-to-r from-[#387E89]/30 to-[#5192AE]/30 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-[#387E89]/50 animate-pulse">
                                   {item.label}
                                 </span>
                               )}
                             </div>
-                            <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors">
+                            <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
                               {item.description}
                             </p>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-[#387E89] transition-all" />
+                          <ArrowRight className="w-6 h-6 text-gray-400 group-hover:translate-x-2 group-hover:text-current transition-all duration-300" />
                         </div>
                       </Card>
                     </Link>
@@ -299,10 +302,20 @@ const DarkAnimatedHeader = () => {
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-1">
-                <div className="mb-4 pb-3 border-b border-gray-700/50">
-                  <h3 className="text-sm font-semibold text-white">
-                    {type === 'about' ? 'Company' : 'Resources'}
+              <div className="grid grid-cols-1 gap-2">
+                <div className="mb-5 pb-4 border-b border-gray-700/60">
+                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                    {type === 'about' ? (
+                      <>
+                        <Building className="w-5 h-5 text-[#387E89]" />
+                        Company
+                      </>
+                    ) : (
+                      <>
+                        <BookOpen className="w-5 h-5 text-[#387E89]" />
+                        Resources
+                      </>
+                    )}
                   </h3>
                 </div>
                 {items.map((item, index) => (
@@ -310,23 +323,24 @@ const DarkAnimatedHeader = () => {
                     key={item.title}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
+                    transition={{ delay: index * 0.06, ease: "easeOut" }}
                   >
                     <Link 
                       to={item.href}
-                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-200 group"
+                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group border border-transparent hover:border-white/10"
                     >
-                      <div className="group-hover:scale-110 transition-transform">
+                      <div className="group-hover:scale-125 transition-transform duration-300">
                         {item.icon}
                       </div>
-                      <div>
-                        <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
+                      <div className="flex-1">
+                        <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors duration-300">
                           {item.title}
                         </div>
-                        <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
+                        <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                           {item.description}
                         </div>
                       </div>
+                      <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all duration-300" />
                     </Link>
                   </motion.div>
                 ))}
@@ -334,31 +348,31 @@ const DarkAnimatedHeader = () => {
                 {/* CTA Section */}
                 {cta && (
                   <>
-                    <div className="border-t border-gray-700/50 my-3"></div>
+                    <div className="border-t border-gray-700/60 my-4"></div>
                     <motion.div
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: items.length * 0.05 + 0.1 }}
+                      transition={{ delay: items.length * 0.06 + 0.15, ease: "easeOut" }}
                       className="pt-2"
                     >
                       <Link 
                         to={cta.href}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/30 to-[#387E89]/30 hover:from-[#143151]/40 hover:to-[#387E89]/40 transition-all duration-200 group border border-[#387E89]/40"
+                        className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#143151]/40 to-[#387E89]/40 hover:from-[#143151]/60 hover:to-[#387E89]/60 transition-all duration-300 group border border-[#387E89]/50 hover:border-[#387E89]/70 hover:shadow-xl"
                       >
-                        <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                        <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-lg">
                           <div className="text-white">
                             {cta.icon}
                           </div>
                         </div>
                         <div className="flex-1">
-                          <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
+                          <div className="font-bold text-white group-hover:text-[#387E89] transition-colors duration-300">
                             {cta.title}
                           </div>
-                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
+                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                             {cta.description}
                           </div>
                         </div>
-                        <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-5 h-5 text-[#387E89] group-hover:translate-x-2 transition-transform duration-300" />
                       </Link>
                     </motion.div>
                   </>
@@ -391,15 +405,15 @@ const DarkAnimatedHeader = () => {
         onMouseLeave={() => hasDropdown && handleMouseLeave()}
       >
         {hasDropdown ? (
-          <button className={`flex items-center gap-1 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+          <button className={`flex items-center gap-2 px-5 py-3 rounded-full font-semibold transition-all duration-300 ${
             isActive 
-              ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-lg' 
-              : 'text-white hover:text-[#387E89] hover:bg-white/10'
+              ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-xl scale-105' 
+              : 'text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105'
           }`}>
             {label}
             <motion.div
               animate={{ rotate: isActive ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
             >
               <ChevronDown className="w-4 h-4" />
             </motion.div>
@@ -407,7 +421,7 @@ const DarkAnimatedHeader = () => {
         ) : (
           <Link 
             to={href!}
-            className="px-4 py-2 rounded-full font-medium text-white hover:text-[#387E89] hover:bg-white/10 transition-all duration-300"
+            className="px-5 py-3 rounded-full font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300"
           >
             {label}
           </Link>
@@ -448,12 +462,12 @@ const DarkAnimatedHeader = () => {
       <div className="border-b border-gray-800/60 last:border-b-0">
         <button
           onClick={() => setActiveMobileSection(isActive ? null : sectionKey)}
-          className="w-full flex items-center justify-between p-4 text-left hover:bg-white/10 transition-colors"
+          className="w-full flex items-center justify-between p-5 text-left hover:bg-white/15 transition-all duration-300"
         >
-          <span className="font-semibold text-white text-lg">{title}</span>
+          <span className="font-bold text-white text-lg">{title}</span>
           <motion.div
             animate={{ rotate: isActive ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
             <ChevronDown className="w-5 h-5 text-[#387E89]" />
           </motion.div>
@@ -465,32 +479,32 @@ const DarkAnimatedHeader = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
               className="overflow-hidden"
               style={{
-                backdropFilter: 'blur(20px)',
-                background: 'rgba(0, 0, 0, 0.95)',
+                backdropFilter: 'blur(24px)',
+                background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-4 space-y-2">
+              <div className="p-5 space-y-3">
                 {sectionKey === 'solutions' ? (
                   // Solutions mobile view with cards
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {items.map((item) => (
                       <Link
                         key={item.title}
                         to={item.href}
                         className="block group"
                       >
-                        <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:border-[#387E89]/30`}>
+                        <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
                           {item.illustration}
-                          <div className="flex items-start gap-3 relative z-10">
-                            <div className="p-2 bg-gray-800/70 backdrop-blur-sm rounded-lg border border-gray-600/30 group-hover:bg-gray-700/70 transition-colors">
+                          <div className="flex items-start gap-4 relative z-10">
+                            <div className="p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:bg-gray-700/80 transition-colors duration-300">
                               {item.icon}
                             </div>
                             <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-1">
-                                <h3 className="font-bold text-white group-hover:text-[#387E89] transition-colors">
+                              <div className="flex items-center gap-2 mb-2">
+                                <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
                                   {item.title}
                                 </h3>
                                 {item.label && (
@@ -499,11 +513,11 @@ const DarkAnimatedHeader = () => {
                                   </span>
                                 )}
                               </div>
-                              <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors">
+                              <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
                                 {item.description}
                               </p>
                             </div>
-                            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 group-hover:text-[#387E89] transition-all" />
+                            <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
                           </div>
                         </Card>
                       </Link>
@@ -516,16 +530,16 @@ const DarkAnimatedHeader = () => {
                       <Link
                         key={item.title}
                         to={item.href}
-                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 transition-colors group"
+                        className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
                       >
-                        <div className="group-hover:scale-110 transition-transform">
+                        <div className="group-hover:scale-110 transition-transform duration-300">
                           {item.icon}
                         </div>
                         <div>
-                          <div className="font-medium text-white group-hover:text-[#387E89] transition-colors">
+                          <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors duration-300">
                             {item.title}
                           </div>
-                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
+                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                             {item.description}
                           </div>
                         </div>
@@ -535,25 +549,25 @@ const DarkAnimatedHeader = () => {
                     {/* Mobile CTA Section */}
                     {cta && (
                       <>
-                        <div className="border-t border-gray-700/50 my-3"></div>
+                        <div className="border-t border-gray-700/50 my-4"></div>
                         <Link 
                           to={cta.href}
-                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/30 to-[#387E89]/30 hover:from-[#143151]/40 hover:to-[#387E89]/40 transition-all duration-200 group border border-[#387E89]/40"
+                          className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#143151]/40 to-[#387E89]/40 hover:from-[#143151]/60 hover:to-[#387E89]/60 transition-all duration-300 group border border-[#387E89]/50 hover:shadow-xl"
                         >
-                          <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                          <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl group-hover:scale-110 transition-transform duration-300">
                             <div className="text-white">
                               {cta.icon}
                             </div>
                           </div>
                           <div className="flex-1">
-                            <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
+                            <div className="font-bold text-white group-hover:text-[#387E89] transition-colors duration-300">
                               {cta.title}
                             </div>
-                            <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
+                            <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                               {cta.description}
                             </div>
                           </div>
-                          <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-5 h-5 text-[#387E89] group-hover:translate-x-1 transition-transform duration-300" />
                         </Link>
                       </>
                     )}
@@ -573,10 +587,11 @@ const DarkAnimatedHeader = () => {
         ref={headerRef}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-xl shadow-lg border-b border-gray-800/50"
+        className="fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-2xl shadow-2xl border-b border-gray-800/60"
         style={{
-          backdropFilter: 'blur(20px)',
-          background: 'rgba(0, 0, 0, 0.92)',
+          backdropFilter: 'blur(24px)',
+          background: 'rgba(0, 0, 0, 0.98)',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05) inset'
         }}
       >
         <FloatingParticles />
@@ -644,7 +659,7 @@ const DarkAnimatedHeader = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/10"
+                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300"
                 asChild
               >
                 <Link to="#" className="flex items-center gap-2">
@@ -655,7 +670,7 @@ const DarkAnimatedHeader = () => {
               
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button 
-                  className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold px-6 py-2 rounded-full shadow-lg"
+                  className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold px-6 py-2 rounded-full shadow-2xl border border-[#387E89]/30 hover:shadow-[#387E89]/25"
                   asChild
                 >
                   <Link to="/contact" className="flex items-center gap-2">
@@ -669,11 +684,11 @@ const DarkAnimatedHeader = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-white hover:text-[#387E89] transition-colors"
+              className="lg:hidden p-2 text-white hover:text-[#387E89] hover:bg-white/15 rounded-lg transition-all duration-300"
             >
               <motion.div
                 animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </motion.div>
@@ -688,10 +703,11 @@ const DarkAnimatedHeader = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-gray-800/50"
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="lg:hidden border-t border-gray-800/60"
               style={{
-                backdropFilter: 'blur(20px)',
-                background: 'rgba(0, 0, 0, 0.95)',
+                backdropFilter: 'blur(24px)',
+                background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
               <div className="max-w-7xl mx-auto">
@@ -722,19 +738,19 @@ const DarkAnimatedHeader = () => {
                 <div className="border-b border-gray-800/60">
                   <Link 
                     to="/pricing" 
-                    className="block p-4 font-semibold text-white hover:bg-white/10 transition-colors"
+                    className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
                   >
                     Pricing
                   </Link>
                 </div>
 
-                <div className="p-4 space-y-3" style={{
-                  background: 'rgba(20, 49, 81, 0.4)',
-                  backdropFilter: 'blur(10px)'
+                <div className="p-5 space-y-4" style={{
+                  background: 'rgba(20, 49, 81, 0.6)',
+                  backdropFilter: 'blur(12px)'
                 }}>
                   <Button 
                     variant="outline" 
-                    className="w-full border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white"
+                    className="w-full border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white transition-all duration-300 hover:scale-105"
                     asChild
                   >
                     <Link to="#" className="flex items-center justify-center gap-2">
@@ -744,7 +760,7 @@ const DarkAnimatedHeader = () => {
                   </Button>
                   
                   <Button 
-                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold"
+                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                     asChild
                   >
                     <Link to="/contact" className="flex items-center justify-center gap-2">
