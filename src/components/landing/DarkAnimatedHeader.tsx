@@ -143,13 +143,13 @@ const DarkAnimatedHeader = () => {
   const aboutDropdown = {
     items: [
       {
-        title: 'About',
+        title: 'S10.AI Story',
         description: 'Our mission and team',
         icon: <Building className="w-5 h-5 text-white" />,
         href: '/about'
       },
       {
-        title: 'Technology',
+        title: 'Trust & Technology',
         description: 'Advanced AI architecture',
         icon: <Microscope className="w-5 h-5 text-[#387E89]" />,
         href: '/technology'
@@ -172,7 +172,13 @@ const DarkAnimatedHeader = () => {
         icon: <Stethoscope className="w-5 h-5 text-white" />,
         href: '/specialty'
       }
-    ]
+    ],
+    cta: {
+      title: 'See S10.AI in Action',
+      description: 'Watch how we transform healthcare workflows',
+      icon: <Play className="w-4 h-4" />,
+      href: '#'
+    }
   };
 
   const resourcesDropdown = {
@@ -207,17 +213,25 @@ const DarkAnimatedHeader = () => {
         icon: <MessageSquare className="w-5 h-5 text-white" />,
         href: '/customer'
       }
-    ]
+    ],
+    cta: {
+      title: 'Explore Our Solutions',
+      description: 'Interactive tour of CRUSH & BRAVO',
+      icon: <Play className="w-4 h-4" />,
+      href: '#'
+    }
   };
 
   const DropdownMenu = ({ 
     items, 
     isOpen, 
-    type 
+    type,
+    cta 
   }: { 
     items: any[], 
     isOpen: boolean, 
-    type: 'solutions' | 'about' | 'resources' 
+    type: 'solutions' | 'about' | 'resources',
+    cta?: any 
   }) => (
     <AnimatePresence>
       {isOpen && (
@@ -316,6 +330,39 @@ const DarkAnimatedHeader = () => {
                     </Link>
                   </motion.div>
                 ))}
+                
+                {/* CTA Section */}
+                {cta && (
+                  <>
+                    <div className="border-t border-gray-700 my-2"></div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: items.length * 0.05 + 0.1 }}
+                      className="pt-2"
+                    >
+                      <Link 
+                        to={cta.href}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/20 to-[#387E89]/20 hover:from-[#143151]/30 hover:to-[#387E89]/30 transition-all duration-200 group border border-[#387E89]/30"
+                      >
+                        <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                          <div className="text-white">
+                            {cta.icon}
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
+                            {cta.title}
+                          </div>
+                          <div className="text-sm text-gray-300">
+                            {cta.description}
+                          </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </motion.div>
+                  </>
+                )}
               </div>
             )}
           </Card>
@@ -372,10 +419,10 @@ const DarkAnimatedHeader = () => {
               <DropdownMenu items={solutionsDropdown.items} isOpen={isActive} type="solutions" />
             )}
             {dropdownType === 'about' && (
-              <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" />
+              <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" cta={aboutDropdown.cta} />
             )}
             {dropdownType === 'resources' && (
-              <DropdownMenu items={resourcesDropdown.items} isOpen={isActive} type="resources" />
+              <DropdownMenu items={resourcesDropdown.items} isOpen={isActive} type="resources" cta={resourcesDropdown.cta} />
             )}
           </>
         )}

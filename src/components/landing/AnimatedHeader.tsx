@@ -174,7 +174,13 @@ const AnimatedHeader = () => {
         icon: <Stethoscope className="w-5 h-5 text-[#143151]" />,
         href: '/specialty'
       }
-    ]
+    ],
+    cta: {
+      title: 'See S10.AI in Action',
+      description: 'Watch how we transform healthcare workflows',
+      icon: <Play className="w-4 h-4" />,
+      href: '#'
+    }
   };
 
   // Resources dropdown content with Resource Library added
@@ -210,17 +216,25 @@ const AnimatedHeader = () => {
         icon: <MessageSquare className="w-5 h-5 text-[#143151]" />,
         href: '/customer'
       }
-    ]
+    ],
+    cta: {
+      title: 'Explore Our Solutions',
+      description: 'Interactive tour of CRUSH & BRAVO',
+      icon: <Play className="w-4 h-4" />,
+      href: '#'
+    }
   };
 
   const DropdownMenu = ({ 
     items, 
     isOpen, 
-    type 
+    type,
+    cta 
   }: { 
     items: any[], 
     isOpen: boolean, 
-    type: 'solutions' | 'about' | 'resources' 
+    type: 'solutions' | 'about' | 'resources',
+    cta?: any 
   }) => (
     <AnimatePresence>
       {isOpen && (
@@ -319,6 +333,39 @@ const AnimatedHeader = () => {
                     </Link>
                   </motion.div>
                 ))}
+                
+                {/* CTA Section */}
+                {cta && (
+                  <>
+                    <div className="border-t border-gray-100 my-2"></div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: items.length * 0.05 + 0.1 }}
+                      className="pt-2"
+                    >
+                      <Link 
+                        to={cta.href}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
+                      >
+                        <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                          <div className="text-white">
+                            {cta.icon}
+                          </div>
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                            {cta.title}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {cta.description}
+                          </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </motion.div>
+                  </>
+                )}
               </div>
             )}
           </Card>
@@ -327,6 +374,7 @@ const AnimatedHeader = () => {
     </AnimatePresence>
   );
 
+  // NavItem component definition
   const NavItem = ({ 
     label, 
     hasDropdown = false, 
@@ -375,10 +423,10 @@ const AnimatedHeader = () => {
               <DropdownMenu items={solutionsDropdown.items} isOpen={isActive} type="solutions" />
             )}
             {dropdownType === 'about' && (
-              <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" />
+              <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" cta={aboutDropdown.cta} />
             )}
             {dropdownType === 'resources' && (
-              <DropdownMenu items={resourcesDropdown.items} isOpen={isActive} type="resources" />
+              <DropdownMenu items={resourcesDropdown.items} isOpen={isActive} type="resources" cta={resourcesDropdown.cta} />
             )}
           </>
         )}
