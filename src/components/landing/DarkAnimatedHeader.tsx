@@ -29,7 +29,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
 
 const DarkAnimatedHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -445,7 +444,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component with improved UX and scrolling
+  // Mobile section component - SIMPLIFIED WITHOUT INTERNAL SCROLLING
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -490,7 +489,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="max-h-96 overflow-y-auto p-5">
+              <div className="p-5">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
                     // Solutions mobile view with cards
@@ -708,7 +707,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu - FIXED WITH PROPER SCROLLING */}
+        {/* Mobile Menu - COMPLETELY SCROLLABLE */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -716,91 +715,88 @@ const DarkAnimatedHeader = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gray-800/60"
+              className="lg:hidden border-t border-gray-800/60 fixed left-0 right-0 top-20 bottom-0 z-40 overflow-y-auto"
               style={{
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
-                maxHeight: '80vh'
               }}
             >
-              <ScrollArea className="h-full max-h-[80vh]">
-                <div className="max-w-7xl mx-auto">
-                  
-                  {/* Call Sales Button - Mobile Only - UPDATED STYLING */}
-                  <div className="p-4 border-b border-gray-800/60" style={{
-                    background: 'rgba(56, 126, 137, 0.1)',
-                    backdropFilter: 'blur(12px)'
-                  }}>
-                    <a 
-                      href="tel:+16314886390" 
-                      className="flex items-center justify-center gap-3 w-full p-4 bg-black border-2 border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
-                      onClick={() => console.log("Call sales button clicked")}
-                    >
-                      <Phone className="w-5 h-5" />
-                      Call Sales: +1 631 4886 390
-                    </a>
-                  </div>
-
-                  {/* Mobile Solutions Section */}
-                  <MobileSectionToggle 
-                    title="Solutions" 
-                    items={solutionsDropdown.items} 
-                    sectionKey="solutions" 
-                  />
-
-                  {/* Mobile About Section */}
-                  <MobileSectionToggle 
-                    title="About" 
-                    items={aboutDropdown.items} 
-                    sectionKey="about"
-                    cta={aboutDropdown.cta}
-                  />
-
-                  {/* Mobile Resources Section */}
-                  <MobileSectionToggle 
-                    title="Resources" 
-                    items={resourcesDropdown.items} 
-                    sectionKey="resources"
-                    cta={resourcesDropdown.cta}
-                  />
-
-                  <div className="border-b border-gray-800/60">
-                    <Link 
-                      to="/pricing" 
-                      className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
-                      onClick={() => console.log("Pricing link clicked")}
-                    >
-                      Pricing
-                    </Link>
-                  </div>
-
-                  <div className="p-5 space-y-4" style={{
-                    background: 'rgba(20, 49, 81, 0.6)',
-                    backdropFilter: 'blur(12px)'
-                  }}>
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-white/50 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
-                      asChild
-                    >
-                      <Link to="#" className="flex items-center justify-center gap-2">
-                        <Play className="w-4 h-4" />
-                        Quick Tour
-                      </Link>
-                    </Button>
-                    
-                    <Button 
-                      className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
-                      asChild
-                    >
-                      <Link to="/contact" className="flex items-center justify-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Contact Us
-                      </Link>
-                    </Button>
-                  </div>
+              <div className="max-w-7xl mx-auto">
+                
+                {/* Call Sales Button - Mobile Only - WHITE OUTLINE, THINNER BORDER */}
+                <div className="p-4 border-b border-gray-800/60" style={{
+                  background: 'rgba(56, 126, 137, 0.1)',
+                  backdropFilter: 'blur(12px)'
+                }}>
+                  <a 
+                    href="tel:+16314886390" 
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    onClick={() => console.log("Call sales button clicked")}
+                  >
+                    <Phone className="w-5 h-5" />
+                    Call Sales: +1 631 4886 390
+                  </a>
                 </div>
-              </ScrollArea>
+
+                {/* Mobile Solutions Section */}
+                <MobileSectionToggle 
+                  title="Solutions" 
+                  items={solutionsDropdown.items} 
+                  sectionKey="solutions" 
+                />
+
+                {/* Mobile About Section */}
+                <MobileSectionToggle 
+                  title="About" 
+                  items={aboutDropdown.items} 
+                  sectionKey="about"
+                  cta={aboutDropdown.cta}
+                />
+
+                {/* Mobile Resources Section */}
+                <MobileSectionToggle 
+                  title="Resources" 
+                  items={resourcesDropdown.items} 
+                  sectionKey="resources"
+                  cta={resourcesDropdown.cta}
+                />
+
+                <div className="border-b border-gray-800/60">
+                  <Link 
+                    to="/pricing" 
+                    className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
+                    onClick={() => console.log("Pricing link clicked")}
+                  >
+                    Pricing
+                  </Link>
+                </div>
+
+                <div className="p-5 space-y-4" style={{
+                  background: 'rgba(20, 49, 81, 0.6)',
+                  backdropFilter: 'blur(12px)'
+                }}>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-white/50 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
+                    asChild
+                  >
+                    <Link to="#" className="flex items-center justify-center gap-2">
+                      <Play className="w-4 h-4" />
+                      Quick Tour
+                    </Link>
+                  </Button>
+                  
+                  <Button 
+                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    asChild
+                  >
+                    <Link to="/contact" className="flex items-center justify-center gap-2">
+                      <Mail className="w-4 h-4" />
+                      Contact Us
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
