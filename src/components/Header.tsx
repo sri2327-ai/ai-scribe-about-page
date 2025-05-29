@@ -203,36 +203,23 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
 
-      {/* Mobile Sidebar - FIXED: Only content area scrolls, header stays fixed */}
+      {/* Mobile Sidebar */}
       {isSidebarOpen && (
-        <div 
-          className="md:hidden fixed inset-0 top-16 bg-white z-50 flex flex-col"
-          style={{ 
-            height: 'calc(100vh - 64px)',
-            overscrollBehavior: 'contain'
-          }}
-        >
-          
-          {/* Call Sales Button - Mobile Only - LIGHT THEME - FIXED HEADER */}
+        <div className="md:hidden fixed inset-0 bg-white z-50 flex flex-col pt-16">
+          {/* Call Sales Button - Mobile */}
           <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 flex-shrink-0">
             <a 
               href="tel:+16314886390" 
               className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
-              onClick={() => console.log("Light theme call sales clicked")}
+              onClick={closeMenu}
             >
               <Phone className="w-5 h-5" />
               Call Sales: +1 631 4886 390
             </a>
           </div>
 
-          {/* Scrollable Content Area */}
-          <div 
-            className="flex-1 overflow-y-auto overflow-x-hidden"
-            style={{
-              WebkitOverflowScrolling: 'touch',
-              touchAction: 'pan-y'
-            }}
-          >
+          {/* Navigation Menu */}
+          <div className="flex-1 overflow-y-auto">
             <div className="flex flex-col pb-20 min-h-full">
               <NavLink
                 to="/about"
