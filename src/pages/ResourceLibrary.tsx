@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
@@ -8,6 +7,26 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import DarkAnimatedHeader from '@/components/landing/DarkAnimatedHeader';
+import GradientBarsBackground from '@/components/ui/gradient-bars-background';
+
+// Add keyframe animation for pulse effect
+const pulseBarKeyframes = `
+  @keyframes pulseBar {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
+  }
+`;
+
+// Inject styles
+useEffect(() => {
+  const style = document.createElement('style');
+  style.textContent = pulseBarKeyframes;
+  document.head.appendChild(style);
+  
+  return () => {
+    document.head.removeChild(style);
+  };
+}, []);
 
 interface Resource {
   id: string;
@@ -329,13 +348,17 @@ const ResourceLibrary = () => {
           <link rel="canonical" href="https://s10.ai/resource-library" />
         </Helmet>
 
-        {/* Hero Section */}
-        <section className="bg-white text-gray-800 py-16 sm:py-20 border-b border-gray-200">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight text-slate-900">
+        {/* Hero Section with Gradient Background */}
+        <section className="relative bg-gray-950 text-white py-16 sm:py-20 border-b border-gray-800 overflow-hidden">
+          <div className="absolute inset-0 bg-gray-950"></div>
+          <GradientBarsBackground />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-950/80 to-transparent"></div>
+          
+          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 tracking-tight text-white">
               S10.ai Resource Library
             </h1>
-            <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Explore our collection of articles, guides, case studies, and more to help you succeed.
             </p>
           </div>
