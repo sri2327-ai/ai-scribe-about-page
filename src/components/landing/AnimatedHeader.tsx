@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -63,7 +64,7 @@ const AnimatedHeader = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 200); // Increased delay for better UX
+    }, 300);
   };
 
   const handleDropdownMouseEnter = () => {
@@ -98,30 +99,32 @@ const AnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown content with enhanced illustrations and fixed naming
+  // Solutions dropdown content with enhanced illustrations and better colors
   const solutionsDropdown = {
     items: [
       {
         title: 'CRUSH',
         description: 'AI Medical Scribe & Documentation',
-        icon: <Brain className="w-6 h-6 text-[#387E89]" />,
+        icon: <Brain className="w-6 h-6 text-white" />,
         href: '/crush-ai',
-        gradient: 'from-[#143151] to-[#387E89]',
+        gradient: 'from-[#143151]/90 to-[#387E89]/90',
+        bgColor: 'bg-gradient-to-br from-[#143151] to-[#387E89]',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-10">
-            <Stethoscope className="w-8 h-8 text-[#387E89]" />
+          <div className="absolute top-2 right-2 opacity-20">
+            <Stethoscope className="w-8 h-8 text-white" />
           </div>
         )
       },
       {
         title: 'BRAVO',
         description: 'AI Staffing Agent & Automation',
-        icon: <Zap className="w-6 h-6 text-[#5192AE]" />,
+        icon: <Zap className="w-6 h-6 text-white" />,
         href: '/bravo',
-        gradient: 'from-[#387E89] to-[#5192AE]',
+        gradient: 'from-[#387E89]/90 to-[#5192AE]/90',
+        bgColor: 'bg-gradient-to-br from-[#387E89] to-[#5192AE]',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-10">
-            <Users className="w-8 h-8 text-[#5192AE]" />
+          <div className="absolute top-2 right-2 opacity-20">
+            <Users className="w-8 h-8 text-white" />
           </div>
         )
       },
@@ -129,29 +132,30 @@ const AnimatedHeader = () => {
         title: 'Custom AI Agents',
         description: 'Tailored AI Solutions',
         label: 'Enterprise',
-        icon: <Cpu className="w-6 h-6 text-[#A5CCF3]" />,
+        icon: <Cpu className="w-6 h-6 text-white" />,
         href: '/custom-ai-agent',
-        gradient: 'from-[#5192AE] to-[#A5CCF3]',
+        gradient: 'from-[#5192AE]/90 to-[#A5CCF3]/90',
+        bgColor: 'bg-gradient-to-br from-[#5192AE] to-[#A5CCF3]',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-10">
-            <Award className="w-8 h-8 text-[#A5CCF3]" />
+          <div className="absolute top-2 right-2 opacity-20">
+            <Award className="w-8 h-8 text-white" />
           </div>
         )
       }
     ]
   };
 
-  // About dropdown content with enhanced design
+  // About dropdown content with corrected labels
   const aboutDropdown = {
     items: [
       {
-        title: 'About',
+        title: 'S10.AI Story',
         description: 'Our mission and team',
         icon: <Building className="w-5 h-5 text-[#143151]" />,
         href: '/about'
       },
       {
-        title: 'Technology',
+        title: 'Trust & Technology',
         description: 'Advanced AI architecture',
         icon: <Microscope className="w-5 h-5 text-[#387E89]" />,
         href: '/technology'
@@ -253,10 +257,10 @@ const AnimatedHeader = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Link to={item.href} className="block group">
-                      <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-r ${item.gradient} hover:scale-[1.02] relative overflow-hidden`}>
+                      <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
                         {item.illustration}
                         <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-white/25 backdrop-blur-sm rounded-xl">
+                          <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl border border-white/10">
                             {item.icon}
                           </div>
                           <div className="flex-1">
@@ -265,7 +269,7 @@ const AnimatedHeader = () => {
                                 {item.title}
                               </h3>
                               {item.label && (
-                                <span className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                                <span className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/10">
                                   {item.label}
                                 </span>
                               )}
