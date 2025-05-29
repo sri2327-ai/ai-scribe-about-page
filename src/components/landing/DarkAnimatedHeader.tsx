@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -444,7 +445,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component - SIMPLIFIED WITHOUT INTERNAL SCROLLING
+  // Mobile section component
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -489,7 +490,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-5">
+              <div className="p-5 max-h-80 overflow-y-auto">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
                     // Solutions mobile view with cards
@@ -499,7 +500,10 @@ const DarkAnimatedHeader = () => {
                           key={item.title}
                           to={item.href}
                           className="block group"
-                          onClick={() => console.log(`Mobile solution clicked: ${item.title}`)}
+                          onClick={() => {
+                            console.log(`Mobile solution clicked: ${item.title}`);
+                            setIsMobileMenuOpen(false);
+                          }}
                         >
                           <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
                             {item.illustration}
@@ -536,7 +540,10 @@ const DarkAnimatedHeader = () => {
                           key={item.title}
                           to={item.href}
                           className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
-                          onClick={() => console.log(`Mobile link clicked: ${item.title}`)}
+                          onClick={() => {
+                            console.log(`Mobile link clicked: ${item.title}`);
+                            setIsMobileMenuOpen(false);
+                          }}
                         >
                           <div className="group-hover:scale-110 transition-transform duration-300">
                             {item.icon}
@@ -559,7 +566,10 @@ const DarkAnimatedHeader = () => {
                           <Link 
                             to={cta.href}
                             className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#143151]/40 to-[#387E89]/40 hover:from-[#143151]/60 hover:to-[#387E89]/60 transition-all duration-300 group border border-[#387E89]/50 hover:shadow-xl"
-                            onClick={() => console.log(`Mobile CTA clicked: ${cta.title}`)}
+                            onClick={() => {
+                              console.log(`Mobile CTA clicked: ${cta.title}`);
+                              setIsMobileMenuOpen(false);
+                            }}
                           >
                             <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl group-hover:scale-110 transition-transform duration-300">
                               <div className="text-white">
@@ -707,7 +717,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu - COMPLETELY SCROLLABLE */}
+        {/* Mobile Menu - FIXED SCROLLING ISSUE */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -715,15 +725,17 @@ const DarkAnimatedHeader = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gray-800/60 fixed left-0 right-0 top-20 bottom-0 z-40 overflow-y-auto"
+              className="lg:hidden border-t border-gray-800/60 absolute left-0 right-0 top-full z-40"
               style={{
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
+                maxHeight: 'calc(100vh - 80px)',
+                overflowY: 'auto'
               }}
             >
               <div className="max-w-7xl mx-auto">
                 
-                {/* Call Sales Button - Mobile Only - WHITE OUTLINE, THINNER BORDER */}
+                {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
                 <div className="p-4 border-b border-gray-800/60" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
@@ -765,7 +777,10 @@ const DarkAnimatedHeader = () => {
                   <Link 
                     to="/pricing" 
                     className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
-                    onClick={() => console.log("Pricing link clicked")}
+                    onClick={() => {
+                      console.log("Pricing link clicked");
+                      setIsMobileMenuOpen(false);
+                    }}
                   >
                     Pricing
                   </Link>
