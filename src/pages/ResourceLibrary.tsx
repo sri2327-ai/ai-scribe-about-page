@@ -1,27 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, MoreHorizontal, ArrowLeft, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal, Check, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
 import DarkAnimatedHeader from '@/components/landing/DarkAnimatedHeader';
 import GradientBarsBackground from '@/components/ui/gradient-bars-background';
 
 interface Resource {
   id: string;
-  category: 'infographic' | 'guide' | 'report' | 'workbook' | 'checklist';
+  category: string;
   title: string;
   description: string;
   img: string;
   actionText: string;
+  pdfUrl?: string;
+}
+
+interface FilterOption {
+  key: string;
+  label: string;
+  count?: number;
+}
+
+interface PaginationData {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
 }
 
 const ResourceLibrary = () => {
   const [activeFilter, setActiveFilter] = useState('all');
   const [showDetailView, setShowDetailView] = useState(false);
   const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [filters, setFilters] = useState<FilterOption[]>([]);
+  const [pagination, setPagination] = useState<PaginationData>({
+    currentPage: 1,
+    totalPages: 67,
+    totalItems: 670,
+    itemsPerPage: 10
+  });
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
@@ -30,91 +54,135 @@ const ResourceLibrary = () => {
     specialty: ''
   });
   const [formMessage, setFormMessage] = useState('');
+  const { toast } = useToast();
 
-  // Add keyframe animation for pulse effect
+  // Simulate API calls
+  const fetchFilters = async () => {
+    // Mock API call for filters
+    const mockFilters = [
+      { key: 'all', label: 'All Types', count: 150 },
+      { key: 'infographic', label: 'Infographic', count: 25 },
+      { key: 'guide', label: 'Guide', count: 40 },
+      { key: 'report', label: 'Report', count: 35 },
+      { key: 'workbook', label: 'Workbook', count: 30 },
+      { key: 'checklist', label: 'Checklist', count: 20 }
+    ];
+    setFilters(mockFilters);
+  };
+
+  const fetchResources = async (filter: string, page: number) => {
+    setLoading(true);
+    try {
+      // Mock API call for resources
+      const mockResources: Resource[] = [
+        {
+          id: '1',
+          category: 'infographic',
+          title: 'Understanding Data Visualization',
+          description: 'A quick visual guide to common data visualization techniques and their best uses.',
+          img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=338&fit=crop',
+          actionText: 'View Infographic',
+          pdfUrl: '/mock-infographic.pdf'
+        },
+        {
+          id: '2',
+          category: 'guide',
+          title: 'Navigating HIPAA Compliance with S10.ai',
+          description: 'A practical guide to ensuring your practice meets all HIPAA requirements using S10.ai\'s secure platform.',
+          img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=338&fit=crop',
+          actionText: 'Read Guide',
+          pdfUrl: '/mock-guide.pdf'
+        },
+        {
+          id: '3',
+          category: 'report',
+          title: 'The State of Telehealth in 2025',
+          description: 'An in-depth analysis of telehealth adoption, challenges, and future outlook based on recent data.',
+          img: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=338&fit=crop',
+          actionText: 'Read Report',
+          pdfUrl: '/mock-report.pdf'
+        },
+        {
+          id: '4',
+          category: 'workbook',
+          title: 'Implementing S10.ai: A Step-by-Step Workbook',
+          description: 'Interactive exercises and checklists to guide your S10.ai platform integration smoothly.',
+          img: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=338&fit=crop',
+          actionText: 'Download Workbook',
+          pdfUrl: '/mock-workbook.pdf'
+        },
+        {
+          id: '5',
+          category: 'checklist',
+          title: 'Year-End Financial Checklist for Practices',
+          description: 'Ensure your medical practice is financially prepared with this comprehensive year-end checklist.',
+          img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=338&fit=crop',
+          actionText: 'Get Checklist',
+          pdfUrl: '/mock-checklist.pdf'
+        },
+        {
+          id: '6',
+          category: 'infographic',
+          title: 'AI in Daily Life',
+          description: 'Explore how AI is subtly integrated into our everyday tools and services.',
+          img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=338&fit=crop',
+          actionText: 'View Infographic',
+          pdfUrl: '/mock-ai-infographic.pdf'
+        },
+        {
+          id: '7',
+          category: 'guide',
+          title: 'Effective Patient Communication',
+          description: 'Strategies and tools for enhancing communication with your patients for better outcomes.',
+          img: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&h=338&fit=crop',
+          actionText: 'Read Guide',
+          pdfUrl: '/mock-communication-guide.pdf'
+        },
+        {
+          id: '8',
+          category: 'report',
+          title: 'AI Impact on Medical Diagnostics',
+          description: 'A comprehensive report on how AI is transforming diagnostic accuracy and speed.',
+          img: 'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=338&fit=crop',
+          actionText: 'Read Report',
+          pdfUrl: '/mock-diagnostics-report.pdf'
+        }
+      ];
+
+      // Filter resources based on active filter
+      const filteredData = filter === 'all' 
+        ? mockResources 
+        : mockResources.filter(resource => resource.category === filter);
+
+      setResources(filteredData);
+      
+      // Update pagination based on filtered results
+      setPagination({
+        currentPage: page,
+        totalPages: Math.ceil(filteredData.length / 8) || 1,
+        totalItems: filteredData.length,
+        itemsPerPage: 8
+      });
+    } catch (error) {
+      console.error('Error fetching resources:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load resources. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const pulseBarKeyframes = `
-      @keyframes pulseBar {
-        0% { opacity: 0.6; }
-        100% { opacity: 1; }
-      }
-    `;
-    
-    const style = document.createElement('style');
-    style.textContent = pulseBarKeyframes;
-    document.head.appendChild(style);
-    
-    return () => {
-      document.head.removeChild(style);
-    };
+    fetchFilters();
+    fetchResources(activeFilter, 1);
   }, []);
 
-  const resources: Resource[] = [
-    {
-      id: '1',
-      category: 'infographic',
-      title: 'Understanding Data Visualization',
-      description: 'A quick visual guide to common data visualization techniques and their best uses.',
-      img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=338&fit=crop',
-      actionText: 'View Infographic'
-    },
-    {
-      id: '2',
-      category: 'guide',
-      title: 'Navigating HIPAA Compliance with S10.ai',
-      description: 'A practical guide to ensuring your practice meets all HIPAA requirements using S10.ai\'s secure platform.',
-      img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=338&fit=crop',
-      actionText: 'Read Guide'
-    },
-    {
-      id: '3',
-      category: 'report',
-      title: 'The State of Telehealth in 2025',
-      description: 'An in-depth analysis of telehealth adoption, challenges, and future outlook based on recent data.',
-      img: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&h=338&fit=crop',
-      actionText: 'Read Report'
-    },
-    {
-      id: '4',
-      category: 'workbook',
-      title: 'Implementing S10.ai: A Step-by-Step Workbook',
-      description: 'Interactive exercises and checklists to guide your S10.ai platform integration smoothly.',
-      img: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=338&fit=crop',
-      actionText: 'Download Workbook'
-    },
-    {
-      id: '5',
-      category: 'checklist',
-      title: 'Year-End Financial Checklist for Practices',
-      description: 'Ensure your medical practice is financially prepared with this comprehensive year-end checklist.',
-      img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=338&fit=crop',
-      actionText: 'Get Checklist'
-    },
-    {
-      id: '6',
-      category: 'infographic',
-      title: 'AI in Daily Life',
-      description: 'Explore how AI is subtly integrated into our everyday tools and services.',
-      img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=338&fit=crop',
-      actionText: 'View Infographic'
-    },
-    {
-      id: '7',
-      category: 'guide',
-      title: 'Effective Patient Communication',
-      description: 'Strategies and tools for enhancing communication with your patients for better outcomes.',
-      img: 'https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=600&h=338&fit=crop',
-      actionText: 'Read Guide'
-    },
-    {
-      id: '8',
-      category: 'report',
-      title: 'AI Impact on Medical Diagnostics',
-      description: 'A comprehensive report on how AI is transforming diagnostic accuracy and speed.',
-      img: 'https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=600&h=338&fit=crop',
-      actionText: 'Read Report'
-    }
-  ];
+  useEffect(() => {
+    fetchResources(activeFilter, 1);
+  }, [activeFilter]);
 
   const getCategoryColor = (category: string) => {
     const colors = {
@@ -138,36 +206,47 @@ const ResourceLibrary = () => {
     return colors[category as keyof typeof colors] || 'text-gray-600 group-hover:text-gray-700';
   };
 
-  const filteredResources = activeFilter === 'all' 
-    ? resources 
-    : resources.filter(resource => resource.category === activeFilter);
-
   const handleResourceClick = (resource: Resource) => {
     setSelectedResource(resource);
     setShowDetailView(true);
     window.scrollTo(0, 0);
   };
 
-  const handleBackToLibrary = () => {
-    setShowDetailView(false);
-    setSelectedResource(null);
+  const handleDownload = async (resource: Resource) => {
+    try {
+      setLoading(true);
+      
+      // Simulate download process
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // In a real implementation, you would initiate the actual download here
+      // window.open(resource.pdfUrl, '_blank');
+      
+      toast({
+        title: "Download Successful!",
+        description: `${resource.title} has been downloaded successfully.`,
+        variant: "default",
+      });
+      
+      // Close the detail view after successful download
+      setShowDetailView(false);
+      setSelectedResource(null);
+    } catch (error) {
+      toast({
+        title: "Download Failed",
+        description: "There was an error downloading the resource. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormMessage('Thank you! Your request has been submitted.');
-    setFormData({
-      fullName: '',
-      companyName: '',
-      email: '',
-      phone: '',
-      specialty: ''
-    });
-    
-    setTimeout(() => {
-      setFormMessage('');
-    }, 5000);
+    if (selectedResource) {
+      handleDownload(selectedResource);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -175,6 +254,85 @@ const ResourceLibrary = () => {
       ...prev,
       [e.target.name]: e.target.value
     }));
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= pagination.totalPages) {
+      fetchResources(activeFilter, page);
+    }
+  };
+
+  const renderPaginationButton = (page: number | string, isActive = false, onClick?: () => void) => (
+    <button
+      key={page}
+      onClick={onClick}
+      disabled={!onClick}
+      className={`
+        min-w-[40px] h-[40px] px-3 rounded-lg border text-sm font-medium transition-all duration-200
+        ${isActive 
+          ? 'bg-black text-white border-black' 
+          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+        }
+        ${!onClick ? 'cursor-default' : 'cursor-pointer'}
+      `}
+    >
+      {page}
+    </button>
+  );
+
+  const renderPagination = () => {
+    const { currentPage, totalPages } = pagination;
+    const pages = [];
+
+    // Always show first page
+    pages.push(renderPaginationButton(1, currentPage === 1, () => handlePageChange(1)));
+
+    // Show pages around current page
+    const startPage = Math.max(2, currentPage - 1);
+    const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+    if (startPage > 2) {
+      pages.push(renderPaginationButton('...'));
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(renderPaginationButton(i, currentPage === i, () => handlePageChange(i)));
+    }
+
+    if (endPage < totalPages - 1) {
+      pages.push(renderPaginationButton('...'));
+    }
+
+    // Always show last page if more than 1 page
+    if (totalPages > 1) {
+      pages.push(renderPaginationButton(totalPages, currentPage === totalPages, () => handlePageChange(totalPages)));
+    }
+
+    return (
+      <div className="flex items-center justify-center gap-2 mt-16">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          Previous
+        </button>
+
+        <div className="flex items-center gap-1">
+          {pages}
+        </div>
+
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        >
+          Next
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
+    );
   };
 
   if (showDetailView && selectedResource) {
@@ -189,14 +347,6 @@ const ResourceLibrary = () => {
 
           <section className="bg-white py-12 sm:py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <button 
-                onClick={handleBackToLibrary}
-                className="inline-flex items-center text-[#387E89] hover:text-[#2c6269] font-medium mb-10 group text-sm transition-colors"
-              >
-                <ArrowLeft className="mr-2 w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-                Back to Resource Library
-              </button>
-
               <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
                 <div className="lg:w-[55%] text-gray-800">
                   <span className={`text-sm font-semibold uppercase mb-3 block tracking-wider ${getCategoryColor(selectedResource.category).split(' ')[0]}`}>
@@ -310,9 +460,20 @@ const ResourceLibrary = () => {
                       <div className="pt-3">
                         <Button
                           type="submit"
-                          className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold h-11 px-6 py-3 rounded-lg shadow-md transition-all duration-300"
+                          disabled={loading}
+                          className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold h-11 px-6 py-3 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center gap-2"
                         >
-                          Download Resource
+                          {loading ? (
+                            <>
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                              Downloading...
+                            </>
+                          ) : (
+                            <>
+                              <Download className="w-4 h-4" />
+                              Download Resource
+                            </>
+                          )}
                         </Button>
                       </div>
                       
@@ -370,16 +531,15 @@ const ResourceLibrary = () => {
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-left mb-4 md:mb-0 tracking-tight">
                 All Resources
               </h2>
+              {loading && (
+                <div className="flex items-center gap-2 text-gray-600">
+                  <div className="w-4 h-4 border-2 border-gray-300 border-t-gray-600 rounded-full animate-spin" />
+                  Loading...
+                </div>
+              )}
             </div>
             <div className="flex flex-wrap gap-2 items-center">
-              {[
-                { key: 'all', label: 'All Types' },
-                { key: 'infographic', label: 'Infographic' },
-                { key: 'guide', label: 'Guide' },
-                { key: 'report', label: 'Report' },
-                { key: 'workbook', label: 'Workbook' },
-                { key: 'checklist', label: 'Checklist' }
-              ].map((filter) => (
+              {filters.map((filter) => (
                 <button
                   key={filter.key}
                   onClick={() => setActiveFilter(filter.key)}
@@ -390,6 +550,9 @@ const ResourceLibrary = () => {
                   }`}
                 >
                   {filter.label}
+                  {filter.count && (
+                    <span className="ml-1 text-xs opacity-70">({filter.count})</span>
+                  )}
                 </button>
               ))}
             </div>
@@ -398,89 +561,62 @@ const ResourceLibrary = () => {
 
         {/* Resource Grid */}
         <main className="bg-white container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-            {filteredResources.map((resource) => (
-              <div
-                key={resource.id}
-                onClick={() => handleResourceClick(resource)}
-                className="group cursor-pointer"
-              >
-                <Card className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-200 hover:border-[#387E89]">
-                  <div className="aspect-video bg-slate-100 overflow-hidden">
-                    <img
-                      src={resource.img}
-                      alt={resource.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                      onError={(e) => {
-                        e.currentTarget.src = 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=600&h=338&fit=crop';
-                      }}
-                    />
-                  </div>
-                  <div className="p-5 flex flex-col flex-grow">
-                    <span className={`text-xs font-semibold uppercase mb-2 tracking-wider ${getCategoryColor(resource.category)}`}>
-                      {resource.category}
-                    </span>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-tight group-hover:text-[#387E89] transition-colors">
-                      {resource.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">
-                      {resource.description}
-                    </p>
-                    <span className={`inline-flex items-center text-sm font-medium group-hover:gap-1.5 transition-all duration-200 self-start mt-auto ${getCategoryActionColor(resource.category)}`}>
-                      {resource.actionText}
-                      <ChevronRight className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                    </span>
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+              {Array.from({ length: 8 }).map((_, index) => (
+                <Card key={index} className="animate-pulse">
+                  <div className="aspect-video bg-gray-200 rounded-t-xl" />
+                  <div className="p-5 space-y-3">
+                    <div className="h-4 bg-gray-200 rounded w-1/3" />
+                    <div className="h-5 bg-gray-200 rounded w-3/4" />
+                    <div className="h-4 bg-gray-200 rounded w-full" />
+                    <div className="h-4 bg-gray-200 rounded w-2/3" />
                   </div>
                 </Card>
-              </div>
-            ))}
-          </div>
-
-          {/* Modern Pagination */}
-          {filteredResources.length > 0 && (
-            <div className="mt-16 flex justify-center">
-              <nav role="navigation" aria-label="pagination" className="mx-auto flex w-full justify-center">
-                <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-2 py-2 shadow-lg">
-                  <button
-                    className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 h-10 px-3 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
-                    aria-label="Go to previous page"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                    <span className="hidden sm:inline">Previous</span>
-                  </button>
-                  
-                  <div className="flex items-center gap-1 px-2">
-                    <button
-                      className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white shadow-md hover:shadow-lg transition-all duration-200"
-                      aria-current="page"
-                    >
-                      1
-                    </button>
-                    <button className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
-                      2
-                    </button>
-                    <button className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
-                      3
-                    </button>
-                    <div className="hidden sm:flex items-center justify-center h-10 w-10 text-gray-400">
-                      <MoreHorizontal className="h-4 w-4" />
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
+              {resources.map((resource) => (
+                <div
+                  key={resource.id}
+                  onClick={() => handleResourceClick(resource)}
+                  className="group cursor-pointer"
+                >
+                  <Card className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-200 hover:border-[#387E89]">
+                    <div className="aspect-video bg-slate-100 overflow-hidden">
+                      <img
+                        src={resource.img}
+                        alt={resource.title}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        onError={(e) => {
+                          e.currentTarget.src = 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=600&h=338&fit=crop';
+                        }}
+                      />
                     </div>
-                    <button className="hidden sm:inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
-                      8
-                    </button>
-                  </div>
-                  
-                  <button
-                    className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 h-10 px-3 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                    aria-label="Go to next page"
-                  >
-                    <span className="hidden sm:inline">Next</span>
-                    <ChevronRight className="h-4 w-4" />
-                  </button>
+                    <div className="p-5 flex flex-col flex-grow">
+                      <span className={`text-xs font-semibold uppercase mb-2 tracking-wider ${getCategoryColor(resource.category)}`}>
+                        {resource.category}
+                      </span>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-tight group-hover:text-[#387E89] transition-colors">
+                        {resource.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">
+                        {resource.description}
+                      </p>
+                      <span className={`inline-flex items-center text-sm font-medium group-hover:gap-1.5 transition-all duration-200 self-start mt-auto ${getCategoryActionColor(resource.category)}`}>
+                        {resource.actionText}
+                        <ChevronRight className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </span>
+                    </div>
+                  </Card>
                 </div>
-              </nav>
+              ))}
             </div>
           )}
+
+          {/* Modern Pagination */}
+          {resources.length > 0 && !loading && renderPagination()}
         </main>
       </div>
     </>
