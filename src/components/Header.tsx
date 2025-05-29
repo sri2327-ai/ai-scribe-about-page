@@ -45,12 +45,18 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   useEffect(() => {
     if (isSidebarOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
   }, [isSidebarOpen]);
 
@@ -188,32 +194,32 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
 
-      {/* Mobile Sidebar - FIXED SCROLLING AND ADDED CALL SALES */}
+      {/* Mobile Sidebar - FIXED SCROLLING */}
       {isSidebarOpen && (
         <div 
-          className="md:hidden fixed inset-0 top-16 bg-white z-40"
+          className="md:hidden fixed inset-0 top-16 bg-white z-50"
           style={{ 
             height: 'calc(100vh - 64px)',
             overflowY: 'auto',
             overflowX: 'hidden',
-            WebkitOverflowScrolling: 'touch'
+            WebkitOverflowScrolling: 'touch',
+            touchAction: 'pan-y'
           }}
-          onTouchMove={(e) => e.stopPropagation()}
         >
           
           {/* Call Sales Button - Mobile Only - LIGHT THEME */}
-          <div className="p-4 border-b border-gray-200 bg-tealBlue/5 sticky top-0 z-10">
+          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 sticky top-0 z-10 backdrop-blur-sm">
             <a 
               href="tel:+16314886390" 
-              className="flex items-center justify-center gap-3 w-full p-4 bg-white border border-tealBlue text-tealBlue font-bold rounded-xl hover:bg-tealBlue hover:text-white hover:scale-105 transition-all duration-300"
-              style={{ borderWidth: '1px' }}
+              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
+              onClick={() => console.log("Light theme call sales clicked")}
             >
               <Phone className="w-5 h-5" />
               Call Sales: +1 631 4886 390
             </a>
           </div>
 
-          <div className="flex flex-col pb-20">
+          <div className="flex flex-col pb-20 min-h-full">
             <NavLink
               to="/about"
               onClick={closeMenu}

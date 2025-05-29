@@ -61,12 +61,18 @@ const DarkAnimatedHeader = () => {
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     }
 
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
     };
   }, [isMobileMenuOpen]);
 
@@ -737,16 +743,16 @@ const DarkAnimatedHeader = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gray-800/60 fixed left-0 right-0 top-20 z-40"
+              className="lg:hidden border-t border-gray-800/60 fixed left-0 right-0 top-20 z-50"
               style={{
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
                 height: 'calc(100vh - 80px)',
                 overflowY: 'auto',
                 overflowX: 'hidden',
-                WebkitOverflowScrolling: 'touch'
+                WebkitOverflowScrolling: 'touch',
+                touchAction: 'pan-y'
               }}
-              onTouchMove={(e) => e.stopPropagation()}
             >
               <div className="max-w-7xl mx-auto h-full">
                 
@@ -766,7 +772,7 @@ const DarkAnimatedHeader = () => {
                   </a>
                 </div>
 
-                <div className="pb-6">
+                <div className="pb-6 min-h-full">
                   {/* Mobile Solutions Section */}
                   <MobileSectionToggle 
                     title="Solutions" 
