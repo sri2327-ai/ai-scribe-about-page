@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -38,6 +39,10 @@ const DarkAnimatedHeader = () => {
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    console.log("DarkAnimatedHeader mounted, mobile menu state:", isMobileMenuOpen);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -457,7 +462,10 @@ const DarkAnimatedHeader = () => {
     return (
       <div className="border-b border-gray-800/60 last:border-b-0">
         <button
-          onClick={() => setActiveMobileSection(isActive ? null : sectionKey)}
+          onClick={() => {
+            console.log(`Mobile section toggle clicked: ${sectionKey}, current active: ${activeMobileSection}`);
+            setActiveMobileSection(isActive ? null : sectionKey);
+          }}
           className="w-full flex items-center justify-between p-5 text-left hover:bg-white/15 transition-all duration-300"
         >
           <span className="font-bold text-white text-lg">{title}</span>
@@ -491,6 +499,7 @@ const DarkAnimatedHeader = () => {
                         key={item.title}
                         to={item.href}
                         className="block group"
+                        onClick={() => console.log(`Mobile solution clicked: ${item.title}`)}
                       >
                         <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
                           {item.illustration}
@@ -527,6 +536,7 @@ const DarkAnimatedHeader = () => {
                         key={item.title}
                         to={item.href}
                         className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
+                        onClick={() => console.log(`Mobile link clicked: ${item.title}`)}
                       >
                         <div className="group-hover:scale-110 transition-transform duration-300">
                           {item.icon}
@@ -549,6 +559,7 @@ const DarkAnimatedHeader = () => {
                         <Link 
                           to={cta.href}
                           className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#143151]/40 to-[#387E89]/40 hover:from-[#143151]/60 hover:to-[#387E89]/60 transition-all duration-300 group border border-[#387E89]/50 hover:shadow-xl"
+                          onClick={() => console.log(`Mobile CTA clicked: ${cta.title}`)}
                         >
                           <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl group-hover:scale-110 transition-transform duration-300">
                             <div className="text-white">
@@ -655,7 +666,7 @@ const DarkAnimatedHeader = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/50 hover:border-white/70"
+                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/20 hover:border-white/40"
                 asChild
               >
                 <Link to="#" className="flex items-center gap-2">
@@ -679,7 +690,10 @@ const DarkAnimatedHeader = () => {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => {
+                console.log("Mobile menu button clicked, current state:", isMobileMenuOpen);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
               className="lg:hidden p-2 text-white hover:text-[#387E89] hover:bg-white/15 rounded-lg transition-all duration-300"
             >
               <motion.div
@@ -716,6 +730,7 @@ const DarkAnimatedHeader = () => {
                   <a 
                     href="tel:+16314886390" 
                     className="flex items-center justify-center gap-3 w-full p-4 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    onClick={() => console.log("Call sales button clicked")}
                   >
                     <Phone className="w-5 h-5" />
                     Call Sales: +1 631 4886 390
@@ -749,6 +764,7 @@ const DarkAnimatedHeader = () => {
                   <Link 
                     to="/pricing" 
                     className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
+                    onClick={() => console.log("Pricing link clicked")}
                   >
                     Pricing
                   </Link>
@@ -760,7 +776,7 @@ const DarkAnimatedHeader = () => {
                 }}>
                   <Button 
                     variant="outline" 
-                    className="w-full border-white text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
+                    className="w-full border-white/50 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
                     asChild
                   >
                     <Link to="#" className="flex items-center justify-center gap-2">
