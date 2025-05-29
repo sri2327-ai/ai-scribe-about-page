@@ -23,7 +23,6 @@ interface Resource {
 interface FilterOption {
   key: string;
   label: string;
-  count?: number;
 }
 
 interface PaginationData {
@@ -54,18 +53,29 @@ const ResourceLibrary = () => {
     specialty: ''
   });
   const [formMessage, setFormMessage] = useState('');
+  const [downloadCount, setDownloadCount] = useState(12547);
   const { toast } = useToast();
+
+  // Animate download count
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDownloadCount(prev => prev + Math.floor(Math.random() * 3) + 1);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Simulate API calls
   const fetchFilters = async () => {
     // Mock API call for filters
     const mockFilters = [
-      { key: 'all', label: 'All Types', count: 150 },
-      { key: 'infographic', label: 'Infographic', count: 25 },
-      { key: 'guide', label: 'Guide', count: 40 },
-      { key: 'report', label: 'Report', count: 35 },
-      { key: 'workbook', label: 'Workbook', count: 30 },
-      { key: 'checklist', label: 'Checklist', count: 20 }
+      { key: 'all', label: 'All Types' },
+      { key: 'infographic', label: 'Infographic' },
+      { key: 'guide', label: 'Guide' },
+      { key: 'report', label: 'Report' },
+      { key: 'workbook', label: 'Workbook' },
+      { key: 'checklist', label: 'Checklist' },
+      { key: 'template', label: 'Template' }
     ];
     setFilters(mockFilters);
   };
@@ -122,12 +132,12 @@ const ResourceLibrary = () => {
         },
         {
           id: '6',
-          category: 'infographic',
-          title: 'AI in Daily Life',
-          description: 'Explore how AI is subtly integrated into our everyday tools and services.',
+          category: 'template',
+          title: 'Patient Onboarding Template',
+          description: 'Streamline your patient intake process with our comprehensive onboarding template.',
           img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&h=338&fit=crop',
-          actionText: 'View Infographic',
-          pdfUrl: '/mock-ai-infographic.pdf'
+          actionText: 'Download Template',
+          pdfUrl: '/mock-template.pdf'
         },
         {
           id: '7',
@@ -190,7 +200,8 @@ const ResourceLibrary = () => {
       guide: 'text-[#143151] bg-[#143151]/10',
       report: 'text-[#5192AE] bg-[#5192AE]/10',
       workbook: 'text-[#A5CCF3] bg-[#A5CCF3]/20',
-      checklist: 'text-pink-600 bg-pink-50'
+      checklist: 'text-pink-600 bg-pink-50',
+      template: 'text-purple-600 bg-purple-50'
     };
     return colors[category as keyof typeof colors] || 'text-gray-600 bg-gray-100';
   };
@@ -201,7 +212,8 @@ const ResourceLibrary = () => {
       guide: 'text-[#143151] group-hover:text-[#0d1f31]',
       report: 'text-[#5192AE] group-hover:text-[#3d6e83]',
       workbook: 'text-[#A5CCF3] group-hover:text-[#7ba8e8]',
-      checklist: 'text-pink-600 group-hover:text-pink-700'
+      checklist: 'text-pink-600 group-hover:text-pink-700',
+      template: 'text-purple-600 group-hover:text-purple-700'
     };
     return colors[category as keyof typeof colors] || 'text-gray-600 group-hover:text-gray-700';
   };
@@ -503,8 +515,8 @@ const ResourceLibrary = () => {
       <DarkAnimatedHeader />
       <div className="min-h-screen bg-white">
         <Helmet>
-          <title>S10.AI Resource Library - Guides, Reports & Healthcare Resources</title>
-          <meta name="description" content="Explore our collection of articles, guides, case studies, and more to help your healthcare practice succeed with AI solutions." />
+          <title>Resource Library - Healthcare Guides, Templates & Tools | S10.AI</title>
+          <meta name="description" content="Access our comprehensive collection of healthcare guides, templates, checklists, and workbooks to optimize your practice with AI-powered solutions." />
           <link rel="canonical" href="https://s10.ai/resource-library" />
         </Helmet>
 
@@ -515,11 +527,19 @@ const ResourceLibrary = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
           
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            {/* Animated Hero Pill */}
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#387E89]/10 to-[#143151]/10 border border-[#387E89]/20 rounded-full text-sm text-[#143151] font-medium mb-6 animate-fade-in">
+              <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+              <span className="transition-all duration-1000">
+                {downloadCount.toLocaleString()}+ healthcare professionals have downloaded our resources
+              </span>
+            </div>
+            
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 tracking-tight text-gray-900 leading-tight">
-              S10.AI Resource Library
+              Resource Library
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Explore our collection of articles, guides, case studies, and more to help you succeed.
+              Access our comprehensive collection of healthcare guides, templates, checklists, and workbooks designed to optimize your practice with AI-powered solutions.
             </p>
           </div>
         </section>
@@ -550,9 +570,6 @@ const ResourceLibrary = () => {
                   }`}
                 >
                   {filter.label}
-                  {filter.count && (
-                    <span className="ml-1 text-xs opacity-70">({filter.count})</span>
-                  )}
                 </button>
               ))}
             </div>
