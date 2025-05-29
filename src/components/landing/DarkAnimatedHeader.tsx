@@ -24,7 +24,8 @@ import {
   Layers,
   Award,
   BookOpen,
-  MessageSquare
+  MessageSquare,
+  Phone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -439,7 +440,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component with improved UX
+  // Mobile section component with improved UX and scrolling
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -481,7 +482,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-5 space-y-3">
+              <div className="max-h-80 overflow-y-auto p-5 space-y-3 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
                 {sectionKey === 'solutions' ? (
                   // Solutions mobile view with cards
                   <div className="space-y-4">
@@ -707,6 +708,20 @@ const DarkAnimatedHeader = () => {
             >
               <div className="max-w-7xl mx-auto">
                 
+                {/* Call Sales Button - Mobile Only */}
+                <div className="p-4 border-b border-gray-800/60" style={{
+                  background: 'rgba(56, 126, 137, 0.1)',
+                  backdropFilter: 'blur(12px)'
+                }}>
+                  <a 
+                    href="tel:+16314886390" 
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  >
+                    <Phone className="w-5 h-5" />
+                    Call Sales: +1 631 4886 390
+                  </a>
+                </div>
+
                 {/* Mobile Solutions Section */}
                 <MobileSectionToggle 
                   title="Solutions" 

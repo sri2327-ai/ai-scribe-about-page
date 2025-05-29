@@ -5,6 +5,7 @@ import classNames from "classnames";
 import styles from "@/styles/header.module.css";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
+import { Phone } from "lucide-react";
 
 const navLinkClass =
   "px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors";
@@ -173,6 +174,89 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </motion.button>
         </div>
       </div>
+
+      {/* Mobile Sidebar */}
+      {isSidebarOpen && (
+        <div className="md:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
+          
+          {/* Call Sales Button - Mobile Only */}
+          <div className="p-4 border-b border-gray-200 bg-tealBlue/5">
+            <a 
+              href="tel:+16314886390" 
+              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl shadow-lg hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300"
+            >
+              <Phone className="w-5 h-5" />
+              Call Sales: +1 631 4886 390
+            </a>
+          </div>
+
+          <div className="flex flex-col">
+            <NavLink
+              to="/about"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              About
+            </NavLink>
+
+            <NavLink
+              to="/crush-ai"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              CRUSH
+            </NavLink>
+
+            <NavLink
+              to="/bravo"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              BRAVO
+            </NavLink>
+
+            <NavLink
+              to="/custom-ai-agent"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Custom AI
+            </NavLink>
+
+            <NavLink
+              to="/advantages"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Advantages
+            </NavLink>
+
+            <div className="relative">
+              <NavLink
+                to="/pricing"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                Pricing
+                <Badge 
+                  variant="destructive" 
+                  className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
+                >
+                  New
+                </Badge>
+              </NavLink>
+            </div>
+
+            <Link
+              to="/contact"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
+            >
+              Contact Us
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
