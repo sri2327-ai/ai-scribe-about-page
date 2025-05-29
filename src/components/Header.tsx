@@ -41,25 +41,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setIsSidebarOpen(false);
   }, [location, setIsSidebarOpen]);
 
-  // Prevent background scrolling when mobile menu is open
-  useEffect(() => {
-    if (isSidebarOpen) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.width = '100%';
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    }
-
-    return () => {
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.width = '';
-    };
-  }, [isSidebarOpen]);
-
   const closeMenu = () => {
     setIsSidebarOpen(false);
   };
@@ -159,14 +140,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
-          <a
-            href="tel:+16314886390"
-            className="flex items-center gap-2 bg-transparent border border-tealBlue text-tealBlue hover:bg-tealBlue hover:text-white font-medium py-2.5 px-6 rounded-full transition-colors"
-          >
-            <Phone className="w-4 h-4" />
-            Call Sales
-          </a>
-          
           <Link
             to="/contact"
             className={classNames(
@@ -177,7 +150,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden">
           <motion.button
             className="text-gray-700 focus:outline-none"
@@ -205,86 +177,83 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* Mobile Sidebar */}
       {isSidebarOpen && (
-        <div className="md:hidden fixed inset-0 bg-white z-50 flex flex-col pt-16">
-          {/* Call Sales Button - Mobile */}
-          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 flex-shrink-0">
+        <div className="md:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
+          
+          {/* Call Sales Button - Mobile Only */}
+          <div className="p-4 border-b border-gray-200 bg-tealBlue/5">
             <a 
               href="tel:+16314886390" 
-              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
-              onClick={closeMenu}
+              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl shadow-lg hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               <Phone className="w-5 h-5" />
               Call Sales: +1 631 4886 390
             </a>
           </div>
 
-          {/* Navigation Menu */}
-          <div className="flex-1 overflow-y-auto">
-            <div className="flex flex-col pb-20 min-h-full">
+          <div className="flex flex-col">
+            <NavLink
+              to="/about"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              About
+            </NavLink>
+
+            <NavLink
+              to="/crush-ai"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              CRUSH
+            </NavLink>
+
+            <NavLink
+              to="/bravo"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              BRAVO
+            </NavLink>
+
+            <NavLink
+              to="/custom-ai-agent"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Custom AI
+            </NavLink>
+
+            <NavLink
+              to="/advantages"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Advantages
+            </NavLink>
+
+            <div className="relative">
               <NavLink
-                to="/about"
+                to="/pricing"
                 onClick={closeMenu}
                 className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
               >
-                About
-              </NavLink>
-
-              <NavLink
-                to="/crush-ai"
-                onClick={closeMenu}
-                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-              >
-                CRUSH
-              </NavLink>
-
-              <NavLink
-                to="/bravo"
-                onClick={closeMenu}
-                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-              >
-                BRAVO
-              </NavLink>
-
-              <NavLink
-                to="/custom-ai-agent"
-                onClick={closeMenu}
-                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-              >
-                Custom AI
-              </NavLink>
-
-              <NavLink
-                to="/advantages"
-                onClick={closeMenu}
-                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-              >
-                Advantages
-              </NavLink>
-
-              <div className="relative">
-                <NavLink
-                  to="/pricing"
-                  onClick={closeMenu}
-                  className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+                Pricing
+                <Badge 
+                  variant="destructive" 
+                  className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
                 >
-                  Pricing
-                  <Badge 
-                    variant="destructive" 
-                    className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
-                  >
-                    New
-                  </Badge>
-                </NavLink>
-              </div>
-
-              <Link
-                to="/contact"
-                onClick={closeMenu}
-                className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
-              >
-                Contact Us
-              </Link>
+                  New
+                </Badge>
+              </NavLink>
             </div>
+
+            <Link
+              to="/contact"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
+            >
+              Contact Us
+            </Link>
           </div>
         </div>
       )}
