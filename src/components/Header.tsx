@@ -200,89 +200,93 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           className="md:hidden fixed inset-0 top-16 bg-white z-50"
           style={{ 
             height: 'calc(100vh - 64px)',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            WebkitOverflowScrolling: 'touch',
-            touchAction: 'pan-y'
+            overflow: 'hidden'
           }}
         >
-          
-          {/* Call Sales Button - Mobile Only - LIGHT THEME */}
-          <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 sticky top-0 z-10 backdrop-blur-sm">
-            <a 
-              href="tel:+16314886390" 
-              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
-              onClick={() => console.log("Light theme call sales clicked")}
-            >
-              <Phone className="w-5 h-5" />
-              Call Sales: +1 631 4886 390
-            </a>
-          </div>
+          <div className="h-full flex flex-col">
+            
+            {/* Call Sales Button - Mobile Only - LIGHT THEME */}
+            <div className="p-4 border-b border-gray-200 bg-gradient-to-r from-tealBlue/10 to-tealBlueBright/10 flex-shrink-0">
+              <a 
+                href="tel:+16314886390" 
+                className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg"
+                onClick={() => console.log("Light theme call sales clicked")}
+              >
+                <Phone className="w-5 h-5" />
+                Call Sales: +1 631 4886 390
+              </a>
+            </div>
 
-          <div className="flex flex-col pb-20 min-h-full">
-            <NavLink
-              to="/about"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              About
-            </NavLink>
-
-            <NavLink
-              to="/crush-ai"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              CRUSH
-            </NavLink>
-
-            <NavLink
-              to="/bravo"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              BRAVO
-            </NavLink>
-
-            <NavLink
-              to="/custom-ai-agent"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              Custom AI
-            </NavLink>
-
-            <NavLink
-              to="/advantages"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
-            >
-              Advantages
-            </NavLink>
-
-            <div className="relative">
+            <div className="flex-1 overflow-y-auto overflow-x-hidden"
+                 style={{ 
+                   WebkitOverflowScrolling: 'touch',
+                   overscrollBehavior: 'contain',
+                   touchAction: 'pan-y'
+                 }}>
               <NavLink
-                to="/pricing"
+                to="/about"
                 onClick={closeMenu}
                 className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
               >
-                Pricing
-                <Badge 
-                  variant="destructive" 
-                  className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
-                >
-                  New
-                </Badge>
+                About
               </NavLink>
-            </div>
 
-            <Link
-              to="/contact"
-              onClick={closeMenu}
-              className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
-            >
-              Contact Us
-            </Link>
+              <NavLink
+                to="/crush-ai"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                CRUSH
+              </NavLink>
+
+              <NavLink
+                to="/bravo"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                BRAVO
+              </NavLink>
+
+              <NavLink
+                to="/custom-ai-agent"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                Custom AI
+              </NavLink>
+
+              <NavLink
+                to="/advantages"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              >
+                Advantages
+              </NavLink>
+
+              <div className="relative">
+                <NavLink
+                  to="/pricing"
+                  onClick={closeMenu}
+                  className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+                >
+                  Pricing
+                  <Badge 
+                    variant="destructive" 
+                    className="ml-2 text-xs px-1.5 py-0.5 bg-red-500 text-white animate-pulse"
+                  >
+                    New
+                  </Badge>
+                </NavLink>
+              </div>
+
+              <Link
+                to="/contact"
+                onClick={closeMenu}
+                className="block px-6 py-4 text-center bg-tealBlue text-white font-medium hover:bg-tealBlueBright transition-colors m-4 rounded-full"
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       )}
