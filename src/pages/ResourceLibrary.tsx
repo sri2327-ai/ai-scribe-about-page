@@ -1,8 +1,7 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, MoreHorizontal, Check, Download, Filter, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal, Check, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -57,6 +56,7 @@ const ResourceLibrary = () => {
   const [formMessage, setFormMessage] = useState('');
   const [downloadCount, setDownloadCount] = useState(12547);
   const { toast } = useToast();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Animate download count
   useEffect(() => {
@@ -275,6 +275,21 @@ const ResourceLibrary = () => {
     if (page >= 1 && page <= pagination.totalPages) {
       fetchResources(activeFilter, page);
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const scrollFilters = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 120;
+      const currentScroll = scrollContainerRef.current.scrollLeft;
+      const targetScroll = direction === 'left' 
+        ? currentScroll - scrollAmount 
+        : currentScroll + scrollAmount;
+      
+      scrollContainerRef.current.scrollTo({
+        left: targetScroll,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -590,16 +605,45 @@ const ResourceLibrary = () => {
               )}
             </div>
             
-            {/* Mobile Filter Toggle */}
-            <div className="sm:hidden mb-4">
-              <button
-                onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-all duration-200"
-              >
-                <Filter className="w-4 h-4" />
-                Filters
-                {showMobileFilters ? <X className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
-              </button>
+            {/* Mobile Filters with Navigation Arrows */}
+            <div className="sm:hidden relative">
+              <div className="flex items-center">
+                <button
+                  onClick={() => scrollFilters('left')}
+                  className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Scroll filters left"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                
+                <div 
+                  ref={scrollContainerRef}
+                  className="flex overflow-x-auto scrollbar-hide gap-2 mx-2"
+                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                  {filters.map((filter) => (
+                    <button
+                      key={filter.key}
+                      onClick={() => setActiveFilter(filter.key)}
+                      className={`flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md border-2 border-transparent transition-all duration-200 whitespace-nowrap ${
+                        activeFilter === filter.key
+                          ? 'text-[#387E89] font-semibold border-b-[#387E89] bg-[#387E89]/5'
+                          : 'text-gray-600 hover:text-[#387E89] hover:bg-[#387E89]/10'
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={() => scrollFilters('right')}
+                  className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Scroll filters right"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             {/* Desktop Filters */}
@@ -618,27 +662,6 @@ const ResourceLibrary = () => {
                 </button>
               ))}
             </div>
-
-            {/* Mobile Filters Dropdown */}
-            {showMobileFilters && (
-              <div className="sm:hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-200 animate-fade-in">
-                <div className="grid grid-cols-2 gap-2">
-                  {filters.map((filter) => (
-                    <button
-                      key={filter.key}
-                      onClick={() => setActiveFilter(filter.key)}
-                      className={`px-3 py-2 text-sm font-medium rounded-md transition-all duration-200 ${
-                        activeFilter === filter.key
-                          ? 'text-white bg-[#387E89] font-semibold'
-                          : 'text-gray-600 bg-white border border-gray-300 hover:bg-[#387E89]/10'
-                      }`}
-                    >
-                      {filter.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </section>
 
