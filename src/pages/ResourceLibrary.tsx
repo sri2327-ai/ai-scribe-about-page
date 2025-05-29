@@ -605,62 +605,46 @@ const ResourceLibrary = () => {
               )}
             </div>
             
-            {/* Mobile Filters with Navigation Arrows */}
-            <div className="sm:hidden relative">
-              <div className="flex items-center">
-                <button
-                  onClick={() => scrollFilters('left')}
-                  className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label="Scroll filters left"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                
-                <div 
-                  ref={scrollContainerRef}
-                  className="flex overflow-x-auto scrollbar-hide gap-2 mx-2"
-                  style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                >
-                  {filters.map((filter) => (
-                    <button
-                      key={filter.key}
-                      onClick={() => setActiveFilter(filter.key)}
-                      className={`flex-shrink-0 px-4 py-2 text-sm font-medium rounded-md border-2 border-transparent transition-all duration-200 whitespace-nowrap ${
-                        activeFilter === filter.key
-                          ? 'text-[#387E89] font-semibold border-b-[#387E89] bg-[#387E89]/5'
-                          : 'text-gray-600 hover:text-[#387E89] hover:bg-[#387E89]/10'
-                      }`}
-                    >
-                      {filter.label}
-                    </button>
-                  ))}
-                </div>
-                
-                <button
-                  onClick={() => scrollFilters('right')}
-                  className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label="Scroll filters right"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
+            {/* Mobile and Desktop Filters - Same Design */}
+            <div className="flex items-center w-full">
+              {/* Left Arrow - Hidden on desktop when not needed */}
+              <button
+                onClick={() => scrollFilters('left')}
+                className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors sm:hidden"
+                aria-label="Scroll filters left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              {/* Filters Container */}
+              <div 
+                ref={scrollContainerRef}
+                className="flex overflow-x-auto scrollbar-hide gap-2 sm:gap-3 flex-1 sm:flex-none"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+              >
+                {filters.map((filter) => (
+                  <button
+                    key={filter.key}
+                    onClick={() => setActiveFilter(filter.key)}
+                    className={`flex-shrink-0 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
+                      activeFilter === filter.key
+                        ? 'text-white bg-[#387E89] shadow-md'
+                        : 'text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-[#387E89]'
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
               </div>
-            </div>
-
-            {/* Desktop Filters */}
-            <div className="hidden sm:flex flex-wrap gap-2 items-center">
-              {filters.map((filter) => (
-                <button
-                  key={filter.key}
-                  onClick={() => setActiveFilter(filter.key)}
-                  className={`px-3 sm:px-4 py-2 text-sm font-medium rounded-md border-2 border-transparent transition-all duration-200 ${
-                    activeFilter === filter.key
-                      ? 'text-[#387E89] font-semibold border-b-[#387E89] bg-[#387E89]/5'
-                      : 'text-gray-600 hover:text-[#387E89] hover:bg-[#387E89]/10'
-                  }`}
-                >
-                  {filter.label}
-                </button>
-              ))}
+              
+              {/* Right Arrow - Hidden on desktop when not needed */}
+              <button
+                onClick={() => scrollFilters('right')}
+                className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors sm:hidden"
+                aria-label="Scroll filters right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
             </div>
           </div>
         </section>
