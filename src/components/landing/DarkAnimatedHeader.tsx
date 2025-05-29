@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -444,6 +445,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
+  // Mobile section component
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -733,14 +735,14 @@ const DarkAnimatedHeader = () => {
             >
               <div className="max-w-7xl mx-auto">
                 
-                {/* Call Sales Button - Mobile Only */}
+                {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
                 <div className="p-4 border-b border-gray-800/60" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-3 w-full p-4 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold rounded-xl hover:from-[#0d1f31] hover:to-[#2c6269] hover:scale-105 transition-all duration-300 shadow-xl"
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
                     onClick={() => console.log("Call sales button clicked")}
                   >
                     <Phone className="w-5 h-5" />
