@@ -62,13 +62,19 @@ const DarkAnimatedHeader = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 150);
+    }, 200);
   };
 
   const handleDropdownMouseEnter = () => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
     }
+  };
+
+  const handleDropdownMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 200);
   };
 
   // Dark theme floating particles
@@ -242,7 +248,7 @@ const DarkAnimatedHeader = () => {
           transition={{ duration: 0.25, ease: "easeOut" }}
           className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 z-50"
           onMouseEnter={handleDropdownMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          onMouseLeave={handleDropdownMouseLeave}
         >
           <Card 
             className={`p-6 shadow-2xl border-0 backdrop-blur-2xl ${
@@ -259,8 +265,7 @@ const DarkAnimatedHeader = () => {
             {type === 'solutions' ? (
               <div className="grid grid-cols-1 gap-5">
                 <div className="mb-4">
-                  <h3 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-[#387E89]" />
+                  <h3 className="text-lg font-bold text-white mb-2">
                     AI Solutions
                   </h3>
                   <p className="text-sm text-gray-300">Choose your healthcare AI companion</p>
@@ -281,7 +286,7 @@ const DarkAnimatedHeader = () => {
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-3 mb-2">
-                              <h3 className="font-bold text-white text-xl group-hover:text-current transition-colors duration-300">
+                              <h3 className="font-bold text-xl transition-colors duration-300 text-white group-hover:text-white">
                                 {item.title}
                               </h3>
                               {item.label && (
@@ -304,18 +309,8 @@ const DarkAnimatedHeader = () => {
             ) : (
               <div className="grid grid-cols-1 gap-2">
                 <div className="mb-5 pb-4 border-b border-gray-700/60">
-                  <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                    {type === 'about' ? (
-                      <>
-                        <Building className="w-5 h-5 text-[#387E89]" />
-                        Company
-                      </>
-                    ) : (
-                      <>
-                        <BookOpen className="w-5 h-5 text-[#387E89]" />
-                        Resources
-                      </>
-                    )}
+                  <h3 className="text-lg font-bold text-white">
+                    {type === 'about' ? 'Company' : 'Resources'}
                   </h3>
                 </div>
                 {items.map((item, index) => (
