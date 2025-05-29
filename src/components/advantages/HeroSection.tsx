@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { AnimatedGradientBackground } from "./AnimatedGradientBackground";
 import { RainbowButton } from "@/components/ui/rainbow-button";
+import { ArrowRight } from "lucide-react";
 
 export const HeroSection: React.FC = () => {
   return (
@@ -61,7 +62,11 @@ export const HeroSection: React.FC = () => {
               }
             `
           }} />
-          <RainbowButton onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}>
+          <RainbowButton 
+            onClick={() => document.getElementById('advantages')?.scrollIntoView({ behavior: 'smooth' })}
+            className="rounded-full px-8 py-3 w-64 flex items-center justify-center gap-2"
+          >
+            <ArrowRight size={20} />
             Explore the Advantages
           </RainbowButton>
         </motion.div>
