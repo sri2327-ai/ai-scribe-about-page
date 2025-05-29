@@ -179,7 +179,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
       {isSidebarOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
           
-          {/* Call Sales Button - Mobile Only */}
+          {/* Call Sales Button - Mobile Only - LIGHT THEME */}
           <div className="p-4 border-b border-gray-200 bg-tealBlue/5">
             <a 
               href="tel:+16314886390" 

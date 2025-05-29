@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -38,6 +39,10 @@ const DarkAnimatedHeader = () => {
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    console.log("DarkAnimatedHeader mounted, mobile menu state:", isMobileMenuOpen);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -440,7 +445,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component with improved UX and scrolling
+  // Mobile section component
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -457,7 +462,10 @@ const DarkAnimatedHeader = () => {
     return (
       <div className="border-b border-gray-800/60 last:border-b-0">
         <button
-          onClick={() => setActiveMobileSection(isActive ? null : sectionKey)}
+          onClick={() => {
+            console.log(`Mobile section toggle clicked: ${sectionKey}, current active: ${activeMobileSection}`);
+            setActiveMobileSection(isActive ? null : sectionKey);
+          }}
           className="w-full flex items-center justify-between p-5 text-left hover:bg-white/15 transition-all duration-300"
         >
           <span className="font-bold text-white text-lg">{title}</span>
@@ -482,93 +490,107 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="max-h-80 overflow-y-auto p-5 space-y-3 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-                {sectionKey === 'solutions' ? (
-                  // Solutions mobile view with cards
-                  <div className="space-y-4">
-                    {items.map((item) => (
-                      <Link
-                        key={item.title}
-                        to={item.href}
-                        className="block group"
-                      >
-                        <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
-                          {item.illustration}
-                          <div className="flex items-start gap-4 relative z-10">
-                            <div className="p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:bg-gray-700/80 transition-colors duration-300">
-                              {item.icon}
-                            </div>
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-2">
-                                <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
-                                  {item.title}
-                                </h3>
-                                {item.label && (
-                                  <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
-                                    {item.label}
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
-                                {item.description}
-                              </p>
-                            </div>
-                            <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
-                          </div>
-                        </Card>
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  // Other sections mobile view
-                  <>
-                    {items.map((item) => (
-                      <Link
-                        key={item.title}
-                        to={item.href}
-                        className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
-                      >
-                        <div className="group-hover:scale-110 transition-transform duration-300">
-                          {item.icon}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors duration-300">
-                            {item.title}
-                          </div>
-                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-                            {item.description}
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                    
-                    {/* Mobile CTA Section */}
-                    {cta && (
-                      <>
-                        <div className="border-t border-gray-700/50 my-4"></div>
-                        <Link 
-                          to={cta.href}
-                          className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#143151]/40 to-[#387E89]/40 hover:from-[#143151]/60 hover:to-[#387E89]/60 transition-all duration-300 group border border-[#387E89]/50 hover:shadow-xl"
+              <div className="p-5 max-h-80 overflow-y-auto">
+                <div className="space-y-3">
+                  {sectionKey === 'solutions' ? (
+                    // Solutions mobile view with cards
+                    <div className="space-y-4">
+                      {items.map((item) => (
+                        <Link
+                          key={item.title}
+                          to={item.href}
+                          className="block group"
+                          onClick={() => {
+                            console.log(`Mobile solution clicked: ${item.title}`);
+                            setIsMobileMenuOpen(false);
+                          }}
                         >
-                          <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl group-hover:scale-110 transition-transform duration-300">
-                            <div className="text-white">
-                              {cta.icon}
+                          <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
+                            {item.illustration}
+                            <div className="flex items-start gap-4 relative z-10">
+                              <div className="p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:bg-gray-700/80 transition-colors duration-300">
+                                {item.icon}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
+                                    {item.title}
+                                  </h3>
+                                  {item.label && (
+                                    <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
+                                      {item.label}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
+                                  {item.description}
+                                </p>
+                              </div>
+                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
                             </div>
+                          </Card>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    // Other sections mobile view
+                    <>
+                      {items.map((item) => (
+                        <Link
+                          key={item.title}
+                          to={item.href}
+                          className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
+                          onClick={() => {
+                            console.log(`Mobile link clicked: ${item.title}`);
+                            setIsMobileMenuOpen(false);
+                          }}
+                        >
+                          <div className="group-hover:scale-110 transition-transform duration-300">
+                            {item.icon}
                           </div>
-                          <div className="flex-1">
-                            <div className="font-bold text-white group-hover:text-[#387E89] transition-colors duration-300">
-                              {cta.title}
+                          <div>
+                            <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors duration-300">
+                              {item.title}
                             </div>
                             <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
-                              {cta.description}
+                              {item.description}
                             </div>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-[#387E89] group-hover:translate-x-1 transition-transform duration-300" />
                         </Link>
-                      </>
-                    )}
-                  </>
-                )}
+                      ))}
+                      
+                      {/* Mobile CTA Section */}
+                      {cta && (
+                        <>
+                          <div className="border-t border-gray-700/50 my-4"></div>
+                          <Link 
+                            to={cta.href}
+                            className="flex items-center gap-4 p-4 rounded-xl bg-gradient-to-r from-[#143151]/40 to-[#387E89]/40 hover:from-[#143151]/60 hover:to-[#387E89]/60 transition-all duration-300 group border border-[#387E89]/50 hover:shadow-xl"
+                            onClick={() => {
+                              console.log(`Mobile CTA clicked: ${cta.title}`);
+                              setIsMobileMenuOpen(false);
+                            }}
+                          >
+                            <div className="p-3 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl group-hover:scale-110 transition-transform duration-300">
+                              <div className="text-white">
+                                {cta.icon}
+                              </div>
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-bold text-white group-hover:text-[#387E89] transition-colors duration-300">
+                                {cta.title}
+                              </div>
+                              <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
+                                {cta.description}
+                              </div>
+                            </div>
+                            <ArrowRight className="w-5 h-5 text-[#387E89] group-hover:translate-x-1 transition-transform duration-300" />
+                          </Link>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </motion.div>
           )}
@@ -655,7 +677,7 @@ const DarkAnimatedHeader = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/50 hover:border-white/70"
+                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/20 hover:border-white/40"
                 asChild
               >
                 <Link to="#" className="flex items-center gap-2">
@@ -679,7 +701,10 @@ const DarkAnimatedHeader = () => {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => {
+                console.log("Mobile menu button clicked, current state:", isMobileMenuOpen);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
               className="lg:hidden p-2 text-white hover:text-[#387E89] hover:bg-white/15 rounded-lg transition-all duration-300"
             >
               <motion.div
@@ -692,7 +717,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - FIXED SCROLLING ISSUE */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -700,22 +725,25 @@ const DarkAnimatedHeader = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gray-800/60"
+              className="lg:hidden border-t border-gray-800/60 absolute left-0 right-0 top-full z-40"
               style={{
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
+                maxHeight: 'calc(100vh - 80px)',
+                overflowY: 'auto'
               }}
             >
               <div className="max-w-7xl mx-auto">
                 
-                {/* Call Sales Button - Mobile Only */}
+                {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
                 <div className="p-4 border-b border-gray-800/60" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-3 w-full p-4 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    onClick={() => console.log("Call sales button clicked")}
                   >
                     <Phone className="w-5 h-5" />
                     Call Sales: +1 631 4886 390
@@ -749,6 +777,10 @@ const DarkAnimatedHeader = () => {
                   <Link 
                     to="/pricing" 
                     className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
+                    onClick={() => {
+                      console.log("Pricing link clicked");
+                      setIsMobileMenuOpen(false);
+                    }}
                   >
                     Pricing
                   </Link>
@@ -760,7 +792,7 @@ const DarkAnimatedHeader = () => {
                 }}>
                   <Button 
                     variant="outline" 
-                    className="w-full border-white text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
+                    className="w-full border-white/50 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
                     asChild
                   >
                     <Link to="#" className="flex items-center justify-center gap-2">
