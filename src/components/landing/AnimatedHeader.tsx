@@ -24,7 +24,8 @@ import {
   Layers,
   Award,
   BookOpen,
-  MessageSquare
+  MessageSquare,
+  Phone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -705,6 +706,20 @@ const AnimatedHeader = () => {
             >
               <div className="max-w-7xl mx-auto">
                 
+                {/* Call Sales Button - Mobile Only */}
+                <div className="p-4 border-b border-gray-100" style={{
+                  background: 'rgba(56, 126, 137, 0.05)',
+                  backdropFilter: 'blur(12px)'
+                }}>
+                  <a 
+                    href="tel:+16314886390" 
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold rounded-xl hover:from-[#0d1f31] hover:to-[#2c6269] hover:scale-105 transition-all duration-300"
+                  >
+                    <Phone className="w-5 h-5" />
+                    Call Sales: +1 631 4886 390
+                  </a>
+                </div>
+
                 {/* Mobile Solutions Section */}
                 <MobileSectionToggle 
                   title="Solutions" 
