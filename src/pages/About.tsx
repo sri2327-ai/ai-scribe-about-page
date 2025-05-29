@@ -10,6 +10,7 @@ import StarTrekSection from "@/components/about/StarTrekSection";
 import FounderMessage from "@/components/about/FounderMessage";
 import TeamSection from "@/components/about/TeamSection";
 import TrustedBy from "@/components/about/TrustedBy";
+import DarkAnimatedHeader from "@/components/landing/DarkAnimatedHeader";
 
 const About = () => {
   useEffect(() => {
@@ -39,75 +40,80 @@ const About = () => {
   }, []);
 
   return (
-    <Box 
-      component="main" 
-      sx={{ 
-        bgcolor: 'black', 
-        minHeight: '100vh', 
-        width: '100%', 
-        overflow: 'hidden'
-      }}
-    >
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          width: '100%'
+    <>
+      {/* Dark Animated Header */}
+      <DarkAnimatedHeader />
+      
+      <Box 
+        component="main" 
+        sx={{ 
+          bgcolor: 'black', 
+          minHeight: '100vh', 
+          width: '100%', 
+          overflow: 'hidden'
         }}
       >
-        <HeroSection />
-        <Box sx={{ width: '100%' }}>
-          <MissionVision />
-          <Box 
-            component="section"
-            sx={{ 
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              py: { xs: 2, md: 4 }
-            }}
-          >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%'
+          }}
+        >
+          <HeroSection />
+          <Box sx={{ width: '100%' }}>
+            <MissionVision />
             <Box 
-              sx={{
-                width: '80%',
-                maxWidth: '1200px',
-                height: '1px',
-                bgcolor: 'grey.800'
+              component="section"
+              sx={{ 
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                py: { xs: 2, md: 4 }
               }}
-            />
-          </Box>
-          <CoreValues />
-          <Box 
-            component="section"
-            sx={{ 
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-              py: { xs: 2, md: 4 }
-            }}
-          >
+            >
+              <Box 
+                sx={{
+                  width: '80%',
+                  maxWidth: '1200px',
+                  height: '1px',
+                  bgcolor: 'grey.800'
+                }}
+              />
+            </Box>
+            <CoreValues />
             <Box 
-              sx={{
-                width: '80%',
-                maxWidth: '1200px',
-                height: '1px',
-                bgcolor: 'grey.800'
+              component="section"
+              sx={{ 
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                py: { xs: 2, md: 4 }
               }}
-            />
+            >
+              <Box 
+                sx={{
+                  width: '80%',
+                  maxWidth: '1200px',
+                  height: '1px',
+                  bgcolor: 'grey.800'
+                }}
+              />
+            </Box>
+            <Box sx={{ position: 'relative' }}>
+              <WhoWeAre />
+              <StarTrekSection />
+            </Box>
+            <FounderMessage />
+            <TeamSection />
+            <TrustedBy />
           </Box>
-          <Box sx={{ position: 'relative' }}>
-            <WhoWeAre />
-            <StarTrekSection />
-          </Box>
-          <FounderMessage />
-          <TeamSection />
-          <TrustedBy />
-        </Box>
-      </motion.div>
-    </Box>
+        </motion.div>
+      </Box>
+    </>
   );
 };
 

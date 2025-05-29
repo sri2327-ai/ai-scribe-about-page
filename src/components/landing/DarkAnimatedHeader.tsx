@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -29,7 +30,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
-const AnimatedHeader = () => {
+const DarkAnimatedHeader = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -52,7 +53,6 @@ const AnimatedHeader = () => {
     setActiveMobileSection(null);
   }, [location]);
 
-  // Enhanced hover handlers for better UX
   const handleMouseEnter = (dropdownType: string) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
@@ -63,7 +63,7 @@ const AnimatedHeader = () => {
   const handleMouseLeave = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
-    }, 200); // Increased delay for better UX
+    }, 200);
   };
 
   const handleDropdownMouseEnter = () => {
@@ -72,17 +72,17 @@ const AnimatedHeader = () => {
     }
   };
 
-  // Animated background particles with brand colors
+  // Dark theme floating particles
   const FloatingParticles = () => (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1.5 h-1.5 bg-gradient-to-r from-[#143151]/20 to-[#387E89]/20 rounded-full"
+          className="absolute w-1.5 h-1.5 bg-gradient-to-r from-white/10 to-[#387E89]/20 rounded-full"
           animate={{
             x: [0, 80, 0],
             y: [0, -40, 0],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.1, 0.3, 0.1],
           }}
           transition={{
             duration: 4 + i,
@@ -98,7 +98,7 @@ const AnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown content with enhanced illustrations and fixed naming
+  // Solutions dropdown with same content but dark theme
   const solutionsDropdown = {
     items: [
       {
@@ -141,13 +141,12 @@ const AnimatedHeader = () => {
     ]
   };
 
-  // About dropdown content with enhanced design
   const aboutDropdown = {
     items: [
       {
         title: 'About',
         description: 'Our mission and team',
-        icon: <Building className="w-5 h-5 text-[#143151]" />,
+        icon: <Building className="w-5 h-5 text-white" />,
         href: '/about'
       },
       {
@@ -171,19 +170,18 @@ const AnimatedHeader = () => {
       {
         title: 'Specialty',
         description: 'Medical specialty solutions',
-        icon: <Stethoscope className="w-5 h-5 text-[#143151]" />,
+        icon: <Stethoscope className="w-5 h-5 text-white" />,
         href: '/specialty'
       }
     ]
   };
 
-  // Resources dropdown content with enhanced design
   const resourcesDropdown = {
     items: [
       {
         title: 'Blog',
         description: 'Latest insights & updates',
-        icon: <BookOpen className="w-5 h-5 text-[#143151]" />,
+        icon: <BookOpen className="w-5 h-5 text-white" />,
         href: '/blog'
       },
       {
@@ -235,15 +233,15 @@ const AnimatedHeader = () => {
             }`} 
             style={{
               backdropFilter: 'blur(20px)',
-              background: 'rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2) inset'
+              background: 'rgba(0, 0, 0, 0.85)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset'
             }}
           >
             {type === 'solutions' ? (
               <div className="grid grid-cols-1 gap-4">
                 <div className="mb-2">
-                  <h3 className="text-sm font-semibold text-[#143151] mb-1">AI Solutions</h3>
-                  <p className="text-xs text-gray-600">Choose your healthcare AI companion</p>
+                  <h3 className="text-sm font-semibold text-white mb-1">AI Solutions</h3>
+                  <p className="text-xs text-gray-300">Choose your healthcare AI companion</p>
                 </div>
                 {items.map((item, index) => (
                   <motion.div
@@ -283,8 +281,8 @@ const AnimatedHeader = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-1">
-                <div className="mb-3 pb-2 border-b border-gray-100">
-                  <h3 className="text-sm font-semibold text-[#143151]">
+                <div className="mb-3 pb-2 border-b border-gray-700">
+                  <h3 className="text-sm font-semibold text-white">
                     {type === 'about' ? 'Company' : 'Resources'}
                   </h3>
                 </div>
@@ -297,16 +295,16 @@ const AnimatedHeader = () => {
                   >
                     <Link 
                       to={item.href}
-                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 transition-all duration-200 group"
                     >
                       <div className="group-hover:scale-110 transition-transform">
                         {item.icon}
                       </div>
                       <div>
-                        <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                        <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
                           {item.title}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-gray-300">
                           {item.description}
                         </div>
                       </div>
@@ -344,7 +342,7 @@ const AnimatedHeader = () => {
           <button className={`flex items-center gap-1 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
             isActive 
               ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-lg' 
-              : 'text-[#143151] hover:text-[#387E89] hover:bg-[#F5F9FF]'
+              : 'text-white hover:text-[#387E89] hover:bg-white/10'
           }`}>
             {label}
             <motion.div
@@ -357,7 +355,7 @@ const AnimatedHeader = () => {
         ) : (
           <Link 
             to={href!}
-            className="px-4 py-2 rounded-full font-medium text-[#143151] hover:text-[#387E89] hover:bg-[#F5F9FF] transition-all duration-300"
+            className="px-4 py-2 rounded-full font-medium text-white hover:text-[#387E89] hover:bg-white/10 transition-all duration-300"
           >
             {label}
           </Link>
@@ -380,74 +378,6 @@ const AnimatedHeader = () => {
     );
   };
 
-  // Mobile section component
-  const MobileSectionToggle = ({ 
-    title, 
-    items, 
-    sectionKey 
-  }: { 
-    title: string, 
-    items: any[], 
-    sectionKey: string 
-  }) => {
-    const isActive = activeMobileSection === sectionKey;
-    
-    return (
-      <div className="border-b border-gray-100 last:border-b-0">
-        <button
-          onClick={() => setActiveMobileSection(isActive ? null : sectionKey)}
-          className="w-full flex items-center justify-between p-4 text-left hover:bg-[#F5F9FF] transition-colors"
-        >
-          <span className="font-semibold text-[#143151] text-lg">{title}</span>
-          <motion.div
-            animate={{ rotate: isActive ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <ChevronDown className="w-5 h-5 text-[#387E89]" />
-          </motion.div>
-        </button>
-        
-        <AnimatePresence>
-          {isActive && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-              style={{
-                backdropFilter: 'blur(20px)',
-                background: 'rgba(245, 249, 255, 0.9)',
-              }}
-            >
-              <div className="p-4 space-y-2">
-                {items.map((item) => (
-                  <Link
-                    key={item.title}
-                    to={item.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
-                  >
-                    <div className="group-hover:scale-110 transition-transform">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
-                        {item.title}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {item.description}
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    );
-  };
-
   return (
     <>
       <motion.header
@@ -456,12 +386,12 @@ const AnimatedHeader = () => {
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isScrolled 
-            ? 'backdrop-blur-xl shadow-lg border-b border-gray-200/50' 
+            ? 'backdrop-blur-xl shadow-lg border-b border-gray-800/50' 
             : 'bg-transparent'
         }`}
         style={{
           backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-          background: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+          background: isScrolled ? 'rgba(0, 0, 0, 0.85)' : 'transparent',
         }}
       >
         <FloatingParticles />
@@ -512,7 +442,7 @@ const AnimatedHeader = () => {
                   </motion.div>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-xs text-gray-500 -mt-1">Clinical AI Solutions</div>
+                  <div className="text-xs text-gray-300 -mt-1">Clinical AI Solutions</div>
                 </div>
               </Link>
             </motion.div>
@@ -529,7 +459,7 @@ const AnimatedHeader = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                className="font-semibold text-[#143151] hover:text-[#387E89] hover:bg-[#F5F9FF]"
+                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/10"
                 asChild
               >
                 <Link to="#" className="flex items-center gap-2">
@@ -554,7 +484,7 @@ const AnimatedHeader = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-[#143151] hover:text-[#387E89] transition-colors"
+              className="lg:hidden p-2 text-white hover:text-[#387E89] transition-colors"
             >
               <motion.div
                 animate={{ rotate: isMobileMenuOpen ? 90 : 0 }}
@@ -566,55 +496,32 @@ const AnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Enhanced Mobile Menu */}
+        {/* Mobile Menu with same glassmorphism effect */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-gray-200/50"
+              className="lg:hidden border-t border-gray-800/50"
               style={{
                 backdropFilter: 'blur(20px)',
-                background: 'rgba(255, 255, 255, 0.98)',
+                background: 'rgba(0, 0, 0, 0.9)',
               }}
             >
               <div className="max-w-7xl mx-auto">
-                
-                {/* Mobile Solutions Section */}
-                <MobileSectionToggle 
-                  title="Solutions" 
-                  items={solutionsDropdown.items} 
-                  sectionKey="solutions" 
-                />
-
-                {/* Mobile About Section */}
-                <MobileSectionToggle 
-                  title="About" 
-                  items={aboutDropdown.items} 
-                  sectionKey="about" 
-                />
-
-                {/* Mobile Resources Section */}
-                <MobileSectionToggle 
-                  title="Resources" 
-                  items={resourcesDropdown.items} 
-                  sectionKey="resources" 
-                />
-
-                {/* Mobile Direct Links */}
-                <div className="border-b border-gray-100">
+                {/* Mobile sections with glassmorphism */}
+                <div className="border-b border-gray-800">
                   <Link 
                     to="/pricing" 
-                    className="block p-4 font-semibold text-[#143151] hover:bg-[#F5F9FF] transition-colors"
+                    className="block p-4 font-semibold text-white hover:bg-white/10 transition-colors"
                   >
                     Pricing
                   </Link>
                 </div>
 
-                {/* Mobile CTA Section */}
                 <div className="p-4 space-y-3" style={{
-                  background: 'rgba(245, 249, 255, 0.6)',
+                  background: 'rgba(20, 49, 81, 0.3)',
                   backdropFilter: 'blur(10px)'
                 }}>
                   <Button 
@@ -644,10 +551,9 @@ const AnimatedHeader = () => {
         </AnimatePresence>
       </motion.header>
 
-      {/* Spacer to prevent content from being hidden behind fixed header */}
       <div className="h-20" />
     </>
   );
 };
 
-export default AnimatedHeader;
+export default DarkAnimatedHeader;
