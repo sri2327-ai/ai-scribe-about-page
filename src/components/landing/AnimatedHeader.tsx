@@ -37,6 +37,7 @@ const AnimatedHeader = () => {
   const [activeMobileSection, setActiveMobileSection] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +52,26 @@ const AnimatedHeader = () => {
     setActiveDropdown(null);
     setActiveMobileSection(null);
   }, [location]);
+
+  // Enhanced hover handlers for better UX
+  const handleMouseEnter = (dropdownType: string) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setActiveDropdown(dropdownType);
+  };
+
+  const handleMouseLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 150); // Small delay to prevent accidental closing
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+  };
 
   // Animated background particles with brand colors
   const FloatingParticles = () => (
@@ -203,12 +224,19 @@ const AnimatedHeader = () => {
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.2 }}
           className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50"
+          onMouseEnter={handleDropdownMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <Card className={`p-6 shadow-2xl border border-gray-100/50 backdrop-blur-xl ${
+          <Card className={`p-6 shadow-2xl border border-white/20 backdrop-blur-xl bg-white/95 ${
             type === 'solutions' 
-              ? 'bg-white/95 min-w-[600px]' 
-              : 'bg-white/95 min-w-[400px]'
-          }`}>
+              ? 'min-w-[600px]' 
+              : 'min-w-[400px]'
+          }`} style={{
+            backdropFilter: 'blur(20px)',
+            background: 'rgba(255, 255, 255, 0.95)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.1) inset'
+          }}>
             {type === 'solutions' ? (
               <div className="grid grid-cols-1 gap-4">
                 <div className="mb-2">
@@ -300,8 +328,8 @@ const AnimatedHeader = () => {
     return (
       <div 
         className="relative"
-        onMouseEnter={() => hasDropdown && setActiveDropdown(dropdownType!)}
-        onMouseLeave={() => hasDropdown && setActiveDropdown(null)}
+        onMouseEnter={() => hasDropdown && handleMouseEnter(dropdownType!)}
+        onMouseLeave={() => hasDropdown && handleMouseLeave()}
       >
         {hasDropdown ? (
           <button className={`flex items-center gap-1 px-4 py-2 rounded-full font-medium transition-all duration-300 ${
@@ -377,14 +405,18 @@ const AnimatedHeader = () => {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="overflow-hidden bg-[#F5F9FF]/50"
+              className="overflow-hidden"
+              style={{
+                backdropFilter: 'blur(20px)',
+                background: 'rgba(245, 249, 255, 0.9)',
+              }}
             >
               <div className="p-4 space-y-2">
                 {items.map((item) => (
                   <Link
                     key={item.title}
                     to={item.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-white transition-colors group"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
                   >
                     <div className="group-hover:scale-110 transition-transform">
                       {item.icon}
@@ -415,9 +447,13 @@ const AnimatedHeader = () => {
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
           isScrolled 
-            ? 'bg-white/95 backdrop-blur-xl shadow-lg border-b border-gray-200/50' 
+            ? 'backdrop-blur-xl shadow-lg border-b border-gray-200/50' 
             : 'bg-transparent'
         }`}
+        style={{
+          backdropFilter: isScrolled ? 'blur(20px)' : 'none',
+          background: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'transparent',
+        }}
       >
         <FloatingParticles />
         
@@ -433,22 +469,40 @@ const AnimatedHeader = () => {
                 <div className="relative">
                   <motion.div
                     animate={{ 
-                      boxShadow: [
-                        '0 0 20px rgba(20, 49, 81, 0.3)',
-                        '0 0 30px rgba(56, 126, 137, 0.4)',
-                        '0 0 20px rgba(20, 49, 81, 0.3)'
-                      ]
+                      scale: [1, 1.05, 1],
+                      rotate: [0, 5, -5, 0]
                     }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                    className="w-12 h-12 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl flex items-center justify-center"
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="relative"
                   >
-                    <Sparkles className="w-6 h-6 text-white" />
+                    <motion.img
+                      src="/lovable-uploads/b1fccf69-2584-4150-987a-fb09324403f4.png"
+                      alt="S10.AI Logo"
+                      className="h-12 w-auto"
+                      whileHover={{
+                        scale: 1.1,
+                        rotate: [0, -10, 10, 0],
+                        transition: { duration: 0.5 }
+                      }}
+                    />
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-[#143151]/20 to-[#387E89]/20 rounded-lg"
+                      animate={{
+                        opacity: [0, 0.3, 0],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
                   </motion.div>
                 </div>
                 <div className="hidden sm:block">
-                  <div className="text-2xl font-black bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
-                    S10.AI
-                  </div>
                   <div className="text-xs text-gray-500 -mt-1">Clinical AI Solutions</div>
                 </div>
               </Link>
@@ -510,7 +564,11 @@ const AnimatedHeader = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white/98 backdrop-blur-xl border-t border-gray-200/50"
+              className="lg:hidden border-t border-gray-200/50"
+              style={{
+                backdropFilter: 'blur(20px)',
+                background: 'rgba(255, 255, 255, 0.98)',
+              }}
             >
               <div className="max-w-7xl mx-auto">
                 
@@ -546,7 +604,10 @@ const AnimatedHeader = () => {
                 </div>
 
                 {/* Mobile CTA Section */}
-                <div className="p-4 space-y-3 bg-[#F5F9FF]/30">
+                <div className="p-4 space-y-3" style={{
+                  background: 'rgba(245, 249, 255, 0.6)',
+                  backdropFilter: 'blur(10px)'
+                }}>
                   <Button 
                     variant="outline" 
                     className="w-full border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white"
