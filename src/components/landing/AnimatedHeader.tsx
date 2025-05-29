@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -99,46 +98,43 @@ const AnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown content with enhanced illustrations and better colors
+  // Solutions dropdown content with more subtle colors
   const solutionsDropdown = {
     items: [
       {
         title: 'CRUSH',
         description: 'AI Medical Scribe & Documentation',
-        icon: <Brain className="w-6 h-6 text-white" />,
+        icon: <Brain className="w-6 h-6 text-[#143151]" />,
         href: '/crush-ai',
-        gradient: 'from-[#143151]/90 to-[#387E89]/90',
-        bgColor: 'bg-gradient-to-br from-[#143151] to-[#387E89]',
+        bgColor: 'bg-gradient-to-br from-slate-100/80 to-blue-50/80 backdrop-blur-sm border border-white/20',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-20">
-            <Stethoscope className="w-8 h-8 text-white" />
+          <div className="absolute top-2 right-2 opacity-10">
+            <Stethoscope className="w-8 h-8 text-[#143151]" />
           </div>
         )
       },
       {
         title: 'BRAVO',
         description: 'AI Staffing Agent & Automation',
-        icon: <Zap className="w-6 h-6 text-white" />,
+        icon: <Zap className="w-6 h-6 text-[#387E89]" />,
         href: '/bravo',
-        gradient: 'from-[#387E89]/90 to-[#5192AE]/90',
-        bgColor: 'bg-gradient-to-br from-[#387E89] to-[#5192AE]',
+        bgColor: 'bg-gradient-to-br from-blue-50/80 to-cyan-50/80 backdrop-blur-sm border border-white/20',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-20">
-            <Users className="w-8 h-8 text-white" />
+          <div className="absolute top-2 right-2 opacity-10">
+            <Users className="w-8 h-8 text-[#387E89]" />
           </div>
         )
       },
       {
         title: 'Custom AI Agents',
         description: 'Tailored AI Solutions',
-        label: 'Enterprise',
-        icon: <Cpu className="w-6 h-6 text-white" />,
+        label: 'New',
+        icon: <Cpu className="w-6 h-6 text-[#5192AE]" />,
         href: '/custom-ai-agent',
-        gradient: 'from-[#5192AE]/90 to-[#A5CCF3]/90',
-        bgColor: 'bg-gradient-to-br from-[#5192AE] to-[#A5CCF3]',
+        bgColor: 'bg-gradient-to-br from-cyan-50/80 to-indigo-50/80 backdrop-blur-sm border border-white/20',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-20">
-            <Award className="w-8 h-8 text-white" />
+          <div className="absolute top-2 right-2 opacity-10">
+            <Award className="w-8 h-8 text-[#5192AE]" />
           </div>
         )
       }
@@ -260,25 +256,25 @@ const AnimatedHeader = () => {
                       <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
                         {item.illustration}
                         <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl border border-white/10">
+                          <div className="p-3 bg-white/60 backdrop-blur-sm rounded-xl border border-white/20">
                             {item.icon}
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-bold text-white text-lg">
+                              <h3 className="font-bold text-[#143151] text-lg">
                                 {item.title}
                               </h3>
                               {item.label && (
-                                <span className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/10">
+                                <span className="px-2 py-1 bg-[#143151]/10 backdrop-blur-sm text-[#143151] text-xs font-medium rounded-full border border-[#143151]/20">
                                   {item.label}
                                 </span>
                               )}
                             </div>
-                            <p className="text-white/90 text-sm">
+                            <p className="text-gray-700 text-sm">
                               {item.description}
                             </p>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-white/70 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-5 h-5 text-gray-600 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </Card>
                     </Link>

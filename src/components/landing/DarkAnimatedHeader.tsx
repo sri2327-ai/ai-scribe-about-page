@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -98,43 +97,43 @@ const DarkAnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown with same content but dark theme
+  // Solutions dropdown with white glassmorphism for dark theme
   const solutionsDropdown = {
     items: [
       {
         title: 'CRUSH',
         description: 'AI Medical Scribe & Documentation',
-        icon: <Brain className="w-6 h-6 text-[#387E89]" />,
+        icon: <Brain className="w-6 h-6 text-gray-700" />,
         href: '/crush-ai',
-        gradient: 'from-[#143151] to-[#387E89]',
+        bgColor: 'bg-white/90 backdrop-blur-sm border border-white/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
-            <Stethoscope className="w-8 h-8 text-[#387E89]" />
+            <Stethoscope className="w-8 h-8 text-gray-700" />
           </div>
         )
       },
       {
         title: 'BRAVO',
         description: 'AI Staffing Agent & Automation',
-        icon: <Zap className="w-6 h-6 text-[#5192AE]" />,
+        icon: <Zap className="w-6 h-6 text-gray-700" />,
         href: '/bravo',
-        gradient: 'from-[#387E89] to-[#5192AE]',
+        bgColor: 'bg-white/90 backdrop-blur-sm border border-white/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
-            <Users className="w-8 h-8 text-[#5192AE]" />
+            <Users className="w-8 h-8 text-gray-700" />
           </div>
         )
       },
       {
         title: 'Custom AI Agents',
         description: 'Tailored AI Solutions',
-        label: 'Enterprise',
-        icon: <Cpu className="w-6 h-6 text-[#A5CCF3]" />,
+        label: 'New',
+        icon: <Cpu className="w-6 h-6 text-gray-700" />,
         href: '/custom-ai-agent',
-        gradient: 'from-[#5192AE] to-[#A5CCF3]',
+        bgColor: 'bg-white/90 backdrop-blur-sm border border-white/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
-            <Award className="w-8 h-8 text-[#A5CCF3]" />
+            <Award className="w-8 h-8 text-gray-700" />
           </div>
         )
       }
@@ -251,28 +250,28 @@ const DarkAnimatedHeader = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Link to={item.href} className="block group">
-                      <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-r ${item.gradient} hover:scale-[1.02] relative overflow-hidden`}>
+                      <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
                         {item.illustration}
                         <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-white/25 backdrop-blur-sm rounded-xl">
+                          <div className="p-3 bg-gray-100/80 backdrop-blur-sm rounded-xl border border-gray-200/20">
                             {item.icon}
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-bold text-white text-lg">
+                              <h3 className="font-bold text-gray-800 text-lg">
                                 {item.title}
                               </h3>
                               {item.label && (
-                                <span className="px-2 py-1 bg-white/20 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+                                <span className="px-2 py-1 bg-gray-800/10 backdrop-blur-sm text-gray-800 text-xs font-medium rounded-full border border-gray-800/20">
                                   {item.label}
                                 </span>
                               )}
                             </div>
-                            <p className="text-white/90 text-sm">
+                            <p className="text-gray-700 text-sm">
                               {item.description}
                             </p>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-white/70 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-5 h-5 text-gray-600 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </Card>
                     </Link>
