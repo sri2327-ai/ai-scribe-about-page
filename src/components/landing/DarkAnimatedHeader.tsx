@@ -430,6 +430,143 @@ const DarkAnimatedHeader = () => {
     );
   };
 
+  // Mobile section component with CTA support for dark theme
+  const MobileSectionToggle = ({ 
+    title, 
+    items, 
+    sectionKey,
+    cta 
+  }: { 
+    title: string, 
+    items: any[], 
+    sectionKey: string,
+    cta?: any 
+  }) => {
+    const isActive = activeMobileSection === sectionKey;
+    
+    return (
+      <div className="border-b border-gray-800 last:border-b-0">
+        <button
+          onClick={() => setActiveMobileSection(isActive ? null : sectionKey)}
+          className="w-full flex items-center justify-between p-4 text-left hover:bg-white/10 transition-colors"
+        >
+          <span className="font-semibold text-white text-lg">{title}</span>
+          <motion.div
+            animate={{ rotate: isActive ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ChevronDown className="w-5 h-5 text-[#387E89]" />
+          </motion.div>
+        </button>
+        
+        <AnimatePresence>
+          {isActive && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden"
+              style={{
+                backdropFilter: 'blur(20px)',
+                background: 'rgba(0, 0, 0, 0.9)',
+              }}
+            >
+              <div className="p-4 space-y-2">
+                {sectionKey === 'solutions' ? (
+                  // Solutions mobile view with cards
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <Link
+                        key={item.title}
+                        to={item.href}
+                        className="block group"
+                      >
+                        <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
+                          {item.illustration}
+                          <div className="flex items-start gap-3 relative z-10">
+                            <div className="p-2 bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-600/20">
+                              {item.icon}
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <h3 className="font-bold text-white">
+                                  {item.title}
+                                </h3>
+                                {item.label && (
+                                  <span className="px-2 py-1 bg-white/10 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20">
+                                    {item.label}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-300 text-sm">
+                                {item.description}
+                              </p>
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  // Other sections mobile view
+                  <>
+                    {items.map((item) => (
+                      <Link
+                        key={item.title}
+                        to={item.href}
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/10 transition-colors group"
+                      >
+                        <div className="group-hover:scale-110 transition-transform">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div className="font-medium text-white group-hover:text-[#387E89]">
+                            {item.title}
+                          </div>
+                          <div className="text-sm text-gray-300">
+                            {item.description}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                    
+                    {/* Mobile CTA Section */}
+                    {cta && (
+                      <>
+                        <div className="border-t border-gray-700 my-3"></div>
+                        <Link 
+                          to={cta.href}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/20 to-[#387E89]/20 hover:from-[#143151]/30 hover:to-[#387E89]/30 transition-all duration-200 group border border-[#387E89]/30"
+                        >
+                          <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                            <div className="text-white">
+                              {cta.icon}
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
+                              {cta.title}
+                            </div>
+                            <div className="text-sm text-gray-300">
+                              {cta.description}
+                            </div>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
+
   return (
     <>
       <motion.header
@@ -562,7 +699,30 @@ const DarkAnimatedHeader = () => {
               }}
             >
               <div className="max-w-7xl mx-auto">
-                {/* Mobile sections with glassmorphism */}
+                
+                {/* Mobile Solutions Section */}
+                <MobileSectionToggle 
+                  title="Solutions" 
+                  items={solutionsDropdown.items} 
+                  sectionKey="solutions" 
+                />
+
+                {/* Mobile About Section */}
+                <MobileSectionToggle 
+                  title="About" 
+                  items={aboutDropdown.items} 
+                  sectionKey="about"
+                  cta={aboutDropdown.cta}
+                />
+
+                {/* Mobile Resources Section */}
+                <MobileSectionToggle 
+                  title="Resources" 
+                  items={resourcesDropdown.items} 
+                  sectionKey="resources"
+                  cta={resourcesDropdown.cta}
+                />
+
                 <div className="border-b border-gray-800">
                   <Link 
                     to="/pricing" 

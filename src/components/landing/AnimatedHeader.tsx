@@ -225,6 +225,7 @@ const AnimatedHeader = () => {
     }
   };
 
+  // DropdownMenu component definition
   const DropdownMenu = ({ 
     items, 
     isOpen, 
@@ -434,15 +435,17 @@ const AnimatedHeader = () => {
     );
   };
 
-  // Mobile section component
+  // Mobile section component with CTA support
   const MobileSectionToggle = ({ 
     title, 
     items, 
-    sectionKey 
+    sectionKey,
+    cta 
   }: { 
     title: string, 
     items: any[], 
-    sectionKey: string 
+    sectionKey: string,
+    cta?: any 
   }) => {
     const isActive = activeMobileSection === sectionKey;
     
@@ -475,25 +478,92 @@ const AnimatedHeader = () => {
               }}
             >
               <div className="p-4 space-y-2">
-                {items.map((item) => (
-                  <Link
-                    key={item.title}
-                    to={item.href}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
-                  >
-                    <div className="group-hover:scale-110 transition-transform">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
-                        {item.title}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {item.description}
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+                {sectionKey === 'solutions' ? (
+                  // Solutions mobile view with cards
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <Link
+                        key={item.title}
+                        to={item.href}
+                        className="block group"
+                      >
+                        <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
+                          {item.illustration}
+                          <div className="flex items-start gap-3 relative z-10">
+                            <div className="p-2 bg-white/60 backdrop-blur-sm rounded-lg border border-white/20">
+                              {item.icon}
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-1">
+                                <h3 className="font-bold text-[#143151]">
+                                  {item.title}
+                                </h3>
+                                {item.label && (
+                                  <span className="px-2 py-1 bg-[#143151]/10 backdrop-blur-sm text-[#143151] text-xs font-medium rounded-full border border-[#143151]/20">
+                                    {item.label}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-gray-700 text-sm">
+                                {item.description}
+                              </p>
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </Card>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  // Other sections mobile view
+                  <>
+                    {items.map((item) => (
+                      <Link
+                        key={item.title}
+                        to={item.href}
+                        className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                      >
+                        <div className="group-hover:scale-110 transition-transform">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
+                            {item.title}
+                          </div>
+                          <div className="text-sm text-gray-500">
+                            {item.description}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                    
+                    {/* Mobile CTA Section */}
+                    {cta && (
+                      <>
+                        <div className="border-t border-gray-200 my-3"></div>
+                        <Link 
+                          to={cta.href}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
+                        >
+                          <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                            <div className="text-white">
+                              {cta.icon}
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                              {cta.title}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {cta.description}
+                            </div>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </>
+                    )}
+                  </>
+                )}
               </div>
             </motion.div>
           )}
@@ -647,6 +717,7 @@ const AnimatedHeader = () => {
                   title="About" 
                   items={aboutDropdown.items} 
                   sectionKey="about" 
+                  cta={aboutDropdown.cta}
                 />
 
                 {/* Mobile Resources Section */}
@@ -654,6 +725,7 @@ const AnimatedHeader = () => {
                   title="Resources" 
                   items={resourcesDropdown.items} 
                   sectionKey="resources" 
+                  cta={resourcesDropdown.cta}
                 />
 
                 {/* Mobile Direct Links */}
