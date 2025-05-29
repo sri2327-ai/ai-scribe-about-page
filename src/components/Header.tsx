@@ -177,13 +177,13 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
       {/* Mobile Sidebar */}
       {isSidebarOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
+        <div className="md:hidden fixed inset-0 top-16 bg-white z-40" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
           
           {/* Call Sales Button - Mobile Only - LIGHT THEME */}
-          <div className="p-4 border-b border-gray-200 bg-tealBlue/5">
+          <div className="p-4 border-b border-gray-200 bg-tealBlue/5 sticky top-0 z-10">
             <a 
               href="tel:+16314886390" 
-              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue text-white font-bold rounded-xl shadow-lg hover:bg-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue border border-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:border-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               <Phone className="w-5 h-5" />
               Call Sales: +1 631 4886 390

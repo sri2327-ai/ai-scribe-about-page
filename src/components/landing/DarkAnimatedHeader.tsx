@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -725,24 +724,26 @@ const DarkAnimatedHeader = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gray-800/60 absolute left-0 right-0 top-full z-40"
+              className="lg:hidden border-t border-gray-800/60 fixed left-0 right-0 top-20 z-40"
               style={{
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
-                maxHeight: 'calc(100vh - 80px)',
-                overflowY: 'auto'
+                height: 'calc(100vh - 80px)',
+                overflowY: 'auto',
+                overflowX: 'hidden'
               }}
             >
-              <div className="max-w-7xl mx-auto">
+              <div className="max-w-7xl mx-auto h-full">
                 
-                {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
-                <div className="p-4 border-b border-gray-800/60" style={{
+                {/* Call Sales Button - Mobile Only - DARK THEME */}
+                <div className="p-4 border-b border-gray-800/60 sticky top-0 z-10" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
                     className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    style={{ borderWidth: '1px' }}
                     onClick={() => console.log("Call sales button clicked")}
                   >
                     <Phone className="w-5 h-5" />
@@ -750,66 +751,68 @@ const DarkAnimatedHeader = () => {
                   </a>
                 </div>
 
-                {/* Mobile Solutions Section */}
-                <MobileSectionToggle 
-                  title="Solutions" 
-                  items={solutionsDropdown.items} 
-                  sectionKey="solutions" 
-                />
+                <div className="pb-6">
+                  {/* Mobile Solutions Section */}
+                  <MobileSectionToggle 
+                    title="Solutions" 
+                    items={solutionsDropdown.items} 
+                    sectionKey="solutions" 
+                  />
 
-                {/* Mobile About Section */}
-                <MobileSectionToggle 
-                  title="About" 
-                  items={aboutDropdown.items} 
-                  sectionKey="about"
-                  cta={aboutDropdown.cta}
-                />
+                  {/* Mobile About Section */}
+                  <MobileSectionToggle 
+                    title="About" 
+                    items={aboutDropdown.items} 
+                    sectionKey="about"
+                    cta={aboutDropdown.cta}
+                  />
 
-                {/* Mobile Resources Section */}
-                <MobileSectionToggle 
-                  title="Resources" 
-                  items={resourcesDropdown.items} 
-                  sectionKey="resources"
-                  cta={resourcesDropdown.cta}
-                />
+                  {/* Mobile Resources Section */}
+                  <MobileSectionToggle 
+                    title="Resources" 
+                    items={resourcesDropdown.items} 
+                    sectionKey="resources"
+                    cta={resourcesDropdown.cta}
+                  />
 
-                <div className="border-b border-gray-800/60">
-                  <Link 
-                    to="/pricing" 
-                    className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
-                    onClick={() => {
-                      console.log("Pricing link clicked");
-                      setIsMobileMenuOpen(false);
-                    }}
-                  >
-                    Pricing
-                  </Link>
-                </div>
-
-                <div className="p-5 space-y-4" style={{
-                  background: 'rgba(20, 49, 81, 0.6)',
-                  backdropFilter: 'blur(12px)'
-                }}>
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-white/50 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
-                    asChild
-                  >
-                    <Link to="#" className="flex items-center justify-center gap-2">
-                      <Play className="w-4 h-4" />
-                      Quick Tour
+                  <div className="border-b border-gray-800/60">
+                    <Link 
+                      to="/pricing" 
+                      className="block p-5 font-bold text-white hover:bg-white/15 transition-all duration-300"
+                      onClick={() => {
+                        console.log("Pricing link clicked");
+                        setIsMobileMenuOpen(false);
+                      }}
+                    >
+                      Pricing
                     </Link>
-                  </Button>
-                  
-                  <Button 
-                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
-                    asChild
-                  >
-                    <Link to="/contact" className="flex items-center justify-center gap-2">
-                      <Mail className="w-4 h-4" />
-                      Contact Us
-                    </Link>
-                  </Button>
+                  </div>
+
+                  <div className="p-5 space-y-4" style={{
+                    background: 'rgba(20, 49, 81, 0.6)',
+                    backdropFilter: 'blur(12px)'
+                  }}>
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-white/50 text-white hover:bg-white hover:text-black transition-all duration-300 hover:scale-105"
+                      asChild
+                    >
+                      <Link to="#" className="flex items-center justify-center gap-2">
+                        <Play className="w-4 h-4" />
+                        Quick Tour
+                      </Link>
+                    </Button>
+                    
+                    <Button 
+                      className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                      asChild
+                    >
+                      <Link to="/contact" className="flex items-center justify-center gap-2">
+                        <Mail className="w-4 h-4" />
+                        Contact Us
+                      </Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
             </motion.div>
