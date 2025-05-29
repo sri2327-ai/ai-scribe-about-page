@@ -9,25 +9,6 @@ import { Card } from '@/components/ui/card';
 import DarkAnimatedHeader from '@/components/landing/DarkAnimatedHeader';
 import GradientBarsBackground from '@/components/ui/gradient-bars-background';
 
-// Add keyframe animation for pulse effect
-const pulseBarKeyframes = `
-  @keyframes pulseBar {
-    0% { opacity: 0.6; }
-    100% { opacity: 1; }
-  }
-`;
-
-// Inject styles
-useEffect(() => {
-  const style = document.createElement('style');
-  style.textContent = pulseBarKeyframes;
-  document.head.appendChild(style);
-  
-  return () => {
-    document.head.removeChild(style);
-  };
-}, []);
-
 interface Resource {
   id: string;
   category: 'infographic' | 'guide' | 'report' | 'workbook' | 'checklist';
@@ -49,6 +30,24 @@ const ResourceLibrary = () => {
     specialty: ''
   });
   const [formMessage, setFormMessage] = useState('');
+
+  // Add keyframe animation for pulse effect
+  useEffect(() => {
+    const pulseBarKeyframes = `
+      @keyframes pulseBar {
+        0% { opacity: 0.6; }
+        100% { opacity: 1; }
+      }
+    `;
+    
+    const style = document.createElement('style');
+    style.textContent = pulseBarKeyframes;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
+  }, []);
 
   const resources: Resource[] = [
     {
