@@ -41,25 +41,22 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setIsSidebarOpen(false);
   }, [location, setIsSidebarOpen]);
 
-  // Prevent background scrolling when mobile menu is open - IMPROVED
+  // Prevent background scrolling when mobile menu is open
   useEffect(() => {
     if (isSidebarOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-      document.body.style.top = '0';
     } else {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      document.body.style.top = '';
     }
 
     return () => {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      document.body.style.top = '';
     };
   }, [isSidebarOpen]);
 
@@ -86,7 +83,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           </Link>
         </div>
 
-        {/* Desktop Navigation */}
         <div className="flex-1 hidden md:block">
           <div className="flex justify-center">
             <nav className={classNames("flex space-x-1", isScrolled && styles.glassmorphism, "px-4 py-2")}>
@@ -198,7 +194,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
 
-      {/* Mobile Sidebar - FIXED SCROLLING ISSUE */}
+      {/* Mobile Sidebar - FIXED SCROLLING */}
       {isSidebarOpen && (
         <div 
           className="md:hidden fixed inset-0 top-16 bg-white z-50"
@@ -207,8 +203,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
             overflowY: 'auto',
             overflowX: 'hidden',
             WebkitOverflowScrolling: 'touch',
-            touchAction: 'pan-y',
-            overscrollBehavior: 'contain'
+            touchAction: 'pan-y'
           }}
         >
           

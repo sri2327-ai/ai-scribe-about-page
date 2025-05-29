@@ -57,25 +57,22 @@ const DarkAnimatedHeader = () => {
     setActiveMobileSection(null);
   }, [location]);
 
-  // Prevent background scrolling when mobile menu is open - IMPROVED
+  // Prevent background scrolling when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
       document.body.style.position = 'fixed';
       document.body.style.width = '100%';
-      document.body.style.top = '0';
     } else {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      document.body.style.top = '';
     }
 
     return () => {
       document.body.style.overflow = '';
       document.body.style.position = '';
       document.body.style.width = '';
-      document.body.style.top = '';
     };
   }, [isMobileMenuOpen]);
 
@@ -754,22 +751,21 @@ const DarkAnimatedHeader = () => {
                 overflowY: 'auto',
                 overflowX: 'hidden',
                 WebkitOverflowScrolling: 'touch',
-                touchAction: 'pan-y',
-                overscrollBehavior: 'contain'
+                touchAction: 'pan-y'
               }}
             >
               <div className="max-w-7xl mx-auto h-full">
                 
-                {/* Call Sales Button - Mobile Only - DARK THEME FIXED */}
+                {/* Call Sales Button - Mobile Only - DARK THEME */}
                 <div className="p-4 border-b border-gray-800/60 sticky top-0 z-10" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-3 w-full p-4 bg-transparent border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
                     style={{ borderWidth: '1px' }}
-                    onClick={() => console.log("Dark theme call sales button clicked")}
+                    onClick={() => console.log("Call sales button clicked")}
                   >
                     <Phone className="w-5 h-5" />
                     Call Sales: +1 631 4886 390
