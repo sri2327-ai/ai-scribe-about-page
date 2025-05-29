@@ -98,7 +98,7 @@ const AnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown content with more subtle colors
+  // Solutions dropdown content with mild pink shades
   const solutionsDropdown = {
     items: [
       {
@@ -106,7 +106,7 @@ const AnimatedHeader = () => {
         description: 'AI Medical Scribe & Documentation',
         icon: <Brain className="w-6 h-6 text-[#143151]" />,
         href: '/crush-ai',
-        bgColor: 'bg-gradient-to-br from-slate-100/80 to-blue-50/80 backdrop-blur-sm border border-white/20',
+        bgColor: 'bg-gradient-to-br from-pink-50/60 to-rose-50/60 backdrop-blur-sm border border-pink-100/30',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
             <Stethoscope className="w-8 h-8 text-[#143151]" />
@@ -118,7 +118,7 @@ const AnimatedHeader = () => {
         description: 'AI Staffing Agent & Automation',
         icon: <Zap className="w-6 h-6 text-[#387E89]" />,
         href: '/bravo',
-        bgColor: 'bg-gradient-to-br from-blue-50/80 to-cyan-50/80 backdrop-blur-sm border border-white/20',
+        bgColor: 'bg-gradient-to-br from-pink-50/50 to-blue-50/50 backdrop-blur-sm border border-pink-100/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
             <Users className="w-8 h-8 text-[#387E89]" />
@@ -131,7 +131,7 @@ const AnimatedHeader = () => {
         label: 'New',
         icon: <Cpu className="w-6 h-6 text-[#5192AE]" />,
         href: '/custom-ai-agent',
-        bgColor: 'bg-gradient-to-br from-cyan-50/80 to-indigo-50/80 backdrop-blur-sm border border-white/20',
+        bgColor: 'bg-gradient-to-br from-rose-50/50 to-pink-50/50 backdrop-blur-sm border border-rose-100/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
             <Award className="w-8 h-8 text-[#5192AE]" />
@@ -177,31 +177,37 @@ const AnimatedHeader = () => {
     ]
   };
 
-  // Resources dropdown content with enhanced design
+  // Resources dropdown content with Resource Library added
   const resourcesDropdown = {
     items: [
       {
+        title: 'Resource Library',
+        description: 'Clinical guides & documentation',
+        icon: <BookOpen className="w-5 h-5 text-[#143151]" />,
+        href: '/resource-library'
+      },
+      {
         title: 'Blog',
         description: 'Latest insights & updates',
-        icon: <BookOpen className="w-5 h-5 text-[#143151]" />,
+        icon: <BookOpen className="w-5 h-5 text-[#387E89]" />,
         href: '/blog'
       },
       {
         title: 'FAQs',
         description: 'Common questions answered',
-        icon: <HelpCircle className="w-5 h-5 text-[#387E89]" />,
+        icon: <HelpCircle className="w-5 h-5 text-[#5192AE]" />,
         href: '/faq'
       },
       {
         title: 'Case Studies',
         description: 'Success stories & results',
-        icon: <FileText className="w-5 h-5 text-[#5192AE]" />,
+        icon: <FileText className="w-5 h-5 text-[#A5CCF3]" />,
         href: '/case-study'
       },
       {
         title: 'Customers',
         description: 'Customer testimonials',
-        icon: <MessageSquare className="w-5 h-5 text-[#A5CCF3]" />,
+        icon: <MessageSquare className="w-5 h-5 text-[#143151]" />,
         href: '/customer'
       }
     ]
