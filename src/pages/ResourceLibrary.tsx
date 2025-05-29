@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, MoreHorizontal, Check, Download, ExternalLink } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MoreHorizontal, ArrowLeft, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -30,7 +30,6 @@ const ResourceLibrary = () => {
     specialty: ''
   });
   const [formMessage, setFormMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Add keyframe animation for pulse effect
   useEffect(() => {
@@ -149,15 +148,15 @@ const ResourceLibrary = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleFormSubmit = async (e: React.FormEvent) => {
+  const handleBackToLibrary = () => {
+    setShowDetailView(false);
+    setSelectedResource(null);
+  };
+
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
     console.log('Form submitted:', formData);
-    setFormMessage('🎉 Success! Your resource will be sent to your email shortly.');
+    setFormMessage('Thank you! Your request has been submitted.');
     setFormData({
       fullName: '',
       companyName: '',
@@ -165,7 +164,6 @@ const ResourceLibrary = () => {
       phone: '',
       specialty: ''
     });
-    setIsSubmitting(false);
     
     setTimeout(() => {
       setFormMessage('');
@@ -189,166 +187,144 @@ const ResourceLibrary = () => {
             <meta name="description" content={selectedResource.description} />
           </Helmet>
 
-          <section className="bg-white py-8 sm:py-12">
+          <section className="bg-white py-12 sm:py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+              <button 
+                onClick={handleBackToLibrary}
+                className="inline-flex items-center text-[#387E89] hover:text-[#2c6269] font-medium mb-10 group text-sm transition-colors"
+              >
+                <ArrowLeft className="mr-2 w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
+                Back to Resource Library
+              </button>
+
+              <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
                 <div className="lg:w-[55%] text-gray-800">
-                  <div className="mb-6">
-                    <span className={`inline-flex items-center text-xs font-semibold uppercase px-3 py-1 rounded-full tracking-wider ${getCategoryColor(selectedResource.category)}`}>
-                      {selectedResource.category}
-                    </span>
-                  </div>
-                  
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+                  <span className={`text-sm font-semibold uppercase mb-3 block tracking-wider ${getCategoryColor(selectedResource.category).split(' ')[0]}`}>
+                    {selectedResource.category}
+                  </span>
+                  <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
                     {selectedResource.title}
                   </h1>
-                  
                   <div className="prose prose-lg text-gray-700 max-w-none">
-                    <p className="text-lg mb-8 leading-relaxed text-gray-600">
+                    <p className="mb-6 leading-relaxed">
                       {selectedResource.description}
                     </p>
-                    
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl mb-8">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-4">What you'll get:</h3>
-                      <ul className="space-y-3 text-base list-none p-0">
-                        <li className="flex items-start">
-                          <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
-                          Streamline your healthcare workflows with AI-powered solutions
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
-                          Get powerful insights and reporting to quantify your ROI
-                        </li>
-                        <li className="flex items-start">
-                          <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
-                          Enjoy seamless integrations to drive efficiency
-                        </li>
-                      </ul>
-                    </div>
+                    <ul className="space-y-3 text-base list-none p-0 mb-6">
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
+                        Streamline your healthcare workflows with AI-powered solutions
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
+                        Get powerful insights and reporting to quantify your ROI
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="w-5 h-5 text-[#387E89] mr-3 flex-shrink-0 mt-1" />
+                        Enjoy seamless integrations to drive efficiency
+                      </li>
+                    </ul>
                   </div>
                 </div>
 
                 <div className="lg:w-[45%]">
-                  <Card className="sticky top-24 p-6 sm:p-8 bg-white shadow-2xl border-0 rounded-2xl">
-                    <div className="text-center mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-r from-[#387E89] to-[#5192AE] rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Download className="w-8 h-8 text-white" />
-                      </div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Get Your Resource</h2>
-                      <p className="text-sm text-gray-600">Fill out the form below to download instantly</p>
-                    </div>
+                  <Card className="p-6 sm:p-10 bg-gradient-to-br from-gray-50 to-white shadow-xl border border-gray-200">
+                    <h2 className="text-2xl font-semibold text-gray-900 mb-2 tracking-tight">Complete the form</h2>
+                    <p className="text-sm text-gray-600 mb-8">to get your resources and unlock insights.</p>
                     
-                    <form onSubmit={handleFormSubmit} className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 mb-2 block">Full name*</Label>
-                          <Input
-                            type="text"
-                            id="fullName"
-                            name="fullName"
-                            required
-                            placeholder="Jane Doe"
-                            value={formData.fullName}
-                            onChange={handleInputChange}
-                            className="w-full h-12 px-4 text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-all duration-200 placeholder-gray-400"
-                          />
-                        </div>
-                        
-                        <div>
-                          <Label htmlFor="companyName" className="text-sm font-medium text-gray-700 mb-2 block">Company*</Label>
-                          <Input
-                            type="text"
-                            id="companyName"
-                            name="companyName"
-                            required
-                            placeholder="Healthcare Inc."
-                            value={formData.companyName}
-                            onChange={handleInputChange}
-                            className="w-full h-12 px-4 text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-all duration-200 placeholder-gray-400"
-                          />
-                        </div>
+                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                      <div>
+                        <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 mb-1.5">Full name*</Label>
+                        <Input
+                          type="text"
+                          id="fullName"
+                          name="fullName"
+                          required
+                          placeholder="e.g., Jane Doe"
+                          value={formData.fullName}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                        />
                       </div>
                       
                       <div>
-                        <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-2 block">Email*</Label>
+                        <Label htmlFor="companyName" className="text-sm font-medium text-gray-700 mb-1.5">Company name*</Label>
+                        <Input
+                          type="text"
+                          id="companyName"
+                          name="companyName"
+                          required
+                          placeholder="e.g., S10 Healthcare"
+                          value={formData.companyName}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-1.5">Email*</Label>
                         <Input
                           type="email"
                           id="email"
                           name="email"
                           required
-                          placeholder="jane@healthcare.com"
+                          placeholder="e.g., jane.doe@example.com"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className="w-full h-12 px-4 text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-all duration-200 placeholder-gray-400"
+                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
                         />
                       </div>
                       
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="phone" className="text-sm font-medium text-gray-700 mb-2 block">Phone*</Label>
-                          <Input
-                            type="tel"
-                            id="phone"
-                            name="phone"
-                            required
-                            placeholder="(555) 123-4567"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            className="w-full h-12 px-4 text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-all duration-200 placeholder-gray-400"
-                          />
-                        </div>
-                        
-                        <div>
-                          <Label htmlFor="specialty" className="text-sm font-medium text-gray-700 mb-2 block">Specialty*</Label>
-                          <select
-                            id="specialty"
-                            name="specialty"
-                            required
-                            value={formData.specialty}
-                            onChange={handleInputChange}
-                            className="w-full h-12 px-4 text-gray-800 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-all duration-200"
-                          >
-                            <option value="" disabled>Select Specialty</option>
-                            <option value="cardiology">Cardiology</option>
-                            <option value="dermatology">Dermatology</option>
-                            <option value="pediatrics">Pediatrics</option>
-                            <option value="general">General Practice</option>
-                            <option value="other">Other</option>
-                          </select>
-                        </div>
+                      <div>
+                        <Label htmlFor="phone" className="text-sm font-medium text-gray-700 mb-1.5">Phone*</Label>
+                        <Input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          required
+                          placeholder="e.g., (555) 123-4567"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors placeholder-gray-400"
+                        />
                       </div>
                       
-                      <div className="pt-4">
+                      <div>
+                        <Label htmlFor="specialty" className="text-sm font-medium text-gray-700 mb-1.5">Specialty*</Label>
+                        <select
+                          id="specialty"
+                          name="specialty"
+                          required
+                          value={formData.specialty}
+                          onChange={handleInputChange}
+                          className="w-full px-4 py-3 text-gray-800 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#387E89] focus:border-transparent transition-colors"
+                        >
+                          <option value="" disabled>Select Specialty</option>
+                          <option value="cardiology">Cardiology</option>
+                          <option value="dermatology">Dermatology</option>
+                          <option value="pediatrics">Pediatrics</option>
+                          <option value="general">General Practice</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      
+                      <div className="pt-3">
                         <Button
                           type="submit"
-                          disabled={isSubmitting}
-                          className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold h-12 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50"
+                          className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold h-11 px-6 py-3 rounded-lg shadow-md transition-all duration-300"
                         >
-                          {isSubmitting ? (
-                            <div className="flex items-center">
-                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                              Processing...
-                            </div>
-                          ) : (
-                            <div className="flex items-center">
-                              <Download className="w-4 h-4 mr-2" />
-                              Download {selectedResource.category}
-                            </div>
-                          )}
+                          Download Resource
                         </Button>
                       </div>
                       
-                      <div className="text-xs text-gray-500 text-center pt-2">
-                        By submitting, I agree to S10.ai's{' '}
+                      <div className="text-xs text-gray-500 text-center">
+                        By submitting, I acknowledge S10.ai may use my information as per its{' '}
                         <Link to="#" className="text-[#387E89] hover:underline">Privacy Policy</Link>.
                       </div>
                     </form>
                     
                     {formMessage && (
-                      <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl">
-                        <div className="text-sm text-green-700 font-medium text-center">
-                          {formMessage}
-                        </div>
+                      <div className="mt-4 text-sm text-[#387E89] font-medium text-center">
+                        {formMessage}
                       </div>
                     )}
                   </Card>
@@ -390,12 +366,12 @@ const ResourceLibrary = () => {
         {/* Filter Section */}
         <section className="py-8 bg-white sticky top-20 z-30 shadow-sm border-b border-gray-200">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row md:items-center justify-between mb-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-5">
               <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 text-left mb-4 md:mb-0 tracking-tight">
                 All Resources
               </h2>
             </div>
-            <div className="flex flex-wrap gap-3 items-center">
+            <div className="flex flex-wrap gap-2 items-center">
               {[
                 { key: 'all', label: 'All Types' },
                 { key: 'infographic', label: 'Infographic' },
@@ -407,10 +383,10 @@ const ResourceLibrary = () => {
                 <button
                   key={filter.key}
                   onClick={() => setActiveFilter(filter.key)}
-                  className={`px-6 py-3 text-sm font-medium rounded-full transition-all duration-300 ${
+                  className={`px-4 py-2 text-sm font-medium rounded-md border-2 border-transparent transition-all duration-200 ${
                     activeFilter === filter.key
-                      ? 'text-white bg-gradient-to-r from-[#387E89] to-[#5192AE] shadow-lg'
-                      : 'text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-gray-900'
+                      ? 'text-[#387E89] font-semibold border-b-[#387E89] bg-[#387E89]/5'
+                      : 'text-gray-600 hover:text-[#387E89] hover:bg-[#387E89]/10'
                   }`}
                 >
                   {filter.label}
@@ -422,83 +398,80 @@ const ResourceLibrary = () => {
 
         {/* Resource Grid */}
         <main className="bg-white container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
             {filteredResources.map((resource) => (
               <div
                 key={resource.id}
                 onClick={() => handleResourceClick(resource)}
                 className="group cursor-pointer"
               >
-                <Card className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-gray-100 hover:border-[#387E89] hover:-translate-y-2">
-                  <div className="aspect-video bg-slate-100 overflow-hidden relative">
+                <Card className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full border border-gray-200 hover:border-[#387E89]">
+                  <div className="aspect-video bg-slate-100 overflow-hidden">
                     <img
                       src={resource.img}
                       alt={resource.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       onError={(e) => {
                         e.currentTarget.src = 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?w=600&h=338&fit=crop';
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  <div className="p-6 flex flex-col flex-grow">
-                    <span className={`inline-flex items-center text-xs font-semibold uppercase px-3 py-1 rounded-full tracking-wider mb-3 ${getCategoryColor(resource.category)}`}>
+                  <div className="p-5 flex flex-col flex-grow">
+                    <span className={`text-xs font-semibold uppercase mb-2 tracking-wider ${getCategoryColor(resource.category)}`}>
                       {resource.category}
                     </span>
-                    <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight group-hover:text-[#387E89] transition-colors line-clamp-2">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 leading-tight group-hover:text-[#387E89] transition-colors">
                       {resource.title}
                     </h3>
-                    <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed line-clamp-3">
+                    <p className="text-sm text-gray-600 mb-4 flex-grow leading-relaxed">
                       {resource.description}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className={`inline-flex items-center text-sm font-semibold transition-all duration-200 ${getCategoryActionColor(resource.category)}`}>
-                        {resource.actionText}
-                      </span>
-                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-[#387E89] transition-colors duration-200" />
-                    </div>
+                    <span className={`inline-flex items-center text-sm font-medium group-hover:gap-1.5 transition-all duration-200 self-start mt-auto ${getCategoryActionColor(resource.category)}`}>
+                      {resource.actionText}
+                      <ChevronRight className="ml-1 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                    </span>
                   </div>
                 </Card>
               </div>
             ))}
           </div>
 
-          {/* Enhanced Pagination */}
+          {/* Modern Pagination */}
           {filteredResources.length > 0 && (
-            <div className="mt-20 flex justify-center">
+            <div className="mt-16 flex justify-center">
               <nav role="navigation" aria-label="pagination" className="mx-auto flex w-full justify-center">
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-lg border border-gray-200/60 rounded-2xl px-3 py-3 shadow-xl">
+                <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-2 py-2 shadow-lg">
                   <button
-                    className="inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-300 h-11 px-4 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50 hover:scale-105"
+                    className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 h-10 px-3 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 disabled:opacity-50"
                     aria-label="Go to previous page"
                   >
                     <ChevronLeft className="h-4 w-4" />
                     <span className="hidden sm:inline">Previous</span>
                   </button>
                   
-                  <div className="flex items-center gap-2 px-2">
+                  <div className="flex items-center gap-1 px-2">
                     <button
-                      className="inline-flex items-center justify-center rounded-xl text-sm font-bold h-11 w-11 bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                      className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 bg-gradient-to-r from-[#387E89] to-[#5192AE] text-white shadow-md hover:shadow-lg transition-all duration-200"
                       aria-current="page"
                     >
                       1
                     </button>
-                    <button className="inline-flex items-center justify-center rounded-xl text-sm font-medium h-11 w-11 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 hover:scale-105">
+                    <button className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
                       2
                     </button>
-                    <button className="inline-flex items-center justify-center rounded-xl text-sm font-medium h-11 w-11 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 hover:scale-105">
+                    <button className="inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
                       3
                     </button>
-                    <div className="hidden sm:flex items-center justify-center h-11 w-11 text-gray-400">
+                    <div className="hidden sm:flex items-center justify-center h-10 w-10 text-gray-400">
                       <MoreHorizontal className="h-4 w-4" />
                     </div>
-                    <button className="hidden sm:inline-flex items-center justify-center rounded-xl text-sm font-medium h-11 w-11 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-300 hover:scale-105">
+                    <button className="hidden sm:inline-flex items-center justify-center rounded-lg text-sm font-medium h-10 w-10 text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200">
                       8
                     </button>
                   </div>
                   
                   <button
-                    className="inline-flex items-center justify-center rounded-xl text-sm font-medium transition-all duration-300 h-11 px-4 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 hover:scale-105"
+                    className="inline-flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 h-10 px-3 gap-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                     aria-label="Go to next page"
                   >
                     <span className="hidden sm:inline">Next</span>
