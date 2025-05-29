@@ -57,6 +57,19 @@ const DarkAnimatedHeader = () => {
     setActiveMobileSection(null);
   }, [location]);
 
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
+
   const handleMouseEnter = (dropdownType: string) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
@@ -327,7 +340,7 @@ const DarkAnimatedHeader = () => {
                   >
                     <Link 
                       to={item.href}
-                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group border border-transparent hover:border-white/10"
+                      className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
                     >
                       <div className="group-hover:scale-125 transition-transform duration-300">
                         {item.icon}
@@ -730,8 +743,10 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
                 height: 'calc(100vh - 80px)',
                 overflowY: 'auto',
-                overflowX: 'hidden'
+                overflowX: 'hidden',
+                WebkitOverflowScrolling: 'touch'
               }}
+              onTouchMove={(e) => e.stopPropagation()}
             >
               <div className="max-w-7xl mx-auto h-full">
                 

@@ -41,6 +41,19 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     setIsSidebarOpen(false);
   }, [location, setIsSidebarOpen]);
 
+  // Prevent background scrolling when mobile menu is open
+  useEffect(() => {
+    if (isSidebarOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSidebarOpen]);
+
   const closeMenu = () => {
     setIsSidebarOpen(false);
   };
@@ -175,22 +188,32 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         </div>
       </div>
 
-      {/* Mobile Sidebar */}
+      {/* Mobile Sidebar - FIXED SCROLLING AND ADDED CALL SALES */}
       {isSidebarOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-white z-40" style={{ height: 'calc(100vh - 64px)', overflowY: 'auto' }}>
+        <div 
+          className="md:hidden fixed inset-0 top-16 bg-white z-40"
+          style={{ 
+            height: 'calc(100vh - 64px)',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            WebkitOverflowScrolling: 'touch'
+          }}
+          onTouchMove={(e) => e.stopPropagation()}
+        >
           
           {/* Call Sales Button - Mobile Only - LIGHT THEME */}
           <div className="p-4 border-b border-gray-200 bg-tealBlue/5 sticky top-0 z-10">
             <a 
               href="tel:+16314886390" 
-              className="flex items-center justify-center gap-3 w-full p-4 bg-tealBlue border border-tealBlue text-white font-bold rounded-xl hover:bg-tealBlueBright hover:border-tealBlueBright hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="flex items-center justify-center gap-3 w-full p-4 bg-white border border-tealBlue text-tealBlue font-bold rounded-xl hover:bg-tealBlue hover:text-white hover:scale-105 transition-all duration-300"
+              style={{ borderWidth: '1px' }}
             >
               <Phone className="w-5 h-5" />
               Call Sales: +1 631 4886 390
             </a>
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex flex-col pb-20">
             <NavLink
               to="/about"
               onClick={closeMenu}
