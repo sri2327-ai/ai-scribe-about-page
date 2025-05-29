@@ -659,7 +659,7 @@ const DarkAnimatedHeader = () => {
             <div className="hidden lg:flex items-center space-x-4">
               <Button 
                 variant="ghost" 
-                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300"
+                className="font-semibold text-white hover:text-[#387E89] hover:bg-white/15 hover:scale-105 transition-all duration-300 border border-white/50 hover:border-white/70"
                 asChild
               >
                 <Link to="#" className="flex items-center gap-2">
