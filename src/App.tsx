@@ -23,6 +23,7 @@ import CaseStudiesIndex from "@/pages/case-studies/index";
 import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing";
 import Advantages from "@/pages/Advantages";
+import ResourceLibrary from "@/pages/ResourceLibrary";
 
 function App() {
   console.log("Rendering App component");
@@ -43,6 +44,7 @@ function App() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/changelog" element={<Changelog />} />
       <Route path="/help-library" element={<HelpLibrary />} />
+      <Route path="/resource-library" element={<ResourceLibrary />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/advantages" element={<Advantages />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
