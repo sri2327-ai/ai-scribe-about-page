@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -264,7 +265,7 @@ const DarkAnimatedHeader = () => {
             style={{
               backdropFilter: 'blur(24px)',
               background: 'rgba(0, 0, 0, 0.95)',
-              boxShadow: '0 32px 64px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 4px 16px rgba(56, 126, 137, 0.2)'
+              boxShadow: '0 32px 64px -12px rgba(0, 0, 0, 0.9), 0 20px 40px -8px rgba(0, 0, 0, 0.7), 0 8px 16px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 4px 16px rgba(56, 126, 137, 0.3)'
             }}
           >
             {type === 'solutions' ? (
@@ -444,7 +445,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component
+  // Mobile section component - REMOVED INTERNAL SCROLL
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -489,7 +490,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-5 max-h-80 overflow-y-auto">
+              <div className="p-5">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
                     // Solutions mobile view with cards
@@ -716,7 +717,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu - FIXED SCROLLING ISSUE */}
+        {/* Mobile Menu - NOW SCROLLABLE */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -734,17 +735,17 @@ const DarkAnimatedHeader = () => {
             >
               <div className="max-w-7xl mx-auto">
                 
-                {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
-                <div className="p-3 border-b border-gray-800/60" style={{
+                {/* Call Sales Button - Mobile Only - SMALLER SIZE */}
+                <div className="p-2 border-b border-gray-800/60" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-2 w-full p-3 bg-black border border-white/30 text-white font-semibold text-sm rounded-lg hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    className="flex items-center justify-center gap-1 w-full p-2 bg-black border border-white/20 text-white font-medium text-xs rounded-md hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
                     onClick={() => console.log("Call sales button clicked")}
                   >
-                    <Phone className="w-4 h-4" />
+                    <Phone className="w-3 h-3" />
                     Call Sales: +1 631 4886 390
                   </a>
                 </div>
