@@ -490,7 +490,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <ScrollArea className="max-h-80 p-5">
+              <div className="max-h-96 overflow-y-auto p-5">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
                     // Solutions mobile view with cards
@@ -582,7 +582,7 @@ const DarkAnimatedHeader = () => {
                     </>
                   )}
                 </div>
-              </ScrollArea>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -708,7 +708,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - FIXED WITH PROPER SCROLLING */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -716,16 +716,17 @@ const DarkAnimatedHeader = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="lg:hidden border-t border-gray-800/60 max-h-[80vh] overflow-hidden"
+              className="lg:hidden border-t border-gray-800/60"
               style={{
                 backdropFilter: 'blur(24px)',
                 background: 'rgba(0, 0, 0, 0.98)',
+                maxHeight: '80vh'
               }}
             >
-              <ScrollArea className="max-h-[80vh]">
+              <ScrollArea className="h-full max-h-[80vh]">
                 <div className="max-w-7xl mx-auto">
                   
-                  {/* Call Sales Button - Mobile Only */}
+                  {/* Call Sales Button - Mobile Only - UPDATED STYLING */}
                   <div className="p-4 border-b border-gray-800/60" style={{
                     background: 'rgba(56, 126, 137, 0.1)',
                     backdropFilter: 'blur(12px)'
