@@ -97,17 +97,17 @@ const DarkAnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown with black glassmorphism for dark theme
+  // Solutions dropdown with improved descriptions and UX
   const solutionsDropdown = {
     items: [
       {
         title: 'CRUSH',
-        description: 'AI Medical Scribe & Documentation',
+        description: 'AI Medical Scribe Assistant & Documentation',
         icon: <Brain className="w-6 h-6 text-gray-300" />,
         href: '/crush-ai',
-        bgColor: 'bg-black/80 backdrop-blur-sm border border-gray-700/30',
+        bgColor: 'bg-black/90 backdrop-blur-lg border border-gray-600/40',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-10">
+          <div className="absolute top-2 right-2 opacity-15">
             <Stethoscope className="w-8 h-8 text-gray-300" />
           </div>
         )
@@ -117,9 +117,9 @@ const DarkAnimatedHeader = () => {
         description: 'AI Staffing Agent & Automation',
         icon: <Zap className="w-6 h-6 text-gray-300" />,
         href: '/bravo',
-        bgColor: 'bg-black/80 backdrop-blur-sm border border-gray-700/30',
+        bgColor: 'bg-black/90 backdrop-blur-lg border border-gray-600/40',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-10">
+          <div className="absolute top-2 right-2 opacity-15">
             <Users className="w-8 h-8 text-gray-300" />
           </div>
         )
@@ -130,9 +130,9 @@ const DarkAnimatedHeader = () => {
         label: 'New',
         icon: <Cpu className="w-6 h-6 text-gray-300" />,
         href: '/custom-ai-agent',
-        bgColor: 'bg-black/80 backdrop-blur-sm border border-gray-700/30',
+        bgColor: 'bg-black/90 backdrop-blur-lg border border-gray-600/40',
         illustration: (
-          <div className="absolute top-2 right-2 opacity-10">
+          <div className="absolute top-2 right-2 opacity-15">
             <Award className="w-8 h-8 text-gray-300" />
           </div>
         )
@@ -247,18 +247,18 @@ const DarkAnimatedHeader = () => {
           <Card 
             className={`p-6 shadow-2xl border-0 backdrop-blur-xl ${
               type === 'solutions' 
-                ? 'min-w-[600px]' 
-                : 'min-w-[400px]'
+                ? 'min-w-[650px] max-w-[700px]' 
+                : 'min-w-[450px] max-w-[500px]'
             }`} 
             style={{
               backdropFilter: 'blur(20px)',
-              background: 'rgba(0, 0, 0, 0.85)',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1) inset'
+              background: 'rgba(0, 0, 0, 0.92)',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15) inset'
             }}
           >
             {type === 'solutions' ? (
               <div className="grid grid-cols-1 gap-4">
-                <div className="mb-2">
+                <div className="mb-3">
                   <h3 className="text-sm font-semibold text-white mb-1">AI Solutions</h3>
                   <p className="text-xs text-gray-300">Choose your healthcare AI companion</p>
                 </div>
@@ -270,28 +270,28 @@ const DarkAnimatedHeader = () => {
                     transition={{ delay: index * 0.1 }}
                   >
                     <Link to={item.href} className="block group">
-                      <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
+                      <Card className={`p-5 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:border-[#387E89]/30`}>
                         {item.illustration}
                         <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-600/20">
+                          <div className="p-3 bg-gray-800/70 backdrop-blur-sm rounded-xl border border-gray-600/30 group-hover:bg-gray-700/70 transition-colors">
                             {item.icon}
                           </div>
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-bold text-white text-lg">
+                              <h3 className="font-bold text-white text-lg group-hover:text-[#387E89] transition-colors">
                                 {item.title}
                               </h3>
                               {item.label && (
-                                <span className="px-2 py-1 bg-white/10 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20">
+                                <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
                                   {item.label}
                                 </span>
                               )}
                             </div>
-                            <p className="text-gray-300 text-sm">
+                            <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors">
                               {item.description}
                             </p>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-[#387E89] transition-all" />
                         </div>
                       </Card>
                     </Link>
@@ -300,7 +300,7 @@ const DarkAnimatedHeader = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-1">
-                <div className="mb-3 pb-2 border-b border-gray-700">
+                <div className="mb-4 pb-3 border-b border-gray-700/50">
                   <h3 className="text-sm font-semibold text-white">
                     {type === 'about' ? 'Company' : 'Resources'}
                   </h3>
@@ -323,7 +323,7 @@ const DarkAnimatedHeader = () => {
                         <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
                           {item.title}
                         </div>
-                        <div className="text-sm text-gray-300">
+                        <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
                           {item.description}
                         </div>
                       </div>
@@ -334,7 +334,7 @@ const DarkAnimatedHeader = () => {
                 {/* CTA Section */}
                 {cta && (
                   <>
-                    <div className="border-t border-gray-700 my-2"></div>
+                    <div className="border-t border-gray-700/50 my-3"></div>
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -343,7 +343,7 @@ const DarkAnimatedHeader = () => {
                     >
                       <Link 
                         to={cta.href}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/20 to-[#387E89]/20 hover:from-[#143151]/30 hover:to-[#387E89]/30 transition-all duration-200 group border border-[#387E89]/30"
+                        className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/30 to-[#387E89]/30 hover:from-[#143151]/40 hover:to-[#387E89]/40 transition-all duration-200 group border border-[#387E89]/40"
                       >
                         <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
                           <div className="text-white">
@@ -354,7 +354,7 @@ const DarkAnimatedHeader = () => {
                           <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
                             {cta.title}
                           </div>
-                          <div className="text-sm text-gray-300">
+                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
                             {cta.description}
                           </div>
                         </div>
@@ -430,7 +430,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component with CTA support for dark theme
+  // Mobile section component with improved UX
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -445,7 +445,7 @@ const DarkAnimatedHeader = () => {
     const isActive = activeMobileSection === sectionKey;
     
     return (
-      <div className="border-b border-gray-800 last:border-b-0">
+      <div className="border-b border-gray-800/60 last:border-b-0">
         <button
           onClick={() => setActiveMobileSection(isActive ? null : sectionKey)}
           className="w-full flex items-center justify-between p-4 text-left hover:bg-white/10 transition-colors"
@@ -469,7 +469,7 @@ const DarkAnimatedHeader = () => {
               className="overflow-hidden"
               style={{
                 backdropFilter: 'blur(20px)',
-                background: 'rgba(0, 0, 0, 0.9)',
+                background: 'rgba(0, 0, 0, 0.95)',
               }}
             >
               <div className="p-4 space-y-2">
@@ -482,28 +482,28 @@ const DarkAnimatedHeader = () => {
                         to={item.href}
                         className="block group"
                       >
-                        <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
+                        <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:border-[#387E89]/30`}>
                           {item.illustration}
                           <div className="flex items-start gap-3 relative z-10">
-                            <div className="p-2 bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-600/20">
+                            <div className="p-2 bg-gray-800/70 backdrop-blur-sm rounded-lg border border-gray-600/30 group-hover:bg-gray-700/70 transition-colors">
                               {item.icon}
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-1">
-                                <h3 className="font-bold text-white">
+                                <h3 className="font-bold text-white group-hover:text-[#387E89] transition-colors">
                                   {item.title}
                                 </h3>
                                 {item.label && (
-                                  <span className="px-2 py-1 bg-white/10 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-white/20">
+                                  <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
                                     {item.label}
                                   </span>
                                 )}
                               </div>
-                              <p className="text-gray-300 text-sm">
+                              <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors">
                                 {item.description}
                               </p>
                             </div>
-                            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 transition-transform" />
+                            <ArrowRight className="w-4 h-4 text-gray-400 group-hover:translate-x-1 group-hover:text-[#387E89] transition-all" />
                           </div>
                         </Card>
                       </Link>
@@ -522,10 +522,10 @@ const DarkAnimatedHeader = () => {
                           {item.icon}
                         </div>
                         <div>
-                          <div className="font-medium text-white group-hover:text-[#387E89]">
+                          <div className="font-medium text-white group-hover:text-[#387E89] transition-colors">
                             {item.title}
                           </div>
-                          <div className="text-sm text-gray-300">
+                          <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
                             {item.description}
                           </div>
                         </div>
@@ -535,10 +535,10 @@ const DarkAnimatedHeader = () => {
                     {/* Mobile CTA Section */}
                     {cta && (
                       <>
-                        <div className="border-t border-gray-700 my-3"></div>
+                        <div className="border-t border-gray-700/50 my-3"></div>
                         <Link 
                           to={cta.href}
-                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/20 to-[#387E89]/20 hover:from-[#143151]/30 hover:to-[#387E89]/30 transition-all duration-200 group border border-[#387E89]/30"
+                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/30 to-[#387E89]/30 hover:from-[#143151]/40 hover:to-[#387E89]/40 transition-all duration-200 group border border-[#387E89]/40"
                         >
                           <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
                             <div className="text-white">
@@ -549,7 +549,7 @@ const DarkAnimatedHeader = () => {
                             <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors">
                               {cta.title}
                             </div>
-                            <div className="text-sm text-gray-300">
+                            <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors">
                               {cta.description}
                             </div>
                           </div>
@@ -573,14 +573,10 @@ const DarkAnimatedHeader = () => {
         ref={headerRef}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          isScrolled 
-            ? 'backdrop-blur-xl shadow-lg border-b border-gray-800/50' 
-            : 'bg-transparent'
-        }`}
+        className="fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-xl shadow-lg border-b border-gray-800/50"
         style={{
-          backdropFilter: isScrolled ? 'blur(20px)' : 'none',
-          background: isScrolled ? 'rgba(0, 0, 0, 0.85)' : 'transparent',
+          backdropFilter: 'blur(20px)',
+          background: 'rgba(0, 0, 0, 0.92)',
         }}
       >
         <FloatingParticles />
@@ -685,7 +681,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu with same glassmorphism effect */}
+        {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -695,7 +691,7 @@ const DarkAnimatedHeader = () => {
               className="lg:hidden border-t border-gray-800/50"
               style={{
                 backdropFilter: 'blur(20px)',
-                background: 'rgba(0, 0, 0, 0.9)',
+                background: 'rgba(0, 0, 0, 0.95)',
               }}
             >
               <div className="max-w-7xl mx-auto">
@@ -723,7 +719,7 @@ const DarkAnimatedHeader = () => {
                   cta={resourcesDropdown.cta}
                 />
 
-                <div className="border-b border-gray-800">
+                <div className="border-b border-gray-800/60">
                   <Link 
                     to="/pricing" 
                     className="block p-4 font-semibold text-white hover:bg-white/10 transition-colors"
@@ -733,7 +729,7 @@ const DarkAnimatedHeader = () => {
                 </div>
 
                 <div className="p-4 space-y-3" style={{
-                  background: 'rgba(20, 49, 81, 0.3)',
+                  background: 'rgba(20, 49, 81, 0.4)',
                   backdropFilter: 'blur(10px)'
                 }}>
                   <Button 
