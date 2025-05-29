@@ -36,7 +36,7 @@ const GradientBarsBackground: React.FC = () => {
                 flex: '1 0 calc(100% / 15)',
                 maxWidth: 'calc(100% / 15)',
                 height: '100%',
-                background: 'linear-gradient(to top, rgb(56, 126, 137), transparent)',
+                background: 'linear-gradient(to top, rgb(236, 72, 153), transparent)',
                 transform: `scaleY(${height / 100})`,
                 transformOrigin: 'bottom',
                 transition: 'transform 0.5s ease-in-out',
