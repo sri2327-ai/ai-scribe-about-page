@@ -71,7 +71,7 @@ const FinalCTASection: React.FC = () => {
           <HighlightGroup className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)] hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
                     <div className="mb-6">
                       <Users className="w-8 h-8 text-white" strokeWidth={1.5} />
@@ -91,7 +91,7 @@ const FinalCTASection: React.FC = () => {
 
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)] hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
                     <div className="mb-6">
                       <FileText className="w-8 h-8 text-white" strokeWidth={1.5} />
@@ -111,7 +111,7 @@ const FinalCTASection: React.FC = () => {
 
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)] hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
                     <div className="mb-6">
                       <Phone className="w-8 h-8 text-white" strokeWidth={1.5} />
