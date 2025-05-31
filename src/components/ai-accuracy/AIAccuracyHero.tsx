@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -250,25 +251,25 @@ const AIAccuracyHero: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 min-h-screen flex flex-col">
+    <div className="relative w-full bg-black text-white overflow-hidden">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-screen">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full z-200 top-[15%] sm:top-[20%] md:top-[25%] lg:top-[30%] relative"
+          className="w-full z-200 top-[20%] sm:top-[30%] relative"
         >
           <motion.div variants={itemVariants}>
-            <FeatureItem name="HIPAA" value="Compliant" position="left-2 sm:left-6 md:left-10 top-24 sm:top-32 md:top-40" />
+            <FeatureItem name="HIPAA" value="Compliant" position="left-2 sm:left-10 top-32 sm:top-40" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="99.7%" value="Accuracy" position="left-1/4 top-8 sm:top-16 md:top-24" />
+            <FeatureItem name="99.7%" value="Accuracy" position="left-1/4 top-16 sm:top-24" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Clinical" value="Validation" position="right-1/4 top-8 sm:top-16 md:top-24" />
+            <FeatureItem name="Clinical" value="Validation" position="right-1/4 top-16 sm:top-24" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Continuous" value="Learning" position="right-2 sm:right-6 md:right-10 top-24 sm:top-32 md:top-40" />
+            <FeatureItem name="Continuous" value="Learning" position="right-2 sm:right-10 top-32 sm:top-40" />
           </motion.div>
         </motion.div>
 
@@ -277,18 +278,18 @@ const AIAccuracyHero: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-8 sm:mt-12 md:mt-16 lg:mt-20 flex-1 justify-center"
+          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-16 sm:mt-20"
         >            
           <motion.h1
             variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-2 text-white px-4"
+            className="text-4xl sm:text-5xl md:text-7xl font-light mb-2 text-white"
           >
             S10.AI Accuracy
           </motion.h1>
 
           <motion.h2
             variants={itemVariants}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl pb-3 font-light text-white px-4"
+            className="text-2xl sm:text-3xl md:text-5xl pb-3 font-light text-white"
           >
             Healthcare AI Standard
           </motion.h2>
@@ -304,9 +305,9 @@ const AIAccuracyHero: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black/80"></div>
 
-        <div className="absolute top-[50%] sm:top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[500px] md:w-[600px] lg:w-[700px] xl:w-[800px] h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
+        <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
 
-        <div className="absolute top-0 w-full left-1/2 transform -translate-x-1/2 h-full">
+        <div className="absolute top-0 w-[100%] left-1/2 transform -translate-x-1/2 h-full">
           <Lightning
             hue={200}
             xOffset={0}
@@ -317,17 +318,17 @@ const AIAccuracyHero: React.FC = () => {
         </div>
 
         {/* Semi-circle container with button inside */}
-        <div className="z-10 absolute top-[50%] sm:top-[55%] left-1/2 transform -translate-x-1/2 w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
+        <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.5 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-xs sm:text-sm md:text-base"
+            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base"
           >
             Explore Accuracy Metrics
-            <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
         </div>
       </motion.div>
