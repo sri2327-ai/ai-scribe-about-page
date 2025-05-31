@@ -5,6 +5,8 @@ import AIAccuracyHero from "@/components/ai-accuracy/AIAccuracyHero";
 import AccuracyFoundationSection from "@/components/ai-accuracy/AccuracyFoundationSection";
 import SectionDivider from "@/components/ai-accuracy/SectionDivider";
 import DefiningAccuracySection from "@/components/ai-accuracy/DefiningAccuracySection";
+import ValidationSection from "@/components/ai-accuracy/ValidationSection";
+import SustainingAccuracySection from "@/components/ai-accuracy/SustainingAccuracySection";
 
 const AIAccuracy = () => {
   return (
@@ -14,6 +16,10 @@ const AIAccuracy = () => {
       <AccuracyFoundationSection />
       <SectionDivider />
       <DefiningAccuracySection />
+      <SectionDivider />
+      <ValidationSection />
+      <SectionDivider />
+      <SustainingAccuracySection />
     </Box>
   );
 };
