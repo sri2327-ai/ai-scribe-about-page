@@ -71,16 +71,16 @@ const FinalCTASection: React.FC = () => {
           <HighlightGroup className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-teal-500/30 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-cyan-700/20 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
-                    <div className="w-16 h-16 bg-teal-500/20 rounded-full flex items-center justify-center mb-6">
-                      <Users className="w-8 h-8 text-teal-400" />
+                    <div className="w-16 h-16 bg-black/50 border-2 border-white rounded-full flex items-center justify-center mb-6">
+                      <Users className="w-8 h-8 text-white" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-xl font-semibold mb-4 text-white">Request a Demo</h3>
                     <p className="text-white/70 mb-6 flex-grow">
                       See our accuracy in action with a personalized demonstration.
                     </p>
-                    <button className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-full transition-colors duration-300 group">
+                    <button className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black rounded-full transition-colors duration-300 group">
                       Schedule Demo
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
@@ -91,16 +91,16 @@ const FinalCTASection: React.FC = () => {
 
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-teal-500/30 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-cyan-700/20 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
-                    <div className="w-16 h-16 bg-teal-500/20 rounded-full flex items-center justify-center mb-6">
-                      <FileText className="w-8 h-8 text-teal-400" />
+                    <div className="w-16 h-16 bg-black/50 border-2 border-white rounded-full flex items-center justify-center mb-6">
+                      <FileText className="w-8 h-8 text-white" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-xl font-semibold mb-4 text-white">View Case Studies</h3>
                     <p className="text-white/70 mb-6 flex-grow">
                       See real-world accuracy and efficiency improvements from our clients.
                     </p>
-                    <button className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-full transition-colors duration-300 group">
+                    <button className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black rounded-full transition-colors duration-300 group">
                       Read Studies
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
@@ -111,16 +111,16 @@ const FinalCTASection: React.FC = () => {
 
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:border-teal-500/30 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-cyan-700/20 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
-                    <div className="w-16 h-16 bg-teal-500/20 rounded-full flex items-center justify-center mb-6">
-                      <Phone className="w-8 h-8 text-teal-400" />
+                    <div className="w-16 h-16 bg-black/50 border-2 border-white rounded-full flex items-center justify-center mb-6">
+                      <Phone className="w-8 h-8 text-white" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-xl font-semibold mb-4 text-white">Contact Us</h3>
                     <p className="text-white/70 mb-6 flex-grow">
                       Get detailed information on our accuracy protocols and methodologies.
                     </p>
-                    <button className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-full transition-colors duration-300 group">
+                    <button className="inline-flex items-center gap-2 px-6 py-3 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black rounded-full transition-colors duration-300 group">
                       Get in Touch
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
