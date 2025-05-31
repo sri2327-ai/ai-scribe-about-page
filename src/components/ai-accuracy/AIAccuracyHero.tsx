@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -272,12 +273,12 @@ const AIAccuracyHero: React.FC = () => {
           </motion.div>
         </motion.div>
 
-        {/* Main hero content */}
+        {/* Main hero content - moved lower */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto"
+          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-16 sm:mt-20"
         >            
           <motion.h1
             variants={itemVariants}
@@ -288,7 +289,7 @@ const AIAccuracyHero: React.FC = () => {
 
           <motion.h2
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-5xl pb-3 font-light bg-gradient-to-r from-teal-100 via-cyan-200 to-teal-300 bg-clip-text text-transparent"
+            className="text-2xl sm:text-3xl md:text-5xl pb-3 font-light text-white"
           >
             Healthcare AI Standard
           </motion.h2>
@@ -316,6 +317,7 @@ const AIAccuracyHero: React.FC = () => {
           />
         </div>
 
+        {/* Semi-circle container with button inside */}
         <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -323,7 +325,7 @@ const AIAccuracyHero: React.FC = () => {
             transition={{ delay: 1, duration: 0.5 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/80 rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base"
+            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base"
           >
             Explore Accuracy Metrics
             <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
