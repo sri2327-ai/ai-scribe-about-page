@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Stethoscope, Users, Brain } from 'lucide-react';
@@ -124,12 +123,12 @@ const DefiningAccuracySection: React.FC = () => {
                 className={cn(
                   "group relative p-6 rounded-xl overflow-hidden transition-all duration-300",
                   "border border-white/10 bg-white/5 backdrop-blur-sm",
-                  "hover:shadow-[0_2px_12px_rgba(255,255,255,0.03)]",
-                  "hover:-translate-y-0.5 will-change-transform hover:bg-white/8 hover:border-white/20",
+                  "hover:shadow-[0_2px_12px_rgba(20,184,166,0.1)]",
+                  "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-400/30",
                   item.colSpan || "col-span-1",
                   item.colSpan === 2 ? "md:col-span-2" : "",
                   {
-                    "shadow-[0_2px_12px_rgba(255,255,255,0.03)] -translate-y-0.5 bg-white/8":
+                    "shadow-[0_2px_12px_rgba(20,184,166,0.1)] -translate-y-0.5 bg-teal-500/10 border-teal-400/30":
                       item.hasPersistentHover,
                   }
                 )}
@@ -141,15 +140,15 @@ const DefiningAccuracySection: React.FC = () => {
                       : "opacity-0 group-hover:opacity-100"
                   } transition-opacity duration-300`}
                 >
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:4px_4px]" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.02)_1px,transparent_1px)] bg-[length:4px_4px]" />
                 </div>
 
                 <div className="relative flex flex-col space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/10 group-hover:bg-white/15 transition-all duration-300">
+                    <div className="flex items-center justify-center transition-all duration-300">
                       {item.icon}
                     </div>
-                    <span className="text-xs font-medium px-2 py-1 rounded-lg backdrop-blur-sm bg-white/10 text-white/80 transition-colors duration-300 group-hover:bg-white/20">
+                    <span className="text-xs font-medium px-2 py-1 rounded-lg backdrop-blur-sm bg-white/10 text-white/80 transition-colors duration-300 group-hover:bg-teal-500/20 group-hover:text-white">
                       AI Solution
                     </span>
                   </div>
@@ -173,16 +172,10 @@ const DefiningAccuracySection: React.FC = () => {
                       </div>
                     ))}
                   </div>
-
-                  <div className="flex items-center justify-end mt-4">
-                    <span className="text-xs text-white/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Learn More →
-                    </span>
-                  </div>
                 </div>
 
                 <div
-                  className={`absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-white/10 to-transparent ${
+                  className={`absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-teal-400/20 to-transparent ${
                     item.hasPersistentHover
                       ? "opacity-100"
                       : "opacity-0 group-hover:opacity-100"
