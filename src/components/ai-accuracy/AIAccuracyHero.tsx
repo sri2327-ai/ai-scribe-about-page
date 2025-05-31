@@ -1,7 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Shield, Target, CheckCircle, TrendingUp } from 'lucide-react';
 
 interface ElasticHueSliderProps {
   value: number;
@@ -24,7 +23,7 @@ const ElasticHueSlider: React.FC<ElasticHueSliderProps> = ({
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const progress = ((value - min) / (max - min));
-  const thumbPosition = progress * 100; // Percentage
+  const thumbPosition = progress * 100;
 
   const handleMouseDown = () => setIsDragging(true);
   const handleMouseUp = () => setIsDragging(false);
@@ -86,7 +85,6 @@ interface FeatureItemProps {
   name: string;
   value: string;
   position: string;
-  icon: React.ReactNode;
 }
 
 interface LightningProps {
@@ -288,22 +286,18 @@ const Lightning: React.FC<LightningProps> = ({
   return <canvas ref={canvasRef} className="w-full h-full relative" />;
 };
 
-const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position, icon }) => {
+const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position }) => {
   return (
     <div className={`absolute ${position} z-10 group transition-all duration-300 hover:scale-110`}>
-      <div className="flex items-center gap-3 relative">
+      <div className="flex items-center gap-2 relative">
         <div className="relative">
-          <div className="p-2 bg-white/10 backdrop-blur-sm rounded-full border border-teal-400/30 group-hover:border-teal-400/50 transition-all duration-300">
-            <div className="text-teal-400 group-hover:text-teal-300 transition-colors">
-              {icon}
-            </div>
-          </div>
-          <div className="absolute -inset-1 bg-teal-400/20 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="w-2 h-2 bg-white rounded-full group-hover:animate-pulse"></div>
+          <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         <div className="text-white relative">
           <div className="font-medium group-hover:text-white transition-colors duration-300">{name}</div>
-          <div className="text-white/70 text-sm group-hover:text-white/90 transition-colors duration-300">{value}</div>
-          <div className="absolute -inset-2 bg-white/5 rounded-lg blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          <div className="text-white/70 text-sm group-hover:text-white/70 transition-colors duration-300">{value}</div>
+          <div className="absolute -inset-2 bg-white/10 rounded-lg blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
         </div>
       </div>
     </div>
@@ -365,8 +359,48 @@ const AIAccuracyHero: React.FC = () => {
           <div className="flex items-center space-x-4">
             <button className="hidden md:block px-4 py-2 text-sm hover:text-gray-300 transition-colors">Quick Tour</button>
             <button className="px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full text-sm hover:from-teal-400 hover:to-cyan-500 transition-colors">Contact Us</button>
+            <button
+              className="md:hidden p-2 rounded-md focus:outline-none"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
         </motion.div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="md:hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-lg z-9999">
+            <div className="flex flex-col items-center justify-center h-full space-y-6 text-lg">
+              <button
+                className="absolute top-6 right-6 p-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <button className="px-6 py-3 bg-gray-800/50 rounded-full">Solutions</button>
+              <button className="px-6 py-3">About</button>
+              <button className="px-6 py-3">Resources</button>
+              <button className="px-6 py-3">Pricing</button>
+              <button className="px-6 py-3">Quick Tour</button>
+              <button className="px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full">Contact Us</button>
+            </div>
+          </motion.div>
+        )}
 
         <motion.div
           variants={containerVariants}
@@ -375,39 +409,20 @@ const AIAccuracyHero: React.FC = () => {
           className="w-full z-200 top-[30%] relative"
         >
           <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="HIPAA" 
-              value="Compliant" 
-              position="left-0 sm:left-10 top-40" 
-              icon={<Shield size={16} />}
-            />
+            <FeatureItem name="HIPAA" value="Compliant" position="left-0 sm:left-10 top-40" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="99.7%" 
-              value="Accuracy" 
-              position="left-1/4 top-24" 
-              icon={<Target size={16} />}
-            />
+            <FeatureItem name="99.7%" value="Accuracy" position="left-1/4 top-24" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="Clinical" 
-              value="Validation" 
-              position="right-1/4 top-24" 
-              icon={<CheckCircle size={16} />}
-            />
+            <FeatureItem name="Clinical" value="Validation" position="right-1/4 top-24" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="Continuous" 
-              value="Learning" 
-              position="right-0 sm:right-10 top-40" 
-              icon={<TrendingUp size={16} />}
-            />
+            <FeatureItem name="Continuous" value="Learning" position="right-0 sm:right-10 top-40" />
           </motion.div>
         </motion.div>
 
+        {/* Main hero content */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -463,6 +478,7 @@ const AIAccuracyHero: React.FC = () => {
         </motion.div>
       </div>
 
+      {/* Background elements */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
