@@ -3,6 +3,92 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Shield, Target, CheckCircle, TrendingUp } from 'lucide-react';
 
+interface ElasticHueSliderProps {
+  value: number;
+  onChange: (value: number) => void;
+  min?: number;
+  max?: number;
+  step?: number;
+  label?: string;
+}
+
+const ElasticHueSlider: React.FC<ElasticHueSliderProps> = ({
+  value,
+  onChange,
+  min = 0,
+  max = 360,
+  step = 1,
+  label = 'Adjust Hue',
+}) => {
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  const progress = ((value - min) / (max - min));
+  const thumbPosition = progress * 100; // Percentage
+
+  const handleMouseDown = () => setIsDragging(true);
+  const handleMouseUp = () => setIsDragging(false);
+
+  return (
+    <div className="scale-50 relative w-full max-w-xs flex flex-col items-center" ref={sliderRef}>
+      {label && <label htmlFor="hue-slider-native" className="text-gray-300 text-sm mb-1">{label}</label>}
+      <div className="relative w-full h-5 flex items-center">
+        <input
+          id="hue-slider-native"
+          type="range"
+          min={min}
+          max={max}
+          step={step}
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onTouchStart={handleMouseDown}
+          onTouchEnd={handleMouseUp}
+          className="absolute inset-0 w-full h-full appearance-none bg-transparent cursor-pointer z-20"
+          style={{ WebkitAppearance: 'none' }}
+        />
+
+        <div className="absolute left-0 w-full h-1 bg-gray-700 rounded-full z-0"></div>
+
+        <div
+            className="absolute left-0 h-1 bg-teal-500 rounded-full z-10"
+            style={{ width: `${thumbPosition}%` }}
+        ></div>
+
+        <motion.div
+          className="absolute top-1/2 transform -translate-y-1/2 z-30"
+          style={{ left: `${thumbPosition}%` }}
+          animate={{ scale: isDragging ? 1.2 : 1 }}
+          transition={{ type: "spring", stiffness: 500, damping: isDragging ? 20 : 30 }}
+        >
+           
+        </motion.div>
+      </div>
+
+       <AnimatePresence mode="wait">
+         <motion.div
+           key={value}
+           initial={{ opacity: 0, y: -5 }}
+           animate={{ opacity: 1, y: 0 }}
+           exit={{ opacity: 0, y: 5 }}
+           transition={{ duration: 0.2 }}
+           className="text-xs text-gray-500 mt-2"
+         >
+           {value}°
+         </motion.div>
+       </AnimatePresence>
+    </div>
+  );
+};
+
+interface FeatureItemProps {
+  name: string;
+  value: string;
+  position: string;
+  icon: React.ReactNode;
+}
+
 interface LightningProps {
   hue?: number;
   xOffset?: number;
@@ -12,7 +98,7 @@ interface LightningProps {
 }
 
 const Lightning: React.FC<LightningProps> = ({
-  hue = 180, // Teal blue default
+  hue = 180,
   xOffset = 0,
   speed = 1,
   intensity = 1,
@@ -56,7 +142,6 @@ const Lightning: React.FC<LightningProps> = ({
       
       #define OCTAVE_COUNT 10
 
-      // Convert HSV to RGB.
       vec3 hsv2rgb(vec3 c) {
           vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0,4.0,2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
           return c.z * mix(vec3(1.0), rgb, c.y);
@@ -106,20 +191,15 @@ const Lightning: React.FC<LightningProps> = ({
       }
 
       void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
-          // Normalized pixel coordinates.
           vec2 uv = fragCoord / iResolution.xy;
           uv = 2.0 * uv - 1.0;
           uv.x *= iResolution.x / iResolution.y;
-          // Apply horizontal offset.
           uv.x += uXOffset;
           
-          // Adjust uv based on size and animate with speed.
           uv += 2.0 * fbm(uv * uSize + 0.8 * iTime * uSpeed) - 1.0;
           
           float dist = abs(uv.x);
-          // Compute base color using hue.
           vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.7, 0.8));
-          // Compute color with intensity and speed affecting time.
           vec3 col = baseColor * pow(mix(0.0, 0.07, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
           col = pow(col, vec3(1.0));
           fragColor = vec4(col, 1.0);
@@ -208,186 +288,203 @@ const Lightning: React.FC<LightningProps> = ({
   return <canvas ref={canvasRef} className="w-full h-full relative" />;
 };
 
-interface FeaturePillProps {
-  icon: React.ReactNode;
-  text: string;
-  position: string;
-}
-
-const FeaturePill: React.FC<FeaturePillProps> = ({ icon, text, position }) => {
+const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position, icon }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.6, delay: Math.random() * 0.5 }}
-      className={`absolute ${position} z-10 group transition-all duration-300 hover:scale-110`}
-    >
-      <div className="flex items-center gap-3 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-teal-400/30 hover:border-teal-400/50 transition-all duration-300">
-        <div className="text-teal-400 group-hover:text-teal-300 transition-colors">
-          {icon}
+    <div className={`absolute ${position} z-10 group transition-all duration-300 hover:scale-110`}>
+      <div className="flex items-center gap-3 relative">
+        <div className="relative">
+          <div className="p-2 bg-white/10 backdrop-blur-sm rounded-full border border-teal-400/30 group-hover:border-teal-400/50 transition-all duration-300">
+            <div className="text-teal-400 group-hover:text-teal-300 transition-colors">
+              {icon}
+            </div>
+          </div>
+          <div className="absolute -inset-1 bg-teal-400/20 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
-        <span className="text-white/90 text-sm font-medium group-hover:text-white transition-colors">
-          {text}
-        </span>
-        <div className="absolute inset-0 bg-teal-400/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="text-white relative">
+          <div className="font-medium group-hover:text-white transition-colors duration-300">{name}</div>
+          <div className="text-white/70 text-sm group-hover:text-white/90 transition-colors duration-300">{value}</div>
+          <div className="absolute -inset-2 bg-white/5 rounded-lg blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
 const AIAccuracyHero: React.FC = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [lightningHue, setLightningHue] = useState(180);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.3,
+        delayChildren: 0.2
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: "easeOut"
       }
     }
   };
 
   return (
-    <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
-      {/* Background Lightning Effect */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute inset-0 z-0"
-      >
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className="absolute top-0 w-full h-full">
-          <Lightning
-            hue={180} // Teal blue
-            xOffset={0}
-            speed={1.2}
-            intensity={0.8}
-            size={1.5}
-          />
-        </div>
-        <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-b from-teal-500/10 to-cyan-600/5 blur-3xl"></div>
-      </motion.div>
+    <div className="relative w-full bg-black text-white overflow-hidden">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-screen">
+        {/* Navigation */}
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="px-4 backdrop-blur-3xl bg-black/50 rounded-50 py-4 flex justify-between items-center mb-12"
+        >
+          <div className="flex items-center">
+            <div className="text-2xl font-bold">
+              <img
+                src="/lovable-uploads/b1fccf69-2584-4150-987a-fb09324403f4.png"
+                alt="S10.AI Logo"
+                className="h-10 w-auto"
+              />
+            </div>
+            <div className="hidden md:flex items-center space-x-6 ml-8">
+              <button className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 rounded-full text-sm transition-colors">Solutions</button>
+              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">About</button>
+              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Resources</button>
+              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Pricing</button>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <button className="hidden md:block px-4 py-2 text-sm hover:text-gray-300 transition-colors">Quick Tour</button>
+            <button className="px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full text-sm hover:from-teal-400 hover:to-cyan-500 transition-colors">Contact Us</button>
+          </div>
+        </motion.div>
 
-      {/* Feature Pills arranged in semi-circle */}
-      <div className="absolute inset-0 z-10">
-        {/* Left side pills */}
-        <FeaturePill 
-          icon={<Shield size={16} />} 
-          text="HIPAA Compliant" 
-          position="top-1/2 left-8 md:left-16 transform -translate-y-1/2 -rotate-12" 
-        />
-        <FeaturePill 
-          icon={<Target size={16} />} 
-          text="99.7% Accuracy" 
-          position="top-1/3 left-12 md:left-24 transform -rotate-6" 
-        />
-        
-        {/* Right side pills */}
-        <FeaturePill 
-          icon={<CheckCircle size={16} />} 
-          text="Clinical Validation" 
-          position="top-1/3 right-12 md:right-24 transform rotate-6" 
-        />
-        <FeaturePill 
-          icon={<TrendingUp size={16} />} 
-          text="Continuous Learning" 
-          position="top-1/2 right-8 md:right-16 transform -translate-y-1/2 rotate-12" 
-        />
-      </div>
-
-      {/* Main Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 min-h-screen flex items-center">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full text-center"
+          className="w-full z-200 top-[30%] relative"
         >
-          {/* Badge */}
-          <motion.div
-            variants={itemVariants}
-            className="inline-flex items-center px-4 py-2 bg-teal-500/10 border border-teal-400/30 rounded-full mb-8"
-          >
-            <div className="w-2 h-2 bg-teal-400 rounded-full mr-3 animate-pulse"></div>
-            <span className="text-teal-300 text-sm font-medium">Healthcare AI Excellence</span>
+          <motion.div variants={itemVariants}>
+            <FeatureItem 
+              name="HIPAA" 
+              value="Compliant" 
+              position="left-0 sm:left-10 top-40" 
+              icon={<Shield size={16} />}
+            />
           </motion.div>
-
-          {/* Main Headline */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-teal-100 to-cyan-200 bg-clip-text text-transparent leading-tight"
-          >
-            The S10.AI Accuracy Standard
-            <br />
-            <span className="text-3xl sm:text-4xl lg:text-6xl font-light text-teal-300">
-              in Healthcare AI
-            </span>
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            variants={itemVariants}
-            className="text-lg sm:text-xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed"
-          >
-            Setting the gold standard for AI accuracy in healthcare. Our advanced algorithms deliver 
-            clinical-grade precision with continuous validation, ensuring every medical decision is 
-            backed by the highest level of artificial intelligence reliability.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
-          >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-teal-500 to-cyan-600 text-white font-semibold rounded-full hover:from-teal-400 hover:to-cyan-500 transition-all duration-300 shadow-lg shadow-teal-500/25"
-            >
-              Explore Accuracy Metrics
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
-            >
-              View Clinical Studies
-            </motion.button>
+          <motion.div variants={itemVariants}>
+            <FeatureItem 
+              name="99.7%" 
+              value="Accuracy" 
+              position="left-1/4 top-24" 
+              icon={<Target size={16} />}
+            />
           </motion.div>
-
-          {/* Stats */}
-          <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto"
-          >
-            <div className="text-center">
-              <div className="text-3xl font-bold text-teal-400 mb-2">99.7%</div>
-              <div className="text-gray-400">Clinical Accuracy</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-teal-400 mb-2">50M+</div>
-              <div className="text-gray-400">Documents Processed</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-teal-400 mb-2">24/7</div>
-              <div className="text-gray-400">Continuous Monitoring</div>
-            </div>
+          <motion.div variants={itemVariants}>
+            <FeatureItem 
+              name="Clinical" 
+              value="Validation" 
+              position="right-1/4 top-24" 
+              icon={<CheckCircle size={16} />}
+            />
+          </motion.div>
+          <motion.div variants={itemVariants}>
+            <FeatureItem 
+              name="Continuous" 
+              value="Learning" 
+              position="right-0 sm:right-10 top-40" 
+              icon={<TrendingUp size={16} />}
+            />
           </motion.div>
         </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto "
+        >            
+          <ElasticHueSlider
+            value={lightningHue}
+            onChange={setLightningHue}
+            label="Adjust Lightning Hue"
+          />
+          
+          <motion.button
+            variants={itemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center space-x-2 px-4 py-2 bg-teal-500/10 hover:bg-teal-500/20 backdrop-blur-sm rounded-full text-sm mb-6 transition-all duration-300 group border border-teal-400/30"
+          >
+            <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
+            <span>Healthcare AI Excellence</span>
+          </motion.button>
+
+          <motion.h1
+            variants={itemVariants}
+            className="text-5xl md:text-7xl font-light mb-2"
+          >
+            S10.AI Accuracy
+          </motion.h1>
+
+          <motion.h2
+            variants={itemVariants}
+            className="text-3xl md:text-5xl pb-3 font-light bg-gradient-to-r from-teal-100 via-cyan-200 to-teal-300 bg-clip-text text-transparent"
+          >
+            Healthcare AI Standard
+          </motion.h2>
+
+          <motion.p
+            variants={itemVariants}
+            className="text-gray-400 mb-9 max-w-2xl"
+          >
+            Setting the gold standard for AI accuracy in healthcare. Our advanced algorithms deliver 
+            clinical-grade precision with continuous validation.
+          </motion.p>
+
+          <motion.button
+            variants={itemVariants}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="mt-[100px] sm:mt-[100px] px-8 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full hover:from-teal-400 hover:to-cyan-500 transition-colors shadow-lg shadow-teal-500/25"
+          >
+            Explore Accuracy Metrics
+          </motion.button>
+        </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 z-0"
+      >
+        <div className="absolute inset-0 bg-black/80"></div>
+
+        <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
+
+        <div className="absolute top-0 w-[100%] left-1/2 transform -translate-x-1/2 h-full">
+          <Lightning
+            hue={lightningHue}
+            xOffset={0}
+            speed={1.6}
+            intensity={0.6}
+            size={2}
+          />
+        </div>
+
+        <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)]"></div>
+      </motion.div>
     </div>
   );
 };
