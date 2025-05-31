@@ -8,6 +8,7 @@ import DefiningAccuracySection from "@/components/ai-accuracy/DefiningAccuracySe
 import ValidationSection from "@/components/ai-accuracy/ValidationSection";
 import SustainingAccuracySection from "@/components/ai-accuracy/SustainingAccuracySection";
 import AccuracyAdvantageSection from "@/components/ai-accuracy/AccuracyAdvantageSection";
+import FinalCTASection from "@/components/ai-accuracy/FinalCTASection";
 
 const AIAccuracy = () => {
   return (
@@ -23,6 +24,8 @@ const AIAccuracy = () => {
       <SustainingAccuracySection />
       <SectionDivider />
       <AccuracyAdvantageSection />
+      <SectionDivider />
+      <FinalCTASection />
     </Box>
   );
 };
