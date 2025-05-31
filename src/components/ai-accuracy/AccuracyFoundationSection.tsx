@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SlidingNumber } from '@/components/ui/sliding-number';
@@ -8,7 +9,7 @@ const AccuracyFoundationSection: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimatedValue(99.7);
-    }, 500);
+    }, 1000); // Increased delay to see the animation better
     return () => clearTimeout(timer);
   }, []);
 
@@ -59,10 +60,10 @@ const AccuracyFoundationSection: React.FC = () => {
             <div className="flex items-center justify-center mb-4">
               <div className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white flex items-baseline">
                 <SlidingNumber value={animatedValue} />
-                <span className="ml-1">%</span>
+                <span className="ml-1 text-white">%</span>
               </div>
             </div>
-            <p className="text-xl sm:text-2xl text-teal-300 font-medium">
+            <p className="text-xl sm:text-2xl text-white font-medium">
               Clinical Accuracy Rate
             </p>
           </motion.div>
