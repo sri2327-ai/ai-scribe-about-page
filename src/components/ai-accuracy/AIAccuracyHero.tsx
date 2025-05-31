@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -18,7 +17,7 @@ interface LightningProps {
 }
 
 const Lightning: React.FC<LightningProps> = ({
-  hue = 200,
+  hue = 180,
   xOffset = 0,
   speed = 0.8,
   intensity = 0.3,
@@ -309,10 +308,10 @@ const AIAccuracyHero: React.FC = () => {
 
         <div className="absolute top-0 w-[100%] left-1/2 transform -translate-x-1/2 h-full">
           <Lightning
-            hue={200}
+            hue={180}
             xOffset={0}
             speed={0.5}
-            intensity={0.15}
+            intensity={0.25}
             size={1.2}
           />
         </div>
