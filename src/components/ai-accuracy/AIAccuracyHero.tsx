@@ -281,27 +281,30 @@ const AIAccuracyHero: React.FC = () => {
         <div className="absolute top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full bg-gradient-to-b from-teal-500/10 to-cyan-600/5 blur-3xl"></div>
       </motion.div>
 
-      {/* Feature Pills scattered around */}
+      {/* Feature Pills arranged in semi-circle */}
       <div className="absolute inset-0 z-10">
+        {/* Left side pills */}
         <FeaturePill 
           icon={<Shield size={16} />} 
           text="HIPAA Compliant" 
-          position="top-20 left-8 md:left-20" 
+          position="top-1/2 left-8 md:left-16 transform -translate-y-1/2 -rotate-12" 
         />
         <FeaturePill 
           icon={<Target size={16} />} 
           text="99.7% Accuracy" 
-          position="top-32 right-8 md:right-20" 
+          position="top-1/3 left-12 md:left-24 transform -rotate-6" 
         />
+        
+        {/* Right side pills */}
         <FeaturePill 
           icon={<CheckCircle size={16} />} 
           text="Clinical Validation" 
-          position="top-80 left-4 md:left-16" 
+          position="top-1/3 right-12 md:right-24 transform rotate-6" 
         />
         <FeaturePill 
           icon={<TrendingUp size={16} />} 
           text="Continuous Learning" 
-          position="top-96 right-4 md:right-16" 
+          position="top-1/2 right-8 md:right-16 transform -translate-y-1/2 rotate-12" 
         />
       </div>
 
