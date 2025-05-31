@@ -71,9 +71,9 @@ const FinalCTASection: React.FC = () => {
           <HighlightGroup className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-cyan-700/20 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
-                    <div className="w-16 h-16 bg-black/50 border-2 border-white rounded-full flex items-center justify-center mb-6">
+                    <div className="mb-6">
                       <Users className="w-8 h-8 text-white" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-xl font-semibold mb-4 text-white">Request a Demo</h3>
@@ -91,9 +91,9 @@ const FinalCTASection: React.FC = () => {
 
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-cyan-700/20 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
-                    <div className="w-16 h-16 bg-black/50 border-2 border-white rounded-full flex items-center justify-center mb-6">
+                    <div className="mb-6">
                       <FileText className="w-8 h-8 text-white" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-xl font-semibold mb-4 text-white">View Case Studies</h3>
@@ -111,9 +111,9 @@ const FinalCTASection: React.FC = () => {
 
             <motion.div variants={itemVariants}>
               <HighlighterItem className="h-full">
-                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-cyan-700/20 transition-all duration-300">
+                <div className="relative z-20 h-full bg-black/50 backdrop-blur-sm rounded-3xl p-8 border border-white/10 hover:bg-gradient-to-br hover:from-black/50 hover:to-teal-600/20 transition-all duration-300">
                   <div className="flex flex-col items-center text-center h-full">
-                    <div className="w-16 h-16 bg-black/50 border-2 border-white rounded-full flex items-center justify-center mb-6">
+                    <div className="mb-6">
                       <Phone className="w-8 h-8 text-white" strokeWidth={1.5} />
                     </div>
                     <h3 className="text-xl font-semibold mb-4 text-white">Contact Us</h3>
