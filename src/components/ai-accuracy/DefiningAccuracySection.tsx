@@ -2,6 +2,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Stethoscope, Users, Brain } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+interface AccuracyItem {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  features: string[];
+  colSpan?: number;
+  hasPersistentHover?: boolean;
+}
 
 const DefiningAccuracySection: React.FC = () => {
   const containerVariants = {
@@ -39,10 +49,11 @@ const DefiningAccuracySection: React.FC = () => {
     }
   };
 
-  const solutions = [
+  const accuracyItems: AccuracyItem[] = [
     {
-      title: "C.R.U.S.H. (AI Medical Scribe)",
-      icon: Stethoscope,
+      title: "C.R.U.S.H.",
+      description: "AI Medical Scribe",
+      icon: <Stethoscope className="w-5 h-5 text-white" />,
       features: [
         "Transcription Accuracy: Faithfully capturing spoken interactions.",
         "EHR Context Integration: Correctly understanding and leveraging relevant patient data from your EHR.",
@@ -50,11 +61,14 @@ const DefiningAccuracySection: React.FC = () => {
         "Predicted Problems Accuracy: Offering clinically relevant suggestions for potential diagnoses based on the encounter and EHR data, benchmarked against physician assessments.",
         "Predicted Orders Accuracy: Suggesting appropriate medical orders (tests, prescriptions, referrals) aligned with clinical best practices and patient specifics.",
         "Coding Accuracy (HCC, CPT, ICD-10, E/M): Ensuring suggested codes accurately reflect the documented encounter and services."
-      ]
+      ],
+      colSpan: 2,
+      hasPersistentHover: true,
     },
     {
-      title: "B.R.A.V.O. (AI Staffing Agent)",
-      icon: Users,
+      title: "B.R.A.V.O.",
+      description: "AI Staffing Agent",
+      icon: <Users className="w-5 h-5 text-white" />,
       features: [
         "Information Accuracy: Delivering correct information to patients (e.g., appointment details, instructions).",
         "Task Completion Accuracy: Reliably completing automated tasks like scheduling and data capture."
@@ -62,10 +76,12 @@ const DefiningAccuracySection: React.FC = () => {
     },
     {
       title: "Platform-Wide AI",
-      icon: Brain,
+      description: "Comprehensive Accuracy",
+      icon: <Brain className="w-5 h-5 text-white" />,
       features: [
         "Across our platform, we prioritize accuracy in critical functions like data extraction from faxes and forms, summarization of medical records, pre-charting assistance, and AI-driven order generation."
-      ]
+      ],
+      colSpan: 2,
     }
   ];
 
@@ -99,33 +115,79 @@ const DefiningAccuracySection: React.FC = () => {
             We ensure our definition of accuracy is specific and measurable across our solutions:
           </motion.p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-            {solutions.map((solution, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {accuracyItems.map((item, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 custom={index}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/8 hover:border-white/20 transition-all duration-500 group"
+                className={cn(
+                  "group relative p-6 rounded-xl overflow-hidden transition-all duration-300",
+                  "border border-white/10 bg-white/5 backdrop-blur-sm",
+                  "hover:shadow-[0_2px_12px_rgba(255,255,255,0.03)]",
+                  "hover:-translate-y-0.5 will-change-transform hover:bg-white/8 hover:border-white/20",
+                  item.colSpan || "col-span-1",
+                  item.colSpan === 2 ? "md:col-span-2" : "",
+                  {
+                    "shadow-[0_2px_12px_rgba(255,255,255,0.03)] -translate-y-0.5 bg-white/8":
+                      item.hasPersistentHover,
+                  }
+                )}
               >
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="p-4 bg-white/10 rounded-2xl group-hover:bg-white/15 transition-all duration-300">
-                    <solution.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl sm:text-2xl font-semibold text-white leading-tight">
-                    {solution.title}
-                  </h3>
+                <div
+                  className={`absolute inset-0 ${
+                    item.hasPersistentHover
+                      ? "opacity-100"
+                      : "opacity-0 group-hover:opacity-100"
+                  } transition-opacity duration-300`}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:4px_4px]" />
                 </div>
-                
-                <div className="space-y-6">
-                  {solution.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-start gap-4">
-                      <div className="w-2 h-2 bg-white rounded-full mt-3 flex-shrink-0 opacity-80"></div>
-                      <p className="text-base leading-relaxed text-white/80 group-hover:text-white/90 transition-colors duration-300">
-                        {feature}
-                      </p>
+
+                <div className="relative flex flex-col space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/10 group-hover:bg-white/15 transition-all duration-300">
+                      {item.icon}
                     </div>
-                  ))}
+                    <span className="text-xs font-medium px-2 py-1 rounded-lg backdrop-blur-sm bg-white/10 text-white/80 transition-colors duration-300 group-hover:bg-white/20">
+                      AI Solution
+                    </span>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-white tracking-tight text-lg">
+                      {item.title}
+                    </h3>
+                    <p className="text-sm text-white/60 leading-snug font-medium">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <div className="space-y-3 mt-4">
+                    {item.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-start gap-3">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0 opacity-60"></div>
+                        <p className="text-sm leading-relaxed text-white/70 group-hover:text-white/80 transition-colors duration-300">
+                          {feature}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-end mt-4">
+                    <span className="text-xs text-white/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                      Learn More →
+                    </span>
+                  </div>
                 </div>
+
+                <div
+                  className={`absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-white/10 to-transparent ${
+                    item.hasPersistentHover
+                      ? "opacity-100"
+                      : "opacity-0 group-hover:opacity-100"
+                  } transition-opacity duration-300`}
+                />
               </motion.div>
             ))}
           </div>
