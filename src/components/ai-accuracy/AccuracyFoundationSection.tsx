@@ -7,10 +7,26 @@ const AccuracyFoundationSection: React.FC = () => {
   const [animatedValue, setAnimatedValue] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimatedValue(99.7);
-    }, 500);
-    return () => clearTimeout(timer);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Start animation when section comes into view
+            setTimeout(() => {
+              setAnimatedValue(99.7);
+            }, 300);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const section = document.getElementById('accuracy-foundation');
+    if (section) {
+      observer.observe(section);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   const containerVariants = {
@@ -37,7 +53,7 @@ const AccuracyFoundationSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
+    <section id="accuracy-foundation" className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
@@ -58,9 +74,9 @@ const AccuracyFoundationSection: React.FC = () => {
             className="flex flex-col items-center mb-8"
           >
             <div className="flex items-center justify-center mb-4">
-              <div className="text-6xl sm:text-7xl lg:text-8xl font-extralight text-white flex items-baseline">
+              <div className="text-6xl sm:text-7xl lg:text-8xl font-thin text-white flex items-baseline">
                 <SlidingNumber value={animatedValue} />
-                <span className="ml-1 text-white font-extralight">%</span>
+                <span className="ml-1 text-white font-thin">%</span>
               </div>
             </div>
             <p className="text-xl sm:text-2xl text-white font-medium">

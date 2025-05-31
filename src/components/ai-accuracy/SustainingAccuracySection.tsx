@@ -8,27 +8,27 @@ const SustainingAccuracySection: React.FC = () => {
   const sustainingItems = [
     <div className="flex flex-col items-center gap-2">
       <MessageSquare className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Clinician Feedback</span>
+      <span className="text-xs font-medium text-white">Clinician Feedback</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <RefreshCw className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Model Updates</span>
+      <span className="text-xs font-medium text-white">Model Updates</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Activity className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Performance Monitoring</span>
+      <span className="text-xs font-medium text-white">Performance Monitoring</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Brain className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">AI Learning</span>
+      <span className="text-xs font-medium text-white">AI Learning</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <TrendingUp className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Continuous Improvement</span>
+      <span className="text-xs font-medium text-white">Continuous Improvement</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Gauge className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Quality Control</span>
+      <span className="text-xs font-medium text-white">Quality Control</span>
     </div>,
     "Feedback Loops",
     "User Insights",
@@ -105,30 +105,30 @@ const SustainingAccuracySection: React.FC = () => {
               variants={itemVariants}
               className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"
             >
-              <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+              <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-4">
                   <MessageSquare className="w-6 h-6 text-teal-400" />
-                  <h3 className="text-lg font-semibold text-teal-400">Clinician Feedback Loops</h3>
+                  <h3 className="text-lg font-semibold text-white">Clinician Feedback Loops</h3>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
                   User feedback is integral to refining our models for specific workflows and physician styles.
                 </p>
               </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+              <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-4">
                   <RefreshCw className="w-6 h-6 text-teal-400" />
-                  <h3 className="text-lg font-semibold text-teal-400">Regular Model Updates</h3>
+                  <h3 className="text-lg font-semibold text-white">Regular Model Updates</h3>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
                   We consistently update our AI with new medical knowledge and data to maintain cutting-edge accuracy.
                 </p>
               </div>
 
-              <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+              <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-4">
                   <Activity className="w-6 h-6 text-teal-400" />
-                  <h3 className="text-lg font-semibold text-teal-400">Performance Monitoring</h3>
+                  <h3 className="text-lg font-semibold text-white">Performance Monitoring</h3>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
                   Systems are in place to monitor performance and flag any deviations, ensuring sustained accuracy.

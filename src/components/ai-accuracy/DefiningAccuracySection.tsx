@@ -122,7 +122,7 @@ const DefiningAccuracySection: React.FC = () => {
                   "group relative p-6 rounded-xl overflow-hidden transition-all duration-300",
                   "border border-white/10 bg-white/5 backdrop-blur-sm",
                   "hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)]",
-                  "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-400/40",
+                  "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40",
                   item.colSpan || "col-span-1",
                   item.colSpan === 2 ? "md:col-span-2" : ""
                 )}
@@ -162,7 +162,7 @@ const DefiningAccuracySection: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-teal-400/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-teal-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.div>
             ))}
           </div>

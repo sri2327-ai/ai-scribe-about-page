@@ -8,27 +8,27 @@ const ValidationSection: React.FC = () => {
   const validationItems = [
     <div className="flex flex-col items-center gap-2">
       <Target className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Clinical Gold Standards</span>
+      <span className="text-xs font-medium text-white">Clinical Gold Standards</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <BarChart3 className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Word Error Rate</span>
+      <span className="text-xs font-medium text-white">Word Error Rate</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <CheckCircle className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">F1 Scores</span>
+      <span className="text-xs font-medium text-white">F1 Scores</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Users className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Expert Coders</span>
+      <span className="text-xs font-medium text-white">Expert Coders</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Shield className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Quality Assurance</span>
+      <span className="text-xs font-medium text-white">Quality Assurance</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Zap className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium">Real-World Testing</span>
+      <span className="text-xs font-medium text-white">Real-World Testing</span>
     </div>,
     "99% Accuracy",
     "Benchmarking",
@@ -106,15 +106,15 @@ const ValidationSection: React.FC = () => {
               className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
             >
               <div className="space-y-4">
-                <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-teal-400">Benchmarking to Clinical Gold Standards</h3>
+                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                  <h3 className="text-lg font-semibold mb-3 text-white">Benchmarking to Clinical Gold Standards</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     C.R.U.S.H. notes are benchmarked against notes meticulously prepared or reviewed by clinical experts and physicians.
                   </p>
                 </div>
                 
-                <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-teal-400">Key Metrics</h3>
+                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                  <h3 className="text-lg font-semibold mb-3 text-white">Key Metrics</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     We use established metrics like Word Error Rate (transcription) and F1 scores (information extraction), comparing AI-suggested codes against expert coders.
                   </p>
@@ -122,15 +122,15 @@ const ValidationSection: React.FC = () => {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-teal-400">Contextualized Accuracy Figures</h3>
+                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                  <h3 className="text-lg font-semibold mb-3 text-white">Contextualized Accuracy Figures</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     We provide clear context for our accuracy claims across thousands of encounters in diverse specialties.
                   </p>
                 </div>
                 
-                <div className="bg-white/5 border border-white/10 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-teal-400">Quality Assurance & Real-World Testing</h3>
+                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                  <h3 className="text-lg font-semibold mb-3 text-white">Quality Assurance & Real-World Testing</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     Human oversight in model validation and findings from pilot programs confirm our accuracy in real-world clinical settings.
                   </p>
