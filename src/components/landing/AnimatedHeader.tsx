@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,8 +24,7 @@ import {
   Layers,
   Award,
   BookOpen,
-  MessageSquare,
-  Phone
+  MessageSquare
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -259,7 +257,7 @@ const AnimatedHeader = () => {
             style={{
               backdropFilter: 'blur(20px)',
               background: 'rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 32px 64px -12px rgba(0, 0, 0, 0.35), 0 20px 40px -8px rgba(0, 0, 0, 0.25), 0 8px 16px -4px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.3) inset'
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.2) inset'
             }}
           >
             {type === 'solutions' ? (
@@ -692,37 +690,21 @@ const AnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Enhanced Mobile Menu - NOW SCROLLABLE */}
+        {/* Enhanced Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-gray-200/50 absolute left-0 right-0 top-full z-40"
+              className="lg:hidden border-t border-gray-200/50"
               style={{
                 backdropFilter: 'blur(20px)',
                 background: 'rgba(255, 255, 255, 0.98)',
-                maxHeight: 'calc(100vh - 80px)',
-                overflowY: 'auto'
               }}
             >
               <div className="max-w-7xl mx-auto">
                 
-                {/* Call Sales Button - Mobile Only - SMALLER SIZE */}
-                <div className="p-2 border-b border-gray-100" style={{
-                  background: 'rgba(56, 126, 137, 0.05)',
-                  backdropFilter: 'blur(12px)'
-                }}>
-                  <a 
-                    href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-1 w-full p-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-medium text-xs rounded-md hover:from-[#0d1f31] hover:to-[#2c6269] hover:scale-105 transition-all duration-300"
-                  >
-                    <Phone className="w-3 h-3" />
-                    Call Sales: +1 631 4886 390
-                  </a>
-                </div>
-
                 {/* Mobile Solutions Section */}
                 <MobileSectionToggle 
                   title="Solutions" 

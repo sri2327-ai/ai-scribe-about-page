@@ -265,7 +265,7 @@ const DarkAnimatedHeader = () => {
             style={{
               backdropFilter: 'blur(24px)',
               background: 'rgba(0, 0, 0, 0.95)',
-              boxShadow: '0 32px 64px -12px rgba(0, 0, 0, 0.9), 0 20px 40px -8px rgba(0, 0, 0, 0.7), 0 8px 16px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 4px 16px rgba(56, 126, 137, 0.3)'
+              boxShadow: '0 32px 64px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 4px 16px rgba(56, 126, 137, 0.2)'
             }}
           >
             {type === 'solutions' ? (
@@ -445,7 +445,7 @@ const DarkAnimatedHeader = () => {
     );
   };
 
-  // Mobile section component - REMOVED INTERNAL SCROLL
+  // Mobile section component
   const MobileSectionToggle = ({ 
     title, 
     items, 
@@ -490,7 +490,7 @@ const DarkAnimatedHeader = () => {
                 background: 'rgba(0, 0, 0, 0.98)',
               }}
             >
-              <div className="p-5">
+              <div className="p-5 max-h-80 overflow-y-auto">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
                     // Solutions mobile view with cards
@@ -513,7 +513,7 @@ const DarkAnimatedHeader = () => {
                               </div>
                               <div className="flex-1">
                                 <div className="flex items-center gap-2 mb-2">
-                                  <h3 className="font-bold text-white transition-colors duration-300">
+                                  <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
                                     {item.title}
                                   </h3>
                                   {item.label && (
@@ -522,11 +522,11 @@ const DarkAnimatedHeader = () => {
                                     </span>
                                   )}
                                 </div>
-                                <p className="text-gray-300 transition-colors duration-300">
+                                <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
                                   {item.description}
                                 </p>
                               </div>
-                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-all duration-300" />
+                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
                             </div>
                           </Card>
                         </Link>
@@ -717,7 +717,7 @@ const DarkAnimatedHeader = () => {
           </div>
         </div>
 
-        {/* Mobile Menu - NOW SCROLLABLE */}
+        {/* Mobile Menu - FIXED SCROLLING ISSUE */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -735,17 +735,17 @@ const DarkAnimatedHeader = () => {
             >
               <div className="max-w-7xl mx-auto">
                 
-                {/* Call Sales Button - Mobile Only - SMALLER SIZE */}
-                <div className="p-2 border-b border-gray-800/60" style={{
+                {/* Call Sales Button - Mobile Only - THIN WHITE OUTLINE */}
+                <div className="p-4 border-b border-gray-800/60" style={{
                   background: 'rgba(56, 126, 137, 0.1)',
                   backdropFilter: 'blur(12px)'
                 }}>
                   <a 
                     href="tel:+16314886390" 
-                    className="flex items-center justify-center gap-1 w-full p-2 bg-black border border-white/20 text-white font-medium text-xs rounded-md hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
+                    className="flex items-center justify-center gap-3 w-full p-4 bg-black border border-white text-white font-bold rounded-xl hover:bg-white hover:text-black hover:scale-105 transition-all duration-300"
                     onClick={() => console.log("Call sales button clicked")}
                   >
-                    <Phone className="w-3 h-3" />
+                    <Phone className="w-5 h-5" />
                     Call Sales: +1 631 4886 390
                   </a>
                 </div>

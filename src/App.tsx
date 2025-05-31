@@ -24,7 +24,6 @@ import NotFound from "@/pages/NotFound";
 import Pricing from "@/pages/Pricing";
 import Advantages from "@/pages/Advantages";
 import ResourceLibrary from "@/pages/ResourceLibrary";
-import AIAccuracy from "@/pages/AIAccuracy";
 
 function App() {
   console.log("Rendering App component");
@@ -48,7 +47,6 @@ function App() {
       <Route path="/resource-library" element={<ResourceLibrary />} />
       <Route path="/faq" element={<FAQ />} />
       <Route path="/advantages" element={<Advantages />} />
-      <Route path="/ai-accuracy" element={<AIAccuracy />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
       <Route path="*" element={<NotFound />} />

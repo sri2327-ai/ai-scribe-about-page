@@ -9,15 +9,6 @@ import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import DarkAnimatedHeader from '@/components/landing/DarkAnimatedHeader';
 import GradientBarsBackground from '@/components/ui/gradient-bars-background';
-import { 
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationEllipsis,
-} from "@/components/ui/pagination";
 
 interface Resource {
   id: string;
@@ -302,84 +293,103 @@ const ResourceLibrary = () => {
     }
   };
 
+  const renderPaginationButton = (page: number | string, isActive = false, onClick?: () => void) => (
+    <button
+      key={page}
+      onClick={onClick}
+      disabled={!onClick}
+      className={`
+        min-w-[36px] sm:min-w-[40px] h-[36px] sm:h-[40px] px-2 sm:px-3 rounded-lg border text-sm font-medium transition-all duration-200
+        ${isActive 
+          ? 'bg-black text-white border-black' 
+          : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+        }
+        ${!onClick ? 'cursor-default' : 'cursor-pointer'}
+      `}
+    >
+      {page}
+    </button>
+  );
+
   const renderPagination = () => {
     const { currentPage, totalPages } = pagination;
     
     if (totalPages <= 1) return null;
     
-    // Calculate page range for pagination
-    const getPageRange = () => {
-      const range = [];
-      const maxVisiblePages = 5;
-      const startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-      const endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    const pages = [];
+    const isMobile = window.innerWidth < 640;
+    const maxVisiblePages = isMobile ? 3 : 7;
+
+    // Mobile pagination - show fewer pages
+    if (isMobile) {
+      // Always show first page
+      pages.push(renderPaginationButton(1, currentPage === 1, () => handlePageChange(1)));
+
+      if (totalPages > 2) {
+        if (currentPage > 2) {
+          pages.push(renderPaginationButton('...'));
+        }
+
+        // Show current page if it's not first or last
+        if (currentPage > 1 && currentPage < totalPages) {
+          pages.push(renderPaginationButton(currentPage, true));
+        }
+
+        if (currentPage < totalPages - 1) {
+          pages.push(renderPaginationButton('...'));
+        }
+
+        // Always show last page
+        pages.push(renderPaginationButton(totalPages, currentPage === totalPages, () => handlePageChange(totalPages)));
+      }
+    } else {
+      // Desktop pagination - show more pages
+      pages.push(renderPaginationButton(1, currentPage === 1, () => handlePageChange(1)));
+
+      const startPage = Math.max(2, currentPage - 2);
+      const endPage = Math.min(totalPages - 1, currentPage + 2);
+
+      if (startPage > 2) {
+        pages.push(renderPaginationButton('...'));
+      }
 
       for (let i = startPage; i <= endPage; i++) {
-        range.push(i);
+        pages.push(renderPaginationButton(i, currentPage === i, () => handlePageChange(i)));
       }
-      return range;
-    };
+
+      if (endPage < totalPages - 1) {
+        pages.push(renderPaginationButton('...'));
+      }
+
+      if (totalPages > 1) {
+        pages.push(renderPaginationButton(totalPages, currentPage === totalPages, () => handlePageChange(totalPages)));
+      }
+    }
 
     return (
-      <Pagination className="mt-8">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                if (currentPage > 1) handlePageChange(currentPage - 1);
-              }}
-              className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-            />
-          </PaginationItem>
+      <div className="flex items-center justify-center gap-1 sm:gap-2 mt-12 sm:mt-16 px-4">
+        <button
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        >
+          <ChevronLeft className="w-4 h-4" />
+          <span className="hidden sm:inline">Previous</span>
+        </button>
 
-          {getPageRange().map((page) => (
-            <PaginationItem key={page}>
-              <PaginationLink
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handlePageChange(page);
-                }}
-                isActive={currentPage === page}
-              >
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+        <div className="flex items-center gap-1">
+          {pages}
+        </div>
 
-          {totalPages > getPageRange()[getPageRange().length - 1] && (
-            <>
-              <PaginationItem>
-                <PaginationEllipsis />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handlePageChange(totalPages);
-                  }}
-                >
-                  {totalPages}
-                </PaginationLink>
-              </PaginationItem>
-            </>
-          )}
-
-          <PaginationItem>
-            <PaginationNext
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                if (currentPage < totalPages) handlePageChange(currentPage + 1);
-              }}
-              className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+        <button
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        >
+          <span className="hidden sm:inline">Next</span>
+          <ChevronRight className="w-4 h-4" />
+        </button>
+      </div>
     );
   };
 
@@ -595,31 +605,31 @@ const ResourceLibrary = () => {
               )}
             </div>
             
-            {/* Underlined Tab Filters */}
+            {/* Mobile and Desktop Filters - Same Design */}
             <div className="flex items-center w-full">
-              {/* Left Arrow for Mobile */}
+              {/* Left Arrow - Hidden on desktop when not needed */}
               <button
                 onClick={() => scrollFilters('left')}
-                className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors md:hidden"
+                className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors sm:hidden"
                 aria-label="Scroll filters left"
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               
-              {/* Filters Container with Underlined Style */}
+              {/* Filters Container */}
               <div 
                 ref={scrollContainerRef}
-                className="flex overflow-x-auto scrollbar-hide gap-6 sm:gap-8 flex-1 sm:flex-none border-b border-gray-200"
+                className="flex overflow-x-auto scrollbar-hide gap-2 sm:gap-3 flex-1 sm:flex-none"
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
                 {filters.map((filter) => (
                   <button
                     key={filter.key}
                     onClick={() => setActiveFilter(filter.key)}
-                    className={`flex-shrink-0 pb-3 text-sm font-medium transition-all duration-200 whitespace-nowrap border-b-2 ${
+                    className={`flex-shrink-0 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap ${
                       activeFilter === filter.key
-                        ? 'text-[#387E89] border-[#387E89]'
-                        : 'text-gray-600 border-transparent hover:text-[#387E89] hover:border-gray-300'
+                        ? 'text-white bg-[#387E89] shadow-md'
+                        : 'text-gray-600 bg-gray-100 hover:bg-gray-200 hover:text-[#387E89]'
                     }`}
                   >
                     {filter.label}
@@ -627,10 +637,10 @@ const ResourceLibrary = () => {
                 ))}
               </div>
               
-              {/* Right Arrow for Mobile */}
+              {/* Right Arrow - Hidden on desktop when not needed */}
               <button
                 onClick={() => scrollFilters('right')}
-                className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors md:hidden"
+                className="flex-shrink-0 p-2 text-gray-400 hover:text-gray-600 transition-colors sm:hidden"
                 aria-label="Scroll filters right"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -695,7 +705,7 @@ const ResourceLibrary = () => {
             </div>
           )}
 
-          {/* Blog-style Pagination */}
+          {/* Modern Pagination */}
           {resources.length > 0 && !loading && renderPagination()}
         </main>
       </div>
