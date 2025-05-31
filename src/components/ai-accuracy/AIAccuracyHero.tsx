@@ -316,8 +316,8 @@ const AIAccuracyHero: React.FC = () => {
           />
         </div>
 
-        {/* Semi-circle container with button inside */}
-        <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
+        {/* Semi-circle container with button inside - updated to teal blue gradient */}
+        <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#0d4d4a_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
