@@ -17,11 +17,11 @@ interface LightningProps {
 }
 
 const Lightning: React.FC<LightningProps> = ({
-  hue = 200,
+  hue = 180,
   xOffset = 0,
-  speed = 0.8,
-  intensity = 0.3,
-  size = 1.5,
+  speed = 1.2,
+  intensity = 0.5,
+  size = 1.8,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -59,7 +59,7 @@ const Lightning: React.FC<LightningProps> = ({
       uniform float uIntensity;
       uniform float uSize;
       
-      #define OCTAVE_COUNT 10
+      #define OCTAVE_COUNT 12
 
       vec3 hsv2rgb(vec3 c) {
           vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0,4.0,2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
@@ -118,8 +118,8 @@ const Lightning: React.FC<LightningProps> = ({
           uv += 2.0 * fbm(uv * uSize + 0.8 * iTime * uSpeed) - 1.0;
           
           float dist = abs(uv.x);
-          vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.4, 0.6));
-          vec3 col = baseColor * pow(mix(0.0, 0.03, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
+          vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.6, 0.8));
+          vec3 col = baseColor * pow(mix(0.0, 0.05, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
           col = pow(col, vec3(1.0));
           fragColor = vec4(col, 1.0);
       }
@@ -277,7 +277,7 @@ const AIAccuracyHero: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-8 sm:mt-12 md:mt-16 lg:mt-20 flex-1 justify-center"
+          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-16 sm:mt-20 md:mt-24 lg:mt-28 flex-1 justify-center"
         >            
           <motion.h1
             variants={itemVariants}
@@ -308,23 +308,23 @@ const AIAccuracyHero: React.FC = () => {
 
         <div className="absolute top-0 w-full left-1/2 transform -translate-x-1/2 h-full">
           <Lightning
-            hue={200}
+            hue={180}
             xOffset={0}
-            speed={0.5}
-            intensity={0.15}
-            size={1.2}
+            speed={1.2}
+            intensity={0.5}
+            size={1.8}
           />
         </div>
 
-        {/* Semi-circle container with button inside */}
+        {/* Semi-circle container with button inside - moved button higher */}
         <div className="z-10 absolute top-[50%] sm:top-[55%] left-1/2 transform -translate-x-1/2 w-[300px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
           <motion.button
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: -30 }}
             transition={{ delay: 1, duration: 0.5 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-xs sm:text-sm md:text-base"
+            className="px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 border-2 border-white bg-transparent rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-xs sm:text-sm md:text-base"
           >
             Explore Accuracy Metrics
             <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
