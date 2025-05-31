@@ -9,7 +9,7 @@ const AccuracyFoundationSection: React.FC = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimatedValue(99.7);
-    }, 1000); // Increased delay to see the animation better
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -58,9 +58,9 @@ const AccuracyFoundationSection: React.FC = () => {
             className="flex flex-col items-center mb-8"
           >
             <div className="flex items-center justify-center mb-4">
-              <div className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white flex items-baseline">
+              <div className="text-6xl sm:text-7xl lg:text-8xl font-extralight text-white flex items-baseline">
                 <SlidingNumber value={animatedValue} />
-                <span className="ml-1 text-white">%</span>
+                <span className="ml-1 text-white font-extralight">%</span>
               </div>
             </div>
             <p className="text-xl sm:text-2xl text-white font-medium">

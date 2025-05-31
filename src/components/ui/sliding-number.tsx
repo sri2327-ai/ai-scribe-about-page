@@ -27,7 +27,7 @@ function Digit({ value, place }: { value: number; place: number }) {
   }, [animatedValue, valueRoundedToPlace]);
 
   return (
-    <div className='relative inline-block w-[1ch] overflow-x-visible overflow-y-clip leading-none tabular-nums text-white'>
+    <div className='relative inline-block w-[1ch] overflow-x-visible overflow-y-clip leading-none tabular-nums text-white font-extralight'>
       <div className='invisible'>0</div>
       {Array.from({ length: 10 }, (_, i) => (
         <Number key={i} mv={animatedValue} number={i} />
@@ -56,7 +56,7 @@ function Number({ mv, number }: { mv: MotionValue<number>; number: number }) {
   // don't render the animated number until we know the height
   if (!bounds.height) {
     return (
-      <span ref={ref} className='invisible absolute text-white'>
+      <span ref={ref} className='invisible absolute text-white font-extralight'>
         {number}
       </span>
     );
@@ -66,7 +66,7 @@ function Number({ mv, number }: { mv: MotionValue<number>; number: number }) {
     <motion.span
       style={{ y }}
       layoutId={`${uniqueId}-${number}`}
-      className='absolute inset-0 flex items-center justify-center text-white'
+      className='absolute inset-0 flex items-center justify-center text-white font-extralight'
       transition={TRANSITION}
       ref={ref}
     >
@@ -97,7 +97,7 @@ export function SlidingNumber({
   );
 
   return (
-    <div className='flex items-center text-white'>
+    <div className='flex items-center text-white font-extralight'>
       {value < 0 && '-'}
       {integerDigits.map((_, index) => (
         <Digit
@@ -108,7 +108,7 @@ export function SlidingNumber({
       ))}
       {decimalPart && (
         <>
-          <span className="text-white">{decimalSeparator}</span>
+          <span className="text-white font-extralight">{decimalSeparator}</span>
           {decimalPart.split('').map((_, index) => (
             <Digit
               key={`decimal-${index}`}
