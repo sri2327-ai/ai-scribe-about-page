@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import * as RechartsPrimitive from "recharts";
@@ -175,11 +174,10 @@ const AccuracyAdvantageSection: React.FC = () => {
 
   useEffect(() => {
     if (isInView) {
-      // Animate each progress bar with a staggered delay
       data.forEach((item, index) => {
         setTimeout(() => {
           const startTime = Date.now();
-          const duration = 1500; // 1.5 seconds
+          const duration = 1500;
           
           const animate = () => {
             const elapsed = Date.now() - startTime;
@@ -199,7 +197,7 @@ const AccuracyAdvantageSection: React.FC = () => {
           };
           
           requestAnimationFrame(animate);
-        }, index * 200); // Stagger each animation by 200ms
+        }, index * 200);
       });
     }
   }, [isInView]);
@@ -216,7 +214,7 @@ const AccuracyAdvantageSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
         delayChildren: 0.1
       }
     }
@@ -235,25 +233,25 @@ const AccuracyAdvantageSection: React.FC = () => {
   };
 
   return (
-    <section ref={sectionRef} className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
+    <section ref={sectionRef} className="relative w-full bg-black text-white py-16 sm:py-20 lg:py-28">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4 text-white leading-tight"
+            className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-light mb-3 sm:mb-4 text-white leading-tight"
           >
             The S10.ai Accuracy Advantage for Your Practice
           </motion.h2>
           
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto"
+            className="text-base sm:text-lg lg:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto"
           >
             Our focus on accuracy delivers tangible benefits across all aspects of your practice
           </motion.p>
@@ -264,22 +262,22 @@ const AccuracyAdvantageSection: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3"
+          className="grid grid-cols-1 gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {data.map((item, index) => (
             <motion.div key={item.name} variants={itemVariants} custom={index}>
-              <Card className="p-4 bg-black border-white/10 hover:border-teal-500/40 transition-colors duration-300">
-                <CardContent className="p-0 flex items-center space-x-4">
+              <Card className="p-3 sm:p-4 bg-black border-white/10 hover:border-teal-500/40 hover:shadow-[0_4px_20px_rgba(20,184,166,0.2)] hover:-translate-y-1 transition-all duration-300">
+                <CardContent className="p-0 flex items-center space-x-3 sm:space-x-4">
                   <div className="relative flex items-center justify-center">
                     <ChartContainer
                       config={chartConfig}
-                      className="h-[80px] w-[80px]"
+                      className="h-[70px] w-[70px] sm:h-[80px] sm:w-[80px]"
                     >
                       <RechartsPrimitive.RadialBarChart
                         data={[{ ...item, capacity: animatedValues[index] }]}
-                        innerRadius={30}
-                        outerRadius={60}
-                        barSize={6}
+                        innerRadius={25}
+                        outerRadius={50}
+                        barSize={5}
                         startAngle={90}
                         endAngle={-270}
                       >
@@ -300,16 +298,16 @@ const AccuracyAdvantageSection: React.FC = () => {
                       </RechartsPrimitive.RadialBarChart>
                     </ChartContainer>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-base font-medium text-white">
+                      <span className="text-sm sm:text-base font-medium text-white">
                         {animatedValues[index]}%
                       </span>
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <dt className="text-sm font-medium text-white leading-tight">
+                  <div className="flex-1 min-w-0">
+                    <dt className="text-sm sm:text-base font-medium text-white leading-tight truncate">
                       {item.name}
                     </dt>
-                    <dd className="text-sm text-white/70 mt-1">
+                    <dd className="text-xs sm:text-sm text-white/70 mt-1">
                       Improvement Score
                     </dd>
                   </div>

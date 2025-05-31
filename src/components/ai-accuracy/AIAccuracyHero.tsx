@@ -20,8 +20,8 @@ const Lightning: React.FC<LightningProps> = ({
   hue = 180,
   xOffset = 0,
   speed = 0.8,
-  intensity = 0.3,
-  size = 1.5,
+  intensity = 0.4,
+  size = 1.8,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -59,7 +59,7 @@ const Lightning: React.FC<LightningProps> = ({
       uniform float uIntensity;
       uniform float uSize;
       
-      #define OCTAVE_COUNT 10
+      #define OCTAVE_COUNT 12
 
       vec3 hsv2rgb(vec3 c) {
           vec3 rgb = clamp(abs(mod(c.x * 6.0 + vec3(0.0,4.0,2.0), 6.0) - 3.0) - 1.0, 0.0, 1.0);
@@ -99,12 +99,12 @@ const Lightning: React.FC<LightningProps> = ({
 
       float fbm(vec2 p) {
           float value = 0.0;
-          float amplitude = 0.5;
+          float amplitude = 0.6;
           for (int i = 0; i < OCTAVE_COUNT; ++i) {
               value += amplitude * noise(p);
-              p *= rotate2d(0.45);
-              p *= 2.0;
-              amplitude *= 0.5;
+              p *= rotate2d(0.5);
+              p *= 2.1;
+              amplitude *= 0.48;
           }
           return value;
       }
@@ -115,12 +115,12 @@ const Lightning: React.FC<LightningProps> = ({
           uv.x *= iResolution.x / iResolution.y;
           uv.x += uXOffset;
           
-          uv += 2.0 * fbm(uv * uSize + 0.8 * iTime * uSpeed) - 1.0;
+          uv += 2.2 * fbm(uv * uSize + 0.9 * iTime * uSpeed) - 1.1;
           
           float dist = abs(uv.x);
-          vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.4, 0.6));
-          vec3 col = baseColor * pow(mix(0.0, 0.03, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
-          col = pow(col, vec3(1.0));
+          vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.5, 0.8));
+          vec3 col = baseColor * pow(mix(0.0, 0.05, hash11(iTime * uSpeed)) / dist, 1.2) * uIntensity;
+          col = pow(col, vec3(0.9));
           fragColor = vec4(col, 1.0);
       }
 
@@ -209,16 +209,16 @@ const Lightning: React.FC<LightningProps> = ({
 
 const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position }) => {
   return (
-    <div className={`absolute ${position} z-10 group transition-all duration-300 hover:scale-110`}>
-      <div className="flex items-center gap-2 relative">
+    <div className={`absolute ${position} z-20 group transition-all duration-300 hover:scale-110`}>
+      <div className="flex items-center gap-2 sm:gap-3 relative">
         <div className="relative">
-          <div className="w-2 h-2 bg-white rounded-full group-hover:animate-pulse"></div>
-          <div className="absolute -inset-1 bg-white/20 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="w-2 h-2 sm:w-3 sm:h-3 bg-white rounded-full group-hover:animate-pulse shadow-lg shadow-white/50"></div>
+          <div className="absolute -inset-1 bg-white/30 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         <div className="text-white relative">
-          <div className="font-medium group-hover:text-white transition-colors duration-300 text-sm sm:text-base">{name}</div>
-          <div className="text-white/70 text-xs sm:text-sm group-hover:text-white/70 transition-colors duration-300">{value}</div>
-          <div className="absolute -inset-2 bg-white/10 rounded-lg blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          <div className="font-semibold group-hover:text-white transition-colors duration-300 text-xs sm:text-sm lg:text-base whitespace-nowrap">{name}</div>
+          <div className="text-white/80 text-xs sm:text-sm group-hover:text-white/90 transition-colors duration-300 whitespace-nowrap">{value}</div>
+          <div className="absolute -inset-2 bg-white/5 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
         </div>
       </div>
     </div>
@@ -231,104 +231,125 @@ const AIAccuracyHero: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
+        staggerChildren: 0.2,
+        delayChildren: 0.3
       }
     }
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: "easeOut"
       }
     }
   };
 
   return (
-    <div className="relative w-full bg-black text-white overflow-hidden">
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-screen">
+    <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-screen flex flex-col">
+        
+        {/* Feature items with improved responsive positioning */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full z-200 top-[20%] sm:top-[30%] relative"
+          className="relative flex-1 pt-16 sm:pt-20 lg:pt-24"
         >
           <motion.div variants={itemVariants}>
-            <FeatureItem name="HIPAA" value="Compliant" position="left-2 sm:left-10 top-32 sm:top-40" />
+            <FeatureItem 
+              name="HIPAA" 
+              value="Compliant" 
+              position="left-4 sm:left-8 lg:left-16 top-8 sm:top-12 lg:top-20" 
+            />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="99.7%" value="Accuracy" position="left-1/4 top-16 sm:top-24" />
+            <FeatureItem 
+              name="99.7%" 
+              value="Accuracy" 
+              position="left-1/4 sm:left-1/3 top-0 sm:top-4 lg:top-8" 
+            />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Clinical" value="Validation" position="right-1/4 top-16 sm:top-24" />
+            <FeatureItem 
+              name="Clinical" 
+              value="Validation" 
+              position="right-1/4 sm:right-1/3 top-0 sm:top-4 lg:top-8" 
+            />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Continuous" value="Learning" position="right-2 sm:right-10 top-32 sm:top-40" />
+            <FeatureItem 
+              name="Continuous" 
+              value="Learning" 
+              position="right-4 sm:right-8 lg:right-16 top-8 sm:top-12 lg:top-20" 
+            />
           </motion.div>
         </motion.div>
 
-        {/* Main hero content - moved lower */}
+        {/* Main hero content - improved centering and spacing */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-16 sm:mt-20"
+          className="relative z-30 flex flex-col items-center text-center max-w-5xl mx-auto flex-1 justify-center"
         >            
           <motion.h1
             variants={itemVariants}
-            className="text-4xl sm:text-5xl md:text-7xl font-light mb-2 text-white"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-3 sm:mb-4 text-white leading-tight"
           >
             S10.AI Accuracy
           </motion.h1>
 
           <motion.h2
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-5xl pb-3 font-light text-white"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed"
           >
             Healthcare AI Standard
           </motion.h2>
         </motion.div>
-      </div>
 
-      {/* Background elements */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="absolute inset-0 z-0"
-      >
-        <div className="absolute inset-0 bg-black/80"></div>
-
-        <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[800px] h-[600px] sm:h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
-
-        <div className="absolute top-0 w-[100%] left-1/2 transform -translate-x-1/2 h-full">
-          <Lightning
-            hue={175}
-            xOffset={0}
-            speed={0.5}
-            intensity={0.25}
-            size={1.2}
-          />
-        </div>
-
-        {/* Semi-circle container with button inside - proper teal blue gradient */}
-        <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#0e7490_15%,_#000000de_70%,_#000000ed_100%)] flex items-center justify-center">
+        {/* CTA section with improved positioning */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="relative z-30 flex justify-center pb-16 sm:pb-20 lg:pb-24"
+        >
           <motion.button
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.5 }}
+            variants={itemVariants}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base"
+            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base backdrop-blur-sm"
           >
             Explore Accuracy Metrics
             <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
+        </motion.div>
+      </div>
+
+      {/* Enhanced background elements */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+        className="absolute inset-0 z-0"
+      >
+        <div className="absolute inset-0 bg-black/85"></div>
+
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] rounded-full bg-gradient-to-b from-teal-500/25 to-cyan-600/15 blur-3xl"></div>
+
+        <div className="absolute top-0 w-full left-1/2 transform -translate-x-1/2 h-full">
+          <Lightning
+            hue={175}
+            xOffset={0}
+            speed={0.6}
+            intensity={0.4}
+            size={1.8}
+          />
         </div>
       </motion.div>
     </div>
