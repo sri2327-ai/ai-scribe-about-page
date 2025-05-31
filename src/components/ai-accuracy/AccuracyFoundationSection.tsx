@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { SlidingNumber } from '@/components/ui/sliding-number';
 
 const AccuracyFoundationSection: React.FC = () => {
   const containerVariants = {
@@ -42,6 +43,21 @@ const AccuracyFoundationSection: React.FC = () => {
           >
             Accuracy: The Foundation of Trust in Healthcare AI
           </motion.h2>
+          
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col items-center mb-8"
+          >
+            <div className="flex items-center justify-center mb-4">
+              <div className="text-6xl sm:text-7xl lg:text-8xl font-bold text-teal-400">
+                <SlidingNumber value={99.7} />
+                <span className="ml-2">%</span>
+              </div>
+            </div>
+            <p className="text-xl sm:text-2xl text-teal-300 font-medium">
+              Clinical Accuracy Rate
+            </p>
+          </motion.div>
           
           <motion.p
             variants={itemVariants}

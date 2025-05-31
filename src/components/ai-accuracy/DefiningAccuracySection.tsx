@@ -9,7 +9,6 @@ interface AccuracyItem {
   icon: React.ReactNode;
   features: string[];
   colSpan?: number;
-  hasPersistentHover?: boolean;
 }
 
 const DefiningAccuracySection: React.FC = () => {
@@ -62,7 +61,6 @@ const DefiningAccuracySection: React.FC = () => {
         "Coding Accuracy (HCC, CPT, ICD-10, E/M): Ensuring suggested codes accurately reflect the documented encounter and services."
       ],
       colSpan: 2,
-      hasPersistentHover: true,
     },
     {
       title: "B.R.A.V.O.",
@@ -126,20 +124,10 @@ const DefiningAccuracySection: React.FC = () => {
                   "hover:shadow-[0_2px_12px_rgba(20,184,166,0.1)]",
                   "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-400/30",
                   item.colSpan || "col-span-1",
-                  item.colSpan === 2 ? "md:col-span-2" : "",
-                  {
-                    "shadow-[0_2px_12px_rgba(20,184,166,0.1)] -translate-y-0.5 bg-teal-500/10 border-teal-400/30":
-                      item.hasPersistentHover,
-                  }
+                  item.colSpan === 2 ? "md:col-span-2" : ""
                 )}
               >
-                <div
-                  className={`absolute inset-0 ${
-                    item.hasPersistentHover
-                      ? "opacity-100"
-                      : "opacity-0 group-hover:opacity-100"
-                  } transition-opacity duration-300`}
-                >
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute inset-0">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.02)_1px,transparent_1px)] bg-[length:4px_4px]" />
                 </div>
 
@@ -174,13 +162,7 @@ const DefiningAccuracySection: React.FC = () => {
                   </div>
                 </div>
 
-                <div
-                  className={`absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-teal-400/20 to-transparent ${
-                    item.hasPersistentHover
-                      ? "opacity-100"
-                      : "opacity-0 group-hover:opacity-100"
-                  } transition-opacity duration-300`}
-                />
+                <div className="absolute inset-0 -z-10 rounded-xl p-px bg-gradient-to-br from-transparent via-teal-400/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </motion.div>
             ))}
           </div>
