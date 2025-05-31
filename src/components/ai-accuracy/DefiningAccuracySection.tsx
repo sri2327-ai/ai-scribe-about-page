@@ -71,7 +71,7 @@ const DefiningAccuracySection: React.FC = () => {
 
   return (
     <section className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -99,28 +99,28 @@ const DefiningAccuracySection: React.FC = () => {
             We ensure our definition of accuracy is specific and measurable across our solutions:
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
             {solutions.map((solution, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 custom={index}
-                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300"
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 hover:bg-white/8 hover:border-white/20 transition-all duration-500 group"
               >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-3 bg-teal-500/20 rounded-xl">
-                    <solution.icon className="w-6 h-6 text-teal-400" />
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="p-4 bg-white/10 rounded-2xl group-hover:bg-white/15 transition-all duration-300">
+                    <solution.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white leading-tight">
                     {solution.title}
                   </h3>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {solution.features.map((feature, featureIndex) => (
-                    <div key={featureIndex} className="flex items-start gap-3">
-                      <div className="w-1.5 h-1.5 bg-teal-400 rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-sm text-white/70 leading-relaxed">
+                    <div key={featureIndex} className="flex items-start gap-4">
+                      <div className="w-2 h-2 bg-white rounded-full mt-3 flex-shrink-0 opacity-80"></div>
+                      <p className="text-base leading-relaxed text-white/80 group-hover:text-white/90 transition-colors duration-300">
                         {feature}
                       </p>
                     </div>
