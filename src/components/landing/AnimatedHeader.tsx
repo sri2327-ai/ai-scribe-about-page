@@ -163,6 +163,12 @@ const AnimatedHeader = () => {
         href: '/advantages'
       },
       {
+        title: 'AI Accuracy',
+        description: 'Healthcare AI excellence standards',
+        icon: <Shield className="w-5 h-5 text-[#A5CCF3]" />,
+        href: '/ai-accuracy'
+      },
+      {
         title: 'Integrations',
         description: 'EHR & platform connections',
         icon: <Layers className="w-5 h-5 text-[#A5CCF3]" />,
