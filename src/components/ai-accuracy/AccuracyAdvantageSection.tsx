@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
 import * as RechartsPrimitive from "recharts";
 import { cn } from "@/lib/utils";
 
@@ -131,42 +130,42 @@ const AccuracyAdvantageSection: React.FC = () => {
       capacity: 95,
       current: 95,
       allowed: 100,
-      fill: "#14b8a6",
+      fill: "#10b981",
     },
     {
       name: "Patient Safety Score",
       capacity: 98,
       current: 98,
       allowed: 100,
-      fill: "#06b6d4",
+      fill: "#10b981",
     },
     {
       name: "Clinical Decision Accuracy",
       capacity: 97,
       current: 97,
       allowed: 100,
-      fill: "#0ea5e9",
+      fill: "#10b981",
     },
     {
       name: "Billing Accuracy",
       capacity: 99,
       current: 99,
       allowed: 100,
-      fill: "#3b82f6",
+      fill: "#10b981",
     },
     {
       name: "Clinician Trust Score",
       capacity: 96,
       current: 96,
       allowed: 100,
-      fill: "#6366f1",
+      fill: "#10b981",
     },
     {
       name: "Operational Efficiency",
       capacity: 94,
       current: 94,
       allowed: 100,
-      fill: "#8b5cf6",
+      fill: "#10b981",
     },
   ];
 
@@ -219,24 +218,9 @@ const AccuracyAdvantageSection: React.FC = () => {
           
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto mb-4"
+            className="text-lg sm:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto"
           >
             Our focus on accuracy delivers tangible benefits across all aspects of your practice
-          </motion.p>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-base leading-relaxed text-white/60 max-w-2xl mx-auto"
-          >
-            Experience measurable improvements in{" "}
-            <span className="font-medium text-white">safety, efficiency, and outcomes</span>.{" "}
-            <a
-              href="#"
-              className="inline-flex items-center gap-1 text-teal-400 hover:underline hover:underline-offset-4"
-            >
-              View detailed metrics
-              <ExternalLink className="size-4" aria-hidden={true} />
-            </a>
           </motion.p>
         </motion.div>
 
@@ -298,35 +282,6 @@ const AccuracyAdvantageSection: React.FC = () => {
               </Card>
             </motion.div>
           ))}
-        </motion.div>
-
-        <motion.div
-          variants={itemVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="mt-16 text-center"
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm text-white/80">
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-white">Reduced Risk:</strong> Medical errors minimized through validated AI accuracy
-            </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-white">Improved Outcomes:</strong> Enhanced patient safety and care quality
-            </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-white">Reliable Data:</strong> Confident clinical decision-making with accurate information
-            </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-white">Accurate Billing:</strong> Fewer claim denials and improved revenue cycle
-            </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-white">Increased Trust:</strong> Clinician confidence and reduced rework
-            </div>
-            <div className="p-4 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-white">Enhanced Efficiency:</strong> Streamlined operations and workflow optimization
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>
