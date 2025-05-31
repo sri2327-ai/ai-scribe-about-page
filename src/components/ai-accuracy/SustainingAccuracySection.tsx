@@ -105,9 +105,9 @@ const SustainingAccuracySection: React.FC = () => {
               variants={itemVariants}
               className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"
             >
-              <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+              <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-4">
-                  <MessageSquare className="w-6 h-6 text-teal-400" />
+                  <MessageSquare className="w-6 h-6 text-white" />
                   <h3 className="text-lg font-semibold text-white">Clinician Feedback Loops</h3>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
@@ -115,9 +115,9 @@ const SustainingAccuracySection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+              <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-4">
-                  <RefreshCw className="w-6 h-6 text-teal-400" />
+                  <RefreshCw className="w-6 h-6 text-white" />
                   <h3 className="text-lg font-semibold text-white">Regular Model Updates</h3>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">
@@ -125,9 +125,9 @@ const SustainingAccuracySection: React.FC = () => {
                 </p>
               </div>
 
-              <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm hover:bg-white/10 transition-colors duration-300">
+              <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
                 <div className="flex items-center gap-3 mb-4">
-                  <Activity className="w-6 h-6 text-teal-400" />
+                  <Activity className="w-6 h-6 text-white" />
                   <h3 className="text-lg font-semibold text-white">Performance Monitoring</h3>
                 </div>
                 <p className="text-white/70 text-sm leading-relaxed">

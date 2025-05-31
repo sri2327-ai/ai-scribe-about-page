@@ -106,14 +106,14 @@ const ValidationSection: React.FC = () => {
               className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
             >
               <div className="space-y-4">
-                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
                   <h3 className="text-lg font-semibold mb-3 text-white">Benchmarking to Clinical Gold Standards</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     C.R.U.S.H. notes are benchmarked against notes meticulously prepared or reviewed by clinical experts and physicians.
                   </p>
                 </div>
                 
-                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
                   <h3 className="text-lg font-semibold mb-3 text-white">Key Metrics</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     We use established metrics like Word Error Rate (transcription) and F1 scores (information extraction), comparing AI-suggested codes against expert coders.
@@ -122,14 +122,14 @@ const ValidationSection: React.FC = () => {
               </div>
 
               <div className="space-y-4">
-                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
                   <h3 className="text-lg font-semibold mb-3 text-white">Contextualized Accuracy Figures</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     We provide clear context for our accuracy claims across thousands of encounters in diverse specialties.
                   </p>
                 </div>
                 
-                <div className="bg-black border border-white rounded-lg p-6 backdrop-blur-sm">
+                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
                   <h3 className="text-lg font-semibold mb-3 text-white">Quality Assurance & Real-World Testing</h3>
                   <p className="text-white/70 text-sm leading-relaxed">
                     Human oversight in model validation and findings from pilot programs confirm our accuracy in real-world clinical settings.
