@@ -1,85 +1,5 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-interface ElasticHueSliderProps {
-  value: number;
-  onChange: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-  label?: string;
-}
-
-const ElasticHueSlider: React.FC<ElasticHueSliderProps> = ({
-  value,
-  onChange,
-  min = 0,
-  max = 360,
-  step = 1,
-  label = 'Adjust Hue',
-}) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const sliderRef = useRef<HTMLDivElement>(null);
-
-  const progress = ((value - min) / (max - min));
-  const thumbPosition = progress * 100;
-
-  const handleMouseDown = () => setIsDragging(true);
-  const handleMouseUp = () => setIsDragging(false);
-
-  return (
-    <div className="scale-50 relative w-full max-w-xs flex flex-col items-center" ref={sliderRef}>
-      {label && <label htmlFor="hue-slider-native" className="text-gray-300 text-sm mb-1">{label}</label>}
-      <div className="relative w-full h-5 flex items-center">
-        <input
-          id="hue-slider-native"
-          type="range"
-          min={min}
-          max={max}
-          step={step}
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onTouchStart={handleMouseDown}
-          onTouchEnd={handleMouseUp}
-          className="absolute inset-0 w-full h-full appearance-none bg-transparent cursor-pointer z-20"
-          style={{ WebkitAppearance: 'none' }}
-        />
-
-        <div className="absolute left-0 w-full h-1 bg-gray-700 rounded-full z-0"></div>
-
-        <div
-            className="absolute left-0 h-1 bg-teal-500 rounded-full z-10"
-            style={{ width: `${thumbPosition}%` }}
-        ></div>
-
-        <motion.div
-          className="absolute top-1/2 transform -translate-y-1/2 z-30"
-          style={{ left: `${thumbPosition}%` }}
-          animate={{ scale: isDragging ? 1.2 : 1 }}
-          transition={{ type: "spring", stiffness: 500, damping: isDragging ? 20 : 30 }}
-        >
-           
-        </motion.div>
-      </div>
-
-       <AnimatePresence mode="wait">
-         <motion.div
-           key={value}
-           initial={{ opacity: 0, y: -5 }}
-           animate={{ opacity: 1, y: 0 }}
-           exit={{ opacity: 0, y: 5 }}
-           transition={{ duration: 0.2 }}
-           className="text-xs text-gray-500 mt-2"
-         >
-           {value}°
-         </motion.div>
-       </AnimatePresence>
-    </div>
-  );
-};
 
 interface FeatureItemProps {
   name: string;
@@ -96,11 +16,11 @@ interface LightningProps {
 }
 
 const Lightning: React.FC<LightningProps> = ({
-  hue = 180,
+  hue = 200,
   xOffset = 0,
-  speed = 1,
-  intensity = 1,
-  size = 1,
+  speed = 0.8,
+  intensity = 0.3,
+  size = 1.5,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -197,8 +117,8 @@ const Lightning: React.FC<LightningProps> = ({
           uv += 2.0 * fbm(uv * uSize + 0.8 * iTime * uSpeed) - 1.0;
           
           float dist = abs(uv.x);
-          vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.7, 0.8));
-          vec3 col = baseColor * pow(mix(0.0, 0.07, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
+          vec3 baseColor = hsv2rgb(vec3(uHue / 360.0, 0.4, 0.6));
+          vec3 col = baseColor * pow(mix(0.0, 0.03, hash11(iTime * uSpeed)) / dist, 1.0) * uIntensity;
           col = pow(col, vec3(1.0));
           fragColor = vec4(col, 1.0);
       }
@@ -305,9 +225,6 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position }) => {
 };
 
 const AIAccuracyHero: React.FC = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [lightningHue, setLightningHue] = useState(180);
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -334,74 +251,6 @@ const AIAccuracyHero: React.FC = () => {
   return (
     <div className="relative w-full bg-black text-white overflow-hidden">
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-screen">
-        {/* Navigation */}
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="px-4 backdrop-blur-3xl bg-black/50 rounded-50 py-4 flex justify-between items-center mb-12"
-        >
-          <div className="flex items-center">
-            <div className="text-2xl font-bold">
-              <img
-                src="/lovable-uploads/b1fccf69-2584-4150-987a-fb09324403f4.png"
-                alt="S10.AI Logo"
-                className="h-10 w-auto"
-              />
-            </div>
-            <div className="hidden md:flex items-center space-x-6 ml-8">
-              <button className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 rounded-full text-sm transition-colors">Solutions</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">About</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Resources</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Pricing</button>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <button className="hidden md:block px-4 py-2 text-sm hover:text-gray-300 transition-colors">Quick Tour</button>
-            <button className="px-4 py-2 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full text-sm hover:from-teal-400 hover:to-cyan-500 transition-colors">Contact Us</button>
-            <button
-              className="md:hidden p-2 rounded-md focus:outline-none"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </motion.div>
-
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="md:hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-lg z-9999">
-            <div className="flex flex-col items-center justify-center h-full space-y-6 text-lg">
-              <button
-                className="absolute top-6 right-6 p-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <button className="px-6 py-3 bg-gray-800/50 rounded-full">Solutions</button>
-              <button className="px-6 py-3">About</button>
-              <button className="px-6 py-3">Resources</button>
-              <button className="px-6 py-3">Pricing</button>
-              <button className="px-6 py-3">Quick Tour</button>
-              <button className="px-6 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full">Contact Us</button>
-            </div>
-          </motion.div>
-        )}
-
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -429,22 +278,6 @@ const AIAccuracyHero: React.FC = () => {
           animate="visible"
           className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto "
         >            
-          <ElasticHueSlider
-            value={lightningHue}
-            onChange={setLightningHue}
-            label="Adjust Lightning Hue"
-          />
-          
-          <motion.button
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center space-x-2 px-4 py-2 bg-teal-500/10 hover:bg-teal-500/20 backdrop-blur-sm rounded-full text-sm mb-6 transition-all duration-300 group border border-teal-400/30"
-          >
-            <div className="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
-            <span>Healthcare AI Excellence</span>
-          </motion.button>
-
           <motion.h1
             variants={itemVariants}
             className="text-5xl md:text-7xl font-light mb-2"
@@ -458,14 +291,6 @@ const AIAccuracyHero: React.FC = () => {
           >
             Healthcare AI Standard
           </motion.h2>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-gray-400 mb-9 max-w-2xl"
-          >
-            Setting the gold standard for AI accuracy in healthcare. Our advanced algorithms deliver 
-            clinical-grade precision with continuous validation.
-          </motion.p>
 
           <motion.button
             variants={itemVariants}
@@ -491,11 +316,11 @@ const AIAccuracyHero: React.FC = () => {
 
         <div className="absolute top-0 w-[100%] left-1/2 transform -translate-x-1/2 h-full">
           <Lightning
-            hue={lightningHue}
+            hue={200}
             xOffset={0}
-            speed={1.6}
-            intensity={0.6}
-            size={2}
+            speed={0.8}
+            intensity={0.3}
+            size={1.5}
           />
         </div>
 
