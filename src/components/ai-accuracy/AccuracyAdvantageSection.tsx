@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import * as RechartsPrimitive from "recharts";
 import { cn } from "@/lib/utils";
 
@@ -124,50 +124,85 @@ function ChartContainer({
 }
 
 const AccuracyAdvantageSection: React.FC = () => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const [animatedValues, setAnimatedValues] = useState([0, 0, 0, 0, 0, 0]);
+
   const data = [
     {
       name: "Medical Error Reduction",
       capacity: 95,
       current: 95,
       allowed: 100,
-      fill: "#10b981",
+      fill: "#059669",
     },
     {
       name: "Patient Safety Score",
       capacity: 98,
       current: 98,
       allowed: 100,
-      fill: "#10b981",
+      fill: "#059669",
     },
     {
       name: "Clinical Decision Accuracy",
       capacity: 97,
       current: 97,
       allowed: 100,
-      fill: "#10b981",
+      fill: "#059669",
     },
     {
       name: "Billing Accuracy",
       capacity: 99,
       current: 99,
       allowed: 100,
-      fill: "#10b981",
+      fill: "#059669",
     },
     {
       name: "Clinician Trust Score",
       capacity: 96,
       current: 96,
       allowed: 100,
-      fill: "#10b981",
+      fill: "#059669",
     },
     {
       name: "Operational Efficiency",
       capacity: 94,
       current: 94,
       allowed: 100,
-      fill: "#10b981",
+      fill: "#059669",
     },
   ];
+
+  useEffect(() => {
+    if (isInView) {
+      // Animate each progress bar with a staggered delay
+      data.forEach((item, index) => {
+        setTimeout(() => {
+          const startTime = Date.now();
+          const duration = 1500; // 1.5 seconds
+          
+          const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+            const currentValue = Math.round(item.capacity * easeOutCubic);
+            
+            setAnimatedValues(prev => {
+              const newValues = [...prev];
+              newValues[index] = currentValue;
+              return newValues;
+            });
+            
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            }
+          };
+          
+          requestAnimationFrame(animate);
+        }, index * 200); // Stagger each animation by 200ms
+      });
+    }
+  }, [isInView]);
 
   const chartConfig = {
     capacity: {
@@ -200,7 +235,7 @@ const AccuracyAdvantageSection: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
+    <section ref={sectionRef} className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
@@ -241,7 +276,7 @@ const AccuracyAdvantageSection: React.FC = () => {
                       className="h-[80px] w-[80px]"
                     >
                       <RechartsPrimitive.RadialBarChart
-                        data={[item]}
+                        data={[{ ...item, capacity: animatedValues[index] }]}
                         innerRadius={30}
                         outerRadius={60}
                         barSize={6}
@@ -266,7 +301,7 @@ const AccuracyAdvantageSection: React.FC = () => {
                     </ChartContainer>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-base font-medium text-white">
-                        {item.capacity}%
+                        {animatedValues[index]}%
                       </span>
                     </div>
                   </div>
