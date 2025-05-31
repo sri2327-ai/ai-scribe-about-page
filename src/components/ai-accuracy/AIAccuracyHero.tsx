@@ -1,5 +1,7 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 interface FeatureItemProps {
   name: string;
@@ -250,56 +252,61 @@ const AIAccuracyHero: React.FC = () => {
 
   return (
     <div className="relative w-full bg-black text-white overflow-hidden">
-      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-screen">
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 min-h-screen flex items-center">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="w-full z-200 top-[30%] relative"
+          className="w-full relative"
         >
-          <motion.div variants={itemVariants}>
-            <FeatureItem name="HIPAA" value="Compliant" position="left-0 sm:left-10 top-40" />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <FeatureItem name="99.7%" value="Accuracy" position="left-1/4 top-24" />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <FeatureItem name="Clinical" value="Validation" position="right-1/4 top-24" />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <FeatureItem name="Continuous" value="Learning" position="right-0 sm:right-10 top-40" />
-          </motion.div>
-        </motion.div>
+          {/* Feature Items - Responsive positioning */}
+          <div className="relative w-full">
+            <motion.div variants={itemVariants}>
+              <FeatureItem name="HIPAA" value="Compliant" position="left-0 sm:left-10 lg:left-20 top-20 sm:top-32 lg:top-40" />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <FeatureItem name="99.7%" value="Accuracy" position="left-1/4 sm:left-1/3 lg:left-1/4 top-8 sm:top-16 lg:top-24" />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <FeatureItem name="Clinical" value="Validation" position="right-1/4 sm:right-1/3 lg:right-1/4 top-8 sm:top-16 lg:top-24" />
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <FeatureItem name="Continuous" value="Learning" position="right-0 sm:right-10 lg:right-20 top-20 sm:top-32 lg:top-40" />
+            </motion.div>
+          </div>
 
-        {/* Main hero content */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto "
-        >            
-          <motion.h1
-            variants={itemVariants}
-            className="text-5xl md:text-7xl font-light mb-2"
-          >
-            S10.AI Accuracy
-          </motion.h1>
+          {/* Main hero content - Centered and responsive */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto mt-16 sm:mt-20 lg:mt-0"
+          >            
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light mb-2 text-white"
+            >
+              S10.AI Accuracy
+            </motion.h1>
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-3xl md:text-5xl pb-3 font-light bg-gradient-to-r from-teal-100 via-cyan-200 to-teal-300 bg-clip-text text-transparent"
-          >
-            Healthcare AI Standard
-          </motion.h2>
+            <motion.h2
+              variants={itemVariants}
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl pb-6 sm:pb-8 font-light bg-gradient-to-r from-teal-100 via-cyan-200 to-teal-300 bg-clip-text text-transparent"
+            >
+              Healthcare AI Standard
+            </motion.h2>
 
-          <motion.button
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="mt-[100px] sm:mt-[100px] px-8 py-3 bg-gradient-to-r from-teal-500 to-cyan-600 backdrop-blur-sm rounded-full hover:from-teal-400 hover:to-cyan-500 transition-colors shadow-lg shadow-teal-500/25"
-          >
-            Explore Accuracy Metrics
-          </motion.button>
+            {/* Button moved inside semi-circle container */}
+            <motion.button
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative z-50 mt-8 sm:mt-12 lg:mt-16 px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/40 bg-transparent backdrop-blur-sm rounded-full hover:border-white/60 hover:bg-white/5 transition-all duration-300 flex items-center gap-2 text-white text-sm sm:text-base"
+            >
+              Explore Accuracy Metrics
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </motion.button>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -312,19 +319,19 @@ const AIAccuracyHero: React.FC = () => {
       >
         <div className="absolute inset-0 bg-black/80"></div>
 
-        <div className="absolute top-[55%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] sm:w-[600px] sm:h-[600px] lg:w-[800px] lg:h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
 
-        <div className="absolute top-0 w-[100%] left-1/2 transform -translate-x-1/2 h-full">
+        <div className="absolute top-0 w-full left-1/2 transform -translate-x-1/2 h-full">
           <Lightning
             hue={200}
             xOffset={0}
-            speed={0.8}
-            intensity={0.3}
-            size={1.5}
+            speed={0.5}
+            intensity={0.2}
+            size={1.2}
           />
         </div>
 
-        <div className="z-10 absolute top-[55%] left-1/2 transform -translate-x-1/2 w-[600px] h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)]"></div>
+        <div className="z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[450px] sm:h-[450px] lg:w-[600px] lg:h-[600px] backdrop-blur-3xl rounded-full bg-[radial-gradient(circle_at_25%_90%,_#1e4a4a_15%,_#000000de_70%,_#000000ed_100%)]"></div>
       </motion.div>
     </div>
   );
