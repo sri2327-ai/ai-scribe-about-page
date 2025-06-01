@@ -101,7 +101,7 @@ const AccuracyFoundationSection: React.FC = () => {
             variants={itemVariants}
             className="text-base sm:text-lg md:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto"
           >
-            In healthcare, accuracy is non-negotiable. It's essential for patient safety, sound clinical decisions, and efficient practice management. At S10.ai, we are fundamentally committed to delivering the highest standards of accuracy. This page outlines how we define, achieve, and continuously verify the precision of our AI solutions.
+            In healthcare, accuracy is non-negotiable. It's essential for patient safety, sound clinical decisions, and efficient practice management. At S10.AI, we are fundamentally committed to delivering the highest standards of accuracy. This page outlines how we define, achieve, and continuously verify the precision of our AI solutions.
           </motion.p>
         </motion.div>
       </div>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GridMotion } from '@/components/ui/grid-motion';
@@ -176,7 +175,7 @@ const SustainingAccuracySection: React.FC = () => {
                 <h3 className="text-lg sm:text-xl font-semibold text-white">Data Privacy Guarantee</h3>
               </div>
               <p className="text-white/90 text-sm sm:text-base leading-relaxed text-center">
-                We maintain peak accuracy through privacy-preserving techniques. S10.ai never stores customer data, never uses patient information for model training, and processes all data with end-to-end encryption before immediate secure deletion. Your data privacy is our unwavering commitment.
+                We maintain peak accuracy through privacy-preserving techniques. S10.AI never stores customer data, never uses patient information for model training, and processes all data with end-to-end encryption before immediate secure deletion. Your data privacy is our unwavering commitment.
               </p>
             </motion.div>
           </motion.div>

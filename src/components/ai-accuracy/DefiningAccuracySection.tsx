@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Stethoscope, Users, Brain } from 'lucide-react';
@@ -101,7 +100,7 @@ const DefiningAccuracySection: React.FC = () => {
             variants={itemVariants}
             className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-3 sm:mb-4 text-white leading-tight text-center"
           >
-            Defining S10.ai Accuracy
+            Defining S10.AI Accuracy
           </motion.h2>
           
           <motion.p

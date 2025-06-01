@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GridMotion } from '@/components/ui/grid-motion';
@@ -151,7 +150,7 @@ const ValidationSection: React.FC = () => {
                   <h3 className="text-sm sm:text-lg font-semibold text-white">Privacy-First Validation</h3>
                 </div>
                 <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-                  S10.ai does not store customer data or use it for model training. All validation is performed securely without compromising patient privacy.
+                  S10.AI does not store customer data or use it for model training. All validation is performed securely without compromising patient privacy.
                 </p>
               </div>
 
@@ -176,7 +175,7 @@ const ValidationSection: React.FC = () => {
                 <h3 className="text-lg sm:text-xl font-semibold text-white">Privacy Commitment</h3>
               </div>
               <p className="text-white/90 text-sm sm:text-base leading-relaxed text-center">
-                S10.ai operates on a zero-data-storage principle. We do not retain, store, or use customer data for model training purposes. All processing is performed in real-time with immediate secure deletion, ensuring complete patient privacy and HIPAA compliance.
+                S10.AI operates on a zero-data-storage principle. We do not retain, store, or use customer data for model training purposes. All processing is performed in real-time with immediate secure deletion, ensuring complete patient privacy and HIPAA compliance.
               </p>
             </motion.div>
           </motion.div>
