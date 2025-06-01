@@ -29,6 +29,13 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position }) => {
 };
 
 const AIAccuracyHero: React.FC = () => {
+  const scrollToSection2 = () => {
+    const section2 = document.querySelector('section:nth-of-type(2)');
+    if (section2) {
+      section2.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -56,112 +63,131 @@ const AIAccuracyHero: React.FC = () => {
     <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-screen flex flex-col">
         
-        {/* Feature items with improved positioning */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative flex-1 pt-16 sm:pt-20 lg:pt-24"
-        >
-          <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="HIPAA" 
-              value="Compliant" 
-              position="left-4 sm:left-8 lg:left-12 xl:left-16 top-12 sm:top-16 lg:top-20" 
-            />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="99.7%" 
-              value="Accuracy" 
-              position="left-1/4 sm:left-[30%] lg:left-[35%] top-4 sm:top-6 lg:top-8" 
-            />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="Clinical" 
-              value="Validation" 
-              position="right-1/4 sm:right-[30%] lg:right-[35%] top-4 sm:top-6 lg:top-8" 
-            />
-          </motion.div>
-          <motion.div variants={itemVariants}>
-            <FeatureItem 
-              name="Continuous" 
-              value="Learning" 
-              position="right-4 sm:right-8 lg:right-12 xl:right-16 top-12 sm:top-16 lg:top-20" 
-            />
-          </motion.div>
-        </motion.div>
-
-        {/* Main hero content with corner bracket frame */}
+        {/* Main hero content with rectangular frame */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="relative z-30 flex flex-col items-center text-center max-w-5xl mx-auto flex-1 justify-center"
         >
-          {/* Corner bracket frame container */}
-          <div className="relative">
+          {/* Rectangular frame with corner brackets */}
+          <div className="relative border border-white/40 rounded-lg p-8 sm:p-12 lg:p-16 xl:p-20">
             {/* Corner brackets */}
-            <div className="absolute -inset-8 sm:-inset-12 lg:-inset-16">
+            <div className="absolute -inset-4 sm:-inset-6 lg:-inset-8">
               {/* Top left corner */}
-              <div className="absolute top-0 left-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
-                <div className="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
-                <div className="absolute top-0 left-0 w-1 h-full bg-white/40"></div>
+              <div className="absolute top-0 left-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12">
+                <div className="absolute top-0 left-0 w-full h-0.5 bg-white"></div>
+                <div className="absolute top-0 left-0 w-0.5 h-full bg-white"></div>
               </div>
               
               {/* Top right corner */}
-              <div className="absolute top-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
-                <div className="absolute top-0 right-0 w-full h-1 bg-white/40"></div>
-                <div className="absolute top-0 right-0 w-1 h-full bg-white/40"></div>
+              <div className="absolute top-0 right-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12">
+                <div className="absolute top-0 right-0 w-full h-0.5 bg-white"></div>
+                <div className="absolute top-0 right-0 w-0.5 h-full bg-white"></div>
               </div>
               
               {/* Bottom left corner */}
-              <div className="absolute bottom-0 left-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-white/40"></div>
-                <div className="absolute bottom-0 left-0 w-1 h-full bg-white/40"></div>
+              <div className="absolute bottom-0 left-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12">
+                <div className="absolute bottom-0 left-0 w-full h-0.5 bg-white"></div>
+                <div className="absolute bottom-0 left-0 w-0.5 h-full bg-white"></div>
               </div>
               
               {/* Bottom right corner */}
-              <div className="absolute bottom-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
-                <div className="absolute bottom-0 right-0 w-full h-1 bg-white/40"></div>
-                <div className="absolute bottom-0 right-0 w-1 h-full bg-white/40"></div>
+              <div className="absolute bottom-0 right-0 w-6 h-6 sm:w-8 sm:h-8 lg:w-12 lg:h-12">
+                <div className="absolute bottom-0 right-0 w-full h-0.5 bg-white"></div>
+                <div className="absolute bottom-0 right-0 w-0.5 h-full bg-white"></div>
               </div>
             </div>
             
             {/* Main heading content */}
             <motion.h1
               variants={itemVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-3 sm:mb-4 text-white leading-tight px-4 sm:px-8"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-3 sm:mb-4 text-white leading-tight"
             >
               S10.AI Accuracy
             </motion.h1>
 
             <motion.h2
               variants={itemVariants}
-              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed px-4 sm:px-8"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed mb-8 sm:mb-10 lg:mb-12"
             >
               Healthcare AI Standard
             </motion.h2>
+
+            {/* CTA button inside the frame */}
+            <motion.button
+              variants={itemVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={scrollToSection2}
+              className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base backdrop-blur-sm mx-auto"
+            >
+              Explore Accuracy Metrics
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            </motion.button>
           </div>
         </motion.div>
 
-        {/* CTA section with improved positioning */}
+        {/* Feature items positioned below the frame */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex justify-center pb-16 sm:pb-20 lg:pb-24"
+          className="relative flex justify-center items-center mt-12 sm:mt-16 lg:mt-20 pb-16 sm:pb-20 lg:pb-24"
         >
-          <motion.button
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base backdrop-blur-sm"
-          >
-            Explore Accuracy Metrics
-            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-          </motion.button>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 max-w-4xl">
+            <motion.div variants={itemVariants}>
+              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                <div className="relative mb-3">
+                  <div className="w-3 h-3 bg-white rounded-full group-hover:animate-pulse shadow-lg shadow-white/50"></div>
+                  <div className="absolute -inset-1 bg-white/30 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div className="text-white">
+                  <div className="font-semibold text-sm sm:text-base lg:text-lg">HIPAA</div>
+                  <div className="text-white/80 text-xs sm:text-sm">Compliant</div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                <div className="relative mb-3">
+                  <div className="w-3 h-3 bg-white rounded-full group-hover:animate-pulse shadow-lg shadow-white/50"></div>
+                  <div className="absolute -inset-1 bg-white/30 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div className="text-white">
+                  <div className="font-semibold text-sm sm:text-base lg:text-lg">99.7%</div>
+                  <div className="text-white/80 text-xs sm:text-sm">Accuracy</div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                <div className="relative mb-3">
+                  <div className="w-3 h-3 bg-white rounded-full group-hover:animate-pulse shadow-lg shadow-white/50"></div>
+                  <div className="absolute -inset-1 bg-white/30 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div className="text-white">
+                  <div className="font-semibold text-sm sm:text-base lg:text-lg">Clinical</div>
+                  <div className="text-white/80 text-xs sm:text-sm">Validation</div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={itemVariants}>
+              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                <div className="relative mb-3">
+                  <div className="w-3 h-3 bg-white rounded-full group-hover:animate-pulse shadow-lg shadow-white/50"></div>
+                  <div className="absolute -inset-1 bg-white/30 rounded-full blur-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                <div className="text-white">
+                  <div className="font-semibold text-sm sm:text-base lg:text-lg">Continuous</div>
+                  <div className="text-white/80 text-xs sm:text-sm">Learning</div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
 
