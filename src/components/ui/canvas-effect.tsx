@@ -122,10 +122,11 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Responsive opacity based on screen width
+    // Use only teal blue colors (hue around 180)
     const isMobileView = window.innerWidth < 768;
-    ctx.strokeStyle = `rgba(30, 174, 219, ${isMobileView ? 0.02 : 0.03})`; 
-    ctx.lineWidth = isMobileView ? 3 : 5; 
+    const tealHue = 180; // Teal blue hue
+    ctx.strokeStyle = `hsla(${tealHue}, 100%, 50%, ${isMobileView ? 0.03 : 0.04})`;
+    ctx.lineWidth = isMobileView ? 8 : 12;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -143,8 +144,8 @@ function resizeCanvas() {
     
     // Update trail count and size for mobile
     const isMobileView = window.innerWidth < 768;
-    E.trails = isMobileView ? 30 : 50;
-    E.size = isMobileView ? 30 : 50;
+    E.trails = isMobileView ? 50 : 80;
+    E.size = isMobileView ? 40 : 60;
     
     // Reinitialize if needed
     if (lines.length > 0) {
@@ -164,8 +165,8 @@ var ctx,
   E = {
     debug: true,
     friction: 0.5,
-    trails: 50,
-    size: 50,
+    trails: 80,
+    size: 60,
     dampening: 0.025,
     tension: 0.99,
   };
@@ -211,8 +212,8 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
     
     // Update settings for mobile
     if (isMobile) {
-      E.trails = 30;
-      E.size = 30;
+      E.trails = 50;
+      E.size = 40;
     }
     
     // Make sure we resize the canvas to the correct dimensions
@@ -233,7 +234,6 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
     window.addEventListener("resize", resizeCanvas);
     
     // Trigger animation on initial load with a simulated mouse move
-    // Increased delay to ensure canvas is fully mounted
     setTimeout(() => {
       const initialEvent = new MouseEvent('mousemove', {
         clientX: pos.x,
@@ -244,13 +244,8 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       // Add additional simulated movements to make canvas effect more visible
       const simulateMovement = () => {
         if (ctx && ctx.running) {
-          const newX = pos.x + (Math.random() * 100 - 50);
-          const newY = pos.y + (Math.random() * 100 - 50);
-          
-          const moveEvent = new MouseEvent('mousemove', {
-            clientX: newX,
-            clientY: newY
-          });
+          const newX = pos.x + (Math.random() * 200 - 100);
+          const newY = pos.y + (Math.random() * 200 - 100);
           
           // Update position
           pos.x = newX;
@@ -264,13 +259,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       };
       
       // Simulate some initial movement after loading
-      for (let i = 0; i < 10; i++) {
-        setTimeout(simulateMovement, 300 * i);
+      for (let i = 0; i < 15; i++) {
+        setTimeout(simulateMovement, 200 * i);
       }
       
       // Continue occasional movement simulation
-      setInterval(simulateMovement, 3000);
-    }, 500); 
+      setInterval(simulateMovement, 2000);
+    }, 300); 
     
     return () => {
       if (ctx) ctx.running = false;
@@ -285,7 +280,7 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       id={id}
       ref={canvasRef}
       className={`pointer-events-auto absolute inset-0 w-full h-full ${className}`}
-      style={{ zIndex: 5 }} // Ensure canvas is above background but below text
+      style={{ zIndex: 5 }}
     ></canvas>
   );
 };
