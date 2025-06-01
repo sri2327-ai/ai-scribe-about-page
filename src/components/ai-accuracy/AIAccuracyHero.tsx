@@ -56,7 +56,7 @@ const AIAccuracyHero: React.FC = () => {
     <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-screen flex flex-col">
         
-        {/* Feature items with improved responsive positioning */}
+        {/* Feature items with improved positioning */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -67,52 +67,83 @@ const AIAccuracyHero: React.FC = () => {
             <FeatureItem 
               name="HIPAA" 
               value="Compliant" 
-              position="left-4 sm:left-8 lg:left-16 top-8 sm:top-12 lg:top-20" 
+              position="left-4 sm:left-8 lg:left-12 xl:left-16 top-12 sm:top-16 lg:top-20" 
             />
           </motion.div>
           <motion.div variants={itemVariants}>
             <FeatureItem 
               name="99.7%" 
               value="Accuracy" 
-              position="left-1/4 sm:left-1/3 top-0 sm:top-4 lg:top-8" 
+              position="left-1/4 sm:left-[30%] lg:left-[35%] top-4 sm:top-6 lg:top-8" 
             />
           </motion.div>
           <motion.div variants={itemVariants}>
             <FeatureItem 
               name="Clinical" 
               value="Validation" 
-              position="right-1/4 sm:right-1/3 top-0 sm:top-4 lg:top-8" 
+              position="right-1/4 sm:right-[30%] lg:right-[35%] top-4 sm:top-6 lg:top-8" 
             />
           </motion.div>
           <motion.div variants={itemVariants}>
             <FeatureItem 
               name="Continuous" 
               value="Learning" 
-              position="right-4 sm:right-8 lg:right-16 top-8 sm:top-12 lg:top-20" 
+              position="right-4 sm:right-8 lg:right-12 xl:right-16 top-12 sm:top-16 lg:top-20" 
             />
           </motion.div>
         </motion.div>
 
-        {/* Main hero content - improved centering and spacing */}
+        {/* Main hero content with corner bracket frame */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="relative z-30 flex flex-col items-center text-center max-w-5xl mx-auto flex-1 justify-center"
-        >            
-          <motion.h1
-            variants={itemVariants}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-3 sm:mb-4 text-white leading-tight"
-          >
-            S10.AI Accuracy
-          </motion.h1>
+        >
+          {/* Corner bracket frame container */}
+          <div className="relative">
+            {/* Corner brackets */}
+            <div className="absolute -inset-8 sm:-inset-12 lg:-inset-16">
+              {/* Top left corner */}
+              <div className="absolute top-0 left-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <div className="absolute top-0 left-0 w-full h-1 bg-white/40"></div>
+                <div className="absolute top-0 left-0 w-1 h-full bg-white/40"></div>
+              </div>
+              
+              {/* Top right corner */}
+              <div className="absolute top-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <div className="absolute top-0 right-0 w-full h-1 bg-white/40"></div>
+                <div className="absolute top-0 right-0 w-1 h-full bg-white/40"></div>
+              </div>
+              
+              {/* Bottom left corner */}
+              <div className="absolute bottom-0 left-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-white/40"></div>
+                <div className="absolute bottom-0 left-0 w-1 h-full bg-white/40"></div>
+              </div>
+              
+              {/* Bottom right corner */}
+              <div className="absolute bottom-0 right-0 w-8 h-8 sm:w-12 sm:h-12 lg:w-16 lg:h-16">
+                <div className="absolute bottom-0 right-0 w-full h-1 bg-white/40"></div>
+                <div className="absolute bottom-0 right-0 w-1 h-full bg-white/40"></div>
+              </div>
+            </div>
+            
+            {/* Main heading content */}
+            <motion.h1
+              variants={itemVariants}
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-3 sm:mb-4 text-white leading-tight px-4 sm:px-8"
+            >
+              S10.AI Accuracy
+            </motion.h1>
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed"
-          >
-            Healthcare AI Standard
-          </motion.h2>
+            <motion.h2
+              variants={itemVariants}
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed px-4 sm:px-8"
+            >
+              Healthcare AI Standard
+            </motion.h2>
+          </div>
         </motion.div>
 
         {/* CTA section with improved positioning */}
