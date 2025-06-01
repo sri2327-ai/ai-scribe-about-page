@@ -1,9 +1,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus } from 'lucide-react';
+import { Plus, ChevronDown } from 'lucide-react';
 import { CanvasEffect } from '@/components/ui/canvas-effect';
-import { Spotlight } from '@/components/ui/spotlight';
 
 interface FeatureItemProps {
   name: string;
@@ -53,11 +52,15 @@ const AIAccuracyHero: React.FC = () => {
     }
   };
 
+  const scrollToNextSection = () => {
+    const nextSection = document.getElementById('accuracy-foundation');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
-      {/* Spotlight Effect */}
-      <Spotlight fill="rgba(20, 184, 166, 0.1)" className="z-10" />
-      
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-screen flex flex-col">
         
         {/* Main hero content with enhanced frame */}
@@ -69,7 +72,7 @@ const AIAccuracyHero: React.FC = () => {
         >
           <div className="mb-8 mt-4 md:mt-6 w-full">
             <div className="px-2">
-              <div className="relative mx-auto h-full max-w-7xl border border-white/20 p-12 md:p-20 lg:p-28 xl:p-32 [mask-image:radial-gradient(1000rem_120rem_at_center,white,transparent)]">
+              <div className="relative mx-auto h-full max-w-7xl border border-white/20 p-16 md:p-24 lg:p-32 xl:p-40 [mask-image:radial-gradient(1000rem_120rem_at_center,white,transparent)]">
                 {/* Corner brackets - white */}
                 <Plus
                   strokeWidth={4}
@@ -91,7 +94,7 @@ const AIAccuracyHero: React.FC = () => {
                 {/* Main heading content - larger H1 */}
                 <motion.h1
                   variants={itemVariants}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-light mb-6 sm:mb-8 text-white leading-tight"
+                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl 2xl:text-10xl font-light mb-6 sm:mb-8 text-white leading-tight"
                 >
                   S10.AI Accuracy
                 </motion.h1>
@@ -113,9 +116,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-800 rounded-full shadow-lg shadow-green-800/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-800/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-800/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">HIPAA</div>
@@ -127,9 +130,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-800 rounded-full shadow-lg shadow-green-800/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-800/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-800/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">99.7%</div>
@@ -141,9 +144,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-800 rounded-full shadow-lg shadow-green-800/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-800/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-800/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">Clinical</div>
@@ -155,9 +158,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-800 rounded-full shadow-lg shadow-green-800/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-800/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-800/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">Continuous</div>
@@ -170,22 +173,40 @@ const AIAccuracyHero: React.FC = () => {
             </div>
           </div>
         </motion.div>
+
+        {/* Scroll down arrow */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30"
+        >
+          <button
+            onClick={scrollToNextSection}
+            className="group flex flex-col items-center gap-2 text-white/70 hover:text-white transition-colors duration-300"
+            aria-label="Scroll to next section"
+          >
+            <span className="text-sm font-medium">Explore Accuracy</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ChevronDown className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+            </motion.div>
+          </button>
+        </motion.div>
       </div>
 
-      {/* Enhanced background elements */}
+      {/* Pure black background with canvas effect */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.5 }}
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 bg-black"
       >
-        <div className="absolute inset-0 bg-black/90"></div>
-
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
-
         {/* Canvas effect background */}
         <div className="absolute inset-0 w-full h-full">
-          <CanvasEffect id="ai-accuracy-canvas" className="opacity-50" />
+          <CanvasEffect id="ai-accuracy-canvas" className="opacity-60" />
         </div>
       </motion.div>
     </div>

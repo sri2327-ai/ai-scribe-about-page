@@ -55,12 +55,12 @@ const DefiningAccuracySection: React.FC = () => {
       description: "AI Medical Scribe",
       icon: <Stethoscope className="w-5 h-5 text-white" />,
       features: [
-        "Transcription Accuracy: Faithfully capturing spoken interactions.",
-        "EHR Context Integration: Correctly understanding and leveraging relevant patient data from your EHR.",
-        "Clinical Note Accuracy: Generating medically precise and contextually relevant notes, including accurate capture of medical terms, dosages, and findings.",
-        "Predicted Problems Accuracy: Offering clinically relevant suggestions for potential diagnoses based on the encounter and EHR data, benchmarked against physician assessments.",
-        "Predicted Orders Accuracy: Suggesting appropriate medical orders (tests, prescriptions, referrals) aligned with clinical best practices and patient specifics.",
-        "Coding Accuracy (HCC, CPT, ICD-10, E/M): Ensuring suggested codes accurately reflect the documented encounter and services."
+        "Transcription Accuracy: Faithfully capturing spoken interactions without data storage.",
+        "EHR Context Integration: Understanding patient data securely without retention.",
+        "Clinical Note Accuracy: Generating precise notes with immediate secure deletion.",
+        "Predicted Problems Accuracy: Offering clinically relevant suggestions through privacy-preserving AI.",
+        "Predicted Orders Accuracy: Suggesting appropriate medical orders without storing patient information.",
+        "Coding Accuracy (HCC, CPT, ICD-10, E/M): Ensuring accurate codes while maintaining complete data privacy."
       ],
       colSpan: 2,
     },
@@ -69,23 +69,23 @@ const DefiningAccuracySection: React.FC = () => {
       description: "AI Staffing Agent",
       icon: <Users className="w-5 h-5 text-white" />,
       features: [
-        "Information Accuracy: Delivering correct information to patients (e.g., appointment details, instructions).",
-        "Task Completion Accuracy: Reliably completing automated tasks like scheduling and data capture."
+        "Information Accuracy: Delivering correct information through secure, encrypted processing.",
+        "Task Completion Accuracy: Reliably completing automated tasks without storing customer data."
       ]
     },
     {
       title: "Platform-Wide AI",
-      description: "Comprehensive Accuracy",
+      description: "Privacy-First Accuracy",
       icon: <Brain className="w-5 h-5 text-white" />,
       features: [
-        "Across our platform, we prioritize accuracy in critical functions like data extraction from faxes and forms, summarization of medical records, pre-charting assistance, and AI-driven order generation."
+        "Across our platform, we prioritize accuracy while maintaining strict data privacy. All functions including data extraction, summarization, pre-charting, and AI-driven order generation operate with zero data storage and immediate secure deletion."
       ],
       colSpan: 2,
     }
   ];
 
   return (
-    <section className="relative w-full bg-black text-white py-16 sm:py-20 md:py-24 lg:py-32">
+    <section className="relative w-full bg-black text-white py-12 sm:py-16 md:py-20 lg:py-24">
       {/* Spotlight Effect */}
       <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
       
@@ -98,27 +98,27 @@ const DefiningAccuracySection: React.FC = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 text-white leading-tight text-center"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-3 sm:mb-4 text-white leading-tight text-center"
           >
             Defining S10.ai Accuracy
           </motion.h2>
           
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mx-auto text-center mb-12 sm:mb-16"
+            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mx-auto text-center mb-8 sm:mb-12"
           >
-            Clarity for Clinical Confidence
+            Privacy-First Clinical Confidence
           </motion.p>
 
           <motion.p
             variants={itemVariants}
-            className="text-sm sm:text-base md:text-lg leading-relaxed text-white/80 max-w-4xl mx-auto text-center mb-12 sm:mb-16"
+            className="text-sm sm:text-base md:text-lg leading-relaxed text-white/80 max-w-4xl mx-auto text-center mb-8 sm:mb-12"
           >
-            We ensure our definition of accuracy is specific and measurable across our solutions:
+            We ensure our definition of accuracy is specific and measurable across our solutions while maintaining complete data privacy:
           </motion.p>
 
-          {/* Mobile-first grid layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
+          {/* Enhanced mobile-first grid layout */}
+          <div className="space-y-4 sm:space-y-6 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-6 max-w-7xl mx-auto">
             {accuracyItems.map((item, index) => (
               <motion.div
                 key={index}
@@ -129,7 +129,7 @@ const DefiningAccuracySection: React.FC = () => {
                   "border border-white/10 bg-white/5 backdrop-blur-sm",
                   "hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)]",
                   "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40",
-                  // Mobile responsive column spans
+                  // Enhanced mobile responsive column spans
                   item.colSpan === 2 ? "lg:col-span-2" : "lg:col-span-1"
                 )}
               >

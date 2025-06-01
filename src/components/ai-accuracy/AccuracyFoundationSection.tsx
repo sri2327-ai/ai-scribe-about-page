@@ -6,15 +6,19 @@ import { Spotlight } from '@/components/ui/spotlight';
 
 const AccuracyFoundationSection: React.FC = () => {
   const [animatedValue, setAnimatedValue] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Start animation when section comes into view
+            // Reset and start animation on each scroll
+            setAnimatedValue(0);
+            setHasAnimated(false);
             setTimeout(() => {
               setAnimatedValue(99.7);
+              setHasAnimated(true);
             }, 300);
           }
         });
@@ -54,7 +58,7 @@ const AccuracyFoundationSection: React.FC = () => {
   };
 
   return (
-    <section id="accuracy-foundation" className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
+    <section id="accuracy-foundation" className="relative w-full bg-black text-white py-16 sm:py-20 lg:py-24">
       {/* Spotlight Effect */}
       <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
       
@@ -63,29 +67,34 @@ const AccuracyFoundationSection: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: false, amount: 0.3 }}
           className="text-center"
         >
           <motion.h2
             variants={itemVariants}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-8 text-white leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-6 sm:mb-8 text-white leading-tight"
           >
             Accuracy: The Foundation of Trust in Healthcare AI
           </motion.h2>
           
           <motion.div
             variants={itemVariants}
-            className="flex flex-col items-center mb-8"
+            className="flex flex-col items-center mb-6 sm:mb-8"
           >
             <div className="flex items-center justify-center mb-4">
-              <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-thin text-white flex items-baseline">
+              <div className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-thin text-white flex items-baseline">
                 <SlidingNumber value={animatedValue} />
                 <span className="ml-1 text-white font-thin">%</span>
               </div>
             </div>
-            <p className="text-lg sm:text-xl md:text-2xl text-white font-medium">
+            <p className="text-lg sm:text-xl md:text-2xl text-white font-medium mb-3">
               Clinical Accuracy Rate
             </p>
+            <div className="bg-white/10 border border-white/20 rounded-lg px-3 py-2 backdrop-blur-sm">
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed">
+                *Accuracy rate validated through extensive customer testing and clinical validation studies
+              </p>
+            </div>
           </motion.div>
           
           <motion.p

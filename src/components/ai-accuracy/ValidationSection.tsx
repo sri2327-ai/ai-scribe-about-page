@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GridMotion } from '@/components/ui/grid-motion';
-import { CheckCircle, Target, BarChart3, Users, Shield, Zap } from 'lucide-react';
+import { CheckCircle, Target, BarChart3, Users, Shield, Zap, Lock } from 'lucide-react';
 import { Spotlight } from '@/components/ui/spotlight';
 
 const ValidationSection: React.FC = () => {
@@ -25,11 +25,11 @@ const ValidationSection: React.FC = () => {
     </div>,
     <div className="flex flex-col items-center gap-2">
       <Shield className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium text-white">Quality Assurance</span>
+      <span className="text-xs font-medium text-white">Privacy First</span>
     </div>,
     <div className="flex flex-col items-center gap-2">
-      <Zap className="w-6 h-6 text-teal-400" />
-      <span className="text-xs font-medium text-white">Real-World Testing</span>
+      <Lock className="w-6 h-6 text-teal-400" />
+      <span className="text-xs font-medium text-white">No Data Storage</span>
     </div>,
     "99% Accuracy",
     "Benchmarking",
@@ -37,21 +37,16 @@ const ValidationSection: React.FC = () => {
     "Clinical Notes",
     "Expert Review",
     "Gold Standards",
-    "Transcription",
-    "Information Extraction",
-    "AI-Generated",
-    "Physician-Reviewed",
-    "Diverse Specialties",
-    "Thousands of Encounters",
-    "Contextualized Figures",
-    "Human Oversight",
-    "Pilot Programs",
-    "Third-Party Review",
-    "Independent Validation",
-    "Industry Standards",
-    "Clinical Settings",
-    "Quality Control",
-    "Performance Metrics"
+    "Privacy Protection",
+    "No Data Training",
+    "Secure Processing",
+    "HIPAA Compliant",
+    "Data Security",
+    "Zero Storage",
+    "Private AI",
+    "Encrypted",
+    "Secure",
+    "Protected"
   ];
 
   const containerVariants = {
@@ -83,8 +78,8 @@ const ValidationSection: React.FC = () => {
       <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
       
       {/* Content Overlay */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="absolute inset-0 z-10 flex items-center justify-center py-8 sm:py-12">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -102,44 +97,86 @@ const ValidationSection: React.FC = () => {
               variants={itemVariants}
               className="text-base sm:text-lg md:text-xl leading-relaxed text-white/80 mb-6 sm:mb-8"
             >
-              We build trust through transparent and robust validation
+              We build trust through transparent and robust validation while protecting your data
             </motion.p>
 
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-left"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 text-left mb-6 sm:mb-8"
             >
-              <div className="space-y-3 sm:space-y-4">
-                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
-                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Benchmarking to Clinical Gold Standards</h3>
-                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-                    C.R.U.S.H. notes are benchmarked against notes meticulously prepared or reviewed by clinical experts and physicians.
-                  </p>
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <Target className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Clinical Gold Standards</h3>
                 </div>
-                
-                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
-                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Key Metrics</h3>
-                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-                    We use established metrics like Word Error Rate (transcription) and F1 scores (information extraction), comparing AI-suggested codes against expert coders.
-                  </p>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                  C.R.U.S.H. notes are benchmarked against notes meticulously prepared or reviewed by clinical experts and physicians.
+                </p>
+              </div>
+              
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Established Metrics</h3>
                 </div>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                  We use metrics like Word Error Rate (transcription) and F1 scores (information extraction), comparing AI-suggested codes against expert coders.
+                </p>
               </div>
 
-              <div className="space-y-3 sm:space-y-4">
-                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
-                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Contextualized Accuracy Figures</h3>
-                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-                    We provide clear context for our accuracy claims across thousands of encounters in diverse specialties.
-                  </p>
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Contextualized Results</h3>
                 </div>
-                
-                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
-                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Quality Assurance & Real-World Testing</h3>
-                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
-                    Human oversight in model validation and findings from pilot programs confirm our accuracy in real-world clinical settings.
-                  </p>
-                </div>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                  We provide clear context for our accuracy claims across thousands of encounters in diverse specialties.
+                </p>
               </div>
+
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Quality Assurance</h3>
+                </div>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                  Human oversight in model validation and findings from pilot programs confirm our accuracy in real-world clinical settings.
+                </p>
+              </div>
+
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Privacy-First Validation</h3>
+                </div>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                  S10.ai does not store customer data or use it for model training. All validation is performed securely without compromising patient privacy.
+                </p>
+              </div>
+
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Secure Testing Environment</h3>
+                </div>
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
+                  Real-world testing occurs in controlled, HIPAA-compliant environments with encrypted data processing and immediate deletion after validation.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Data Privacy Emphasis */}
+            <motion.div
+              variants={itemVariants}
+              className="bg-gradient-to-r from-teal-500/20 to-blue-500/20 border border-teal-500/30 rounded-xl p-4 sm:p-6 backdrop-blur-sm"
+            >
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <Shield className="w-6 h-6 text-teal-400" />
+                <h3 className="text-lg sm:text-xl font-semibold text-white">Privacy Commitment</h3>
+              </div>
+              <p className="text-white/90 text-sm sm:text-base leading-relaxed">
+                S10.ai operates on a zero-data-storage principle. We do not retain, store, or use customer data for model training purposes. All processing is performed in real-time with immediate secure deletion, ensuring complete patient privacy and HIPAA compliance.
+              </p>
             </motion.div>
           </motion.div>
         </div>
