@@ -68,118 +68,118 @@ const AIAccuracyHero: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-5xl mx-auto flex-1 justify-center"
+          className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto flex-1 justify-center"
         >
-          <div className="mb-10 mt-4 md:mt-6">
+          <div className="mb-8 mt-4 md:mt-6">
             <div className="px-2">
-              <div className="relative mx-auto h-full max-w-5xl border border-white/20 p-6 [mask-image:radial-gradient(800rem_96rem_at_center,white,transparent)] md:px-12 md:py-20">
-                {/* Corner brackets */}
+              <div className="relative mx-auto h-full max-w-4xl border border-white/20 p-4 [mask-image:radial-gradient(600rem_76rem_at_center,white,transparent)] md:px-8 md:py-12">
+                {/* Corner brackets - now white */}
                 <Plus
                   strokeWidth={4}
-                  className="text-emerald-400 absolute -left-5 -top-5 h-10 w-10"
+                  className="text-white absolute -left-4 -top-4 h-8 w-8"
                 />
                 <Plus
                   strokeWidth={4}
-                  className="text-emerald-400 absolute -bottom-5 -left-5 h-10 w-10"
+                  className="text-white absolute -bottom-4 -left-4 h-8 w-8"
                 />
                 <Plus
                   strokeWidth={4}
-                  className="text-emerald-400 absolute -right-5 -top-5 h-10 w-10"
+                  className="text-white absolute -right-4 -top-4 h-8 w-8"
                 />
                 <Plus
                   strokeWidth={4}
-                  className="text-emerald-400 absolute -bottom-5 -right-5 h-10 w-10"
+                  className="text-white absolute -bottom-4 -right-4 h-8 w-8"
                 />
 
-                {/* Main heading content */}
+                {/* Main heading content - smaller sizes */}
                 <motion.h1
                   variants={itemVariants}
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-4 sm:mb-6 text-white leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-3 sm:mb-4 text-white leading-tight"
                 >
                   S10.AI Accuracy
                 </motion.h1>
 
                 <motion.h2
                   variants={itemVariants}
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed mb-12 sm:mb-16 lg:mb-20"
+                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-white/90 leading-relaxed mb-8 sm:mb-10 lg:mb-12"
                 >
                   Healthcare AI Standard
                 </motion.h2>
 
-                {/* Benefit pills inside the frame */}
+                {/* Benefit pills inside the frame - smaller and darker green */}
                 <motion.div
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-12 sm:mb-16 lg:mb-20"
+                  className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-10 lg:mb-12"
                 >
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                      <div className="relative mb-4">
-                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      <div className="relative mb-3">
+                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
-                        <div className="font-semibold text-base sm:text-lg lg:text-xl">HIPAA</div>
-                        <div className="text-white/80 text-sm sm:text-base">Compliant</div>
+                        <div className="font-semibold text-sm sm:text-base lg:text-lg">HIPAA</div>
+                        <div className="text-white/80 text-xs sm:text-sm">Compliant</div>
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                      <div className="relative mb-4">
-                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      <div className="relative mb-3">
+                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
-                        <div className="font-semibold text-base sm:text-lg lg:text-xl">99.7%</div>
-                        <div className="text-white/80 text-sm sm:text-base">Accuracy</div>
+                        <div className="font-semibold text-sm sm:text-base lg:text-lg">99.7%</div>
+                        <div className="text-white/80 text-xs sm:text-sm">Accuracy</div>
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                      <div className="relative mb-4">
-                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      <div className="relative mb-3">
+                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
-                        <div className="font-semibold text-base sm:text-lg lg:text-xl">Clinical</div>
-                        <div className="text-white/80 text-sm sm:text-base">Validation</div>
+                        <div className="font-semibold text-sm sm:text-base lg:text-lg">Clinical</div>
+                        <div className="text-white/80 text-xs sm:text-sm">Validation</div>
                       </div>
                     </div>
                   </motion.div>
 
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                      <div className="relative mb-4">
-                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      <div className="relative mb-3">
+                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
-                        <div className="font-semibold text-base sm:text-lg lg:text-xl">Continuous</div>
-                        <div className="text-white/80 text-sm sm:text-base">Learning</div>
+                        <div className="font-semibold text-sm sm:text-base lg:text-lg">Continuous</div>
+                        <div className="text-white/80 text-xs sm:text-sm">Learning</div>
                       </div>
                     </div>
                   </motion.div>
                 </motion.div>
 
-                {/* CTA button inside the frame */}
+                {/* CTA button inside the frame - smaller */}
                 <motion.button
                   variants={itemVariants}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={scrollToSection2}
-                  className="px-8 sm:px-10 py-4 sm:py-5 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-3 text-base sm:text-lg backdrop-blur-sm mx-auto relative group"
+                  className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-2 text-sm sm:text-base backdrop-blur-sm mx-auto relative group"
                 >
                   <span className="relative z-10">Explore Accuracy Metrics</span>
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
                   <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </motion.button>
               </div>
@@ -188,7 +188,7 @@ const AIAccuracyHero: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Enhanced background elements with canvas effect */}
+      {/* Enhanced background elements with intensified canvas effect */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -199,9 +199,9 @@ const AIAccuracyHero: React.FC = () => {
 
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] rounded-full bg-gradient-to-b from-teal-500/20 to-cyan-600/10 blur-3xl"></div>
 
-        {/* Canvas effect background */}
+        {/* Canvas effect background - intensified */}
         <div className="absolute inset-0 w-full h-full">
-          <CanvasEffect id="ai-accuracy-canvas" className="opacity-30" />
+          <CanvasEffect id="ai-accuracy-canvas" className="opacity-50" />
         </div>
       </motion.div>
     </div>

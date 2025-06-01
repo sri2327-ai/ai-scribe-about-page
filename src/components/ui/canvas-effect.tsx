@@ -122,11 +122,11 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Use only teal blue colors with reduced opacity for subtlety
+    // Intensified teal blue colors with higher opacity
     const isMobileView = window.innerWidth < 768;
     const tealHue = 180; // Teal blue hue
-    ctx.strokeStyle = `hsla(${tealHue}, 100%, 50%, ${isMobileView ? 0.008 : 0.012})`;
-    ctx.lineWidth = isMobileView ? 4 : 6;
+    ctx.strokeStyle = `hsla(${tealHue}, 100%, 50%, ${isMobileView ? 0.025 : 0.035})`;
+    ctx.lineWidth = isMobileView ? 6 : 8;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -142,10 +142,10 @@ function resizeCanvas() {
     ctx.canvas.width = window.innerWidth;
     ctx.canvas.height = window.innerHeight;
     
-    // Update trail count and size for mobile
+    // Update trail count and size for mobile - intensified
     const isMobileView = window.innerWidth < 768;
-    E.trails = isMobileView ? 30 : 40;
-    E.size = isMobileView ? 20 : 25;
+    E.trails = isMobileView ? 45 : 60;
+    E.size = isMobileView ? 25 : 30;
     
     // Reinitialize if needed
     if (lines.length > 0) {
@@ -165,8 +165,8 @@ var ctx,
   E = {
     debug: true,
     friction: 0.5,
-    trails: 25, // Further reduced trail count for subtlety
-    size: 15, // Further reduced size for subtlety
+    trails: 50, // Increased trail count for more intensity
+    size: 20, // Increased size for more intensity
     dampening: 0.025,
     tension: 0.99,
   };
@@ -210,13 +210,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       offset: 285,
     });
     
-    // Update settings for mobile and subtlety
+    // Update settings for mobile and intensity
     if (isMobile) {
-      E.trails = 20;
-      E.size = 12;
+      E.trails = 40;
+      E.size = 18;
     } else {
-      E.trails = 25;
-      E.size = 15;
+      E.trails = 50;
+      E.size = 20;
     }
     
     // Make sure we resize the canvas to the correct dimensions
@@ -244,11 +244,11 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       });
       onMousemove(initialEvent);
       
-      // Add subtle simulated movements
+      // Add more frequent simulated movements for intensity
       const simulateMovement = () => {
         if (ctx && ctx.running) {
-          const newX = pos.x + (Math.random() * 60 - 30); // Reduced movement range for more subtlety
-          const newY = pos.y + (Math.random() * 60 - 30); // Reduced movement range for more subtlety
+          const newX = pos.x + (Math.random() * 80 - 40); // Increased movement range
+          const newY = pos.y + (Math.random() * 80 - 40); // Increased movement range
           
           // Update position
           pos.x = newX;
@@ -262,13 +262,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       };
       
       // Simulate some initial movement after loading
-      for (let i = 0; i < 8; i++) {
-        setTimeout(simulateMovement, 400 * i);
+      for (let i = 0; i < 12; i++) {
+        setTimeout(simulateMovement, 300 * i);
       }
       
-      // Continue occasional movement simulation with longer intervals for subtlety
-      setInterval(simulateMovement, 4000);
-    }, 600); 
+      // Continue more frequent movement simulation for intensity
+      setInterval(simulateMovement, 2500);
+    }, 400); 
     
     return () => {
       if (ctx) ctx.running = false;
