@@ -122,11 +122,11 @@ function render() {
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.globalCompositeOperation = "lighter";
-    // Use only teal blue colors (hue around 180)
+    // Use only teal blue colors with reduced opacity for subtlety
     const isMobileView = window.innerWidth < 768;
     const tealHue = 180; // Teal blue hue
-    ctx.strokeStyle = `hsla(${tealHue}, 100%, 50%, ${isMobileView ? 0.03 : 0.04})`;
-    ctx.lineWidth = isMobileView ? 8 : 12;
+    ctx.strokeStyle = `hsla(${tealHue}, 100%, 50%, ${isMobileView ? 0.015 : 0.02})`;
+    ctx.lineWidth = isMobileView ? 6 : 8;
     for (var e, t = 0; t < E.trails; t++) {
       e = lines[t];
       e.update();
@@ -165,8 +165,8 @@ var ctx,
   E = {
     debug: true,
     friction: 0.5,
-    trails: 80,
-    size: 60,
+    trails: isMobile ? 30 : 50, // Reduced trail count for subtlety
+    size: isMobile ? 25 : 35, // Reduced size for subtlety
     dampening: 0.025,
     tension: 0.99,
   };
@@ -210,10 +210,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       offset: 285,
     });
     
-    // Update settings for mobile
+    // Update settings for mobile and subtlety
     if (isMobile) {
+      E.trails = 30;
+      E.size = 25;
+    } else {
       E.trails = 50;
-      E.size = 40;
+      E.size = 35;
     }
     
     // Make sure we resize the canvas to the correct dimensions
@@ -241,11 +244,11 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       });
       onMousemove(initialEvent);
       
-      // Add additional simulated movements to make canvas effect more visible
+      // Add subtle simulated movements
       const simulateMovement = () => {
         if (ctx && ctx.running) {
-          const newX = pos.x + (Math.random() * 200 - 100);
-          const newY = pos.y + (Math.random() * 200 - 100);
+          const newX = pos.x + (Math.random() * 100 - 50); // Reduced movement range
+          const newY = pos.y + (Math.random() * 100 - 50); // Reduced movement range
           
           // Update position
           pos.x = newX;
@@ -259,13 +262,13 @@ export const CanvasEffect = ({ id = "canvas", className = "" }: CanvasEffectProp
       };
       
       // Simulate some initial movement after loading
-      for (let i = 0; i < 15; i++) {
-        setTimeout(simulateMovement, 200 * i);
+      for (let i = 0; i < 10; i++) {
+        setTimeout(simulateMovement, 300 * i);
       }
       
-      // Continue occasional movement simulation
-      setInterval(simulateMovement, 2000);
-    }, 300); 
+      // Continue occasional movement simulation with longer intervals for subtlety
+      setInterval(simulateMovement, 3000);
+    }, 500); 
     
     return () => {
       if (ctx) ctx.running = false;
