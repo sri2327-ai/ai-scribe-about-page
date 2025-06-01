@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GridMotion } from '@/components/ui/grid-motion';
 import { RefreshCw, MessageSquare, TrendingUp, Activity, Brain, Gauge } from 'lucide-react';
+import { Spotlight } from '@/components/ui/spotlight';
 
 const SustainingAccuracySection: React.FC = () => {
   const sustainingItems = [
@@ -78,6 +79,9 @@ const SustainingAccuracySection: React.FC = () => {
 
   return (
     <section className="relative w-full bg-black text-white min-h-screen">
+      {/* Spotlight Effect */}
+      <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
+      
       {/* Content Overlay */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -89,48 +93,48 @@ const SustainingAccuracySection: React.FC = () => {
           >
             <motion.h2
               variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-5xl font-light mb-6 text-white leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 sm:mb-6 text-white leading-tight"
             >
               Sustaining Peak Accuracy: Our Ongoing Commitment
             </motion.h2>
             
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl leading-relaxed text-white/80 mb-8"
+              className="text-base sm:text-lg md:text-xl leading-relaxed text-white/80 mb-6 sm:mb-8"
             >
               Accuracy is a continuous pursuit
             </motion.p>
 
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left"
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-left"
             >
-              <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <MessageSquare className="w-6 h-6 text-white" />
-                  <h3 className="text-lg font-semibold text-white">Clinician Feedback Loops</h3>
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Clinician Feedback Loops</h3>
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                   User feedback is integral to refining our models for specific workflows and physician styles.
                 </p>
               </div>
 
-              <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <RefreshCw className="w-6 h-6 text-white" />
-                  <h3 className="text-lg font-semibold text-white">Regular Model Updates</h3>
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <RefreshCw className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Regular Model Updates</h3>
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                   We consistently update our AI with new medical knowledge and data to maintain cutting-edge accuracy.
                 </p>
               </div>
 
-              <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <Activity className="w-6 h-6 text-white" />
-                  <h3 className="text-lg font-semibold text-white">Performance Monitoring</h3>
+              <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm hover:bg-teal-500/10 hover:border-teal-500/40 transition-colors duration-300">
+                <div className="flex items-center gap-3 mb-3 sm:mb-4">
+                  <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  <h3 className="text-sm sm:text-lg font-semibold text-white">Performance Monitoring</h3>
                 </div>
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                   Systems are in place to monitor performance and flag any deviations, ensuring sustained accuracy.
                 </p>
               </div>

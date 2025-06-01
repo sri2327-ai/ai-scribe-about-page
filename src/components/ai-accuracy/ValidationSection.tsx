@@ -3,6 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GridMotion } from '@/components/ui/grid-motion';
 import { CheckCircle, Target, BarChart3, Users, Shield, Zap } from 'lucide-react';
+import { Spotlight } from '@/components/ui/spotlight';
 
 const ValidationSection: React.FC = () => {
   const validationItems = [
@@ -78,6 +79,9 @@ const ValidationSection: React.FC = () => {
 
   return (
     <section className="relative w-full bg-black text-white min-h-screen">
+      {/* Spotlight Effect */}
+      <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
+      
       {/* Content Overlay */}
       <div className="absolute inset-0 z-10 flex items-center justify-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -89,49 +93,49 @@ const ValidationSection: React.FC = () => {
           >
             <motion.h2
               variants={itemVariants}
-              className="text-3xl sm:text-4xl lg:text-5xl font-light mb-6 text-white leading-tight"
+              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 sm:mb-6 text-white leading-tight"
             >
               Validation: Our Rigorous Approach to Ensuring Accuracy
             </motion.h2>
             
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl leading-relaxed text-white/80 mb-8"
+              className="text-base sm:text-lg md:text-xl leading-relaxed text-white/80 mb-6 sm:mb-8"
             >
               We build trust through transparent and robust validation
             </motion.p>
 
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left"
+              className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-left"
             >
-              <div className="space-y-4">
-                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-white">Benchmarking to Clinical Gold Standards</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Benchmarking to Clinical Gold Standards</h3>
+                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                     C.R.U.S.H. notes are benchmarked against notes meticulously prepared or reviewed by clinical experts and physicians.
                   </p>
                 </div>
                 
-                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-white">Key Metrics</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
+                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Key Metrics</h3>
+                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                     We use established metrics like Word Error Rate (transcription) and F1 scores (information extraction), comparing AI-suggested codes against expert coders.
                   </p>
                 </div>
               </div>
 
-              <div className="space-y-4">
-                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-white">Contextualized Accuracy Figures</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Contextualized Accuracy Figures</h3>
+                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                     We provide clear context for our accuracy claims across thousands of encounters in diverse specialties.
                   </p>
                 </div>
                 
-                <div className="bg-black border border-white/20 rounded-lg p-6 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold mb-3 text-white">Quality Assurance & Real-World Testing</h3>
-                  <p className="text-white/70 text-sm leading-relaxed">
+                <div className="bg-black border border-white/20 rounded-lg p-4 sm:p-6 backdrop-blur-sm">
+                  <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-white">Quality Assurance & Real-World Testing</h3>
+                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed">
                     Human oversight in model validation and findings from pilot programs confirm our accuracy in real-world clinical settings.
                   </p>
                 </div>

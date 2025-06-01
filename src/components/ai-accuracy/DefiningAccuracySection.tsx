@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Stethoscope, Users, Brain } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Spotlight } from '@/components/ui/spotlight';
 
 interface AccuracyItem {
   title: string;
@@ -83,7 +85,10 @@ const DefiningAccuracySection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
+    <section className="relative w-full bg-black text-white py-16 sm:py-20 md:py-24 lg:py-32">
+      {/* Spotlight Effect */}
+      <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
+      
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
@@ -93,45 +98,46 @@ const DefiningAccuracySection: React.FC = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4 text-white leading-tight text-center"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-4 text-white leading-tight text-center"
           >
             Defining S10.ai Accuracy
           </motion.h2>
           
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl leading-relaxed text-white/60 max-w-3xl mx-auto text-center mb-16"
+            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mx-auto text-center mb-12 sm:mb-16"
           >
             Clarity for Clinical Confidence
           </motion.p>
 
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg leading-relaxed text-white/80 max-w-4xl mx-auto text-center mb-16"
+            className="text-sm sm:text-base md:text-lg leading-relaxed text-white/80 max-w-4xl mx-auto text-center mb-12 sm:mb-16"
           >
             We ensure our definition of accuracy is specific and measurable across our solutions:
           </motion.p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          {/* Mobile-first grid layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 max-w-7xl mx-auto">
             {accuracyItems.map((item, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 custom={index}
                 className={cn(
-                  "group relative p-6 rounded-xl overflow-hidden transition-all duration-300",
+                  "group relative p-4 sm:p-6 rounded-xl overflow-hidden transition-all duration-300",
                   "border border-white/10 bg-white/5 backdrop-blur-sm",
                   "hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)]",
                   "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40",
-                  item.colSpan || "col-span-1",
-                  item.colSpan === 2 ? "md:col-span-2" : ""
+                  // Mobile responsive column spans
+                  item.colSpan === 2 ? "lg:col-span-2" : "lg:col-span-1"
                 )}
               >
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute inset-0">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.05)_1px,transparent_1px)] bg-[length:4px_4px]" />
                 </div>
 
-                <div className="relative flex flex-col space-y-4">
+                <div className="relative flex flex-col space-y-3 sm:space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center justify-center transition-all duration-300">
                       {item.icon}
@@ -142,19 +148,19 @@ const DefiningAccuracySection: React.FC = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="font-semibold text-white tracking-tight text-lg">
+                    <h3 className="font-semibold text-white tracking-tight text-base sm:text-lg">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-white/60 leading-snug font-medium">
+                    <p className="text-xs sm:text-sm text-white/60 leading-snug font-medium">
                       {item.description}
                     </p>
                   </div>
 
-                  <div className="space-y-3 mt-4">
+                  <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-4">
                     {item.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start gap-3">
-                        <div className="w-1.5 h-1.5 bg-white rounded-full mt-2 flex-shrink-0 opacity-60"></div>
-                        <p className="text-sm leading-relaxed text-white/70 group-hover:text-white/80 transition-colors duration-300">
+                      <div key={featureIndex} className="flex items-start gap-2 sm:gap-3">
+                        <div className="w-1.5 h-1.5 bg-white rounded-full mt-1.5 sm:mt-2 flex-shrink-0 opacity-60"></div>
+                        <p className="text-xs sm:text-sm leading-relaxed text-white/70 group-hover:text-white/80 transition-colors duration-300">
                           {feature}
                         </p>
                       </div>

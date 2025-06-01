@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SlidingNumber } from '@/components/ui/sliding-number';
+import { Spotlight } from '@/components/ui/spotlight';
 
 const AccuracyFoundationSection: React.FC = () => {
   const [animatedValue, setAnimatedValue] = useState(0);
@@ -54,6 +55,9 @@ const AccuracyFoundationSection: React.FC = () => {
 
   return (
     <section id="accuracy-foundation" className="relative w-full bg-black text-white py-20 sm:py-24 lg:py-32">
+      {/* Spotlight Effect */}
+      <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
+      
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
@@ -64,7 +68,7 @@ const AccuracyFoundationSection: React.FC = () => {
         >
           <motion.h2
             variants={itemVariants}
-            className="text-3xl sm:text-4xl lg:text-5xl font-light mb-8 text-white leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-8 text-white leading-tight"
           >
             Accuracy: The Foundation of Trust in Healthcare AI
           </motion.h2>
@@ -74,19 +78,19 @@ const AccuracyFoundationSection: React.FC = () => {
             className="flex flex-col items-center mb-8"
           >
             <div className="flex items-center justify-center mb-4">
-              <div className="text-6xl sm:text-7xl lg:text-8xl font-thin text-white flex items-baseline">
+              <div className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-thin text-white flex items-baseline">
                 <SlidingNumber value={animatedValue} />
                 <span className="ml-1 text-white font-thin">%</span>
               </div>
             </div>
-            <p className="text-xl sm:text-2xl text-white font-medium">
+            <p className="text-lg sm:text-xl md:text-2xl text-white font-medium">
               Clinical Accuracy Rate
             </p>
           </motion.div>
           
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto"
+            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/80 max-w-3xl mx-auto"
           >
             In healthcare, accuracy is non-negotiable. It's essential for patient safety, sound clinical decisions, and efficient practice management. At S10.ai, we are fundamentally committed to delivering the highest standards of accuracy. This page outlines how we define, achieve, and continuously verify the precision of our AI solutions.
           </motion.p>
