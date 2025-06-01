@@ -26,7 +26,8 @@ import {
   Award,
   BookOpen,
   MessageSquare,
-  Phone
+  Phone,
+  Target
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -167,21 +168,27 @@ const DarkAnimatedHeader = () => {
         href: '/technology'
       },
       {
+        title: 'AI Accuracy',
+        description: 'Healthcare AI standards & validation',
+        icon: <Target className="w-5 h-5 text-[#5192AE]" />,
+        href: '/ai-accuracy'
+      },
+      {
         title: 'S10.AI Advantages',
         description: 'Why choose us',
-        icon: <TrendingUp className="w-5 h-5 text-[#5192AE]" />,
+        icon: <TrendingUp className="w-5 h-5 text-[#A5CCF3]" />,
         href: '/advantages'
       },
       {
         title: 'Integrations',
         description: 'EHR & platform connections',
-        icon: <Layers className="w-5 h-5 text-[#A5CCF3]" />,
+        icon: <Layers className="w-5 h-5 text-white" />,
         href: '/integration'
       },
       {
         title: 'Specialty',
         description: 'Medical specialty solutions',
-        icon: <Stethoscope className="w-5 h-5 text-white" />,
+        icon: <Stethoscope className="w-5 h-5 text-[#387E89]" />,
         href: '/specialty'
       }
     ],
