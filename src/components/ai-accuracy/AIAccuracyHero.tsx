@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Plus } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { CanvasEffect } from '@/components/ui/canvas-effect';
 import { Spotlight } from '@/components/ui/spotlight';
 
@@ -30,13 +30,6 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position }) => {
 };
 
 const AIAccuracyHero: React.FC = () => {
-  const scrollToSection2 = () => {
-    const section2 = document.querySelector('section:nth-of-type(2)');
-    if (section2) {
-      section2.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -67,16 +60,16 @@ const AIAccuracyHero: React.FC = () => {
       
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-screen flex flex-col">
         
-        {/* Main hero content with bigger border frame */}
+        {/* Main hero content with enhanced frame */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="relative z-30 flex flex-col items-center text-center max-w-6xl mx-auto flex-1 justify-center"
+          className="relative z-30 flex flex-col items-center text-center max-w-7xl mx-auto flex-1 justify-center"
         >
           <div className="mb-8 mt-4 md:mt-6 w-full">
             <div className="px-2">
-              <div className="relative mx-auto h-full max-w-6xl border border-white/20 p-8 md:p-16 lg:p-20 [mask-image:radial-gradient(800rem_96rem_at_center,white,transparent)]">
+              <div className="relative mx-auto h-full max-w-7xl border border-white/20 p-12 md:p-20 lg:p-28 xl:p-32 [mask-image:radial-gradient(1000rem_120rem_at_center,white,transparent)]">
                 {/* Corner brackets - white */}
                 <Plus
                   strokeWidth={4}
@@ -95,34 +88,34 @@ const AIAccuracyHero: React.FC = () => {
                   className="text-white absolute -bottom-4 -right-4 h-8 w-8"
                 />
 
-                {/* Main heading content */}
+                {/* Main heading content - larger H1 */}
                 <motion.h1
                   variants={itemVariants}
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-light mb-4 sm:mb-6 text-white leading-tight"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-light mb-6 sm:mb-8 text-white leading-tight"
                 >
                   S10.AI Accuracy
                 </motion.h1>
 
                 <motion.h2
                   variants={itemVariants}
-                  className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-white/90 leading-relaxed mb-12 sm:mb-16 lg:mb-20"
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed mb-16 sm:mb-20 lg:mb-24"
                 >
                   Healthcare AI Standard
                 </motion.h2>
 
-                {/* Benefit pills inside the frame */}
+                {/* Benefit pills inside the frame with improved spacing */}
                 <motion.div
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16 lg:mb-20"
+                  className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12"
                 >
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">HIPAA</div>
@@ -134,9 +127,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">99.7%</div>
@@ -148,9 +141,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">Clinical</div>
@@ -162,9 +155,9 @@ const AIAccuracyHero: React.FC = () => {
                   <motion.div variants={itemVariants}>
                     <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
                       <div className="relative mb-4">
-                        <div className="w-3 h-3 bg-green-600 rounded-full shadow-lg shadow-green-600/50 animate-pulse"></div>
-                        <div className="absolute -inset-1.5 bg-green-600/30 rounded-full blur-md animate-pulse"></div>
-                        <div className="absolute -inset-1 bg-green-600/40 rounded-full blur-sm animate-pulse"></div>
+                        <div className="w-3 h-3 bg-green-700 rounded-full shadow-lg shadow-green-700/50 animate-pulse"></div>
+                        <div className="absolute -inset-1.5 bg-green-700/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-green-700/40 rounded-full blur-sm animate-pulse"></div>
                       </div>
                       <div className="text-white">
                         <div className="font-semibold text-sm sm:text-base lg:text-lg">Continuous</div>
@@ -173,19 +166,6 @@ const AIAccuracyHero: React.FC = () => {
                     </div>
                   </motion.div>
                 </motion.div>
-
-                {/* CTA button inside the frame */}
-                <motion.button
-                  variants={itemVariants}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={scrollToSection2}
-                  className="px-8 sm:px-10 py-4 sm:py-5 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-3 text-base sm:text-lg backdrop-blur-sm mx-auto relative group"
-                >
-                  <span className="relative z-10">Explore Accuracy Metrics</span>
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </motion.button>
               </div>
             </div>
           </div>
