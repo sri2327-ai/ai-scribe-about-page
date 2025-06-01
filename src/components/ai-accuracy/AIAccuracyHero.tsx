@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plus } from 'lucide-react';
 import { CanvasEffect } from '@/components/ui/canvas-effect';
 
 interface FeatureItemProps {
@@ -63,105 +63,127 @@ const AIAccuracyHero: React.FC = () => {
     <div className="relative w-full bg-black text-white overflow-hidden min-h-screen">
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 min-h-screen flex flex-col">
         
-        {/* Main hero content */}
+        {/* Main hero content with border frame */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
           className="relative z-30 flex flex-col items-center text-center max-w-5xl mx-auto flex-1 justify-center"
         >
-          {/* Main heading content */}
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-4 sm:mb-6 text-white leading-tight"
-          >
-            S10.AI Accuracy
-          </motion.h1>
+          <div className="mb-10 mt-4 md:mt-6">
+            <div className="px-2">
+              <div className="relative mx-auto h-full max-w-5xl border border-white/20 p-6 [mask-image:radial-gradient(800rem_96rem_at_center,white,transparent)] md:px-12 md:py-20">
+                {/* Corner brackets */}
+                <Plus
+                  strokeWidth={4}
+                  className="text-emerald-400 absolute -left-5 -top-5 h-10 w-10"
+                />
+                <Plus
+                  strokeWidth={4}
+                  className="text-emerald-400 absolute -bottom-5 -left-5 h-10 w-10"
+                />
+                <Plus
+                  strokeWidth={4}
+                  className="text-emerald-400 absolute -right-5 -top-5 h-10 w-10"
+                />
+                <Plus
+                  strokeWidth={4}
+                  className="text-emerald-400 absolute -bottom-5 -right-5 h-10 w-10"
+                />
 
-          <motion.h2
-            variants={itemVariants}
-            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed mb-12 sm:mb-16 lg:mb-20"
-          >
-            Healthcare AI Standard
-          </motion.h2>
+                {/* Main heading content */}
+                <motion.h1
+                  variants={itemVariants}
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light mb-4 sm:mb-6 text-white leading-tight"
+                >
+                  S10.AI Accuracy
+                </motion.h1>
 
-          {/* CTA button */}
-          <motion.button
-            variants={itemVariants}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={scrollToSection2}
-            className="px-8 sm:px-10 py-4 sm:py-5 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-3 text-base sm:text-lg backdrop-blur-sm mx-auto relative group"
-          >
-            <span className="relative z-10">Explore Accuracy Metrics</span>
-            <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
-            <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </motion.button>
-        </motion.div>
+                <motion.h2
+                  variants={itemVariants}
+                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light text-white/90 leading-relaxed mb-12 sm:mb-16 lg:mb-20"
+                >
+                  Healthcare AI Standard
+                </motion.h2>
 
-        {/* Feature items positioned below the main content */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="relative flex justify-center items-center mt-16 sm:mt-20 lg:mt-24 pb-16 sm:pb-20 lg:pb-24"
-        >
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16 max-w-5xl">
-            <motion.div variants={itemVariants}>
-              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                <div className="relative mb-4">
-                  <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                  <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                  <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
-                </div>
-                <div className="text-white">
-                  <div className="font-semibold text-base sm:text-lg lg:text-xl">HIPAA</div>
-                  <div className="text-white/80 text-sm sm:text-base">Compliant</div>
-                </div>
+                {/* Benefit pills inside the frame */}
+                <motion.div
+                  variants={containerVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-12 mb-12 sm:mb-16 lg:mb-20"
+                >
+                  <motion.div variants={itemVariants}>
+                    <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                      <div className="relative mb-4">
+                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
+                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      </div>
+                      <div className="text-white">
+                        <div className="font-semibold text-base sm:text-lg lg:text-xl">HIPAA</div>
+                        <div className="text-white/80 text-sm sm:text-base">Compliant</div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div variants={itemVariants}>
+                    <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                      <div className="relative mb-4">
+                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
+                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      </div>
+                      <div className="text-white">
+                        <div className="font-semibold text-base sm:text-lg lg:text-xl">99.7%</div>
+                        <div className="text-white/80 text-sm sm:text-base">Accuracy</div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div variants={itemVariants}>
+                    <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                      <div className="relative mb-4">
+                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
+                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      </div>
+                      <div className="text-white">
+                        <div className="font-semibold text-base sm:text-lg lg:text-xl">Clinical</div>
+                        <div className="text-white/80 text-sm sm:text-base">Validation</div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div variants={itemVariants}>
+                    <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
+                      <div className="relative mb-4">
+                        <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
+                        <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
+                        <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
+                      </div>
+                      <div className="text-white">
+                        <div className="font-semibold text-base sm:text-lg lg:text-xl">Continuous</div>
+                        <div className="text-white/80 text-sm sm:text-base">Learning</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+
+                {/* CTA button inside the frame */}
+                <motion.button
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={scrollToSection2}
+                  className="px-8 sm:px-10 py-4 sm:py-5 border-2 border-white rounded-full text-white font-medium hover:bg-white/10 transition-all duration-300 shadow-lg flex items-center gap-3 text-base sm:text-lg backdrop-blur-sm mx-auto relative group"
+                >
+                  <span className="relative z-10">Explore Accuracy Metrics</span>
+                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </motion.button>
               </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                <div className="relative mb-4">
-                  <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                  <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                  <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
-                </div>
-                <div className="text-white">
-                  <div className="font-semibold text-base sm:text-lg lg:text-xl">99.7%</div>
-                  <div className="text-white/80 text-sm sm:text-base">Accuracy</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                <div className="relative mb-4">
-                  <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                  <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                  <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
-                </div>
-                <div className="text-white">
-                  <div className="font-semibold text-base sm:text-lg lg:text-xl">Clinical</div>
-                  <div className="text-white/80 text-sm sm:text-base">Validation</div>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div variants={itemVariants}>
-              <div className="flex flex-col items-center text-center group transition-all duration-300 hover:scale-110">
-                <div className="relative mb-4">
-                  <div className="w-4 h-4 bg-emerald-400 rounded-full shadow-lg shadow-emerald-400/50 animate-pulse"></div>
-                  <div className="absolute -inset-2 bg-emerald-400/30 rounded-full blur-md animate-pulse"></div>
-                  <div className="absolute -inset-1 bg-emerald-400/40 rounded-full blur-sm animate-pulse"></div>
-                </div>
-                <div className="text-white">
-                  <div className="font-semibold text-base sm:text-lg lg:text-xl">Continuous</div>
-                  <div className="text-white/80 text-sm sm:text-base">Learning</div>
-                </div>
-              </div>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>
