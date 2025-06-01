@@ -3,6 +3,26 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent horizontal overflow on all elements */
+html {
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Ensure no element exceeds viewport width */
+.container, section, div {
+  max-width: 100%;
+}
+
 @keyframes skew-scroll {
   0% {
     transform: translateY(0);
@@ -22,4 +42,3 @@
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-

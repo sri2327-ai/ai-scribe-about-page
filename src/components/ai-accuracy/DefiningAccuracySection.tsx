@@ -85,16 +85,17 @@ const DefiningAccuracySection: React.FC = () => {
   ];
 
   return (
-    <section className="relative w-full bg-black text-white py-12 sm:py-16 md:py-20 lg:py-24">
+    <section className="relative w-full bg-black text-white py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
       {/* Spotlight Effect */}
       <Spotlight fill="rgba(20, 184, 166, 0.08)" className="z-0" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
+          className="w-full"
         >
           <motion.h2
             variants={itemVariants}
@@ -105,7 +106,7 @@ const DefiningAccuracySection: React.FC = () => {
           
           <motion.p
             variants={itemVariants}
-            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mx-auto text-center mb-8 sm:mb-12"
+            className="text-base sm:text-lg md:text-xl leading-relaxed text-white/60 max-w-3xl mx-auto text-center mb-6 sm:mb-8"
           >
             Privacy-First Clinical Confidence
           </motion.p>
@@ -117,19 +118,19 @@ const DefiningAccuracySection: React.FC = () => {
             We ensure our definition of accuracy is specific and measurable across our solutions while maintaining complete data privacy:
           </motion.p>
 
-          {/* Enhanced mobile-first grid layout */}
-          <div className="space-y-4 sm:space-y-6 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-6 max-w-7xl mx-auto">
+          {/* Mobile-first responsive grid */}
+          <div className="w-full space-y-4 sm:space-y-6 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-6">
             {accuracyItems.map((item, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 custom={index}
                 className={cn(
-                  "group relative p-4 sm:p-6 rounded-xl overflow-hidden transition-all duration-300",
+                  "group relative w-full p-4 sm:p-6 rounded-xl overflow-hidden transition-all duration-300",
                   "border border-white/10 bg-white/5 backdrop-blur-sm",
                   "hover:shadow-[0_2px_12px_rgba(20,184,166,0.2)]",
                   "hover:-translate-y-0.5 will-change-transform hover:bg-teal-500/10 hover:border-teal-500/40",
-                  // Enhanced mobile responsive column spans
+                  // Mobile-first column spans
                   item.colSpan === 2 ? "lg:col-span-2" : "lg:col-span-1"
                 )}
               >
@@ -137,17 +138,17 @@ const DefiningAccuracySection: React.FC = () => {
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.05)_1px,transparent_1px)] bg-[length:4px_4px]" />
                 </div>
 
-                <div className="relative flex flex-col space-y-3 sm:space-y-4">
-                  <div className="flex items-center justify-between">
+                <div className="relative flex flex-col space-y-3 sm:space-y-4 w-full">
+                  <div className="flex items-center justify-between w-full">
                     <div className="flex items-center justify-center transition-all duration-300">
                       {item.icon}
                     </div>
-                    <span className="text-xs font-medium px-2 py-1 rounded-lg backdrop-blur-sm bg-white/10 text-white/80 transition-colors duration-300 group-hover:bg-teal-500/20 group-hover:text-white">
+                    <span className="text-xs font-medium px-2 py-1 rounded-lg backdrop-blur-sm bg-white/10 text-white/80 transition-colors duration-300 group-hover:bg-teal-500/20 group-hover:text-white flex-shrink-0">
                       AI Solution
                     </span>
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2 w-full">
                     <h3 className="font-semibold text-white tracking-tight text-base sm:text-lg">
                       {item.title}
                     </h3>
@@ -156,11 +157,11 @@ const DefiningAccuracySection: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-4">
+                  <div className="space-y-2 sm:space-y-3 mt-3 sm:mt-4 w-full">
                     {item.features.map((feature, featureIndex) => (
-                      <div key={featureIndex} className="flex items-start gap-2 sm:gap-3">
+                      <div key={featureIndex} className="flex items-start gap-2 sm:gap-3 w-full">
                         <div className="w-1.5 h-1.5 bg-white rounded-full mt-1.5 sm:mt-2 flex-shrink-0 opacity-60"></div>
-                        <p className="text-xs sm:text-sm leading-relaxed text-white/70 group-hover:text-white/80 transition-colors duration-300">
+                        <p className="text-xs sm:text-sm leading-relaxed text-white/70 group-hover:text-white/80 transition-colors duration-300 break-words">
                           {feature}
                         </p>
                       </div>
