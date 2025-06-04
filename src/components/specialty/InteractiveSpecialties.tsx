@@ -1,5 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { Search, X, ChevronRight, ChevronDown } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,6 +10,8 @@ import { Badge } from '@/components/ui/badge';
 import { useWindowSize } from '@/hooks/use-window-size';
 
 const InteractiveSpecialties = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedSpecialty, setSelectedSpecialty] = useState<string | null>(null);
   const [filteredSpecialties, setFilteredSpecialties] = useState<string[]>([]);
@@ -17,6 +19,29 @@ const InteractiveSpecialties = () => {
   const { width } = useWindowSize();
   
   const specialties = Object.keys(specialtyData);
+  
+  // Handle URL parameter for auto-selecting specialty
+  useEffect(() => {
+    const specialtyParam = searchParams.get('specialty');
+    if (specialtyParam) {
+      // Find matching specialty (case-insensitive)
+      const matchingSpecialty = specialties.find(
+        specialty => specialtyData[specialty].title.toLowerCase() === specialtyParam.toLowerCase()
+      );
+      
+      if (matchingSpecialty) {
+        setSelectedSpecialty(matchingSpecialty);
+        setSearchTerm(specialtyParam);
+        // Scroll to the component after a brief delay
+        setTimeout(() => {
+          const element = document.getElementById('interactive-specialties');
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      }
+    }
+  }, [location.search, specialties]);
   
   useEffect(() => {
     if (searchTerm.trim() === '') {
@@ -36,9 +61,17 @@ const InteractiveSpecialties = () => {
 
   const handleSpecialtyClick = (id: string) => {
     if (selectedSpecialty === id) {
-      setSelectedSpecialty(null); // Toggle off if already selected
+      setSelectedSpecialty(null);
+      // Clear URL parameter when deselecting
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.delete('specialty');
+      setSearchParams(newSearchParams);
     } else {
       setSelectedSpecialty(id);
+      // Update URL parameter when selecting
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set('specialty', specialtyData[id].title);
+      setSearchParams(newSearchParams);
     }
   };
 
@@ -48,6 +81,11 @@ const InteractiveSpecialties = () => {
   
   const handleClearSearch = () => {
     setSearchTerm("");
+    setSelectedSpecialty(null);
+    // Clear URL parameter when clearing search
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.delete('specialty');
+    setSearchParams(newSearchParams);
   };
 
   // Calculate grid columns based on screen width
@@ -60,7 +98,7 @@ const InteractiveSpecialties = () => {
   };
 
   return (
-    <div className="py-4 sm:py-6">
+    <div className="py-4 sm:py-6" id="interactive-specialties">
       <div className="max-w-7xl mx-auto px-2 sm:px-4">
         <div className="flex flex-col items-center mb-6 sm:mb-8">
           <motion.div 

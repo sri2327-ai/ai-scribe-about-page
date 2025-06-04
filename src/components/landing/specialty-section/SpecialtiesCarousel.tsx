@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { Box, Typography, Button } from "@mui/material";
+import { Link } from 'react-router-dom';
 import { 
   Brain, User, Heart, Eye, 
   Building2, FlaskConical, Apple, Ambulance, 
@@ -52,51 +54,57 @@ const allSpecialties = [
 ];
 
 const SpecialtyCard = ({ specialty, IconComponent }) => (
-  <Box 
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#FFF',
-      borderRadius: 2.5,
-      py: { xs: 1.5, sm: 2 },
-      px: { xs: 0.5, sm: 1 },
-      minWidth: '100%',
-      height: '100%',
-      boxShadow: '0 2px 10px 0 rgba(0,0,0,0.04)',
-      border: specialty.complex ? '1px solid #387E89' : '1px solid #E0E0E0',
-      gap: { xs: 0.5, sm: 1 },
-      transition: 'transform 0.23s, box-shadow 0.22s',
-      "&:hover": {
-        transform: 'translateY(-4px) scale(1.025)',
-        boxShadow: '0 6px 22px 0 rgba(56,126,137,0.10)'
-      }
-    }}
+  <Link 
+    to={`/specialty?specialty=${encodeURIComponent(specialty.name)}`}
+    className="block h-full"
   >
-    <div className="flex items-center justify-center">
-      <IconComponent 
-        size="100%" 
-        color={specialty.complex ? "#387E89" : "#143151"} 
-        className="responsive-icon w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] md:w-[26px] md:h-[26px]"
-      />
-    </div>
-    <Typography 
-      variant="body1" 
-      sx={{ 
-        textAlign: 'center',
-        fontWeight: 700,
-        background: 'linear-gradient(135deg, #143151, #387E89)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        fontSize: { xs: '0.75rem', sm: '0.9rem', md: '1rem' },
-        mt: 0.5,
-        lineHeight: 1.2
+    <Box 
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#FFF',
+        borderRadius: 2.5,
+        py: { xs: 1.5, sm: 2 },
+        px: { xs: 0.5, sm: 1 },
+        minWidth: '100%',
+        height: '100%',
+        boxShadow: '0 2px 10px 0 rgba(0,0,0,0.04)',
+        border: specialty.complex ? '1px solid #387E89' : '1px solid #E0E0E0',
+        gap: { xs: 0.5, sm: 1 },
+        transition: 'transform 0.23s, box-shadow 0.22s',
+        cursor: 'pointer',
+        "&:hover": {
+          transform: 'translateY(-4px) scale(1.025)',
+          boxShadow: '0 6px 22px 0 rgba(56,126,137,0.10)'
+        }
       }}
     >
-      {specialty.name}
-    </Typography>
-  </Box>
+      <div className="flex items-center justify-center">
+        <IconComponent 
+          size="100%" 
+          color={specialty.complex ? "#387E89" : "#143151"} 
+          className="responsive-icon w-[20px] h-[20px] sm:w-[24px] sm:h-[24px] md:w-[26px] md:h-[26px]"
+        />
+      </div>
+      <Typography 
+        variant="body1" 
+        sx={{ 
+          textAlign: 'center',
+          fontWeight: 700,
+          background: 'linear-gradient(135deg, #143151, #387E89)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          fontSize: { xs: '0.75rem', sm: '0.9rem', md: '1rem' },
+          mt: 0.5,
+          lineHeight: 1.2
+        }}
+      >
+        {specialty.name}
+      </Typography>
+    </Box>
+  </Link>
 );
 
 export const SpecialtiesCarousel = () => {
@@ -253,9 +261,11 @@ export const SpecialtiesCarousel = () => {
               {allSpecialties.map((specialty, index) => {
                 const IconComponent = specialty.icon;
                 return (
-                  <div 
-                    key={index} 
+                  <Link
+                    key={index}
+                    to={`/specialty?specialty=${encodeURIComponent(specialty.name)}`}
                     className={`flex items-center p-3 rounded-lg hover:bg-blue-50 hover:border-blue-300 transition-colors duration-200 ${specialty.complex ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200'}`}
+                    onClick={() => setIsDialogOpen(false)}
                   >
                     <IconComponent 
                       size={20} 
@@ -264,7 +274,7 @@ export const SpecialtiesCarousel = () => {
                     <span className="ml-2 font-medium text-sm md:text-base">
                       {specialty.name}
                     </span>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
