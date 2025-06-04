@@ -1,3 +1,4 @@
+
 import { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
 
@@ -231,6 +232,18 @@ export const specialtyData: Record<string, SpecialtyContent> = {
       icdCodes: "Accurately assigns orthopaedics-specific ICD-10 codes, prioritizing primary orthopaedics conditions.",
     }
   },
+  pathology: {
+    title: "Pathology",
+    content: "Supports laboratory result interpretation, histopathology reporting, cytology analysis, and molecular diagnostic documentation with enhanced diagnostic accuracy and standardized terminology.",
+    icon: Icons.Microscope,
+    detailedContent: {
+      previousNotes: "Previous pathology test results and diagnostic reports are automatically pulled forward and contextualized based on current findings.",
+      specialtyHPI: "Creates focused pathology HPIs with relevant terminology for laboratory results, histopathology findings, cytology analysis, and molecular diagnostics.",
+      historySection: "Comprehensive tracking of pathology history, diagnostic tests, and specimen analysis with detailed result progression.",
+      aiNotes: "Generates complete pathology notes in minutes, including detailed diagnostic findings and interpretations.",
+      icdCodes: "Accurately assigns pathology-specific ICD-10 codes, prioritizing primary diagnostic conditions.",
+    }
+  },
   painManagement: {
     title: "Pain Management",
     content: "Documents interventional procedures, opioid contracts, pain scales, functional assessments, and multidisciplinary care plans to support chronic and acute pain treatment strategies.",
@@ -265,6 +278,18 @@ export const specialtyData: Record<string, SpecialtyContent> = {
       historySection: "Comprehensive tracking of podiatry history, test results, and procedures with detailed symptom progression.",
       aiNotes: "Generates complete podiatry notes in minutes, including detailed podiatry information and treatment plans.",
       icdCodes: "Accurately assigns podiatry-specific ICD-10 codes, prioritizing primary podiatry conditions.",
+    }
+  },
+  primaryCare: {
+    title: "Primary Care",
+    content: "Comprehensive documentation for routine check-ups, preventive care, chronic disease management, health screenings, vaccinations, and coordination of care with specialists.",
+    icon: Icons.Pill,
+    detailedContent: {
+      previousNotes: "Previous primary care visit notes and health maintenance records are automatically pulled forward and contextualized based on current health status.",
+      specialtyHPI: "Creates focused primary care HPIs with relevant terminology for routine check-ups, preventive care, chronic disease management, and health screenings.",
+      historySection: "Comprehensive tracking of primary care history, health maintenance, and chronic condition monitoring with detailed health progression.",
+      aiNotes: "Generates complete primary care notes in minutes, including detailed health assessments and care plans.",
+      icdCodes: "Accurately assigns primary care-specific ICD-10 codes, prioritizing primary health conditions and preventive care.",
     }
   },
   psychiatry: {

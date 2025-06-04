@@ -14,7 +14,7 @@ const MedicalSpecialtiesIllustration = () => {
     { Icon: Brain, name: 'Neurology', angle: 45 },
     { Icon: Microscope, name: 'Pathology', angle: 90 },
     { Icon: Baby, name: 'Pediatrics', angle: 135 },
-    { Icon: Bone, name: 'Orthopedics', angle: 180 },
+    { Icon: Bone, name: 'Orthopaedics', angle: 180 },
     { Icon: Wind, name: 'Pulmonology', angle: 225 },
     { Icon: Stethoscope, name: 'Internal Medicine', angle: 270 },
     { Icon: Eye, name: 'Ophthalmology', angle: 315 },
