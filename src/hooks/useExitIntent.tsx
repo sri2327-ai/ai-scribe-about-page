@@ -23,6 +23,8 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
   const hasTriggered = useRef(false);
   const scrollTriggered = useRef(false);
   const mouseTriggered = useRef(false);
+  const lastMouseY = useRef(0);
+  const lastActivity = useRef(Date.now());
 
   // Check if popup was already shown in this session
   useEffect(() => {
@@ -35,14 +37,17 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
 
   // Reset inactivity timer
   const resetInactivityTimer = useCallback(() => {
+    lastActivity.current = Date.now();
+    
     if (inactivityTimer.current) {
       clearTimeout(inactivityTimer.current);
     }
     
     if (!hasShown && !hasTriggered.current && enabled) {
       inactivityTimer.current = window.setTimeout(() => {
-        console.log('Inactivity timeout triggered');
-        if (!hasTriggered.current) {
+        const timeSinceLastActivity = Date.now() - lastActivity.current;
+        if (timeSinceLastActivity >= inactivityTimeout && !hasTriggered.current) {
+          console.log('Inactivity timeout triggered after', timeSinceLastActivity, 'ms');
           hasTriggered.current = true;
           delayTimer.current = window.setTimeout(() => {
             setShouldShow(true);
@@ -52,17 +57,30 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     }
   }, [hasShown, enabled, inactivityTimeout, delay]);
 
-  // Handle mouse leave (exit intent) - improved detection
+  // Improved mouse leave detection for exit intent
   const handleMouseLeave = useCallback((e: MouseEvent) => {
-    // Only trigger on actual exit intent (mouse leaving through top of viewport)
-    const isLeavingTop = e.clientY <= 10 && e.movementY < 0;
-    const isLeavingLeft = e.clientX <= 10 && e.movementX < 0;
-    const isLeavingRight = e.clientX >= window.innerWidth - 10 && e.movementX > 0;
+    // Only trigger on rapid upward movement near the top
+    const isExitingUp = e.clientY <= 5 && e.movementY < -3;
+    const isRapidExit = Math.abs(e.movementY) > 50; // Rapid movement
+    const isNearTop = e.clientY <= 20;
     
-    const isExitIntent = isLeavingTop || isLeavingLeft || isLeavingRight;
+    const isExitIntent = (isExitingUp || (isRapidExit && isNearTop)) && 
+                        !hasShown && 
+                        !hasTriggered.current && 
+                        !mouseTriggered.current && 
+                        enabled;
     
-    if (isExitIntent && !hasShown && !hasTriggered.current && !mouseTriggered.current && enabled) {
-      console.log('Exit intent detected:', { x: e.clientX, y: e.clientY, movementX: e.movementX, movementY: e.movementY });
+    if (isExitIntent) {
+      console.log('Exit intent detected:', { 
+        x: e.clientX, 
+        y: e.clientY, 
+        movementX: e.movementX, 
+        movementY: e.movementY,
+        isExitingUp,
+        isRapidExit,
+        isNearTop
+      });
+      
       mouseTriggered.current = true;
       
       if (delayTimer.current) {
@@ -72,7 +90,7 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
       hasTriggered.current = true;
       delayTimer.current = window.setTimeout(() => {
         setShouldShow(true);
-      }, Math.min(delay, 1000)); // Faster response for exit intent
+      }, Math.min(delay, 500)); // Faster response for exit intent
     }
   }, [hasShown, enabled, delay]);
 
@@ -106,22 +124,31 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     resetInactivityTimer();
   }, [hasShown, enabled, threshold, delay, resetInactivityTimer]);
 
-  // Handle mouse movement (reset inactivity)
+  // Handle mouse movement with better tracking
   const handleMouseMove = useCallback((e: MouseEvent) => {
-    // Only reset inactivity timer, don't interfere with exit detection
-    if (e.clientY > 50) { // Only reset if not at the top edge
+    lastMouseY.current = e.clientY;
+    
+    // Only reset inactivity if mouse moved significantly
+    const movement = Math.abs(e.movementX) + Math.abs(e.movementY);
+    if (movement > 2) {
       resetInactivityTimer();
     }
   }, [resetInactivityTimer]);
 
-  // Handle key press (reset inactivity)
-  const handleKeyPress = useCallback(() => {
+  // Handle user interactions
+  const handleUserInteraction = useCallback(() => {
     resetInactivityTimer();
   }, [resetInactivityTimer]);
 
-  // Handle click (reset inactivity)
-  const handleClick = useCallback(() => {
-    resetInactivityTimer();
+  // Handle visibility change to pause/resume timers
+  const handleVisibilityChange = useCallback(() => {
+    if (document.hidden) {
+      if (inactivityTimer.current) {
+        clearTimeout(inactivityTimer.current);
+      }
+    } else {
+      resetInactivityTimer();
+    }
   }, [resetInactivityTimer]);
 
   useEffect(() => {
@@ -133,8 +160,10 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     document.addEventListener('mouseleave', handleMouseLeave);
     window.addEventListener('scroll', handleScroll, { passive: true });
     document.addEventListener('mousemove', handleMouseMove, { passive: true });
-    document.addEventListener('keypress', handleKeyPress, { passive: true });
-    document.addEventListener('click', handleClick, { passive: true });
+    document.addEventListener('keydown', handleUserInteraction, { passive: true });
+    document.addEventListener('click', handleUserInteraction, { passive: true });
+    document.addEventListener('touchstart', handleUserInteraction, { passive: true });
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Start inactivity timer
     resetInactivityTimer();
@@ -145,8 +174,10 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('keypress', handleKeyPress);
-      document.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', handleUserInteraction);
+      document.removeEventListener('click', handleUserInteraction);
+      document.removeEventListener('touchstart', handleUserInteraction);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
 
       // Clear timers
       if (inactivityTimer.current) {
@@ -161,8 +192,8 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     handleMouseLeave,
     handleScroll,
     handleMouseMove,
-    handleKeyPress,
-    handleClick,
+    handleUserInteraction,
+    handleVisibilityChange,
     resetInactivityTimer
   ]);
 
@@ -174,6 +205,14 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     scrollTriggered.current = false;
     mouseTriggered.current = false;
     sessionStorage.setItem('exitIntentShown', 'true');
+    
+    // Clear timers when popup is shown
+    if (inactivityTimer.current) {
+      clearTimeout(inactivityTimer.current);
+    }
+    if (delayTimer.current) {
+      clearTimeout(delayTimer.current);
+    }
   }, []);
 
   const resetPopup = useCallback(() => {
@@ -184,7 +223,20 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     scrollTriggered.current = false;
     mouseTriggered.current = false;
     sessionStorage.removeItem('exitIntentShown');
-  }, []);
+    
+    // Clear timers
+    if (inactivityTimer.current) {
+      clearTimeout(inactivityTimer.current);
+    }
+    if (delayTimer.current) {
+      clearTimeout(delayTimer.current);
+    }
+    
+    // Restart inactivity timer if enabled
+    if (enabled) {
+      resetInactivityTimer();
+    }
+  }, [enabled, resetInactivityTimer]);
 
   return {
     shouldShow,
