@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -27,12 +26,16 @@ const popularEHRs = [
   "Epic", "Cerner", "Allscripts", "athenahealth", "NextGen", "eClinicalWorks"
 ];
 
+const bravoSoftwareSystems = [
+  "Epic EHR", "Cerner EHR", "Salesforce CRM", "RingCentral VOIP", "athenaCollector PMS", "Any Software"
+];
+
 const getVariantContent = (variant: string) => {
   switch (variant) {
     case 'bravo':
       return {
         title: "Break Language Barriers & System Silos",
-        subtitle: "No APIs Required - Works with Any EHR",
+        subtitle: "No APIs Required - Works with EHR, CRM, PMS, VOIP & Any Software",
         features: [
           {
             icon: MessageSquare,
@@ -43,14 +46,14 @@ const getVariantContent = (variant: string) => {
           },
           {
             icon: Database,
-            title: "Universal EHR Integration",
-            description: "Connect instantly with Epic, Cerner, athenahealth, or any EHR without complex APIs.",
+            title: "Universal Software Integration",
+            description: "Connect instantly with Epic, Cerner, Salesforce CRM, VOIP systems, PMS, or any software without complex APIs.",
             highlight: "No API Setup Required",
             color: "teal"
           }
         ],
         cta: "Ready to eliminate staffing and language barriers?",
-        ctaDescription: "See how BRAVO works with your preferred EHR system and handles multilingual patient interactions."
+        ctaDescription: "See how BRAVO works with EHR, CRM, PMS, VOIP, and any software system while handling multilingual patient interactions."
       };
     case 'crush':
       return {
@@ -157,7 +160,35 @@ const LanguageShowcase = React.memo(() => {
 
 LanguageShowcase.displayName = 'LanguageShowcase';
 
-// EHR compatibility showcase
+// Enhanced software systems showcase for Bravo
+const BravoSoftwareShowcase = React.memo(() => (
+  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-3 border border-green-200">
+    <h4 className="font-semibold text-gray-800 text-xs sm:text-sm mb-3 flex items-center gap-1.5">
+      <Database className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+      <span className="truncate">Compatible Systems (No API Required)</span>
+    </h4>
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+      {bravoSoftwareSystems.map((system) => (
+        <div
+          key={system}
+          className="flex items-center gap-1.5 bg-white p-2 rounded-lg border border-gray-100 hover:border-green-200 transition-colors"
+        >
+          <CheckCircle className="w-2.5 h-2.5 text-green-500 flex-shrink-0" />
+          <span className="text-gray-700 font-medium text-xs truncate">{system}</span>
+        </div>
+      ))}
+    </div>
+    <div className="text-center">
+      <span className="text-xs text-green-600 font-medium bg-green-100 px-2 py-1 rounded-full">
+        + EHR, CRM, PMS, VOIP & Any Software
+      </span>
+    </div>
+  </div>
+));
+
+BravoSoftwareShowcase.displayName = 'BravoSoftwareShowcase';
+
+// EHR compatibility showcase (for non-Bravo variants)
 const EHRShowcase = React.memo(() => (
   <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-3 border border-green-200">
     <h4 className="font-semibold text-gray-800 text-xs sm:text-sm mb-3 flex items-center gap-1.5">
@@ -199,6 +230,9 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
     onClose();
     window.open('/#watch-demo', '_self');
   };
+
+  // Choose the right showcase component based on variant
+  const SystemsShowcase = variant === 'bravo' ? BravoSoftwareShowcase : EHRShowcase;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -282,12 +316,12 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                   }`}
                 >
                   <Database className="w-3 h-3 inline mr-1" />
-                  <span className="hidden xs:inline">EHR Systems</span>
-                  <span className="xs:hidden">EHRs</span>
+                  <span className="hidden xs:inline">{variant === 'bravo' ? 'All Systems' : 'EHR Systems'}</span>
+                  <span className="xs:hidden">{variant === 'bravo' ? 'Systems' : 'EHRs'}</span>
                 </button>
               </div>
               
-              {activeTab === 'languages' ? <LanguageShowcase /> : <EHRShowcase />}
+              {activeTab === 'languages' ? <LanguageShowcase /> : <SystemsShowcase />}
             </div>
 
             {/* Value proposition */}
