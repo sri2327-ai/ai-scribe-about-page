@@ -75,7 +75,7 @@ const getVariantContent = (variant: string) => {
           {
             icon: Zap,
             title: "No API Required",
-            description: "S10.AI uses cutting-edge RPA/Agentic technology that works seamlessly without complex API integrations. Just plug and play.",
+            description: "S10.AI uses cutting-edge RPA/Agentic technology that works seamlessly without complex API integrations.",
             color: "blue"
           },
           {
@@ -128,7 +128,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="w-[95vw] max-w-4xl h-[95vh] max-h-[800px] p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border-2 border-blue-300 shadow-2xl overflow-hidden mx-auto flex flex-col"
+        className="w-[95vw] max-w-4xl h-[95vh] max-h-[800px] p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-gray-200 shadow-2xl overflow-hidden mx-auto flex flex-col"
         hideCloseButton={true}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
