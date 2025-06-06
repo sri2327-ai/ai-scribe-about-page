@@ -25,6 +25,7 @@ import Pricing from "@/pages/Pricing";
 import Advantages from "@/pages/Advantages";
 import ResourceLibrary from "@/pages/ResourceLibrary";
 import AIAccuracy from "@/pages/AIAccuracy";
+import PracticeEfficiencyGrader from "@/pages/PracticeEfficiencyGrader";
 
 function App() {
   console.log("Rendering App component");
@@ -49,6 +50,7 @@ function App() {
       <Route path="/faq" element={<FAQ />} />
       <Route path="/advantages" element={<Advantages />} />
       <Route path="/ai-accuracy" element={<AIAccuracy />} />
+      <Route path="/practice-efficiency-grader" element={<PracticeEfficiencyGrader />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
       <Route path="*" element={<NotFound />} />
