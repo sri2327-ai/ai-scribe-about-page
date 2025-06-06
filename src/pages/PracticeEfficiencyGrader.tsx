@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -23,7 +24,7 @@ const GradientBarsBackground: React.FC = () => {
 
     return (
         <>
-            {/* Gradient bars with improved integration */}
+            {/* Gradient bars with mild teal color */}
             <div className="absolute inset-0 z-0 overflow-hidden">
                 <div 
                     className="flex h-full w-full"
@@ -42,13 +43,13 @@ const GradientBarsBackground: React.FC = () => {
                                     flex: '1 0 calc(100% / 15)',
                                     maxWidth: 'calc(100% / 15)',
                                     height: '100%',
-                                    background: 'linear-gradient(135deg, #143151, #387E89, #F06292)',
+                                    background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.3), rgba(56, 178, 172, 0.2), rgba(20, 184, 166, 0.1))',
                                     transform: `scaleY(${height / 100})`,
                                     transformOrigin: 'bottom',
                                     transition: 'transform 0.8s ease-in-out',
                                     animation: 'pulseBar 4s ease-in-out infinite alternate',
                                     animationDelay: `${index * 0.2}s`,
-                                    opacity: 0.15,
+                                    opacity: 0.6,
                                     filter: 'blur(0.5px)',
                                 }}
                             />
@@ -58,7 +59,7 @@ const GradientBarsBackground: React.FC = () => {
             </div>
             
             {/* Seamless white overlay for better integration */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/95 via-white/85 to-white/95"></div>
+            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/90 via-white/80 to-white/90"></div>
         </>
     );
 };
