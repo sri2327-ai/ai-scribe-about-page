@@ -30,8 +30,8 @@ interface CustomSliderProps {
 const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, unit, labels }) => (
     <div className="w-full">
         <div className="flex justify-between items-center mb-4">
-            <span className="text-lg font-medium text-white">{unit}</span>
-            <span className="px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold text-xl shadow-lg">
+            <span className="text-lg font-medium text-gray-800">{unit}</span>
+            <span className="px-4 py-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xl shadow-lg">
                 {labels ? labels[value] || value : value}
             </span>
         </div>
@@ -41,10 +41,10 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, 
             max={max} 
             value={value} 
             onChange={e => onChange(parseInt(e.target.value))}
-            className="w-full h-3 bg-gray-700/50 rounded-full appearance-none cursor-pointer range-thumb" 
+            className="w-full h-3 bg-gray-200 rounded-full appearance-none cursor-pointer range-thumb" 
         />
         {labels && (
-            <div className="flex justify-between mt-2 text-xs text-gray-400">
+            <div className="flex justify-between mt-2 text-xs text-gray-500">
                 <span>{labels[0]}</span>
                 <span>{labels[Math.floor(labels.length / 2)]}</span>
                 <span>{labels[labels.length - 1]}</span>
@@ -56,25 +56,25 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, 
                 appearance: none; 
                 width: 28px; 
                 height: 28px; 
-                background: linear-gradient(135deg, #143151, #387E89); 
+                background: linear-gradient(135deg, #10b981, #14b8a6); 
                 border-radius: 50%; 
                 cursor: pointer; 
                 border: 3px solid white; 
-                box-shadow: 0 4px 12px rgba(20, 49, 81, 0.4); 
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); 
                 transition: all 0.2s; 
             }
             .range-thumb::-webkit-slider-thumb:hover { 
                 transform: scale(1.1); 
-                box-shadow: 0 6px 16px rgba(20, 49, 81, 0.6); 
+                box-shadow: 0 6px 16px rgba(16, 185, 129, 0.6); 
             }
             .range-thumb::-moz-range-thumb { 
                 width: 28px; 
                 height: 28px; 
-                background: linear-gradient(135deg, #143151, #387E89); 
+                background: linear-gradient(135deg, #10b981, #14b8a6); 
                 border-radius: 50%; 
                 cursor: pointer; 
                 border: 3px solid white; 
-                box-shadow: 0 4px 12px rgba(20, 49, 81, 0.4); 
+                box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); 
             }
         `}</style>
     </div>
@@ -93,11 +93,11 @@ const OptionCard: React.FC<OptionCardProps> = ({ text, selected, onClick }) => (
         whileTap={{ scale: 0.98 }}
         className={`p-6 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
             selected 
-                ? 'bg-gradient-to-r from-[#143151] to-[#387E89] border-[#5192AE] shadow-xl' 
-                : 'bg-gray-800/80 border-gray-600 hover:border-[#5192AE] hover:bg-gray-700/80'
+                ? 'bg-gradient-to-r from-emerald-50 to-teal-50 border-emerald-500 shadow-xl text-emerald-900' 
+                : 'bg-white border-gray-200 hover:border-emerald-300 hover:bg-gray-50 shadow-md text-gray-700'
         }`}
     >
-        <p className="text-white text-center text-base md:text-lg font-medium leading-relaxed">{text}</p>
+        <p className="text-center text-base md:text-lg font-medium leading-relaxed">{text}</p>
     </motion.div>
 );
 
@@ -297,14 +297,14 @@ const quizQuestions: QuizQuestion[] = [
 
 const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
     const graphics = [
-        { text: "Reclaim provider time from after-hours charting", icon: Clock, color: "from-blue-500 to-purple-600" },
-        { text: "Accelerate documentation turnaround", icon: FileText, color: "from-green-500 to-blue-600" },
-        { text: "Maximize revenue with accurate coding", icon: DollarSign, color: "from-green-500 to-emerald-600" },
-        { text: "Ensure comprehensive clinical documentation", icon: FileText, color: "from-orange-500 to-red-600" },
-        { text: "Automate front office scheduling tasks", icon: Calendar, color: "from-purple-500 to-pink-600" },
-        { text: "Reduce no-shows and recover revenue", icon: Calendar, color: "from-yellow-500 to-orange-600" },
+        { text: "Reclaim provider time from after-hours charting", icon: Clock, color: "from-violet-500 to-purple-600" },
+        { text: "Accelerate documentation turnaround", icon: FileText, color: "from-blue-500 to-indigo-600" },
+        { text: "Maximize revenue with accurate coding", icon: DollarSign, color: "from-emerald-500 to-green-600" },
+        { text: "Ensure comprehensive clinical documentation", icon: FileText, color: "from-orange-500 to-amber-600" },
+        { text: "Automate front office scheduling tasks", icon: Calendar, color: "from-rose-500 to-pink-600" },
+        { text: "Reduce no-shows and recover revenue", icon: Calendar, color: "from-cyan-500 to-blue-600" },
         { text: "Enable genuine patient connections", icon: Heart, color: "from-pink-500 to-rose-600" },
-        { text: "Break down language barriers", icon: Languages, color: "from-indigo-500 to-blue-600" }
+        { text: "Break down language barriers", icon: Languages, color: "from-indigo-500 to-purple-600" }
     ];
     const currentGraphic = graphics[questionId - 1];
     const IconComponent = currentGraphic.icon;
@@ -327,7 +327,7 @@ const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
                     <IconComponent className="w-16 h-16 text-white" />
                 </motion.div>
                 <motion.p 
-                    className="text-xl text-gray-300 leading-relaxed font-medium"
+                    className="text-xl text-gray-600 leading-relaxed font-medium"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
@@ -347,7 +347,7 @@ const InputField = ({ name, type, placeholder }: { name: string; type: string; p
             type={type} 
             placeholder={placeholder || name} 
             required 
-            className="w-full bg-gray-800/80 border-2 border-gray-600 text-white rounded-xl p-4 focus:ring-2 focus:ring-[#5192AE] focus:border-[#5192AE] transition-all duration-300 placeholder-gray-400" 
+            className="w-full bg-white border-2 border-gray-200 text-gray-800 rounded-xl p-4 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 placeholder-gray-400 shadow-sm" 
         />
     </div>
 );
@@ -426,15 +426,15 @@ export default function PracticeEfficiencyGrader() {
                 const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
                 
                 return (
-                    <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full max-w-7xl mx-auto bg-gray-900/90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-gray-700">
-                        <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-gray-800/60 to-gray-900/60 p-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh] w-full max-w-7xl mx-auto bg-white backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-gray-200">
+                        <div className="hidden lg:flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-8">
                             <AnimatedGraphic questionId={question.id} />
                         </div>
                         <div className="flex flex-col p-8 md:p-12 justify-between">
                             <div>
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]"></div>
-                                    <p className="text-[#5192AE] font-semibold text-sm uppercase tracking-wider">{question.category}</p>
+                                    <div className="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600"></div>
+                                    <p className="text-emerald-600 font-semibold text-sm uppercase tracking-wider">{question.category}</p>
                                 </div>
                                 
                                 <AnimatePresence mode="wait">
@@ -445,13 +445,13 @@ export default function PracticeEfficiencyGrader() {
                                         exit={{ opacity: 0, x: -50 }} 
                                         transition={{ duration: 0.5 }}
                                     >
-                                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">{question.title}</h2>
-                                        <p className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">{question.question}</p>
+                                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">{question.title}</h2>
+                                        <p className="text-gray-600 text-lg md:text-xl mb-8 leading-relaxed">{question.question}</p>
                                         
                                         {question.insightSnippet && (
-                                            <div className="bg-[#143151]/20 border border-[#387E89]/30 rounded-lg p-4 mb-6">
-                                                <p className="text-[#5192AE] text-sm font-medium">💡 Industry Insight</p>
-                                                <p className="text-gray-300 text-sm mt-1">{question.insightSnippet}</p>
+                                            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-6">
+                                                <p className="text-emerald-700 text-sm font-medium">💡 Industry Insight</p>
+                                                <p className="text-gray-700 text-sm mt-1">{question.insightSnippet}</p>
                                             </div>
                                         )}
                                         
@@ -481,7 +481,7 @@ export default function PracticeEfficiencyGrader() {
                                                 onClick={nextSliderQuestion} 
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
-                                                className="w-full mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 text-lg"
+                                                className="w-full mt-8 bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-4 rounded-xl hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-3 text-lg"
                                             >
                                                 Next Question <ChevronRight className="w-5 h-5" />
                                             </motion.button>
@@ -492,12 +492,12 @@ export default function PracticeEfficiencyGrader() {
                             
                             <div className="mt-8">
                                 <div className="flex justify-between items-center mb-2">
-                                    <span className="text-gray-400 text-sm">Progress</span>
-                                    <span className="text-[#5192AE] text-sm font-semibold">{Math.round(progress)}%</span>
+                                    <span className="text-gray-500 text-sm">Progress</span>
+                                    <span className="text-emerald-600 text-sm font-semibold">{Math.round(progress)}%</span>
                                 </div>
-                                <div className="w-full bg-gray-700/50 rounded-full h-3">
+                                <div className="w-full bg-gray-200 rounded-full h-3">
                                     <motion.div 
-                                        className="bg-gradient-to-r from-[#143151] to-[#387E89] h-3 rounded-full shadow-lg" 
+                                        className="bg-gradient-to-r from-emerald-500 to-teal-600 h-3 rounded-full shadow-lg" 
                                         style={{ width: `${progress}%` }} 
                                         transition={{ duration: 0.5 }}
                                         layoutId="progress"
@@ -516,18 +516,18 @@ export default function PracticeEfficiencyGrader() {
                         animate="in" 
                         exit="out" 
                         transition={pageTransition} 
-                        className="p-8 max-w-2xl mx-auto bg-gray-900/90 backdrop-blur-sm rounded-3xl border border-gray-700 shadow-2xl"
+                        className="p-8 max-w-2xl mx-auto bg-white backdrop-blur-sm rounded-3xl border border-gray-200 shadow-2xl"
                     >
                         <div className="text-center mb-8">
                             <motion.div 
-                                className="w-20 h-20 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl"
+                                className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl"
                                 whileHover={{ scale: 1.1, rotate: 360 }}
                                 transition={{ duration: 0.6 }}
                             >
                                 <Star className="w-10 h-10 text-white" />
                             </motion.div>
-                            <h2 className="text-4xl font-bold text-white mb-4">Unlock Your Complete Analysis</h2>
-                            <p className="text-gray-300 text-lg leading-relaxed">Enter your details to receive a personalized efficiency report with actionable AI strategies tailored to your practice.</p>
+                            <h2 className="text-4xl font-bold text-gray-900 mb-4">Unlock Your Complete Analysis</h2>
+                            <p className="text-gray-600 text-lg leading-relaxed">Enter your details to receive a personalized efficiency report with actionable AI strategies tailored to your practice.</p>
                         </div>
                         
                         <form onSubmit={handleSubmitForm} className="space-y-6">
@@ -540,13 +540,13 @@ export default function PracticeEfficiencyGrader() {
                                 type="submit" 
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold py-4 rounded-xl hover:shadow-xl transition-all duration-300 text-lg"
+                                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-4 rounded-xl hover:shadow-xl transition-all duration-300 text-lg"
                             >
                                 Get My Personalized Report
                             </motion.button>
                         </form>
                         
-                        <p className="text-gray-400 text-center text-sm mt-4">
+                        <p className="text-gray-500 text-center text-sm mt-4">
                             Your information is secure and will only be used to provide your analysis.
                         </p>
                     </motion.div>
@@ -560,27 +560,27 @@ export default function PracticeEfficiencyGrader() {
                         animate="in" 
                         exit="out" 
                         transition={pageTransition} 
-                        className="w-full max-w-6xl mx-auto p-4 md:p-8 text-white"
+                        className="w-full max-w-6xl mx-auto p-4 md:p-8 text-gray-800"
                     >
                         <div className="text-center mb-12">
                             <motion.div 
-                                className="w-24 h-24 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl"
+                                className="w-24 h-24 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl"
                                 whileHover={{ scale: 1.1 }}
                             >
                                 <Brain className="w-12 h-12 text-white" />
                             </motion.div>
-                            <h1 className="text-5xl font-extrabold text-white mb-4">Your Practice Efficiency Report</h1>
+                            <h1 className="text-5xl font-extrabold text-gray-900 mb-4">Your Practice Efficiency Report</h1>
                             <div className="flex items-center justify-center gap-4 mb-4">
-                                <span className="text-2xl font-semibold text-gray-300">Overall Efficiency Score:</span>
+                                <span className="text-2xl font-semibold text-gray-700">Overall Efficiency Score:</span>
                                 <span className={`text-4xl font-bold px-6 py-2 rounded-full ${
-                                    overallScore >= 80 ? 'bg-green-500/20 text-green-400' :
-                                    overallScore >= 60 ? 'bg-yellow-500/20 text-yellow-400' :
-                                    'bg-red-500/20 text-red-400'
+                                    overallScore >= 80 ? 'bg-green-100 text-green-700' :
+                                    overallScore >= 60 ? 'bg-yellow-100 text-yellow-700' :
+                                    'bg-red-100 text-red-700'
                                 }`}>
                                     {overallScore}%
                                 </span>
                             </div>
-                            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+                            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
                                 Based on your responses, here's how S10.AI can transform your practice efficiency.
                             </p>
                         </div>
@@ -593,54 +593,54 @@ export default function PracticeEfficiencyGrader() {
                                         key={res.id} 
                                         className={`p-8 rounded-2xl border-2 ${
                                             res.analysisResult === 'Critical' 
-                                                ? 'bg-red-900/20 border-red-500/50' 
+                                                ? 'bg-red-50 border-red-200' 
                                                 : res.analysisResult === 'High' 
-                                                ? 'bg-yellow-900/20 border-yellow-500/50' 
-                                                : 'bg-green-900/20 border-green-500/50'
-                                        } backdrop-blur-sm`}
+                                                ? 'bg-yellow-50 border-yellow-200' 
+                                                : 'bg-green-50 border-green-200'
+                                        } backdrop-blur-sm shadow-lg`}
                                         whileHover={{ scale: 1.02, y: -4 }}
                                         transition={{ duration: 0.2 }}
                                     >
                                         <div className="flex items-center gap-4 mb-4">
                                             <div className={`p-3 rounded-xl ${
                                                 res.analysisResult === 'Critical' 
-                                                    ? 'bg-red-500/20' 
+                                                    ? 'bg-red-100' 
                                                     : res.analysisResult === 'High' 
-                                                    ? 'bg-yellow-500/20' 
-                                                    : 'bg-green-500/20'
+                                                    ? 'bg-yellow-100' 
+                                                    : 'bg-green-100'
                                             }`}>
                                                 <IconComponent className={`w-6 h-6 ${
                                                     res.analysisResult === 'Critical' 
-                                                        ? 'text-red-400' 
+                                                        ? 'text-red-600' 
                                                         : res.analysisResult === 'High' 
-                                                        ? 'text-yellow-400' 
-                                                        : 'text-green-400'
+                                                        ? 'text-yellow-600' 
+                                                        : 'text-green-600'
                                                 }`} />
                                             </div>
                                             <div className="flex-1">
                                                 <div className={`text-sm px-3 py-1 rounded-full font-semibold w-fit ${
                                                     res.analysisResult === 'Critical' 
-                                                        ? 'bg-red-500/20 text-red-400' 
+                                                        ? 'bg-red-100 text-red-700' 
                                                         : res.analysisResult === 'High' 
-                                                        ? 'bg-yellow-500/20 text-yellow-400' 
-                                                        : 'bg-green-500/20 text-green-400'
+                                                        ? 'bg-yellow-100 text-yellow-700' 
+                                                        : 'bg-green-100 text-green-700'
                                                 }`}>
                                                     {res.analysisResult} Priority
                                                 </div>
-                                                <h3 className="text-xl font-bold mt-2">{res.valueProp}</h3>
+                                                <h3 className="text-xl font-bold mt-2 text-gray-900">{res.valueProp}</h3>
                                             </div>
                                         </div>
                                         
-                                        <p className="text-gray-300 mb-4 leading-relaxed">{res.reportText(res.answer!)}</p>
+                                        <p className="text-gray-700 mb-4 leading-relaxed">{res.reportText(res.answer!)}</p>
                                         
-                                        <div className="bg-[#143151]/30 rounded-lg p-4 mb-4 border border-[#387E89]/30">
-                                            <p className="text-[#5192AE] font-semibold mb-2">S10.AI Solution:</p>
-                                            <p className="text-gray-200 text-sm">{res.solution}</p>
+                                        <div className="bg-emerald-50 rounded-lg p-4 mb-4 border border-emerald-200">
+                                            <p className="text-emerald-700 font-semibold mb-2">S10.AI Solution:</p>
+                                            <p className="text-gray-700 text-sm">{res.solution}</p>
                                         </div>
                                         
-                                        <div className="text-sm p-3 bg-gray-900/50 rounded-lg border border-gray-700">
-                                            <span className="text-gray-400">Your Answer: </span>
-                                            <span className="font-semibold text-[#5192AE]">
+                                        <div className="text-sm p-3 bg-gray-50 rounded-lg border border-gray-200">
+                                            <span className="text-gray-600">Your Answer: </span>
+                                            <span className="font-semibold text-emerald-700">
                                                 {Array.isArray(res.answer) ? res.answer.join(', ') : `${res.answer}${res.type === 'slider' ? ' hrs' : ''}`}
                                             </span>
                                         </div>
@@ -650,18 +650,18 @@ export default function PracticeEfficiencyGrader() {
                         </div>
 
                         <motion.div 
-                            className="text-center p-10 bg-gradient-to-br from-[#143151] via-[#387E89] to-[#143151] rounded-3xl shadow-2xl border border-[#5192AE]/30"
+                            className="text-center p-10 bg-gradient-to-br from-emerald-500 via-teal-600 to-emerald-500 rounded-3xl shadow-2xl border border-emerald-300"
                             whileHover={{ scale: 1.02 }}
                         >
                             <h2 className="text-4xl font-bold mb-6 text-white">Ready to Transform Your Practice?</h2>
-                            <p className="text-blue-100 text-xl max-w-3xl mx-auto mb-8 leading-relaxed">
+                            <p className="text-emerald-100 text-xl max-w-3xl mx-auto mb-8 leading-relaxed">
                                 S10.AI is purpose-built to solve these exact challenges. See your projected ROI and get a personalized implementation plan.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-white text-[#143151] font-bold py-4 px-8 rounded-full text-lg hover:bg-gray-100 transition-all shadow-lg"
+                                    className="bg-white text-emerald-600 font-bold py-4 px-8 rounded-full text-lg hover:bg-gray-100 transition-all shadow-lg"
                                     onClick={() => window.open('/contact', '_blank')}
                                 >
                                     Schedule My Demo
@@ -669,7 +669,7 @@ export default function PracticeEfficiencyGrader() {
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="border-2 border-white text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-white hover:text-[#143151] transition-all"
+                                    className="border-2 border-white text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-white hover:text-emerald-600 transition-all"
                                     onClick={() => window.open('/pricing', '_blank')}
                                 >
                                     View Pricing
@@ -680,7 +680,7 @@ export default function PracticeEfficiencyGrader() {
                         <div className="text-center mt-8">
                             <button 
                                 onClick={handleRetake} 
-                                className="text-gray-400 hover:text-[#5192AE] transition-colors text-lg"
+                                className="text-gray-500 hover:text-emerald-600 transition-colors text-lg"
                             >
                                 ← Retake the Assessment
                             </button>
@@ -699,22 +699,22 @@ export default function PracticeEfficiencyGrader() {
                         className="text-center p-8 max-w-4xl mx-auto"
                     >
                         <motion.div 
-                            className="w-32 h-32 bg-gradient-to-br from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl"
+                            className="w-32 h-32 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl"
                             whileHover={{ scale: 1.1, rotate: 360 }}
                             transition={{ duration: 0.8 }}
                         >
                             <Brain className="w-16 h-16 text-white" />
                         </motion.div>
                         
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                        <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
                             Practice Efficiency 
-                            <span className="bg-gradient-to-r from-[#5192AE] to-[#A5CCF3] bg-clip-text text-transparent"> Grader</span>
+                            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent"> Grader</span>
                         </h1>
                         
-                        <p className="text-gray-300 text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto">
+                        <p className="text-gray-600 text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto">
                             Is your practice technology helping you thrive or just survive? 
                             <br />
-                            <span className="text-[#5192AE] font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
+                            <span className="text-emerald-600 font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
                         </p>
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
@@ -725,15 +725,15 @@ export default function PracticeEfficiencyGrader() {
                             ].map((feature, idx) => (
                                 <motion.div 
                                     key={idx}
-                                    className="p-6 rounded-xl bg-gray-800/60 border border-gray-700"
+                                    className="p-6 rounded-xl bg-white border border-gray-200 shadow-lg"
                                     whileHover={{ scale: 1.05, y: -5 }}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: idx * 0.1 }}
                                 >
-                                    <feature.icon className="w-8 h-8 text-[#5192AE] mx-auto mb-3" />
-                                    <p className="text-white font-bold text-lg">{feature.text}</p>
-                                    <p className="text-gray-400">{feature.subtitle}</p>
+                                    <feature.icon className="w-8 h-8 text-emerald-600 mx-auto mb-3" />
+                                    <p className="text-gray-900 font-bold text-lg">{feature.text}</p>
+                                    <p className="text-gray-600">{feature.subtitle}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -742,12 +742,12 @@ export default function PracticeEfficiencyGrader() {
                             onClick={handleStart} 
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold py-6 px-12 rounded-full text-xl hover:shadow-2xl transition-all duration-300 mb-4"
+                            className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-6 px-12 rounded-full text-xl hover:shadow-2xl transition-all duration-300 mb-4"
                         >
                             Start Your Assessment
                         </motion.button>
                         
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-gray-500 text-sm">
                             Join 1,000+ practices already using S10.AI
                         </p>
                     </motion.div>
@@ -762,26 +762,26 @@ export default function PracticeEfficiencyGrader() {
                 <meta name="description" content="Assess your practice efficiency with our comprehensive AI-powered grader. Get personalized insights and discover how S10.AI can transform your healthcare practice." />
             </Helmet>
             
-            <main className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-black font-sans flex items-center justify-center relative p-4 overflow-hidden">
+            <main className="min-h-screen w-full bg-gradient-to-br from-gray-50 via-white to-gray-100 font-sans flex items-center justify-center relative p-4 overflow-hidden">
                 {/* Animated background */}
                 <div className="absolute inset-0 bg-dots-pattern opacity-5"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 via-transparent to-gray-900/50"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 via-transparent to-gray-50/50"></div>
                 
                 {/* Floating elements */}
                 <motion.div 
-                    className="absolute top-20 left-20 w-4 h-4 bg-[#5192AE] rounded-full opacity-60"
+                    className="absolute top-20 left-20 w-4 h-4 bg-emerald-500 rounded-full opacity-60"
                     animate={{ y: [0, -20, 0], x: [0, 10, 0] }}
                     transition={{ duration: 4, repeat: Infinity }}
                 />
                 <motion.div 
-                    className="absolute bottom-32 right-32 w-6 h-6 bg-[#A5CCF3] rounded-full opacity-40"
+                    className="absolute bottom-32 right-32 w-6 h-6 bg-teal-500 rounded-full opacity-40"
                     animate={{ y: [0, 20, 0], x: [0, -15, 0] }}
                     transition={{ duration: 5, repeat: Infinity }}
                 />
                 
                 <style>{`
                     .bg-dots-pattern { 
-                        background-image: radial-gradient(rgba(81, 146, 174, 0.1) 1px, transparent 1px); 
+                        background-image: radial-gradient(rgba(16, 185, 129, 0.1) 1px, transparent 1px); 
                         background-size: 2rem 2rem; 
                     }
                 `}</style>
