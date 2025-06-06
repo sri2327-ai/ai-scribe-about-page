@@ -10,24 +10,23 @@ const GradientBarsBackground: React.FC = () => {
 
     const calculateHeight = (index: number, total: number) => {
         const position = index / (total - 1);
-        const maxHeight = 80;
-        const minHeight = 20;
+        const maxHeight = 90;
+        const minHeight = 25;
         
         const center = 0.5;
         const distanceFromCenter = Math.abs(position - center);
-        const heightPercentage = Math.pow(distanceFromCenter * 2, 1.2);
+        const heightPercentage = Math.pow(distanceFromCenter * 2, 1.5);
         
         return minHeight + (maxHeight - minHeight) * heightPercentage;
     };
 
     return (
         <>
-            {/* Main gradient bars */}
-            <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
+            {/* Gradient bars with improved integration */}
+            <div className="absolute inset-0 z-0 overflow-hidden">
                 <div 
-                    className="flex h-full"
+                    className="flex h-full w-full"
                     style={{
-                        width: '100%',
                         transform: 'translateZ(0)',
                         backfaceVisibility: 'hidden',
                         WebkitFontSmoothing: 'antialiased',
@@ -45,12 +44,11 @@ const GradientBarsBackground: React.FC = () => {
                                     background: 'linear-gradient(135deg, #143151, #387E89, #F06292)',
                                     transform: `scaleY(${height / 100})`,
                                     transformOrigin: 'bottom',
-                                    transition: 'transform 0.5s ease-in-out',
-                                    animation: 'pulseBar 3s ease-in-out infinite alternate',
-                                    animationDelay: `${index * 0.15}s`,
-                                    outline: '1px solid rgba(0, 0, 0, 0)',
-                                    boxSizing: 'border-box',
-                                    filter: 'blur(1px)',
+                                    transition: 'transform 0.8s ease-in-out',
+                                    animation: 'pulseBar 4s ease-in-out infinite alternate',
+                                    animationDelay: `${index * 0.2}s`,
+                                    opacity: 0.15,
+                                    filter: 'blur(0.5px)',
                                 }}
                             />
                         );
@@ -58,8 +56,8 @@ const GradientBarsBackground: React.FC = () => {
                 </div>
             </div>
             
-            {/* White overlay gradient for seamless integration */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/90 via-white/60 to-white/90"></div>
+            {/* Seamless white overlay for better integration */}
+            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/95 via-white/85 to-white/95"></div>
         </>
     );
 };
@@ -876,7 +874,7 @@ export default function PracticeEfficiencyGrader() {
                                     className="w-24 h-24 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl"
                                     whileHover={{ scale: 1.1 }}
                                 >
-                                    <Brain className="w-12 h-12 text-white" />
+                                    <BarChart3 className="w-12 h-12 text-white" />
                                 </motion.div>
                                 <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6">Your Complete Practice Analysis</h1>
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
@@ -1012,11 +1010,6 @@ export default function PracticeEfficiencyGrader() {
                             transition={pageTransition} 
                             className="relative z-10 text-center px-4 py-20 max-w-6xl mx-auto"
                         >
-                            {/* Simplified icon without animation */}
-                            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg">
-                                <Brain className="w-10 h-10 md:w-12 md:h-12 text-white" />
-                            </div>
-                            
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
                                 Practice Efficiency 
                                 <span className="block bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mt-2"> 
@@ -1084,6 +1077,13 @@ export default function PracticeEfficiencyGrader() {
                     </AnimatePresence>
                 </div>
             </main>
+
+            <style jsx>{`
+                @keyframes pulseBar {
+                    0% { transform: scaleY(var(--scale-start, 0.4)); }
+                    100% { transform: scaleY(var(--scale-end, 1)); }
+                }
+            `}</style>
         </>
     );
 }
