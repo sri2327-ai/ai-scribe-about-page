@@ -1,8 +1,26 @@
 
 import { Link } from "react-router-dom";
 import rippleStyles from "@/styles/RippleEffect.module.css";
+import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
+import { useExitIntent } from "@/hooks/useExitIntent";
 
 const Index = () => {
+  const { shouldShow, markAsShown } = useExitIntent({
+    threshold: 70,
+    delay: 2000,
+    inactivityTimeout: 25000,
+    enabled: true
+  });
+
+  const handleBookDemo = () => {
+    markAsShown();
+    window.open('/contact', '_blank');
+  };
+
+  const handleClosePopup = () => {
+    markAsShown();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-950 to-black relative overflow-hidden">
       {/* Ripple effect background */}
@@ -53,6 +71,13 @@ const Index = () => {
           View Advantages
         </Link>
       </div>
+
+      {/* Exit Intent Popup */}
+      <ExitIntentPopup
+        isOpen={shouldShow}
+        onClose={handleClosePopup}
+        onBookDemo={handleBookDemo}
+      />
     </div>
   );
 };

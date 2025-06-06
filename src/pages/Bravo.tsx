@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense, memo, useCallback, useMemo } from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { LazyLoad } from '@/components/ui/lazy-load';
@@ -8,6 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Check, BarChart3, Users } from "lucide-react";
 import { motion } from "framer-motion";
+import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
+import { useExitIntent } from "@/hooks/useExitIntent";
 
 // Define feature data outside component to prevent recreation on render
 const featuresData = [
@@ -206,6 +207,22 @@ LoadingIndicator.displayName = 'LoadingIndicator';
 
 // Main Bravo component with optimized rendering
 const Bravo = () => {
+  const { shouldShow, markAsShown } = useExitIntent({
+    threshold: 80,
+    delay: 2500,
+    inactivityTimeout: 35000,
+    enabled: true
+  });
+
+  const handleBookDemo = () => {
+    markAsShown();
+    window.open('/contact', '_blank');
+  };
+
+  const handleClosePopup = () => {
+    markAsShown();
+  };
+
   // Preload critical assets
   React.useEffect(() => {
     // Preload next sections as soon as the page loads
@@ -278,6 +295,13 @@ const Bravo = () => {
           <BravoAutomationBentoGrid />
         </Suspense>
       </LazyLoad>
+      
+      {/* Exit Intent Popup */}
+      <ExitIntentPopup
+        isOpen={shouldShow}
+        onClose={handleClosePopup}
+        onBookDemo={handleBookDemo}
+      />
     </div>
   );
 };

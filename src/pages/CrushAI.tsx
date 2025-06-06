@@ -11,6 +11,8 @@ import { GradientSection } from "@/components/ui/gradient-section";
 import { WaveBackground } from "@/components/ui/wave-background";
 import { PricingHeroSection } from "@/components/crush-ai/PricingHeroSection";
 import { BeforeAfterNoteComparison } from "@/components/crush-ai/BeforeAfterNoteComparison";
+import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
+import { useExitIntent } from "@/hooks/useExitIntent";
 
 // Use dynamic imports with prefetch to improve loading performance
 const EhrIntegrationSection = lazy(() => {
@@ -235,6 +237,22 @@ const CTASection = memo(({ EHRBeamsBackground }: CTASectionProps) => (
 CTASection.displayName = 'CTASection';
 
 const CrushAI = () => {
+  const { shouldShow, markAsShown } = useExitIntent({
+    threshold: 75,
+    delay: 3000,
+    inactivityTimeout: 30000,
+    enabled: true
+  });
+
+  const handleBookDemo = () => {
+    markAsShown();
+    window.open('/contact', '_blank');
+  };
+
+  const handleClosePopup = () => {
+    markAsShown();
+  };
+
   // Preload critical components
   useEffect(() => {
     const preloadComponents = async () => {
@@ -374,6 +392,13 @@ const CrushAI = () => {
           <PricingHeroSection />
         </Suspense>
       </LazyLoadSection>
+      
+      {/* Exit Intent Popup */}
+      <ExitIntentPopup
+        isOpen={shouldShow}
+        onClose={handleClosePopup}
+        onBookDemo={handleBookDemo}
+      />
     </Box>
   );
 };
