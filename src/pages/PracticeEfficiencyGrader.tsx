@@ -22,7 +22,7 @@ const GradientBarsBackground: React.FC = () => {
 
     return (
         <>
-            {/* Gradient bars with mild teal color */}
+            {/* Enhanced gradient bars with better visibility */}
             <div className="absolute inset-0 z-0 overflow-hidden">
                 <div 
                     className="flex h-full w-full"
@@ -41,14 +41,14 @@ const GradientBarsBackground: React.FC = () => {
                                     flex: '1 0 calc(100% / 15)',
                                     maxWidth: 'calc(100% / 15)',
                                     height: '100%',
-                                    background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.4), rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.2))',
+                                    background: 'linear-gradient(135deg, rgba(45, 212, 191, 0.6), rgba(20, 184, 166, 0.5), rgba(13, 148, 136, 0.4))',
                                     transform: `scaleY(${height / 100})`,
                                     transformOrigin: 'bottom',
                                     transition: 'transform 0.8s ease-in-out',
                                     animation: 'pulseBar 4s ease-in-out infinite alternate',
                                     animationDelay: `${index * 0.2}s`,
-                                    opacity: 0.8,
-                                    filter: 'blur(0.3px)',
+                                    opacity: 0.9,
+                                    filter: 'blur(0.2px)',
                                 }}
                             />
                         );
@@ -56,8 +56,8 @@ const GradientBarsBackground: React.FC = () => {
                 </div>
             </div>
             
-            {/* Seamless white overlay for better integration */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/85 via-white/75 to-white/85"></div>
+            {/* Lighter overlay for better content visibility */}
+            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/70 via-white/60 to-white/70"></div>
         </>
     );
 };
@@ -476,7 +476,7 @@ const InputField = ({ name, type, placeholder, required = true }: { name: string
 
 // --- Main Application ---
 export default function PracticeEfficiencyGrader() {
-    const [appState, setAppState] = useState('intro'); // intro, quiz, form, preview, report
+    const [appState, setAppState] = useState('intro'); // intro, quiz, form, report
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | string | undefined)[]>(() => {
         const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
@@ -504,8 +504,7 @@ export default function PracticeEfficiencyGrader() {
     }, [answers, currentQuestionIndex]);
 
     const handleStart = () => setAppState('quiz');
-    const handleSubmitForm = (e: React.FormEvent) => { e.preventDefault(); setAppState('preview'); };
-    const handleViewFullReport = () => setAppState('report');
+    const handleSubmitForm = (e: React.FormEvent) => { e.preventDefault(); setAppState('report'); };
     const handleRetake = () => {
         setCurrentQuestionIndex(0);
         const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
@@ -740,115 +739,6 @@ export default function PracticeEfficiencyGrader() {
                                     Your information is secure and will only be used to provide your analysis.
                                 </p>
                             </div>
-                        </motion.div>
-                    </div>
-                );
-
-            case 'preview':
-                return (
-                    <div className="min-h-screen bg-white">
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="container mx-auto px-4 py-16 max-w-6xl"
-                        >
-                            <div className="text-center mb-12">
-                                <motion.div 
-                                    className="w-20 h-20 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl"
-                                    whileHover={{ scale: 1.1, rotate: 360 }}
-                                    transition={{ duration: 0.6 }}
-                                >
-                                    <Award className="w-10 h-10 text-white" />
-                                </motion.div>
-                                <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">Your Practice Efficiency Score</h2>
-                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-                                    <span className="text-xl font-semibold text-gray-700">Overall Score:</span>
-                                    <span className={`text-4xl font-bold px-6 py-3 rounded-2xl shadow-xl border-2 ${
-                                        overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                        overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                        'bg-red-50 text-red-700 border-red-200'
-                                    }`}>
-                                        {overallScore}%
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
-                                {reportResults.slice(0, 6).map(res => {
-                                    const IconComponent = res.icon;
-                                    return (
-                                        <motion.div 
-                                            key={res.id} 
-                                            className={`p-6 rounded-xl border shadow-lg bg-white ${
-                                                res.analysisResult === 'Critical' 
-                                                    ? 'border-red-200' 
-                                                    : res.analysisResult === 'High' 
-                                                    ? 'border-amber-200' 
-                                                    : 'border-emerald-200'
-                                            }`}
-                                            whileHover={{ scale: 1.02, y: -4 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            <div className="flex items-center gap-4 mb-4">
-                                                <div className={`p-3 rounded-xl ${
-                                                    res.analysisResult === 'Critical' 
-                                                        ? 'bg-red-100' 
-                                                        : res.analysisResult === 'High' 
-                                                        ? 'bg-amber-100' 
-                                                        : 'bg-emerald-100'
-                                                }`}>
-                                                    <IconComponent className={`w-6 h-6 ${
-                                                        res.analysisResult === 'Critical' 
-                                                            ? 'text-red-600' 
-                                                            : res.analysisResult === 'High' 
-                                                            ? 'text-amber-600' 
-                                                            : 'text-emerald-600'
-                                                    }`} />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className={`text-sm px-3 py-1 rounded-full font-semibold w-fit ${
-                                                        res.analysisResult === 'Critical' 
-                                                            ? 'bg-red-100 text-red-700' 
-                                                            : res.analysisResult === 'High' 
-                                                            ? 'bg-amber-100 text-amber-700' 
-                                                            : 'bg-emerald-100 text-emerald-700'
-                                                    }`}>
-                                                        {res.analysisResult === 'Critical' ? 'Below Average' : res.analysisResult === 'High' ? 'Needs Improvement' : 'Above Average'}
-                                                    </div>
-                                                    <h3 className="text-lg font-bold mt-2 text-gray-800">{res.valueProp}</h3>
-                                                </div>
-                                            </div>
-                                            
-                                            <p className="text-gray-600 text-sm leading-relaxed">
-                                                {res.analysisResult === 'Critical' 
-                                                    ? `Your ${res.valueProp.toLowerCase()} score is lower than the industry average – this could be hurting profitability and increasing burnout.`
-                                                    : res.analysisResult === 'High'
-                                                    ? `Your ${res.valueProp.toLowerCase()} score is below industry standards, affecting your practice efficiency.`
-                                                    : `Your ${res.valueProp.toLowerCase()} score beats the industry average – you're performing well in this area.`
-                                                }
-                                            </p>
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
-
-                            <motion.div 
-                                className="text-center"
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={handleViewFullReport}
-                                    className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-xl text-lg shadow-xl transition-all duration-300 flex items-center gap-3 mx-auto"
-                                >
-                                    View Complete Analysis
-                                    <ArrowRight className="w-5 h-5" />
-                                </motion.button>
-                            </motion.div>
                         </motion.div>
                     </div>
                 );
