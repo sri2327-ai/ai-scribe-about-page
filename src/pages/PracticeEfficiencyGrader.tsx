@@ -10,8 +10,8 @@ const GradientBarsBackground: React.FC = () => {
 
     const calculateHeight = (index: number, total: number) => {
         const position = index / (total - 1);
-        const maxHeight = 100;
-        const minHeight = 30;
+        const maxHeight = 80;
+        const minHeight = 20;
         
         const center = 0.5;
         const distanceFromCenter = Math.abs(position - center);
@@ -21,39 +21,46 @@ const GradientBarsBackground: React.FC = () => {
     };
 
     return (
-        <div className="absolute inset-0 z-0 overflow-hidden">
-            <div 
-                className="flex h-full"
-                style={{
-                    width: '100%',
-                    transform: 'translateZ(0)',
-                    backfaceVisibility: 'hidden',
-                    WebkitFontSmoothing: 'antialiased',
-                }}
-            >
-                {Array.from({ length: numBars }).map((_, index) => {
-                    const height = calculateHeight(index, numBars);
-                    return (
-                        <div
-                            key={index}
-                            style={{
-                                flex: '1 0 calc(100% / 15)',
-                                maxWidth: 'calc(100% / 15)',
-                                height: '100%',
-                                background: 'linear-gradient(135deg, #143151, #387E89, #F06292)',
-                                transform: `scaleY(${height / 100})`,
-                                transformOrigin: 'bottom',
-                                transition: 'transform 0.5s ease-in-out',
-                                animation: 'pulseBar 2s ease-in-out infinite alternate',
-                                animationDelay: `${index * 0.1}s`,
-                                outline: '1px solid rgba(0, 0, 0, 0)',
-                                boxSizing: 'border-box',
-                            }}
-                        />
-                    );
-                })}
+        <>
+            {/* Main gradient bars */}
+            <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
+                <div 
+                    className="flex h-full"
+                    style={{
+                        width: '100%',
+                        transform: 'translateZ(0)',
+                        backfaceVisibility: 'hidden',
+                        WebkitFontSmoothing: 'antialiased',
+                    }}
+                >
+                    {Array.from({ length: numBars }).map((_, index) => {
+                        const height = calculateHeight(index, numBars);
+                        return (
+                            <div
+                                key={index}
+                                style={{
+                                    flex: '1 0 calc(100% / 15)',
+                                    maxWidth: 'calc(100% / 15)',
+                                    height: '100%',
+                                    background: 'linear-gradient(135deg, #143151, #387E89, #F06292)',
+                                    transform: `scaleY(${height / 100})`,
+                                    transformOrigin: 'bottom',
+                                    transition: 'transform 0.5s ease-in-out',
+                                    animation: 'pulseBar 3s ease-in-out infinite alternate',
+                                    animationDelay: `${index * 0.15}s`,
+                                    outline: '1px solid rgba(0, 0, 0, 0)',
+                                    boxSizing: 'border-box',
+                                    filter: 'blur(1px)',
+                                }}
+                            />
+                        );
+                    })}
+                </div>
             </div>
-        </div>
+            
+            {/* White overlay gradient for seamless integration */}
+            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/90 via-white/60 to-white/90"></div>
+        </>
     );
 };
 
@@ -1003,28 +1010,27 @@ export default function PracticeEfficiencyGrader() {
                             animate="in" 
                             exit="out" 
                             transition={pageTransition} 
-                            className="relative z-10 text-center px-4 py-16 max-w-6xl mx-auto"
+                            className="relative z-10 text-center px-4 py-20 max-w-6xl mx-auto"
                         >
-                            <motion.div 
-                                className="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-12 shadow-2xl"
-                                whileHover={{ scale: 1.1, rotate: 360 }}
-                                transition={{ duration: 0.8 }}
-                            >
-                                <Brain className="w-12 h-12 md:w-16 md:h-16 text-white" />
-                            </motion.div>
+                            {/* Simplified icon without animation */}
+                            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-2xl flex items-center justify-center mx-auto mb-8 shadow-lg">
+                                <Brain className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                            </div>
                             
-                            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mb-8 leading-tight">
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
                                 Practice Efficiency 
-                                <span className="bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"> Grader</span>
+                                <span className="block bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mt-2"> 
+                                    Grader
+                                </span>
                             </h1>
                             
-                            <p className="text-gray-600 text-lg md:text-xl mb-16 leading-relaxed max-w-4xl mx-auto">
+                            <p className="text-gray-600 text-lg md:text-xl mb-12 leading-relaxed max-w-4xl mx-auto">
                                 Is your practice technology helping you thrive or just survive? 
                                 <br className="hidden md:block" />
-                                <span className="text-gray-800 font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
+                                <span className="text-gray-900 font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
                             </p>
                             
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
                                 {[
                                     { icon: Clock, text: "8 questions", subtitle: "Quick comprehensive assessment" },
                                     { icon: TrendingUp, text: "Personalized insights", subtitle: "Custom analysis for your practice" },
@@ -1032,14 +1038,14 @@ export default function PracticeEfficiencyGrader() {
                                 ].map((feature, idx) => (
                                     <motion.div 
                                         key={idx}
-                                        className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200 shadow-lg"
-                                        whileHover={{ scale: 1.05, y: -5 }}
+                                        className="p-6 md:p-8 rounded-2xl bg-white/90 backdrop-blur-sm border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
+                                        whileHover={{ scale: 1.02, y: -5 }}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: idx * 0.1 }}
                                     >
                                         <feature.icon className="w-10 h-10 text-[#387E89] mx-auto mb-4" />
-                                        <p className="text-gray-800 font-bold text-xl mb-2">{feature.text}</p>
+                                        <p className="text-gray-900 font-bold text-xl mb-2">{feature.text}</p>
                                         <p className="text-gray-600">{feature.subtitle}</p>
                                     </motion.div>
                                 ))}
@@ -1049,7 +1055,7 @@ export default function PracticeEfficiencyGrader() {
                                 onClick={handleStart} 
                                 whileHover={{ scale: 1.05, y: -2 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-6 px-12 rounded-full text-xl shadow-xl transition-all duration-300 mb-6 flex items-center gap-3 mx-auto"
+                                className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-5 px-10 rounded-full text-xl shadow-xl hover:shadow-2xl transition-all duration-300 mb-6 flex items-center gap-3 mx-auto"
                             >
                                 Start Your Assessment
                                 <ArrowRight className="w-6 h-6" />
