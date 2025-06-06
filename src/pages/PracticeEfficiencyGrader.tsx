@@ -2,7 +2,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Brain, ChevronRight, Star, TrendingUp, Clock, DollarSign, Users, Heart } from 'lucide-react';
+import { Brain, ChevronRight, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages } from 'lucide-react';
 
 // --- ANIMATION VARIANTS ---
 const pageVariants = {
@@ -24,14 +24,15 @@ interface CustomSliderProps {
     min: number;
     max: number;
     unit: string;
+    labels?: string[];
 }
 
-const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, unit }) => (
+const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, unit, labels }) => (
     <div className="w-full">
         <div className="flex justify-between items-center mb-4">
             <span className="text-lg font-medium text-white">{unit}</span>
             <span className="px-4 py-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold text-xl shadow-lg">
-                {value}
+                {labels ? labels[value] || value : value}
             </span>
         </div>
         <input 
@@ -42,6 +43,13 @@ const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, 
             onChange={e => onChange(parseInt(e.target.value))}
             className="w-full h-3 bg-gray-700/50 rounded-full appearance-none cursor-pointer range-thumb" 
         />
+        {labels && (
+            <div className="flex justify-between mt-2 text-xs text-gray-400">
+                <span>{labels[0]}</span>
+                <span>{labels[Math.floor(labels.length / 2)]}</span>
+                <span>{labels[labels.length - 1]}</span>
+            </div>
+        )}
         <style>{`
             .range-thumb::-webkit-slider-thumb { 
                 -webkit-appearance: none; 
@@ -98,6 +106,7 @@ interface SliderOptions {
     min: number;
     max: number;
     unit: string;
+    labels?: string[];
 }
 
 interface QuizQuestion {
@@ -112,6 +121,7 @@ interface QuizQuestion {
     analysis: (value: number | string) => 'Critical' | 'High' | 'Good';
     reportText: (value: number | string) => string;
     solution: string;
+    insightSnippet?: string;
 }
 
 // --- QUIZ DATA ---
@@ -123,104 +133,178 @@ const quizQuestions: QuizQuestion[] = [
         question: "How many hours per week do providers spend on documentation after patient hours?", 
         type: "slider", 
         options: { min: 0, max: 20, unit: 'Hours' }, 
-        valueProp: "Well-being & Work-Life Balance",
+        valueProp: "Provider Well-being & Burnout",
         icon: Clock,
         analysis: (val: number | string) => {
             const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
             return numVal > 8 ? "Critical" : numVal > 3 ? "High" : "Good";
         },
-        reportText: (val: number | string) => `With providers spending ${val} hours on after-hours charting, there's significant burnout risk. S10.AI can reduce this by 80% through automated documentation, giving providers their evenings back.`,
-        solution: "Our AI scribes handle real-time documentation, eliminating pajama time and reducing provider burnout by up to 80%."
+        reportText: (val: number | string) => `With providers spending ${val} hours on after-hours charting, there's significant burnout risk. Industry average is 4 hours. S10.AI can reduce this by 80% through automated documentation, giving providers their evenings back.`,
+        solution: "Our AI scribes handle real-time documentation, eliminating pajama time and reducing provider burnout by up to 80%.",
+        insightSnippet: "A 2024 Medscape report found that \"charting and paperwork\" is the #1 contributor to physician burnout."
     },
     {
         id: 2, 
-        category: "Financial Health", 
-        title: "The \"Revenue Leak\" Problem", 
-        question: "How confident are you that you're capturing all earned revenue, considering no-shows and claim denials?", 
-        type: "options", 
-        options: [
-            "Very confident, our process is optimized.", 
-            "Somewhat confident, but there are leaks.", 
-            "Not confident, we know we're losing revenue."
-        ], 
-        valueProp: "Revenue Optimization",
-        icon: DollarSign,
+        category: "Clinical Efficiency", 
+        title: "Documentation Speed", 
+        question: "How long after a patient encounter is the final clinical note completed and signed?", 
+        type: "slider", 
+        options: { 
+            min: 0, 
+            max: 6, 
+            unit: 'Timeframe',
+            labels: ['2 min', '30 min', '2 hrs', '1 day', '2 days', '3+ days']
+        }, 
+        valueProp: "Documentation Efficiency",
+        icon: FileText,
         analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("Not confident") ? "Critical" : strVal.includes("Somewhat") ? "High" : "Good";
+            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
+            return numVal > 3 ? "Critical" : numVal > 1 ? "High" : "Good";
         },
-        reportText: (val: number | string) => `Your confidence level suggests revenue leakage from scheduling and billing inefficiencies. Practices using S10.AI see 15-25% revenue increases through better capture and coding accuracy.`,
-        solution: "Our platform prevents no-shows with AI-powered scheduling and ensures accurate coding for maximum reimbursement."
+        reportText: (val: number | string) => {
+            const labels = ['2 minutes', '30 minutes', '2 hours', '1 day', '2 days', '3+ days'];
+            const timeframe = labels[typeof val === 'number' ? val : 0] || val;
+            return `Documentation completed in ${timeframe} indicates ${typeof val === 'number' && val > 1 ? 'delayed' : 'efficient'} workflow. S10.AI completes notes in real-time during encounters.`;
+        },
+        solution: "Our ambient AI documentation captures comprehensive notes during the visit, ready for review immediately after the encounter."
     },
     {
         id: 3, 
-        category: "Staffing & Operations", 
-        title: "The \"Manual Labor\" Problem", 
-        question: "What portion of your admin staff's day is spent on repetitive tasks like calls and data entry?", 
-        type: "options", 
-        options: [
-            "A small fraction (<25%), we're highly automated.", 
-            "A significant portion (25-50%).", 
-            "The majority of their day (>50%)."
-        ], 
-        valueProp: "Staff Efficiency & Automation",
-        icon: Users,
+        category: "Financial Health", 
+        title: "Clean Claim Rate", 
+        question: "What is your approximate clean claim rate? (Claims approved on first submission)", 
+        type: "slider", 
+        options: { min: 50, max: 100, unit: 'Percentage' }, 
+        valueProp: "Revenue Optimization",
+        icon: DollarSign,
         analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("majority") ? "Critical" : strVal.includes("significant") ? "High" : "Good";
+            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
+            return numVal < 75 ? "Critical" : numVal < 85 ? "High" : "Good";
         },
-        reportText: (val: number | string) => `With staff spending significant time on manual work, their capacity for high-value patient interaction is limited. S10.AI automates 70% of these tasks, freeing staff for meaningful work.`,
-        solution: "Our AI agents handle calls, scheduling, and data entry, allowing your staff to focus on patient care and relationship building."
+        reportText: (val: number | string) => `Your clean claim rate of ${val}% ${typeof val === 'number' && val < 85 ? 'is below' : 'meets'} industry average (85%). Lower rates indicate documentation and coding issues. S10.AI ensures accurate coding suggestions and comprehensive documentation.`,
+        solution: "Our AI scribe provides structured data and coding suggestions, improving clean claim rates to 95%+.",
+        insightSnippet: "Industry average clean claim rate is 80-85%. Lower rates often point to documentation and coding inaccuracies."
     },
     {
         id: 4, 
-        category: "Patient Care", 
-        title: "The \"Screen Barrier\" Problem", 
-        question: "Does documentation currently get in the way of meaningful provider-patient interaction?", 
+        category: "Financial Health", 
+        title: "Coding Confidence", 
+        question: "How confident are you that your notes capture all necessary details for accurate coding?", 
         type: "options", 
         options: [
-            "No, providers are fully present.", 
-            "Sometimes, screen-time is a distraction.", 
-            "Yes, it significantly inhibits face-to-face care."
+            "Not at all confident - we miss details regularly", 
+            "Hardly confident - we catch some but miss others", 
+            "Somewhat confident - we get most of it right",
+            "Very confident - we rarely miss coding opportunities",
+            "Completely confident - our documentation is comprehensive"
         ], 
-        valueProp: "Patient Experience & Care Quality",
-        icon: Heart,
+        valueProp: "Coding Accuracy & Compliance",
+        icon: FileText,
         analysis: (val: number | string) => {
             const strVal = String(val);
-            return strVal.includes("inhibits") ? "Critical" : strVal.includes("distraction") ? "High" : "Good";
+            return strVal.includes("Not at all") || strVal.includes("Hardly") ? "Critical" : 
+                   strVal.includes("Somewhat") ? "High" : "Good";
         },
-        reportText: (val: number | string) => `Documentation barriers reduce patient satisfaction and care quality. With S10.AI, providers maintain 100% eye contact while our AI handles notes, improving patient relationships dramatically.`,
-        solution: "Our ambient AI documentation lets providers focus entirely on patients while capturing comprehensive notes automatically."
+        reportText: (val: number | string) => `Your confidence level suggests ${String(val).includes("confident") ? 'good' : 'room for improvement in'} coding accuracy. Inaccurate coding leads to denied claims and audit risks. S10.AI provides real-time coding suggestions based on conversation content.`,
+        solution: "Our AI analyzes conversations in real-time to suggest accurate ICD-10, CPT codes and ensure comprehensive documentation."
     },
     {
         id: 5, 
-        category: "Technology ROI", 
-        title: "The \"Tech Burden\" Problem", 
-        question: "Does your current software actively reduce work for your team, or create more?", 
+        category: "Front Office Automation", 
+        title: "Scheduling Automation", 
+        question: "What scheduling automation do you currently use?", 
         type: "options", 
         options: [
-            "It dramatically reduces our workload.", 
-            "It helps a little, not a game-changer.", 
-            "No, it feels like it creates more work."
+            "No automation - everything is manual", 
+            "Basic automated reminders only", 
+            "Online scheduling + reminders",
+            "AI phone agent for some calls",
+            "Full AI automation for scheduling and calls"
         ], 
-        valueProp: "Technology Efficiency",
-        icon: TrendingUp,
+        valueProp: "Front Office Efficiency",
+        icon: Calendar,
         analysis: (val: number | string) => {
             const strVal = String(val);
-            return strVal.includes("creates more work") ? "Critical" : strVal.includes("not a game-changer") ? "High" : "Good";
+            return strVal.includes("No automation") ? "Critical" : 
+                   strVal.includes("Basic") ? "High" : "Good";
         },
-        reportText: (val: number | string) => `Technology should amplify your team, not burden them. S10.AI integrates seamlessly with existing systems while dramatically reducing manual work across all workflows.`,
-        solution: "Our platform integrates with any EHR without APIs, immediately reducing workload while improving accuracy and efficiency."
+        reportText: (val: number | string) => `Your current automation level indicates ${String(val).includes("No automation") ? 'significant manual work' : 'some efficiency gains'}. Manual scheduling burdens staff and increases no-shows. S10.AI Bravo can handle 80% of scheduling calls automatically.`,
+        solution: "Bravo AI Agent handles scheduling calls, reminders, and rescheduling 24/7, reducing staff workload by 70%."
+    },
+    {
+        id: 6, 
+        category: "Patient Access", 
+        title: "No-Show Rate", 
+        question: "What is your monthly patient no-show rate?", 
+        type: "slider", 
+        options: { min: 0, max: 40, unit: 'Percentage' }, 
+        valueProp: "Revenue Recovery",
+        icon: Calendar,
+        analysis: (val: number | string) => {
+            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
+            return numVal > 20 ? "Critical" : numVal > 12 ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `Your no-show rate of ${val}% ${typeof val === 'number' && val > 12 ? 'is above' : 'meets'} industry average (12%). High no-show rates represent significant lost revenue. For 100 daily appointments, ${val}% no-shows = $${Math.round(((typeof val === 'number' ? val : 0) * 100 * 250) / 100).toLocaleString()} monthly loss.`,
+        solution: "Our intelligent reminder system and easy rescheduling reduce no-shows by 60%, recovering thousands in lost revenue."
+    },
+    {
+        id: 7, 
+        category: "Patient Experience", 
+        title: "Provider-Patient Interaction", 
+        question: "How does documentation affect provider-patient face time?", 
+        type: "options", 
+        options: [
+            "Significantly inhibits - lots of screen time during visits", 
+            "Moderately inhibits - some distraction from documentation", 
+            "No impact - balanced approach",
+            "Moderately improves - efficient documentation helps",
+            "Significantly improves - minimal screen time needed"
+        ], 
+        valueProp: "Patient Care Quality",
+        icon: Heart,
+        analysis: (val: number | string) => {
+            const strVal = String(val);
+            return strVal.includes("Significantly inhibits") ? "Critical" : 
+                   strVal.includes("Moderately inhibits") ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `Documentation ${String(val).includes("inhibits") ? 'barriers reduce' : 'supports'} patient satisfaction and care quality. When providers focus on screens instead of patients, relationships suffer. S10.AI enables 100% eye contact while capturing comprehensive notes.`,
+        solution: "Our ambient AI documentation lets providers focus entirely on patients while capturing comprehensive notes automatically."
+    },
+    {
+        id: 8, 
+        category: "Language Access", 
+        title: "Multilingual Support", 
+        question: "How does your practice handle non-English speaking patients?", 
+        type: "options", 
+        options: [
+            "Rely on family members or ad-hoc translation", 
+            "Use cumbersome third-party phone services", 
+            "Limited to availability of bilingual staff",
+            "Technology-based real-time translation",
+            "Comprehensive multilingual AI support"
+        ], 
+        valueProp: "Patient Access & Safety",
+        icon: Languages,
+        analysis: (val: number | string) => {
+            const strVal = String(val);
+            return strVal.includes("family members") || strVal.includes("ad-hoc") ? "Critical" : 
+                   strVal.includes("cumbersome") || strVal.includes("Limited") ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `Your current approach ${String(val).includes("family") || String(val).includes("cumbersome") ? 'creates safety risks' : 'provides some support'} for non-English speakers. Inadequate translation leads to medical errors and poor patient experience. S10.AI supports 60+ languages with real-time translation.`,
+        solution: "Built-in real-time translation for 60+ languages ensures every patient receives clear, accurate communication and documentation."
     }
 ];
 
 const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
     const graphics = [
         { text: "Reclaim provider time from after-hours charting", icon: Clock, color: "from-blue-500 to-purple-600" },
-        { text: "Plug revenue leaks and maximize earnings", icon: DollarSign, color: "from-green-500 to-emerald-600" },
-        { text: "Automate repetitive tasks for your team", icon: Users, color: "from-orange-500 to-red-600" },
+        { text: "Accelerate documentation turnaround", icon: FileText, color: "from-green-500 to-blue-600" },
+        { text: "Maximize revenue with accurate coding", icon: DollarSign, color: "from-green-500 to-emerald-600" },
+        { text: "Ensure comprehensive clinical documentation", icon: FileText, color: "from-orange-500 to-red-600" },
+        { text: "Automate front office scheduling tasks", icon: Calendar, color: "from-purple-500 to-pink-600" },
+        { text: "Reduce no-shows and recover revenue", icon: Calendar, color: "from-yellow-500 to-orange-600" },
         { text: "Enable genuine patient connections", icon: Heart, color: "from-pink-500 to-rose-600" },
-        { text: "Deploy technology that works for you", icon: TrendingUp, color: "from-indigo-500 to-blue-600" }
+        { text: "Break down language barriers", icon: Languages, color: "from-indigo-500 to-blue-600" }
     ];
     const currentGraphic = graphics[questionId - 1];
     const IconComponent = currentGraphic.icon;
@@ -331,7 +415,7 @@ export default function PracticeEfficiencyGrader() {
     const overallScore = useMemo(() => {
         const scores = reportResults.map(r => r.analysisResult === 'Good' ? 3 : r.analysisResult === 'High' ? 2 : 1);
         const total = scores.reduce((sum, score) => sum + score, 0);
-        return Math.round((total / 15) * 100);
+        return Math.round((total / (quizQuestions.length * 3)) * 100);
     }, [reportResults]);
 
     const renderContent = () => {
@@ -364,6 +448,13 @@ export default function PracticeEfficiencyGrader() {
                                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 leading-tight">{question.title}</h2>
                                         <p className="text-gray-300 text-lg md:text-xl mb-8 leading-relaxed">{question.question}</p>
                                         
+                                        {question.insightSnippet && (
+                                            <div className="bg-[#143151]/20 border border-[#387E89]/30 rounded-lg p-4 mb-6">
+                                                <p className="text-[#5192AE] text-sm font-medium">💡 Industry Insight</p>
+                                                <p className="text-gray-300 text-sm mt-1">{question.insightSnippet}</p>
+                                            </div>
+                                        )}
+                                        
                                         <div className="space-y-4">
                                             {question.type === 'slider' && (
                                                 <CustomSlider 
@@ -372,6 +463,7 @@ export default function PracticeEfficiencyGrader() {
                                                     min={(question.options as SliderOptions).min}
                                                     max={(question.options as SliderOptions).max}
                                                     unit={(question.options as SliderOptions).unit}
+                                                    labels={(question.options as SliderOptions).labels}
                                                 />
                                             )}
                                             {question.type === 'options' && Array.isArray(question.options) && question.options.map((opt) => (
@@ -622,12 +714,12 @@ export default function PracticeEfficiencyGrader() {
                         <p className="text-gray-300 text-xl md:text-2xl mb-12 leading-relaxed max-w-3xl mx-auto">
                             Is your practice technology helping you thrive or just survive? 
                             <br />
-                            <span className="text-[#5192AE] font-semibold">Take our 2-minute assessment</span> to discover your efficiency score and unlock AI solutions.
+                            <span className="text-[#5192AE] font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
                         </p>
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
                             {[
-                                { icon: Clock, text: "2 minutes", subtitle: "Quick assessment" },
+                                { icon: Clock, text: "8 questions", subtitle: "Comprehensive assessment" },
                                 { icon: TrendingUp, text: "Personalized", subtitle: "Custom analysis" },
                                 { icon: Star, text: "Actionable", subtitle: "Immediate insights" }
                             ].map((feature, idx) => (
@@ -667,7 +759,7 @@ export default function PracticeEfficiencyGrader() {
         <>
             <Helmet>
                 <title>Practice Efficiency Grader | S10.AI</title>
-                <meta name="description" content="Assess your practice efficiency with our 2-minute AI-powered grader. Get personalized insights and discover how S10.AI can transform your healthcare practice." />
+                <meta name="description" content="Assess your practice efficiency with our comprehensive AI-powered grader. Get personalized insights and discover how S10.AI can transform your healthcare practice." />
             </Helmet>
             
             <main className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-black font-sans flex items-center justify-center relative p-4 overflow-hidden">
