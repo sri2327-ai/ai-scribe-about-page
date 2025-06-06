@@ -18,8 +18,8 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
 
   const [shouldShow, setShouldShow] = useState(false);
   const [hasShown, setHasShown] = useState(false);
-  const inactivityTimer = useRef<NodeJS.Timeout>();
-  const delayTimer = useRef<NodeJS.Timeout>();
+  const inactivityTimer = useRef<number>();
+  const delayTimer = useRef<number>();
 
   // Check if popup was already shown in this session
   useEffect(() => {
@@ -36,7 +36,8 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     }
     
     if (!hasShown && enabled) {
-      inactivityTimer.current = setTimeout(() => {
+      inactivityTimer.current = window.setTimeout(() => {
+        console.log('Inactivity timeout triggered');
         setShouldShow(true);
       }, inactivityTimeout);
     }
@@ -44,17 +45,14 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
 
   // Handle mouse leave (exit intent)
   const handleMouseLeave = useCallback((e: MouseEvent) => {
-    if (
-      e.clientY <= 0 && 
-      e.relatedTarget === null && 
-      !hasShown && 
-      enabled
-    ) {
+    // Check if mouse is leaving from the top of the page
+    if (e.clientY <= 5 && !hasShown && enabled) {
+      console.log('Exit intent detected');
       if (delayTimer.current) {
         clearTimeout(delayTimer.current);
       }
       
-      delayTimer.current = setTimeout(() => {
+      delayTimer.current = window.setTimeout(() => {
         setShouldShow(true);
       }, delay);
     }
@@ -66,11 +64,12 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
       const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
       
       if (scrolled >= threshold) {
+        console.log('Scroll threshold reached:', scrolled);
         if (delayTimer.current) {
           clearTimeout(delayTimer.current);
         }
         
-        delayTimer.current = setTimeout(() => {
+        delayTimer.current = window.setTimeout(() => {
           setShouldShow(true);
         }, delay);
       }
@@ -90,26 +89,34 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     resetInactivityTimer();
   }, [resetInactivityTimer]);
 
+  // Handle click (reset inactivity)
+  const handleClick = useCallback(() => {
+    resetInactivityTimer();
+  }, [resetInactivityTimer]);
+
   useEffect(() => {
     if (!enabled) return;
 
+    console.log('Setting up exit intent listeners');
+
     // Add event listeners
     document.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('scroll', handleScroll);
-    document.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('mousemove', handleMouseMove, { passive: true });
     document.addEventListener('keypress', handleKeyPress);
-    document.addEventListener('click', resetInactivityTimer);
+    document.addEventListener('click', handleClick, { passive: true });
 
     // Start inactivity timer
     resetInactivityTimer();
 
     return () => {
+      console.log('Cleaning up exit intent listeners');
       // Clean up event listeners
       document.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('keypress', handleKeyPress);
-      document.removeEventListener('click', resetInactivityTimer);
+      document.removeEventListener('click', handleClick);
 
       // Clear timers
       if (inactivityTimer.current) {
@@ -125,16 +132,19 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     handleScroll,
     handleMouseMove,
     handleKeyPress,
+    handleClick,
     resetInactivityTimer
   ]);
 
   const markAsShown = useCallback(() => {
+    console.log('Marking popup as shown');
     setHasShown(true);
     setShouldShow(false);
     sessionStorage.setItem('exitIntentShown', 'true');
   }, []);
 
   const resetPopup = useCallback(() => {
+    console.log('Resetting popup');
     setHasShown(false);
     setShouldShow(false);
     sessionStorage.removeItem('exitIntentShown');

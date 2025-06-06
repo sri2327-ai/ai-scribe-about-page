@@ -208,18 +208,20 @@ LoadingIndicator.displayName = 'LoadingIndicator';
 // Main Bravo component with optimized rendering
 const Bravo = () => {
   const { shouldShow, markAsShown } = useExitIntent({
-    threshold: 70,
-    delay: 2000,
-    inactivityTimeout: 25000,
+    threshold: 50, // Lower threshold for easier testing
+    delay: 1000, // Shorter delay
+    inactivityTimeout: 15000, // 15 seconds for testing
     enabled: true
   });
 
   const handleBookDemo = () => {
+    console.log('Book demo clicked');
     markAsShown();
     window.open('/contact', '_blank');
   };
 
   const handleClosePopup = () => {
+    console.log('Popup closed');
     markAsShown();
   };
 
