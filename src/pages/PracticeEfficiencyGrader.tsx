@@ -1,5 +1,3 @@
-
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -43,14 +41,14 @@ const GradientBarsBackground: React.FC = () => {
                                     flex: '1 0 calc(100% / 15)',
                                     maxWidth: 'calc(100% / 15)',
                                     height: '100%',
-                                    background: 'linear-gradient(135deg, rgba(94, 234, 212, 0.3), rgba(56, 178, 172, 0.2), rgba(20, 184, 166, 0.1))',
+                                    background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.4), rgba(16, 185, 129, 0.3), rgba(5, 150, 105, 0.2))',
                                     transform: `scaleY(${height / 100})`,
                                     transformOrigin: 'bottom',
                                     transition: 'transform 0.8s ease-in-out',
                                     animation: 'pulseBar 4s ease-in-out infinite alternate',
                                     animationDelay: `${index * 0.2}s`,
-                                    opacity: 0.6,
-                                    filter: 'blur(0.5px)',
+                                    opacity: 0.8,
+                                    filter: 'blur(0.3px)',
                                 }}
                             />
                         );
@@ -59,7 +57,7 @@ const GradientBarsBackground: React.FC = () => {
             </div>
             
             {/* Seamless white overlay for better integration */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/90 via-white/80 to-white/90"></div>
+            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/85 via-white/75 to-white/85"></div>
         </>
     );
 };
@@ -695,16 +693,11 @@ export default function PracticeEfficiencyGrader() {
                                     <Eye className="w-10 h-10 text-white" />
                                 </motion.div>
                                 <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
-                                    View the Practice Efficiency Benchmark Report
+                                    Get Your Personalized Efficiency Report
                                 </h2>
                                 <p className="text-gray-600 text-xl leading-relaxed mb-8 max-w-3xl mx-auto">
-                                    Discover how your practice stacks up against your peers and get insights to surpass your competition.
+                                    Enter your details below to receive your complete practice efficiency analysis and discover how S10.AI can transform your workflow.
                                 </p>
-                                
-                                <div className="bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-gray-200 rounded-2xl p-8 mb-12 max-w-2xl mx-auto">
-                                    <h3 className="text-2xl font-bold text-gray-800 mb-4">A preview of the full benchmark report</h3>
-                                    <p className="text-gray-600 text-lg">Enter your details below to receive your personalized performance report instantly.</p>
-                                </div>
                             </div>
                             
                             <form onSubmit={handleSubmitForm} className="space-y-8 max-w-2xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-xl p-8">
@@ -964,8 +957,39 @@ export default function PracticeEfficiencyGrader() {
                             >
                                 <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-800">Ready to Transform Your Practice?</h2>
                                 <p className="text-gray-600 text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-                                    S10.AI is purpose-built to solve these exact challenges. See your projected ROI and get a personalized implementation plan.
+                                    Discover how S10.AI's Crush (AI Scribe) and Bravo (AI Phone Agent) can solve these exact challenges. Get your personalized ROI projection and implementation plan.
                                 </p>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
+                                    <motion.div 
+                                        className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <Stethoscope className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
+                                        <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Crush</h3>
+                                        <p className="text-gray-600 mb-4">AI-powered clinical documentation that eliminates after-hours charting and improves coding accuracy.</p>
+                                        <ul className="text-sm text-gray-600 space-y-1">
+                                            <li>• Real-time note generation</li>
+                                            <li>• 80% reduction in documentation time</li>
+                                            <li>• Improved clean claim rates</li>
+                                        </ul>
+                                    </motion.div>
+                                    
+                                    <motion.div 
+                                        className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
+                                        whileHover={{ scale: 1.02 }}
+                                    >
+                                        <Phone className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
+                                        <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Bravo</h3>
+                                        <p className="text-gray-600 mb-4">AI phone agent that handles scheduling, reminders, and patient communications 24/7.</p>
+                                        <ul className="text-sm text-gray-600 space-y-1">
+                                            <li>• 70% reduction in staff workload</li>
+                                            <li>• 60% decrease in no-show rates</li>
+                                            <li>• 24/7 patient support</li>
+                                        </ul>
+                                    </motion.div>
+                                </div>
+                                
                                 <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
@@ -973,7 +997,7 @@ export default function PracticeEfficiencyGrader() {
                                         className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 flex items-center gap-3"
                                         onClick={() => window.open('/contact', '_blank')}
                                     >
-                                        Schedule My Demo
+                                        Schedule Live Demo
                                         <ExternalLink className="w-5 h-5" />
                                     </motion.button>
                                     <motion.button
@@ -982,7 +1006,7 @@ export default function PracticeEfficiencyGrader() {
                                         className="border-2 border-[#387E89] text-[#387E89] font-bold py-4 px-8 rounded-full text-lg hover:bg-[#387E89] hover:text-white transition-all duration-300 flex items-center gap-3"
                                         onClick={() => window.open('/pricing', '_blank')}
                                     >
-                                        View Solutions
+                                        View S10.AI Solutions
                                         <ArrowRight className="w-5 h-5" />
                                     </motion.button>
                                 </div>
