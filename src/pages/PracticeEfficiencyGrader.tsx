@@ -18,7 +18,15 @@ const pageTransition = {
 };
 
 // --- HELPER COMPONENTS ---
-const CustomSlider = ({ value, onChange, min, max, unit }) => (
+interface CustomSliderProps {
+    value: number;
+    onChange: (value: number) => void;
+    min: number;
+    max: number;
+    unit: string;
+}
+
+const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, unit }) => (
     <div className="w-full">
         <div className="flex justify-between items-center mb-4">
             <span className="text-lg font-medium text-white">{unit}</span>
@@ -64,7 +72,13 @@ const CustomSlider = ({ value, onChange, min, max, unit }) => (
     </div>
 );
 
-const OptionCard = ({ text, selected, onClick }) => (
+interface OptionCardProps {
+    text: string;
+    selected: boolean;
+    onClick: () => void;
+}
+
+const OptionCard: React.FC<OptionCardProps> = ({ text, selected, onClick }) => (
     <motion.div
         onClick={onClick}
         whileHover={{ scale: 1.02, y: -2 }}
@@ -79,8 +93,29 @@ const OptionCard = ({ text, selected, onClick }) => (
     </motion.div>
 );
 
+// --- TYPE DEFINITIONS ---
+interface SliderOptions {
+    min: number;
+    max: number;
+    unit: string;
+}
+
+interface QuizQuestion {
+    id: number;
+    category: string;
+    title: string;
+    question: string;
+    type: 'slider' | 'options';
+    options: SliderOptions | string[];
+    valueProp: string;
+    icon: React.ComponentType<any>;
+    analysis: (value: number | string) => 'Critical' | 'High' | 'Good';
+    reportText: (value: number | string) => string;
+    solution: string;
+}
+
 // --- QUIZ DATA ---
-const quizQuestions = [
+const quizQuestions: QuizQuestion[] = [
     {
         id: 1, 
         category: "Provider Wellbeing", 
@@ -90,8 +125,11 @@ const quizQuestions = [
         options: { min: 0, max: 20, unit: 'Hours' }, 
         valueProp: "Well-being & Work-Life Balance",
         icon: Clock,
-        analysis: (val = 0) => val > 8 ? "Critical" : val > 3 ? "High" : "Good",
-        reportText: (val = 0) => `With providers spending ${val} hours on after-hours charting, there's significant burnout risk. S10.AI can reduce this by 80% through automated documentation, giving providers their evenings back.`,
+        analysis: (val: number | string) => {
+            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
+            return numVal > 8 ? "Critical" : numVal > 3 ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `With providers spending ${val} hours on after-hours charting, there's significant burnout risk. S10.AI can reduce this by 80% through automated documentation, giving providers their evenings back.`,
         solution: "Our AI scribes handle real-time documentation, eliminating pajama time and reducing provider burnout by up to 80%."
     },
     {
@@ -107,8 +145,11 @@ const quizQuestions = [
         ], 
         valueProp: "Revenue Optimization",
         icon: DollarSign,
-        analysis: (val = "") => val.includes("Not confident") ? "Critical" : val.includes("Somewhat") ? "High" : "Good",
-        reportText: (val = "") => `Your confidence level suggests revenue leakage from scheduling and billing inefficiencies. Practices using S10.AI see 15-25% revenue increases through better capture and coding accuracy.`,
+        analysis: (val: number | string) => {
+            const strVal = String(val);
+            return strVal.includes("Not confident") ? "Critical" : strVal.includes("Somewhat") ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `Your confidence level suggests revenue leakage from scheduling and billing inefficiencies. Practices using S10.AI see 15-25% revenue increases through better capture and coding accuracy.`,
         solution: "Our platform prevents no-shows with AI-powered scheduling and ensures accurate coding for maximum reimbursement."
     },
     {
@@ -124,8 +165,11 @@ const quizQuestions = [
         ], 
         valueProp: "Staff Efficiency & Automation",
         icon: Users,
-        analysis: (val = "") => (val || "").includes("majority") ? "Critical" : (val || "").includes("significant") ? "High" : "Good",
-        reportText: (val = "") => `With staff spending significant time on manual work, their capacity for high-value patient interaction is limited. S10.AI automates 70% of these tasks, freeing staff for meaningful work.`,
+        analysis: (val: number | string) => {
+            const strVal = String(val);
+            return strVal.includes("majority") ? "Critical" : strVal.includes("significant") ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `With staff spending significant time on manual work, their capacity for high-value patient interaction is limited. S10.AI automates 70% of these tasks, freeing staff for meaningful work.`,
         solution: "Our AI agents handle calls, scheduling, and data entry, allowing your staff to focus on patient care and relationship building."
     },
     {
@@ -141,8 +185,11 @@ const quizQuestions = [
         ], 
         valueProp: "Patient Experience & Care Quality",
         icon: Heart,
-        analysis: (val = "") => (val || "").includes("inhibits") ? "Critical" : (val || "").includes("distraction") ? "High" : "Good",
-        reportText: (val = "") => `Documentation barriers reduce patient satisfaction and care quality. With S10.AI, providers maintain 100% eye contact while our AI handles notes, improving patient relationships dramatically.`,
+        analysis: (val: number | string) => {
+            const strVal = String(val);
+            return strVal.includes("inhibits") ? "Critical" : strVal.includes("distraction") ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `Documentation barriers reduce patient satisfaction and care quality. With S10.AI, providers maintain 100% eye contact while our AI handles notes, improving patient relationships dramatically.`,
         solution: "Our ambient AI documentation lets providers focus entirely on patients while capturing comprehensive notes automatically."
     },
     {
@@ -158,13 +205,16 @@ const quizQuestions = [
         ], 
         valueProp: "Technology Efficiency",
         icon: TrendingUp,
-        analysis: (val = "") => (val || "").includes("creates more work") ? "Critical" : (val || "").includes("not a game-changer") ? "High" : "Good",
-        reportText: (val = "") => `Technology should amplify your team, not burden them. S10.AI integrates seamlessly with existing systems while dramatically reducing manual work across all workflows.`,
+        analysis: (val: number | string) => {
+            const strVal = String(val);
+            return strVal.includes("creates more work") ? "Critical" : strVal.includes("not a game-changer") ? "High" : "Good";
+        },
+        reportText: (val: number | string) => `Technology should amplify your team, not burden them. S10.AI integrates seamlessly with existing systems while dramatically reducing manual work across all workflows.`,
         solution: "Our platform integrates with any EHR without APIs, immediately reducing workload while improving accuracy and efficiency."
     }
 ];
 
-const AnimatedGraphic = ({ questionId }) => {
+const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
     const graphics = [
         { text: "Reclaim provider time from after-hours charting", icon: Clock, color: "from-blue-500 to-purple-600" },
         { text: "Plug revenue leaks and maximize earnings", icon: DollarSign, color: "from-green-500 to-emerald-600" },
@@ -205,7 +255,7 @@ const AnimatedGraphic = ({ questionId }) => {
     );
 };
 
-const InputField = ({ name, type, placeholder }) => (
+const InputField = ({ name, type, placeholder }: { name: string; type: string; placeholder?: string }) => (
     <div>
         <label htmlFor={name} className="sr-only">{name}</label>
         <input 
@@ -222,8 +272,8 @@ const InputField = ({ name, type, placeholder }) => (
 export default function PracticeEfficiencyGrader() {
     const [appState, setAppState] = useState('intro'); // intro, quiz, form, report
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState(() => {
-        const initial = new Array(quizQuestions.length).fill(undefined);
+    const [answers, setAnswers] = useState<(number | string | undefined)[]>(() => {
+        const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
         initial[0] = 0; // Default for first slider
         return initial;
     });
@@ -248,16 +298,16 @@ export default function PracticeEfficiencyGrader() {
     }, [answers, currentQuestionIndex]);
 
     const handleStart = () => setAppState('quiz');
-    const handleSubmitForm = (e) => { e.preventDefault(); setAppState('report'); };
+    const handleSubmitForm = (e: React.FormEvent) => { e.preventDefault(); setAppState('report'); };
     const handleRetake = () => {
         setCurrentQuestionIndex(0);
-        const initial = new Array(quizQuestions.length).fill(undefined);
+        const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
         initial[0] = 0;
         setAnswers(initial);
         setAppState('intro');
     };
 
-    const handleAnswer = (answer, index) => {
+    const handleAnswer = (answer: number | string, index: number) => {
         setAnswers(prev => {
             const newAnswers = [...prev];
             newAnswers[index] = answer;
@@ -275,7 +325,7 @@ export default function PracticeEfficiencyGrader() {
     
     const reportResults = useMemo(() => quizQuestions.map((q, i) => {
         const answer = answers[i] !== undefined ? answers[i] : (q.type === 'slider' ? 0 : "");
-        return { ...q, answer, analysisResult: q.analysis(answer) };
+        return { ...q, answer, analysisResult: q.analysis(answer!) };
     }), [answers]);
 
     const overallScore = useMemo(() => {
@@ -317,12 +367,14 @@ export default function PracticeEfficiencyGrader() {
                                         <div className="space-y-4">
                                             {question.type === 'slider' && (
                                                 <CustomSlider 
-                                                    value={answers[currentQuestionIndex] || 0} 
+                                                    value={typeof answers[currentQuestionIndex] === 'number' ? answers[currentQuestionIndex] as number : 0} 
                                                     onChange={(val) => handleAnswer(val, currentQuestionIndex)} 
-                                                    {...question.options} 
+                                                    min={(question.options as SliderOptions).min}
+                                                    max={(question.options as SliderOptions).max}
+                                                    unit={(question.options as SliderOptions).unit}
                                                 />
                                             )}
-                                            {question.type === 'options' && question.options.map((opt) => (
+                                            {question.type === 'options' && Array.isArray(question.options) && question.options.map((opt) => (
                                                 <OptionCard 
                                                     key={opt} 
                                                     text={opt} 
@@ -487,7 +539,7 @@ export default function PracticeEfficiencyGrader() {
                                             </div>
                                         </div>
                                         
-                                        <p className="text-gray-300 mb-4 leading-relaxed">{res.reportText(res.answer)}</p>
+                                        <p className="text-gray-300 mb-4 leading-relaxed">{res.reportText(res.answer!)}</p>
                                         
                                         <div className="bg-[#143151]/30 rounded-lg p-4 mb-4 border border-[#387E89]/30">
                                             <p className="text-[#5192AE] font-semibold mb-2">S10.AI Solution:</p>
