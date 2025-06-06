@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -1078,7 +1079,7 @@ export default function PracticeEfficiencyGrader() {
                 </div>
             </main>
 
-            <style jsx>{`
+            <style>{`
                 @keyframes pulseBar {
                     0% { transform: scaleY(var(--scale-start, 0.4)); }
                     100% { transform: scaleY(var(--scale-end, 1)); }
