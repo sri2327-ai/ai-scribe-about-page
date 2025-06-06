@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare, PlayCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare, PlayCircle, ChevronDown, ChevronUp, Star } from "lucide-react";
 
 interface ExitIntentPopupProps {
   isOpen: boolean;
@@ -12,19 +12,27 @@ interface ExitIntentPopupProps {
 }
 
 const supportedLanguages = [
-  "Afrikaans", "Arabic", "Armenian", "Azerbaijani", "Belarusian", "Bosnian", 
-  "Bulgarian", "Catalan", "Chinese", "Croatian", "Czech", "Danish", "Dutch", 
-  "English", "Estonian", "Finnish", "French", "Galician", "German", "Greek", 
-  "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Italian", 
-  "Japanese", "Kannada", "Kazakh", "Korean", "Latvian", "Lithuanian", 
+  "English", "Spanish", "Chinese", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Arabic", "Hindi"
+];
+
+const additionalLanguages = [
+  "Afrikaans", "Armenian", "Azerbaijani", "Belarusian", "Bosnian", 
+  "Bulgarian", "Catalan", "Croatian", "Czech", "Danish", "Dutch", 
+  "Estonian", "Finnish", "Galician", "Greek", 
+  "Hebrew", "Hungarian", "Icelandic", "Indonesian", 
+  "Kannada", "Kazakh", "Latvian", "Lithuanian", 
   "Macedonian", "Malay", "Marathi", "Maori", "Nepali", "Norwegian", "Persian", 
-  "Polish", "Portuguese", "Romanian", "Russian", "Serbian", "Slovak", 
-  "Slovenian", "Spanish", "Swahili", "Swedish", "Tagalog", "Tamil", "Thai", 
+  "Polish", "Romanian", "Serbian", "Slovak", 
+  "Slovenian", "Swahili", "Swedish", "Tagalog", "Tamil", "Thai", 
   "Turkish", "Ukrainian", "Urdu", "Vietnamese", "Welsh"
 ];
 
 const popularEHRs = [
   "Epic", "Cerner", "Allscripts", "athenahealth", "NextGen", "eClinicalWorks"
+];
+
+const additionalEHRs = [
+  "MEDITECH", "DrChrono", "Practice Fusion", "Amazing Charts", "ChartLogic", "CureMD"
 ];
 
 const getVariantContent = (variant: string) => {
@@ -96,84 +104,154 @@ const getVariantContent = (variant: string) => {
           }
         ],
         cta: "Ready to transform your practice?",
-        ctaDescription: "Join providers using S10.AI with Epic, Cerner, athenahealth, NextGen, and all major EHR systems."
+        ctaDescription: "Choose any EHR of your choice - S10.AI seamlessly connects with Epic, Cerner, athenahealth, NextGen, and all major systems."
       };
   }
 };
 
-// Improved language display component
+// Improved language display component without scrolling
 const LanguageShowcase = React.memo(() => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  const displayLanguages = isExpanded ? supportedLanguages : supportedLanguages.slice(0, 12);
+  const [showAll, setShowAll] = useState(false);
   
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl p-4 border border-blue-200 relative">
-      <div className="flex items-center justify-between mb-3">
-        <h4 className="font-semibold text-gray-800 text-sm flex items-center gap-2">
-          <Globe className="w-4 h-4 text-blue-600" />
-          All 65+ Supported Languages
+    <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl p-5 border border-blue-200">
+      <div className="flex items-center justify-between mb-4">
+        <h4 className="font-semibold text-gray-800 flex items-center gap-2">
+          <Globe className="w-5 h-5 text-blue-600" />
+          65+ Supported Languages
         </h4>
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors bg-white px-2 py-1 rounded-full border border-blue-200 hover:border-blue-300"
-        >
-          {isExpanded ? (
-            <>
-              Show Less <ChevronUp className="w-3 h-3" />
-            </>
-          ) : (
-            <>
-              View All <ChevronDown className="w-3 h-3" />
-            </>
-          )}
-        </button>
+        <div className="flex items-center gap-2">
+          <Star className="w-4 h-4 text-yellow-500 fill-current" />
+          <span className="text-sm text-blue-600 font-medium">Most Popular</span>
+        </div>
       </div>
       
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 transition-all duration-300">
-        {displayLanguages.map((lang, index) => (
+      {/* Main languages grid - no scrolling */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-4">
+        {supportedLanguages.map((lang) => (
           <div
             key={lang}
-            className={`flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-200 ${
-              index >= 12 && !isExpanded ? 'opacity-0' : 'opacity-100'
-            }`}
+            className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-200"
           >
-            <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" />
-            <span className="text-gray-700 font-medium text-xs truncate">{lang}</span>
+            <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+            <span className="text-gray-700 font-medium text-sm">{lang}</span>
           </div>
         ))}
       </div>
       
-      {!isExpanded && (
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-blue-50 to-transparent rounded-b-xl pointer-events-none"></div>
+      {/* Additional languages preview */}
+      {showAll && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mb-4 animate-in slide-in-from-top duration-300">
+          {additionalLanguages.map((lang) => (
+            <div
+              key={lang}
+              className="flex items-center gap-2 bg-white p-2.5 rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-200"
+            >
+              <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+              <span className="text-gray-700 font-medium text-sm">{lang}</span>
+            </div>
+          ))}
+        </div>
       )}
+      
+      {/* Show more/less button */}
+      <div className="text-center">
+        <button
+          onClick={() => setShowAll(!showAll)}
+          className="flex items-center gap-2 mx-auto text-blue-600 hover:text-blue-800 font-medium transition-colors bg-white px-4 py-2 rounded-full border border-blue-200 hover:border-blue-300 shadow-sm"
+        >
+          {showAll ? (
+            <>
+              Show Less <ChevronUp className="w-4 h-4" />
+            </>
+          ) : (
+            <>
+              +{additionalLanguages.length} More Languages <ChevronDown className="w-4 h-4" />
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 });
 
 LanguageShowcase.displayName = 'LanguageShowcase';
 
-// EHR compatibility showcase
-const EHRShowcase = React.memo(() => (
-  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-4 border border-green-200">
-    <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
-      <Database className="w-4 h-4 text-green-600" />
-      Compatible EHR Systems (No API Required)
-    </h4>
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-      {popularEHRs.map((ehr) => (
-        <div
-          key={ehr}
-          className="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100 hover:border-green-200 transition-colors"
-        >
-          <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" />
-          <span className="text-gray-700 font-medium text-xs">{ehr}</span>
+// EHR compatibility showcase without scrolling
+const EHRShowcase = React.memo(() => {
+  const [showAll, setShowAll] = useState(false);
+  
+  return (
+    <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-5 border border-green-200">
+      <div className="flex items-center justify-between mb-4">
+        <h4 className="font-semibold text-gray-800 flex items-center gap-2">
+          <Database className="w-5 h-5 text-green-600" />
+          Compatible EHR Systems
+        </h4>
+        <div className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+          NO API REQUIRED
         </div>
-      ))}
+      </div>
+      
+      {/* Main EHRs grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
+        {popularEHRs.map((ehr) => (
+          <div
+            key={ehr}
+            className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-100 hover:border-green-200 transition-colors shadow-sm"
+          >
+            <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+            <span className="text-gray-700 font-semibold text-sm">{ehr}</span>
+          </div>
+        ))}
+      </div>
+      
+      {/* Additional EHRs */}
+      {showAll && (
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4 animate-in slide-in-from-top duration-300">
+          {additionalEHRs.map((ehr) => (
+            <div
+              key={ehr}
+              className="flex items-center gap-2 bg-white p-3 rounded-lg border border-gray-100 hover:border-green-200 transition-colors shadow-sm"
+            >
+              <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
+              <span className="text-gray-700 font-semibold text-sm">{ehr}</span>
+            </div>
+          ))}
+        </div>
+      )}
+      
+      {/* Show more button and universal compatibility message */}
+      <div className="space-y-3">
+        <div className="text-center">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="flex items-center gap-2 mx-auto text-green-600 hover:text-green-800 font-medium transition-colors bg-white px-4 py-2 rounded-full border border-green-200 hover:border-green-300 shadow-sm"
+          >
+            {showAll ? (
+              <>
+                Show Less <ChevronUp className="w-4 h-4" />
+              </>
+            ) : (
+              <>
+                +{additionalEHRs.length} More Systems <ChevronDown className="w-4 h-4" />
+              </>
+            )}
+          </button>
+        </div>
+        
+        <div className="bg-gradient-to-r from-green-100 to-blue-100 p-3 rounded-lg border border-green-200">
+          <p className="text-center text-green-700 font-bold text-sm">
+            + Works with ANY EHR system of your choice
+          </p>
+          <p className="text-center text-green-600 text-xs mt-1">
+            Seamlessly connects without API setup
+          </p>
+        </div>
+      </div>
     </div>
-    <p className="text-xs text-green-600 mt-2 font-medium">+ Works with ANY EHR system</p>
-  </div>
-));
+  );
+});
 
 EHRShowcase.displayName = 'EHRShowcase';
 
@@ -208,16 +286,16 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
         style={{ outline: 'none' }}
       >
         <div className="relative flex flex-col h-full">
-          {/* Header */}
+          {/* Header with better close button positioning */}
           <div className="bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white p-4 sm:p-6 text-center relative overflow-hidden flex-shrink-0">
             <div className="absolute inset-0 bg-black/10"></div>
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
+              className="absolute top-2 right-2 z-20 p-2.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
             >
               <X className="w-5 h-5 text-white" />
             </button>
-            <div className="relative z-10 pr-12">
+            <div className="relative z-10 pr-16">
               <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2 leading-tight">{content.title}</h2>
               <p className="text-blue-100 text-sm sm:text-base font-medium">{content.subtitle}</p>
             </div>
