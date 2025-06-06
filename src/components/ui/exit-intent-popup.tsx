@@ -1,8 +1,7 @@
-
 import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare } from "lucide-react";
+import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare, PlayCircle } from "lucide-react";
 
 interface ExitIntentPopupProps {
   isOpen: boolean;
@@ -119,6 +118,12 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   // Memoize content to prevent recalculation on every render
   const content = useMemo(() => getVariantContent(variant), [variant]);
 
+  const handleQuickTour = () => {
+    onClose();
+    // Navigate to quick tour or demo section
+    window.open('/#watch-demo', '_self');
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
@@ -203,13 +208,14 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                 </Button>
                 
                 <Button
-                  onClick={onClose}
+                  onClick={handleQuickTour}
                   variant="outline"
                   size="lg"
                   className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-gray-300 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-400 transition-all duration-300 text-sm sm:text-base focus:outline-none focus-visible:outline-none"
                   style={{ outline: 'none' }}
                 >
-                  Maybe Later
+                  <PlayCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                  Quick Tour
                 </Button>
               </div>
             </div>
