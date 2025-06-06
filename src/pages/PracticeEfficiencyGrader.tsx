@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -942,14 +943,38 @@ export default function PracticeEfficiencyGrader() {
 
             default: // intro
                 return (
-                    <div className="min-h-screen bg-white">
+                    <div className="min-h-screen relative overflow-hidden">
+                        {/* Geometric Background Pattern */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+                            <div className="absolute inset-0" style={{
+                                backgroundImage: `
+                                    radial-gradient(circle at 25% 25%, rgba(200, 200, 200, 0.3) 0%, transparent 25%),
+                                    radial-gradient(circle at 75% 25%, rgba(180, 180, 180, 0.2) 0%, transparent 25%),
+                                    radial-gradient(circle at 25% 75%, rgba(220, 220, 220, 0.25) 0%, transparent 25%),
+                                    radial-gradient(circle at 75% 75%, rgba(190, 190, 190, 0.3) 0%, transparent 25%),
+                                    linear-gradient(45deg, rgba(210, 210, 210, 0.1) 25%, transparent 25%),
+                                    linear-gradient(-45deg, rgba(200, 200, 200, 0.1) 25%, transparent 25%),
+                                    linear-gradient(45deg, transparent 75%, rgba(215, 215, 215, 0.1) 75%),
+                                    linear-gradient(-45deg, transparent 75%, rgba(205, 205, 205, 0.1) 75%)
+                                `,
+                                backgroundSize: '120px 120px, 80px 80px, 100px 100px, 90px 90px, 60px 60px, 60px 60px, 60px 60px, 60px 60px',
+                                backgroundPosition: '0 0, 40px 40px, 20px 20px, 60px 60px, 0 0, 30px 30px, 0 0, 30px 30px'
+                            }} />
+                            
+                            {/* Additional geometric shapes */}
+                            <div className="absolute top-20 left-10 w-32 h-32 bg-gray-200/20 rounded-full blur-xl" />
+                            <div className="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-2xl" />
+                            <div className="absolute bottom-32 left-1/4 w-24 h-24 bg-gray-250/25 rounded-full blur-lg" />
+                            <div className="absolute bottom-20 right-1/3 w-36 h-36 bg-gray-200/20 rounded-full blur-xl" />
+                        </div>
+
                         <motion.div 
                             variants={pageVariants} 
                             initial="initial" 
                             animate="in" 
                             exit="out" 
                             transition={pageTransition} 
-                            className="text-center px-4 py-16 max-w-6xl mx-auto"
+                            className="relative z-10 text-center px-4 py-16 max-w-6xl mx-auto"
                         >
                             <motion.div 
                                 className="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-12 shadow-2xl"
@@ -978,7 +1003,7 @@ export default function PracticeEfficiencyGrader() {
                                 ].map((feature, idx) => (
                                     <motion.div 
                                         key={idx}
-                                        className="p-8 rounded-2xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-gray-200 shadow-lg"
+                                        className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200 shadow-lg"
                                         whileHover={{ scale: 1.05, y: -5 }}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
