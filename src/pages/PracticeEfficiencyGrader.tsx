@@ -4,6 +4,59 @@ import { Helmet } from 'react-helmet-async';
 import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
 import { ModernSlider } from '@/components/ui/modern-slider';
 
+// --- GRADIENT BARS BACKGROUND COMPONENT ---
+const GradientBarsBackground: React.FC = () => {
+    const [numBars] = useState(15);
+
+    const calculateHeight = (index: number, total: number) => {
+        const position = index / (total - 1);
+        const maxHeight = 100;
+        const minHeight = 30;
+        
+        const center = 0.5;
+        const distanceFromCenter = Math.abs(position - center);
+        const heightPercentage = Math.pow(distanceFromCenter * 2, 1.2);
+        
+        return minHeight + (maxHeight - minHeight) * heightPercentage;
+    };
+
+    return (
+        <div className="absolute inset-0 z-0 overflow-hidden">
+            <div 
+                className="flex h-full"
+                style={{
+                    width: '100%',
+                    transform: 'translateZ(0)',
+                    backfaceVisibility: 'hidden',
+                    WebkitFontSmoothing: 'antialiased',
+                }}
+            >
+                {Array.from({ length: numBars }).map((_, index) => {
+                    const height = calculateHeight(index, numBars);
+                    return (
+                        <div
+                            key={index}
+                            style={{
+                                flex: '1 0 calc(100% / 15)',
+                                maxWidth: 'calc(100% / 15)',
+                                height: '100%',
+                                background: 'linear-gradient(135deg, #143151, #387E89, #F06292)',
+                                transform: `scaleY(${height / 100})`,
+                                transformOrigin: 'bottom',
+                                transition: 'transform 0.5s ease-in-out',
+                                animation: 'pulseBar 2s ease-in-out infinite alternate',
+                                animationDelay: `${index * 0.1}s`,
+                                outline: '1px solid rgba(0, 0, 0, 0)',
+                                boxSizing: 'border-box',
+                            }}
+                        />
+                    );
+                })}
+            </div>
+        </div>
+    );
+};
+
 // --- ANIMATION VARIANTS ---
 const pageVariants = {
     initial: { opacity: 0, y: 30 },
@@ -942,14 +995,15 @@ export default function PracticeEfficiencyGrader() {
 
             default: // intro
                 return (
-                    <div className="min-h-screen bg-white">
+                    <div className="min-h-screen bg-white relative overflow-hidden">
+                        <GradientBarsBackground />
                         <motion.div 
                             variants={pageVariants} 
                             initial="initial" 
                             animate="in" 
                             exit="out" 
                             transition={pageTransition} 
-                            className="text-center px-4 py-16 max-w-6xl mx-auto"
+                            className="relative z-10 text-center px-4 py-16 max-w-6xl mx-auto"
                         >
                             <motion.div 
                                 className="w-24 h-24 md:w-32 md:h-32 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-12 shadow-2xl"
@@ -978,7 +1032,7 @@ export default function PracticeEfficiencyGrader() {
                                 ].map((feature, idx) => (
                                     <motion.div 
                                         key={idx}
-                                        className="p-8 rounded-2xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-gray-200 shadow-lg"
+                                        className="p-8 rounded-2xl bg-white/80 backdrop-blur-sm border border-gray-200 shadow-lg"
                                         whileHover={{ scale: 1.05, y: -5 }}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -1017,7 +1071,7 @@ export default function PracticeEfficiencyGrader() {
                 <meta name="description" content="Assess your practice efficiency with our comprehensive AI-powered grader. Get personalized insights and discover how S10.AI can transform your healthcare practice." />
             </Helmet>
             
-            <main className="min-h-screen w-full bg-white">
+            <main className="min-h-screen w-full">
                 <div className="relative z-10 min-h-screen">
                     <AnimatePresence mode="wait">
                         {renderContent()}
