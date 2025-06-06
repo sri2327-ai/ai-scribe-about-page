@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare, PlayCircle } from "lucide-react";
+import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare, PlayCircle, ChevronDown, ChevronUp } from "lucide-react";
 
 interface ExitIntentPopupProps {
   isOpen: boolean;
@@ -23,94 +23,159 @@ const supportedLanguages = [
   "Turkish", "Ukrainian", "Urdu", "Vietnamese", "Welsh"
 ];
 
+const popularEHRs = [
+  "Epic", "Cerner", "Allscripts", "athenahealth", "NextGen", "eClinicalWorks"
+];
+
 const getVariantContent = (variant: string) => {
   switch (variant) {
     case 'bravo':
       return {
         title: "Break Language Barriers & System Silos",
-        subtitle: "Stop letting language differences and complex integrations limit your patient care.",
+        subtitle: "No APIs Required - Works with Any EHR System",
         features: [
           {
             icon: MessageSquare,
             title: "AI Agents for Global Care",
-            description: "BRAVO's RPA/Agentic technology deploys multilingual AI agents that communicate with patients in their native language - no human interpreter needed.",
+            description: "BRAVO's RPA/Agentic technology deploys multilingual AI agents that communicate with patients in their native language.",
+            highlight: "65+ Languages Supported",
             color: "purple"
           },
           {
             icon: Database,
-            title: "Seamless System Integration",
-            description: "Connect with any CRM, EHR, or PMS without complex APIs. BRAVO's intelligent agents work with your existing systems instantly.",
+            title: "Universal EHR Integration",
+            description: "Connect instantly with Epic, Cerner, athenahealth, or any EHR without complex APIs.",
+            highlight: "No API Setup Required",
             color: "teal"
           }
         ],
         cta: "Ready to eliminate staffing and language barriers?",
-        ctaDescription: "See how BRAVO's AI agents handle multilingual patient interactions while seamlessly integrating with your practice management systems."
+        ctaDescription: "See how BRAVO works with your preferred EHR system and handles multilingual patient interactions."
       };
     case 'crush':
       return {
         title: "Documentation Without the API Headache",
-        subtitle: "Tired of complex EHR integrations? CRUSH works seamlessly without API requirements.",
+        subtitle: "Works Seamlessly with Epic, Cerner & All Major EHRs",
         features: [
           {
             icon: Zap,
             title: "No API Required",
-            description: "CRUSH uses advanced RPA/Agentic technology that integrates directly with your existing workflow - no complex API setups needed.",
+            description: "CRUSH integrates directly with your existing workflow using advanced RPA technology.",
+            highlight: "Zero Technical Setup",
             color: "blue"
           },
           {
             icon: Globe,
             title: "65+ Languages Supported", 
-            description: "Document patient encounters in any language - from English to Welsh, Arabic to Vietnamese.",
+            description: "Document encounters in any language your patients speak - from English to Vietnamese.",
+            highlight: "All Languages Included",
             color: "teal"
           }
         ],
         cta: "Ready to eliminate documentation burden?",
-        ctaDescription: "Join thousands of providers who've streamlined their workflow without technical complications or language barriers."
+        ctaDescription: "Join providers using CRUSH with Epic, Cerner, athenahealth, and other major EHR systems."
       };
     default:
       return {
         title: "Before You Leave - See What Makes S10.AI Different",
-        subtitle: "Tired of AI solutions requiring complex integrations? We've got you covered.",
+        subtitle: "No APIs Required - Works with Epic, Cerner & All EHRs",
         features: [
           {
             icon: Zap,
             title: "No API Required",
-            description: "S10.AI uses cutting-edge RPA/Agentic technology that works seamlessly without complex API integrations.",
+            description: "S10.AI uses cutting-edge RPA technology that integrates seamlessly without complex API setups.",
+            highlight: "Universal Compatibility",
             color: "blue"
           },
           {
             icon: Globe,
             title: "65+ Languages Supported",
-            description: "From English to Welsh, Arabic to Vietnamese - we support your global practice needs effortlessly.",
+            description: "Serve patients in their native language - from Spanish and Chinese to Welsh and Vietnamese.",
+            highlight: "All Languages Included",
             color: "teal"
           }
         ],
         cta: "Ready to transform your practice?",
-        ctaDescription: "Join thousands of healthcare providers who've eliminated technical barriers and language limitations."
+        ctaDescription: "Join providers using S10.AI with Epic, Cerner, athenahealth, NextGen, and all major EHR systems."
       };
   }
 };
 
-// Improved language grid component with better scrolling
-const LanguageGrid = React.memo(() => (
-  <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border border-gray-200">
-    <h4 className="font-semibold text-gray-800 mb-4 text-center text-sm sm:text-base">All Supported Languages</h4>
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 max-h-32 sm:max-h-40 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-blue-300 hover:scrollbar-thumb-blue-400 scrollbar-track-blue-100 scrollbar-corner-blue-100">
-      {supportedLanguages.map((lang) => (
+// Improved language display component
+const LanguageShowcase = React.memo(() => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const displayLanguages = isExpanded ? supportedLanguages : supportedLanguages.slice(0, 12);
+  
+  return (
+    <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl p-4 border border-blue-200 relative">
+      <div className="flex items-center justify-between mb-3">
+        <h4 className="font-semibold text-gray-800 text-sm flex items-center gap-2">
+          <Globe className="w-4 h-4 text-blue-600" />
+          All 65+ Supported Languages
+        </h4>
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors bg-white px-2 py-1 rounded-full border border-blue-200 hover:border-blue-300"
+        >
+          {isExpanded ? (
+            <>
+              Show Less <ChevronUp className="w-3 h-3" />
+            </>
+          ) : (
+            <>
+              View All <ChevronDown className="w-3 h-3" />
+            </>
+          )}
+        </button>
+      </div>
+      
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 transition-all duration-300">
+        {displayLanguages.map((lang, index) => (
+          <div
+            key={lang}
+            className={`flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100 hover:border-blue-200 transition-all duration-200 ${
+              index >= 12 && !isExpanded ? 'opacity-0' : 'opacity-100'
+            }`}
+          >
+            <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" />
+            <span className="text-gray-700 font-medium text-xs truncate">{lang}</span>
+          </div>
+        ))}
+      </div>
+      
+      {!isExpanded && (
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-blue-50 to-transparent rounded-b-xl pointer-events-none"></div>
+      )}
+    </div>
+  );
+});
+
+LanguageShowcase.displayName = 'LanguageShowcase';
+
+// EHR compatibility showcase
+const EHRShowcase = React.memo(() => (
+  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-4 border border-green-200">
+    <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
+      <Database className="w-4 h-4 text-green-600" />
+      Compatible EHR Systems (No API Required)
+    </h4>
+    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+      {popularEHRs.map((ehr) => (
         <div
-          key={lang}
-          className="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100 hover:border-blue-200 transition-colors min-w-0"
+          key={ehr}
+          className="flex items-center gap-2 bg-white p-2 rounded-lg border border-gray-100 hover:border-green-200 transition-colors"
         >
           <CheckCircle className="w-3 h-3 text-green-500 flex-shrink-0" />
-          <span className="text-gray-700 font-medium truncate text-xs sm:text-sm">{lang}</span>
+          <span className="text-gray-700 font-medium text-xs">{ehr}</span>
         </div>
       ))}
     </div>
-    <p className="text-xs text-gray-500 mt-2 text-center">Scroll to see all languages</p>
+    <p className="text-xs text-green-600 mt-2 font-medium">+ Works with ANY EHR system</p>
   </div>
 ));
 
-LanguageGrid.displayName = 'LanguageGrid';
+EHRShowcase.displayName = 'EHRShowcase';
 
 export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   isOpen,
@@ -118,21 +183,19 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   onBookDemo,
   variant = 'general'
 }) => {
-  const [showLanguages, setShowLanguages] = useState(false);
+  const [activeTab, setActiveTab] = useState<'languages' | 'ehr'>('languages');
   
-  // Memoize content to prevent recalculation on every render
   const content = useMemo(() => getVariantContent(variant), [variant]);
 
   const handleQuickTour = () => {
     onClose();
-    // Navigate to quick tour or demo section
     window.open('/#watch-demo', '_self');
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="w-[95vw] max-w-sm sm:max-w-lg lg:max-w-2xl xl:max-w-3xl h-[90vh] sm:h-[85vh] lg:h-[80vh] max-h-[700px] p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-lg sm:rounded-xl"
+        className="w-[95vw] max-w-sm sm:max-w-lg lg:max-w-2xl xl:max-w-4xl h-[90vh] sm:h-[85vh] max-h-[800px] p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-xl"
         hideCloseButton={true}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -142,85 +205,101 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
           e.preventDefault();
           onClose();
         }}
-        style={{ 
-          outline: 'none',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
-        }}
+        style={{ outline: 'none' }}
       >
-        <div className="relative flex flex-col h-full" style={{ outline: 'none' }}>
-          {/* Header with better close button positioning */}
-          <div className="bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white p-4 sm:p-5 lg:p-6 text-center relative overflow-hidden flex-shrink-0">
+        <div className="relative flex flex-col h-full">
+          {/* Header */}
+          <div className="bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white p-4 sm:p-6 text-center relative overflow-hidden flex-shrink-0">
             <div className="absolute inset-0 bg-black/10"></div>
-            {/* Close button - better positioning to avoid overlap */}
             <button
               onClick={onClose}
-              className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20 p-1.5 sm:p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm shadow-lg transition-all duration-200 hover:scale-110"
-              style={{ outline: 'none' }}
+              className="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
             >
-              <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              <X className="w-5 h-5 text-white" />
             </button>
-            <div className="relative z-10 pr-8 sm:pr-12">
-              <h2 className="text-base sm:text-lg lg:text-xl xl:text-2xl font-bold mb-2 sm:mb-3 leading-tight">{content.title}</h2>
+            <div className="relative z-10 pr-12">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-2 leading-tight">{content.title}</h2>
               <p className="text-blue-100 text-sm sm:text-base font-medium">{content.subtitle}</p>
             </div>
           </div>
 
-          {/* Scrollable content area with improved spacing */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5 lg:p-6 space-y-4 sm:space-y-5 min-h-0 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-            {/* Key benefits with better responsive grid */}
-            <div className="grid gap-4 sm:gap-5 sm:grid-cols-1 lg:grid-cols-2">
+          {/* Scrollable content */}
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 min-h-0">
+            {/* Key features */}
+            <div className="grid gap-4 lg:grid-cols-2">
               {content.features.map((feature) => (
                 <div
                   key={feature.title}
-                  className="bg-white rounded-xl p-4 sm:p-5 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                  className="bg-white rounded-xl p-5 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="flex items-start gap-3 sm:gap-4 mb-3">
-                    <div className={`p-2.5 sm:p-3 bg-${feature.color}-100 rounded-xl shadow-sm flex-shrink-0`}>
-                      <feature.icon className={`w-5 h-5 sm:w-6 sm:h-6 text-${feature.color}-600`} />
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className={`p-3 bg-${feature.color}-100 rounded-xl shadow-sm flex-shrink-0`}>
+                      <feature.icon className={`w-6 h-6 text-${feature.color}-600`} />
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-bold text-sm sm:text-base lg:text-lg text-gray-800 leading-tight mb-2">{feature.title}</h3>
-                      <p className="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed mb-3">{feature.description}</p>
-                      {feature.title.includes('Languages') && (
-                        <button
-                          onClick={() => setShowLanguages(!showLanguages)}
-                          className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 underline font-medium transition-colors flex items-center gap-1"
-                          style={{ outline: 'none' }}
-                        >
-                          {showLanguages ? 'Hide' : 'View all'} supported languages 
-                          <span className="text-lg">→</span>
-                        </button>
-                      )}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-bold text-base lg:text-lg text-gray-800">{feature.title}</h3>
+                        <span className={`px-2 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-medium rounded-full`}>
+                          {feature.highlight}
+                        </span>
+                      </div>
+                      <p className="text-sm lg:text-base text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Language list with improved UX */}
-            {showLanguages && <LanguageGrid />}
+            {/* Interactive showcase tabs */}
+            <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-lg">
+              <div className="flex bg-gray-100 rounded-lg p-1 mb-4">
+                <button
+                  onClick={() => setActiveTab('languages')}
+                  className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                    activeTab === 'languages' 
+                      ? 'bg-white text-blue-600 shadow-sm' 
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  <Globe className="w-4 h-4 inline mr-2" />
+                  65+ Languages
+                </button>
+                <button
+                  onClick={() => setActiveTab('ehr')}
+                  className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 ${
+                    activeTab === 'ehr' 
+                      ? 'bg-white text-green-600 shadow-sm' 
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  <Database className="w-4 h-4 inline mr-2" />
+                  EHR Systems
+                </button>
+              </div>
+              
+              {activeTab === 'languages' ? <LanguageShowcase /> : <EHRShowcase />}
+            </div>
 
-            {/* Value proposition with better spacing */}
-            <div className="text-center bg-gradient-to-r from-blue-50 via-white to-teal-50 rounded-xl p-4 sm:p-5 border border-blue-200">
-              <h3 className="text-sm sm:text-base lg:text-lg font-bold text-gray-800 mb-3 leading-tight">
+            {/* Value proposition */}
+            <div className="text-center bg-gradient-to-r from-blue-50 via-white to-teal-50 rounded-xl p-5 border border-blue-200">
+              <h3 className="text-base lg:text-lg font-bold text-gray-800 mb-3">
                 {content.cta}
               </h3>
-              <p className="text-gray-600 text-xs sm:text-sm lg:text-base leading-relaxed max-w-2xl mx-auto">
+              <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
                 {content.ctaDescription}
               </p>
             </div>
           </div>
 
-          {/* Fixed bottom action buttons with better spacing */}
+          {/* Fixed bottom actions */}
           <div className="flex-shrink-0 bg-white border-t border-gray-200 p-4 sm:p-5">
-            <div className="flex flex-col gap-3 justify-center items-center max-w-sm lg:max-w-md mx-auto">
+            <div className="flex flex-col gap-3 max-w-md mx-auto">
               <Button
                 onClick={onBookDemo}
                 size="lg"
-                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold px-6 lg:px-8 py-3.5 lg:py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base"
-                style={{ outline: 'none' }}
+                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300"
               >
-                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                <Calendar className="w-5 h-5 mr-2" />
                 Book Your Demo Now
               </Button>
               
@@ -228,10 +307,9 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                 onClick={handleQuickTour}
                 variant="outline"
                 size="lg"
-                className="w-full px-6 lg:px-8 py-3.5 lg:py-4 rounded-full border-2 border-gray-300 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-400 transition-all duration-300 text-sm sm:text-base"
-                style={{ outline: 'none' }}
+                className="w-full py-4 rounded-full border-2 border-gray-300 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-400 transition-all duration-300"
               >
-                <PlayCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                <PlayCircle className="w-5 h-5 mr-2" />
                 Quick Tour
               </Button>
             </div>
