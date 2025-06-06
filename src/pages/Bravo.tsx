@@ -7,7 +7,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Phone, Check, BarChart3, Users } from "lucide-react";
 import { motion } from "framer-motion";
-import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 import { useExitIntent } from "@/hooks/useExitIntent";
 
 // Define feature data outside component to prevent recreation on render
@@ -207,21 +206,7 @@ LoadingIndicator.displayName = 'LoadingIndicator';
 
 // Main Bravo component with optimized rendering
 const Bravo = () => {
-  const { shouldShow, markAsShown } = useExitIntent({
-    threshold: 80,
-    delay: 2500,
-    inactivityTimeout: 35000,
-    enabled: true
-  });
-
-  const handleBookDemo = () => {
-    markAsShown();
-    window.open('/contact', '_blank');
-  };
-
-  const handleClosePopup = () => {
-    markAsShown();
-  };
+  // Remove exit intent logic since it's not needed for Bravo page
 
   // Preload critical assets
   React.useEffect(() => {
@@ -295,13 +280,6 @@ const Bravo = () => {
           <BravoAutomationBentoGrid />
         </Suspense>
       </LazyLoad>
-      
-      {/* Exit Intent Popup */}
-      <ExitIntentPopup
-        isOpen={shouldShow}
-        onClose={handleClosePopup}
-        onBookDemo={handleBookDemo}
-      />
     </div>
   );
 };

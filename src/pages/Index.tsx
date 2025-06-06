@@ -77,6 +77,7 @@ const Index = () => {
         isOpen={shouldShow}
         onClose={handleClosePopup}
         onBookDemo={handleBookDemo}
+        variant="general"
       />
     </div>
   );

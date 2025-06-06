@@ -398,6 +398,7 @@ const CrushAI = () => {
         isOpen={shouldShow}
         onClose={handleClosePopup}
         onBookDemo={handleBookDemo}
+        variant="crush"
       />
     </Box>
   );
