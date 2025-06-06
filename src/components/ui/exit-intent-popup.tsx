@@ -43,7 +43,7 @@ const getVariantContent = (variant: string) => {
             icon: MessageSquare,
             title: "AI Agents for Global Care",
             description: "BRAVO's RPA/Agentic technology deploys multilingual AI agents that communicate with patients in their native language.",
-            highlight: "65+ Languages Supported",
+            highlight: "60+ Languages Supported",
             color: "purple"
           },
           {
@@ -71,7 +71,7 @@ const getVariantContent = (variant: string) => {
           },
           {
             icon: Globe,
-            title: "65+ Languages Supported", 
+            title: "60+ Languages Supported", 
             description: "Serve patients in their native language - from Spanish and Chinese to Welsh and Vietnamese.",
             highlight: "All Languages Included",
             color: "teal"
@@ -94,7 +94,7 @@ const getVariantContent = (variant: string) => {
           },
           {
             icon: Globe,
-            title: "65+ Languages Supported",
+            title: "60+ Languages Supported",
             description: "Serve patients in their native language - from Spanish and Chinese to Welsh and Vietnamese.",
             highlight: "All Languages Included",
             color: "teal"
@@ -124,7 +124,7 @@ const LanguageShowcase = React.memo(() => {
       <div className="flex flex-col xs:flex-row xs:items-center justify-between mb-2 sm:mb-3 gap-1 sm:gap-2">
         <h4 className="font-semibold text-gray-800 text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 min-w-0">
           <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
-          <span className="truncate text-xs sm:text-sm">All 65+ Languages</span>
+          <span className="truncate text-xs sm:text-sm">All 60+ Languages</span>
         </h4>
         <button
           onClick={toggleExpanded}
