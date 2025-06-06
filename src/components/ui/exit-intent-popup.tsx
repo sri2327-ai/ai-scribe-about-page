@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -128,7 +127,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="w-[96vw] max-w-md sm:max-w-2xl lg:max-w-3xl h-[96vh] sm:h-[90vh] max-h-[700px] p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-gray-200 shadow-2xl overflow-hidden mx-auto flex flex-col"
+        className="w-[96vw] max-w-md sm:max-w-2xl lg:max-w-3xl h-[96vh] sm:h-[85vh] max-h-[600px] p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border border-gray-200 shadow-2xl overflow-hidden mx-auto flex flex-col"
         hideCloseButton={true}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -207,28 +206,6 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
               <p className="text-gray-600 mb-2 sm:mb-3 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
                 {content.ctaDescription}
               </p>
-            </div>
-
-            {/* Trust signals - responsive layout */}
-            <div className="text-center">
-              <div className="flex flex-wrap items-center justify-center gap-1 sm:gap-2 text-xs text-gray-600 bg-white/80 rounded-full px-2 sm:px-3 py-1.5 sm:py-2 border border-gray-200 shadow-sm">
-                <div className="flex items-center gap-1">
-                  <Shield className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-600" />
-                  <span className="font-medium">HIPAA</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Shield className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue-600" />
-                  <span className="font-medium">HITRUST</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-600" />
-                  <span className="font-medium">99.9% Uptime</span>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Users className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-purple-600" />
-                  <span className="font-medium">24/7 Support</span>
-                </div>
-              </div>
             </div>
           </div>
 
