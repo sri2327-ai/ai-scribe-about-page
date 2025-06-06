@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Download, Award, CheckCircle } from 'lucide-react';
+import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle } from 'lucide-react';
 
 // --- ANIMATION VARIANTS ---
 const pageVariants = {
@@ -398,15 +398,19 @@ const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
     );
 };
 
-const InputField = ({ name, type, placeholder }: { name: string; type: string; placeholder?: string }) => (
-    <div>
-        <label htmlFor={name} className="sr-only">{name}</label>
+const InputField = ({ name, type, placeholder, required = true }: { name: string; type: string; placeholder?: string; required?: boolean }) => (
+    <div className="space-y-2">
+        <label htmlFor={name} className="block text-sm font-medium text-white/90 capitalize">
+            {placeholder || name.replace(/([A-Z])/g, ' $1').trim()}
+            {required && <span className="text-red-300 ml-1">*</span>}
+        </label>
         <input 
             id={name} 
+            name={name}
             type={type} 
             placeholder={placeholder || name} 
-            required 
-            className="w-full bg-white/95 border-2 border-white/60 text-gray-900 rounded-xl p-4 focus:ring-2 focus:ring-white focus:border-white transition-all duration-300 placeholder-gray-600 shadow-md hover:border-white backdrop-blur-sm font-medium" 
+            required={required}
+            className="w-full bg-white/95 backdrop-blur-sm border-2 border-white/30 text-gray-900 rounded-xl p-4 text-base focus:ring-2 focus:ring-white focus:border-white transition-all duration-300 placeholder-gray-500 shadow-lg hover:border-white/50 font-medium" 
         />
     </div>
 );
@@ -617,36 +621,60 @@ export default function PracticeEfficiencyGrader() {
                                 whileHover={{ scale: 1.1, rotate: 360 }}
                                 transition={{ duration: 0.6 }}
                             >
-                                <Download className="w-10 h-10 text-white" />
+                                <Eye className="w-10 h-10 text-white" />
                             </motion.div>
-                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Download the Practice Efficiency Benchmark Report</h2>
-                            <p className="text-white/90 text-xl leading-relaxed mb-6">Discover how your practice stacks up against your peers and get insights to surpass your competition.</p>
+                            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                                View the Practice Efficiency Benchmark Report
+                            </h2>
+                            <p className="text-white/90 text-xl leading-relaxed mb-6 max-w-3xl mx-auto">
+                                Discover how your practice stacks up against your peers and get insights to surpass your competition.
+                            </p>
                             
-                            <div className="bg-white/10 border border-white/30 rounded-2xl p-6 mb-8 backdrop-blur-sm">
+                            <div className="bg-white/10 border border-white/30 rounded-2xl p-6 mb-8 backdrop-blur-sm max-w-2xl mx-auto">
                                 <h3 className="text-2xl font-bold text-white mb-4">A preview of the full benchmark report</h3>
                                 <p className="text-white/90 text-lg mb-4">Enter your details below to receive your personalized performance report instantly.</p>
                             </div>
                         </div>
                         
                         <form onSubmit={handleSubmitForm} className="space-y-6 max-w-2xl mx-auto w-full">
-                            <InputField name="fullName" type="text" placeholder="Full Name" />
-                            <InputField name="email" type="email" placeholder="Work Email" />
-                            <InputField name="practice" type="text" placeholder="Practice Name" />
-                            <InputField name="phone" type="tel" placeholder="Phone Number (Optional)" />
+                            <InputField 
+                                name="fullName" 
+                                type="text" 
+                                placeholder="Dr. John Smith" 
+                            />
+                            <InputField 
+                                name="email" 
+                                type="email" 
+                                placeholder="john.smith@practice.com" 
+                            />
+                            <InputField 
+                                name="practice" 
+                                type="text" 
+                                placeholder="Smith Family Medicine" 
+                            />
+                            <InputField 
+                                name="phone" 
+                                type="tel" 
+                                placeholder="+1 (555) 123-4567" 
+                                required={false}
+                            />
                             
                             <motion.button 
                                 type="submit" 
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
-                                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 rounded-xl shadow-xl transition-all duration-300 text-lg"
+                                className="w-full bg-white hover:bg-white/90 text-gray-900 font-bold py-4 rounded-xl shadow-xl transition-all duration-300 text-lg border-2 border-white/20 hover:border-white"
                             >
                                 View Complete Analysis
                             </motion.button>
                         </form>
                         
-                        <p className="text-white/70 text-center text-sm mt-6">
-                            Your information is secure and will only be used to provide your analysis.
-                        </p>
+                        <div className="flex items-center justify-center gap-2 mt-6">
+                            <Shield className="w-4 h-4 text-white/70" />
+                            <p className="text-white/70 text-center text-sm">
+                                Your information is secure and will only be used to provide your analysis.
+                            </p>
+                        </div>
                     </motion.div>
                 );
 
@@ -888,7 +916,7 @@ export default function PracticeEfficiencyGrader() {
                         animate="in" 
                         exit="out" 
                         transition={pageTransition} 
-                        className="text-center p-6 md:p-8 max-w-4xl mx-auto h-screen flex flex-col justify-center"
+                        className="text-center p-6 md:p-8 max-w-5xl mx-auto h-screen flex flex-col justify-center"
                     >
                         <motion.div 
                             className="w-24 h-24 md:w-32 md:h-32 bg-white/15 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl border-2 border-white/30"
@@ -903,7 +931,7 @@ export default function PracticeEfficiencyGrader() {
                             <span className="bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"> Grader</span>
                         </h1>
                         
-                        <p className="text-white/90 text-lg md:text-xl mb-12 leading-relaxed max-w-3xl mx-auto">
+                        <p className="text-white/90 text-lg md:text-xl mb-12 leading-relaxed max-w-4xl mx-auto">
                             Is your practice technology helping you thrive or just survive? 
                             <br className="hidden md:block" />
                             <span className="text-white font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
@@ -911,9 +939,9 @@ export default function PracticeEfficiencyGrader() {
                         
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
                             {[
-                                { icon: Clock, text: "8 questions", subtitle: "Comprehensive assessment" },
-                                { icon: TrendingUp, text: "Personalized", subtitle: "Custom analysis" },
-                                { icon: Star, text: "Actionable", subtitle: "Immediate insights" }
+                                { icon: Clock, text: "8 questions", subtitle: "Quick comprehensive assessment" },
+                                { icon: TrendingUp, text: "Personalized insights", subtitle: "Custom analysis for your practice" },
+                                { icon: Star, text: "Actionable solutions", subtitle: "Immediate improvement strategies" }
                             ].map((feature, idx) => (
                                 <motion.div 
                                     key={idx}
@@ -925,7 +953,7 @@ export default function PracticeEfficiencyGrader() {
                                 >
                                     <feature.icon className="w-8 h-8 text-white mx-auto mb-3" />
                                     <p className="text-white font-bold text-lg">{feature.text}</p>
-                                    <p className="text-white/90 text-base">{feature.subtitle}</p>
+                                    <p className="text-white/90 text-sm">{feature.subtitle}</p>
                                 </motion.div>
                             ))}
                         </div>
@@ -934,7 +962,7 @@ export default function PracticeEfficiencyGrader() {
                             onClick={handleStart} 
                             whileHover={{ scale: 1.05, y: -2 }}
                             whileTap={{ scale: 0.95 }}
-                            className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-6 px-12 rounded-full text-xl shadow-xl transition-all duration-300 mb-4"
+                            className="bg-white hover:bg-white/90 text-gray-900 font-bold py-6 px-12 rounded-full text-xl shadow-xl transition-all duration-300 mb-4 border-2 border-white/20 hover:border-white"
                         >
                             Start Your Assessment
                         </motion.button>
