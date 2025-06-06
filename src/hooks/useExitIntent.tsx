@@ -43,11 +43,16 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     }
   }, [hasShown, enabled, inactivityTimeout]);
 
-  // Handle mouse leave (exit intent)
+  // Handle mouse leave (exit intent) - improved detection
   const handleMouseLeave = useCallback((e: MouseEvent) => {
-    // Check if mouse is leaving from the top of the page
-    if (e.clientY <= 5 && !hasShown && enabled) {
-      console.log('Exit intent detected');
+    // More reliable exit intent detection
+    const isLeavingTop = e.clientY <= 5;
+    const isLeavingLeft = e.clientX <= 5;
+    const isLeavingRight = e.clientX >= window.innerWidth - 5;
+    const isExiting = isLeavingTop || isLeavingLeft || isLeavingRight;
+    
+    if (isExiting && !hasShown && enabled) {
+      console.log('Exit intent detected - mouse position:', { x: e.clientX, y: e.clientY });
       if (delayTimer.current) {
         clearTimeout(delayTimer.current);
       }
@@ -61,10 +66,15 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
   // Handle scroll (excessive scroll)
   const handleScroll = useCallback(() => {
     if (!hasShown && enabled) {
-      const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Calculate scroll percentage more accurately
+      const scrolled = (scrollTop / (scrollHeight - windowHeight)) * 100;
       
       if (scrolled >= threshold) {
-        console.log('Scroll threshold reached:', scrolled);
+        console.log('Scroll threshold reached:', scrolled + '%');
         if (delayTimer.current) {
           clearTimeout(delayTimer.current);
         }
@@ -97,7 +107,7 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
   useEffect(() => {
     if (!enabled) return;
 
-    console.log('Setting up exit intent listeners');
+    console.log('Setting up exit intent listeners with options:', { threshold, delay, inactivityTimeout });
 
     // Add event listeners
     document.addEventListener('mouseleave', handleMouseLeave);
