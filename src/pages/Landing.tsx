@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -14,6 +13,8 @@ import { Button } from '@/components/ui/button';
 import { typography } from '@/lib/typography';
 import { PlayCircle } from 'lucide-react';
 import AnimatedHeader from '@/components/landing/AnimatedHeader';
+import { useExitIntent } from "@/hooks/useExitIntent";
+import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -25,6 +26,25 @@ const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSe
 
 const Landing = () => {
   console.log("Rendering Landing page");
+  
+  const { shouldShow, markAsShown } = useExitIntent({
+    threshold: 60,
+    delay: 2000,
+    inactivityTimeout: 25000,
+    enabled: true
+  });
+
+  const handleBookDemo = () => {
+    console.log('Book demo clicked from landing page');
+    markAsShown();
+    window.open('/contact', '_blank');
+  };
+
+  const handleClosePopup = () => {
+    console.log('Landing page popup closed');
+    markAsShown();
+  };
+
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -141,6 +161,14 @@ const Landing = () => {
         <Suspense fallback={<SectionLoader />}>
           <EleventhSection />
         </Suspense>
+        
+        {/* Exit Intent Popup */}
+        <ExitIntentPopup
+          isOpen={shouldShow}
+          onClose={handleClosePopup}
+          onBookDemo={handleBookDemo}
+          variant="general"
+        />
       </main>
     </>
   );

@@ -20,12 +20,14 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
   const [hasShown, setHasShown] = useState(false);
   const inactivityTimer = useRef<number>();
   const delayTimer = useRef<number>();
+  const hasTriggered = useRef(false);
 
   // Check if popup was already shown in this session
   useEffect(() => {
     const shown = sessionStorage.getItem('exitIntentShown');
     if (shown === 'true') {
       setHasShown(true);
+      hasTriggered.current = true;
     }
   }, []);
 
@@ -35,28 +37,29 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
       clearTimeout(inactivityTimer.current);
     }
     
-    if (!hasShown && enabled) {
+    if (!hasShown && !hasTriggered.current && enabled) {
       inactivityTimer.current = window.setTimeout(() => {
         console.log('Inactivity timeout triggered');
-        setShouldShow(true);
+        if (!hasTriggered.current) {
+          hasTriggered.current = true;
+          setShouldShow(true);
+        }
       }, inactivityTimeout);
     }
   }, [hasShown, enabled, inactivityTimeout]);
 
   // Handle mouse leave (exit intent) - improved detection
   const handleMouseLeave = useCallback((e: MouseEvent) => {
-    // More reliable exit intent detection
-    const isLeavingTop = e.clientY <= 5;
-    const isLeavingLeft = e.clientX <= 5;
-    const isLeavingRight = e.clientX >= window.innerWidth - 5;
-    const isExiting = isLeavingTop || isLeavingLeft || isLeavingRight;
+    // Only trigger on actual exit intent (mouse leaving through top)
+    const isLeavingTop = e.clientY <= 10 && e.movementY < 0;
     
-    if (isExiting && !hasShown && enabled) {
-      console.log('Exit intent detected - mouse position:', { x: e.clientX, y: e.clientY });
+    if (isLeavingTop && !hasShown && !hasTriggered.current && enabled) {
+      console.log('Exit intent detected - mouse leaving top:', { x: e.clientX, y: e.clientY });
       if (delayTimer.current) {
         clearTimeout(delayTimer.current);
       }
       
+      hasTriggered.current = true;
       delayTimer.current = window.setTimeout(() => {
         setShouldShow(true);
       }, delay);
@@ -65,20 +68,22 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
 
   // Handle scroll (excessive scroll)
   const handleScroll = useCallback(() => {
-    if (!hasShown && enabled) {
+    if (!hasShown && !hasTriggered.current && enabled) {
       const scrollHeight = document.documentElement.scrollHeight;
       const windowHeight = window.innerHeight;
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       
       // Calculate scroll percentage more accurately
-      const scrolled = (scrollTop / (scrollHeight - windowHeight)) * 100;
+      const maxScrollTop = scrollHeight - windowHeight;
+      const scrolled = maxScrollTop > 0 ? (scrollTop / maxScrollTop) * 100 : 0;
       
       if (scrolled >= threshold) {
-        console.log('Scroll threshold reached:', scrolled + '%');
+        console.log('Scroll threshold reached:', Math.round(scrolled) + '%');
         if (delayTimer.current) {
           clearTimeout(delayTimer.current);
         }
         
+        hasTriggered.current = true;
         delayTimer.current = window.setTimeout(() => {
           setShouldShow(true);
         }, delay);
@@ -150,6 +155,7 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     console.log('Marking popup as shown');
     setHasShown(true);
     setShouldShow(false);
+    hasTriggered.current = true;
     sessionStorage.setItem('exitIntentShown', 'true');
   }, []);
 
@@ -157,6 +163,7 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     console.log('Resetting popup');
     setHasShown(false);
     setShouldShow(false);
+    hasTriggered.current = false;
     sessionStorage.removeItem('exitIntentShown');
   }, []);
 

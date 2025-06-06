@@ -127,16 +127,28 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border-2 border-blue-300 shadow-2xl overflow-hidden mx-4 focus:outline-none focus-visible:outline-none"
+        className="max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl p-0 bg-gradient-to-br from-white via-blue-50 to-indigo-100 border-2 border-blue-300 shadow-2xl overflow-hidden mx-4"
         hideCloseButton={true}
-        style={{ outline: 'none', boxShadow: 'none' }}
+        onOpenAutoFocus={(e) => e.preventDefault()}
+        onCloseAutoFocus={(e) => e.preventDefault()}
+        onEscapeKeyDown={onClose}
+        onPointerDownOutside={onClose}
+        onInteractOutside={(e) => {
+          e.preventDefault();
+          onClose();
+        }}
+        style={{ 
+          outline: 'none !important',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25) !important'
+        }}
       >
-        <div className="relative focus:outline-none" style={{ outline: 'none' }}>
+        <div className="relative" style={{ outline: 'none !important' }}>
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 p-1.5 sm:p-2 rounded-full bg-white/90 hover:bg-white shadow-md transition-all duration-200 hover:scale-110 focus:outline-none focus-visible:outline-none"
-            style={{ outline: 'none' }}
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 z-20 p-1.5 sm:p-2 rounded-full bg-white/90 hover:bg-white shadow-md transition-all duration-200 hover:scale-110"
+            style={{ outline: 'none !important' }}
+            onFocus={(e) => e.target.style.outline = 'none'}
           >
             <X className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
           </button>
@@ -200,8 +212,9 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                 <Button
                   onClick={onBookDemo}
                   size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base lg:text-lg focus:outline-none focus-visible:outline-none"
-                  style={{ outline: 'none' }}
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold px-6 sm:px-10 py-3 sm:py-4 rounded-full shadow-xl transform hover:scale-105 transition-all duration-300 text-sm sm:text-base lg:text-lg"
+                  style={{ outline: 'none !important' }}
+                  onFocus={(e) => e.target.style.outline = 'none'}
                 >
                   <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3" />
                   Book Your Demo Now
@@ -211,8 +224,9 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                   onClick={handleQuickTour}
                   variant="outline"
                   size="lg"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-gray-300 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-400 transition-all duration-300 text-sm sm:text-base focus:outline-none focus-visible:outline-none"
-                  style={{ outline: 'none' }}
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full border-2 border-gray-300 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-400 transition-all duration-300 text-sm sm:text-base"
+                  style={{ outline: 'none !important' }}
+                  onFocus={(e) => e.target.style.outline = 'none'}
                 >
                   <PlayCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                   Quick Tour
