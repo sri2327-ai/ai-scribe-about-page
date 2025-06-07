@@ -140,39 +140,58 @@ export default function Footer() {
   ];
 
   const FooterSection = ({ section }) => (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-      <Typography variant="h6" fontWeight="bold" sx={{ 
-        color: themeChnStatus ? 'inherit' : theme.palette.common.white,
-        marginBottom: '0.5rem',
-        textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-      }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      gap: '0.75rem',
+      minWidth: '200px',
+      flex: 1
+    }}>
+      <Typography 
+        variant="h6" 
+        fontWeight="bold" 
+        sx={{ 
+          color: 'white',
+          marginBottom: '1rem',
+          textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+          fontSize: '1.1rem',
+          lineHeight: 1.2
+        }}
+      >
         {section.title}
       </Typography>
-      {section.links.map((link, index) => (
-        <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
-          <Typography variant="body2" sx={{ 
-            color: themeChnStatus ? 'inherit' : theme.palette.common.white,
-            transition: 'color 0.3s ease',
-            display: 'block',
-            padding: '0.25rem 0',
-            textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-            opacity: 0.9,
-            '&:hover': { 
-              color: theme.palette.primary.light,
-              opacity: 1 
-            }
-          }}>
-            {link.text}
-          </Typography>
-        </Link>
-      ))}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        {section.links.map((link, index) => (
+          <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
+            <Typography 
+              variant="body2" 
+              sx={{ 
+                color: 'white',
+                transition: 'color 0.3s ease',
+                display: 'block',
+                padding: '0.125rem 0',
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                opacity: 0.9,
+                fontSize: '0.875rem',
+                lineHeight: 1.4,
+                '&:hover': { 
+                  color: theme.palette.primary.light,
+                  opacity: 1 
+                }
+              }}
+            >
+              {link.text}
+            </Typography>
+          </Link>
+        ))}
+      </Box>
     </Box>
   );
 
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className={`${themeChnStatus ? 'text-white' : 'text-white'}`}
+        className="text-white"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -182,21 +201,25 @@ export default function Footer() {
         </Typography>
       </AccordionTrigger>
       <AccordionContent>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', pl: 2 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', pl: 1 }}>
           {section.links.map((link, index) => (
             <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
-              <Typography variant="body2" sx={{ 
-                color: themeChnStatus ? 'inherit' : theme.palette.common.white,
-                transition: 'color 0.3s ease',
-                display: 'block',
-                padding: '0.25rem 0',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-                opacity: 0.9,
-                '&:hover': { 
-                  color: theme.palette.primary.light,
-                  opacity: 1 
-                }
-              }}>
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  color: 'white',
+                  transition: 'color 0.3s ease',
+                  display: 'block',
+                  padding: '0.25rem 0',
+                  textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                  opacity: 0.9,
+                  fontSize: '0.875rem',
+                  '&:hover': { 
+                    color: theme.palette.primary.light,
+                    opacity: 1 
+                  }
+                }}
+              >
                 {link.text}
               </Typography>
             </Link>
@@ -215,12 +238,12 @@ export default function Footer() {
     }}>
       <Box sx={{ 
         background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
-        color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+        color: 'white',
         padding: '4rem 2rem 2rem 2rem',
         width: '100%',
         position: 'relative',
         zIndex: 1,
-        borderTop: themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.white, 0.5)}`,
+        borderTop: `1px solid ${alpha(theme.palette.common.white, 0.5)}`,
       }}>
         {themeChnStatus && <AnimatedGradientBackground 
           startingGap={500}
@@ -242,7 +265,8 @@ export default function Footer() {
             display: 'flex', 
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
-            gap: '2rem',
+            alignItems: { xs: 'stretch', md: 'flex-start' },
+            gap: { xs: '2rem', md: '3rem' },
             marginBottom: { xs: '2rem', md: '3rem' },
           }}>
             {/* Desktop Layout */}
@@ -314,12 +338,19 @@ export default function Footer() {
             display: 'flex', 
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
-            gap: '2rem',
+            alignItems: { xs: 'flex-start', md: 'flex-start' },
+            gap: { xs: '2rem', md: '4rem' },
             marginTop: '2rem'
           }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '0.6rem' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              flex: 1, 
+              gap: '0.75rem',
+              minWidth: { md: '300px' }
+            }}>
               <Typography variant='h6' fontWeight='medium' sx={{ 
-                color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+                color: 'white',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
@@ -330,7 +361,7 @@ export default function Footer() {
                 component="a"
                 href="tel:+16314886390" 
                 sx={{ 
-                  color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+                  color: 'white',
                   textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                   textDecoration: 'none'
                 }}
@@ -338,7 +369,7 @@ export default function Footer() {
                 Tel: +1 631 4886 390
               </Typography>
               <Typography variant='h6' fontWeight='medium' sx={{ 
-                color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+                color: 'white',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
@@ -347,7 +378,7 @@ export default function Footer() {
               <Box sx={{ 
                 display: 'flex', 
                 gap: '1rem', 
-                marginTop: '0.5rem',
+                marginTop: '1rem',
                 flexWrap: 'wrap'
               }}>
                 <IconButton 
@@ -440,12 +471,13 @@ export default function Footer() {
             <Box sx={{
               display: 'flex', 
               flexDirection: 'column', 
-              gap: '0.6rem',
+              gap: '0.75rem',
+              minWidth: { md: '200px' }
             }}>
               <Typography variant='h6' fontWeight='medium'>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+                    color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -458,7 +490,7 @@ export default function Footer() {
               <Typography variant='h6' fontWeight='medium'>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+                    color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -471,7 +503,7 @@ export default function Footer() {
               <Typography variant='h6' fontWeight='medium'>
                 <a href="https://www.saashub.com/s10-ai-status" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+                    color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -491,7 +523,7 @@ export default function Footer() {
             marginTop: '2rem'
           }}>
             <Typography variant='h6' fontWeight='medium' sx={{ 
-              color: themeChnStatus ? 'inherit' : theme.palette.common.white,
+              color: 'white',
               textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
             }}>
               © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
