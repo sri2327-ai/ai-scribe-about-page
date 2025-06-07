@@ -1,17 +1,18 @@
+
 'use client'
 import React from 'react';
-import { useTheme } from "@mui/material/styles";
+import { alpha, useTheme } from "@mui/material/styles";
 import { Box, Typography, IconButton, Button } from "@mui/material";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AnimatedGradientBackground from "./ui/animated-gradient-background";
 import { GradientTracing } from "./ui/gradient-tracing";
 
 export const XIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="25"
+    height="25"
     fill="currentColor"
     viewBox="0 0 16 16"
   >
@@ -22,8 +23,8 @@ export const XIcon = () => (
 export const InstagramIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="25"
+    height="25"
     fill="currentColor"
     viewBox="0 0 16 16"
   >
@@ -34,8 +35,8 @@ export const InstagramIcon = () => (
 export const FacebookIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="25"
+    height="25"
     fill="currentColor"
     viewBox="0 0 16 16"
   >
@@ -46,8 +47,8 @@ export const FacebookIcon = () => (
 export const YouTubeIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+    width="25"
+    height="25"
     fill="currentColor"
     viewBox="0 0 16 16"
   >
@@ -56,22 +57,22 @@ export const YouTubeIcon = () => (
 );
 
 export const LinkedInIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="25"
+    height="25"
     fill="currentColor"
-    viewBox="0 0 16 16"
+    viewBox="0 0 24 24"
   >
-    <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878 1.216 0 1.634 1.216 1.634 3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.327-.024-3.037-1.85-3.037-1.851 0-2.134 1.445-2.134 2.939v5.667h-3.554V9h3.414v1.561h.049c.476-.9 1.637-1.85 3.37-1.85 3.6 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.777 13.02H3.56V9h3.554v11.453zM22.225 0H1.771C.792 0 0 .774 0 1.726v20.548C0 23.224.792 24 1.771 24h20.451C23.2 24 24 23.224 24 22.274V1.726C24 .774 23.2 0 22.225 0z"/>
   </svg>
 );
 
 export const TikTokIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
+    width="25"
+    height="25"
     fill="currentColor"
     className="bi bi-tiktok"
     viewBox="0 0 16 16"
@@ -82,29 +83,33 @@ export const TikTokIcon = () => (
 
 export default function Footer() {
   const theme = useTheme();
+  const location = useLocation();
+  const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
   return (
     <Box component="footer" sx={{ 
       width: '100%', 
       position: 'relative',
-      overflow: 'hidden' 
+      overflow: 'hidden',
+      minHeight: '100px'
     }}>
       <Box sx={{ 
-        backgroundColor: '#1A1F2C',
-        color: '#fff',
+        background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
+        color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
         padding: '4rem 2rem 2rem 2rem',
         width: '100%',
         position: 'relative',
-        zIndex: 1
+        zIndex: 1,
+        borderTop: themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.black, 0.5)}`,
       }}>
-        <AnimatedGradientBackground 
+        {themeChnStatus && <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
-          gradientColors={["#000", "#0A7A8C", "#0E86A3", "#000"]} // More subtle teal blue gradient
+          gradientColors={["#000", "#0A7A8C", "#0E86A3", "#000"]}
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
-        />
+        />}
         
         <Box sx={{ 
           maxWidth: '1200px', 
@@ -117,198 +122,187 @@ export default function Footer() {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             gap: '2rem',
-            marginBottom: '2rem'
+            marginBottom: { xs: '1rem', md: '2rem' },
           }}>
             <Box sx={{ flex: 1 }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems:'flex-start', gap: '0.6rem' }}>
+                <Link to="/crush-ai" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     CRUSH - AI Medical Scribe Assistant
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/bravo" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
-                    BRAVO - AI Patient Care Agent
+                    BRAVO - AI Staffing Agent
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/about" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
-                    S10 Story
+                    S10.AI Story
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/technology" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     Trust & Technology
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/integration" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     Integrations
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/specialty" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     Specialties
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/advantages" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+                  }}>
+                    Why S10.AI?
+                  </Typography>
+                </Link>
+                <Link to="/blog" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
+                    transition: 'color 0.3s ease',
+                    '&:hover': { color: theme.palette.primary.light },
+                    display: 'block',
+                    padding: '0.25rem 0',
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     Blog
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/faq" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     FAQs
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/resources/casestudies" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     Case Studies
                   </Typography>
                 </Link>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Typography sx={{ 
-                    color: '#fff', 
+                <Link to="/customer" style={{ textDecoration: 'none' }}>
+                  <Typography variant="h6" fontWeight="medium" sx={{ 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
+                    '&:hover': { color: theme.palette.primary.light },
                     display: 'block',
                     padding: '0.25rem 0',
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
                   }}>
                     Customers
                   </Typography>
                 </Link>
               </Box>
             </Box>
-            
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
-              gap: '1rem',
-              marginTop: { xs: '2rem', md: 0 }
+              gap: '0.6rem'
             }}>
-              <Button 
-                variant="text" 
-                sx={{ 
-                  textTransform: "capitalize",
-                  "&:hover .icon-box": {
-                    transform: "rotate(-270deg)",
-                    color: theme.palette.primary.main,
-                    borderColor: theme.palette.primary.main,
-                  },
-                  "&:hover .button-text": {
-                    color: theme.palette.primary.main,
-                  },
-                  backgroundColor: 'rgba(0,0,0,0.3)',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '4px',
-                }}
-                startIcon={
-                  <Box
-                    className="icon-box"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width: 25,
-                      height: 25,
-                      borderRadius: "50%", 
-                      color: "#fff",
-                      border: `2px solid #fff`,
-                      transition: "transform 0.3s ease",
-                      transform: "rotate(0deg)",
-                      mr: 1
-                    }}
-                  >
-                    <ArrowRight size={16} />
-                  </Box>
-                }
-              >
-                <Typography
-                  className="button-text"
-                  variant='h6' 
-                  fontWeight="500" 
+              <Link to="/contact">
+                <Button 
+                  variant="outlined"
                   sx={{
-                    color: "#fff",
-                    transition: "color 0.3s ease",
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)' // Added text shadow for better visibility
+                    borderRadius: 1,
+                    background: themeChnStatus ? 'transparent' : theme.palette.common.white,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : 'none',
+                    ".icon-box": {
+                      border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.primary.main}`,
+                    },
+                    "&:hover": {
+                      border: themeChnStatus ? `1px solid ${theme.palette.primary.main}` : 'none',
+                      background: themeChnStatus ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : 'none',
+                      color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                      ".icon-box": {
+                        border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.common.black}`,
+                      },
+                    }
                   }}
+                  startIcon={
+                    <Box className="icon-box">
+                      <ArrowRight size={16} />
+                    </Box>
+                  }
                 >
-                  Contact Us
-                </Typography>
-              </Button>
+                  <Typography variant='h5' fontWeight="600">Contact Us</Typography>
+                </Button>
+              </Link>
             </Box>
           </Box>
-
+          
           <Box sx={{ my: 4, position: 'relative' }}>
             <GradientTracing 
               width={1200} 
               height={2} 
-              baseColor="rgba(255, 255, 255, 0.2)" // Made more visible
-              gradientColors={["#33C3F0", "#33C3F0", "#1EAEDB"]}
+              baseColor={theme.palette.grey.A400}
+              gradientColors={[theme.palette.secondary.main, theme.palette.secondary.main, theme.palette.primary.light]}
               animationDuration={4}
               strokeWidth={1}
             />
@@ -321,28 +315,27 @@ export default function Footer() {
             gap: '2rem',
             marginTop: '2rem'
           }}>
-            <Box sx={{ 
-              flex: 1,
-              backgroundColor: 'rgba(0,0,0,0.3)', // Added background for address visibility
-              padding: '1rem',
-              borderRadius: '4px',
-            }}>
-              <Typography sx={{ 
-                textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
-                fontWeight: 'medium'
+            <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '0.6rem' }}>
+              <Typography variant='h6' fontWeight='medium' sx={{ 
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
-                <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: '#fff' }}>support@s10.ai</a>
+                <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
               </Typography>
-              <Typography sx={{ 
-                my: 1,
-                textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
-                fontWeight: 'medium'
-              }}>
+              <Typography 
+                variant='h6' 
+                fontWeight='medium'  
+                component="a"
+                href="tel:+16314886390" 
+                sx={{ 
+                  textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                  color: 'inherit',
+                  textDecoration: 'none'
+                }}
+              >
                 Tel: +1 631 4886 390
               </Typography>
-              <Typography sx={{ 
-                textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
-                fontWeight: 'medium'
+              <Typography variant='h6' fontWeight='medium' sx={{ 
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
               </Typography>
@@ -350,17 +343,19 @@ export default function Footer() {
               <Box sx={{ 
                 display: 'flex', 
                 gap: '1rem', 
-                marginTop: '1.5rem' 
+                marginTop: '0.5rem',
+                flexWrap: 'wrap'
               }}>
                 <IconButton 
                   component="a" 
                   href="https://x.com/s10aiscribe" 
                   target="_blank" 
+                  aria-label="Visit S10.AI on X" 
                   sx={{ 
-                    color: '#fff',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
-                    backgroundColor: 'rgba(0,0,0,0.2)', 
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    '&:hover': {
+                      color: '#1da1f2', 
+                    },
                   }}
                 >
                   <XIcon />
@@ -369,11 +364,12 @@ export default function Footer() {
                   component="a" 
                   href="https://www.facebook.com/profile.php?id=100086008459597" 
                   target="_blank" 
+                  aria-label="Visit S10.AI on Facebook" 
                   sx={{ 
-                    color: '#fff',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
-                    backgroundColor: 'rgba(0,0,0,0.2)', 
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    '&:hover': {
+                      color: '#1877f2', 
+                    },
                   }}
                 >
                   <FacebookIcon />
@@ -382,11 +378,12 @@ export default function Footer() {
                   component="a" 
                   href="https://www.linkedin.com/company/s10-ai/" 
                   target="_blank" 
+                  aria-label="Visit S10.AI on LinkedIn" 
                   sx={{ 
-                    color: '#fff',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
-                    backgroundColor: 'rgba(0,0,0,0.2)', 
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    '&:hover': {
+                      color: '#3b5999', 
+                    },
                   }}
                 >
                   <LinkedInIcon />
@@ -394,12 +391,13 @@ export default function Footer() {
                 <IconButton 
                   component="a" 
                   href="https://instagram.com/s10.ai" 
+                  aria-label="Visit S10.AI on Instagram" 
                   target="_blank" 
                   sx={{ 
-                    color: '#fff',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
-                    backgroundColor: 'rgba(0,0,0,0.2)', 
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    '&:hover': {
+                      color: '#e4405f', 
+                    },
                   }}
                 >
                   <InstagramIcon />
@@ -408,11 +406,12 @@ export default function Footer() {
                   component="a" 
                   href="https://www.youtube.com/channel/UCSaWPSJyic-OURNS_w-49Ow" 
                   target="_blank" 
+                  aria-label="Visit S10.AI on YouTube" 
                   sx={{ 
-                    color: '#fff',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Teal blue hover
-                    backgroundColor: 'rgba(0,0,0,0.2)', 
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    '&:hover': {
+                      color: '#cd201f', 
+                    },
                   }}
                 >
                   <YouTubeIcon />
@@ -420,12 +419,13 @@ export default function Footer() {
                 <IconButton 
                   component="a" 
                   href="https://www.tiktok.com/@s10robotmedicalscribe" 
-                  target="_blank" 
+                  target="_blank"
+                  aria-label="Visit S10.AI on TikTok"  
                   sx={{ 
-                    color: '#fff',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#0E86A3' }, // Subtle teal blue hover
-                    backgroundColor: 'rgba(0,0,0,0.2)', 
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    '&:hover': {
+                      color: '#ff0050', 
+                    },
                   }}
                 >
                   <TikTokIcon />
@@ -434,79 +434,65 @@ export default function Footer() {
             </Box>
             
             <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem',
-              backgroundColor: 'rgba(0,0,0,0.3)', // Added background for better visibility
-              padding: '1rem',
-              borderRadius: '4px',
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '0.6rem',
             }}>
-              <Typography>
-                <Link to="#" style={{ textDecoration: 'none' }}>
-                  <Box component="span" sx={{ 
-                    color: '#fff', 
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
-                    fontWeight: 'medium'
-                  }}>
-                    Site Map
-                  </Box>
-                </Link>
-              </Typography>
-              <Typography>
+              <Typography variant='h6' fontWeight='medium'>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: '#fff', 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    '&:hover': { color: theme.palette.primary.light },
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium'
                   }}>
                     Terms & Condition
                   </Box>
                 </Link>
               </Typography>
-              <Typography>
+              <Typography variant='h6' fontWeight='medium'>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: '#fff', 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    '&:hover': { color: theme.palette.primary.light },
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium'
                   }}>
                     Privacy Policy
                   </Box>
                 </Link>
               </Typography>
-              <Typography>
-                <Link to="#" style={{ textDecoration: 'none' }}>
+              <Typography variant='h6' fontWeight='medium'>
+                <a href="https://www.saashub.com/s10-ai-status" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: '#fff', 
+                    color: 'inherit',
                     transition: 'color 0.3s ease',
-                    '&:hover': { color: '#1EAEDB' },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
+                    '&:hover': { color: theme.palette.primary.light },
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium'
                   }}>
                     Status
                   </Box>
-                </Link>
+                </a>
               </Typography>
             </Box>
           </Box>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'row',
+            justifyContent: 'center',
+            gap: '2rem',
+            marginTop: '2rem'
+          }}>
+            <Typography variant='h6' fontWeight='medium' sx={{ 
+              textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+            }}>
+              © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
+            </Typography>
+          </Box>
         </Box>
-        
-        <Typography sx={{ 
-          textAlign: 'center', 
-          marginTop: '2rem', 
-          fontSize: '0.875rem', 
-          color: '#fff',
-          textShadow: '0 0 10px rgba(0,0,0,0.5)', // Added text shadow for better visibility
-          fontWeight: 'medium'
-        }}>
-          © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
-        </Typography>
       </Box>
     </Box>
   );
