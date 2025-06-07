@@ -41,7 +41,7 @@ const GradientBarsBackground: React.FC = () => {
                                     flex: '1 0 calc(100% / 15)',
                                     maxWidth: 'calc(100% / 15)',
                                     height: '100%',
-                                    background: 'linear-gradient(135deg, rgba(45, 212, 191, 0.6), rgba(20, 184, 166, 0.5), rgba(13, 148, 136, 0.4))',
+                                    background: 'linear-gradient(135deg, rgba(20, 49, 81, 0.8), rgba(56, 126, 137, 0.7), rgba(20, 49, 81, 0.6))',
                                     transform: `scaleY(${height / 100})`,
                                     transformOrigin: 'bottom',
                                     transition: 'transform 0.8s ease-in-out',
@@ -57,7 +57,7 @@ const GradientBarsBackground: React.FC = () => {
             </div>
             
             {/* Lighter overlay for better content visibility */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/70 via-white/60 to-white/70"></div>
+            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/60 via-white/50 to-white/60"></div>
         </>
     );
 };
@@ -476,7 +476,7 @@ const InputField = ({ name, type, placeholder, required = true }: { name: string
 
 // --- Main Application ---
 export default function PracticeEfficiencyGrader() {
-    const [appState, setAppState] = useState('intro'); // intro, quiz, form, report
+    const [appState, setAppState] = useState('intro'); // intro, quiz, scoreAndForm, report
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [answers, setAnswers] = useState<(number | string | undefined)[]>(() => {
         const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
@@ -496,7 +496,7 @@ export default function PracticeEfficiencyGrader() {
                 if (currentQuestionIndex < quizQuestions.length - 1) {
                     setCurrentQuestionIndex(currentQuestionIndex + 1);
                 } else {
-                    setAppState('form');
+                    setAppState('scoreAndForm');
                 }
             }, 800);
             return () => clearTimeout(timer);
@@ -525,7 +525,7 @@ export default function PracticeEfficiencyGrader() {
         if (currentQuestionIndex < quizQuestions.length - 1) {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         } else {
-            setAppState('form');
+            setAppState('scoreAndForm');
         }
     };
 
@@ -644,7 +644,7 @@ export default function PracticeEfficiencyGrader() {
                                                     whileTap={{ scale: 0.98 }}
                                                     className="flex-1 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-3 rounded-xl shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
                                                 >
-                                                    {currentQuestionIndex < quizQuestions.length - 1 ? 'Next Question' : 'Complete Assessment'}
+                                                    {currentQuestionIndex < quizQuestions.length - 1 ? 'Next Question' : 'View Your Score'}
                                                     <ChevronRight className="w-5 h-5" />
                                                 </motion.button>
                                             )}
@@ -672,7 +672,7 @@ export default function PracticeEfficiencyGrader() {
                     </div>
                 );
 
-            case 'form':
+            case 'scoreAndForm':
                 return (
                     <div className="min-h-screen bg-white">
                         <motion.div 
@@ -681,63 +681,107 @@ export default function PracticeEfficiencyGrader() {
                             animate="in" 
                             exit="out" 
                             transition={pageTransition} 
-                            className="container mx-auto px-4 py-16 max-w-4xl"
+                            className="container mx-auto px-4 py-16 max-w-6xl"
                         >
-                            <div className="text-center mb-12">
-                                <motion.div 
-                                    className="w-20 h-20 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl"
-                                    whileHover={{ scale: 1.1, rotate: 360 }}
-                                    transition={{ duration: 0.6 }}
-                                >
-                                    <Eye className="w-10 h-10 text-white" />
-                                </motion.div>
-                                <h2 className="text-3xl md:text-5xl font-bold text-gray-800 mb-6">
-                                    Get Your Personalized Efficiency Report
-                                </h2>
-                                <p className="text-gray-600 text-xl leading-relaxed mb-8 max-w-3xl mx-auto">
-                                    Enter your details below to receive your complete practice efficiency analysis and discover how S10.AI can transform your workflow.
-                                </p>
-                            </div>
-                            
-                            <form onSubmit={handleSubmitForm} className="space-y-8 max-w-2xl mx-auto bg-white rounded-2xl border border-gray-200 shadow-xl p-8">
-                                <InputField 
-                                    name="fullName" 
-                                    type="text" 
-                                    placeholder="Dr. John Smith" 
-                                />
-                                <InputField 
-                                    name="email" 
-                                    type="email" 
-                                    placeholder="john.smith@practice.com" 
-                                />
-                                <InputField 
-                                    name="practice" 
-                                    type="text" 
-                                    placeholder="Smith Family Medicine" 
-                                />
-                                <InputField 
-                                    name="phone" 
-                                    type="tel" 
-                                    placeholder="+1 (555) 123-4567" 
-                                    required={false}
-                                />
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                                {/* Score Preview Section */}
+                                <div className="text-center lg:text-left">
+                                    <motion.div 
+                                        className="w-20 h-20 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto lg:mx-0 mb-8 shadow-xl"
+                                        whileHover={{ scale: 1.1, rotate: 360 }}
+                                        transition={{ duration: 0.6 }}
+                                    >
+                                        <BarChart3 className="w-10 h-10 text-white" />
+                                    </motion.div>
+                                    
+                                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
+                                        Your Practice Efficiency Score
+                                    </h2>
+                                    
+                                    <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
+                                        <span className="text-xl font-semibold text-gray-700">Score:</span>
+                                        <span className={`text-5xl font-bold px-6 py-3 rounded-2xl border-2 ${
+                                            overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
+                                            overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
+                                            'bg-red-50 text-red-700 border-red-200'
+                                        }`}>
+                                            {overallScore}%
+                                        </span>
+                                    </div>
+                                    
+                                    <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                        {overallScore >= 80 
+                                            ? "Great job! Your practice is performing well, but there's still room for optimization."
+                                            : overallScore >= 60 
+                                            ? "Your practice has solid foundations but significant opportunities for improvement."
+                                            : "Your practice has major efficiency gaps that are costing you time and revenue."
+                                        }
+                                    </p>
+                                    
+                                    <div className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/30 rounded-xl p-6 mb-8">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <Sparkles className="w-5 h-5 text-[#387E89]" />
+                                            <span className="font-semibold text-gray-800">What's Next?</span>
+                                        </div>
+                                        <p className="text-gray-700">
+                                            Get your complete benchmark study with detailed analysis, industry comparisons, 
+                                            and actionable solutions to transform your practice with S10.AI.
+                                        </p>
+                                    </div>
+                                </div>
                                 
-                                <motion.button 
-                                    type="submit" 
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 rounded-xl shadow-xl transition-all duration-300 text-lg flex items-center justify-center gap-3"
-                                >
-                                    View Complete Analysis
-                                    <ArrowRight className="w-5 h-5" />
-                                </motion.button>
-                            </form>
-                            
-                            <div className="flex items-center justify-center gap-2 mt-8">
-                                <Shield className="w-4 h-4 text-gray-500" />
-                                <p className="text-gray-500 text-center text-sm">
-                                    Your information is secure and will only be used to provide your analysis.
-                                </p>
+                                {/* Form Section */}
+                                <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-2xl p-8">
+                                    <div className="text-center mb-8">
+                                        <h3 className="text-2xl font-bold text-gray-800 mb-4">
+                                            Unlock Your Complete Benchmark Study
+                                        </h3>
+                                        <p className="text-gray-600">
+                                            Enter your details to receive your comprehensive analysis and discover how S10.AI can solve your practice challenges.
+                                        </p>
+                                    </div>
+                                    
+                                    <form onSubmit={handleSubmitForm} className="space-y-6">
+                                        <InputField 
+                                            name="fullName" 
+                                            type="text" 
+                                            placeholder="Dr. John Smith" 
+                                        />
+                                        <InputField 
+                                            name="email" 
+                                            type="email" 
+                                            placeholder="john.smith@practice.com" 
+                                        />
+                                        <InputField 
+                                            name="practice" 
+                                            type="text" 
+                                            placeholder="Smith Family Medicine" 
+                                        />
+                                        <InputField 
+                                            name="phone" 
+                                            type="tel" 
+                                            placeholder="+1 (555) 123-4567" 
+                                            required={false}
+                                        />
+                                        
+                                        <motion.button 
+                                            type="submit" 
+                                            whileHover={{ scale: 1.02 }}
+                                            whileTap={{ scale: 0.98 }}
+                                            className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 rounded-xl shadow-xl transition-all duration-300 text-lg flex items-center justify-center gap-3"
+                                        >
+                                            View Complete Benchmark Study
+                                            <ArrowRight className="w-5 h-5" />
+                                        </motion.button>
+                                    </form>
+                                    
+                                    <div className="flex items-center justify-center gap-2 mt-6">
+                                        <Shield className="w-4 h-4 text-gray-500" />
+                                        <p className="text-gray-500 text-center text-sm">
+                                            Secure & confidential. Used only for your analysis.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </motion.div>
                     </div>
@@ -761,7 +805,7 @@ export default function PracticeEfficiencyGrader() {
                                 >
                                     <BarChart3 className="w-12 h-12 text-white" />
                                 </motion.div>
-                                <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6">Your Complete Practice Analysis</h1>
+                                <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6">Your Complete Practice Benchmark Study</h1>
                                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
                                     <span className="text-2xl font-semibold text-gray-700">Overall Efficiency Score:</span>
                                     <span className={`text-4xl font-bold px-6 py-2 rounded-full border-2 ${
@@ -773,7 +817,7 @@ export default function PracticeEfficiencyGrader() {
                                     </span>
                                 </div>
                                 <p className="text-gray-600 text-xl max-w-4xl mx-auto leading-relaxed">
-                                    Based on your responses, here's how S10.AI can transform your practice efficiency.
+                                    Here's your comprehensive analysis and how S10.AI can transform your practice efficiency.
                                 </p>
                             </div>
 
@@ -845,9 +889,9 @@ export default function PracticeEfficiencyGrader() {
                                 className="text-center p-12 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl shadow-2xl border border-gray-200"
                                 whileHover={{ scale: 1.02 }}
                             >
-                                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-800">Ready to Transform Your Practice?</h2>
+                                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-800">Transform Your Practice with S10.AI</h2>
                                 <p className="text-gray-600 text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-                                    Discover how S10.AI's Crush (AI Scribe) and Bravo (AI Phone Agent) can solve these exact challenges. Get your personalized ROI projection and implementation plan.
+                                    Based on your assessment, S10.AI Crush (AI Scribe) and Bravo (AI Phone Agent) can solve these exact challenges. Get your personalized ROI projection and implementation plan.
                                 </p>
                                 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
