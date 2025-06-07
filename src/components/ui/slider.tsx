@@ -23,14 +23,14 @@ const Slider = React.forwardRef<
     {...props}
   >
     <SliderPrimitive.Track 
-      className="relative h-3 w-full grow overflow-hidden rounded-full bg-gray-100 border border-gray-200 shadow-inner"
+      className="relative h-4 w-full grow overflow-hidden rounded-full bg-gray-200 border border-gray-300 shadow-inner"
     >
       <SliderPrimitive.Range 
-        className="absolute h-full bg-gradient-to-r from-blue-400 via-blue-500 to-indigo-500 shadow-md" 
+        className="absolute h-full bg-gradient-to-r from-blue-500 to-indigo-600 shadow-md rounded-full" 
       />
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb 
-      className="block h-6 w-6 rounded-full border-2 border-blue-500 bg-white shadow-lg ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-blue-600"
+      className="block h-7 w-7 rounded-full border-2 border-blue-500 bg-white shadow-lg ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:border-blue-600 cursor-pointer hover:shadow-xl"
     />
   </SliderPrimitive.Root>
 ))
