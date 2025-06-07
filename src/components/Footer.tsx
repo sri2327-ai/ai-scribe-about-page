@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -320,7 +319,7 @@ export default function Footer() {
                   </Box>
                 }
               >
-                <Typography variant='h5' fontWeight="600">Contact Us</Typography>
+                <Typography variant='h5' fontWeight="semiBold">Contact Us</Typography>
               </Button>
             </Link>
           </Box>
