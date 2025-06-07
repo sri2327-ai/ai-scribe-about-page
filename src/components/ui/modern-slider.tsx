@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { motion } from 'framer-motion';
 
@@ -20,11 +20,19 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
     unit, 
     labels 
 }) => {
+    const [isInteracting, setIsInteracting] = useState(false);
+
     const handleValueChange = (newValue: number[]) => {
         onChange(newValue[0]);
     };
 
-    const percentage = ((value - min) / (max - min)) * 100;
+    const handleInteractionStart = () => {
+        setIsInteracting(true);
+    };
+
+    const handleInteractionEnd = () => {
+        setTimeout(() => setIsInteracting(false), 1000);
+    };
 
     return (
         <div className="w-full space-y-6">
@@ -40,22 +48,28 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
             </div>
             
             <div className="relative space-y-4">
-                {/* Use the actual Slider component for interaction */}
                 <Slider
                     value={[value]}
                     onValueChange={handleValueChange}
+                    onPointerDown={handleInteractionStart}
+                    onPointerUp={handleInteractionEnd}
                     min={min}
                     max={max}
                     step={1}
-                    className="w-full"
+                    className="w-full cursor-pointer"
                 />
                 
-                {labels && (
-                    <div className="flex justify-between text-sm text-gray-600 font-medium mt-3">
+                {labels && isInteracting && (
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        className="flex justify-between text-sm text-gray-600 font-medium mt-3"
+                    >
                         <span className="text-left">{labels[0]}</span>
                         <span className="text-center">{labels[Math.floor(labels.length / 2)]}</span>
                         <span className="text-right">{labels[labels.length - 1]}</span>
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </div>
