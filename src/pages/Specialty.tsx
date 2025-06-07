@@ -8,7 +8,7 @@ import SpecialtiesGrid from '@/components/specialty/SpecialtiesGrid';
 import TemplateBuilder from '@/components/specialty/TemplateBuilder';
 import Testimonial from '@/components/specialty/Testimonial';
 import ClosingSection from '@/components/specialty/ClosingSection';
-import { CABeforeAfterCarousel } from '@/components/custom-ai-agent/CABeforeAfterCarousel';
+import BeforeAfterNoteComparison from '@/components/crush-ai/BeforeAfterNoteComparison';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from '@/components/ui/breadcrumb';
 
 const Specialty = () => {
@@ -56,7 +56,7 @@ const Specialty = () => {
         <SpecialtiesBanner />
         <SpecialtiesGrid />
         
-        {/* New Before & After CRUSH AI Scribe Section */}
+        {/* Before & After Clinical Notes Section */}
         <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
           <div className="container mx-auto px-4">
             <motion.div
@@ -74,7 +74,7 @@ const Specialty = () => {
               </p>
             </motion.div>
             
-            <CABeforeAfterCarousel />
+            <BeforeAfterNoteComparison />
           </div>
         </section>
         
