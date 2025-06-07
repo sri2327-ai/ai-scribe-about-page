@@ -238,7 +238,7 @@ export default function Footer() {
       minHeight: '100px'
     }}>
       <Box sx={{ 
-        background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
+        background: theme.palette.background.default,
         color: 'white',
         padding: '4rem 2rem 2rem 2rem',
         width: '100%',
@@ -246,14 +246,14 @@ export default function Footer() {
         zIndex: 1,
         borderTop: `1px solid ${alpha(theme.palette.common.white, 0.5)}`,
       }}>
-        {themeChnStatus && <AnimatedGradientBackground 
+        <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
           gradientColors={["#000", "#0A7A8C", "#0E86A3", "#000"]}
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
-        />}
+        />
         
         <Box sx={{ 
           maxWidth: '1200px', 
@@ -298,18 +298,18 @@ export default function Footer() {
                 variant="outlined"
                 sx={{
                   borderRadius: 1,
-                  background: themeChnStatus ? 'transparent' : theme.palette.common.white,
-                  color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
-                  border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : 'none',
+                  background: 'transparent',
+                  color: theme.palette.common.white,
+                  border: `1px solid ${theme.palette.common.white}`,
                   ".icon-box": {
-                    border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.primary.main}`,
+                    border: `1px solid ${theme.palette.common.white}`,
                   },
                   "&:hover": {
-                    border: themeChnStatus ? `1px solid ${theme.palette.primary.main}` : 'none',
-                    background: themeChnStatus ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : 'none',
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    border: `1px solid ${theme.palette.primary.main}`,
+                    background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
+                    color: theme.palette.common.white,
                     ".icon-box": {
-                      border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.common.black}`,
+                      border: `1px solid ${theme.palette.common.white}`,
                     },
                   }
                 }}
@@ -319,7 +319,7 @@ export default function Footer() {
                   </Box>
                 }
               >
-                <Typography variant='h5' fontWeight="semiBold">Contact Us</Typography>
+                <Typography variant='h6' fontWeight="medium">Contact Us</Typography>
               </Button>
             </Link>
           </Box>
@@ -352,7 +352,7 @@ export default function Footer() {
             }}>
               <Typography variant='h6' fontWeight='medium' sx={{ 
                 color: 'white',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+                textShadow: '0 0 10px rgba(0,0,0,0.5)'
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
               </Typography>
@@ -363,7 +363,7 @@ export default function Footer() {
                 href="tel:+16314886390" 
                 sx={{ 
                   color: 'white',
-                  textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                  textShadow: '0 0 10px rgba(0,0,0,0.5)',
                   textDecoration: 'none'
                 }}
               >
@@ -371,7 +371,7 @@ export default function Footer() {
               </Typography>
               <Typography variant='h6' fontWeight='medium' sx={{ 
                 color: 'white',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+                textShadow: '0 0 10px rgba(0,0,0,0.5)'
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
               </Typography>
@@ -388,7 +388,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on X" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#1da1f2', 
                     },
@@ -402,7 +402,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on Facebook" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#1877f2', 
                     },
@@ -416,7 +416,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on LinkedIn" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#3b5999', 
                     },
@@ -430,7 +430,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on Instagram" 
                   target="_blank" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#e4405f', 
                     },
@@ -444,7 +444,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on YouTube" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#cd201f', 
                     },
@@ -458,7 +458,7 @@ export default function Footer() {
                   target="_blank"
                   aria-label="Visit S10.AI on TikTok"  
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#ff0050', 
                     },
@@ -481,7 +481,7 @@ export default function Footer() {
                     color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)',
                     fontWeight: 'medium'
                   }}>
                     Terms & Condition
@@ -494,7 +494,7 @@ export default function Footer() {
                     color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)',
                     fontWeight: 'medium'
                   }}>
                     Privacy Policy
@@ -507,7 +507,7 @@ export default function Footer() {
                     color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                    textShadow: '0 0 10px rgba(0,0,0,0.5)',
                     fontWeight: 'medium'
                   }}>
                     Status
@@ -525,7 +525,7 @@ export default function Footer() {
           }}>
             <Typography variant='h6' fontWeight='medium' sx={{ 
               color: 'white',
-              textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+              textShadow: '0 0 10px rgba(0,0,0,0.5)',
             }}>
               © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
             </Typography>
