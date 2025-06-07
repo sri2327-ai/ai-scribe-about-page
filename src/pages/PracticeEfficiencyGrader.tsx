@@ -1,9 +1,291 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle, ArrowRight, ExternalLink, User, Mail, Building } from 'lucide-react';
 import { ModernSlider } from '@/components/ui/modern-slider';
 import { typography } from '@/lib/typography';
+
+// Helper to parse 'rgb(r, g, b)' or 'rgba(r, g, b, a)' string to {r, g, b}
+const parseRgbColor = (colorString: string): { r: number; g: number; b: number } | null => {
+    if (!colorString) return null;
+    const match = colorString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
+    if (match) {
+        return {
+            r: parseInt(match[1], 10),
+            g: parseInt(match[2], 10),
+            b: parseInt(match[3], 10),
+        };
+    }
+    return null;
+};
+
+// A simple SVG Play Icon
+const PlayIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 5V19L19 12L8 5Z" />
+    </svg>
+);
+
+interface NavItem {
+    id: string;
+    label: string;
+    onClick?: () => void;
+    href?: string;
+    target?: string;
+}
+
+interface IntroHeroSectionProps {
+    heading?: string;
+    tagline?: string;
+    buttonText?: string;
+    imageUrl?: string;
+    videoUrl?: string;
+    navItems?: NavItem[];
+    onStart: () => void;
+}
+
+const IntroHeroSection: React.FC<IntroHeroSectionProps> = ({
+    heading = "Practice Efficiency Grader",
+    tagline = "Discover how efficient your practice really is and unlock actionable insights to optimize your workflow with AI.",
+    buttonText = "Start Your Assessment",
+    imageUrl,
+    videoUrl,
+    navItems = [],
+    onStart
+}) => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const targetRef = useRef<HTMLButtonElement>(null);
+    const mousePosRef = useRef({ x: null as number | null, y: null as number | null });
+    const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+    const animationFrameIdRef = useRef<number | null>(null);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [showVideo, setShowVideo] = useState(false);
+
+    const resolvedCanvasColorsRef = useRef({
+        strokeStyle: { r: 128, g: 128, b: 128 }, // Default mid-gray
+    });
+
+    useEffect(() => {
+        const tempElement = document.createElement('div');
+        tempElement.style.display = 'none';
+        document.body.appendChild(tempElement);
+
+        const updateResolvedColors = () => {
+            tempElement.style.color = 'var(--foreground)';
+            const computedFgColor = getComputedStyle(tempElement).color;
+            const parsedFgColor = parseRgbColor(computedFgColor);
+            if (parsedFgColor) {
+                resolvedCanvasColorsRef.current.strokeStyle = parsedFgColor;
+            } else {
+                console.warn("HeroSection: Could not parse --foreground for canvas arrow. Using fallback.");
+                const isDarkMode = document.documentElement.classList.contains('dark');
+                resolvedCanvasColorsRef.current.strokeStyle = isDarkMode ? { r: 250, g: 250, b: 250 } : { r: 10, g: 10, b: 10 }; // Brighter fallback
+            }
+        };
+        updateResolvedColors();
+        const observer = new MutationObserver((mutationsList) => {
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class' && mutation.target === document.documentElement) {
+                    updateResolvedColors();
+                    break;
+                }
+            }
+        });
+        observer.observe(document.documentElement, { attributes: true });
+        return () => {
+            observer.disconnect();
+            if (tempElement.parentNode) {
+                tempElement.parentNode.removeChild(tempElement);
+            }
+        };
+    }, []);
+
+    const drawArrow = useCallback(() => {
+        if (!canvasRef.current || !targetRef.current || !ctxRef.current) return;
+
+        const targetEl = targetRef.current;
+        const ctx = ctxRef.current;
+        const mouse = mousePosRef.current;
+
+        const x0 = mouse.x;
+        const y0 = mouse.y;
+
+        if (x0 === null || y0 === null) return;
+
+        const rect = targetEl.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+
+        const a = Math.atan2(cy - y0, cx - x0);
+        const x1 = cx - Math.cos(a) * (rect.width / 2 + 12);
+        const y1 = cy - Math.sin(a) * (rect.height / 2 + 12);
+
+        const midX = (x0 + x1) / 2;
+        const midY = (y0 + y1) / 2;
+        const offset = Math.min(200, Math.hypot(x1 - x0, y1 - y0) * 0.5);
+        const t = Math.max(-1, Math.min(1, (y0 - y1) / 200));
+        const controlX = midX;
+        const controlY = midY + offset * t;
+        
+        const r = Math.sqrt((x1 - x0)**2 + (y1 - y0)**2);
+        // Increase max opacity to 1 (fully opaque) and adjust divisor for quicker ramp-up
+        const opacity = Math.min(1.0, (r - Math.max(rect.width, rect.height) / 2) / 500); 
+
+        const arrowColor = resolvedCanvasColorsRef.current.strokeStyle;
+        ctx.strokeStyle = `rgba(${arrowColor.r}, ${arrowColor.g}, ${arrowColor.b}, ${opacity})`;
+        // Increase line width for more visibility
+        ctx.lineWidth = 2; // Changed from 1.5 to 2
+
+        // Draw curve
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x0, y0);
+        ctx.quadraticCurveTo(controlX, controlY, x1, y1);
+        // Adjust dash pattern for thicker line: longer dashes, similar gap
+        ctx.setLineDash([10, 5]); // e.g., 10px dash, 5px gap
+        ctx.stroke();
+        ctx.restore();
+
+        // Draw arrowhead
+        const angle = Math.atan2(y1 - controlY, x1 - controlX);
+        // Scale arrowhead with line width, base size 10 for lineWidth 1.5
+        const headLength = 10 * (ctx.lineWidth / 1.5); 
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(
+            x1 - headLength * Math.cos(angle - Math.PI / 6),
+            y1 - headLength * Math.sin(angle - Math.PI / 6)
+        );
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(
+            x1 - headLength * Math.cos(angle + Math.PI / 6),
+            y1 - headLength * Math.sin(angle + Math.PI / 6)
+        );
+        ctx.stroke();
+    }, []);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas || !targetRef.current) return;
+
+        ctxRef.current = canvas.getContext("2d");
+        const ctx = ctxRef.current;
+
+        const updateCanvasSize = () => {
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        };
+
+        const handleMouseMove = (e: MouseEvent) => {
+            mousePosRef.current = { x: e.clientX, y: e.clientY };
+        };
+
+        window.addEventListener("resize", updateCanvasSize);
+        window.addEventListener("mousemove", handleMouseMove);
+        updateCanvasSize();
+
+        const animateLoop = () => {
+            if (ctx && canvas) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawArrow();
+            }
+            animationFrameIdRef.current = requestAnimationFrame(animateLoop);
+        };
+        
+        animateLoop();
+
+        return () => {
+            window.removeEventListener("resize", updateCanvasSize);
+            window.removeEventListener("mousemove", handleMouseMove);
+            if (animationFrameIdRef.current) {
+                cancelAnimationFrame(animationFrameIdRef.current);
+            }
+        };
+    }, [drawArrow]);
+
+    useEffect(() => {
+        const videoElement = videoRef.current;
+        if (videoElement && videoUrl) {
+            const handleVideoEnd = () => {
+                setShowVideo(false);
+                videoElement.currentTime = 0;
+            };
+
+            if (showVideo) {
+                videoElement.play().catch(error => {
+                    console.error("HeroSection: Error playing video:", error);
+                    setShowVideo(false);
+                });
+                videoElement.addEventListener('ended', handleVideoEnd);
+            } else {
+                videoElement.pause();
+            }
+
+            return () => {
+                videoElement.removeEventListener('ended', handleVideoEnd);
+            };
+        }
+    }, [showVideo, videoUrl]);
+
+    const handlePlayButtonClick = () => {
+        if (videoUrl) {
+            setShowVideo(true);
+        }
+    };
+
+    return (
+        <div className="bg-background text-foreground min-h-screen flex flex-col">
+            <main className="flex-grow flex flex-col items-center justify-center">
+                <div className="mt-12 sm:mt-16 lg:mt-24 flex flex-col items-center">
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center px-4 leading-tight">
+                        <span className="bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
+                            {heading}
+                        </span>
+                    </h1>
+                    <p className="mt-6 block text-gray-600 text-center text-base sm:text-lg px-4 max-w-3xl leading-relaxed">
+                        {tagline}
+                    </p>
+                </div>
+
+                <div className="mt-8 flex justify-center">
+                    <button
+                        ref={targetRef}
+                        onClick={onStart}
+                        className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3"
+                    >
+                        {buttonText}
+                        <ArrowRight className="w-5 h-5" />
+                    </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 max-w-4xl mx-auto mt-12 px-4">
+                    {[
+                        { icon: Clock, text: "3 min", subtitle: "Quick comprehensive assessment" },
+                        { icon: TrendingUp, text: "10 questions", subtitle: "Personalized insights for your practice" },
+                        { icon: Star, text: "Free report", subtitle: "Immediate improvement strategies" }
+                    ].map((feature, idx) => (
+                        <motion.div 
+                            key={idx}
+                            className="p-4 md:p-6 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300"
+                            whileHover={{ scale: 1.01, y: -2 }}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: idx * 0.1 }}
+                        >
+                            <feature.icon className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
+                            <p className="text-gray-900 font-bold text-base mb-1">{feature.text}</p>
+                            <p className="text-gray-600 text-sm">{feature.subtitle}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </main>
+            <div className="h-12 sm:h-16 md:h-24"></div>
+            <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-10"></canvas>
+        </div>
+    );
+};
 
 // --- GRADIENT BARS BACKGROUND COMPONENT ---
 const GradientBarsBackground: React.FC = () => {
@@ -1032,65 +1314,12 @@ export default function PracticeEfficiencyGrader() {
 
             default: // intro
                 return (
-                    <div className="min-h-screen bg-white relative overflow-hidden">
-                        <GradientBarsBackground />
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="relative z-10 text-center px-4 py-16 max-w-5xl mx-auto"
-                        >
-                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
-                                Practice Efficiency 
-                                <span className="block bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mt-2"> 
-                                    Grader
-                                </span>
-                            </h1>
-                            
-                            <p className="text-gray-600 text-base md:text-lg mb-8 leading-relaxed max-w-3xl mx-auto">
-                                Is your practice technology helping you thrive or just survive? 
-                                <br className="hidden md:block" />
-                                <span className="text-gray-900 font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
-                            </p>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 max-w-4xl mx-auto">
-                                {[
-                                    { icon: Clock, text: "8 questions", subtitle: "Quick comprehensive assessment" },
-                                    { icon: TrendingUp, text: "Personalized insights", subtitle: "Custom analysis for your practice" },
-                                    { icon: Star, text: "Actionable solutions", subtitle: "Immediate improvement strategies" }
-                                ].map((feature, idx) => (
-                                    <motion.div 
-                                        key={idx}
-                                        className="p-4 md:p-6 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300"
-                                        whileHover={{ scale: 1.01, y: -2 }}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: idx * 0.1 }}
-                                    >
-                                        <feature.icon className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                                        <p className="text-gray-900 font-bold text-base mb-1">{feature.text}</p>
-                                        <p className="text-gray-600 text-sm">{feature.subtitle}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                            
-                            <motion.button 
-                                onClick={handleStart} 
-                                whileHover={{ scale: 1.02, y: -1 }}
-                                whileTap={{ scale: 0.98 }}
-                                className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 mb-4 flex items-center justify-center gap-3 mx-auto"
-                            >
-                                Start Your Assessment
-                                <ArrowRight className="w-5 h-5" />
-                            </motion.button>
-                            
-                            <p className="text-gray-500 text-sm">
-                                Join 1,000+ practices already using S10.AI
-                            </p>
-                        </motion.div>
-                    </div>
+                    <IntroHeroSection
+                        heading="Practice Efficiency Grader"
+                        tagline="Discover how efficient your practice really is and unlock actionable insights to optimize your workflow with AI."
+                        buttonText="Start Your Assessment"
+                        onStart={handleStart}
+                    />
                 );
         }
     };
