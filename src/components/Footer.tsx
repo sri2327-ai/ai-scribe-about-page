@@ -1,12 +1,12 @@
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
-import { Box, Typography, IconButton, Button } from "@mui/material";
+import { Box, Typography, IconButton, Button, useMediaQuery } from "@mui/material";
 import { ArrowRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import AnimatedGradientBackground from "./ui/animated-gradient-background";
 import { GradientTracing } from "./ui/gradient-tracing";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
 
 export const XIcon = () => (
   <svg
@@ -84,7 +84,120 @@ export const TikTokIcon = () => (
 export default function Footer() {
   const theme = useTheme();
   const location = useLocation();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
+  
+  const footerSections = [
+    {
+      title: "Why S10.AI?",
+      links: [
+        { text: "Maximise Patient interaction", href: "/advantages" },
+        { text: "Boost efficiency and well being", href: "/advantages" },
+        { text: "Address staffing shortages", href: "/advantages" },
+        { text: "Improve financial impact", href: "/advantages" },
+        { text: "Streamline documentation", href: "/advantages" },
+        { text: "Deliver better Patient Care", href: "/advantages" },
+        { text: "Automate front office tasks", href: "/advantages" }
+      ]
+    },
+    {
+      title: "Who we're for?",
+      links: [
+        { text: "Health systems", href: "/customer" },
+        { text: "Private practice", href: "/customer" },
+        { text: "Specialty", href: "/specialty" }
+      ]
+    },
+    {
+      title: "Solutions",
+      links: [
+        { text: "Bravo", href: "/bravo" },
+        { text: "Crush", href: "/crush-ai" },
+        { text: "Custom AI agents", href: "/custom-ai-agent" }
+      ]
+    },
+    {
+      title: "Resources",
+      links: [
+        { text: "Blog", href: "/blog" },
+        { text: "Case studies", href: "/resources/casestudies" },
+        { text: "FAQs", href: "/faq" },
+        { text: "Resource library", href: "/resources" },
+        { text: "Practice efficiency grader", href: "/practice-efficiency-grader" }
+      ]
+    },
+    {
+      title: "About",
+      links: [
+        { text: "S10.AI Story", href: "/about" },
+        { text: "Technology", href: "/technology" },
+        { text: "S10.AI Difference", href: "/advantages" },
+        { text: "AI Accuracy", href: "/ai-accuracy" },
+        { text: "Integrations", href: "/integration" }
+      ]
+    }
+  ];
+
+  const FooterSection = ({ section }) => (
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+      <Typography variant="h6" fontWeight="bold" sx={{ 
+        color: 'inherit',
+        marginBottom: '0.5rem',
+        textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+      }}>
+        {section.title}
+      </Typography>
+      {section.links.map((link, index) => (
+        <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
+          <Typography variant="body2" sx={{ 
+            color: 'inherit',
+            transition: 'color 0.3s ease',
+            '&:hover': { color: theme.palette.primary.light },
+            display: 'block',
+            padding: '0.25rem 0',
+            textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+            opacity: 0.9,
+            '&:hover': { opacity: 1 }
+          }}>
+            {link.text}
+          </Typography>
+        </Link>
+      ))}
+    </Box>
+  );
+
+  const MobileFooterSection = ({ section }) => (
+    <AccordionItem value={section.title}>
+      <AccordionTrigger sx={{ 
+        color: 'inherit',
+        textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+      }}>
+        <Typography variant="h6" fontWeight="bold">
+          {section.title}
+        </Typography>
+      </AccordionTrigger>
+      <AccordionContent>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', pl: 2 }}>
+          {section.links.map((link, index) => (
+            <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
+              <Typography variant="body2" sx={{ 
+                color: 'inherit',
+                transition: 'color 0.3s ease',
+                '&:hover': { color: theme.palette.primary.light },
+                display: 'block',
+                padding: '0.25rem 0',
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                opacity: 0.9,
+                '&:hover': { opacity: 1 }
+              }}>
+                {link.text}
+              </Typography>
+            </Link>
+          ))}
+        </Box>
+      </AccordionContent>
+    </AccordionItem>
+  );
   
   return (
     <Box component="footer" sx={{ 
@@ -117,184 +230,66 @@ export default function Footer() {
           position: 'relative',
           zIndex: 2
         }}>
+          {/* Main Footer Content */}
           <Box sx={{ 
             display: 'flex', 
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             gap: '2rem',
-            marginBottom: { xs: '1rem', md: '2rem' },
+            marginBottom: { xs: '2rem', md: '3rem' },
           }}>
-            <Box sx={{ flex: 1 }}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems:'flex-start', gap: '0.6rem' }}>
-                <Link to="/crush-ai" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    CRUSH - AI Medical Scribe Assistant
-                  </Typography>
-                </Link>
-                <Link to="/bravo" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    BRAVO - AI Staffing Agent
-                  </Typography>
-                </Link>
-                <Link to="/about" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    S10.AI Story
-                  </Typography>
-                </Link>
-                <Link to="/technology" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Trust & Technology
-                  </Typography>
-                </Link>
-                <Link to="/integration" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Integrations
-                  </Typography>
-                </Link>
-                <Link to="/specialty" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Specialties
-                  </Typography>
-                </Link>
-                <Link to="/advantages" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Why S10.AI?
-                  </Typography>
-                </Link>
-                <Link to="/blog" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Blog
-                  </Typography>
-                </Link>
-                <Link to="/faq" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    FAQs
-                  </Typography>
-                </Link>
-                <Link to="/resources/casestudies" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Case Studies
-                  </Typography>
-                </Link>
-                <Link to="/customer" style={{ textDecoration: 'none' }}>
-                  <Typography variant="h6" fontWeight="medium" sx={{ 
-                    color: 'inherit',
-                    transition: 'color 0.3s ease',
-                    '&:hover': { color: theme.palette.primary.light },
-                    display: 'block',
-                    padding: '0.25rem 0',
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-                  }}>
-                    Customers
-                  </Typography>
-                </Link>
-              </Box>
-            </Box>
-            <Box sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '0.6rem'
-            }}>
-              <Link to="/contact">
-                <Button 
-                  variant="outlined"
-                  sx={{
-                    borderRadius: 1,
-                    background: themeChnStatus ? 'transparent' : theme.palette.common.white,
+            {/* Desktop Layout */}
+            {!isMobile ? (
+              <>
+                {footerSections.map((section, index) => (
+                  <FooterSection key={index} section={section} />
+                ))}
+              </>
+            ) : (
+              /* Mobile Accordion Layout */
+              <Accordion type="multiple" className="w-full">
+                {footerSections.map((section, index) => (
+                  <MobileFooterSection key={index} section={section} />
+                ))}
+              </Accordion>
+            )}
+          </Box>
+
+          {/* Contact Button */}
+          <Box sx={{
+            display: 'flex',
+            justifyContent: { xs: 'center', md: 'flex-end' },
+            marginBottom: '2rem'
+          }}>
+            <Link to="/contact">
+              <Button 
+                variant="outlined"
+                sx={{
+                  borderRadius: 1,
+                  background: themeChnStatus ? 'transparent' : theme.palette.common.white,
+                  color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                  border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : 'none',
+                  ".icon-box": {
+                    border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.primary.main}`,
+                  },
+                  "&:hover": {
+                    border: themeChnStatus ? `1px solid ${theme.palette.primary.main}` : 'none',
+                    background: themeChnStatus ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : 'none',
                     color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
-                    border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : 'none',
                     ".icon-box": {
-                      border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.primary.main}`,
+                      border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.common.black}`,
                     },
-                    "&:hover": {
-                      border: themeChnStatus ? `1px solid ${theme.palette.primary.main}` : 'none',
-                      background: themeChnStatus ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : 'none',
-                      color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
-                      ".icon-box": {
-                        border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.common.black}`,
-                      },
-                    }
-                  }}
-                  startIcon={
-                    <Box className="icon-box">
-                      <ArrowRight size={16} />
-                    </Box>
                   }
-                >
-                  <Typography variant='h5' fontWeight="600">Contact Us</Typography>
-                </Button>
-              </Link>
-            </Box>
+                }}
+                startIcon={
+                  <Box className="icon-box">
+                    <ArrowRight size={16} />
+                  </Box>
+                }
+              >
+                <Typography variant='h5' fontWeight="600">Contact Us</Typography>
+              </Button>
+            </Link>
           </Box>
           
           <Box sx={{ my: 4, position: 'relative' }}>
