@@ -143,16 +143,16 @@ export default function Footer() {
     <Box sx={{ 
       display: 'flex', 
       flexDirection: 'column', 
-      gap: '0.75rem',
+      gap: '0.6rem',
       minWidth: '200px',
       flex: 1
     }}>
       <Typography 
         variant="h6" 
-        fontWeight="bold" 
+        fontWeight="medium" 
         sx={{ 
           color: 'white',
-          marginBottom: '1rem',
+          marginBottom: '0.5rem',
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
           fontSize: '1.1rem',
           lineHeight: 1.2
@@ -160,19 +160,20 @@ export default function Footer() {
       >
         {section.title}
       </Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         {section.links.map((link, index) => (
           <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
             <Typography 
-              variant="body2" 
+              variant="h6" 
+              fontWeight="medium"
               sx={{ 
                 color: 'white',
                 transition: 'color 0.3s ease',
                 display: 'block',
-                padding: '0.125rem 0',
+                padding: '0.25rem 0',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 opacity: 0.9,
-                fontSize: '0.875rem',
+                fontSize: '1rem',
                 lineHeight: 1.4,
                 '&:hover': { 
                   color: theme.palette.primary.light,
@@ -196,16 +197,17 @@ export default function Footer() {
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
       >
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" fontWeight="medium">
           {section.title}
         </Typography>
       </AccordionTrigger>
       <AccordionContent>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', pl: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', pl: 1 }}>
           {section.links.map((link, index) => (
             <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
               <Typography 
-                variant="body2" 
+                variant="h6" 
+                fontWeight="medium"
                 sx={{ 
                   color: 'white',
                   transition: 'color 0.3s ease',
@@ -346,7 +348,7 @@ export default function Footer() {
               display: 'flex', 
               flexDirection: 'column', 
               flex: 1, 
-              gap: '0.75rem',
+              gap: '0.6rem',
               minWidth: { md: '300px' }
             }}>
               <Typography variant='h6' fontWeight='medium' sx={{ 
@@ -471,7 +473,7 @@ export default function Footer() {
             <Box sx={{
               display: 'flex', 
               flexDirection: 'column', 
-              gap: '0.75rem',
+              gap: '0.6rem',
               minWidth: { md: '200px' }
             }}>
               <Typography variant='h6' fontWeight='medium'>
