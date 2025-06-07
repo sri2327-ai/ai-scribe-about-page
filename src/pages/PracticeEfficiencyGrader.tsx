@@ -1,1077 +1,648 @@
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ModernSlider } from "@/components/ui/modern-slider";
+import { ArrowRight, Award, TrendingUp, Clock, Users, DollarSign, CheckCircle2, Star, Phone, Mail, Calendar } from "lucide-react";
+import { motion } from 'framer-motion';
 
-import React, { useState, useMemo, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle, ArrowRight, ExternalLink, User, Mail, Building } from 'lucide-react';
-import { ModernSlider } from '@/components/ui/modern-slider';
+const PracticeEfficiencyGrader = () => {
+  const [currentStep, setCurrentStep] = useState('intro');
+  const [answers, setAnswers] = useState({});
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    contact: '',
+    practiceName: '',
+    jobTitle: ''
+  });
 
-// --- GRADIENT BARS BACKGROUND COMPONENT ---
-const GradientBarsBackground: React.FC = () => {
-    const [numBars] = useState(15);
-
-    const calculateHeight = (index: number, total: number) => {
-        const position = index / (total - 1);
-        const maxHeight = 90;
-        const minHeight = 25;
-        
-        const center = 0.5;
-        const distanceFromCenter = Math.abs(position - center);
-        const heightPercentage = Math.pow(distanceFromCenter * 2, 1.5);
-        
-        return minHeight + (maxHeight - minHeight) * heightPercentage;
-    };
-
-    return (
-        <>
-            {/* Enhanced gradient bars with better visibility */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
-                <div 
-                    className="flex h-full w-full"
-                    style={{
-                        transform: 'translateZ(0)',
-                        backfaceVisibility: 'hidden',
-                        WebkitFontSmoothing: 'antialiased',
-                    }}
-                >
-                    {Array.from({ length: numBars }).map((_, index) => {
-                        const height = calculateHeight(index, numBars);
-                        return (
-                            <div
-                                key={index}
-                                style={{
-                                    flex: '1 0 calc(100% / 15)',
-                                    maxWidth: 'calc(100% / 15)',
-                                    height: '100%',
-                                    background: 'linear-gradient(135deg, rgba(20, 49, 81, 0.8), rgba(56, 126, 137, 0.7), rgba(20, 49, 81, 0.6))',
-                                    transform: `scaleY(${height / 100})`,
-                                    transformOrigin: 'bottom',
-                                    transition: 'transform 0.8s ease-in-out',
-                                    animation: 'pulseBar 4s ease-in-out infinite alternate',
-                                    animationDelay: `${index * 0.2}s`,
-                                    opacity: 0.9,
-                                    filter: 'blur(0.2px)',
-                                }}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
-            
-            {/* Lighter overlay for better content visibility */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/60 via-white/50 to-white/60"></div>
-        </>
-    );
-};
-
-// --- ANIMATION VARIANTS ---
-const pageVariants = {
-    initial: { opacity: 0, y: 30 },
-    in: { opacity: 1, y: 0 },
-    out: { opacity: 0, y: -30 },
-};
-
-const pageTransition = {
-    type: "tween",
-    ease: "anticipate",
-    duration: 0.7,
-};
-
-// --- HELPER COMPONENTS ---
-interface CustomSliderProps {
-    value: number;
-    onChange: (value: number) => void;
-    min: number;
-    max: number;
-    unit: string;
-    labels?: string[];
-}
-
-const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, unit, labels }) => {
-    const percentage = ((value - min) / (max - min)) * 100;
-    const steps = max - min + 1;
-    
-    return (
-        <div className="w-full px-2">
-            <div className="flex justify-between items-center mb-6">
-                <span className="text-lg font-semibold text-gray-700">{unit}</span>
-                <motion.span 
-                    className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-bold text-lg shadow-lg"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                >
-                    {labels ? labels[value] || value : value}
-                </motion.span>
-            </div>
-            
-            <div className="relative mb-6">
-                {/* Track background */}
-                <div className="w-full h-4 bg-gray-200 rounded-full relative overflow-hidden border border-gray-300">
-                    {/* Progress fill */}
-                    <motion.div 
-                        className="h-full bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full relative shadow-md"
-                        style={{ width: `${percentage}%` }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${percentage}%` }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                    />
-                    
-                    {/* Tick marks */}
-                    <div className="absolute top-0 left-0 w-full h-full flex justify-between items-center px-1">
-                        {Array.from({ length: steps }, (_, i) => (
-                            <div 
-                                key={i} 
-                                className={`w-1 h-6 -mt-1 ${i <= value ? 'bg-white/70' : 'bg-gray-400'} rounded-full transition-colors duration-300`} 
-                            />
-                        ))}
-                    </div>
-                    
-                    {/* Slider thumb */}
-                    <motion.div 
-                        className="absolute top-1/2 transform -translate-y-1/2 cursor-pointer"
-                        style={{ left: `${percentage}%`, marginLeft: '-16px' }}
-                        whileHover={{ scale: 1.2 }}
-                        whileTap={{ scale: 0.9 }}
-                    >
-                        <div className="w-8 h-8 bg-white rounded-full border-2 border-[#143151] shadow-lg flex items-center justify-center">
-                            <div className="w-2 h-2 bg-[#143151] rounded-full"></div>
-                        </div>
-                    </motion.div>
-                </div>
-                
-                <input 
-                    type="range" 
-                    min={min} 
-                    max={max} 
-                    value={value} 
-                    onChange={e => onChange(parseInt(e.target.value))}
-                    className="absolute top-0 left-0 w-full h-4 opacity-0 cursor-pointer" 
-                />
-            </div>
-            
-            {labels && (
-                <div className="flex justify-between mt-3 text-sm text-gray-600 font-medium">
-                    <span>{labels[0]}</span>
-                    <span>{labels[Math.floor(labels.length / 2)]}</span>
-                    <span>{labels[labels.length - 1]}</span>
-                </div>
-            )}
-        </div>
-    );
-};
-
-interface OptionCardProps {
-    text: string;
-    selected: boolean;
-    onClick: () => void;
-}
-
-const OptionCard: React.FC<OptionCardProps> = ({ text, selected, onClick }) => (
-    <motion.div
-        onClick={onClick}
-        whileHover={{ scale: 1.02, y: -2 }}
-        whileTap={{ scale: 0.98 }}
-        className={`p-4 rounded-xl border-2 transition-all duration-300 cursor-pointer shadow-lg ${
-            selected 
-                ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white border-[#143151] shadow-xl' 
-                : 'bg-white border-gray-300 hover:border-[#387E89] hover:shadow-xl text-gray-800'
-        }`}
-    >
-        <p className="text-center text-base font-medium leading-relaxed">{text}</p>
-    </motion.div>
-);
-
-// --- TYPE DEFINITIONS ---
-interface SliderOptions {
-    min: number;
-    max: number;
-    unit: string;
-    labels?: string[];
-}
-
-interface QuizQuestion {
-    id: number;
-    category: string;
-    title: string;
-    question: string;
-    type: 'slider' | 'options';
-    options: SliderOptions | string[];
-    valueProp: string;
-    icon: React.ComponentType<any>;
-    analysis: (value: number | string) => 'Critical' | 'High' | 'Good';
-    reportText: (value: number | string) => string;
-    solution: string;
-    insightSnippet?: string;
-}
-
-// --- QUIZ DATA ---
-const quizQuestions: QuizQuestion[] = [
+  const questions = [
     {
-        id: 1, 
-        category: "Provider Wellbeing", 
-        title: "The \"Pajama Time\" Problem", 
-        question: "How many hours per week do providers spend on documentation after patient hours?", 
-        type: "slider", 
-        options: { min: 0, max: 20, unit: 'Hours' }, 
-        valueProp: "Provider Well-being & Burnout",
-        icon: Clock,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal > 8 ? "Critical" : numVal > 3 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `With providers spending ${val} hours on after-hours charting, there's significant burnout risk. Industry average is 4 hours. S10.AI can reduce this by 80% through automated documentation, giving providers their evenings back.`,
-        solution: "Our AI scribes handle real-time documentation, eliminating pajama time and reducing provider burnout by up to 80%.",
-        insightSnippet: "A 2024 Medscape report found that \"charting and paperwork\" is the #1 contributor to physician burnout."
+      id: 'providers',
+      question: 'How many healthcare providers work in your practice?',
+      min: 1,
+      max: 50,
+      unit: 'Providers',
+      labels: ['1', '10', '20', '30', '40', '50+']
     },
     {
-        id: 2, 
-        category: "Clinical Efficiency", 
-        title: "Documentation Speed", 
-        question: "How long after a patient encounter is the final clinical note completed and signed?", 
-        type: "slider", 
-        options: { 
-            min: 0, 
-            max: 6, 
-            unit: 'Timeframe',
-            labels: ['2 min', '30 min', '2 hrs', '1 day', '2 days', '3+ days']
-        }, 
-        valueProp: "Documentation Efficiency",
-        icon: FileText,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal > 3 ? "Critical" : numVal > 1 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => {
-            const labels = ['2 minutes', '30 minutes', '2 hours', '1 day', '2 days', '3+ days'];
-            const timeframe = labels[typeof val === 'number' ? val : 0] || val;
-            return `Documentation completed in ${timeframe} indicates ${typeof val === 'number' && val > 1 ? 'delayed' : 'efficient'} workflow. S10.AI completes notes in real-time during encounters.`;
-        },
-        solution: "Our ambient AI documentation captures comprehensive notes during the visit, ready for review immediately after the encounter."
+      id: 'patients',
+      question: 'How many patients do you see per day on average?',
+      min: 5,
+      max: 100,
+      unit: 'Patients/Day',
+      labels: ['5', '25', '50', '75', '100+']
     },
     {
-        id: 3, 
-        category: "Financial Health", 
-        title: "Clean Claim Rate", 
-        question: "What is your approximate clean claim rate? (Claims approved on first submission)", 
-        type: "slider", 
-        options: { min: 50, max: 100, unit: 'Percentage' }, 
-        valueProp: "Revenue Optimization",
-        icon: DollarSign,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal < 75 ? "Critical" : numVal < 85 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your clean claim rate of ${val}% ${typeof val === 'number' && val < 85 ? 'is below' : 'meets'} industry average (85%). Lower rates indicate documentation and coding issues. S10.AI ensures accurate coding suggestions and comprehensive documentation.`,
-        solution: "Our AI scribe provides structured data and coding suggestions, improving clean claim rates to 95%+.",
-        insightSnippet: "Industry average clean claim rate is 80-85%. Lower rates often point to documentation and coding inaccuracies."
+      id: 'documentation',
+      question: 'How many hours per day do you spend on documentation?',
+      min: 1,
+      max: 8,
+      unit: 'Hours/Day',
+      labels: ['1h', '2h', '4h', '6h', '8h+']
     },
     {
-        id: 4, 
-        category: "Financial Health", 
-        title: "Coding Confidence", 
-        question: "How confident are you that your notes capture all necessary details for accurate coding?", 
-        type: "options", 
-        options: [
-            "Not at all confident - we miss details regularly", 
-            "Hardly confident - we catch some but miss others", 
-            "Somewhat confident - we get most of it right",
-            "Very confident - we rarely miss coding opportunities",
-            "Completely confident - our documentation is comprehensive"
-        ], 
-        valueProp: "Coding Accuracy & Compliance",
-        icon: FileText,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("Not at all") || strVal.includes("Hardly") ? "Critical" : 
-                   strVal.includes("Somewhat") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your confidence level suggests ${String(val).includes("confident") ? 'good' : 'room for improvement in'} coding accuracy. Inaccurate coding leads to denied claims and audit risks. S10.AI provides real-time coding suggestions based on conversation content.`,
-        solution: "Our AI analyzes conversations in real-time to suggest accurate ICD-10, CPT codes and ensure comprehensive documentation."
+      id: 'efficiency',
+      question: 'How would you rate your current practice efficiency?',
+      min: 1,
+      max: 10,
+      unit: 'Efficiency Rating',
+      labels: ['Poor', 'Average', 'Good', 'Very Good', 'Excellent']
     },
     {
-        id: 5, 
-        category: "Front Office Automation", 
-        title: "Scheduling Automation", 
-        question: "What scheduling automation do you currently use?", 
-        type: "options", 
-        options: [
-            "No automation - everything is manual", 
-            "Basic automated reminders only", 
-            "Online scheduling + reminders",
-            "AI phone agent for some calls",
-            "Full AI automation for scheduling and calls"
-        ], 
-        valueProp: "Front Office Efficiency",
-        icon: Calendar,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("No automation") ? "Critical" : 
-                   strVal.includes("Basic") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your current automation level indicates ${String(val).includes("No automation") ? 'significant manual work' : 'some efficiency gains'}. Manual scheduling burdens staff and increases no-shows. S10.AI Bravo can handle 80% of scheduling calls automatically.`,
-        solution: "Bravo AI Agent handles scheduling calls, reminders, and rescheduling 24/7, reducing staff workload by 70%."
-    },
-    {
-        id: 6, 
-        category: "Patient Access", 
-        title: "No-Show Rate", 
-        question: "What is your monthly patient no-show rate?", 
-        type: "slider", 
-        options: { min: 0, max: 40, unit: 'Percentage' }, 
-        valueProp: "Revenue Recovery",
-        icon: Calendar,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal > 20 ? "Critical" : numVal > 12 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your no-show rate of ${val}% ${typeof val === 'number' && val > 12 ? 'is above' : 'meets'} industry average (12%). High no-show rates represent significant lost revenue. For 100 daily appointments, ${val}% no-shows = $${Math.round(((typeof val === 'number' ? val : 0) * 100 * 250) / 100).toLocaleString()} monthly loss.`,
-        solution: "Our intelligent reminder system and easy rescheduling reduce no-shows by 60%, recovering thousands in lost revenue."
-    },
-    {
-        id: 7, 
-        category: "Patient Experience", 
-        title: "Provider-Patient Interaction", 
-        question: "How does documentation affect provider-patient face time?", 
-        type: "options", 
-        options: [
-            "Significantly inhibits - lots of screen time during visits", 
-            "Moderately inhibits - some distraction from documentation", 
-            "No impact - balanced approach",
-            "Moderately improves - efficient documentation helps",
-            "Significantly improves - minimal screen time needed"
-        ], 
-        valueProp: "Patient Care Quality",
-        icon: Heart,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("Significantly inhibits") ? "Critical" : 
-                   strVal.includes("Moderately inhibits") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Documentation ${String(val).includes("inhibits") ? 'barriers reduce' : 'supports'} patient satisfaction and care quality. When providers focus on screens instead of patients, relationships suffer. S10.AI enables 100% eye contact while capturing comprehensive notes.`,
-        solution: "Our ambient AI documentation lets providers focus entirely on patients while capturing comprehensive notes automatically."
-    },
-    {
-        id: 8, 
-        category: "Language Access", 
-        title: "Multilingual Support", 
-        question: "How does your practice handle non-English speaking patients?", 
-        type: "options", 
-        options: [
-            "Rely on family members or ad-hoc translation", 
-            "Use cumbersome third-party phone services", 
-            "Limited to availability of bilingual staff",
-            "Technology-based real-time translation",
-            "Comprehensive multilingual AI support"
-        ], 
-        valueProp: "Patient Access & Safety",
-        icon: Languages,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("family members") || strVal.includes("ad-hoc") ? "Critical" : 
-                   strVal.includes("cumbersome") || strVal.includes("Limited") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your current approach ${String(val).includes("family") || String(val).includes("cumbersome") ? 'creates safety risks' : 'provides some support'} for non-English speakers. Inadequate translation leads to medical errors and poor patient experience. S10.AI supports 60+ languages with real-time translation.`,
-        solution: "Built-in real-time translation for 60+ languages ensures every patient receives clear, accurate communication and documentation."
+      id: 'burnout',
+      question: 'How often do you experience work-related stress or burnout?',
+      min: 1,
+      max: 5,
+      unit: 'Stress Level',
+      labels: ['Never', 'Rarely', 'Sometimes', 'Often', 'Always']
     }
-];
+  ];
 
-const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
-    const graphics = [
-        { 
-            text: "Eliminate after-hours documentation", 
-            icon: Clock, 
-            description: "Reclaim your evenings with AI-powered real-time documentation"
-        },
-        { 
-            text: "Instant note completion", 
-            icon: Zap, 
-            description: "Complete clinical notes during the patient encounter"
-        },
-        { 
-            text: "Maximize revenue potential", 
-            icon: TrendingUp, 
-            description: "Accurate coding and comprehensive documentation boost revenue"
-        },
-        { 
-            text: "Ensure coding accuracy", 
-            icon: Shield, 
-            description: "AI-powered coding suggestions reduce audit risks"
-        },
-        { 
-            text: "Automate front office tasks", 
-            icon: Activity, 
-            description: "24/7 AI scheduling and patient communication"
-        },
-        { 
-            text: "Reduce revenue loss", 
-            icon: Target, 
-            description: "Intelligent reminders and easy rescheduling prevent no-shows"
-        },
-        { 
-            text: "Focus on patient care", 
-            icon: Stethoscope, 
-            description: "100% eye contact while AI captures comprehensive notes"
-        },
-        { 
-            text: "Break language barriers", 
-            icon: Languages, 
-            description: "Real-time translation for 60+ languages ensures clear communication"
-        }
-    ];
-    const currentGraphic = graphics[questionId - 1];
-    const IconComponent = currentGraphic.icon;
+  const handleAnswerChange = (questionId, value) => {
+    setAnswers(prev => ({ ...prev, [questionId]: value }));
+  };
+
+  const calculateScore = () => {
+    const { providers = 5, patients = 20, documentation = 2, efficiency = 5, burnout = 3 } = answers;
+    
+    let score = 50;
+    
+    if (providers > 10) score += 10;
+    if (patients > 30) score += 15;
+    if (documentation > 3) score -= 20;
+    if (efficiency < 6) score -= 15;
+    if (burnout > 3) score -= 25;
+    
+    return Math.max(0, Math.min(100, score));
+  };
+
+  const getScoreCategory = (score) => {
+    if (score >= 80) return { label: 'Highly Efficient', color: 'text-green-600', bgColor: 'bg-green-50' };
+    if (score >= 60) return { label: 'Moderately Efficient', color: 'text-yellow-600', bgColor: 'bg-yellow-50' };
+    return { label: 'Needs Improvement', color: 'text-red-600', bgColor: 'bg-red-50' };
+  };
+
+  const renderIntro = () => (
+    <div className="min-h-screen bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center p-4">
+      <motion.div 
+        className="max-w-4xl mx-auto text-center text-white"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <div className="mb-8">
+          <Award className="w-16 h-16 mx-auto mb-6 text-white" />
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Practice Efficiency<br />Grader
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
+            Discover how efficient your medical practice really is and unlock insights to improve patient care while reducing administrative burden.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            <Clock className="w-8 h-8 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">5-Minute Assessment</h3>
+            <p className="text-sm opacity-80">Quick evaluation of your current workflow</p>
+          </div>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            <TrendingUp className="w-8 h-8 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">Personalized Insights</h3>
+            <p className="text-sm opacity-80">Tailored recommendations for your practice</p>
+          </div>
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
+            <Award className="w-8 h-8 mx-auto mb-4" />
+            <h3 className="font-semibold mb-2">Benchmarking Report</h3>
+            <p className="text-sm opacity-80">See how you compare to industry standards</p>
+          </div>
+        </div>
+
+        <Button 
+          onClick={() => setCurrentStep('quiz')}
+          size="lg"
+          className="bg-white text-[#143151] hover:bg-gray-100 text-lg px-8 py-4 rounded-full font-semibold shadow-lg transform hover:scale-105 transition-all duration-200"
+        >
+          Start Assessment
+          <ArrowRight className="ml-2 w-5 h-5" />
+        </Button>
+      </motion.div>
+    </div>
+  );
+
+  const renderQuiz = () => {
+    const question = questions[currentQuestion];
+    const progress = ((currentQuestion + 1) / questions.length) * 100;
 
     return (
-        <AnimatePresence mode="wait">
-            <motion.div
-                key={questionId}
-                initial={{ opacity: 0, scale: 0.8, rotateY: 90 }}
-                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                exit={{ opacity: 0, scale: 0.8, rotateY: -90 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                className="w-full h-full flex flex-col items-center justify-center text-center p-8 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 backdrop-blur-sm rounded-2xl border border-gray-200"
-            >
-                <motion.div 
-                    className="w-24 h-24 mb-6 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center shadow-xl"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
+      <div className="min-h-screen bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center p-4">
+        <motion.div 
+          className="max-w-2xl mx-auto"
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Card className="p-8 shadow-2xl bg-white">
+            <div className="mb-8">
+              <div className="flex justify-between items-center mb-4">
+                <span className="text-sm font-medium text-gray-600">
+                  Question {currentQuestion + 1} of {questions.length}
+                </span>
+                <span className="text-sm font-medium text-[#143151]">
+                  {Math.round(progress)}% Complete
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  className="bg-gradient-to-r from-[#143151] to-[#387E89] h-2 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-[#143151] mb-8 leading-relaxed">
+              {question.question}
+            </h2>
+
+            <div className="mb-12">
+              <ModernSlider
+                value={answers[question.id] || question.min}
+                onChange={(value) => handleAnswerChange(question.id, value)}
+                min={question.min}
+                max={question.max}
+                unit={question.unit}
+                labels={question.labels}
+              />
+            </div>
+
+            <div className="flex justify-between">
+              <Button 
+                variant="outline" 
+                onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
+                disabled={currentQuestion === 0}
+                className="px-6"
+              >
+                Previous
+              </Button>
+              
+              {currentQuestion === questions.length - 1 ? (
+                <Button 
+                  onClick={() => setCurrentStep('scoreForm')}
+                  className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90 px-8"
                 >
-                    <IconComponent className="w-12 h-12 text-white" />
-                </motion.div>
-                <motion.h3 
-                    className="text-xl font-bold text-gray-800 mb-3 leading-tight"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
+                  View Results
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              ) : (
+                <Button 
+                  onClick={() => setCurrentQuestion(currentQuestion + 1)}
+                  className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90 px-8"
                 >
-                    {currentGraphic.text}
-                </motion.h3>
-                <motion.p 
-                    className="text-base text-gray-600 leading-relaxed font-medium max-w-xs"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                >
-                    {currentGraphic.description}
-                </motion.p>
-            </motion.div>
-        </AnimatePresence>
+                  Next
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              )}
+            </div>
+          </Card>
+        </motion.div>
+      </div>
     );
+  };
+
+  const renderScoreForm = () => {
+    const score = calculateScore();
+    const category = getScoreCategory(score);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#143151] to-[#387E89] p-4">
+        <div className="max-w-6xl mx-auto py-8">
+          <motion.div 
+            className="grid lg:grid-cols-2 gap-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {/* Score Preview */}
+            <Card className="p-8 shadow-2xl">
+              <div className="text-center mb-8">
+                <div className={`inline-flex items-center px-4 py-2 rounded-full ${category.bgColor} ${category.color} font-semibold mb-4`}>
+                  <Star className="w-4 h-4 mr-2" />
+                  {category.label}
+                </div>
+                <div className="text-6xl font-bold text-[#143151] mb-2">{score}</div>
+                <p className="text-gray-600">Efficiency Score</p>
+              </div>
+
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 mr-3" />
+                  <span>Quick 5-minute assessment completed</span>
+                </div>
+                <div className="flex items-center text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 mr-3" />
+                  <span>Personalized efficiency analysis ready</span>
+                </div>
+                <div className="flex items-center text-gray-700">
+                  <CheckCircle2 className="w-5 h-5 text-green-500 mr-3" />
+                  <span>Industry benchmarking available</span>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 rounded-xl p-6 text-center">
+                <TrendingUp className="w-8 h-8 text-blue-600 mx-auto mb-3" />
+                <h3 className="font-semibold text-blue-900 mb-2">Unlock Your Complete Report</h3>
+                <p className="text-blue-700 text-sm">
+                  Get detailed insights, improvement recommendations, and see how you compare to similar practices.
+                </p>
+              </div>
+            </Card>
+
+            {/* Contact Form */}
+            <Card className="p-8 shadow-2xl">
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-[#143151] mb-2">
+                  Get Your Complete Benchmark Study
+                </h2>
+                <p className="text-gray-600">
+                  Enter your details to receive your personalized efficiency report and improvement recommendations.
+                </p>
+              </div>
+
+              <form className="space-y-6" onSubmit={(e) => {
+                e.preventDefault();
+                setCurrentStep('report');
+              }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="firstName" className="text-sm font-medium text-gray-700 mb-2 block">
+                      First Name *
+                    </Label>
+                    <Input
+                      id="firstName"
+                      type="text"
+                      required
+                      value={formData.firstName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                      className="h-12 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                      placeholder="Enter your first name"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName" className="text-sm font-medium text-gray-700 mb-2 block">
+                      Last Name *
+                    </Label>
+                    <Input
+                      id="lastName"
+                      type="text"
+                      required
+                      value={formData.lastName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                      className="h-12 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                      placeholder="Enter your last name"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-2 block">
+                    Email Address *
+                  </Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    className="h-12 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="contact" className="text-sm font-medium text-gray-700 mb-2 block">
+                    Contact Number *
+                  </Label>
+                  <Input
+                    id="contact"
+                    type="tel"
+                    required
+                    value={formData.contact}
+                    onChange={(e) => setFormData(prev => ({ ...prev, contact: e.target.value }))}
+                    className="h-12 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="practiceName" className="text-sm font-medium text-gray-700 mb-2 block">
+                    Practice Name *
+                  </Label>
+                  <Input
+                    id="practiceName"
+                    type="text"
+                    required
+                    value={formData.practiceName}
+                    onChange={(e) => setFormData(prev => ({ ...prev, practiceName: e.target.value }))}
+                    className="h-12 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]"
+                    placeholder="Your Practice Name"
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="jobTitle" className="text-sm font-medium text-gray-700 mb-2 block">
+                    Job Title *
+                  </Label>
+                  <Select required onValueChange={(value) => setFormData(prev => ({ ...prev, jobTitle: value }))}>
+                    <SelectTrigger className="h-12 border-gray-300 focus:border-[#387E89] focus:ring-[#387E89]">
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="physician">Physician</SelectItem>
+                      <SelectItem value="nurse-practitioner">Nurse Practitioner</SelectItem>
+                      <SelectItem value="physician-assistant">Physician Assistant</SelectItem>
+                      <SelectItem value="practice-manager">Practice Manager</SelectItem>
+                      <SelectItem value="administrator">Administrator</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Button 
+                  type="submit"
+                  className="w-full h-12 bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90 text-lg font-semibold shadow-lg"
+                >
+                  View Complete Benchmark Study
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+
+                <p className="text-xs text-gray-500 text-center">
+                  By submitting this form, you agree to receive communications from S10.AI regarding your assessment results.
+                </p>
+              </form>
+            </Card>
+          </motion.div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderReport = () => {
+    const score = calculateScore();
+    const category = getScoreCategory(score);
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-[#143151] to-[#387E89]">
+        <div className="flex h-screen">
+          {/* Left side - Scrollable Report */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="p-8">
+              <motion.div 
+                className="max-w-4xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                {/* Header */}
+                <Card className="p-8 mb-8 shadow-2xl">
+                  <div className="text-center">
+                    <h1 className="text-3xl font-bold text-[#143151] mb-4">
+                      Practice Efficiency Benchmark Report
+                    </h1>
+                    <p className="text-gray-600 mb-6">
+                      Generated for {formData.firstName} {formData.lastName} at {formData.practiceName}
+                    </p>
+                    <div className={`inline-flex items-center px-6 py-3 rounded-full ${category.bgColor} ${category.color} font-bold text-lg`}>
+                      <Award className="w-5 h-5 mr-2" />
+                      Overall Score: {score}/100 - {category.label}
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Key Metrics */}
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                  <Card className="p-6 text-center shadow-lg">
+                    <Users className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
+                    <div className="text-2xl font-bold text-[#143151]">{answers.providers || 'N/A'}</div>
+                    <p className="text-sm text-gray-600">Providers</p>
+                  </Card>
+                  <Card className="p-6 text-center shadow-lg">
+                    <Clock className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
+                    <div className="text-2xl font-bold text-[#143151]">{answers.patients || 'N/A'}</div>
+                    <p className="text-sm text-gray-600">Patients/Day</p>
+                  </Card>
+                  <Card className="p-6 text-center shadow-lg">
+                    <TrendingUp className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
+                    <div className="text-2xl font-bold text-[#143151]">{answers.documentation || 'N/A'}h</div>
+                    <p className="text-sm text-gray-600">Documentation Time</p>
+                  </Card>
+                  <Card className="p-6 text-center shadow-lg">
+                    <Star className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
+                    <div className="text-2xl font-bold text-[#143151]">{answers.efficiency || 'N/A'}/10</div>
+                    <p className="text-sm text-gray-600">Self-Rated Efficiency</p>
+                  </Card>
+                </div>
+
+                {/* Detailed Analysis */}
+                <Card className="p-8 mb-8 shadow-lg">
+                  <h2 className="text-2xl font-bold text-[#143151] mb-6">Detailed Analysis</h2>
+                  <div className="space-y-6">
+                    <div className="border-l-4 border-[#387E89] pl-6">
+                      <h3 className="font-semibold text-[#143151] mb-2">Documentation Efficiency</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        Based on your responses, you spend {answers.documentation || 'several'} hours daily on documentation. 
+                        Industry best practices suggest that efficient practices typically spend 1-2 hours per day on 
+                        documentation with the help of AI-powered tools.
+                      </p>
+                    </div>
+
+                    <div className="border-l-4 border-[#387E89] pl-6">
+                      <h3 className="font-semibold text-[#143151] mb-2">Patient Volume Management</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        Your practice sees {answers.patients || 'multiple'} patients per day. High-performing practices 
+                        with similar patient volumes typically achieve 15-20% better efficiency through optimized 
+                        workflows and automated documentation.
+                      </p>
+                    </div>
+
+                    <div className="border-l-4 border-[#387E89] pl-6">
+                      <h3 className="font-semibold text-[#143151] mb-2">Burnout Prevention</h3>
+                      <p className="text-gray-700 leading-relaxed">
+                        Your stress level indicates potential for improvement. Practices using AI documentation 
+                        solutions report 40% reduction in work-related stress and improved work-life balance.
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Recommendations */}
+                <Card className="p-8 mb-8 shadow-lg">
+                  <h2 className="text-2xl font-bold text-[#143151] mb-6">Improvement Recommendations</h2>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-blue-50 rounded-xl p-6">
+                      <h3 className="font-semibold text-blue-900 mb-3">Immediate Actions</h3>
+                      <ul className="space-y-2 text-blue-800">
+                        <li className="flex items-start">
+                          <CheckCircle2 className="w-4 h-4 mt-1 mr-2 text-blue-600" />
+                          <span className="text-sm">Implement AI-powered documentation</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle2 className="w-4 h-4 mt-1 mr-2 text-blue-600" />
+                          <span className="text-sm">Streamline patient intake processes</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle2 className="w-4 h-4 mt-1 mr-2 text-blue-600" />
+                          <span className="text-sm">Optimize scheduling workflows</span>
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="bg-green-50 rounded-xl p-6">
+                      <h3 className="font-semibold text-green-900 mb-3">Long-term Strategy</h3>
+                      <ul className="space-y-2 text-green-800">
+                        <li className="flex items-start">
+                          <CheckCircle2 className="w-4 h-4 mt-1 mr-2 text-green-600" />
+                          <span className="text-sm">Integrate comprehensive EHR solutions</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle2 className="w-4 h-4 mt-1 mr-2 text-green-600" />
+                          <span className="text-sm">Implement practice analytics</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle2 className="w-4 h-4 mt-1 mr-2 text-green-600" />
+                          <span className="text-sm">Staff training and optimization</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </Card>
+
+                {/* Industry Comparison */}
+                <Card className="p-8 shadow-lg">
+                  <h2 className="text-2xl font-bold text-[#143151] mb-6">Industry Benchmark Comparison</h2>
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                      <span className="font-medium">Documentation Time</span>
+                      <div className="flex items-center">
+                        <span className="text-sm text-gray-600 mr-2">Industry Average: 3.2h</span>
+                        <span className="font-bold text-[#143151]">Your Practice: {answers.documentation || 'N/A'}h</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                      <span className="font-medium">Patient Satisfaction</span>
+                      <div className="flex items-center">
+                        <span className="text-sm text-gray-600 mr-2">Industry Average: 7.8/10</span>
+                        <span className="font-bold text-[#143151]">Projected: {Math.min(10, (score / 10) + 6).toFixed(1)}/10</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                      <span className="font-medium">Provider Satisfaction</span>
+                      <div className="flex items-center">
+                        <span className="text-sm text-gray-600 mr-2">Industry Average: 6.5/10</span>
+                        <span className="font-bold text-[#143151]">Current: {answers.efficiency || 'N/A'}/10</span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Right side - Fixed CTA */}
+          <div className="w-80 bg-white shadow-2xl">
+            <div className="p-8 h-full flex flex-col">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#143151] mb-2">Ready to Improve?</h3>
+                <p className="text-gray-600 text-sm">
+                  See how S10.AI can help you achieve the efficiency improvements outlined in your report.
+                </p>
+              </div>
+
+              <div className="space-y-6 mb-8">
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                    <Clock className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-[#143151] text-sm">Save 2-3 Hours Daily</h4>
+                    <p className="text-xs text-gray-600">Reduce documentation time with AI</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                    <DollarSign className="w-4 h-4 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-[#143151] text-sm">Increase Revenue</h4>
+                    <p className="text-xs text-gray-600">See more patients, improve coding</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3 mt-1">
+                    <Star className="w-4 h-4 text-purple-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-[#143151] text-sm">Improve Satisfaction</h4>
+                    <p className="text-xs text-gray-600">Better work-life balance</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-auto space-y-4">
+                <Button 
+                  className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:opacity-90 font-semibold py-3"
+                  onClick={() => window.location.href = '/contact'}
+                >
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Book Free Demo
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  className="w-full border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white"
+                  onClick={() => window.location.href = '/pricing'}
+                >
+                  View Pricing
+                </Button>
+
+                <div className="text-center pt-4 border-t border-gray-200">
+                  <div className="flex items-center justify-center mb-2">
+                    <Phone className="w-4 h-4 text-gray-500 mr-2" />
+                    <span className="text-sm text-gray-600">Questions? Call us</span>
+                  </div>
+                  <a href="tel:+1-800-S10-AI" className="text-[#387E89] font-semibold text-sm hover:underline">
+                    1-800-S10-AI
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  switch (currentStep) {
+    case 'intro':
+      return renderIntro();
+    case 'quiz':
+      return renderQuiz();
+    case 'scoreForm':
+      return renderScoreForm();
+    case 'report':
+      return renderReport();
+    default:
+      return renderIntro();
+  }
 };
 
-const InputField = ({ name, type, placeholder, required = true }: { name: string; type: string; placeholder?: string; required?: boolean }) => (
-    <div className="space-y-3">
-        <label htmlFor={name} className="block text-sm font-semibold text-gray-800 capitalize">
-            {placeholder || name.replace(/([A-Z])/g, ' $1').trim()}
-            {required && <span className="text-red-500 ml-1">*</span>}
-        </label>
-        <input 
-            id={name} 
-            name={name}
-            type={type} 
-            placeholder={placeholder || name} 
-            required={required}
-            className="w-full bg-white border-2 border-gray-200 text-gray-900 rounded-xl p-4 text-base focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] transition-all duration-300 placeholder-gray-400 shadow-sm hover:border-gray-300 font-medium focus:shadow-lg" 
-        />
-    </div>
-);
-
-// --- Main Application ---
-export default function PracticeEfficiencyGrader() {
-    const [appState, setAppState] = useState('intro'); // intro, quiz, scoreAndForm, report
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState<(number | string | undefined)[]>(() => {
-        const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
-        initial[0] = 0; // Default for first slider
-        return initial;
-    });
-
-    // Auto-progress for option questions
-    useEffect(() => {
-        const currentQuestion = quizQuestions[currentQuestionIndex];
-        if (!currentQuestion) return;
-
-        const answerForCurrent = answers[currentQuestionIndex];
-
-        if (currentQuestion.type === 'options' && answerForCurrent !== undefined) {
-            const timer = setTimeout(() => {
-                if (currentQuestionIndex < quizQuestions.length - 1) {
-                    setCurrentQuestionIndex(currentQuestionIndex + 1);
-                } else {
-                    setAppState('scoreAndForm');
-                }
-            }, 800);
-            return () => clearTimeout(timer);
-        }
-    }, [answers, currentQuestionIndex]);
-
-    const handleStart = () => setAppState('quiz');
-    const handleSubmitForm = (e: React.FormEvent) => { e.preventDefault(); setAppState('report'); };
-    const handleRetake = () => {
-        setCurrentQuestionIndex(0);
-        const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
-        initial[0] = 0;
-        setAnswers(initial);
-        setAppState('intro');
-    };
-
-    const handleAnswer = (answer: number | string, index: number) => {
-        setAnswers(prev => {
-            const newAnswers = [...prev];
-            newAnswers[index] = answer;
-            return newAnswers;
-        });
-    };
-    
-    const nextSliderQuestion = () => {
-        if (currentQuestionIndex < quizQuestions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-        } else {
-            setAppState('scoreAndForm');
-        }
-    };
-
-    const goToPreviousQuestion = () => {
-        if (currentQuestionIndex > 0) {
-            setCurrentQuestionIndex(currentQuestionIndex - 1);
-        }
-    };
-    
-    const reportResults = useMemo(() => quizQuestions.map((q, i) => {
-        const answer = answers[i] !== undefined ? answers[i] : (q.type === 'slider' ? 0 : "");
-        return { ...q, answer, analysisResult: q.analysis(answer!) };
-    }), [answers]);
-
-    const overallScore = useMemo(() => {
-        const scores = reportResults.map(r => r.analysisResult === 'Good' ? 3 : r.analysisResult === 'High' ? 2 : 1);
-        const total = scores.reduce((sum, score) => sum + score, 0);
-        return Math.round((total / (quizQuestions.length * 3)) * 100);
-    }, [reportResults]);
-
-    const renderContent = () => {
-        switch (appState) {
-            case 'quiz':
-                const question = quizQuestions[currentQuestionIndex];
-                if (!question) return null;
-                const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
-                
-                return (
-                    <div className="min-h-screen bg-white">
-                        <div className="container mx-auto px-4 py-8">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-                                <div className="hidden lg:flex flex-col items-center justify-center">
-                                    <AnimatedGraphic questionId={question.id} />
-                                </div>
-                                
-                                <div className="flex flex-col justify-between min-h-[600px] lg:min-h-[700px]">
-                                    <div className="flex-1 flex flex-col justify-center space-y-6">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]"></div>
-                                            <p className="text-gray-700 font-semibold text-sm uppercase tracking-wider">{question.category}</p>
-                                        </div>
-                                        
-                                        <AnimatePresence mode="wait">
-                                            <motion.div 
-                                                key={currentQuestionIndex} 
-                                                initial={{ opacity: 0, x: 50 }} 
-                                                animate={{ opacity: 1, x: 0 }} 
-                                                exit={{ opacity: 0, x: -50 }} 
-                                                transition={{ duration: 0.5 }}
-                                                className="space-y-6"
-                                            >
-                                                <h2 className="text-2xl md:text-4xl font-bold text-gray-800 leading-tight">{question.title}</h2>
-                                                <p className="text-gray-600 text-lg leading-relaxed">{question.question}</p>
-                                                
-                                                {question.insightSnippet && (
-                                                    <div className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/30 rounded-xl p-4">
-                                                        <p className="text-gray-800 font-medium flex items-center gap-2 mb-2">
-                                                            <Sparkles className="w-4 h-4 text-[#387E89]" />
-                                                            Industry Insight
-                                                        </p>
-                                                        <p className="text-gray-700 text-sm">{question.insightSnippet}</p>
-                                                    </div>
-                                                )}
-                                                
-                                                <div className="space-y-4">
-                                                    {question.type === 'slider' && (
-                                                        <ModernSlider 
-                                                            value={typeof answers[currentQuestionIndex] === 'number' ? answers[currentQuestionIndex] as number : 0} 
-                                                            onChange={(val) => handleAnswer(val, currentQuestionIndex)} 
-                                                            min={(question.options as SliderOptions).min}
-                                                            max={(question.options as SliderOptions).max}
-                                                            unit={(question.options as SliderOptions).unit}
-                                                            labels={(question.options as SliderOptions).labels}
-                                                        />
-                                                    )}
-                                                    {question.type === 'options' && Array.isArray(question.options) && (
-                                                        <div className="grid gap-3">
-                                                            {question.options.map((opt) => (
-                                                                <OptionCard 
-                                                                    key={opt} 
-                                                                    text={opt} 
-                                                                    selected={answers[currentQuestionIndex] === opt} 
-                                                                    onClick={() => handleAnswer(opt, currentQuestionIndex)} 
-                                                                />
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </motion.div>
-                                        </AnimatePresence>
-                                    </div>
-                                    
-                                    {/* Navigation and Progress */}
-                                    <div className="space-y-6 pt-8">
-                                        {/* Navigation Buttons */}
-                                        <div className="flex gap-4">
-                                            <motion.button 
-                                                onClick={goToPreviousQuestion}
-                                                disabled={currentQuestionIndex === 0}
-                                                whileHover={{ scale: currentQuestionIndex === 0 ? 1 : 1.02 }}
-                                                whileTap={{ scale: currentQuestionIndex === 0 ? 1 : 0.98 }}
-                                                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                                                    currentQuestionIndex === 0 
-                                                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200' 
-                                                        : 'bg-white border-2 border-gray-300 text-gray-700 hover:border-[#387E89] hover:text-[#387E89] shadow-sm hover:shadow-md'
-                                                }`}
-                                            >
-                                                <ChevronLeft className="w-5 h-5" />
-                                                Previous
-                                            </motion.button>
-                                            
-                                            {question.type === 'slider' && (
-                                                <motion.button 
-                                                    onClick={nextSliderQuestion}
-                                                    whileHover={{ scale: 1.02 }}
-                                                    whileTap={{ scale: 0.98 }}
-                                                    className="flex-1 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-3 rounded-xl shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
-                                                >
-                                                    {currentQuestionIndex < quizQuestions.length - 1 ? 'Next Question' : 'View Your Score'}
-                                                    <ChevronRight className="w-5 h-5" />
-                                                </motion.button>
-                                            )}
-                                        </div>
-                                        
-                                        {/* Progress Bar */}
-                                        <div>
-                                            <div className="flex justify-between items-center mb-2">
-                                                <span className="text-gray-600 text-sm">Progress</span>
-                                                <span className="text-gray-800 text-sm font-semibold">{Math.round(progress)}%</span>
-                                            </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-3 border border-gray-300">
-                                                <motion.div 
-                                                    className="bg-gradient-to-r from-[#143151] to-[#387E89] h-3 rounded-full shadow-md" 
-                                                    style={{ width: `${progress}%` }} 
-                                                    transition={{ duration: 0.5 }}
-                                                    layoutId="progress"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-
-            case 'scoreAndForm':
-                return (
-                    <div className="min-h-screen bg-white">
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="container mx-auto px-4 py-16 max-w-6xl"
-                        >
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                                {/* Score Preview Section */}
-                                <div className="text-center lg:text-left">
-                                    <motion.div 
-                                        className="w-20 h-20 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto lg:mx-0 mb-8 shadow-xl"
-                                        whileHover={{ scale: 1.1, rotate: 360 }}
-                                        transition={{ duration: 0.6 }}
-                                    >
-                                        <BarChart3 className="w-10 h-10 text-white" />
-                                    </motion.div>
-                                    
-                                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
-                                        Your Practice Efficiency Score
-                                    </h2>
-                                    
-                                    <div className="flex items-center justify-center lg:justify-start gap-4 mb-6">
-                                        <span className="text-xl font-semibold text-gray-700">Score:</span>
-                                        <span className={`text-5xl font-bold px-6 py-3 rounded-2xl border-2 ${
-                                            overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                            overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                            'bg-red-50 text-red-700 border-red-200'
-                                        }`}>
-                                            {overallScore}%
-                                        </span>
-                                    </div>
-                                    
-                                    <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                                        {overallScore >= 80 
-                                            ? "Great job! Your practice is performing well, but there's still room for optimization."
-                                            : overallScore >= 60 
-                                            ? "Your practice has solid foundations but significant opportunities for improvement."
-                                            : "Your practice has major efficiency gaps that are costing you time and revenue."
-                                        }
-                                    </p>
-                                    
-                                    <div className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/30 rounded-xl p-6 mb-8">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <Sparkles className="w-5 h-5 text-[#387E89]" />
-                                            <span className="font-semibold text-gray-800">What's Next?</span>
-                                        </div>
-                                        <p className="text-gray-700">
-                                            Get your complete benchmark study with detailed analysis, industry comparisons, 
-                                            and actionable solutions to transform your practice with S10.AI.
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                                {/* Form Section */}
-                                <div className="bg-white rounded-2xl border-2 border-gray-200 shadow-2xl p-8">
-                                    <div className="text-center mb-8">
-                                        <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                                            Unlock Your Complete Benchmark Study
-                                        </h3>
-                                        <p className="text-gray-600">
-                                            Enter your details to receive your comprehensive analysis and discover how S10.AI can solve your practice challenges.
-                                        </p>
-                                    </div>
-                                    
-                                    <form onSubmit={handleSubmitForm} className="space-y-6">
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                            <InputField 
-                                                name="firstName" 
-                                                type="text" 
-                                                placeholder="First Name" 
-                                            />
-                                            <InputField 
-                                                name="lastName" 
-                                                type="text" 
-                                                placeholder="Last Name" 
-                                            />
-                                        </div>
-                                        
-                                        <InputField 
-                                            name="email" 
-                                            type="email" 
-                                            placeholder="Email Address" 
-                                        />
-                                        
-                                        <InputField 
-                                            name="contactNumber" 
-                                            type="tel" 
-                                            placeholder="Contact Number" 
-                                        />
-                                        
-                                        <InputField 
-                                            name="practiceName" 
-                                            type="text" 
-                                            placeholder="Practice Name" 
-                                        />
-                                        
-                                        <InputField 
-                                            name="jobTitle" 
-                                            type="text" 
-                                            placeholder="Job Title" 
-                                        />
-                                        
-                                        <motion.button 
-                                            type="submit" 
-                                            whileHover={{ scale: 1.02 }}
-                                            whileTap={{ scale: 0.98 }}
-                                            className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 rounded-xl shadow-xl transition-all duration-300 text-lg flex items-center justify-center gap-3"
-                                        >
-                                            View Complete Benchmark Study
-                                            <ArrowRight className="w-5 h-5" />
-                                        </motion.button>
-                                    </form>
-                                    
-                                    <div className="flex items-center justify-center gap-2 mt-6">
-                                        <Shield className="w-4 h-4 text-gray-500" />
-                                        <p className="text-gray-500 text-center text-sm">
-                                            Secure & confidential. Used only for your analysis.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                );
-
-            case 'report':
-                return (
-                    <div className="min-h-screen bg-white">
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="container mx-auto px-4 py-16 max-w-7xl"
-                        >
-                            {/* Header */}
-                            <div className="text-center mb-16">
-                                <motion.div 
-                                    className="w-24 h-24 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl"
-                                    whileHover={{ scale: 1.1 }}
-                                >
-                                    <BarChart3 className="w-12 h-12 text-white" />
-                                </motion.div>
-                                <h1 className="text-3xl md:text-5xl font-extrabold text-gray-800 mb-6">Your Complete Practice Benchmark Study</h1>
-                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
-                                    <span className="text-2xl font-semibold text-gray-700">Overall Efficiency Score:</span>
-                                    <span className={`text-4xl font-bold px-6 py-2 rounded-full border-2 ${
-                                        overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                        overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                        'bg-red-50 text-red-700 border-red-200'
-                                    }`}>
-                                        {overallScore}%
-                                    </span>
-                                </div>
-                                <p className="text-gray-600 text-xl max-w-4xl mx-auto leading-relaxed">
-                                    Here's your comprehensive analysis and how S10.AI can transform your practice efficiency.
-                                </p>
-                            </div>
-
-                            {/* Main Content Layout */}
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                                {/* Scrollable Report Content - Left Side */}
-                                <div className="lg:col-span-2">
-                                    <div className="space-y-8 max-h-[800px] lg:overflow-y-auto lg:pr-4">
-                                        {reportResults.map(res => {
-                                            const IconComponent = res.icon;
-                                            return (
-                                                <motion.div 
-                                                    key={res.id} 
-                                                    className={`p-8 rounded-2xl border shadow-lg bg-white ${
-                                                        res.analysisResult === 'Critical' 
-                                                            ? 'border-red-200' 
-                                                            : res.analysisResult === 'High' 
-                                                            ? 'border-amber-200' 
-                                                            : 'border-emerald-200'
-                                                    }`}
-                                                    whileHover={{ scale: 1.02, y: -4 }}
-                                                    transition={{ duration: 0.2 }}
-                                                >
-                                                    <div className="flex items-center gap-4 mb-6">
-                                                        <div className={`p-3 rounded-xl ${
-                                                            res.analysisResult === 'Critical' 
-                                                                ? 'bg-red-100' 
-                                                                : res.analysisResult === 'High' 
-                                                                ? 'bg-amber-100' 
-                                                                : 'bg-emerald-100'
-                                                        }`}>
-                                                            <IconComponent className={`w-6 h-6 ${
-                                                                res.analysisResult === 'Critical' 
-                                                                    ? 'text-red-600' 
-                                                                    : res.analysisResult === 'High' 
-                                                                    ? 'text-amber-600' 
-                                                                    : 'text-emerald-600'
-                                                            }`} />
-                                                        </div>
-                                                        <div className="flex-1">
-                                                            <div className={`text-sm px-3 py-1 rounded-full font-semibold w-fit ${
-                                                                res.analysisResult === 'Critical' 
-                                                                    ? 'bg-red-100 text-red-700' 
-                                                                    : res.analysisResult === 'High' 
-                                                                    ? 'bg-amber-100 text-amber-700' 
-                                                                    : 'bg-emerald-100 text-emerald-700'
-                                                            }`}>
-                                                                {res.analysisResult} Priority
-                                                            </div>
-                                                            <h3 className="text-xl font-bold mt-2 text-gray-800">{res.valueProp}</h3>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <p className="text-gray-700 mb-6 leading-relaxed">{res.reportText(res.answer!)}</p>
-                                                    
-                                                    <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-lg p-4 mb-4 border border-gray-200">
-                                                        <p className="text-gray-800 font-semibold mb-2">S10.AI Solution:</p>
-                                                        <p className="text-gray-700 text-sm">{res.solution}</p>
-                                                    </div>
-                                                    
-                                                    <div className="text-sm p-3 bg-gray-50 rounded-lg border border-gray-200">
-                                                        <span className="text-gray-600">Your Answer: </span>
-                                                        <span className="font-semibold text-gray-800">
-                                                            {Array.isArray(res.answer) ? res.answer.join(', ') : `${res.answer}${res.type === 'slider' ? ' hrs' : ''}`}
-                                                        </span>
-                                                    </div>
-                                                </motion.div>
-                                            );
-                                        })}
-                                    </div>
-                                </div>
-
-                                {/* Fixed CTA Section - Right Side */}
-                                <div className="lg:col-span-1">
-                                    <div className="sticky top-8">
-                                        <motion.div 
-                                            className="text-center p-8 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl shadow-2xl border border-gray-200"
-                                            whileHover={{ scale: 1.02 }}
-                                        >
-                                            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Transform Your Practice with S10.AI</h2>
-                                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                                                Based on your assessment, S10.AI Crush (AI Scribe) and Bravo (AI Phone Agent) can solve these exact challenges.
-                                            </p>
-                                            
-                                            <div className="grid grid-cols-1 gap-6 mb-8">
-                                                <motion.div 
-                                                    className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
-                                                    whileHover={{ scale: 1.02 }}
-                                                >
-                                                    <Stethoscope className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
-                                                    <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Crush</h3>
-                                                    <p className="text-gray-600 mb-4 text-sm">AI-powered clinical documentation that eliminates after-hours charting.</p>
-                                                    <ul className="text-xs text-gray-600 space-y-1">
-                                                        <li>• Real-time note generation</li>
-                                                        <li>• 80% reduction in documentation time</li>
-                                                        <li>• Improved clean claim rates</li>
-                                                    </ul>
-                                                </motion.div>
-                                                
-                                                <motion.div 
-                                                    className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
-                                                    whileHover={{ scale: 1.02 }}
-                                                >
-                                                    <Phone className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
-                                                    <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Bravo</h3>
-                                                    <p className="text-gray-600 mb-4 text-sm">AI phone agent that handles scheduling and communications 24/7.</p>
-                                                    <ul className="text-xs text-gray-600 space-y-1">
-                                                        <li>• 70% reduction in staff workload</li>
-                                                        <li>• 60% decrease in no-show rates</li>
-                                                        <li>• 24/7 patient support</li>
-                                                    </ul>
-                                                </motion.div>
-                                            </div>
-                                            
-                                            <div className="flex flex-col gap-4">
-                                                <motion.button
-                                                    whileHover={{ scale: 1.05 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                    className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-6 rounded-full text-lg shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
-                                                    onClick={() => window.open('/contact', '_blank')}
-                                                >
-                                                    Schedule Live Demo
-                                                    <ExternalLink className="w-5 h-5" />
-                                                </motion.button>
-                                                <motion.button
-                                                    whileHover={{ scale: 1.05 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                    className="border-2 border-[#387E89] text-[#387E89] font-bold py-4 px-6 rounded-full text-lg hover:bg-[#387E89] hover:text-white transition-all duration-300 flex items-center justify-center gap-3"
-                                                    onClick={() => window.open('/pricing', '_blank')}
-                                                >
-                                                    View S10.AI Solutions
-                                                    <ArrowRight className="w-5 h-5" />
-                                                </motion.button>
-                                            </div>
-                                        </motion.div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="text-center mt-12">
-                                <button 
-                                    onClick={handleRetake} 
-                                    className="text-gray-500 hover:text-gray-700 transition-colors text-lg"
-                                >
-                                    ← Retake the Assessment
-                                </button>
-                            </div>
-                        </motion.div>
-                    </div>
-                );
-
-            default: // intro
-                return (
-                    <div className="min-h-screen bg-white relative overflow-hidden">
-                        <GradientBarsBackground />
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="relative z-10 text-center px-4 py-20 max-w-6xl mx-auto"
-                        >
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
-                                Practice Efficiency 
-                                <span className="block bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mt-2"> 
-                                    Grader
-                                </span>
-                            </h1>
-                            
-                            <p className="text-gray-600 text-lg md:text-xl mb-12 leading-relaxed max-w-4xl mx-auto">
-                                Is your practice technology helping you thrive or just survive? 
-                                <br className="hidden md:block" />
-                                <span className="text-gray-900 font-semibold">Take our 8-question assessment</span> to discover your efficiency score and unlock AI solutions.
-                            </p>
-                            
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
-                                {[
-                                    { icon: Clock, text: "8 questions", subtitle: "Quick comprehensive assessment" },
-                                    { icon: TrendingUp, text: "Personalized insights", subtitle: "Custom analysis for your practice" },
-                                    { icon: Star, text: "Actionable solutions", subtitle: "Immediate improvement strategies" }
-                                ].map((feature, idx) => (
-                                    <motion.div 
-                                        key={idx}
-                                        className="p-6 md:p-8 rounded-2xl bg-white/90 backdrop-blur-sm border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300"
-                                        whileHover={{ scale: 1.02, y: -5 }}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: idx * 0.1 }}
-                                    >
-                                        <feature.icon className="w-10 h-10 text-[#387E89] mx-auto mb-4" />
-                                        <p className="text-gray-900 font-bold text-xl mb-2">{feature.text}</p>
-                                        <p className="text-gray-600">{feature.subtitle}</p>
-                                    </motion.div>
-                                ))}
-                            </div>
-                            
-                            <motion.button 
-                                onClick={handleStart} 
-                                whileHover={{ scale: 1.05, y: -2 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-5 px-10 rounded-full text-xl shadow-xl hover:shadow-2xl transition-all duration-300 mb-6 flex items-center gap-3 mx-auto"
-                            >
-                                Start Your Assessment
-                                <ArrowRight className="w-6 h-6" />
-                            </motion.button>
-                            
-                            <p className="text-gray-500 text-sm">
-                                Join 1,000+ practices already using S10.AI
-                            </p>
-                        </motion.div>
-                    </div>
-                );
-        }
-    };
-    
-    return (
-        <>
-            <Helmet>
-                <title>Practice Efficiency Grader | S10.AI</title>
-                <meta name="description" content="Assess your practice efficiency with our comprehensive AI-powered grader. Get personalized insights and discover how S10.AI can transform your healthcare practice." />
-            </Helmet>
-            
-            <main className="min-h-screen w-full">
-                <div className="relative z-10 min-h-screen">
-                    <AnimatePresence mode="wait">
-                        {renderContent()}
-                    </AnimatePresence>
-                </div>
-            </main>
-
-            <style>{`
-                @keyframes pulseBar {
-                    0% { transform: scaleY(var(--scale-start, 0.4)); }
-                    100% { transform: scaleY(var(--scale-end, 1)); }
-                }
-            `}</style>
-        </>
-    );
-}
+export default PracticeEfficiencyGrader;
