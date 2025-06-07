@@ -1,7 +1,8 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
+import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle, ArrowRight, ExternalLink, User, Mail, Building } from 'lucide-react';
 import { ModernSlider } from '@/components/ui/modern-slider';
 
 // --- GRADIENT BARS BACKGROUND COMPONENT ---
@@ -742,26 +743,41 @@ export default function PracticeEfficiencyGrader() {
                                     </div>
                                     
                                     <form onSubmit={handleSubmitForm} className="space-y-6">
-                                        <InputField 
-                                            name="fullName" 
-                                            type="text" 
-                                            placeholder="Dr. John Smith" 
-                                        />
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                            <InputField 
+                                                name="firstName" 
+                                                type="text" 
+                                                placeholder="First Name" 
+                                            />
+                                            <InputField 
+                                                name="lastName" 
+                                                type="text" 
+                                                placeholder="Last Name" 
+                                            />
+                                        </div>
+                                        
                                         <InputField 
                                             name="email" 
                                             type="email" 
-                                            placeholder="john.smith@practice.com" 
+                                            placeholder="Email Address" 
                                         />
+                                        
                                         <InputField 
-                                            name="practice" 
-                                            type="text" 
-                                            placeholder="Smith Family Medicine" 
-                                        />
-                                        <InputField 
-                                            name="phone" 
+                                            name="contactNumber" 
                                             type="tel" 
-                                            placeholder="+1 (555) 123-4567" 
-                                            required={false}
+                                            placeholder="Contact Number" 
+                                        />
+                                        
+                                        <InputField 
+                                            name="practiceName" 
+                                            type="text" 
+                                            placeholder="Practice Name" 
+                                        />
+                                        
+                                        <InputField 
+                                            name="jobTitle" 
+                                            type="text" 
+                                            placeholder="Job Title" 
                                         />
                                         
                                         <motion.button 
@@ -798,6 +814,7 @@ export default function PracticeEfficiencyGrader() {
                             transition={pageTransition} 
                             className="container mx-auto px-4 py-16 max-w-7xl"
                         >
+                            {/* Header */}
                             <div className="text-center mb-16">
                                 <motion.div 
                                     className="w-24 h-24 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl"
@@ -821,130 +838,141 @@ export default function PracticeEfficiencyGrader() {
                                 </p>
                             </div>
 
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-                                {reportResults.map(res => {
-                                    const IconComponent = res.icon;
-                                    return (
-                                        <motion.div 
-                                            key={res.id} 
-                                            className={`p-8 rounded-2xl border shadow-lg bg-white ${
-                                                res.analysisResult === 'Critical' 
-                                                    ? 'border-red-200' 
-                                                    : res.analysisResult === 'High' 
-                                                    ? 'border-amber-200' 
-                                                    : 'border-emerald-200'
-                                            }`}
-                                            whileHover={{ scale: 1.02, y: -4 }}
-                                            transition={{ duration: 0.2 }}
-                                        >
-                                            <div className="flex items-center gap-4 mb-6">
-                                                <div className={`p-3 rounded-xl ${
-                                                    res.analysisResult === 'Critical' 
-                                                        ? 'bg-red-100' 
-                                                        : res.analysisResult === 'High' 
-                                                        ? 'bg-amber-100' 
-                                                        : 'bg-emerald-100'
-                                                }`}>
-                                                    <IconComponent className={`w-6 h-6 ${
+                            {/* Main Content Layout */}
+                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                                {/* Scrollable Report Content - Left Side */}
+                                <div className="lg:col-span-2">
+                                    <div className="space-y-8 max-h-[800px] lg:overflow-y-auto lg:pr-4">
+                                        {reportResults.map(res => {
+                                            const IconComponent = res.icon;
+                                            return (
+                                                <motion.div 
+                                                    key={res.id} 
+                                                    className={`p-8 rounded-2xl border shadow-lg bg-white ${
                                                         res.analysisResult === 'Critical' 
-                                                            ? 'text-red-600' 
+                                                            ? 'border-red-200' 
                                                             : res.analysisResult === 'High' 
-                                                            ? 'text-amber-600' 
-                                                            : 'text-emerald-600'
-                                                    }`} />
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className={`text-sm px-3 py-1 rounded-full font-semibold w-fit ${
-                                                        res.analysisResult === 'Critical' 
-                                                            ? 'bg-red-100 text-red-700' 
-                                                            : res.analysisResult === 'High' 
-                                                            ? 'bg-amber-100 text-amber-700' 
-                                                            : 'bg-emerald-100 text-emerald-700'
-                                                    }`}>
-                                                        {res.analysisResult} Priority
+                                                            ? 'border-amber-200' 
+                                                            : 'border-emerald-200'
+                                                    }`}
+                                                    whileHover={{ scale: 1.02, y: -4 }}
+                                                    transition={{ duration: 0.2 }}
+                                                >
+                                                    <div className="flex items-center gap-4 mb-6">
+                                                        <div className={`p-3 rounded-xl ${
+                                                            res.analysisResult === 'Critical' 
+                                                                ? 'bg-red-100' 
+                                                                : res.analysisResult === 'High' 
+                                                                ? 'bg-amber-100' 
+                                                                : 'bg-emerald-100'
+                                                        }`}>
+                                                            <IconComponent className={`w-6 h-6 ${
+                                                                res.analysisResult === 'Critical' 
+                                                                    ? 'text-red-600' 
+                                                                    : res.analysisResult === 'High' 
+                                                                    ? 'text-amber-600' 
+                                                                    : 'text-emerald-600'
+                                                            }`} />
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <div className={`text-sm px-3 py-1 rounded-full font-semibold w-fit ${
+                                                                res.analysisResult === 'Critical' 
+                                                                    ? 'bg-red-100 text-red-700' 
+                                                                    : res.analysisResult === 'High' 
+                                                                    ? 'bg-amber-100 text-amber-700' 
+                                                                    : 'bg-emerald-100 text-emerald-700'
+                                                            }`}>
+                                                                {res.analysisResult} Priority
+                                                            </div>
+                                                            <h3 className="text-xl font-bold mt-2 text-gray-800">{res.valueProp}</h3>
+                                                        </div>
                                                     </div>
-                                                    <h3 className="text-xl font-bold mt-2 text-gray-800">{res.valueProp}</h3>
-                                                </div>
+                                                    
+                                                    <p className="text-gray-700 mb-6 leading-relaxed">{res.reportText(res.answer!)}</p>
+                                                    
+                                                    <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-lg p-4 mb-4 border border-gray-200">
+                                                        <p className="text-gray-800 font-semibold mb-2">S10.AI Solution:</p>
+                                                        <p className="text-gray-700 text-sm">{res.solution}</p>
+                                                    </div>
+                                                    
+                                                    <div className="text-sm p-3 bg-gray-50 rounded-lg border border-gray-200">
+                                                        <span className="text-gray-600">Your Answer: </span>
+                                                        <span className="font-semibold text-gray-800">
+                                                            {Array.isArray(res.answer) ? res.answer.join(', ') : `${res.answer}${res.type === 'slider' ? ' hrs' : ''}`}
+                                                        </span>
+                                                    </div>
+                                                </motion.div>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+
+                                {/* Fixed CTA Section - Right Side */}
+                                <div className="lg:col-span-1">
+                                    <div className="sticky top-8">
+                                        <motion.div 
+                                            className="text-center p-8 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl shadow-2xl border border-gray-200"
+                                            whileHover={{ scale: 1.02 }}
+                                        >
+                                            <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800">Transform Your Practice with S10.AI</h2>
+                                            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+                                                Based on your assessment, S10.AI Crush (AI Scribe) and Bravo (AI Phone Agent) can solve these exact challenges.
+                                            </p>
+                                            
+                                            <div className="grid grid-cols-1 gap-6 mb-8">
+                                                <motion.div 
+                                                    className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
+                                                    whileHover={{ scale: 1.02 }}
+                                                >
+                                                    <Stethoscope className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
+                                                    <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Crush</h3>
+                                                    <p className="text-gray-600 mb-4 text-sm">AI-powered clinical documentation that eliminates after-hours charting.</p>
+                                                    <ul className="text-xs text-gray-600 space-y-1">
+                                                        <li>• Real-time note generation</li>
+                                                        <li>• 80% reduction in documentation time</li>
+                                                        <li>• Improved clean claim rates</li>
+                                                    </ul>
+                                                </motion.div>
+                                                
+                                                <motion.div 
+                                                    className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
+                                                    whileHover={{ scale: 1.02 }}
+                                                >
+                                                    <Phone className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
+                                                    <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Bravo</h3>
+                                                    <p className="text-gray-600 mb-4 text-sm">AI phone agent that handles scheduling and communications 24/7.</p>
+                                                    <ul className="text-xs text-gray-600 space-y-1">
+                                                        <li>• 70% reduction in staff workload</li>
+                                                        <li>• 60% decrease in no-show rates</li>
+                                                        <li>• 24/7 patient support</li>
+                                                    </ul>
+                                                </motion.div>
                                             </div>
                                             
-                                            <p className="text-gray-700 mb-6 leading-relaxed">{res.reportText(res.answer!)}</p>
-                                            
-                                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-lg p-4 mb-4 border border-gray-200">
-                                                <p className="text-gray-800 font-semibold mb-2">S10.AI Solution:</p>
-                                                <p className="text-gray-700 text-sm">{res.solution}</p>
-                                            </div>
-                                            
-                                            <div className="text-sm p-3 bg-gray-50 rounded-lg border border-gray-200">
-                                                <span className="text-gray-600">Your Answer: </span>
-                                                <span className="font-semibold text-gray-800">
-                                                    {Array.isArray(res.answer) ? res.answer.join(', ') : `${res.answer}${res.type === 'slider' ? ' hrs' : ''}`}
-                                                </span>
+                                            <div className="flex flex-col gap-4">
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-6 rounded-full text-lg shadow-xl transition-all duration-300 flex items-center justify-center gap-3"
+                                                    onClick={() => window.open('/contact', '_blank')}
+                                                >
+                                                    Schedule Live Demo
+                                                    <ExternalLink className="w-5 h-5" />
+                                                </motion.button>
+                                                <motion.button
+                                                    whileHover={{ scale: 1.05 }}
+                                                    whileTap={{ scale: 0.95 }}
+                                                    className="border-2 border-[#387E89] text-[#387E89] font-bold py-4 px-6 rounded-full text-lg hover:bg-[#387E89] hover:text-white transition-all duration-300 flex items-center justify-center gap-3"
+                                                    onClick={() => window.open('/pricing', '_blank')}
+                                                >
+                                                    View S10.AI Solutions
+                                                    <ArrowRight className="w-5 h-5" />
+                                                </motion.button>
                                             </div>
                                         </motion.div>
-                                    );
-                                })}
+                                    </div>
+                                </div>
                             </div>
-
-                            <motion.div 
-                                className="text-center p-12 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl shadow-2xl border border-gray-200"
-                                whileHover={{ scale: 1.02 }}
-                            >
-                                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-800">Transform Your Practice with S10.AI</h2>
-                                <p className="text-gray-600 text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-                                    Based on your assessment, S10.AI Crush (AI Scribe) and Bravo (AI Phone Agent) can solve these exact challenges. Get your personalized ROI projection and implementation plan.
-                                </p>
-                                
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
-                                    <motion.div 
-                                        className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
-                                        whileHover={{ scale: 1.02 }}
-                                    >
-                                        <Stethoscope className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
-                                        <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Crush</h3>
-                                        <p className="text-gray-600 mb-4">AI-powered clinical documentation that eliminates after-hours charting and improves coding accuracy.</p>
-                                        <ul className="text-sm text-gray-600 space-y-1">
-                                            <li>• Real-time note generation</li>
-                                            <li>• 80% reduction in documentation time</li>
-                                            <li>• Improved clean claim rates</li>
-                                        </ul>
-                                    </motion.div>
-                                    
-                                    <motion.div 
-                                        className="bg-white p-6 rounded-xl border border-gray-200 shadow-lg"
-                                        whileHover={{ scale: 1.02 }}
-                                    >
-                                        <Phone className="w-12 h-12 text-[#387E89] mx-auto mb-4" />
-                                        <h3 className="text-xl font-bold text-gray-800 mb-3">S10.AI Bravo</h3>
-                                        <p className="text-gray-600 mb-4">AI phone agent that handles scheduling, reminders, and patient communications 24/7.</p>
-                                        <ul className="text-sm text-gray-600 space-y-1">
-                                            <li>• 70% reduction in staff workload</li>
-                                            <li>• 60% decrease in no-show rates</li>
-                                            <li>• 24/7 patient support</li>
-                                        </ul>
-                                    </motion.div>
-                                </div>
-                                
-                                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl transition-all duration-300 flex items-center gap-3"
-                                        onClick={() => window.open('/contact', '_blank')}
-                                    >
-                                        Schedule Live Demo
-                                        <ExternalLink className="w-5 h-5" />
-                                    </motion.button>
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                        className="border-2 border-[#387E89] text-[#387E89] font-bold py-4 px-8 rounded-full text-lg hover:bg-[#387E89] hover:text-white transition-all duration-300 flex items-center gap-3"
-                                        onClick={() => window.open('/pricing', '_blank')}
-                                    >
-                                        View S10.AI Solutions
-                                        <ArrowRight className="w-5 h-5" />
-                                    </motion.button>
-                                </div>
-                            </motion.div>
                             
                             <div className="text-center mt-12">
                                 <button 
