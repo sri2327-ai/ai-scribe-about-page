@@ -142,7 +142,7 @@ export default function Footer() {
   const FooterSection = ({ section }) => (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
       <Typography variant="h6" fontWeight="bold" sx={{ 
-        color: 'inherit',
+        color: themeChnStatus ? 'inherit' : theme.palette.common.white,
         marginBottom: '0.5rem',
         textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
       }}>
@@ -151,7 +151,7 @@ export default function Footer() {
       {section.links.map((link, index) => (
         <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
           <Typography variant="body2" sx={{ 
-            color: 'inherit',
+            color: themeChnStatus ? 'inherit' : theme.palette.common.white,
             transition: 'color 0.3s ease',
             display: 'block',
             padding: '0.25rem 0',
@@ -172,7 +172,7 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className={`${themeChnStatus ? 'text-white' : 'text-black'}`}
+        className={`${themeChnStatus ? 'text-white' : 'text-white'}`}
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -186,7 +186,7 @@ export default function Footer() {
           {section.links.map((link, index) => (
             <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
               <Typography variant="body2" sx={{ 
-                color: 'inherit',
+                color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                 transition: 'color 0.3s ease',
                 display: 'block',
                 padding: '0.25rem 0',
@@ -215,12 +215,12 @@ export default function Footer() {
     }}>
       <Box sx={{ 
         background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
-        color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+        color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
         padding: '4rem 2rem 2rem 2rem',
         width: '100%',
         position: 'relative',
         zIndex: 1,
-        borderTop: themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.black, 0.5)}`,
+        borderTop: themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.white, 0.5)}`,
       }}>
         {themeChnStatus && <AnimatedGradientBackground 
           startingGap={500}
@@ -319,6 +319,7 @@ export default function Footer() {
           }}>
             <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '0.6rem' }}>
               <Typography variant='h6' fontWeight='medium' sx={{ 
+                color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
@@ -329,14 +330,15 @@ export default function Footer() {
                 component="a"
                 href="tel:+16314886390" 
                 sx={{ 
+                  color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                   textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-                  color: 'inherit',
                   textDecoration: 'none'
                 }}
               >
                 Tel: +1 631 4886 390
               </Typography>
               <Typography variant='h6' fontWeight='medium' sx={{ 
+                color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
@@ -354,7 +356,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on X" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
                     '&:hover': {
                       color: '#1da1f2', 
                     },
@@ -368,7 +370,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on Facebook" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
                     '&:hover': {
                       color: '#1877f2', 
                     },
@@ -382,7 +384,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on LinkedIn" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
                     '&:hover': {
                       color: '#3b5999', 
                     },
@@ -396,7 +398,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on Instagram" 
                   target="_blank" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
                     '&:hover': {
                       color: '#e4405f', 
                     },
@@ -410,7 +412,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on YouTube" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
                     '&:hover': {
                       color: '#cd201f', 
                     },
@@ -424,7 +426,7 @@ export default function Footer() {
                   target="_blank"
                   aria-label="Visit S10.AI on TikTok"  
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.white,
                     '&:hover': {
                       color: '#ff0050', 
                     },
@@ -443,7 +445,7 @@ export default function Footer() {
               <Typography variant='h6' fontWeight='medium'>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: 'inherit',
+                    color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -456,7 +458,7 @@ export default function Footer() {
               <Typography variant='h6' fontWeight='medium'>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: 'inherit',
+                    color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -469,7 +471,7 @@ export default function Footer() {
               <Typography variant='h6' fontWeight='medium'>
                 <a href="https://www.saashub.com/s10-ai-status" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: 'inherit',
+                    color: themeChnStatus ? 'inherit' : theme.palette.common.white,
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -489,6 +491,7 @@ export default function Footer() {
             marginTop: '2rem'
           }}>
             <Typography variant='h6' fontWeight='medium' sx={{ 
+              color: themeChnStatus ? 'inherit' : theme.palette.common.white,
               textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
             }}>
               © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
