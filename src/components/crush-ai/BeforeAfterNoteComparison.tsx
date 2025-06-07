@@ -1,449 +1,876 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, FileText, Sparkles, Clock, Target } from 'lucide-react';
+import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { cn } from '@/lib/utils';
+import { Info, DollarSign, FileText, FileCog, Award, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { crushAIColors } from '@/theme/crush-ai-theme';
+import { useIsMobile } from '@/hooks/use-mobile';
 
-interface NoteExample {
-  specialty: string;
-  before: string;
-  after: string;
-  improvements: string[];
-  timesSaved: string;
+interface FeatureTooltipProps {
+  title: string;
+  children: React.ReactNode;
 }
 
-const noteExamples: NoteExample[] = [
-  {
-    specialty: "Allergy & Immunology",
-    before: `Chief Complaint: Patient reports seasonal allergies.
+const FeatureTooltip = ({ title, children }: FeatureTooltipProps) => (
+  <TooltipProvider delayDuration={300}>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <div className="inline-flex items-center cursor-help">
+          <span className="mr-1">{title}</span>
+          <Info className="h-4 w-4 text-blue-500" />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent 
+        side="top" 
+        className="max-w-xs bg-white p-3 shadow-lg border border-gray-200 text-gray-800 text-sm"
+      >
+        {children}
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+);
 
-History: 45-year-old patient presents with complaints of sneezing, runny nose, and itchy eyes during spring months. Symptoms have been present for past 3 years. Patient tried over-the-counter antihistamines with minimal relief.
+export const BeforeAfterNoteComparison = () => {
+  const [activeTab, setActiveTab] = useState('family-medicine');
+  const muiTheme = useTheme();
+  const isMobile = useMediaQuery(muiTheme.breakpoints.down('md'));
+  const isMobileHook = useIsMobile();
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  
+  // Use a combination of both methods to ensure proper responsiveness
+  const isSmallScreen = isMobile || isMobileHook;
 
-Physical Exam: Nasal congestion noted. Conjunctival erythema present bilaterally.
-
-Assessment: Allergic rhinitis
-Plan: Start on nasal corticosteroid. Follow up in 4 weeks.`,
-    after: `CHIEF COMPLAINT
-Seasonal allergic rhinitis with inadequate symptom control on current therapy.
-
-HISTORY OF PRESENT ILLNESS
-This 45-year-old patient presents for evaluation of persistent seasonal allergic symptoms occurring annually from March through June over the past 3 years. Primary symptoms include:
-• Bilateral clear rhinorrhea with accompanying sneezing (8-10 episodes daily)
-• Ocular pruritus with mild conjunctival injection
-• Nasal congestion affecting sleep quality
-• Symptoms peak during tree pollen season (March-May)
-
-CURRENT MEDICATIONS: OTC loratadine 10mg daily with suboptimal response
-ALLERGIES: NKDA
-
-PHYSICAL EXAMINATION
-• Nasal: Bilateral inferior turbinate edema, clear discharge, no polyps visualized
-• Eyes: Mild bilateral conjunctival erythema, no chemosis
-• Throat: Non-erythematous, no cobblestoning
-
-ASSESSMENT & PLAN
-1. ALLERGIC RHINITIS (J30.1) - Seasonal, likely tree pollen sensitivity
-   • Initiate fluticasone propionate nasal spray 50mcg, 2 sprays each nostril daily
-   • Continue loratadine during peak season
-   • Patient education on pollen avoidance strategies
-   • Consider allergy testing if symptoms persist after 6-week trial
-
-2. FOLLOW-UP: Return in 6 weeks to assess treatment response
-3. PATIENT EDUCATION: Discussed proper nasal spray technique, timing of administration`,
-    improvements: [
-      "Structured format with clear sections",
-      "Detailed symptom quantification",
-      "Specific medication dosages and instructions",
-      "Evidence-based treatment rationale",
-      "Patient education documentation"
-    ],
-    timesSaved: "12 minutes"
-  },
-  {
-    specialty: "Cardiology",
-    before: `Patient is a 68-year-old male with chest pain. Pain started this morning. Patient reports substernal chest pressure. EKG shows ST changes. Echo shows wall motion abnormality. Will start on dual antiplatelet therapy and statin. Cardiology consult requested.`,
-    after: `CHIEF COMPLAINT
-Acute onset substernal chest pressure with electrocardiographic changes.
-
-HISTORY OF PRESENT ILLNESS
-This 68-year-old male presents with acute onset substernal chest pressure beginning at 0800 this morning while at rest. Pain described as 7/10 severity, non-radiating, associated with mild dyspnea and diaphoresis. No previous cardiac history. Pain persists despite sublingual nitroglycerin x3.
-
-RISK FACTORS: Hypertension, hyperlipidemia, 40-pack-year smoking history
-MEDICATIONS: Lisinopril 10mg daily, atorvastatin 20mg daily
-ALLERGIES: NKDA
-
-DIAGNOSTIC STUDIES
-• EKG: Sinus rhythm, rate 78, new 2mm ST depression in leads V2-V4
-• Echocardiogram: LVEF 45%, new anterior wall hypokinesis
-• Troponin I: 2.1 ng/mL (elevated)
-
-ASSESSMENT & PLAN
-1. NON-ST ELEVATION MYOCARDIAL INFARCTION (I21.9)
-   • TIMI Risk Score: 4 (intermediate risk)
-   • Initiated dual antiplatelet therapy: aspirin 325mg loading, clopidogrel 600mg loading
-   • Metoprolol 25mg BID for rate control and cardioprotection
-   • Continue atorvastatin 80mg daily (high-intensity)
-   • Heparin per protocol
-
-2. DISPOSITION: Urgent cardiology consultation for consideration of cardiac catheterization
-3. MONITORING: Serial troponins q8h, continuous telemetry
-4. PATIENT EDUCATION: Discussed diagnosis, treatment plan, and importance of medication compliance`,
-    improvements: [
-      "TIMI risk stratification included",
-      "Specific medication dosing protocols",
-      "Evidence-based treatment guidelines",
-      "Comprehensive diagnostic correlation",
-      "Risk factor documentation"
-    ],
-    timesSaved: "15 minutes"
-  },
-  {
-    specialty: "Dermatology",
-    before: `Patient has a mole on back that looks suspicious. Mole is brown and irregular. Will do biopsy.
-
-Physical exam: Dark brown lesion on upper back, approximately 6mm, irregular borders.
-
-Plan: Shave biopsy. Follow up for results.`,
-    after: `CHIEF COMPLAINT
-Evaluation of changing pigmented lesion on upper back.
-
-HISTORY OF PRESENT ILLNESS
-Patient presents for evaluation of a pigmented lesion on the upper back that has demonstrated recent changes. Patient notes increase in size over past 6 months and development of irregular borders. No associated symptoms of pruritus, bleeding, or pain. No family history of melanoma.
-
-DERMATOLOGIC HISTORY: No previous skin cancers, occasional sunburns in adolescence
-MEDICATIONS: None
-ALLERGIES: NKDA
-
-DERMATOLOGIC EXAMINATION
-Upper back: 6mm asymmetric brown-black macule with irregular borders and color variegation. No ulceration or bleeding noted.
-ABCDE Assessment:
-• Asymmetry: Present
-• Border: Irregular, notched edges
-• Color: Variegated brown to black
-• Diameter: 6mm
-• Evolution: Patient-reported size increase over 6 months
-
-Dermoscopy: Atypical network pattern with focal regression areas
-
-ASSESSMENT & PLAN
-1. ATYPICAL PIGMENTED LESION (D22.5) - Upper back
-   • Clinical concern for possible melanoma given ABCDE criteria
-   • Excisional biopsy with 2mm margins planned
-   • Specimen will be submitted for histopathologic examination
-
-2. SKIN CANCER SURVEILLANCE
-   • Full body skin examination performed - no additional concerning lesions
-   • Patient education on sun protection and self-examination
-   • Annual dermatologic surveillance recommended
-
-3. FOLLOW-UP: Return in 1 week for biopsy results and wound check
-4. PATIENT EDUCATION: Discussed importance of sun protection, self-examination technique`,
-    improvements: [
-      "ABCDE melanoma assessment criteria",
-      "Dermoscopy findings documented",
-      "Detailed lesion characterization",
-      "Comprehensive skin examination noted",
-      "Patient education on prevention"
-    ],
-    timesSaved: "10 minutes"
-  },
-  {
-    specialty: "Family Medicine",
-    before: `Annual physical exam. Patient feels well. Vital signs normal. Physical exam unremarkable. Labs ordered. Follow up in one year.`,
-    after: `CHIEF COMPLAINT
-Annual preventive health maintenance examination.
-
-REVIEW OF SYSTEMS
-Comprehensive 14-point ROS negative except as noted in HPI. Patient reports generally feeling well with good energy levels and no specific concerns.
-
-PREVENTIVE CARE ASSESSMENT
-Last colonoscopy: 2019 (due for repeat)
-Last mammogram: Current (performed 3 months ago - normal)
-Immunizations: Up to date per ACIP guidelines
-Tobacco use: Never smoker
-Alcohol: 1-2 drinks per week
-Exercise: Walks 30 minutes, 4x weekly
-
-PHYSICAL EXAMINATION
-Vital Signs: BP 118/76, HR 72, BMI 24.2, Temp 98.6°F
-General: Well-appearing, no acute distress
-Cardiovascular: Regular rate and rhythm, no murmurs
-Pulmonary: Clear to auscultation bilaterally
-Abdomen: Soft, non-tender, no organomegaly
-Skin: No suspicious lesions noted
-
-ASSESSMENT & PLAN
-1. ADULT HEALTH MAINTENANCE (Z00.00)
-   • Comprehensive metabolic panel, lipid panel, CBC with differential
-   • HbA1c (last checked 2 years ago)
-   • TSH (due per screening guidelines)
-   • Vitamin D level
-
-2. PREVENTIVE CARE NEEDS
-   • Colonoscopy referral - overdue for age-appropriate screening
-   • Continue current exercise regimen
-   • Discussed Mediterranean diet benefits
-
-3. IMMUNIZATIONS: Reviewed and current per ACIP guidelines
-4. FOLLOW-UP: Return in 12 months for annual examination
-5. PATIENT EDUCATION: Importance of continued preventive care, dietary counseling provided`,
-    improvements: [
-      "Structured preventive care tracking",
-      "Age-appropriate screening reminders",
-      "Health maintenance guidelines integration",
-      "Lifestyle counseling documentation",
-      "Evidence-based recommendations"
-    ],
-    timesSaved: "8 minutes"
-  },
-  {
-    specialty: "Gastroenterology",
-    before: `Patient has abdominal pain and diarrhea for 2 weeks. Pain is crampy. Stool is loose. Will check labs and stool studies. Consider colonoscopy.`,
-    after: `CHIEF COMPLAINT
-Two-week history of crampy abdominal pain with loose stools.
-
-HISTORY OF PRESENT ILLNESS
-This patient presents with a 14-day history of crampy, periumbilical abdominal pain associated with 4-6 loose, non-bloody bowel movements daily. Symptoms began abruptly without obvious trigger. Associated symptoms include mild nausea but no vomiting, fever, or weight loss. No recent travel or antibiotic use.
-
-GASTROENTEROLOGIC HISTORY: No previous GI disorders, surgeries, or procedures
-FAMILY HISTORY: Maternal IBD (ulcerative colitis)
-MEDICATIONS: None
-ALLERGIES: NKDA
-
-PHYSICAL EXAMINATION
-Vital Signs: Afebrile, normotensive, mild tachycardia (HR 98)
-Abdomen: Mild periumbilical tenderness without rebound or guarding
-Bowel sounds: Hyperactive
-Rectal exam: Normal tone, no masses, guaiac negative
-
-ASSESSMENT & PLAN
-1. ACUTE GASTROENTERITIS vs. INFLAMMATORY BOWEL DISEASE (K59.1)
-   • Given family history of IBD and symptom duration, inflammatory etiology considered
-   
-   DIAGNOSTIC WORKUP:
-   • Comprehensive metabolic panel, CBC with differential
-   • Inflammatory markers: ESR, CRP, calprotectin
-   • Stool studies: C. diff, ova & parasites, culture, lactoferrin
-   • Consider flexible sigmoidoscopy if symptoms persist >4 weeks
-
-2. SYMPTOMATIC MANAGEMENT
-   • Dietary modifications: BRAT diet initially, gradual advancement
-   • Adequate hydration - patient counseled on oral rehydration
-   • Probiotics may be beneficial
-
-3. FOLLOW-UP: Return in 1 week or sooner if symptoms worsen
-4. RED FLAGS: Patient educated to return immediately for fever, blood in stool, severe dehydration, or worsening pain`,
-    improvements: [
-      "Systematic diagnostic approach",
-      "Family history correlation with symptoms",
-      "Structured physical examination",
-      "Evidence-based diagnostic workup",
-      "Clear red flag symptom education"
-    ],
-    timesSaved: "14 minutes"
-  }
-];
-
-const BeforeAfterNoteComparison = () => {
-  const [currentExample, setCurrentExample] = useState(0);
-  const [activeTab, setActiveTab] = useState<'before' | 'after'>('before');
-
-  const nextExample = () => {
-    setCurrentExample((prev) => (prev + 1) % noteExamples.length);
-    setActiveTab('before');
+  // Handle scrolling of tabs
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsRef.current) {
+      const scrollAmount = 200;
+      if (direction === 'left') {
+        tabsRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+      } else {
+        tabsRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    }
   };
 
-  const prevExample = () => {
-    setCurrentExample((prev) => (prev - 1 + noteExamples.length) % noteExamples.length);
-    setActiveTab('before');
+  // Check scroll position to show/hide arrows
+  const handleScroll = () => {
+    if (tabsRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tabsRef.current;
+      setShowLeftArrow(scrollLeft > 0);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+    }
   };
 
-  const currentNote = noteExamples[currentExample];
+  // Add scroll event listener
+  useEffect(() => {
+    const currentTabsRef = tabsRef.current;
+    if (currentTabsRef) {
+      currentTabsRef.addEventListener('scroll', handleScroll);
+      // Initial check
+      handleScroll();
+    }
+    return () => {
+      currentTabsRef?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Define the examples we'll be showing with specialty-specific content
+  const examples = [
+    { 
+      id: 'family-medicine', 
+      label: 'Family Medicine',
+      before: {
+        demographics: "John Doe, 58M\nDOB: 07/15/1965\nMRN: 12345678",
+        chiefComplaint: "Follow up on diabetes and hypertension.",
+        hpi: "Patient is a 58-year-old male with history of type 2 diabetes and hypertension. He reports that his blood sugars have been running between 130-150 in the mornings and that he's been taking his metformin regularly. No issues with his hypertension medication. Denies polyuria, polydipsia, or polyphagia. No chest pain, SOB, dizziness.",
+        pmh: "- Type 2 diabetes diagnosed 2015\n- Hypertension diagnosed 2013\n- Hyperlipidemia",
+        medications: "- Metformin 1000mg BID\n- Lisinopril 10mg daily\n- Atorvastatin 20mg daily"
+      },
+      after: {
+        demographics: "John Doe, 58M\nDOB: 07/15/1965\nMRN: 12345678\nInsurance: Blue Cross Blue Shield\nLast Visit: 03/15/2023",
+        chiefComplaint: "Follow up on diabetes and hypertension.",
+        hpi: "Patient is a 58-year-old male with history of type 2 diabetes and hypertension presenting for routine follow-up. He reports his blood sugars have been well-controlled, ranging between 130-150 mg/dL in the mornings. He states he has been adherent with his metformin regimen and has not experienced any side effects. His hypertension has been stable with no symptoms, and he denies any chest pain, shortness of breath, or dizziness. Patient has been following a low-carb diet and walking 30 minutes 3 times weekly. He has lost 5 pounds since his last visit.",
+        hcc: "- Type 2 diabetes without complications [E11.9]\n- Essential hypertension [I10]",
+        pmh: "- Type 2 diabetes diagnosed 2015, well controlled\n- Hypertension diagnosed 2013, well controlled\n- Hyperlipidemia, moderately controlled",
+        medications: "- Metformin 1000mg BID\n- Lisinopril 10mg daily\n- Atorvastatin 20mg daily",
+        assessment: "1. Type 2 Diabetes (E11.9)\n   - A1c improved to 7.2% from 7.5% previously\n   - Continue Metformin 1000mg BID\n   - Commended patient on dietary changes and weight loss\n   - Order: Comprehensive metabolic panel & A1c in 3 months\n\n2. Hypertension (I10)\n   - BP today: 132/78, at target\n   - Continue Lisinopril 10mg daily\n   - Encouraged continued sodium restriction\n\n3. Hyperlipidemia (E78.5)\n   - Recent LDL: 110, slightly above target of <100\n   - Continue Atorvastatin 20mg daily\n   - Order: Lipid panel in 6 months\n\n4. Preventive Health\n   - Due for colonoscopy screening\n   - Order: Colonoscopy referral",
+        education: "- Continue all medications as prescribed\n- Maintain low-carb diet and exercise regimen\n- Schedule colonoscopy within next month\n- Return in 3 months for follow-up and lab work\n- Call office if blood sugars consistently >200 mg/dL",
+        billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Time-based billing: 25 minutes\n- DM management: G0108\n- CCM coordination: 99490\n- Quality Measures: Blood pressure screening (G8783)\n- Risk Adjustment: HCC19 (Diabetes), HCC85 (Hypertension)"
+      }
+    },
+    { 
+      id: 'cardiology', 
+      label: 'Cardiology',
+      before: {
+        demographics: "Jane Smith, 62F\nDOB: 03/22/1961\nMRN: 87654321",
+        chiefComplaint: "Follow up after recent hospitalization for heart failure exacerbation.",
+        hpi: "Patient is a 62-year-old female with history of CHF (EF 35%), CAD s/p stent to LAD 2 years ago, and paroxysmal atrial fibrillation. She was hospitalized 3 weeks ago with acute decompensated heart failure. Reports some improvement in dyspnea and edema since discharge. Still has dyspnea with moderate exertion. Taking medications as prescribed but notes occasional dizziness with metoprolol.",
+        pmh: "- CHF (EF 35%)\n- CAD s/p stent to LAD 2021\n- Paroxysmal atrial fibrillation\n- Hypertension\n- Hyperlipidemia",
+        medications: "- Metoprolol 25mg BID\n- Lisinopril 20mg daily\n- Furosemide 40mg daily\n- Apixaban 5mg BID\n- Atorvastatin 40mg daily"
+      },
+      after: {
+        demographics: "Jane Smith, 62F\nDOB: 03/22/1961\nMRN: 87654321\nInsurance: Medicare Advantage\nLast Visit: 11/02/2023 (Hospital Discharge)",
+        chiefComplaint: "Follow up after recent hospitalization for heart failure exacerbation.",
+        hpi: "Patient is a 62-year-old female with history of CHF (EF 35%), CAD s/p stent to LAD 2021, and paroxysmal atrial fibrillation presenting for follow-up after hospitalization for acute decompensated heart failure 3 weeks ago. She reports improvement in symptoms with current medication regimen. Dyspnea has improved but persists with moderate exertion (can climb 1 flight of stairs without stopping, NYHA Class II). Reports reduced bilateral ankle edema. Notes occasional dizziness with metoprolol, typically within 1-2 hours after morning dose. No syncope, chest pain, palpitations, orthopnea, or PND.",
+        hcc: "- Systolic Heart Failure [I50.20]\n- CAD with history of PTCA [I25.10]\n- Paroxysmal Atrial Fibrillation [I48.0]",
+        pmh: "- CHF (EF 35% per echo 11/1/2023)\n- CAD s/p stent to LAD 2021\n- Paroxysmal atrial fibrillation, CHA₂DS₂-VASc score: 4\n- Hypertension, well controlled\n- Hyperlipidemia",
+        medications: "- Metoprolol 25mg BID\n- Lisinopril 20mg daily\n- Furosemide 40mg daily\n- Apixaban 5mg BID\n- Atorvastatin 40mg daily\n- Spironolactone 25mg daily (added during hospitalization)",
+        assessment: "1. Heart Failure with reduced EF (I50.20)\n   - Improved since hospitalization but still NYHA Class II\n   - Continue current HF medications\n   - Consider reducing metoprolol to 12.5mg BID due to reported dizziness\n   - Daily weight monitoring to continue\n   - Order: BNP, BMP, CBC in 2 weeks\n\n2. Coronary Artery Disease (I25.10)\n   - Stable since PCI in 2021\n   - Continue high-intensity statin\n   - Order: Lipid panel at next visit\n\n3. Paroxysmal Atrial Fibrillation (I48.0)\n   - No recent episodes reported\n   - Continue anticoagulation with apixaban\n   - EKG today shows NSR\n   - Order: EKG and Holter monitor for 48 hours",
+        education: "- Take metoprolol with food to reduce dizziness\n- Maintain sodium restriction (≤2g/day)\n- Contact office if weight increases >2kg in 3 days\n- Continue daily weight logs\n- Schedule echo in 3 months to reassess EF\n- Return for follow-up in 4 weeks",
+        billing: "- E/M: 99215 (Level 5 Follow-up visit)\n- Time-based billing: 40 minutes\n- Chronic care management: 99490\n- Post-discharge transition: 99495\n- EKG interpretation: 93010\n- Quality Measures: Heart failure management (G8427)\n- Risk Adjustment: HCC85 (Hypertension), HCC83 (Heart Failure), HCC96 (Atrial Fibrillation)"
+      }
+    },
+    {
+      id: 'psychiatry',
+      label: 'Psychiatry',
+      before: {
+        demographics: "David Wilson, 35M\nDOB: 09/12/1989\nMRN: 45678901",
+        chiefComplaint: "Follow up for depression and anxiety.",
+        hpi: "Patient is a 35-year-old male with major depressive disorder and generalized anxiety. Reports mild improvement in mood with sertraline but still having trouble sleeping. Anxiety continues to affect work performance. Denies suicidal ideation or plans.",
+        pmh: "- Major Depressive Disorder\n- Generalized Anxiety Disorder\n- Mild Insomnia",
+        medications: "- Sertraline 100mg daily\n- Lorazepam 0.5mg PRN for anxiety"
+      },
+      after: {
+        demographics: "David Wilson, 35M\nDOB: 09/12/1989\nMRN: 45678901\nInsurance: Cigna\nLast Visit: 04/02/2024",
+        chiefComplaint: "Follow up for depression and anxiety.",
+        hpi: "Patient is a 35-year-old male with history of major depressive disorder and generalized anxiety disorder presenting for medication management follow-up. He reports partial response to sertraline 100mg daily with improvement in depressed mood (rates mood as 5/10 compared to 3/10 at last visit) but continues to experience anhedonia and fatigue. Sleep remains disrupted with difficulty initiating sleep (takes 1-2 hours to fall asleep) and early morning awakening (4-5AM). Reports functioning at work has improved somewhat but still struggles with concentration during meetings and deadlines. Using lorazepam approximately twice weekly for acute anxiety. Denies current suicidal or homicidal ideation, intent, or plan. No psychotic symptoms.",
+        hcc: "- Major Depressive Disorder, recurrent, moderate [F33.1]\n- Generalized Anxiety Disorder [F41.1]\n- Insomnia, chronic [G47.00]",
+        pmh: "- Major Depressive Disorder, diagnosed 2018\n- Generalized Anxiety Disorder, diagnosed 2018\n- Chronic Insomnia\n- Family history of depression (mother)",
+        medications: "- Sertraline 100mg daily\n- Lorazepam 0.5mg PRN for anxiety (takes ~2x/week)\n- No known medication allergies",
+        assessment: "1. Major Depressive Disorder, recurrent, moderate (F33.1)\n   - Partial response to sertraline\n   - Increase sertraline to 150mg daily\n   - Continue weekly therapy sessions\n   - PHQ-9 score today: 14 (moderate) improved from 19 (moderate-severe)\n\n2. Generalized Anxiety Disorder (F41.1)\n   - Partial response to current regimen\n   - GAD-7 score today: 12 (moderate)\n   - Continue lorazepam PRN\n   - Discussed mindfulness techniques and breathing exercises\n\n3. Insomnia, chronic (G47.00)\n   - Added trazodone 50mg at bedtime for sleep\n   - Reviewed sleep hygiene measures\n   - Recommended Cognitive Behavioral Therapy for Insomnia (CBT-I)",
+        education: "- Increase sertraline slowly over 1 week\n- Use trazodone 30-60 minutes before desired sleep time\n- Continue journaling daily mood and anxiety levels\n- Practice mindfulness meditation using recommended app\n- Avoid caffeine after 2pm\n- Return in 4 weeks to reassess medication effects",
+        billing: "- E/M: 99213 (Level 3 Follow-up visit)\n- Time-based billing: 25 minutes\n- Psychotherapy add-on: 90833 (30 min)\n- PHQ-9 & GAD-7 screening: 96127\n- Quality Measures: Depression screening follow-up (G8431)\n- Risk Adjustment: HCC58 (Major Depressive Disorder)"
+      }
+    },
+    {
+      id: 'internal-medicine',
+      label: 'Internal Medicine',
+      before: {
+        demographics: "Richard Taylor, 66M\nDOB: 11/04/1958\nMRN: 23456789",
+        chiefComplaint: "Annual physical and medication review.",
+        hpi: "Patient is a 66-year-old male presenting for annual physical. Has controlled hypertension and dyslipidemia. Reports occasional mild joint pain but generally feels well. Exercise routine includes walking 30 minutes 3x/week. Last colonoscopy 4 years ago was normal. Due for pneumonia vaccine.",
+        pmh: "- Hypertension for 12 years\n- Dyslipidemia\n- Osteoarthritis of knees",
+        medications: "- Amlodipine 5mg daily\n- Rosuvastatin 10mg daily\n- Acetaminophen PRN for joint pain"
+      },
+      after: {
+        demographics: "Richard Taylor, 66M\nDOB: 11/04/1958\nMRN: 23456789\nInsurance: Medicare Part B\nLast Visit: 05/10/2023",
+        chiefComplaint: "Annual physical and medication review.",
+        hpi: "Patient is a 66-year-old male presenting for annual physical examination and medication review. Reports his hypertension and dyslipidemia are well-controlled on current medication regimen. Notes occasional mild bilateral knee pain after prolonged activity, relieved with acetaminophen and rest. Current exercise regimen includes walking 30 minutes three times weekly and light gardening. Last colonoscopy was performed four years ago with normal findings. Has not received pneumonia or shingles vaccinations. Reports adequate energy levels, stable weight, and good appetite. No difficulty with urination, bowel movements, or sleep. No chest pain, shortness of breath, dizziness, or falls.",
+        hcc: "- Essential Hypertension [I10]\n- Hyperlipidemia [E78.5]\n- Osteoarthritis, localized, knee [M17.9]",
+        pmh: "- Hypertension, diagnosed 2012, well-controlled\n- Dyslipidemia, diagnosed 2014, well-controlled\n- Osteoarthritis of bilateral knees, mild\n- Appendectomy 1985",
+        medications: "- Amlodipine 5mg daily\n- Rosuvastatin 10mg daily\n- Acetaminophen 500mg PRN for joint pain\n- Daily multivitamin",
+        assessment: "1. Hypertension (I10)\n   - BP today: 126/74, well-controlled\n   - Continue Amlodipine 5mg daily\n   - Home BP monitoring shows readings consistently <130/80\n\n2. Hyperlipidemia (E78.5)\n   - Lipid panel today: LDL 92, HDL 48, TG 110\n   - Continue Rosuvastatin 10mg daily\n   - ASCVD risk score: 12.4%\n\n3. Osteoarthritis of knees, bilateral (M17.0)\n   - Mild symptoms, manageable with acetaminophen PRN\n   - Encouraged continued gentle exercise\n   - Discussed weight management\n\n4. Preventive Healthcare (Z00.00)\n   - Administered PPSV23 (pneumococcal) vaccine today\n   - Administered Shingrix (first dose) today\n   - Due for colonoscopy this year (last: 2020)\n   - Performed depression screening: negative",
+        education: "- Schedule colonoscopy within next 2 months\n- Return for second Shingrix dose in 2-6 months\n- Continue current exercise regimen\n- Maintain Mediterranean diet pattern\n- Return for follow-up in 6 months\n- Schedule annual physical for next year",
+        billing: "- E/M: 99397 (Medicare Annual Wellness Visit)\n- Immunization Administration: 90471 (x2)\n- Vaccines: 90732 (PPSV23), 90750 (Shingrix)\n- Lipid Panel: 80061\n- Comprehensive Metabolic Panel: 80053\n- Quality Measures: Blood pressure control (G8752), Immunizations up to date (G8482)\n- Risk Adjustment: HCC85 (Hypertension), HCC84 (Medications combined risk)"
+      }
+    },
+    {
+      id: 'oncology',
+      label: 'Oncology',
+      before: {
+        demographics: "Patricia Moore, 58F\nDOB: 02/25/1966\nMRN: 34567891",
+        chiefComplaint: "Follow up for breast cancer treatment.",
+        hpi: "Patient is a 58-year-old female with history of stage II invasive ductal carcinoma of right breast, ER/PR+, HER2-, diagnosed 8 months ago s/p lumpectomy and axillary lymph node dissection. Completed 4 cycles of adjuvant chemotherapy with doxorubicin and cyclophosphamide 3 months ago. Currently on tamoxifen. Reports fatigue and occasional hot flashes but otherwise tolerating treatment well.",
+        pmh: "- Stage II invasive ductal carcinoma, right breast\n- Hypertension\n- Hypothyroidism",
+        medications: "- Tamoxifen 20mg daily\n- Lisinopril 10mg daily\n- Levothyroxine 75mcg daily"
+      },
+      after: {
+        demographics: "Patricia Moore, 58F\nDOB: 02/25/1966\nMRN: 34567891\nInsurance: UnitedHealthcare\nLast Visit: 04/15/2024",
+        chiefComplaint: "Follow up for breast cancer treatment.",
+        hpi: "Patient is a 58-year-old female with history of stage II (T2N0M0) invasive ductal carcinoma of right breast, ER/PR+, HER2-, diagnosed 8 months ago, presenting for routine follow-up. She underwent right breast lumpectomy with sentinel lymph node biopsy (0/3 nodes positive) on 08/20/2023, followed by 4 cycles of adjuvant chemotherapy with doxorubicin and cyclophosphamide completed on 01/10/2024. Currently on adjuvant hormonal therapy with tamoxifen initiated on 01/25/2024. Reports moderate fatigue (5/10) with gradual improvement since completing chemotherapy. Experiencing 3-5 hot flashes daily, mild-moderate intensity. Denies breast pain, masses, skin changes, or axillary lymphadenopathy. No bone pain, shortness of breath, or neurological symptoms. Completed 10 of 30 planned radiation treatments with minimal skin reaction.",
+        hcc: "- Malignant neoplasm of breast, specified as right breast [C50.911]\n- Essential Hypertension [I10]\n- Hypothyroidism [E03.9]",
+        pmh: "- Stage II invasive ductal carcinoma, right breast (T2N0M0), ER/PR+, HER2-, diagnosed 08/2023\n- Hypertension, well-controlled\n- Hypothyroidism, well-controlled\n- Surgical history: Right breast lumpectomy with SLNB (08/2023)",
+        medications: "- Tamoxifen 20mg daily\n- Lisinopril 10mg daily\n- Levothyroxine 75mcg daily\n- Vitamin D3 2000 IU daily\n- Calcium citrate 500mg BID",
+        assessment: "1. Breast Cancer, Stage II (C50.911)\n   - Post-lumpectomy and chemotherapy, currently on hormonal therapy\n   - Tolerating tamoxifen with expected side effects\n   - Currently undergoing radiation therapy (10/30 treatments completed)\n   - Oncotype DX score was 24 (intermediate risk)\n   - Plan: Continue tamoxifen for planned 5-year course\n   - Order: CBC, CMP, vitamin D level\n\n2. Cancer Treatment Side Effects\n   - Fatigue: Improving, recommended structured exercise program\n   - Hot flashes: Moderate, recommended evening primrose oil and cooling techniques\n   - No evidence of lymphedema\n\n3. Hypertension (I10)\n   - Well-controlled on current regimen\n   - BP today: 118/76\n   - Continue lisinopril 10mg daily\n\n4. Hypothyroidism (E03.9)\n   - TSH within normal limits at 2.4 (range 0.4-4.0)\n   - Continue levothyroxine 75mcg daily",
+        education: "- Complete remaining radiation treatments as scheduled\n- Follow up with radiation oncologist next week\n- Perform monthly breast self-examination\n- Maintain calcium and vitamin D supplementation\n- Consider joining cancer survivor support group\n- Return for oncology follow-up in 3 months",
+        billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Time-based billing: 30 minutes\n- Oncology care management: G0463\n- Cancer status evaluation: G8721\n- Quality Measures: Pain assessment (G8730), Survivorship care plan (G8875)\n- Risk Adjustment: HCC12 (Breast Cancer), HCC85 (Hypertension)"
+      }
+    },
+    {
+      id: 'orthopedics',
+      label: 'Orthopedics',
+      before: {
+        demographics: "Michael Roberts, 52M\nDOB: 06/18/1972\nMRN: 56789012",
+        chiefComplaint: "Right knee pain following meniscus repair.",
+        hpi: "Patient is a 52-year-old male presenting for follow-up 6 weeks after arthroscopic repair of right medial meniscus tear. Reports improved pain but still has stiffness in the morning and after prolonged sitting. Has been attending physical therapy twice weekly. Using NSAIDs for pain management.",
+        pmh: "- Right medial meniscus tear\n- Hypertension\n- Gastroesophageal reflux disease",
+        medications: "- Ibuprofen 600mg PRN for pain\n- Lisinopril 20mg daily\n- Omeprazole 20mg daily"
+      },
+      after: {
+        demographics: "Michael Roberts, 52M\nDOB: 06/18/1972\nMRN: 56789012\nInsurance: Anthem BlueCross\nLast Visit: 03/23/2024 (Post-op week 2)",
+        chiefComplaint: "Right knee pain following meniscus repair.",
+        hpi: "Patient is a 52-year-old male presenting for 6-week follow-up after arthroscopic repair of right medial meniscus tear performed on 03/09/2024. He reports significant improvement in pain (now 3/10 from previous 7/10) but continues to experience morning stiffness lasting 15-20 minutes and stiffness after prolonged sitting. Has been attending physical therapy twice weekly with good compliance to home exercise program. ROM has improved but not yet at baseline. Currently using ibuprofen 600mg once daily or every other day for pain management. Denies locking, catching, or instability of the knee. Able to walk without assistive devices and navigate stairs with minimal discomfort. Has returned to desk work but not yet resumed recreational activities (golf, swimming).",
+        hcc: "- Tear of medial meniscus of right knee, current [S83.211A]\n- Status post arthroscopic meniscus repair [Z98.89]\n- Essential Hypertension [I10]\n- Gastroesophageal reflux disease [K21.9]",
+        pmh: "- Right medial meniscus tear, traumatic onset 02/2024\n- Hypertension, diagnosed 2015, well-controlled\n- Gastroesophageal reflux disease, diagnosed 2018\n- Previous left ankle sprain 2019, resolved",
+        medications: "- Ibuprofen 600mg PRN for pain\n- Lisinopril 20mg daily\n- Omeprazole 20mg daily\n- No known drug allergies",
+        assessment: "1. Status post right knee arthroscopic medial meniscus repair (S83.211D)\n   - Post-op week 6, progressing as expected\n   - Range of motion: Extension 0°, Flexion 120° (improved from 100° at week 2)\n   - Minimal effusion present\n   - Stable medial and lateral joint lines with decreased tenderness\n   - Incision well-healed with no signs of infection\n   - Continue physical therapy for additional 4-6 weeks\n   - Progress from partial to full weight-bearing activities\n\n2. Post-surgical rehabilitation\n   - Functional status improving; can manage ADLs independently\n   - Cleared to begin stationary bike with minimal resistance\n   - May advance strengthening exercises as tolerated\n   - Goal: Return to recreational activities by 12 weeks post-op\n\n3. Hypertension (I10)\n   - BP today: 132/82, within acceptable range\n   - Continue current medications\n   - Follow up with PCP for routine management",
+        education: "- Progress to full weight-bearing as tolerated\n- Continue home exercise program daily\n- May use ice after activity and elevation as needed\n- Transition from ibuprofen to acetaminophen when possible\n- Use knee sleeve for support during increased activity\n- Return to clinic in 6 weeks for final post-op evaluation",
+        billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Time-based billing: 25 minutes\n- Orthopedic evaluation: 29876\n- Post-operative visit: 99024\n- Quality Measures: Pain assessment and follow-up (G8730)\n- Risk Adjustment: HCC85 (Hypertension), HCC39 (Bone/Joint/Muscle Conditions)"
+      }
+    },
+    { 
+      id: 'chiropractic',
+      label: 'Chiropractic',
+      before: {
+        demographics: "Sarah Johnson, 42F\nDOB: 09/30/1982\nMRN: 67890123",
+        chiefComplaint: "Lower back pain with radiation to left leg.",
+        hpi: "Patient is a 42-year-old female presenting with lower back pain that started after moving furniture 2 weeks ago. Pain radiates to left buttock and posterior thigh. Reports pain is worse with sitting and bending forward. Has been taking OTC ibuprofen with minimal relief.",
+        pmh: "- Previous episode of back pain 3 years ago, resolved with chiropractic care\n- Seasonal allergies",
+        medications: "- Ibuprofen 400mg PRN for pain\n- Cetirizine 10mg daily PRN for allergies"
+      },
+      after: {
+        demographics: "Sarah Johnson, 42F\nDOB: 09/30/1982\nMRN: 67890123\nInsurance: Aetna Choice POS II\nLast Visit: First visit to this practice",
+        chiefComplaint: "Lower back pain with radiation to left leg.",
+        hpi: "Patient is a 42-year-old female presenting with lower back pain that began acutely after moving furniture 2 weeks ago. Pain is located primarily in the lumbar region with radiation to the left buttock and posterior thigh, stopping above the knee. Describes pain as dull and achy at baseline (5/10) with sharp exacerbations (8/10) during certain movements. Reports pain is worse with prolonged sitting, bending forward, and when getting up from seated position. Minimal relief with position changes and OTC ibuprofen 400mg taken 2-3 times daily. Denies bowel or bladder incontinence, saddle anesthesia, bilateral leg weakness, or fever. Previous episode of similar but less severe back pain 3 years ago resolved after 6 sessions of chiropractic care. Patient works as administrative assistant with prolonged sitting at desk. Exercise routine includes walking 2-3 times weekly.",
+        hcc: "- Lumbar radiculopathy [M54.16]\n- Lumbar segmental dysfunction [M99.03]",
+        pmh: "- Previous lumbar strain with radiculopathy 2021, resolved\n- Seasonal allergies\n- No surgeries",
+        medications: "- Ibuprofen 400mg PRN for pain\n- Cetirizine 10mg daily PRN for allergies\n- No known drug allergies",
+        assessment: "1. Lumbar Radiculopathy, left side (M54.16)\n   - Likely L4-L5 or L5-S1 disc involvement\n   - Positive straight leg raise test left at 40 degrees\n   - Diminished left Achilles reflex\n   - Decreased sensation L5 dermatome left foot\n\n2. Lumbar Segmental Dysfunction (M99.03)\n   - Restricted mobility L4-L5-S1 segments\n   - Moderate paraspinal muscle spasm lumbar region bilaterally\n   - Posterior pelvic tilt with left iliac rotation\n   - Positive facet loading test\n\n3. Postural Analysis\n   - Forward head posture\n   - Increased thoracic kyphosis\n   - Decreased lumbar lordosis\n   - Left high shoulder",
+        education: "- Performed spinal manipulation therapy to lumbar spine and pelvis\n- Applied myofascial release therapy to lumbar paraspinals\n- Instructed in McKenzie extension exercises to perform 3x daily\n- Recommended lumbar support for office chair\n- Advised 10-minute walking breaks every hour at work\n- Ice application for 15 minutes TID\n- Schedule 2x weekly visits for 3 weeks, then reassess\n- Return tomorrow for follow-up treatment",
+        billing: "- Chiropractic Manipulative Treatment: 98940 (1-2 regions)\n- Manual Therapy: 97140\n- Therapeutic Exercise Instruction: 97110\n- Initial Evaluation: 99203\n- Outcome Assessment Tools: Oswestry Low Back Pain Scale\n- Quality Measures: Pain assessment (G8730), functional outcome assessment (G8539)\n- Billing Notes: Auto insurance is primary for this injury-related visit"
+      }
+    },
+    {
+      id: 'functional-medicine',
+      label: 'Functional Medicine',
+      before: {
+        demographics: "Emma Wilson, 38F\nDOB: 12/03/1986\nMRN: 78901234",
+        chiefComplaint: "Chronic fatigue, digestive issues, and brain fog.",
+        hpi: "Patient is a 38-year-old female with 8-month history of increasing fatigue, digestive issues including bloating and constipation, and cognitive difficulties. Has seen multiple providers without clear diagnosis. Recent labs from PCP were reportedly normal. Diet consists of typical American diet. Sleep is disrupted with difficulty staying asleep.",
+        pmh: "- Hypothyroidism diagnosed 5 years ago\n- Migraine headaches\n- Anxiety",
+        medications: "- Levothyroxine 50mcg daily\n- Sumatriptan PRN for migraines\n- Multivitamin daily"
+      },
+      after: {
+        demographics: "Emma Wilson, 38F\nDOB: 12/03/1986\nMRN: 78901234\nInsurance: Self-pay (will submit superbill)\nLast Visit: First visit to this practice",
+        chiefComplaint: "Chronic fatigue, digestive issues, and brain fog.",
+        hpi: "Patient is a 38-year-old female presenting with an 8-month history of progressive fatigue, digestive disturbances, and cognitive difficulties. She reports fatigue is worst in the morning despite sleeping 7-8 hours, with temporary improvement after caffeine. Digestive symptoms include postprandial bloating, abdominal discomfort, and constipation (bowel movements every 2-3 days). Cognitive symptoms described as difficulty concentrating, word-finding problems, and memory lapses affecting work performance. Reports significant life stressors including job change 10 months ago and relocation 12 months ago. Diet consists primarily of processed convenience foods, daily coffee, and occasional alcohol (2-3 glasses of wine weekly). Exercise limited to weekend activities only. Sleep disrupted with 1-2 awakenings nightly and difficulty returning to sleep. Has consulted with PCP, gastroenterologist, and neurologist without definitive diagnosis. Previous thyroid labs (TSH, T4) within normal limits but has not had full thyroid panel or advanced nutritional testing.",
+        hcc: "- Chronic fatigue, unspecified [R53.82]\n- Irritable bowel syndrome [K58.9]\n- Hypothyroidism [E03.9]\n- Sleep maintenance insomnia [G47.01]",
+        pmh: "- Hypothyroidism diagnosed 2019\n- Migraine headaches, 1-2/month\n- Anxiety, managed without medications\n- Appendectomy 2002",
+        medications: "- Levothyroxine 50mcg daily\n- Sumatriptan 50mg PRN for migraines\n- Basic multivitamin daily\n- Occasional melatonin 3mg for sleep",
+        assessment: "1. Suspected Functional Hypothyroidism (E03.9)\n   - Although TSH within reference range (3.8 mIU/L), may have suboptimal T3 conversion\n   - Order comprehensive thyroid panel including fT3, rT3, TPO and TG antibodies\n   - Consider trial of selenium 200mcg and zinc 15mg to support T4 to T3 conversion\n\n2. Suspected Small Intestinal Bacterial Overgrowth (K58.9)\n   - Symptoms consistent with IBS-C variant\n   - Order SIBO breath test\n   - Begin digestive support with betaine HCl and digestive enzymes with meals\n   - Trial of dairy elimination for 3 weeks\n\n3. HPA Axis Dysfunction (R53.82)\n   - Morning cortisol assessment indicated (4-point salivary cortisol test ordered)\n   - Likely stress-induced dysregulation\n   - Begin adaptogenic herbs: Ashwagandha 600mg daily\n\n4. Nutrient Deficiencies (E61.9)\n   - Ordered comprehensive nutritional panel including vitamin D, B12, folate, ferritin, zinc, magnesium\n   - Clinical signs suggestive of B12 and magnesium deficiencies\n   - Begin high-potency B-complex and magnesium glycinate 300mg daily",
+        education: "- Discussed anti-inflammatory Mediterranean diet; provided meal plan\n- Instructed on elimination diet protocol beginning with dairy removal\n- Prescribed morning sunlight exposure 15-20 minutes daily\n- Recommended evening electronic device curfew (2 hours before bed)\n- Begin gentle movement: walking 20 minutes daily, yoga 2x weekly\n- Deep breathing exercises 10 minutes BID\n- Return in 3 weeks to review initial test results and symptom journal",
+        billing: "- Functional Medicine Consultation: 99205 (Initial comprehensive evaluation)\n- Prolonged service: 99417 (additional 15 min)\n- Nutritional Counseling: 97802\n- Laboratory Services: Comprehensive metabolic panel, CBC, comprehensive thyroid panel, vitamin/mineral panel\n- SIBO breath test to be scheduled\n- Payment Collected: $450 initial consultation fee\n- Superbill provided to patient for insurance submission"
+      }
+    },
+    {
+      id: 'ent',
+      label: 'ENT',
+      before: {
+        demographics: "Thomas Brown, 47M\nDOB: 08/14/1977\nMRN: 89012345",
+        chiefComplaint: "Recurrent sinusitis and hearing loss in right ear.",
+        hpi: "Patient is a 47-year-old male with 3-month history of nasal congestion, facial pressure, and post-nasal drip. Also reports gradually worsening hearing in right ear over past 6 months. Has tried OTC decongestants and nasal steroids with temporary relief. Completed 10-day course of amoxicillin 3 weeks ago prescribed by PCP with partial improvement.",
+        pmh: "- Seasonal allergies\n- Deviated nasal septum (diagnosed previously)\n- Asthma, mild intermittent",
+        medications: "- Fluticasone nasal spray daily\n- Loratadine 10mg daily\n- Albuterol inhaler PRN"
+      },
+      after: {
+        demographics: "Thomas Brown, 47M\nDOB: 08/14/1977\nMRN: 89012345\nInsurance: Blue Shield PPO\nLast Visit: 04/01/2024 (PCP visit)",
+        chiefComplaint: "Recurrent sinusitis and hearing loss in right ear.",
+        hpi: "Patient is a 47-year-old male presenting with symptoms of chronic rhinosinusitis including nasal congestion, facial pressure (maxillary and frontal), and post-nasal drip for the past 3 months. Reports thick yellow-green nasal discharge, particularly in the mornings. Symptoms worsen with weather changes and in prone position. Additionally reports gradually progressive right-sided hearing loss over 6 months, associated with intermittent tinnitus and sensation of ear fullness. No vertigo, otalgia, or otorrhea. Has completed course of amoxicillin 500mg TID for 10 days 3 weeks ago with partial improvement in sinus symptoms but continued hearing deficit. Using fluticasone nasal spray daily and loratadine with minimal relief. Works as accountant with significant computer use daily. Reports history of frequent swimming in local pool during summer months.",
+        hcc: "- Chronic rhinosinusitis [J32.9]\n- Conductive hearing loss, right ear [H90.11]\n- Deviated nasal septum [J34.2]\n- Seasonal allergic rhinitis [J30.2]",
+        pmh: "- Seasonal allergies (spring/fall)\n- Deviated nasal septum, diagnosed 2018\n- Asthma, mild intermittent\n- Tonsillectomy, childhood",
+        medications: "- Fluticasone nasal spray daily\n- Loratadine 10mg daily\n- Albuterol inhaler PRN\n- No known drug allergies",
+        assessment: "1. Chronic Rhinosinusitis (J32.9)\n   - Nasal endoscopy shows purulent discharge from right middle meatus\n   - Bilateral inferior turbinate hypertrophy\n   - CT sinuses ordered: Moderate mucosal thickening in right maxillary sinus\n   - Begin Augmentin 875mg/125mg BID for 14 days\n   - Add saline irrigations BID\n\n2. Conductive Hearing Loss, Right Ear (H90.11)\n   - Audiometry shows mild-moderate conductive hearing loss right ear (30dB air-bone gap)\n   - Type B tympanogram right ear consistent with middle ear effusion\n   - Left ear hearing within normal limits\n   - Likely secondary to eustachian tube dysfunction\n   - Recommendations for ear equalization exercises\n\n3. Deviated Nasal Septum (J34.2)\n   - Significant rightward deviation at bony-cartilaginous junction\n   - Contributing to chronic sinusitis and eustachian tube dysfunction\n   - Discussed surgical options including septoplasty and functional endoscopic sinus surgery\n\n4. Seasonal Allergic Rhinitis (J30.2)\n   - Continue current allergy medications\n   - Consider allergy testing if symptoms persist after addressing structural issues",
+        education: "- Demonstrated proper saline irrigation technique\n- Provided handouts for ear equalization exercises\n- Discussed environmental modifications to reduce allergen exposure\n- Explained benefits and risks of septoplasty and FESS procedures\n- Advised to continue antibiotic course completely\n- Return in 3 weeks to reassess symptoms and discuss surgical planning\n- Call sooner if symptoms worsen or new symptoms develop",
+        billing: "- E/M: 99204 (Level 4 New Patient visit)\n- Nasal Endoscopy: 31231\n- Audiometry: 92557\n- Tympanometry: 92567\n- Nasal Endoscopy: 31575\n- Quality Measures: Appropriate antibiotic for sinusitis (G8708)\n- Risk Adjustment: HCC41 (Respirartory Conditions)"
+      }
+    },
+    { 
+      id: 'neurology', 
+      label: 'Neurology',
+      before: {
+        demographics: "Robert Johnson, 45M\nDOB: 11/30/1978\nMRN: 56784321",
+        chiefComplaint: "Follow up for migraine management.",
+        hpi: "Patient is a 45-year-old male with history of chronic migraine headaches. Reports having 3-4 migraines in the past month despite propranolol prophylaxis. Sumatriptan provides relief but causes fatigue. Headaches typically preceded by visual aura and accompanied by photophobia, phonophobia, and nausea.",
+        pmh: "- Chronic migraine with aura\n- Seasonal allergies\n- Insomnia",
+        medications: "- Propranolol 80mg daily\n- Sumatriptan 50mg PRN\n- Loratadine 10mg daily\n- Melatonin 3mg nightly"
+      },
+      after: {
+        demographics: "Robert Johnson, 45M\nDOB: 11/30/1978\nMRN: 56784321\nInsurance: United Healthcare\nLast Visit: 02/15/2023",
+        chiefComplaint: "Follow up for migraine management.",
+        hpi: "Patient is a 45-year-old male with history of chronic migraine with aura presenting for follow-up. He reports experiencing 3-4 migraine episodes in the past month despite propranolol prophylaxis. Episodes are characterized by pulsating, unilateral headache (7-8/10 intensity) lasting 4-12 hours. Each episode is preceded by visual aura (scintillating scotoma) lasting approximately 20-30 minutes. Associated symptoms include photophobia, phonophobia, and nausea without vomiting. Sumatriptan provides effective relief within 1-2 hours but causes significant fatigue for the remainder of the day. Patient identifies stress at work and irregular sleep patterns as potential triggers.",
+        hcc: "- Migraine with aura [G43.109]",
+        pmh: "- Chronic migraine with aura, diagnosed 2015\n- Seasonal allergies\n- Insomnia\n- Normal MRI brain with contrast (2021)",
+        medications: "- Propranolol 80mg daily\n- Sumatriptan 50mg PRN for migraine\n- Loratadine 10mg daily\n- Melatonin 3mg nightly",
+        assessment: "1. Chronic Migraine with Aura (G43.109)\n   - Inadequate control with current prophylaxis\n   - Increase propranolol to 120mg daily\n   - Consider adding topiramate as second-line prophylactic agent\n   - Switch from sumatriptan to rizatriptan 10mg for acute treatment\n   - Order: CBC, CMP, Vitamin D level\n\n2. Insomnia, contributing to migraine frequency\n   - Provided sleep hygiene education\n   - Consider CBT for insomnia\n   - Continue melatonin\n\n3. Lifestyle factors affecting migraine control\n   - Discussed stress management techniques\n   - Recommended consistent sleep schedule\n   - Suggested migraine diary to identify additional triggers",
+        education: "- Gradually increase propranolol over 2 weeks\n- Try rizatriptan for next migraine attack\n- Download recommended migraine tracking app\n- Maintain regular sleep-wake cycle\n- Practice stress reduction techniques daily\n- Return in 6 weeks to evaluate medication changes",
+        billing: "- E/M: 99214 (Level 4 Follow-up visit)\n- Neurological examination: 96116\n- Time-based billing: 30 minutes\n- Quality Measures: Pain assessment (G8730)\n- Risk Adjustment: HCC79 (Migraine and Chronic Headache)"
+      }
+    },
+    { 
+      id: 'pediatrics', 
+      label: 'Pediatrics',
+      before: {
+        demographics: "Emily Chen, 7F\nDOB: 05/12/2016\nMRN: 43215678",
+        chiefComplaint: "Well-child visit and immunizations.",
+        hpi: "Emily is a 7-year-old female presenting for annual well-child check. Parent reports normal growth and development. No concerns with vision or hearing. Doing well in 2nd grade. Active in gymnastics. No acute illnesses since last visit.",
+        pmh: "- History of otitis media (last episode 2 years ago)\n- Fully immunized through age 5",
+        medications: "- Children's multivitamin daily\n- No regular medications"
+      },
+      after: {
+        demographics: "Emily Chen, 7F\nDOB: 05/12/2016\nMRN: 43215678\nInsurance: Aetna\nLast Visit: 05/20/2022",
+        chiefComplaint: "Well-child visit and immunizations.",
+        hpi: "Emily is a 7-year-old female presenting for her annual well-child examination. Parents report normal growth and development with no new health concerns. She is meeting all developmental milestones and performing well academically in 2nd grade (reading above grade level). She participates in gymnastics twice weekly and enjoys art activities. Sleep pattern is regular with 9-10 hours nightly. Diet consists of varied foods but parent reports she is somewhat picky with vegetables. Screen time is limited to 1-2 hours daily. No recent acute illnesses. No concerns with vision or hearing.",
+        pmh: "- History of recurrent otitis media (resolved, last episode 2 years ago)\n- Fully immunized through age 5\n- Normal growth trajectory (consistently tracking at 65th percentile for height, 50th percentile for weight)",
+        medications: "- Children's multivitamin gummy daily\n- No regular prescription medications",
+        assessment: "1. Well Child Examination (Z00.129)\n   - Growth appropriate: Height 123 cm (65th percentile), Weight 23 kg (50th percentile), BMI 15.2 (50th percentile)\n   - Development: Age-appropriate; meeting all milestones\n   - Vitals WNL: BP 98/62, HR 88, RR 18, Temp 98.6°F\n   - Physical exam normal\n   - Vision screening: 20/20 OU\n   - Hearing screening passed\n\n2. Immunizations\n   - Administered: Influenza vaccine (current season)\n   - Due next visit: None until 11 years of age\n\n3. Preventive Counseling\n   - Discussed healthy nutrition and increasing vegetable intake\n   - Reviewed water safety and importance of swim lessons\n   - Screen time limits appropriate and should be maintained\n   - Dental care: Regular brushing and flossing, dental visit completed 3 months ago",
+        education: "- Continue regular physical activity\n- Maintain limited recreational screen time\n- Strategies for increasing vegetable consumption provided\n- Resources for age-appropriate reading materials given\n- Return for next well-child exam at age 8\n- Call for acute concerns or illnesses",
+        billing: "- E/M: 99393 (Well-child visit, established patient, age 5-11)\n- Time-based billing: 25 minutes\n- Preventive Medicine: 99382\n- Immunization admin: 90460 (Influenza vaccine)\n- Vision screening: 99173\n- Hearing screening: 92551\n- Quality Measures: BMI assessment (G8417), developmental screening (G8510)"
+      }
+    },
+    { 
+      id: 'ophthalmology', 
+      label: 'Ophthalmology',
+      before: {
+        demographics: "Michael Garcia, 65M\nDOB: 08/03/1958\nMRN: 76543210",
+        chiefComplaint: "Follow-up for diabetic retinopathy and glaucoma.",
+        hpi: "Patient is a 65-year-old male with type 2 diabetes and primary open-angle glaucoma. Has been using latanoprost as prescribed. Reports occasional blurry vision but no significant changes since last visit. Diabetes generally under control with recent A1c of 7.1%.",
+        pmh: "- Type 2 diabetes since 2010\n- Primary open-angle glaucoma\n- Hypertension\n- Cataract, right eye, early stage",
+        medications: "- Latanoprost 0.005% drops HS OU\n- Brimonidine 0.2% TID OU\n- Metformin 1000mg BID\n- Lisinopril 20mg daily"
+      },
+      after: {
+        demographics: "Michael Garcia, 65M\nDOB: 08/03/1958\nMRN: 76543210\nInsurance: Medicare\nLast Visit: 02/10/2023",
+        chiefComplaint: "Follow-up for diabetic retinopathy and glaucoma.",
+        hpi: "Patient is a 65-year-old male with type 2 diabetes and primary open-angle glaucoma presenting for scheduled follow-up. Patient reports good compliance with all eye medications. He notes occasional blurry vision, primarily in the right eye when reading, which improves with his current reading glasses. No flashes, floaters, eye pain, or significant changes in vision since last visit. His diabetes is generally well-controlled with most recent A1c of 7.1% (measured 2 weeks ago). Last eye exam was 6 months ago showing mild non-proliferative diabetic retinopathy and stable intraocular pressures on current glaucoma regimen.",
+        hcc: "- Type 2 diabetes with mild non-proliferative diabetic retinopathy [E11.329]\n- Primary open-angle glaucoma [H40.11X3]\n- Cataract, right eye [H25.011]",
+        pmh: "- Type 2 diabetes since 2010, well-controlled\n- Primary open-angle glaucoma, diagnosed 2018\n- Hypertension, well-controlled\n- Cataract, right eye, early stage",
+        medications: "- Latanoprost 0.005% drops HS OU\n- Brimonidine 0.2% TID OU\n- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Artificial tears PRN",
+        assessment: "1. Primary Open-Angle Glaucoma, both eyes (H40.11X3)\n   - IOP: 18 mmHg OD, 17 mmHg OS (target range <21 mmHg)\n   - OCT shows stable retinal nerve fiber layer thickness \n   - Visual fields: Slight progression in right superior field defect\n   - Continue current medication regimen\n   - Order: Repeat visual fields in 3 months\n\n2. Non-proliferative Diabetic Retinopathy, mild, bilateral (E11.329)\n   - No clinically significant macular edema\n   - Microaneurysms stable compared to previous exam\n   - OCT macula: No evidence of macular edema\n   - Encouraged continued glucose control\n\n3. Cataract, right eye, nuclear sclerosis (H25.011)\n   - Gradually progressing but not visually significant\n   - Visual acuity: 20/30-2 OD, 20/25+2 OS with correction\n   - Will monitor; not requiring surgery at this time",
+        education: "- Continue all eye drops as prescribed\n- Maintain glucose and blood pressure control\n- Use artificial tears for dry eye symptoms as needed\n- Wear sunglasses outdoors\n- Return to clinic in 4 months for follow-up\n- Call immediately if sudden vision changes, eye pain, flashes, or floaters",
+        billing: "- E/M: 92014 (Eye exam, established patient)\n- Extended ophthalmoscopy: 92225\n- Visual field testing: 92083\n- Gonioscopy: 92020\n- OCT: 92134 (Retinal scan)\n- Quality Measures: Diabetic eye exam (G8397)\n- Risk Adjustment: HCC18 (Diabetes with chronic complications), HCC124 (Glaucoma)"
+      }
+    },
+    {
+      id: 'gastroenterology',
+      label: 'Gastroenterology',
+      before: {
+        demographics: "Jennifer Adams, 51F\nDOB: 05/28/1973\nMRN: 90123456",
+        chiefComplaint: "Abdominal pain and reflux symptoms.",
+        hpi: "Patient is a 51-year-old female with 3-month history of intermittent epigastric pain and acid reflux. Symptoms worse after meals and when lying down. Has been taking OTC antacids with some relief. Reports occasional nausea but no vomiting. Denies weight loss or blood in stool.",
+        pmh: "- Hypertension\n- Hyperlipidemia\n- Anxiety",
+        medications: "- Lisinopril 10mg daily\n- Atorvastatin 20mg daily\n- Calcium carbonate antacids PRN\n- Escitalopram 10mg daily"
+      },
+      after: {
+        demographics: "Jennifer Adams, 51F\nDOB: 05/28/1973\nMRN: 90123456\nInsurance: Cigna Open Access Plus\nLast Visit: First visit to gastroenterology",
+        chiefComplaint: "Abdominal pain and reflux symptoms.",
+        hpi: "Patient is a 51-year-old female presenting with 3-month history of intermittent epigastric pain and acid reflux symptoms. She describes the pain as burning and gnawing (5-7/10 intensity), located primarily in the epigastrium with occasional radiation to the chest. Symptoms worsen 30-60 minutes after meals (particularly spicy, fatty, or acidic foods) and when lying flat. Nighttime symptoms disrupt sleep 2-3 times weekly. Reports occasional nausea without vomiting and bitter taste in mouth in mornings. Has been taking OTC calcium carbonate antacids with partial, temporary relief. Denies dysphagia, odynophagia, hematemesis, hematochezia, melena, weight loss, or early satiety. No improvement with dietary modifications attempted (avoiding caffeine and spicy foods). Family history significant for father with Barrett's esophagus and maternal uncle with gastric cancer.",
+        hcc: "- Gastroesophageal reflux disease [K21.9]\n- Dyspepsia [K30]\n- Essential Hypertension [I10]\n- Hyperlipidemia [E78.5]\n- Generalized anxiety disorder [F41.1]",
+        pmh: "- Hypertension, diagnosed 2018, well-controlled\n- Hyperlipidemia, diagnosed 2018, well-controlled\n- Generalized anxiety disorder\n- Cholecystectomy 2010\n- Appendectomy 1985",
+        medications: "- Lisinopril 10mg daily\n- Atorvastatin 20mg daily\n- Calcium carbonate antacids PRN\n- Escitalopram 10mg daily\n- Multivitamin daily",
+        assessment: "1. Gastroesophageal Reflux Disease (K21.9)\n   - Symptoms and timeline consistent with GERD\n   - Upper endoscopy ordered due to age >50, symptom persistence, and family history\n   - Begin omeprazole 40mg daily for 8 weeks\n   - Discussed lifestyle modifications including dietary changes, weight management, and elevating head of bed\n\n2. Dyspepsia (K30)\n   - May represent functional dyspepsia vs. GERD vs. peptic ulcer disease\n   - H. pylori testing ordered (stool antigen test)\n   - Consider trial of prokinetic agent if symptoms persist after PPI therapy\n   - Discussed possible anxiety contribution to symptoms\n\n3. Family History of Upper GI Neoplasia (Z80.0)\n   - Increases risk profile; warrants endoscopic evaluation\n   - Will assess for Barrett's esophagus and other precancerous conditions\n   - Discussed surveillance recommendations based on findings",
+        education: "- Prescribed omeprazole 40mg daily to be taken 30 minutes before breakfast\n- Instructed on proper timing of medication (not with antacids)\n- Provided written GERD diet guidelines and lifestyle modifications\n- Encouraged weight loss; BMI currently 29.4\n- Discussed limiting alcohol consumption and smoking cessation\n- Scheduled upper endoscopy for next week\n- Return visit in 4 weeks to review endoscopy results and symptom response",
+        billing: "- E/M: 99204 (Level 4 New Patient Visit)\n- Time-based billing: 35 minutes\n- H. pylori stool antigen test: 87338\n- Upper endoscopy scheduled: 43235\n- Quality Measures: Appropriate use of PPI (G8658)\n- Risk Adjustment: HCC85 (Hypertension), HCC45 (GI Conditions)"
+      }
+    },
+    {
+      id: 'podiatry',
+      label: 'Podiatry',
+      before: {
+        demographics: "Anthony Lopez, 62M\nDOB: 01/15/1962\nMRN: 10293847",
+        chiefComplaint: "Right heel pain and diabetic foot check.",
+        hpi: "Patient is a 62-year-old male with type 2 diabetes presenting with right heel pain for 2 months. Pain worst in morning with first steps and after prolonged standing. Works as retail manager requiring extended periods on feet. Has been using gel inserts without relief.",
+        pmh: "- Type 2 diabetes for 10 years\n- Hypertension\n- Peripheral neuropathy\n- Obesity",
+        medications: "- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Gabapentin 300mg TID\n- Aspirin 81mg daily"
+      },
+      after: {
+        demographics: "Anthony Lopez, 62M\nDOB: 01/15/1962\nMRN: 10293847\nInsurance: Medicare with United Healthcare supplement\nLast Visit: 03/10/2024 (PCP visit)",
+        chiefComplaint: "Right heel pain and diabetic foot check.",
+        hpi: "Patient is a 62-year-old male with 10-year history of type 2 diabetes presenting with right heel pain of 2-month duration and routine diabetic foot examination. He describes sharp, stabbing pain (7/10) in the plantar aspect of right heel, worst with first steps in morning (10/10) and after prolonged standing or walking. Pain improves slightly throughout day but returns after periods of rest. Has been using OTC gel heel inserts and NSAIDs with minimal relief. Works as retail manager requiring 8+ hours of standing daily. Reports wearing dress shoes at work. Has not tried night splint, stretching exercises, or prescription orthotics. Additionally reports chronic numbness and tingling in both feet, consistent with known diabetic peripheral neuropathy. Recent A1c was 7.8%. Last comprehensive diabetic foot exam was 1 year ago.",
+        hcc: "- Type 2 diabetes with peripheral neuropathy [E11.42]\n- Plantar fasciitis, right foot [M72.2]\n- Essential Hypertension [I10]\n- Obesity [E66.9]",
+        pmh: "- Type 2 diabetes, diagnosed 2014, suboptimal control\n- Diabetic peripheral neuropathy, diagnosed 2019\n- Hypertension, well-controlled\n- Obesity, BMI 34.2\n- Hyperlipidemia",
+        medications: "- Metformin 1000mg BID\n- Lisinopril 20mg daily\n- Gabapentin 300mg TID\n- Aspirin 81mg daily\n- Atorvastatin 40mg daily\n- Acetaminophen 500mg PRN pain",
+        assessment: "1. Plantar Fasciitis, right foot (M72.2)\n   - Positive windlass test\n   - Point tenderness at plantar fascial insertion on calcaneus\n   - Negative squeeze test\n   - Prescribed custom orthotic inserts\n   - Provided night splint\n   - Cortisone injection administered today: 40mg methylprednisolone\n   - Instructed on stretching program\n\n2. Diabetic Peripheral Neuropathy (E11.42)\n   - Diminished protective sensation bilaterally (unable to detect 5.07 monofilament)\n   - Diminished vibratory sensation bilaterally\n   - Absent ankle reflexes bilaterally\n   - No open lesions, ulcerations, or pre-ulcerative lesions\n   - Loss of hair growth distal lower extremities\n\n3. Diabetic Foot Examination\n   - Skin: Dry, intact; mild tinea pedis interdigitally\n   - Nails: Thickened, discolored, debridement performed\n   - Vascular: DP and PT pulses 2/4 bilaterally\n   - Biomechanical: Pes planus bilaterally\n   - Footwear: Current shoes show uneven wear pattern and inadequate support",
+        education: "- Demonstrated proper plantar fascia stretching exercises\n- Fitted for night splint and instructed on use\n- Advised on proper footwear selection for work and leisure\n- Cast taken for custom orthotic inserts\n- Discussed importance of daily foot inspection\n- Reviewed proper foot hygiene and moisturizing routine\n- Discussed impact of glucose control on peripheral neuropathy\n- Return in 3 weeks for follow-up and orthotic fitting",
+        billing: "- E/M: 99203 (New Patient, Level 3)\n- Comprehensive diabetic foot examination: G0247\n- Therapeutic injection: 20550\n- Nail debridement (x10): 11721\n- Casting for orthotics: L3000\n- Night splint: L4396\n- Quality Measures: Diabetic foot exam (G9226)\n- Risk Adjustment: HCC18 (Diabetes with chronic complications), HCC85 (Hypertension)"
+      }
+    }
+  ];
 
   return (
-    <div id="note-comparison-section" className="w-full max-w-7xl mx-auto">
-      {/* Specialty Navigation */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={prevExample}
-            className="p-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 4, sm: 6, md: 8, lg: 12 }, // More responsive padding
+        bgcolor: 'white',
+        position: 'relative',
+        overflow: 'hidden'
+      }}
+    >
+      <Container maxWidth="xl">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="text-center mb-4 md:mb-6 lg:mb-10"
+        >
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem', lg: '2.5rem' }, // More granular font sizing
+              fontWeight: 800,
+              mb: { xs: 1, sm: 1.5, md: 2 },
+              color: crushAIColors.text.primary,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2
+            }}
           >
-            <ChevronLeft className="w-5 h-5 text-[#143151]" />
-          </button>
+            Experience Note Perfection: <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#143151] via-[#2A5A7B] to-[#387E89]">Before & After CRUSH AI Scribe</span>
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: crushAIColors.text.secondary,
+              fontSize: { xs: '0.85rem', sm: '0.9rem', md: '0.95rem', lg: '1.1rem' }, // More granular font sizing
+              mb: { xs: 1.5, sm: 2 },
+              maxWidth: '800px',
+              mx: 'auto',
+              px: { xs: 2, sm: 0 }, // Add padding on small screens
+              fontWeight: 400
+            }}
+          >
+            See how specialty-specific, AI-powered clinical documentation enhances quality while saving hours of documentation time
+          </Typography>
           
-          <div className="text-center">
-            <h3 className="text-xl font-bold text-[#143151] mb-1">
-              {currentNote.specialty}
-            </h3>
-            <p className="text-sm text-gray-600">
-              Example {currentExample + 1} of {noteExamples.length}
-            </p>
+          {/* Added clinician value proposition tags - improved for small screens */}
+          <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mt-2 sm:mt-3 px-2 sm:px-0">
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-blue-50 text-blue-700 rounded-full border border-blue-100">
+              Save 2+ hours daily
+            </span>
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-green-50 text-green-700 rounded-full border border-green-100">
+              Specialty-specific templates
+            </span>
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-purple-50 text-purple-700 rounded-full border border-purple-100">
+              Complete notes in real-time
+            </span>
+            <span className="px-2 sm:px-3 py-1 text-xs md:text-sm bg-amber-50 text-amber-700 rounded-full border border-amber-100">
+              Improve billing accuracy
+            </span>
           </div>
-          
-          <button
-            onClick={nextExample}
-            className="p-2 rounded-full bg-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
-          >
-            <ChevronRight className="w-5 h-5 text-[#143151]" />
-          </button>
-        </div>
+        </motion.div>
 
-        <div className="flex items-center space-x-2 bg-white rounded-lg p-1 shadow-lg">
-          <button
-            onClick={() => setActiveTab('before')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-              activeTab === 'before'
-                ? 'bg-red-100 text-red-700 shadow-sm'
-                : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            Before S10.AI
-          </button>
-          <button
-            onClick={() => setActiveTab('after')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-              activeTab === 'after'
-                ? 'bg-green-100 text-green-700 shadow-sm'
-                : 'text-gray-600 hover:text-gray-800'
-            }`}
-          >
-            After S10.AI
-          </button>
-        </div>
-      </div>
-
-      {/* Note Display */}
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Note Content */}
-        <div className="order-2 lg:order-1">
-          <motion.div
-            key={`${currentExample}-${activeTab}`}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="h-full"
-          >
-            <div className={`p-6 rounded-xl h-full min-h-[500px] ${
-              activeTab === 'before' 
-                ? 'bg-red-50 border-2 border-red-200' 
-                : 'bg-green-50 border-2 border-green-200'
-            }`}>
-              <div className="flex items-center mb-4">
-                <FileText className={`w-5 h-5 mr-2 ${
-                  activeTab === 'before' ? 'text-red-600' : 'text-green-600'
-                }`} />
-                <h4 className={`font-semibold ${
-                  activeTab === 'before' ? 'text-red-700' : 'text-green-700'
-                }`}>
-                  {activeTab === 'before' ? 'Traditional Documentation' : 'S10.AI Enhanced Note'}
-                </h4>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          viewport={{ once: true }}
+        >
+          <div className="bg-gray-50 p-2 sm:p-3 md:p-4 rounded-lg md:rounded-xl shadow-md md:shadow-lg overflow-hidden">
+            <Tabs
+              defaultValue={activeTab}
+              onValueChange={setActiveTab}
+              className="w-full"
+            >
+              <div className="relative">
+                {/* Left Scroll Arrow */}
+                {showLeftArrow && (
+                  <button 
+                    className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-1 rounded-full shadow-md flex items-center justify-center"
+                    onClick={() => scrollTabs('left')}
+                    aria-label="Scroll left"
+                  >
+                    <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </button>
+                )}
+                
+                <div className="flex justify-center mb-2 md:mb-4 relative overflow-hidden">
+                  <div 
+                    ref={tabsRef}
+                    className={cn(
+                      "overflow-x-auto pb-1 sm:pb-2 scrollbar-hide",
+                      "mx-6 sm:mx-8" // Space for arrows
+                    )}
+                  >
+                    <TabsList className={cn(
+                      "bg-gray-100 p-0.5 sm:p-1 min-w-max",
+                      "flex flex-nowrap"
+                    )}>
+                      {examples.map(example => (
+                        <TabsTrigger
+                          key={example.id}
+                          value={example.id}
+                          className={cn(
+                            "px-2 py-1 sm:px-3 sm:py-1.5 text-xs sm:text-sm whitespace-nowrap flex-shrink-0",
+                            "transition-all hover:bg-blue-50"
+                          )}
+                        >
+                          {example.label}
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
+                  </div>
+                </div>
+                
+                {/* Right Scroll Arrow */}
+                {showRightArrow && (
+                  <button 
+                    className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white/80 hover:bg-white p-1 rounded-full shadow-md flex items-center justify-center"
+                    onClick={() => scrollTabs('right')}
+                    aria-label="Scroll right"
+                  >
+                    <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                  </button>
+                )}
               </div>
-              
-              <div className="prose max-w-none">
-                <pre className="whitespace-pre-wrap text-sm leading-relaxed text-gray-800 font-sans">
-                  {activeTab === 'before' ? currentNote.before : currentNote.after}
-                </pre>
+
+              {/* Specialty Customization Message */}
+              <div className="text-center mb-3">
+                <span className="inline-block text-xs sm:text-sm text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                  <Info className="inline-block w-3 h-3 mr-1" />
+                  CRUSH AI adapts to any medical specialty and is customizable to any template, even those not shown
+                </span>
+              </div>
+
+              {examples.map(example => (
+                <TabsContent key={example.id} value={example.id} className="pt-1 md:pt-2">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 lg:gap-6">
+                    {/* BEFORE: Traditional Clinical Note */}
+                    <motion.div 
+                      className="relative bg-white rounded-md sm:rounded-lg shadow-sm sm:shadow-md overflow-hidden border border-red-100"
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="bg-red-50 p-2 border-b border-red-100 flex justify-between items-center">
+                        <h3 className="font-bold text-sm sm:text-base md:text-lg text-gray-800">BEFORE: Traditional Clinical Note</h3>
+                        <span className="text-xs text-red-600 bg-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full border border-red-200 hidden sm:inline-block">
+                          ~25 min documentation time
+                        </span>
+                      </div>
+                      <div className={cn(
+                        "p-2 sm:p-3 md:p-4 overflow-y-auto font-mono text-xs sm:text-sm",
+                        "h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]" 
+                      )}>
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Patient Demographics:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.demographics}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Chief Complaint:</p>
+                          <p className="text-gray-700 text-xs">{example.before.chiefComplaint}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">HPI:</p>
+                          <p className="text-gray-700 text-xs">{example.before.hpi}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Past Medical History:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.pmh}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Medications:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.before.medications}</p>
+                        </div>
+
+                        {/* Added indicator that note is incomplete */}
+                        <div className="mt-4 py-2 px-3 bg-red-50 rounded-md border border-red-100">
+                          <div className="flex items-center">
+                            <div className="animate-pulse mr-2 h-2 w-2 bg-red-500 rounded-full"></div>
+                            <p className="text-red-600 text-xs">
+                              <span className="font-medium">Still typing...</span> (Note incomplete after 25 minutes)
+                            </p>
+                          </div>
+                          <p className="text-red-500 text-xs mt-1 italic">
+                            Sections missing: Assessment, Plan, Patient Education, Billing
+                          </p>
+                        </div>
+
+                        {/* Mobile timing info */}
+                        <div className="mt-4 py-1.5 px-2 bg-red-50 rounded-md border border-red-100 sm:hidden">
+                          <p className="text-red-600 text-xs font-medium">Documentation Time: ~25 minutes after visit</p>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* AFTER: CRUSH AI Scribe Note */}
+                    <motion.div 
+                      className="relative bg-white rounded-md sm:rounded-lg shadow-sm sm:shadow-md overflow-hidden border border-blue-100"
+                      initial={{ x: 20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <div className="bg-blue-50 p-2 border-b border-blue-100 flex justify-between items-center">
+                        <h3 className="font-bold text-sm sm:text-base md:text-lg text-gray-800">AFTER: CRUSH AI Scribe Note</h3>
+                        <span className="text-xs text-green-600 bg-white px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-full border border-green-200 hidden sm:inline-block">
+                          ~60 seconds completion time
+                        </span>
+                      </div>
+                      <div className={cn(
+                        "p-2 sm:p-3 md:p-4 overflow-y-auto font-mono text-xs sm:text-sm",
+                        "h-[300px] sm:h-[350px] md:h-[400px] lg:h-[500px]" 
+                      )}>
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <FeatureTooltip title="Pre-Charting Info">
+                            <p>CRUSH AI automatically imports relevant patient information from your EHR before the visit, saving time and reducing manual data entry.</p>
+                          </FeatureTooltip>
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Patient Demographics:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.demographics}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Chief Complaint:</p>
+                          <p className="text-gray-700 text-xs">{example.after.chiefComplaint}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">HPI:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
+                              <FeatureTooltip title="Context-Aware Documentation">
+                                <p>CRUSH AI captures and structures the conversation naturally, maintaining context while highlighting important clinical details specific to each specialty.</p>
+                              </FeatureTooltip>
+                            </span>
+                          </div>
+                          <p className="text-gray-700 text-xs">{example.after.hpi}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">HCC Risk Factors:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
+                              <FeatureTooltip title="HCC Code Insights">
+                                <p>CRUSH AI automatically identifies and suggests appropriate HCC codes based on the patient encounter, ensuring proper risk adjustment and reimbursement.</p>
+                              </FeatureTooltip>
+                            </span>
+                          </div>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.hcc}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Past Medical History:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.pmh}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4">
+                          <p className="font-bold mb-0.5 sm:mb-1 text-xs sm:text-sm">Medications:</p>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.medications}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">Assessment & Plan:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
+                              <FeatureTooltip title="Coding Intelligence">
+                                <p>CRUSH AI automatically suggests appropriate ICD-10 and CPT codes based on the documented care, improving coding accuracy and billing efficiency.</p>
+                              </FeatureTooltip>
+                            </span>
+                          </div>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.assessment}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-center mb-0.5 sm:mb-1">
+                            <p className="font-bold text-xs sm:text-sm">Patient Education & Summary:</p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
+                              <FeatureTooltip title="Automated Patient Visit Summary">
+                                <p>CRUSH AI automatically generates a clear, comprehensive summary for patients, improving understanding and compliance with treatment plans.</p>
+                              </FeatureTooltip>
+                            </span>
+                          </div>
+                          <p className="text-gray-700 whitespace-pre-line text-xs">{example.after.education}</p>
+                        </div>
+
+                        <div className="mb-3 md:mb-4 bg-blue-50 p-1.5 sm:p-2 rounded-md">
+                          <div className="flex items-start sm:items-center mb-0.5 sm:mb-1">
+                            <DollarSign className="inline-block h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-1" />
+                            <p className="font-bold text-xs sm:text-sm">
+                              Billing & Coding:
+                            </p>
+                            <span className="ml-1 sm:ml-2 text-xs bg-blue-100 text-blue-800 px-1 sm:px-2 py-0.5 rounded-full">
+                              <FeatureTooltip title="Smart Billing Optimization">
+                                <p>CRUSH AI automatically suggests appropriate billing codes, quality measures, and risk adjustment factors to maximize appropriate reimbursement and quality reporting.</p>
+                              </FeatureTooltip>
+                            </span>
+                          </div>
+                          <p className="text-gray-700 whitespace-pre-line text-xs bg-white p-1.5 sm:p-2 rounded border border-blue-100">{example.after.billing}</p>
+                        </div>
+
+                        <div className="p-1.5 sm:p-2 mt-3 sm:mt-4 bg-gray-50 rounded-md border border-gray-200">
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
+                            <FeatureTooltip title="Seamless EHR Integration">
+                              <p>CRUSH AI Scribe integrates with a wide range of Electronic Health Record systems, ensuring seamless data flow and documentation without disrupting your existing workflow.</p>
+                            </FeatureTooltip>
+                            <div className="flex items-center space-x-1 sm:space-x-2 mt-1.5 sm:mt-0">
+                              <div className="flex items-center">
+                                <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-500 mr-0.5 sm:mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                  <path d="M9 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                <span className="text-xs text-blue-700">Data Synced with Your EHR</span>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Mobile timing info */}
+                          <div className="mt-1.5 sm:mt-2 py-1 px-2 bg-green-50 rounded-md border border-green-100 inline-block sm:hidden">
+                            <p className="text-green-600 text-xs font-medium">Completion Time: <span className="font-bold">~60 seconds</span></p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+
+          <motion.div 
+            className="mt-4 sm:mt-6 lg:mt-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg sm:rounded-xl p-3 sm:p-4 md:p-6 text-white shadow-md sm:shadow-lg"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between">
+              <div className="mb-3 md:mb-0 text-center md:text-left">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold">Ready to see CRUSH in action with your EHR?</h3>
+                <p className="text-white/90 text-xs sm:text-sm md:text-base">Experience the difference with a personalized demo</p>
+              </div>
+              <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-white text-[#143151] font-medium py-1.5 sm:py-2 px-4 sm:px-5 md:px-6 rounded-full shadow-lg sm:shadow-xl flex items-center text-xs sm:text-sm md:text-base"
+              >
+                Schedule a Demo
+                <svg className="ml-1.5 sm:ml-2 h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14m-5-5l5 5-5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </motion.button>
+            </div>
+          </motion.div>
+
+          {/* Enhanced Disclaimer */}
+          <motion.div 
+            className="mt-4 sm:mt-6 p-2 sm:p-3 md:p-4 border border-amber-200 bg-amber-50 rounded-md sm:rounded-lg text-xs sm:text-sm text-amber-800"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-start">
+              <Info className="h-4 w-4 sm:h-5 sm:w-5 mr-1.5 sm:mr-2 flex-shrink-0 mt-0.5" />
+              <div>
+                <p className="font-medium mb-0.5 sm:mb-1">Disclaimer</p>
+                <p className="text-xs sm:text-sm">The clinical notes shown above are for demonstration purposes only and do not contain real patient information. The templates can be tailored to individual clinician preferences, specialty requirements, and institutional protocols. CRUSH AI adapts to your specific documentation style and workflow needs.</p>
               </div>
             </div>
           </motion.div>
-        </div>
-
-        {/* Improvements Panel */}
-        <div className="order-1 lg:order-2">
-          <div className="bg-white rounded-xl shadow-lg p-6 h-full">
-            <div className="flex items-center mb-6">
-              <Sparkles className="w-6 h-6 text-[#387E89] mr-3" />
-              <h4 className="text-xl font-bold text-[#143151]">
-                S10.AI Improvements
-              </h4>
-            </div>
-
-            <div className="space-y-6">
-              {/* Time Saved */}
-              <div className="flex items-center p-4 bg-blue-50 rounded-lg">
-                <Clock className="w-8 h-8 text-blue-600 mr-3" />
-                <div>
-                  <p className="font-semibold text-blue-900">Time Saved</p>
-                  <p className="text-2xl font-bold text-blue-600">{currentNote.timesSaved}</p>
+          
+          {/* Added clinician benefits section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="mt-4 sm:mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+          >
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 8v4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
+                <h4 className="font-medium text-sm sm:text-base">Time Savings</h4>
               </div>
-
-              {/* Key Improvements */}
-              <div>
-                <h5 className="font-semibold text-[#143151] mb-3 flex items-center">
-                  <Target className="w-4 h-4 mr-2" />
-                  Key Improvements
-                </h5>
-                <ul className="space-y-2">
-                  {currentNote.improvements.map((improvement, index) => (
-                    <li key={index} className="flex items-start">
-                      <div className="w-2 h-2 rounded-full bg-[#387E89] mt-2 mr-3 flex-shrink-0"></div>
-                      <span className="text-gray-700 text-sm leading-relaxed">
-                        {improvement}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Mobile View Toggle */}
-              <div className="lg:hidden">
-                <div className="flex bg-gray-100 rounded-lg p-1">
-                  <button
-                    onClick={() => setActiveTab('before')}
-                    className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                      activeTab === 'before'
-                        ? 'bg-red-100 text-red-700 shadow-sm'
-                        : 'text-gray-600'
-                    }`}
-                  >
-                    Before
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('after')}
-                    className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all duration-300 ${
-                      activeTab === 'after'
-                        ? 'bg-green-100 text-green-700 shadow-sm'
-                        : 'text-gray-600'
-                    }`}
-                  >
-                    After
-                  </button>
-                </div>
-              </div>
+              <p className="text-xs sm:text-sm text-gray-600">Reduce documentation time by up to 75%, finishing notes during or immediately after visits.</p>
             </div>
-          </div>
-        </div>
-      </div>
+            
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-green-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-medium text-sm sm:text-base">Improved Quality</h4>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600">Generate comprehensive, specialty-specific notes with proper coding and thorough documentation.</p>
+            </div>
+            
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-purple-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 6c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0-2.08.402-2.599-1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-medium text-sm sm:text-base">Patient Focus</h4>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600">Maintain eye contact and meaningful connections while CRUSH handles documentation in the background.</p>
+            </div>
+            
+            <div className="bg-white p-3 sm:p-4 rounded-md sm:rounded-lg shadow-sm border border-gray-100">
+              <div className="flex items-center mb-1 sm:mb-2">
+                <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-amber-100 flex items-center justify-center mr-1.5 sm:mr-2">
+                  <svg className="h-3 w-3 sm:h-4 sm:w-4 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0-2.08.402-2.599-1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="font-medium text-sm sm:text-base">Revenue Impact</h4>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600">Maximize reimbursements with accurate HCC risk adjustment coding and comprehensive documentation.</p>
+            </div>
+          </motion.div>
+        </motion.div>
+      </Container>
+      
+      {/* Add mobile-specific scrollbar styles */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-thin::-webkit-scrollbar {
+          height: 4px;
+          width: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-track {
+          background: #f1f1f1;
+          border-radius: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background: #ccc;
+          border-radius: 4px;
+        }
 
-      {/* Navigation Dots */}
-      <div className="flex justify-center mt-8 space-x-2">
-        {noteExamples.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => {
-              setCurrentExample(index);
-              setActiveTab('before');
-            }}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentExample
-                ? 'bg-[#387E89] scale-125'
-                : 'bg-gray-300 hover:bg-gray-400'
-            }`}
-          />
-        ))}
-      </div>
+        @media (max-width: 640px) {
+          .tooltip-content {
+            max-width: 260px;
+          }
+        }
 
-      {/* Disclaimer for specialties without examples */}
-      <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
-        <p className="text-sm text-amber-800">
-          <strong>Note:</strong> Sample notes are currently available for {noteExamples.length} specialties. 
-          For specialties not shown here, our AI system adapts to your specific documentation needs with 
-          customizable templates and specialty-specific terminology. Contact our team for specialty-specific 
-          template development and training.
-        </p>
-      </div>
-    </div>
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.5;
+          }
+        }
+        .animate-pulse {
+          animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        `
+      }}/>
+    </Box>
   );
 };
 
