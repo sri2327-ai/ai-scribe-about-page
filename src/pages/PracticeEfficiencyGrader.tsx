@@ -1,9 +1,8 @@
-import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Clock, Users, FileText, ArrowRight, Play, CheckCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { Brain, ChevronRight, ChevronLeft, Star, TrendingUp, Clock, DollarSign, Users, Heart, FileText, Calendar, Phone, Languages, Sparkles, Shield, Zap, Target, BarChart3, Stethoscope, Activity, Eye, Award, CheckCircle, ArrowRight, ExternalLink, User, Mail, Building } from 'lucide-react';
-import { ModernSlider } from '@/components/ui/modern-slider';
-import { typography } from '@/lib/typography';
 
 // Helper to parse 'rgb(r, g, b)' or 'rgba(r, g, b, a)' string to {r, g, b}
 const parseRgbColor = (colorString: string): { r: number; g: number; b: number } | null => {
@@ -19,81 +18,39 @@ const parseRgbColor = (colorString: string): { r: number; g: number; b: number }
     return null;
 };
 
-// A simple SVG Play Icon
-const PlayIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 5V19L19 12L8 5Z" />
-    </svg>
-);
-
-interface NavItem {
-    id: string;
-    label: string;
-    onClick?: () => void;
-    href?: string;
-    target?: string;
-}
-
-interface IntroHeroSectionProps {
-    heading?: string;
-    tagline?: string;
-    buttonText?: string;
-    imageUrl?: string;
-    videoUrl?: string;
-    navItems?: NavItem[];
-    onStart: () => void;
-}
-
-const IntroHeroSection: React.FC<IntroHeroSectionProps> = ({
-    heading = "Practice Efficiency Grader",
-    tagline = "Discover how efficient your practice really is and unlock actionable insights to optimize your workflow with AI.",
-    buttonText = "Start Your Assessment",
-    imageUrl,
-    videoUrl,
-    navItems = [],
-    onStart
-}) => {
+// Enhanced Hero Section Component
+const InteractiveHeroSection = ({ onStartAssessment }: { onStartAssessment: () => void }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const targetRef = useRef<HTMLButtonElement>(null);
-    const mousePosRef = useRef({ x: null as number | null, y: null as number | null });
+    const mousePosRef = useRef({ x: 0, y: 0 });
     const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
     const animationFrameIdRef = useRef<number | null>(null);
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [showVideo, setShowVideo] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [mouseActive, setMouseActive] = useState(false);
 
     const resolvedCanvasColorsRef = useRef({
-        strokeStyle: { r: 128, g: 128, b: 128 }, // Default mid-gray
+        strokeStyle: { r: 56, g: 126, b: 137 }, // S10.AI brand color
     });
 
+    // Update canvas colors based on theme
     useEffect(() => {
         const tempElement = document.createElement('div');
         tempElement.style.display = 'none';
         document.body.appendChild(tempElement);
 
         const updateResolvedColors = () => {
-            tempElement.style.color = 'var(--foreground)';
+            tempElement.style.color = '#387E89'; // S10.AI brand color
             const computedFgColor = getComputedStyle(tempElement).color;
             const parsedFgColor = parseRgbColor(computedFgColor);
             if (parsedFgColor) {
                 resolvedCanvasColorsRef.current.strokeStyle = parsedFgColor;
             } else {
-                console.warn("HeroSection: Could not parse --foreground for canvas arrow. Using fallback.");
-                const isDarkMode = document.documentElement.classList.contains('dark');
-                resolvedCanvasColorsRef.current.strokeStyle = isDarkMode ? { r: 250, g: 250, b: 250 } : { r: 10, g: 10, b: 10 }; // Brighter fallback
+                resolvedCanvasColorsRef.current.strokeStyle = { r: 56, g: 126, b: 137 };
             }
         };
         updateResolvedColors();
-        const observer = new MutationObserver((mutationsList) => {
-            for (const mutation of mutationsList) {
-                if (mutation.type === 'attributes' && mutation.attributeName === 'class' && mutation.target === document.documentElement) {
-                    updateResolvedColors();
-                    break;
-                }
-            }
-        });
-        observer.observe(document.documentElement, { attributes: true });
+
         return () => {
-            observer.disconnect();
             if (tempElement.parentNode) {
                 tempElement.parentNode.removeChild(tempElement);
             }
@@ -101,55 +58,68 @@ const IntroHeroSection: React.FC<IntroHeroSectionProps> = ({
     }, []);
 
     const drawArrow = useCallback(() => {
-        if (!canvasRef.current || !targetRef.current || !ctxRef.current) return;
+        if (!canvasRef.current || !targetRef.current || !ctxRef.current || !mouseActive) return;
 
         const targetEl = targetRef.current;
         const ctx = ctxRef.current;
         const mouse = mousePosRef.current;
 
-        const x0 = mouse.x;
-        const y0 = mouse.y;
-
-        if (x0 === null || y0 === null) return;
-
         const rect = targetEl.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
+        const canvasRect = canvasRef.current.getBoundingClientRect();
+        
+        // Adjust mouse position relative to canvas
+        const x0 = mouse.x - canvasRect.left;
+        const y0 = mouse.y - canvasRect.top;
+        
+        // Target position relative to canvas
+        const cx = rect.left - canvasRect.left + rect.width / 2;
+        const cy = rect.top - canvasRect.top + rect.height / 2;
+
+        const distance = Math.hypot(cx - x0, cy - y0);
+        
+        // Only draw if mouse is at least 100px away from button
+        if (distance < 100) return;
 
         const a = Math.atan2(cy - y0, cx - x0);
-        const x1 = cx - Math.cos(a) * (rect.width / 2 + 12);
-        const y1 = cy - Math.sin(a) * (rect.height / 2 + 12);
+        const x1 = cx - Math.cos(a) * (rect.width / 2 + 20);
+        const y1 = cy - Math.sin(a) * (rect.height / 2 + 20);
 
         const midX = (x0 + x1) / 2;
         const midY = (y0 + y1) / 2;
-        const offset = Math.min(200, Math.hypot(x1 - x0, y1 - y0) * 0.5);
+        const offset = Math.min(150, distance * 0.3);
         const t = Math.max(-1, Math.min(1, (y0 - y1) / 200));
-        const controlX = midX;
+        const controlX = midX + offset * 0.2;
         const controlY = midY + offset * t;
         
-        const r = Math.sqrt((x1 - x0)**2 + (y1 - y0)**2);
-        // Increase max opacity to 1 (fully opaque) and adjust divisor for quicker ramp-up
-        const opacity = Math.min(1.0, (r - Math.max(rect.width, rect.height) / 2) / 500); 
+        // Calculate opacity based on distance
+        const opacity = Math.min(0.8, Math.max(0.1, (distance - 100) / 400));
 
         const arrowColor = resolvedCanvasColorsRef.current.strokeStyle;
         ctx.strokeStyle = `rgba(${arrowColor.r}, ${arrowColor.g}, ${arrowColor.b}, ${opacity})`;
-        // Increase line width for more visibility
-        ctx.lineWidth = 2; // Changed from 1.5 to 2
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
 
-        // Draw curve
+        // Draw curve with glow effect
         ctx.save();
+        ctx.shadowColor = `rgba(${arrowColor.r}, ${arrowColor.g}, ${arrowColor.b}, 0.3)`;
+        ctx.shadowBlur = 10;
+        
         ctx.beginPath();
         ctx.moveTo(x0, y0);
         ctx.quadraticCurveTo(controlX, controlY, x1, y1);
-        // Adjust dash pattern for thicker line: longer dashes, similar gap
-        ctx.setLineDash([10, 5]); // e.g., 10px dash, 5px gap
+        ctx.setLineDash([15, 8]);
         ctx.stroke();
         ctx.restore();
 
         // Draw arrowhead
         const angle = Math.atan2(y1 - controlY, x1 - controlX);
-        // Scale arrowhead with line width, base size 10 for lineWidth 1.5
-        const headLength = 10 * (ctx.lineWidth / 1.5); 
+        const headLength = 15;
+        
+        ctx.save();
+        ctx.shadowColor = `rgba(${arrowColor.r}, ${arrowColor.g}, ${arrowColor.b}, 0.3)`;
+        ctx.shadowBlur = 5;
+        
         ctx.beginPath();
         ctx.moveTo(x1, y1);
         ctx.lineTo(
@@ -162,33 +132,44 @@ const IntroHeroSection: React.FC<IntroHeroSectionProps> = ({
             y1 - headLength * Math.sin(angle + Math.PI / 6)
         );
         ctx.stroke();
-    }, []);
+        ctx.restore();
+    }, [mouseActive]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         if (!canvas || !targetRef.current) return;
 
         ctxRef.current = canvas.getContext("2d");
-        const ctx = ctxRef.current;
 
         const updateCanvasSize = () => {
-            if (canvas) {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            
+            if (ctxRef.current) {
+                ctxRef.current.scale(dpr, dpr);
             }
         };
 
         const handleMouseMove = (e: MouseEvent) => {
             mousePosRef.current = { x: e.clientX, y: e.clientY };
+            setMouseActive(true);
+        };
+
+        const handleMouseLeave = () => {
+            setMouseActive(false);
         };
 
         window.addEventListener("resize", updateCanvasSize);
-        window.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseleave", handleMouseLeave);
         updateCanvasSize();
 
         const animateLoop = () => {
-            if (ctx && canvas) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (ctxRef.current && canvas) {
+                ctxRef.current.clearRect(0, 0, canvas.width, canvas.height);
                 drawArrow();
             }
             animationFrameIdRef.current = requestAnimationFrame(animateLoop);
@@ -198,1153 +179,868 @@ const IntroHeroSection: React.FC<IntroHeroSectionProps> = ({
 
         return () => {
             window.removeEventListener("resize", updateCanvasSize);
-            window.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseleave", handleMouseLeave);
             if (animationFrameIdRef.current) {
                 cancelAnimationFrame(animationFrameIdRef.current);
             }
         };
     }, [drawArrow]);
 
-    useEffect(() => {
-        const videoElement = videoRef.current;
-        if (videoElement && videoUrl) {
-            const handleVideoEnd = () => {
-                setShowVideo(false);
-                videoElement.currentTime = 0;
-            };
-
-            if (showVideo) {
-                videoElement.play().catch(error => {
-                    console.error("HeroSection: Error playing video:", error);
-                    setShowVideo(false);
-                });
-                videoElement.addEventListener('ended', handleVideoEnd);
-            } else {
-                videoElement.pause();
-            }
-
-            return () => {
-                videoElement.removeEventListener('ended', handleVideoEnd);
-            };
-        }
-    }, [showVideo, videoUrl]);
-
-    const handlePlayButtonClick = () => {
-        if (videoUrl) {
-            setShowVideo(true);
-        }
-    };
+    const features = [
+        { icon: Clock, text: "3 min", subtext: "Quick assessment" },
+        { icon: FileText, text: "10 questions", subtext: "Evidence-based" },
+        { icon: CheckCircle, text: "Free report", subtext: "Actionable insights" }
+    ];
 
     return (
-        <div className="bg-background text-foreground min-h-screen flex flex-col">
-            <main className="flex-grow flex flex-col items-center justify-center">
-                <div className="mt-12 sm:mt-16 lg:mt-24 flex flex-col items-center">
-                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center px-4 leading-tight">
-                        <span className="bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
-                            {heading}
-                        </span>
-                    </h1>
-                    <p className="mt-6 block text-gray-600 text-center text-base sm:text-lg px-4 max-w-3xl leading-relaxed">
-                        {tagline}
-                    </p>
-                </div>
+        <div className="bg-background text-foreground min-h-screen flex flex-col relative overflow-hidden">
+            {/* Enhanced background with subtle medical pattern */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white/50 to-teal-50/30"></div>
+            <div className="absolute inset-0 opacity-[0.03]" style={{
+                backgroundImage: `
+                    radial-gradient(circle at 20% 80%, rgba(56, 126, 137, 0.15) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 20%, rgba(20, 49, 81, 0.15) 0%, transparent 50%)
+                `
+            }}></div>
 
-                <div className="mt-8 flex justify-center">
-                    <button
-                        ref={targetRef}
-                        onClick={onStart}
-                        className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-full text-lg shadow-xl hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-3"
-                    >
-                        {buttonText}
-                        <ArrowRight className="w-5 h-5" />
-                    </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 max-w-4xl mx-auto mt-12 px-4">
-                    {[
-                        { icon: Clock, text: "3 min", subtitle: "Quick comprehensive assessment" },
-                        { icon: TrendingUp, text: "10 questions", subtitle: "Personalized insights for your practice" },
-                        { icon: Star, text: "Free report", subtitle: "Immediate improvement strategies" }
-                    ].map((feature, idx) => (
-                        <motion.div 
-                            key={idx}
-                            className="p-4 md:p-6 rounded-xl bg-white/90 backdrop-blur-sm border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300"
-                            whileHover={{ scale: 1.01, y: -2 }}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.1 }}
-                        >
-                            <feature.icon className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                            <p className="text-gray-900 font-bold text-base mb-1">{feature.text}</p>
-                            <p className="text-gray-600 text-sm">{feature.subtitle}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </main>
-            <div className="h-12 sm:h-16 md:h-24"></div>
-            <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-10"></canvas>
-        </div>
-    );
-};
-
-// --- GRADIENT BARS BACKGROUND COMPONENT ---
-const GradientBarsBackground: React.FC = () => {
-    const [numBars] = useState(15);
-
-    const calculateHeight = (index: number, total: number) => {
-        const position = index / (total - 1);
-        const maxHeight = 90;
-        const minHeight = 25;
-        
-        const center = 0.5;
-        const distanceFromCenter = Math.abs(position - center);
-        const heightPercentage = Math.pow(distanceFromCenter * 2, 1.5);
-        
-        return minHeight + (maxHeight - minHeight) * heightPercentage;
-    };
-
-    return (
-        <>
-            {/* Enhanced gradient bars with better visibility */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
-                <div 
-                    className="flex h-full w-full"
-                    style={{
-                        transform: 'translateZ(0)',
-                        backfaceVisibility: 'hidden',
-                        WebkitFontSmoothing: 'antialiased',
-                    }}
+            <main className="flex-grow flex flex-col items-center justify-center relative z-10 px-4 sm:px-6 lg:px-8">
+                <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="text-center max-w-4xl mx-auto"
                 >
-                    {Array.from({ length: numBars }).map((_, index) => {
-                        const height = calculateHeight(index, numBars);
-                        return (
-                            <div
-                                key={index}
-                                style={{
-                                    flex: '1 0 calc(100% / 15)',
-                                    maxWidth: 'calc(100% / 15)',
-                                    height: '100%',
-                                    background: 'linear-gradient(135deg, rgba(20, 49, 81, 0.8), rgba(56, 126, 137, 0.7), rgba(20, 49, 81, 0.6))',
-                                    transform: `scaleY(${height / 100})`,
-                                    transformOrigin: 'bottom',
-                                    transition: 'transform 0.8s ease-in-out',
-                                    animation: 'pulseBar 4s ease-in-out infinite alternate',
-                                    animationDelay: `${index * 0.2}s`,
-                                    opacity: 0.9,
-                                    filter: 'blur(0.2px)',
-                                }}
-                            />
-                        );
-                    })}
-                </div>
-            </div>
-            
-            {/* Lighter overlay for better content visibility */}
-            <div className="absolute inset-0 z-1 bg-gradient-to-b from-white/60 via-white/50 to-white/60"></div>
-        </>
-    );
-};
-
-// --- ANIMATION VARIANTS ---
-const pageVariants = {
-    initial: { opacity: 0, y: 30 },
-    in: { opacity: 1, y: 0 },
-    out: { opacity: 0, y: -30 },
-};
-
-const pageTransition = {
-    type: "tween",
-    ease: "anticipate",
-    duration: 0.7,
-};
-
-// --- HELPER COMPONENTS ---
-interface CustomSliderProps {
-    value: number;
-    onChange: (value: number) => void;
-    min: number;
-    max: number;
-    unit: string;
-    labels?: string[];
-}
-
-const CustomSlider: React.FC<CustomSliderProps> = ({ value, onChange, min, max, unit, labels }) => {
-    const percentage = ((value - min) / (max - min)) * 100;
-    const steps = max - min + 1;
-    
-    return (
-        <div className="w-full px-2">
-            <div className="flex justify-between items-center mb-4">
-                <span className="text-sm font-medium text-gray-600">{unit}</span>
-                <motion.span 
-                    className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-[#143151] to-[#387E89] text-white font-semibold text-sm shadow-md"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                >
-                    {labels ? labels[value] || value : value}
-                </motion.span>
-            </div>
-            
-            <div className="relative mb-4">
-                {/* Track background */}
-                <div className="w-full h-3 bg-gray-200 rounded-full relative overflow-hidden border border-gray-300">
-                    {/* Progress fill */}
+                    {/* Trust indicator */}
                     <motion.div 
-                        className="h-full bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full relative shadow-sm"
-                        style={{ width: `${percentage}%` }}
-                        initial={{ width: 0 }}
-                        animate={{ width: `${percentage}%` }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                    />
-                    
-                    {/* Tick marks */}
-                    <div className="absolute top-0 left-0 w-full h-full flex justify-between items-center px-1">
-                        {Array.from({ length: steps }, (_, i) => (
-                            <div 
-                                key={i} 
-                                className={`w-0.5 h-4 -mt-0.5 ${i <= value ? 'bg-white/70' : 'bg-gray-400'} rounded-full transition-colors duration-300`} 
-                            />
-                        ))}
-                    </div>
-                    
-                    {/* Slider thumb */}
-                    <motion.div 
-                        className="absolute top-1/2 transform -translate-y-1/2 cursor-pointer"
-                        style={{ left: `${percentage}%`, marginLeft: '-12px' }}
-                        whileHover={{ scale: 1.2 }}
-                        whileTap={{ scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-[#387E89]/10 to-[#143151]/10 border border-[#387E89]/20 rounded-full px-4 py-2 mb-6 backdrop-blur-sm"
                     >
-                        <div className="w-6 h-6 bg-white rounded-full border-2 border-[#143151] shadow-md flex items-center justify-center">
-                            <div className="w-1.5 h-1.5 bg-[#143151] rounded-full"></div>
-                        </div>
+                        <CheckCircle className="w-4 h-4 text-[#387E89]" />
+                        <span className="text-sm font-semibold text-[#387E89]">Trusted by 1,000+ Healthcare Providers</span>
                     </motion.div>
-                </div>
-                
-                <input 
-                    type="range" 
-                    min={min} 
-                    max={max} 
-                    value={value} 
-                    onChange={e => onChange(parseInt(e.target.value))}
-                    className="absolute top-0 left-0 w-full h-3 opacity-0 cursor-pointer" 
-                />
-            </div>
-            
-            {labels && (
-                <div className="flex justify-between mt-2 text-xs text-gray-500 font-medium">
-                    <span>{labels[0]}</span>
-                    <span>{labels[Math.floor(labels.length / 2)]}</span>
-                    <span>{labels[labels.length - 1]}</span>
-                </div>
-            )}
+
+                    <motion.h1 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.3 }}
+                        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6"
+                    >
+                        <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151]">
+                            Practice Efficiency Grader
+                        </span>
+                    </motion.h1>
+                    
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        className="text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed mb-8 max-w-3xl mx-auto"
+                    >
+                        Discover how efficient your practice really is and unlock 
+                        <span className="font-semibold text-[#387E89]"> actionable insights</span> to 
+                        <span className="font-semibold text-[#143151]"> optimize your workflow</span> with AI.
+                    </motion.p>
+
+                    {/* Interactive CTA Button */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.5 }}
+                        className="mb-8"
+                    >
+                        <Button
+                            ref={targetRef}
+                            onClick={onStartAssessment}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            className="group relative px-8 py-4 text-lg font-bold text-white rounded-full overflow-hidden transition-all duration-300 transform hover:scale-105"
+                            style={{
+                                background: 'linear-gradient(45deg, #143151, #387E89, #5192AE)',
+                                boxShadow: '0 10px 30px rgba(56, 126, 137, 0.3)'
+                            }}
+                        >
+                            {/* Animated background glow */}
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-[#387E89]/30 via-[#5192AE]/30 to-[#143151]/30 rounded-full"
+                                animate={isHovered ? {
+                                    scale: [1, 1.1, 1],
+                                    opacity: [0.3, 0.6, 0.3]
+                                } : {}}
+                                transition={{ duration: 1.5, repeat: isHovered ? Infinity : 0 }}
+                            />
+                            
+                            <div className="flex items-center justify-center gap-3 relative z-10">
+                                <span>Start Your Assessment</span>
+                                <motion.div
+                                    animate={isHovered ? { x: [0, 5, 0] } : {}}
+                                    transition={{ duration: 1, repeat: isHovered ? Infinity : 0 }}
+                                >
+                                    <ArrowRight className="h-5 w-5" />
+                                </motion.div>
+                            </div>
+                        </Button>
+                    </motion.div>
+
+                    {/* Feature highlights */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                        className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-2xl mx-auto mb-12"
+                    >
+                        {features.map((feature, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
+                                className="flex flex-col items-center gap-3 p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-gray-200/50 hover:shadow-xl transition-all duration-300"
+                            >
+                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#387E89]/20 to-[#143151]/20 flex items-center justify-center">
+                                    <feature.icon className="w-6 h-6 text-[#387E89]" />
+                                </div>
+                                <div className="text-center">
+                                    <div className="font-bold text-lg text-gray-900">{feature.text}</div>
+                                    <div className="text-sm text-gray-600">{feature.subtext}</div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+
+                    {/* Assessment benefits */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.8 }}
+                        className="max-w-2xl mx-auto"
+                    >
+                        <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-xl ring-1 ring-gray-200/50">
+                            <CardContent className="p-6">
+                                <h3 className="text-xl font-bold text-center mb-4 text-gray-900">
+                                    Quick 10-Question Assessment
+                                </h3>
+                                <p className="text-center text-gray-600 mb-4">
+                                    Get personalized insights about your practice efficiency in under 3 minutes
+                                </p>
+                                <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500">
+                                    <div className="flex items-center gap-1">
+                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <span>No personal data required</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <span>Evidence-based questions</span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                        <CheckCircle className="w-4 h-4 text-green-500" />
+                                        <span>Instant results</span>
+                                    </div>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </motion.div>
+                </motion.div>
+            </main>
+
+            {/* Interactive arrow canvas */}
+            <canvas 
+                ref={canvasRef} 
+                className="fixed inset-0 pointer-events-none z-20"
+                style={{ mixBlendMode: 'multiply' }}
+            />
         </div>
     );
 };
 
-interface OptionCardProps {
-    text: string;
-    selected: boolean;
-    onClick: () => void;
+// Question data
+interface QuestionOption {
+  id: string;
+  text: string;
+  score: number;
 }
 
-const OptionCard: React.FC<OptionCardProps> = ({ text, selected, onClick }) => (
-    <motion.div
-        onClick={onClick}
-        whileHover={{ scale: 1.01, y: -1 }}
-        whileTap={{ scale: 0.99 }}
-        className={`p-3 rounded-lg border-2 transition-all duration-300 cursor-pointer shadow-sm ${
-            selected 
-                ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white border-[#143151] shadow-md' 
-                : 'bg-white border-gray-300 hover:border-[#387E89] hover:shadow-md text-gray-800'
-        }`}
-    >
-        <p className="text-center text-sm font-medium leading-snug">{text}</p>
-    </motion.div>
-);
-
-// --- TYPE DEFINITIONS ---
-interface SliderOptions {
-    min: number;
-    max: number;
-    unit: string;
-    labels?: string[];
+interface Question {
+  id: number;
+  text: string;
+  options: QuestionOption[];
+  type: 'single' | 'multiple';
 }
 
-interface QuizQuestion {
-    id: number;
-    category: string;
-    title: string;
-    question: string;
-    type: 'slider' | 'options';
-    options: SliderOptions | string[];
-    valueProp: string;
-    icon: React.ComponentType<any>;
-    analysis: (value: number | string) => 'Critical' | 'High' | 'Good';
-    reportText: (value: number | string) => string;
-    solution: string;
-    insightSnippet?: string;
-}
-
-// --- QUIZ DATA ---
-const quizQuestions: QuizQuestion[] = [
-    {
-        id: 1, 
-        category: "Provider Wellbeing", 
-        title: "The \"Pajama Time\" Problem", 
-        question: "How many hours per week do providers spend on documentation after patient hours?", 
-        type: "slider", 
-        options: { min: 0, max: 20, unit: 'Hours' }, 
-        valueProp: "Provider Well-being & Burnout",
-        icon: Clock,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal > 8 ? "Critical" : numVal > 3 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `With providers spending ${val} hours on after-hours charting, there's significant burnout risk. Industry average is 4 hours. S10.AI can reduce this by 80% through automated documentation, giving providers their evenings back.`,
-        solution: "Our AI scribes handle real-time documentation, eliminating pajama time and reducing provider burnout by up to 80%.",
-        insightSnippet: "A 2024 Medscape report found that \"charting and paperwork\" is the #1 contributor to physician burnout."
-    },
-    {
-        id: 2, 
-        category: "Clinical Efficiency", 
-        title: "Documentation Speed", 
-        question: "How long after a patient encounter is the final clinical note completed and signed?", 
-        type: "slider", 
-        options: { 
-            min: 0, 
-            max: 6, 
-            unit: 'Timeframe',
-            labels: ['2 min', '30 min', '2 hrs', '1 day', '2 days', '3+ days']
-        }, 
-        valueProp: "Documentation Efficiency",
-        icon: FileText,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal > 3 ? "Critical" : numVal > 1 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => {
-            const labels = ['2 minutes', '30 minutes', '2 hours', '1 day', '2 days', '3+ days'];
-            const timeframe = labels[typeof val === 'number' ? val : 0] || val;
-            return `Documentation completed in ${timeframe} indicates ${typeof val === 'number' && val > 1 ? 'delayed' : 'efficient'} workflow. S10.AI completes notes in real-time during encounters.`;
-        },
-        solution: "Our ambient AI documentation captures comprehensive notes during the visit, ready for review immediately after the encounter."
-    },
-    {
-        id: 3, 
-        category: "Financial Health", 
-        title: "Clean Claim Rate", 
-        question: "What is your approximate clean claim rate? (Claims approved on first submission)", 
-        type: "slider", 
-        options: { min: 50, max: 100, unit: 'Percentage' }, 
-        valueProp: "Revenue Optimization",
-        icon: DollarSign,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal < 75 ? "Critical" : numVal < 85 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your clean claim rate of ${val}% ${typeof val === 'number' && val < 85 ? 'is below' : 'meets'} industry average (85%). Lower rates indicate documentation and coding issues. S10.AI ensures accurate coding suggestions and comprehensive documentation.`,
-        solution: "Our AI scribe provides structured data and coding suggestions, improving clean claim rates to 95%+.",
-        insightSnippet: "Industry average clean claim rate is 80-85%. Lower rates often point to documentation and coding inaccuracies."
-    },
-    {
-        id: 4, 
-        category: "Financial Health", 
-        title: "Coding Confidence", 
-        question: "How confident are you that your notes capture all necessary details for accurate coding?", 
-        type: "options", 
-        options: [
-            "Not at all confident - we miss details regularly", 
-            "Hardly confident - we catch some but miss others", 
-            "Somewhat confident - we get most of it right",
-            "Very confident - we rarely miss coding opportunities",
-            "Completely confident - our documentation is comprehensive"
-        ], 
-        valueProp: "Coding Accuracy & Compliance",
-        icon: FileText,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("Not at all") || strVal.includes("Hardly") ? "Critical" : 
-                   strVal.includes("Somewhat") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your confidence level suggests ${String(val).includes("confident") ? 'good' : 'room for improvement in'} coding accuracy. Inaccurate coding leads to denied claims and audit risks. S10.AI provides real-time coding suggestions based on conversation content.`,
-        solution: "Our AI analyzes conversations in real-time to suggest accurate ICD-10, CPT codes and ensure comprehensive documentation."
-    },
-    {
-        id: 5, 
-        category: "Front Office Automation", 
-        title: "Scheduling Automation", 
-        question: "What scheduling automation do you currently use?", 
-        type: "options", 
-        options: [
-            "No automation - everything is manual", 
-            "Basic automated reminders only", 
-            "Online scheduling + reminders",
-            "AI phone agent for some calls",
-            "Full AI automation for scheduling and calls"
-        ], 
-        valueProp: "Front Office Efficiency",
-        icon: Calendar,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("No automation") ? "Critical" : 
-                   strVal.includes("Basic") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your current automation level indicates ${String(val).includes("No automation") ? 'significant manual work' : 'some efficiency gains'}. Manual scheduling burdens staff and increases no-shows. S10.AI Bravo can handle 80% of scheduling calls automatically.`,
-        solution: "Bravo AI Agent handles scheduling calls, reminders, and rescheduling 24/7, reducing staff workload by 70%."
-    },
-    {
-        id: 6, 
-        category: "Patient Access", 
-        title: "No-Show Rate", 
-        question: "What is your monthly patient no-show rate?", 
-        type: "slider", 
-        options: { min: 0, max: 40, unit: 'Percentage' }, 
-        valueProp: "Revenue Recovery",
-        icon: Calendar,
-        analysis: (val: number | string) => {
-            const numVal = typeof val === 'string' ? parseInt(val) || 0 : val;
-            return numVal > 20 ? "Critical" : numVal > 12 ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your no-show rate of ${val}% ${typeof val === 'number' && val > 12 ? 'is above' : 'meets'} industry average (12%). High no-show rates represent significant lost revenue. For 100 daily appointments, ${val}% no-shows = $${Math.round(((typeof val === 'number' ? val : 0) * 100 * 250) / 100).toLocaleString()} monthly loss.`,
-        solution: "Our intelligent reminder system and easy rescheduling reduce no-shows by 60%, recovering thousands in lost revenue."
-    },
-    {
-        id: 7, 
-        category: "Patient Experience", 
-        title: "Provider-Patient Interaction", 
-        question: "How does documentation affect provider-patient face time?", 
-        type: "options", 
-        options: [
-            "Significantly inhibits - lots of screen time during visits", 
-            "Moderately inhibits - some distraction from documentation", 
-            "No impact - balanced approach",
-            "Moderately improves - efficient documentation helps",
-            "Significantly improves - minimal screen time needed"
-        ], 
-        valueProp: "Patient Care Quality",
-        icon: Heart,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("Significantly inhibits") ? "Critical" : 
-                   strVal.includes("Moderately inhibits") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Documentation ${String(val).includes("inhibits") ? 'barriers reduce' : 'supports'} patient satisfaction and care quality. When providers focus on screens instead of patients, relationships suffer. S10.AI enables 100% eye contact while capturing comprehensive notes.`,
-        solution: "Our ambient AI documentation lets providers focus entirely on patients while capturing comprehensive notes automatically."
-    },
-    {
-        id: 8, 
-        category: "Language Access", 
-        title: "Multilingual Support", 
-        question: "How does your practice handle non-English speaking patients?", 
-        type: "options", 
-        options: [
-            "Rely on family members or ad-hoc translation", 
-            "Use cumbersome third-party phone services", 
-            "Limited to availability of bilingual staff",
-            "Technology-based real-time translation",
-            "Comprehensive multilingual AI support"
-        ], 
-        valueProp: "Patient Access & Safety",
-        icon: Languages,
-        analysis: (val: number | string) => {
-            const strVal = String(val);
-            return strVal.includes("family members") || strVal.includes("ad-hoc") ? "Critical" : 
-                   strVal.includes("cumbersome") || strVal.includes("Limited") ? "High" : "Good";
-        },
-        reportText: (val: number | string) => `Your current approach ${String(val).includes("family") || String(val).includes("cumbersome") ? 'creates safety risks' : 'provides some support'} for non-English speakers. Inadequate translation leads to medical errors and poor patient experience. S10.AI supports 60+ languages with real-time translation.`,
-        solution: "Built-in real-time translation for 60+ languages ensures every patient receives clear, accurate communication and documentation."
-    }
+const questions: Question[] = [
+  {
+    id: 1,
+    text: 'How much time do you spend on documentation per patient?',
+    type: 'single',
+    options: [
+      { id: '1a', text: 'Less than 5 minutes', score: 10 },
+      { id: '1b', text: '5-10 minutes', score: 7 },
+      { id: '1c', text: '10-15 minutes', score: 5 },
+      { id: '1d', text: '15-20 minutes', score: 3 },
+      { id: '1e', text: 'More than 20 minutes', score: 1 },
+    ],
+  },
+  {
+    id: 2,
+    text: 'How often do you complete your notes during the patient visit?',
+    type: 'single',
+    options: [
+      { id: '2a', text: 'Almost always (>90%)', score: 10 },
+      { id: '2b', text: 'Frequently (70-90%)', score: 8 },
+      { id: '2c', text: 'Sometimes (40-70%)', score: 5 },
+      { id: '2d', text: 'Rarely (10-40%)', score: 3 },
+      { id: '2e', text: 'Almost never (<10%)', score: 1 },
+    ],
+  },
+  {
+    id: 3,
+    text: 'How much time do you spend after hours completing documentation?',
+    type: 'single',
+    options: [
+      { id: '3a', text: 'None', score: 10 },
+      { id: '3b', text: 'Less than 30 minutes', score: 8 },
+      { id: '3c', text: '30-60 minutes', score: 6 },
+      { id: '3d', text: '1-2 hours', score: 3 },
+      { id: '3e', text: 'More than 2 hours', score: 1 },
+    ],
+  },
+  {
+    id: 4,
+    text: 'Which of the following tasks consume the most time in your practice? (Select all that apply)',
+    type: 'multiple',
+    options: [
+      { id: '4a', text: 'Documentation/charting', score: -2 },
+      { id: '4b', text: 'Phone calls with patients', score: -1 },
+      { id: '4c', text: 'Prior authorizations', score: -2 },
+      { id: '4d', text: 'Prescription refills', score: -1 },
+      { id: '4e', text: 'Reviewing lab results', score: -1 },
+    ],
+  },
+  {
+    id: 5,
+    text: 'How satisfied are you with your current documentation workflow?',
+    type: 'single',
+    options: [
+      { id: '5a', text: 'Very satisfied', score: 10 },
+      { id: '5b', text: 'Satisfied', score: 8 },
+      { id: '5c', text: 'Neutral', score: 5 },
+      { id: '5d', text: 'Dissatisfied', score: 3 },
+      { id: '5e', text: 'Very dissatisfied', score: 1 },
+    ],
+  },
+  {
+    id: 6,
+    text: 'How often do you feel rushed during patient encounters?',
+    type: 'single',
+    options: [
+      { id: '6a', text: 'Never', score: 10 },
+      { id: '6b', text: 'Rarely', score: 8 },
+      { id: '6c', text: 'Sometimes', score: 5 },
+      { id: '6d', text: 'Often', score: 3 },
+      { id: '6e', text: 'Always', score: 1 },
+    ],
+  },
+  {
+    id: 7,
+    text: 'Which technologies do you currently use to improve efficiency? (Select all that apply)',
+    type: 'multiple',
+    options: [
+      { id: '7a', text: 'Voice recognition/dictation', score: 2 },
+      { id: '7b', text: 'Templates/macros', score: 1 },
+      { id: '7c', text: 'Medical scribes (human)', score: 2 },
+      { id: '7d', text: 'AI scribing tools', score: 3 },
+      { id: '7e', text: 'None of the above', score: -2 },
+    ],
+  },
+  {
+    id: 8,
+    text: 'How many patients do you see per day on average?',
+    type: 'single',
+    options: [
+      { id: '8a', text: 'Less than 10', score: 5 },
+      { id: '8b', text: '10-15', score: 7 },
+      { id: '8c', text: '16-20', score: 10 },
+      { id: '8d', text: '21-25', score: 8 },
+      { id: '8e', text: 'More than 25', score: 6 },
+    ],
+  },
+  {
+    id: 9,
+    text: 'How often do documentation requirements prevent you from spending adequate time with patients?',
+    type: 'single',
+    options: [
+      { id: '9a', text: 'Never', score: 10 },
+      { id: '9b', text: 'Rarely', score: 8 },
+      { id: '9c', text: 'Sometimes', score: 5 },
+      { id: '9d', text: 'Often', score: 3 },
+      { id: '9e', text: 'Always', score: 1 },
+    ],
+  },
+  {
+    id: 10,
+    text: 'How interested are you in implementing AI solutions to improve practice efficiency?',
+    type: 'single',
+    options: [
+      { id: '10a', text: 'Very interested', score: 10 },
+      { id: '10b', text: 'Interested', score: 8 },
+      { id: '10c', text: 'Somewhat interested', score: 5 },
+      { id: '10d', text: 'Slightly interested', score: 3 },
+      { id: '10e', text: 'Not interested', score: 1 },
+    ],
+  },
 ];
 
-const AnimatedGraphic = ({ questionId }: { questionId: number }) => {
-    const graphics = [
-        { 
-            text: "Eliminate after-hours documentation", 
-            icon: Clock, 
-            description: "Reclaim your evenings with AI-powered real-time documentation"
-        },
-        { 
-            text: "Instant note completion", 
-            icon: Zap, 
-            description: "Complete clinical notes during the patient encounter"
-        },
-        { 
-            text: "Maximize revenue potential", 
-            icon: TrendingUp, 
-            description: "Accurate coding and comprehensive documentation boost revenue"
-        },
-        { 
-            text: "Ensure coding accuracy", 
-            icon: Shield, 
-            description: "AI-powered coding suggestions reduce audit risks"
-        },
-        { 
-            text: "Automate front office tasks", 
-            icon: Activity, 
-            description: "24/7 AI scheduling and patient communication"
-        },
-        { 
-            text: "Reduce revenue loss", 
-            icon: Target, 
-            description: "Intelligent reminders and easy rescheduling prevent no-shows"
-        },
-        { 
-            text: "Focus on patient care", 
-            icon: Stethoscope, 
-            description: "100% eye contact while AI captures comprehensive notes"
-        },
-        { 
-            text: "Break language barriers", 
-            icon: Languages, 
-            description: "Real-time translation for 60+ languages ensures clear communication"
+// Questionnaire component
+const Questionnaire = ({ questions, onComplete }: { questions: Question[], onComplete: (answers: Record<number, any>) => void }) => {
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<number, any>>({});
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  
+  const currentQuestion = questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
+  
+  const handleOptionSelect = (option: QuestionOption) => {
+    if (currentQuestion.type === 'single') {
+      setSelectedOptions([option.id]);
+      setAnswers({
+        ...answers,
+        [currentQuestion.id]: option
+      });
+    } else {
+      const newSelectedOptions = selectedOptions.includes(option.id)
+        ? selectedOptions.filter(id => id !== option.id)
+        : [...selectedOptions, option.id];
+      
+      setSelectedOptions(newSelectedOptions);
+      
+      const selectedOptionObjects = currentQuestion.options.filter(opt => 
+        newSelectedOptions.includes(opt.id)
+      );
+      
+      setAnswers({
+        ...answers,
+        [currentQuestion.id]: {
+          options: selectedOptionObjects,
+          score: selectedOptionObjects.reduce((sum, opt) => sum + opt.score, 0)
         }
-    ];
-    const currentGraphic = graphics[questionId - 1];
-    const IconComponent = currentGraphic.icon;
-
-    return (
-        <AnimatePresence mode="wait">
-            <motion.div
-                key={questionId}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                className="w-full h-full flex flex-col items-center justify-center text-center p-6 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 backdrop-blur-sm rounded-xl border border-gray-200"
+      });
+    }
+  };
+  
+  const handleNext = () => {
+    if (isLastQuestion) {
+      onComplete(answers);
+    } else {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setSelectedOptions(
+        answers[questions[currentQuestionIndex + 1].id]?.options 
+          ? answers[questions[currentQuestionIndex + 1].id].options.map((opt: QuestionOption) => opt.id)
+          : answers[questions[currentQuestionIndex + 1].id]?.id 
+            ? [answers[questions[currentQuestionIndex + 1].id].id]
+            : []
+      );
+    }
+  };
+  
+  const handlePrevious = () => {
+    if (currentQuestionIndex > 0) {
+      setCurrentQuestionIndex(currentQuestionIndex - 1);
+      setSelectedOptions(
+        answers[questions[currentQuestionIndex - 1].id]?.options 
+          ? answers[questions[currentQuestionIndex - 1].id].options.map((opt: QuestionOption) => opt.id)
+          : answers[questions[currentQuestionIndex - 1].id]?.id 
+            ? [answers[questions[currentQuestionIndex - 1].id].id]
+            : []
+      );
+    }
+  };
+  
+  const isNextDisabled = currentQuestion.type === 'single' 
+    ? !selectedOptions.length 
+    : false;
+  
+  return (
+    <div className="max-w-3xl mx-auto p-6">
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-sm font-medium text-gray-500">
+            Question {currentQuestionIndex + 1} of {questions.length}
+          </span>
+          <span className="text-sm font-medium text-gray-500">
+            {Math.round((currentQuestionIndex / questions.length) * 100)}% Complete
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5">
+          <div 
+            className="bg-gradient-to-r from-[#143151] to-[#387E89] h-2.5 rounded-full transition-all duration-300"
+            style={{ width: `${((currentQuestionIndex) / questions.length) * 100}%` }}
+          ></div>
+        </div>
+      </div>
+      
+      <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <h3 className="text-xl font-bold mb-4">{currentQuestion.text}</h3>
+        <div className="space-y-3">
+          {currentQuestion.options.map((option) => (
+            <div 
+              key={option.id}
+              onClick={() => handleOptionSelect(option)}
+              className={`p-4 border rounded-lg cursor-pointer transition-all duration-200 ${
+                selectedOptions.includes(option.id) 
+                  ? 'border-[#387E89] bg-[#387E89]/10 shadow-md' 
+                  : 'border-gray-200 hover:border-[#387E89]/50 hover:bg-[#387E89]/5'
+              }`}
             >
-                <motion.div 
-                    className="w-16 h-16 mb-4 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                >
-                    <IconComponent className="w-8 h-8 text-white" />
-                </motion.div>
-                <motion.h3 
-                    className="text-lg font-bold text-gray-800 mb-2 leading-tight"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 }}
-                >
-                    {currentGraphic.text}
-                </motion.h3>
-                <motion.p 
-                    className="text-sm text-gray-600 leading-relaxed font-medium max-w-xs"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                >
-                    {currentGraphic.description}
-                </motion.p>
-            </motion.div>
-        </AnimatePresence>
-    );
+              <div className="flex items-center">
+                <div className={`w-5 h-5 rounded-full border flex-shrink-0 mr-3 flex items-center justify-center ${
+                  selectedOptions.includes(option.id) 
+                    ? 'border-[#387E89] bg-[#387E89]' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedOptions.includes(option.id) && (
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </div>
+                <span className="text-gray-800">{option.text}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div className="flex justify-between">
+        <button
+          onClick={handlePrevious}
+          disabled={currentQuestionIndex === 0}
+          className={`px-6 py-2 rounded-lg ${
+            currentQuestionIndex === 0 
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+              : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+          }`}
+        >
+          Previous
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={isNextDisabled}
+          className={`px-6 py-2 rounded-lg ${
+            isNextDisabled 
+              ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+              : 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white hover:shadow-lg transition-shadow'
+          }`}
+        >
+          {isLastQuestion ? 'Submit' : 'Next'}
+        </button>
+      </div>
+    </div>
+  );
 };
 
-const InputField = ({ name, type, placeholder, required = true }: { name: string; type: string; placeholder?: string; required?: boolean }) => (
-    <div className="space-y-2">
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700 capitalize">
-            {placeholder || name.replace(/([A-Z])/g, ' $1').trim()}
-            {required && <span className="text-red-500 ml-1">*</span>}
-        </label>
-        <input 
-            id={name} 
-            name={name}
-            type={type} 
-            placeholder={placeholder || name} 
-            required={required}
-            className="w-full bg-white border border-gray-300 text-gray-900 rounded-lg p-3 text-sm focus:ring-2 focus:ring-[#387E89] focus:border-[#387E89] transition-all duration-300 placeholder-gray-400 shadow-sm hover:border-gray-400 font-medium" 
-        />
-    </div>
-);
-
-// --- Main Application ---
-export default function PracticeEfficiencyGrader() {
-    const [appState, setAppState] = useState('intro'); // intro, quiz, scoreAndForm, report
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [answers, setAnswers] = useState<(number | string | undefined)[]>(() => {
-        const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
-        initial[0] = 0; // Default for first slider
-        return initial;
-    });
-
-    // Auto-progress for option questions
-    useEffect(() => {
-        const currentQuestion = quizQuestions[currentQuestionIndex];
-        if (!currentQuestion) return;
-
-        const answerForCurrent = answers[currentQuestionIndex];
-
-        if (currentQuestion.type === 'options' && answerForCurrent !== undefined) {
-            const timer = setTimeout(() => {
-                if (currentQuestionIndex < quizQuestions.length - 1) {
-                    setCurrentQuestionIndex(currentQuestionIndex + 1);
-                } else {
-                    setAppState('scoreAndForm');
-                }
-            }, 800);
-            return () => clearTimeout(timer);
-        }
-    }, [answers, currentQuestionIndex]);
-
-    const handleStart = () => setAppState('quiz');
-    const handleSubmitForm = (e: React.FormEvent) => { e.preventDefault(); setAppState('report'); };
-    const handleRetake = () => {
-        setCurrentQuestionIndex(0);
-        const initial: (number | string | undefined)[] = new Array(quizQuestions.length).fill(undefined);
-        initial[0] = 0;
-        setAnswers(initial);
-        setAppState('intro');
-    };
-
-    const handleAnswer = (answer: number | string, index: number) => {
-        setAnswers(prev => {
-            const newAnswers = [...prev];
-            newAnswers[index] = answer;
-            return newAnswers;
-        });
-    };
-    
-    const nextSliderQuestion = () => {
-        if (currentQuestionIndex < quizQuestions.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-        } else {
-            setAppState('scoreAndForm');
-        }
-    };
-
-    const goToPreviousQuestion = () => {
-        if (currentQuestionIndex > 0) {
-            setCurrentQuestionIndex(currentQuestionIndex - 1);
-        }
-    };
-    
-    const reportResults = useMemo(() => quizQuestions.map((q, i) => {
-        const answer = answers[i] !== undefined ? answers[i] : (q.type === 'slider' ? 0 : "");
-        return { ...q, answer, analysisResult: q.analysis(answer!) };
-    }), [answers]);
-
-    const overallScore = useMemo(() => {
-        const scores = reportResults.map(r => r.analysisResult === 'Good' ? 3 : r.analysisResult === 'High' ? 2 : 1);
-        const total = scores.reduce((sum, score) => sum + score, 0);
-        return Math.round((total / (quizQuestions.length * 3)) * 100);
-    }, [reportResults]);
-
-    const renderContent = () => {
-        switch (appState) {
-            case 'quiz':
-                const question = quizQuestions[currentQuestionIndex];
-                if (!question) return null;
-                const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
-                
-                return (
-                    <div className="min-h-screen bg-white">
-                        <div className="container mx-auto px-4 py-6">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
-                                <div className="hidden lg:flex flex-col items-center justify-center">
-                                    <AnimatedGraphic questionId={question.id} />
-                                </div>
-                                
-                                <div className="flex flex-col justify-between min-h-[500px] lg:min-h-[600px]">
-                                    <div className="flex-1 flex flex-col justify-center space-y-4">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]"></div>
-                                            <p className="text-gray-600 font-medium text-xs uppercase tracking-wider">{question.category}</p>
-                                        </div>
-                                        
-                                        <AnimatePresence mode="wait">
-                                            <motion.div 
-                                                key={currentQuestionIndex} 
-                                                initial={{ opacity: 0, x: 20 }} 
-                                                animate={{ opacity: 1, x: 0 }} 
-                                                exit={{ opacity: 0, x: -20 }} 
-                                                transition={{ duration: 0.4 }}
-                                                className="space-y-4"
-                                            >
-                                                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 leading-tight">{question.title}</h2>
-                                                <p className="text-gray-600 text-base leading-relaxed">{question.question}</p>
-                                                
-                                                {question.insightSnippet && (
-                                                    <div className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/20 rounded-lg p-3">
-                                                        <p className="text-gray-800 font-medium flex items-center gap-2 mb-1 text-sm">
-                                                            <Sparkles className="w-4 h-4 text-[#387E89]" />
-                                                            Industry Insight
-                                                        </p>
-                                                        <p className="text-gray-700 text-xs leading-relaxed">{question.insightSnippet}</p>
-                                                    </div>
-                                                )}
-                                                
-                                                <div className="space-y-3">
-                                                    {question.type === 'slider' && (
-                                                        <ModernSlider 
-                                                            value={typeof answers[currentQuestionIndex] === 'number' ? answers[currentQuestionIndex] as number : 0} 
-                                                            onChange={(val) => handleAnswer(val, currentQuestionIndex)} 
-                                                            min={(question.options as SliderOptions).min}
-                                                            max={(question.options as SliderOptions).max}
-                                                            unit={(question.options as SliderOptions).unit}
-                                                            labels={(question.options as SliderOptions).labels}
-                                                        />
-                                                    )}
-                                                    {question.type === 'options' && Array.isArray(question.options) && (
-                                                        <div className="grid gap-2">
-                                                            {question.options.map((opt) => (
-                                                                <OptionCard 
-                                                                    key={opt} 
-                                                                    text={opt} 
-                                                                    selected={answers[currentQuestionIndex] === opt} 
-                                                                    onClick={() => handleAnswer(opt, currentQuestionIndex)} 
-                                                                />
-                                                            ))}
-                                                        </div>
-                                                    )}
-                                                </div>
-                                            </motion.div>
-                                        </AnimatePresence>
-                                    </div>
-                                    
-                                    {/* Navigation and Progress */}
-                                    <div className="space-y-4 pt-6">
-                                        {/* Navigation Buttons */}
-                                        <div className="flex gap-3">
-                                            <motion.button 
-                                                onClick={goToPreviousQuestion}
-                                                disabled={currentQuestionIndex === 0}
-                                                whileHover={{ scale: currentQuestionIndex === 0 ? 1 : 1.01 }}
-                                                whileTap={{ scale: currentQuestionIndex === 0 ? 1 : 0.99 }}
-                                                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium transition-all duration-300 text-sm ${
-                                                    currentQuestionIndex === 0 
-                                                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200' 
-                                                        : 'bg-white border border-gray-300 text-gray-700 hover:border-[#387E89] hover:text-[#387E89] shadow-sm hover:shadow-md'
-                                                }`}
-                                            >
-                                                <ChevronLeft className="w-4 h-4" />
-                                                Previous
-                                            </motion.button>
-                                            
-                                            {question.type === 'slider' && (
-                                                <motion.button 
-                                                    onClick={nextSliderQuestion}
-                                                    whileHover={{ scale: 1.01 }}
-                                                    whileTap={{ scale: 0.99 }}
-                                                    className="flex-1 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold py-2.5 rounded-lg shadow-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm"
-                                                >
-                                                    {currentQuestionIndex < quizQuestions.length - 1 ? 'Next Question' : 'View Your Score'}
-                                                    <ChevronRight className="w-4 h-4" />
-                                                </motion.button>
-                                            )}
-                                        </div>
-                                        
-                                        {/* Progress Bar */}
-                                        <div>
-                                            <div className="flex justify-between items-center mb-1">
-                                                <span className="text-gray-500 text-xs">Progress</span>
-                                                <span className="text-gray-700 text-xs font-medium">{Math.round(progress)}%</span>
-                                            </div>
-                                            <div className="w-full bg-gray-200 rounded-full h-2 border border-gray-300">
-                                                <motion.div 
-                                                    className="bg-gradient-to-r from-[#143151] to-[#387E89] h-2 rounded-full shadow-sm" 
-                                                    style={{ width: `${progress}%` }} 
-                                                    transition={{ duration: 0.5 }}
-                                                    layoutId="progress"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                );
-
-            case 'scoreAndForm':
-                return (
-                    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="container mx-auto px-4 py-8 max-w-7xl"
-                        >
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-                                {/* Score Preview Section - Now takes 3/5 of space */}
-                                <div className="lg:col-span-3 order-2 lg:order-1">
-                                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
-                                        <motion.div 
-                                            className="w-12 h-12 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl flex items-center justify-center mb-6 shadow-md"
-                                            whileHover={{ scale: 1.05 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            <BarChart3 className="w-6 h-6 text-white" />
-                                        </motion.div>
-                                        
-                                        <div className="mb-6">
-                                            <h2 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                                                Your Practice Efficiency Score
-                                            </h2>
-                                            
-                                            <div className="flex items-center gap-4 mb-6">
-                                                <span className="text-lg font-medium text-gray-600">Score:</span>
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                                                    className={`text-5xl font-bold px-6 py-3 rounded-xl border shadow-md ${
-                                                        overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                                        overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                                        'bg-red-50 text-red-700 border-red-200'
-                                                    }`}
-                                                >
-                                                    {overallScore}%
-                                                </motion.div>
-                                            </div>
-                                            
-                                            <motion.p 
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.5 }}
-                                                className="text-gray-600 text-lg leading-relaxed mb-6"
-                                            >
-                                                {overallScore >= 80 
-                                                    ? "Great job! Your practice is performing well, but there's still room for optimization."
-                                                    : overallScore >= 60 
-                                                    ? "Your practice has solid foundations but significant opportunities for improvement."
-                                                    : "Your practice has major efficiency gaps that are costing you time and revenue."
-                                                }
-                                            </motion.p>
-                                        </div>
-                                        
-                                        <motion.div 
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: 0.7 }}
-                                            className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/30 rounded-xl p-6"
-                                        >
-                                            <div className="flex items-center gap-2 mb-3">
-                                                <Sparkles className="w-5 h-5 text-[#387E89]" />
-                                                <span className="font-semibold text-gray-900 text-lg">What's Next?</span>
-                                            </div>
-                                            <p className="text-gray-700 leading-relaxed">
-                                                Get your complete benchmark study with detailed analysis, industry comparisons, 
-                                                and actionable solutions to transform your practice with S10.AI.
-                                            </p>
-                                        </motion.div>
-                                    </div>
-                                </div>
-                                
-                                {/* Form Section - Now takes 2/5 of space but more compact */}
-                                <div className="lg:col-span-2 order-1 lg:order-2">
-                                    <div className="lg:sticky lg:top-8">
-                                        <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-5">
-                                            <div className="text-center mb-5">
-                                                <h3 className="text-lg font-bold text-gray-900 mb-2">
-                                                    Unlock Your Complete Study
-                                                </h3>
-                                                <p className="text-gray-600 text-sm leading-relaxed">
-                                                    Get your comprehensive analysis and S10.AI solutions.
-                                                </p>
-                                            </div>
-                                            
-                                            <form onSubmit={handleSubmitForm} className="space-y-3">
-                                                <div className="grid grid-cols-2 gap-3">
-                                                    <InputField name="firstName" type="text" placeholder="First Name" />
-                                                    <InputField name="lastName" type="text" placeholder="Last Name" />
-                                                </div>
-                                                
-                                                <InputField name="email" type="email" placeholder="Email Address" />
-                                                <InputField name="contactNumber" type="tel" placeholder="Phone Number" />
-                                                <InputField name="practiceName" type="text" placeholder="Practice Name" />
-                                                <InputField name="jobTitle" type="text" placeholder="Job Title" />
-                                                
-                                                <motion.button 
-                                                    type="submit" 
-                                                    whileHover={{ scale: 1.01 }}
-                                                    whileTap={{ scale: 0.99 }}
-                                                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300 text-sm flex items-center justify-center gap-2 mt-4"
-                                                >
-                                                    View Complete Study
-                                                    <ArrowRight className="w-4 h-4" />
-                                                </motion.button>
-                                            </form>
-                                            
-                                            <div className="flex items-center justify-center gap-2 mt-3">
-                                                <Shield className="w-3 h-3 text-gray-500" />
-                                                <p className="text-gray-500 text-center text-xs">
-                                                    Secure & confidential
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                );
-
-            case 'report':
-                return (
-                    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30">
-                        <motion.div 
-                            variants={pageVariants} 
-                            initial="initial" 
-                            animate="in" 
-                            exit="out" 
-                            transition={pageTransition} 
-                            className="container mx-auto px-4 py-8 max-w-7xl"
-                        >
-                            {/* Header */}
-                            <div className="text-center mb-8">
-                                <motion.div 
-                                    className="w-16 h-16 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 0.3 }}
-                                >
-                                    <BarChart3 className="w-8 h-8 text-white" />
-                                </motion.div>
-                                <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                                    Your Complete Practice Benchmark Study
-                                </h1>
-                                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4">
-                                    <span className="text-base font-medium text-gray-700">Overall Efficiency Score:</span>
-                                    <span className={`text-2xl font-bold px-4 py-2 rounded-xl border shadow-md ${
-                                        overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
-                                        overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
-                                        'bg-red-50 text-red-700 border-red-200'
-                                    }`}>
-                                        {overallScore}%
-                                    </span>
-                                </div>
-                                <p className="text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                                    Here's your comprehensive analysis and how S10.AI can transform your practice efficiency.
-                                </p>
-                            </div>
-
-                            {/* Main Content Layout - Better proportions */}
-                            <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                                {/* Scrollable Report Content - Takes 3/4 of space */}
-                                <div className="xl:col-span-3 order-2 xl:order-1">
-                                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                                        <div className="p-4 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 border-b border-gray-200">
-                                            <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-                                                <FileText className="w-5 h-5 text-[#387E89]" />
-                                                Detailed Analysis Report
-                                            </h2>
-                                            <p className="text-gray-600 mt-1 text-sm">
-                                                Comprehensive breakdown of your practice efficiency metrics
-                                            </p>
-                                        </div>
-                                        
-                                        <div className="max-h-[700px] overflow-y-auto">
-                                            <div className="p-4 space-y-4">
-                                                {reportResults.map((res, index) => {
-                                                    const IconComponent = res.icon;
-                                                    return (
-                                                        <motion.div 
-                                                            key={res.id} 
-                                                            initial={{ opacity: 0, y: 10 }}
-                                                            animate={{ opacity: 1, y: 0 }}
-                                                            transition={{ delay: index * 0.05 }}
-                                                            className={`p-4 rounded-xl border shadow-sm bg-white hover:shadow-md transition-all duration-300 ${
-                                                                res.analysisResult === 'Critical' 
-                                                                    ? 'border-red-200 hover:border-red-300' 
-                                                                    : res.analysisResult === 'High' 
-                                                                    ? 'border-amber-200 hover:border-amber-300' 
-                                                                    : 'border-emerald-200 hover:border-emerald-300'
-                                                            }`}
-                                                        >
-                                                            <div className="flex items-start gap-3 mb-3">
-                                                                <div className={`p-2 rounded-lg flex-shrink-0 ${
-                                                                    res.analysisResult === 'Critical' 
-                                                                        ? 'bg-red-100' 
-                                                                        : res.analysisResult === 'High' 
-                                                                        ? 'bg-amber-100' 
-                                                                        : 'bg-emerald-100'
-                                                                }`}>
-                                                                    <IconComponent className={`w-4 h-4 ${
-                                                                        res.analysisResult === 'Critical' 
-                                                                            ? 'text-red-600' 
-                                                                            : res.analysisResult === 'High' 
-                                                                            ? 'text-amber-600' 
-                                                                            : 'text-emerald-600'
-                                                                    }`} />
-                                                                </div>
-                                                                <div className="flex-1 min-w-0">
-                                                                    <div className={`text-xs font-medium px-2 py-0.5 rounded-full w-fit mb-2 ${
-                                                                        res.analysisResult === 'Critical' 
-                                                                            ? 'bg-red-100 text-red-700' 
-                                                                            : res.analysisResult === 'High' 
-                                                                            ? 'bg-amber-100 text-amber-700' 
-                                                                            : 'bg-emerald-100 text-emerald-700'
-                                                                    }`}>
-                                                                        {res.analysisResult} Priority
-                                                                    </div>
-                                                                    <h3 className="text-sm font-bold text-gray-900 mb-1">
-                                                                        {res.valueProp}
-                                                                    </h3>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                            <p className="text-gray-700 mb-3 leading-relaxed text-sm">
-                                                                {res.reportText(res.answer!)}
-                                                            </p>
-                                                            
-                                                            <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-lg p-3 mb-3 border border-gray-200">
-                                                                <p className="text-gray-900 font-medium mb-1 text-sm flex items-center gap-2">
-                                                                    <Zap className="w-3 h-3 text-[#387E89]" />
-                                                                    S10.AI Solution:
-                                                                </p>
-                                                                <p className="text-gray-700 text-xs leading-relaxed">{res.solution}</p>
-                                                            </div>
-                                                            
-                                                            <div className="text-xs p-2 bg-gray-50 rounded-lg border border-gray-200">
-                                                                <span className="text-gray-600">Your Answer: </span>
-                                                                <span className="font-medium text-gray-900">
-                                                                    {Array.isArray(res.answer) ? res.answer.join(', ') : `${res.answer}${res.type === 'slider' ? ' hrs' : ''}`}
-                                                                </span>
-                                                            </div>
-                                                        </motion.div>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Fixed CTA Section - Takes 1/4 of space */}
-                                <div className="xl:col-span-1 order-1 xl:order-2">
-                                    <div className="xl:sticky xl:top-8">
-                                        <motion.div 
-                                            className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
-                                            whileHover={{ scale: 1.005 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            <div className="p-4 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-b border-gray-200">
-                                                <h2 className="text-sm font-bold mb-2 text-gray-900 text-center">
-                                                    Transform Your Practice
-                                                </h2>
-                                                <p className="text-gray-600 text-xs leading-relaxed text-center">
-                                                    S10.AI solutions to solve these challenges.
-                                                </p>
-                                            </div>
-                                            
-                                            <div className="p-4">
-                                                <div className="grid grid-cols-1 gap-3 mb-4">
-                                                    <motion.div 
-                                                        className="bg-gradient-to-r from-blue-50 to-indigo-50 p-3 rounded-lg border border-blue-200 shadow-sm"
-                                                        whileHover={{ scale: 1.01 }}
-                                                        transition={{ duration: 0.2 }}
-                                                    >
-                                                        <Stethoscope className="w-5 h-5 text-[#387E89] mx-auto mb-2" />
-                                                        <h3 className="text-xs font-bold text-gray-900 mb-1 text-center">S10.AI Crush</h3>
-                                                        <p className="text-gray-600 mb-2 text-xs text-center leading-relaxed">
-                                                            AI clinical documentation
-                                                        </p>
-                                                        <ul className="text-xs text-gray-600 space-y-1">
-                                                            <li className="flex items-center gap-1">
-                                                                <CheckCircle className="w-2 h-2 text-green-500 flex-shrink-0" />
-                                                                Real-time notes
-                                                            </li>
-                                                            <li className="flex items-center gap-1">
-                                                                <CheckCircle className="w-2 h-2 text-green-500 flex-shrink-0" />
-                                                                80% time reduction
-                                                            </li>
-                                                        </ul>
-                                                    </motion.div>
-                                                    
-                                                    <motion.div 
-                                                        className="bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-lg border border-green-200 shadow-sm"
-                                                        whileHover={{ scale: 1.01 }}
-                                                        transition={{ duration: 0.2 }}
-                                                    >
-                                                        <Phone className="w-5 h-5 text-[#387E89] mx-auto mb-2" />
-                                                        <h3 className="text-xs font-bold text-gray-900 mb-1 text-center">S10.AI Bravo</h3>
-                                                        <p className="text-gray-600 mb-2 text-xs text-center leading-relaxed">
-                                                            AI phone agent 24/7
-                                                        </p>
-                                                        <ul className="text-xs text-gray-600 space-y-1">
-                                                            <li className="flex items-center gap-1">
-                                                                <CheckCircle className="w-2 h-2 text-green-500 flex-shrink-0" />
-                                                                70% less staff work
-                                                            </li>
-                                                            <li className="flex items-center gap-1">
-                                                                <CheckCircle className="w-2 h-2 text-green-500 flex-shrink-0" />
-                                                                60% fewer no-shows
-                                                            </li>
-                                                        </ul>
-                                                    </motion.div>
-                                                </div>
-                                                
-                                                <div className="flex flex-col gap-2">
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.01 }}
-                                                        whileTap={{ scale: 0.99 }}
-                                                        className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold py-2 px-3 rounded-lg text-xs shadow-lg transition-all duration-300 flex items-center justify-center gap-2"
-                                                        onClick={() => window.open('/contact', '_blank')}
-                                                    >
-                                                        Schedule Demo
-                                                        <ExternalLink className="w-3 h-3" />
-                                                    </motion.button>
-                                                    <motion.button
-                                                        whileHover={{ scale: 1.01 }}
-                                                        whileTap={{ scale: 0.99 }}
-                                                        className="border border-[#387E89] text-[#387E89] font-semibold py-2 px-3 rounded-lg text-xs hover:bg-[#387E89] hover:text-white transition-all duration-300 flex items-center justify-center gap-2"
-                                                        onClick={() => window.open('/pricing', '_blank')}
-                                                    >
-                                                        View Solutions
-                                                        <ArrowRight className="w-3 h-3" />
-                                                    </motion.button>
-                                                </div>
-                                            </div>
-                                        </motion.div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div className="text-center mt-8">
-                                <button 
-                                    onClick={handleRetake} 
-                                    className="text-gray-500 hover:text-gray-700 transition-colors text-sm font-medium"
-                                >
-                                    ← Retake the Assessment
-                                </button>
-                            </div>
-                        </motion.div>
-                    </div>
-                );
-
-            default: // intro
-                return (
-                    <IntroHeroSection
-                        heading="Practice Efficiency Grader"
-                        tagline="Discover how efficient your practice really is and unlock actionable insights to optimize your workflow with AI."
-                        buttonText="Start Your Assessment"
-                        onStart={handleStart}
-                    />
-                );
-        }
-    };
-    
-    return (
-        <>
-            <Helmet>
-                <title>Practice Efficiency Grader | S10.AI</title>
-                <meta name="description" content="Assess your practice efficiency with our comprehensive AI-powered grader. Get personalized insights and discover how S10.AI can transform your healthcare practice." />
-            </Helmet>
+// Form component
+const ContactForm = ({ onSubmit }: { onSubmit: (data: any) => void }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    practice: '',
+    specialty: '',
+    size: '',
+  });
+  
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+  
+  return (
+    <div className="max-w-2xl mx-auto p-6">
+      <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+        <h2 className="text-2xl font-bold mb-6 text-center">Get Your Personalized Results</h2>
+        <p className="text-gray-600 mb-6 text-center">
+          Please provide your information to receive your practice efficiency score and personalized recommendations.
+        </p>
+        
+        <form onSubmit={handleSubmit}>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#387E89] focus:border-[#387E89] outline-none"
+                required
+              />
+            </div>
             
-            <main className="min-h-screen w-full">
-                <div className="relative z-10 min-h-screen">
-                    <AnimatePresence mode="wait">
-                        {renderContent()}
-                    </AnimatePresence>
-                </div>
-            </main>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#387E89] focus:border-[#387E89] outline-none"
+                required
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="practice" className="block text-sm font-medium text-gray-700 mb-1">Practice Name</label>
+              <input
+                type="text"
+                id="practice"
+                name="practice"
+                value={formData.practice}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#387E89] focus:border-[#387E89] outline-none"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="specialty" className="block text-sm font-medium text-gray-700 mb-1">Specialty</label>
+              <select
+                id="specialty"
+                name="specialty"
+                value={formData.specialty}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#387E89] focus:border-[#387E89] outline-none"
+                required
+              >
+                <option value="">Select Specialty</option>
+                <option value="Family Medicine">Family Medicine</option>
+                <option value="Internal Medicine">Internal Medicine</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Dermatology">Dermatology</option>
+                <option value="Orthopedics">Orthopedics</option>
+                <option value="Psychiatry">Psychiatry</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div>
+              <label htmlFor="size" className="block text-sm font-medium text-gray-700 mb-1">Practice Size</label>
+              <select
+                id="size"
+                name="size"
+                value={formData.size}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-[#387E89] focus:border-[#387E89] outline-none"
+                required
+              >
+                <option value="">Select Size</option>
+                <option value="Solo">Solo Practice</option>
+                <option value="Small">Small (2-5 providers)</option>
+                <option value="Medium">Medium (6-20 providers)</option>
+                <option value="Large">Large (21-50 providers)</option>
+                <option value="Enterprise">Enterprise (50+ providers)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div className="mt-8">
+            <button
+              type="submit"
+              className="w-full py-3 px-4 bg-gradient-to-r from-[#143151] to-[#387E89] text-white rounded-lg hover:shadow-lg transition-shadow"
+            >
+              Get My Results
+            </button>
+          </div>
+          
+          <p className="text-xs text-gray-500 mt-4 text-center">
+            Your information is secure and will not be shared with third parties.
+          </p>
+        </form>
+      </div>
+    </div>
+  );
+};
 
-            <style>{`
-                @keyframes pulseBar {
-                    0% { transform: scaleY(var(--scale-start, 0.4)); }
-                    100% { transform: scaleY(var(--scale-end, 1)); }
-                }
-            `}</style>
-        </>
-    );
-}
+// Results component
+const ResultsPage = ({ score, onViewBenchmark }: { score: number, onViewBenchmark: () => void }) => {
+  const getScoreCategory = () => {
+    if (score >= 80) return { category: 'Excellent', color: '#10B981' };
+    if (score >= 60) return { category: 'Good', color: '#3B82F6' };
+    if (score >= 40) return { category: 'Average', color: '#F59E0B' };
+    if (score >= 20) return { category: 'Below Average', color: '#F97316' };
+    return { category: 'Poor', color: '#EF4444' };
+  };
+  
+  const { category, color } = getScoreCategory();
+  
+  const recommendations = [
+    {
+      title: 'Implement AI Medical Scribing',
+      description: 'Reduce documentation time by up to 75% with AI-powered medical scribing that captures patient encounters in real-time.',
+      impact: 'High'
+    },
+    {
+      title: 'Optimize EHR Templates',
+      description: 'Create specialty-specific templates to streamline documentation workflow and reduce repetitive data entry.',
+      impact: 'Medium'
+    },
+    {
+      title: 'Delegate Administrative Tasks',
+      description: 'Utilize AI staffing solutions to handle routine administrative tasks like appointment scheduling and patient follow-ups.',
+      impact: 'High'
+    },
+    {
+      title: 'Implement Pre-Visit Planning',
+      description: 'Use AI to analyze upcoming appointments and prepare necessary information before patient visits.',
+      impact: 'Medium'
+    },
+  ];
+  
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <h2 className="text-2xl font-bold mb-6 text-center">Your Practice Efficiency Score</h2>
+        
+        <div className="flex justify-center mb-8">
+          <div className="relative">
+            <svg className="w-48 h-48">
+              <circle
+                cx="96"
+                cy="96"
+                r="70"
+                fill="none"
+                stroke="#f3f4f6"
+                strokeWidth="12"
+              />
+              <circle
+                cx="96"
+                cy="96"
+                r="70"
+                fill="none"
+                stroke={color}
+                strokeWidth="12"
+                strokeDasharray="439.8"
+                strokeDashoffset={439.8 - (439.8 * score / 100)}
+                transform="rotate(-90 96 96)"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-5xl font-bold" style={{ color }}>{score}</span>
+              <span className="text-lg font-medium text-gray-600">{category}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-4">Key Insights</h3>
+          <p className="text-gray-700 mb-4">
+            Based on your responses, your practice efficiency score is <strong>{score}</strong>, which is considered <strong>{category.toLowerCase()}</strong>. 
+            {score < 60 ? ' There are significant opportunities to improve your practice efficiency.' : ' Your practice is performing well, but there are still opportunities for improvement.'}
+          </p>
+          <p className="text-gray-700">
+            The average score for practices in your specialty is <strong>65</strong>. 
+            <button 
+              onClick={onViewBenchmark}
+              className="text-[#387E89] font-medium ml-1 hover:underline"
+            >
+              View benchmark comparison
+            </button>
+          </p>
+        </div>
+        
+        <div>
+          <h3 className="text-xl font-semibold mb-4">Recommendations</h3>
+          <div className="space-y-4">
+            {recommendations.map((rec, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div className="flex justify-between items-start">
+                  <h4 className="font-medium text-gray-900">{rec.title}</h4>
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${
+                    rec.impact === 'High' 
+                      ? 'bg-green-100 text-green-800' 
+                      : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {rec.impact} Impact
+                  </span>
+                </div>
+                <p className="text-gray-600 mt-2 text-sm">{rec.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl shadow-lg p-6 text-white">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="mb-4 md:mb-0">
+            <h3 className="text-xl font-bold mb-2">Ready to improve your practice efficiency?</h3>
+            <p className="opacity-90">Schedule a demo to see how S10.AI can transform your workflow.</p>
+          </div>
+          <button className="bg-white text-[#143151] px-6 py-3 rounded-lg font-medium hover:shadow-lg transition-shadow">
+            Book a Demo
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Benchmark component
+const BenchmarkPage = () => {
+  const specialties = [
+    { name: 'Family Medicine', avg: 62 },
+    { name: 'Internal Medicine', avg: 58 },
+    { name: 'Pediatrics', avg: 65 },
+    { name: 'Cardiology', avg: 70 },
+    { name: 'Dermatology', avg: 72 },
+    { name: 'Orthopedics', avg: 68 },
+    { name: 'Psychiatry', avg: 60 },
+  ];
+  
+  const practiceSize = [
+    { name: 'Solo', avg: 55 },
+    { name: 'Small (2-5)', avg: 60 },
+    { name: 'Medium (6-20)', avg: 65 },
+    { name: 'Large (21-50)', avg: 70 },
+    { name: 'Enterprise (50+)', avg: 75 },
+  ];
+  
+  return (
+    <div className="max-w-4xl mx-auto p-6">
+      <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
+        <h2 className="text-2xl font-bold mb-6 text-center">Benchmark Comparison</h2>
+        
+        <div className="mb-8">
+          <h3 className="text-xl font-semibold mb-4">By Specialty</h3>
+          <div className="space-y-4">
+            {specialties.map((specialty, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm font-medium text-gray-700">{specialty.name}</span>
+                  <span className="text-sm font-medium text-gray-700">{specialty.avg}/100</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div 
+                    className="bg-gradient-to-r from-[#143151] to-[#387E89] h-2.5 rounded-full"
+                    style={{ width: `${specialty.avg}%` }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <h3 className="text-xl font-semibold mb-4">By Practice Size</h3>
+          <div className="space-y-4">
+            {practiceSize.map((size, index) => (
+              <div key={index} className="mb-4">
+                <div className="flex justify-between mb-1">
+                  <span className="text-sm font-medium text-gray-700">{size.name}</span>
+                  <span className="text-sm font-medium text-gray-700">{size.avg}/100</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div 
+                    className="bg-gradient-to-r from-[#143151] to-[#387E89] h-2.5 rounded-full"
+                    style={{ width: `${size.avg}%` }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      <div className="bg-white rounded-xl shadow-lg p-8">
+        <h3 className="text-xl font-semibold mb-4">Key Insights</h3>
+        <div className="space-y-4">
+          <p className="text-gray-700">
+            <strong>Specialty Impact:</strong> Specialties with higher procedural components like Dermatology and Cardiology tend to have higher efficiency scores due to standardized workflows and documentation templates.
+          </p>
+          <p className="text-gray-700">
+            <strong>Practice Size Correlation:</strong> Larger practices typically score higher due to economies of scale, specialized staff roles, and greater technology investments.
+          </p>
+          <p className="text-gray-700">
+            <strong>Technology Adoption:</strong> Practices using AI-powered solutions score 15-20 points higher on average than those relying solely on traditional EHR systems.
+          </p>
+          <p className="text-gray-700">
+            <strong>Documentation Time:</strong> The highest-performing practices spend less than 5 minutes per patient on documentation, compared to 15+ minutes in lower-scoring practices.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const PracticeEfficiencyGrader = () => {
+  const [currentStep, setCurrentStep] = useState<'intro' | 'questionnaire' | 'form' | 'results' | 'benchmark'>('intro');
+  const [answers, setAnswers] = useState<Record<number, any>>({});
+  const [formData, setFormData] = useState<any>({});
+  const [score, setScore] = useState<number>(0);
+
+  const handleStartAssessment = () => {
+    setCurrentStep('questionnaire');
+  };
+
+  const handleQuestionnaireComplete = (questionnaireAnswers: Record<number, any>) => {
+    setAnswers(questionnaireAnswers);
+    setCurrentStep('form');
+  };
+
+  const handleFormComplete = (data: any) => {
+    setFormData(data);
+    
+    // Calculate score
+    const totalScore = Object.values(answers).reduce((sum: number, answer: any) => {
+      return sum + (answer?.score || 0);
+    }, 0);
+    
+    setScore(totalScore);
+    setCurrentStep('results');
+  };
+
+  const handleViewBenchmark = () => {
+    setCurrentStep('benchmark');
+  };
+
+  if (currentStep === 'intro') {
+    return <InteractiveHeroSection onStartAssessment={handleStartAssessment} />;
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="container mx-auto py-8">
+        {currentStep === 'questionnaire' && (
+          <Questionnaire 
+            questions={questions} 
+            onComplete={handleQuestionnaireComplete} 
+          />
+        )}
+        
+        {currentStep === 'form' && (
+          <ContactForm onSubmit={handleFormComplete} />
+        )}
+        
+        {currentStep === 'results' && (
+          <ResultsPage 
+            score={score} 
+            onViewBenchmark={handleViewBenchmark} 
+          />
+        )}
+        
+        {currentStep === 'benchmark' && (
+          <BenchmarkPage />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PracticeEfficiencyGrader;
