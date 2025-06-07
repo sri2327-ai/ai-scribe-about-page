@@ -1,3 +1,4 @@
+
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -85,7 +86,7 @@ export default function Footer() {
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
+  const themeChnStatus = (location.pathname === '/s10-ai-advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
   const footerSections = [
     {
@@ -238,22 +239,22 @@ export default function Footer() {
       minHeight: '100px'
     }}>
       <Box sx={{ 
-        background: theme.palette.background.default,
-        color: 'white',
+        background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
+        color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
         padding: '4rem 2rem 2rem 2rem',
         width: '100%',
         position: 'relative',
         zIndex: 1,
-        borderTop: `1px solid ${alpha(theme.palette.common.white, 0.5)}`,
+        borderTop: themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.black, 0.5)}`,
       }}>
-        <AnimatedGradientBackground 
+        {themeChnStatus && <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
           gradientColors={["#000", "#0A7A8C", "#0E86A3", "#000"]}
           gradientStops={[0, 15, 30, 100]}
           animationSpeed={0.02}
           breathingRange={15}
-        />
+        />}
         
         <Box sx={{ 
           maxWidth: '1200px', 
