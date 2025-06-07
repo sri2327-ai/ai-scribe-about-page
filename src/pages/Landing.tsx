@@ -1,3 +1,4 @@
+
 import React, { Suspense } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -8,6 +9,7 @@ import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
+import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { typography } from '@/lib/typography';
@@ -170,6 +172,9 @@ const Landing = () => {
           variant="general"
         />
       </main>
+      
+      {/* Add Footer at the bottom */}
+      <Footer />
     </>
   );
 };
