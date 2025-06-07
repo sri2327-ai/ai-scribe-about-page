@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,6 +21,7 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
     labels 
 }) => {
     const [isInteracting, setIsInteracting] = useState(false);
+    const sliderRef = useRef<HTMLDivElement>(null);
 
     const handleValueChange = (newValue: number[]) => {
         onChange(newValue[0]);
@@ -31,7 +32,21 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
     };
 
     const handleInteractionEnd = () => {
-        setTimeout(() => setIsInteracting(false), 1000); // Hide after 1 second
+        setTimeout(() => setIsInteracting(false), 1500);
+    };
+
+    const handleSliderClick = (event: React.MouseEvent) => {
+        if (!sliderRef.current) return;
+        
+        const rect = sliderRef.current.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const percentage = x / rect.width;
+        const newValue = Math.round(min + (max - min) * percentage);
+        const clampedValue = Math.max(min, Math.min(max, newValue));
+        
+        onChange(clampedValue);
+        handleInteractionStart();
+        handleInteractionEnd();
     };
 
     return (
@@ -49,6 +64,9 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
             
             <div className="relative space-y-4">
                 <div 
+                    ref={sliderRef}
+                    className="cursor-pointer"
+                    onClick={handleSliderClick}
                     onMouseDown={handleInteractionStart}
                     onMouseUp={handleInteractionEnd}
                     onTouchStart={handleInteractionStart}
