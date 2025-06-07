@@ -352,14 +352,14 @@ export default function Footer() {
               gap: '0.6rem',
               minWidth: { md: '300px' }
             }}>
-              <Typography variant='h6' fontWeight='medium' sx={{ 
+              <Typography variant='body1' fontWeight='medium' sx={{ 
                 color: 'white',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
               </Typography>
               <Typography 
-                variant='h6' 
+                variant='body1' 
                 fontWeight='medium'  
                 component="a"
                 href="tel:+16314886390" 
@@ -371,7 +371,7 @@ export default function Footer() {
               >
                 Tel: +1 631 4886 390
               </Typography>
-              <Typography variant='h6' fontWeight='medium' sx={{ 
+              <Typography variant='body1' fontWeight='medium' sx={{ 
                 color: 'white',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
@@ -477,7 +477,7 @@ export default function Footer() {
               gap: '0.6rem',
               minWidth: { md: '200px' }
             }}>
-              <Typography variant='h6' fontWeight='medium'>
+              <Typography variant='body1' fontWeight='medium'>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
                     color: 'white',
@@ -490,7 +490,7 @@ export default function Footer() {
                   </Box>
                 </Link>
               </Typography>
-              <Typography variant='h6' fontWeight='medium'>
+              <Typography variant='body1' fontWeight='medium'>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
                     color: 'white',
@@ -503,7 +503,7 @@ export default function Footer() {
                   </Box>
                 </Link>
               </Typography>
-              <Typography variant='h6' fontWeight='medium'>
+              <Typography variant='body1' fontWeight='medium'>
                 <a href="https://www.saashub.com/s10-ai-status" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
                     color: 'white',
@@ -525,7 +525,7 @@ export default function Footer() {
             gap: '2rem',
             marginTop: '2rem'
           }}>
-            <Typography variant='h6' fontWeight='medium' sx={{ 
+            <Typography variant='body2' fontWeight='medium' sx={{ 
               color: 'white',
               textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
             }}>
