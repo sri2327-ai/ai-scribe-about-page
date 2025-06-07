@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -8,11 +9,34 @@ import { ModernSlider } from "@/components/ui/modern-slider";
 import { ArrowRight, Award, TrendingUp, Clock, Users, DollarSign, CheckCircle2, Star, Phone, Mail, Calendar } from "lucide-react";
 import { motion } from 'framer-motion';
 
+interface QuizAnswers {
+  providers: number;
+  patients: number;
+  documentation: number;
+  efficiency: number;
+  burnout: number;
+}
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contact: string;
+  practiceName: string;
+  jobTitle: string;
+}
+
 const PracticeEfficiencyGrader = () => {
   const [currentStep, setCurrentStep] = useState('intro');
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState<QuizAnswers>({
+    providers: 5,
+    patients: 20,
+    documentation: 2,
+    efficiency: 5,
+    burnout: 3
+  });
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -23,7 +47,7 @@ const PracticeEfficiencyGrader = () => {
 
   const questions = [
     {
-      id: 'providers',
+      id: 'providers' as keyof QuizAnswers,
       question: 'How many healthcare providers work in your practice?',
       min: 1,
       max: 50,
@@ -31,7 +55,7 @@ const PracticeEfficiencyGrader = () => {
       labels: ['1', '10', '20', '30', '40', '50+']
     },
     {
-      id: 'patients',
+      id: 'patients' as keyof QuizAnswers,
       question: 'How many patients do you see per day on average?',
       min: 5,
       max: 100,
@@ -39,7 +63,7 @@ const PracticeEfficiencyGrader = () => {
       labels: ['5', '25', '50', '75', '100+']
     },
     {
-      id: 'documentation',
+      id: 'documentation' as keyof QuizAnswers,
       question: 'How many hours per day do you spend on documentation?',
       min: 1,
       max: 8,
@@ -47,7 +71,7 @@ const PracticeEfficiencyGrader = () => {
       labels: ['1h', '2h', '4h', '6h', '8h+']
     },
     {
-      id: 'efficiency',
+      id: 'efficiency' as keyof QuizAnswers,
       question: 'How would you rate your current practice efficiency?',
       min: 1,
       max: 10,
@@ -55,7 +79,7 @@ const PracticeEfficiencyGrader = () => {
       labels: ['Poor', 'Average', 'Good', 'Very Good', 'Excellent']
     },
     {
-      id: 'burnout',
+      id: 'burnout' as keyof QuizAnswers,
       question: 'How often do you experience work-related stress or burnout?',
       min: 1,
       max: 5,
@@ -64,12 +88,12 @@ const PracticeEfficiencyGrader = () => {
     }
   ];
 
-  const handleAnswerChange = (questionId, value) => {
+  const handleAnswerChange = (questionId: keyof QuizAnswers, value: number) => {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
   };
 
   const calculateScore = () => {
-    const { providers = 5, patients = 20, documentation = 2, efficiency = 5, burnout = 3 } = answers;
+    const { providers, patients, documentation, efficiency, burnout } = answers;
     
     let score = 50;
     
@@ -82,7 +106,7 @@ const PracticeEfficiencyGrader = () => {
     return Math.max(0, Math.min(100, score));
   };
 
-  const getScoreCategory = (score) => {
+  const getScoreCategory = (score: number) => {
     if (score >= 80) return { label: 'Highly Efficient', color: 'text-green-600', bgColor: 'bg-green-50' };
     if (score >= 60) return { label: 'Moderately Efficient', color: 'text-yellow-600', bgColor: 'bg-yellow-50' };
     return { label: 'Needs Improvement', color: 'text-red-600', bgColor: 'bg-red-50' };
@@ -172,7 +196,7 @@ const PracticeEfficiencyGrader = () => {
 
             <div className="mb-12">
               <ModernSlider
-                value={answers[question.id] || question.min}
+                value={answers[question.id]}
                 onChange={(value) => handleAnswerChange(question.id, value)}
                 min={question.min}
                 max={question.max}
@@ -229,7 +253,7 @@ const PracticeEfficiencyGrader = () => {
             transition={{ duration: 0.6 }}
           >
             {/* Score Preview */}
-            <Card className="p-8 shadow-2xl">
+            <Card className="p-8 shadow-2xl bg-white">
               <div className="text-center mb-8">
                 <div className={`inline-flex items-center px-4 py-2 rounded-full ${category.bgColor} ${category.color} font-semibold mb-4`}>
                   <Star className="w-4 h-4 mr-2" />
@@ -264,7 +288,7 @@ const PracticeEfficiencyGrader = () => {
             </Card>
 
             {/* Contact Form */}
-            <Card className="p-8 shadow-2xl">
+            <Card className="p-8 shadow-2xl bg-white">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-[#143151] mb-2">
                   Get Your Complete Benchmark Study
@@ -409,7 +433,7 @@ const PracticeEfficiencyGrader = () => {
                 transition={{ duration: 0.6 }}
               >
                 {/* Header */}
-                <Card className="p-8 mb-8 shadow-2xl">
+                <Card className="p-8 mb-8 shadow-2xl bg-white">
                   <div className="text-center">
                     <h1 className="text-3xl font-bold text-[#143151] mb-4">
                       Practice Efficiency Benchmark Report
@@ -426,36 +450,36 @@ const PracticeEfficiencyGrader = () => {
 
                 {/* Key Metrics */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                  <Card className="p-6 text-center shadow-lg">
+                  <Card className="p-6 text-center shadow-lg bg-white">
                     <Users className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                    <div className="text-2xl font-bold text-[#143151]">{answers.providers || 'N/A'}</div>
+                    <div className="text-2xl font-bold text-[#143151]">{answers.providers}</div>
                     <p className="text-sm text-gray-600">Providers</p>
                   </Card>
-                  <Card className="p-6 text-center shadow-lg">
+                  <Card className="p-6 text-center shadow-lg bg-white">
                     <Clock className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                    <div className="text-2xl font-bold text-[#143151]">{answers.patients || 'N/A'}</div>
+                    <div className="text-2xl font-bold text-[#143151]">{answers.patients}</div>
                     <p className="text-sm text-gray-600">Patients/Day</p>
                   </Card>
-                  <Card className="p-6 text-center shadow-lg">
+                  <Card className="p-6 text-center shadow-lg bg-white">
                     <TrendingUp className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                    <div className="text-2xl font-bold text-[#143151]">{answers.documentation || 'N/A'}h</div>
+                    <div className="text-2xl font-bold text-[#143151]">{answers.documentation}h</div>
                     <p className="text-sm text-gray-600">Documentation Time</p>
                   </Card>
-                  <Card className="p-6 text-center shadow-lg">
+                  <Card className="p-6 text-center shadow-lg bg-white">
                     <Star className="w-8 h-8 text-[#387E89] mx-auto mb-3" />
-                    <div className="text-2xl font-bold text-[#143151]">{answers.efficiency || 'N/A'}/10</div>
+                    <div className="text-2xl font-bold text-[#143151]">{answers.efficiency}/10</div>
                     <p className="text-sm text-gray-600">Self-Rated Efficiency</p>
                   </Card>
                 </div>
 
                 {/* Detailed Analysis */}
-                <Card className="p-8 mb-8 shadow-lg">
+                <Card className="p-8 mb-8 shadow-lg bg-white">
                   <h2 className="text-2xl font-bold text-[#143151] mb-6">Detailed Analysis</h2>
                   <div className="space-y-6">
                     <div className="border-l-4 border-[#387E89] pl-6">
                       <h3 className="font-semibold text-[#143151] mb-2">Documentation Efficiency</h3>
                       <p className="text-gray-700 leading-relaxed">
-                        Based on your responses, you spend {answers.documentation || 'several'} hours daily on documentation. 
+                        Based on your responses, you spend {answers.documentation} hours daily on documentation. 
                         Industry best practices suggest that efficient practices typically spend 1-2 hours per day on 
                         documentation with the help of AI-powered tools.
                       </p>
@@ -464,7 +488,7 @@ const PracticeEfficiencyGrader = () => {
                     <div className="border-l-4 border-[#387E89] pl-6">
                       <h3 className="font-semibold text-[#143151] mb-2">Patient Volume Management</h3>
                       <p className="text-gray-700 leading-relaxed">
-                        Your practice sees {answers.patients || 'multiple'} patients per day. High-performing practices 
+                        Your practice sees {answers.patients} patients per day. High-performing practices 
                         with similar patient volumes typically achieve 15-20% better efficiency through optimized 
                         workflows and automated documentation.
                       </p>
@@ -481,7 +505,7 @@ const PracticeEfficiencyGrader = () => {
                 </Card>
 
                 {/* Recommendations */}
-                <Card className="p-8 mb-8 shadow-lg">
+                <Card className="p-8 mb-8 shadow-lg bg-white">
                   <h2 className="text-2xl font-bold text-[#143151] mb-6">Improvement Recommendations</h2>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div className="bg-blue-50 rounded-xl p-6">
@@ -522,14 +546,14 @@ const PracticeEfficiencyGrader = () => {
                 </Card>
 
                 {/* Industry Comparison */}
-                <Card className="p-8 shadow-lg">
+                <Card className="p-8 shadow-lg bg-white">
                   <h2 className="text-2xl font-bold text-[#143151] mb-6">Industry Benchmark Comparison</h2>
                   <div className="space-y-4">
                     <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
                       <span className="font-medium">Documentation Time</span>
                       <div className="flex items-center">
                         <span className="text-sm text-gray-600 mr-2">Industry Average: 3.2h</span>
-                        <span className="font-bold text-[#143151]">Your Practice: {answers.documentation || 'N/A'}h</span>
+                        <span className="font-bold text-[#143151]">Your Practice: {answers.documentation}h</span>
                       </div>
                     </div>
                     <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
@@ -543,7 +567,7 @@ const PracticeEfficiencyGrader = () => {
                       <span className="font-medium">Provider Satisfaction</span>
                       <div className="flex items-center">
                         <span className="text-sm text-gray-600 mr-2">Industry Average: 6.5/10</span>
-                        <span className="font-bold text-[#143151]">Current: {answers.efficiency || 'N/A'}/10</span>
+                        <span className="font-bold text-[#143151]">Current: {answers.efficiency}/10</span>
                       </div>
                     </div>
                   </div>
