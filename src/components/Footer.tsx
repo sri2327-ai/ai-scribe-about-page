@@ -1,4 +1,5 @@
 
+
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -86,7 +87,7 @@ export default function Footer() {
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const themeChnStatus = (location.pathname === '/s10-ai-advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
+  const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
   const footerSections = [
     {
@@ -192,7 +193,7 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white"
+        className="text-white hover:no-underline"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -353,7 +354,7 @@ export default function Footer() {
             }}>
               <Typography variant='h6' fontWeight='medium' sx={{ 
                 color: 'white',
-                textShadow: '0 0 10px rgba(0,0,0,0.5)'
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
               </Typography>
@@ -364,7 +365,7 @@ export default function Footer() {
                 href="tel:+16314886390" 
                 sx={{ 
                   color: 'white',
-                  textShadow: '0 0 10px rgba(0,0,0,0.5)',
+                  textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                   textDecoration: 'none'
                 }}
               >
@@ -372,7 +373,7 @@ export default function Footer() {
               </Typography>
               <Typography variant='h6' fontWeight='medium' sx={{ 
                 color: 'white',
-                textShadow: '0 0 10px rgba(0,0,0,0.5)'
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
               </Typography>
@@ -482,7 +483,7 @@ export default function Footer() {
                     color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)',
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium'
                   }}>
                     Terms & Condition
@@ -495,7 +496,7 @@ export default function Footer() {
                     color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)',
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium'
                   }}>
                     Privacy Policy
@@ -508,7 +509,7 @@ export default function Footer() {
                     color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: '0 0 10px rgba(0,0,0,0.5)',
+                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium'
                   }}>
                     Status
@@ -526,7 +527,7 @@ export default function Footer() {
           }}>
             <Typography variant='h6' fontWeight='medium' sx={{ 
               color: 'white',
-              textShadow: '0 0 10px rgba(0,0,0,0.5)',
+              textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
             }}>
               © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
             </Typography>
@@ -536,3 +537,4 @@ export default function Footer() {
     </Box>
   );
 }
+
