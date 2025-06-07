@@ -1,4 +1,5 @@
 
+
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -86,7 +87,7 @@ export default function Footer() {
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy' || location.pathname === '/integration') ? true : false;
+  const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
   const footerSections = [
     {
@@ -151,7 +152,7 @@ export default function Footer() {
         variant="h6" 
         fontWeight="medium" 
         sx={{ 
-          color: themeChnStatus ? 'white' : 'black',
+          color: 'white',
           marginBottom: '0.5rem',
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
           fontSize: '1.1rem',
@@ -167,7 +168,7 @@ export default function Footer() {
               variant="h6" 
               fontWeight="medium"
               sx={{ 
-                color: themeChnStatus ? 'white' : 'black',
+                color: 'white',
                 transition: 'color 0.3s ease',
                 display: 'block',
                 padding: '0.25rem 0',
@@ -192,7 +193,7 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className={`${themeChnStatus ? 'text-white' : 'text-black'} hover:no-underline`}
+        className="text-white hover:no-underline"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -209,7 +210,7 @@ export default function Footer() {
                 variant="h6" 
                 fontWeight="medium"
                 sx={{ 
-                  color: themeChnStatus ? 'white' : 'black',
+                  color: 'white',
                   transition: 'color 0.3s ease',
                   display: 'block',
                   padding: '0.25rem 0',
@@ -241,7 +242,7 @@ export default function Footer() {
       <Box sx={{ 
         background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
         color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
-        padding: { xs: '3rem 1rem 2rem 1rem', sm: '3.5rem 1.5rem 2rem 1.5rem', md: '4rem 2rem 2rem 2rem' },
+        padding: '4rem 2rem 2rem 2rem',
         width: '100%',
         position: 'relative',
         zIndex: 1,
@@ -300,16 +301,14 @@ export default function Footer() {
                 sx={{
                   borderRadius: 1,
                   background: 'transparent',
-                  color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
-                  border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.common.black}`,
-                  fontSize: { xs: '0.875rem', sm: '1rem' },
-                  padding: { xs: '0.5rem 1rem', sm: '0.75rem 1.5rem' },
+                  color: theme.palette.common.white,
+                  border: `1px solid ${theme.palette.common.white}`,
                   ".icon-box": {
-                    border: themeChnStatus ? `1px solid ${theme.palette.common.white}` : `1px solid ${theme.palette.common.black}`,
+                    border: `1px solid ${theme.palette.common.white}`,
                   },
                   "&:hover": {
                     border: `1px solid ${theme.palette.primary.main}`,
-                    background: themeChnStatus ? `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})` : theme.palette.primary.main,
+                    background: `linear-gradient(135deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
                     color: theme.palette.common.white,
                     ".icon-box": {
                       border: `1px solid ${theme.palette.common.white}`,
@@ -354,7 +353,7 @@ export default function Footer() {
               minWidth: { md: '300px' }
             }}>
               <Typography variant='body1' fontWeight='medium' sx={{ 
-                color: themeChnStatus ? 'white' : 'black',
+                color: 'white',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
@@ -365,7 +364,7 @@ export default function Footer() {
                 component="a"
                 href="tel:+16314886390" 
                 sx={{ 
-                  color: themeChnStatus ? 'white' : 'black',
+                  color: 'white',
                   textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                   textDecoration: 'none'
                 }}
@@ -373,7 +372,7 @@ export default function Footer() {
                 Tel: +1 631 4886 390
               </Typography>
               <Typography variant='body1' fontWeight='medium' sx={{ 
-                color: themeChnStatus ? 'white' : 'black',
+                color: 'white',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
@@ -391,7 +390,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on X" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#1da1f2', 
                     },
@@ -405,7 +404,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on Facebook" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#1877f2', 
                     },
@@ -419,7 +418,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on LinkedIn" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#3b5999', 
                     },
@@ -433,7 +432,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on Instagram" 
                   target="_blank" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#e4405f', 
                     },
@@ -447,7 +446,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on YouTube" 
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#cd201f', 
                     },
@@ -461,7 +460,7 @@ export default function Footer() {
                   target="_blank"
                   aria-label="Visit S10.AI on TikTok"  
                   sx={{ 
-                    color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+                    color: theme.palette.common.white,
                     '&:hover': {
                       color: '#ff0050', 
                     },
@@ -481,7 +480,7 @@ export default function Footer() {
               <Typography variant='body1' fontWeight='medium'>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: themeChnStatus ? 'white' : 'black',
+                    color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -494,7 +493,7 @@ export default function Footer() {
               <Typography variant='body1' fontWeight='medium'>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: themeChnStatus ? 'white' : 'black',
+                    color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -507,7 +506,7 @@ export default function Footer() {
               <Typography variant='body1' fontWeight='medium'>
                 <a href="https://www.saashub.com/s10-ai-status" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: themeChnStatus ? 'white' : 'black',
+                    color: 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
@@ -527,7 +526,7 @@ export default function Footer() {
             marginTop: '2rem'
           }}>
             <Typography variant='body2' fontWeight='medium' sx={{ 
-              color: themeChnStatus ? 'white' : 'black',
+              color: 'white',
               textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
             }}>
               © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
@@ -538,3 +537,4 @@ export default function Footer() {
     </Box>
   );
 }
+
