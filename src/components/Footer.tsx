@@ -1,3 +1,4 @@
+
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -152,12 +153,14 @@ export default function Footer() {
           <Typography variant="body2" sx={{ 
             color: 'inherit',
             transition: 'color 0.3s ease',
-            '&:hover': { color: theme.palette.primary.light },
             display: 'block',
             padding: '0.25rem 0',
             textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
             opacity: 0.9,
-            '&:hover': { opacity: 1 }
+            '&:hover': { 
+              color: theme.palette.primary.light,
+              opacity: 1 
+            }
           }}>
             {link.text}
           </Typography>
@@ -168,10 +171,12 @@ export default function Footer() {
 
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
-      <AccordionTrigger sx={{ 
-        color: 'inherit',
-        textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
-      }}>
+      <AccordionTrigger 
+        className={`${themeChnStatus ? 'text-white' : 'text-black'}`}
+        style={{
+          textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+        }}
+      >
         <Typography variant="h6" fontWeight="bold">
           {section.title}
         </Typography>
@@ -183,12 +188,14 @@ export default function Footer() {
               <Typography variant="body2" sx={{ 
                 color: 'inherit',
                 transition: 'color 0.3s ease',
-                '&:hover': { color: theme.palette.primary.light },
                 display: 'block',
                 padding: '0.25rem 0',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 opacity: 0.9,
-                '&:hover': { opacity: 1 }
+                '&:hover': { 
+                  color: theme.palette.primary.light,
+                  opacity: 1 
+                }
               }}>
                 {link.text}
               </Typography>
