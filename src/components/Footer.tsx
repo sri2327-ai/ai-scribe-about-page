@@ -1,5 +1,4 @@
 
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -87,6 +86,7 @@ export default function Footer() {
   const theme = useTheme();
   const location = useLocation();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
   const footerSections = [
@@ -145,8 +145,9 @@ export default function Footer() {
       display: 'flex', 
       flexDirection: 'column', 
       gap: '0.6rem',
-      minWidth: '200px',
-      flex: 1
+      minWidth: { xs: '100%', sm: '180px', md: '200px' },
+      flex: { xs: 'none', sm: 1 },
+      mb: { xs: '1.5rem', md: 0 }
     }}>
       <Typography 
         variant="h6" 
@@ -155,7 +156,7 @@ export default function Footer() {
           color: 'white',
           marginBottom: '0.5rem',
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-          fontSize: '1.1rem',
+          fontSize: { xs: '1rem', sm: '1.05rem', md: '1.1rem' },
           lineHeight: 1.2
         }}
       >
@@ -174,7 +175,7 @@ export default function Footer() {
                 padding: '0.25rem 0',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 opacity: 0.9,
-                fontSize: '1rem',
+                fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
                 lineHeight: 1.4,
                 '&:hover': { 
                   color: theme.palette.primary.light,
@@ -193,12 +194,12 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white hover:no-underline"
+        className="text-white hover:no-underline py-3"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
       >
-        <Typography variant="h6" fontWeight="medium">
+        <Typography variant="h6" fontWeight="medium" sx={{ fontSize: '1rem' }}>
           {section.title}
         </Typography>
       </AccordionTrigger>
@@ -207,7 +208,7 @@ export default function Footer() {
           {section.links.map((link, index) => (
             <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
               <Typography 
-                variant="h6" 
+                variant="body1" 
                 fontWeight="medium"
                 sx={{ 
                   color: 'white',
@@ -242,7 +243,7 @@ export default function Footer() {
       <Box sx={{ 
         background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
         color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
-        padding: '4rem 2rem 2rem 2rem',
+        padding: { xs: '2rem 1rem 1.5rem 1rem', sm: '3rem 1.5rem 2rem 1.5rem', md: '4rem 2rem 2rem 2rem' },
         width: '100%',
         position: 'relative',
         zIndex: 1,
@@ -269,16 +270,22 @@ export default function Footer() {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'stretch', md: 'flex-start' },
-            gap: { xs: '2rem', md: '3rem' },
-            marginBottom: { xs: '2rem', md: '3rem' },
+            gap: { xs: '1rem', sm: '2rem', md: '3rem' },
+            marginBottom: { xs: '1.5rem', sm: '2rem', md: '3rem' },
           }}>
-            {/* Desktop Layout */}
+            {/* Desktop and Tablet Layout */}
             {!isMobile ? (
-              <>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                flexWrap: { sm: 'wrap', lg: 'nowrap' },
+                gap: { xs: '1.5rem', sm: '2rem', md: '3rem' },
+                width: '100%'
+              }}>
                 {footerSections.map((section, index) => (
                   <FooterSection key={index} section={section} />
                 ))}
-              </>
+              </Box>
             ) : (
               /* Mobile Accordion Layout */
               <Accordion type="multiple" className="w-full">
@@ -293,7 +300,7 @@ export default function Footer() {
           <Box sx={{
             display: 'flex',
             justifyContent: { xs: 'center', md: 'flex-end' },
-            marginBottom: '2rem'
+            marginBottom: { xs: '1.5rem', md: '2rem' }
           }}>
             <Link to="/contact">
               <Button 
@@ -303,6 +310,8 @@ export default function Footer() {
                   background: 'transparent',
                   color: theme.palette.common.white,
                   border: `1px solid ${theme.palette.common.white}`,
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                  padding: { xs: '0.5rem 1rem', md: '0.75rem 1.5rem' },
                   ".icon-box": {
                     border: `1px solid ${theme.palette.common.white}`,
                   },
@@ -321,12 +330,14 @@ export default function Footer() {
                   </Box>
                 }
               >
-                <Typography variant='h6' fontWeight="medium">Contact Us</Typography>
+                <Typography variant='h6' fontWeight="medium" sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                  Contact Us
+                </Typography>
               </Button>
             </Link>
           </Box>
           
-          <Box sx={{ my: 4, position: 'relative' }}>
+          <Box sx={{ my: { xs: 3, md: 4 }, position: 'relative' }}>
             <GradientTracing 
               width={1200} 
               height={2} 
@@ -342,8 +353,8 @@ export default function Footer() {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'flex-start', md: 'flex-start' },
-            gap: { xs: '2rem', md: '4rem' },
-            marginTop: '2rem'
+            gap: { xs: '2rem', sm: '2.5rem', md: '4rem' },
+            marginTop: { xs: '1.5rem', md: '2rem' }
           }}>
             <Box sx={{ 
               display: 'flex', 
@@ -354,7 +365,8 @@ export default function Footer() {
             }}>
               <Typography variant='body1' fontWeight='medium' sx={{ 
                 color: 'white',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                fontSize: { xs: '0.875rem', md: '1rem' }
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
               </Typography>
@@ -366,24 +378,27 @@ export default function Footer() {
                 sx={{ 
                   color: 'white',
                   textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-                  textDecoration: 'none'
+                  textDecoration: 'none',
+                  fontSize: { xs: '0.875rem', md: '1rem' }
                 }}
               >
                 Tel: +1 631 4886 390
               </Typography>
               <Typography variant='body1' fontWeight='medium' sx={{ 
                 color: 'white',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                fontSize: { xs: '0.875rem', md: '1rem' }
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
               </Typography>
 
               <Box sx={{ 
                 display: 'flex', 
-                gap: '1rem', 
+                gap: { xs: '0.75rem', md: '1rem' }, 
                 marginTop: '1rem',
                 flexWrap: 'wrap'
               }}>
+                {/* Social media icons */}
                 <IconButton 
                   component="a" 
                   href="https://x.com/s10aiscribe" 
@@ -391,6 +406,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on X" 
                   sx={{ 
                     color: theme.palette.common.white,
+                    padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#1da1f2', 
                     },
@@ -405,6 +421,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on Facebook" 
                   sx={{ 
                     color: theme.palette.common.white,
+                    padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#1877f2', 
                     },
@@ -419,6 +436,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on LinkedIn" 
                   sx={{ 
                     color: theme.palette.common.white,
+                    padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#3b5999', 
                     },
@@ -433,6 +451,7 @@ export default function Footer() {
                   target="_blank" 
                   sx={{ 
                     color: theme.palette.common.white,
+                    padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#e4405f', 
                     },
@@ -447,6 +466,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on YouTube" 
                   sx={{ 
                     color: theme.palette.common.white,
+                    padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#cd201f', 
                     },
@@ -461,6 +481,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on TikTok"  
                   sx={{ 
                     color: theme.palette.common.white,
+                    padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#ff0050', 
                     },
@@ -484,7 +505,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-                    fontWeight: 'medium'
+                    fontWeight: 'medium',
+                    fontSize: { xs: '0.875rem', md: '1rem' }
                   }}>
                     Terms & Condition
                   </Box>
@@ -497,7 +519,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-                    fontWeight: 'medium'
+                    fontWeight: 'medium',
+                    fontSize: { xs: '0.875rem', md: '1rem' }
                   }}>
                     Privacy Policy
                   </Box>
@@ -510,7 +533,8 @@ export default function Footer() {
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
                     textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
-                    fontWeight: 'medium'
+                    fontWeight: 'medium',
+                    fontSize: { xs: '0.875rem', md: '1rem' }
                   }}>
                     Status
                   </Box>
@@ -523,11 +547,13 @@ export default function Footer() {
             flexDirection: 'row',
             justifyContent: 'center',
             gap: '2rem',
-            marginTop: '2rem'
+            marginTop: { xs: '1.5rem', md: '2rem' }
           }}>
             <Typography variant='body2' fontWeight='medium' sx={{ 
               color: 'white',
               textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+              fontSize: { xs: '0.75rem', md: '0.875rem' },
+              textAlign: 'center'
             }}>
               © {new Date().getFullYear()} S10.AI, Inc. All rights reserved.
             </Typography>
@@ -537,4 +563,3 @@ export default function Footer() {
     </Box>
   );
 }
-
