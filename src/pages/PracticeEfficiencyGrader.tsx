@@ -8,7 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { CheckCircle, Clock, Users, TrendingUp, FileText, Calendar, Phone, Mail, MapPin, Star, ArrowRight, Play } from 'lucide-react';
 
 // Helper to parse 'rgb(r, g, b)' or 'rgba(r, g, b, a)' string to {r, g, b}
-const parseRgbColor = (colorString) => {
+const parseRgbColor = (colorString: string) => {
   if (!colorString) return null;
   const match = colorString.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
   if (match) {
@@ -22,28 +22,48 @@ const parseRgbColor = (colorString) => {
 };
 
 // A simple SVG Play Icon
-const PlayIcon = ({ className = "w-6 h-6" }) => (
+const PlayIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path d="M8 5V19L19 12L8 5Z" />
   </svg>
 );
 
+// Type definitions
+interface QuestionOption {
+  text: string;
+  score: number;
+}
+
+interface Question {
+  id: number;
+  question: string;
+  options: QuestionOption[];
+}
+
+interface FormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  practiceName: string;
+}
+
 const PracticeEfficiencyGrader = () => {
   // Hero section animation refs
-  const canvasRef = useRef(null);
-  const targetRef = useRef(null);
-  const mousePosRef = useRef({ x: null, y: null });
-  const ctxRef = useRef(null);
-  const animationFrameIdRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const targetRef = useRef<HTMLButtonElement>(null);
+  const mousePosRef = useRef({ x: null as number | null, y: null as number | null });
+  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
+  const animationFrameIdRef = useRef<number | null>(null);
   const resolvedCanvasColorsRef = useRef({
     strokeStyle: { r: 128, g: 128, b: 128 }, // Default mid-gray
   });
 
   // State variables
-  const [currentStep, setCurrentStep] = useState('quiz');
-  const [answers, setAnswers] = useState({});
+  const [currentStep, setCurrentStep] = useState('hero');
+  const [answers, setAnswers] = useState<Record<number, QuestionOption>>({});
   const [score, setScore] = useState(0);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     firstName: '',
     lastName: '',
     email: '',
@@ -53,7 +73,7 @@ const PracticeEfficiencyGrader = () => {
   const [showReport, setShowReport] = useState(false);
 
   // Questions array
-  const questions = [
+  const questions: Question[] = [
     {
       id: 1,
       question: "How much time does your practice spend on documentation per patient visit?",
@@ -264,7 +284,7 @@ const PracticeEfficiencyGrader = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !targetRef.current || currentStep !== 'quiz') return;
+    if (!canvas || !targetRef.current || currentStep !== 'hero') return;
 
     ctxRef.current = canvas.getContext("2d");
     const ctx = ctxRef.current;
@@ -274,7 +294,7 @@ const PracticeEfficiencyGrader = () => {
       canvas.height = window.innerHeight;
     };
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       mousePosRef.current = { x: e.clientX, y: e.clientY };
     };
 
@@ -302,7 +322,7 @@ const PracticeEfficiencyGrader = () => {
   }, [drawArrow, currentStep]);
 
   // Handle answer selection
-  const handleAnswer = (questionId, selectedOption) => {
+  const handleAnswer = (questionId: number, selectedOption: QuestionOption) => {
     setAnswers(prev => ({
       ...prev,
       [questionId]: selectedOption
@@ -318,13 +338,13 @@ const PracticeEfficiencyGrader = () => {
   };
 
   // Handle form submission
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setShowReport(true);
   };
 
   // Handle input changes
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -336,7 +356,7 @@ const PracticeEfficiencyGrader = () => {
     return (
       <div className="min-h-screen bg-background">
         <div className="flex h-screen">
-          <div className="w-1/2 bg-white p-6 overflow-y-auto border-r">
+          <div className="w-3/5 bg-white p-6 overflow-y-auto border-r">
             <div className="max-w-2xl">
               <div className="mb-6">
                 <img src="/api/placeholder/120/40" alt="S10.AI Logo" className="h-8 mb-4" />
@@ -460,7 +480,7 @@ const PracticeEfficiencyGrader = () => {
             </div>
           </div>
 
-          <div className="w-1/2 bg-gradient-to-br from-blue-600 to-purple-700 p-8 flex flex-col justify-center">
+          <div className="w-2/5 bg-gradient-to-br from-blue-600 to-purple-700 p-8 flex flex-col justify-center">
             <div className="max-w-md">
               <h2 className="text-2xl font-bold text-white mb-4">Transform Your Practice Today</h2>
               <p className="text-blue-100 mb-6 leading-relaxed">
@@ -513,19 +533,19 @@ const PracticeEfficiencyGrader = () => {
     return (
       <div className="min-h-screen bg-background">
         <div className="flex min-h-screen">
-          <div className="w-3/5 p-6 flex items-center justify-center">
+          <div className="w-3/4 p-6 flex items-center justify-center">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="max-w-lg text-center"
+              className="max-w-2xl text-center"
             >
               <div className="mb-6">
-                <h1 className="text-2xl font-bold text-foreground mb-3">Your Practice Efficiency Score</h1>
+                <h1 className="text-3xl font-bold text-foreground mb-4">Your Practice Efficiency Score</h1>
                 <div className="relative inline-block">
-                  <div className="text-4xl font-bold text-primary mb-2">{score}%</div>
-                  <Progress value={score} className="w-48 h-3 mx-auto mb-4" />
+                  <div className="text-6xl font-bold text-primary mb-4">{score}%</div>
+                  <Progress value={score} className="w-64 h-4 mx-auto mb-6" />
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-base text-muted-foreground max-w-lg mx-auto">
                   {score >= 80 
                     ? "Great job! Your practice is performing well, but there's still room for optimization."
                     : score >= 60 
@@ -535,37 +555,50 @@ const PracticeEfficiencyGrader = () => {
                 </p>
               </div>
 
-              <Card className="mb-6">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-lg">What's Next?</CardTitle>
+              <Card className="mb-6 text-left">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl">What's Next?</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <p className="text-sm text-muted-foreground">
+                <CardContent className="space-y-4">
+                  <p className="text-base text-muted-foreground">
                     Get your complete benchmark study with detailed analysis, industry comparisons, 
                     and actionable solutions to transform your practice with S10.AI.
                   </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center text-sm">
+                      <CheckCircle className="w-4 h-4 text-green-500 mr-3" />
+                      <span>Comprehensive efficiency analysis</span>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <TrendingUp className="w-4 h-4 text-blue-500 mr-3" />
+                      <span>Industry benchmark comparisons</span>
+                    </div>
+                    <div className="flex items-center text-sm">
+                      <FileText className="w-4 h-4 text-purple-500 mr-3" />
+                      <span>Actionable optimization roadmap</span>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
           </div>
 
-          <div className="w-2/5 bg-gradient-to-br from-primary/5 to-primary/10 p-6 flex items-center justify-center border-l">
+          <div className="w-1/4 bg-gradient-to-br from-primary/5 to-primary/10 p-4 flex items-center justify-center border-l">
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="w-full max-w-sm"
+              className="w-full max-w-xs"
             >
               <Card>
-                <CardHeader className="text-center pb-4">
-                  <CardTitle className="text-lg">Unlock Your Complete Benchmark Study</CardTitle>
+                <CardHeader className="text-center pb-3">
+                  <CardTitle className="text-base">Get Your Complete Analysis</CardTitle>
                   <CardDescription className="text-xs">
-                    Enter your details to receive your comprehensive analysis and discover 
-                    how S10.AI can solve your practice challenges.
+                    Enter your details to receive your comprehensive benchmark study.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleFormSubmit} className="space-y-3">
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-2">
                       <div>
                         <Label htmlFor="firstName" className="text-xs">First Name*</Label>
                         <Input
@@ -573,7 +606,7 @@ const PracticeEfficiencyGrader = () => {
                           value={formData.firstName}
                           onChange={(e) => handleInputChange('firstName', e.target.value)}
                           required
-                          className="h-8 text-xs"
+                          className="h-7 text-xs"
                         />
                       </div>
                       <div>
@@ -583,7 +616,7 @@ const PracticeEfficiencyGrader = () => {
                           value={formData.lastName}
                           onChange={(e) => handleInputChange('lastName', e.target.value)}
                           required
-                          className="h-8 text-xs"
+                          className="h-7 text-xs"
                         />
                       </div>
                     </div>
@@ -596,7 +629,7 @@ const PracticeEfficiencyGrader = () => {
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         required
-                        className="h-8 text-xs"
+                        className="h-7 text-xs"
                       />
                     </div>
                     
@@ -607,7 +640,7 @@ const PracticeEfficiencyGrader = () => {
                         value={formData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
                         required
-                        className="h-8 text-xs"
+                        className="h-7 text-xs"
                       />
                     </div>
                     
@@ -618,11 +651,11 @@ const PracticeEfficiencyGrader = () => {
                         value={formData.practiceName}
                         onChange={(e) => handleInputChange('practiceName', e.target.value)}
                         required
-                        className="h-8 text-xs"
+                        className="h-7 text-xs"
                       />
                     </div>
                     
-                    <Button type="submit" className="w-full mt-4 h-9 text-xs">
+                    <Button type="submit" className="w-full mt-3 h-8 text-xs">
                       Get My Complete Analysis
                       <ArrowRight className="ml-2 h-3 w-3" />
                     </Button>
@@ -636,10 +669,9 @@ const PracticeEfficiencyGrader = () => {
     );
   }
 
-  // Default render for other steps
+  // Default render for hero step
   return (
     <div className="bg-background text-foreground min-h-screen flex flex-col">
-      {/* Hero Section with new design */}
       <main className="flex-grow flex flex-col items-center justify-center">
         <div className="mt-12 sm:mt-16 lg:mt-24 flex flex-col items-center">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-center px-4">
