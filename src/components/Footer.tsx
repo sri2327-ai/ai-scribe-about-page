@@ -1,3 +1,4 @@
+
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -193,7 +194,7 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white hover:no-underline py-4 px-2 text-lg"
+        className="text-white hover:no-underline py-4 px-4 text-lg"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -203,7 +204,7 @@ export default function Footer() {
         </Typography>
       </AccordionTrigger>
       <AccordionContent>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', pl: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', pl: 2 }}>
           {section.links.map((link, index) => (
             <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
               <Typography 
