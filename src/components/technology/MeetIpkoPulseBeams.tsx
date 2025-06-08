@@ -162,7 +162,6 @@ export const MeetIpkoPulseBeams = () => {
                 variant="default" 
                 size="lg" 
                 className="bg-white text-black hover:bg-gray-200 border border-white"
-                iconPosition="right"
               >
                 Learn More
                 <ArrowRight />

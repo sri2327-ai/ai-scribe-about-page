@@ -1,4 +1,3 @@
-
 "use client";
 
 import { memo, useEffect, useState } from "react";
@@ -255,7 +254,6 @@ const TrustedBy = () => {
           <Button 
             className="rounded-full px-6 py-6 bg-transparent border border-white hover:bg-white/10 text-white font-normal text-sm xs:text-base flex items-center gap-2 h-auto"
             onClick={() => window.location.href = "/contact"}
-            iconPosition="right"
           >
             Contact Us <ArrowRight />
           </Button>
