@@ -1,10 +1,9 @@
 
-import React, { Suspense } from 'react';
+import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { FourthSection } from '@/components/landing/FourthSection';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
-import { Badge } from "@/components/ui/badge";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
@@ -29,11 +28,18 @@ const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSe
 const Landing = () => {
   console.log("Rendering Landing page");
   
+  const [isClient, setIsClient] = useState(false);
+  
+  // Ensure client-side only features are properly hydrated
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { shouldShow, markAsShown } = useExitIntent({
     threshold: 60,
     delay: 2000,
     inactivityTimeout: 25000,
-    enabled: true
+    enabled: isClient // Only enable when client-side
   });
 
   const handleBookDemo = () => {
@@ -69,20 +75,16 @@ const Landing = () => {
     }
   };
 
-  // Add a handler for the onSelect prop
   const handlePracticeTypeSelect = (type: string) => {
     console.log("Practice type selected on landing page:", type);
-    // You can add more functionality here if needed
   };
 
   return (
     <>
-      {/* New Animated Header */}
       <AnimatedHeader />
       
       <main className="min-h-screen bg-white overflow-x-hidden">
         <Helmet>
-          {/* Add preconnect for critical domains */}
           <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
           
@@ -90,10 +92,8 @@ const Landing = () => {
           <meta name="description" content="S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions." />
           <link rel="canonical" href="https://s10.ai" />
           
-          {/* Preload critical resources */}
           <link rel="preload" href="/HeaderLogo.png" as="image" />
           
-          {/* Structured data for SEO */}
           <script type="application/ld+json">
             {JSON.stringify(schemaMarkup)}
           </script>
@@ -130,10 +130,8 @@ const Landing = () => {
           </Breadcrumb>
         </div>
 
-        {/* First section is render-critical */}
         <FirstSection />
         
-        {/* All other sections use lazy loading with suspense fallbacks */}
         <Suspense fallback={<SectionLoader />}>
           <SecondSection />
         </Suspense>
@@ -164,16 +162,17 @@ const Landing = () => {
           <EleventhSection />
         </Suspense>
         
-        {/* Exit Intent Popup */}
-        <ExitIntentPopup
-          isOpen={shouldShow}
-          onClose={handleClosePopup}
-          onBookDemo={handleBookDemo}
-          variant="general"
-        />
+        {/* Only render exit intent popup on client side */}
+        {isClient && (
+          <ExitIntentPopup
+            isOpen={shouldShow}
+            onClose={handleClosePopup}
+            onBookDemo={handleBookDemo}
+            variant="general"
+          />
+        )}
       </main>
       
-      {/* Add Footer at the bottom */}
       <Footer />
     </>
   );

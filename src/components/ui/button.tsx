@@ -38,26 +38,11 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
-  iconPosition?: "left" | "right"
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, children, iconPosition = "left", ...props }, ref) => {
+  ({ className, variant, size, asChild = false, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
-    
-    // Handle icon positioning
-    let content = children;
-    
-    if (React.Children.count(children) > 1 && React.isValidElement(React.Children.toArray(children).find(child => typeof child === 'object'))) {
-      // We have an icon and text, let's arrange them
-      const childArray = React.Children.toArray(children);
-      const iconChild = childArray.find(child => React.isValidElement(child) && typeof child !== 'string');
-      const textChildren = childArray.filter(child => child !== iconChild);
-      
-      content = iconPosition === "left" 
-        ? [iconChild, ...textChildren]
-        : [...textChildren, iconChild];
-    }
     
     return (
       <Comp
@@ -65,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         {...props}
       >
-        {content}
+        {children}
       </Comp>
     )
   }
