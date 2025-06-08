@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -11,6 +11,8 @@ import WhyS10HowItWorks from '@/components/why-s10/WhyS10HowItWorks';
 import WhyS10Showcase from '@/components/why-s10/WhyS10Showcase';
 
 const WhyS10AI = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <>
       <Helmet>
@@ -21,7 +23,7 @@ const WhyS10AI = () => {
         />
       </Helmet>
       
-      <Header />
+      <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       
       <main className="min-h-screen bg-white">
         <WhyS10Hero />
