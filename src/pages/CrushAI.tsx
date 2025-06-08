@@ -1,3 +1,4 @@
+
 import React, { lazy, Suspense, useState, useEffect, memo, useCallback } from "react";
 import { Box } from "@mui/material";
 import { HeroSection } from "@/components/crush-ai/HeroSection";
@@ -17,7 +18,6 @@ import { useExitIntent } from "@/hooks/useExitIntent";
 // Use dynamic imports with prefetch to improve loading performance
 const EhrIntegrationSection = lazy(() => {
   const module = import("@/components/crush-ai/EhrIntegrationSection").then(module => ({ default: module.EhrIntegrationSection }));
-  // Return the promise
   return module;
 });
 
@@ -111,23 +111,6 @@ const globalStyles = {
   }
 };
 
-// PerformanceObserver to monitor page performance
-if (typeof window !== 'undefined' && 'PerformanceObserver' in window) {
-  try {
-    const perfObserver = new PerformanceObserver((list) => {
-      const entries = list.getEntries();
-      entries.forEach((entry) => {
-        if (entry.entryType === 'longtask' && entry.duration > 50) {
-          console.log('Long task detected:', entry.duration + 'ms');
-        }
-      });
-    });
-    perfObserver.observe({ entryTypes: ['longtask'] });
-  } catch (e) {
-    console.log('PerformanceObserver not supported');
-  }
-}
-
 // Define proper interfaces for our components
 interface LazyLoadSectionProps {
   children: React.ReactNode;
@@ -139,9 +122,20 @@ interface LazyLoadSectionProps {
 const LazyLoadSection = memo(({ children, threshold = 0.1, rootMargin = "200px 0px" }: LazyLoadSectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [isClient, setIsClient] = useState(false);
   const sectionRef = React.useRef(null);
 
+  // Ensure client-side only features
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   React.useEffect(() => {
+    if (!isClient) return;
+    
+    const currentRef = sectionRef.current;
+    if (!currentRef || hasLoaded) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries;
@@ -155,17 +149,14 @@ const LazyLoadSection = memo(({ children, threshold = 0.1, rootMargin = "200px 0
       { threshold, rootMargin }
     );
 
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
+    observer.observe(currentRef);
 
     return () => {
       if (currentRef) {
         observer.disconnect();
       }
     };
-  }, [threshold, rootMargin, hasLoaded]);
+  }, [threshold, rootMargin, hasLoaded, isClient]);
 
   return (
     <div ref={sectionRef} className="will-change-auto">
@@ -237,24 +228,33 @@ const CTASection = memo(({ EHRBeamsBackground }: CTASectionProps) => (
 CTASection.displayName = 'CTASection';
 
 const CrushAI = () => {
+  const [isClient, setIsClient] = useState(false);
+  
+  // Ensure client-side hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { shouldShow, markAsShown } = useExitIntent({
     threshold: 75,
     delay: 3000,
     inactivityTimeout: 30000,
-    enabled: true
+    enabled: isClient // Only enable when client-side
   });
 
-  const handleBookDemo = () => {
+  const handleBookDemo = useCallback(() => {
     markAsShown();
     window.open('/contact', '_blank');
-  };
+  }, [markAsShown]);
 
-  const handleClosePopup = () => {
+  const handleClosePopup = useCallback(() => {
     markAsShown();
-  };
+  }, [markAsShown]);
 
-  // Preload critical components
+  // Preload critical components only on client-side
   useEffect(() => {
+    if (!isClient) return;
+    
     const preloadComponents = async () => {
       try {
         // Preload key components that will be visible soon
@@ -269,7 +269,53 @@ const CrushAI = () => {
     };
     
     preloadComponents();
-  }, []);
+  }, [isClient]);
+
+  // Only initialize PerformanceObserver on client-side
+  useEffect(() => {
+    if (!isClient || typeof window === 'undefined') return;
+
+    // PerformanceObserver to monitor page performance
+    if ('PerformanceObserver' in window) {
+      try {
+        const perfObserver = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          entries.forEach((entry) => {
+            if (entry.entryType === 'longtask' && entry.duration > 50) {
+              console.log('Long task detected:', entry.duration + 'ms');
+            }
+          });
+        });
+        perfObserver.observe({ entryTypes: ['longtask'] });
+
+        return () => {
+          perfObserver.disconnect();
+        };
+      } catch (e) {
+        console.log('PerformanceObserver not supported');
+      }
+    }
+  }, [isClient]);
+
+  // Show loading state during hydration
+  if (!isClient) {
+    return (
+      <Box 
+        sx={{ 
+          bgcolor: crushAIColors.background.white, 
+          color: crushAIColors.text.primary,
+          overflow: 'hidden',
+          position: 'relative',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}
+      >
+        <SectionLoader />
+      </Box>
+    );
+  }
 
   return (
     <Box 
@@ -393,13 +439,15 @@ const CrushAI = () => {
         </Suspense>
       </LazyLoadSection>
       
-      {/* Exit Intent Popup */}
-      <ExitIntentPopup
-        isOpen={shouldShow}
-        onClose={handleClosePopup}
-        onBookDemo={handleBookDemo}
-        variant="crush"
-      />
+      {/* Exit Intent Popup - only render on client */}
+      {isClient && (
+        <ExitIntentPopup
+          isOpen={shouldShow}
+          onClose={handleClosePopup}
+          onBookDemo={handleBookDemo}
+          variant="crush"
+        />
+      )}
     </Box>
   );
 };
