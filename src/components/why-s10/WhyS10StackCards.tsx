@@ -96,17 +96,17 @@ const WhyS10StackCards = () => {
                 animationDelay: "0.1s"
               }}>
                 <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-primary text-white mr-2 text-xs font-bold">02</span>
-                <span>Healthcare Revolution</span>
+                <span>Clinical & Operational Excellence</span>
               </div>
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-1 md:mb-2 text-gray-900">
-              Why S10.AI Leads Healthcare Innovation
+              Complete Healthcare Transformation
             </h2>
           </div>
           
           <div ref={cardsContainerRef} className="relative flex-1 perspective-1000">
-            {/* First Card */}
+            {/* First Card - Clinician Focus */}
             <div 
               className={`absolute inset-0 overflow-hidden shadow-xl ${isFirstCardVisible ? 'animate-card-enter' : ''}`} 
               style={{
@@ -128,20 +128,23 @@ const WhyS10StackCards = () => {
               
               <div className="absolute top-4 right-4 z-20">
                 <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">Innovation</span>
+                  <span className="text-sm font-medium">For the Clinician</span>
                 </div>
               </div>
               
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
-                    We're revolutionizing healthcare with intelligent AI companions
+                    Streamline Documentation & Boost Well-being
                   </h3>
+                  <p className="text-white/90 text-lg">
+                    The Joy of Focused Medicine - CRUSH listens to natural patient conversations and instantly drafts pristine, specialty-specific clinical notes.
+                  </p>
                 </div>
               </div>
             </div>
             
-            {/* Second Card */}
+            {/* Second Card - Practice Focus */}
             <div 
               className={`absolute inset-0 overflow-hidden shadow-xl ${isSecondCardVisible ? 'animate-card-enter' : ''}`} 
               style={{
@@ -164,20 +167,23 @@ const WhyS10StackCards = () => {
               
               <div className="absolute top-4 right-4 z-20">
                 <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">Excellence</span>
+                  <span className="text-sm font-medium">For the Practice</span>
                 </div>
               </div>
               
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
-                    We're bringing adaptive intelligence to clinical workflows
+                    Automate Your Front Office & Improve Financials
                   </h3>
+                  <p className="text-white/90 text-lg">
+                    The Power of a Resilient Operation - BRAVO works 24/7 as your automated front-office engine, creating seamless efficiency.
+                  </p>
                 </div>
               </div>
             </div>
             
-            {/* Third Card */}
+            {/* Third Card - Patient Care */}
             <div 
               className={`absolute inset-0 overflow-hidden shadow-xl ${isThirdCardVisible ? 'animate-card-enter' : ''}`} 
               style={{
@@ -200,15 +206,18 @@ const WhyS10StackCards = () => {
               
               <div className="absolute top-4 right-4 z-20">
                 <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm text-white">
-                  <span className="text-sm font-medium">Future</span>
+                  <span className="text-sm font-medium">The Ultimate Goal</span>
                 </div>
               </div>
               
               <div className="relative z-10 p-5 sm:p-6 md:p-8 h-full flex items-center">
                 <div className="max-w-lg">
                   <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-4">
-                    We're creating healthcare partners, <span className="text-primary">not replacements</span>
+                    It All Leads to One Thing: <span className="text-primary">Delivering Better Patient Care</span>
                   </h3>
+                  <p className="text-white/90 text-lg">
+                    When clinicians are unburdened and operations are frictionless, patients get the focused, timely, and attentive care they deserve.
+                  </p>
                 </div>
               </div>
             </div>

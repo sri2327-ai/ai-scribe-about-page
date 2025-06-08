@@ -103,14 +103,14 @@ const WhyS10Hero = () => {
               className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl leading-tight opacity-0 animate-fade-in font-bold text-white" 
               style={{ animationDelay: "0.3s" }}
             >
-              Revolutionary Healthcare<br className="hidden sm:inline" />AI Solutions
+              The Power of a<br className="hidden sm:inline" />Unified Platform
             </h1>
             
             <p 
               style={{ animationDelay: "0.5s" }} 
               className="mt-3 sm:mt-6 mb-4 sm:mb-8 leading-relaxed opacity-0 animate-fade-in text-white/90 font-normal text-base sm:text-lg text-left"
             >
-              The intelligent healthcare companion that transforms clinical workflows with human-like understanding and adaptive learning.
+              Other tools solve one problem. S10.ai transforms your entire practice. We are the only platform that integrates clinical relief with operational excellence, creating a healthier ecosystem for your clinicians, staff, and patients.
             </p>
             
             <div 
@@ -121,7 +121,7 @@ const WhyS10Hero = () => {
                 href="#get-started" 
                 className="flex items-center justify-center group w-full sm:w-auto text-center bg-white text-primary hover:bg-gray-50 transition-colors duration-300 rounded-full px-6 py-3 font-semibold"
               >
-                Discover S10.AI
+                See the Platform in Action
                 <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
