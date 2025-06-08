@@ -1,3 +1,4 @@
+
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -84,7 +85,8 @@ export const TikTokIcon = () => (
 export default function Footer() {
   const theme = useTheme();
   const location = useLocation();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // Changed from 'md' to 'lg' to match header menu breakpoint
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
@@ -274,7 +276,7 @@ export default function Footer() {
             gap: { xs: '1rem', sm: '1.5rem', md: '1rem' },
             marginBottom: { xs: '1.5rem', sm: '2rem', md: '3rem' },
           }}>
-            {/* Desktop and Tablet Layout */}
+            {/* Desktop and Tablet Layout - now uses 'lg' breakpoint like header */}
             {!isMobile ? (
               <Box sx={{
                 display: 'flex',
@@ -289,7 +291,7 @@ export default function Footer() {
                 ))}
               </Box>
             ) : (
-              /* Mobile Accordion Layout */
+              /* Mobile Accordion Layout - now triggers at 'lg' breakpoint */
               <Accordion type="multiple" className="w-full">
                 {footerSections.map((section, index) => (
                   <MobileFooterSection key={index} section={section} />
