@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -145,7 +144,8 @@ export default function Footer() {
       display: 'flex', 
       flexDirection: 'column', 
       gap: '0.6rem',
-      minWidth: { xs: '100%', sm: '180px', md: '200px' },
+      minWidth: { xs: '100%', sm: '160px', md: '180px' },
+      maxWidth: { xs: '100%', sm: '180px', md: '200px' },
       flex: { xs: 'none', sm: 1 },
       mb: { xs: '1.5rem', md: 0 }
     }}>
@@ -175,8 +175,9 @@ export default function Footer() {
                 padding: '0.25rem 0',
                 textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 opacity: 0.9,
-                fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
-                lineHeight: 1.4,
+                fontSize: { xs: '0.875rem', sm: '0.85rem', md: '0.9rem' },
+                lineHeight: 1.3,
+                wordBreak: 'break-word',
                 '&:hover': { 
                   color: theme.palette.primary.light,
                   opacity: 1 
@@ -194,7 +195,7 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white hover:no-underline py-6 px-4 text-lg"
+        className="text-white hover:no-underline py-6 px-6 text-lg"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -259,7 +260,7 @@ export default function Footer() {
         />}
         
         <Box sx={{ 
-          maxWidth: '1200px', 
+          maxWidth: '1400px', 
           margin: '0 auto',
           position: 'relative',
           zIndex: 2
@@ -270,7 +271,7 @@ export default function Footer() {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'stretch', md: 'flex-start' },
-            gap: { xs: '1rem', sm: '2rem', md: '1.5rem' },
+            gap: { xs: '1rem', sm: '1.5rem', md: '1rem' },
             marginBottom: { xs: '1.5rem', sm: '2rem', md: '3rem' },
           }}>
             {/* Desktop and Tablet Layout */}
@@ -278,8 +279,8 @@ export default function Footer() {
               <Box sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                flexWrap: 'nowrap',
-                gap: { xs: '1.5rem', sm: '2rem', md: '1.5rem' },
+                flexWrap: 'wrap',
+                gap: { xs: '1.5rem', sm: '1.5rem', md: '1rem' },
                 width: '100%',
                 justifyContent: 'space-between'
               }}>
