@@ -1,5 +1,5 @@
 
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { Container, Box, Typography } from "@mui/material";
 import { Button } from "@/components/ui/button";
@@ -119,6 +119,12 @@ const HeroContent = memo(() => {
 HeroContent.displayName = 'HeroContent';
 
 export const BravoHeroSection = memo(() => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <Box 
       component="section" 
@@ -143,30 +149,69 @@ export const BravoHeroSection = memo(() => {
             flex: '1',
             maxWidth: { xs: '100%', md: '500px' },
           }}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              style={{ willChange: 'transform, opacity' }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: { xs: 1, md: 2 },
-                  mb: 3,
-                  position: 'relative',
-                }}
+            {isClient ? (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                style={{ willChange: 'transform, opacity' }}
               >
-                <TooltipProvider>
-                  {BravoAbbreviation.map((item, index) => (
-                    <BravoLetter key={item.letter} item={item} index={index} />
-                  ))}
-                </TooltipProvider>
-              </Box>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: { xs: 1, md: 2 },
+                    mb: 3,
+                    position: 'relative',
+                  }}
+                >
+                  <TooltipProvider>
+                    {BravoAbbreviation.map((item, index) => (
+                      <BravoLetter key={item.letter} item={item} index={index} />
+                    ))}
+                  </TooltipProvider>
+                </Box>
 
-              <HeroContent />
-            </motion.div>
+                <HeroContent />
+              </motion.div>
+            ) : (
+              <div>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: { xs: 1, md: 2 },
+                    mb: 3,
+                    position: 'relative',
+                  }}
+                >
+                  {BravoAbbreviation.map((item, index) => (
+                    <Box
+                      key={item.letter}
+                      sx={{
+                        position: 'relative',
+                        cursor: 'pointer',
+                        p: 2,
+                        borderRadius: '12px',
+                      }}
+                    >
+                      <Typography
+                        variant="h2"
+                        sx={{
+                          fontSize: { xs: '2.5rem', md: '4rem' },
+                          fontWeight: 700,
+                          color: 'black',
+                        }}
+                      >
+                        {item.letter}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+
+                <HeroContent />
+              </div>
+            )}
           </Box>
 
           {/* Right Column - Animation */}
@@ -175,14 +220,20 @@ export const BravoHeroSection = memo(() => {
             width: '100%',
             maxWidth: { xs: '100%', md: '600px' },
           }}>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-              style={{ willChange: 'transform, opacity' }}
-            >
-              <BravoWorkflowAnimation />
-            </motion.div>
+            {isClient ? (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                style={{ willChange: 'transform, opacity' }}
+              >
+                <BravoWorkflowAnimation />
+              </motion.div>
+            ) : (
+              <div className="w-full h-[400px] bg-gray-100 rounded-lg flex items-center justify-center">
+                <div className="w-6 h-6 border-2 border-t-transparent border-gray-400 rounded-full animate-spin" />
+              </div>
+            )}
           </Box>
         </Box>
       </Container>

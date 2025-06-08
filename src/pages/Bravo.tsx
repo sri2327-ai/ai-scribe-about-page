@@ -1,4 +1,5 @@
-import React, { lazy, Suspense, memo, useCallback, useMemo } from 'react';
+
+import React, { lazy, Suspense, memo, useCallback, useMemo, useState, useEffect } from 'react';
 import { BravoHeroSection } from '@/components/bravo/BravoHeroSection';
 import { LazyLoad } from '@/components/ui/lazy-load';
 import { bravoColors } from '@/theme/bravo-theme';
@@ -77,6 +78,40 @@ const BravoTestimonialsSection = lazy(() => {
 
 // Memoized feature card to prevent unnecessary re-renders
 const FeatureCard = memo(({ feature, index }: { feature: typeof featuresData[0], index: number }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <Card className="group h-full backdrop-blur-xl bg-white/95 border-none hover:shadow-lg transition-all duration-300">
+        <CardContent className="p-8 space-y-6">
+          <div className="flex items-center gap-4 mb-6">
+            <div className={`p-3 rounded-xl bg-gradient-to-br from-${feature.color}-50 to-${feature.color}-100`}>
+              <feature.icon className="w-6 h-6" style={{ color: bravoColors.text.light }} />
+            </div>
+            <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
+              {feature.title}
+            </h3>
+          </div>
+          <ul className="space-y-4">
+            {feature.items.map((text, i) => (
+              <li 
+                key={i} 
+                className="flex items-start gap-3"
+              >
+                <Check className={`w-5 h-5 mt-1 flex-shrink-0 text-${feature.color}-500`} />
+                <span className="text-gray-700">{text}</span>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -115,52 +150,90 @@ FeatureCard.displayName = 'FeatureCard';
 
 // Optimized features section with reduced re-renders
 const OptimizedFeaturesSection = memo(() => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   // Use useMemo for static content that doesn't change between renders
-  const headerContent = useMemo(() => (
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true, amount: 0.3 }}
-      className="text-center max-w-4xl mx-auto mb-16"
-      style={{ willChange: 'transform, opacity' }}
-    >
-      <h2 
-        className="text-4xl md:text-5xl font-bold mb-6 text-black"
+  const headerContent = useMemo(() => {
+    if (!isClient) {
+      return (
+        <div className="text-center max-w-4xl mx-auto mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">
+            Let BRAVO Handle Calls, Scheduling & Intake — So Your Staff Doesn't Have To
+          </h2>
+          <p className="text-xl md:text-2xl opacity-90 text-black">
+            AI-powered front office. Available 24/7. No burnout.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.3 }}
+        className="text-center max-w-4xl mx-auto mb-16"
+        style={{ willChange: 'transform, opacity' }}
       >
-        Let BRAVO Handle Calls, Scheduling & Intake — So Your Staff Doesn't Have To
-      </h2>
-      <p 
-        className="text-xl md:text-2xl opacity-90 text-black"
-      >
-        AI-powered front office. Available 24/7. No burnout.
-      </p>
-    </motion.div>
-  ), []);
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-black">
+          Let BRAVO Handle Calls, Scheduling & Intake — So Your Staff Doesn't Have To
+        </h2>
+        <p className="text-xl md:text-2xl opacity-90 text-black">
+          AI-powered front office. Available 24/7. No burnout.
+        </p>
+      </motion.div>
+    );
+  }, [isClient]);
   
-  const ctaContent = useMemo(() => (
-    <motion.div 
-      className="text-center mt-16"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.4 }}
-      viewport={{ once: true }}
-      style={{ willChange: 'transform, opacity' }}
-    >
-      <p className="text-2xl md:text-3xl font-semibold mb-8 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
-        More Efficiency. Less Admin. Happier Patients.
-      </p>
-      <Button 
-        size="lg"
-        className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
-        style={{ 
-          color: bravoColors.text.white
-        }}
+  const ctaContent = useMemo(() => {
+    if (!isClient) {
+      return (
+        <div className="text-center mt-16">
+          <p className="text-2xl md:text-3xl font-semibold mb-8 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            More Efficiency. Less Admin. Happier Patients.
+          </p>
+          <Button 
+            size="lg"
+            className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+            style={{ 
+              color: bravoColors.text.white
+            }}
+          >
+            Request a Demo
+          </Button>
+        </div>
+      );
+    }
+
+    return (
+      <motion.div 
+        className="text-center mt-16"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        viewport={{ once: true }}
+        style={{ willChange: 'transform, opacity' }}
       >
-        Request a Demo
-      </Button>
-    </motion.div>
-  ), []);
+        <p className="text-2xl md:text-3xl font-semibold mb-8 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+          More Efficiency. Less Admin. Happier Patients.
+        </p>
+        <Button 
+          size="lg"
+          className="rounded-full px-8 py-6 text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl"
+          style={{ 
+            color: bravoColors.text.white
+          }}
+        >
+          Request a Demo
+        </Button>
+      </motion.div>
+    );
+  }, [isClient]);
 
   return (
     <section 
@@ -207,30 +280,36 @@ LoadingIndicator.displayName = 'LoadingIndicator';
 
 // Main Bravo component with optimized rendering
 const Bravo = () => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const { shouldShow, markAsShown } = useExitIntent({
-    threshold: 50, // Lower threshold for easier testing
-    delay: 1000, // Shorter delay
-    inactivityTimeout: 15000, // 15 seconds for testing
-    enabled: true
+    threshold: 50,
+    delay: 1000,
+    inactivityTimeout: 15000,
+    enabled: isClient
   });
 
-  const handleBookDemo = () => {
+  const handleBookDemo = useCallback(() => {
     console.log('Book demo clicked');
     markAsShown();
     window.open('/contact', '_blank');
-  };
+  }, [markAsShown]);
 
-  const handleClosePopup = () => {
+  const handleClosePopup = useCallback(() => {
     console.log('Popup closed');
     markAsShown();
-  };
+  }, [markAsShown]);
 
-  // Preload critical assets
-  React.useEffect(() => {
-    // Preload next sections as soon as the page loads
+  // Preload critical assets only on client-side
+  useEffect(() => {
+    if (!isClient) return;
+    
     const preloadNextSections = async () => {
       try {
-        // Use dynamic import to preload the next sections that will be visible soon
         const [compatibilityModule, howItWorksModule] = await Promise.all([
           import("@/components/bravo/sections/CompatibilitySection"),
           import("@/components/bravo/sections/HowBravoWorksSection")
@@ -240,23 +319,29 @@ const Bravo = () => {
       }
     };
     
-    // Use requestIdleCallback if available, otherwise setTimeout
     if ('requestIdleCallback' in window) {
       (window as any).requestIdleCallback(preloadNextSections);
     } else {
       setTimeout(preloadNextSections, 200);
     }
-  }, []);
+  }, [isClient]);
+
+  // Show loading state during hydration
+  if (!isClient) {
+    return (
+      <div className="bg-black min-h-screen flex items-center justify-center">
+        <div className="w-6 h-6 border-2 border-t-transparent border-white rounded-full animate-spin" />
+      </div>
+    );
+  }
   
   return (
     <div 
       className="bg-black min-h-screen"
       style={{ scrollBehavior: 'smooth' }}
     >
-      {/* Hero section is important for initial render, so not lazy loaded */}
       <BravoHeroSection />
       
-      {/* Lazy load remaining sections for better performance */}
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <Suspense fallback={<LoadingIndicator />}>
           <CompatibilitySection />
@@ -281,7 +366,6 @@ const Bravo = () => {
         </Suspense>
       </LazyLoad>
       
-      {/* Optimized features section */}
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <OptimizedFeaturesSection />
       </LazyLoad>
@@ -298,13 +382,15 @@ const Bravo = () => {
         </Suspense>
       </LazyLoad>
       
-      {/* Exit Intent Popup */}
-      <ExitIntentPopup
-        isOpen={shouldShow}
-        onClose={handleClosePopup}
-        onBookDemo={handleBookDemo}
-        variant="bravo"
-      />
+      {/* Exit Intent Popup - only render on client */}
+      {isClient && (
+        <ExitIntentPopup
+          isOpen={shouldShow}
+          onClose={handleClosePopup}
+          onBookDemo={handleBookDemo}
+          variant="bravo"
+        />
+      )}
     </div>
   );
 };

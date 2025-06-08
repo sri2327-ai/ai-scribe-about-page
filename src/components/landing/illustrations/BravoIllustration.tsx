@@ -32,10 +32,15 @@ StepIcon.displayName = 'StepIcon';
 const BravoIllustration = memo(() => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Set loaded state to prevent initial animation issues
+    setIsClient(true);
     setIsLoaded(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient || !isLoaded) return;
     
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % steps.length);
@@ -44,9 +49,9 @@ const BravoIllustration = memo(() => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [isClient, isLoaded]);
 
-  if (!isLoaded) {
+  if (!isLoaded || !isClient) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="w-4 h-4 border-2 border-t-transparent border-[#387E89] rounded-full animate-spin"></div>
@@ -62,7 +67,7 @@ const BravoIllustration = memo(() => {
       {/* Path for animation */}
       <svg 
         className="absolute w-48 h-2 top-1/2 -translate-y-1/2"
-        style={{ transform: 'translateZ(0)' }} // Hardware acceleration
+        style={{ transform: 'translateZ(0)' }}
       >
         <motion.path
           d="M 5,1 L 180,1"

@@ -1,4 +1,5 @@
-import React, { useState, memo, useMemo } from 'react';
+
+import React, { useState, memo, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { bravoColors } from '@/theme/bravo-theme';
 import { ChevronLeft, ChevronRight, Volume2, AlertCircle } from 'lucide-react';
@@ -142,10 +143,11 @@ const VoiceAnimation = memo(({ type, isActive }: { type: string, isActive: boole
 VoiceAnimation.displayName = 'VoiceAnimation';
 
 // Voice option card as separate component
-const VoiceCard = memo(({ voice, isSelected, onTryVoice }: { 
+const VoiceCard = memo(({ voice, isSelected, onTryVoice, isClient }: { 
   voice: VoiceOption, 
   isSelected: boolean,
-  onTryVoice: (id: string) => void
+  onTryVoice: (id: string) => void,
+  isClient: boolean
 }) => {
   return (
     <div className="w-64 relative rounded-xl overflow-hidden backdrop-blur-xl p-6 flex flex-col items-center"
@@ -158,7 +160,11 @@ const VoiceCard = memo(({ voice, isSelected, onTryVoice }: {
       }}
     >
       <div className="w-20 h-20 mb-4 rounded-full flex items-center justify-center">
-        <VoiceAnimation type={voice.animationType} isActive={isSelected} />
+        {isClient ? (
+          <VoiceAnimation type={voice.animationType} isActive={isSelected} />
+        ) : (
+          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-teal-400 to-blue-300 opacity-70" />
+        )}
       </div>
       
       <h3 className="text-xl font-bold mb-1 font-sans text-white">
@@ -192,6 +198,11 @@ VoiceCard.displayName = 'VoiceCard';
 export const VoiceSelectionInterface = memo(() => {
   const [selectedVoice, setSelectedVoice] = useState<string | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const voices: VoiceOption[] = useMemo(() => [
     { id: 'nora', name: 'Nora', description: 'Warm & Attentive', animationType: 'pulse' },
@@ -218,40 +229,63 @@ export const VoiceSelectionInterface = memo(() => {
     <BeamsBackground className="py-16 px-4 md:px-6 relative overflow-hidden" intensity="medium">
       <div className="container mx-auto relative max-w-4xl">
         <LazyLoad threshold={0.3}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white font-sans">
-              Choose Your BRAVO Assistant Voice
-            </h2>
-            <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-white/80">
-              Select a voice personality that best fits your organization
-            </p>
-          </motion.div>
+          {isClient ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true, amount: 0.3 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white font-sans">
+                Choose Your BRAVO Assistant Voice
+              </h2>
+              <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-white/80">
+                Select a voice personality that best fits your organization
+              </p>
+            </motion.div>
+          ) : (
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white font-sans">
+                Choose Your BRAVO Assistant Voice
+              </h2>
+              <p className="text-lg md:text-xl opacity-80 max-w-3xl mx-auto font-sans text-white/80">
+                Select a voice personality that best fits your organization
+              </p>
+            </div>
+          )}
         </LazyLoad>
 
         <div className="relative px-12">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.4 }}
-              className="flex justify-center"
-              style={{ willChange: 'transform, opacity' }}
-            >
+          {isClient ? (
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentIndex}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.4 }}
+                className="flex justify-center"
+                style={{ willChange: 'transform, opacity' }}
+              >
+                <VoiceCard 
+                  voice={voices[currentIndex]} 
+                  isSelected={selectedVoice === voices[currentIndex].id}
+                  onTryVoice={handleTryVoice}
+                  isClient={isClient}
+                />
+              </motion.div>
+            </AnimatePresence>
+          ) : (
+            <div className="flex justify-center">
               <VoiceCard 
                 voice={voices[currentIndex]} 
                 isSelected={selectedVoice === voices[currentIndex].id}
                 onTryVoice={handleTryVoice}
+                isClient={isClient}
               />
-            </motion.div>
-          </AnimatePresence>
+            </div>
+          )}
 
           <div className="absolute inset-y-0 left-0 flex items-center">
             <Button
@@ -277,26 +311,44 @@ export const VoiceSelectionInterface = memo(() => {
         </div>
 
         <LazyLoad threshold={0.2}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            viewport={{ once: true, amount: 0.3 }}
-            className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
-            style={{ 
-              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-              border: '1px solid rgba(255, 255, 255, 0.3)',
-              backdropFilter: 'blur(10px)',
-              willChange: 'transform, opacity'
-            }}
-          >
-            <div className="flex items-center">
-              <AlertCircle className="w-5 h-5 mr-3 text-white" />
-              <p className="text-sm text-white">
-                You can change your assistant's voice at any time in the BRAVO settings
-              </p>
+          {isClient ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true, amount: 0.3 }}
+              className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
+              style={{ 
+                backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                backdropFilter: 'blur(10px)',
+                willChange: 'transform, opacity'
+              }}
+            >
+              <div className="flex items-center">
+                <AlertCircle className="w-5 h-5 mr-3 text-white" />
+                <p className="text-sm text-white">
+                  You can change your assistant's voice at any time in the BRAVO settings
+                </p>
+              </div>
+            </motion.div>
+          ) : (
+            <div
+              className="flex items-center justify-center mt-12 p-4 rounded-lg max-w-md mx-auto"
+              style={{ 
+                backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              <div className="flex items-center">
+                <AlertCircle className="w-5 h-5 mr-3 text-white" />
+                <p className="text-sm text-white">
+                  You can change your assistant's voice at any time in the BRAVO settings
+                </p>
+              </div>
             </div>
-          </motion.div>
+          )}
         </LazyLoad>
       </div>
     </BeamsBackground>
