@@ -194,7 +194,7 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white hover:no-underline py-4 px-4 text-lg"
+        className="text-white hover:no-underline py-6 px-4 text-lg"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
@@ -270,17 +270,18 @@ export default function Footer() {
             flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'stretch', md: 'flex-start' },
-            gap: { xs: '1rem', sm: '2rem', md: '3rem' },
+            gap: { xs: '1rem', sm: '2rem', md: '1.5rem' },
             marginBottom: { xs: '1.5rem', sm: '2rem', md: '3rem' },
           }}>
             {/* Desktop and Tablet Layout */}
             {!isMobile ? (
               <Box sx={{
                 display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
-                flexWrap: { sm: 'wrap', lg: 'nowrap' },
-                gap: { xs: '1.5rem', sm: '2rem', md: '3rem' },
-                width: '100%'
+                flexDirection: 'row',
+                flexWrap: 'nowrap',
+                gap: { xs: '1.5rem', sm: '2rem', md: '1.5rem' },
+                width: '100%',
+                justifyContent: 'space-between'
               }}>
                 {footerSections.map((section, index) => (
                   <FooterSection key={index} section={section} />
