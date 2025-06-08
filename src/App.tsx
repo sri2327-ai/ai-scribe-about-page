@@ -26,7 +26,6 @@ import Advantages from "@/pages/Advantages";
 import ResourceLibrary from "@/pages/ResourceLibrary";
 import AIAccuracy from "@/pages/AIAccuracy";
 import PracticeEfficiencyGrader from "@/pages/PracticeEfficiencyGrader";
-import WhyS10AI from "@/pages/WhyS10AI";
 
 function App() {
   console.log("Rendering App component");
@@ -52,7 +51,6 @@ function App() {
       <Route path="/advantages" element={<Advantages />} />
       <Route path="/ai-accuracy" element={<AIAccuracy />} />
       <Route path="/practice-efficiency-grader" element={<PracticeEfficiencyGrader />} />
-      <Route path="/why-s10ai" element={<WhyS10AI />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
       <Route path="*" element={<NotFound />} />
