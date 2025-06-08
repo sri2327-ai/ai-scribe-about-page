@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -147,10 +146,8 @@ export default function Footer() {
   const FooterSection = ({ section }) => (
     <Box sx={{ 
       display: 'flex', 
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'flex-start',
-      gap: '1rem',
+      flexDirection: 'column', 
+      gap: '0.6rem',
       minWidth: { xs: '100%', sm: '160px', md: '180px' },
       maxWidth: { xs: '100%', sm: '180px', md: '200px' },
       flex: { xs: 'none', sm: 1 },
@@ -158,25 +155,18 @@ export default function Footer() {
     }}>
       <Typography 
         variant="h6" 
-        fontWeight="bold"
+        fontWeight="medium" 
         sx={{ 
           color: isAboutPage ? 'black' : 'white',
-          marginRight: '1rem',
+          marginBottom: '0.5rem',
           textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
           fontSize: { xs: '1rem', sm: '1.05rem', md: '1.1rem' },
-          lineHeight: 1.2,
-          flexShrink: 0
+          lineHeight: 1.2
         }}
       >
         {section.title}
       </Typography>
-      <Box sx={{ 
-        display: 'flex', 
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: '0.75rem',
-        flex: 1
-      }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
         {section.links.map((link, index) => (
           <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
             <Typography 
@@ -185,10 +175,13 @@ export default function Footer() {
               sx={{ 
                 color: isAboutPage ? 'black' : 'white',
                 transition: 'color 0.3s ease',
+                display: 'block',
+                padding: '0.25rem 0',
                 textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 opacity: 0.9,
                 fontSize: { xs: '0.875rem', sm: '0.85rem', md: '0.9rem' },
                 lineHeight: 1.3,
+                wordBreak: 'break-word',
                 '&:hover': { 
                   color: theme.palette.primary.light,
                   opacity: 1 
@@ -206,23 +199,17 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className={`${isAboutPage ? 'text-black' : 'text-white'} hover:no-underline py-6 px-6 text-lg font-bold`}
+        className={`${isAboutPage ? 'text-black' : 'text-white'} hover:no-underline py-6 px-6 text-lg`}
         style={{
           textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
       >
-        <Typography variant="h6" fontWeight="bold" sx={{ fontSize: '1.1rem' }}>
+        <Typography variant="h6" fontWeight="medium" sx={{ fontSize: '1.1rem' }}>
           {section.title}
         </Typography>
       </AccordionTrigger>
       <AccordionContent>
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: '0.75rem', 
-          pl: 2 
-        }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', pl: 2 }}>
           {section.links.map((link, index) => (
             <Link key={index} to={link.href} style={{ textDecoration: 'none' }}>
               <Typography 
@@ -231,6 +218,8 @@ export default function Footer() {
                 sx={{ 
                   color: isAboutPage ? 'black' : 'white',
                   transition: 'color 0.3s ease',
+                  display: 'block',
+                  padding: '0.25rem 0',
                   textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                   opacity: 0.9,
                   fontSize: '0.875rem',
@@ -283,19 +272,21 @@ export default function Footer() {
           {/* Main Footer Content */}
           <Box sx={{ 
             display: 'flex', 
-            flexDirection: { xs: 'column', md: 'column' },
+            flexDirection: { xs: 'column', md: 'row' },
             justifyContent: 'space-between',
             alignItems: { xs: 'stretch', md: 'flex-start' },
-            gap: { xs: '1rem', sm: '1.5rem', md: '2rem' },
+            gap: { xs: '1rem', sm: '1.5rem', md: '1rem' },
             marginBottom: { xs: '1.5rem', sm: '2rem', md: '3rem' },
           }}>
             {/* Desktop and Tablet Layout - now uses 'lg' breakpoint like header */}
             {!isMobile ? (
               <Box sx={{
                 display: 'flex',
-                flexDirection: 'column',
-                gap: { xs: '1.5rem', sm: '1.5rem', md: '2rem' },
-                width: '100%'
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                gap: { xs: '1.5rem', sm: '1.5rem', md: '1rem' },
+                width: '100%',
+                justifyContent: 'space-between'
               }}>
                 {footerSections.map((section, index) => (
                   <FooterSection key={index} section={section} />
