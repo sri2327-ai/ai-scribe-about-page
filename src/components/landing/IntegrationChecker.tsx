@@ -35,49 +35,54 @@ export const IntegrationChecker = () => {
         </Button>
       </form>
 
-      <AnimatePresence>
-        {showAnimation && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            className="mt-6 text-center"
-          >
+      <div className="mt-6">
+        <AnimatePresence mode="wait">
+          {showAnimation && (
             <motion.div
-              className="flex items-center justify-center gap-4"
-              animate={{
-                scale: [1, 1.2, 1],
-                transition: { duration: 0.5 }
-              }}
+              key="animation-container"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
             >
-              <Database className="w-8 h-8 text-white" />
-              <motion.div
-                className="h-0.5 w-16 bg-white"
-                animate={{
-                  width: ["0%", "100%"],
-                  transition: { duration: 0.5, delay: 0.3 }
-                }}
-              />
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                  transition: { duration: 0.5, delay: 0.8 }
-                }}
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <motion.div
+                  initial={{ scale: 1 }}
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <Database className="w-8 h-8 text-white" />
+                </motion.div>
+                
+                <motion.div
+                  className="h-0.5 bg-white"
+                  initial={{ width: 0 }}
+                  animate={{ width: 64 }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
+                />
+                
+                <motion.div
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 0.5, delay: 0.8 }}
+                >
+                  <CheckCircle2 className="w-8 h-8 text-white" />
+                </motion.div>
+              </div>
+              
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.3, duration: 0.3 }}
+                className="text-lg font-medium text-white"
               >
-                <CheckCircle2 className="w-8 h-8 text-white" />
-              </motion.div>
+                S10.AI is compatible with {software}!
+              </motion.p>
             </motion.div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.3 }}
-              className="mt-4 text-lg font-medium text-white"
-            >
-              S10.AI is compatible with {software}!
-            </motion.p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 };
