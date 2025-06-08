@@ -11,6 +11,7 @@ import FounderMessage from "@/components/about/FounderMessage";
 import TeamSection from "@/components/about/TeamSection";
 import TrustedBy from "@/components/about/TrustedBy";
 import DarkAnimatedHeader from "@/components/landing/DarkAnimatedHeader";
+import Footer from "@/components/Footer";
 
 const About = () => {
   useEffect(() => {
@@ -113,6 +114,9 @@ const About = () => {
           </Box>
         </motion.div>
       </Box>
+      
+      {/* Footer with white background for About page */}
+      <Footer />
     </>
   );
 };

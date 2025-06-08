@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -90,6 +89,9 @@ export default function Footer() {
   const isTablet = useMediaQuery(theme.breakpoints.down('lg'));
   const themeChnStatus = (location.pathname === '/advantages' || location.pathname === '/about' || location.pathname === '/technology' || location.pathname === '/ai-accuracy') ? true : false;
   
+  // Check if current page is About for white background styling
+  const isAboutPage = location.pathname === '/about';
+  
   const footerSections = [
     {
       title: "Why S10.AI?",
@@ -155,9 +157,9 @@ export default function Footer() {
         variant="h6" 
         fontWeight="medium" 
         sx={{ 
-          color: 'white',
+          color: isAboutPage ? 'black' : 'white',
           marginBottom: '0.5rem',
-          textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+          textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
           fontSize: { xs: '1rem', sm: '1.05rem', md: '1.1rem' },
           lineHeight: 1.2
         }}
@@ -171,11 +173,11 @@ export default function Footer() {
               variant="h6" 
               fontWeight="medium"
               sx={{ 
-                color: 'white',
+                color: isAboutPage ? 'black' : 'white',
                 transition: 'color 0.3s ease',
                 display: 'block',
                 padding: '0.25rem 0',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 opacity: 0.9,
                 fontSize: { xs: '0.875rem', sm: '0.85rem', md: '0.9rem' },
                 lineHeight: 1.3,
@@ -197,9 +199,9 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white hover:no-underline py-6 px-6 text-lg"
+        className={`${isAboutPage ? 'text-black' : 'text-white'} hover:no-underline py-6 px-6 text-lg`}
         style={{
-          textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
+          textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
       >
         <Typography variant="h6" fontWeight="medium" sx={{ fontSize: '1.1rem' }}>
@@ -214,11 +216,11 @@ export default function Footer() {
                 variant="body1" 
                 fontWeight="medium"
                 sx={{ 
-                  color: 'white',
+                  color: isAboutPage ? 'black' : 'white',
                   transition: 'color 0.3s ease',
                   display: 'block',
                   padding: '0.25rem 0',
-                  textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                  textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                   opacity: 0.9,
                   fontSize: '0.875rem',
                   '&:hover': { 
@@ -244,15 +246,15 @@ export default function Footer() {
       minHeight: '100px'
     }}>
       <Box sx={{ 
-        background: themeChnStatus ? theme.palette.primary.main : theme.palette.background.default,
-        color: themeChnStatus ? theme.palette.common.white : theme.palette.common.black,
+        background: isAboutPage ? 'white' : (themeChnStatus ? theme.palette.primary.main : theme.palette.background.default),
+        color: isAboutPage ? 'black' : (themeChnStatus ? theme.palette.common.white : theme.palette.common.black),
         padding: { xs: '2rem 1rem 1.5rem 1rem', sm: '3rem 1.5rem 2rem 1.5rem', md: '4rem 2rem 2rem 2rem' },
         width: '100%',
         position: 'relative',
         zIndex: 1,
-        borderTop: themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.black, 0.5)}`,
+        borderTop: isAboutPage ? `1px solid ${alpha(theme.palette.common.black, 0.2)}` : (themeChnStatus ? `1px solid ${alpha(theme.palette.common.white, 0.5)}` : `1px solid ${alpha(theme.palette.common.black, 0.5)}`),
       }}>
-        {themeChnStatus && <AnimatedGradientBackground 
+        {(themeChnStatus && !isAboutPage) && <AnimatedGradientBackground 
           startingGap={500}
           Breathing={true}
           gradientColors={["#000", "#0A7A8C", "#0E86A3", "#000"]}
@@ -312,12 +314,12 @@ export default function Footer() {
                 sx={{
                   borderRadius: 1,
                   background: 'transparent',
-                  color: theme.palette.common.white,
-                  border: `1px solid ${theme.palette.common.white}`,
+                  color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
+                  border: isAboutPage ? `1px solid ${theme.palette.common.black}` : `1px solid ${theme.palette.common.white}`,
                   fontSize: { xs: '0.875rem', md: '1rem' },
                   padding: { xs: '0.5rem 1rem', md: '0.75rem 1.5rem' },
                   ".icon-box": {
-                    border: `1px solid ${theme.palette.common.white}`,
+                    border: isAboutPage ? `1px solid ${theme.palette.common.black}` : `1px solid ${theme.palette.common.white}`,
                   },
                   "&:hover": {
                     border: `1px solid ${theme.palette.primary.main}`,
@@ -345,7 +347,7 @@ export default function Footer() {
             <GradientTracing 
               width={1200} 
               height={2} 
-              baseColor={theme.palette.grey.A400}
+              baseColor={isAboutPage ? theme.palette.grey.A400 : theme.palette.grey.A400}
               gradientColors={[theme.palette.secondary.main, theme.palette.secondary.main, theme.palette.primary.light]}
               animationDuration={4}
               strokeWidth={1}
@@ -368,8 +370,8 @@ export default function Footer() {
               minWidth: { md: '300px' }
             }}>
               <Typography variant='body1' fontWeight='medium' sx={{ 
-                color: 'white',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                color: isAboutPage ? 'black' : 'white',
+                textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 fontSize: { xs: '0.875rem', md: '1rem' }
               }}>
                 <a href="mailto:support@s10.ai" style={{ textDecoration: 'none', color: 'inherit' }}>support@s10.ai</a>
@@ -380,8 +382,8 @@ export default function Footer() {
                 component="a"
                 href="tel:+16314886390" 
                 sx={{ 
-                  color: 'white',
-                  textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                  color: isAboutPage ? 'black' : 'white',
+                  textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                   textDecoration: 'none',
                   fontSize: { xs: '0.875rem', md: '1rem' }
                 }}
@@ -389,8 +391,8 @@ export default function Footer() {
                 Tel: +1 631 4886 390
               </Typography>
               <Typography variant='body1' fontWeight='medium' sx={{ 
-                color: 'white',
-                textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                color: isAboutPage ? 'black' : 'white',
+                textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                 fontSize: { xs: '0.875rem', md: '1rem' }
               }}>
                 NJ, Princeton - Carnegie Center, <br /> United States.
@@ -409,7 +411,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on X" 
                   sx={{ 
-                    color: theme.palette.common.white,
+                    color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
                     padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#1da1f2', 
@@ -424,7 +426,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on Facebook" 
                   sx={{ 
-                    color: theme.palette.common.white,
+                    color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
                     padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#1877f2', 
@@ -439,7 +441,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on LinkedIn" 
                   sx={{ 
-                    color: theme.palette.common.white,
+                    color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
                     padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#3b5999', 
@@ -454,7 +456,7 @@ export default function Footer() {
                   aria-label="Visit S10.AI on Instagram" 
                   target="_blank" 
                   sx={{ 
-                    color: theme.palette.common.white,
+                    color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
                     padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#e4405f', 
@@ -469,7 +471,7 @@ export default function Footer() {
                   target="_blank" 
                   aria-label="Visit S10.AI on YouTube" 
                   sx={{ 
-                    color: theme.palette.common.white,
+                    color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
                     padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#cd201f', 
@@ -484,7 +486,7 @@ export default function Footer() {
                   target="_blank"
                   aria-label="Visit S10.AI on TikTok"  
                   sx={{ 
-                    color: theme.palette.common.white,
+                    color: isAboutPage ? theme.palette.common.black : theme.palette.common.white,
                     padding: { xs: '0.5rem', md: '0.75rem' },
                     '&:hover': {
                       color: '#ff0050', 
@@ -505,10 +507,10 @@ export default function Footer() {
               <Typography variant='body1' fontWeight='medium'>
                 <Link to="/termsandcondition" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: 'white',
+                    color: isAboutPage ? 'black' : 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                    textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium',
                     fontSize: { xs: '0.875rem', md: '1rem' }
                   }}>
@@ -519,10 +521,10 @@ export default function Footer() {
               <Typography variant='body1' fontWeight='medium'>
                 <Link to="/privacypolicy" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: 'white',
+                    color: isAboutPage ? 'black' : 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                    textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium',
                     fontSize: { xs: '0.875rem', md: '1rem' }
                   }}>
@@ -533,10 +535,10 @@ export default function Footer() {
               <Typography variant='body1' fontWeight='medium'>
                 <a href="https://www.saashub.com/s10-ai-status" style={{ textDecoration: 'none' }}>
                   <Box component="span" sx={{ 
-                    color: 'white',
+                    color: isAboutPage ? 'black' : 'white',
                     transition: 'color 0.3s ease',
                     '&:hover': { color: theme.palette.primary.light },
-                    textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+                    textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
                     fontWeight: 'medium',
                     fontSize: { xs: '0.875rem', md: '1rem' }
                   }}>
@@ -554,8 +556,8 @@ export default function Footer() {
             marginTop: { xs: '1.5rem', md: '2rem' }
           }}>
             <Typography variant='body2' fontWeight='medium' sx={{ 
-              color: 'white',
-              textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
+              color: isAboutPage ? 'black' : 'white',
+              textShadow: (themeChnStatus && !isAboutPage) ? '0 0 10px rgba(0,0,0,0.5)' : 'none',
               fontSize: { xs: '0.75rem', md: '0.875rem' },
               textAlign: 'center'
             }}>
