@@ -1,4 +1,3 @@
-
 'use client'
 import React from 'react';
 import { alpha, useTheme } from "@mui/material/styles";
@@ -194,12 +193,12 @@ export default function Footer() {
   const MobileFooterSection = ({ section }) => (
     <AccordionItem value={section.title}>
       <AccordionTrigger 
-        className="text-white hover:no-underline py-3"
+        className="text-white hover:no-underline py-4 px-2 text-lg"
         style={{
           textShadow: themeChnStatus ? '0 0 10px rgba(0,0,0,0.5)' : 'none'
         }}
       >
-        <Typography variant="h6" fontWeight="medium" sx={{ fontSize: '1rem' }}>
+        <Typography variant="h6" fontWeight="medium" sx={{ fontSize: '1.1rem' }}>
           {section.title}
         </Typography>
       </AccordionTrigger>
