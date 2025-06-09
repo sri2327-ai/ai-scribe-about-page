@@ -92,72 +92,74 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       Solutions
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 w-[90vw] max-w-[500px] lg:max-w-[600px]">
-                        {/* Solutions Column */}
-                        <div>
-                          <h3 className="font-semibold text-sm text-gray-900 mb-3">Solutions</h3>
-                          <div className="space-y-2">
-                            <NavigationMenuLink asChild>
-                              <Link
-                                to="/crush-ai"
-                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="font-medium text-sm">CRUSH</div>
-                                <div className="text-xs text-gray-600">AI Medical Scribe Assistant</div>
-                              </Link>
-                            </NavigationMenuLink>
-                            <NavigationMenuLink asChild>
-                              <Link
-                                to="/bravo"
-                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="font-medium text-sm">BRAVO</div>
-                                <div className="text-xs text-gray-600">AI Staffing Agent</div>
-                              </Link>
-                            </NavigationMenuLink>
-                            <NavigationMenuLink asChild>
-                              <Link
-                                to="/custom-ai-agent"
-                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="font-medium text-sm">Custom AI</div>
-                                <div className="text-xs text-gray-600">Tailored AI Solutions</div>
-                              </Link>
-                            </NavigationMenuLink>
+                      <div className="w-[400px] p-4 md:w-[500px] md:p-6 lg:w-[600px]">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                          {/* Solutions Column */}
+                          <div>
+                            <h3 className="font-semibold text-sm text-gray-900 mb-4">Solutions</h3>
+                            <div className="space-y-2">
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to="/crush-ai"
+                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="font-medium text-sm text-gray-900">CRUSH</div>
+                                  <div className="text-xs text-gray-600">AI Medical Scribe Assistant</div>
+                                </Link>
+                              </NavigationMenuLink>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to="/bravo"
+                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="font-medium text-sm text-gray-900">BRAVO</div>
+                                  <div className="text-xs text-gray-600">AI Staffing Agent</div>
+                                </Link>
+                              </NavigationMenuLink>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to="/custom-ai-agent"
+                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="font-medium text-sm text-gray-900">Custom AI</div>
+                                  <div className="text-xs text-gray-600">Tailored AI Solutions</div>
+                                </Link>
+                              </NavigationMenuLink>
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Who we're for Column */}
-                        <div>
-                          <h3 className="font-semibold text-sm text-gray-900 mb-3">Who we're for</h3>
-                          <div className="space-y-2">
-                            <NavigationMenuLink asChild>
-                              <Link
-                                to="/customer"
-                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="font-medium text-sm">Health systems</div>
-                                <div className="text-xs text-gray-600">Enterprise healthcare solutions</div>
-                              </Link>
-                            </NavigationMenuLink>
-                            <NavigationMenuLink asChild>
-                              <Link
-                                to="/customer"
-                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="font-medium text-sm">Private practice</div>
-                                <div className="text-xs text-gray-600">Independent practices</div>
-                              </Link>
-                            </NavigationMenuLink>
-                            <NavigationMenuLink asChild>
-                              <Link
-                                to="/specialty"
-                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
-                              >
-                                <div className="font-medium text-sm">Specialty</div>
-                                <div className="text-xs text-gray-600">Specialized medical practices</div>
-                              </Link>
-                            </NavigationMenuLink>
+                          {/* Who we're for Column */}
+                          <div>
+                            <h3 className="font-semibold text-sm text-gray-900 mb-4">Who we're for</h3>
+                            <div className="space-y-2">
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to="/customer"
+                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="font-medium text-sm text-gray-900">Health systems</div>
+                                  <div className="text-xs text-gray-600">Enterprise healthcare solutions</div>
+                                </Link>
+                              </NavigationMenuLink>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to="/customer"
+                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="font-medium text-sm text-gray-900">Private practice</div>
+                                  <div className="text-xs text-gray-600">Independent practices</div>
+                                </Link>
+                              </NavigationMenuLink>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  to="/specialty"
+                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                >
+                                  <div className="font-medium text-sm text-gray-900">Specialty</div>
+                                  <div className="text-xs text-gray-600">Specialized medical practices</div>
+                                </Link>
+                              </NavigationMenuLink>
+                            </div>
                           </div>
                         </div>
                       </div>
