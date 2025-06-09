@@ -24,6 +24,15 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
         onChange(newValue[0]);
     };
 
+    const handleTrackClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const percentage = clickX / rect.width;
+        const newValue = Math.round(min + (percentage * (max - min)));
+        const clampedValue = Math.max(min, Math.min(max, newValue));
+        onChange(clampedValue);
+    };
+
     const percentage = ((value - min) / (max - min)) * 100;
 
     return (
@@ -40,15 +49,21 @@ export const ModernSlider: React.FC<ModernSliderProps> = ({
             </div>
             
             <div className="relative space-y-4">
-                {/* Use the actual Slider component for interaction */}
-                <Slider
-                    value={[value]}
-                    onValueChange={handleValueChange}
-                    min={min}
-                    max={max}
-                    step={1}
-                    className="w-full"
-                />
+                {/* Clickable track container */}
+                <div 
+                    className="relative cursor-pointer"
+                    onClick={handleTrackClick}
+                >
+                    {/* Use the actual Slider component for interaction */}
+                    <Slider
+                        value={[value]}
+                        onValueChange={handleValueChange}
+                        min={min}
+                        max={max}
+                        step={1}
+                        className="w-full"
+                    />
+                </div>
                 
                 {labels && (
                     <div className="flex justify-between text-sm text-gray-600 font-medium mt-3">
