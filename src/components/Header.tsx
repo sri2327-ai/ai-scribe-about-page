@@ -87,7 +87,11 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 <DropdownMenuTrigger className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors focus:outline-none">
                   Solutions
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-[500px] bg-white border border-gray-200 shadow-lg rounded-lg z-[100] p-6">
+                <DropdownMenuContent 
+                  className="w-[500px] bg-white border border-gray-200 shadow-lg rounded-lg z-[9999] p-6"
+                  sideOffset={5}
+                  align="center"
+                >
                   <div className="grid grid-cols-2 gap-6">
                     <div>
                       <h3 className="font-semibold text-lg text-gray-900 mb-4">Solutions</h3>
@@ -95,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <DropdownMenuItem asChild>
                           <Link
                             to="/crush-ai"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
                           >
                             <div className="font-medium text-gray-900">CRUSH</div>
                             <div className="text-sm text-gray-600">AI Medical Scribe Assistant</div>
@@ -104,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <DropdownMenuItem asChild>
                           <Link
                             to="/bravo"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
                           >
                             <div className="font-medium text-gray-900">BRAVO</div>
                             <div className="text-sm text-gray-600">AI Staffing Agent</div>
@@ -113,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <DropdownMenuItem asChild>
                           <Link
                             to="/custom-ai-agent"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
                           >
                             <div className="font-medium text-gray-900">Custom AI</div>
                             <div className="text-sm text-gray-600">Tailored AI Solutions</div>
@@ -127,7 +131,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <DropdownMenuItem asChild>
                           <Link
                             to="/customer"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
                           >
                             <div className="font-medium text-gray-900">Health systems</div>
                             <div className="text-sm text-gray-600">Enterprise healthcare solutions</div>
@@ -136,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <DropdownMenuItem asChild>
                           <Link
                             to="/customer"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
                           >
                             <div className="font-medium text-gray-900">Private practice</div>
                             <div className="text-sm text-gray-600">Independent practices</div>
@@ -145,7 +149,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         <DropdownMenuItem asChild>
                           <Link
                             to="/specialty"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
                           >
                             <div className="font-medium text-gray-900">Specialty</div>
                             <div className="text-sm text-gray-600">Specialized medical practices</div>
