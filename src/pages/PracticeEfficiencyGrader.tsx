@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -978,10 +977,11 @@ export default function PracticeEfficiencyGrader() {
                             transition={pageTransition} 
                             className="container mx-auto px-4 py-8 max-w-7xl"
                         >
-                            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-                                {/* Score Preview Section - Now takes 3/5 of space */}
-                                <div className="lg:col-span-3 order-2 lg:order-1">
-                                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
+                            {/* Mobile-first layout: Score on top, form below */}
+                            <div className="flex flex-col lg:grid lg:grid-cols-5 gap-6 lg:gap-8 lg:items-start">
+                                {/* Score Preview Section - Full width on mobile, 3/5 on desktop */}
+                                <div className="order-1 lg:col-span-3 lg:order-1">
+                                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 lg:p-8">
                                         <motion.div 
                                             className="w-12 h-12 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl flex items-center justify-center mb-6 shadow-md"
                                             whileHover={{ scale: 1.05 }}
@@ -991,17 +991,17 @@ export default function PracticeEfficiencyGrader() {
                                         </motion.div>
                                         
                                         <div className="mb-6">
-                                            <h2 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                                            <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                                                 Your Practice Efficiency Score
                                             </h2>
                                             
-                                            <div className="flex items-center gap-4 mb-6">
+                                            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-6">
                                                 <span className="text-lg font-medium text-gray-600">Score:</span>
                                                 <motion.div
                                                     initial={{ scale: 0 }}
                                                     animate={{ scale: 1 }}
                                                     transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-                                                    className={`text-5xl font-bold px-6 py-3 rounded-xl border shadow-md ${
+                                                    className={`text-4xl lg:text-5xl font-bold px-4 lg:px-6 py-2 lg:py-3 rounded-xl border shadow-md self-start ${
                                                         overallScore >= 80 ? 'bg-emerald-50 text-emerald-700 border-emerald-200' :
                                                         overallScore >= 60 ? 'bg-amber-50 text-amber-700 border-amber-200' :
                                                         'bg-red-50 text-red-700 border-red-200'
@@ -1015,7 +1015,7 @@ export default function PracticeEfficiencyGrader() {
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
                                                 transition={{ delay: 0.5 }}
-                                                className="text-gray-600 text-lg leading-relaxed mb-6"
+                                                className="text-gray-600 text-base lg:text-lg leading-relaxed mb-6"
                                             >
                                                 {overallScore >= 80 
                                                     ? "Great job! Your practice is performing well, but there's still room for optimization."
@@ -1030,35 +1030,62 @@ export default function PracticeEfficiencyGrader() {
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ delay: 0.7 }}
-                                            className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/30 rounded-xl p-6"
+                                            className="bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 border border-[#387E89]/30 rounded-xl p-4 lg:p-6"
                                         >
                                             <div className="flex items-center gap-2 mb-3">
                                                 <Sparkles className="w-5 h-5 text-[#387E89]" />
                                                 <span className="font-semibold text-gray-900 text-lg">What's Next?</span>
                                             </div>
-                                            <p className="text-gray-700 leading-relaxed">
-                                                Get your complete benchmark study with detailed analysis, industry comparisons, 
-                                                and actionable solutions to transform your practice with S10.AI.
+                                            <p className="text-gray-700 leading-relaxed text-sm lg:text-base">
+                                                Complete the form below to get your comprehensive benchmark study with detailed analysis, 
+                                                industry comparisons, and actionable solutions to transform your practice with S10.AI.
                                             </p>
                                         </motion.div>
+                                        
+                                        {/* Mobile CTA to scroll to form */}
+                                        <div className="block lg:hidden mt-6">
+                                            <motion.div 
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 0.9 }}
+                                                className="text-center"
+                                            >
+                                                <p className="text-gray-600 text-sm mb-3">Ready to unlock your complete analysis?</p>
+                                                <motion.button
+                                                    onClick={() => {
+                                                        const formElement = document.querySelector('#efficiency-form');
+                                                        formElement?.scrollIntoView({ behavior: 'smooth' });
+                                                    }}
+                                                    whileHover={{ scale: 1.02 }}
+                                                    whileTap={{ scale: 0.98 }}
+                                                    className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-6 py-3 rounded-lg font-medium text-sm shadow-lg flex items-center justify-center gap-2 mx-auto"
+                                                >
+                                                    Fill Out Form Below
+                                                    <ArrowRight className="w-4 h-4" />
+                                                </motion.button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                {/* Form Section - Now takes 2/5 of space but more compact */}
-                                <div className="lg:col-span-2 order-1 lg:order-2">
+                                {/* Form Section - Full width on mobile, 2/5 on desktop */}
+                                <div className="order-2 lg:col-span-2 lg:order-2">
                                     <div className="lg:sticky lg:top-8">
-                                        <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-5">
+                                        <div id="efficiency-form" className="bg-white rounded-2xl border border-gray-200 shadow-lg p-5 lg:p-6">
                                             <div className="text-center mb-5">
-                                                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                                                <div className="w-12 h-12 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                                                    <FileText className="w-6 h-6 text-white" />
+                                                </div>
+                                                <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
                                                     Unlock Your Complete Study
                                                 </h3>
-                                                <p className="text-gray-600 text-sm leading-relaxed">
-                                                    Get your comprehensive analysis and S10.AI solutions.
+                                                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
+                                                    Get your comprehensive analysis and personalized S10.AI solutions.
                                                 </p>
                                             </div>
                                             
-                                            <form onSubmit={handleSubmitForm} className="space-y-3">
-                                                <div className="grid grid-cols-2 gap-3">
+                                            <form onSubmit={handleSubmitForm} className="space-y-4">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
                                                     <InputField name="firstName" type="text" placeholder="First Name" />
                                                     <InputField name="lastName" type="text" placeholder="Last Name" />
                                                 </div>
@@ -1072,14 +1099,14 @@ export default function PracticeEfficiencyGrader() {
                                                     type="submit" 
                                                     whileHover={{ scale: 1.01 }}
                                                     whileTap={{ scale: 0.99 }}
-                                                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold py-3 rounded-lg shadow-lg transition-all duration-300 text-sm flex items-center justify-center gap-2 mt-4"
+                                                    className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold py-3 lg:py-4 rounded-lg shadow-lg transition-all duration-300 text-sm lg:text-base flex items-center justify-center gap-2 mt-6"
                                                 >
                                                     View Complete Study
-                                                    <ArrowRight className="w-4 h-4" />
+                                                    <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />
                                                 </motion.button>
                                             </form>
                                             
-                                            <div className="flex items-center justify-center gap-2 mt-3">
+                                            <div className="flex items-center justify-center gap-2 mt-4">
                                                 <Shield className="w-3 h-3 text-gray-500" />
                                                 <p className="text-gray-500 text-center text-xs">
                                                     Secure & confidential
