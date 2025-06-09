@@ -92,7 +92,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                       Solutions
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
-                      <div className="grid grid-cols-2 gap-6 p-6 w-[600px]">
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 w-[90vw] max-w-[500px] lg:max-w-[600px]">
                         {/* Solutions Column */}
                         <div>
                           <h3 className="font-semibold text-sm text-gray-900 mb-3">Solutions</h3>
@@ -257,50 +257,54 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               About
             </NavLink>
 
+            {/* Solutions Section */}
+            <div className="px-6 py-2 bg-gray-50 border-b border-gray-200">
+              <h4 className="font-semibold text-sm text-gray-900 mb-2">Solutions</h4>
+            </div>
             <NavLink
               to="/crush-ai"
               onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200 text-sm"
             >
-              CRUSH
+              CRUSH - AI Medical Scribe
             </NavLink>
-
             <NavLink
               to="/bravo"
               onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200 text-sm"
             >
-              BRAVO
+              BRAVO - AI Staffing Agent
             </NavLink>
-
             <NavLink
               to="/custom-ai-agent"
               onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200 text-sm"
             >
-              Custom AI
+              Custom AI - Tailored Solutions
             </NavLink>
 
+            {/* Who we're for Section */}
+            <div className="px-6 py-2 bg-gray-50 border-b border-gray-200">
+              <h4 className="font-semibold text-sm text-gray-900 mb-2">Who we're for</h4>
+            </div>
             <NavLink
               to="/customer"
               onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200 text-sm"
             >
               Health Systems
             </NavLink>
-
             <NavLink
               to="/customer"
               onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200 text-sm"
             >
               Private Practice
             </NavLink>
-
             <NavLink
               to="/specialty"
               onClick={closeMenu}
-              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200 text-sm"
             >
               Specialty
             </NavLink>
