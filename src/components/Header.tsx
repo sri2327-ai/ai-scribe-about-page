@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -25,6 +24,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const location = useLocation();
 
@@ -83,14 +83,25 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 About
               </NavLink>
 
-              <DropdownMenu>
-                <DropdownMenuTrigger className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors focus:outline-none">
+              <DropdownMenu 
+                open={dropdownOpen} 
+                onOpenChange={setDropdownOpen}
+              >
+                <DropdownMenuTrigger 
+                  className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors focus:outline-none"
+                  onClick={() => {
+                    console.log('Solutions dropdown clicked');
+                    setDropdownOpen(!dropdownOpen);
+                  }}
+                >
                   Solutions
                 </DropdownMenuTrigger>
                 <DropdownMenuContent 
-                  className="w-[500px] bg-white border border-gray-200 shadow-lg rounded-lg z-[9999] p-6"
-                  sideOffset={5}
+                  className="w-[500px] bg-white/95 backdrop-blur-sm border border-gray-200 shadow-xl rounded-lg p-6"
+                  sideOffset={8}
                   align="center"
+                  style={{ zIndex: 9999 }}
+                  onCloseAutoFocus={(e) => e.preventDefault()}
                 >
                   <div className="grid grid-cols-2 gap-6">
                     <div>
@@ -100,6 +111,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                           <Link
                             to="/crush-ai"
                             className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            onClick={() => setDropdownOpen(false)}
                           >
                             <div className="font-medium text-gray-900">CRUSH</div>
                             <div className="text-sm text-gray-600">AI Medical Scribe Assistant</div>
@@ -109,6 +121,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                           <Link
                             to="/bravo"
                             className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            onClick={() => setDropdownOpen(false)}
                           >
                             <div className="font-medium text-gray-900">BRAVO</div>
                             <div className="text-sm text-gray-600">AI Staffing Agent</div>
@@ -118,6 +131,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                           <Link
                             to="/custom-ai-agent"
                             className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            onClick={() => setDropdownOpen(false)}
                           >
                             <div className="font-medium text-gray-900">Custom AI</div>
                             <div className="text-sm text-gray-600">Tailored AI Solutions</div>
@@ -132,6 +146,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                           <Link
                             to="/customer"
                             className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            onClick={() => setDropdownOpen(false)}
                           >
                             <div className="font-medium text-gray-900">Health systems</div>
                             <div className="text-sm text-gray-600">Enterprise healthcare solutions</div>
@@ -141,6 +156,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                           <Link
                             to="/customer"
                             className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            onClick={() => setDropdownOpen(false)}
                           >
                             <div className="font-medium text-gray-900">Private practice</div>
                             <div className="text-sm text-gray-600">Independent practices</div>
@@ -150,6 +166,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                           <Link
                             to="/specialty"
                             className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            onClick={() => setDropdownOpen(false)}
                           >
                             <div className="font-medium text-gray-900">Specialty</div>
                             <div className="text-sm text-gray-600">Specialized medical practices</div>
