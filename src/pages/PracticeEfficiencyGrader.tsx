@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useNavigate } from 'react-router-dom';
 import { useToast } from "@/components/ui/use-toast"
 import {
   Card,
@@ -68,7 +68,7 @@ interface SliderOptions {
 }
 
 const PracticeEfficiencyGrader = () => {
-  const router = useRouter();
+  const navigate = useNavigate();
   const { toast } = useToast()
 
   const [formData, setFormData] = useState<FormData>({
