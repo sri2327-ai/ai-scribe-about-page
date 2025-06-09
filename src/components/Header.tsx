@@ -87,20 +87,19 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               <NavigationMenu>
                 <NavigationMenuList>
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className={navLinkClass}>
+                    <NavigationMenuTrigger className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors">
                       Solutions
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent>
-                      <div className="w-[600px] p-6">
-                        <div className="grid grid-cols-2 gap-8">
-                          {/* Solutions Column */}
+                    <NavigationMenuContent className="bg-white border border-gray-200 shadow-lg rounded-lg z-50">
+                      <div className="w-[500px] p-6">
+                        <div className="grid grid-cols-2 gap-6">
                           <div>
                             <h3 className="font-semibold text-lg text-gray-900 mb-4">Solutions</h3>
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                               <NavigationMenuLink asChild>
                                 <Link
                                   to="/crush-ai"
-                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <div className="font-medium text-gray-900">CRUSH</div>
                                   <div className="text-sm text-gray-600">AI Medical Scribe Assistant</div>
@@ -109,7 +108,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                               <NavigationMenuLink asChild>
                                 <Link
                                   to="/bravo"
-                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <div className="font-medium text-gray-900">BRAVO</div>
                                   <div className="text-sm text-gray-600">AI Staffing Agent</div>
@@ -118,7 +117,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                               <NavigationMenuLink asChild>
                                 <Link
                                   to="/custom-ai-agent"
-                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <div className="font-medium text-gray-900">Custom AI</div>
                                   <div className="text-sm text-gray-600">Tailored AI Solutions</div>
@@ -126,15 +125,13 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                               </NavigationMenuLink>
                             </div>
                           </div>
-
-                          {/* Who we're for Column */}
                           <div>
                             <h3 className="font-semibold text-lg text-gray-900 mb-4">Who we're for</h3>
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                               <NavigationMenuLink asChild>
                                 <Link
                                   to="/customer"
-                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <div className="font-medium text-gray-900">Health systems</div>
                                   <div className="text-sm text-gray-600">Enterprise healthcare solutions</div>
@@ -143,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                               <NavigationMenuLink asChild>
                                 <Link
                                   to="/customer"
-                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <div className="font-medium text-gray-900">Private practice</div>
                                   <div className="text-sm text-gray-600">Independent practices</div>
@@ -152,7 +149,7 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                               <NavigationMenuLink asChild>
                                 <Link
                                   to="/specialty"
-                                  className="block p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
                                 >
                                   <div className="font-medium text-gray-900">Specialty</div>
                                   <div className="text-sm text-gray-600">Specialized medical practices</div>
@@ -258,7 +255,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               About
             </NavLink>
 
-            {/* Solutions Section */}
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
               <h4 className="font-semibold text-gray-900">Solutions</h4>
             </div>
@@ -284,7 +280,6 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               Custom AI - Tailored Solutions
             </NavLink>
 
-            {/* Who we're for Section */}
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
               <h4 className="font-semibold text-gray-900">Who we're for</h4>
             </div>
