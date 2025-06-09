@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import classNames from "classnames";
@@ -6,13 +7,11 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Phone } from "lucide-react";
 import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navLinkClass =
   "px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors";
@@ -84,85 +83,79 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 About
               </NavLink>
 
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuTrigger className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors">
-                      Solutions
-                    </NavigationMenuTrigger>
-                    <NavigationMenuContent className="bg-white border border-gray-200 shadow-lg rounded-lg z-50">
-                      <div className="w-[500px] p-6">
-                        <div className="grid grid-cols-2 gap-6">
-                          <div>
-                            <h3 className="font-semibold text-lg text-gray-900 mb-4">Solutions</h3>
-                            <div className="space-y-2">
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to="/crush-ai"
-                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="font-medium text-gray-900">CRUSH</div>
-                                  <div className="text-sm text-gray-600">AI Medical Scribe Assistant</div>
-                                </Link>
-                              </NavigationMenuLink>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to="/bravo"
-                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="font-medium text-gray-900">BRAVO</div>
-                                  <div className="text-sm text-gray-600">AI Staffing Agent</div>
-                                </Link>
-                              </NavigationMenuLink>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to="/custom-ai-agent"
-                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="font-medium text-gray-900">Custom AI</div>
-                                  <div className="text-sm text-gray-600">Tailored AI Solutions</div>
-                                </Link>
-                              </NavigationMenuLink>
-                            </div>
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-lg text-gray-900 mb-4">Who we're for</h3>
-                            <div className="space-y-2">
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to="/customer"
-                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="font-medium text-gray-900">Health systems</div>
-                                  <div className="text-sm text-gray-600">Enterprise healthcare solutions</div>
-                                </Link>
-                              </NavigationMenuLink>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to="/customer"
-                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="font-medium text-gray-900">Private practice</div>
-                                  <div className="text-sm text-gray-600">Independent practices</div>
-                                </Link>
-                              </NavigationMenuLink>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  to="/specialty"
-                                  className="block p-2 rounded-lg hover:bg-gray-50 transition-colors"
-                                >
-                                  <div className="font-medium text-gray-900">Specialty</div>
-                                  <div className="text-sm text-gray-600">Specialized medical practices</div>
-                                </Link>
-                              </NavigationMenuLink>
-                            </div>
-                          </div>
-                        </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors focus:outline-none">
+                  Solutions
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-[500px] bg-white border border-gray-200 shadow-lg rounded-lg z-[100] p-6">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div>
+                      <h3 className="font-semibold text-lg text-gray-900 mb-4">Solutions</h3>
+                      <div className="space-y-2">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/crush-ai"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                          >
+                            <div className="font-medium text-gray-900">CRUSH</div>
+                            <div className="text-sm text-gray-600">AI Medical Scribe Assistant</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/bravo"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                          >
+                            <div className="font-medium text-gray-900">BRAVO</div>
+                            <div className="text-sm text-gray-600">AI Staffing Agent</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/custom-ai-agent"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                          >
+                            <div className="font-medium text-gray-900">Custom AI</div>
+                            <div className="text-sm text-gray-600">Tailored AI Solutions</div>
+                          </Link>
+                        </DropdownMenuItem>
                       </div>
-                    </NavigationMenuContent>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg text-gray-900 mb-4">Who we're for</h3>
+                      <div className="space-y-2">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/customer"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                          >
+                            <div className="font-medium text-gray-900">Health systems</div>
+                            <div className="text-sm text-gray-600">Enterprise healthcare solutions</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/customer"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                          >
+                            <div className="font-medium text-gray-900">Private practice</div>
+                            <div className="text-sm text-gray-600">Independent practices</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left"
+                          >
+                            <div className="font-medium text-gray-900">Specialty</div>
+                            <div className="text-sm text-gray-600">Specialized medical practices</div>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
               
               <NavLink
                 to="/advantages"
