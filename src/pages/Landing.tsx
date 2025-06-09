@@ -8,6 +8,7 @@ import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
+import PracticeHealthCheckSection from '@/components/landing/PracticeHealthCheckSection';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -157,6 +158,9 @@ const Landing = () => {
         
         <TenthSection />
         <PracticeTypeSelector onSelect={handlePracticeTypeSelect} />
+        
+        {/* Practice Health Check Section - Added above EleventhSection */}
+        <PracticeHealthCheckSection />
         
         <Suspense fallback={<SectionLoader />}>
           <EleventhSection />
