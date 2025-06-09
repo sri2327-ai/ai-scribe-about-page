@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -237,6 +238,17 @@ const IntroHeroSection: React.FC<IntroHeroSectionProps> = ({
 
     return (
         <div className="bg-background text-foreground min-h-screen flex flex-col">
+            {/* White Header with Logo */}
+            <div className="bg-white w-full py-4 px-6 shadow-sm border-b border-gray-100">
+                <div className="container mx-auto">
+                    <img
+                        src="/lovable-uploads/2ddb185a-4a0d-480a-a8cc-9934b8856753.png"
+                        alt="S10.AI Logo"
+                        className="h-8 w-auto"
+                    />
+                </div>
+            </div>
+
             <main className="flex-grow flex flex-col items-center justify-center">
                 <div className="mt-12 sm:mt-16 lg:mt-24 flex flex-col items-center">
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center px-4 leading-tight">
