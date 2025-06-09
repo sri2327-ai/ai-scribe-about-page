@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -1163,10 +1164,10 @@ export default function PracticeEfficiencyGrader() {
                                 </p>
                             </div>
 
-                            {/* Main Content Layout - Better proportions */}
+                            {/* Main Content Layout - Reordered for mobile/tablet */}
                             <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
-                                {/* Scrollable Report Content - Takes 3/4 of space */}
-                                <div className="xl:col-span-3 order-2 xl:order-1">
+                                {/* Scrollable Report Content - Mobile: order-1 (top), Desktop: order-1 (left) */}
+                                <div className="xl:col-span-3 order-1">
                                     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
                                         <div className="p-4 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 border-b border-gray-200">
                                             <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
@@ -1254,8 +1255,8 @@ export default function PracticeEfficiencyGrader() {
                                     </div>
                                 </div>
 
-                                {/* Fixed CTA Section - Takes 1/4 of space */}
-                                <div className="xl:col-span-1 order-1 xl:order-2">
+                                {/* CTA Section - Mobile: order-2 (bottom), Desktop: order-2 (right) */}
+                                <div className="xl:col-span-1 order-2">
                                     <div className="xl:sticky xl:top-8">
                                         <motion.div 
                                             className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
