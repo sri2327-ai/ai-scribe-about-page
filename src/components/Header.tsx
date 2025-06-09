@@ -6,6 +6,14 @@ import styles from "@/styles/header.module.css";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Phone } from "lucide-react";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
 
 const navLinkClass =
   "px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors";
@@ -77,36 +85,86 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 About
               </NavLink>
 
-              <NavLink
-                to="/crush-ai"
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  isActive ? activeNavLinkClass : navLinkClass
-                }
-                title="AI Medical Scribe Assistant & Documentation"
-              >
-                CRUSH
-              </NavLink>
+              <NavigationMenu>
+                <NavigationMenuList>
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger className={navLinkClass}>
+                      Solutions
+                    </NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <div className="grid grid-cols-2 gap-6 p-6 w-[600px]">
+                        {/* Solutions Column */}
+                        <div>
+                          <h3 className="font-semibold text-sm text-gray-900 mb-3">Solutions</h3>
+                          <div className="space-y-2">
+                            <NavigationMenuLink asChild>
+                              <Link
+                                to="/crush-ai"
+                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="font-medium text-sm">CRUSH</div>
+                                <div className="text-xs text-gray-600">AI Medical Scribe Assistant</div>
+                              </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                to="/bravo"
+                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="font-medium text-sm">BRAVO</div>
+                                <div className="text-xs text-gray-600">AI Staffing Agent</div>
+                              </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                to="/custom-ai-agent"
+                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="font-medium text-sm">Custom AI</div>
+                                <div className="text-xs text-gray-600">Tailored AI Solutions</div>
+                              </Link>
+                            </NavigationMenuLink>
+                          </div>
+                        </div>
 
-              <NavLink
-                to="/bravo"
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  isActive ? activeNavLinkClass : navLinkClass
-                }
-              >
-                BRAVO
-              </NavLink>
-
-              <NavLink
-                to="/custom-ai-agent"
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  isActive ? activeNavLinkClass : navLinkClass
-                }
-              >
-                Custom AI
-              </NavLink>
+                        {/* Who we're for Column */}
+                        <div>
+                          <h3 className="font-semibold text-sm text-gray-900 mb-3">Who we're for</h3>
+                          <div className="space-y-2">
+                            <NavigationMenuLink asChild>
+                              <Link
+                                to="/customer"
+                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="font-medium text-sm">Health systems</div>
+                                <div className="text-xs text-gray-600">Enterprise healthcare solutions</div>
+                              </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                to="/customer"
+                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="font-medium text-sm">Private practice</div>
+                                <div className="text-xs text-gray-600">Independent practices</div>
+                              </Link>
+                            </NavigationMenuLink>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                to="/specialty"
+                                className="block p-2 rounded-md hover:bg-gray-50 transition-colors"
+                              >
+                                <div className="font-medium text-sm">Specialty</div>
+                                <div className="text-xs text-gray-600">Specialized medical practices</div>
+                              </Link>
+                            </NavigationMenuLink>
+                          </div>
+                        </div>
+                      </div>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
               
               <NavLink
                 to="/advantages"
@@ -221,6 +279,30 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
               Custom AI
+            </NavLink>
+
+            <NavLink
+              to="/customer"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Health Systems
+            </NavLink>
+
+            <NavLink
+              to="/customer"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Private Practice
+            </NavLink>
+
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Specialty
             </NavLink>
 
             <NavLink
