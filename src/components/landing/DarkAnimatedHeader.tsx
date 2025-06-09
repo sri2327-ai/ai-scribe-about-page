@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -110,9 +109,9 @@ const DarkAnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown with improved descriptions and UX
+  // Solutions dropdown with "Who we're for" section
   const solutionsDropdown = {
-    items: [
+    solutions: [
       {
         title: 'CRUSH',
         description: 'AI Medical Scribe Assistant & Documentation',
@@ -149,6 +148,26 @@ const DarkAnimatedHeader = () => {
             <Award className="w-8 h-8 text-[#A5CCF3]" />
           </div>
         )
+      }
+    ],
+    whoWeAreFor: [
+      {
+        title: 'Health systems',
+        description: 'Enterprise healthcare solutions',
+        icon: <Building className="w-5 h-5 text-white" />,
+        href: '/customer'
+      },
+      {
+        title: 'Private practice',
+        description: 'Independent practices',
+        icon: <Users className="w-5 h-5 text-[#387E89]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Specialty',
+        description: 'Specialized medical practices',
+        icon: <Stethoscope className="w-5 h-5 text-[#5192AE]" />,
+        href: '/specialty'
       }
     ]
   };
@@ -266,7 +285,7 @@ const DarkAnimatedHeader = () => {
           <Card 
             className={`p-6 shadow-2xl border-0 backdrop-blur-2xl ${
               type === 'solutions' 
-                ? 'min-w-[700px] max-w-[750px]' 
+                ? 'min-w-[900px] max-w-[950px]' 
                 : 'min-w-[480px] max-w-[520px]'
             }`} 
             style={{
@@ -276,48 +295,89 @@ const DarkAnimatedHeader = () => {
             }}
           >
             {type === 'solutions' ? (
-              <div className="grid grid-cols-1 gap-5">
-                <div className="mb-4">
-                  <h3 className="text-lg font-bold text-white mb-2">
-                    AI Solutions
-                  </h3>
-                  <p className="text-sm text-gray-300">Choose your healthcare AI companion</p>
+              <div className="grid grid-cols-2 gap-8">
+                {/* Solutions Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-white mb-2">
+                      AI Solutions
+                    </h3>
+                    <p className="text-sm text-gray-300">Choose your healthcare AI companion</p>
+                  </div>
+                  <div className="space-y-4">
+                    {solutionsDropdown.solutions.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1, ease: "easeOut" }}
+                      >
+                        <Link to={item.href} className="block group">
+                          <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.03] relative overflow-hidden group-hover:shadow-2xl`}>
+                            {item.illustration}
+                            <div className="flex items-start gap-4 relative z-10">
+                              <div className="p-3 bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:border-current group-hover:shadow-lg transition-all duration-300">
+                                {item.icon}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center gap-3 mb-2">
+                                  <h3 className="font-bold text-lg transition-colors duration-300 text-white group-hover:text-white">
+                                    {item.title}
+                                  </h3>
+                                  {item.label && (
+                                    <span className="px-3 py-1 bg-gradient-to-r from-[#387E89]/30 to-[#5192AE]/30 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-[#387E89]/50 animate-pulse">
+                                      {item.label}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                                  {item.description}
+                                </p>
+                              </div>
+                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-2 group-hover:text-current transition-all duration-300" />
+                            </div>
+                          </Card>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-                {items.map((item, index) => (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1, ease: "easeOut" }}
-                  >
-                    <Link to={item.href} className="block group">
-                      <Card className={`p-6 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.03] relative overflow-hidden group-hover:shadow-2xl`}>
-                        {item.illustration}
-                        <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-gradient-to-br from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:border-current group-hover:shadow-lg transition-all duration-300">
+
+                {/* Who We're For Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-white mb-2">Who we're for</h3>
+                    <p className="text-sm text-gray-300">Healthcare organizations we serve</p>
+                  </div>
+                  <div className="space-y-3">
+                    {solutionsDropdown.whoWeAreFor.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 + 0.3, ease: "easeOut" }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group border border-transparent hover:border-white/10"
+                        >
+                          <div className="group-hover:scale-125 transition-transform duration-300">
                             {item.icon}
                           </div>
                           <div className="flex-1">
-                            <div className="flex items-center gap-3 mb-2">
-                              <h3 className="font-bold text-xl transition-colors duration-300 text-white group-hover:text-white">
-                                {item.title}
-                              </h3>
-                              {item.label && (
-                                <span className="px-3 py-1 bg-gradient-to-r from-[#387E89]/30 to-[#5192AE]/30 backdrop-blur-sm text-white text-xs font-semibold rounded-full border border-[#387E89]/50 animate-pulse">
-                                  {item.label}
-                                </span>
-                              )}
+                            <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors duration-300">
+                              {item.title}
                             </div>
-                            <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300 leading-relaxed">
+                            <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                               {item.description}
-                            </p>
+                            </div>
                           </div>
-                          <ArrowRight className="w-6 h-6 text-gray-400 group-hover:translate-x-2 group-hover:text-current transition-all duration-300" />
-                        </div>
-                      </Card>
-                    </Link>
-                  </motion.div>
-                ))}
+                          <ArrowRight className="w-4 h-4 text-gray-500 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all duration-300" />
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-2">
@@ -438,7 +498,7 @@ const DarkAnimatedHeader = () => {
         {hasDropdown && (
           <>
             {dropdownType === 'solutions' && (
-              <DropdownMenu items={solutionsDropdown.items} isOpen={isActive} type="solutions" />
+              <DropdownMenu items={solutionsDropdown.solutions} isOpen={isActive} type="solutions" />
             )}
             {dropdownType === 'about' && (
               <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" cta={aboutDropdown.cta} />
@@ -500,44 +560,80 @@ const DarkAnimatedHeader = () => {
               <div className="p-5 max-h-80 overflow-y-auto">
                 <div className="space-y-3">
                   {sectionKey === 'solutions' ? (
-                    // Solutions mobile view with cards
-                    <div className="space-y-4">
-                      {items.map((item) => (
-                        <Link
-                          key={item.title}
-                          to={item.href}
-                          className="block group"
-                          onClick={() => {
-                            console.log(`Mobile solution clicked: ${item.title}`);
-                            setIsMobileMenuOpen(false);
-                          }}
-                        >
-                          <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
-                            {item.illustration}
-                            <div className="flex items-start gap-4 relative z-10">
-                              <div className="p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:bg-gray-700/80 transition-colors duration-300">
+                    // Solutions mobile view with both sections
+                    <div className="space-y-5">
+                      {/* AI Solutions */}
+                      <div>
+                        <h4 className="font-bold text-white mb-3">AI Solutions</h4>
+                        <div className="space-y-4">
+                          {solutionsDropdown.solutions.map((item) => (
+                            <Link
+                              key={item.title}
+                              to={item.href}
+                              className="block group"
+                              onClick={() => {
+                                console.log(`Mobile solution clicked: ${item.title}`);
+                                setIsMobileMenuOpen(false);
+                              }}
+                            >
+                              <Card className={`p-5 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden group-hover:shadow-xl`}>
+                                {item.illustration}
+                                <div className="flex items-start gap-4 relative z-10">
+                                  <div className="p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-gray-600/40 group-hover:bg-gray-700/80 transition-colors duration-300">
+                                    {item.icon}
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="flex items-center gap-2 mb-2">
+                                      <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
+                                        {item.title}
+                                      </h3>
+                                      {item.label && (
+                                        <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
+                                          {item.label}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
+                                      {item.description}
+                                    </p>
+                                  </div>
+                                  <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
+                                </div>
+                              </Card>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Who We're For */}
+                      <div className="border-t border-gray-700/50 pt-4">
+                        <h4 className="font-bold text-white mb-3">Who we're for</h4>
+                        <div className="space-y-2">
+                          {solutionsDropdown.whoWeAreFor.map((item) => (
+                            <Link
+                              key={item.title}
+                              to={item.href}
+                              className="flex items-center gap-4 p-4 rounded-xl hover:bg-white/15 transition-all duration-300 group border border-transparent hover:border-white/10"
+                              onClick={() => {
+                                console.log(`Mobile who we're for clicked: ${item.title}`);
+                                setIsMobileMenuOpen(false);
+                              }}
+                            >
+                              <div className="group-hover:scale-110 transition-transform duration-300">
                                 {item.icon}
                               </div>
-                              <div className="flex-1">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <h3 className="font-bold text-white group-hover:text-current transition-colors duration-300">
-                                    {item.title}
-                                  </h3>
-                                  {item.label && (
-                                    <span className="px-2 py-1 bg-gradient-to-r from-[#387E89]/20 to-[#5192AE]/20 backdrop-blur-sm text-white text-xs font-medium rounded-full border border-[#387E89]/30">
-                                      {item.label}
-                                    </span>
-                                  )}
+                              <div>
+                                <div className="font-semibold text-white group-hover:text-[#387E89] transition-colors duration-300">
+                                  {item.title}
                                 </div>
-                                <p className="text-gray-300 text-sm group-hover:text-gray-200 transition-colors duration-300">
+                                <div className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300">
                                   {item.description}
-                                </p>
+                                </div>
                               </div>
-                              <ArrowRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 group-hover:text-current transition-all duration-300" />
-                            </div>
-                          </Card>
-                        </Link>
-                      ))}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   ) : (
                     // Other sections mobile view
@@ -760,7 +856,7 @@ const DarkAnimatedHeader = () => {
                 {/* Mobile Solutions Section */}
                 <MobileSectionToggle 
                   title="Solutions" 
-                  items={solutionsDropdown.items} 
+                  items={solutionsDropdown.solutions} 
                   sectionKey="solutions" 
                 />
 

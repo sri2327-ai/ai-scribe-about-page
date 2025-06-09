@@ -98,9 +98,9 @@ const AnimatedHeader = () => {
     </div>
   );
 
-  // Solutions dropdown content with mild pink shades
+  // Solutions dropdown content with "Who we're for" section
   const solutionsDropdown = {
-    items: [
+    solutions: [
       {
         title: 'CRUSH',
         description: 'AI Medical Scribe & Documentation',
@@ -137,6 +137,26 @@ const AnimatedHeader = () => {
             <Award className="w-8 h-8 text-[#5192AE]" />
           </div>
         )
+      }
+    ],
+    whoWeAreFor: [
+      {
+        title: 'Health systems',
+        description: 'Enterprise healthcare solutions',
+        icon: <Building className="w-5 h-5 text-[#143151]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Private practice',
+        description: 'Independent practices',
+        icon: <Users className="w-5 h-5 text-[#387E89]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Specialty',
+        description: 'Specialized medical practices',
+        icon: <Stethoscope className="w-5 h-5 text-[#5192AE]" />,
+        href: '/specialty'
       }
     ]
   };
@@ -257,7 +277,7 @@ const AnimatedHeader = () => {
           <Card 
             className={`p-6 shadow-2xl border-0 backdrop-blur-xl ${
               type === 'solutions' 
-                ? 'min-w-[600px]' 
+                ? 'min-w-[800px]' 
                 : 'min-w-[400px]'
             }`} 
             style={{
@@ -267,46 +287,86 @@ const AnimatedHeader = () => {
             }}
           >
             {type === 'solutions' ? (
-              <div className="grid grid-cols-1 gap-4">
-                <div className="mb-2">
-                  <h3 className="text-sm font-semibold text-[#143151] mb-1">AI Solutions</h3>
-                  <p className="text-xs text-gray-600">Choose your healthcare AI companion</p>
+              <div className="grid grid-cols-2 gap-8">
+                {/* Solutions Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">AI Solutions</h3>
+                    <p className="text-sm text-gray-600">Choose your healthcare AI companion</p>
+                  </div>
+                  <div className="space-y-4">
+                    {solutionsDropdown.solutions.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <Link to={item.href} className="block group">
+                          <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
+                            {item.illustration}
+                            <div className="flex items-start gap-3 relative z-10">
+                              <div className="p-2 bg-white/60 backdrop-blur-sm rounded-xl border border-white/20">
+                                {item.icon}
+                              </div>
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1">
+                                  <h3 className="font-bold text-[#143151] text-sm">
+                                    {item.title}
+                                  </h3>
+                                  {item.label && (
+                                    <span className="px-2 py-1 bg-[#143151]/10 backdrop-blur-sm text-[#143151] text-xs font-medium rounded-full border border-[#143151]/20">
+                                      {item.label}
+                                    </span>
+                                  )}
+                                </div>
+                                <p className="text-gray-700 text-xs">
+                                  {item.description}
+                                </p>
+                              </div>
+                              <ArrowRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform" />
+                            </div>
+                          </Card>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
                 </div>
-                {items.map((item, index) => (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <Link to={item.href} className="block group">
-                      <Card className={`p-4 hover:shadow-xl transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
-                        {item.illustration}
-                        <div className="flex items-start gap-4 relative z-10">
-                          <div className="p-3 bg-white/60 backdrop-blur-sm rounded-xl border border-white/20">
+
+                {/* Who We're For Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">Who we're for</h3>
+                    <p className="text-sm text-gray-600">Healthcare organizations we serve</p>
+                  </div>
+                  <div className="space-y-2">
+                    {solutionsDropdown.whoWeAreFor.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 + 0.3 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="group-hover:scale-110 transition-transform">
                             {item.icon}
                           </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <h3 className="font-bold text-[#143151] text-lg">
-                                {item.title}
-                              </h3>
-                              {item.label && (
-                                <span className="px-2 py-1 bg-[#143151]/10 backdrop-blur-sm text-[#143151] text-xs font-medium rounded-full border border-[#143151]/20">
-                                  {item.label}
-                                </span>
-                              )}
+                          <div>
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                              {item.title}
                             </div>
-                            <p className="text-gray-700 text-sm">
+                            <div className="text-sm text-gray-500">
                               {item.description}
-                            </p>
+                            </div>
                           </div>
-                          <ArrowRight className="w-5 h-5 text-gray-600 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </Card>
-                    </Link>
-                  </motion.div>
-                ))}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-1">
@@ -427,7 +487,7 @@ const AnimatedHeader = () => {
         {hasDropdown && (
           <>
             {dropdownType === 'solutions' && (
-              <DropdownMenu items={solutionsDropdown.items} isOpen={isActive} type="solutions" />
+              <DropdownMenu items={solutionsDropdown.solutions} isOpen={isActive} type="solutions" />
             )}
             {dropdownType === 'about' && (
               <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" cta={aboutDropdown.cta} />
@@ -485,40 +545,72 @@ const AnimatedHeader = () => {
             >
               <div className="p-4 space-y-2">
                 {sectionKey === 'solutions' ? (
-                  // Solutions mobile view with cards
-                  <div className="space-y-3">
-                    {items.map((item) => (
-                      <Link
-                        key={item.title}
-                        to={item.href}
-                        className="block group"
-                      >
-                        <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
-                          {item.illustration}
-                          <div className="flex items-start gap-3 relative z-10">
-                            <div className="p-2 bg-white/60 backdrop-blur-sm rounded-lg border border-white/20">
+                  // Solutions mobile view with both sections
+                  <div className="space-y-4">
+                    {/* AI Solutions */}
+                    <div>
+                      <h4 className="font-semibold text-[#143151] mb-3">AI Solutions</h4>
+                      <div className="space-y-3">
+                        {solutionsDropdown.solutions.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="block group"
+                          >
+                            <Card className={`p-4 transition-all duration-300 border-0 ${item.bgColor} hover:scale-[1.02] relative overflow-hidden`}>
+                              {item.illustration}
+                              <div className="flex items-start gap-3 relative z-10">
+                                <div className="p-2 bg-white/60 backdrop-blur-sm rounded-lg border border-white/20">
+                                  {item.icon}
+                                </div>
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <h3 className="font-bold text-[#143151]">
+                                      {item.title}
+                                    </h3>
+                                    {item.label && (
+                                      <span className="px-2 py-1 bg-[#143151]/10 backdrop-blur-sm text-[#143151] text-xs font-medium rounded-full border border-[#143151]/20">
+                                        {item.label}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <p className="text-gray-700 text-sm">
+                                    {item.description}
+                                  </p>
+                                </div>
+                                <ArrowRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </Card>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Who We're For */}
+                    <div className="border-t border-gray-200 pt-4">
+                      <h4 className="font-semibold text-[#143151] mb-3">Who we're for</h4>
+                      <div className="space-y-2">
+                        {solutionsDropdown.whoWeAreFor.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform">
                               {item.icon}
                             </div>
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2 mb-1">
-                                <h3 className="font-bold text-[#143151]">
-                                  {item.title}
-                                </h3>
-                                {item.label && (
-                                  <span className="px-2 py-1 bg-[#143151]/10 backdrop-blur-sm text-[#143151] text-xs font-medium rounded-full border border-[#143151]/20">
-                                    {item.label}
-                                  </span>
-                                )}
+                            <div>
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
+                                {item.title}
                               </div>
-                              <p className="text-gray-700 text-sm">
+                              <div className="text-sm text-gray-500">
                                 {item.description}
-                              </p>
+                              </div>
                             </div>
-                            <ArrowRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform" />
-                          </div>
-                        </Card>
-                      </Link>
-                    ))}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   // Other sections mobile view
@@ -714,7 +806,7 @@ const AnimatedHeader = () => {
                 {/* Mobile Solutions Section */}
                 <MobileSectionToggle 
                   title="Solutions" 
-                  items={solutionsDropdown.items} 
+                  items={solutionsDropdown.solutions} 
                   sectionKey="solutions" 
                 />
 
