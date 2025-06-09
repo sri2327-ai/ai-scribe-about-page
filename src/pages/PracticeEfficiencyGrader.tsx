@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -1001,8 +1002,8 @@ export default function PracticeEfficiencyGrader() {
                             className="container mx-auto px-4 py-8 max-w-7xl"
                         >
                             <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-                                {/* Score Preview Section - Now takes 3/5 of space */}
-                                <div className="lg:col-span-3 order-2 lg:order-1">
+                                {/* Score Preview Section - Mobile: order-1 (top), Desktop: order-1 (left) */}
+                                <div className="lg:col-span-3 order-1">
                                     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8">
                                         <motion.div 
                                             className="w-12 h-12 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl flex items-center justify-center mb-6 shadow-md"
@@ -1066,8 +1067,8 @@ export default function PracticeEfficiencyGrader() {
                                     </div>
                                 </div>
                                 
-                                {/* Form Section - Now takes 2/5 of space but more compact */}
-                                <div className="lg:col-span-2 order-1 lg:order-2">
+                                {/* Form Section - Mobile: order-2 (bottom), Desktop: order-2 (right) */}
+                                <div className="lg:col-span-2 order-2">
                                     <div className="lg:sticky lg:top-8">
                                         <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-5">
                                             <div className="text-center mb-5">
@@ -1393,3 +1394,4 @@ export default function PracticeEfficiencyGrader() {
         </>
     );
 }
+
