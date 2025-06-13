@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom';
 const PracticeHealthCheckSection = () => {
   return (
     <section className="py-12 md:py-20 bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <Card className="bg-gradient-to-b from-white to-[#F5F9FF] border border-[#E1EFFF] shadow-xl rounded-2xl overflow-hidden">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center p-6 sm:p-8 lg:p-12">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-center p-6 sm:p-8 lg:p-10">
             
             {/* Left side - Improved Visual */}
             <motion.div
@@ -19,12 +19,12 @@ const PracticeHealthCheckSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="relative flex justify-center order-2 lg:order-1"
+              className="flex justify-center items-center order-2 lg:order-1"
             >
-              <div className="relative">
+              <div className="relative flex flex-col items-center">
                 {/* Main Score Circle */}
-                <div className="relative">
-                  <div className="w-36 h-36 sm:w-44 sm:h-44 lg:w-48 lg:h-48 relative">
+                <div className="relative mb-4">
+                  <div className="w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 relative">
                     <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                       {/* Background Circle */}
                       <circle
@@ -68,7 +68,7 @@ const PracticeHealthCheckSection = () => {
                         whileInView={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.6, delay: 1, ease: "backOut" }}
                         viewport={{ once: true }}
-                        className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#143151] mb-1 lg:mb-2"
+                        className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#143151] mb-1"
                       >
                         85
                       </motion.span>
@@ -77,7 +77,7 @@ const PracticeHealthCheckSection = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5, delay: 1.2 }}
                         viewport={{ once: true }}
-                        className="text-xs sm:text-sm font-medium text-[#387E89] uppercase tracking-wide"
+                        className="text-xs font-medium text-[#387E89] uppercase tracking-wide"
                       >
                         Excellent
                       </motion.span>
@@ -88,7 +88,7 @@ const PracticeHealthCheckSection = () => {
                         viewport={{ once: true }}
                         className="flex items-center gap-1 mt-1"
                       >
-                        <CheckCircle className="w-3 h-3 sm:w-4 sm:h-4 text-green-500" />
+                        <CheckCircle className="w-3 h-3 text-green-500" />
                         <span className="text-xs text-gray-600">Above Average</span>
                       </motion.div>
                     </div>
@@ -104,9 +104,9 @@ const PracticeHealthCheckSection = () => {
                       transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
                     }}
                     viewport={{ once: true }}
-                    className="absolute -top-2 lg:-top-3 -right-2 lg:-right-3 w-8 h-8 lg:w-10 lg:h-10 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center shadow-lg"
+                    className="absolute -top-2 -right-2 w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full flex items-center justify-center shadow-lg"
                   >
-                    <Heart className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
+                    <Heart className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
                   </motion.div>
 
                   <motion.div
@@ -118,9 +118,9 @@ const PracticeHealthCheckSection = () => {
                       transition: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }
                     }}
                     viewport={{ once: true }}
-                    className="absolute -bottom-2 lg:-bottom-3 -left-2 lg:-left-3 w-7 h-7 lg:w-8 lg:h-8 bg-gradient-to-r from-[#387E89] to-[#5192AE] rounded-full flex items-center justify-center shadow-lg"
+                    className="absolute -bottom-2 -left-2 w-6 h-6 lg:w-7 lg:h-7 bg-gradient-to-r from-[#387E89] to-[#5192AE] rounded-full flex items-center justify-center shadow-lg"
                   >
-                    <TrendingUp className="w-3 h-3 lg:w-4 lg:h-4 text-white" />
+                    <TrendingUp className="w-3 h-3 text-white" />
                   </motion.div>
                 </div>
 
@@ -130,23 +130,23 @@ const PracticeHealthCheckSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                   viewport={{ once: true }}
-                  className="grid grid-cols-3 gap-2 sm:gap-3 mt-6 lg:mt-8"
+                  className="grid grid-cols-3 gap-2 sm:gap-3 w-full max-w-xs"
                 >
-                  <div className="text-center p-2 sm:p-3 bg-white/80 backdrop-blur-sm rounded-lg border border-[#E1EFFF] shadow-sm">
-                    <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5 text-[#143151] mx-auto mb-1" />
-                    <div className="text-sm sm:text-lg font-bold text-[#143151]">92%</div>
+                  <div className="text-center p-2 bg-white/80 backdrop-blur-sm rounded-lg border border-[#E1EFFF] shadow-sm">
+                    <BarChart3 className="w-4 h-4 text-[#143151] mx-auto mb-1" />
+                    <div className="text-sm font-bold text-[#143151]">92%</div>
                     <div className="text-xs text-gray-600">Efficiency</div>
                   </div>
 
-                  <div className="text-center p-2 sm:p-3 bg-white/80 backdrop-blur-sm rounded-lg border border-[#E1EFFF] shadow-sm">
-                    <Users className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89] mx-auto mb-1" />
-                    <div className="text-sm sm:text-lg font-bold text-[#387E89]">78%</div>
+                  <div className="text-center p-2 bg-white/80 backdrop-blur-sm rounded-lg border border-[#E1EFFF] shadow-sm">
+                    <Users className="w-4 h-4 text-[#387E89] mx-auto mb-1" />
+                    <div className="text-sm font-bold text-[#387E89]">78%</div>
                     <div className="text-xs text-gray-600">Satisfaction</div>
                   </div>
 
-                  <div className="text-center p-2 sm:p-3 bg-white/80 backdrop-blur-sm rounded-lg border border-[#E1EFFF] shadow-sm">
-                    <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-[#5192AE] mx-auto mb-1" />
-                    <div className="text-sm sm:text-lg font-bold text-[#5192AE]">85%</div>
+                  <div className="text-center p-2 bg-white/80 backdrop-blur-sm rounded-lg border border-[#E1EFFF] shadow-sm">
+                    <Stethoscope className="w-4 h-4 text-[#5192AE] mx-auto mb-1" />
+                    <div className="text-sm font-bold text-[#5192AE]">85%</div>
                     <div className="text-xs text-gray-600">Care Quality</div>
                   </div>
                 </motion.div>
@@ -157,9 +157,9 @@ const PracticeHealthCheckSection = () => {
                   whileInView={{ opacity: 1 }}
                   transition={{ duration: 0.5, delay: 1.5 }}
                   viewport={{ once: true }}
-                  className="text-center mt-4 sm:mt-6"
+                  className="text-center mt-4"
                 >
-                  <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-full border border-[#387E89]/20">
+                  <div className="inline-flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-full border border-[#387E89]/20">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                     <span className="text-xs font-medium text-[#143151]">5 Questions • 2 Minutes</span>
                   </div>
@@ -173,7 +173,7 @@ const PracticeHealthCheckSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="space-y-6 order-1 lg:order-2 text-center lg:text-left"
+              className="space-y-4 lg:space-y-6 order-1 lg:order-2 text-center lg:text-left"
             >
               <div>
                 <motion.h2
@@ -181,7 +181,7 @@ const PracticeHealthCheckSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                   viewport={{ once: true }}
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#143151] mb-4 lg:mb-6 leading-tight"
+                  className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#143151] mb-3 lg:mb-4 leading-tight"
                 >
                   Assess Your Practice's Health
                 </motion.h2>
@@ -191,7 +191,7 @@ const PracticeHealthCheckSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                   viewport={{ once: true }}
-                  className="text-base sm:text-lg text-gray-600 leading-relaxed"
+                  className="text-sm sm:text-base text-gray-600 leading-relaxed"
                 >
                   Explore how your practice measures up with our 5-question AI Practice Health Check. 
                   Gain insights into provider well-being, financial performance, and patient care—helping 
@@ -208,12 +208,12 @@ const PracticeHealthCheckSection = () => {
               >
                 <Button 
                   size="lg"
-                  className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold px-6 sm:px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group text-sm sm:text-base"
+                  className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-semibold px-4 sm:px-6 py-2.5 sm:py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group text-sm"
                   asChild
                 >
-                  <Link to="/practice-efficiency-grader" className="flex items-center gap-2 sm:gap-3">
+                  <Link to="/practice-efficiency-grader" className="flex items-center gap-2">
                     <span className="whitespace-nowrap">Try the AI Practice Health Check</span>
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </Button>
               </motion.div>
@@ -224,25 +224,25 @@ const PracticeHealthCheckSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 viewport={{ once: true }}
-                className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 lg:pt-8"
+                className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 lg:pt-6"
               >
                 <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <Heart className="w-5 h-5 sm:w-6 sm:h-6 text-[#143151]" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-[#143151]" />
                   </div>
-                  <p className="text-sm font-medium text-[#143151]">Provider Well-being</p>
+                  <p className="text-xs sm:text-sm font-medium text-[#143151]">Provider Well-being</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#387E89]/10 to-[#5192AE]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#387E89]" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#387E89]/10 to-[#5192AE]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-[#387E89]" />
                   </div>
-                  <p className="text-sm font-medium text-[#387E89]">Financial Performance</p>
+                  <p className="text-xs sm:text-sm font-medium text-[#387E89]">Financial Performance</p>
                 </div>
                 <div className="text-center">
-                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-[#5192AE]/10 to-[#A5CCF3]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
-                    <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6 text-[#5192AE]" />
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-[#5192AE]/10 to-[#A5CCF3]/10 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-[#5192AE]" />
                   </div>
-                  <p className="text-sm font-medium text-[#5192AE]">Patient Care</p>
+                  <p className="text-xs sm:text-sm font-medium text-[#5192AE]">Patient Care</p>
                 </div>
               </motion.div>
             </motion.div>
