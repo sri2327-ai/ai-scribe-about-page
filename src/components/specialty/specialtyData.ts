@@ -1,4 +1,3 @@
-
 import { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
 
@@ -50,6 +49,18 @@ export const specialtyData: Record<string, SpecialtyContent> = {
       historySection: "Comprehensive tracking of dermatology history, biopsies, and chronic skin conditions with detailed symptom progression.",
       aiNotes: "Generates complete dermatology notes in minutes, including detailed skin condition descriptions and treatment plans.",
       icdCodes: "Accurately assigns dermatology-specific ICD-10 codes, prioritizing primary skin conditions.",
+    }
+  },
+  dentistry: {
+    title: "Dentistry",
+    content: "Comprehensive documentation for oral examinations, dental procedures, periodontal assessments, orthodontic treatment plans, oral surgery, and preventive care protocols, ensuring thorough dental care records.",
+    icon: Icons.Smile,
+    detailedContent: {
+      previousNotes: "Previous dental records, X-rays, and treatment histories are automatically integrated with current examination findings and treatment plans.",
+      specialtyHPI: "Creates focused dental HPIs with relevant terminology for oral health complaints, dental pain, periodontal issues, and orthodontic concerns.",
+      historySection: "Comprehensive tracking of dental history, previous procedures, oral hygiene habits, and dental family history with detailed progression notes.",
+      aiNotes: "Generates complete dental notes in minutes, including detailed oral examination findings, treatment plans, and patient education documentation.",
+      icdCodes: "Accurately assigns dentistry-specific ICD-10 codes, prioritizing primary oral health conditions and dental procedures.",
     }
   },
   emergency: {
@@ -362,6 +373,18 @@ export const specialtyData: Record<string, SpecialtyContent> = {
       historySection: "Comprehensive tracking of urology history, test results, and procedures with detailed symptom progression.",
       aiNotes: "Generates complete urology notes in minutes, including detailed urology information and treatment plans.",
       icdCodes: "Accurately assigns urology-specific ICD-10 codes, prioritizing primary urology conditions.",
+    }
+  },
+  veterinary: {
+    title: "Veterinary Medicine",
+    content: "Comprehensive documentation for animal health examinations, surgical procedures, vaccination protocols, diagnostic imaging, behavioral assessments, and treatment plans for companion animals, livestock, and exotic species.",
+    icon: Icons.Dog,
+    detailedContent: {
+      previousNotes: "Previous veterinary records, vaccination histories, and treatment responses are automatically integrated with current examination findings and species-specific health assessments.",
+      specialtyHPI: "Creates focused veterinary HPIs with relevant terminology for animal health complaints, species-specific conditions, behavioral issues, and preventive care protocols.",
+      historySection: "Comprehensive tracking of animal health history, previous treatments, vaccination records, and species-specific medical conditions with detailed progression notes.",
+      aiNotes: "Generates complete veterinary notes in minutes, including detailed examination findings, treatment plans, and owner education documentation for all animal species.",
+      icdCodes: "Accurately assigns veterinary-specific diagnostic codes, prioritizing primary animal health conditions and species-appropriate treatment protocols.",
     }
   },
   radiology: {
