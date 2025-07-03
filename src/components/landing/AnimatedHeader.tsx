@@ -303,10 +303,12 @@ const AnimatedHeader = () => {
           onMouseLeave={handleMouseLeave}
         >
           <Card 
-            className={`p-6 shadow-2xl border-0 backdrop-blur-xl ${
-              type === 'solutions' || type === 'resources'
-                ? 'min-w-[800px]' 
-                : 'min-w-[400px]'
+            className={`p-4 md:p-6 shadow-2xl border-0 backdrop-blur-xl ${
+              type === 'solutions' 
+                ? 'w-[90vw] max-w-[800px]' 
+                : type === 'resources'
+                ? 'w-[90vw] max-w-[900px]'
+                : 'w-[90vw] max-w-[400px]'
             }`} 
             style={{
               backdropFilter: 'blur(20px)',
@@ -315,7 +317,7 @@ const AnimatedHeader = () => {
             }}
           >
             {type === 'solutions' ? (
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
                 {/* Solutions Column */}
                 <div>
                   <div className="mb-4">
@@ -397,118 +399,152 @@ const AnimatedHeader = () => {
                 </div>
               </div>
             ) : type === 'resources' ? (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
-                {/* Tools Column */}
-                <div>
-                  <div className="mb-4">
-                    <h3 className="text-base sm:text-lg font-bold text-[#143151] mb-2">Tools</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">Practice optimization tools</p>
-                  </div>
-                  <div className="space-y-2">
-                    {resourcesDropdown.tools.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
-                      >
-                        <Link 
-                          to={item.href}
-                          className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+                  {/* Tools Column */}
+                  <div>
+                    <div className="mb-4">
+                      <h3 className="text-base lg:text-lg font-bold text-[#143151] mb-2">Tools</h3>
+                      <p className="text-xs lg:text-sm text-gray-600">Practice optimization tools</p>
+                    </div>
+                    <div className="space-y-2">
+                      {resourcesDropdown.tools.map((item, index) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 }}
                         >
-                          <div className="group-hover:scale-110 transition-transform">
-                            {item.icon}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2">
-                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs sm:text-sm truncate">
+                          <Link 
+                            to={item.href}
+                            className="flex items-center gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0">
+                              {item.icon}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm truncate">
+                                  {item.title}
+                                </div>
+                                {item.label && (
+                                  <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
+                                    {item.label}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-xs text-gray-500 truncate">
+                                {item.description}
+                              </div>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Learning Column */}
+                  <div>
+                    <div className="mb-4">
+                      <h3 className="text-base lg:text-lg font-bold text-[#143151] mb-2">Learning</h3>
+                      <p className="text-xs lg:text-sm text-gray-600">Educational resources</p>
+                    </div>
+                    <div className="space-y-2">
+                      {resourcesDropdown.learning.map((item, index) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.05 + 0.1 }}
+                        >
+                          <Link 
+                            to={item.href}
+                            className="flex items-center gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0">
+                              {item.icon}
+                            </div>
+                            <div className="min-w-0">
+                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm truncate">
                                 {item.title}
                               </div>
-                              {item.label && (
-                                <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full whitespace-nowrap">
-                                  {item.label}
-                                </span>
-                              )}
+                              <div className="text-xs text-gray-500 truncate">
+                                {item.description}
+                              </div>
                             </div>
-                            <div className="text-xs text-gray-500 truncate">
-                              {item.description}
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Support Column */}
+                  <div>
+                    <div className="mb-4">
+                      <h3 className="text-base lg:text-lg font-bold text-[#143151] mb-2">Support</h3>
+                      <p className="text-xs lg:text-sm text-gray-600">Help & community</p>
+                    </div>
+                    <div className="space-y-2">
+                      {resourcesDropdown.support.map((item, index) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.05 + 0.2 }}
+                        >
+                          <Link 
+                            to={item.href}
+                            className="flex items-center gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0">
+                              {item.icon}
                             </div>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
+                            <div className="min-w-0">
+                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm truncate">
+                                {item.title}
+                              </div>
+                              <div className="text-xs text-gray-500 truncate">
+                                {item.description}
+                              </div>
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                {/* Learning Column */}
-                <div>
-                  <div className="mb-4">
-                    <h3 className="text-base sm:text-lg font-bold text-[#143151] mb-2">Learning</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">Educational resources</p>
-                  </div>
-                  <div className="space-y-2">
-                    {resourcesDropdown.learning.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.05 + 0.1 }}
+                {/* CTA Section */}
+                {cta && (
+                  <>
+                    <div className="border-t border-gray-100"></div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <Link 
+                        to={cta.href}
+                        className="flex items-center gap-3 p-3 lg:p-4 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
                       >
-                        <Link 
-                          to={item.href}
-                          className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
-                        >
-                          <div className="group-hover:scale-110 transition-transform">
-                            {item.icon}
+                        <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
+                          <div className="text-white">
+                            {cta.icon}
                           </div>
-                          <div className="min-w-0">
-                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs sm:text-sm truncate">
-                              {item.title}
-                            </div>
-                            <div className="text-xs text-gray-500 truncate">
-                              {item.description}
-                            </div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                            {cta.title}
                           </div>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Support Column */}
-                <div>
-                  <div className="mb-4">
-                    <h3 className="text-base sm:text-lg font-bold text-[#143151] mb-2">Support</h3>
-                    <p className="text-xs sm:text-sm text-gray-600">Help & community</p>
-                  </div>
-                  <div className="space-y-2">
-                    {resourcesDropdown.support.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 + 0.2 }}
-                      >
-                        <Link 
-                          to={item.href}
-                          className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
-                        >
-                          <div className="group-hover:scale-110 transition-transform">
-                            {item.icon}
+                          <div className="text-sm text-gray-500 truncate">
+                            {cta.description}
                           </div>
-                          <div className="min-w-0">
-                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs sm:text-sm truncate">
-                              {item.title}
-                            </div>
-                            <div className="text-xs text-gray-500 truncate">
-                              {item.description}
-                            </div>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform flex-shrink-0" />
+                      </Link>
+                    </motion.div>
+                  </>
+                )}
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-1">
@@ -767,21 +803,21 @@ const AnimatedHeader = () => {
                             to={item.href}
                             className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
                           >
-                            <div className="group-hover:scale-110 transition-transform">
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0">
                               {item.icon}
                             </div>
-                            <div className="flex-1">
-                              <div className="flex items-center gap-2">
-                                <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm truncate">
                                   {item.title}
                                 </div>
                                 {item.label && (
-                                  <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full">
+                                  <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
                                     {item.label}
                                   </span>
                                 )}
                               </div>
-                              <div className="text-sm text-gray-500">
+                              <div className="text-sm text-gray-500 truncate">
                                 {item.description}
                               </div>
                             </div>
@@ -850,20 +886,20 @@ const AnimatedHeader = () => {
                           to={cta.href}
                           className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
                         >
-                          <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                          <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
                             <div className="text-white">
                               {cta.icon}
                             </div>
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
                               {cta.title}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-gray-500 truncate">
                               {cta.description}
                             </div>
                           </div>
-                          <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                          <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform flex-shrink-0" />
                         </Link>
                       </>
                     )}
