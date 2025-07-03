@@ -237,7 +237,7 @@ const AnimatedHeader = () => {
         label: 'New'
       }
     ],
-    content: [
+    learning: [
       {
         title: 'Resource Library',
         description: 'Clinical guides & documentation',
@@ -272,7 +272,7 @@ const AnimatedHeader = () => {
       }
     ],
     cta: {
-      title: 'Explore Our Solutions',
+      title: 'See S10.AI in Action',
       description: 'Interactive tour of CRUSH & BRAVO',
       icon: <Play className="w-4 h-4" />,
       href: '#'
@@ -397,12 +397,12 @@ const AnimatedHeader = () => {
                 </div>
               </div>
             ) : type === 'resources' ? (
-              <div className="grid grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 {/* Tools Column */}
                 <div>
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-[#143151] mb-2">Tools</h3>
-                    <p className="text-sm text-gray-600">Practice optimization tools</p>
+                    <h3 className="text-base sm:text-lg font-bold text-[#143151] mb-2">Tools</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">Practice optimization tools</p>
                   </div>
                   <div className="space-y-2">
                     {resourcesDropdown.tools.map((item, index) => (
@@ -414,23 +414,23 @@ const AnimatedHeader = () => {
                       >
                         <Link 
                           to={item.href}
-                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                         >
                           <div className="group-hover:scale-110 transition-transform">
                             {item.icon}
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-2">
-                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs sm:text-sm truncate">
                                 {item.title}
                               </div>
                               {item.label && (
-                                <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full">
+                                <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full whitespace-nowrap">
                                   {item.label}
                                 </span>
                               )}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-gray-500 truncate">
                               {item.description}
                             </div>
                           </div>
@@ -440,14 +440,14 @@ const AnimatedHeader = () => {
                   </div>
                 </div>
 
-                {/* Content Column */}
+                {/* Learning Column */}
                 <div>
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-[#143151] mb-2">Content</h3>
-                    <p className="text-sm text-gray-600">Educational resources</p>
+                    <h3 className="text-base sm:text-lg font-bold text-[#143151] mb-2">Learning</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">Educational resources</p>
                   </div>
                   <div className="space-y-2">
-                    {resourcesDropdown.content.map((item, index) => (
+                    {resourcesDropdown.learning.map((item, index) => (
                       <motion.div
                         key={item.title}
                         initial={{ opacity: 0, y: -10 }}
@@ -456,16 +456,16 @@ const AnimatedHeader = () => {
                       >
                         <Link 
                           to={item.href}
-                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                         >
                           <div className="group-hover:scale-110 transition-transform">
                             {item.icon}
                           </div>
-                          <div>
-                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                          <div className="min-w-0">
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs sm:text-sm truncate">
                               {item.title}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-gray-500 truncate">
                               {item.description}
                             </div>
                           </div>
@@ -478,8 +478,8 @@ const AnimatedHeader = () => {
                 {/* Support Column */}
                 <div>
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-[#143151] mb-2">Support</h3>
-                    <p className="text-sm text-gray-600">Help & community</p>
+                    <h3 className="text-base sm:text-lg font-bold text-[#143151] mb-2">Support</h3>
+                    <p className="text-xs sm:text-sm text-gray-600">Help & community</p>
                   </div>
                   <div className="space-y-2">
                     {resourcesDropdown.support.map((item, index) => (
@@ -491,16 +491,16 @@ const AnimatedHeader = () => {
                       >
                         <Link 
                           to={item.href}
-                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          className="flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                         >
                           <div className="group-hover:scale-110 transition-transform">
                             {item.icon}
                           </div>
-                          <div>
-                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                          <div className="min-w-0">
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs sm:text-sm truncate">
                               {item.title}
                             </div>
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-gray-500 truncate">
                               {item.description}
                             </div>
                           </div>
@@ -792,9 +792,9 @@ const AnimatedHeader = () => {
 
                     {/* Content Section */}
                     <div className="border-t border-gray-200 pt-4">
-                      <h4 className="font-semibold text-[#143151] mb-3">Content</h4>
+                      <h4 className="font-semibold text-[#143151] mb-3">Learning</h4>
                       <div className="space-y-2">
-                        {resourcesDropdown.content.map((item) => (
+                        {resourcesDropdown.learning.map((item) => (
                           <Link
                             key={item.title}
                             to={item.href}
