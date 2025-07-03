@@ -27,7 +27,8 @@ import {
   MessageSquare,
   Calculator,
   Search,
-  Library
+  Library,
+  DollarSign
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -223,16 +224,23 @@ const AnimatedHeader = () => {
         label: 'New'
       },
       {
+        title: 'ROI Calculator',
+        description: 'Calculate your practice ROI',
+        icon: <DollarSign className="w-5 h-5 text-[#387E89]" />,
+        href: '/roi-calculator',
+        label: 'Popular'
+      },
+      {
         title: 'ICD-10 Lookup Tool',
         description: 'Quick medical code reference',
-        icon: <Search className="w-5 h-5 text-[#387E89]" />,
+        icon: <Search className="w-5 h-5 text-[#5192AE]" />,
         href: '/icd-10-lookup',
         label: 'New'
       },
       {
         title: 'Template Library',
         description: 'Ready-to-use clinical templates',
-        icon: <Library className="w-5 h-5 text-[#5192AE]" />,
+        icon: <Library className="w-5 h-5 text-[#A5CCF3]" />,
         href: '/template-library',
         label: 'New'
       }
@@ -419,15 +427,17 @@ const AnimatedHeader = () => {
                         >
                           <Link 
                             to={item.href}
-                            className="flex items-center gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                            className="flex items-start gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                           >
-                            <div className="group-hover:scale-110 transition-transform flex-shrink-0">
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
                               {item.icon}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1">
-                                <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm truncate">
-                                  {item.title}
+                              <div className="flex items-start gap-2 mb-1">
+                                <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm leading-tight">
+                                  <div className="line-clamp-2">
+                                    {item.title}
+                                  </div>
                                 </div>
                                 {item.label && (
                                   <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
@@ -435,7 +445,7 @@ const AnimatedHeader = () => {
                                   </span>
                                 )}
                               </div>
-                              <div className="text-xs text-gray-500 truncate">
+                              <div className="text-xs text-gray-500 leading-tight line-clamp-2">
                                 {item.description}
                               </div>
                             </div>
@@ -801,15 +811,17 @@ const AnimatedHeader = () => {
                           <Link
                             key={item.title}
                             to={item.href}
-                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
                           >
-                            <div className="group-hover:scale-110 transition-transform flex-shrink-0">
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
                               {item.icon}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1">
-                                <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm truncate">
-                                  {item.title}
+                              <div className="flex items-start gap-2 mb-1">
+                                <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm leading-tight">
+                                  <div className="line-clamp-2">
+                                    {item.title}
+                                  </div>
                                 </div>
                                 {item.label && (
                                   <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full whitespace-nowrap flex-shrink-0">
@@ -817,7 +829,7 @@ const AnimatedHeader = () => {
                                   </span>
                                 )}
                               </div>
-                              <div className="text-sm text-gray-500 truncate">
+                              <div className="text-sm text-gray-500 leading-tight line-clamp-2">
                                 {item.description}
                               </div>
                             </div>
