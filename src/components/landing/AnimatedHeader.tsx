@@ -24,7 +24,10 @@ import {
   Layers,
   Award,
   BookOpen,
-  MessageSquare
+  MessageSquare,
+  Calculator,
+  Search,
+  Library
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -209,9 +212,32 @@ const AnimatedHeader = () => {
     }
   };
 
-  // Resources dropdown content with Resource Library added
+  // Enhanced Resources dropdown content with better organization
   const resourcesDropdown = {
-    items: [
+    tools: [
+      {
+        title: 'Practice Efficiency Assessment',
+        description: 'Evaluate your practice performance',
+        icon: <Calculator className="w-5 h-5 text-[#143151]" />,
+        href: '/practice-efficiency-grader',
+        label: 'New'
+      },
+      {
+        title: 'ICD-10 Lookup Tool',
+        description: 'Quick medical code reference',
+        icon: <Search className="w-5 h-5 text-[#387E89]" />,
+        href: '/icd-10-lookup',
+        label: 'New'
+      },
+      {
+        title: 'Template Library',
+        description: 'Ready-to-use clinical templates',
+        icon: <Library className="w-5 h-5 text-[#5192AE]" />,
+        href: '/template-library',
+        label: 'New'
+      }
+    ],
+    content: [
       {
         title: 'Resource Library',
         description: 'Clinical guides & documentation',
@@ -225,16 +251,18 @@ const AnimatedHeader = () => {
         href: '/blog'
       },
       {
-        title: 'FAQs',
-        description: 'Common questions answered',
-        icon: <HelpCircle className="w-5 h-5 text-[#5192AE]" />,
-        href: '/faq'
-      },
-      {
         title: 'Case Studies',
         description: 'Success stories & results',
-        icon: <FileText className="w-5 h-5 text-[#A5CCF3]" />,
+        icon: <FileText className="w-5 h-5 text-[#5192AE]" />,
         href: '/case-study'
+      }
+    ],
+    support: [
+      {
+        title: 'FAQs',
+        description: 'Common questions answered',
+        icon: <HelpCircle className="w-5 h-5 text-[#A5CCF3]" />,
+        href: '/faq'
       },
       {
         title: 'Customers',
@@ -276,7 +304,7 @@ const AnimatedHeader = () => {
         >
           <Card 
             className={`p-6 shadow-2xl border-0 backdrop-blur-xl ${
-              type === 'solutions' 
+              type === 'solutions' || type === 'resources'
                 ? 'min-w-[800px]' 
                 : 'min-w-[400px]'
             }`} 
@@ -359,6 +387,120 @@ const AnimatedHeader = () => {
                               {item.title}
                             </div>
                             <div className="text-sm text-gray-500">
+                              {item.description}
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : type === 'resources' ? (
+              <div className="grid grid-cols-3 gap-6">
+                {/* Tools Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">Tools</h3>
+                    <p className="text-sm text-gray-600">Practice optimization tools</p>
+                  </div>
+                  <div className="space-y-2">
+                    {resourcesDropdown.tools.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="group-hover:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                                {item.title}
+                              </div>
+                              {item.label && (
+                                <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full">
+                                  {item.label}
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {item.description}
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Content Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">Content</h3>
+                    <p className="text-sm text-gray-600">Educational resources</p>
+                  </div>
+                  <div className="space-y-2">
+                    {resourcesDropdown.content.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 + 0.1 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="group-hover:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                              {item.title}
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {item.description}
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Support Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">Support</h3>
+                    <p className="text-sm text-gray-600">Help & community</p>
+                  </div>
+                  <div className="space-y-2">
+                    {resourcesDropdown.support.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 + 0.2 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="group-hover:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <div>
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                              {item.title}
+                            </div>
+                            <div className="text-xs text-gray-500">
                               {item.description}
                             </div>
                           </div>
@@ -493,7 +635,7 @@ const AnimatedHeader = () => {
               <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" cta={aboutDropdown.cta} />
             )}
             {dropdownType === 'resources' && (
-              <DropdownMenu items={resourcesDropdown.items} isOpen={isActive} type="resources" cta={resourcesDropdown.cta} />
+              <DropdownMenu items={resourcesDropdown.tools} isOpen={isActive} type="resources" cta={resourcesDropdown.cta} />
             )}
           </>
         )}
@@ -611,6 +753,120 @@ const AnimatedHeader = () => {
                         ))}
                       </div>
                     </div>
+                  </div>
+                ) : sectionKey === 'resources' ? (
+                  // Resources mobile view with organized sections
+                  <div className="space-y-4">
+                    {/* Tools Section */}
+                    <div>
+                      <h4 className="font-semibold text-[#143151] mb-3">Tools</h4>
+                      <div className="space-y-2">
+                        {resourcesDropdown.tools.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform">
+                              {item.icon}
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                                  {item.title}
+                                </div>
+                                {item.label && (
+                                  <span className="px-1.5 py-0.5 bg-[#143151]/10 text-[#143151] text-xs font-medium rounded-full">
+                                    {item.label}
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {item.description}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Content Section */}
+                    <div className="border-t border-gray-200 pt-4">
+                      <h4 className="font-semibold text-[#143151] mb-3">Content</h4>
+                      <div className="space-y-2">
+                        {resourcesDropdown.content.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform">
+                              {item.icon}
+                            </div>
+                            <div>
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                                {item.title}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {item.description}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Support Section */}
+                    <div className="border-t border-gray-200 pt-4">
+                      <h4 className="font-semibold text-[#143151] mb-3">Support</h4>
+                      <div className="space-y-2">
+                        {resourcesDropdown.support.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform">
+                              {item.icon}
+                            </div>
+                            <div>
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                                {item.title}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {item.description}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Mobile CTA Section */}
+                    {cta && (
+                      <>
+                        <div className="border-t border-gray-200 my-3"></div>
+                        <Link 
+                          to={cta.href}
+                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
+                        >
+                          <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                            <div className="text-white">
+                              {cta.icon}
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                              {cta.title}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {cta.description}
+                            </div>
+                          </div>
+                          <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      </>
+                    )}
                   </div>
                 ) : (
                   // Other sections mobile view
@@ -821,7 +1077,7 @@ const AnimatedHeader = () => {
                 {/* Mobile Resources Section */}
                 <MobileSectionToggle 
                   title="Resources" 
-                  items={resourcesDropdown.items} 
+                  items={resourcesDropdown.tools} 
                   sectionKey="resources" 
                   cta={resourcesDropdown.cta}
                 />
