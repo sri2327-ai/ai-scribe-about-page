@@ -307,7 +307,9 @@ const AnimatedHeader = () => {
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.2 }}
           className={`absolute top-full mt-2 z-50 ${
-            type === 'resources' ? 'right-0' : 'left-1/2 transform -translate-x-1/2'
+            type === 'resources' 
+              ? 'right-0 lg:right-0' 
+              : 'left-1/2 transform -translate-x-1/2'
           }`}
           onMouseEnter={handleDropdownMouseEnter}
           onMouseLeave={handleMouseLeave}
@@ -317,7 +319,7 @@ const AnimatedHeader = () => {
               type === 'solutions' 
                 ? 'w-[90vw] max-w-[800px]' 
                 : type === 'resources'
-                ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[900px] max-w-[900px]'
+                ? 'w-[90vw] sm:w-[85vw] md:w-[80vw] lg:w-[850px] xl:w-[900px] max-w-[900px]'
                 : 'w-[90vw] max-w-[400px]'
             }`} 
             style={{
