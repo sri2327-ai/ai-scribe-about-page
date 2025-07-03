@@ -298,7 +298,9 @@ const AnimatedHeader = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
           transition={{ duration: 0.2 }}
-          className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 z-50"
+          className={`absolute top-full mt-2 z-50 ${
+            type === 'resources' ? 'right-0' : 'left-1/2 transform -translate-x-1/2'
+          }`}
           onMouseEnter={handleDropdownMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
@@ -307,7 +309,7 @@ const AnimatedHeader = () => {
               type === 'solutions' 
                 ? 'w-[90vw] max-w-[800px]' 
                 : type === 'resources'
-                ? 'w-[90vw] max-w-[900px]'
+                ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[900px] max-w-[900px]'
                 : 'w-[90vw] max-w-[400px]'
             }`} 
             style={{
@@ -399,7 +401,7 @@ const AnimatedHeader = () => {
                 </div>
               </div>
             ) : type === 'resources' ? (
-              <div className="space-y-6">
+              <div className="space-y-6 max-h-[80vh] overflow-y-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
                   {/* Tools Column */}
                   <div>
@@ -721,9 +723,8 @@ const AnimatedHeader = () => {
                 background: 'rgba(245, 249, 255, 0.9)',
               }}
             >
-              <div className="p-4 space-y-2">
+              <div className="p-4 space-y-2 max-h-[60vh] overflow-y-auto">
                 {sectionKey === 'solutions' ? (
-                  // Solutions mobile view with both sections
                   <div className="space-y-4">
                     {/* AI Solutions */}
                     <div>
@@ -791,7 +792,6 @@ const AnimatedHeader = () => {
                     </div>
                   </div>
                 ) : sectionKey === 'resources' ? (
-                  // Resources mobile view with organized sections
                   <div className="space-y-4">
                     {/* Tools Section */}
                     <div>
@@ -905,7 +905,6 @@ const AnimatedHeader = () => {
                     )}
                   </div>
                 ) : (
-                  // Other sections mobile view
                   <>
                     {items.map((item) => (
                       <Link
