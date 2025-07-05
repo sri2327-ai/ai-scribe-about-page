@@ -9,6 +9,7 @@ import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector'
 import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
 import PracticeHealthCheckSection from '@/components/landing/PracticeHealthCheckSection';
+import AIAssistantCTA from '@/components/landing/AIAssistantCTA';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -161,6 +162,9 @@ const Landing = () => {
         
         {/* Practice Health Check Section - Added above EleventhSection */}
         <PracticeHealthCheckSection />
+        
+        {/* AI Assistant CTA Section - New section added */}
+        <AIAssistantCTA />
         
         <Suspense fallback={<SectionLoader />}>
           <EleventhSection />
