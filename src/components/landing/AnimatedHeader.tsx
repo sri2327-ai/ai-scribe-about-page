@@ -308,7 +308,7 @@ const AnimatedHeader = () => {
           transition={{ duration: 0.2 }}
           className={`absolute top-full mt-2 z-50 ${
             type === 'resources' 
-              ? 'right-0 lg:right-0' 
+              ? 'right-0 lg:right-8 xl:right-12' 
               : 'left-1/2 transform -translate-x-1/2'
           }`}
           onMouseEnter={handleDropdownMouseEnter}
