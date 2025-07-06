@@ -253,7 +253,7 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: '900px', mx: 'auto', width: '100%' }}>
         {/* Header - Improved mobile spacing */}
         <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <Typography
@@ -264,7 +264,7 @@ const ConnectedPlatformSection = () => {
               color: '#143151', 
               fontSize: { xs: '1.9rem', sm: '2.25rem', md: '2.75rem', lg: '3rem' },
               lineHeight: 1.1,
-              maxWidth: '900px',
+              maxWidth: '700px',
               mx: 'auto',
               px: { xs: 2, sm: 0 }
             }}
@@ -277,7 +277,7 @@ const ConnectedPlatformSection = () => {
               color: '#666', 
               fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
               fontWeight: 400,
-              maxWidth: '750px',
+              maxWidth: '600px',
               mx: 'auto',
               lineHeight: 1.5,
               mb: { xs: 3, sm: 4 },
@@ -294,13 +294,13 @@ const ConnectedPlatformSection = () => {
 
         {/* Feature Cards - Responsive Layout */}
         {isMobile ? (
-          <div className="space-y-6">
+          <div className="space-y-6 max-w-md mx-auto">
             {platformFeatures.map((feature, index) => (
               <MobileFeatureCard key={index} feature={feature} index={index} />
             ))}
           </div>
         ) : isTablet ? (
-          <div className="grid grid-cols-2 gap-6 relative">
+          <div className="grid grid-cols-2 gap-6 relative max-w-2xl mx-auto">
             {/* Connecting line for tablet */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5 z-0"
@@ -315,13 +315,13 @@ const ConnectedPlatformSection = () => {
             ))}
             {/* Fifth item spans full width */}
             <div className="col-span-2 flex justify-center">
-              <div className="w-full max-w-md">
+              <div className="w-full max-w-xs">
                 <TabletFeatureCard feature={platformFeatures[4]} index={4} />
               </div>
             </div>
           </div>
         ) : (
-          <div className="relative overflow-visible max-w-[1200px] mx-auto px-6">
+          <div className="relative overflow-visible max-w-4xl mx-auto px-6">
             {/* Desktop connecting line */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
@@ -332,7 +332,7 @@ const ConnectedPlatformSection = () => {
               }}
             />
             
-            <div className="grid grid-cols-5 gap-8 relative overflow-visible">
+            <div className="grid grid-cols-5 gap-6 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
