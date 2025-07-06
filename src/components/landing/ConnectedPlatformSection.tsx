@@ -112,7 +112,7 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/30">
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
         {/* Header - Reduced spacing */}
         <div className="text-center mb-8 lg:mb-12">
           <Typography
@@ -123,7 +123,7 @@ const ConnectedPlatformSection = () => {
               color: '#143151', 
               fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
               lineHeight: 1.1,
-              maxWidth: '900px',
+              maxWidth: '800px',
               mx: 'auto'
             }}
           >
@@ -135,7 +135,7 @@ const ConnectedPlatformSection = () => {
               color: '#666', 
               fontSize: { xs: '0.95rem', sm: '1rem', md: '1.125rem' },
               fontWeight: 400,
-              maxWidth: '800px',
+              maxWidth: '700px',
               mx: 'auto',
               lineHeight: 1.4,
               mb: 2
@@ -152,7 +152,7 @@ const ConnectedPlatformSection = () => {
         {/* Responsive Layout */}
         {(isMobile || isTablet) ? (
           // Mobile/Tablet Carousel - Reduced height
-          <div className="w-full max-w-[1200px] mx-auto">
+          <div className="w-full max-w-[1000px] mx-auto">
             <ResponsiveCarousel
               items={platformFeatures}
               renderItem={(item, index) => (
@@ -172,12 +172,12 @@ const ConnectedPlatformSection = () => {
           </div>
         ) : (
           // Desktop Stepper - Lighter dotted line
-          <div className="relative overflow-visible">
+          <div className="relative overflow-visible max-w-[1000px] mx-auto">
             {/* Much Lighter Dotted Connecting Line - Desktop Only */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
               style={{
-                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.15) 0%, rgba(56, 126, 137, 0.15) 50%, rgba(20, 49, 81, 0.15) 100%)`,
+                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08) 0%, rgba(56, 126, 137, 0.08) 50%, rgba(20, 49, 81, 0.08) 100%)`,
                 backgroundSize: '6px 1px',
                 backgroundRepeat: 'repeat-x',
                 maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)',
@@ -186,7 +186,7 @@ const ConnectedPlatformSection = () => {
             />
             
             {/* Steps Container - Desktop with better spacing */}
-            <div className="grid grid-cols-5 gap-3 relative overflow-visible">
+            <div className="grid grid-cols-5 gap-2 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <FeatureCard key={index} feature={feature} index={index} />
               ))}
