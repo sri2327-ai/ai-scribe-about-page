@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -129,7 +130,7 @@ const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
 );
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="text-center p-3 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 flex-1 min-w-[140px] max-w-[180px]">
+  <div className="text-center p-4 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 w-[160px] h-[120px] flex flex-col justify-center">
     <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-2">
       <Icon className="w-4 h-4 text-white" />
     </div>
