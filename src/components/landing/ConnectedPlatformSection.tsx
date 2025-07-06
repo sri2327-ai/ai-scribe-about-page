@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -276,11 +277,12 @@ const ConnectedPlatformSection = () => {
             sx={{ 
               mb: { xs: 3, sm: 4 }, 
               color: '#143151', 
-              fontSize: { xs: '1.9rem', sm: '2.25rem', md: '2.75rem', lg: '3rem' },
-              lineHeight: 1.1,
-              maxWidth: '700px',
+              fontSize: { xs: '1.6rem', sm: '2rem', md: '2.5rem', lg: '2.8rem' },
+              lineHeight: 1.2,
+              maxWidth: '900px',
               mx: 'auto',
-              px: { xs: 2, sm: 0 }
+              px: { xs: 2, sm: 0 },
+              whiteSpace: { xs: 'normal', sm: 'nowrap' }
             }}
           >
             Everything You Need, Finally Connected
