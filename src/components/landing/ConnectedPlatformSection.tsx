@@ -191,6 +191,18 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
       <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
         <feature.icon className="w-7 h-7 text-white" strokeWidth={2} />
       </div>
+      
+      {/* Connecting line - positioned to connect with next icon */}
+      {index < platformFeatures.length - 1 && (
+        <div className="absolute top-8 left-full w-16 h-0.5 z-0 hidden lg:block">
+          <div 
+            className="w-full h-full"
+            style={{
+              background: `linear-gradient(to right, rgba(56, 126, 137, 0.6), rgba(20, 49, 81, 0.4))`,
+            }}
+          />
+        </div>
+      )}
     </div>
 
     {/* Content Card - Fixed height for consistent alignment */}
@@ -323,19 +335,9 @@ const ConnectedPlatformSection = () => {
             </div>
           </div>
         ) : (
-          <div className="relative max-w-7xl mx-auto">
-            {/* Desktop connecting line - More visible and properly positioned */}
-            <div 
-              className="absolute top-8 left-8 right-8 h-1 z-0"
-              style={{
-                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.4), rgba(56, 126, 137, 0.4))`,
-                backgroundSize: '8px 4px',
-                backgroundRepeat: 'repeat-x'
-              }}
-            />
-            
+          <div className="relative max-w-6xl mx-auto">
             {/* Grid with proper alignment */}
-            <div className="grid grid-cols-5 gap-6 items-start">
+            <div className="grid grid-cols-5 gap-8 items-start">
               {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
