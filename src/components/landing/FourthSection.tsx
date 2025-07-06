@@ -175,7 +175,7 @@ export const FourthSection = () => {
         <div className="max-w-[900px] mx-auto text-center">
           <div>
             <h3 className="text-3xl md:text-4xl font-bold text-[#143151] mb-4">
-              Meet <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#387E89] to-[#143151]">Bravo & CRUSH</span> – A S10'ing Experience
+              Software Solutions with Ambient AI—Built to Power Your Healthcare Practice
             </h3>
             <p className="text-base text-gray-700 leading-relaxed">
               Our AI solutions streamline medical workflows and improve patient care through intelligent automation. Designed specifically for clinicians, these tools adapt to your specialty and integrate seamlessly with your existing systems.
