@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield, CheckCircle, Cog, Zap } from "lucide-react";
@@ -43,13 +42,13 @@ const MetricCard = ({
   value: string,
   positive?: boolean
 }) => (
-  <div className="flex items-start gap-2 p-2 rounded-lg shadow-sm transition-all duration-200 bg-gray-50">
-    <div className="p-1.5 rounded-lg bg-gray-100">
-      <Icon className="w-4 h-4 text-gray-600" />
+  <div className="flex items-start gap-2 p-3 md:p-2 rounded-lg shadow-sm transition-all duration-200 bg-gray-50 hover:bg-gray-100">
+    <div className="p-2 md:p-1.5 rounded-lg bg-gray-100">
+      <Icon className="w-5 h-5 md:w-4 md:h-4 text-gray-600" />
     </div>
-    <div>
-      <p className="text-xs font-medium text-gray-600">{title}</p>
-      <p className="text-sm font-bold text-gray-700">{value}</p>
+    <div className="min-w-0 flex-1">
+      <p className="text-sm md:text-xs font-medium text-gray-600 leading-tight">{title}</p>
+      <p className="text-base md:text-sm font-bold text-gray-700 mt-0.5">{value}</p>
     </div>
   </div>
 );
@@ -74,33 +73,33 @@ const ProductCard = ({
   compatibleSystemsKey: keyof typeof compatibleSystems;
 }) => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 h-full flex flex-col">
-    <div className="p-4 flex flex-col gap-3 h-full">
+    <div className="p-4 md:p-6 flex flex-col gap-4 md:gap-3 h-full">
       {/* Illustration */}
       <div 
-        className="h-48 w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden relative group"
-        style={{ minHeight: '192px' }}
+        className="h-52 md:h-48 w-full bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden relative group"
+        style={{ minHeight: '208px' }}
       >
-        <div className="w-full h-full flex items-center justify-center p-3 transition-opacity duration-300">
-          <div className="w-3/4 h-3/4">
+        <div className="w-full h-full flex items-center justify-center p-4 md:p-3 transition-opacity duration-300">
+          <div className="w-4/5 md:w-3/4 h-4/5 md:h-3/4">
             <Illustration />
           </div>
         </div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#143151] to-[#387E89] opacity-0 group-hover:opacity-90 transition-opacity duration-300 flex items-center justify-center">
-          <p className="text-white text-center text-sm font-medium px-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <p className="text-white text-center text-base md:text-sm font-medium px-4 md:px-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
             Click to see {title} in action
           </p>
         </div>
       </div>
       
-      <div className="space-y-3 flex-grow">
+      <div className="space-y-4 md:space-y-3 flex-grow">
         <div className="text-center">
-          <h3 className="text-xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">{title}</h3>
-          <h4 className="text-sm font-semibold text-gray-600">{subtitle}</h4>
+          <h3 className="text-2xl md:text-xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent leading-tight">{title}</h3>
+          <h4 className="text-base md:text-sm font-semibold text-gray-600 mt-1">{subtitle}</h4>
         </div>
         
-        <p className="text-gray-600 text-xs leading-relaxed border-l-4 border-gray-200 pl-2 py-1">{description}</p>
+        <p className="text-gray-600 text-sm md:text-xs leading-relaxed border-l-4 border-gray-200 pl-3 md:pl-2 py-2 md:py-1">{description}</p>
         
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-2">
           {metrics.map((metric, idx) => (
             <MetricCard 
               key={idx} 
@@ -110,12 +109,12 @@ const ProductCard = ({
           ))}
         </div>
         
-        <div className="space-y-2">
+        <div className="space-y-3 md:space-y-2">
           <div className="flex items-center gap-2">
-            <Stethoscope className="w-3 h-3 text-[#387E89]" />
-            <p className="text-xs font-medium text-gray-700">Compatible with all specialties:</p>
+            <Stethoscope className="w-4 h-4 md:w-3 md:h-3 text-[#387E89]" />
+            <p className="text-sm md:text-xs font-medium text-gray-700">Compatible with all specialties:</p>
           </div>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1.5 md:gap-1">
             {allSpecialties.slice(0, 4).map((specialty, idx) => (
               <SpecialtyBadge key={idx} name={specialty} />
             ))}
@@ -123,16 +122,16 @@ const ProductCard = ({
           </div>
         </div>
         
-        <div className="space-y-1">
+        <div className="space-y-2 md:space-y-1">
           <div className="flex items-center gap-2">
-            <Shield className="w-3 h-3 text-[#387E89]" />
-            <p className="text-xs font-medium text-gray-700">Compatible with:</p>
+            <Shield className="w-4 h-4 md:w-3 md:h-3 text-[#387E89]" />
+            <p className="text-sm md:text-xs font-medium text-gray-700">Compatible with:</p>
           </div>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1.5 md:gap-1">
             {compatibleSystems[compatibleSystemsKey].slice(0, 4).map((system, idx) => (
               <span
                 key={idx}
-                className="px-2 py-1 text-xs rounded bg-gray-100 text-gray-600 hover:scale-105 transition-transform duration-200"
+                className="px-3 py-1.5 md:px-2 md:py-1 text-sm md:text-xs rounded-md bg-gray-100 text-gray-600 hover:scale-105 transition-transform duration-200"
               >
                 {system}
               </span>
@@ -142,10 +141,10 @@ const ProductCard = ({
       </div>
 
       <Button 
-        className="w-full shadow-lg transition-all duration-300 text-white font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269]"
+        className="w-full shadow-lg transition-all duration-300 text-white font-medium bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] py-3 md:py-2.5 text-base md:text-sm"
       >
         {ctaText}
-        <ArrowRight className="ml-2 h-4 w-4" />
+        <ArrowRight className="ml-2 h-5 w-5 md:h-4 md:w-4" />
       </Button>
     </div>
   </div>
@@ -211,7 +210,7 @@ export const ProductCarousel = () => {
       >
         <CarouselContent className="-ml-2 md:-ml-4">
           {products.map((product, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={index} className="pl-2 md:pl-4 basis-[90%] sm:basis-[85%] md:basis-1/2 lg:basis-1/3">
               <div className="h-full">
                 <ProductCard {...product} />
               </div>
@@ -220,8 +219,8 @@ export const ProductCarousel = () => {
         </CarouselContent>
         {/* Only show arrows on mobile and tablet */}
         <div className="block lg:hidden">
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
+          <CarouselPrevious className="left-2 h-10 w-10 md:h-12 md:w-12" />
+          <CarouselNext className="right-2 h-10 w-10 md:h-12 md:w-12" />
         </div>
       </Carousel>
     </div>
