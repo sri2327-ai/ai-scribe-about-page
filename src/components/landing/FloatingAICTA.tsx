@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -26,7 +27,7 @@ const FloatingAICTA = () => {
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
-      url: `https://gemini.google.com/?q=${prompt}`,
+      url: `https://gemini.google.com/app?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     },
     {
@@ -93,8 +94,8 @@ const FloatingAICTA = () => {
           }
 
           .llm-button {
-              width: 32px;
-              height: 32px;
+              width: 38px;
+              height: 38px;
               border-radius: 50%;
               display: flex;
               align-items: center;
@@ -116,7 +117,7 @@ const FloatingAICTA = () => {
           /* Tooltip styles - Fixed positioning */
           .llm-button .tooltip {
               position: absolute;
-              left: 45px;
+              left: 50px;
               top: 50%;
               transform: translateY(-50%);
               white-space: nowrap;
@@ -154,8 +155,8 @@ const FloatingAICTA = () => {
 
           /* Icon sizing for all buttons */
           .llm-button img {
-              width: 22px;
-              height: 22px;
+              width: 28px;
+              height: 28px;
               object-fit: cover;
               border-radius: 50%;
           }
@@ -169,18 +170,18 @@ const FloatingAICTA = () => {
               }
               
               .llm-button {
-                  width: 30px;
-                  height: 30px;
+                  width: 36px;
+                  height: 36px;
                   padding: 3px;
               }
               
               .llm-button img {
-                  width: 20px;
-                  height: 20px;
+                  width: 26px;
+                  height: 26px;
               }
 
               .llm-button .tooltip {
-                  left: 40px;
+                  left: 45px;
                   font-size: 10px;
                   padding: 5px 8px;
                   max-width: 120px;
@@ -195,18 +196,18 @@ const FloatingAICTA = () => {
               }
               
               .llm-button {
-                  width: 28px;
-                  height: 28px;
+                  width: 34px;
+                  height: 34px;
                   padding: 3px;
               }
               
               .llm-button img {
-                  width: 18px;
-                  height: 18px;
+                  width: 24px;
+                  height: 24px;
               }
 
               .llm-button .tooltip {
-                  left: 35px;
+                  left: 40px;
                   font-size: 9px;
                   padding: 4px 6px;
                   max-width: 100px;
@@ -216,7 +217,7 @@ const FloatingAICTA = () => {
           /* Tablet specific adjustments */
           @media (min-width: 769px) and (max-width: 1024px) {
               .llm-button .tooltip {
-                  left: 42px;
+                  left: 47px;
                   max-width: 140px;
               }
           }
@@ -224,7 +225,7 @@ const FloatingAICTA = () => {
           /* Desktop adjustments for larger screens */
           @media (min-width: 1025px) {
               .llm-button .tooltip {
-                  left: 45px;
+                  left: 50px;
                   max-width: 160px;
               }
           }
