@@ -131,7 +131,7 @@ const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
 );
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="text-center p-4 sm:p-6 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 w-[160px] h-[140px] flex flex-col justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 mx-auto">
+  <div className="text-center p-4 sm:p-6 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 flex flex-col justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 flex-shrink-0 w-[160px] sm:w-[180px] md:w-[200px] h-[140px] sm:h-[160px]">
     <div className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-3">
       <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
     </div>
@@ -145,6 +145,7 @@ const FifthSection = () => {
   const roiScrollRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:768px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
+  const isMobileOrTablet = useMediaQuery("(max-width:1024px)");
 
   useEffect(() => {
     const moveRightKeyframe = `
@@ -160,16 +161,17 @@ const FifthSection = () => {
     };
   }, []);
 
-  // Arrow key navigation for ROI cards in mobile
+  // Arrow key navigation for ROI cards in mobile and tablet
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobileOrTablet) return;
 
     const handleKeyDown = (event) => {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
         const scrollContainer = roiScrollRef.current;
         if (!scrollContainer) return;
 
-        const cardWidth = 160 + 16; // card width + gap
+        const cardWidth = isMobile ? 176 : 196; // card width + gap (160+16 for mobile, 180+16 for tablet)
         const scrollAmount = cardWidth;
 
         if (event.key === 'ArrowLeft') {
@@ -182,7 +184,7 @@ const FifthSection = () => {
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isMobile]);
+  }, [isMobileOrTablet, isMobile]);
 
   return (
     <section 
@@ -313,7 +315,7 @@ const FifthSection = () => {
           </div>
         </div>
 
-        {/* ROI Section - Horizontal Alignment */}
+        {/* ROI Section - Fixed Horizontal Alignment */}
         <div className="mb-12 lg:mb-16">
           <Typography
             variant="h4"
@@ -340,9 +342,38 @@ const FifthSection = () => {
             The ROI of Automation with S10.AI:
           </Typography>
           
-          {/* Horizontal scrollable container for mobile, flexbox for larger screens */}
-          <div className="w-full overflow-x-auto" ref={roiScrollRef}>
-            <div className="flex gap-4 sm:gap-6 pb-4 sm:pb-0 justify-start sm:justify-center min-w-max sm:min-w-0">
+          {/* Responsive ROI Cards Container */}
+          {isMobileOrTablet ? (
+            <>
+              {/* Horizontal scrollable container for mobile and tablet */}
+              <div 
+                className="w-full overflow-x-auto scrollbar-hide" 
+                ref={roiScrollRef}
+                style={{
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none',
+                  WebkitScrollbar: { display: 'none' }
+                }}
+              >
+                <div className="flex gap-4 pb-4 px-2" style={{ width: 'max-content' }}>
+                  {ROIMetrics.map((metric, index) => (
+                    <ROIMetricCard key={index} {...metric} />
+                  ))}
+                </div>
+              </div>
+              
+              {/* Arrow navigation hint for mobile and tablet */}
+              <div className="text-center mt-4">
+                <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
+                  <ChevronLeft className="w-3 h-3" />
+                  Use arrow keys to navigate
+                  <ChevronRight className="w-3 h-3" />
+                </p>
+              </div>
+            </>
+          ) : (
+            /* Desktop: Centered flex layout */
+            <div className="flex justify-center items-center gap-6 flex-wrap">
               {ROIMetrics.map((metric, index) => (
                 <motion.div 
                   key={index}
@@ -350,22 +381,10 @@ const FifthSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="flex-shrink-0"
                 >
                   <ROIMetricCard {...metric} />
                 </motion.div>
               ))}
-            </div>
-          </div>
-          
-          {/* Arrow navigation hint for mobile */}
-          {isMobile && (
-            <div className="text-center mt-4">
-              <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
-                <ChevronLeft className="w-3 h-3" />
-                Use arrow keys to navigate
-                <ChevronRight className="w-3 h-3" />
-              </p>
             </div>
           )}
         </div>
