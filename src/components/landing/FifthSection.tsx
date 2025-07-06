@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -146,20 +145,6 @@ const FifthSection = () => {
   const isMobile = useMediaQuery("(max-width:768px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
   const isMobileOrTablet = useMediaQuery("(max-width:1024px)");
-
-  useEffect(() => {
-    const moveRightKeyframe = `
-    @keyframes moveRight {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(10px); }
-    }`;
-    const styleElement = document.createElement('style');
-    styleElement.textContent = moveRightKeyframe;
-    document.head.appendChild(styleElement);
-    return () => {
-      document.head.removeChild(styleElement);
-    };
-  }, []);
 
   // Arrow key navigation for ROI cards in mobile and tablet
   useEffect(() => {
@@ -347,18 +332,34 @@ const FifthSection = () => {
             <>
               {/* Horizontal scrollable container for mobile and tablet */}
               <div 
-                className="w-full overflow-x-auto scrollbar-hide" 
-                ref={roiScrollRef}
-                style={{
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                  WebkitScrollbar: { display: 'none' }
-                }}
+                className="relative w-full"
               >
-                <div className="flex gap-4 pb-4 px-2" style={{ width: 'max-content' }}>
-                  {ROIMetrics.map((metric, index) => (
-                    <ROIMetricCard key={index} {...metric} />
-                  ))}
+                <div 
+                  className="w-full overflow-x-auto scrollbar-hide" 
+                  ref={roiScrollRef}
+                  style={{
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                  }}
+                >
+                  <style jsx>{`
+                    .scrollbar-hide::-webkit-scrollbar {
+                      display: none;
+                    }
+                  `}</style>
+                  <div className="flex gap-4 pb-4 px-2" style={{ width: 'max-content' }}>
+                    {ROIMetrics.map((metric, index) => (
+                      <ROIMetricCard key={index} {...metric} />
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Arrow navigation visual indicators */}
+                <div className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md">
+                  <ChevronLeft className="w-4 h-4 text-gray-600" />
+                </div>
+                <div className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md">
+                  <ChevronRight className="w-4 h-4 text-gray-600" />
                 </div>
               </div>
               
@@ -372,18 +373,12 @@ const FifthSection = () => {
               </div>
             </>
           ) : (
-            /* Desktop: Centered flex layout */
-            <div className="flex justify-center items-center gap-6 flex-wrap">
+            /* Desktop: Centered flex layout with better alignment */
+            <div className="flex justify-center items-stretch gap-6 flex-wrap">
               {ROIMetrics.map((metric, index) => (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+                <div key={index} className="flex">
                   <ROIMetricCard {...metric} />
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
