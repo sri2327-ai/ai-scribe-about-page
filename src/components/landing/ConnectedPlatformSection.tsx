@@ -10,32 +10,32 @@ const platformFeatures = [
   {
     icon: Calendar,
     title: "Smart Scheduling & Patient Access",
-    description: "BRAVO handles inbound calls, schedules appointments, and syncs with EHR/SIP/PMS systems.",
-    highlights: ["Automated reminders", "Reduced no-shows", "Full calendar management"]
+    description: "Never miss appointments again. AI handles inbound calls, schedules appointments, and syncs with EHR/SIP/PMS systems automatically.",
+    highlights: ["Reduce no-shows by 40%", "24/7 automated scheduling", "Full calendar management"]
   },
   {
     icon: Clock,
     title: "Pre-Visit Automation", 
-    description: "Digitize patient intake, insurance verification, and medical history updates seamlessly.",
-    highlights: ["Digital intake", "Insurance verification", "Medical history sync"]
+    description: "Save 15 minutes per patient. Digitize patient intake, insurance verification, and medical history updates before they arrive.",
+    highlights: ["Eliminate paperwork delays", "Instant insurance verification", "Pre-populated medical history"]
   },
   {
     icon: Stethoscope,
     title: "Real-Time AI Medical Scribe",
-    description: "CRUSH captures encounters and creates structured notes instantly with clinical intelligence.",
-    highlights: ["AI pre-charting", "Context-aware documentation", "Auto-coded notes"]
+    description: "Cut documentation time by 75%. AI captures encounters and creates structured notes instantly with clinical intelligence.",
+    highlights: ["Zero typing during visits", "Context-aware documentation", "Auto-coded clinical notes"]
   },
   {
     icon: Brain,
     title: "Admin & Post-Visit Automation",
-    description: "Automate refills, referrals, lab orders, and follow-ups to reduce staff burden.",
-    highlights: ["Automated refills", "Smart referrals", "Follow-up management"]
+    description: "Reduce staff workload by 60%. Automate refills, referrals, lab orders, and follow-ups without manual intervention.",
+    highlights: ["Automated prescription refills", "Smart referral processing", "Proactive follow-up management"]
   },
   {
     icon: TrendingUp,
     title: "Accelerated Revenue Cycle",
-    description: "Real-time insurance checks to AI-powered claims processing for faster reimbursement.",
-    highlights: ["Real-time verification", "AI claims processing", "Payment tracking"]
+    description: "Get paid 3x faster. Real-time insurance checks to AI-powered claims processing accelerates reimbursement.",
+    highlights: ["Real-time eligibility verification", "AI-powered claims processing", "Automated payment tracking"]
   }
 ];
 
@@ -81,9 +81,9 @@ const ConnectedPlatformSection = () => {
 
         {/* Horizontal Stepper */}
         <div className="relative">
-          {/* Dotted Connecting Line - Desktop */}
+          {/* Dotted Connecting Line - All Views */}
           <div 
-            className="absolute top-6 left-0 right-0 h-0.5 hidden md:block"
+            className="absolute top-6 left-0 right-0 h-0.5"
             style={{
               backgroundImage: `linear-gradient(to right, #143151 0%, #387E89 50%, #143151 100%)`,
               backgroundSize: '8px 2px',
