@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -97,8 +98,8 @@ const FloatingAICTA = () => {
           key={assistant.name}
           className={`relative group ${assistant.color}`}
           style={{
-            width: '44px',
-            height: '44px',
+            width: '40px',
+            height: '40px',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -145,3 +146,4 @@ const FloatingAICTA = () => {
 };
 
 export default FloatingAICTA;
+
