@@ -1,12 +1,8 @@
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { Brain, Sparkles, Zap, MessageCircle, X } from 'lucide-react';
+import React from 'react';
+import { Brain, Sparkles, Zap, MessageSquare } from 'lucide-react';
 
 const FloatingAICTA = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
   // Get current page URL dynamically
   const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://s10.ai/';
   const prompt = encodeURIComponent(`Please read from ${currentUrl} so I can ask questions about it.`);
@@ -29,15 +25,17 @@ const FloatingAICTA = () => {
       icon: <Zap className="w-8 h-8" />,
       url: `https://gemini.google.com/app?q=${prompt}`,
       color: 'bg-gray-600 hover:bg-gray-700',
+    },
+    {
+      name: 'Grok',
+      icon: <MessageSquare className="w-8 h-8" />,
+      url: `https://x.com/i/grok?q=${prompt}`,
+      color: 'bg-black hover:bg-gray-800',
     }
   ];
 
   const handleRedirect = (url: string) => {
     window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
-  const toggleExpanded = () => {
-    setIsExpanded(!isExpanded);
   };
 
   return (
@@ -50,8 +48,9 @@ const FloatingAICTA = () => {
             left: 20px;
             z-index: 1000;
             display: flex;
-            flex-direction: column-reverse;
+            flex-direction: column;
             align-items: flex-start;
+            gap: 12px;
         }
 
         .llm-button {
@@ -65,41 +64,11 @@ const FloatingAICTA = () => {
             transition: transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow 0.2s ease-in-out;
             cursor: pointer;
             position: relative;
-            margin-bottom: 0;
         }
 
         .llm-button:hover {
             transform: scale(1.08);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Initial state for hidden LLM buttons */
-        .llm-button.hidden-llm {
-            opacity: 0;
-            transform: translateY(0);
-            pointer-events: none;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-        }
-
-        /* State when the stack is open */
-        #floating-llm-container.open .llm-button.hidden-llm {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Individual positioning for stacked buttons when open */
-        #floating-llm-container.open .llm-button.hidden-llm:nth-child(4) {
-            transform: translateY(-70px);
-        }
-
-        #floating-llm-container.open .llm-button.hidden-llm:nth-child(3) {
-            transform: translateY(-140px);
-        }
-
-        #floating-llm-container.open .llm-button.hidden-llm:nth-child(2) {
-            transform: translateY(-210px);
         }
 
         /* Tooltip styles */
@@ -129,34 +98,39 @@ const FloatingAICTA = () => {
             height: 32px;
         }
 
-        /* Mobile responsive adjustments */
+        /* Keep left positioning for all screen sizes */
         @media (max-width: 768px) {
             #floating-llm-container {
-                bottom: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                align-items: center;
+                bottom: 20px;
+                left: 20px;
             }
+        }
 
-            .llm-button .tooltip {
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: calc(100% + 10px);
-                top: auto;
+        @media (max-width: 480px) {
+            #floating-llm-container {
+                bottom: 20px;
+                left: 15px;
+            }
+            
+            .llm-button {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .llm-button svg {
+                width: 28px;
+                height: 28px;
             }
         }
       `}</style>
 
-      <div id="floating-llm-container" className={isExpanded ? 'open' : ''}>
-        {/* AI Assistant Buttons */}
-        {aiAssistants.map((assistant, index) => (
+      <div id="floating-llm-container">
+        {/* AI Assistant Buttons - Always visible */}
+        {aiAssistants.map((assistant) => (
           <div
             key={assistant.name}
-            className={`llm-button hidden-llm ${assistant.color}`}
+            className={`llm-button ${assistant.color}`}
             onClick={() => handleRedirect(assistant.url)}
-            style={{
-              transitionDelay: isExpanded ? `${index * 0.1}s` : '0s'
-            }}
           >
             {assistant.icon}
             <div className="tooltip">
@@ -164,21 +138,6 @@ const FloatingAICTA = () => {
             </div>
           </div>
         ))}
-
-        {/* Main Toggle Button */}
-        <div
-          className="llm-button bg-gradient-to-r from-[#143151] to-[#387E89]"
-          onClick={toggleExpanded}
-        >
-          {isExpanded ? (
-            <X className="w-8 h-8 text-white" />
-          ) : (
-            <MessageCircle className="w-8 h-8 text-white" />
-          )}
-          <div className="tooltip">
-            AI Assistants
-          </div>
-        </div>
       </div>
     </>
   );
