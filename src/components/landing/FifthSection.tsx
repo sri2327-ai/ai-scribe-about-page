@@ -1,5 +1,3 @@
-
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -131,7 +129,7 @@ const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
 );
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="text-center p-4 sm:p-6 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 w-full sm:w-[180px] lg:w-[200px] h-[140px] sm:h-[160px] flex flex-col justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105">
+  <div className="text-center p-4 sm:p-6 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 w-[160px] h-[140px] flex flex-col justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 mx-auto">
     <div className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-3">
       <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
     </div>
@@ -300,7 +298,7 @@ const FifthSection = () => {
           </div>
         </div>
 
-        {/* ROI Section - Responsive Grid */}
+        {/* ROI Section - Horizontal Alignment */}
         <div className="mb-12 lg:mb-16">
           <Typography
             variant="h4"
@@ -327,19 +325,22 @@ const FifthSection = () => {
             The ROI of Automation with S10.AI:
           </Typography>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 justify-items-center">
-            {ROIMetrics.map((metric, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="w-full max-w-[200px]"
-              >
-                <ROIMetricCard {...metric} />
-              </motion.div>
-            ))}
+          {/* Horizontal scrollable container for mobile, flexbox for larger screens */}
+          <div className="w-full overflow-x-auto">
+            <div className="flex gap-4 sm:gap-6 pb-4 sm:pb-0 justify-start sm:justify-center min-w-max sm:min-w-0">
+              {ROIMetrics.map((metric, index) => (
+                <motion.div 
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex-shrink-0"
+                >
+                  <ROIMetricCard {...metric} />
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -365,4 +366,3 @@ const FifthSection = () => {
 };
 
 export default FifthSection;
-
