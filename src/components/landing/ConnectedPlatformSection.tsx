@@ -3,8 +3,8 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import {
-  Stethoscope, Calendar, FileText, CreditCard, Home,
-  Clock, Shield, Brain, Zap, TrendingUp
+  Stethoscope, Calendar, FileText, CreditCard, 
+  Clock, Shield, Brain, Zap, TrendingUp, ArrowDown
 } from 'lucide-react';
 
 const platformFeatures = [
@@ -12,19 +12,22 @@ const platformFeatures = [
     icon: Calendar,
     title: "Smart Scheduling & Patient Access",
     description: "Let BRAVO handle inbound calls, schedule appointments, and sync with your EHR, SIP, and PMS systems. Automated reminders and confirmations reduce no-shows and keep your calendar full.",
-    color: "text-blue-600"
+    color: "from-blue-500 to-blue-600",
+    stepNumber: 1
   },
   {
     icon: Clock,
     title: "Pre-Visit Automation That Saves Time", 
     description: "Digitize patient intake, insurance verification, and medical history updates—so every visit starts smooth and fully prepped.",
-    color: "text-green-600"
+    color: "from-green-500 to-green-600",
+    stepNumber: 2
   },
   {
     icon: Stethoscope,
     title: "Real-Time AI Medical Scribe & Clinical Intelligence",
     description: "CRUSH captures and transcribes encounters to create structured notes instantly.",
-    color: "text-purple-600",
+    color: "from-purple-500 to-purple-600",
+    stepNumber: 3,
     subFeatures: [
       "Pre-visit: AI-powered pre-charting, HCC risk insights",
       "During: Context-aware documentation", 
@@ -35,20 +38,22 @@ const platformFeatures = [
     icon: Brain,
     title: "Admin & Post-Visit Automation",
     description: "Automate routine tasks like refills, referrals, and lab orders. BRAVO also manages follow-ups, medication adherence, and preventive care outreach—reducing staff burden and improving outcomes.",
-    color: "text-orange-600"
+    color: "from-orange-500 to-orange-600",
+    stepNumber: 4
   },
   {
     icon: TrendingUp,
     title: "Accelerated Revenue Cycle Management",
     description: "From real-time insurance checks to AI-powered claims processing and payment tracking—we help you get reimbursed faster and cleaner.",
-    color: "text-indigo-600"
+    color: "from-indigo-500 to-indigo-600",
+    stepNumber: 5
   }
 ];
 
 const ConnectedPlatformSection = () => {
   return (
     <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white">
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
         {/* Header */}
         <div className="text-center mb-16">
           <Typography
@@ -85,65 +90,88 @@ const ConnectedPlatformSection = () => {
           </div>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8 mb-12">
+        {/* Stepper Format */}
+        <div className="relative max-w-4xl mx-auto">
+          {/* Connecting Line */}
+          <div className="absolute left-8 top-20 bottom-0 w-0.5 bg-gradient-to-b from-[#143151] via-[#387E89] to-[#143151] hidden md:block" />
+          
           {platformFeatures.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className={`relative flex items-start gap-8 mb-12 ${
+                index % 2 === 1 ? 'md:flex-row-reverse md:text-right' : ''
+              }`}
             >
-              <div className="flex items-start gap-4 mb-6">
-                <div className={`p-3 rounded-lg bg-gray-50 ${feature.color}`}>
-                  <feature.icon className="w-6 h-6" />
+              {/* Step Circle */}
+              <div className="relative z-10 flex-shrink-0">
+                <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${feature.color} flex items-center justify-center shadow-lg`}>
+                  <span className="text-white font-bold text-lg">{feature.stepNumber}</span>
                 </div>
-                <div className="flex-1">
-                  <Typography
-                    variant="h6"
-                    fontWeight="semibold"
-                    sx={{ 
-                      mb: 2, 
-                      color: '#143151',
-                      fontSize: { xs: '1.125rem', sm: '1.25rem' },
-                      lineHeight: 1.3
-                    }}
-                  >
-                    {feature.title}
-                  </Typography>
+                {/* Icon positioned next to circle */}
+                <div className={`absolute -top-2 ${index % 2 === 0 ? '-right-2' : '-left-2'} w-8 h-8 rounded-full bg-white shadow-md flex items-center justify-center`}>
+                  <feature.icon className="w-4 h-4 text-gray-600" />
                 </div>
               </div>
-              
-              <Typography
-                variant="body2"
-                sx={{ 
-                  color: '#555',
-                  fontSize: { xs: '0.875rem', sm: '1rem' },
-                  lineHeight: 1.6,
-                  mb: feature.subFeatures ? 3 : 0
-                }}
-              >
-                {feature.description}
-              </Typography>
 
-              {feature.subFeatures && (
-                <div className="space-y-2">
-                  {feature.subFeatures.map((subFeature, subIndex) => (
-                    <div key={subIndex} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] mt-2 flex-shrink-0" />
-                      <Typography
-                        variant="body2"
-                        sx={{ 
-                          color: '#666',
-                          fontSize: '0.875rem',
-                          lineHeight: 1.5
-                        }}
-                      >
-                        {subFeature}
-                      </Typography>
-                    </div>
-                  ))}
+              {/* Content */}
+              <div className={`flex-1 bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 ${
+                index % 2 === 1 ? 'md:mr-8' : 'md:ml-0'
+              }`}>
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  sx={{ 
+                    mb: 3, 
+                    color: '#143151',
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                    lineHeight: 1.3
+                  }}
+                >
+                  {feature.title}
+                </Typography>
+                
+                <Typography
+                  variant="body1"
+                  sx={{ 
+                    color: '#555',
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.6,
+                    mb: feature.subFeatures ? 3 : 0
+                  }}
+                >
+                  {feature.description}
+                </Typography>
+
+                {feature.subFeatures && (
+                  <div className="space-y-2 mt-4">
+                    {feature.subFeatures.map((subFeature, subIndex) => (
+                      <div key={subIndex} className={`flex items-start gap-3 ${
+                        index % 2 === 1 ? 'md:flex-row-reverse' : ''
+                      }`}>
+                        <div className="w-2 h-2 rounded-full bg-[#387E89] mt-2 flex-shrink-0" />
+                        <Typography
+                          variant="body2"
+                          sx={{ 
+                            color: '#666',
+                            fontSize: '0.9rem',
+                            lineHeight: 1.5
+                          }}
+                        >
+                          {subFeature}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Arrow connector for mobile */}
+              {index < platformFeatures.length - 1 && (
+                <div className="absolute left-8 -bottom-6 flex justify-center md:hidden">
+                  <ArrowDown className="w-5 h-5 text-[#387E89]" />
                 </div>
               )}
             </motion.div>
@@ -151,25 +179,25 @@ const ConnectedPlatformSection = () => {
         </div>
 
         {/* Bottom Visual Connection */}
-        <div className="text-center">
-          <div className="inline-flex items-center gap-4 bg-white rounded-full px-8 py-4 shadow-md border border-gray-100">
+        <div className="text-center mt-16">
+          <div className="inline-flex items-center gap-6 bg-white rounded-full px-8 py-6 shadow-lg border-2 border-gray-100">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-blue-600" />
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-blue-600" />
               <span className="text-sm font-medium text-gray-700">Scheduling</span>
             </div>
-            <div className="w-2 h-0.5 bg-gray-300" />
+            <div className="w-8 h-0.5 bg-gradient-to-r from-[#143151] to-[#387E89]" />
             <div className="flex items-center gap-2">
-              <FileText className="w-5 h-5 text-green-600" />
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-green-500 to-green-600" />
               <span className="text-sm font-medium text-gray-700">Documentation</span>
             </div>
-            <div className="w-2 h-0.5 bg-gray-300" />
+            <div className="w-8 h-0.5 bg-gradient-to-r from-[#143151] to-[#387E89]" />
             <div className="flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-purple-600" />
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-purple-600" />
               <span className="text-sm font-medium text-gray-700">Billing</span>
             </div>
-            <div className="w-2 h-0.5 bg-gray-300" />
+            <div className="w-8 h-0.5 bg-gradient-to-r from-[#143151] to-[#387E89]" />
             <div className="flex items-center gap-2">
-              <Home className="w-5 h-5 text-orange-600" />
+              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-orange-500 to-orange-600" />
               <span className="text-sm font-medium text-gray-700">Patient Care</span>
             </div>
           </div>
