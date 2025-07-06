@@ -1,10 +1,12 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import {
   Phone, ClipboardList, Bell, FileText, ClipboardCheck,
   Heart, BarChart, ArrowRight, Check, X, Zap,
-  Clock, TrendingUp, ThumbsUp, DollarSign, Users, ChevronRight, AlertCircle
+  Clock, TrendingUp, ThumbsUp, DollarSign, Users, ChevronRight, AlertCircle,
+  ChevronLeft
 } from 'lucide-react';
 import { QuoteTestimonial } from './QuoteTestimonial';
 import {
@@ -140,6 +142,7 @@ const ROIMetricCard = ({ icon: Icon, value, label }) => (
 
 const FifthSection = () => {
   const containerRef = React.useRef(null);
+  const roiScrollRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:768px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
 
@@ -156,6 +159,30 @@ const FifthSection = () => {
       document.head.removeChild(styleElement);
     };
   }, []);
+
+  // Arrow key navigation for ROI cards in mobile
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        const scrollContainer = roiScrollRef.current;
+        if (!scrollContainer) return;
+
+        const cardWidth = 160 + 16; // card width + gap
+        const scrollAmount = cardWidth;
+
+        if (event.key === 'ArrowLeft') {
+          scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else if (event.key === 'ArrowRight') {
+          scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isMobile]);
 
   return (
     <section 
@@ -239,15 +266,9 @@ const FifthSection = () => {
 
             <div className="space-y-3 sm:space-y-4">
               {painPoints.map((point, index) => (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+                <div key={index}>
                   <PainPointCard {...point} />
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -284,15 +305,9 @@ const FifthSection = () => {
 
             <div className="space-y-3 sm:space-y-4">
               {solutions.map((solution, index) => (
-                <motion.div 
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  viewport={{ once: true }}
-                >
+                <div key={index}>
                   <SolutionCard {...solution} />
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -326,7 +341,7 @@ const FifthSection = () => {
           </Typography>
           
           {/* Horizontal scrollable container for mobile, flexbox for larger screens */}
-          <div className="w-full overflow-x-auto">
+          <div className="w-full overflow-x-auto" ref={roiScrollRef}>
             <div className="flex gap-4 sm:gap-6 pb-4 sm:pb-0 justify-start sm:justify-center min-w-max sm:min-w-0">
               {ROIMetrics.map((metric, index) => (
                 <motion.div 
@@ -342,6 +357,17 @@ const FifthSection = () => {
               ))}
             </div>
           </div>
+          
+          {/* Arrow navigation hint for mobile */}
+          {isMobile && (
+            <div className="text-center mt-4">
+              <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
+                <ChevronLeft className="w-3 h-3" />
+                Use arrow keys to navigate
+                <ChevronRight className="w-3 h-3" />
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Testimonial */}
