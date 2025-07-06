@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -14,25 +13,25 @@ const FloatingAICTA = () => {
   const aiAssistants = [
     {
       name: 'ChatGPT',
-      icon: <img src="/lovable-uploads/128d9be9-4d18-4262-892a-68adf7b22b6e.png" alt="ChatGPT" className="w-full h-full object-contain" />,
+      icon: <img src="/lovable-uploads/128d9be9-4d18-4262-892a-68adf7b22b6e.png" alt="ChatGPT" className="w-full h-full object-cover rounded-full" />,
       url: `https://chat.openai.com/?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Claude',
-      icon: <img src="/lovable-uploads/c2407cd7-f533-4465-aea9-8836d71f670c.png" alt="Claude" className="w-full h-full object-contain" />,
+      icon: <img src="/lovable-uploads/c2407cd7-f533-4465-aea9-8836d71f670c.png" alt="Claude" className="w-full h-full object-cover rounded-full" />,
       url: `https://claude.ai/new?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Gemini',
-      icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-contain" />,
+      icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
       url: `https://gemini.google.com/?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Grok',
-      icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-contain" />,
+      icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-cover rounded-full" />,
       url: `https://grok.com/?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     }
@@ -157,8 +156,8 @@ const FloatingAICTA = () => {
           .llm-button img {
               width: 22px;
               height: 22px;
-              object-fit: contain;
-              border-radius: 3px;
+              object-fit: cover;
+              border-radius: 50%;
           }
 
           /* Mobile responsiveness */
