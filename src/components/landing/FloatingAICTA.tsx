@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -29,7 +28,7 @@ const FloatingAICTA = () => {
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
-      url: `https://gemini.google.com/?hl=en&text=${prompt}`,
+      url: `https://gemini.google.com/app?q=${encodeURIComponent(`Please read the page from S10.AI at the following link: ${currentUrl}. Summarize the content clearly and concisely, highlighting key features, benefits, and any unique value S10.AI offers on that page. Make sure to include relevant details so I can ask informed questions based on the specific content the customer has shared.`)}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Gemini on S10.AI'
     },
@@ -81,210 +80,61 @@ const FloatingAICTA = () => {
   }
 
   return (
-    <>
-      {isLoaded && (
-        <style>{`
-          /* Container for the floating action buttons */
-          #floating-llm-container {
-              position: fixed;
-              bottom: 20px;
-              left: 10px;
-              z-index: 1000;
-              display: flex;
-              flex-direction: column;
-              align-items: flex-start;
-              gap: 8px;
-              will-change: transform;
-          }
-
-          .llm-button {
-              width: 44px;
-              height: 44px;
-              border-radius: 50%;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-              transition: all 0.2s ease;
-              cursor: pointer;
-              position: relative;
-              border: 1px solid rgba(0, 0, 0, 0.1);
-              padding: 4px;
-              contain: paint layout;
-          }
-
-          .llm-button:hover {
-              transform: scale(1.1);
-              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-          }
-
-          /* Tooltip styles - Fixed positioning */
-          .llm-button .tooltip {
-              position: absolute;
-              left: 55px;
-              top: 50%;
-              transform: translateY(-50%);
-              white-space: nowrap;
-              background: linear-gradient(135deg, #143151 0%, #387E89 100%);
-              color: white;
-              padding: 8px 12px;
-              border-radius: 6px;
-              font-size: 12px;
-              font-weight: 500;
-              opacity: 0;
-              visibility: hidden;
-              transition: all 0.2s ease;
-              pointer-events: none;
-              z-index: 1001;
-              box-shadow: 0 4px 12px rgba(20, 49, 81, 0.3);
-              min-width: max-content;
-              max-width: 250px;
-          }
-
-          /* Tooltip arrow */
-          .llm-button .tooltip::before {
-              content: '';
-              position: absolute;
-              right: 100%;
-              top: 50%;
-              transform: translateY(-50%);
-              border: 6px solid transparent;
-              border-right-color: #143151;
-          }
-
-          .llm-button:hover .tooltip {
-              opacity: 1;
-              visibility: visible;
-          }
-
-          /* Icon sizing for all buttons */
-          .llm-button img {
-              width: 34px;
-              height: 34px;
-              object-fit: cover;
-              border-radius: 50%;
-          }
-
-          /* Mobile responsiveness */
-          @media (max-width: 768px) {
-              #floating-llm-container {
-                  bottom: 20px;
-                  left: 8px;
-                  gap: 6px;
-              }
-              
-              .llm-button {
-                  width: 40px;
-                  height: 40px;
-                  padding: 3px;
-              }
-              
-              .llm-button img {
-                  width: 30px;
-                  height: 30px;
-              }
-
-              .llm-button .tooltip {
-                  left: 48px;
-                  font-size: 11px;
-                  padding: 6px 10px;
-                  max-width: 180px;
-              }
-          }
-
-          @media (max-width: 480px) {
-              #floating-llm-container {
-                  bottom: 15px;
-                  left: 5px;
-                  gap: 5px;
-              }
-              
-              .llm-button {
-                  width: 36px;
-                  height: 36px;
-                  padding: 3px;
-              }
-              
-              .llm-button img {
-                  width: 26px;
-                  height: 26px;
-              }
-
-              .llm-button .tooltip {
-                  left: 42px;
-                  font-size: 10px;
-                  padding: 5px 8px;
-                  max-width: 150px;
-              }
-          }
-
-          /* Tablet specific adjustments */
-          @media (min-width: 769px) and (max-width: 1024px) {
-              .llm-button .tooltip {
-                  left: 47px;
-                  max-width: 140px;
-              }
-          }
-
-          /* Desktop adjustments for larger screens */
-          @media (min-width: 1025px) {
-              .llm-button .tooltip {
-                  left: 50px;
-                  max-width: 160px;
-              }
-          }
-
-          /* High contrast mode support */
-          @media (prefers-contrast: high) {
-              .llm-button {
-                  border: 2px solid;
-              }
-              
-              .llm-button .tooltip {
-                  border: 1px solid white;
-              }
-          }
-
-          /* Reduced motion support */
-          @media (prefers-reduced-motion: reduce) {
-              .llm-button {
-                  transition: none;
-              }
-              
-              .llm-button:hover {
-                  transform: none;
-              }
-          }
-        `}</style>
-      )}
-
-      {isLoaded && (
-        <div id="floating-llm-container">
-          {/* AI Assistant Buttons - Always visible */}
-          {aiAssistants.map((assistant) => (
+    <div
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        left: '10px',
+        zIndex: 1000,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '8px'
+      }}
+    >
+      {aiAssistants.map((assistant) => (
+        <div
+          key={assistant.name}
+          className={`relative group ${assistant.color}`}
+          style={{
+            width: '44px',
+            height: '44px',
+            borderRadius: '50%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+            cursor: 'pointer',
+            border: '1px solid rgba(0, 0, 0, 0.1)',
+            padding: '4px',
+            transition: 'all 0.2s ease'
+          }}
+          onClick={() => handleRedirect(assistant.url)}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)';
+            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.25)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.15)';
+          }}
+        >
+          {assistant.icon}
+          
+          <div
+            className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-2 rounded-md text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
+            style={{
+              boxShadow: '0 4px 12px rgba(20, 49, 81, 0.3)'
+            }}
+          >
+            {assistant.tooltip}
             <div
-              key={assistant.name}
-              className={`llm-button ${assistant.color}`}
-              onClick={() => handleRedirect(assistant.url)}
-              role="button"
-              tabIndex={0}
-              aria-label={assistant.tooltip}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  handleRedirect(assistant.url);
-                }
-              }}
-            >
-              {assistant.icon}
-              <span className="tooltip">
-                {assistant.tooltip}
-              </span>
-            </div>
-          ))}
+              className="absolute right-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-r-[#143151]"
+              style={{ borderRightColor: '#143151' }}
+            />
+          </div>
         </div>
-      )}
-    </>
+      ))}
+    </div>
   );
 };
 
