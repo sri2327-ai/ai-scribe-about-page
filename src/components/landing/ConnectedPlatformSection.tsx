@@ -10,55 +10,50 @@ const platformFeatures = [
   {
     icon: Calendar,
     title: "Smart Scheduling & Patient Access",
-    description: "Let BRAVO handle inbound calls, schedule appointments, and sync with your EHR, SIP, and PMS systems. Automated reminders and confirmations reduce no-shows and keep your calendar full.",
-    stepNumber: 1
+    description: "BRAVO handles inbound calls, schedules appointments, and syncs with EHR/SIP/PMS systems.",
+    highlights: ["Automated reminders", "Reduced no-shows", "Full calendar management"]
   },
   {
     icon: Clock,
-    title: "Pre-Visit Automation That Saves Time", 
-    description: "Digitize patient intake, insurance verification, and medical history updates—so every visit starts smooth and fully prepped.",
-    stepNumber: 2
+    title: "Pre-Visit Automation", 
+    description: "Digitize patient intake, insurance verification, and medical history updates seamlessly.",
+    highlights: ["Digital intake", "Insurance verification", "Medical history sync"]
   },
   {
     icon: Stethoscope,
-    title: "Real-Time AI Medical Scribe & Clinical Intelligence",
-    description: "CRUSH captures and transcribes encounters to create structured notes instantly.",
-    stepNumber: 3,
-    subFeatures: [
-      "Pre-visit: AI-powered pre-charting, HCC risk insights",
-      "During: Context-aware documentation", 
-      "Post-visit: Auto-coded notes, EHR order entry, and visit summaries"
-    ]
+    title: "Real-Time AI Medical Scribe",
+    description: "CRUSH captures encounters and creates structured notes instantly with clinical intelligence.",
+    highlights: ["AI pre-charting", "Context-aware documentation", "Auto-coded notes"]
   },
   {
     icon: Brain,
     title: "Admin & Post-Visit Automation",
-    description: "Automate routine tasks like refills, referrals, and lab orders. BRAVO also manages follow-ups, medication adherence, and preventive care outreach—reducing staff burden and improving outcomes.",
-    stepNumber: 4
+    description: "Automate refills, referrals, lab orders, and follow-ups to reduce staff burden.",
+    highlights: ["Automated refills", "Smart referrals", "Follow-up management"]
   },
   {
     icon: TrendingUp,
-    title: "Accelerated Revenue Cycle Management",
-    description: "From real-time insurance checks to AI-powered claims processing and payment tracking—we help you get reimbursed faster and cleaner.",
-    stepNumber: 5
+    title: "Accelerated Revenue Cycle",
+    description: "Real-time insurance checks to AI-powered claims processing for faster reimbursement.",
+    highlights: ["Real-time verification", "AI claims processing", "Payment tracking"]
   }
 ];
 
 const ConnectedPlatformSection = () => {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/30">
       <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 lg:mb-16">
           <Typography
             variant="h2"
             fontWeight="bold"
             sx={{ 
-              mb: 4, 
+              mb: 3, 
               color: '#143151', 
-              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem', lg: '3.5rem' },
-              lineHeight: 1.2,
-              maxWidth: '1000px',
+              fontSize: { xs: '1.875rem', sm: '2.25rem', md: '2.75rem', lg: '3.25rem' },
+              lineHeight: 1.1,
+              maxWidth: '900px',
               mx: 'auto'
             }}
           >
@@ -70,15 +65,15 @@ const ConnectedPlatformSection = () => {
               color: '#666', 
               fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
               fontWeight: 400,
-              maxWidth: '900px',
+              maxWidth: '800px',
               mx: 'auto',
-              lineHeight: 1.6,
-              mb: 2
+              lineHeight: 1.5,
+              mb: 3
             }}
           >
-            Most platforms stop at SOAP notes. We go further. Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
+            Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter and hands-free.
           </Typography>
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full text-sm font-medium">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
             <Zap className="w-4 h-4" />
             by Ambient AI
           </div>
@@ -86,35 +81,44 @@ const ConnectedPlatformSection = () => {
 
         {/* Horizontal Stepper */}
         <div className="relative">
-          {/* Connecting Line */}
-          <div className="absolute top-6 left-0 right-0 h-0.5 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] hidden md:block" />
+          {/* Dotted Connecting Line - Desktop */}
+          <div 
+            className="absolute top-6 left-0 right-0 h-0.5 hidden md:block"
+            style={{
+              backgroundImage: `linear-gradient(to right, #143151 0%, #387E89 50%, #143151 100%)`,
+              backgroundSize: '8px 2px',
+              backgroundRepeat: 'repeat-x',
+              maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 2px, black 2px, black 6px)',
+              WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 2px, black 2px, black 6px)'
+            }}
+          />
           
           {/* Steps Container */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 relative">
             {platformFeatures.map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center relative"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="flex flex-col items-center text-center relative group"
               >
-                {/* Step Circle with Icon Below */}
-                <div className="relative z-10 mb-4 flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg mb-3">
+                {/* Icon Circle */}
+                <div className="relative z-10 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
                     <feature.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 h-full">
+                {/* Content Card */}
+                <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1">
                   <Typography
                     variant="h6"
                     fontWeight="bold"
                     sx={{ 
                       mb: 2, 
                       color: '#143151',
-                      fontSize: { xs: '1rem', sm: '1.125rem' },
+                      fontSize: { xs: '0.95rem', sm: '1rem' },
                       lineHeight: 1.3
                     }}
                   >
@@ -125,42 +129,47 @@ const ConnectedPlatformSection = () => {
                     variant="body2"
                     sx={{ 
                       color: '#555',
-                      fontSize: { xs: '0.85rem', sm: '0.9rem' },
-                      lineHeight: 1.5,
-                      mb: feature.subFeatures ? 2 : 0
+                      fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                      lineHeight: 1.4,
+                      mb: 2.5
                     }}
                   >
                     {feature.description}
                   </Typography>
 
-                  {feature.subFeatures && (
-                    <div className="space-y-1 mt-3">
-                      {feature.subFeatures.map((subFeature, subIndex) => (
-                        <div key={subIndex} className="flex items-start gap-2 text-left">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] mt-1.5 flex-shrink-0" />
-                          <Typography
-                            variant="body2"
-                            sx={{ 
-                              color: '#666',
-                              fontSize: '0.8rem',
-                              lineHeight: 1.4
-                            }}
-                          >
-                            {subFeature}
-                          </Typography>
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  {/* Key Highlights */}
+                  <div className="space-y-1">
+                    {feature.highlights.map((highlight, hIndex) => (
+                      <div key={hIndex} className="flex items-center gap-2 text-left">
+                        <div className="w-1 h-1 rounded-full bg-[#387E89] flex-shrink-0" />
+                        <Typography
+                          variant="body2"
+                          sx={{ 
+                            color: '#666',
+                            fontSize: '0.75rem',
+                            lineHeight: 1.3,
+                            fontWeight: 500
+                          }}
+                        >
+                          {highlight}
+                        </Typography>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Dotted connector for mobile */}
+                {/* Mobile Dotted Connector */}
                 {index < platformFeatures.length - 1 && (
-                  <div className="w-full flex justify-center mt-4 md:hidden">
-                    <div className="w-px h-8 bg-gradient-to-b from-[#387E89] to-transparent" 
-                         style={{ 
-                           backgroundImage: 'repeating-linear-gradient(to bottom, #387E89 0px, #387E89 4px, transparent 4px, transparent 8px)' 
-                         }} 
+                  <div className="w-full flex justify-center mt-4 lg:hidden">
+                    <div 
+                      className="w-px h-6"
+                      style={{
+                        backgroundImage: `linear-gradient(to bottom, #387E89, #143151)`,
+                        backgroundSize: '2px 4px',
+                        backgroundRepeat: 'repeat-y',
+                        maskImage: 'repeating-linear-gradient(to bottom, transparent 0, transparent 1px, black 1px, black 3px)',
+                        WebkitMaskImage: 'repeating-linear-gradient(to bottom, transparent 0, transparent 1px, black 1px, black 3px)'
+                      }}
                     />
                   </div>
                 )}
@@ -169,28 +178,29 @@ const ConnectedPlatformSection = () => {
           </div>
         </div>
 
-        {/* Bottom Connection Visualization */}
+        {/* Enhanced Bottom Connection */}
         <div className="text-center mt-12">
-          <div className="inline-flex items-center gap-4 bg-white rounded-full px-6 py-4 shadow-lg border-2 border-gray-100 flex-wrap justify-center">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]" />
-              <span className="text-xs font-medium text-gray-700">Scheduling</span>
-            </div>
-            <div className="w-4 h-0.5 bg-gradient-to-r from-[#143151] to-[#387E89] hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]" />
-              <span className="text-xs font-medium text-gray-700">Documentation</span>
-            </div>
-            <div className="w-4 h-0.5 bg-gradient-to-r from-[#143151] to-[#387E89] hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]" />
-              <span className="text-xs font-medium text-gray-700">Billing</span>
-            </div>
-            <div className="w-4 h-0.5 bg-gradient-to-r from-[#143151] to-[#387E89] hidden sm:block" />
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]" />
-              <span className="text-xs font-medium text-gray-700">Patient Care</span>
-            </div>
+          <div className="inline-flex items-center gap-3 bg-white rounded-full px-6 py-3 shadow-lg border border-gray-100 flex-wrap justify-center hover:shadow-xl transition-all duration-300">
+            {['Scheduling', 'Documentation', 'Billing', 'Patient Care'].map((item, index, arr) => (
+              <React.Fragment key={item}>
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]" />
+                  <span className="text-xs font-semibold text-gray-700">{item}</span>
+                </div>
+                {index < arr.length - 1 && (
+                  <div 
+                    className="w-6 h-0.5 hidden sm:block"
+                    style={{
+                      backgroundImage: `linear-gradient(to right, #143151, #387E89)`,
+                      backgroundSize: '4px 2px',
+                      backgroundRepeat: 'repeat-x',
+                      maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 3px)',
+                      WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 3px)'
+                    }}
+                  />
+                )}
+              </React.Fragment>
+            ))}
           </div>
         </div>
       </Box>
