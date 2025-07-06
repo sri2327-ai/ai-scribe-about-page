@@ -21,19 +21,19 @@ const FloatingAICTA = () => {
     {
       name: 'Claude',
       icon: <img src="/lovable-uploads/c2407cd7-f533-4465-aea9-8836d71f670c.png" alt="Claude" className="w-full h-full object-contain" />,
-      url: `https://claude.ai/chat/new?content=${prompt}`,
+      url: `https://claude.ai/new?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-contain" />,
-      url: `https://gemini.google.com/app?q=${prompt}`,
+      url: `https://gemini.google.com/?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Grok',
       icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-contain" />,
-      url: `https://x.com/i/grok?content=${prompt}`,
+      url: `https://grok.com/?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
     }
   ];
