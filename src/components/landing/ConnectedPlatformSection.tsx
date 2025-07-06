@@ -48,14 +48,26 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
     transition={{ duration: 0.5, delay: index * 0.1 }}
     className="flex flex-col items-center text-center relative group h-full"
   >
-    {/* Icon Circle - Fixed hover scaling */}
-    <div className="relative z-10 mb-2 sm:mb-3 overflow-visible">
-      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 overflow-visible">
-        <feature.icon className="w-6 h-6 text-white" />
+    {/* Icon Circle with connecting line for carousel */}
+    <div className="relative z-10 mb-2 sm:mb-3 overflow-visible w-full">
+      {/* Dotted Line for Mobile/Tablet Carousel */}
+      <div className="absolute top-6 left-0 right-0 h-0.5 md:hidden"
+        style={{
+          backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08) 0%, rgba(56, 126, 137, 0.08) 50%, rgba(20, 49, 81, 0.08) 100%)`,
+          backgroundSize: '6px 1px',
+          backgroundRepeat: 'repeat-x',
+          maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)',
+          WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)'
+        }}
+      />
+      <div className="flex justify-center">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 overflow-visible">
+          <feature.icon className="w-6 h-6 text-white" />
+        </div>
       </div>
     </div>
 
-    {/* Content Card - Adjusted positioning for mobile/tablet */}
+    {/* Content Card - Same as desktop styling */}
     <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col">
       <Typography
         variant="h6"
@@ -83,7 +95,7 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
         {feature.description}
       </Typography>
 
-      {/* Key Highlights - Adjusted spacing */}
+      {/* Key Highlights */}
       <div className="space-y-0.5 mt-auto">
         {feature.highlights.map((highlight, hIndex) => (
           <div key={hIndex} className="flex items-center gap-1.5 text-left">
@@ -112,8 +124,8 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/30">
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
-        {/* Header - Reduced spacing */}
+      <Box sx={{ maxWidth: '1000px', mx: 'auto', width: '100%' }}>
+        {/* Header */}
         <div className="text-center mb-8 lg:mb-12">
           <Typography
             variant="h2"
@@ -151,8 +163,8 @@ const ConnectedPlatformSection = () => {
 
         {/* Responsive Layout */}
         {(isMobile || isTablet) ? (
-          // Mobile/Tablet Carousel - Reduced height
-          <div className="w-full max-w-[1000px] mx-auto">
+          // Mobile/Tablet Carousel with Desktop Design
+          <div className="w-full max-w-[900px] mx-auto">
             <ResponsiveCarousel
               items={platformFeatures}
               renderItem={(item, index) => (
@@ -162,7 +174,7 @@ const ConnectedPlatformSection = () => {
               columnsTablet={1}
               columnsMobile={1}
               gap={16}
-              itemHeight={{ xs: 280, sm: 300, md: 320 }}
+              itemHeight={{ xs: 300, sm: 320, md: 340 }}
               showControls={true}
               autoPlay={false}
               controlsBelow={true}
@@ -171,9 +183,9 @@ const ConnectedPlatformSection = () => {
             />
           </div>
         ) : (
-          // Desktop Stepper - Lighter dotted line
-          <div className="relative overflow-visible max-w-[1000px] mx-auto">
-            {/* Much Lighter Dotted Connecting Line - Desktop Only */}
+          // Desktop Stepper
+          <div className="relative overflow-visible max-w-[900px] mx-auto">
+            {/* Dotted Connecting Line - Desktop Only */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
               style={{
@@ -185,7 +197,7 @@ const ConnectedPlatformSection = () => {
               }}
             />
             
-            {/* Steps Container - Desktop with better spacing */}
+            {/* Steps Container - Desktop */}
             <div className="grid grid-cols-5 gap-2 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <FeatureCard key={index} feature={feature} index={index} />
@@ -194,7 +206,7 @@ const ConnectedPlatformSection = () => {
           </div>
         )}
 
-        {/* Enhanced Bottom Connection - Reduced spacing */}
+        {/* Bottom Connection */}
         <div className="text-center mt-8">
           <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-lg border border-gray-100 flex-wrap justify-center hover:shadow-xl transition-all duration-300">
             {['Scheduling', 'Documentation', 'Billing', 'Patient Care'].map((item, index, arr) => (
