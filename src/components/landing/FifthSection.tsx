@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -99,41 +100,41 @@ const combinedTestimonial = {
 };
 
 const PainPointCard = ({ icon: Icon, problem, detail, color }) => (
-  <Card className="p-3 sm:p-4 bg-red-50/50 border-red-100 hover:shadow-md transition-all duration-300 h-full">
-    <div className="flex items-start gap-3">
-      <div className="p-1.5 rounded-full bg-red-100 flex-shrink-0">
-        <Icon className={`w-4 h-4 ${color}`} />
+  <Card className="p-2.5 bg-red-50/50 border-red-100 hover:shadow-md transition-all duration-300 h-full">
+    <div className="flex items-start gap-2.5">
+      <div className="p-1 rounded-full bg-red-100 flex-shrink-0">
+        <Icon className={`w-3.5 h-3.5 ${color}`} />
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight">{problem}</h4>
-        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{detail}</p>
+        <h4 className="font-semibold text-gray-900 mb-0.5 text-xs sm:text-sm leading-tight">{problem}</h4>
+        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
       </div>
-      <X className="w-4 h-4 text-red-500 flex-shrink-0" />
+      <X className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
     </div>
   </Card>
 );
 
 const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
-  <Card className="p-3 sm:p-4 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-md transition-all duration-300 h-full">
-    <div className="flex items-start gap-3">
-      <div className="p-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
-        <Icon className="w-4 h-4 text-white" />
+  <Card className="p-2.5 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-md transition-all duration-300 h-full">
+    <div className="flex items-start gap-2.5">
+      <div className="p-1 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
+        <Icon className="w-3.5 h-3.5 text-white" />
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight">{solution}</h4>
-        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{detail}</p>
+        <h4 className="font-semibold text-gray-900 mb-0.5 text-xs sm:text-sm leading-tight">{solution}</h4>
+        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
       </div>
-      <Check className="w-4 h-4 text-[#387E89] flex-shrink-0" />
+      <Check className="w-3.5 h-3.5 text-[#387E89] flex-shrink-0" />
     </div>
   </Card>
 );
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="text-center p-3 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 flex-1 min-w-0">
-    <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-2">
-      <Icon className="w-4 h-4 text-white" />
+  <div className="text-center p-2 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 flex-1 min-w-0">
+    <div className="p-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-1.5">
+      <Icon className="w-3 h-3 text-white" />
     </div>
-    <div className="text-lg sm:text-xl font-bold text-[#143151] mb-1 leading-tight">{value}</div>
+    <div className="text-sm sm:text-base font-bold text-[#143151] mb-0.5 leading-tight">{value}</div>
     <div className="text-xs text-gray-600 leading-tight">{label}</div>
   </div>
 );
@@ -160,7 +161,7 @@ const FifthSection = () => {
   return (
     <section 
       ref={containerRef} 
-      className="py-12 sm:py-16 px-4 md:px-8 bg-white overflow-hidden"
+      className="py-8 px-4 md:px-8 bg-white overflow-hidden min-h-screen flex flex-col justify-center"
       aria-labelledby="practice-transformation-heading"
     >
       {/* SEO-friendly content for search engines */}
@@ -173,16 +174,16 @@ const FifthSection = () => {
         </p>
       </div>
 
-      <Box sx={{ maxWidth: '1400px', mx: 'auto' }}>
-        {/* Hero Section */}
-        <div className="text-center mb-12 sm:mb-16">
+      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
+        {/* Hero Section - Compact */}
+        <div className="text-center mb-8">
           <Typography
             variant="h3"
             fontWeight="bold"
             sx={{ 
-              mb: 3, 
+              mb: 2, 
               color: '#143151', 
-              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.25rem' },
+              fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' },
               lineHeight: 1.2
             }}
           >
@@ -192,7 +193,7 @@ const FifthSection = () => {
             variant="h5"
             sx={{ 
               color: '#387E89', 
-              fontSize: { xs: '1rem', sm: '1.15rem' },
+              fontSize: { xs: '0.875rem', sm: '1rem' },
               fontWeight: 500,
               maxWidth: '700px',
               mx: 'auto'
@@ -202,12 +203,12 @@ const FifthSection = () => {
           </Typography>
         </div>
 
-        {/* Before & After Side by Side Section */}
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-8' : 'grid-cols-2 gap-8 lg:gap-12'} mb-16`}>
+        {/* Before & After Side by Side Section - Compact */}
+        <div className={`grid ${isMobile ? 'grid-cols-1 gap-6' : 'grid-cols-2 gap-8'} mb-8`}>
           {/* Before Section */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-3 py-1.5 rounded-full text-sm font-medium mb-3">
+              <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-2.5 py-1 rounded-full text-xs font-medium mb-2">
                 <AlertCircle className="w-3 h-3" />
                 Before S10.AI
               </div>
@@ -215,9 +216,9 @@ const FifthSection = () => {
                 variant="h4"
                 fontWeight="bold"
                 sx={{ 
-                  mb: 2, 
+                  mb: 1.5, 
                   color: '#143151', 
-                  fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                  fontSize: { xs: '1rem', sm: '1.25rem' }
                 }}
               >
                 Burnout, Bottlenecks & Lost Revenue
@@ -226,21 +227,21 @@ const FifthSection = () => {
                 variant="body2"
                 sx={{ 
                   color: 'gray', 
-                  fontSize: { xs: '0.875rem', sm: '0.95rem' },
-                  mb: 4
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  mb: 3
                 }}
               >
                 Disconnected tools and manual workflows slow you down:
               </Typography>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {painPoints.map((point, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05 }}
                   viewport={{ once: true }}
                 >
                   <PainPointCard {...point} />
@@ -250,9 +251,9 @@ const FifthSection = () => {
           </div>
 
           {/* After Section */}
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-1.5 rounded-full text-sm font-medium mb-3">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-2.5 py-1 rounded-full text-xs font-medium mb-2">
                 <Zap className="w-3 h-3" />
                 After BRAVO & CRUSH
               </div>
@@ -260,9 +261,9 @@ const FifthSection = () => {
                 variant="h4"
                 fontWeight="bold"
                 sx={{ 
-                  mb: 2, 
+                  mb: 1.5, 
                   color: '#143151', 
-                  fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                  fontSize: { xs: '1rem', sm: '1.25rem' }
                 }}
               >
                 AI That Works the Way You Do
@@ -271,21 +272,21 @@ const FifthSection = () => {
                 variant="body2"
                 sx={{ 
                   color: 'gray', 
-                  fontSize: { xs: '0.875rem', sm: '0.95rem' },
-                  mb: 4
+                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                  mb: 3
                 }}
               >
                 S10.AI's ambient AI platform automates the work behind the scenes:
               </Typography>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {solutions.map((solution, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.05 }}
                   viewport={{ once: true }}
                 >
                   <SolutionCard {...solution} />
@@ -296,15 +297,15 @@ const FifthSection = () => {
         </div>
 
         {/* ROI Section - Compact Single Row */}
-        <div className="mb-12">
+        <div className="mb-6">
           <Typography
             variant="h4"
             fontWeight="bold"
             textAlign="center"
             sx={{ 
-              mb: 2, 
+              mb: 1.5, 
               color: '#143151', 
-              fontSize: { xs: '1.25rem', sm: '1.5rem' }
+              fontSize: { xs: '1rem', sm: '1.25rem' }
             }}
           >
             What That Means for Your Practice
@@ -313,24 +314,24 @@ const FifthSection = () => {
             variant="h6"
             textAlign="center"
             sx={{ 
-              mb: 6, 
+              mb: 4, 
               color: '#387E89', 
-              fontSize: { xs: '0.95rem', sm: '1rem' },
+              fontSize: { xs: '0.75rem', sm: '0.875rem' },
               fontWeight: 500
             }}
           >
             The ROI of Automation with S10.AI:
           </Typography>
           
-          <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
+          <div className="flex flex-wrap gap-2 justify-center">
             {ROIMetrics.map((metric, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                transition={{ delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="flex-1 min-w-[120px] max-w-[200px]"
+                className="flex-1 min-w-[90px] max-w-[160px]"
               >
                 <ROIMetricCard {...metric} />
               </motion.div>
@@ -338,16 +339,16 @@ const FifthSection = () => {
           </div>
         </div>
 
-        {/* Testimonial */}
-        <Box sx={{ mb: 8 }}>
+        {/* Testimonial - Compact */}
+        <Box sx={{ mb: 6 }}>
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
 
-        {/* CTA */}
+        {/* CTA - Compact */}
         <div className="text-center">
-          <button className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-base sm:text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          <button className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white px-6 py-3 rounded-full text-sm sm:text-base font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
             Transform Your Practice Today
-            <ArrowRight className="inline-block ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+            <ArrowRight className="inline-block ml-2 w-4 h-4" />
           </button>
         </div>
       </Box>
