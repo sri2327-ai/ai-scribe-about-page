@@ -186,26 +186,30 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
     transition={{ duration: 0.5, delay: index * 0.1 }}
     className="flex flex-col items-center text-center relative group h-full"
   >
-    {/* Icon Circle with connecting line */}
-    <div className="relative z-10 mb-3 overflow-visible w-full">
+    {/* Icon Circle */}
+    <div className="relative z-10 mb-6 overflow-visible w-full">
       <div className="flex justify-center">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
-          <feature.icon className="w-6 h-6 text-white" />
+        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
+          <feature.icon className="w-8 h-8 text-white" strokeWidth={1.5} />
         </div>
       </div>
     </div>
 
     {/* Content Card */}
-    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col max-w-xs mx-auto">
+    <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100/50 hover:shadow-lg hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-2 flex flex-col w-full max-w-sm mx-auto">
       <Typography
         variant="h6"
         fontWeight="bold"
         sx={{ 
-          mb: 2, 
+          mb: 3, 
           color: '#143151',
-          fontSize: '1rem',
+          fontSize: '1.1rem',
           lineHeight: 1.3,
-          textAlign: 'center'
+          textAlign: 'center',
+          minHeight: '3rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
       >
         {feature.title}
@@ -215,9 +219,9 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
         variant="body2"
         sx={{ 
           color: '#555',
-          fontSize: '0.85rem',
-          lineHeight: 1.4,
-          mb: 2.5,
+          fontSize: '0.9rem',
+          lineHeight: 1.5,
+          mb: 3,
           flex: 1,
           textAlign: 'center'
         }}
@@ -225,16 +229,16 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
         {feature.description}
       </Typography>
 
-      <div className="space-y-1 mt-auto">
+      <div className="space-y-2.5 mt-auto">
         {feature.highlights.map((highlight, hIndex) => (
-          <div key={hIndex} className="flex items-start gap-2 text-left">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] flex-shrink-0 mt-1.5" />
+          <div key={hIndex} className="flex items-start gap-3 text-left">
+            <div className="w-2 h-2 rounded-full bg-[#387E89] flex-shrink-0 mt-2" />
             <Typography
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: '0.75rem',
-                lineHeight: 1.3,
+                fontSize: '0.8rem',
+                lineHeight: 1.4,
                 fontWeight: 500
               }}
             >
@@ -321,10 +325,10 @@ const ConnectedPlatformSection = () => {
             </div>
           </div>
         ) : (
-          <div className="relative overflow-visible max-w-5xl mx-auto px-8">
+          <div className="relative overflow-visible max-w-6xl mx-auto px-4">
             {/* Desktop connecting line */}
             <div 
-              className="absolute top-6 left-0 right-0 h-0.5"
+              className="absolute top-8 left-0 right-0 h-0.5"
               style={{
                 backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08), rgba(56, 126, 137, 0.08))`,
                 backgroundSize: '6px 1px',
@@ -332,7 +336,7 @@ const ConnectedPlatformSection = () => {
               }}
             />
             
-            <div className="grid grid-cols-5 gap-8 relative overflow-visible">
+            <div className="grid grid-cols-5 gap-10 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
