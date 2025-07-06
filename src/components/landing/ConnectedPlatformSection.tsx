@@ -184,80 +184,81 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="flex flex-col items-center relative group"
+    className="relative group"
   >
-    {/* Icon Circle - Positioned at top */}
-    <div className="relative z-10 mb-6">
-      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-        <feature.icon className="w-7 h-7 text-white" strokeWidth={2} />
-      </div>
+    {/* Card Container */}
+    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100/60 hover:shadow-2xl hover:border-[#387E89]/30 transition-all duration-500 group-hover:transform group-hover:-translate-y-3 h-full min-h-[420px] flex flex-col">
       
-      {/* Connecting line - positioned to connect with next icon */}
-      {index < platformFeatures.length - 1 && (
-        <div className="absolute top-8 left-full w-16 h-0.5 z-0 hidden lg:block">
-          <div 
-            className="w-full h-full"
-            style={{
-              background: `linear-gradient(to right, rgba(56, 126, 137, 0.6), rgba(20, 49, 81, 0.4))`,
-            }}
-          />
+      {/* Icon Section */}
+      <div className="flex justify-center mb-6">
+        <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-110">
+          <feature.icon className="w-9 h-9 text-white" strokeWidth={1.8} />
         </div>
-      )}
-    </div>
+      </div>
 
-    {/* Content Card - Fixed height for consistent alignment */}
-    <div className="bg-white rounded-lg p-6 shadow-md border border-gray-100/60 hover:shadow-lg hover:border-[#387E89]/30 transition-all duration-300 group-hover:transform group-hover:-translate-y-2 w-full h-80 flex flex-col">
-      <Typography
-        variant="h6"
-        fontWeight="bold"
-        sx={{ 
-          mb: 3, 
-          color: '#143151',
-          fontSize: '1.1rem',
-          lineHeight: 1.3,
-          textAlign: 'center',
-          minHeight: '2.6rem',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        {feature.title}
-      </Typography>
-      
-      <Typography
-        variant="body2"
-        sx={{ 
-          color: '#555',
-          fontSize: '0.95rem',
-          lineHeight: 1.5,
-          mb: 4,
-          textAlign: 'center',
-          flex: '0 0 auto'
-        }}
-      >
-        {feature.description}
-      </Typography>
+      {/* Content */}
+      <div className="flex-1 flex flex-col text-center">
+        <Typography
+          variant="h5"
+          sx={{ 
+            fontWeight: 700,
+            color: '#143151',
+            fontSize: '1.4rem',
+            lineHeight: 1.2,
+            mb: 4,
+            minHeight: '3.4rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          {feature.title}
+        </Typography>
+        
+        <Typography
+          variant="body1"
+          sx={{ 
+            color: '#555',
+            fontSize: '1rem',
+            lineHeight: 1.6,
+            mb: 6,
+            flex: '0 0 auto'
+          }}
+        >
+          {feature.description}
+        </Typography>
 
-      <div className="space-y-2.5 mt-auto">
-        {feature.highlights.map((highlight, hIndex) => (
-          <div key={hIndex} className="flex items-start gap-2.5 text-left">
-            <div className="w-2 h-2 rounded-full bg-[#387E89] flex-shrink-0 mt-1.5" />
-            <Typography
-              variant="body2"
-              sx={{ 
-                color: '#666',
-                fontSize: '0.85rem',
-                lineHeight: 1.4,
-                fontWeight: 500
-              }}
-            >
-              {highlight}
-            </Typography>
-          </div>
-        ))}
+        {/* Highlights */}
+        <div className="space-y-3 mt-auto">
+          {feature.highlights.map((highlight, hIndex) => (
+            <div key={hIndex} className="flex items-center gap-3 justify-center">
+              <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0" />
+              <Typography
+                variant="body2"
+                sx={{ 
+                  color: '#666',
+                  fontSize: '0.9rem',
+                  lineHeight: 1.4,
+                  fontWeight: 600
+                }}
+              >
+                {highlight}
+              </Typography>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+
+    {/* Connecting Arrow - Only show between cards */}
+    {index < platformFeatures.length - 1 && (
+      <div className="absolute top-1/2 -right-6 transform -translate-y-1/2 z-10 hidden xl:block">
+        <div className="flex items-center">
+          <div className="w-8 h-0.5 bg-gradient-to-r from-[#387E89] to-[#143151] opacity-60"></div>
+          <div className="w-0 h-0 border-l-[6px] border-l-[#143151] border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent opacity-60"></div>
+        </div>
+      </div>
+    )}
   </motion.div>
 );
 
@@ -267,7 +268,7 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
         {/* Header - Improved mobile spacing */}
         <div className="text-center mb-16 lg:mb-20">
           <Typography
@@ -335,9 +336,9 @@ const ConnectedPlatformSection = () => {
             </div>
           </div>
         ) : (
-          <div className="relative max-w-6xl mx-auto">
-            {/* Grid with proper alignment */}
-            <div className="grid grid-cols-5 gap-8 items-start">
+          /* Desktop Layout - Completely Redesigned */
+          <div className="relative">
+            <div className="grid grid-cols-5 gap-12 items-stretch max-w-7xl mx-auto">
               {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
