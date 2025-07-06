@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import {
   Calendar, Clock, Stethoscope, Brain, TrendingUp, Zap
 } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
 const platformFeatures = [
   {
@@ -39,7 +41,75 @@ const platformFeatures = [
   }
 ];
 
+const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="flex flex-col items-center text-center relative group h-full"
+  >
+    {/* Icon Circle */}
+    <div className="relative z-10 mb-4">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+        <feature.icon className="w-6 h-6 text-white" />
+      </div>
+    </div>
+
+    {/* Content Card */}
+    <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col">
+      <Typography
+        variant="h6"
+        fontWeight="bold"
+        sx={{ 
+          mb: 2, 
+          color: '#143151',
+          fontSize: { xs: '0.95rem', sm: '1rem' },
+          lineHeight: 1.3
+        }}
+      >
+        {feature.title}
+      </Typography>
+      
+      <Typography
+        variant="body2"
+        sx={{ 
+          color: '#555',
+          fontSize: { xs: '0.8rem', sm: '0.85rem' },
+          lineHeight: 1.4,
+          mb: 2.5,
+          flex: 1
+        }}
+      >
+        {feature.description}
+      </Typography>
+
+      {/* Key Highlights */}
+      <div className="space-y-1 mt-auto">
+        {feature.highlights.map((highlight, hIndex) => (
+          <div key={hIndex} className="flex items-center gap-2 text-left">
+            <div className="w-1 h-1 rounded-full bg-[#387E89] flex-shrink-0" />
+            <Typography
+              variant="body2"
+              sx={{ 
+                color: '#666',
+                fontSize: '0.75rem',
+                lineHeight: 1.3,
+                fontWeight: 500
+              }}
+            >
+              {highlight}
+            </Typography>
+          </div>
+        ))}
+      </div>
+    </div>
+  </motion.div>
+);
+
 const ConnectedPlatformSection = () => {
+  const isMobile = useIsMobile();
+  const isTablet = typeof window !== 'undefined' && window.innerWidth <= 1024 && window.innerWidth > 768;
+
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/30">
       <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
@@ -79,104 +149,50 @@ const ConnectedPlatformSection = () => {
           </div>
         </div>
 
-        {/* Horizontal Stepper */}
-        <div className="relative">
-          {/* Dotted Connecting Line - All Views */}
-          <div 
-            className="absolute top-6 left-0 right-0 h-0.5"
-            style={{
-              backgroundImage: `linear-gradient(to right, #143151 0%, #387E89 50%, #143151 100%)`,
-              backgroundSize: '8px 2px',
-              backgroundRepeat: 'repeat-x',
-              maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 2px, black 2px, black 6px)',
-              WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 2px, black 2px, black 6px)'
-            }}
-          />
-          
-          {/* Steps Container */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-4 relative">
-            {platformFeatures.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col items-center text-center relative group"
-              >
-                {/* Icon Circle */}
-                <div className="relative z-10 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                </div>
-
-                {/* Content Card */}
-                <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1">
-                  <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    sx={{ 
-                      mb: 2, 
-                      color: '#143151',
-                      fontSize: { xs: '0.95rem', sm: '1rem' },
-                      lineHeight: 1.3
-                    }}
-                  >
-                    {feature.title}
-                  </Typography>
-                  
-                  <Typography
-                    variant="body2"
-                    sx={{ 
-                      color: '#555',
-                      fontSize: { xs: '0.8rem', sm: '0.85rem' },
-                      lineHeight: 1.4,
-                      mb: 2.5
-                    }}
-                  >
-                    {feature.description}
-                  </Typography>
-
-                  {/* Key Highlights */}
-                  <div className="space-y-1">
-                    {feature.highlights.map((highlight, hIndex) => (
-                      <div key={hIndex} className="flex items-center gap-2 text-left">
-                        <div className="w-1 h-1 rounded-full bg-[#387E89] flex-shrink-0" />
-                        <Typography
-                          variant="body2"
-                          sx={{ 
-                            color: '#666',
-                            fontSize: '0.75rem',
-                            lineHeight: 1.3,
-                            fontWeight: 500
-                          }}
-                        >
-                          {highlight}
-                        </Typography>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Mobile Dotted Connector */}
-                {index < platformFeatures.length - 1 && (
-                  <div className="w-full flex justify-center mt-4 lg:hidden">
-                    <div 
-                      className="w-px h-6"
-                      style={{
-                        backgroundImage: `linear-gradient(to bottom, #387E89, #143151)`,
-                        backgroundSize: '2px 4px',
-                        backgroundRepeat: 'repeat-y',
-                        maskImage: 'repeating-linear-gradient(to bottom, transparent 0, transparent 1px, black 1px, black 3px)',
-                        WebkitMaskImage: 'repeating-linear-gradient(to bottom, transparent 0, transparent 1px, black 1px, black 3px)'
-                      }}
-                    />
-                  </div>
-                )}
-              </motion.div>
-            ))}
+        {/* Responsive Layout */}
+        {(isMobile || isTablet) ? (
+          // Mobile/Tablet Carousel
+          <div className="w-full max-w-[1200px] mx-auto">
+            <ResponsiveCarousel
+              items={platformFeatures}
+              renderItem={(item, index) => (
+                <FeatureCard feature={item} index={index} />
+              )}
+              columnsDesktop={1}
+              columnsTablet={1}
+              columnsMobile={1}
+              gap={24}
+              itemHeight={{ xs: 340, sm: 360, md: 380 }}
+              showControls={true}
+              autoPlay={false}
+              controlsBelow={true}
+              className="py-4"
+              cardClassName="h-full"
+            />
           </div>
-        </div>
+        ) : (
+          // Desktop Stepper
+          <div className="relative">
+            {/* Lighter Dotted Connecting Line - Desktop Only */}
+            <div 
+              className="absolute top-6 left-0 right-0 h-0.5"
+              style={{
+                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.3) 0%, rgba(56, 126, 137, 0.3) 50%, rgba(20, 49, 81, 0.3) 100%)`,
+                backgroundSize: '8px 2px',
+                backgroundRepeat: 'repeat-x',
+                maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 2px, black 2px, black 6px)',
+                WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 2px, black 2px, black 6px)'
+              }}
+            />
+            
+            {/* Steps Container - Desktop */}
+            <div className="grid grid-cols-5 gap-4 relative">
+              {platformFeatures.map((feature, index) => (
+                <FeatureCard key={index} feature={feature} index={index} />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Enhanced Bottom Connection */}
         <div className="text-center mt-12">
@@ -191,7 +207,7 @@ const ConnectedPlatformSection = () => {
                   <div 
                     className="w-6 h-0.5 hidden sm:block"
                     style={{
-                      backgroundImage: `linear-gradient(to right, #143151, #387E89)`,
+                      backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.4), rgba(56, 126, 137, 0.4))`,
                       backgroundSize: '4px 2px',
                       backgroundRepeat: 'repeat-x',
                       maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 3px)',
