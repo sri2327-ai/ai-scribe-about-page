@@ -1,4 +1,5 @@
 
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -100,42 +101,42 @@ const combinedTestimonial = {
 };
 
 const PainPointCard = ({ icon: Icon, problem, detail, color }) => (
-  <Card className="p-2.5 bg-red-50/50 border-red-100 hover:shadow-md transition-all duration-300 h-full">
-    <div className="flex items-start gap-2.5">
-      <div className="p-1 rounded-full bg-red-100 flex-shrink-0">
-        <Icon className={`w-3.5 h-3.5 ${color}`} />
+  <Card className="p-3 sm:p-4 bg-red-50/50 border-red-100 hover:shadow-lg transition-all duration-300 h-full hover:scale-105">
+    <div className="flex items-start gap-3">
+      <div className="p-2 rounded-full bg-red-100 flex-shrink-0">
+        <Icon className={`w-4 h-4 ${color}`} />
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-0.5 text-xs sm:text-sm leading-tight">{problem}</h4>
-        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
+        <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight">{problem}</h4>
+        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{detail}</p>
       </div>
-      <X className="w-3.5 h-3.5 text-red-500 flex-shrink-0" />
+      <X className="w-4 h-4 text-red-500 flex-shrink-0" />
     </div>
   </Card>
 );
 
 const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
-  <Card className="p-2.5 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-md transition-all duration-300 h-full">
-    <div className="flex items-start gap-2.5">
-      <div className="p-1 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
-        <Icon className="w-3.5 h-3.5 text-white" />
+  <Card className="p-3 sm:p-4 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-lg transition-all duration-300 h-full hover:scale-105">
+    <div className="flex items-start gap-3">
+      <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
+        <Icon className="w-4 h-4 text-white" />
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-0.5 text-xs sm:text-sm leading-tight">{solution}</h4>
-        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
+        <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight">{solution}</h4>
+        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{detail}</p>
       </div>
-      <Check className="w-3.5 h-3.5 text-[#387E89] flex-shrink-0" />
+      <Check className="w-4 h-4 text-[#387E89] flex-shrink-0" />
     </div>
   </Card>
 );
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="text-center p-4 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 w-[160px] h-[120px] flex flex-col justify-center">
-    <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-2">
-      <Icon className="w-4 h-4 text-white" />
+  <div className="text-center p-4 sm:p-6 rounded-xl bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 w-full sm:w-[180px] lg:w-[200px] h-[140px] sm:h-[160px] flex flex-col justify-center shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105">
+    <div className="p-2 sm:p-3 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-3">
+      <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
     </div>
-    <div className="text-base sm:text-lg font-bold text-[#143151] mb-1 leading-tight">{value}</div>
-    <div className="text-xs sm:text-sm text-gray-600 leading-tight">{label}</div>
+    <div className="text-lg sm:text-xl lg:text-2xl font-bold text-[#143151] mb-2 leading-tight">{value}</div>
+    <div className="text-xs sm:text-sm lg:text-base text-gray-600 leading-tight px-1">{label}</div>
   </div>
 );
 
@@ -161,7 +162,7 @@ const FifthSection = () => {
   return (
     <section 
       ref={containerRef} 
-      className="py-8 px-4 md:px-8 bg-white overflow-hidden min-h-screen flex flex-col justify-center"
+      className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
       aria-labelledby="practice-transformation-heading"
     >
       {/* SEO-friendly content for search engines */}
@@ -175,16 +176,18 @@ const FifthSection = () => {
       </div>
 
       <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
-        {/* Hero Section - Compact */}
-        <div className="text-center mb-8">
+        {/* Hero Section */}
+        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <Typography
             variant="h3"
             fontWeight="bold"
             sx={{ 
-              mb: 2, 
+              mb: 3, 
               color: '#143151', 
-              fontSize: { xs: '1.25rem', sm: '1.75rem', md: '2rem' },
-              lineHeight: 1.2
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
+              lineHeight: 1.2,
+              maxWidth: '900px',
+              mx: 'auto'
             }}
           >
             Buried in documentation, no-shows, and clunky software that doesn't talk to each other?
@@ -193,32 +196,33 @@ const FifthSection = () => {
             variant="h5"
             sx={{ 
               color: '#387E89', 
-              fontSize: { xs: '0.875rem', sm: '1rem' },
+              fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
               fontWeight: 500,
-              maxWidth: '700px',
-              mx: 'auto'
+              maxWidth: '800px',
+              mx: 'auto',
+              lineHeight: 1.4
             }}
           >
             S10.AI connects everything—from charting to claims to patient engagement—with real-time, ambient AI that actually works.
           </Typography>
         </div>
 
-        {/* Before & After Side by Side Section - Compact */}
-        <div className={`grid ${isMobile ? 'grid-cols-1 gap-6' : 'grid-cols-2 gap-8'} mb-8`}>
+        {/* Before & After Section - Responsive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16">
           {/* Before Section */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-2.5 py-1 rounded-full text-xs font-medium mb-2">
-                <AlertCircle className="w-3 h-3" />
+              <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-3 py-1.5 rounded-full text-sm font-medium mb-4">
+                <AlertCircle className="w-4 h-4" />
                 Before S10.AI
               </div>
               <Typography
                 variant="h4"
                 fontWeight="bold"
                 sx={{ 
-                  mb: 1.5, 
+                  mb: 2, 
                   color: '#143151', 
-                  fontSize: { xs: '1rem', sm: '1.25rem' }
+                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
                 }}
               >
                 Burnout, Bottlenecks & Lost Revenue
@@ -227,21 +231,21 @@ const FifthSection = () => {
                 variant="body2"
                 sx={{ 
                   color: 'gray', 
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                  mb: 3
+                  fontSize: { xs: '0.875rem', sm: '1rem' },
+                  mb: 4
                 }}
               >
                 Disconnected tools and manual workflows slow you down:
               </Typography>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3 sm:space-y-4">
               {painPoints.map((point, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
                   <PainPointCard {...point} />
@@ -251,19 +255,19 @@ const FifthSection = () => {
           </div>
 
           {/* After Section */}
-          <div className="space-y-4">
+          <div className="space-y-6">
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-2.5 py-1 rounded-full text-xs font-medium mb-2">
-                <Zap className="w-3 h-3" />
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-1.5 rounded-full text-sm font-medium mb-4">
+                <Zap className="w-4 h-4" />
                 After BRAVO & CRUSH
               </div>
               <Typography
                 variant="h4"
                 fontWeight="bold"
                 sx={{ 
-                  mb: 1.5, 
+                  mb: 2, 
                   color: '#143151', 
-                  fontSize: { xs: '1rem', sm: '1.25rem' }
+                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
                 }}
               >
                 AI That Works the Way You Do
@@ -272,21 +276,21 @@ const FifthSection = () => {
                 variant="body2"
                 sx={{ 
                   color: 'gray', 
-                  fontSize: { xs: '0.75rem', sm: '0.875rem' },
-                  mb: 3
+                  fontSize: { xs: '0.875rem', sm: '1rem' },
+                  mb: 4
                 }}
               >
                 S10.AI's ambient AI platform automates the work behind the scenes:
               </Typography>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3 sm:space-y-4">
               {solutions.map((solution, index) => (
                 <motion.div 
                   key={index}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  transition={{ delay: index * 0.1 }}
                   viewport={{ once: true }}
                 >
                   <SolutionCard {...solution} />
@@ -296,16 +300,16 @@ const FifthSection = () => {
           </div>
         </div>
 
-        {/* ROI Section - Compact Single Row */}
-        <div className="mb-6">
+        {/* ROI Section - Responsive Grid */}
+        <div className="mb-12 lg:mb-16">
           <Typography
             variant="h4"
             fontWeight="bold"
             textAlign="center"
             sx={{ 
-              mb: 1.5, 
+              mb: 2, 
               color: '#143151', 
-              fontSize: { xs: '1rem', sm: '1.25rem' }
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
             }}
           >
             What That Means for Your Practice
@@ -314,23 +318,24 @@ const FifthSection = () => {
             variant="h6"
             textAlign="center"
             sx={{ 
-              mb: 4, 
+              mb: 8, 
               color: '#387E89', 
-              fontSize: { xs: '0.75rem', sm: '0.875rem' },
+              fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
               fontWeight: 500
             }}
           >
             The ROI of Automation with S10.AI:
           </Typography>
           
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 justify-items-center">
             {ROIMetrics.map((metric, index) => (
               <motion.div 
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
+                className="w-full max-w-[200px]"
               >
                 <ROIMetricCard {...metric} />
               </motion.div>
@@ -338,17 +343,21 @@ const FifthSection = () => {
           </div>
         </div>
 
-        {/* Testimonial - Compact */}
-        <Box sx={{ mb: 6 }}>
+        {/* Testimonial */}
+        <Box sx={{ mb: 8 }}>
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
 
-        {/* CTA - Compact */}
+        {/* CTA */}
         <div className="text-center">
-          <button className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white px-6 py-3 rounded-full text-sm sm:text-base font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+          <motion.button 
+            className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base lg:text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             Transform Your Practice Today
-            <ArrowRight className="inline-block ml-2 w-4 h-4" />
-          </button>
+            <ArrowRight className="inline-block ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+          </motion.button>
         </div>
       </Box>
     </section>
@@ -356,3 +365,4 @@ const FifthSection = () => {
 };
 
 export default FifthSection;
+
