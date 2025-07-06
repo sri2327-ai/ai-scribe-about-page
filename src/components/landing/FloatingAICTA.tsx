@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -28,7 +29,7 @@ const FloatingAICTA = () => {
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
-      url: `https://gemini.google.com/app?q=${encodeURIComponent(`Please read the page from S10.AI at the following link: ${currentUrl}. Summarize the content clearly and concisely, highlighting key features, benefits, and any unique value S10.AI offers on that page. Make sure to include relevant details so I can ask informed questions based on the specific content the customer has shared.`)}`,
+      url: `https://gemini.google.com/app?text=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Gemini on S10.AI'
     },
@@ -121,15 +122,20 @@ const FloatingAICTA = () => {
           {assistant.icon}
           
           <div
-            className="absolute left-12 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-2 rounded-md text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50"
+            className="absolute left-14 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none z-[1001] min-w-max"
             style={{
-              boxShadow: '0 4px 12px rgba(20, 49, 81, 0.3)'
+              boxShadow: '0 4px 12px rgba(20, 49, 81, 0.3)',
+              maxWidth: '200px'
             }}
           >
             {assistant.tooltip}
             <div
-              className="absolute right-full top-1/2 transform -translate-y-1/2 border-4 border-transparent border-r-[#143151]"
-              style={{ borderRightColor: '#143151' }}
+              className="absolute right-full top-1/2 transform -translate-y-1/2 w-0 h-0"
+              style={{
+                borderTop: '5px solid transparent',
+                borderBottom: '5px solid transparent',
+                borderRight: '5px solid #143151'
+              }}
             />
           </div>
         </div>
