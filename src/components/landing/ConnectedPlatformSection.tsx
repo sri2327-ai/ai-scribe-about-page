@@ -48,10 +48,10 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
     transition={{ duration: 0.5, delay: index * 0.1 }}
     className="flex flex-col items-center text-center relative group h-full"
   >
-    {/* Icon Circle with connecting line for carousel */}
+    {/* Icon Circle with connecting line */}
     <div className="relative z-10 mb-2 sm:mb-3 overflow-visible w-full">
-      {/* Dotted Line for Mobile/Tablet Carousel */}
-      <div className="absolute top-6 left-0 right-0 h-0.5 md:hidden"
+      {/* Dotted Line - Always visible for stepper effect */}
+      <div className="absolute top-6 left-0 right-0 h-0.5"
         style={{
           backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08) 0%, rgba(56, 126, 137, 0.08) 50%, rgba(20, 49, 81, 0.08) 100%)`,
           backgroundSize: '6px 1px',
@@ -67,7 +67,7 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
       </div>
     </div>
 
-    {/* Content Card - Same as desktop styling */}
+    {/* Content Card - Same styling for all views */}
     <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col">
       <Typography
         variant="h6"
@@ -163,7 +163,7 @@ const ConnectedPlatformSection = () => {
 
         {/* Responsive Layout */}
         {(isMobile || isTablet) ? (
-          // Mobile/Tablet Carousel with Desktop Design
+          // Mobile/Tablet Carousel with Desktop Stepper Design
           <div className="w-full max-w-[900px] mx-auto">
             <ResponsiveCarousel
               items={platformFeatures}
@@ -174,7 +174,7 @@ const ConnectedPlatformSection = () => {
               columnsTablet={1}
               columnsMobile={1}
               gap={16}
-              itemHeight={{ xs: 300, sm: 320, md: 340 }}
+              itemHeight={{ xs: 320, sm: 340, md: 360 }}
               showControls={true}
               autoPlay={false}
               controlsBelow={true}
