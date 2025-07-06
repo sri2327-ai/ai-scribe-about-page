@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -130,12 +129,12 @@ const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
 );
 
 const ROIMetricCard = ({ icon: Icon, value, label }) => (
-  <div className="text-center p-2 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 flex-1 min-w-0">
-    <div className="p-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-1.5">
-      <Icon className="w-3 h-3 text-white" />
+  <div className="text-center p-3 rounded-lg bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border border-[#387E89]/10 flex-1 min-w-[140px] max-w-[180px]">
+    <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] w-fit mx-auto mb-2">
+      <Icon className="w-4 h-4 text-white" />
     </div>
-    <div className="text-sm sm:text-base font-bold text-[#143151] mb-0.5 leading-tight">{value}</div>
-    <div className="text-xs text-gray-600 leading-tight">{label}</div>
+    <div className="text-base sm:text-lg font-bold text-[#143151] mb-1 leading-tight">{value}</div>
+    <div className="text-xs sm:text-sm text-gray-600 leading-tight">{label}</div>
   </div>
 );
 
@@ -323,7 +322,7 @@ const FifthSection = () => {
             The ROI of Automation with S10.AI:
           </Typography>
           
-          <div className="flex flex-wrap gap-2 justify-center">
+          <div className="flex flex-wrap gap-3 justify-center">
             {ROIMetrics.map((metric, index) => (
               <motion.div 
                 key={index}
@@ -331,7 +330,6 @@ const FifthSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="flex-1 min-w-[90px] max-w-[160px]"
               >
                 <ROIMetricCard {...metric} />
               </motion.div>
