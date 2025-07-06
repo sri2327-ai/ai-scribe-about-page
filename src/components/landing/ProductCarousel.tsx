@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield, CheckCircle, Cog, Zap } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import CrushIllustration from './illustrations/CrushIllustration';
 import BravoIllustration from './illustrations/BravoIllustration';
+import CustomAIIllustration from './illustrations/CustomAIIllustration';
 import { motion } from "framer-motion";
 import { cn } from '@/lib/utils';
 
@@ -57,28 +57,6 @@ const FeatureBullet = ({ text }: { text: string }) => (
   <div className="flex items-start gap-2 mb-1">
     <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
     <span className="text-xs text-gray-600">{text}</span>
-  </div>
-);
-
-// Custom AI Agents illustration placeholder
-const CustomAIIllustration = () => (
-  <div className="w-full h-full flex items-center justify-center">
-    <div className="relative">
-      <motion.div
-        className="w-20 h-20 rounded-full bg-gradient-to-br from-purple-500 to-blue-600 flex items-center justify-center"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-      >
-        <Cog className="w-10 h-10 text-white" />
-      </motion.div>
-      <motion.div
-        className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-yellow-400 flex items-center justify-center"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        <Zap className="w-3 h-3 text-white" />
-      </motion.div>
-    </div>
   </div>
 );
 
