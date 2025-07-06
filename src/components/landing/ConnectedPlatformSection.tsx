@@ -183,28 +183,28 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="relative group"
+    className="relative group flex-1"
   >
     {/* Card Container */}
-    <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100/60 hover:shadow-2xl hover:border-[#387E89]/30 transition-all duration-500 group-hover:transform group-hover:-translate-y-2 h-full min-h-[320px] flex flex-col">
+    <div className="bg-white rounded-2xl p-5 shadow-lg border border-gray-100/60 hover:shadow-2xl hover:border-[#387E89]/30 transition-all duration-500 group-hover:transform group-hover:-translate-y-2 h-full min-h-[280px] flex flex-col">
       
       {/* Icon Section */}
-      <div className="flex justify-center mb-5">
-        <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
-          <feature.icon className="w-7 h-7 text-white" strokeWidth={1.8} />
+      <div className="flex justify-center mb-4">
+        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
+          <feature.icon className="w-6 h-6 text-white" strokeWidth={1.8} />
         </div>
       </div>
 
       {/* Content */}
       <div className="flex-1 flex flex-col text-center">
         <Typography
-          variant="h5"
+          variant="h6"
           sx={{ 
             fontWeight: 700,
             color: '#143151',
-            fontSize: '1.25rem',
+            fontSize: '1rem',
             lineHeight: 1.3,
-            mb: 3,
+            mb: 2,
             minHeight: '2.6rem',
             display: 'flex',
             alignItems: 'center',
@@ -215,12 +215,12 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
         </Typography>
         
         <Typography
-          variant="body1"
+          variant="body2"
           sx={{ 
             color: '#555',
-            fontSize: '0.95rem',
-            lineHeight: 1.5,
-            mb: 4,
+            fontSize: '0.8rem',
+            lineHeight: 1.4,
+            mb: 3,
             flex: '0 0 auto'
           }}
         >
@@ -228,16 +228,16 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
         </Typography>
 
         {/* Highlights */}
-        <div className="space-y-2.5 mt-auto">
+        <div className="space-y-1.5 mt-auto">
           {feature.highlights.map((highlight, hIndex) => (
-            <div key={hIndex} className="flex items-start gap-3 text-left">
-              <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0 mt-1.5" />
+            <div key={hIndex} className="flex items-start gap-2 text-left">
+              <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0 mt-1.5" />
               <Typography
                 variant="body2"
                 sx={{ 
                   color: '#666',
-                  fontSize: '0.85rem',
-                  lineHeight: 1.4,
+                  fontSize: '0.75rem',
+                  lineHeight: 1.3,
                   fontWeight: 500
                 }}
               >
@@ -251,10 +251,10 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
 
     {/* Connecting Arrow - Only show between cards */}
     {index < platformFeatures.length - 1 && (
-      <div className="absolute top-1/2 -right-4 transform -translate-y-1/2 z-10 hidden xl:block">
+      <div className="absolute top-1/2 -right-3 transform -translate-y-1/2 z-10">
         <div className="flex items-center">
-          <div className="w-6 h-0.5 bg-gradient-to-r from-[#387E89] to-[#143151] opacity-50"></div>
-          <div className="w-0 h-0 border-l-[5px] border-l-[#143151] border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent opacity-50"></div>
+          <div className="w-4 h-0.5 bg-gradient-to-r from-[#387E89] to-[#143151] opacity-40"></div>
+          <div className="w-0 h-0 border-l-[4px] border-l-[#143151] border-t-[2px] border-t-transparent border-b-[2px] border-b-transparent opacity-40"></div>
         </div>
       </div>
     )}
@@ -335,18 +335,11 @@ const ConnectedPlatformSection = () => {
             </div>
           </div>
         ) : (
-          /* Desktop Layout - Wider Cards */
+          /* Desktop Layout - Single Horizontal Row */
           <div className="relative">
-            <div className="grid grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-              {platformFeatures.slice(0, 3).map((feature, index) => (
+            <div className="flex gap-6 items-stretch justify-center max-w-7xl mx-auto">
+              {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
-              ))}
-            </div>
-            
-            {/* Second Row */}
-            <div className="grid grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto mt-8">
-              {platformFeatures.slice(3, 5).map((feature, index) => (
-                <DesktopFeatureCard key={index + 3} feature={feature} index={index + 3} />
               ))}
             </div>
           </div>
