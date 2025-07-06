@@ -321,7 +321,7 @@ const ConnectedPlatformSection = () => {
             </div>
           </div>
         ) : (
-          <div className="relative overflow-visible max-w-4xl mx-auto px-6">
+          <div className="relative overflow-visible max-w-5xl mx-auto px-8">
             {/* Desktop connecting line */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
@@ -332,7 +332,7 @@ const ConnectedPlatformSection = () => {
               }}
             />
             
-            <div className="grid grid-cols-5 gap-6 relative overflow-visible">
+            <div className="grid grid-cols-5 gap-8 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
