@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -336,12 +335,11 @@ const FifthSection = () => {
                 className="relative w-full"
               >
                 <div 
-                  className="w-full overflow-x-auto" 
+                  className="w-full overflow-x-auto roi-scroll-container" 
                   ref={roiScrollRef}
                   style={{
                     scrollbarWidth: 'none',
-                    msOverflowStyle: 'none',
-                    WebkitScrollbar: { display: 'none' }
+                    msOverflowStyle: 'none'
                   }}
                 >
                   <style>
@@ -351,7 +349,7 @@ const FifthSection = () => {
                       }
                     `}
                   </style>
-                  <div className="flex gap-4 pb-4 px-2 roi-scroll-container" style={{ width: 'max-content' }}>
+                  <div className="flex gap-4 pb-4 px-2" style={{ width: 'max-content' }}>
                     {ROIMetrics.map((metric, index) => (
                       <ROIMetricCard key={index} {...metric} />
                     ))}
