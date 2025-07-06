@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -181,7 +182,7 @@ const ConnectedPlatformSection = () => {
             cardClassName="h-full"
           />
         ) : (
-          <div className="relative overflow-visible max-w-[1100px] mx-auto px-4">
+          <div className="relative overflow-visible max-w-[1200px] mx-auto px-6">
             {/* Dotted Connecting Line - Desktop Only */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
@@ -195,7 +196,7 @@ const ConnectedPlatformSection = () => {
             />
             
             {/* Steps Container - Desktop - Better spacing */}
-            <div className="grid grid-cols-5 gap-6 relative overflow-visible">
+            <div className="grid grid-cols-5 gap-8 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <FeatureCard key={index} feature={feature} index={index} />
               ))}
