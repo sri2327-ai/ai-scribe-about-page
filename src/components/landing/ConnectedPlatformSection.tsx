@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -5,7 +6,6 @@ import {
   Calendar, Clock, Stethoscope, Brain, TrendingUp, Zap
 } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
 const platformFeatures = [
   {
@@ -40,7 +40,146 @@ const platformFeatures = [
   }
 ];
 
-const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], index: number }) => (
+const MobileFeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100/80 hover:shadow-lg hover:border-[#387E89]/20 transition-all duration-300"
+  >
+    {/* Icon Header */}
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md">
+        <feature.icon className="w-5 h-5 text-white" strokeWidth={2} />
+      </div>
+      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] opacity-60" />
+    </div>
+
+    {/* Content */}
+    <div className="space-y-3">
+      <Typography
+        variant="h6"
+        sx={{ 
+          fontWeight: 700,
+          color: '#143151',
+          fontSize: '1.1rem',
+          lineHeight: 1.3,
+          mb: 2
+        }}
+      >
+        {feature.title}
+      </Typography>
+      
+      <Typography
+        variant="body2"
+        sx={{ 
+          color: '#555',
+          fontSize: '0.9rem',
+          lineHeight: 1.5,
+          mb: 3
+        }}
+      >
+        {feature.description}
+      </Typography>
+
+      {/* Highlights with better mobile spacing */}
+      <div className="space-y-2">
+        {feature.highlights.map((highlight, hIndex) => (
+          <div key={hIndex} className="flex items-start gap-2.5">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] flex-shrink-0 mt-2" />
+            <Typography
+              variant="body2"
+              sx={{ 
+                color: '#666',
+                fontSize: '0.8rem',
+                lineHeight: 1.4,
+                fontWeight: 500
+              }}
+            >
+              {highlight}
+            </Typography>
+          </div>
+        ))}
+      </div>
+    </div>
+  </motion.div>
+);
+
+const TabletFeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    className="bg-white rounded-xl p-4 shadow-sm border border-gray-100/80 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full flex flex-col"
+  >
+    {/* Icon and connecting line */}
+    <div className="relative mb-3">
+      <div className="flex justify-center">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg">
+          <feature.icon className="w-6 h-6 text-white" strokeWidth={1.5} />
+        </div>
+      </div>
+      {index < platformFeatures.length - 1 && (
+        <div 
+          className="absolute top-6 left-1/2 w-8 h-0.5 transform translate-x-4"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(56, 126, 137, 0.3), rgba(20, 49, 81, 0.3))`,
+            backgroundSize: '4px 1px',
+            backgroundRepeat: 'repeat-x'
+          }}
+        />
+      )}
+    </div>
+
+    <div className="flex-1 space-y-3 text-center">
+      <Typography
+        variant="h6"
+        sx={{ 
+          fontWeight: 700,
+          color: '#143151',
+          fontSize: '0.95rem',
+          lineHeight: 1.3,
+          mb: 2
+        }}
+      >
+        {feature.title}
+      </Typography>
+      
+      <Typography
+        variant="body2"
+        sx={{ 
+          color: '#555',
+          fontSize: '0.8rem',
+          lineHeight: 1.4,
+          mb: 3
+        }}
+      >
+        {feature.description}
+      </Typography>
+
+      <div className="space-y-1.5">
+        {feature.highlights.map((highlight, hIndex) => (
+          <div key={hIndex} className="flex items-start gap-2 text-left">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] flex-shrink-0 mt-1.5" />
+            <Typography
+              variant="body2"
+              sx={{ 
+                color: '#666',
+                fontSize: '0.75rem',
+                lineHeight: 1.3,
+                fontWeight: 500
+              }}
+            >
+              {highlight}
+            </Typography>
+          </div>
+        ))}
+      </div>
+    </div>
+  </motion.div>
+);
+
+const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -48,33 +187,23 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
     className="flex flex-col items-center text-center relative group h-full"
   >
     {/* Icon Circle with connecting line */}
-    <div className="relative z-10 mb-2 sm:mb-3 overflow-visible w-full">
-      {/* Dotted Line - Always visible for stepper effect */}
-      <div className="absolute top-6 left-0 right-0 h-0.5"
-        style={{
-          backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08) 0%, rgba(56, 126, 137, 0.08) 50%, rgba(20, 49, 81, 0.08) 100%)`,
-          backgroundSize: '6px 1px',
-          backgroundRepeat: 'repeat-x',
-          maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)',
-          WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)'
-        }}
-      />
+    <div className="relative z-10 mb-3 overflow-visible w-full">
       <div className="flex justify-center">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 overflow-visible">
+        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105">
           <feature.icon className="w-6 h-6 text-white" />
         </div>
       </div>
     </div>
 
-    {/* Content Card - Reduced dimensions and improved alignment */}
-    <div className="bg-white rounded-xl p-3 sm:p-4 md:p-5 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col max-w-xs mx-auto">
+    {/* Content Card */}
+    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col max-w-xs mx-auto">
       <Typography
         variant="h6"
         fontWeight="bold"
         sx={{ 
-          mb: { xs: 1.5, sm: 2 }, 
+          mb: 2, 
           color: '#143151',
-          fontSize: { xs: '0.9rem', sm: '0.95rem', md: '1rem' },
+          fontSize: '1rem',
           lineHeight: 1.3,
           textAlign: 'center'
         }}
@@ -86,9 +215,9 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
         variant="body2"
         sx={{ 
           color: '#555',
-          fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
+          fontSize: '0.85rem',
           lineHeight: 1.4,
-          mb: { xs: 2, sm: 2.5 },
+          mb: 2.5,
           flex: 1,
           textAlign: 'center'
         }}
@@ -96,7 +225,6 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
         {feature.description}
       </Typography>
 
-      {/* Key Highlights - Better aligned */}
       <div className="space-y-1 mt-auto">
         {feature.highlights.map((highlight, hIndex) => (
           <div key={hIndex} className="flex items-start gap-2 text-left">
@@ -105,7 +233,7 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                fontSize: '0.75rem',
                 lineHeight: 1.3,
                 fontWeight: 500
               }}
@@ -124,20 +252,21 @@ const ConnectedPlatformSection = () => {
   const isTablet = typeof window !== 'undefined' && window.innerWidth <= 1024 && window.innerWidth > 768;
 
   return (
-    <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/30">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
       <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
-        {/* Header */}
-        <div className="text-center mb-8 lg:mb-12">
+        {/* Header - Improved mobile spacing */}
+        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
           <Typography
             variant="h2"
             fontWeight="bold"
             sx={{ 
-              mb: 2, 
+              mb: { xs: 3, sm: 4 }, 
               color: '#143151', 
-              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
+              fontSize: { xs: '1.9rem', sm: '2.25rem', md: '2.75rem', lg: '3rem' },
               lineHeight: 1.1,
-              maxWidth: '800px',
-              mx: 'auto'
+              maxWidth: '900px',
+              mx: 'auto',
+              px: { xs: 2, sm: 0 }
             }}
           >
             Everything You Need, Finally Connected
@@ -146,81 +275,87 @@ const ConnectedPlatformSection = () => {
             variant="h6"
             sx={{ 
               color: '#666', 
-              fontSize: { xs: '0.95rem', sm: '1rem', md: '1.125rem' },
+              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
               fontWeight: 400,
-              maxWidth: '700px',
+              maxWidth: '750px',
               mx: 'auto',
-              lineHeight: 1.4,
-              mb: 2
+              lineHeight: 1.5,
+              mb: { xs: 3, sm: 4 },
+              px: { xs: 2, sm: 1 }
             }}
           >
             Most platforms stop at SOAP notes. We go further. Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
           </Typography>
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-1.5 rounded-full text-sm font-medium shadow-lg">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
             <Zap className="w-4 h-4" />
             by Ambient AI
           </div>
         </div>
 
-        {/* Responsive Layout */}
-        {(isMobile || isTablet) ? (
-          <ResponsiveCarousel
-            items={platformFeatures}
-            renderItem={(item, index) => (
-              <FeatureCard feature={item} index={index} />
-            )}
-            columnsDesktop={1}
-            columnsTablet={1}
-            columnsMobile={1}
-            gap={16}
-            itemHeight={{ xs: 280, sm: 300, md: 320 }}
-            showControls={true}
-            autoPlay={false}
-            controlsBelow={true}
-            className="py-2"
-            cardClassName="h-full"
-          />
+        {/* Feature Cards - Responsive Layout */}
+        {isMobile ? (
+          <div className="space-y-6">
+            {platformFeatures.map((feature, index) => (
+              <MobileFeatureCard key={index} feature={feature} index={index} />
+            ))}
+          </div>
+        ) : isTablet ? (
+          <div className="grid grid-cols-2 gap-6 relative">
+            {/* Connecting line for tablet */}
+            <div 
+              className="absolute top-6 left-0 right-0 h-0.5 z-0"
+              style={{
+                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.1), rgba(56, 126, 137, 0.1))`,
+                backgroundSize: '6px 1px',
+                backgroundRepeat: 'repeat-x'
+              }}
+            />
+            {platformFeatures.slice(0, 4).map((feature, index) => (
+              <TabletFeatureCard key={index} feature={feature} index={index} />
+            ))}
+            {/* Fifth item spans full width */}
+            <div className="col-span-2 flex justify-center">
+              <div className="w-full max-w-md">
+                <TabletFeatureCard feature={platformFeatures[4]} index={4} />
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="relative overflow-visible max-w-[1200px] mx-auto px-6">
-            {/* Dotted Connecting Line - Desktop Only */}
+            {/* Desktop connecting line */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
               style={{
-                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08) 0%, rgba(56, 126, 137, 0.08) 50%, rgba(20, 49, 81, 0.08) 100%)`,
+                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.08), rgba(56, 126, 137, 0.08))`,
                 backgroundSize: '6px 1px',
-                backgroundRepeat: 'repeat-x',
-                maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)',
-                WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 4px)'
+                backgroundRepeat: 'repeat-x'
               }}
             />
             
-            {/* Steps Container - Desktop - Better spacing */}
             <div className="grid grid-cols-5 gap-8 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
-                <FeatureCard key={index} feature={feature} index={index} />
+                <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
             </div>
           </div>
         )}
 
-        {/* Bottom Connection */}
-        <div className="text-center mt-8">
-          <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-lg border border-gray-100 flex-wrap justify-center hover:shadow-xl transition-all duration-300">
+        {/* Bottom Connection - Improved mobile layout */}
+        <div className="text-center mt-10 sm:mt-12">
+          <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 sm:px-6 py-3 shadow-lg border border-gray-100 flex-wrap justify-center hover:shadow-xl transition-all duration-300 max-w-full">
             {['Scheduling', 'Documentation', 'Billing', 'Patient Care'].map((item, index, arr) => (
               <React.Fragment key={item}>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 whitespace-nowrap">
                   <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89]" />
-                  <span className="text-xs font-semibold text-gray-700">{item}</span>
+                  <span className="text-xs sm:text-sm font-semibold text-gray-700">{item}</span>
                 </div>
                 {index < arr.length - 1 && (
                   <div 
-                    className="w-4 h-0.5 hidden sm:block"
+                    className="w-3 sm:w-4 h-0.5 hidden sm:block"
                     style={{
                       backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.3), rgba(56, 126, 137, 0.3))`,
                       backgroundSize: '3px 1px',
-                      backgroundRepeat: 'repeat-x',
-                      maskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 2px)',
-                      WebkitMaskImage: 'repeating-linear-gradient(to right, transparent 0, transparent 1px, black 1px, black 2px)'
+                      backgroundRepeat: 'repeat-x'
                     }}
                   />
                 )}
