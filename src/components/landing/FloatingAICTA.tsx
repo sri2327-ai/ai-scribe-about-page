@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -28,14 +29,14 @@ const FloatingAICTA = () => {
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
-      url: `https://gemini.google.com/app?text=${prompt}`,
+      url: `https://gemini.google.com/?hl=en&text=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Gemini on S10.AI'
     },
     {
       name: 'Grok',
       icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-cover rounded-full" />,
-      url: `https://grok.com/?q=${prompt}`,
+      url: `https://x.com/i/grok?text=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Grok on S10.AI'
     }
@@ -276,9 +277,9 @@ const FloatingAICTA = () => {
               }}
             >
               {assistant.icon}
-              <div className="tooltip">
+              <span className="tooltip">
                 {assistant.tooltip}
-              </div>
+              </span>
             </div>
           ))}
         </div>
