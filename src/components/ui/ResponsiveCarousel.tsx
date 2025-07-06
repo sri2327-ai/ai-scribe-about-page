@@ -67,16 +67,16 @@ export function ResponsiveCarousel<T>({
       if (isMobile && value.xs !== undefined) return value.xs;
       if (isTablet && value.sm !== undefined) return value.sm;
       if (!isMobile && !isTablet && value.md !== undefined) return value.md;
-      if (!isMobile && !isTablet && !isTablet && value.lg !== undefined) return value.lg;
+      if (!isMobile && !isTablet && value.lg !== undefined) return value.lg;
       return value.xs || defaultVal;
     }
     return value;
   };
 
-  let minCardWidth = getResponsiveValue(itemWidth, isMobile ? 280 : isTablet ? 285 : 310);
-  let maxCardWidth = getResponsiveValue(itemWidth, isMobile ? 280 : isTablet ? 285 : 310);
-  let cardHeight = getResponsiveValue(itemHeight, isMobile ? 155 : isTablet ? 170 : 180);
-  let gapValue = getResponsiveValue(gap, 24);
+  let minCardWidth = getResponsiveValue(itemWidth, isMobile ? 280 : isTablet ? 300 : 320);
+  let maxCardWidth = getResponsiveValue(itemWidth, isMobile ? 320 : isTablet ? 340 : 360);
+  let cardHeight = getResponsiveValue(itemHeight, isMobile ? 340 : isTablet ? 360 : 380);
+  let gapValue = getResponsiveValue(gap, isMobile ? 16 : 24);
 
   const autoplayPlugin = React.useMemo(
     () =>
@@ -91,48 +91,38 @@ export function ResponsiveCarousel<T>({
   );
 
   return (
-    <div className={`w-full flex flex-col ${className || ""}`}>
+    <div className={cn("w-full flex flex-col", className)}>
       <Carousel 
         className="w-full relative"
         opts={{
           align: "start",
           loop: true,
+          dragFree: true,
+          containScroll: "trimSnaps",
         }}
         plugins={autoplayPlugin ? [autoplayPlugin] : undefined}
       >
-        <CarouselContent>
+        <CarouselContent className={cn("-ml-2 md:-ml-4")}>
           {items.map((item, idx) => (
             <CarouselItem
               key={itemKey ? itemKey(item, idx) : idx}
-              className={`
-                px-2 flex
-                ${isMobile ? "" : ""}
-                ${isTablet && !isMobile ? "" : ""}
-                ${!isMobile && !isTablet ? "" : ""}
-              `}
-              style={{
-                minWidth: minCardWidth,
-                maxWidth: maxCardWidth,
-                height: cardHeight,
-                marginRight: gapValue,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "stretch",
-              }}
+              className={cn(
+                "pl-2 md:pl-4 basis-full",
+                isMobile ? "basis-[85%]" : "",
+                isTablet && !isMobile ? "basis-1/2" : "",
+                !isMobile && !isTablet ? `basis-1/${columns}` : ""
+              )}
             >
               <div
                 className={cn(
-                  cardClassName ?? "", 
+                  "h-full w-full",
+                  cardClassName,
                   shadowStyles.cardHover,
                   "transition-all duration-300 rounded-xl border border-gray-100"
                 )}
                 style={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                  borderRadius: "0.75rem",
-                  overflow: "hidden",
+                  minHeight: cardHeight,
+                  maxHeight: cardHeight,
                 }}
               >
                 {renderItem(item, idx)}
@@ -140,56 +130,54 @@ export function ResponsiveCarousel<T>({
             </CarouselItem>
           ))}
         </CarouselContent>
+
         {!controlsBelow && shouldShowControls && (
           <>
             <CarouselPrevious
               className={cn(
-                "!rounded-full h-10 w-10 bg-white shadow-xl border absolute",
-                "z-20 top-1/2 -translate-y-1/2",
-                "opacity-90 hover:opacity-100 transition-opacity duration-200",
-                "left-2 md:left-4",
-                "text-gray-800",
-                "border-gray-100",
-                shadowStyles.prominent,
-                "flex items-center justify-center"
+                "absolute left-2 top-1/2 -translate-y-1/2 z-20",
+                "h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm",
+                "border border-gray-200 shadow-lg",
+                "hover:bg-white hover:scale-105 transition-all duration-200",
+                "text-gray-700 hover:text-gray-900",
+                "disabled:opacity-50 disabled:cursor-not-allowed",
+                isMobile ? "h-8 w-8 left-1" : "md:left-4"
               )}
             />
             <CarouselNext
               className={cn(
-                "!rounded-full h-10 w-10 bg-white shadow-xl border absolute",
-                "z-20 top-1/2 -translate-y-1/2",
-                "opacity-90 hover:opacity-100 transition-opacity duration-200",
-                "right-2 md:right-4",
-                "text-gray-800",
-                "border-gray-100",
-                shadowStyles.prominent,
-                "flex items-center justify-center"
+                "absolute right-2 top-1/2 -translate-y-1/2 z-20",
+                "h-10 w-10 rounded-full bg-white/90 backdrop-blur-sm",
+                "border border-gray-200 shadow-lg",
+                "hover:bg-white hover:scale-105 transition-all duration-200",
+                "text-gray-700 hover:text-gray-900",
+                "disabled:opacity-50 disabled:cursor-not-allowed",
+                isMobile ? "h-8 w-8 right-1" : "md:right-4"
               )}
             />
           </>
         )}
+
         {controlsBelow && shouldShowControls && (
-          <div className="flex justify-center gap-4 mt-6">
+          <div className="flex justify-center gap-3 mt-6">
             <CarouselPrevious
               className={cn(
-                "static relative left-0 translate-y-0 !rounded-full h-11 w-11 bg-white border",
-                "opacity-90 hover:opacity-100 transition-all duration-300",
-                "text-gray-800",
-                "border-gray-200",
-                shadowStyles.button,
-                "flex items-center justify-center",
-                "hover:translate-y-[-2px]"
+                "static translate-y-0 h-11 w-11 rounded-full",
+                "bg-white border border-gray-200 shadow-md",
+                "hover:shadow-lg hover:scale-105 hover:-translate-y-1",
+                "transition-all duration-300",
+                "text-gray-700 hover:text-gray-900",
+                "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             />
             <CarouselNext
               className={cn(
-                "static relative left-0 translate-y-0 !rounded-full h-11 w-11 bg-white border",
-                "opacity-90 hover:opacity-100 transition-all duration-300", 
-                "text-gray-800",
-                "border-gray-200",
-                shadowStyles.button,
-                "flex items-center justify-center",
-                "hover:translate-y-[-2px]"
+                "static translate-y-0 h-11 w-11 rounded-full",
+                "bg-white border border-gray-200 shadow-md",
+                "hover:shadow-lg hover:scale-105 hover:-translate-y-1",
+                "transition-all duration-300",
+                "text-gray-700 hover:text-gray-900",
+                "disabled:opacity-50 disabled:cursor-not-allowed"
               )}
             />
           </div>
