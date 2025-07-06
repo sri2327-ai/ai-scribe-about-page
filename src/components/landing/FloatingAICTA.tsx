@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Brain, Sparkles, Zap, MessageSquare } from 'lucide-react';
+import { MessageSquare } from 'lucide-react';
 
 const FloatingAICTA = () => {
   // Get current page URL dynamically
@@ -10,25 +10,25 @@ const FloatingAICTA = () => {
   const aiAssistants = [
     {
       name: 'ChatGPT',
-      icon: <Brain className="w-8 h-8" />,
+      icon: <img src="/lovable-uploads/128d9be9-4d18-4262-892a-68adf7b22b6e.png" alt="ChatGPT" className="w-full h-full object-contain" />,
       url: `https://chat.openai.com/?q=${prompt}`,
       color: 'bg-green-500 hover:bg-green-600',
     },
     {
       name: 'Claude',
-      icon: <Sparkles className="w-8 h-8" />,
+      icon: <img src="/lovable-uploads/c2407cd7-f533-4465-aea9-8836d71f670c.png" alt="Claude" className="w-full h-full object-contain" />,
       url: `https://claude.ai/new?q=${prompt}`,
       color: 'bg-orange-500 hover:bg-orange-600',
     },
     {
       name: 'Gemini',
-      icon: <Zap className="w-8 h-8" />,
+      icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-contain" />,
       url: `https://gemini.google.com/app?q=${prompt}`,
-      color: 'bg-gray-600 hover:bg-gray-700',
+      color: 'bg-blue-500 hover:bg-blue-600',
     },
     {
       name: 'Grok',
-      icon: <MessageSquare className="w-8 h-8" />,
+      icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-contain" />,
       url: `https://x.com/i/grok?q=${prompt}`,
       color: 'bg-black hover:bg-gray-800',
     }
@@ -50,41 +50,59 @@ const FloatingAICTA = () => {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 12px;
+            gap: 10px;
         }
 
         .llm-button {
-            width: 50px;
-            height: 50px;
-            border-radius: 9999px;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.3s ease-out, opacity 0.3s ease-out, box-shadow 0.2s ease-in-out;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: all 0.2s ease;
             cursor: pointer;
             position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .llm-button:hover {
-            transform: scale(1.08);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
-        /* Tooltip styles */
+        /* Tooltip styles - Fixed positioning */
         .llm-button .tooltip {
             position: absolute;
-            left: calc(100% + 10px);
+            left: calc(100% + 12px);
+            top: 50%;
+            transform: translateY(-50%);
             white-space: nowrap;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.85);
             color: white;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            transition: all 0.2s ease;
             pointer-events: none;
+            z-index: 1001;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Tooltip arrow */
+        .llm-button .tooltip::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 4px solid transparent;
+            border-right-color: rgba(0, 0, 0, 0.85);
         }
 
         .llm-button:hover .tooltip {
@@ -93,33 +111,86 @@ const FloatingAICTA = () => {
         }
 
         /* Icon sizing for all buttons */
+        .llm-button img,
         .llm-button svg {
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            border-radius: 4px;
         }
 
-        /* Keep left positioning for all screen sizes */
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
             #floating-llm-container {
                 bottom: 20px;
-                left: 20px;
+                left: 15px;
+                gap: 8px;
+            }
+            
+            .llm-button {
+                width: 38px;
+                height: 38px;
+            }
+            
+            .llm-button img,
+            .llm-button svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .llm-button .tooltip {
+                font-size: 11px;
+                padding: 5px 8px;
             }
         }
 
         @media (max-width: 480px) {
             #floating-llm-container {
-                bottom: 20px;
-                left: 15px;
+                bottom: 15px;
+                left: 12px;
+                gap: 6px;
             }
             
             .llm-button {
-                width: 45px;
-                height: 45px;
+                width: 36px;
+                height: 36px;
             }
             
+            .llm-button img,
             .llm-button svg {
-                width: 28px;
-                height: 28px;
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        /* Ensure tooltips don't go off-screen on small devices */
+        @media (max-width: 640px) {
+            .llm-button .tooltip {
+                max-width: 120px;
+                font-size: 10px;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .llm-button {
+                border: 2px solid;
+            }
+            
+            .llm-button .tooltip {
+                background-color: black;
+                border: 1px solid white;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .llm-button {
+                transition: none;
+            }
+            
+            .llm-button:hover {
+                transform: none;
             }
         }
       `}</style>
@@ -131,6 +202,15 @@ const FloatingAICTA = () => {
             key={assistant.name}
             className={`llm-button ${assistant.color}`}
             onClick={() => handleRedirect(assistant.url)}
+            role="button"
+            tabIndex={0}
+            aria-label={`Ask ${assistant.name} about this page`}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleRedirect(assistant.url);
+              }
+            }}
           >
             {assistant.icon}
             <div className="tooltip">
