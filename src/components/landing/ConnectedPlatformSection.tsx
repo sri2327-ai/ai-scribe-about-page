@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -67,16 +66,17 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
       </div>
     </div>
 
-    {/* Content Card - Same styling for all views */}
-    <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col">
+    {/* Content Card - Reduced dimensions and improved alignment */}
+    <div className="bg-white rounded-xl p-3 sm:p-4 md:p-5 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col max-w-xs mx-auto">
       <Typography
         variant="h6"
         fontWeight="bold"
         sx={{ 
-          mb: { xs: 1, sm: 1.5 }, 
+          mb: { xs: 1.5, sm: 2 }, 
           color: '#143151',
-          fontSize: { xs: '0.85rem', sm: '0.9rem', md: '0.95rem' },
-          lineHeight: 1.2
+          fontSize: { xs: '0.9rem', sm: '0.95rem', md: '1rem' },
+          lineHeight: 1.3,
+          textAlign: 'center'
         }}
       >
         {feature.title}
@@ -86,26 +86,27 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
         variant="body2"
         sx={{ 
           color: '#555',
-          fontSize: { xs: '0.7rem', sm: '0.75rem', md: '0.8rem' },
-          lineHeight: 1.3,
-          mb: { xs: 1.5, sm: 2 },
-          flex: 1
+          fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
+          lineHeight: 1.4,
+          mb: { xs: 2, sm: 2.5 },
+          flex: 1,
+          textAlign: 'center'
         }}
       >
         {feature.description}
       </Typography>
 
-      {/* Key Highlights */}
-      <div className="space-y-0.5 mt-auto">
+      {/* Key Highlights - Better aligned */}
+      <div className="space-y-1 mt-auto">
         {feature.highlights.map((highlight, hIndex) => (
-          <div key={hIndex} className="flex items-center gap-1.5 text-left">
-            <div className="w-1 h-1 rounded-full bg-[#387E89] flex-shrink-0" />
+          <div key={hIndex} className="flex items-start gap-2 text-left">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] flex-shrink-0 mt-1.5" />
             <Typography
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: { xs: '0.65rem', sm: '0.7rem' },
-                lineHeight: 1.2,
+                fontSize: { xs: '0.7rem', sm: '0.75rem' },
+                lineHeight: 1.3,
                 fontWeight: 500
               }}
             >
@@ -164,7 +165,7 @@ const ConnectedPlatformSection = () => {
         {/* Responsive Layout */}
         {(isMobile || isTablet) ? (
           // Mobile/Tablet Carousel with Desktop Stepper Design
-          <div className="w-full max-w-[900px] mx-auto">
+          <div className="w-full max-w-[800px] mx-auto">
             <ResponsiveCarousel
               items={platformFeatures}
               renderItem={(item, index) => (
@@ -174,7 +175,7 @@ const ConnectedPlatformSection = () => {
               columnsTablet={1}
               columnsMobile={1}
               gap={16}
-              itemHeight={{ xs: 320, sm: 340, md: 360 }}
+              itemHeight={{ xs: 280, sm: 300, md: 320 }}
               showControls={true}
               autoPlay={false}
               controlsBelow={true}
