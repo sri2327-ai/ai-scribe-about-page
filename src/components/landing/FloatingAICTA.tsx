@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -44,7 +45,7 @@ const FloatingAICTA = () => {
         #floating-llm-container {
             position: fixed;
             bottom: 20px;
-            left: 20px;
+            left: 10px;
             z-index: 1000;
             display: flex;
             flex-direction: column;
@@ -123,7 +124,7 @@ const FloatingAICTA = () => {
         @media (max-width: 768px) {
             #floating-llm-container {
                 bottom: 20px;
-                left: 15px;
+                left: 8px;
                 gap: 6px;
             }
             
@@ -149,7 +150,7 @@ const FloatingAICTA = () => {
         @media (max-width: 480px) {
             #floating-llm-container {
                 bottom: 15px;
-                left: 12px;
+                left: 5px;
                 gap: 5px;
             }
             
@@ -165,7 +166,7 @@ const FloatingAICTA = () => {
             }
 
             .llm-button .tooltip {
-                left: 38px;
+                left: 35px;
                 font-size: 9px;
                 padding: 4px 6px;
                 max-width: 100px;
