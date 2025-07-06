@@ -45,18 +45,13 @@ const MobileFeatureCard = ({ feature, index }: { feature: typeof platformFeature
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100/80 hover:shadow-lg hover:border-[#387E89]/20 transition-all duration-300"
+    className="bg-white rounded-xl p-6 shadow-sm border border-gray-100/80 hover:shadow-lg hover:border-[#387E89]/20 transition-all duration-300"
   >
     {/* Icon Header */}
     <div className="flex items-center gap-3 mb-4">
-      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md">
-        <feature.icon className="w-5 h-5 text-white" strokeWidth={2} />
+      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md">
+        <feature.icon className="w-6 h-6 text-white" strokeWidth={2} />
       </div>
-      <div className="w-2 h-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] opacity-60" />
-    </div>
-
-    {/* Content */}
-    <div className="space-y-3">
       <Typography
         variant="h6"
         sx={{ 
@@ -64,12 +59,15 @@ const MobileFeatureCard = ({ feature, index }: { feature: typeof platformFeature
           color: '#143151',
           fontSize: '1.1rem',
           lineHeight: 1.3,
-          mb: 2
+          flex: 1
         }}
       >
         {feature.title}
       </Typography>
-      
+    </div>
+
+    {/* Content */}
+    <div className="space-y-3">
       <Typography
         variant="body2"
         sx={{ 
@@ -82,7 +80,7 @@ const MobileFeatureCard = ({ feature, index }: { feature: typeof platformFeature
         {feature.description}
       </Typography>
 
-      {/* Highlights with better mobile spacing */}
+      {/* Highlights */}
       <div className="space-y-2">
         {feature.highlights.map((highlight, hIndex) => (
           <div key={hIndex} className="flex items-start gap-2.5">
@@ -91,7 +89,7 @@ const MobileFeatureCard = ({ feature, index }: { feature: typeof platformFeature
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: '0.8rem',
+                fontSize: '0.85rem',
                 lineHeight: 1.4,
                 fontWeight: 500
               }}
@@ -110,46 +108,33 @@ const TabletFeatureCard = ({ feature, index }: { feature: typeof platformFeature
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="bg-white rounded-xl p-4 shadow-sm border border-gray-100/80 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full flex flex-col"
+    className="bg-white rounded-xl p-5 shadow-sm border border-gray-100/80 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full flex flex-col"
   >
-    {/* Icon and connecting line */}
-    <div className="relative mb-3">
-      <div className="flex justify-center">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg">
-          <feature.icon className="w-6 h-6 text-white" strokeWidth={1.5} />
-        </div>
+    {/* Icon and Title */}
+    <div className="flex items-center gap-3 mb-4">
+      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-md">
+        <feature.icon className="w-5 h-5 text-white" strokeWidth={1.8} />
       </div>
-      {index < platformFeatures.length - 1 && (
-        <div 
-          className="absolute top-6 left-1/2 w-8 h-0.5 transform translate-x-4"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(56, 126, 137, 0.3), rgba(20, 49, 81, 0.3))`,
-            backgroundSize: '4px 1px',
-            backgroundRepeat: 'repeat-x'
-          }}
-        />
-      )}
-    </div>
-
-    <div className="flex-1 space-y-3 text-center">
       <Typography
         variant="h6"
         sx={{ 
           fontWeight: 700,
           color: '#143151',
-          fontSize: '0.95rem',
+          fontSize: '1rem',
           lineHeight: 1.3,
-          mb: 2
+          flex: 1
         }}
       >
         {feature.title}
       </Typography>
-      
+    </div>
+
+    <div className="flex-1 space-y-3">
       <Typography
         variant="body2"
         sx={{ 
           color: '#555',
-          fontSize: '0.8rem',
+          fontSize: '0.85rem',
           lineHeight: 1.4,
           mb: 3
         }}
@@ -159,13 +144,13 @@ const TabletFeatureCard = ({ feature, index }: { feature: typeof platformFeature
 
       <div className="space-y-1.5">
         {feature.highlights.map((highlight, hIndex) => (
-          <div key={hIndex} className="flex items-start gap-2 text-left">
+          <div key={hIndex} className="flex items-start gap-2">
             <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] flex-shrink-0 mt-1.5" />
             <Typography
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: '0.75rem',
+                fontSize: '0.8rem',
                 lineHeight: 1.3,
                 fontWeight: 500
               }}
@@ -264,13 +249,13 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
 
 const ConnectedPlatformSection = () => {
   const isMobile = useIsMobile();
-  const isTablet = typeof window !== 'undefined' && window.innerWidth <= 1024 && window.innerWidth > 768;
+  const isTablet = typeof window !== 'undefined' && window.innerWidth <= 1024 && window.innerWidth > 640;
 
   return (
     <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
       <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
-        {/* Header - Improved mobile spacing */}
-        <div className="text-center mb-16 lg:mb-20">
+        {/* Header */}
+        <div className="text-center mb-12 lg:mb-16">
           <Typography
             variant="h2"
             fontWeight="bold"
@@ -310,34 +295,29 @@ const ConnectedPlatformSection = () => {
 
         {/* Feature Cards - Responsive Layout */}
         {isMobile ? (
-          <div className="space-y-6 max-w-md mx-auto">
+          /* Mobile: Stack vertically */
+          <div className="space-y-5 max-w-sm mx-auto">
             {platformFeatures.map((feature, index) => (
               <MobileFeatureCard key={index} feature={feature} index={index} />
             ))}
           </div>
         ) : isTablet ? (
-          <div className="grid grid-cols-2 gap-6 relative max-w-2xl mx-auto">
-            {/* Connecting line for tablet */}
-            <div 
-              className="absolute top-6 left-0 right-0 h-0.5 z-0"
-              style={{
-                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.1), rgba(56, 126, 137, 0.1))`,
-                backgroundSize: '6px 1px',
-                backgroundRepeat: 'repeat-x'
-              }}
-            />
-            {platformFeatures.slice(0, 4).map((feature, index) => (
-              <TabletFeatureCard key={index} feature={feature} index={index} />
-            ))}
-            {/* Fifth item spans full width */}
-            <div className="col-span-2 flex justify-center">
-              <div className="w-full max-w-xs">
+          /* Tablet: 2x3 grid with last item centered */
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 gap-5 mb-5">
+              {platformFeatures.slice(0, 4).map((feature, index) => (
+                <TabletFeatureCard key={index} feature={feature} index={index} />
+              ))}
+            </div>
+            {/* Last card centered */}
+            <div className="flex justify-center">
+              <div className="w-full max-w-md">
                 <TabletFeatureCard feature={platformFeatures[4]} index={4} />
               </div>
             </div>
           </div>
         ) : (
-          /* Desktop Layout - Single Horizontal Row */
+          /* Desktop: Single horizontal row */
           <div className="relative">
             <div className="flex gap-6 items-stretch justify-center max-w-7xl mx-auto">
               {platformFeatures.map((feature, index) => (
@@ -347,8 +327,8 @@ const ConnectedPlatformSection = () => {
           </div>
         )}
 
-        {/* Bottom Connection - Improved mobile layout */}
-        <div className="text-center mt-16">
+        {/* Bottom Connection */}
+        <div className="text-center mt-12">
           <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 sm:px-6 py-3 shadow-lg border border-gray-100 flex-wrap justify-center hover:shadow-xl transition-all duration-300 max-w-full">
             {['Scheduling', 'Documentation', 'Billing', 'Patient Care'].map((item, index, arr) => (
               <React.Fragment key={item}>
