@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Stethoscope, Heart, Brain, FileText, Clock, Shield, CheckCircle, Cog, Zap } from "lucide-react";
@@ -53,20 +54,12 @@ const MetricCard = ({
   </div>
 );
 
-const FeatureBullet = ({ text }: { text: string }) => (
-  <div className="flex items-start gap-2 mb-1">
-    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-    <span className="text-xs text-gray-600">{text}</span>
-  </div>
-);
-
 const ProductCard = ({ 
   title, 
   subtitle, 
   description, 
   Illustration,
   metrics,
-  features = [],
   isPositive = true,
   ctaText = "See Demo",
   compatibleSystemsKey
@@ -76,7 +69,6 @@ const ProductCard = ({
   description: string;
   Illustration: React.ComponentType;
   metrics: { title: string; value: string; icon: any; positive?: boolean }[];
-  features?: string[];
   isPositive?: boolean;
   ctaText?: string;
   compatibleSystemsKey: keyof typeof compatibleSystems;
@@ -107,15 +99,6 @@ const ProductCard = ({
         </div>
         
         <p className="text-gray-600 text-xs leading-relaxed border-l-4 border-gray-200 pl-2 py-1">{description}</p>
-        
-        {features.length > 0 && (
-          <div className="space-y-1 bg-gray-50 p-2 rounded-lg">
-            <h5 className="font-medium text-xs text-gray-700 mb-1">Key Benefits</h5>
-            {features.map((feature, idx) => (
-              <FeatureBullet key={idx} text={feature} />
-            ))}
-          </div>
-        )}
         
         <div className="grid grid-cols-2 gap-2">
           {metrics.map((metric, idx) => (
@@ -174,11 +157,6 @@ export const ProductCarousel = () => {
       title: "C.R.U.S.H",
       subtitle: "AI Medical Scribe Assistant",
       description: "Reduce documentation time and increase patient face time with our AI-powered medical scribe that integrates seamlessly with your EHR.",
-      features: [
-        "Real-time documentation during patient encounters",
-        "Automated note generation with clinical accuracy",
-        "Smart templates tailored to your specialty"
-      ],
       Illustration: CrushIllustration,
       isPositive: true,
       metrics: [
@@ -194,11 +172,6 @@ export const ProductCarousel = () => {
       title: "B.R.A.V.O",
       subtitle: "AI Patient Care Agent",
       description: "Transform patient management with an AI assistant that handles scheduling, communication, and administrative tasks with remarkable efficiency.",
-      features: [
-        "Automated appointment scheduling and reminders",
-        "Intelligent patient communication and follow-ups",
-        "Streamlined insurance verification workflows"
-      ],
       Illustration: BravoIllustration,
       isPositive: false,
       metrics: [
@@ -214,11 +187,6 @@ export const ProductCarousel = () => {
       title: "Custom AI Agents",
       subtitle: "Tailored AI Solutions",
       description: "Build custom AI agents that perfectly match your unique workflows. From patient intake to billing automation - create AI that works exactly how you need it.",
-      features: [
-        "Custom workflow automation for any process",
-        "No-code agent builder with drag-and-drop interface",
-        "Seamless integration with existing systems"
-      ],
       Illustration: CustomAIIllustration,
       isPositive: true,
       metrics: [
@@ -250,8 +218,11 @@ export const ProductCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2" />
-        <CarouselNext className="right-2" />
+        {/* Only show arrows on mobile and tablet */}
+        <div className="block lg:hidden">
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
+        </div>
       </Carousel>
     </div>
   );
