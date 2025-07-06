@@ -12,25 +12,25 @@ const FloatingAICTA = () => {
       name: 'ChatGPT',
       icon: <img src="/lovable-uploads/128d9be9-4d18-4262-892a-68adf7b22b6e.png" alt="ChatGPT" className="w-full h-full object-contain" />,
       url: `https://chat.openai.com/?q=${prompt}`,
-      color: 'bg-green-500 hover:bg-green-600',
+      color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Claude',
       icon: <img src="/lovable-uploads/c2407cd7-f533-4465-aea9-8836d71f670c.png" alt="Claude" className="w-full h-full object-contain" />,
       url: `https://claude.ai/new?q=${prompt}`,
-      color: 'bg-orange-500 hover:bg-orange-600',
+      color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-contain" />,
       url: `https://gemini.google.com/app?q=${prompt}`,
-      color: 'bg-blue-500 hover:bg-blue-600',
+      color: 'bg-white hover:bg-gray-50',
     },
     {
       name: 'Grok',
       icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-contain" />,
       url: `https://x.com/i/grok?q=${prompt}`,
-      color: 'bg-black hover:bg-gray-800',
+      color: 'bg-white hover:bg-gray-50',
     }
   ];
 
@@ -64,8 +64,8 @@ const FloatingAICTA = () => {
             transition: all 0.2s ease;
             cursor: pointer;
             position: relative;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 6px;
         }
 
         .llm-button:hover {
@@ -73,17 +73,17 @@ const FloatingAICTA = () => {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
         }
 
-        /* Tooltip styles - Fixed positioning */
+        /* Tooltip styles - Improved positioning */
         .llm-button .tooltip {
-            position: absolute;
-            left: calc(100% + 12px);
+            position: fixed;
+            left: 75px;
             top: 50%;
             transform: translateY(-50%);
             white-space: nowrap;
-            background-color: rgba(0, 0, 0, 0.85);
+            background: linear-gradient(135deg, #143151 0%, #387E89 100%);
             color: white;
-            padding: 6px 10px;
-            border-radius: 6px;
+            padding: 8px 12px;
+            border-radius: 8px;
             font-size: 12px;
             font-weight: 500;
             opacity: 0;
@@ -91,7 +91,8 @@ const FloatingAICTA = () => {
             transition: all 0.2s ease;
             pointer-events: none;
             z-index: 1001;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 12px rgba(20, 49, 81, 0.3);
+            min-width: max-content;
         }
 
         /* Tooltip arrow */
@@ -101,8 +102,8 @@ const FloatingAICTA = () => {
             right: 100%;
             top: 50%;
             transform: translateY(-50%);
-            border: 4px solid transparent;
-            border-right-color: rgba(0, 0, 0, 0.85);
+            border: 6px solid transparent;
+            border-right-color: #143151;
         }
 
         .llm-button:hover .tooltip {
@@ -110,11 +111,10 @@ const FloatingAICTA = () => {
             visibility: visible;
         }
 
-        /* Icon sizing for all buttons */
-        .llm-button img,
-        .llm-button svg {
-            width: 24px;
-            height: 24px;
+        /* Icon sizing for all buttons - Better fit */
+        .llm-button img {
+            width: 28px;
+            height: 28px;
             object-fit: contain;
             border-radius: 4px;
         }
@@ -130,17 +130,18 @@ const FloatingAICTA = () => {
             .llm-button {
                 width: 38px;
                 height: 38px;
+                padding: 5px;
             }
             
-            .llm-button img,
-            .llm-button svg {
-                width: 20px;
-                height: 20px;
+            .llm-button img {
+                width: 26px;
+                height: 26px;
             }
 
             .llm-button .tooltip {
+                left: 60px;
                 font-size: 11px;
-                padding: 5px 8px;
+                padding: 6px 10px;
             }
         }
 
@@ -154,20 +155,32 @@ const FloatingAICTA = () => {
             .llm-button {
                 width: 36px;
                 height: 36px;
+                padding: 4px;
             }
             
-            .llm-button img,
-            .llm-button svg {
-                width: 18px;
-                height: 18px;
+            .llm-button img {
+                width: 24px;
+                height: 24px;
+            }
+
+            .llm-button .tooltip {
+                left: 55px;
+                font-size: 10px;
+                padding: 5px 8px;
             }
         }
 
-        /* Ensure tooltips don't go off-screen on small devices */
-        @media (max-width: 640px) {
+        /* Tablet specific adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
             .llm-button .tooltip {
-                max-width: 120px;
-                font-size: 10px;
+                left: 70px;
+            }
+        }
+
+        /* Desktop adjustments for larger screens */
+        @media (min-width: 1025px) {
+            .llm-button .tooltip {
+                left: 80px;
             }
         }
 
@@ -178,7 +191,6 @@ const FloatingAICTA = () => {
             }
             
             .llm-button .tooltip {
-                background-color: black;
                 border: 1px solid white;
             }
         }
