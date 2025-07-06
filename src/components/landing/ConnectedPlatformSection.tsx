@@ -71,7 +71,7 @@ const ConnectedPlatformSection = () => {
               mb: 3
             }}
           >
-            Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter and hands-free.
+            Most platforms stop at SOAP notes. We go further. Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
           </Typography>
           <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
             <Zap className="w-4 h-4" />
