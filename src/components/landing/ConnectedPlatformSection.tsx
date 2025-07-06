@@ -184,29 +184,29 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
-    className="flex flex-col items-center text-center relative group h-full"
+    className="flex flex-col items-center text-center relative group"
   >
-    {/* Icon Circle */}
-    <div className="relative z-10 mb-4 overflow-visible w-full">
+    {/* Icon Circle - Higher and more prominent */}
+    <div className="relative z-10 mb-6 overflow-visible w-full">
       <div className="flex justify-center">
-        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-110">
-          <feature.icon className="w-7 h-7 text-white" strokeWidth={1.5} />
+        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:scale-105">
+          <feature.icon className="w-9 h-9 text-white" strokeWidth={1.8} />
         </div>
       </div>
     </div>
 
-    {/* Content Card */}
-    <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100/50 hover:shadow-lg hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-2 flex flex-col w-full mx-auto">
+    {/* Content Card - Much larger and more spacious */}
+    <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100/60 hover:shadow-xl hover:border-[#387E89]/25 transition-all duration-300 group-hover:transform group-hover:-translate-y-3 flex flex-col w-full max-w-xs mx-auto min-h-[480px]">
       <Typography
         variant="h6"
         fontWeight="bold"
         sx={{ 
-          mb: 2, 
+          mb: 4, 
           color: '#143151',
-          fontSize: '1rem',
-          lineHeight: 1.2,
+          fontSize: '1.25rem',
+          lineHeight: 1.3,
           textAlign: 'center',
-          minHeight: '2.5rem',
+          minHeight: '3.5rem',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center'
@@ -219,9 +219,9 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
         variant="body2"
         sx={{ 
           color: '#555',
-          fontSize: '0.85rem',
-          lineHeight: 1.4,
-          mb: 2.5,
+          fontSize: '1rem',
+          lineHeight: 1.6,
+          mb: 4,
           flex: 1,
           textAlign: 'center'
         }}
@@ -229,16 +229,16 @@ const DesktopFeatureCard = ({ feature, index }: { feature: typeof platformFeatur
         {feature.description}
       </Typography>
 
-      <div className="space-y-2 mt-auto">
+      <div className="space-y-3 mt-auto">
         {feature.highlights.map((highlight, hIndex) => (
-          <div key={hIndex} className="flex items-start gap-2.5 text-left">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#387E89] flex-shrink-0 mt-1.5" />
+          <div key={hIndex} className="flex items-start gap-3 text-left">
+            <div className="w-2 h-2 rounded-full bg-[#387E89] flex-shrink-0 mt-2" />
             <Typography
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: '0.75rem',
-                lineHeight: 1.3,
+                fontSize: '0.9rem',
+                lineHeight: 1.5,
                 fontWeight: 500
               }}
             >
@@ -256,10 +256,10 @@ const ConnectedPlatformSection = () => {
   const isTablet = typeof window !== 'undefined' && window.innerWidth <= 1024 && window.innerWidth > 768;
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
+    <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
       <Box sx={{ maxWidth: '900px', mx: 'auto', width: '100%' }}>
         {/* Header - Improved mobile spacing */}
-        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+        <div className="text-center mb-16 lg:mb-20">
           <Typography
             variant="h2"
             fontWeight="bold"
@@ -325,18 +325,18 @@ const ConnectedPlatformSection = () => {
             </div>
           </div>
         ) : (
-          <div className="relative overflow-visible max-w-7xl mx-auto px-4">
-            {/* Desktop connecting line */}
+          <div className="relative overflow-visible max-w-none mx-auto px-4">
+            {/* Desktop connecting line - Much more visible */}
             <div 
-              className="absolute top-7 left-0 right-0 h-0.5"
+              className="absolute top-10 left-0 right-0 h-1"
               style={{
-                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.25), rgba(56, 126, 137, 0.25))`,
-                backgroundSize: '6px 1px',
+                backgroundImage: `linear-gradient(to right, rgba(20, 49, 81, 0.4), rgba(56, 126, 137, 0.4))`,
+                backgroundSize: '8px 2px',
                 backgroundRepeat: 'repeat-x'
               }}
             />
             
-            <div className="grid grid-cols-5 gap-8 relative overflow-visible">
+            <div className="grid grid-cols-5 gap-12 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <DesktopFeatureCard key={index} feature={feature} index={index} />
               ))}
@@ -345,7 +345,7 @@ const ConnectedPlatformSection = () => {
         )}
 
         {/* Bottom Connection - Improved mobile layout */}
-        <div className="text-center mt-10 sm:mt-12">
+        <div className="text-center mt-16">
           <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 sm:px-6 py-3 shadow-lg border border-gray-100 flex-wrap justify-center hover:shadow-xl transition-all duration-300 max-w-full">
             {['Scheduling', 'Documentation', 'Billing', 'Patient Care'].map((item, index, arr) => (
               <React.Fragment key={item}>
