@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -146,36 +147,71 @@ const FifthSection = () => {
   const isTablet = useMediaQuery("(max-width:1024px)");
   const isMobileOrTablet = useMediaQuery("(max-width:1024px)");
 
-  // Arrow key navigation for ROI cards in mobile and tablet
+  // Enhanced arrow key navigation with better event handling
   useEffect(() => {
-    if (!isMobileOrTablet) return;
+    if (!isMobileOrTablet || !roiScrollRef.current) return;
 
     const handleKeyDown = (event) => {
+      // Only handle arrow keys when the section is in view or focused
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();
         const scrollContainer = roiScrollRef.current;
         if (!scrollContainer) return;
 
-        const cardWidth = isMobile ? 176 : 196; // card width + gap (160+16 for mobile, 180+16 for tablet)
+        console.log('Arrow key pressed:', event.key);
+        
+        const cardWidth = isMobile ? 176 : 196; // card width + gap
         const scrollAmount = cardWidth;
 
         if (event.key === 'ArrowLeft') {
           scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+          console.log('Scrolling left by:', scrollAmount);
         } else if (event.key === 'ArrowRight') {
           scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          console.log('Scrolling right by:', scrollAmount);
         }
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    // Add event listener to the container instead of document for better focus management
+    const container = containerRef.current;
+    if (container) {
+      container.setAttribute('tabindex', '0'); // Make container focusable
+      container.addEventListener('keydown', handleKeyDown);
+      
+      // Also add to document for global navigation
+      document.addEventListener('keydown', handleKeyDown);
+      
+      return () => {
+        container.removeEventListener('keydown', handleKeyDown);
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
   }, [isMobileOrTablet, isMobile]);
+
+  // Arrow button click handlers
+  const scrollLeft = () => {
+    if (roiScrollRef.current) {
+      const cardWidth = isMobile ? 176 : 196;
+      roiScrollRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+      console.log('Manual scroll left');
+    }
+  };
+
+  const scrollRight = () => {
+    if (roiScrollRef.current) {
+      const cardWidth = isMobile ? 176 : 196;
+      roiScrollRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
+      console.log('Manual scroll right');
+    }
+  };
 
   return (
     <section 
       ref={containerRef} 
-      className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
+      className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden focus:outline-none"
       aria-labelledby="practice-transformation-heading"
+      tabIndex={0}
     >
       {/* SEO-friendly content for search engines */}
       <div className="sr-only">
@@ -331,9 +367,7 @@ const FifthSection = () => {
           {isMobileOrTablet ? (
             <>
               {/* Horizontal scrollable container for mobile and tablet */}
-              <div 
-                className="relative w-full"
-              >
+              <div className="relative w-full">
                 <div 
                   className="w-full overflow-x-auto roi-scroll-container" 
                   ref={roiScrollRef}
@@ -356,20 +390,28 @@ const FifthSection = () => {
                   </div>
                 </div>
                 
-                {/* Arrow navigation visual indicators */}
-                <div className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md">
+                {/* Clickable arrow navigation buttons */}
+                <button
+                  onClick={scrollLeft}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#387E89]/50"
+                  aria-label="Scroll left"
+                >
                   <ChevronLeft className="w-4 h-4 text-gray-600" />
-                </div>
-                <div className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-md">
+                </button>
+                <button
+                  onClick={scrollRight}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#387E89]/50"
+                  aria-label="Scroll right"
+                >
                   <ChevronRight className="w-4 h-4 text-gray-600" />
-                </div>
+                </button>
               </div>
               
               {/* Arrow navigation hint for mobile and tablet */}
               <div className="text-center mt-4">
                 <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
                   <ChevronLeft className="w-3 h-3" />
-                  Use arrow keys to navigate
+                  Use arrow keys or click arrows to navigate
                   <ChevronRight className="w-3 h-3" />
                 </p>
               </div>
