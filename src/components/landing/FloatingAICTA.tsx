@@ -28,7 +28,7 @@ const FloatingAICTA = () => {
     {
       name: 'Gemini',
       icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
-      url: `https://gemini.google.com/?q=${prompt}`,
+      url: `https://gemini.google.com/app?text=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Gemini on S10.AI'
     },
@@ -97,8 +97,8 @@ const FloatingAICTA = () => {
           }
 
           .llm-button {
-              width: 38px;
-              height: 38px;
+              width: 44px;
+              height: 44px;
               border-radius: 50%;
               display: flex;
               align-items: center;
@@ -120,15 +120,15 @@ const FloatingAICTA = () => {
           /* Tooltip styles - Fixed positioning */
           .llm-button .tooltip {
               position: absolute;
-              left: 50px;
+              left: 55px;
               top: 50%;
               transform: translateY(-50%);
               white-space: nowrap;
               background: linear-gradient(135deg, #143151 0%, #387E89 100%);
               color: white;
-              padding: 6px 10px;
+              padding: 8px 12px;
               border-radius: 6px;
-              font-size: 11px;
+              font-size: 12px;
               font-weight: 500;
               opacity: 0;
               visibility: hidden;
@@ -137,7 +137,7 @@ const FloatingAICTA = () => {
               z-index: 1001;
               box-shadow: 0 4px 12px rgba(20, 49, 81, 0.3);
               min-width: max-content;
-              max-width: 200px;
+              max-width: 250px;
           }
 
           /* Tooltip arrow */
@@ -147,7 +147,7 @@ const FloatingAICTA = () => {
               right: 100%;
               top: 50%;
               transform: translateY(-50%);
-              border: 5px solid transparent;
+              border: 6px solid transparent;
               border-right-color: #143151;
           }
 
@@ -158,8 +158,8 @@ const FloatingAICTA = () => {
 
           /* Icon sizing for all buttons */
           .llm-button img {
-              width: 28px;
-              height: 28px;
+              width: 34px;
+              height: 34px;
               object-fit: cover;
               border-radius: 50%;
           }
@@ -170,6 +170,32 @@ const FloatingAICTA = () => {
                   bottom: 20px;
                   left: 8px;
                   gap: 6px;
+              }
+              
+              .llm-button {
+                  width: 40px;
+                  height: 40px;
+                  padding: 3px;
+              }
+              
+              .llm-button img {
+                  width: 30px;
+                  height: 30px;
+              }
+
+              .llm-button .tooltip {
+                  left: 48px;
+                  font-size: 11px;
+                  padding: 6px 10px;
+                  max-width: 180px;
+              }
+          }
+
+          @media (max-width: 480px) {
+              #floating-llm-container {
+                  bottom: 15px;
+                  left: 5px;
+                  gap: 5px;
               }
               
               .llm-button {
@@ -184,36 +210,10 @@ const FloatingAICTA = () => {
               }
 
               .llm-button .tooltip {
-                  left: 45px;
+                  left: 42px;
                   font-size: 10px;
                   padding: 5px 8px;
-                  max-width: 120px;
-              }
-          }
-
-          @media (max-width: 480px) {
-              #floating-llm-container {
-                  bottom: 15px;
-                  left: 5px;
-                  gap: 5px;
-              }
-              
-              .llm-button {
-                  width: 34px;
-                  height: 34px;
-                  padding: 3px;
-              }
-              
-              .llm-button img {
-                  width: 24px;
-                  height: 24px;
-              }
-
-              .llm-button .tooltip {
-                  left: 40px;
-                  font-size: 9px;
-                  padding: 4px 6px;
-                  max-width: 100px;
+                  max-width: 150px;
               }
           }
 
