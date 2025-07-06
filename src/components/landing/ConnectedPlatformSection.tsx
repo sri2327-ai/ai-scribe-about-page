@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -165,27 +164,23 @@ const ConnectedPlatformSection = () => {
 
         {/* Responsive Layout */}
         {(isMobile || isTablet) ? (
-          // Mobile/Tablet Carousel with Desktop Stepper Design
-          <div className="w-full max-w-[800px] mx-auto">
-            <ResponsiveCarousel
-              items={platformFeatures}
-              renderItem={(item, index) => (
-                <FeatureCard feature={item} index={index} />
-              )}
-              columnsDesktop={1}
-              columnsTablet={1}
-              columnsMobile={1}
-              gap={16}
-              itemHeight={{ xs: 280, sm: 300, md: 320 }}
-              showControls={true}
-              autoPlay={false}
-              controlsBelow={true}
-              className="py-2"
-              cardClassName="h-full"
-            />
-          </div>
+          <ResponsiveCarousel
+            items={platformFeatures}
+            renderItem={(item, index) => (
+              <FeatureCard feature={item} index={index} />
+            )}
+            columnsDesktop={1}
+            columnsTablet={1}
+            columnsMobile={1}
+            gap={16}
+            itemHeight={{ xs: 280, sm: 300, md: 320 }}
+            showControls={true}
+            autoPlay={false}
+            controlsBelow={true}
+            className="py-2"
+            cardClassName="h-full"
+          />
         ) : (
-          // Desktop Stepper - Improved spacing and alignment
           <div className="relative overflow-visible max-w-[1100px] mx-auto px-4">
             {/* Dotted Connecting Line - Desktop Only */}
             <div 
