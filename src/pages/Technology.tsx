@@ -8,6 +8,7 @@ import TrustedByExperts from "@/components/technology/TrustedByExperts";
 import ProjectSetupChecklist from "@/components/technology/ProjectSetupChecklist";
 import MeetIpkoTimeline from "@/components/technology/MeetIpkoTimeline";
 import TechFeaturesContent from "@/components/technology/TechFeatures";
+import FloatingAICTADark from "@/components/landing/FloatingAICTADark";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
@@ -75,9 +76,11 @@ const Technology = () => {
         
         <TrustedByExperts />
       </Container>
+      
+      {/* Floating AI CTA for dark theme */}
+      <FloatingAICTADark />
     </Box>
   );
 };
 
 export default Technology;
-
