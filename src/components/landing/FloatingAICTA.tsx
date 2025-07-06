@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
 
@@ -34,13 +33,6 @@ The goal is to produce a summary that allows me to ask informed and specific que
       url: `https://claude.ai/new?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Claude on S10.AI'
-    },
-    {
-      name: 'Gemini',
-      icon: <img src="/lovable-uploads/8a96c07b-d50a-4a07-80cd-1d3f13587c14.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
-      url: `https://gemini.google.com/app?q=${prompt}`,
-      color: 'bg-white hover:bg-gray-50',
-      tooltip: 'Chat with Gemini on S10.AI'
     },
     {
       name: 'Grok',
