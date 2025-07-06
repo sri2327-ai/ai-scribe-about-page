@@ -49,21 +49,21 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
     className="flex flex-col items-center text-center relative group h-full"
   >
     {/* Icon Circle - Fixed hover scaling */}
-    <div className="relative z-10 mb-3 overflow-visible">
+    <div className="relative z-10 mb-2 sm:mb-3 overflow-visible">
       <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105 overflow-visible">
         <feature.icon className="w-6 h-6 text-white" />
       </div>
     </div>
 
-    {/* Content Card - Reduced padding and spacing */}
-    <div className="bg-white rounded-xl p-3 sm:p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col">
+    {/* Content Card - Adjusted positioning for mobile/tablet */}
+    <div className="bg-white rounded-xl p-2 sm:p-3 md:p-4 shadow-sm border border-gray-100/50 hover:shadow-md hover:border-[#387E89]/20 transition-all duration-300 h-full group-hover:transform group-hover:-translate-y-1 flex flex-col">
       <Typography
         variant="h6"
         fontWeight="bold"
         sx={{ 
-          mb: 1.5, 
+          mb: { xs: 1, sm: 1.5 }, 
           color: '#143151',
-          fontSize: { xs: '0.9rem', sm: '0.95rem' },
+          fontSize: { xs: '0.85rem', sm: '0.9rem', md: '0.95rem' },
           lineHeight: 1.2
         }}
       >
@@ -74,16 +74,16 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
         variant="body2"
         sx={{ 
           color: '#555',
-          fontSize: { xs: '0.75rem', sm: '0.8rem' },
+          fontSize: { xs: '0.7rem', sm: '0.75rem', md: '0.8rem' },
           lineHeight: 1.3,
-          mb: 2,
+          mb: { xs: 1.5, sm: 2 },
           flex: 1
         }}
       >
         {feature.description}
       </Typography>
 
-      {/* Key Highlights - Reduced spacing */}
+      {/* Key Highlights - Adjusted spacing */}
       <div className="space-y-0.5 mt-auto">
         {feature.highlights.map((highlight, hIndex) => (
           <div key={hIndex} className="flex items-center gap-1.5 text-left">
@@ -92,7 +92,7 @@ const FeatureCard = ({ feature, index }: { feature: typeof platformFeatures[0], 
               variant="body2"
               sx={{ 
                 color: '#666',
-                fontSize: '0.7rem',
+                fontSize: { xs: '0.65rem', sm: '0.7rem' },
                 lineHeight: 1.2,
                 fontWeight: 500
               }}
