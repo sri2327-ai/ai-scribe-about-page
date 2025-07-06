@@ -1,4 +1,3 @@
-
 import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
@@ -18,6 +17,7 @@ import { PlayCircle } from 'lucide-react';
 import AnimatedHeader from '@/components/landing/AnimatedHeader';
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
+import ConnectedPlatformSection from '@/components/landing/ConnectedPlatformSection';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -141,6 +141,9 @@ const Landing = () => {
         <Suspense fallback={<SectionLoader />}>
           <ThirdSection />
         </Suspense>
+        
+        {/* New Connected Platform Section */}
+        <ConnectedPlatformSection />
         
         <FourthSection />
         <IntegrationSection />
