@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
@@ -125,7 +126,7 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50/30">
-      <Box sx={{ maxWidth: '1000px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
         {/* Header */}
         <div className="text-center mb-8 lg:mb-12">
           <Typography
@@ -184,8 +185,8 @@ const ConnectedPlatformSection = () => {
             />
           </div>
         ) : (
-          // Desktop Stepper
-          <div className="relative overflow-visible max-w-[900px] mx-auto">
+          // Desktop Stepper - Improved spacing and alignment
+          <div className="relative overflow-visible max-w-[1100px] mx-auto px-4">
             {/* Dotted Connecting Line - Desktop Only */}
             <div 
               className="absolute top-6 left-0 right-0 h-0.5"
@@ -198,8 +199,8 @@ const ConnectedPlatformSection = () => {
               }}
             />
             
-            {/* Steps Container - Desktop */}
-            <div className="grid grid-cols-5 gap-2 relative overflow-visible">
+            {/* Steps Container - Desktop - Better spacing */}
+            <div className="grid grid-cols-5 gap-6 relative overflow-visible">
               {platformFeatures.map((feature, index) => (
                 <FeatureCard key={index} feature={feature} index={index} />
               ))}
