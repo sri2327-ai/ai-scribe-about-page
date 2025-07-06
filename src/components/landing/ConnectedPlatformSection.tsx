@@ -87,7 +87,7 @@ const ConnectedPlatformSection = () => {
         {/* Horizontal Stepper */}
         <div className="relative">
           {/* Connecting Line */}
-          <div className="absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] hidden md:block" />
+          <div className="absolute top-6 left-0 right-0 h-0.5 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] hidden md:block" />
           
           {/* Steps Container */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative">
@@ -99,13 +99,10 @@ const ConnectedPlatformSection = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="flex flex-col items-center text-center relative"
               >
-                {/* Step Circle with Icon */}
-                <div className="relative z-10 mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg mb-2">
-                    <span className="text-white font-bold text-lg">{feature.stepNumber}</span>
-                  </div>
-                  <div className="w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center border-2 border-[#387E89]/20 mx-auto">
-                    <feature.icon className="w-5 h-5 text-[#387E89]" />
+                {/* Step Circle with Icon Below */}
+                <div className="relative z-10 mb-4 flex flex-col items-center">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center shadow-lg mb-3">
+                    <feature.icon className="w-6 h-6 text-white" />
                   </div>
                 </div>
 
