@@ -218,15 +218,19 @@ const ConnectedPlatformSection = () => {
             md: '1.2rem'
           },
           fontWeight: 400,
-          maxWidth: '800px',
+          maxWidth: '700px',
           mx: 'auto',
-          lineHeight: 1.6,
+          lineHeight: 1.7,
+          textAlign: 'center',
           px: {
-            xs: 2,
-            sm: 0
+            xs: 3,
+            sm: 4,
+            md: 0
           }
         }}>
-            Most platforms stop at SOAP notes. We go further. Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
+            Most platforms stop at SOAP notes.{' '}
+            <span className="font-semibold text-[#143151]">We go further.</span>{' '}
+            Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
           </Typography>
         </motion.div>
 
