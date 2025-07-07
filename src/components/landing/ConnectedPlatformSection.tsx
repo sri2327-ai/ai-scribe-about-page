@@ -74,9 +74,15 @@ const MobileTimelineItem = ({
       </Typography>
       
       <Typography variant="body2" sx={{
-      color: '#666',
-      fontSize: '0.9rem',
-      lineHeight: 1.4
+      color: '#555',
+      fontSize: '0.95rem',
+      lineHeight: 1.6,
+      letterSpacing: '0.02em',
+      fontWeight: 400,
+      '& strong': {
+        color: '#143151',
+        fontWeight: 600
+      }
     }}>
         {feature.description}
       </Typography>
