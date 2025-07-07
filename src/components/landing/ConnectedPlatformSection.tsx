@@ -174,6 +174,10 @@ const FeatureItem = ({
     },
     lineHeight: 1.5,
     maxWidth: '280px',
+    minHeight: '60px', // Fixed height to align all bullet points
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     opacity: 0.9,
     transition: 'opacity 0.3s ease',
     textAlign: 'center',
