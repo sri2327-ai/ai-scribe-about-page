@@ -150,8 +150,9 @@ const FeatureItem = ({
     },
     lineHeight: 1.3,
     mb: 3,
-    maxWidth: '240px',
+    maxWidth: '280px',
     transition: 'color 0.3s ease',
+    textAlign: 'center',
     '&:hover': {
       color: '#387E89'
     }
@@ -159,7 +160,7 @@ const FeatureItem = ({
       {feature.title}
     </Typography>
     
-    {/* Description with improved readability */}
+    {/* Description - centered and properly aligned */}
     <Typography variant="body2" sx={{
     color: '#666',
     fontSize: {
@@ -168,29 +169,31 @@ const FeatureItem = ({
       md: '0.95rem'
     },
     lineHeight: 1.5,
-    maxWidth: '260px',
+    maxWidth: '280px',
     opacity: 0.9,
     transition: 'opacity 0.3s ease',
+    textAlign: 'center',
+    mb: 3,
+    mx: 'auto',
     '.group:hover &': {
       opacity: 1
-    },
-    mb: 2,
-    textAlign: 'center'
+    }
   }}>
       {feature.description}
     </Typography>
     
-    {/* Desktop Bullet Points */}
-    <div className="flex flex-col items-center space-y-1.5">
+    {/* Desktop Bullet Points - properly centered */}
+    <div className="w-full max-w-[280px] space-y-2">
       {feature.points.map((point, pointIndex) => (
-        <div key={pointIndex} className="flex items-start gap-2 max-w-[240px]">
-          <CircleDot className="w-2.5 h-2.5 text-[#F06292] mt-1 flex-shrink-0" strokeWidth={2} />
+        <div key={pointIndex} className="flex items-start gap-3 w-full">
+          <CircleDot className="w-3 h-3 text-[#F06292] mt-1 flex-shrink-0" strokeWidth={2} />
           <Typography variant="body2" sx={{
             color: '#666',
-            fontSize: '0.8rem',
+            fontSize: '0.85rem',
             lineHeight: 1.4,
             fontWeight: 400,
-            textAlign: 'left'
+            textAlign: 'left',
+            flex: 1
           }}>
             {point}
           </Typography>
