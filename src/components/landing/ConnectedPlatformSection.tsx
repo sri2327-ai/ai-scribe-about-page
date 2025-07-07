@@ -9,29 +9,29 @@ import { useIsMobile } from '@/hooks/use-mobile';
 
 const platformFeatures = [
   {
-    icon: Stethoscope,
-    title: "Clinical workflows that save time, not add to it",
-    description: "AI-powered documentation and clinical intelligence that streamlines your practice workflow."
-  },
-  {
-    icon: TrendingUp,
-    title: "Built-in billing and claims to get paid faster",
-    description: "Integrated revenue cycle management with real-time insurance verification and automated claims processing."
-  },
-  {
     icon: Calendar,
-    title: "Smart scheduling that keeps your calendar full",
-    description: "AI-powered appointment scheduling with automated patient communication and no-show reduction."
-  },
-  {
-    icon: Brain,
-    title: "Reputation tools to attract and retain patients",
-    description: "Patient engagement and reputation management tools that grow your practice organically."
+    title: "Smart Scheduling & Patient Access",
+    description: "Let BRAVO handle inbound calls, schedule appointments, and sync with your EHR, SIP, and PMS systems. Automated reminders and confirmations reduce no-shows and keep your calendar full."
   },
   {
     icon: Clock,
-    title: "One login, one platform, built for private care",
-    description: "Everything you need in a single, integrated platform designed specifically for healthcare providers."
+    title: "Pre-Visit Automation That Saves Time",
+    description: "Digitize patient intake, insurance verification, and medical history updates—so every visit starts smooth and fully prepped."
+  },
+  {
+    icon: Stethoscope,
+    title: "Real-Time AI Medical Scribe & Clinical Intelligence",
+    description: "CRUSH captures and transcribes encounters to create structured notes instantly. Pre-visit: AI-powered pre-charting, HCC risk insights. During: Context-aware documentation. Post-visit: Auto-coded notes, EHR order entry, and visit summaries."
+  },
+  {
+    icon: Brain,
+    title: "Admin & Post-Visit Automation",
+    description: "Automate routine tasks like refills, referrals, and lab orders. BRAVO also manages follow-ups, medication adherence, and preventive care outreach—reducing staff burden and improving outcomes."
+  },
+  {
+    icon: TrendingUp,
+    title: "Accelerated Revenue Cycle Management",
+    description: "From real-time insurance checks to AI-powered claims processing and payment tracking—we help you get reimbursed faster and cleaner."
   }
 ];
 
@@ -182,8 +182,18 @@ const ConnectedPlatformSection = () => {
               mx: 'auto'
             }}
           >
-            Everything you need, finally connected
+            Everything You Need, Finally Connected
           </Typography>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300 mb-6"
+          >
+            <Zap className="w-4 h-4" />
+            by Ambient AI
+          </motion.div>
           <Typography
             variant="body1"
             sx={{ 
@@ -196,7 +206,7 @@ const ConnectedPlatformSection = () => {
               px: { xs: 2, sm: 0 }
             }}
           >
-            Most EHRs stop at clinical notes. Tebra goes further, combining your EHR with billing, scheduling, and reputation tools that actually talk to each other. No more switching tabs, chasing down claims, or losing patients to bad reviews.
+            Most platforms stop at SOAP notes. We go further. Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
           </Typography>
         </motion.div>
 
