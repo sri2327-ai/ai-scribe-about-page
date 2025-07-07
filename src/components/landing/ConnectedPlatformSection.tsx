@@ -257,55 +257,101 @@ const ConnectedPlatformSection = () => {
   const isTablet = typeof window !== 'undefined' && window.innerWidth <= 1024 && window.innerWidth > 640;
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/30 to-white">
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
-        {/* Header */}
+    <section className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-blue-50/30 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-[#387E89]/20 to-transparent rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-[#143151]/20 to-transparent rounded-full blur-3xl"></div>
+      </div>
+      
+      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%', position: 'relative', zIndex: 10 }}>
+        {/* Enhanced Header */}
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-10 sm:mb-12 lg:mb-16"
+          className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
+          {/* Badge */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg mb-6 group hover:shadow-xl transition-all duration-300"
+          >
+            <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+            <span className="font-semibold">Powered by Ambient AI</span>
+          </motion.div>
+          
+          {/* Main Title */}
           <Typography
-            variant="h2"
+            variant="h1"
             fontWeight="bold"
             sx={{ 
-              mb: { xs: 3, sm: 4 }, 
+              mb: { xs: 4, sm: 5 }, 
               color: '#143151', 
-              fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.75rem', lg: '3rem' },
-              lineHeight: 1.2,
-              maxWidth: '900px',
+              fontSize: { xs: '2rem', sm: '2.75rem', md: '3.25rem', lg: '3.75rem' },
+              lineHeight: 1.1,
+              maxWidth: '1000px',
               mx: 'auto',
-              px: { xs: 1, sm: 0 }
+              px: { xs: 1, sm: 0 },
+              background: 'linear-gradient(135deg, #143151 0%, #387E89 100%)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
             }}
           >
-            Everything You Need, Finally Connected
+            Everything You Need,{' '}
+            <span className="relative">
+              Finally Connected
+              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full opacity-30"></div>
+            </span>
           </Typography>
+          
+          {/* Subtitle */}
           <Typography
-            variant="h6"
+            variant="h5"
             sx={{ 
-              color: '#666', 
-              fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' },
+              color: '#555', 
+              fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.5rem' },
               fontWeight: 400,
-              maxWidth: '700px',
+              maxWidth: '800px',
               mx: 'auto',
               lineHeight: 1.6,
-              mb: { xs: 4, sm: 5 },
+              mb: { xs: 6, sm: 8 },
               px: { xs: 2, sm: 1 }
             }}
           >
-            Most platforms stop at SOAP notes. We go further. Our all-in-one Ambient AI platform connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs smarter, faster, and hands-free.
+            Most platforms stop at SOAP notes. We go further. Our{' '}
+            <span className="font-semibold text-[#143151]">all-in-one Ambient AI platform</span>{' '}
+            connects scheduling, documentation, billing, and patient engagement—so your entire workflow runs{' '}
+            <span className="font-semibold text-[#387E89]">smarter, faster, and hands-free.</span>
           </Typography>
+          
+          {/* Key Stats */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-5 py-2.5 rounded-full text-sm font-medium shadow-lg hover:shadow-xl transition-all duration-300"
+            className="flex flex-wrap justify-center gap-6 sm:gap-8 mb-8"
           >
-            <Zap className="w-4 h-4" />
-            by Ambient AI
+            {[
+              { number: '75%', label: 'Less Documentation Time' },
+              { number: '3x', label: 'Faster Revenue Cycle' },
+              { number: '60%', label: 'Reduced Staff Workload' }
+            ].map((stat, index) => (
+              <div key={index} className="text-center group">
+                <div className="text-2xl sm:text-3xl font-bold text-[#143151] group-hover:scale-110 transition-transform duration-300">
+                  {stat.number}
+                </div>
+                <div className="text-sm sm:text-base text-gray-600 font-medium mt-1">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
           </motion.div>
         </motion.div>
 
