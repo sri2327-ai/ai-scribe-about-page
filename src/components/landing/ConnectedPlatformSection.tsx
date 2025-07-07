@@ -1,28 +1,33 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, Stethoscope, Brain, TrendingUp, Zap } from 'lucide-react';
+import { Calendar, Clock, Stethoscope, Brain, TrendingUp, Zap, CircleDot } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 const platformFeatures = [{
   icon: Calendar,
   title: "Smart Scheduling & Patient Access",
-  description: "Let BRAVO handle inbound calls, schedule appointments, and sync with your EHR, SIP, and PMS systems. Automated reminders and confirmations reduce no-shows and keep your calendar full."
+  description: "Let BRAVO handle inbound calls, schedule appointments, and sync with your EHR, SIP, and PMS systems.",
+  points: ["Automated reminders and confirmations", "Reduce no-shows", "Keep your calendar full"]
 }, {
   icon: Clock,
   title: "Pre-Visit Automation That Saves Time",
-  description: "Digitize patient intake, insurance verification, and medical history updates—so every visit starts smooth and fully prepped."
+  description: "Digitize patient intake, insurance verification, and medical history updates.",
+  points: ["Every visit starts smooth", "Fully prepped encounters", "Streamlined workflows"]
 }, {
   icon: Stethoscope,
   title: "Real-Time AI Medical Scribe & Clinical Intelligence",
-  description: "CRUSH captures and transcribes encounters to create structured notes instantly. Pre-visit: AI-powered pre-charting, HCC risk insights. During: Context-aware documentation. Post-visit: Auto-coded notes, EHR order entry, and visit summaries."
+  description: "CRUSH captures and transcribes encounters to create structured notes instantly.",
+  points: ["AI-powered pre-charting & HCC risk insights", "Context-aware documentation during visits", "Auto-coded notes & EHR order entry"]
 }, {
   icon: Brain,
   title: "Admin & Post-Visit Automation",
-  description: "Automate routine tasks like refills, referrals, and lab orders. BRAVO also manages follow-ups, medication adherence, and preventive care outreach—reducing staff burden and improving outcomes."
+  description: "Automate routine tasks like refills, referrals, and lab orders.",
+  points: ["Follow-ups & medication adherence", "Preventive care outreach", "Reduce staff burden & improve outcomes"]
 }, {
   icon: TrendingUp,
   title: "Accelerated Revenue Cycle Management",
-  description: "From real-time insurance checks to AI-powered claims processing and payment tracking—we help you get reimbursed faster and cleaner."
+  description: "From real-time insurance checks to AI-powered claims processing and payment tracking.",
+  points: ["Get reimbursed faster", "Cleaner claims processing", "Improved financial outcomes"]
 }];
 const MobileTimelineItem = ({
   feature,
@@ -86,6 +91,23 @@ const MobileTimelineItem = ({
     }}>
         {feature.description}
       </Typography>
+      
+      {/* Bullet Points */}
+      <div className="mt-3 space-y-1.5">
+        {feature.points.map((point, pointIndex) => (
+          <div key={pointIndex} className="flex items-start gap-2">
+            <CircleDot className="w-3 h-3 text-[#F06292] mt-1 flex-shrink-0" strokeWidth={2} />
+            <Typography variant="body2" sx={{
+              color: '#666',
+              fontSize: '0.85rem',
+              lineHeight: 1.4,
+              fontWeight: 400
+            }}>
+              {point}
+            </Typography>
+          </div>
+        ))}
+      </div>
     </div>
   </motion.div>;
 const FeatureItem = ({
@@ -151,10 +173,30 @@ const FeatureItem = ({
     transition: 'opacity 0.3s ease',
     '.group:hover &': {
       opacity: 1
-    }
+    },
+    mb: 2
   }}>
       {feature.description}
     </Typography>
+    
+    {/* Desktop Bullet Points */}
+    <div className="space-y-1">
+      {feature.points.map((point, pointIndex) => (
+        <div key={pointIndex} className="flex items-start gap-2 justify-center">
+          <CircleDot className="w-2.5 h-2.5 text-[#F06292] mt-1.5 flex-shrink-0" strokeWidth={2} />
+          <Typography variant="body2" sx={{
+            color: '#666',
+            fontSize: '0.8rem',
+            lineHeight: 1.4,
+            fontWeight: 400,
+            maxWidth: '220px',
+            textAlign: 'left'
+          }}>
+            {point}
+          </Typography>
+        </div>
+      ))}
+    </div>
 
     {/* Enhanced dotted connector with animation */}
     {index < platformFeatures.length - 1 && <motion.div className="absolute top-10 left-full w-12 h-0.5 hidden lg:block" initial={{
