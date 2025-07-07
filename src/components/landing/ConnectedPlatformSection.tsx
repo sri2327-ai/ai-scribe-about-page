@@ -103,55 +103,74 @@ const FeatureItem = ({ feature, index }: { feature: typeof platformFeatures[0], 
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5, delay: index * 0.1 }}
     viewport={{ once: true }}
-    className="flex flex-col items-center text-center relative"
+    className="flex flex-col items-center text-center relative group cursor-pointer"
   >
-    {/* Icon */}
-    <div className="w-16 h-16 mb-4 flex items-center justify-center">
+    {/* Icon with enhanced hover effect */}
+    <motion.div 
+      className="w-20 h-20 mb-6 flex items-center justify-center rounded-2xl bg-gradient-to-br from-gray-50 to-gray-100 group-hover:from-[#387E89]/10 group-hover:to-[#143151]/10 transition-all duration-300 shadow-sm group-hover:shadow-lg"
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    >
       <feature.icon 
-        className="w-12 h-12 text-[#387E89]" 
+        className="w-10 h-10 text-[#387E89] group-hover:text-[#143151] transition-colors duration-300" 
         strokeWidth={1.5} 
       />
-    </div>
+    </motion.div>
     
-    {/* Title */}
+    {/* Title with better typography */}
     <Typography
       variant="h6"
       sx={{ 
-        fontWeight: 600,
+        fontWeight: 700,
         color: '#143151',
-        fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
+        fontSize: { xs: '0.95rem', sm: '1.05rem', md: '1.15rem' },
         lineHeight: 1.3,
-        mb: 2,
-        maxWidth: '200px'
+        mb: 3,
+        maxWidth: '240px',
+        transition: 'color 0.3s ease',
+        '&:hover': {
+          color: '#387E89'
+        }
       }}
     >
       {feature.title}
     </Typography>
     
-    {/* Description */}
+    {/* Description with improved readability */}
     <Typography
       variant="body2"
       sx={{ 
         color: '#666',
-        fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' },
-        lineHeight: 1.4,
-        maxWidth: '220px'
+        fontSize: { xs: '0.85rem', sm: '0.9rem', md: '0.95rem' },
+        lineHeight: 1.5,
+        maxWidth: '260px',
+        opacity: 0.9,
+        transition: 'opacity 0.3s ease',
+        '.group:hover &': {
+          opacity: 1
+        }
       }}
     >
       {feature.description}
     </Typography>
 
-    {/* Dotted connector - only show between items on desktop */}
+    {/* Enhanced dotted connector with animation */}
     {index < platformFeatures.length - 1 && (
-      <div className="absolute top-8 left-full w-8 h-0.5 hidden lg:block">
+      <motion.div 
+        className="absolute top-10 left-full w-12 h-0.5 hidden lg:block"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        transition={{ duration: 0.8, delay: index * 0.2 }}
+        viewport={{ once: true }}
+      >
         <div 
-          className="w-full h-full"
+          className="w-full h-full origin-left"
           style={{
-            backgroundImage: `repeating-linear-gradient(to right, #387E89 0px, #387E89 4px, transparent 4px, transparent 8px)`,
-            opacity: 0.4
+            backgroundImage: `repeating-linear-gradient(to right, #387E89 0px, #387E89 6px, transparent 6px, transparent 12px)`,
+            opacity: 0.5
           }}
         />
-      </div>
+      </motion.div>
     )}
   </motion.div>
 );
@@ -160,8 +179,8 @@ const ConnectedPlatformSection = () => {
   const isMobile = useIsMobile();
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <Box sx={{ maxWidth: { xs: '900px', lg: '1400px' }, mx: 'auto', width: '100%' }}>
+    <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/20 to-white">
+      <Box sx={{ maxWidth: { xs: '600px', md: '800px', lg: '1200px' }, mx: 'auto', width: '100%' }}>
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
