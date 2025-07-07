@@ -101,31 +101,31 @@ const combinedTestimonial = {
 };
 
 const PainPointCard = ({ icon: Icon, problem, detail, color }) => (
-  <Card className="p-3 sm:p-4 bg-red-50/50 border-red-100 hover:shadow-lg transition-all duration-300 h-full hover:scale-105">
-    <div className="flex items-start gap-3">
-      <div className="p-2 rounded-full bg-red-100 flex-shrink-0">
-        <Icon className={`w-4 h-4 ${color}`} />
+  <Card className="p-2 sm:p-3 bg-red-50/50 border-red-100 hover:shadow-md transition-all duration-300 h-full">
+    <div className="flex items-start gap-2">
+      <div className="p-1.5 rounded-full bg-red-100 flex-shrink-0">
+        <Icon className={`w-3 h-3 ${color}`} />
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight">{problem}</h4>
-        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{detail}</p>
+        <h4 className="font-semibold text-gray-900 mb-1 text-xs sm:text-sm leading-tight">{problem}</h4>
+        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
       </div>
-      <X className="w-4 h-4 text-red-500 flex-shrink-0" />
+      <X className="w-3 h-3 text-red-500 flex-shrink-0" />
     </div>
   </Card>
 );
 
 const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
-  <Card className="p-3 sm:p-4 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-lg transition-all duration-300 h-full hover:scale-105">
-    <div className="flex items-start gap-3">
-      <div className="p-2 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
-        <Icon className="w-4 h-4 text-white" />
+  <Card className="p-2 sm:p-3 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-md transition-all duration-300 h-full">
+    <div className="flex items-start gap-2">
+      <div className="p-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
+        <Icon className="w-3 h-3 text-white" />
       </div>
       <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight">{solution}</h4>
-        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{detail}</p>
+        <h4 className="font-semibold text-gray-900 mb-1 text-xs sm:text-sm leading-tight">{solution}</h4>
+        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
       </div>
-      <Check className="w-4 h-4 text-[#387E89] flex-shrink-0" />
+      <Check className="w-3 h-3 text-[#387E89] flex-shrink-0" />
     </div>
   </Card>
 );
@@ -257,7 +257,7 @@ const FifthSection = () => {
         </div>
 
         {/* Before & After Section - Responsive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-10 lg:mb-12">
           {/* Before Section */}
           <div className="space-y-6">
             <div className="text-center">
@@ -288,7 +288,7 @@ const FifthSection = () => {
               </Typography>
             </div>
 
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-2 sm:space-y-3">
               {painPoints.map((point, index) => (
                 <div key={index}>
                   <PainPointCard {...point} />
@@ -327,7 +327,7 @@ const FifthSection = () => {
               </Typography>
             </div>
 
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-2 sm:space-y-3">
               {solutions.map((solution, index) => (
                 <div key={index}>
                   <SolutionCard {...solution} />
