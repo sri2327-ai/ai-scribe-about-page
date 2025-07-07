@@ -151,6 +151,10 @@ const FeatureItem = ({
     lineHeight: 1.3,
     mb: 3,
     maxWidth: '280px',
+    minHeight: '65px', // Fixed height to align all descriptions
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     transition: 'color 0.3s ease',
     textAlign: 'center',
     '&:hover': {
