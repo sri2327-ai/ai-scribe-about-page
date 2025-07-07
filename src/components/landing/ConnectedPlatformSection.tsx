@@ -35,6 +35,68 @@ const platformFeatures = [
   }
 ];
 
+const MobileTimelineItem = ({ feature, index, isLast }: { feature: typeof platformFeatures[0], index: number, isLast: boolean }) => (
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    viewport={{ once: true }}
+    className="flex items-start gap-4 relative"
+  >
+    {/* Timeline line and dot */}
+    <div className="flex flex-col items-center relative">
+      {/* Dot */}
+      <div className="w-4 h-4 rounded-full bg-[#FF6B5A] relative z-10 flex-shrink-0" />
+      
+      {/* Connecting line */}
+      {!isLast && (
+        <div 
+          className="w-0.5 h-12 mt-2"
+          style={{
+            backgroundImage: `repeating-linear-gradient(to bottom, #FF6B5A 0px, #FF6B5A 4px, transparent 4px, transparent 8px)`,
+            opacity: 0.6
+          }}
+        />
+      )}
+    </div>
+
+    {/* Icon */}
+    <div className="flex items-center justify-center mt-[-2px] mr-4">
+      <feature.icon 
+        className="w-8 h-8 text-[#387E89]" 
+        strokeWidth={1.5} 
+      />
+    </div>
+    
+    {/* Content */}
+    <div className="flex-1 pb-6">
+      <Typography
+        variant="h6"
+        sx={{ 
+          fontWeight: 600,
+          color: '#143151',
+          fontSize: '1.1rem',
+          lineHeight: 1.3,
+          mb: 1
+        }}
+      >
+        {feature.title}
+      </Typography>
+      
+      <Typography
+        variant="body2"
+        sx={{ 
+          color: '#666',
+          fontSize: '0.9rem',
+          lineHeight: 1.4
+        }}
+      >
+        {feature.description}
+      </Typography>
+    </div>
+  </motion.div>
+);
+
 const FeatureItem = ({ feature, index }: { feature: typeof platformFeatures[0], index: number }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
@@ -138,17 +200,27 @@ const ConnectedPlatformSection = () => {
           </Typography>
         </motion.div>
 
-        {/* Features Grid */}
-        <div className={`
-          ${isMobile 
-            ? 'grid grid-cols-1 gap-8 max-w-sm mx-auto' 
-            : 'grid grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4 items-start'
-          }
-        `}>
-          {platformFeatures.map((feature, index) => (
-            <FeatureItem key={index} feature={feature} index={index} />
-          ))}
-        </div>
+        {/* Features Layout */}
+        {isMobile ? (
+          /* Mobile: Timeline layout like reference image */
+          <div className="max-w-md mx-auto pl-4">
+            {platformFeatures.map((feature, index) => (
+              <MobileTimelineItem 
+                key={index} 
+                feature={feature} 
+                index={index} 
+                isLast={index === platformFeatures.length - 1} 
+              />
+            ))}
+          </div>
+        ) : (
+          /* Desktop/Tablet: Horizontal grid */
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4 items-start">
+            {platformFeatures.map((feature, index) => (
+              <FeatureItem key={index} feature={feature} index={index} />
+            ))}
+          </div>
+        )}
       </Box>
     </section>
   );
