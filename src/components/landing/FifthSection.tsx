@@ -232,10 +232,11 @@ const FifthSection = () => {
             sx={{ 
               mb: 3, 
               color: '#143151', 
-              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '3rem' },
-              lineHeight: 1.2,
-              maxWidth: '900px',
-              mx: 'auto'
+              fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2.2rem', lg: '2.6rem' },
+              lineHeight: 1.3,
+              maxWidth: '700px',
+              mx: 'auto',
+              px: { xs: 2, sm: 0 }
             }}
           >
             Buried in documentation, no-shows, and clunky software that doesn't talk to each other?
