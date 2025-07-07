@@ -46,14 +46,14 @@ const MobileTimelineItem = ({ feature, index, isLast }: { feature: typeof platfo
     {/* Timeline line and dot */}
     <div className="flex flex-col items-center relative">
       {/* Dot */}
-      <div className="w-4 h-4 rounded-full bg-[#FF6B5A] relative z-10 flex-shrink-0" />
+      <div className="w-4 h-4 rounded-full bg-[#F06292] relative z-10 flex-shrink-0" />
       
       {/* Connecting line */}
       {!isLast && (
         <div 
           className="w-0.5 h-12 mt-2"
           style={{
-            backgroundImage: `repeating-linear-gradient(to bottom, #FF6B5A 0px, #FF6B5A 4px, transparent 4px, transparent 8px)`,
+            backgroundImage: `repeating-linear-gradient(to bottom, #F06292 0px, #F06292 4px, transparent 4px, transparent 8px)`,
             opacity: 0.6
           }}
         />
@@ -161,7 +161,7 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
-      <Box sx={{ maxWidth: '900px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: { xs: '900px', lg: '1400px' }, mx: 'auto', width: '100%' }}>
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -225,7 +225,7 @@ const ConnectedPlatformSection = () => {
           </div>
         ) : (
           /* Desktop/Tablet: Horizontal grid */
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4 items-start">
+          <div className="grid grid-cols-2 lg:flex lg:justify-between lg:items-start gap-8 lg:gap-2">
             {platformFeatures.map((feature, index) => (
               <FeatureItem key={index} feature={feature} index={index} />
             ))}
