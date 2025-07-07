@@ -258,7 +258,7 @@ const ConnectedPlatformSection = () => {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50/30 to-white">
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
+      <Box sx={{ maxWidth: '1200px', mx: 'auto', width: '100%' }}>
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
