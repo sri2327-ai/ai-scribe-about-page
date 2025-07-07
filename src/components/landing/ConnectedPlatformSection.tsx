@@ -174,22 +174,22 @@ const FeatureItem = ({
     '.group:hover &': {
       opacity: 1
     },
-    mb: 2
+    mb: 2,
+    textAlign: 'center'
   }}>
       {feature.description}
     </Typography>
     
     {/* Desktop Bullet Points */}
-    <div className="space-y-1">
+    <div className="flex flex-col items-center space-y-1.5">
       {feature.points.map((point, pointIndex) => (
-        <div key={pointIndex} className="flex items-start gap-2 justify-center">
-          <CircleDot className="w-2.5 h-2.5 text-[#F06292] mt-1.5 flex-shrink-0" strokeWidth={2} />
+        <div key={pointIndex} className="flex items-start gap-2 max-w-[240px]">
+          <CircleDot className="w-2.5 h-2.5 text-[#F06292] mt-1 flex-shrink-0" strokeWidth={2} />
           <Typography variant="body2" sx={{
             color: '#666',
             fontSize: '0.8rem',
             lineHeight: 1.4,
             fontWeight: 400,
-            maxWidth: '220px',
             textAlign: 'left'
           }}>
             {point}
