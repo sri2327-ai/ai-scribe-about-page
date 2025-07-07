@@ -176,7 +176,7 @@ const ConnectedPlatformSection = () => {
             sx={{ 
               mb: { xs: 4, sm: 6 }, 
               color: '#143151', 
-              fontSize: { xs: '1.8rem', sm: '2.5rem', md: '3rem', lg: '3.2rem' },
+              fontSize: { xs: '1.5rem', sm: '2rem', md: '2.5rem', lg: '2.8rem' },
               lineHeight: 1.2,
               maxWidth: '800px',
               mx: 'auto'
