@@ -37,7 +37,7 @@ The goal is to produce a summary that allows me to ask informed and specific que
     {
       name: 'Grok',
       icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-cover rounded-full" />,
-      url: `https://x.com/i/grok?text=${prompt}`,
+      url: `https://grok.com/?q=${prompt}`,
       color: 'bg-white hover:bg-gray-50',
       tooltip: 'Chat with Grok on S10.AI'
     }
