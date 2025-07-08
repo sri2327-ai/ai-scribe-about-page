@@ -20,7 +20,7 @@ const IntegrationSection = () => {
   return (
     <>
       <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89]">
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             {isClient ? (
               <motion.h2 
