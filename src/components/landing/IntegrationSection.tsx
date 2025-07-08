@@ -31,23 +31,23 @@ const IntegrationSection = () => {
   }, []);
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89] relative overflow-hidden">
-      <div className="max-w-2xl mx-auto">
-        {/* Compatibility Checker Part */}
-        <div className="text-center mb-12">
+    <section className="py-8 px-4 bg-gradient-to-r from-[#143151] to-[#387E89] relative overflow-hidden">
+      <div className="max-w-3xl mx-auto">
+        {/* Combined Header */}
+        <div className="text-center mb-6">
           {isClient ? (
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className={withTypography(typography.h2, "text-white mb-4")}
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2"
             >
-              Compatible with Your Preferred Software
+              Compatible with 500+ Healthcare Platforms
             </motion.h2>
           ) : (
-            <h2 className={withTypography(typography.h2, "text-white mb-4")}>
-              Compatible with Your Preferred Software
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2">
+              Compatible with 500+ Healthcare Platforms
             </h2>
           )}
           
@@ -57,55 +57,29 @@ const IntegrationSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className={withTypography(typography.description, "text-white max-w-xl mx-auto")}
+              className="text-white/90 text-sm md:text-base max-w-2xl mx-auto"
             >
-              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
-              Try our compatibility checker below.
+              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. Try our compatibility checker below.
             </motion.p>
           ) : (
-            <p className={withTypography(typography.description, "text-white max-w-xl mx-auto")}>
-              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
-              Try our compatibility checker below.
+            <p className="text-white/90 text-sm md:text-base max-w-2xl mx-auto">
+              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. Try our compatibility checker below.
             </p>
           )}
         </div>
 
-        <div className="mb-12">
+        <div className="mb-6">
           <IntegrationChecker />
         </div>
 
-        <div className="flex items-center justify-center mb-12">
-          <div className="bg-white/10 rounded-lg p-3 md:p-4 max-w-lg flex items-start gap-3 backdrop-blur-sm">
-            <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
-            <p className={withTypography(typography.body.sm, "text-white text-left")}>
+        <div className="flex items-center justify-center mb-6">
+          <div className="bg-white/10 rounded-lg p-2 md:p-3 max-w-lg flex items-start gap-2 backdrop-blur-sm">
+            <Info className="w-4 h-4 text-white shrink-0 mt-0.5" />
+            <p className="text-white text-xs md:text-sm text-left">
               <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
               Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
             </p>
           </div>
-        </div>
-
-        {/* Logo Marquee Part */}
-        <div className="text-center mb-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Typography
-              variant="h3"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"
-            >
-              Works with 500+ Healthcare Platforms
-            </Typography>
-            
-            <Typography
-              variant="body1"
-              className="text-white/90 text-base sm:text-lg mb-8 max-w-2xl mx-auto"
-            >
-              No matter what software you use, S10.AI integrates seamlessly into your existing workflow
-            </Typography>
-          </motion.div>
         </div>
 
         <motion.div 
