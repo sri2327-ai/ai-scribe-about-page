@@ -429,6 +429,94 @@ const FifthSection = () => {
           )}
         </div>
 
+        {/* FAQ & Blog Section */}
+        <div className="mb-12 lg:mb-16">
+          <Typography
+            variant="h4"
+            fontWeight="bold"
+            textAlign="center"
+            sx={{ 
+              mb: 2, 
+              color: '#143151', 
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
+            }}
+          >
+            Frequently Asked Questions & Resources
+          </Typography>
+          <Typography
+            variant="body1"
+            textAlign="center"
+            sx={{ 
+              mb: 8, 
+              color: '#666', 
+              fontSize: { xs: '0.9rem', sm: '1rem' },
+              maxWidth: '600px',
+              mx: 'auto'
+            }}
+          >
+            Get answers to common questions and explore our latest insights
+          </Typography>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              {
+                title: "How compliance can be a medical billing company's competitive advantage",
+                href: "#",
+                category: "Compliance"
+              },
+              {
+                title: "Opening a private medical practice: These 7 books can help",
+                href: "#", 
+                category: "Practice Management"
+              },
+              {
+                title: "Top 6 questions patients have about billing and insurance",
+                href: "#",
+                category: "Patient Care"
+              },
+              {
+                title: "How to reduce your patient acquisition costs (+ free template)",
+                href: "#",
+                category: "Growth"
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group cursor-pointer"
+              >
+                <Card className="h-full p-4 bg-white border border-gray-100 hover:border-[#387E89]/30 hover:shadow-lg transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start justify-between mb-3">
+                    <span className="text-xs font-medium px-2 py-1 rounded-full bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 text-[#143151]">
+                      {item.category}
+                    </span>
+                    <div className="w-5 h-5 rounded-full bg-[#387E89]/10 flex items-center justify-center">
+                      <ArrowRight className="w-3 h-3 text-[#387E89] group-hover:translate-x-0.5 transition-transform" />
+                    </div>
+                  </div>
+                  <h4 className="text-sm font-semibold text-[#143151] leading-tight group-hover:text-[#387E89] transition-colors">
+                    {item.title}
+                  </h4>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="text-center">
+            <motion.button
+              className="bg-white border-2 border-[#387E89] text-[#387E89] hover:bg-[#387E89] hover:text-white px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              View All Resources
+              <ArrowRight className="inline-block ml-2 w-4 h-4" />
+            </motion.button>
+          </div>
+        </div>
+
         {/* Testimonial */}
         <Box sx={{ mb: 8 }}>
           <QuoteTestimonial {...combinedTestimonial} />
@@ -436,7 +524,7 @@ const FifthSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <motion.button 
+          <motion.button
             className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base lg:text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
