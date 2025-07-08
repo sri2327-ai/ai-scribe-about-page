@@ -31,96 +31,61 @@ const IntegrationSection = () => {
   }, []);
 
   return (
-    <>
-      <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89]">
-        <div className="max-w-2xl mx-auto">
-          <div className="text-center mb-12">
-            {isClient ? (
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className={withTypography(typography.h2, "text-white mb-4")}
-              >
-                Compatible with Your Preferred Software
-              </motion.h2>
-            ) : (
-              <h2 className={withTypography(typography.h2, "text-white mb-4")}>
-                Compatible with Your Preferred Software
-              </h2>
-            )}
-            
-            {isClient ? (
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className={withTypography(typography.description, "text-white max-w-xl mx-auto")}
-              >
-                From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
-                Try our compatibility checker below.
-              </motion.p>
-            ) : (
-              <p className={withTypography(typography.description, "text-white max-w-xl mx-auto")}>
-                From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
-                Try our compatibility checker below.
-              </p>
-            )}
-          </div>
+    <section className="py-16 px-4 bg-gradient-to-r from-[#143151] to-[#387E89] relative overflow-hidden">
+      <div className="max-w-2xl mx-auto">
+        {/* Compatibility Checker Part */}
+        <div className="text-center mb-12">
+          {isClient ? (
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className={withTypography(typography.h2, "text-white mb-4")}
+            >
+              Compatible with Your Preferred Software
+            </motion.h2>
+          ) : (
+            <h2 className={withTypography(typography.h2, "text-white mb-4")}>
+              Compatible with Your Preferred Software
+            </h2>
+          )}
+          
+          {isClient ? (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className={withTypography(typography.description, "text-white max-w-xl mx-auto")}
+            >
+              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
+              Try our compatibility checker below.
+            </motion.p>
+          ) : (
+            <p className={withTypography(typography.description, "text-white max-w-xl mx-auto")}>
+              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. 
+              Try our compatibility checker below.
+            </p>
+          )}
+        </div>
 
-          <div className="mb-12">
-            <IntegrationChecker />
-          </div>
+        <div className="mb-12">
+          <IntegrationChecker />
+        </div>
 
-          <div className="flex items-center justify-center mb-8">
-            <div className="bg-white/10 rounded-lg p-3 md:p-4 max-w-lg flex items-start gap-3 backdrop-blur-sm">
-              <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
-              <p className={withTypography(typography.body.sm, "text-white text-left")}>
-                <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
-                Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
-              </p>
-            </div>
-          </div>
-
-          <div className="text-center">
-            {isClient ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                <Link to="/integration">
-                  <Button 
-                    className="rounded-full px-6 py-2 md:px-8 md:py-6 text-base md:text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
-                  >
-                    Learn More About Integrations
-                    <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
-                  </Button>
-                </Link>
-              </motion.div>
-            ) : (
-              <Link to="/integration">
-                <Button 
-                  className="rounded-full px-6 py-2 md:px-8 md:py-6 text-base md:text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
-                >
-                  Learn More About Integrations
-                  <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
-                </Button>
-              </Link>
-            )}
+        <div className="flex items-center justify-center mb-12">
+          <div className="bg-white/10 rounded-lg p-3 md:p-4 max-w-lg flex items-start gap-3 backdrop-blur-sm">
+            <Info className="w-5 h-5 text-white shrink-0 mt-0.5" />
+            <p className={withTypography(typography.body.sm, "text-white text-left")}>
+              <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
+              Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
+            </p>
           </div>
         </div>
-      </section>
-      
-      {/* Logo Marquee Section */}
-      <section className="py-16 px-4 bg-white relative overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/50 to-transparent"></div>
-        
-        <Box className="max-w-5xl mx-auto text-center relative z-10">
+
+        {/* Logo Marquee Part */}
+        <div className="text-center mb-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -129,114 +94,144 @@ const IntegrationSection = () => {
           >
             <Typography
               variant="h3"
-              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent"
+              className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-white"
             >
               Works with 500+ Healthcare Platforms
             </Typography>
             
             <Typography
               variant="body1"
-              className="text-gray-600 text-base sm:text-lg mb-12 max-w-2xl mx-auto"
+              className="text-white/90 text-base sm:text-lg mb-8 max-w-2xl mx-auto"
             >
               No matter what software you use, S10.AI integrates seamlessly into your existing workflow
             </Typography>
           </motion.div>
+        </div>
 
-          <motion.div 
-            className="relative"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            {/* Mobile: Enhanced Carousel */}
-            <div className="block lg:hidden">
-              <ResponsiveCarousel
-                items={integrationLogos}
-                renderItem={(item, index) => (
-                  <div key={index} className="flex items-center justify-center px-2 py-3">
-                    <motion.div 
-                      className="bg-white rounded-xl shadow-sm border border-gray-100/80 p-4 w-32 h-20 flex items-center justify-center group hover:shadow-lg hover:border-gray-200 transition-all duration-300"
-                      whileHover={{ y: -2, scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
+        <motion.div 
+          className="relative mb-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Mobile: Enhanced Carousel */}
+          <div className="block lg:hidden">
+            <ResponsiveCarousel
+              items={integrationLogos}
+              renderItem={(item, index) => (
+                <div key={index} className="flex items-center justify-center px-2 py-3">
+                  <motion.div 
+                    className="bg-white/10 rounded-xl border border-white/20 p-4 w-32 h-20 flex items-center justify-center group hover:bg-white/20 transition-all duration-300 backdrop-blur-sm"
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <img
+                      src={item.logo}
+                      alt={`${item.name} integration`}
+                      className="max-h-10 w-auto object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-300"
+                    />
+                  </motion.div>
+                </div>
+              )}
+              columnsDesktop={4}
+              columnsTablet={3}
+              columnsMobile={2}
+              autoPlay={true}
+              showControls={false}
+              controlsBelow={false}
+              itemHeight={110}
+              gap={16}
+              autoPlayInterval={2500}
+            />
+          </div>
+
+          {/* Desktop: Enhanced Marquee */}
+          <div className="hidden lg:block">
+            <div className="relative">
+              {/* Gradient overlays for seamless effect */}
+              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#143151] to-transparent z-10 pointer-events-none"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#387E89] to-transparent z-10 pointer-events-none"></div>
+              
+              <Marquee
+                gradient={false}
+                speed={30}
+                pauseOnHover={true}
+                className="py-6"
+              >
+                {integrationLogos.concat(integrationLogos).map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className="mx-8 group cursor-pointer"
+                    whileHover={{ y: -4, scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    <div className="bg-white/10 rounded-2xl border border-white/20 p-8 w-40 h-24 flex items-center justify-center group-hover:bg-white/20 transition-all duration-500 relative overflow-hidden backdrop-blur-sm">
+                      {/* Subtle shine effect on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                      
                       <img
                         src={item.logo}
                         alt={`${item.name} integration`}
-                        className="max-h-10 w-auto object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                        className="max-h-12 w-auto object-contain filter brightness-0 invert group-hover:brightness-100 group-hover:invert-0 transition-all duration-500 relative z-10"
                       />
-                    </motion.div>
-                  </div>
-                )}
-                columnsDesktop={4}
-                columnsTablet={3}
-                columnsMobile={2}
-                autoPlay={true}
-                showControls={false}
-                controlsBelow={false}
-                itemHeight={110}
-                gap={16}
-                autoPlayInterval={2500}
-              />
+                    </div>
+                  </motion.div>
+                ))}
+              </Marquee>
             </div>
+          </div>
+        </motion.div>
 
-            {/* Desktop: Enhanced Marquee */}
-            <div className="hidden lg:block">
-              <div className="relative">
-                {/* Gradient overlays for seamless effect */}
-                <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
-                
-                <Marquee
-                  gradient={false}
-                  speed={30}
-                  pauseOnHover={true}
-                  className="py-6"
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mb-8"
+        >
+          <div className="inline-flex items-center gap-2 bg-white/10 rounded-full px-6 py-3 border border-white/20 backdrop-blur-sm">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <Typography
+              variant="body2"
+              className="text-white text-sm font-medium"
+            >
+              Universal API • Real-time sync • Zero setup required
+            </Typography>
+          </div>
+        </motion.div>
+
+        {/* CTA Button */}
+        <div className="text-center">
+          {isClient ? (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
+              <Link to="/integration">
+                <Button 
+                  className="rounded-full px-6 py-2 md:px-8 md:py-6 text-base md:text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
                 >
-                  {integrationLogos.concat(integrationLogos).map((item, index) => (
-                    <motion.div
-                      key={index}
-                      className="mx-8 group cursor-pointer"
-                      whileHover={{ y: -4, scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      <div className="bg-white rounded-2xl shadow-sm border border-gray-100/80 p-8 w-40 h-24 flex items-center justify-center group-hover:shadow-xl group-hover:border-gray-200 transition-all duration-500 relative overflow-hidden">
-                        {/* Subtle shine effect on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                        
-                        <img
-                          src={item.logo}
-                          alt={`${item.name} integration`}
-                          className="max-h-12 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 relative z-10"
-                        />
-                      </div>
-                    </motion.div>
-                  ))}
-                </Marquee>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10"
-          >
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-full px-6 py-3 border border-gray-100">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <Typography
-                variant="body2"
-                className="text-gray-600 text-sm font-medium"
+                  Learn More About Integrations
+                  <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
+                </Button>
+              </Link>
+            </motion.div>
+          ) : (
+            <Link to="/integration">
+              <Button 
+                className="rounded-full px-6 py-2 md:px-8 md:py-6 text-base md:text-lg bg-white hover:bg-gray-100 text-[#143151] shadow-xl"
               >
-                Universal API • Real-time sync • Zero setup required
-              </Typography>
-            </div>
-          </motion.div>
-        </Box>
-      </section>
-    </>
+                Learn More About Integrations
+                <ArrowRight className="ml-2 h-4 w-4 text-[#143151]" />
+              </Button>
+            </Link>
+          )}
+        </div>
+      </div>
+    </section>
   );
 };
 
