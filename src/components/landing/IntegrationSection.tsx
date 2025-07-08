@@ -22,7 +22,7 @@ const integrationLogos = [
 ];
 
 const IntegrationSection = () => {
-  console.log("Rendering Integration Section on landing page");
+  console.log("🚀 UPDATED IntegrationSection with combined logo marquee is rendering");
   
   const [isClient, setIsClient] = useState(false);
 
