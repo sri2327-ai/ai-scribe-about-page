@@ -31,81 +31,56 @@ const IntegrationSection = () => {
   }, []);
 
   return (
-    <section className="relative py-12 px-4 overflow-hidden">
-      {/* Modern gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(14,165,233,0.1),transparent_70%)]"></div>
-      
-      <div className="relative max-w-6xl mx-auto">
-        {/* Hero Header */}
-        <div className="text-center mb-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-2 mb-6 backdrop-blur-sm border border-white/20"
-          >
-            <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-            <span className="text-white/90 text-sm font-medium">Universal Integration Platform</span>
-          </motion.div>
+    <section className="py-8 px-4 bg-gradient-to-r from-[#143151] to-[#387E89] relative overflow-hidden">
+      <div className="max-w-3xl mx-auto">
+        {/* Combined Header */}
+        <div className="text-center mb-6">
+          {isClient ? (
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2"
+            >
+              Compatible with 500+ Healthcare Platforms
+            </motion.h2>
+          ) : (
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-2">
+              Compatible with 500+ Healthcare Platforms
+            </h2>
+          )}
           
-          <motion.h2 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent"
-          >
-            Works with 500+ Platforms
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-white/70 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed"
-          >
-            From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems
-          </motion.p>
+          {isClient ? (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-white/90 text-sm md:text-base max-w-2xl mx-auto"
+            >
+              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. Try our compatibility checker below.
+            </motion.p>
+          ) : (
+            <p className="text-white/90 text-sm md:text-base max-w-2xl mx-auto">
+              From EHR to VOIP, PMS to CRM - S10.AI seamlessly integrates with your existing systems. Try our compatibility checker below.
+            </p>
+          )}
         </div>
 
-        {/* Interactive Integration Checker */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mb-8"
-        >
-          <div className="bg-white/5 rounded-2xl p-6 md:p-8 backdrop-blur-xl border border-white/10">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-semibold text-white mb-2">Test Your Integration</h3>
-              <p className="text-white/60">Enter any software name to see compatibility</p>
-            </div>
-            <IntegrationChecker />
-          </div>
-        </motion.div>
+        <div className="mb-6">
+          <IntegrationChecker />
+        </div>
 
-        {/* Disclaimer */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="flex justify-center mb-8"
-        >
-          <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 max-w-2xl backdrop-blur-sm">
-            <div className="flex items-start gap-3">
-              <Info className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
-              <p className="text-amber-100 text-sm">
-                <span className="font-medium">Note:</span> This demonstrates our universal compatibility. 
-                S10.AI integrates with any healthcare software through our adaptive API layer.
-              </p>
-            </div>
+        <div className="flex items-center justify-center mb-6">
+          <div className="bg-white/10 rounded-lg p-2 md:p-3 max-w-lg flex items-start gap-2 backdrop-blur-sm">
+            <Info className="w-4 h-4 text-white shrink-0 mt-0.5" />
+            <p className="text-white text-xs md:text-sm text-left">
+              <span className="font-medium">Disclaimer:</span> The compatibility checker demonstrates S10.AI's universal compatibility. 
+              Any software name you enter will show as compatible because S10.AI is designed to work with all your preferred software solutions.
+            </p>
           </div>
-        </motion.div>
+        </div>
 
         <motion.div 
           className="relative mb-8"
