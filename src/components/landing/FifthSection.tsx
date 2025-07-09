@@ -302,7 +302,6 @@ const FifthSection = () => {
           </Typography>
         </div>
 
-        {/* Before & After Section - Responsive Layout */}
         {isMobileOrTablet ? (
           /* Mobile/Tablet: Enhanced Swipe View */
           <div className="mb-10 lg:mb-12">
@@ -544,7 +543,6 @@ const FifthSection = () => {
           </div>
         )}
 
-        {/* ROI Section - Enhanced Mobile/Tablet Experience */}
         <div className="mb-12 lg:mb-16">
           <Typography
             variant="h4"
@@ -647,14 +645,28 @@ const FifthSection = () => {
           <QuoteTestimonial {...combinedTestimonial} />
         </Box>
 
-        {/* CTA */}
+        {/* CTA Section with added text */}
         <div className="text-center">
+          <Typography
+            variant="h5"
+            sx={{ 
+              mb: 6,
+              color: '#143151', 
+              fontSize: { xs: '1.125rem', sm: '1.25rem', md: '1.375rem' },
+              fontWeight: 600,
+              maxWidth: '600px',
+              mx: 'auto'
+            }}
+          >
+            Curious how much time and revenue you could save?
+          </Typography>
+          
           <motion.button 
             className="bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm sm:text-base lg:text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Transform Your Practice Today
+            Calculate Your ROI
             <ArrowRight className="inline-block ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
         </div>
