@@ -142,44 +142,79 @@ const ROIMetricCard = ({ icon: Icon, value, label }) => (
 const FifthSection = () => {
   const containerRef = React.useRef(null);
   const roiScrollRef = useRef(null);
-  const [activeView, setActiveView] = useState('before'); // 'before' or 'after'
+  const [activeView, setActiveView] = useState('before');
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
   const isMobile = useMediaQuery("(max-width:768px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
   const isMobileOrTablet = useMediaQuery("(max-width:1024px)");
 
-  // Enhanced arrow key navigation with better event handling
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
+  // Touch handlers for swipe functionality
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && activeView === 'before') {
+      toggleView();
+    }
+    if (isRightSwipe && activeView === 'after') {
+      toggleView();
+    }
+  };
+
+  // Enhanced arrow key navigation
   useEffect(() => {
-    if (!isMobileOrTablet || !roiScrollRef.current) return;
+    if (!isMobileOrTablet) return;
 
     const handleKeyDown = (event) => {
-      // Only handle arrow keys when the section is in view or focused
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
         event.preventDefault();
-        const scrollContainer = roiScrollRef.current;
-        if (!scrollContainer) return;
-
-        console.log('Arrow key pressed:', event.key);
         
-        const cardWidth = isMobile ? 176 : 196; // card width + gap
-        const scrollAmount = cardWidth;
+        // Handle before/after navigation
+        if (event.key === 'ArrowLeft' && activeView === 'after') {
+          toggleView();
+          return;
+        }
+        if (event.key === 'ArrowRight' && activeView === 'before') {
+          toggleView();
+          return;
+        }
 
-        if (event.key === 'ArrowLeft') {
-          scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-          console.log('Scrolling left by:', scrollAmount);
-        } else if (event.key === 'ArrowRight') {
-          scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-          console.log('Scrolling right by:', scrollAmount);
+        // Handle ROI scroll if in view
+        const scrollContainer = roiScrollRef.current;
+        if (scrollContainer) {
+          const cardWidth = isMobile ? 176 : 196;
+          const scrollAmount = cardWidth;
+
+          if (event.key === 'ArrowLeft') {
+            scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+          } else if (event.key === 'ArrowRight') {
+            scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+          }
         }
       }
     };
 
-    // Add event listener to the container instead of document for better focus management
     const container = containerRef.current;
     if (container) {
-      container.setAttribute('tabindex', '0'); // Make container focusable
+      container.setAttribute('tabindex', '0');
       container.addEventListener('keydown', handleKeyDown);
-      
-      // Also add to document for global navigation
       document.addEventListener('keydown', handleKeyDown);
       
       return () => {
@@ -187,14 +222,13 @@ const FifthSection = () => {
         document.removeEventListener('keydown', handleKeyDown);
       };
     }
-  }, [isMobileOrTablet, isMobile]);
+  }, [isMobileOrTablet, isMobile, activeView]);
 
-  // Arrow button click handlers
+  // ROI scroll handlers
   const scrollLeft = () => {
     if (roiScrollRef.current) {
       const cardWidth = isMobile ? 176 : 196;
       roiScrollRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-      console.log('Manual scroll left');
     }
   };
 
@@ -202,13 +236,20 @@ const FifthSection = () => {
     if (roiScrollRef.current) {
       const cardWidth = isMobile ? 176 : 196;
       roiScrollRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
-      console.log('Manual scroll right');
     }
   };
 
-  // Mobile/Tablet Before/After view handlers
+  // Enhanced view toggle with transition state
   const toggleView = () => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
     setActiveView(activeView === 'before' ? 'after' : 'before');
+    
+    // Reset transition state after animation
+    setTimeout(() => {
+      setIsTransitioning(false);
+    }, 300);
   };
 
   return (
@@ -263,29 +304,35 @@ const FifthSection = () => {
 
         {/* Before & After Section - Responsive Layout */}
         {isMobileOrTablet ? (
-          /* Mobile/Tablet: Swipe View */
+          /* Mobile/Tablet: Enhanced Swipe View */
           <div className="mb-10 lg:mb-12">
-            {/* Toggle Buttons */}
+            {/* Toggle Buttons with better visual feedback */}
             <div className="flex justify-center mb-6">
-              <div className="bg-gray-100 rounded-full p-1 flex">
+              <div className="bg-gray-100 rounded-full p-1 flex shadow-inner">
                 <button
-                  onClick={() => setActiveView('before')}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  onClick={() => !isTransitioning && setActiveView('before')}
+                  disabled={isTransitioning}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 relative ${
                     activeView === 'before' 
-                      ? 'bg-red-500 text-white shadow-md' 
-                      : 'text-gray-600 hover:text-gray-800'
-                  }`}
+                      ? 'bg-red-500 text-white shadow-md transform scale-105' 
+                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  } ${isTransitioning ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+                  aria-label="View problems before S10.AI"
+                  aria-pressed={activeView === 'before'}
                 >
                   <AlertCircle className="w-4 h-4 inline mr-2" />
                   Before S10.AI
                 </button>
                 <button
-                  onClick={() => setActiveView('after')}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  onClick={() => !isTransitioning && setActiveView('after')}
+                  disabled={isTransitioning}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 relative ${
                     activeView === 'after' 
-                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-md' 
-                      : 'text-gray-600 hover:text-gray-800'
-                  }`}
+                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-md transform scale-105' 
+                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
+                  } ${isTransitioning ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
+                  aria-label="View solutions with BRAVO & CRUSH"
+                  aria-pressed={activeView === 'after'}
                 >
                   <Zap className="w-4 h-4 inline mr-2" />
                   After BRAVO & CRUSH
@@ -293,13 +340,21 @@ const FifthSection = () => {
               </div>
             </div>
 
-            {/* Content Area with Slide Animation */}
-            <div className="relative overflow-hidden">
+            {/* Content Area with Enhanced Touch Support */}
+            <div 
+              className="relative overflow-hidden touch-pan-x"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+              role="region"
+              aria-live="polite"
+              aria-label={`Currently showing: ${activeView === 'before' ? 'Problems before S10.AI' : 'Solutions with BRAVO & CRUSH'}`}
+            >
               <motion.div
                 key={activeView}
-                initial={{ opacity: 0, x: activeView === 'before' ? -50 : 50 }}
+                initial={{ opacity: 0, x: activeView === 'before' ? -30 : 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: activeView === 'before' ? 50 : -50 }}
+                exit={{ opacity: 0, x: activeView === 'before' ? 30 : -30 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className="space-y-6"
               >
@@ -330,13 +385,14 @@ const FifthSection = () => {
                       </Typography>
                     </div>
 
-                    <div className="space-y-2 sm:space-y-3">
+                    <div className="space-y-2 sm:space-y-3" role="list">
                       {painPoints.map((point, index) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.1 }}
+                          role="listitem"
                         >
                           <PainPointCard {...point} />
                         </motion.div>
@@ -370,13 +426,14 @@ const FifthSection = () => {
                       </Typography>
                     </div>
 
-                    <div className="space-y-2 sm:space-y-3">
+                    <div className="space-y-2 sm:space-y-3" role="list">
                       {solutions.map((solution, index) => (
                         <motion.div
                           key={index}
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.1 }}
+                          role="listitem"
                         >
                           <SolutionCard {...solution} />
                         </motion.div>
@@ -387,11 +444,19 @@ const FifthSection = () => {
               </motion.div>
             </div>
 
-            {/* Swipe Indicator */}
-            <div className="text-center mt-4">
+            {/* Enhanced Navigation Indicator */}
+            <div className="text-center mt-4 space-y-2">
+              <div className="flex justify-center gap-2">
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  activeView === 'before' ? 'bg-red-500' : 'bg-gray-300'
+                }`} />
+                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  activeView === 'after' ? 'bg-[#387E89]' : 'bg-gray-300'
+                }`} />
+              </div>
               <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
                 <ChevronLeft className="w-3 h-3" />
-                Tap to switch views
+                Swipe or tap to switch views
                 <ChevronRight className="w-3 h-3" />
               </p>
             </div>
@@ -479,7 +544,7 @@ const FifthSection = () => {
           </div>
         )}
 
-        {/* ROI Section - Fixed Horizontal Alignment */}
+        {/* ROI Section - Enhanced Mobile/Tablet Experience */}
         <div className="mb-12 lg:mb-16">
           <Typography
             variant="h4"
@@ -509,15 +574,17 @@ const FifthSection = () => {
           {/* Responsive ROI Cards Container */}
           {isMobileOrTablet ? (
             <>
-              {/* Horizontal scrollable container for mobile and tablet */}
-              <div className="relative w-full">
+              {/* Enhanced horizontal scrollable container */}
+              <div className="relative w-full" role="region" aria-label="ROI metrics carousel">
                 <div 
-                  className="w-full overflow-x-auto roi-scroll-container" 
+                  className="w-full overflow-x-auto roi-scroll-container snap-x snap-mandatory" 
                   ref={roiScrollRef}
                   style={{
                     scrollbarWidth: 'none',
-                    msOverflowStyle: 'none'
+                    msOverflowStyle: 'none',
+                    scrollBehavior: 'smooth'
                   }}
+                  role="list"
                 >
                   <style>
                     {`
@@ -528,39 +595,43 @@ const FifthSection = () => {
                   </style>
                   <div className="flex gap-4 pb-4 px-2" style={{ width: 'max-content' }}>
                     {ROIMetrics.map((metric, index) => (
-                      <ROIMetricCard key={index} {...metric} />
+                      <div key={index} className="snap-center" role="listitem">
+                        <ROIMetricCard {...metric} />
+                      </div>
                     ))}
                   </div>
                 </div>
                 
-                {/* Clickable arrow navigation buttons */}
+                {/* Enhanced navigation buttons with better accessibility */}
                 <button
                   onClick={scrollLeft}
-                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#387E89]/50"
-                  aria-label="Scroll left"
+                  className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#387E89]/50 active:scale-95"
+                  aria-label="Scroll to previous ROI metrics"
+                  tabIndex={0}
                 >
-                  <ChevronLeft className="w-4 h-4 text-gray-600" />
+                  <ChevronLeft className="w-4 h-4 text-gray-700" />
                 </button>
                 <button
                   onClick={scrollRight}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-md transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#387E89]/50"
-                  aria-label="Scroll right"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full p-3 shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#387E89]/50 active:scale-95"
+                  aria-label="Scroll to next ROI metrics"
+                  tabIndex={0}
                 >
-                  <ChevronRight className="w-4 h-4 text-gray-600" />
+                  <ChevronRight className="w-4 h-4 text-gray-700" />
                 </button>
               </div>
               
-              {/* Arrow navigation hint for mobile and tablet */}
+              {/* Enhanced navigation hint */}
               <div className="text-center mt-4">
                 <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
                   <ChevronLeft className="w-3 h-3" />
-                  Use arrow keys or click arrows to navigate
+                  Swipe, use arrow keys, or click arrows to navigate
                   <ChevronRight className="w-3 h-3" />
                 </p>
               </div>
             </>
           ) : (
-            /* Desktop: Centered flex layout with better alignment */
+            /* Desktop: Centered flex layout */
             <div className="flex justify-center items-stretch gap-6 flex-wrap">
               {ROIMetrics.map((metric, index) => (
                 <div key={index} className="flex">
