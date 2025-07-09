@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -45,12 +46,12 @@ export const FirstSection = () => {
     text: "75% faster charting",
     color: "from-blue-500 to-blue-600"
   }, {
-    icon: <Users className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "AI staffing assistance",
+    icon: <Database className="w-3 h-3 sm:w-4 sm:h-4" />,
+    text: "Seamless EHR & 7,000+ App Integrations",
     color: "from-teal-500 to-teal-600"
   }, {
     icon: <Shield className="w-3 h-3 sm:w-4 sm:h-4" />,
-    text: "HIPAA compliant",
+    text: "HIPAA Compliant",
     color: "from-green-500 to-green-600"
   }];
 
@@ -94,7 +95,7 @@ export const FirstSection = () => {
   }}>
       {/* Enhanced SEO-friendly content for search engines - Comprehensive coverage */}
       <div className="sr-only">
-        <h1 id="hero-heading">S10.AI - AI Scribing & AI Staffing Agent Built for Clinicians</h1>
+        <h1 id="hero-heading">S10.AI - The AI That Charts & Staffs — So You Don't Have To</h1>
         <p>
           S10.AI provides innovative AI-powered solutions for healthcare professionals, including AI medical scribes, 
           AI staffing agents, and custom AI agents designed specifically for clinical workflows. Our solutions help 
@@ -110,8 +111,8 @@ export const FirstSection = () => {
               <p>Automated medical documentation reduces charting time by up to 75%, allowing clinicians to spend more time with patients and less time on paperwork.</p>
             </li>
             <li>
-              <h3>AI Staffing Assistance</h3>
-              <p>Virtual AI staff members handle administrative tasks, appointment scheduling, patient communication, and workflow optimization to reduce staffing shortages.</p>
+              <h3>Seamless EHR & 7,000+ App Integrations</h3>
+              <p>Universal compatibility with all major EHR systems and seamless integration with over 7,000 healthcare applications for complete workflow optimization.</p>
             </li>
             <li>
               <h3>HIPAA Compliant Security</h3>
@@ -244,28 +245,15 @@ export const FirstSection = () => {
                 style={{ color: '#1a1a1a' }}
               >
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151]">
-                  AI Scribing &
+                  The AI That Charts
                 </span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#387E89] via-[#5192AE] to-[#387E89]">
-                  AI Staffing Agent
+                  & Staffs — So You
                 </span>
-                <span className="block text-gray-800">Built for</span>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE]">
-                  Clinicians Like You
+                  Don't Have To
                 </span>
               </motion.h1>
-              
-              {/* Enhanced subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-lg sm:text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0"
-              >
-                Focus on patient care, not paperwork. Our AI handles documentation, 
-                <span className="font-semibold text-[#387E89]"> administrative tasks</span>, and 
-                <span className="font-semibold text-[#143151]"> clinical workflows</span> seamlessly.
-              </motion.p>
             </div>
             
             {/* Benefit pills - Enhanced design */}
