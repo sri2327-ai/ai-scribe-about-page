@@ -1,5 +1,4 @@
-
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import {
@@ -143,6 +142,7 @@ const ROIMetricCard = ({ icon: Icon, value, label }) => (
 const FifthSection = () => {
   const containerRef = React.useRef(null);
   const roiScrollRef = useRef(null);
+  const [activeView, setActiveView] = useState('before'); // 'before' or 'after'
   const isMobile = useMediaQuery("(max-width:768px)");
   const isTablet = useMediaQuery("(max-width:1024px)");
   const isMobileOrTablet = useMediaQuery("(max-width:1024px)");
@@ -206,6 +206,11 @@ const FifthSection = () => {
     }
   };
 
+  // Mobile/Tablet Before/After view handlers
+  const toggleView = () => {
+    setActiveView(activeView === 'before' ? 'after' : 'before');
+  };
+
   return (
     <section 
       ref={containerRef} 
@@ -257,85 +262,222 @@ const FifthSection = () => {
         </div>
 
         {/* Before & After Section - Responsive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-10 lg:mb-12">
-          {/* Before Section */}
-          <div className="space-y-6">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-3 py-1.5 rounded-full text-sm font-medium mb-4">
-                <AlertCircle className="w-4 h-4" />
-                Before S10.AI
+        {isMobileOrTablet ? (
+          /* Mobile/Tablet: Swipe View */
+          <div className="mb-10 lg:mb-12">
+            {/* Toggle Buttons */}
+            <div className="flex justify-center mb-6">
+              <div className="bg-gray-100 rounded-full p-1 flex">
+                <button
+                  onClick={() => setActiveView('before')}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeView === 'before' 
+                      ? 'bg-red-500 text-white shadow-md' 
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  <AlertCircle className="w-4 h-4 inline mr-2" />
+                  Before S10.AI
+                </button>
+                <button
+                  onClick={() => setActiveView('after')}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                    activeView === 'after' 
+                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-md' 
+                      : 'text-gray-600 hover:text-gray-800'
+                  }`}
+                >
+                  <Zap className="w-4 h-4 inline mr-2" />
+                  After BRAVO & CRUSH
+                </button>
               </div>
-              <Typography
-                variant="h4"
-                fontWeight="bold"
-                sx={{ 
-                  mb: 2, 
-                  color: '#143151', 
-                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
-                }}
-              >
-                Burnout, Bottlenecks & Lost Revenue
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ 
-                  color: 'gray', 
-                  fontSize: { xs: '0.875rem', sm: '1rem' },
-                  mb: 4
-                }}
-              >
-                Disconnected tools and manual workflows slow you down:
-              </Typography>
             </div>
 
-            <div className="space-y-2 sm:space-y-3">
-              {painPoints.map((point, index) => (
-                <div key={index}>
-                  <PainPointCard {...point} />
-                </div>
-              ))}
+            {/* Content Area with Slide Animation */}
+            <div className="relative overflow-hidden">
+              <motion.div
+                key={activeView}
+                initial={{ opacity: 0, x: activeView === 'before' ? -50 : 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: activeView === 'before' ? 50 : -50 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="space-y-6"
+              >
+                {activeView === 'before' ? (
+                  /* Before Section */
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <Typography
+                        variant="h4"
+                        fontWeight="bold"
+                        sx={{ 
+                          mb: 2, 
+                          color: '#143151', 
+                          fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
+                        }}
+                      >
+                        Burnout, Bottlenecks & Lost Revenue
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ 
+                          color: 'gray', 
+                          fontSize: { xs: '0.875rem', sm: '1rem' },
+                          mb: 4
+                        }}
+                      >
+                        Disconnected tools and manual workflows slow you down:
+                      </Typography>
+                    </div>
+
+                    <div className="space-y-2 sm:space-y-3">
+                      {painPoints.map((point, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <PainPointCard {...point} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  /* After Section */
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <Typography
+                        variant="h4"
+                        fontWeight="bold"
+                        sx={{ 
+                          mb: 2, 
+                          color: '#143151', 
+                          fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
+                        }}
+                      >
+                        AI That Works the Way You Do
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ 
+                          color: 'gray', 
+                          fontSize: { xs: '0.875rem', sm: '1rem' },
+                          mb: 4
+                        }}
+                      >
+                        S10.AI's ambient AI platform automates the work behind the scenes:
+                      </Typography>
+                    </div>
+
+                    <div className="space-y-2 sm:space-y-3">
+                      {solutions.map((solution, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <SolutionCard {...solution} />
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </div>
+
+            {/* Swipe Indicator */}
+            <div className="text-center mt-4">
+              <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
+                <ChevronLeft className="w-3 h-3" />
+                Tap to switch views
+                <ChevronRight className="w-3 h-3" />
+              </p>
             </div>
           </div>
-
-          {/* After Section */}
-          <div className="space-y-6">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-1.5 rounded-full text-sm font-medium mb-4">
-                <Zap className="w-4 h-4" />
-                After BRAVO & CRUSH
+        ) : (
+          /* Desktop/Laptop: Side-by-Side Layout */
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-10 lg:mb-12">
+            {/* Before Section */}
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-3 py-1.5 rounded-full text-sm font-medium mb-4">
+                  <AlertCircle className="w-4 h-4" />
+                  Before S10.AI
+                </div>
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  sx={{ 
+                    mb: 2, 
+                    color: '#143151', 
+                    fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
+                  }}
+                >
+                  Burnout, Bottlenecks & Lost Revenue
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ 
+                    color: 'gray', 
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
+                    mb: 4
+                  }}
+                >
+                  Disconnected tools and manual workflows slow you down:
+                </Typography>
               </div>
-              <Typography
-                variant="h4"
-                fontWeight="bold"
-                sx={{ 
-                  mb: 2, 
-                  color: '#143151', 
-                  fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
-                }}
-              >
-                AI That Works the Way You Do
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ 
-                  color: 'gray', 
-                  fontSize: { xs: '0.875rem', sm: '1rem' },
-                  mb: 4
-                }}
-              >
-                S10.AI's ambient AI platform automates the work behind the scenes:
-              </Typography>
+
+              <div className="space-y-2 sm:space-y-3">
+                {painPoints.map((point, index) => (
+                  <div key={index}>
+                    <PainPointCard {...point} />
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="space-y-2 sm:space-y-3">
-              {solutions.map((solution, index) => (
-                <div key={index}>
-                  <SolutionCard {...solution} />
+            {/* After Section */}
+            <div className="space-y-6">
+              <div className="text-center">
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-1.5 rounded-full text-sm font-medium mb-4">
+                  <Zap className="w-4 h-4" />
+                  After BRAVO & CRUSH
                 </div>
-              ))}
+                <Typography
+                  variant="h4"
+                  fontWeight="bold"
+                  sx={{ 
+                    mb: 2, 
+                    color: '#143151', 
+                    fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
+                  }}
+                >
+                  AI That Works the Way You Do
+                </Typography>
+                <Typography
+                  variant="body2"
+                  sx={{ 
+                    color: 'gray', 
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
+                    mb: 4
+                  }}
+                >
+                  S10.AI's ambient AI platform automates the work behind the scenes:
+                </Typography>
+              </div>
+
+              <div className="space-y-2 sm:space-y-3">
+                {solutions.map((solution, index) => (
+                  <div key={index}>
+                    <SolutionCard {...solution} />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         {/* ROI Section - Fixed Horizontal Alignment */}
         <div className="mb-12 lg:mb-16">
