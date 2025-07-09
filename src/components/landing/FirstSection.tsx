@@ -54,34 +54,34 @@ export const FirstSection = () => {
     color: "from-green-500 to-green-600"
   }];
 
-  // Simplified feature tabs
+  // 4-step AI solution process
   const featureTabs = [{
-    id: "ai-scribe",
-    title: "AI Medical Scribe",
+    id: "step-1",
+    title: "Step 1: AI-Powered Medical Scribe",
     icon: <FileText className="w-4 h-4 sm:w-5 sm:h-5" />,
-    description: "Automated documentation that captures the full patient story while you focus on care.",
-    benefit: "Save 2+ hours per day",
+    description: "Let S10.AI's smart scribe listen, transcribe, and document notes automatically.",
+    benefit: "Save 2+ hours a day on charting",
     color: "#143151"
   }, {
-    id: "patient-engagement",
-    title: "AI Staffing Agent",
-    icon: <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" />,
-    description: "AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.",
-    benefit: "Reduce admin workload by 40%",
+    id: "step-2",
+    title: "Step 2: AI Staffing Agent",
+    icon: <Users className="w-4 h-4 sm:w-5 sm:h-5" />,
+    description: "A virtual team member that automates admin tasks and streamlines your clinical operations.",
+    benefit: "Cut admin workload by up to 40%",
     color: "#387E89"
   }, {
-    id: "custom-agents",
-    title: "Custom AI Agents",
-    icon: <Users className="w-4 h-4 sm:w-5 sm:h-5" />,
-    description: "Purpose-built AI assistants that adapt to your specialty and workflow preferences.",
-    benefit: "30+ specialty workflows",
+    id: "step-3",
+    title: "Step 3: Seamless EHR Integration",
+    icon: <Database className="w-4 h-4 sm:w-5 sm:h-5" />,
+    description: "Works with any EHR and connects with 7,000+ healthcare apps for total flexibility.",
+    benefit: "Effortless integration, zero disruption",
     color: "#5192AE"
   }, {
-    id: "ehr-integrations",
-    title: "EHR Integrations",
-    icon: <Database className="w-4 h-4 sm:w-5 sm:h-5" />,
-    description: "Works with any EHR system and connects to 7000+ apps.",
-    benefit: "Seamless connectivity",
+    id: "step-4",
+    title: "Step 4: That's It",
+    icon: <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />,
+    description: "No extra steps. Just log in and let your AI team do the rest.",
+    benefit: "Complete automation achieved",
     color: "#143151"
   }];
   
@@ -398,12 +398,12 @@ export const FirstSection = () => {
               <div className="relative p-6 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] text-white">
                 <div className="relative z-10">
                   <h3 className="font-bold text-lg flex items-center justify-between gap-3">
-                    <span>Built by Clinicians, for Clinicians</span>
+                    <span>One AI Solution to Save Your Day</span>
                     <span className="bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold border border-white/30">
-                      Clinician-First
+                      Built for Clinicians
                     </span>
                   </h3>
-                  <p className="text-sm text-white/90 mt-2">AI that understands your workflow</p>
+                  <p className="text-sm text-white/90 mt-2">Four simple steps to transform your practice</p>
                 </div>
               </div>
               
