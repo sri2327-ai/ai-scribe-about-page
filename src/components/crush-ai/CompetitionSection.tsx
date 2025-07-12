@@ -46,7 +46,7 @@ const crushFeatures: CrushFeature[] = [
   },
   {
     id: "multilingual",
-    title: "10+ Languages",
+    title: "60+ Languages",
     description: "Global language support with accent recognition",
     icon: <Globe size={20} />,
     keyPoints: ["Accent recognition", "Cultural context", "International ready"]
@@ -168,6 +168,21 @@ const CompactCard = React.memo(({
         </motion.div>
       </Box>
 
+      {/* SEO-friendly hidden content for crawlability */}
+      <Box 
+        sx={{ 
+          position: 'absolute', 
+          left: '-9999px', 
+          width: '1px', 
+          height: '1px', 
+          overflow: 'hidden' 
+        }}
+      >
+        {feature.keyPoints.map((point, idx) => (
+          <span key={idx}>{point} </span>
+        ))}
+      </Box>
+
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -218,7 +233,7 @@ const StatsOverview = React.memo(() => (
     viewport={{ once: true }}
     sx={{
       display: 'grid',
-      gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+      gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(6, 1fr)' },
       gap: 2,
       mb: 6,
       p: 3,
@@ -231,6 +246,8 @@ const StatsOverview = React.memo(() => (
       { number: '99.9%', label: 'Accuracy Rate' },
       { number: '<60s', label: 'Chart Time' },
       { number: '100+', label: 'EHR Systems' },
+      { number: 'No API', label: 'Works with Any EHR' },
+      { number: '60+', label: 'Languages' },
       { number: '50+', label: 'Specialties' }
     ].map((stat, idx) => (
       <Box key={idx} sx={{ textAlign: 'center' }}>
@@ -239,7 +256,7 @@ const StatsOverview = React.memo(() => (
           sx={{ 
             fontWeight: 800, 
             color: 'white',
-            fontSize: { xs: '1.5rem', md: '2rem' },
+            fontSize: { xs: '1.2rem', sm: '1.4rem', md: '1.8rem' },
             mb: 0.5
           }}
         >
@@ -249,7 +266,8 @@ const StatsOverview = React.memo(() => (
           variant="body2" 
           sx={{ 
             color: 'rgba(255, 255, 255, 0.8)',
-            fontSize: '0.8rem'
+            fontSize: { xs: '0.7rem', sm: '0.75rem', md: '0.8rem' },
+            lineHeight: 1.2
           }}
         >
           {stat.label}
