@@ -1,212 +1,253 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState } from "react";
 import { Box, Container, Typography, useMediaQuery, useTheme as useMuiTheme } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle, Star, Trophy, FilePlus, Zap, Shield, Brain, Clock, Globe, Cog, Users, ChevronDown } from "lucide-react";
+import { CheckCircle, Star, Trophy, FilePlus, Zap, Shield, Brain, Clock, Globe, Cog, Users, ChevronDown, Hospital, Stethoscope } from "lucide-react";
 import { SparklesTextAdvanced } from "@/components/ui/sparkles-text-advanced";
 import { crushAIColors } from "@/theme/crush-ai-theme";
-import { LazyLoad } from "@/components/ui/lazy-load";
 
 interface CrushFeature {
   id: string;
   title: string;
   description: string;
   icon: React.ReactNode;
-  keyPoints: string[];
+  benefits: string[];
+  category: 'core' | 'integration' | 'intelligence';
 }
 
-// Streamlined CRUSH Features
+// Key CRUSH Features organized by category
 const crushFeatures: CrushFeature[] = [
+  // Core Features
   {
     id: "accuracy",
-    title: "99.9% Accuracy",
-    description: "Precise medical terminology recognition",
-    icon: <Star size={20} />,
-    keyPoints: ["Medical jargon mastery", "Context awareness", "Zero errors"]
+    title: "99.9% Medical Accuracy",
+    description: "Precise medical terminology recognition with context awareness",
+    icon: <Star size={18} />,
+    benefits: ["Medical jargon mastery", "Context-aware processing", "Zero transcription errors"],
+    category: 'core'
   },
   {
     id: "speed",
-    title: "60-Second Charts",
-    description: "Complete documentation in under a minute",
-    icon: <Clock size={20} />,
-    keyPoints: ["Instant generation", "No overtime", "Real-time processing"]
+    title: "60-Second Documentation",
+    description: "Complete charts generated in under a minute",
+    icon: <Clock size={18} />,
+    benefits: ["Instant chart generation", "Real-time processing", "No documentation overtime"],
+    category: 'core'
   },
   {
     id: "security",
-    title: "Fortress Security",
-    description: "HIPAA, SOC 2, HITECH compliant",
-    icon: <Shield size={20} />,
-    keyPoints: ["End-to-end encryption", "Zero data retention", "Compliance certified"]
+    title: "Enterprise Security",
+    description: "HIPAA, SOC 2, HITECH compliant with end-to-end encryption",
+    icon: <Shield size={18} />,
+    benefits: ["End-to-end encryption", "Zero data retention", "Full compliance certified"],
+    category: 'core'
+  },
+  
+  // Integration Features
+  {
+    id: "ehr-integration",
+    title: "Universal EHR Integration",
+    description: "Seamless integration with 100+ EHR systems including Epic, Cerner, and all major platforms",
+    icon: <Zap size={18} />,
+    benefits: ["Epic & Cerner certified", "One-click EHR sync", "Works with any EHR system"],
+    category: 'integration'
   },
   {
-    id: "integration",
-    title: "100+ EHR Systems",
-    description: "Universal compatibility with all major EHRs",
-    icon: <Zap size={20} />,
-    keyPoints: ["Epic & Cerner", "One-click sync", "Seamless workflow"]
+    id: "specialty-support",
+    title: "50+ Medical Specialties",
+    description: "Specialized templates and workflows for every medical specialty from cardiology to psychiatry",
+    icon: <Stethoscope size={18} />,
+    benefits: ["Specialty-specific templates", "Custom clinical protocols", "Expert knowledge base"],
+    category: 'integration'
   },
   {
     id: "multilingual",
-    title: "10+ Languages",
-    description: "Global language support with accent recognition",
-    icon: <Globe size={20} />,
-    keyPoints: ["Accent recognition", "Cultural context", "International ready"]
+    title: "Global Language Support",
+    description: "Support for 10+ languages with advanced accent recognition",
+    icon: <Globe size={18} />,
+    benefits: ["Advanced accent recognition", "Cultural context understanding", "International practice ready"],
+    category: 'integration'
+  },
+  
+  // Intelligence Features
+  {
+    id: "clinical-intelligence",
+    title: "AI Clinical Intelligence",
+    description: "HCC tracking, quality metrics, and preventive care alerts",
+    icon: <Brain size={18} />,
+    benefits: ["HCC code optimization", "Quality score tracking", "Preventive care alerts"],
+    category: 'intelligence'
   },
   {
-    id: "automation",
-    title: "Workflow Automation",
-    description: "Auto-handles referrals and prescriptions",
-    icon: <Brain size={20} />,
-    keyPoints: ["Smart referrals", "Auto prescriptions", "Task automation"]
-  },
-  {
-    id: "intelligence",
-    title: "Clinical Intelligence",
-    description: "HCC tracking and preventive care alerts",
-    icon: <Trophy size={20} />,
-    keyPoints: ["HCC optimization", "Quality metrics", "Care alerts"]
+    id: "workflow-automation",
+    title: "Smart Workflow Automation",
+    description: "Automated referrals, prescriptions, and administrative tasks",
+    icon: <Trophy size={18} />,
+    benefits: ["Auto-generated referrals", "Smart prescription handling", "Administrative task automation"],
+    category: 'intelligence'
   },
   {
     id: "templates",
-    title: "Smart Templates",
-    description: "AI-powered template creation and sharing",
-    icon: <FilePlus size={20} />,
-    keyPoints: ["One-click creation", "Community library", "AI suggestions"]
-  },
-  {
-    id: "specialties",
-    title: "50+ Specialties",
-    description: "Customized for every medical specialty",
-    icon: <Users size={20} />,
-    keyPoints: ["Expert knowledge", "Custom protocols", "Specialty workflows"]
-  },
-  {
-    id: "customization",
-    title: "Human-Backed Setup",
-    description: "Expert team personalizes your workflow",
-    icon: <Cog size={20} />,
-    keyPoints: ["Dedicated team", "Custom setup", "Ongoing support"]
+    title: "AI-Powered Templates",
+    description: "Community-driven template library with AI suggestions",
+    icon: <FilePlus size={18} />,
+    benefits: ["One-click template creation", "Community template library", "AI-powered suggestions"],
+    category: 'intelligence'
   }
 ];
 
-// Compact Feature Card
-const CompactCard = React.memo(({ 
+// Enhanced Feature Card with SEO-friendly content
+const FeatureCard = React.memo(({ 
   feature, 
   index 
 }: { 
   feature: CrushFeature, 
   index: number 
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <Box
-      component={motion.div}
-      initial={{ opacity: 0, y: 15 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.03 }}
-      viewport={{ once: true, amount: 0.5 }}
-      sx={{
-        p: 2,
-        borderRadius: 1.5,
-        bgcolor: 'rgba(255, 255, 255, 0.95)',
-        border: '1px solid rgba(20, 49, 81, 0.1)',
-        boxShadow: '0 2px 8px rgba(20, 49, 81, 0.08)',
-        transition: 'all 0.2s ease',
-        cursor: 'pointer',
-        '&:hover': {
-          boxShadow: '0 4px 16px rgba(20, 49, 81, 0.15)',
-          transform: 'translateY(-2px)'
-        }
-      }}
-      onClick={() => setIsExpanded(!isExpanded)}
+    <article
+      itemScope
+      itemType="https://schema.org/SoftwareFeature"
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <Box 
-          sx={{ 
-            p: 1,
-            borderRadius: 1,
-            bgcolor: 'rgba(20, 49, 81, 0.1)',
-            color: crushAIColors.icons.primary,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0
-          }}
-        >
-          {feature.icon}
-        </Box>
-        
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography 
-            variant="subtitle2" 
+      <Box
+        component={motion.div}
+        initial={{ opacity: 0, y: 15 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.05 }}
+        viewport={{ once: true, amount: 0.3 }}
+        sx={{
+          p: { xs: 2, md: 2.5 },
+          borderRadius: 2,
+          bgcolor: 'rgba(255, 255, 255, 0.98)',
+          border: '1px solid rgba(20, 49, 81, 0.12)',
+          boxShadow: '0 2px 12px rgba(20, 49, 81, 0.08)',
+          transition: 'all 0.3s ease',
+          cursor: 'pointer',
+          height: 'auto',
+          '&:hover': {
+            boxShadow: '0 8px 24px rgba(20, 49, 81, 0.16)',
+            transform: 'translateY(-4px)',
+            bgcolor: 'rgba(255, 255, 255, 1)'
+          }
+        }}
+        onClick={() => setShowDetails(!showDetails)}
+      >
+        {/* Always visible content */}
+        <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 2 }}>
+          <Box 
             sx={{ 
-              fontWeight: 700, 
-              color: crushAIColors.text.primary,
-              fontSize: '0.95rem',
-              mb: 0.5
+              p: 1.5,
+              borderRadius: 1.5,
+              bgcolor: `rgba(${feature.category === 'core' ? '59, 130, 246' : feature.category === 'integration' ? '16, 185, 129' : '168, 85, 247'}, 0.1)`,
+              color: feature.category === 'core' ? '#3B82F6' : feature.category === 'integration' ? '#10B981' : '#A855F7',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
             }}
           >
-            {feature.title}
-          </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: crushAIColors.text.secondary,
-              fontSize: '0.8rem',
-              lineHeight: 1.3
-            }}
-          >
-            {feature.description}
-          </Typography>
-        </Box>
+            {feature.icon}
+          </Box>
+          
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography 
+              variant="h6" 
+              component="h3"
+              itemProp="name"
+              sx={{ 
+                fontWeight: 700, 
+                color: crushAIColors.text.primary,
+                fontSize: { xs: '0.95rem', md: '1.05rem' },
+                mb: 0.5,
+                lineHeight: 1.3
+              }}
+            >
+              {feature.title}
+            </Typography>
+            <Typography 
+              variant="body2"
+              itemProp="description" 
+              sx={{ 
+                color: crushAIColors.text.secondary,
+                fontSize: { xs: '0.8rem', md: '0.85rem' },
+                lineHeight: 1.4,
+                mb: 1.5
+              }}
+            >
+              {feature.description}
+            </Typography>
 
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <ChevronDown size={16} color={crushAIColors.icons.primary} />
-        </motion.div>
-      </Box>
-
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid rgba(20, 49, 81, 0.1)' }}>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {feature.keyPoints.map((point, idx) => (
-                  <Box 
-                    key={idx}
-                    sx={{ 
-                      display: "flex", 
-                      alignItems: "center", 
-                      gap: 0.5,
-                      fontSize: '0.75rem',
-                      color: crushAIColors.text.primary,
-                      minWidth: 'fit-content'
-                    }}
-                  >
-                    <CheckCircle size={10} color="#4CAF50" />
-                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: '0.75rem' }}>
-                      {point}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
+            {/* Always visible key benefits for SEO */}
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mb: 1 }}>
+              {feature.benefits.slice(0, 2).map((benefit, idx) => (
+                <Box 
+                  key={idx}
+                  sx={{ 
+                    display: "flex", 
+                    alignItems: "center", 
+                    gap: 0.5,
+                    fontSize: '0.7rem'
+                  }}
+                >
+                  <CheckCircle size={12} color="#10B981" />
+                  <Typography variant="caption" sx={{ fontWeight: 500, fontSize: '0.7rem', color: crushAIColors.text.primary }}>
+                    {benefit}
+                  </Typography>
+                </Box>
+              ))}
             </Box>
+          </Box>
+
+          <motion.div
+            animate={{ rotate: showDetails ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <ChevronDown size={18} color={crushAIColors.icons.secondary} />
           </motion.div>
-        )}
-      </AnimatePresence>
-    </Box>
+        </Box>
+
+        {/* Expandable additional content */}
+        <AnimatePresence>
+          {showDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25 }}
+              style={{ overflow: 'hidden' }}
+            >
+              <Box sx={{ pt: 2, borderTop: '1px solid rgba(20, 49, 81, 0.08)' }}>
+                {feature.benefits.length > 2 && (
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.8 }}>
+                    {feature.benefits.slice(2).map((benefit, idx) => (
+                      <Box 
+                        key={idx + 2}
+                        sx={{ 
+                          display: "flex", 
+                          alignItems: "center", 
+                          gap: 0.5,
+                          fontSize: '0.75rem'
+                        }}
+                      >
+                        <CheckCircle size={12} color="#10B981" />
+                        <Typography variant="caption" sx={{ fontWeight: 500, fontSize: '0.75rem', color: crushAIColors.text.primary }}>
+                          {benefit}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                )}
+              </Box>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </Box>
+    </article>
   );
 });
 
-CompactCard.displayName = 'CompactCard';
+FeatureCard.displayName = 'FeatureCard';
 
 // Stats Overview
 const StatsOverview = React.memo(() => (
@@ -276,7 +317,7 @@ export const CompetitionSection = React.memo(() => {
       }}
     >
       <Container maxWidth="lg">
-        {/* Header */}
+        {/* Header with emphasis on EHR & Specialty support */}
         <Box
           component={motion.div}
           initial={{ opacity: 0, y: 20 }}
@@ -294,20 +335,77 @@ export const CompetitionSection = React.memo(() => {
           <Typography
             variant="h6"
             sx={{
+              maxWidth: 700,
+              mx: "auto",
+              color: "rgba(255, 255, 255, 0.95)",
+              fontSize: { xs: '1.1rem', md: '1.25rem' },
+              lineHeight: 1.4,
+              mb: 2,
+              fontWeight: 600
+            }}
+          >
+            Works with Any EHR System • Supports All Medical Specialties
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
               maxWidth: 600,
               mx: "auto",
-              color: "rgba(255, 255, 255, 0.9)",
-              fontSize: { xs: '1rem', md: '1.1rem' },
+              color: "rgba(255, 255, 255, 0.8)",
+              fontSize: { xs: '0.9rem', md: '1rem' },
               lineHeight: 1.5,
               mb: 4
             }}
           >
-            The most advanced AI medical scribe with game-changing features
+            Universal compatibility with 100+ EHR platforms and specialized workflows for 50+ medical specialties
           </Typography>
         </Box>
 
         {/* Stats Overview */}
         <StatsOverview />
+
+        {/* Key Highlights Banner */}
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, scale: 0.98 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4 }}
+          viewport={{ once: true }}
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            gap: { xs: 2, md: 4 },
+            mb: 6,
+            p: { xs: 2, md: 3 },
+            borderRadius: 2,
+            bgcolor: 'rgba(255, 255, 255, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(10px)'
+          }}
+        >
+          {[
+            { icon: <Hospital size={20} />, text: "Epic & Cerner Certified" },
+            { icon: <Stethoscope size={20} />, text: "All Medical Specialties" },
+            { icon: <Globe size={20} />, text: "10+ Languages Supported" }
+          ].map((highlight, idx) => (
+            <Box key={idx} sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+              <Box sx={{ color: '#10B981' }}>
+                {highlight.icon}
+              </Box>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: 'white',
+                  fontWeight: 600,
+                  fontSize: { xs: '0.85rem', md: '0.9rem' }
+                }}
+              >
+                {highlight.text}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
 
         {/* Features Grid */}
         <Box
@@ -316,13 +414,13 @@ export const CompetitionSection = React.memo(() => {
             gridTemplateColumns: { 
               xs: '1fr', 
               sm: 'repeat(2, 1fr)',
-              lg: 'repeat(3, 1fr)' 
+              xl: 'repeat(3, 1fr)' 
             },
-            gap: 1.5
+            gap: { xs: 2, md: 2.5 }
           }}
         >
           {crushFeatures.map((feature, index) => (
-            <CompactCard 
+            <FeatureCard 
               key={feature.id}
               feature={feature}
               index={index}
@@ -330,7 +428,7 @@ export const CompetitionSection = React.memo(() => {
           ))}
         </Box>
 
-        {/* Bottom Message */}
+        {/* Bottom CTA */}
         <Box
           component={motion.div}
           initial={{ opacity: 0 }}
@@ -339,22 +437,35 @@ export const CompetitionSection = React.memo(() => {
           viewport={{ once: true }}
           sx={{ 
             textAlign: 'center',
-            mt: 6,
-            p: 3,
+            mt: 8,
+            p: { xs: 3, md: 4 },
             borderRadius: 2,
-            bgcolor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
+            bgcolor: 'rgba(255, 255, 255, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(10px)'
           }}
         >
           <Typography 
-            variant="body1" 
+            variant="h6" 
             sx={{ 
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontSize: '0.95rem',
-              fontStyle: 'italic'
+              color: 'white',
+              fontSize: { xs: '1.1rem', md: '1.2rem' },
+              fontWeight: 700,
+              mb: 1
             }}
           >
-            Click any feature card to explore key benefits and capabilities
+            Ready to Transform Your Practice?
+          </Typography>
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: 'rgba(255, 255, 255, 0.8)',
+              fontSize: { xs: '0.9rem', md: '1rem' },
+              maxWidth: 500,
+              mx: 'auto'
+            }}
+          >
+            Join thousands of healthcare providers already using CRUSH AI to streamline documentation across all EHR systems and medical specialties
           </Typography>
         </Box>
       </Container>
