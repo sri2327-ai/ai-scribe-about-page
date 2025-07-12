@@ -18,73 +18,73 @@ interface CrushFeature {
 const crushFeatures: CrushFeature[] = [
   {
     id: "accuracy",
-    title: "99.9% Accuracy",
-    description: "Precise medical terminology recognition",
+    title: "Smarter notes, 99.9% accurate",
+    description: "Understands medical language and context—no second-guessing, no errors.",
     icon: <Star size={20} />,
     keyPoints: ["Medical jargon mastery", "Context awareness", "Zero errors"]
   },
   {
     id: "speed",
-    title: "60-Second Charts",
-    description: "Complete documentation in under a minute",
+    title: "Chart in under 60 seconds",
+    description: "Real-time documentation. No overtime. Just done.",
     icon: <Clock size={20} />,
-    keyPoints: ["Instant generation", "No overtime", "Real-time processing"]
+    keyPoints: ["Real-time documentation", "No overtime", "Just done"]
   },
   {
     id: "security",
-    title: "Fortress Security",
-    description: "HIPAA, SOC 2, HITECH compliant",
+    title: "HIPAA-grade security",
+    description: "Fully compliant. End-to-end encrypted. Nothing stored.",
     icon: <Shield size={20} />,
-    keyPoints: ["End-to-end encryption", "Zero data retention", "Compliance certified"]
+    keyPoints: ["Fully compliant", "End-to-end encrypted", "Nothing stored"]
   },
   {
     id: "integration",
-    title: "100+ EHR Systems",
-    description: "Universal compatibility with all major EHRs",
+    title: "Works with 100+ EHRs—no API needed",
+    description: "CRUSH plugs into your workflow, not the other way around. One-click sync with Epic, Cerner, and more.",
     icon: <Zap size={20} />,
-    keyPoints: ["Epic & Cerner", "One-click sync", "Seamless workflow"]
+    keyPoints: ["No API needed", "One-click sync", "Epic & Cerner support"]
   },
   {
     id: "multilingual",
-    title: "60+ Languages",
-    description: "Global language support with accent recognition",
+    title: "Speaks 60+ languages",
+    description: "Understands accents, cultural context, and multilingual care.",
     icon: <Globe size={20} />,
-    keyPoints: ["Accent recognition", "Cultural context", "International ready"]
+    keyPoints: ["Accent recognition", "Cultural context", "Multilingual care"]
   },
   {
     id: "automation",
-    title: "Workflow Automation",
-    description: "Auto-handles referrals and prescriptions",
+    title: "Automates the boring stuff",
+    description: "Prescriptions, referrals, labs, and follow-ups—handled.",
     icon: <Brain size={20} />,
-    keyPoints: ["Smart referrals", "Auto prescriptions", "Task automation"]
+    keyPoints: ["Prescriptions handled", "Referrals automated", "Labs & follow-ups"]
   },
   {
     id: "intelligence",
-    title: "Clinical Intelligence",
-    description: "HCC tracking and preventive care alerts",
+    title: "Built-in clinical intelligence",
+    description: "HCC tracking, quality alerts, and preventive care prompts, right in your notes.",
     icon: <Trophy size={20} />,
-    keyPoints: ["HCC optimization", "Quality metrics", "Care alerts"]
+    keyPoints: ["HCC tracking", "Quality alerts", "Preventive care prompts"]
   },
   {
     id: "templates",
-    title: "Smart Templates",
-    description: "AI-powered template creation and sharing",
+    title: "Smart templates",
+    description: "Create, customize, and share note templates with AI help.",
     icon: <FilePlus size={20} />,
-    keyPoints: ["One-click creation", "Community library", "AI suggestions"]
+    keyPoints: ["Create templates", "Customize with AI", "Share with team"]
   },
   {
     id: "specialties",
-    title: "50+ Specialties",
-    description: "Customized for every medical specialty",
+    title: "50+ specialties, fully supported",
+    description: "Tailored terminology, workflows, and note styles for your field.",
     icon: <Users size={20} />,
-    keyPoints: ["Expert knowledge", "Custom protocols", "Specialty workflows"]
+    keyPoints: ["Tailored terminology", "Custom workflows", "Field-specific styles"]
   },
   {
     id: "customization",
-    title: "Human-Backed Setup",
-    description: "Expert team personalizes your workflow",
+    title: "Human-backed onboarding",
+    description: "We don't just set you up—we stay with you. Real support, start to finish.",
     icon: <Cog size={20} />,
-    keyPoints: ["Dedicated team", "Custom setup", "Ongoing support"]
+    keyPoints: ["Real support", "Start to finish", "We stay with you"]
   }
 ];
 
@@ -304,7 +304,7 @@ export const CompetitionSection = React.memo(() => {
           sx={{ mb: 6, textAlign: "center" }}
         >
           <SparklesTextAdvanced 
-            text="C.R.U.S.H. Advantages" 
+            text="Why clinicians choose CRUSH" 
             className="text-3xl md:text-4xl font-bold text-center mb-3 text-white"
             colors={{ first: "#FFFFFF", second: "#FFFFFF" }}
             sparklesCount={15}
@@ -320,7 +320,7 @@ export const CompetitionSection = React.memo(() => {
               mb: 4
             }}
           >
-            The most advanced AI medical scribe with game-changing features
+            Powerful AI. Zero burnout.
           </Typography>
         </Box>
 
