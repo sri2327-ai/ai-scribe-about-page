@@ -9,6 +9,7 @@ import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import DarkAnimatedHeader from '@/components/landing/DarkAnimatedHeader';
 import GradientBarsBackground from '@/components/ui/gradient-bars-background';
+import { ResourceLibraryFAQ } from '@/components/resource-library/ResourceLibraryFAQ';
 
 interface Resource {
   id: string;
@@ -551,6 +552,8 @@ const ResourceLibrary = () => {
               </div>
             </div>
           </section>
+          
+          <ResourceLibraryFAQ />
         </div>
       </>
     );
