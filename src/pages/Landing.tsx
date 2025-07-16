@@ -9,6 +9,7 @@ import IntegrationSection from '@/components/landing/IntegrationSection';
 import TenthSection from '@/components/landing/TenthSection';
 import PracticeHealthCheckSection from '@/components/landing/PracticeHealthCheckSection';
 import FloatingAICTA from '@/components/landing/FloatingAICTA';
+import ShareWithColleaguesCTA from '@/components/landing/ShareWithColleaguesCTA';
 import Footer from '@/components/Footer';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -169,6 +170,9 @@ const Landing = () => {
         <Suspense fallback={<SectionLoader />}>
           <EleventhSection />
         </Suspense>
+        
+        {/* Share with Colleagues CTA */}
+        <ShareWithColleaguesCTA />
         
         {/* Floating AI CTA - Always visible */}
         <FloatingAICTA />
