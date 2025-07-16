@@ -5,6 +5,7 @@ import { Facebook, Linkedin, X } from "lucide-react";
 import { useParams } from 'react-router-dom';
 import { Clock, Zap, Users } from "lucide-react";
 import { QuizSection } from './QuizSection';
+import { BlogFAQ } from './BlogFAQ';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 
 interface BlogPost {
@@ -163,6 +164,8 @@ const BlogPost = () => {
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         </Card>
+
+        <BlogFAQ />
 
         <QuizSection 
           quiz={genericQuiz} 
