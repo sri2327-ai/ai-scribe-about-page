@@ -35,6 +35,13 @@ The goal is to produce a summary that allows me to ask informed and specific que
       tooltip: 'Chat with Claude on S10.AI'
     },
     {
+      name: 'Gemini',
+      icon: <img src="/lovable-uploads/95bdf500-1ad7-4b7b-ba3d-f163efd104c8.png" alt="Gemini" className="w-full h-full object-cover rounded-full" />,
+      url: `https://gemini.google.com/app?q=${prompt}`,
+      color: 'bg-white hover:bg-gray-50',
+      tooltip: 'Chat with Gemini on S10.AI'
+    },
+    {
       name: 'Grok',
       icon: <img src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Grok" className="w-full h-full object-cover rounded-full" />,
       url: `https://grok.com/?q=${prompt}`,
