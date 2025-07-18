@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
@@ -28,9 +27,7 @@ const VoiceAnimation = ({
     }} />)}
     </div>;
 };
-
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
-
 export const FirstSection = () => {
   const theme = useTheme();
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -40,7 +37,6 @@ export const FirstSection = () => {
     width
   } = useWindowSize();
   const isMobile = useIsMobile();
-  
   const clinicianBenefits = [{
     icon: <Clock className="w-3 h-3 sm:w-4 sm:h-4" />,
     text: "75% faster charting",
@@ -85,11 +81,9 @@ export const FirstSection = () => {
     benefit: "Complete automation achieved",
     color: "#143151"
   }];
-  
   const handleTabClick = (index: number) => {
     setActiveTabIndex(index);
   };
-  
   return <section id="ai-solutions-overview" aria-labelledby="hero-heading" className="min-h-screen relative overflow-hidden" ref={sectionRef} style={{
     background: 'linear-gradient(135deg, #fafbfc 0%, #f8fafc 25%, #f1f8ff 50%, #ecf7f7 75%, #f0fdf4 100%)'
   }}>
@@ -203,12 +197,12 @@ export const FirstSection = () => {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white/50 to-teal-50/30"></div>
         <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `
+        backgroundImage: `
             radial-gradient(circle at 20% 80%, rgba(20, 49, 81, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(56, 126, 137, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 40% 40%, rgba(81, 146, 174, 0.1) 0%, transparent 50%)
           `
-        }}></div>
+      }}></div>
       </div>
       
       {/* Main content container */}
@@ -217,19 +211,27 @@ export const FirstSection = () => {
         <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 lg:gap-16 lg:items-center min-h-[85vh] sm:min-h-[80vh]">
           
           {/* Left column - Main content - Enhanced alignment */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="lg:col-span-7 space-y-6 lg:space-y-8 order-1 text-center lg:text-left"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          y: 30
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.8,
+          delay: 0.1
+        }} className="lg:col-span-7 space-y-6 lg:space-y-8 order-1 text-center lg:text-left">
             {/* Trust indicator - Enhanced design */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 rounded-full px-4 py-2.5 shadow-sm backdrop-blur-sm"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            scale: 0.9
+          }} animate={{
+            opacity: 1,
+            scale: 1
+          }} transition={{
+            duration: 0.6,
+            delay: 0.2
+          }} className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200/60 rounded-full px-4 py-2.5 shadow-sm backdrop-blur-sm">
               <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
               <span className="text-sm font-semibold text-amber-700">Trusted by 1,000+ Healthcare Providers</span>
               <TrendingUp className="w-4 h-4 text-amber-600" />
@@ -237,13 +239,18 @@ export const FirstSection = () => {
 
             {/* Main headline - Better typography */}
             <div className="space-y-4 lg:space-y-6">
-              <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3 }}
-                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight"
-                style={{ color: '#1a1a1a' }}
-              >
+              <motion.h1 initial={{
+              opacity: 0,
+              y: 20
+            }} animate={{
+              opacity: 1,
+              y: 0
+            }} transition={{
+              duration: 0.8,
+              delay: 0.3
+            }} className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-[0.95] tracking-tight" style={{
+              color: '#1a1a1a'
+            }}>
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151]">
                   The AI That Charts
                 </span>
@@ -257,77 +264,81 @@ export const FirstSection = () => {
             </div>
             
             {/* Benefit pills - Enhanced design */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex flex-wrap gap-3 justify-center lg:justify-start"
-            >
-              {clinicianBenefits.map((benefit, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                  className="flex items-center gap-2 px-4 py-3 bg-white/80 backdrop-blur-sm rounded-full shadow-md border border-gray-200/50 transform hover:scale-105 hover:shadow-lg transition-all duration-300"
-                >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.8,
+            delay: 0.5
+          }} className="flex flex-wrap gap-3 justify-center lg:justify-start">
+              {clinicianBenefits.map((benefit, index) => <motion.div key={index} initial={{
+              opacity: 0,
+              scale: 0.8
+            }} animate={{
+              opacity: 1,
+              scale: 1
+            }} transition={{
+              delay: 0.6 + index * 0.1,
+              duration: 0.5
+            }} className="flex items-center gap-2 px-4 py-3 bg-white/80 backdrop-blur-sm rounded-full shadow-md border border-gray-200/50 transform hover:scale-105 hover:shadow-lg transition-all duration-300">
                   {React.cloneElement(benefit.icon, {
-                    className: "w-4 h-4",
-                    style: {
-                      background: 'linear-gradient(135deg, #143151, #387E89, #5192AE)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text'
-                    }
-                  })}
+                className: "w-4 h-4",
+                style: {
+                  background: 'linear-gradient(135deg, #143151, #387E89, #5192AE)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text'
+                }
+              })}
                   <span className="text-sm font-semibold text-gray-700">{benefit.text}</span>
-                </motion.div>
-              ))}
+                </motion.div>)}
             </motion.div>
             
             {/* Enhanced CTA section with animated demo button */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="pt-4"
-            >
+            <motion.div initial={{
+            opacity: 0,
+            y: 20
+          }} animate={{
+            opacity: 1,
+            y: 0
+          }} transition={{
+            duration: 0.8,
+            delay: 0.7
+          }} className="pt-4">
               <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="relative group"
-                >
-                  <Button
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
-                    className="group relative w-full sm:w-auto rounded-full px-8 py-6 text-lg font-bold text-white border-2 border-white/20 overflow-hidden transition-all duration-500 transform"
-                    style={{
-                      background: 'linear-gradient(45deg, #143151, #387E89, #5192AE, #387E89)',
-                      backgroundSize: '200% 200%',
-                      animation: 'gradient-shift 2s ease infinite',
-                      boxShadow: '0 20px 40px rgba(56, 126, 137, 0.4), 0 0 20px rgba(56, 126, 137, 0.3)'
-                    }}
-                  >
+                <motion.div whileHover={{
+                scale: 1.05
+              }} whileTap={{
+                scale: 0.98
+              }} className="relative group">
+                  <Button onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} className="group relative w-full sm:w-auto rounded-full px-8 py-6 text-lg font-bold text-white border-2 border-white/20 overflow-hidden transition-all duration-500 transform" style={{
+                  background: 'linear-gradient(45deg, #143151, #387E89, #5192AE, #387E89)',
+                  backgroundSize: '200% 200%',
+                  animation: 'gradient-shift 2s ease infinite',
+                  boxShadow: '0 20px 40px rgba(56, 126, 137, 0.4), 0 0 20px rgba(56, 126, 137, 0.3)'
+                }}>
                     {/* Animated background glow */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-[#387E89]/30 via-[#5192AE]/30 to-[#143151]/30 rounded-full"
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        opacity: [0.3, 0.6, 0.3]
-                      }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    />
+                    <motion.div className="absolute inset-0 bg-gradient-to-r from-[#387E89]/30 via-[#5192AE]/30 to-[#143151]/30 rounded-full" animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.6, 0.3]
+                  }} transition={{
+                    duration: 1.5,
+                    repeat: Infinity
+                  }} />
                     
                     {/* Button content with animated elements */}
                     <div className="flex items-center justify-center gap-3 relative z-10">
-                      <motion.div
-                        animate={{ 
-                          rotate: [0, 15, -15, 0],
-                          scale: [1, 1.2, 1]
-                        }}
-                        transition={{ duration: 0.6, repeat: Infinity, repeatDelay: 1 }}
-                      >
+                      <motion.div animate={{
+                      rotate: [0, 15, -15, 0],
+                      scale: [1, 1.2, 1]
+                    }} transition={{
+                      duration: 0.6,
+                      repeat: Infinity,
+                      repeatDelay: 1
+                    }}>
                         <Zap className="h-5 w-5" />
                       </motion.div>
                       
@@ -335,32 +346,29 @@ export const FirstSection = () => {
                         Request A Demo
                       </span>
                       
-                      <motion.div
-                        animate={{ 
-                          x: [0, 5, 0],
-                          scale: [1, 1.1, 1]
-                        }}
-                        transition={{ duration: 1, repeat: Infinity }}
-                      >
+                      <motion.div animate={{
+                      x: [0, 5, 0],
+                      scale: [1, 1.1, 1]
+                    }} transition={{
+                      duration: 1,
+                      repeat: Infinity
+                    }}>
                         <ArrowRight className="h-5 w-5" />
                       </motion.div>
                     </div>
                     
                     {/* Shimmer effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
-                      animate={{
-                        x: ['-200%', '200%']
-                      }}
-                      transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
-                    />
+                    <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12" animate={{
+                    x: ['-200%', '200%']
+                  }} transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    repeatDelay: 2
+                  }} />
                   </Button>
                 </motion.div>
                 
-                <Button
-                  variant="outline"
-                  className="group w-full sm:w-auto rounded-full px-6 py-6 text-lg font-semibold border-2 border-[#387E89]/30 text-[#387E89] hover:bg-[#387E89]/5 hover:border-[#387E89] transition-all duration-300"
-                >
+                <Button variant="outline" className="group w-full sm:w-auto rounded-full px-6 py-6 text-lg font-semibold border-2 border-[#387E89]/30 text-[#387E89] hover:bg-[#387E89]/5 hover:border-[#387E89] transition-all duration-300">
                   <Play className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform duration-300" />
                   Watch Demo
                 </Button>
@@ -375,25 +383,21 @@ export const FirstSection = () => {
           </motion.div>
           
           {/* Right column - Enhanced feature showcase */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:col-span-5 relative order-2"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          scale: 0.95,
+          x: 20
+        }} animate={{
+          opacity: 1,
+          scale: 1,
+          x: 0
+        }} transition={{
+          duration: 0.8,
+          delay: 0.4
+        }} className="lg:col-span-5 relative order-2">
             <Card className="relative bg-white/95 backdrop-blur-sm border-0 shadow-2xl shadow-[#387E89]/10 ring-1 ring-gray-200/50 overflow-hidden">
               {/* Enhanced header */}
-              <div className="relative p-6 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] text-white">
-                <div className="relative z-10">
-                  <h3 className="font-bold text-lg flex items-center justify-between gap-3">
-                    <span>One AI Solution to Save Your Day</span>
-                    <span className="bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold border border-white/30">
-                      Built for Clinicians
-                    </span>
-                  </h3>
-                  <p className="text-sm text-white/90 mt-2">Four simple steps to transform your practice</p>
-                </div>
-              </div>
+              
               
               {/* AI Platform Dashboard */}
               <div className="p-6">
@@ -407,12 +411,15 @@ export const FirstSection = () => {
                   {/* Dashboard Grid */}
                   <div className="grid grid-cols-2 gap-3 p-3">
                     {/* AI Medical Scribe */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
+                    <motion.div initial={{
+                    opacity: 0,
+                    y: 20
+                  }} animate={{
+                    opacity: 1,
+                    y: 0
+                  }} transition={{
+                    delay: 0.2
+                  }} className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -428,12 +435,15 @@ export const FirstSection = () => {
                     </motion.div>
 
                     {/* AI Staffing Agent */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
+                    <motion.div initial={{
+                    opacity: 0,
+                    y: 20
+                  }} animate={{
+                    opacity: 1,
+                    y: 0
+                  }} transition={{
+                    delay: 0.3
+                  }} className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -449,12 +459,15 @@ export const FirstSection = () => {
                     </motion.div>
 
                     {/* Custom AI Agents */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
+                    <motion.div initial={{
+                    opacity: 0,
+                    y: 20
+                  }} animate={{
+                    opacity: 1,
+                    y: 0
+                  }} transition={{
+                    delay: 0.4
+                  }} className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-br from-[#387E89] to-[#5192AE] rounded-lg flex items-center justify-center">
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -470,12 +483,15 @@ export const FirstSection = () => {
                     </motion.div>
 
                     {/* EHR Integrations */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
+                    <motion.div initial={{
+                    opacity: 0,
+                    y: 20
+                  }} animate={{
+                    opacity: 1,
+                    y: 0
+                  }} transition={{
+                    delay: 0.5
+                  }} className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group">
                       <div className="flex items-center gap-2 mb-2">
                         <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
                           <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -517,12 +533,16 @@ export const FirstSection = () => {
         </div>
         
         {/* Enhanced trusted by section */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-16 lg:mt-24"
-        >
+        <motion.div initial={{
+        opacity: 0,
+        y: 30
+      }} animate={{
+        opacity: 1,
+        y: 0
+      }} transition={{
+        duration: 0.8,
+        delay: 0.9
+      }} className="mt-16 lg:mt-24">
           <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-gray-200/50 overflow-hidden p-6">
             <div className="text-center mb-6">
               <Typography variant="h6" className="text-lg font-bold text-gray-800 mb-3">
@@ -534,33 +554,16 @@ export const FirstSection = () => {
             <Box className="overflow-hidden">
               {/* Static logos for SEO */}
               <div className="flex justify-center gap-8 mb-4 opacity-70">
-                {companyLogos.slice(0, 4).map((logo, index) => (
-                  <div key={`static-${index}`} className="w-20 h-10 grayscale hover:grayscale-0 transition-all duration-300">
-                    <OptimizedImage
-                      src={logo}
-                      alt={`Healthcare partner ${index + 1}`}
-                      width={80}
-                      height={40}
-                      priority={index < 2}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
-                ))}
+                {companyLogos.slice(0, 4).map((logo, index) => <div key={`static-${index}`} className="w-20 h-10 grayscale hover:grayscale-0 transition-all duration-300">
+                    <OptimizedImage src={logo} alt={`Healthcare partner ${index + 1}`} width={80} height={40} priority={index < 2} className="object-contain w-full h-full" />
+                  </div>)}
               </div>
               
               {/* Animated marquee */}
               <Marquee gradient={true} gradientWidth={80} speed={30} className="opacity-80">
-                {companyLogos.map((logo, index) => (
-                  <div key={index} className="mx-8 grayscale hover:grayscale-0 transition-all duration-300">
-                    <OptimizedImage
-                      src={logo}
-                      alt={`Healthcare partner ${index + 1}`}
-                      width={100}
-                      height={50}
-                      className="object-contain"
-                    />
-                  </div>
-                ))}
+                {companyLogos.map((logo, index) => <div key={index} className="mx-8 grayscale hover:grayscale-0 transition-all duration-300">
+                    <OptimizedImage src={logo} alt={`Healthcare partner ${index + 1}`} width={100} height={50} className="object-contain" />
+                  </div>)}
               </Marquee>
             </Box>
           </div>
