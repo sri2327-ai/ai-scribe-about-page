@@ -374,145 +374,232 @@ export const FirstSection = () => {
             </motion.div>
           </motion.div>
           
-          {/* Right column - Enhanced feature showcase */}
+          {/* Right column - Modern AI Platform Dashboard */}
           <motion.div 
-            initial={{ opacity: 0, scale: 0.95, x: 20 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:col-span-5 relative order-2"
           >
-            <Card className="relative bg-white/95 backdrop-blur-sm border-0 shadow-2xl shadow-[#387E89]/10 ring-1 ring-gray-200/50 overflow-hidden">
-              {/* Enhanced header */}
-              <div className="relative p-6 bg-gradient-to-r from-[#143151] via-[#387E89] to-[#5192AE] text-white">
+            {/* Floating glow effects */}
+            <div className="absolute -inset-8 bg-gradient-to-r from-[#387E89]/10 via-[#5192AE]/15 to-[#143151]/10 rounded-[2rem] blur-2xl opacity-70"></div>
+            
+            <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
+              {/* Premium Header */}
+              <div className="relative bg-gradient-to-br from-[#143151] via-[#387E89] to-[#5192AE] p-6 text-white overflow-hidden">
+                {/* Animated background pattern */}
+                <motion.div
+                  className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='7' cy='7' r='1'/%3E%3Ccircle cx='53' cy='53' r='1'/%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                  }}
+                  animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                />
+                
                 <div className="relative z-10">
-                  <h3 className="font-bold text-lg flex items-center justify-between gap-3">
-                    <span>One AI Solution to Save Your Day</span>
-                    <span className="bg-white/20 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-semibold border border-white/30">
-                      Built for Clinicians
-                    </span>
-                  </h3>
-                  <p className="text-sm text-white/90 mt-2">Four simple steps to transform your practice</p>
+                  <motion.div 
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.6, type: "spring", bounce: 0.4 }}
+                    className="flex items-center gap-3 mb-3"
+                  >
+                    <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-white/30">
+                      <Zap className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-medium text-white/80">AI Platform</div>
+                      <div className="text-xs text-white/60">Enterprise Ready</div>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.h2 
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.7 }}
+                    className="text-2xl font-bold mb-2 leading-tight"
+                  >
+                    One AI Platform. Every Task Automated.
+                  </motion.h2>
+                  
+                  <motion.p 
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.8 }}
+                    className="text-white/90 text-sm font-medium"
+                  >
+                    Clinician-First AI Powered Medical Scribe
+                  </motion.p>
                 </div>
               </div>
-              
-              {/* AI Platform Dashboard */}
-              <div className="p-6">
-                <div className="bg-gradient-to-br from-slate-50/80 via-white to-blue-50/60 rounded-2xl p-1 border border-slate-200/50 shadow-inner">
-                  {/* Header */}
-                  <div className="bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-4 mb-4 text-white">
-                    <h2 className="text-xl font-bold mb-1">One AI Platform. Every Task Automated.</h2>
-                    <p className="text-white/80 text-sm">Clinician-First AI Solutions</p>
-                  </div>
+
+              {/* Main Content */}
+              <div className="p-6 space-y-4">
+                
+                {/* AI Medical Scribe - Hero Feature */}
+                <motion.div 
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.9 }}
+                  className="relative bg-gradient-to-br from-blue-50 via-white to-blue-50/50 rounded-2xl p-6 border border-blue-100 shadow-lg hover:shadow-xl transition-all duration-500 group overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-400/10 to-transparent rounded-full -translate-y-16 translate-x-16"></div>
                   
-                  {/* Dashboard Grid */}
-                  <div className="grid grid-cols-2 gap-3 p-3">
-                    {/* AI Medical Scribe */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                          </svg>
+                  <div className="relative z-10">
+                    <div className="flex items-start gap-4 mb-4">
+                      <motion.div 
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg flex-shrink-0"
+                      >
+                        <FileText className="w-6 h-6 text-white" />
+                      </motion.div>
+                      <div className="flex-1">
+                        <h3 className="font-bold text-[#143151] text-lg mb-2">AI Powered Medical Scribe</h3>
+                        <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                          AI documentation that captures the full patient story—boosting outcomes and scaling across specialties and devices—while you focus on care.
+                        </p>
+                        <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 rounded-full px-3 py-1.5">
+                          <Clock className="w-4 h-4 text-green-600" />
+                          <span className="text-sm font-semibold text-green-700">Save 2+ hours per day</span>
                         </div>
-                        <span className="font-semibold text-sm text-slate-800">AI Medical Scribe</span>
-                      </div>
-                      <p className="text-xs text-slate-600 mb-2">AI documentation that captures the full patient story</p>
-                      <div className="bg-green-50 rounded-lg px-2 py-1">
-                        <span className="text-xs font-medium text-green-700">Save 2+ hours per day</span>
-                      </div>
-                    </motion.div>
-
-                    {/* AI Staffing Agent */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                          </svg>
-                        </div>
-                        <span className="font-semibold text-sm text-slate-800">AI Staffing Agent</span>
-                      </div>
-                      <p className="text-xs text-slate-600 mb-2">Virtual staff for admin tasks & workflow efficiency</p>
-                      <div className="bg-blue-50 rounded-lg px-2 py-1">
-                        <span className="text-xs font-medium text-blue-700">Reduce admin by 40%</span>
-                      </div>
-                    </motion.div>
-
-                    {/* Custom AI Agents */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-[#387E89] to-[#5192AE] rounded-lg flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                          </svg>
-                        </div>
-                        <span className="font-semibold text-sm text-slate-800">Custom AI Agents</span>
-                      </div>
-                      <p className="text-xs text-slate-600 mb-2">Purpose-built AI for your specialty workflow</p>
-                      <div className="bg-purple-50 rounded-lg px-2 py-1">
-                        <span className="text-xs font-medium text-purple-700">30+ specialty workflows</span>
-                      </div>
-                    </motion.div>
-
-                    {/* EHR Integrations */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                          </svg>
-                        </div>
-                        <span className="font-semibold text-sm text-slate-800">EHR Integrations</span>
-                      </div>
-                      <p className="text-xs text-slate-600 mb-2">Works with any EHR system</p>
-                      <div className="bg-orange-50 rounded-lg px-2 py-1">
-                        <span className="text-xs font-medium text-orange-700">Seamless connectivity</span>
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* Bottom Stats */}
-                  <div className="mt-4 mx-3 bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-3 border border-slate-100">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="text-center">
-                        <div className="font-bold text-[#387E89]">7000+</div>
-                        <div className="text-slate-600">App Connections</div>
-                      </div>
-                      <div className="h-8 w-px bg-slate-200"></div>
-                      <div className="text-center">
-                        <div className="font-bold text-[#387E89]">Any EHR</div>
-                        <div className="text-slate-600">System</div>
-                      </div>
-                      <div className="h-8 w-px bg-slate-200"></div>
-                      <div className="text-center">
-                        <div className="font-bold text-[#387E89]">30+</div>
-                        <div className="text-slate-600">Specialties</div>
                       </div>
                     </div>
                   </div>
+                </motion.div>
+
+                {/* Feature Grid */}
+                <div className="grid grid-cols-1 gap-4">
+                  
+                  {/* AI Staffing Agent */}
+                  <motion.div 
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1.0 }}
+                    className="bg-gradient-to-r from-purple-50 to-purple-50/50 rounded-xl p-4 border border-purple-100 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <Users className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-[#143151] text-sm mb-1">AI Staffing Agent</h4>
+                        <p className="text-gray-600 text-xs mb-2">AI-powered virtual staff member that handles administrative tasks and improves clinical workflow efficiency.</p>
+                        <div className="inline-flex items-center gap-1 bg-purple-100 rounded-full px-2 py-1">
+                          <TrendingUp className="w-3 h-3 text-purple-600" />
+                          <span className="text-xs font-semibold text-purple-700">Reduce admin workload by 40%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Custom AI Agents */}
+                  <motion.div 
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1.1 }}
+                    className="bg-gradient-to-r from-teal-50 to-teal-50/50 rounded-xl p-4 border border-teal-100 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-[#387E89] to-[#5192AE] rounded-lg flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-[#143151] text-sm mb-1">Custom AI Agents</h4>
+                        <p className="text-gray-600 text-xs mb-2">Purpose-built AI assistants that adapt to your specialty and workflow preferences.</p>
+                        <div className="inline-flex items-center gap-1 bg-teal-100 rounded-full px-2 py-1">
+                          <Star className="w-3 h-3 text-teal-600" />
+                          <span className="text-xs font-semibold text-teal-700">30+ specialty workflows</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* EHR Integrations */}
+                  <motion.div 
+                    initial={{ y: 30, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 1.2 }}
+                    className="bg-gradient-to-r from-emerald-50 to-emerald-50/50 rounded-xl p-4 border border-emerald-100 hover:shadow-md transition-all duration-300"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                        <Database className="w-5 h-5 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-[#143151] text-sm mb-1">EHR Integrations</h4>
+                        <p className="text-gray-600 text-xs mb-2">Works with any EHR system and connects to 7000+ apps.</p>
+                        <div className="inline-flex items-center gap-1 bg-emerald-100 rounded-full px-2 py-1">
+                          <CheckCircle className="w-3 h-3 text-emerald-600" />
+                          <span className="text-xs font-semibold text-emerald-700">Seamless connectivity</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
+
+                {/* Enhanced Stats Dashboard */}
+                <motion.div 
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 1.3 }}
+                  className="bg-gradient-to-br from-gray-50 via-white to-blue-50/30 rounded-2xl p-5 border border-gray-200/50 shadow-inner"
+                >
+                  <h4 className="font-bold text-[#143151] text-center mb-4 flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 bg-gradient-to-br from-[#387E89] to-[#5192AE] rounded-md flex items-center justify-center">
+                      <TrendingUp className="w-3 h-3 text-white" />
+                    </div>
+                    Platform Overview
+                  </h4>
+                  
+                  <div className="grid grid-cols-3 gap-4">
+                    <motion.div 
+                      whileHover={{ scale: 1.05 }}
+                      className="text-center bg-white/70 rounded-xl p-3 border border-gray-100"
+                    >
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.4, type: "spring" }}
+                        className="text-3xl font-bold bg-gradient-to-r from-[#387E89] to-[#5192AE] bg-clip-text text-transparent mb-1"
+                      >
+                        7K+
+                      </motion.div>
+                      <div className="text-xs text-gray-600 font-medium">App Connections</div>
+                    </motion.div>
+                    
+                    <motion.div 
+                      whileHover={{ scale: 1.05 }}
+                      className="text-center bg-white/70 rounded-xl p-3 border border-gray-100"
+                    >
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.5, type: "spring" }}
+                        className="text-3xl font-bold bg-gradient-to-r from-[#5192AE] to-[#143151] bg-clip-text text-transparent mb-1"
+                      >
+                        100%
+                      </motion.div>
+                      <div className="text-xs text-gray-600 font-medium">EHR Compatible</div>
+                    </motion.div>
+                    
+                    <motion.div 
+                      whileHover={{ scale: 1.05 }}
+                      className="text-center bg-white/70 rounded-xl p-3 border border-gray-100"
+                    >
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 1.6, type: "spring" }}
+                        className="text-3xl font-bold bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent mb-1"
+                      >
+                        30+
+                      </motion.div>
+                      <div className="text-xs text-gray-600 font-medium">Specialties</div>
+                    </motion.div>
+                  </div>
+                </motion.div>
               </div>
-            </Card>
+            </div>
           </motion.div>
         </div>
         
