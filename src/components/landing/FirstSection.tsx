@@ -395,87 +395,120 @@ export const FirstSection = () => {
                 </div>
               </div>
               
-              {/* Enhanced content area */}
+              {/* AI Platform Dashboard */}
               <div className="p-6">
-                <div className="bg-gradient-to-br from-blue-50/50 via-white to-teal-50/50 rounded-xl p-6 border border-blue-100/50 shadow-inner">
-                  <div className="space-y-4">
-                    {featureTabs.map((tab, index) => (
-                      <motion.div
-                        key={tab.id}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + index * 0.1 }}
-                        onClick={() => handleTabClick(index)}
-                        className={`group relative cursor-pointer rounded-xl p-4 transition-all duration-300 ${
-                          activeTabIndex === index
-                            ? 'bg-white shadow-lg ring-2 ring-[#387E89]/20 scale-[1.02]'
-                            : 'bg-white/60 hover:bg-white/90 hover:shadow-md'
-                        }`}
-                      >
-                        <div className="flex items-start gap-3">
-                          <div
-                            className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 ${
-                              activeTabIndex === index ? 'shadow-lg' : 'group-hover:shadow-md'
-                            }`}
-                            style={{
-                              background: activeTabIndex === index 
-                                ? `linear-gradient(135deg, ${tab.color}15, ${tab.color}25)` 
-                                : `${tab.color}10`
-                            }}
-                          >
-                            {React.cloneElement(tab.icon, {
-                              style: { color: tab.color },
-                              className: "w-6 h-6"
-                            })}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className={`font-semibold text-sm mb-2 ${
-                              activeTabIndex === index ? 'text-gray-900' : 'text-gray-700'
-                            }`}>
-                              {tab.title}
-                            </h4>
-                            
-                            <AnimatePresence>
-                              {activeTabIndex === index && (
-                                <motion.div
-                                  initial={{ opacity: 0, height: 0 }}
-                                  animate={{ opacity: 1, height: 'auto' }}
-                                  exit={{ opacity: 0, height: 0 }}
-                                  transition={{ duration: 0.3 }}
-                                >
-                                  <p className="text-xs text-gray-600 mb-3 leading-relaxed">
-                                    {tab.description}
-                                  </p>
-                                  
-                                  <div className="flex items-center justify-between gap-2">
-                                    <div className="flex items-center gap-2 bg-gradient-to-r from-[#143151]/5 to-[#387E89]/10 px-3 py-2 rounded-lg flex-1">
-                                      <CheckCircle className="w-4 h-4 text-[#387E89] shrink-0" />
-                                      <span className="font-semibold text-xs text-[#143151]">{tab.benefit}</span>
-                                    </div>
-                                    <VoiceAnimation size="sm" color={tab.color} isAnimating={true} />
-                                  </div>
-                                </motion.div>
-                              )}
-                            </AnimatePresence>
-                          </div>
+                <div className="bg-gradient-to-br from-slate-50/80 via-white to-blue-50/60 rounded-2xl p-1 border border-slate-200/50 shadow-inner">
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-[#143151] to-[#387E89] rounded-xl p-4 mb-4 text-white">
+                    <h2 className="text-xl font-bold mb-1">One AI Platform. Every Task Automated.</h2>
+                    <p className="text-white/80 text-sm">Clinician-First AI Solutions</p>
+                  </div>
+                  
+                  {/* Dashboard Grid */}
+                  <div className="grid grid-cols-2 gap-3 p-3">
+                    {/* AI Medical Scribe */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                          </svg>
                         </div>
-                      </motion.div>
-                    ))}
+                        <span className="font-semibold text-sm text-slate-800">AI Medical Scribe</span>
+                      </div>
+                      <p className="text-xs text-slate-600 mb-2">AI documentation that captures the full patient story</p>
+                      <div className="bg-green-50 rounded-lg px-2 py-1">
+                        <span className="text-xs font-medium text-green-700">Save 2+ hours per day</span>
+                      </div>
+                    </motion.div>
+
+                    {/* AI Staffing Agent */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                        </div>
+                        <span className="font-semibold text-sm text-slate-800">AI Staffing Agent</span>
+                      </div>
+                      <p className="text-xs text-slate-600 mb-2">Virtual staff for admin tasks & workflow efficiency</p>
+                      <div className="bg-blue-50 rounded-lg px-2 py-1">
+                        <span className="text-xs font-medium text-blue-700">Reduce admin by 40%</span>
+                      </div>
+                    </motion.div>
+
+                    {/* Custom AI Agents */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-[#387E89] to-[#5192AE] rounded-lg flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                        </div>
+                        <span className="font-semibold text-sm text-slate-800">Custom AI Agents</span>
+                      </div>
+                      <p className="text-xs text-slate-600 mb-2">Purpose-built AI for your specialty workflow</p>
+                      <div className="bg-purple-50 rounded-lg px-2 py-1">
+                        <span className="text-xs font-medium text-purple-700">30+ specialty workflows</span>
+                      </div>
+                    </motion.div>
+
+                    {/* EHR Integrations */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="bg-white rounded-xl p-4 shadow-md border border-slate-100 hover:shadow-lg transition-all duration-300 group"
+                    >
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                          </svg>
+                        </div>
+                        <span className="font-semibold text-sm text-slate-800">EHR Integrations</span>
+                      </div>
+                      <p className="text-xs text-slate-600 mb-2">Works with any EHR system</p>
+                      <div className="bg-orange-50 rounded-lg px-2 py-1">
+                        <span className="text-xs font-medium text-orange-700">Seamless connectivity</span>
+                      </div>
+                    </motion.div>
                   </div>
 
-                  {/* Enhanced navigation dots */}
-                  <div className="flex justify-center gap-2 mt-6">
-                    {featureTabs.map((_, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleTabClick(idx)}
-                        className={`transition-all duration-300 rounded-full ${
-                          activeTabIndex === idx
-                            ? 'w-8 h-3 bg-gradient-to-r from-[#387E89] to-[#143151]'
-                            : 'w-3 h-3 bg-gray-300 hover:bg-gray-400'
-                        }`}
-                      />
-                    ))}
+                  {/* Bottom Stats */}
+                  <div className="mt-4 mx-3 bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-3 border border-slate-100">
+                    <div className="flex items-center justify-between text-xs">
+                      <div className="text-center">
+                        <div className="font-bold text-[#387E89]">7000+</div>
+                        <div className="text-slate-600">App Connections</div>
+                      </div>
+                      <div className="h-8 w-px bg-slate-200"></div>
+                      <div className="text-center">
+                        <div className="font-bold text-[#387E89]">Any EHR</div>
+                        <div className="text-slate-600">System</div>
+                      </div>
+                      <div className="h-8 w-px bg-slate-200"></div>
+                      <div className="text-center">
+                        <div className="font-bold text-[#387E89]">30+</div>
+                        <div className="text-slate-600">Specialties</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
