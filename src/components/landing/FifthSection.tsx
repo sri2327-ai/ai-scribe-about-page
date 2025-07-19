@@ -90,38 +90,30 @@ const combinedTestimonial = {
 };
 
 const PainPointCard = ({ icon: Icon, problem, color }) => (
-  <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-sm hover:shadow-xl transition-all duration-500 ease-out rounded-2xl h-full">
-    <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-red-100/30" />
-    <div className="relative p-6 sm:p-8 flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="p-3 rounded-2xl bg-red-100/80 group-hover:bg-red-200/80 transition-colors duration-300">
-          <Icon className="w-5 h-5 text-red-600" />
-        </div>
-        <h4 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight tracking-tight">{problem}</h4>
+  <Card className="relative overflow-hidden bg-gray-50 border-0 rounded-xl h-full">
+    <div className="p-4 sm:p-6 flex items-center gap-4">
+      <div className="p-3 rounded-xl bg-red-100">
+        <Icon className="w-5 h-5 text-red-600" />
       </div>
-      <div className="p-2 rounded-full bg-red-100/80">
+      <h4 className="font-medium text-gray-900 text-sm sm:text-base leading-tight flex-1">{problem}</h4>
+      <div className="p-2 rounded-full bg-red-50">
         <X className="w-4 h-4 text-red-500" />
       </div>
     </div>
-    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
   </Card>
 );
 
 const SolutionCard = ({ icon: Icon, solution, color }) => (
-  <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-sm hover:shadow-xl transition-all duration-500 ease-out rounded-2xl h-full">
-    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-foreground/10" />
-    <div className="relative p-6 sm:p-8 flex items-center justify-between">
-      <div className="flex items-center gap-4">
-        <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-primary-foreground group-hover:from-primary/90 group-hover:to-primary-foreground/90 transition-all duration-300 shadow-lg">
-          <Icon className="w-5 h-5 text-white" />
-        </div>
-        <h4 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight tracking-tight">{solution}</h4>
+  <Card className="relative overflow-hidden bg-blue-50 border-0 rounded-xl h-full">
+    <div className="p-4 sm:p-6 flex items-center gap-4">
+      <div className="p-3 rounded-xl bg-blue-600">
+        <Icon className="w-5 h-5 text-white" />
       </div>
-      <div className="p-2 rounded-full bg-green-100/80">
+      <h4 className="font-medium text-gray-900 text-sm sm:text-base leading-tight flex-1">{solution}</h4>
+      <div className="p-2 rounded-full bg-green-50">
         <Check className="w-4 h-4 text-green-600" />
       </div>
     </div>
-    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-foreground transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
   </Card>
 );
 
@@ -251,293 +243,245 @@ const FifthSection = () => {
   return (
     <section 
       ref={containerRef} 
-      className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden focus:outline-none"
+      className="py-8 sm:py-12 bg-white min-h-screen flex flex-col justify-center overflow-hidden focus:outline-none"
       aria-labelledby="practice-transformation-heading"
       tabIndex={0}
     >
       {/* SEO-friendly content for search engines */}
       <div className="sr-only">
-        <h1 id="practice-transformation-heading">How BRAVO & CRUSH Transform Your Medical Practice</h1>
+        <h1 id="practice-transformation-heading">How S10.AI Transforms Your Medical Practice</h1>
         <p>
-          Discover how S10.AI's BRAVO AI Staffing Agent and CRUSH AI Medical Scribe work together 
-          to revolutionize healthcare practice management, reduce administrative burden, and improve 
-          patient outcomes through intelligent automation.
+          Discover how S10.AI's platform revolutionizes healthcare practice management, reducing administrative burden and improving patient outcomes through intelligent automation.
         </p>
       </div>
 
-      <Box sx={{ maxWidth: '1400px', mx: 'auto', width: '100%' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Hero Section */}
-        <div className="text-center mb-8 sm:mb-12 lg:mb-16">
+        <div className="text-center mb-8 sm:mb-12">
           <Typography
             variant="h3"
-            fontWeight="bold"
+            fontWeight="600"
             sx={{ 
               mb: 3, 
-              color: '#143151', 
-              fontSize: { xs: '1.4rem', sm: '1.8rem', md: '2.2rem', lg: '2.6rem' },
-              lineHeight: 1.3,
-              maxWidth: '700px',
-              mx: 'auto',
-              px: { xs: 2, sm: 0 }
-            }}
-          >
-            Buried in documentation, no-shows, and clunky software that doesn't talk to each other?
-          </Typography>
-          <Typography
-            variant="h5"
-            sx={{ 
-              color: '#387E89', 
-              fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
-              fontWeight: 500,
+              color: '#1d1d1f', 
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+              lineHeight: 1.1,
               maxWidth: '800px',
               mx: 'auto',
-              lineHeight: 1.4
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
             }}
           >
-            S10.AI connects everything—from charting to claims to patient engagement—with real-time, ambient AI that actually works.
+            Before S10.AI vs After S10.AI
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ 
+              color: '#6e6e73', 
+              fontSize: { xs: '1.125rem', sm: '1.25rem' },
+              fontWeight: 400,
+              maxWidth: '600px',
+              mx: 'auto',
+              lineHeight: 1.4,
+              fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+            }}
+          >
+            See how AI transforms your practice workflow
           </Typography>
         </div>
 
-        {isMobileOrTablet ? (
-          /* Mobile/Tablet: Enhanced Swipe View */
-          <div className="mb-10 lg:mb-12">
-            {/* Toggle Buttons with better visual feedback */}
-            <div className="flex justify-center mb-6">
-              <div className="bg-gray-100 rounded-full p-1 flex shadow-inner">
-                <button
-                  onClick={() => !isTransitioning && setActiveView('before')}
-                  disabled={isTransitioning}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 relative ${
-                    activeView === 'before' 
-                      ? 'bg-red-500 text-white shadow-md transform scale-105' 
-                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                  } ${isTransitioning ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
-                  aria-label="View problems before S10.AI"
-                  aria-pressed={activeView === 'before'}
-                >
-                  <AlertCircle className="w-4 h-4 inline mr-2" />
-                  Before S10.AI
-                </button>
-                <button
-                  onClick={() => !isTransitioning && setActiveView('after')}
-                  disabled={isTransitioning}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 relative ${
-                    activeView === 'after' 
-                      ? 'bg-gradient-to-r from-[#143151] to-[#387E89] text-white shadow-md transform scale-105' 
-                      : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'
-                  } ${isTransitioning ? 'cursor-not-allowed opacity-70' : 'cursor-pointer'}`}
-                  aria-label="View solutions with BRAVO & CRUSH"
-                  aria-pressed={activeView === 'after'}
-                >
-                  <Zap className="w-4 h-4 inline mr-2" />
-                  After BRAVO & CRUSH
-                </button>
-              </div>
-            </div>
-
-            {/* Content Area with Enhanced Touch Support */}
-            <div 
-              className="relative overflow-hidden touch-pan-x"
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-              role="region"
-              aria-live="polite"
-              aria-label={`Currently showing: ${activeView === 'before' ? 'Problems before S10.AI' : 'Solutions with BRAVO & CRUSH'}`}
-            >
-              <motion.div
-                key={activeView}
-                initial={{ opacity: 0, x: activeView === 'before' ? -30 : 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: activeView === 'before' ? 30 : -30 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="space-y-6"
+        {/* Desktop Two-Column Layout */}
+        <div className="hidden lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
+          {/* Before Section */}
+          <div className="space-y-6">
+            <div className="text-center lg:text-left">
+              <Typography
+                variant="h4"
+                fontWeight="600"
+                sx={{ 
+                  mb: 2, 
+                  color: '#1d1d1f', 
+                  fontSize: '1.75rem',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}
               >
-                {activeView === 'before' ? (
-                  /* Before Section */
-                  <div className="space-y-6">
-                    <div className="text-center">
-                      <Typography
-                        variant="h4"
-                        fontWeight="bold"
-                        sx={{ 
-                          mb: 2, 
-                          color: '#143151', 
-                          fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
-                        }}
-                      >
-                        Burnout, Bottlenecks & Lost Revenue
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ 
-                          color: 'gray', 
-                          fontSize: { xs: '0.875rem', sm: '1rem' },
-                          mb: 4
-                        }}
-                      >
-                        Disconnected tools and manual workflows slow you down:
-                      </Typography>
-                    </div>
-
-                    <div className="space-y-2 sm:space-y-3" role="list">
-                      {painPoints.map((point, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          role="listitem"
-                        >
-                          <PainPointCard {...point} />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                ) : (
-                  /* After Section */
-                  <div className="space-y-6">
-                    <div className="text-center">
-                      <Typography
-                        variant="h4"
-                        fontWeight="bold"
-                        sx={{ 
-                          mb: 2, 
-                          color: '#143151', 
-                          fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
-                        }}
-                      >
-                        AI That Works the Way You Do
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{ 
-                          color: 'gray', 
-                          fontSize: { xs: '0.875rem', sm: '1rem' },
-                          mb: 4
-                        }}
-                      >
-                        S10.AI's ambient AI platform automates the work behind the scenes:
-                      </Typography>
-                    </div>
-
-                    <div className="space-y-2 sm:space-y-3" role="list">
-                      {solutions.map((solution, index) => (
-                        <motion.div
-                          key={index}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                          role="listitem"
-                        >
-                          <SolutionCard {...solution} />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </motion.div>
+                Before S10.AI
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ 
+                  color: '#d70015', 
+                  fontSize: '1.125rem',
+                  fontWeight: 600,
+                  mb: 4,
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}
+              >
+                Burnout, Bottlenecks & Lost Revenue
+              </Typography>
             </div>
 
-            {/* Enhanced Navigation Indicator */}
-            <div className="text-center mt-4 space-y-2">
-              <div className="flex justify-center gap-2">
-                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeView === 'before' ? 'bg-red-500' : 'bg-gray-300'
-                }`} />
-                <div className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeView === 'after' ? 'bg-[#387E89]' : 'bg-gray-300'
-                }`} />
-              </div>
-              <p className="text-xs text-gray-500 flex items-center justify-center gap-2">
-                <ChevronLeft className="w-3 h-3" />
-                Swipe or tap to switch views
-                <ChevronRight className="w-3 h-3" />
-              </p>
+            <div className="space-y-3">
+              {painPoints.map((point, index) => (
+                <PainPointCard key={index} {...point} />
+              ))}
             </div>
           </div>
-        ) : (
-          /* Desktop/Laptop: Side-by-Side Layout */
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 mb-10 lg:mb-12">
-            {/* Before Section */}
-            <div className="space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center gap-2 bg-red-100 text-red-800 px-3 py-1.5 rounded-full text-sm font-medium mb-4">
-                  <AlertCircle className="w-4 h-4" />
-                  Before S10.AI
-                </div>
-                <Typography
-                  variant="h4"
-                  fontWeight="bold"
-                  sx={{ 
-                    mb: 2, 
-                    color: '#143151', 
-                    fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
-                  }}
-                >
-                  Burnout, Bottlenecks & Lost Revenue
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ 
-                    color: 'gray', 
-                    fontSize: { xs: '0.875rem', sm: '1rem' },
-                    mb: 4
-                  }}
-                >
-                  Disconnected tools and manual workflows slow you down:
-                </Typography>
-              </div>
 
-              <div className="space-y-2 sm:space-y-3">
-                {painPoints.map((point, index) => (
-                  <div key={index}>
-                    <PainPointCard {...point} />
-                  </div>
-                ))}
-              </div>
+          {/* After Section */}
+          <div className="space-y-6">
+            <div className="text-center lg:text-left">
+              <Typography
+                variant="h4"
+                fontWeight="600"
+                sx={{ 
+                  mb: 2, 
+                  color: '#1d1d1f', 
+                  fontSize: '1.75rem',
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}
+              >
+                After S10.AI
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ 
+                  color: '#007aff', 
+                  fontSize: '1.125rem',
+                  fontWeight: 600,
+                  mb: 4,
+                  fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                }}
+              >
+                AI That Works the Way You Do
+              </Typography>
             </div>
 
-            {/* After Section */}
-            <div className="space-y-6">
-              <div className="text-center">
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-3 py-1.5 rounded-full text-sm font-medium mb-4">
-                  <Zap className="w-4 h-4" />
-                  After BRAVO & CRUSH
-                </div>
-                <Typography
-                  variant="h4"
-                  fontWeight="bold"
-                  sx={{ 
-                    mb: 2, 
-                    color: '#143151', 
-                    fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' }
-                  }}
-                >
-                  AI That Works the Way You Do
-                </Typography>
-                <Typography
-                  variant="body2"
-                  sx={{ 
-                    color: 'gray', 
-                    fontSize: { xs: '0.875rem', sm: '1rem' },
-                    mb: 4
-                  }}
-                >
-                  S10.AI's ambient AI platform automates the work behind the scenes:
-                </Typography>
-              </div>
-
-              <div className="space-y-2 sm:space-y-3">
-                {solutions.map((solution, index) => (
-                  <div key={index}>
-                    <SolutionCard {...solution} />
-                  </div>
-                ))}
-              </div>
+            <div className="space-y-3">
+              {solutions.map((solution, index) => (
+                <SolutionCard key={index} {...solution} />
+              ))}
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Mobile/Tablet Single Column with Toggle */}
+        <div className="lg:hidden">
+          {/* Toggle Buttons */}
+          <div className="flex justify-center mb-8">
+            <div className="bg-gray-100 rounded-2xl p-1 flex">
+              <button
+                onClick={() => !isTransitioning && setActiveView('before')}
+                disabled={isTransitioning}
+                className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  activeView === 'before' 
+                    ? 'bg-white text-gray-900 shadow-sm' 
+                    : 'text-gray-600'
+                }`}
+                aria-label="View problems before S10.AI"
+                aria-pressed={activeView === 'before'}
+              >
+                Before S10.AI
+              </button>
+              <button
+                onClick={() => !isTransitioning && setActiveView('after')}
+                disabled={isTransitioning}
+                className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  activeView === 'after' 
+                    ? 'bg-white text-gray-900 shadow-sm' 
+                    : 'text-gray-600'
+                }`}
+                aria-label="View solutions with S10.AI"
+                aria-pressed={activeView === 'after'}
+              >
+                After S10.AI
+              </button>
+            </div>
+          </div>
+
+          {/* Content Area */}
+          <div className="relative overflow-hidden">
+            <motion.div
+              key={activeView}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="space-y-6"
+            >
+              {activeView === 'before' ? (
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <Typography
+                      variant="h4"
+                      fontWeight="600"
+                      sx={{ 
+                        mb: 2, 
+                        color: '#1d1d1f', 
+                        fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                      }}
+                    >
+                      Before S10.AI
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      sx={{ 
+                        color: '#d70015', 
+                        fontSize: '1.125rem',
+                        fontWeight: 600,
+                        mb: 4,
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                      }}
+                    >
+                      Burnout, Bottlenecks & Lost Revenue
+                    </Typography>
+                  </div>
+
+                  <div className="space-y-3">
+                    {painPoints.map((point, index) => (
+                      <PainPointCard key={index} {...point} />
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <Typography
+                      variant="h4"
+                      fontWeight="600"
+                      sx={{ 
+                        mb: 2, 
+                        color: '#1d1d1f', 
+                        fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                      }}
+                    >
+                      After S10.AI
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      sx={{ 
+                        color: '#007aff', 
+                        fontSize: '1.125rem',
+                        fontWeight: 600,
+                        mb: 4,
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+                      }}
+                    >
+                      AI That Works the Way You Do
+                    </Typography>
+                  </div>
+
+                  <div className="space-y-3">
+                    {solutions.map((solution, index) => (
+                      <SolutionCard key={index} {...solution} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        </div>
 
         <div className="mb-12 lg:mb-16">
           <Typography
@@ -666,7 +610,7 @@ const FifthSection = () => {
             <ArrowRight className="inline-block ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </motion.button>
         </div>
-      </Box>
+      </div>
     </section>
   );
 };
