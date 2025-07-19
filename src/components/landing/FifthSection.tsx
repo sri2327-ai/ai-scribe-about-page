@@ -21,32 +21,27 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 const painPoints = [
   {
     icon: FileText,
-    problem: "4+ hours/day spent on documentation",
-    detail: "Often after hours (\"pajama time\")",
+    problem: "4+ hours/day on documentation",
     color: "text-red-600"
   },
   {
     icon: AlertCircle,
     problem: "30% no-show rate draining your schedule",
-    detail: "Empty appointment slots = lost revenue",
     color: "text-red-600"
   },
   {
     icon: Clock,
-    problem: "72-hour turnaround for prescription refills",
-    detail: "Frustrated patients and delayed care",
+    problem: "72-hour turnaround for refills",
     color: "text-red-600"
   },
   {
     icon: Phone,
-    problem: "Manual follow-ups delaying patient care",
-    detail: "Staff overwhelmed with routine tasks",
+    problem: "Manual follow-ups delaying care",
     color: "text-red-600"
   },
   {
     icon: DollarSign,
-    problem: "Delayed claims leading to slower cash flow",
-    detail: "Revenue bottlenecks hurt your bottom line",
+    problem: "Delayed claims = slower cash flow",
     color: "text-red-600"
   }
 ];
@@ -54,32 +49,27 @@ const painPoints = [
 const solutions = [
   {
     icon: Zap,
-    solution: "Clinical notes completed in under 1 hour",
-    detail: "Often during the visit—no more \"pajama time\"",
+    solution: "Notes done in real-time during visits",
     color: "text-[#387E89]"
   },
   {
     icon: Bell,
-    solution: "No-shows reduced to 5%",
-    detail: "Automated reminders keep schedules full",
+    solution: "No-shows cut to 5% with auto-reminders",
     color: "text-[#387E89]"
   },
   {
     icon: ClipboardCheck,
     solution: "Same-day prescription refills",
-    detail: "No chasing—automated and instant",
     color: "text-[#387E89]"
   },
   {
     icon: Heart,
     solution: "Automated follow-ups keep patients engaged",
-    detail: "Better outcomes without the manual work",
     color: "text-[#387E89]"
   },
   {
     icon: TrendingUp,
-    solution: "Real-time claims speed up revenue",
-    detail: "Faster payments, improved cash flow",
+    solution: "Real-time claims = faster revenue",
     color: "text-[#387E89]"
   }
 ];
@@ -99,33 +89,39 @@ const combinedTestimonial = {
   image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400"
 };
 
-const PainPointCard = ({ icon: Icon, problem, detail, color }) => (
-  <Card className="p-2 sm:p-3 bg-red-50/50 border-red-100 hover:shadow-md transition-all duration-300 h-full">
-    <div className="flex items-start gap-2">
-      <div className="p-1.5 rounded-full bg-red-100 flex-shrink-0">
-        <Icon className={`w-3 h-3 ${color}`} />
+const PainPointCard = ({ icon: Icon, problem, color }) => (
+  <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-sm hover:shadow-xl transition-all duration-500 ease-out rounded-2xl h-full">
+    <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-red-100/30" />
+    <div className="relative p-6 sm:p-8 flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <div className="p-3 rounded-2xl bg-red-100/80 group-hover:bg-red-200/80 transition-colors duration-300">
+          <Icon className="w-5 h-5 text-red-600" />
+        </div>
+        <h4 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight tracking-tight">{problem}</h4>
       </div>
-      <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-1 text-xs sm:text-sm leading-tight">{problem}</h4>
-        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
+      <div className="p-2 rounded-full bg-red-100/80">
+        <X className="w-4 h-4 text-red-500" />
       </div>
-      <X className="w-3 h-3 text-red-500 flex-shrink-0" />
     </div>
+    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-red-400 to-red-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
   </Card>
 );
 
-const SolutionCard = ({ icon: Icon, solution, detail, color }) => (
-  <Card className="p-2 sm:p-3 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 border-[#387E89]/20 hover:shadow-md transition-all duration-300 h-full">
-    <div className="flex items-start gap-2">
-      <div className="p-1.5 rounded-full bg-gradient-to-r from-[#143151] to-[#387E89] flex-shrink-0">
-        <Icon className="w-3 h-3 text-white" />
+const SolutionCard = ({ icon: Icon, solution, color }) => (
+  <Card className="group relative overflow-hidden bg-white/80 backdrop-blur-sm border-0 shadow-sm hover:shadow-xl transition-all duration-500 ease-out rounded-2xl h-full">
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-foreground/10" />
+    <div className="relative p-6 sm:p-8 flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <div className="p-3 rounded-2xl bg-gradient-to-br from-primary to-primary-foreground group-hover:from-primary/90 group-hover:to-primary-foreground/90 transition-all duration-300 shadow-lg">
+          <Icon className="w-5 h-5 text-white" />
+        </div>
+        <h4 className="font-semibold text-gray-900 text-base sm:text-lg leading-tight tracking-tight">{solution}</h4>
       </div>
-      <div className="flex-1 min-w-0">
-        <h4 className="font-semibold text-gray-900 mb-1 text-xs sm:text-sm leading-tight">{solution}</h4>
-        <p className="text-xs text-gray-600 leading-relaxed">{detail}</p>
+      <div className="p-2 rounded-full bg-green-100/80">
+        <Check className="w-4 h-4 text-green-600" />
       </div>
-      <Check className="w-3 h-3 text-[#387E89] flex-shrink-0" />
     </div>
+    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary-foreground transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
   </Card>
 );
 
