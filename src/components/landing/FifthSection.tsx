@@ -104,9 +104,9 @@ const PainPointCard = ({ icon: Icon, problem, color }) => (
 );
 
 const SolutionCard = ({ icon: Icon, solution, color }) => (
-  <Card className="relative overflow-hidden bg-blue-50 border-0 rounded-xl h-full">
+  <Card className="relative overflow-hidden bg-teal-50 border-0 rounded-xl h-full">
     <div className="p-4 sm:p-6 flex items-center gap-4">
-      <div className="p-3 rounded-xl bg-blue-600">
+      <div className="p-3 rounded-xl bg-teal-600">
         <Icon className="w-5 h-5 text-white" />
       </div>
       <h4 className="font-medium text-gray-900 text-sm sm:text-base leading-tight flex-1">{solution}</h4>
@@ -345,7 +345,7 @@ const FifthSection = () => {
               <Typography
                 variant="h6"
                 sx={{ 
-                  color: '#007aff', 
+                  color: '#387E89', 
                   fontSize: '1.125rem',
                   fontWeight: 600,
                   mb: 4,
@@ -461,7 +461,7 @@ const FifthSection = () => {
                     <Typography
                       variant="h6"
                       sx={{ 
-                        color: '#007aff', 
+                        color: '#387E89', 
                         fontSize: '1.125rem',
                         fontWeight: 600,
                         mb: 4,
