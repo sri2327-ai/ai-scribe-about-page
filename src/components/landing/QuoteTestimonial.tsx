@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
 
 const testimonials = [
   {
@@ -49,74 +48,82 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ testimonial }) => (
-  <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[800px] mx-4">
-    <div className="grid grid-cols-5 gap-6 p-8 items-center h-[320px]">
-      {/* Large Doctor Image - Left Side */}
-      <div className="col-span-2 flex justify-center">
+  <div className="flex-shrink-0 w-[500px] mx-6 group">
+    <div className="bg-white/70 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-[0_20px_50px_rgba(8,_112,_184,_0.05)] hover:shadow-[0_20px_50px_rgba(8,_112,_184,_0.1)] transition-all duration-500 hover:-translate-y-2">
+      {/* Doctor Image */}
+      <div className="flex justify-center mb-8">
         <div className="relative">
-          <Avatar className="w-48 h-48 ring-4 ring-[#387E89]/20 shadow-2xl">
+          <Avatar className="w-28 h-28 ring-2 ring-white/30 shadow-xl">
             <AvatarImage 
               src={testimonial.image} 
               alt={testimonial.author}
               className="object-cover"
             />
-            <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-4xl font-bold">
+            <AvatarFallback className="bg-gradient-to-br from-slate-900 to-slate-700 text-white text-2xl font-semibold">
               {testimonial.author.split(' ').map(n => n[0]).join('')}
             </AvatarFallback>
           </Avatar>
-          {/* Decorative gradient blur */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#387E89]/20 to-[#143151]/20 rounded-full blur-xl -z-10"></div>
+          {/* Floating gradient orb */}
+          <div className="absolute -inset-3 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-teal-500/10 rounded-full blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-500"></div>
         </div>
       </div>
       
-      {/* Content - Right Side */}
-      <div className="col-span-3 text-left space-y-4">
-        {/* Quote */}
-        <blockquote className="text-lg lg:text-xl text-gray-800 leading-relaxed font-medium italic">
-          "{testimonial.quote}"
-        </blockquote>
-        
-        {/* Author Info */}
-        <div className="space-y-1">
-          <div className="font-bold text-gray-900 text-lg">{testimonial.author}</div>
-          <div className="text-[#387E89] font-semibold text-base">{testimonial.role}</div>
-          <div className="text-gray-600 text-sm">{testimonial.organization}</div>
-        </div>
+      {/* Quote */}
+      <blockquote className="text-slate-700 text-lg leading-relaxed font-medium mb-8 text-center">
+        "{testimonial.quote}"
+      </blockquote>
+      
+      {/* Author Info */}
+      <div className="text-center space-y-1">
+        <div className="font-semibold text-slate-900 text-lg">{testimonial.author}</div>
+        <div className="text-slate-600 text-sm font-medium">{testimonial.role}</div>
+        <div className="text-slate-500 text-xs uppercase tracking-wide">{testimonial.organization}</div>
       </div>
     </div>
-  </Card>
+  </div>
 );
 
 export const QuoteTestimonial = () => {
-  // Duplicate testimonials for seamless loop
-  const duplicatedTestimonials = [...testimonials, ...testimonials];
+  // Triple testimonials for seamless infinite loop
+  const infiniteTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
   return (
-    <div className="w-full py-8 overflow-hidden">
+    <div className="relative py-16 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20"></div>
+      
+      {/* Floating orbs background */}
+      <div className="absolute top-20 left-1/4 w-32 h-32 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-20 right-1/4 w-40 h-40 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
+      
       <style dangerouslySetInnerHTML={{
         __html: `
-          @keyframes marquee {
+          @keyframes modernMarquee {
             0% {
               transform: translateX(0);
             }
             100% {
-              transform: translateX(-50%);
+              transform: translateX(-33.333%);
             }
           }
-          .testimonial-marquee {
-            animation: marquee 60s linear infinite;
+          .modern-marquee {
+            animation: modernMarquee 45s linear infinite;
           }
-          .testimonial-marquee:hover {
+          .modern-marquee:hover {
             animation-play-state: paused;
           }
         `
       }} />
       
-      <div className="flex testimonial-marquee">
-        {duplicatedTestimonials.map((testimonial, index) => (
+      <div className="flex modern-marquee">
+        {infiniteTestimonials.map((testimonial, index) => (
           <TestimonialCard key={index} testimonial={testimonial} />
         ))}
       </div>
+      
+      {/* Gradient fade edges */}
+      <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-white via-white/80 to-transparent pointer-events-none"></div>
+      <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-white via-white/80 to-transparent pointer-events-none"></div>
     </div>
   );
 };
