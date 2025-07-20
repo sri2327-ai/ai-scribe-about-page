@@ -1,9 +1,7 @@
 
 import React from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Card } from "@/components/ui/card";
-import Autoplay from "embla-carousel-autoplay";
 
 const testimonials = [
   {
@@ -40,67 +38,85 @@ const testimonials = [
     role: "Chief Medical Officer",
     organization: "Riverside Medical Group",
     image: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?w=400"
+  },
+  {
+    quote: "Implementation was seamless and the team support was exceptional. Our workflow efficiency increased by 60% in just two months.",
+    author: "Dr. James Wilson",
+    role: "Emergency Medicine",
+    organization: "City General Hospital",
+    image: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=400"
   }
 ];
 
+const TestimonialCard = ({ testimonial }) => (
+  <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[800px] mx-4">
+    <div className="grid grid-cols-5 gap-6 p-8 items-center h-[320px]">
+      {/* Large Doctor Image - Left Side */}
+      <div className="col-span-2 flex justify-center">
+        <div className="relative">
+          <Avatar className="w-48 h-48 ring-4 ring-[#387E89]/20 shadow-2xl">
+            <AvatarImage 
+              src={testimonial.image} 
+              alt={testimonial.author}
+              className="object-cover"
+            />
+            <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-4xl font-bold">
+              {testimonial.author.split(' ').map(n => n[0]).join('')}
+            </AvatarFallback>
+          </Avatar>
+          {/* Decorative gradient blur */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#387E89]/20 to-[#143151]/20 rounded-full blur-xl -z-10"></div>
+        </div>
+      </div>
+      
+      {/* Content - Right Side */}
+      <div className="col-span-3 text-left space-y-4">
+        {/* Quote */}
+        <blockquote className="text-lg lg:text-xl text-gray-800 leading-relaxed font-medium italic">
+          "{testimonial.quote}"
+        </blockquote>
+        
+        {/* Author Info */}
+        <div className="space-y-1">
+          <div className="font-bold text-gray-900 text-lg">{testimonial.author}</div>
+          <div className="text-[#387E89] font-semibold text-base">{testimonial.role}</div>
+          <div className="text-gray-600 text-sm">{testimonial.organization}</div>
+        </div>
+      </div>
+    </div>
+  </Card>
+);
+
 export const QuoteTestimonial = () => {
-  const plugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: true })
-  );
+  // Duplicate testimonials for seamless loop
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-8">
-      <Carousel
-        plugins={[plugin.current]}
-        className="w-full"
-        onMouseEnter={plugin.current.stop}
-        onMouseLeave={plugin.current.reset}
-      >
-        <CarouselContent>
-          {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index}>
-              <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl overflow-hidden shadow-xl">
-                <div className="grid md:grid-cols-5 gap-8 p-8 sm:p-12 items-center min-h-[400px]">
-                  {/* Large Doctor Image - Left Side */}
-                  <div className="md:col-span-2 flex justify-center md:justify-start">
-                    <div className="relative">
-                      <Avatar className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 ring-4 ring-[#387E89]/20 shadow-2xl">
-                        <AvatarImage 
-                          src={testimonial.image} 
-                          alt={testimonial.author}
-                          className="object-cover"
-                        />
-                        <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-4xl sm:text-5xl font-bold">
-                          {testimonial.author.split(' ').map(n => n[0]).join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      {/* Decorative gradient blur */}
-                      <div className="absolute -inset-4 bg-gradient-to-r from-[#387E89]/20 to-[#143151]/20 rounded-full blur-xl -z-10"></div>
-                    </div>
-                  </div>
-                  
-                  {/* Content - Right Side */}
-                  <div className="md:col-span-3 text-center md:text-left space-y-6">
-                    {/* Quote */}
-                    <blockquote className="text-xl sm:text-2xl lg:text-3xl text-gray-800 leading-relaxed font-medium italic">
-                      "{testimonial.quote}"
-                    </blockquote>
-                    
-                    {/* Author Info */}
-                    <div className="space-y-2">
-                      <div className="font-bold text-gray-900 text-xl sm:text-2xl">{testimonial.author}</div>
-                      <div className="text-[#387E89] font-semibold text-lg sm:text-xl">{testimonial.role}</div>
-                      <div className="text-gray-600 text-base sm:text-lg">{testimonial.organization}</div>
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-[#387E89]/20 hover:border-[#387E89]/40 shadow-lg" />
-        <CarouselNext className="right-4 bg-white/90 hover:bg-white border-[#387E89]/20 hover:border-[#387E89]/40 shadow-lg" />
-      </Carousel>
+    <div className="w-full py-8 overflow-hidden">
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes marquee {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-50%);
+            }
+          }
+          .testimonial-marquee {
+            animation: marquee 60s linear infinite;
+          }
+          .testimonial-marquee:hover {
+            animation-play-state: paused;
+          }
+        `
+      }} />
+      
+      <div className="flex testimonial-marquee">
+        {duplicatedTestimonials.map((testimonial, index) => (
+          <TestimonialCard key={index} testimonial={testimonial} />
+        ))}
+      </div>
     </div>
   );
 };
