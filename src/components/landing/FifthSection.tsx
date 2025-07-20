@@ -582,7 +582,7 @@ const FifthSection = () => {
 
         {/* Testimonial */}
         <Box sx={{ mb: 8 }}>
-          <QuoteTestimonial {...combinedTestimonial} />
+          <QuoteTestimonial />
         </Box>
 
         {/* CTA Section with added text */}

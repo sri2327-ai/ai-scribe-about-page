@@ -47,12 +47,7 @@ const Contact = () => {
           {/* Testimonial - Only show on desktop and larger tablets */}
           {!isMobile && (
             <div className="hidden lg:block">
-              <QuoteTestimonial
-                quote="S10.AI has completely transformed our practice workflow. The demo was eye-opening, and implementation was seamless. Now we save hours daily on documentation."
-                author="Dr. Sarah Mitchell"
-                role="Family Medicine, Boston"
-                image="/placeholder.svg"
-              />
+              <QuoteTestimonial />
             </div>
           )}
         </div>
@@ -64,12 +59,7 @@ const Contact = () => {
           {/* Testimonial - Show on mobile and medium tablets below form */}
           {(isMobile || window.innerWidth < 1024) && (
             <div className="mt-6 sm:mt-8 lg:hidden">
-              <QuoteTestimonial
-                quote="S10.AI has completely transformed our practice workflow. The demo was eye-opening, and implementation was seamless. Now we save hours daily on documentation."
-                author="Dr. Sarah Mitchell"
-                role="Family Medicine, Boston"
-                image="/placeholder.svg"
-              />
+              <QuoteTestimonial />
             </div>
           )}
         </div>
