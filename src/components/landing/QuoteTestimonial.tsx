@@ -49,7 +49,7 @@ export const QuoteTestimonial = () => {
   );
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
+    <div className="w-full max-w-7xl mx-auto px-4 py-8">
       <Carousel
         plugins={[plugin.current]}
         className="w-full"
@@ -59,40 +59,47 @@ export const QuoteTestimonial = () => {
         <CarouselContent>
           {testimonials.map((testimonial, index) => (
             <CarouselItem key={index}>
-              <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl p-8 sm:p-12 shadow-xl">
-                <div className="text-center max-w-5xl mx-auto">
-                  {/* Large Doctor Image */}
-                  <div className="mb-8">
-                    <Avatar className="w-24 h-24 sm:w-32 sm:h-32 mx-auto ring-4 ring-[#387E89]/20 shadow-2xl">
-                      <AvatarImage 
-                        src={testimonial.image} 
-                        alt={testimonial.author}
-                        className="object-cover"
-                      />
-                      <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-2xl sm:text-3xl font-bold">
-                        {testimonial.author.split(' ').map(n => n[0]).join('')}
-                      </AvatarFallback>
-                    </Avatar>
+              <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-3xl overflow-hidden shadow-xl">
+                <div className="grid md:grid-cols-5 gap-8 p-8 sm:p-12 items-center min-h-[400px]">
+                  {/* Large Doctor Image - Left Side */}
+                  <div className="md:col-span-2 flex justify-center md:justify-start">
+                    <div className="relative">
+                      <Avatar className="w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 ring-4 ring-[#387E89]/20 shadow-2xl">
+                        <AvatarImage 
+                          src={testimonial.image} 
+                          alt={testimonial.author}
+                          className="object-cover"
+                        />
+                        <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-4xl sm:text-5xl font-bold">
+                          {testimonial.author.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
+                      {/* Decorative gradient blur */}
+                      <div className="absolute -inset-4 bg-gradient-to-r from-[#387E89]/20 to-[#143151]/20 rounded-full blur-xl -z-10"></div>
+                    </div>
                   </div>
                   
-                  {/* Quote */}
-                  <blockquote className="text-xl sm:text-2xl lg:text-3xl text-gray-800 mb-8 leading-relaxed font-medium italic max-w-4xl mx-auto">
-                    "{testimonial.quote}"
-                  </blockquote>
-                  
-                  {/* Author Info */}
-                  <div className="space-y-2">
-                    <div className="font-bold text-gray-900 text-lg sm:text-xl">{testimonial.author}</div>
-                    <div className="text-[#387E89] font-semibold text-base sm:text-lg">{testimonial.role}</div>
-                    <div className="text-gray-600 text-sm sm:text-base">{testimonial.organization}</div>
+                  {/* Content - Right Side */}
+                  <div className="md:col-span-3 text-center md:text-left space-y-6">
+                    {/* Quote */}
+                    <blockquote className="text-xl sm:text-2xl lg:text-3xl text-gray-800 leading-relaxed font-medium italic">
+                      "{testimonial.quote}"
+                    </blockquote>
+                    
+                    {/* Author Info */}
+                    <div className="space-y-2">
+                      <div className="font-bold text-gray-900 text-xl sm:text-2xl">{testimonial.author}</div>
+                      <div className="text-[#387E89] font-semibold text-lg sm:text-xl">{testimonial.role}</div>
+                      <div className="text-gray-600 text-base sm:text-lg">{testimonial.organization}</div>
+                    </div>
                   </div>
                 </div>
               </Card>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-4 bg-white/80 hover:bg-white border-[#387E89]/20 hover:border-[#387E89]/40" />
-        <CarouselNext className="right-4 bg-white/80 hover:bg-white border-[#387E89]/20 hover:border-[#387E89]/40" />
+        <CarouselPrevious className="left-4 bg-white/90 hover:bg-white border-[#387E89]/20 hover:border-[#387E89]/40 shadow-lg" />
+        <CarouselNext className="right-4 bg-white/90 hover:bg-white border-[#387E89]/20 hover:border-[#387E89]/40 shadow-lg" />
       </Carousel>
     </div>
   );
