@@ -49,18 +49,18 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ testimonial }) => (
-  <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-xl lg:rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[280px] sm:w-[320px] md:w-[400px] lg:w-[600px] xl:w-[800px] mx-2 md:mx-4">
-    <div className="flex flex-col sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 p-4 sm:p-6 lg:p-8 items-center min-h-[280px] sm:h-[240px] lg:h-[320px]">
+  <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-xl lg:rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[600px] xl:w-[800px] mx-2 md:mx-4">
+    <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8 min-h-[320px] md:min-h-[280px] lg:min-h-[320px]">
       {/* Doctor Image */}
-      <div className="sm:col-span-1 lg:col-span-2 flex justify-center">
+      <div className="flex justify-center md:justify-start flex-shrink-0">
         <div className="relative">
-          <Avatar className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 ring-2 sm:ring-4 ring-[#387E89]/20 shadow-xl">
+          <Avatar className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 ring-2 sm:ring-4 ring-[#387E89]/20 shadow-xl">
             <AvatarImage 
               src={testimonial.image} 
               alt={testimonial.author}
               className="object-cover"
             />
-            <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-sm sm:text-lg lg:text-2xl xl:text-4xl font-bold">
+            <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold">
               {testimonial.author.split(' ').map(n => n[0]).join('')}
             </AvatarFallback>
           </Avatar>
@@ -70,17 +70,17 @@ const TestimonialCard = ({ testimonial }) => (
       </div>
       
       {/* Content */}
-      <div className="sm:col-span-2 lg:col-span-3 text-center sm:text-left space-y-2 sm:space-y-3 lg:space-y-4">
+      <div className="flex-1 text-center md:text-left space-y-3 md:space-y-4 min-w-0">
         {/* Quote */}
-        <blockquote className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-800 leading-relaxed font-medium italic line-clamp-4 sm:line-clamp-none">
+        <blockquote className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-800 leading-relaxed font-medium italic">
           "{testimonial.quote}"
         </blockquote>
         
         {/* Author Info */}
-        <div className="space-y-0.5 sm:space-y-1">
-          <div className="font-bold text-gray-900 text-sm sm:text-base lg:text-lg">{testimonial.author}</div>
-          <div className="text-[#387E89] font-semibold text-xs sm:text-sm lg:text-base">{testimonial.role}</div>
-          <div className="text-gray-600 text-xs sm:text-sm lg:text-sm">{testimonial.organization}</div>
+        <div className="space-y-1">
+          <div className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">{testimonial.author}</div>
+          <div className="text-[#387E89] font-semibold text-xs sm:text-sm md:text-base">{testimonial.role}</div>
+          <div className="text-gray-600 text-xs sm:text-sm">{testimonial.organization}</div>
         </div>
       </div>
     </div>
