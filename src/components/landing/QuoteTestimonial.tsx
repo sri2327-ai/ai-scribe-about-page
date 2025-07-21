@@ -50,9 +50,9 @@ const testimonials = [
 
 const TestimonialCard = ({ testimonial }) => (
   <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-xl lg:rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[650px] xl:w-[800px] mx-3 md:mx-4">
-    <div className="flex flex-col md:flex-row gap-6 md:gap-8 p-6 md:p-8 min-h-[360px] md:min-h-[300px] lg:min-h-[320px]">
+    <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 p-6 lg:p-8 min-h-[360px] lg:min-h-[300px]">
       {/* Doctor Image - Fixed width container */}
-      <div className="flex justify-center md:justify-start flex-shrink-0 w-full md:w-auto">
+      <div className="flex justify-center lg:justify-start flex-shrink-0 w-full lg:w-auto">
         <div className="relative">
           <Avatar className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-48 xl:h-48 ring-4 ring-[#387E89]/20 shadow-xl">
             <AvatarImage 
@@ -70,7 +70,7 @@ const TestimonialCard = ({ testimonial }) => (
       </div>
       
       {/* Content - Takes remaining space */}
-      <div className="flex-1 text-center md:text-left space-y-4 md:space-y-5 min-w-0 md:max-w-none">
+      <div className="flex-1 text-center lg:text-left space-y-4 lg:space-y-5 min-w-0 lg:max-w-none">
         {/* Quote */}
         <blockquote className="text-base sm:text-lg md:text-xl lg:text-xl text-gray-800 leading-relaxed font-medium italic">
           "{testimonial.quote}"
