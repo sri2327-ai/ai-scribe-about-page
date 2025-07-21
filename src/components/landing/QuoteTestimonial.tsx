@@ -49,38 +49,38 @@ const testimonials = [
 ];
 
 const TestimonialCard = ({ testimonial }) => (
-  <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-xl lg:rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[280px] sm:w-[360px] md:w-[440px] lg:w-[600px] xl:w-[800px] mx-2 md:mx-4">
-    <div className="flex flex-col md:flex-row gap-4 md:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8 min-h-[320px] md:min-h-[280px] lg:min-h-[320px]">
-      {/* Doctor Image */}
-      <div className="flex justify-center md:justify-start flex-shrink-0">
+  <Card className="border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 rounded-xl lg:rounded-3xl overflow-hidden shadow-xl flex-shrink-0 w-[320px] sm:w-[400px] md:w-[500px] lg:w-[650px] xl:w-[800px] mx-3 md:mx-4">
+    <div className="flex flex-col md:flex-row gap-6 md:gap-8 p-6 md:p-8 min-h-[360px] md:min-h-[300px] lg:min-h-[320px]">
+      {/* Doctor Image - Fixed width container */}
+      <div className="flex justify-center md:justify-start flex-shrink-0 w-full md:w-auto">
         <div className="relative">
-          <Avatar className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-48 xl:h-48 ring-2 sm:ring-4 ring-[#387E89]/20 shadow-xl">
+          <Avatar className="w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-44 lg:h-44 xl:w-48 xl:h-48 ring-4 ring-[#387E89]/20 shadow-xl">
             <AvatarImage 
               src={testimonial.image} 
               alt={testimonial.author}
               className="object-cover"
             />
-            <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold">
+            <AvatarFallback className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
               {testimonial.author.split(' ').map(n => n[0]).join('')}
             </AvatarFallback>
           </Avatar>
           {/* Decorative gradient blur */}
-          <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-[#387E89]/20 to-[#143151]/20 rounded-full blur-xl -z-10"></div>
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#387E89]/20 to-[#143151]/20 rounded-full blur-xl -z-10"></div>
         </div>
       </div>
       
-      {/* Content */}
-      <div className="flex-1 text-center md:text-left space-y-3 md:space-y-4 min-w-0">
+      {/* Content - Takes remaining space */}
+      <div className="flex-1 text-center md:text-left space-y-4 md:space-y-5 min-w-0 md:max-w-none">
         {/* Quote */}
-        <blockquote className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-800 leading-relaxed font-medium italic">
+        <blockquote className="text-base sm:text-lg md:text-xl lg:text-xl text-gray-800 leading-relaxed font-medium italic">
           "{testimonial.quote}"
         </blockquote>
         
         {/* Author Info */}
-        <div className="space-y-1">
-          <div className="font-bold text-gray-900 text-sm sm:text-base md:text-lg">{testimonial.author}</div>
-          <div className="text-[#387E89] font-semibold text-xs sm:text-sm md:text-base">{testimonial.role}</div>
-          <div className="text-gray-600 text-xs sm:text-sm">{testimonial.organization}</div>
+        <div className="space-y-2">
+          <div className="font-bold text-gray-900 text-lg md:text-xl">{testimonial.author}</div>
+          <div className="text-[#387E89] font-semibold text-base md:text-lg">{testimonial.role}</div>
+          <div className="text-gray-600 text-sm md:text-base">{testimonial.organization}</div>
         </div>
       </div>
     </div>
