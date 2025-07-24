@@ -228,23 +228,16 @@ export const FirstSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative inline-flex items-center gap-3 bg-white/60 backdrop-blur-xl border border-white/30 rounded-2xl px-6 py-3.5 shadow-2xl shadow-black/5 hover:shadow-black/10 transition-all duration-500 hover:scale-[1.02] hover:bg-white/70"
+              className="inline-flex items-center gap-2.5 bg-white border border-gray-200 rounded-lg px-4 py-2.5 shadow-sm hover:shadow-md transition-all duration-200 hover:border-gray-300"
             >
-              {/* Gradient shine overlay */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
-              
-              {/* Content */}
-              <div className="relative flex items-center gap-3 z-10">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  <Star className="w-4 h-4 text-slate-600" />
-                </div>
-                <span className="text-sm font-semibold text-slate-700 tracking-wide">1,000+ Healthcare Providers</span>
-                <div className="flex items-center gap-1">
-                  <div className="w-1 h-1 bg-slate-400 rounded-full" />
-                  <span className="text-xs font-medium text-slate-500">Verified</span>
-                </div>
+              <div className="flex items-center gap-1.5">
+                <Star className="w-4 h-4 text-emerald-500 fill-emerald-500" />
+                <Star className="w-4 h-4 text-emerald-500 fill-emerald-500" />
+                <Star className="w-4 h-4 text-emerald-500 fill-emerald-500" />
+                <Star className="w-4 h-4 text-emerald-500 fill-emerald-500" />
+                <Star className="w-4 h-4 text-emerald-500 fill-emerald-500" />
               </div>
+              <span className="text-sm font-medium text-gray-700">Trusted by 1,000+ providers</span>
             </motion.div>
 
             {/* Main headline - Better typography */}
