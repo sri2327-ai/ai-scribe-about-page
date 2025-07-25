@@ -15,6 +15,7 @@ import Bravo from "@/pages/Bravo";
 import Integration from "@/pages/Integration";
 import Contact from "@/pages/Contact";
 import Blog from "@/pages/Blog";
+import BlogPost from "@/components/blog/BlogPost";
 import Changelog from "@/pages/Changelog";
 import HelpLibrary from "@/pages/HelpLibrary";
 import FAQ from "@/pages/FAQ";
@@ -44,6 +45,7 @@ function App() {
       <Route path="/integration" element={<Integration />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/blog" element={<Blog />} />
+      <Route path="/blog/:slug" element={<BlogPost />} />
       <Route path="/changelog" element={<Changelog />} />
       <Route path="/help-library" element={<HelpLibrary />} />
       <Route path="/resource-library" element={<ResourceLibrary />} />
