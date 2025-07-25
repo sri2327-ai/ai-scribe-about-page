@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Facebook, Linkedin, X } from "lucide-react";
@@ -7,6 +7,8 @@ import { Clock, Zap, Users, User, Calendar } from "lucide-react";
 import { QuizSection } from './QuizSection';
 import { BlogFAQ } from './BlogFAQ';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 interface BlogPost {
   id: number;
@@ -91,6 +93,7 @@ const mockBlogPosts: BlogPosts = {
 
 const BlogPost = () => {
   const { slug } = useParams();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const post = slug ? mockBlogPosts[slug] : null;
   
   if (!post) {
@@ -120,138 +123,142 @@ const BlogPost = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 px-4">
-      <div className="max-w-6xl mx-auto">
-        <Card className="mb-8 overflow-hidden">
-          <div className="bg-gradient-to-b from-white to-blue-100 p-6 md:p-8">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="md:w-1/2 mb-6 md:mb-0">
-                <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-                
-                {/* Author and Meta Information */}
-                <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 mb-4 border border-gray-200/50">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                      <User className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-gray-800 text-sm">Written by</div>
-                      <div className="font-bold text-gray-900">{post.author}</div>
-                    </div>
-                  </div>
+    <>
+      <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+      <div className="min-h-screen pt-24 pb-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <Card className="mb-8 overflow-hidden">
+            <div className="bg-gradient-to-b from-white to-blue-100 p-6 md:p-8">
+              <div className="flex flex-col md:flex-row gap-8 items-start">
+                <div className="md:w-1/2 mb-6 md:mb-0">
+                  <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                   
-                  <div className="flex items-center gap-4 text-sm text-gray-600">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" />
-                      <span>{post.date}</span>
+                  {/* Author and Meta Information */}
+                  <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 mb-4 border border-gray-200/50">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                        <User className="h-5 w-5 text-white" />
+                      </div>
+                      <div>
+                        <div className="font-semibold text-gray-800 text-sm">Written by</div>
+                        <div className="font-bold text-gray-900">{post.author}</div>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      <span>{post.readTime}</span>
+                    
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        <span>{post.date}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-4 w-4" />
+                        <span>{post.readTime}</span>
+                      </div>
                     </div>
                   </div>
+                  <p className="text-gray-600 mb-6 line-clamp-3">
+                    Medical documentation has long been a challenge for healthcare providers...
+                  </p>
+                  
+                  <div className="flex gap-4">
+                    <button aria-label="Share on Facebook" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                      <Facebook className="h-5 w-5" />
+                    </button>
+                    <button aria-label="Share on X (Twitter)" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                      <X className="h-5 w-5" />
+                    </button>
+                    <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                      <Linkedin className="h-5 w-5" />
+                    </button>
+                  </div>
                 </div>
-                <p className="text-gray-600 mb-6 line-clamp-3">
-                  Medical documentation has long been a challenge for healthcare providers...
-                </p>
                 
-                <div className="flex gap-4">
-                  <button aria-label="Share on Facebook" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
-                    <Facebook className="h-5 w-5" />
-                  </button>
-                  <button aria-label="Share on X (Twitter)" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
-                    <X className="h-5 w-5" />
-                  </button>
-                  <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
-                    <Linkedin className="h-5 w-5" />
-                  </button>
+                <div className="md:w-1/2">
+                  <OptimizedImage 
+                    src={post.image} 
+                    alt={post.title} 
+                    className="w-full rounded-lg shadow-lg"
+                  />
                 </div>
               </div>
-              
-              <div className="md:w-1/2">
-                <OptimizedImage 
-                  src={post.image} 
-                  alt={post.title} 
-                  className="w-full rounded-lg shadow-lg"
-                />
-              </div>
             </div>
-          </div>
-        </Card>
-        
-        <Card className="mb-8 p-6 md:p-8">
-          <div className="prose max-w-none">
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          </div>
-        </Card>
-
-        <BlogFAQ />
-
-        <QuizSection 
-          quiz={genericQuiz} 
-          title="Practice Readiness Assessment" 
-          icon={<Zap className="w-6 h-6 text-blue-600" />} 
-        />
-        
-        {relatedPosts.length > 0 && (
-          <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
-            <div className="hidden md:grid md:grid-cols-3 gap-6">
-              {relatedPosts.map(relatedPost => (
-                <Card 
-                  key={relatedPost.id} 
-                  className="overflow-hidden hover:-translate-y-1 transition-transform duration-200 cursor-pointer"
-                >
-                  <div className="h-40 relative">
-                    <OptimizedImage 
-                      src={relatedPost.image} 
-                      alt={relatedPost.title} 
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold line-clamp-2">{relatedPost.title}</h3>
-                    <div className="flex items-center gap-2 text-gray-600 text-sm mt-2">
-                      <Clock className="h-4 w-4" />
-                      <span>8 min read</span>
-                    </div>
-                  </div>
-                </Card>
-              ))}
+          </Card>
+          
+          <Card className="mb-8 p-6 md:p-8">
+            <div className="prose max-w-none">
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
             </div>
-            <div className="md:hidden">
-              <ResponsiveCarousel
-                items={relatedPosts}
-                renderItem={(post) => (
-                  <Card className="overflow-hidden mx-2">
+          </Card>
+
+          <BlogFAQ />
+
+          <QuizSection 
+            quiz={genericQuiz} 
+            title="Practice Readiness Assessment" 
+            icon={<Zap className="w-6 h-6 text-blue-600" />} 
+          />
+          
+          {relatedPosts.length > 0 && (
+            <div className="mt-12">
+              <h2 className="text-2xl font-bold mb-6">Related Posts</h2>
+              <div className="hidden md:grid md:grid-cols-3 gap-6">
+                {relatedPosts.map(relatedPost => (
+                  <Card 
+                    key={relatedPost.id} 
+                    className="overflow-hidden hover:-translate-y-1 transition-transform duration-200 cursor-pointer"
+                  >
                     <div className="h-40 relative">
                       <OptimizedImage 
-                        src={post.image} 
-                        alt={post.title} 
+                        src={relatedPost.image} 
+                        alt={relatedPost.title} 
                         className="w-full h-full object-cover"
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-semibold line-clamp-2">{post.title}</h3>
+                      <h3 className="font-semibold line-clamp-2">{relatedPost.title}</h3>
                       <div className="flex items-center gap-2 text-gray-600 text-sm mt-2">
                         <Clock className="h-4 w-4" />
                         <span>8 min read</span>
                       </div>
                     </div>
                   </Card>
-                )}
-                columnsDesktop={3}
-                columnsTablet={2}
-                columnsMobile={1}
-                showControls={true}
-                autoPlay={true}
-                controlsBelow={true}
-              />
+                ))}
+              </div>
+              <div className="md:hidden">
+                <ResponsiveCarousel
+                  items={relatedPosts}
+                  renderItem={(post) => (
+                    <Card className="overflow-hidden mx-2">
+                      <div className="h-40 relative">
+                        <OptimizedImage 
+                          src={post.image} 
+                          alt={post.title} 
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-semibold line-clamp-2">{post.title}</h3>
+                        <div className="flex items-center gap-2 text-gray-600 text-sm mt-2">
+                          <Clock className="h-4 w-4" />
+                          <span>8 min read</span>
+                        </div>
+                      </div>
+                    </Card>
+                  )}
+                  columnsDesktop={3}
+                  columnsTablet={2}
+                  columnsMobile={1}
+                  showControls={true}
+                  autoPlay={true}
+                  controlsBelow={true}
+                />
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
