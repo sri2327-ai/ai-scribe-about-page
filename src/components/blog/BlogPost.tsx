@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Facebook, Linkedin, X } from "lucide-react";
 import { useParams } from 'react-router-dom';
-import { Clock, Zap, Users } from "lucide-react";
+import { Clock, Zap, Users, User, Calendar } from "lucide-react";
 import { QuizSection } from './QuizSection';
 import { BlogFAQ } from './BlogFAQ';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
@@ -127,9 +127,29 @@ const BlogPost = () => {
             <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="md:w-1/2 mb-6 md:mb-0">
                 <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
-                <div className="flex items-center gap-2 text-gray-600 mb-4">
-                  <Clock className="h-4 w-4" />
-                  <span>{post.readTime}</span>
+                
+                {/* Author and Meta Information */}
+                <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 mb-4 border border-gray-200/50">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
+                      <User className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <div className="font-semibold text-gray-800 text-sm">Written by</div>
+                      <div className="font-bold text-gray-900">{post.author}</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="h-4 w-4" />
+                      <span>{post.date}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Clock className="h-4 w-4" />
+                      <span>{post.readTime}</span>
+                    </div>
+                  </div>
                 </div>
                 <p className="text-gray-600 mb-6 line-clamp-3">
                   Medical documentation has long been a challenge for healthcare providers...
