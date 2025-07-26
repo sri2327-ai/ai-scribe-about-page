@@ -139,9 +139,17 @@ const BlogPost = () => {
                       <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
                         <User className="h-5 w-5 text-white" />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <div className="font-semibold text-gray-800 text-sm">Written by</div>
-                        <div className="font-bold text-gray-900">{post.author}</div>
+                        <div className="flex items-center gap-2">
+                          <div className="font-bold text-gray-900">{post.author}</div>
+                          <a href="#" className="text-blue-600 hover:text-blue-800">
+                            <Linkedin className="h-4 w-4" />
+                          </a>
+                        </div>
+                        <div className="text-sm text-gray-600 mt-1">
+                          Brings 10+ years of clinical experience to reimagine care delivery through AI-driven automation.
+                        </div>
                       </div>
                     </div>
                     
