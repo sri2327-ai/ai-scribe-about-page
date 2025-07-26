@@ -134,7 +134,7 @@ const BlogPost = () => {
                   <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                   
                   {/* Author and Meta Information */}
-                  <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 mb-4 border border-gray-200/30 shadow-sm">
+                  <div className="bg-white/80 backdrop-blur-sm rounded-xl p-5 mb-4 border border-gray-200/30 shadow-sm">
                     <div className="flex items-start gap-4">
                       <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
                         <User className="h-6 w-6 text-white" />
@@ -150,19 +150,9 @@ const BlogPost = () => {
                             <Linkedin className="h-4 w-4 text-blue-600 group-hover:text-blue-700" />
                           </a>
                         </div>
-                        <p className="text-gray-600 text-sm leading-relaxed mb-3">
+                        <p className="text-gray-600 text-sm leading-relaxed">
                           Brings 10+ years of clinical experience to reimagine care delivery through AI-driven automation.
                         </p>
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="h-4 w-4" />
-                            <span>{post.date}</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            <span>{post.readTime}</span>
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </div>
