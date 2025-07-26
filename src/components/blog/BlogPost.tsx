@@ -134,33 +134,35 @@ const BlogPost = () => {
                   <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                   
                   {/* Author and Meta Information */}
-                  <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4 mb-4 border border-gray-200/50">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-                        <User className="h-5 w-5 text-white" />
+                  <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 mb-4 border border-gray-200/30 shadow-sm">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
+                        <User className="h-6 w-6 text-white" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-semibold text-gray-800 text-sm">Written by</div>
-                        <div className="flex items-center gap-2">
-                          <div className="font-bold text-gray-900">{post.author}</div>
-                          <a href="#" className="text-blue-600 hover:text-blue-800">
-                            <Linkedin className="h-4 w-4" />
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="font-bold text-gray-900 text-lg">{post.author}</h3>
+                          <a 
+                            href="#" 
+                            className="inline-flex items-center justify-center w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors duration-200 group"
+                            aria-label="LinkedIn Profile"
+                          >
+                            <Linkedin className="h-4 w-4 text-blue-600 group-hover:text-blue-700" />
                           </a>
                         </div>
-                        <div className="text-sm text-gray-600 mt-1">
+                        <p className="text-gray-600 text-sm leading-relaxed mb-3">
                           Brings 10+ years of clinical experience to reimagine care delivery through AI-driven automation.
+                        </p>
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            <span>{post.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{post.readTime}</span>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
-                      <div className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        <span>{post.date}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        <span>{post.readTime}</span>
                       </div>
                     </div>
                   </div>
