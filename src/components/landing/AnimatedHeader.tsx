@@ -145,22 +145,34 @@ const AnimatedHeader = () => {
     ],
     whoWeAreFor: [
       {
-        title: 'Health systems',
-        description: 'Enterprise healthcare solutions',
+        title: 'Independent Practices',
+        description: 'Tools built for solo and small teams',
+        icon: <Users className="w-5 h-5 text-[#143151]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Group Practices',
+        description: 'Streamlined collaboration for growing teams',
+        icon: <Building className="w-5 h-5 text-[#387E89]" />,
+        href: '/customer'
+      },
+      {
+        title: 'New Clinics & Startups',
+        description: 'Ready-to-go solutions to launch and scale fast',
+        icon: <Zap className="w-5 h-5 text-[#5192AE]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Specialty Clinics',
+        description: 'AI tailored to your specific workflows',
+        icon: <Stethoscope className="w-5 h-5 text-[#A5CCF3]" />,
+        href: '/specialty'
+      },
+      {
+        title: 'Health Systems',
+        description: 'Scalable enterprise support across locations',
         icon: <Building className="w-5 h-5 text-[#143151]" />,
         href: '/customer'
-      },
-      {
-        title: 'Private practice',
-        description: 'Independent practices',
-        icon: <Users className="w-5 h-5 text-[#387E89]" />,
-        href: '/customer'
-      },
-      {
-        title: 'Specialty',
-        description: 'Specialized medical practices',
-        icon: <Stethoscope className="w-5 h-5 text-[#5192AE]" />,
-        href: '/specialty'
       }
     ]
   };
@@ -779,7 +791,8 @@ const AnimatedHeader = () => {
 
                     {/* Who We're For */}
                     <div className="border-t border-gray-200 pt-4">
-                      <h4 className="font-semibold text-[#143151] mb-3">Who we're for</h4>
+                      <h4 className="font-semibold text-[#143151] mb-1">Who We're For</h4>
+                      <p className="text-sm text-gray-600 mb-3">Support for every kind of care delivery</p>
                       <div className="space-y-2">
                         {solutionsDropdown.whoWeAreFor.map((item) => (
                           <Link
