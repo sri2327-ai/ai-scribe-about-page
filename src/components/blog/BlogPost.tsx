@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Facebook, Linkedin, X } from "lucide-react";
 import { useParams } from 'react-router-dom';
-import { Clock, Zap, Users, User, Calendar } from "lucide-react";
+import { Clock, Zap, Users, User, Calendar, Check } from "lucide-react";
 import { QuizSection } from './QuizSection';
 import { BlogFAQ } from './BlogFAQ';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
@@ -141,7 +141,11 @@ const BlogPost = () => {
                       </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-bold text-gray-900 text-lg">{post.author}</h3>
+                          <h3 className="font-bold text-gray-900 text-lg">Dr. Claire Dave</h3>
+                          <div className="flex items-center gap-2 bg-green-50 px-2 py-1 rounded-full">
+                            <Check className="h-3 w-3 text-green-600" />
+                            <span className="text-xs font-medium text-green-700">Expert Verified</span>
+                          </div>
                           <a 
                             href="#" 
                             className="inline-flex items-center justify-center w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors duration-200 group"
@@ -151,7 +155,7 @@ const BlogPost = () => {
                           </a>
                         </div>
                         <p className="text-gray-600 text-sm leading-relaxed">
-                          Brings 10+ years of clinical experience to reimagine care delivery through AI-driven automation.
+                          A physician and healthcare innovator with over a decade of clinical experience, she specializes in applying AI-driven automation to streamline care delivery. She has led major digital transformation initiatives at S10.AI, a leader in healthcare automation.
                         </p>
                       </div>
                     </div>
