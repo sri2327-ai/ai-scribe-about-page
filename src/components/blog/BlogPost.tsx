@@ -142,10 +142,6 @@ const BlogPost = () => {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="font-bold text-gray-900 text-lg">Dr. Claire Dave</h3>
-                          <div className="flex items-center gap-2 bg-green-50 px-2 py-1 rounded-full">
-                            <Check className="h-3 w-3 text-green-600" />
-                            <span className="text-xs font-medium text-green-700">Expert Verified</span>
-                          </div>
                           <a 
                             href="#" 
                             className="inline-flex items-center justify-center w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors duration-200 group"
@@ -155,7 +151,7 @@ const BlogPost = () => {
                           </a>
                         </div>
                         <p className="text-gray-600 text-sm leading-relaxed">
-                          A physician and healthcare innovator with over a decade of clinical experience, she specializes in applying AI-driven automation to streamline care delivery. She has led major digital transformation initiatives at S10.AI, a leader in healthcare automation.
+                          A physician with over 10 years of clinical experience, she leads AI-driven care automation initiatives at S10.AI to streamline healthcare delivery.
                         </p>
                       </div>
                     </div>
@@ -164,16 +160,23 @@ const BlogPost = () => {
                     Medical documentation has long been a challenge for healthcare providers...
                   </p>
                   
-                  <div className="flex gap-4">
-                    <button aria-label="Share on Facebook" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
-                      <Facebook className="h-5 w-5" />
-                    </button>
-                    <button aria-label="Share on X (Twitter)" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
-                      <X className="h-5 w-5" />
-                    </button>
-                    <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
-                      <Linkedin className="h-5 w-5" />
-                    </button>
+                  <div className="flex flex-col gap-4">
+                    <div className="flex gap-4">
+                      <button aria-label="Share on Facebook" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                        <Facebook className="h-5 w-5" />
+                      </button>
+                      <button aria-label="Share on X (Twitter)" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                        <X className="h-5 w-5" />
+                      </button>
+                      <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
+                        <Linkedin className="h-5 w-5" />
+                      </button>
+                    </div>
+                    
+                    <div className="inline-flex items-center gap-2 bg-green-50 px-3 py-2 rounded-full w-fit border border-green-200">
+                      <Check className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-medium text-green-700">Expert Verified</span>
+                    </div>
                   </div>
                 </div>
                 
