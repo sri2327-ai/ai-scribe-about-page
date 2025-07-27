@@ -134,23 +134,23 @@ const BlogPost = () => {
                   <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
                   
                   {/* Author and Meta Information */}
-                  <div className="bg-white/80 backdrop-blur-sm rounded-xl p-5 mb-4 border border-gray-200/30 shadow-sm">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md">
-                        <User className="h-6 w-6 text-white" />
+                  <div className="bg-white/80 backdrop-blur-sm rounded-lg p-3 sm:p-4 mb-4 border border-gray-200/30 shadow-sm">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
+                        <User className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                       </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-bold text-gray-900 text-lg">Dr. Claire Dave</h3>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-bold text-gray-900 text-sm sm:text-base lg:text-lg truncate">Dr. Claire Dave</h3>
                           <a 
                             href="#" 
-                            className="inline-flex items-center justify-center w-8 h-8 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors duration-200 group"
+                            className="inline-flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 bg-blue-100 hover:bg-blue-200 rounded-full transition-colors duration-200 group flex-shrink-0"
                             aria-label="LinkedIn Profile"
                           >
-                            <Linkedin className="h-4 w-4 text-blue-600 group-hover:text-blue-700" />
+                            <Linkedin className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600 group-hover:text-blue-700" />
                           </a>
                         </div>
-                        <p className="text-gray-600 text-sm leading-relaxed">
+                        <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                           A physician with over 10 years of clinical experience, she leads AI-driven care automation initiatives at S10.AI to streamline healthcare delivery.
                         </p>
                       </div>
