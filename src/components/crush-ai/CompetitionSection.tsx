@@ -14,123 +14,117 @@ interface CrushFeature {
   keyPoints: string[];
 }
 
-// Streamlined CRUSH Features
+// Core CRUSH Features for Clinicians
 const crushFeatures: CrushFeature[] = [
   {
-    id: "accuracy",
-    title: "Smarter notes, 99.9% accurate",
-    description: "Understands medical language and context—no second-guessing, no errors.",
-    icon: <Star size={20} />,
-    keyPoints: ["Medical jargon mastery", "Context awareness", "Zero errors"]
+    id: "context-aware",
+    title: "Context-aware Documentation",
+    description: "Pulls relevant data from past visits, adapts notes to current conversation context.",
+    icon: <Brain size={20} />,
+    keyPoints: ["Pulls relevant data from past visits", "Adapts notes to current conversation context", "99% clinical accuracy"]
   },
   {
-    id: "speed",
-    title: "Chart in under 60 seconds",
-    description: "Real-time documentation. No overtime. Just done.",
+    id: "precharting",
+    title: "AI Precharting",
+    description: "Automated chart prep intelligence that gathers referrals, labs, notes, imaging.",
+    icon: <FilePlus size={20} />,
+    keyPoints: ["Automated chart prep intelligence", "Gathers referrals, labs, notes, imaging", "Saves 2.2 hours daily"]
+  },
+  {
+    id: "coding",
+    title: "AI Coding (E/M, ICD, CPT)",
+    description: "Real-time, compliant coding that's audit-ready and reduces admin load.",
+    icon: <Cog size={20} />,
+    keyPoints: ["Real-time, compliant coding", "Audit-ready, reduces admin load", "34% more ICD-10 codes generated"]
+  },
+  {
+    id: "chart-closure",
+    title: "Accelerated Chart Closure",
+    description: "AI-powered structured notes with minimal post-visit documentation.",
     icon: <Clock size={20} />,
-    keyPoints: ["Real-time documentation", "No overtime", "Just done"]
+    keyPoints: ["AI-powered structured notes", "Minimal post-visit documentation", "1.6 min. chart closure time"]
   },
   {
-    id: "security",
-    title: "HIPAA-grade security",
-    description: "Fully compliant. End-to-end encrypted. Nothing stored.",
-    icon: <Shield size={20} />,
-    keyPoints: ["Fully compliant", "End-to-end encrypted", "Nothing stored"]
+    id: "telemedicine",
+    title: "Telemedicine Compatible",
+    description: "Works in-person and via telehealth, maintaining full functionality anywhere.",
+    icon: <Globe size={20} />,
+    keyPoints: ["Works in-person and via telehealth", "Maintains full functionality anywhere", "Supports hybrid workflows"]
   },
   {
-    id: "integration",
-    title: "Works with 100+ EHRs—no API needed",
-    description: "CRUSH plugs into your workflow, not the other way around. One-click sync with Epic, Cerner, and more.",
+    id: "ehr-integration",
+    title: "Works with 100+ EHRs – No API Needed",
+    description: "Syncs with Epic, Cerner, and more. No API or dev setup needed.",
     icon: <Zap size={20} />,
-    keyPoints: ["No API needed", "One-click sync", "Epic & Cerner support"]
+    keyPoints: ["Syncs with Epic, Cerner, and more", "No API or dev setup needed", "Fits into your existing workflow"]
   },
   {
     id: "multilingual",
-    title: "Speaks 60+ languages",
-    description: "Understands accents, cultural context, and multilingual care.",
+    title: "Multilingual Support",
+    description: "Speaks 60+ languages, understands accents and dialects.",
     icon: <Globe size={20} />,
-    keyPoints: ["Accent recognition", "Cultural context", "Multilingual care"]
-  },
-  {
-    id: "automation",
-    title: "Automates the boring stuff",
-    description: "Prescriptions, referrals, labs, and follow-ups—handled.",
-    icon: <Brain size={20} />,
-    keyPoints: ["Prescriptions handled", "Referrals automated", "Labs & follow-ups"]
-  },
-  {
-    id: "intelligence",
-    title: "Built-in clinical intelligence",
-    description: "HCC tracking, quality alerts, and preventive care prompts, right in your notes.",
-    icon: <Trophy size={20} />,
-    keyPoints: ["HCC tracking", "Quality alerts", "Preventive care prompts"]
+    keyPoints: ["Speaks 60+ languages", "Understands accents and dialects", "Captures cultural context"]
   },
   {
     id: "templates",
-    title: "Smart templates",
-    description: "Create, customize, and share note templates with AI help.",
+    title: "Smart Templates",
+    description: "Create specialty-based templates and customize with AI help.",
     icon: <FilePlus size={20} />,
-    keyPoints: ["Create templates", "Customize with AI", "Share with team"]
+    keyPoints: ["Create specialty-based templates", "Customize with AI help", "Streamline structured notes"]
   },
   {
-    id: "specialties",
-    title: "50+ specialties, fully supported",
-    description: "Tailored terminology, workflows, and note styles for your field.",
+    id: "onboarding",
+    title: "Human-backed Onboarding",
+    description: "Guided setup and training with real-time human support.",
     icon: <Users size={20} />,
-    keyPoints: ["Tailored terminology", "Custom workflows", "Field-specific styles"]
-  },
-  {
-    id: "customization",
-    title: "Human-backed onboarding",
-    description: "We don't just set you up—we stay with you. Real support, start to finish.",
-    icon: <Cog size={20} />,
-    keyPoints: ["Real support", "Start to finish", "We stay with you"]
+    keyPoints: ["Guided setup and training", "Real-time human support", "Long-term success assistance"]
   }
 ];
 
-// Compact Feature Card
-const CompactCard = React.memo(({ 
+// Scannable Feature Card - Always Visible Content
+const FeatureCard = React.memo(({ 
   feature, 
   index 
 }: { 
   feature: CrushFeature, 
   index: number 
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
   return (
     <Box
       component={motion.div}
       initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.03 }}
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.3 }}
       sx={{
-        p: 2,
-        borderRadius: 1.5,
+        p: { xs: 3, sm: 4 },
+        borderRadius: 2,
         bgcolor: 'rgba(255, 255, 255, 0.95)',
         border: '1px solid rgba(20, 49, 81, 0.1)',
         boxShadow: '0 2px 8px rgba(20, 49, 81, 0.08)',
         transition: 'all 0.2s ease',
-        cursor: 'pointer',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
         '&:hover': {
           boxShadow: '0 4px 16px rgba(20, 49, 81, 0.15)',
           transform: 'translateY(-2px)'
         }
       }}
-      onClick={() => setIsExpanded(!isExpanded)}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+      {/* Header with Icon and Title */}
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 2 }}>
         <Box 
           sx={{ 
-            p: 1,
-            borderRadius: 1,
+            p: 1.5,
+            borderRadius: 1.5,
             bgcolor: 'rgba(20, 49, 81, 0.1)',
             color: crushAIColors.icons.primary,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0
+            flexShrink: 0,
+            mt: 0.5
           }}
         >
           {feature.icon}
@@ -138,12 +132,13 @@ const CompactCard = React.memo(({
         
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography 
-            variant="subtitle2" 
+            variant="h6" 
             sx={{ 
               fontWeight: 700, 
               color: crushAIColors.text.primary,
-              fontSize: '0.95rem',
-              mb: 0.5
+              fontSize: { xs: '1rem', sm: '1.1rem' },
+              lineHeight: 1.3,
+              mb: 1
             }}
           >
             {feature.title}
@@ -152,76 +147,56 @@ const CompactCard = React.memo(({
             variant="body2" 
             sx={{ 
               color: crushAIColors.text.secondary,
-              fontSize: '0.8rem',
-              lineHeight: 1.3
+              fontSize: { xs: '0.85rem', sm: '0.9rem' },
+              lineHeight: 1.4,
+              mb: 2
             }}
           >
             {feature.description}
           </Typography>
         </Box>
-
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          <ChevronDown size={16} color={crushAIColors.icons.primary} />
-        </motion.div>
       </Box>
 
-      {/* SEO-friendly hidden content for crawlability */}
-      <Box 
-        sx={{ 
-          position: 'absolute', 
-          left: '-9999px', 
-          width: '1px', 
-          height: '1px', 
-          overflow: 'hidden' 
-        }}
-      >
-        {feature.keyPoints.map((point, idx) => (
-          <span key={idx}>{point} </span>
-        ))}
-      </Box>
-
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <Box sx={{ mt: 2, pt: 2, borderTop: '1px solid rgba(20, 49, 81, 0.1)' }}>
-              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                {feature.keyPoints.map((point, idx) => (
-                  <Box 
-                    key={idx}
-                    sx={{ 
-                      display: "flex", 
-                      alignItems: "center", 
-                      gap: 0.5,
-                      fontSize: '0.75rem',
-                      color: crushAIColors.text.primary,
-                      minWidth: 'fit-content'
-                    }}
-                  >
-                    <CheckCircle size={10} color="#4CAF50" />
-                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: '0.75rem' }}>
-                      {point}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
+      {/* Key Points - Always Visible */}
+      <Box sx={{ flex: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          {feature.keyPoints.map((point, idx) => (
+            <Box 
+              key={idx}
+              sx={{ 
+                display: "flex", 
+                alignItems: "flex-start", 
+                gap: 1,
+                fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                color: crushAIColors.text.primary,
+                lineHeight: 1.4
+              }}
+            >
+              <CheckCircle 
+                size={14} 
+                color="#4CAF50" 
+                style={{ marginTop: '2px', flexShrink: 0 }}
+              />
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontWeight: 500, 
+                  fontSize: { xs: '0.8rem', sm: '0.85rem' },
+                  lineHeight: 1.4,
+                  color: crushAIColors.text.primary
+                }}
+              >
+                {point}
+              </Typography>
             </Box>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 });
 
-CompactCard.displayName = 'CompactCard';
+FeatureCard.displayName = 'FeatureCard';
 
 // Stats Overview
 const StatsOverview = React.memo(() => (
@@ -340,7 +315,7 @@ export const CompetitionSection = React.memo(() => {
           }}
         >
           {crushFeatures.map((feature, index) => (
-            <CompactCard 
+            <FeatureCard 
               key={feature.id}
               feature={feature}
               index={index}
@@ -348,33 +323,6 @@ export const CompetitionSection = React.memo(() => {
           ))}
         </Box>
 
-        {/* Bottom Message */}
-        <Box
-          component={motion.div}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-          sx={{ 
-            textAlign: 'center',
-            mt: 6,
-            p: 3,
-            borderRadius: 2,
-            bgcolor: 'rgba(255, 255, 255, 0.05)',
-            border: '1px solid rgba(255, 255, 255, 0.1)'
-          }}
-        >
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: 'rgba(255, 255, 255, 0.9)',
-              fontSize: '0.95rem',
-              fontStyle: 'italic'
-            }}
-          >
-            Click any feature card to explore key benefits and capabilities
-          </Typography>
-        </Box>
       </Container>
     </Box>
   );
