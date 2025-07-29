@@ -8,18 +8,31 @@ import { Button as ShadcnButton } from "@/components/ui/button";
 
 // Define vibrant colors for each step animation
 const stepAnimationColors = {
-  selectPatient: "#046f90",
-  // Blue
-  startSpeaking: "#387E89",
-  // Teal
-  reviewSign: "#5192AE" // Light Blue
+  selectPatient: {
+    primary: "#046f90",
+    light: "#0891b2", 
+    bg: "rgba(4, 111, 144, 0.08)",
+    shadow: "rgba(4, 111, 144, 0.2)"
+  },
+  startSpeaking: {
+    primary: "#387E89",
+    light: "#22d3ee",
+    bg: "rgba(56, 126, 137, 0.08)", 
+    shadow: "rgba(56, 126, 137, 0.2)"
+  },
+  reviewSign: {
+    primary: "#5192AE",
+    light: "#7dd3fc",
+    bg: "rgba(81, 146, 174, 0.08)",
+    shadow: "rgba(81, 146, 174, 0.2)"
+  }
 };
 const steps = [{
   id: "select-patient",
   title: "Select a Patient",
   description: "Launch CRUSH on any device and instantly access patient data.",
   icon: <Stethoscope className="h-8 w-8" style={{
-    color: stepAnimationColors.selectPatient
+    color: stepAnimationColors.selectPatient.primary
   }} />,
   details: [{
     title: "Patient Database",
@@ -48,23 +61,23 @@ const steps = [{
       cursor: active ? 'pointer' : 'default'
     }} onClick={active ? onNext : undefined}>
           <motion.div animate={active ? {
-        boxShadow: ['0px 0px 0px rgba(0,0,0,0)', `0px 0px 20px ${stepAnimationColors.selectPatient}40`, '0px 0px 0px rgba(0,0,0,0)']
+        boxShadow: ['0px 0px 0px rgba(0,0,0,0)', `0px 0px 20px ${stepAnimationColors.selectPatient.shadow}`, '0px 0px 0px rgba(0,0,0,0)']
       } : {}} transition={{
         repeat: Infinity,
         duration: 2
       }} style={{
         padding: 12,
         borderRadius: 12,
-        border: `2px solid ${stepAnimationColors.selectPatient}`,
-        background: 'white'
+        border: `2px solid ${stepAnimationColors.selectPatient.primary}`,
+        background: `linear-gradient(135deg, white, ${stepAnimationColors.selectPatient.bg})`
       }}>
             <Stethoscope size={32} style={{
-          color: stepAnimationColors.selectPatient
+          color: stepAnimationColors.selectPatient.primary
         }} />
           </motion.div>
           <Typography variant="caption" sx={{
         fontWeight: 600,
-        color: active ? stepAnimationColors.selectPatient : '#666'
+        color: active ? stepAnimationColors.selectPatient.primary : '#666'
       }}>
             Patient Database
           </Typography>
@@ -81,17 +94,17 @@ const steps = [{
           alignItems: 'center',
           p: 1,
           borderRadius: 1,
-          bgcolor: `${stepAnimationColors.selectPatient}10`
+          bgcolor: stepAnimationColors.selectPatient.bg
         }}>
                 <Box sx={{
             width: 6,
             height: 6,
             borderRadius: '50%',
-            bgcolor: stepAnimationColors.selectPatient
+            bgcolor: stepAnimationColors.selectPatient.primary
           }} />
                 <Typography variant="caption" sx={{
             fontSize: '0.7rem',
-            color: stepAnimationColors.selectPatient
+            color: stepAnimationColors.selectPatient.primary
           }}>
                   Connected to EHR
                 </Typography>
@@ -104,17 +117,17 @@ const steps = [{
   title: "Start Speaking",
   description: "Speak naturally in any supported language. Our ambient AI-powered ASR seamlessly records, transcribes, and analyzes conversations in real-time.",
   icon: <Mic className="h-8 w-8" style={{
-    color: stepAnimationColors.startSpeaking
+    color: stepAnimationColors.startSpeaking.primary
   }} />,
   details: [{
     icon: <History className="h-6 w-6" style={{
-      color: stepAnimationColors.startSpeaking
+      color: stepAnimationColors.startSpeaking.primary
     }} />,
     title: "AI Context Awareness",
     description: "Pulls past visit history for highly accurate documentation."
   }, {
     icon: <Languages className="h-6 w-6" style={{
-      color: stepAnimationColors.startSpeaking
+      color: stepAnimationColors.startSpeaking.primary
     }} />,
     title: "Telemedicine-Ready",
     description: "Works for in-person, video, chat, or phone consultations."
@@ -144,11 +157,11 @@ const steps = [{
         }} style={{
           padding: 16,
           borderRadius: '50%',
-          border: `2px solid ${stepAnimationColors.startSpeaking}`,
-          background: active ? `${stepAnimationColors.startSpeaking}10` : 'white'
+          border: `2px solid ${stepAnimationColors.startSpeaking.primary}`,
+          background: active ? `linear-gradient(135deg, ${stepAnimationColors.startSpeaking.bg}, ${stepAnimationColors.startSpeaking.light}15)` : 'white'
         }}>
               <Mic size={36} style={{
-            color: stepAnimationColors.startSpeaking
+            color: stepAnimationColors.startSpeaking.primary
           }} />
             </motion.div>
             
@@ -172,7 +185,7 @@ const steps = [{
               width: '100%',
               height: '100%',
               borderRadius: '50%',
-              border: `2px solid ${stepAnimationColors.startSpeaking}80`
+              border: `2px solid ${stepAnimationColors.startSpeaking.light}80`
             }} />
                 </Box>
                 
@@ -195,7 +208,7 @@ const steps = [{
               width: '100%',
               height: '100%',
               borderRadius: '50%',
-              border: `2px solid ${stepAnimationColors.startSpeaking}50`
+              border: `2px solid ${stepAnimationColors.startSpeaking.light}50`
             }} />
                 </Box>
               </>}
@@ -203,7 +216,7 @@ const steps = [{
           
           <Typography variant="caption" sx={{
         fontWeight: 600,
-        color: active ? stepAnimationColors.startSpeaking : '#666'
+        color: active ? stepAnimationColors.startSpeaking.primary : '#666'
       }}>
             {active ? 'Recording...' : 'Ready to record'}
           </Typography>
@@ -220,7 +233,7 @@ const steps = [{
           duration: 8
         }} style={{
           height: 4,
-          background: `linear-gradient(90deg, rgba(20,49,81, 0.4) 0%, ${stepAnimationColors.startSpeaking} 100%)`,
+          background: `linear-gradient(90deg, ${stepAnimationColors.startSpeaking.bg} 0%, ${stepAnimationColors.startSpeaking.primary} 100%)`,
           borderRadius: 2
         }} />
               
@@ -245,7 +258,7 @@ const steps = [{
           delay: 4
         }} className="mt-4 flex justify-center">
                   <Typography variant="caption" sx={{
-            color: stepAnimationColors.startSpeaking,
+            color: stepAnimationColors.startSpeaking.primary,
             fontWeight: 600,
             cursor: 'pointer',
             fontSize: '0.75rem',
@@ -262,23 +275,23 @@ const steps = [{
   title: "Review & Sign Off",
   description: "Instantly generates EHR-ready medical notes with AI-powered insights.",
   icon: <FileCheck className="h-8 w-8" style={{
-    color: stepAnimationColors.reviewSign
+    color: stepAnimationColors.reviewSign.primary
   }} />,
   details: [{
     icon: <Upload className="h-6 w-6" style={{
-      color: stepAnimationColors.reviewSign
+      color: stepAnimationColors.reviewSign.primary
     }} />,
     title: "Smart Workflow Automation",
     description: "Auto-handles prescriptions, referrals, labs, follow-ups."
   }, {
     icon: <FileText className="h-6 w-6" style={{
-      color: stepAnimationColors.reviewSign
+      color: stepAnimationColors.reviewSign.primary
     }} />,
     title: "After-Visit Summaries",
     description: "Auto-generated in the patient's preferred language."
   }, {
     icon: <CheckCircle className="h-6 w-6" style={{
-      color: stepAnimationColors.reviewSign
+      color: stepAnimationColors.reviewSign.primary
     }} />,
     title: "AI-Powered Coding",
     description: "Supports ICD-10, CPT, HCC, and E/M coding for precision billing."
@@ -307,8 +320,8 @@ const steps = [{
       }} style={{
         padding: 12,
         borderRadius: 8,
-        border: `2px solid ${stepAnimationColors.reviewSign}`,
-        background: 'white',
+        border: `2px solid ${stepAnimationColors.reviewSign.primary}`,
+        background: `linear-gradient(135deg, white, ${stepAnimationColors.reviewSign.bg})`,
         position: 'relative'
       }}>
             <Box sx={{
@@ -323,7 +336,7 @@ const steps = [{
               xs: '0.65rem',
               sm: '0.75rem'
             },
-            color: stepAnimationColors.reviewSign
+            color: stepAnimationColors.reviewSign.primary
           }}>Medical Note</Typography>
               {active && <motion.div initial={{
             scale: 0
@@ -333,7 +346,7 @@ const steps = [{
             delay: 1
           }}>
                   <CheckCircle size={16} style={{
-              color: stepAnimationColors.reviewSign
+              color: stepAnimationColors.reviewSign.primary
             }} />
                 </motion.div>}
             </Box>
@@ -365,14 +378,14 @@ const steps = [{
                     xs: '0.6rem',
                     sm: '0.7rem'
                   },
-                  color: stepAnimationColors.reviewSign
+                  color: stepAnimationColors.reviewSign.primary
                 }}>
                           {section}
                         </Typography>
                         <Box sx={{
                   height: 3,
                   flex: 1,
-                  bgcolor: `${stepAnimationColors.reviewSign}30`,
+                  bgcolor: stepAnimationColors.reviewSign.bg,
                   borderRadius: 1
                 }} />
                       </Box>
@@ -421,7 +434,7 @@ const steps = [{
             delay: 2
           }} className="mt-4 flex justify-center">
                     <Typography variant="caption" sx={{
-              color: stepAnimationColors.reviewSign,
+              color: stepAnimationColors.reviewSign.primary,
               fontWeight: 600,
               fontSize: '0.75rem'
             }}>
@@ -460,7 +473,7 @@ const steps = [{
         delay: 2.5
       }} className="mt-4 flex justify-center">
               <Typography variant="caption" sx={{
-          color: stepAnimationColors.reviewSign,
+          color: stepAnimationColors.reviewSign.primary,
           fontWeight: 600,
           cursor: 'pointer',
           fontSize: '0.75rem',
