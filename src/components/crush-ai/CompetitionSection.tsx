@@ -113,46 +113,39 @@ const FeatureCard = React.memo(({
       }}
     >
       {/* Header with Icon and Title */}
-      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 2 }}>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}>
         <Box 
           sx={{ 
-            p: 1.5,
-            borderRadius: 1.5,
-            bgcolor: 'rgba(20, 49, 81, 0.1)',
+            width: 40,
+            height: 40,
+            borderRadius: 2,
+            bgcolor: 'rgba(255, 255, 255, 0.1)',
+            border: '1px solid rgba(20, 49, 81, 0.15)',
             color: crushAIColors.icons.primary,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0,
-            mt: 0.5
+            flexShrink: 0
           }}
         >
-          {feature.icon}
+          {React.cloneElement(feature.icon as React.ReactElement, { 
+            size: 18,
+            strokeWidth: 1.5
+          })}
         </Box>
         
         <Box sx={{ flex: 1, minWidth: 0 }}>
           <Typography 
             variant="h6" 
             sx={{ 
-              fontWeight: 700, 
+              fontWeight: 600, 
               color: crushAIColors.text.primary,
-              fontSize: { xs: '1rem', sm: '1.1rem' },
-              lineHeight: 1.3,
-              mb: 1
+              fontSize: { xs: '0.95rem', sm: '1rem' },
+              lineHeight: 1.4,
+              mb: 0
             }}
           >
             {feature.title}
-          </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: crushAIColors.text.secondary,
-              fontSize: { xs: '0.85rem', sm: '0.9rem' },
-              lineHeight: 1.4,
-              mb: 2
-            }}
-          >
-            {feature.description}
           </Typography>
         </Box>
       </Box>
@@ -278,12 +271,18 @@ export const CompetitionSection = React.memo(() => {
           viewport={{ once: true }}
           sx={{ mb: 6, textAlign: "center" }}
         >
-          <SparklesTextAdvanced 
-            text="Why clinicians choose CRUSH" 
-            className="text-3xl md:text-4xl font-bold text-center mb-3 text-white"
-            colors={{ first: "#FFFFFF", second: "#FFFFFF" }}
-            sparklesCount={15}
-          />
+          <Typography
+            variant="h2"
+            sx={{
+              fontSize: { xs: '2rem', md: '2.5rem', lg: '3rem' },
+              fontWeight: 700,
+              color: 'white',
+              textAlign: 'center',
+              mb: 3
+            }}
+          >
+            Why clinicians choose CRUSH
+          </Typography>
           <Typography
             variant="h6"
             sx={{
