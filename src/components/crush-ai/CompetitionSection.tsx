@@ -12,6 +12,7 @@ interface CrushFeature {
   description: string;
   icon: React.ReactNode;
   keyPoints: string[];
+  color: string;
 }
 
 // Core CRUSH Features for Clinicians
@@ -21,63 +22,72 @@ const crushFeatures: CrushFeature[] = [
     title: "Context-aware Documentation",
     description: "Pulls relevant data from past visits, adapts notes to current conversation context.",
     icon: <Brain size={20} />,
-    keyPoints: ["Pulls relevant data from past visits", "Adapts notes to current conversation context", "99% clinical accuracy"]
+    keyPoints: ["Pulls relevant data from past visits", "Adapts notes to current conversation context", "99% clinical accuracy"],
+    color: "#3B82F6" // Blue
   },
   {
     id: "precharting",
     title: "AI Precharting",
     description: "Automated chart prep intelligence that gathers referrals, labs, notes, imaging.",
     icon: <FilePlus size={20} />,
-    keyPoints: ["Automated chart prep intelligence", "Gathers referrals, labs, notes, imaging", "Saves 2.2 hours daily"]
+    keyPoints: ["Automated chart prep intelligence", "Gathers referrals, labs, notes, imaging", "Saves 2.2 hours daily"],
+    color: "#10B981" // Green
   },
   {
     id: "coding",
     title: "AI Coding (E/M, ICD, CPT)",
     description: "Real-time, compliant coding that's audit-ready and reduces admin load.",
     icon: <Cog size={20} />,
-    keyPoints: ["Real-time, compliant coding", "Audit-ready, reduces admin load", "34% more ICD-10 codes generated"]
+    keyPoints: ["Real-time, compliant coding", "Audit-ready, reduces admin load", "34% more ICD-10 codes generated"],
+    color: "#8B5CF6" // Purple
   },
   {
     id: "chart-closure",
     title: "Accelerated Chart Closure",
     description: "AI-powered structured notes with minimal post-visit documentation.",
     icon: <Clock size={20} />,
-    keyPoints: ["AI-powered structured notes", "Minimal post-visit documentation", "1.6 min. chart closure time"]
+    keyPoints: ["AI-powered structured notes", "Minimal post-visit documentation", "1.6 min. chart closure time"],
+    color: "#F59E0B" // Orange
   },
   {
     id: "telemedicine",
     title: "Telemedicine Compatible",
     description: "Works in-person and via telehealth, maintaining full functionality anywhere.",
     icon: <Globe size={20} />,
-    keyPoints: ["Works in-person and via telehealth", "Maintains full functionality anywhere", "Supports hybrid workflows"]
+    keyPoints: ["Works in-person and via telehealth", "Maintains full functionality anywhere", "Supports hybrid workflows"],
+    color: "#06B6D4" // Cyan
   },
   {
     id: "ehr-integration",
     title: "Works with 100+ EHRs – No API Needed",
     description: "Syncs with Epic, Cerner, and more. No API or dev setup needed.",
     icon: <Zap size={20} />,
-    keyPoints: ["Syncs with Epic, Cerner, and more", "No API or dev setup needed", "Fits into your existing workflow"]
+    keyPoints: ["Syncs with Epic, Cerner, and more", "No API or dev setup needed", "Fits into your existing workflow"],
+    color: "#EF4444" // Red
   },
   {
     id: "multilingual",
     title: "Multilingual Support",
     description: "Speaks 60+ languages, understands accents and dialects.",
     icon: <Globe size={20} />,
-    keyPoints: ["Speaks 60+ languages", "Understands accents and dialects", "Captures cultural context"]
+    keyPoints: ["Speaks 60+ languages", "Understands accents and dialects", "Captures cultural context"],
+    color: "#14B8A6" // Teal
   },
   {
     id: "templates",
     title: "Smart Templates",
     description: "Create specialty-based templates and customize with AI help.",
     icon: <FilePlus size={20} />,
-    keyPoints: ["Create specialty-based templates", "Customize with AI help", "Streamline structured notes"]
+    keyPoints: ["Create specialty-based templates", "Customize with AI help", "Streamline structured notes"],
+    color: "#84CC16" // Lime
   },
   {
     id: "onboarding",
     title: "Human-backed Onboarding",
     description: "Guided setup and training with real-time human support.",
     icon: <Users size={20} />,
-    keyPoints: ["Guided setup and training", "Real-time human support", "Long-term success assistance"]
+    keyPoints: ["Guided setup and training", "Real-time human support", "Long-term success assistance"],
+    color: "#A855F7" // Violet
   }
 ];
 
@@ -98,17 +108,30 @@ const FeatureCard = React.memo(({
       viewport={{ once: true, amount: 0.3 }}
       sx={{
         p: { xs: 3, sm: 4 },
-        borderRadius: 2,
-        bgcolor: 'rgba(255, 255, 255, 0.95)',
-        border: '1px solid rgba(20, 49, 81, 0.1)',
-        boxShadow: '0 2px 8px rgba(20, 49, 81, 0.08)',
-        transition: 'all 0.2s ease',
+        borderRadius: 3,
+        bgcolor: 'rgba(255, 255, 255, 0.98)',
+        border: `1px solid ${feature.color}20`,
+        boxShadow: `0 2px 12px ${feature.color}10`,
+        transition: 'all 0.3s ease',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
+        overflow: 'hidden',
         '&:hover': {
-          boxShadow: '0 4px 16px rgba(20, 49, 81, 0.15)',
-          transform: 'translateY(-2px)'
+          boxShadow: `0 8px 25px ${feature.color}20`,
+          transform: 'translateY(-4px)',
+          border: `1px solid ${feature.color}40`
+        },
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '3px',
+          background: feature.color,
+          opacity: 0.6
         }
       }}
     >
@@ -116,21 +139,26 @@ const FeatureCard = React.memo(({
       <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 2, mb: 3 }}>
         <Box 
           sx={{ 
-            width: 40,
-            height: 40,
-            borderRadius: 2,
-            bgcolor: 'rgba(255, 255, 255, 0.1)',
-            border: '1px solid rgba(20, 49, 81, 0.15)',
-            color: crushAIColors.icons.primary,
+            width: 44,
+            height: 44,
+            borderRadius: 2.5,
+            bgcolor: `${feature.color}15`,
+            border: `1px solid ${feature.color}30`,
+            color: feature.color,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexShrink: 0
+            flexShrink: 0,
+            transition: 'all 0.2s ease',
+            '&:hover': {
+              bgcolor: `${feature.color}20`,
+              transform: 'scale(1.05)'
+            }
           }}
         >
           {React.cloneElement(feature.icon as React.ReactElement, { 
-            size: 18,
-            strokeWidth: 1.5
+            size: 20,
+            strokeWidth: 1.8
           })}
         </Box>
         
