@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ROICalculator from "@/components/bravo/calculator/ROICalculator";
-import { ROICalculatorSection } from "@/components/crush-ai/ROICalculatorSection";
+import ScribeROICalculator from "@/components/crush-ai/ScribeROICalculator";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { typography } from "@/lib/typography";
@@ -15,6 +15,7 @@ import { Clock, Stethoscope, CalendarCheck, ShieldCheck } from "lucide-react";
 
 const ROICalculatorPage: React.FC = () => {
   const [agentSavings, setAgentSavings] = useState({ monthly: 0, yearly: 0, multiplier: 0 });
+  const [scribeSavings, setScribeSavings] = useState({ monthly: 0, yearly: 0, multiplier: 0 });
 
   const schemaMarkup = {
     "@context": "https://schema.org",
@@ -106,22 +107,43 @@ const ROICalculatorPage: React.FC = () => {
               </TabsContent>
 
               <TabsContent value="scribe" className="mt-8">
-                <div className="space-y-6">
-                  <div className="min-w-0">
-                    <Card className="p-4 md:p-6">
-                      <h3 className="text-base font-semibold mb-3">Adjust your inputs</h3>
-                      <ROICalculatorSection />
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  <div>
+                    <ScribeROICalculator onCalculate={setScribeSavings} />
+                  </div>
+                  <div className="space-y-6 lg:sticky lg:top-24">
+                    <div className="mx-auto w-full flex justify-center">
+                      <ROICalculatorIllustration />
+                    </div>
+                    <Card className="p-6">
+                      <h2 className={typography.h3 + " mb-4"}>Projected Savings</h2>
+                      <div className="space-y-3" role="status" aria-live="polite">
+                        <div className="flex justify-between">
+                          <span>Estimated Monthly Benefit</span>
+                          <span className="font-bold">${scribeSavings.monthly.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Estimated Yearly Benefit</span>
+                          <span className="font-bold">${scribeSavings.yearly.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>ROI Multiplier</span>
+                          <span className="font-bold">{scribeSavings.multiplier.toFixed(1)}x</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-4">
+                        Based on replacing human scribe costs with Crush AI. Adjust inputs to reflect your practice.
+                      </p>
+                    </Card>
+                    <Card className="p-5">
+                      <h3 className="text-base font-semibold mb-3">Designed for clinician workflows</h3>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li className="flex items-start gap-2"><Clock className="h-4 w-4 text-primary mt-0.5" /><span>Save 1–2 hours per clinician per day by eliminating manual documentation.</span></li>
+                        <li className="flex items-start gap-2"><Stethoscope className="h-4 w-4 text-primary mt-0.5" /><span>Higher-quality, consistent notes tailored to your specialty.</span></li>
+                        <li className="flex items-start gap-2"><ShieldCheck className="h-4 w-4 text-primary mt-0.5" /><span>HIPAA-compliant workflows with secure PHI handling.</span></li>
+                      </ul>
                     </Card>
                   </div>
-                  <Card className="p-5">
-                    <h2 className={typography.h3 + " mb-2"}>Why clinicians choose Crush AI</h2>
-                    <p className={typography.description + " mb-3"}>Reduce after-hours charting, improve note quality, and control costs with secure, compliant workflows.</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-muted-foreground">
-                      <li className="flex items-start gap-2"><Clock className="h-4 w-4 text-primary mt-0.5" /><span>Save 1–2 hours per clinician per day by eliminating manual documentation.</span></li>
-                      <li className="flex items-start gap-2"><Stethoscope className="h-4 w-4 text-primary mt-0.5" /><span>Higher-quality, consistent notes tailored to your specialty.</span></li>
-                      <li className="flex items-start gap-2"><ShieldCheck className="h-4 w-4 text-primary mt-0.5" /><span>HIPAA-compliant workflows with secure PHI handling.</span></li>
-                    </ul>
-                  </Card>
                 </div>
               </TabsContent>
             </Tabs>
