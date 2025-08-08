@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Brain, Sparkles, Zap, ChevronRight, X } from 'lucide-react';
+import { MessageSquare, Brain, Sparkles, Zap, ChevronRight, X, Search, Compass } from 'lucide-react';
 
 const FloatingAICTA = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -52,6 +52,26 @@ The goal is to produce a summary that allows me to ask informed and specific que
       hoverGradient: 'from-blue-400 to-indigo-500',
       iconColor: 'text-blue-600',
       bgColor: 'bg-blue-50/80'
+    },
+    {
+      name: 'Perplexity',
+      description: 'Quick web answers about this page',
+      icon: Compass,
+      url: `https://www.perplexity.ai/search?q=${prompt}`,
+      gradient: 'from-violet-500 to-purple-600',
+      hoverGradient: 'from-violet-400 to-purple-500',
+      iconColor: 'text-violet-600',
+      bgColor: 'bg-violet-50/80'
+    },
+    {
+      name: 'Google AI Overviews',
+      description: 'See AI Overview results on Google',
+      icon: Search,
+      url: `https://www.google.com/search?q=${prompt}`,
+      gradient: 'from-green-500 to-emerald-600',
+      hoverGradient: 'from-green-400 to-emerald-500',
+      iconColor: 'text-emerald-600',
+      bgColor: 'bg-emerald-50/80'
     },
     {
       name: 'Grok',
