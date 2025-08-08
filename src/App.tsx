@@ -27,6 +27,7 @@ import Advantages from "@/pages/Advantages";
 import ResourceLibrary from "@/pages/ResourceLibrary";
 import AIAccuracy from "@/pages/AIAccuracy";
 import PracticeEfficiencyGrader from "@/pages/PracticeEfficiencyGrader";
+import ROICalculatorPage from "@/pages/ROICalculator";
 
 function App() {
   console.log("Rendering App component");
@@ -55,6 +56,7 @@ function App() {
       <Route path="/practice-efficiency-grader" element={<PracticeEfficiencyGrader />} />
       <Route path="/resources/casestudies" element={<CaseStudiesIndex />} />
       <Route path="/resources/casestudies/:caseStudyId" element={<CaseStudy />} />
+      <Route path="/roi-calculator" element={<ROICalculatorPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

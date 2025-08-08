@@ -189,6 +189,16 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   New
                 </Badge>
               </div>
+
+              <NavLink
+                to="/roi-calculator"
+                onClick={closeMenu}
+                className={({ isActive }) =>
+                  isActive ? activeNavLinkClass : navLinkClass
+                }
+              >
+                ROI Calculator
+              </NavLink>
             </nav>
           </div>
         </div>
@@ -327,6 +337,13 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </NavLink>
             </div>
 
+            <NavLink
+              to="/roi-calculator"
+              onClick={closeMenu}
+              className="block px-6 py-4 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              ROI Calculator
+            </NavLink>
             <Link
               to="/contact"
               onClick={closeMenu}
