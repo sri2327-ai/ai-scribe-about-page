@@ -106,24 +106,22 @@ const ROICalculatorPage: React.FC = () => {
               </TabsContent>
 
               <TabsContent value="scribe" className="mt-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <div className="space-y-6">
                   <div className="min-w-0">
                     <Card className="p-4 md:p-6">
                       <h3 className="text-base font-semibold mb-3">Adjust your inputs</h3>
                       <ROICalculatorSection />
                     </Card>
                   </div>
-                  <div className="space-y-3 lg:sticky lg:top-24">
-                    <Card className="p-5">
-                      <h2 className={typography.h3 + " mb-2"}>AI Medical Scribing ROI</h2>
-                      <p className={typography.description + " mb-3"}>Reduce after-hours charting and improve note quality while controlling costs.</p>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2"><Clock className="h-4 w-4 text-primary mt-0.5" /><span>Save 1–2 hours per day by eliminating manual documentation.</span></li>
-                        <li className="flex items-start gap-2"><Stethoscope className="h-4 w-4 text-primary mt-0.5" /><span>Higher-quality, consistent notes tailored to your specialty.</span></li>
-                        <li className="flex items-start gap-2"><ShieldCheck className="h-4 w-4 text-primary mt-0.5" /><span>HIPAA-compliant workflows with secure PHI handling.</span></li>
-                      </ul>
-                    </Card>
-                  </div>
+                  <Card className="p-5">
+                    <h2 className={typography.h3 + " mb-2"}>Why clinicians choose Crush AI</h2>
+                    <p className={typography.description + " mb-3"}>Reduce after-hours charting, improve note quality, and control costs with secure, compliant workflows.</p>
+                    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-muted-foreground">
+                      <li className="flex items-start gap-2"><Clock className="h-4 w-4 text-primary mt-0.5" /><span>Save 1–2 hours per clinician per day by eliminating manual documentation.</span></li>
+                      <li className="flex items-start gap-2"><Stethoscope className="h-4 w-4 text-primary mt-0.5" /><span>Higher-quality, consistent notes tailored to your specialty.</span></li>
+                      <li className="flex items-start gap-2"><ShieldCheck className="h-4 w-4 text-primary mt-0.5" /><span>HIPAA-compliant workflows with secure PHI handling.</span></li>
+                    </ul>
+                  </Card>
                 </div>
               </TabsContent>
             </Tabs>
@@ -132,8 +130,8 @@ const ROICalculatorPage: React.FC = () => {
           <section aria-label="Get a personalized ROI assessment" className={typography.spacing.section + " bg-muted/20"}>
             <div className={typography.spacing.container}>
               <Card className="p-6 md:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                  <div className="md:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                  <div>
                     <h2 className={typography.h3 + " mb-2"}>See your personalized ROI</h2>
                     <p className={typography.description + " mb-4"}>We’ll analyze your volumes to estimate time saved, revenue impact, and next steps for your clinic.</p>
                     <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-muted-foreground">
@@ -142,14 +140,14 @@ const ROICalculatorPage: React.FC = () => {
                       <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" />HIPAA-ready</li>
                     </ul>
                   </div>
-                  <div className="flex flex-col gap-3 justify-center md:items-end">
+                  <div className="flex flex-col gap-3 justify-center md:items-start">
                     <Button asChild size="lg" className="w-full md:w-auto" aria-label="Get personalized ROI report">
                       <Link to="/contact">Get your ROI report</Link>
                     </Button>
                     <Button asChild variant="outline" size="lg" className="w-full md:w-auto" aria-label="Talk to a clinician advisor">
                       <Link to="/contact">Talk to a clinician advisor</Link>
                     </Button>
-                    <p className="text-xs text-muted-foreground md:text-right">HIPAA-compliant • Secure • No obligation</p>
+                    <p className="text-xs text-muted-foreground md:text-left">HIPAA-compliant • Secure • No obligation</p>
                   </div>
                 </div>
               </Card>
