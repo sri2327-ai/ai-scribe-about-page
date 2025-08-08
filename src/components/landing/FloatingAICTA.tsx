@@ -67,7 +67,7 @@ The goal is to produce a summary that allows me to ask informed and specific que
       name: 'Google AI Overviews',
       description: 'See AI Overview results on Google',
       icon: Search,
-      url: `https://www.google.com/search?q=${prompt}`,
+      url: `https://www.google.com/search?udm=14&q=${prompt}`,
       gradient: 'from-green-500 to-emerald-600',
       hoverGradient: 'from-green-400 to-emerald-500',
       iconColor: 'text-emerald-600',
