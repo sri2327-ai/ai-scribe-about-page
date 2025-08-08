@@ -9,9 +9,9 @@ import ScribeROICalculator from "@/components/crush-ai/ScribeROICalculator";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { typography } from "@/lib/typography";
-import { ROICalculatorIllustration } from "@/components/crush-ai/illustrations/ROICalculatorIllustration";
+
 import { Link } from "react-router-dom";
-import { Clock, Stethoscope, CalendarCheck, ShieldCheck } from "lucide-react";
+
 
 const ROICalculatorPage: React.FC = () => {
   const [agentSavings, setAgentSavings] = useState({ monthly: 0, yearly: 0, multiplier: 0 });
@@ -69,10 +69,7 @@ const ROICalculatorPage: React.FC = () => {
                   <div>
                     <ROICalculator onCalculate={setAgentSavings} />
                   </div>
-                    <div className="space-y-6 lg:sticky lg:top-24">
-                      <div className="mx-auto w-full flex justify-center">
-                        <ROICalculatorIllustration />
-                      </div>
+                    <div className="lg:sticky lg:top-24">
                       <Card className="p-6">
                         <h2 className={typography.h3 + " mb-4"}>Projected Savings</h2>
                         <div className="space-y-3" role="status" aria-live="polite">
@@ -84,23 +81,10 @@ const ROICalculatorPage: React.FC = () => {
                             <span>Estimated Yearly Benefit</span>
                             <span className="font-bold">${agentSavings.yearly.toLocaleString()}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span>ROI Multiplier</span>
-                            <span className="font-bold">{agentSavings.multiplier.toFixed(1)}x</span>
-                          </div>
                         </div>
                         <p className="text-sm text-muted-foreground mt-4">
-                          Based on reduced no-shows and recovered appointments. Adjust inputs to reflect your practice.
+                          Adjust inputs to reflect your practice.
                         </p>
-                      </Card>
-                      <Card className="p-5">
-                        <h3 className="text-base font-semibold mb-3">Designed for clinic workflows</h3>
-                        <ul className="space-y-2 text-sm text-muted-foreground">
-                          <li className="flex items-start gap-2"><Clock className="h-4 w-4 text-primary mt-0.5" /><span>Fewer interruptions between visits — recover focused time.</span></li>
-                          <li className="flex items-start gap-2"><CalendarCheck className="h-4 w-4 text-primary mt-0.5" /><span>Reduce no-shows and smooth schedules with proactive outreach.</span></li>
-                          <li className="flex items-start gap-2"><Stethoscope className="h-4 w-4 text-primary mt-0.5" /><span>Lower phone backlog so clinical teams can focus on patient care.</span></li>
-                          <li className="flex items-start gap-2"><ShieldCheck className="h-4 w-4 text-primary mt-0.5" /><span>HIPAA-ready operations and clear audit trails.</span></li>
-                        </ul>
                       </Card>
                     </div>
                 </div>
@@ -111,10 +95,7 @@ const ROICalculatorPage: React.FC = () => {
                   <div>
                     <ScribeROICalculator onCalculate={setScribeSavings} />
                   </div>
-                  <div className="space-y-6 lg:sticky lg:top-24">
-                    <div className="mx-auto w-full flex justify-center">
-                      <ROICalculatorIllustration />
-                    </div>
+                  <div className="lg:sticky lg:top-24">
                     <Card className="p-6">
                       <h2 className={typography.h3 + " mb-4"}>Projected Savings</h2>
                       <div className="space-y-3" role="status" aria-live="polite">
@@ -126,22 +107,10 @@ const ROICalculatorPage: React.FC = () => {
                           <span>Estimated Yearly Benefit</span>
                           <span className="font-bold">${scribeSavings.yearly.toLocaleString()}</span>
                         </div>
-                        <div className="flex justify-between">
-                          <span>ROI Multiplier</span>
-                          <span className="font-bold">{scribeSavings.multiplier.toFixed(1)}x</span>
-                        </div>
                       </div>
                       <p className="text-sm text-muted-foreground mt-4">
-                        Based on replacing human scribe costs with Crush AI. Adjust inputs to reflect your practice.
+                        Adjust inputs to reflect your practice.
                       </p>
-                    </Card>
-                    <Card className="p-5">
-                      <h3 className="text-base font-semibold mb-3">Designed for clinician workflows</h3>
-                      <ul className="space-y-2 text-sm text-muted-foreground">
-                        <li className="flex items-start gap-2"><Clock className="h-4 w-4 text-primary mt-0.5" /><span>Save 1–2 hours per clinician per day by eliminating manual documentation.</span></li>
-                        <li className="flex items-start gap-2"><Stethoscope className="h-4 w-4 text-primary mt-0.5" /><span>Higher-quality, consistent notes tailored to your specialty.</span></li>
-                        <li className="flex items-start gap-2"><ShieldCheck className="h-4 w-4 text-primary mt-0.5" /><span>HIPAA-compliant workflows with secure PHI handling.</span></li>
-                      </ul>
                     </Card>
                   </div>
                 </div>
@@ -152,24 +121,18 @@ const ROICalculatorPage: React.FC = () => {
           <section aria-label="Get a personalized ROI assessment" className={typography.spacing.section + " bg-muted/20"}>
             <div className={typography.spacing.container}>
               <Card className="p-6 md:p-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                <div className="flex flex-col items-center gap-4 text-center md:flex-row md:justify-between md:text-left">
                   <div>
-                    <h2 className={typography.h3 + " mb-2"}>See your personalized ROI</h2>
-                    <p className={typography.description + " mb-4"}>We’ll analyze your volumes to estimate time saved, revenue impact, and next steps for your clinic.</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm text-muted-foreground">
-                      <li className="flex items-center gap-2"><Clock className="h-4 w-4 text-primary" />10+ hrs/week saved</li>
-                      <li className="flex items-center gap-2"><CalendarCheck className="h-4 w-4 text-primary" />Fewer no-shows</li>
-                      <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-primary" />HIPAA-ready</li>
-                    </ul>
+                    <h2 className={typography.h3}>Get your ROI report</h2>
+                    <p className="text-sm text-muted-foreground mt-1">Personalized estimate in minutes.</p>
                   </div>
-                  <div className="flex flex-col gap-3 justify-center md:items-start">
-                    <Button asChild size="lg" className="w-full md:w-auto" aria-label="Get personalized ROI report">
-                      <Link to="/contact">Get your ROI report</Link>
+                  <div className="flex gap-3">
+                    <Button asChild size="lg" aria-label="Get ROI report">
+                      <Link to="/contact">Get started</Link>
                     </Button>
-                    <Button asChild variant="outline" size="lg" className="w-full md:w-auto" aria-label="Talk to a clinician advisor">
-                      <Link to="/contact">Talk to a clinician advisor</Link>
+                    <Button asChild variant="ghost" size="lg" aria-label="Talk to an expert">
+                      <Link to="/contact">Talk to an expert</Link>
                     </Button>
-                    <p className="text-xs text-muted-foreground md:text-left">HIPAA-compliant • Secure • No obligation</p>
                   </div>
                 </div>
               </Card>
