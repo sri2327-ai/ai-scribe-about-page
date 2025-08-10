@@ -12,6 +12,7 @@ import TeamSection from "@/components/about/TeamSection";
 import TrustedBy from "@/components/about/TrustedBy";
 import DarkAnimatedHeader from "@/components/landing/DarkAnimatedHeader";
 import Footer from "@/components/Footer";
+import ProviderInterviewSection from "@/components/landing/ProviderInterviewSection";
 
 const About = () => {
   useEffect(() => {
@@ -109,6 +110,18 @@ const About = () => {
               <StarTrekSection />
             </Box>
             <FounderMessage />
+            {/* Interview Section (dark-adapted) */}
+            <div style={{ paddingTop: '16px', paddingBottom: '16px' }}>
+              {/* Using the same section with dark variant below founder message */}
+              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+              {/* @ts-ignore - component is TSX with React.FC props */}
+              <ProviderInterviewSection
+                variant="dark"
+                title="Guided by Experience. Driven by Vision."
+                description="Former IBM executive John Reece leverages decades of leadership in healthcare technology and AI to help S10.AI advance its medical scribes and intelligent agents, delivering precision, speed, and measurable results."
+                subtitle="Board Advisor – John Reece"
+              />
+            </div>
             <TeamSection />
             <TrustedBy />
           </Box>

@@ -9,6 +9,7 @@ interface YouTubeFacadeProps {
   className?: string;
   posterUrl?: string; // Optional custom poster/thumbnail image URL
   playPosition?: 'center' | 'bottom-left' | 'bottom-right';
+  imageClassName?: string; // allow custom object-position/fit
 }
 
 export const YouTubeFacade = ({
@@ -18,6 +19,7 @@ export const YouTubeFacade = ({
   className = '',
   posterUrl,
   playPosition = 'center',
+  imageClassName = '',
 }: YouTubeFacadeProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   
@@ -50,7 +52,7 @@ export const YouTubeFacade = ({
             src={thumbnailUrl} 
             alt={`Thumbnail for ${title}`}
             loading="lazy"
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover ${imageClassName}`}
           />
           
           {/* Play button overlay */}
