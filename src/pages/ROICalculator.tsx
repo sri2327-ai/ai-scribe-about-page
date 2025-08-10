@@ -85,18 +85,22 @@ const ROICalculatorPage: React.FC = () => {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="p-6 hover:shadow-lg transition-all duration-300 group">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-2 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Quote className="h-5 w-5 text-primary" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+              <Card className="p-4 lg:p-6 hover:shadow-lg transition-all duration-300 group">
+                <div className="flex items-center gap-3 lg:gap-4 mb-4">
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <img 
+                      src="/case-studies/family-medicine.svg" 
+                      alt="Family Medicine" 
+                      className="w-6 h-6 lg:w-8 lg:h-8"
+                    />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Family Medicine Practice</h3>
-                    <p className="text-sm text-muted-foreground">Multi-provider clinic</p>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-base lg:text-lg">Family Medicine Practice</h3>
+                    <p className="text-xs lg:text-sm text-muted-foreground">Multi-provider clinic</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm lg:text-base text-muted-foreground mb-4 leading-relaxed">
                   "S10.AI reduced our documentation time by 70% while improving note quality and patient satisfaction."
                 </p>
                 <Button asChild variant="outline" size="sm" className="w-full">
@@ -104,17 +108,21 @@ const ROICalculatorPage: React.FC = () => {
                 </Button>
               </Card>
 
-              <Card className="p-6 hover:shadow-lg transition-all duration-300 group">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-2 rounded-full bg-secondary/10 group-hover:bg-secondary/20 transition-colors">
-                    <Quote className="h-5 w-5 text-secondary" />
+              <Card className="p-4 lg:p-6 hover:shadow-lg transition-all duration-300 group">
+                <div className="flex items-center gap-3 lg:gap-4 mb-4">
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-secondary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <img 
+                      src="/case-studies/gastro-illustration.svg" 
+                      alt="Gastroenterology" 
+                      className="w-6 h-6 lg:w-8 lg:h-8"
+                    />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Gastroenterology</h3>
-                    <p className="text-sm text-muted-foreground">Specialty practice</p>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-base lg:text-lg">Gastroenterology</h3>
+                    <p className="text-xs lg:text-sm text-muted-foreground">Specialty practice</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm lg:text-base text-muted-foreground mb-4 leading-relaxed">
                   "We recovered 15+ hours per week per provider, allowing us to see more patients without burnout."
                 </p>
                 <Button asChild variant="outline" size="sm" className="w-full">
@@ -122,17 +130,21 @@ const ROICalculatorPage: React.FC = () => {
                 </Button>
               </Card>
 
-              <Card className="p-6 hover:shadow-lg transition-all duration-300 group">
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-2 rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors">
-                    <Quote className="h-5 w-5 text-accent-foreground" />
+              <Card className="p-4 lg:p-6 hover:shadow-lg transition-all duration-300 group">
+                <div className="flex items-center gap-3 lg:gap-4 mb-4">
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <img 
+                      src="/case-studies/multi-provider-illustration.svg" 
+                      alt="Multi-Provider Practice" 
+                      className="w-6 h-6 lg:w-8 lg:h-8"
+                    />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-lg">Multi-Provider Practice</h3>
-                    <p className="text-sm text-muted-foreground">Large clinic network</p>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-base lg:text-lg">Multi-Provider Practice</h3>
+                    <p className="text-xs lg:text-sm text-muted-foreground">Large clinic network</p>
                   </div>
                 </div>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-sm lg:text-base text-muted-foreground mb-4 leading-relaxed">
                   "Seamless integration with our existing workflow. ROI was evident within the first month."
                 </p>
                 <Button asChild variant="outline" size="sm" className="w-full">
@@ -144,15 +156,15 @@ const ROICalculatorPage: React.FC = () => {
 
           {/* Final CTA Section */}
           <section aria-label="Collaborate with providers" className="mb-16">
-            <Card className="p-8 md:p-12 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
+            <Card className="p-6 lg:p-8 xl:p-12 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
               <div className="text-center max-w-3xl mx-auto">
-                <h2 className={typography.h2 + " mb-6"}>
+                <h2 className={typography.h2 + " mb-4 lg:mb-6"}>
                   Collaborate with providers across 200+ specialties
                 </h2>
-                <p className={typography.description + " mb-8 text-lg"}>
+                <p className={typography.description + " mb-6 lg:mb-8 text-base lg:text-lg"}>
                   Transforming documentation into a tool that supports rather than hinders them.
                 </p>
-                <RainbowButton asChild className="text-lg px-8 py-4">
+                <RainbowButton asChild className="text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4">
                   <Link to="/contact">BOOK A DEMO</Link>
                 </RainbowButton>
               </div>
