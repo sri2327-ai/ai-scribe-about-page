@@ -230,7 +230,7 @@ export const FirstSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-xl border border-gray-200 rounded-xl px-4 py-2 shadow-2xl shadow-black/5 hover:shadow-black/10 transition-all duration-500 hover:scale-[1.02] hover:bg-white/90"
+              className="group relative inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-xl border border-gray-200 rounded-xl px-4 py-2 shadow-2xl shadow-black/15 hover:shadow-black/25 transition-all duration-500 hover:scale-[1.02] hover:bg-white/90"
             >
               {/* Gradient shine overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
