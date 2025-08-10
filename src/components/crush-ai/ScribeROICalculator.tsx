@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
+import { DollarSign, Clock, Calendar, Users } from 'lucide-react';
 
 interface ScribeROICalculatorProps {
   onCalculate?: (data: { monthly: number; yearly: number; multiplier: number }) => void;
@@ -51,9 +52,9 @@ const ScribeROICalculator: React.FC<ScribeROICalculatorProps> = ({ onCalculate }
   }, [roi.yearlySavings, onCalculate]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
       {/* Input Section */}
-      <div className="lg:col-span-2">
+      <div className="w-full">
         <Card className="p-6 shadow-md">
           <div className="mb-8">
             <h3 className="text-2xl font-bold mb-2">Adjust for your practice</h3>
@@ -125,25 +126,45 @@ const ScribeROICalculator: React.FC<ScribeROICalculatorProps> = ({ onCalculate }
       </div>
 
       {/* Results Section */}
-      <div className="lg:col-span-1">
-        <Card className="p-6 bg-gradient-to-br from-blue-50 to-green-50 shadow-md sticky top-4">
+      <div className="w-full">
+        <Card className="p-6 bg-gradient-to-br from-primary/5 to-secondary/5 shadow-md xl:sticky xl:top-4">
           <h4 className="text-xl font-bold mb-6 text-center">Your Savings</h4>
-          <div className="grid grid-cols-1 gap-4">
-            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-              <div className="text-2xl font-bold text-green-600">${roi.yearlySavings.toLocaleString()}</div>
-              <div className="text-sm font-medium text-muted-foreground">Saved each year</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-1 gap-4">
+            <div className="flex items-center gap-4 p-4 bg-card rounded-lg shadow-sm border">
+              <div className="p-2 rounded-full bg-primary/10">
+                <DollarSign className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-primary">${roi.yearlySavings.toLocaleString()}</div>
+                <div className="text-sm font-medium text-muted-foreground">Saved each year</div>
+              </div>
             </div>
-            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-              <div className="text-2xl font-bold text-blue-600">{roi.hoursPerProviderPerWeek}</div>
-              <div className="text-sm font-medium text-muted-foreground">Hours saved per provider/week</div>
+            <div className="flex items-center gap-4 p-4 bg-card rounded-lg shadow-sm border">
+              <div className="p-2 rounded-full bg-secondary/10">
+                <Clock className="h-6 w-6 text-secondary" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-secondary">{roi.hoursPerProviderPerWeek}</div>
+                <div className="text-sm font-medium text-muted-foreground">Hours saved per provider/week</div>
+              </div>
             </div>
-            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-              <div className="text-2xl font-bold text-purple-600">{roi.additionalVisitsPerYear.toLocaleString()}</div>
-              <div className="text-sm font-medium text-muted-foreground">Additional patient visits/year</div>
+            <div className="flex items-center gap-4 p-4 bg-card rounded-lg shadow-sm border">
+              <div className="p-2 rounded-full bg-accent/10">
+                <Calendar className="h-6 w-6 text-accent-foreground" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-accent-foreground">{roi.additionalVisitsPerYear.toLocaleString()}</div>
+                <div className="text-sm font-medium text-muted-foreground">Additional patient visits/year</div>
+              </div>
             </div>
-            <div className="text-center p-4 bg-white rounded-lg shadow-sm">
-              <div className="text-2xl font-bold text-orange-600">{roi.equivalentProviders.toFixed(1)}</div>
-              <div className="text-sm font-medium text-muted-foreground">Equivalent full-time providers</div>
+            <div className="flex items-center gap-4 p-4 bg-card rounded-lg shadow-sm border">
+              <div className="p-2 rounded-full bg-muted/10">
+                <Users className="h-6 w-6 text-foreground" />
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-foreground">{roi.equivalentProviders.toFixed(1)}</div>
+                <div className="text-sm font-medium text-muted-foreground">Equivalent full-time providers</div>
+              </div>
             </div>
           </div>
         </Card>
