@@ -14,7 +14,7 @@ const ProviderInterviewSection: React.FC = () => {
 
   return (
     <section aria-labelledby="provider-interview-title" className="px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto py-10 md:py-14">
-      <article className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-background to-card/90 supports-[backdrop-filter]:backdrop-blur-xl shadow-xl">
+      <article className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-background to-card/90 supports-[backdrop-filter]:backdrop-blur-xl shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left: Video */}
           <div id="provider-interview-video" className="relative aspect-[16/9] md:aspect-auto md:h-full">
@@ -24,6 +24,7 @@ const ProviderInterviewSection: React.FC = () => {
                 title="Board Advisor Interview – John Reece"
                 thumbnailQuality="sddefault"
                 posterUrl="/lovable-uploads/57586e42-0a19-4af9-9ec2-b9a08f865298.png"
+                playPosition="bottom-left"
                 className="h-full w-full object-cover"
               />
             </div>

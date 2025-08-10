@@ -8,6 +8,7 @@ interface YouTubeFacadeProps {
   thumbnailQuality?: 'default' | 'hqdefault' | 'mqdefault' | 'sddefault' | 'maxresdefault';
   className?: string;
   posterUrl?: string; // Optional custom poster/thumbnail image URL
+  playPosition?: 'center' | 'bottom-left' | 'bottom-right';
 }
 
 export const YouTubeFacade = ({
@@ -16,16 +17,21 @@ export const YouTubeFacade = ({
   thumbnailQuality = 'hqdefault',
   className = '',
   posterUrl,
+  playPosition = 'center',
 }: YouTubeFacadeProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   
   // Thumbnail: allow custom poster override, fallback to YouTube auto thumbnail
   const thumbnailUrl = posterUrl || `https://img.youtube.com/vi/${videoId}/${thumbnailQuality}.jpg`;
   
-  const loadVideo = () => {
-    setIsLoaded(true);
-  };
+  const loadVideo = () => { setIsLoaded(true); };
 
+  const playPositionClass =
+    playPosition === 'bottom-left'
+      ? 'items-end justify-start p-4'
+      : playPosition === 'bottom-right'
+      ? 'items-end justify-end p-4'
+      : 'items-center justify-center';
   return (
     <div 
       className={`w-full h-full overflow-hidden rounded-lg relative ${className}`}
@@ -48,9 +54,9 @@ export const YouTubeFacade = ({
           />
           
           {/* Play button overlay */}
-          <div className="absolute inset-0 bg-black/30 flex items-center justify-center group-hover:bg-black/40 transition-all duration-300">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/90 flex items-center justify-center group-hover:scale-110 transform transition-all duration-300">
-              <Play className="w-8 h-8 sm:w-10 sm:h-10 text-[#143151] ml-1" fill="#143151" />
+          <div className={`absolute inset-0 flex ${playPositionClass} transition-all duration-300`}>
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white/90 backdrop-blur-md shadow-lg ring-1 ring-black/5 flex items-center justify-center group-hover:scale-110 transform transition-all duration-300">
+              <Play className="w-7 h-7 sm:w-8 sm:h-8 text-primary ml-0.5" />
             </div>
             <span className="sr-only">Play video</span>
           </div>
