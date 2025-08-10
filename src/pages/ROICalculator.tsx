@@ -56,9 +56,7 @@ const ROICalculatorPage: React.FC = () => {
 
           <header className="text-center mb-8">
             <h1 className={typography.h1}>See what S10.AI can save you</h1>
-            <p className={typography.description + " mt-3 mx-auto max-w-2xl"}>
-              Organizations using S10.AI get back on average 10 hours per provider per week and also reduce no-shows and recover appointments.
-            </p>
+            <p className={typography.description + " mt-3 mx-auto max-w-2xl"}>Organizations using S10.AI recover an average of 10 hours per provider per week, reduce no-shows, and regain lost appointments.</p>
           </header>
 
           <section aria-label="ROI calculators" className="mb-20">
