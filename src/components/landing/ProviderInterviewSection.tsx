@@ -1,7 +1,7 @@
 import React from "react";
 import { YouTubeFacade } from "@/components/ui/youtube-facade";
 import { Button } from "@/components/ui/button";
-import { Play, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 /**
  * ProviderInterviewSection
@@ -14,15 +14,16 @@ const ProviderInterviewSection: React.FC = () => {
 
   return (
     <section aria-labelledby="provider-interview-title" className="px-4 sm:px-6 md:px-8 lg:px-12 max-w-7xl mx-auto py-10 md:py-14">
-      <article className="bg-card text-foreground border border-border rounded-3xl shadow-lg overflow-hidden">
+      <article className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-background to-card/90 supports-[backdrop-filter]:backdrop-blur-xl shadow-xl">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Left: Video */}
-          <div className="relative aspect-[16/9] md:aspect-auto md:h-full">
+          <div id="provider-interview-video" className="relative aspect-[16/9] md:aspect-auto md:h-full">
             <div className="h-full w-full">
               <YouTubeFacade
                 videoId={VIDEO_ID}
                 title="Board Advisor Interview – John Reece"
                 thumbnailQuality="sddefault"
+                posterUrl="/lovable-uploads/57586e42-0a19-4af9-9ec2-b9a08f865298.png"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -40,40 +41,21 @@ const ProviderInterviewSection: React.FC = () => {
               Former IBM leader, John Reece brings decades of expertise in healthcare technology and AI innovation, guiding S10.AI’s medical scribes and intelligent agents to deliver accuracy, efficiency, and real-world impact.
             </p>
 
-            {/* Advisor details */}
-            <div className="flex items-center gap-4">
-              <img
-                src="/lovable-uploads/e821a788-6061-4aa5-b3c1-2fed12387b14.png"
-                alt="Board Advisor John Reece portrait"
-                loading="lazy"
-                className="h-12 w-12 rounded-full ring-2 ring-border object-cover"
-              />
-              <div className="text-sm">
-                <div className="font-semibold">Board Advisor – John Reece</div>
-                <div className="text-muted-foreground">Watch Interview</div>
-              </div>
-            </div>
+            <p className="text-sm text-muted-foreground">Board Advisor – John Reece</p>
 
             {/* Actions */}
             <div className="mt-2 flex items-center gap-3">
               <Button
-                className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-md"
+                className="bg-gradient-to-r from-primary to-primary/70 hover:from-primary/90 hover:to-primary/60 text-primary-foreground shadow-md group"
                 onClick={() => {
-                  // Scroll to the video area so users can click play
-                  const el = document.getElementById("provider-interview-title");
+                  const el = document.getElementById("provider-interview-video");
                   el?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
               >
-                <Play className="mr-2 h-4 w-4" />
                 Watch Interview
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
               </Button>
 
-              <a
-                href="#provider-interview-title"
-                className="story-link inline-flex items-center gap-1 text-sm text-primary"
-              >
-                Learn more <ArrowUpRight className="h-4 w-4" />
-              </a>
             </div>
           </div>
         </div>

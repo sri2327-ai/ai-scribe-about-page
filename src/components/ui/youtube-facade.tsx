@@ -7,6 +7,7 @@ interface YouTubeFacadeProps {
   title: string;
   thumbnailQuality?: 'default' | 'hqdefault' | 'mqdefault' | 'sddefault' | 'maxresdefault';
   className?: string;
+  posterUrl?: string; // Optional custom poster/thumbnail image URL
 }
 
 export const YouTubeFacade = ({
@@ -14,11 +15,12 @@ export const YouTubeFacade = ({
   title,
   thumbnailQuality = 'hqdefault',
   className = '',
+  posterUrl,
 }: YouTubeFacadeProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   
-  // YouTube thumbnail URL format
-  const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/${thumbnailQuality}.jpg`;
+  // Thumbnail: allow custom poster override, fallback to YouTube auto thumbnail
+  const thumbnailUrl = posterUrl || `https://img.youtube.com/vi/${videoId}/${thumbnailQuality}.jpg`;
   
   const loadVideo = () => {
     setIsLoaded(true);
@@ -34,7 +36,7 @@ export const YouTubeFacade = ({
         // Facade - lightweight placeholder with thumbnail
         <button
           onClick={loadVideo}
-          className="w-full h-full group relative focus:outline-none focus:ring-2 focus:ring-[#387E89] focus:ring-offset-2"
+          className="w-full h-full group relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           aria-label={`Play video: ${title}`}
         >
           {/* Thumbnail image */}
