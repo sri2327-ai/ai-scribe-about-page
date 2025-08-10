@@ -19,6 +19,7 @@ import AnimatedHeader from '@/components/landing/AnimatedHeader';
 import { useExitIntent } from "@/hooks/useExitIntent";
 import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 import ConnectedPlatformSection from '@/components/landing/ConnectedPlatformSection';
+import ProviderInterviewSection from '@/components/landing/ProviderInterviewSection';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -146,9 +147,12 @@ const Landing = () => {
         {/* New Connected Platform Section */}
         <ConnectedPlatformSection />
         
+        {/* Interview Feature Section */}
+        <ProviderInterviewSection />
+        
         <FourthSection />
         <IntegrationSection />
-        
+
         <Suspense fallback={<SectionLoader />}>
           <FifthSection />
         </Suspense>
