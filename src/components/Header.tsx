@@ -128,35 +128,62 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-lg text-gray-900 mb-4">Who we're for</h3>
-                      <div className="space-y-2">
-                        <DropdownMenuItem asChild>
-                          <Link
-                            to="/customer"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                          >
-                            <div className="font-medium text-gray-900">Health systems</div>
-                            <div className="text-sm text-gray-600">Enterprise healthcare solutions</div>
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link
-                            to="/customer"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                          >
-                            <div className="font-medium text-gray-900">Private practice</div>
-                            <div className="text-sm text-gray-600">Independent practices</div>
-                          </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                          <Link
-                            to="/specialty"
-                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
-                          >
-                            <div className="font-medium text-gray-900">Specialty</div>
-                            <div className="text-sm text-gray-600">Specialized medical practices</div>
-                          </Link>
-                        </DropdownMenuItem>
-                      </div>
+                        <div className="space-y-2">
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/customer"
+                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            >
+                              <div className="font-medium text-gray-900">New clinics & startups</div>
+                              <div className="text-sm text-gray-600">Launch quickly. Automate admin. Scale what works.</div>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/customer"
+                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            >
+                              <div className="font-medium text-gray-900">Independent clinicians</div>
+                              <div className="text-sm text-gray-600">Work smart. Save time. Stay patient-focused.</div>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/customer"
+                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            >
+                              <div className="font-medium text-gray-900">Group practices</div>
+                              <div className="text-sm text-gray-600">Grow efficiently. Standardize care. Build loyalty.</div>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/specialty"
+                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            >
+                              <div className="font-medium text-gray-900">Specialty care</div>
+                              <div className="text-sm text-gray-600">Tailored workflows. Fewer handoffs. Better outcomes.</div>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/customer"
+                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            >
+                              <div className="font-medium text-gray-900">Virtual care</div>
+                              <div className="text-sm text-gray-600">Launch fast. Consistent visits. Keep patients engaged.</div>
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link
+                              to="/customer"
+                              className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                            >
+                              <div className="font-medium text-gray-900">Hospitals & health systems</div>
+                              <div className="text-sm text-gray-600">Scale capacity. Align teams. Attract talent.</div>
+                            </Link>
+                          </DropdownMenuItem>
+                        </div>
                     </div>
                   </div>
                 </DropdownMenuContent>
@@ -296,21 +323,42 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               onClick={closeMenu}
               className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
-              Health Systems
+              New clinics & startups
             </NavLink>
             <NavLink
               to="/customer"
               onClick={closeMenu}
               className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
-              Private Practice
+              Independent clinicians
+            </NavLink>
+            <NavLink
+              to="/customer"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Group practices
             </NavLink>
             <NavLink
               to="/specialty"
               onClick={closeMenu}
               className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
-              Specialty
+              Specialty care
+            </NavLink>
+            <NavLink
+              to="/customer"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Virtual care
+            </NavLink>
+            <NavLink
+              to="/customer"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Hospitals & health systems
             </NavLink>
 
             <NavLink
