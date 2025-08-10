@@ -11,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
 import OptimizedImage from '@/components/ui/optimized-image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 // Simplified voice animation component
 const VoiceAnimation = ({
@@ -235,25 +236,45 @@ export const FirstSection = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
               
               {/* Content */}
-              <div className="relative flex items-center gap-3 z-10">
-                <Badge variant="secondary" className="rounded-full px-3.5 py-1.5">
+              <div className="relative flex items-center gap-4 z-10">
+                {/* Providers badge with avatar group */}
+                <Badge variant="secondary" className="rounded-full pl-2 pr-3 py-1.5">
                   <span className="inline-flex items-center gap-2">
-                    <Users className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span className="-ml-1 inline-flex -space-x-2" aria-hidden="true">
+                      <Avatar className="h-5 w-5 ring-2 ring-white">
+                        <AvatarImage src="/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" alt="Provider" />
+                        <AvatarFallback>DR</AvatarFallback>
+                      </Avatar>
+                      <Avatar className="h-5 w-5 ring-2 ring-white">
+                        <AvatarImage src="/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" alt="Provider" />
+                        <AvatarFallback>MD</AvatarFallback>
+                      </Avatar>
+                      <Avatar className="h-5 w-5 ring-2 ring-white">
+                        <AvatarImage src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Provider" />
+                        <AvatarFallback>RN</AvatarFallback>
+                      </Avatar>
+                    </span>
                     <span className="text-xs sm:text-sm font-semibold">1,000+ healthcare providers</span>
                   </span>
                 </Badge>
+
+                <span className="hidden sm:block h-5 w-px bg-slate-300/60" aria-hidden="true" />
+
+                {/* Trustpilot badge with star tiles */}
                 <Badge variant="default" className="rounded-full px-3.5 py-1.5">
                   <span className="inline-flex items-center gap-2">
-                    <span className="sr-only">Trustpilot rating</span>
-                    <span className="text-xs sm:text-sm font-semibold">Trustpilot</span>
-                    <span className="flex items-center" aria-hidden="true">
-                      <Star className="w-3.5 h-3.5 fill-current" />
-                      <Star className="w-3.5 h-3.5 fill-current" />
-                      <Star className="w-3.5 h-3.5 fill-current" />
-                      <Star className="w-3.5 h-3.5 fill-current" />
-                      <Star className="w-3.5 h-3.5 fill-current" />
+                    <span className="text-xs sm:text-sm font-semibold">Excellent</span>
+                    <span className="flex items-center gap-0.5" aria-hidden="true">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <span key={i} className="w-3.5 h-3.5 bg-emerald-500 text-white grid place-items-center rounded-[2px]">
+                          <Star className="w-2.5 h-2.5 fill-white text-white" />
+                        </span>
+                      ))}
                     </span>
-                    <span className="text-xs sm:text-sm">Excellent</span>
+                    <span className="inline-flex items-center gap-1">
+                      <Star className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
+                      <span className="text-xs sm:text-sm">Trustpilot</span>
+                    </span>
                   </span>
                 </Badge>
               </div>
