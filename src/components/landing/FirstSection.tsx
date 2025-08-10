@@ -6,6 +6,7 @@ import Marquee from "react-fast-marquee";
 import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Star, TrendingUp, Play } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { useWindowSize } from '@/hooks/use-window-size';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -235,15 +236,26 @@ export const FirstSection = () => {
               
               {/* Content */}
               <div className="relative flex items-center gap-3 z-10">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                  <Star className="w-4 h-4 text-slate-600" />
-                </div>
-                <span className="text-sm font-semibold text-slate-700 tracking-wide">1,000+ Healthcare Providers</span>
-                <div className="flex items-center gap-1">
-                  <div className="w-1 h-1 bg-slate-400 rounded-full" />
-                  <span className="text-xs font-medium text-slate-500">Verified</span>
-                </div>
+                <Badge variant="secondary" className="rounded-full px-3.5 py-1.5">
+                  <span className="inline-flex items-center gap-2">
+                    <Users className="w-3.5 h-3.5" aria-hidden="true" />
+                    <span className="text-xs sm:text-sm font-semibold">1,000+ healthcare providers</span>
+                  </span>
+                </Badge>
+                <Badge variant="default" className="rounded-full px-3.5 py-1.5">
+                  <span className="inline-flex items-center gap-2">
+                    <span className="sr-only">Trustpilot rating</span>
+                    <span className="text-xs sm:text-sm font-semibold">Trustpilot</span>
+                    <span className="flex items-center" aria-hidden="true">
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                      <Star className="w-3.5 h-3.5 fill-current" />
+                    </span>
+                    <span className="text-xs sm:text-sm">Excellent</span>
+                  </span>
+                </Badge>
               </div>
             </motion.div>
 
