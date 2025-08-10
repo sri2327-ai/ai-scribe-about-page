@@ -145,32 +145,38 @@ const AnimatedHeader = () => {
     ],
     whoWeAreFor: [
       {
-        title: 'Independent Practices',
-        description: 'Tools built for solo and small teams',
-        icon: <Users className="w-5 h-5 text-[#143151]" />,
-        href: '/customer'
-      },
-      {
-        title: 'Group Practices',
-        description: 'Streamlined collaboration for growing teams',
-        icon: <Building className="w-5 h-5 text-[#387E89]" />,
-        href: '/customer'
-      },
-      {
-        title: 'New Clinics & Startups',
-        description: 'Ready-to-go solutions to launch and scale fast',
+        title: 'New clinics & startups',
+        description: 'Launch quickly. Automate admin. Scale what works.',
         icon: <Zap className="w-5 h-5 text-[#5192AE]" />,
         href: '/customer'
       },
       {
-        title: 'Specialty Clinics',
-        description: 'AI tailored to your specific workflows',
+        title: 'Independent clinicians',
+        description: 'Work smart. Save time. Stay patient-focused.',
+        icon: <Users className="w-5 h-5 text-[#143151]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Group practices',
+        description: 'Grow efficiently. Standardize care. Build loyalty.',
+        icon: <Building className="w-5 h-5 text-[#387E89]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Specialty care',
+        description: 'Tailored workflows. Fewer handoffs. Better outcomes.',
         icon: <Stethoscope className="w-5 h-5 text-[#A5CCF3]" />,
         href: '/specialty'
       },
       {
-        title: 'Health Systems',
-        description: 'Scalable enterprise support across locations',
+        title: 'Virtual care',
+        description: 'Launch fast. Consistent visits. Keep patients engaged.',
+        icon: <Globe className="w-5 h-5 text-[#5192AE]" />,
+        href: '/customer'
+      },
+      {
+        title: 'Hospitals & health systems',
+        description: 'Scale capacity. Align teams. Attract talent.',
         icon: <Building className="w-5 h-5 text-[#143151]" />,
         href: '/customer'
       }
