@@ -230,50 +230,50 @@ export const FirstSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative inline-flex items-center gap-3 bg-white/80 backdrop-blur-xl border border-gray-300 rounded-2xl px-6 py-3.5 shadow-2xl shadow-black/5 hover:shadow-black/10 transition-all duration-500 hover:scale-[1.02] hover:bg-white/90"
+              className="group relative inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-xl border border-gray-200 rounded-xl px-4 py-2 shadow-2xl shadow-black/5 hover:shadow-black/10 transition-all duration-500 hover:scale-[1.02] hover:bg-white/90"
             >
               {/* Gradient shine overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
               
               {/* Content */}
-              <div className="relative flex items-center gap-4 z-10">
+              <div className="relative flex items-center gap-3 z-10">
                 {/* Providers badge with avatar group */}
-                <Badge variant="secondary" className="rounded-full pl-2 pr-3 py-1.5">
+                <Badge variant="secondary" className="rounded-full pl-2 pr-3 py-1">
                   <span className="inline-flex items-center gap-2">
                     <span className="-ml-1 inline-flex -space-x-2" aria-hidden="true">
-                      <Avatar className="h-5 w-5 ring-2 ring-white">
+                      <Avatar className="h-4 w-4 ring-1 ring-white">
                         <AvatarImage src="/lovable-uploads/8373b719-98a1-40b9-8d6b-b23bebf28d33.png" alt="Provider" />
                         <AvatarFallback>DR</AvatarFallback>
                       </Avatar>
-                      <Avatar className="h-5 w-5 ring-2 ring-white">
+                      <Avatar className="h-4 w-4 ring-1 ring-white">
                         <AvatarImage src="/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" alt="Provider" />
                         <AvatarFallback>MD</AvatarFallback>
                       </Avatar>
-                      <Avatar className="h-5 w-5 ring-2 ring-white">
+                      <Avatar className="h-4 w-4 ring-1 ring-white">
                         <AvatarImage src="/lovable-uploads/33bd8709-1dcd-44d5-aabd-b7a721dc9928.png" alt="Provider" />
                         <AvatarFallback>RN</AvatarFallback>
                       </Avatar>
                     </span>
-                    <span className="text-xs sm:text-sm font-semibold">1,000+ healthcare providers</span>
+                    <span className="text-xs font-semibold whitespace-nowrap">1,000+ providers</span>
                   </span>
                 </Badge>
 
-                <span className="hidden sm:block h-5 w-px bg-slate-300/60" aria-hidden="true" />
+                <span className="hidden md:block h-4 w-px bg-slate-300/60" aria-hidden="true" />
 
                 {/* Trustpilot badge with star tiles */}
-                <Badge variant="default" className="rounded-full px-3.5 py-1.5">
+                <Badge variant="default" className="rounded-full px-3 py-1">
                   <span className="inline-flex items-center gap-2">
-                    <span className="text-xs sm:text-sm font-semibold">Excellent</span>
+                    <span className="text-xs font-semibold">Excellent</span>
                     <span className="flex items-center gap-0.5" aria-hidden="true">
                       {Array.from({ length: 5 }).map((_, i) => (
-                        <span key={i} className="w-3.5 h-3.5 bg-emerald-500 text-white grid place-items-center rounded-[2px]">
-                          <Star className="w-2.5 h-2.5 fill-white text-white" />
+                        <span key={i} className="w-3 h-3 bg-emerald-500 text-white grid place-items-center rounded-[2px]">
+                          <Star className="w-2 h-2 fill-white text-white" />
                         </span>
                       ))}
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 text-emerald-600" aria-hidden="true" />
-                      <span className="text-xs sm:text-sm">Trustpilot</span>
+                      <Star className="w-3 h-3 text-emerald-600" aria-hidden="true" />
+                      <span className="hidden sm:inline text-xs">Trustpilot</span>
                     </span>
                   </span>
                 </Badge>
