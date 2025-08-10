@@ -145,12 +145,6 @@ const AnimatedHeader = () => {
     ],
     whoWeAreFor: [
       {
-        title: 'New clinics & startups',
-        description: 'Launch quickly. Automate admin. Scale what works.',
-        icon: <Zap className="w-5 h-5 text-[#5192AE]" />,
-        href: '/customer'
-      },
-      {
         title: 'Independent clinicians',
         description: 'Work smart. Save time. Stay patient-focused.',
         icon: <Users className="w-5 h-5 text-[#143151]" />,
@@ -172,6 +166,12 @@ const AnimatedHeader = () => {
         title: 'Virtual care',
         description: 'Launch fast. Consistent visits. Keep patients engaged.',
         icon: <Globe className="w-5 h-5 text-[#5192AE]" />,
+        href: '/customer'
+      },
+      {
+        title: 'New clinics & startups',
+        description: 'Launch quickly. Automate admin. Scale what works.',
+        icon: <Zap className="w-5 h-5 text-[#5192AE]" />,
         href: '/customer'
       },
       {
