@@ -37,7 +37,6 @@ export const YouTubeFacade = ({
   return (
     <div 
       className={`w-full h-full overflow-hidden rounded-lg relative ${className}`}
-      style={{ aspectRatio: "16/9" }}
       aria-label={isLoaded ? undefined : `Click to load YouTube video: ${title}`}
     >
       {!isLoaded ? (

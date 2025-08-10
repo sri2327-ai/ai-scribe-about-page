@@ -41,7 +41,7 @@ const ProviderInterviewSection: React.FC<ProviderInterviewSectionProps> = ({
                 posterUrl="/lovable-uploads/57586e42-0a19-4af9-9ec2-b9a08f865298.png"
                 playPosition="bottom-left"
                 className="h-full w-full"
-                imageClassName="object-cover object-center"
+                imageClassName="object-cover object-center md:object-top"
               />
             </div>
           </div>
