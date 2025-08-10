@@ -9,24 +9,26 @@ import ScribeROICalculator from "@/components/crush-ai/ScribeROICalculator";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { typography } from "@/lib/typography";
-
 import { Link } from "react-router-dom";
-
-
 const ROICalculatorPage: React.FC = () => {
-  const [agentSavings, setAgentSavings] = useState({ monthly: 0, yearly: 0, multiplier: 0 });
-  const [scribeSavings, setScribeSavings] = useState({ monthly: 0, yearly: 0, multiplier: 0 });
-
+  const [agentSavings, setAgentSavings] = useState({
+    monthly: 0,
+    yearly: 0,
+    multiplier: 0
+  });
+  const [scribeSavings, setScribeSavings] = useState({
+    monthly: 0,
+    yearly: 0,
+    multiplier: 0
+  });
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "name": "ROI Calculator - AI Agent and AI Medical Scribing",
     "url": "https://s10.ai/roi-calculator",
-    "description": "Interactive ROI calculator for AI Agent (phone/call) and AI Medical Scribing by S10.AI.",
+    "description": "Interactive ROI calculator for AI Agent (phone/call) and AI Medical Scribing by S10.AI."
   };
-
-  return (
-    <>
+  return <>
       <AnimatedHeader />
       <main className="min-h-screen bg-background">
         <Helmet>
@@ -70,22 +72,7 @@ const ROICalculatorPage: React.FC = () => {
                     <ROICalculator onCalculate={setAgentSavings} />
                   </div>
                     <div className="lg:sticky lg:top-24">
-                      <Card className="p-6">
-                        <h2 className={typography.h3 + " mb-4"}>Projected Savings</h2>
-                        <div className="space-y-3" role="status" aria-live="polite">
-                          <div className="flex justify-between">
-                            <span>Estimated Monthly Benefit</span>
-                            <span className="font-bold">${agentSavings.monthly.toLocaleString()}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Estimated Yearly Benefit</span>
-                            <span className="font-bold">${agentSavings.yearly.toLocaleString()}</span>
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-4">
-                          Adjust inputs to reflect your practice.
-                        </p>
-                      </Card>
+                      
                     </div>
                 </div>
               </TabsContent>
@@ -141,8 +128,6 @@ const ROICalculatorPage: React.FC = () => {
         </div>
       </main>
       <Footer />
-    </>
-  );
+    </>;
 };
-
 export default ROICalculatorPage;
