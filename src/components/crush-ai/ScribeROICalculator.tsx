@@ -7,90 +7,135 @@ interface ScribeROICalculatorProps {
 }
 
 const ScribeROICalculator: React.FC<ScribeROICalculatorProps> = ({ onCalculate }) => {
-  const [providers, setProviders] = useState(3);
-  const [costPerProvider, setCostPerProvider] = useState(99);
-  const [patientsPerDay, setPatientsPerDay] = useState(20);
+  const [providers, setProviders] = useState(5);
+  const [providerSalary, setProviderSalary] = useState(180000);
+  const [visitsPerWeek, setVisitsPerWeek] = useState(75);
+  const [visitDuration, setVisitDuration] = useState(20);
 
-  const humanScribeCost = providers * 2000; // typical human scribe monthly cost per provider
-  const crushAICost = providers * costPerProvider; // configurable AI cost per provider
-  const monthlySavings = Math.max(humanScribeCost - crushAICost, 0);
+  const calculateRoi = () => {
+    // Time savings calculation based on reducing documentation time
+    const hoursPerProviderPerWeek = 10; // Average time saved per provider per week
+    const totalWeeklyHours = providers * hoursPerProviderPerWeek;
+    const totalAnnualHours = totalWeeklyHours * 50; // 50 working weeks
+    
+    // Calculate monetary savings based on provider time
+    const hourlyRate = providerSalary / (50 * 40); // 50 weeks, 40 hours per week
+    const yearlySavings = totalAnnualHours * hourlyRate;
+    
+    // Additional patient capacity calculation
+    const timePerVisit = visitDuration / 60; // Convert to hours
+    const additionalVisitsPerYear = Math.round(totalAnnualHours / timePerVisit);
+    
+    // Equivalent full-time providers (based on 2000 hours per year)
+    const equivalentProviders = totalAnnualHours / 2000;
+    
+    return {
+      yearlySavings,
+      hoursPerProviderPerWeek,
+      totalAnnualHours,
+      additionalVisitsPerYear,
+      equivalentProviders
+    };
+  };
+
+  const roi = calculateRoi();
 
   useEffect(() => {
     if (onCalculate) {
-      const multiplier = crushAICost > 0 ? humanScribeCost / crushAICost : 0;
       onCalculate({
-        monthly: monthlySavings,
-        yearly: monthlySavings * 12,
-        multiplier,
+        monthly: roi.yearlySavings / 12,
+        yearly: roi.yearlySavings,
+        multiplier: roi.yearlySavings > 0 ? roi.yearlySavings / 100000 : 0
       });
     }
-  }, [monthlySavings, humanScribeCost, crushAICost, onCalculate]);
+  }, [roi.yearlySavings, onCalculate]);
 
   return (
     <Card className="p-6 shadow-md">
-      <h3 className="text-2xl font-bold mb-6">ROI Calculator – AI Medical Scribing</h3>
-
-      <div className="space-y-8">
-        <div className="space-y-4">
-          <div className="flex justify-between">
-            <span>Number of Providers</span>
-            <span className="font-bold">{providers}</span>
+      <div className="mb-8">
+        <h3 className="text-2xl font-bold mb-2">Adjust for your practice</h3>
+        <p className="text-muted-foreground">Organizations using S10.AI get back on average 10 hours per provider per week</p>
+      </div>
+      
+      <div className="space-y-6">
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Providers on your team</span>
+            <span className="font-bold text-lg">{providers}</span>
           </div>
           <Slider
-            defaultValue={[providers]}
+            value={[providers]}
             onValueChange={(values) => setProviders(values[0])}
             min={1}
             max={100}
             step={1}
+            className="w-full"
           />
         </div>
 
-        <div className="space-y-4">
-          <div className="flex justify-between">
-            <span>Monthly Cost per Provider ($)</span>
-            <span className="font-bold">${costPerProvider}</span>
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Average provider salary ($)</span>
+            <span className="font-bold text-lg">${providerSalary.toLocaleString()}</span>
           </div>
           <Slider
-            defaultValue={[costPerProvider]}
-            onValueChange={(values) => setCostPerProvider(values[0])}
-            min={50}
-            max={1000}
-            step={1}
+            value={[providerSalary]}
+            onValueChange={(values) => setProviderSalary(values[0])}
+            min={100000}
+            max={500000}
+            step={5000}
+            className="w-full"
           />
         </div>
 
-        <div className="space-y-4">
-          <div className="flex justify-between">
-            <span>Patients per Day per Provider</span>
-            <span className="font-bold">{patientsPerDay}</span>
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Average provider visits/week</span>
+            <span className="font-bold text-lg">{visitsPerWeek}</span>
           </div>
           <Slider
-            defaultValue={[patientsPerDay]}
-            onValueChange={(values) => setPatientsPerDay(values[0])}
-            min={5}
-            max={50}
-            step={1}
+            value={[visitsPerWeek]}
+            onValueChange={(values) => setVisitsPerWeek(values[0])}
+            min={20}
+            max={150}
+            step={5}
+            className="w-full"
           />
         </div>
 
-        <div className="border-t pt-6">
-          <h4 className="text-xl font-bold mb-4">Your ROI Potential</h4>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span>Human Scribe Monthly Cost</span>
-              <span className="font-bold">${humanScribeCost.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Crush AI Monthly Cost</span>
-              <span className="font-bold">${crushAICost.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between text-lg">
-              <span className="font-bold">Estimated Monthly Savings</span>
-              <span className="font-bold text-green-600">${monthlySavings.toLocaleString()}</span>
-            </div>
-            <p className="text-sm text-muted-foreground">
-              Based on {providers} provider{providers > 1 ? "s" : ""} seeing {patientsPerDay} patients/day, replacing human scribes with AI.
-            </p>
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <span className="font-medium">Average visit duration (minutes)</span>
+            <span className="font-bold text-lg">{visitDuration}</span>
+          </div>
+          <Slider
+            value={[visitDuration]}
+            onValueChange={(values) => setVisitDuration(values[0])}
+            min={10}
+            max={60}
+            step={5}
+            className="w-full"
+          />
+        </div>
+      </div>
+
+      <div className="mt-8 pt-6 border-t bg-gradient-to-r from-blue-50 to-green-50 -m-6 p-6 rounded-b-lg">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600">${roi.yearlySavings.toLocaleString()}</div>
+            <div className="text-sm font-medium text-muted-foreground">Saved each year</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">{roi.hoursPerProviderPerWeek}</div>
+            <div className="text-sm font-medium text-muted-foreground">Hours saved per provider/week</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-purple-600">{roi.additionalVisitsPerYear.toLocaleString()}</div>
+            <div className="text-sm font-medium text-muted-foreground">Additional patient visits/year</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-orange-600">{roi.equivalentProviders.toFixed(1)}</div>
+            <div className="text-sm font-medium text-muted-foreground">Equivalent full-time providers</div>
           </div>
         </div>
       </div>
