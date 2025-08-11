@@ -11,6 +11,7 @@ import TechFeaturesContent from "@/components/technology/TechFeatures";
 import FloatingAICTADark from "@/components/landing/FloatingAICTADark";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import CaseStudiesAndInsights from "@/components/technology/CaseStudiesAndInsights";
 
 const Technology = () => {
   return (
@@ -67,6 +68,9 @@ const Technology = () => {
       <Container>
         {/* Third scroll section - SecurityCompliance */}
         <SecurityCompliance />
+        
+        {/* Case Studies + Insights (below Security Compliance) */}
+        <CaseStudiesAndInsights />
         
         {/* Fourth scroll section - ProjectSetupChecklist */}
         <ProjectSetupChecklist />
