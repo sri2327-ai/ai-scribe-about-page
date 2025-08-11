@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { cn } from "@/lib/utils";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import YouTubeFacade from "@/components/ui/youtube-facade";
+import Autoplay from "embla-carousel-autoplay";
 
 // Case Studies + Insights Section
 // - Top: Case study carousel with the first slide as a video using YouTubeFacade (like John Reece section)
@@ -71,8 +71,8 @@ const insights = [
 
 const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) => {
   return (
-    <article className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 items-stretch rounded-3xl bg-card shadow-xl p-4 sm:p-6 md:p-8">
-      <div className="relative overflow-hidden rounded-2xl aspect-[4/3] md:aspect-auto md:h-full">
+    <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-4 sm:p-6 md:p-8 animate-fade-in">
+      <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
         {cs.type === "video" ? (
           <YouTubeFacade
             videoId={(cs as any).videoId}
@@ -118,8 +118,32 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
 };
 
 const CaseStudiesAndInsights: React.FC = () => {
+  const [api, setApi] = useState<CarouselApi | null>(null);
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    const handleSelect = () => setCurrent(api.selectedScrollSnap());
+    const handleReInit = () => {
+      setCount(api.scrollSnapList().length);
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", handleSelect);
+    api.on("reInit", handleReInit);
+
+    return () => {
+      api.off("select", handleSelect);
+      api.off("reInit", handleReInit);
+    };
+  }, [api]);
+
   return (
-    <section aria-labelledby="tech-cs-insights-title" className="py-12 md:py-16">
+    <section aria-labelledby="tech-cs-insights-title" className="py-12 md:py-16 bg-gradient-to-b from-background via-muted/20 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <header className="mb-6 md:mb-10">
           <h2 id="tech-cs-insights-title" className="text-3xl md:text-4xl font-extrabold tracking-tight">
@@ -131,9 +155,14 @@ const CaseStudiesAndInsights: React.FC = () => {
         </header>
 
         {/* Case Study Carousel */}
-        <div aria-labelledby="case-studies-title" className="mb-10 md:mb-14">
+        <div aria-labelledby="case-studies-title" className="mb-8 md:mb-12">
           <h3 id="case-studies-title" className="sr-only">Case studies</h3>
-          <Carousel>
+          <Carousel
+            opts={{ align: "start", loop: true }}
+            plugins={[Autoplay({ delay: 5000, stopOnMouseEnter: true, stopOnInteraction: true })]}
+            setApi={setApi}
+            className="w-full"
+          >
             <CarouselContent>
               {caseStudies.map((cs) => (
                 <CarouselItem key={cs.id} className="basis-full">
@@ -141,9 +170,25 @@ const CaseStudiesAndInsights: React.FC = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="hidden md:inline-flex" />
+            <CarouselNext className="hidden md:inline-flex" />
           </Carousel>
+          {/* Dots */}
+          <div className="mt-4 flex items-center justify-center gap-2" role="tablist" aria-label="Select slide" aria-live="polite">
+            {Array.from({ length: count }).map((_, i) => (
+              <button
+                key={i}
+                role="tab"
+                aria-label={`Go to slide ${i + 1}`}
+                aria-selected={i === current}
+                onClick={() => api?.scrollTo(i)}
+                className={cn(
+                  "h-2.5 rounded-full transition-all",
+                  i === current ? "w-6 bg-primary" : "w-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                )}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Insights links */}
