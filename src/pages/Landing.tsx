@@ -20,6 +20,7 @@ import { useExitIntent } from "@/hooks/useExitIntent";
 import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 import ConnectedPlatformSection from '@/components/landing/ConnectedPlatformSection';
 import ProviderInterviewSection from '@/components/landing/ProviderInterviewSection';
+import CaseStudiesAndInsights from '@/components/technology/CaseStudiesAndInsights';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -166,6 +167,8 @@ const Landing = () => {
         </Suspense>
         
         <TenthSection />
+        {/* Case Studies + Insights just below Security, Compliance section */}
+        <CaseStudiesAndInsights />
         <PracticeTypeSelector onSelect={handlePracticeTypeSelect} />
         
         {/* Practice Health Check Section - Added above EleventhSection */}
