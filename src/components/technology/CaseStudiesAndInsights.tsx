@@ -71,7 +71,7 @@ const insights = [
 
 const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) => {
   return (
-    <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-4 sm:p-6 md:p-8 animate-fade-in md:h-[420px] lg:h-[460px]">
+    <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in md:h-[320px] lg:h-[340px]">
       <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
         {cs.type === "video" ? (
           <YouTubeFacade
@@ -93,10 +93,10 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
 
       <div className="flex flex-col justify-between">
         <div>
-          <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3 line-clamp-2">
+          <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2.5 line-clamp-2">
             {cs.title}
           </h3>
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4">
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4">
             {cs.quote}
           </p>
         </div>
@@ -105,7 +105,7 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             <p className="text-sm text-muted-foreground">Watch the story</p>
           ) : (
             cs.cta && (
-              <Button variant="outline" className="rounded-full group">
+              <Button variant="outline" size="sm" className="rounded-full group">
                 {cs.cta.label}
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
@@ -143,19 +143,19 @@ const CaseStudiesAndInsights: React.FC = () => {
   }, [api]);
 
   return (
-    <section aria-labelledby="tech-cs-insights-title" className="py-12 md:py-16 bg-gradient-to-b from-background via-muted/20 to-transparent">
+    <section aria-labelledby="tech-cs-insights-title" className="py-10 md:py-12 bg-gradient-to-b from-background via-muted/20 to-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <header className="mb-6 md:mb-10">
-          <h2 id="tech-cs-insights-title" className="text-3xl md:text-4xl font-extrabold tracking-tight">
+        <header className="mb-6 md:mb-8">
+          <h2 id="tech-cs-insights-title" className="text-2xl md:text-3xl font-extrabold tracking-tight">
             Real outcomes from modern AI workflows
           </h2>
-          <p className="mt-2 text-muted-foreground">
+          <p className="mt-1.5 text-muted-foreground">
             Explore case studies and timely insights for independent healthcare practices.
           </p>
         </header>
 
         {/* Case Study Carousel */}
-        <div aria-labelledby="case-studies-title" className="mb-8 md:mb-12">
+        <div aria-labelledby="case-studies-title" className="mb-6 md:mb-8">
           <h3 id="case-studies-title" className="sr-only">Case studies</h3>
           <Carousel
             opts={{ align: "start", loop: true }}
@@ -183,8 +183,8 @@ const CaseStudiesAndInsights: React.FC = () => {
                 aria-selected={i === current}
                 onClick={() => api?.scrollTo(i)}
                 className={cn(
-                  "h-2.5 rounded-full transition-all",
-                  i === current ? "w-6 bg-primary" : "w-2.5 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                  "h-2 rounded-full transition-all",
+                  i === current ? "w-5 bg-primary" : "w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60"
                 )}
               />
             ))}
