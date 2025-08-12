@@ -230,7 +230,7 @@ export const FirstSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative flex w-full sm:inline-flex sm:w-auto items-center justify-between sm:justify-start gap-2 sm:gap-3 bg-card/80 backdrop-blur-xl border border-border rounded-lg sm:rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 shadow-2xl shadow-black/15 hover:shadow-black/25 transition-all duration-500 hover:scale-[1.01] sm:hover:scale-[1.02] hover:bg-card/90 overflow-hidden"
+              className="group relative flex w-full sm:inline-flex sm:w-auto items-center justify-between sm:justify-start gap-2 sm:gap-3 bg-card/80 backdrop-blur-xl border border-transparent sm:border-border rounded-lg sm:rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 shadow-md md:shadow-lg transition-all duration-500 hover:scale-[1.01] sm:hover:scale-[1.02] hover:bg-card/90 overflow-hidden"
             >
               {/* Gradient shine overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
@@ -242,7 +242,7 @@ export const FirstSection = () => {
                   Trusted by 1,000+ providers
                 </span>
 
-                <span className="hidden md:block h-4 w-px bg-slate-300/60" aria-hidden="true" />
+                <span className="hidden md:block h-4 w-px bg-border/60" aria-hidden="true" />
 
                 <span className="inline-flex items-center gap-2 text-xs">
                   <span className="font-semibold">Excellent</span>
