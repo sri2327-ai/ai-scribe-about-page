@@ -230,13 +230,13 @@ export const FirstSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="group relative inline-flex items-center gap-2 sm:gap-3 bg-white/80 backdrop-blur-xl border border-gray-200 rounded-xl px-4 py-2 shadow-2xl shadow-black/15 hover:shadow-black/25 transition-all duration-500 hover:scale-[1.02] hover:bg-white/90"
+              className="group relative flex w-full sm:inline-flex sm:w-auto items-center justify-between sm:justify-start gap-2 sm:gap-3 bg-card/80 backdrop-blur-xl border border-border rounded-lg sm:rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 shadow-2xl shadow-black/15 hover:shadow-black/25 transition-all duration-500 hover:scale-[1.01] sm:hover:scale-[1.02] hover:bg-card/90 overflow-hidden"
             >
               {/* Gradient shine overlay */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
               
               {/* Content */}
-              <div className="relative z-10 flex items-center gap-3">
+              <div className="relative z-10 flex flex-wrap items-center gap-2 sm:gap-3 w-full justify-center sm:justify-start">
                 <span className="inline-flex items-center gap-1.5 text-xs font-semibold">
                   <TrendingUp className="w-3.5 h-3.5 text-amber-600" aria-hidden="true" />
                   Trusted by 1,000+ providers
