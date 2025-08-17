@@ -485,14 +485,14 @@ const AnimatedHeader = () => {
           onMouseLeave={handleMouseLeave}
         >
           <Card 
-            className={`p-4 md:p-6 shadow-2xl border-0 backdrop-blur-xl ${
+            className={`p-3 md:p-4 lg:p-6 shadow-2xl border-0 backdrop-blur-xl ${
               type === 'solutions' 
-                ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[900px] xl:w-[1000px] max-w-[1000px]' 
+                ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[900px] xl:w-[1000px] max-w-[1000px]' 
                 : type === 'specialties'
-                ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[900px] xl:w-[950px] max-w-[950px]'
+                ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[900px] xl:w-[950px] max-w-[950px]'
                 : type === 'resources'
-                ? 'w-[90vw] sm:w-[85vw] md:w-[80vw] lg:w-[850px] xl:w-[900px] max-w-[900px]'
-                : 'w-[90vw] max-w-[400px]'
+                ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[850px] xl:w-[900px] max-w-[900px]'
+                : 'w-[94vw] sm:w-[90vw] max-w-[400px]'
             }`}
             style={{
               backdropFilter: 'blur(20px)',
@@ -785,6 +785,7 @@ const AnimatedHeader = () => {
                               {item.description}
                             </div>
                           </div>
+                          <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-gray-400 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all flex-shrink-0" />
                         </Link>
                       </motion.div>
                     ))}
@@ -792,15 +793,15 @@ const AnimatedHeader = () => {
                 </div>
               </div>
             ) : type === 'resources' ? (
-              <div className="space-y-6 max-h-[80vh] overflow-y-auto">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
+              <div className="space-y-4 md:space-y-6 max-h-[70vh] md:max-h-[80vh] overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
                   {/* Tools Column */}
-                  <div>
-                    <div className="mb-4">
-                      <h3 className="text-base lg:text-lg font-bold text-[#143151] mb-2">Tools</h3>
-                      <p className="text-xs lg:text-sm text-gray-600">Practice optimization tools</p>
+                  <div className="space-y-3 md:space-y-4">
+                    <div className="mb-3 md:mb-4">
+                      <h3 className="text-base md:text-lg font-bold text-[#143151] mb-2">Tools</h3>
+                      <p className="text-xs md:text-sm text-gray-600">Practice optimization tools</p>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1 md:space-y-2">
                       {resourcesDropdown.tools.map((item, index) => (
                         <motion.div
                           key={item.title}
@@ -810,14 +811,14 @@ const AnimatedHeader = () => {
                         >
                           <Link 
                             to={item.href}
-                            className="flex items-start gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                            className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                           >
                             <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
                               {item.icon}
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-start gap-2 mb-1">
-                                <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm leading-tight">
+                                <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs md:text-sm leading-tight flex-1">
                                   <div className="line-clamp-2">
                                     {item.title}
                                   </div>
@@ -832,6 +833,7 @@ const AnimatedHeader = () => {
                                 {item.description}
                               </div>
                             </div>
+                            <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-gray-400 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all flex-shrink-0" />
                           </Link>
                         </motion.div>
                       ))}
@@ -839,12 +841,12 @@ const AnimatedHeader = () => {
                   </div>
 
                   {/* Learning Column */}
-                  <div>
-                    <div className="mb-4">
-                      <h3 className="text-base lg:text-lg font-bold text-[#143151] mb-2">Learning</h3>
-                      <p className="text-xs lg:text-sm text-gray-600">Educational resources</p>
+                  <div className="space-y-3 md:space-y-4">
+                    <div className="mb-3 md:mb-4">
+                      <h3 className="text-base md:text-lg font-bold text-[#143151] mb-2">Learning</h3>
+                      <p className="text-xs md:text-sm text-gray-600">Educational resources</p>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1 md:space-y-2">
                       {resourcesDropdown.learning.map((item, index) => (
                         <motion.div
                           key={item.title}
@@ -854,19 +856,20 @@ const AnimatedHeader = () => {
                         >
                           <Link 
                             to={item.href}
-                            className="flex items-center gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                            className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                           >
                             <div className="group-hover:scale-110 transition-transform flex-shrink-0">
                               {item.icon}
                             </div>
-                            <div className="min-w-0">
-                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm truncate">
+                            <div className="flex-1 min-w-0">
+                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs md:text-sm leading-tight">
                                 {item.title}
                               </div>
-                              <div className="text-xs text-gray-500 truncate">
+                              <div className="text-xs text-gray-500 leading-tight">
                                 {item.description}
                               </div>
                             </div>
+                            <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-gray-400 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all flex-shrink-0" />
                           </Link>
                         </motion.div>
                       ))}
@@ -874,12 +877,12 @@ const AnimatedHeader = () => {
                   </div>
 
                   {/* Support Column */}
-                  <div>
-                    <div className="mb-4">
-                      <h3 className="text-base lg:text-lg font-bold text-[#143151] mb-2">Support</h3>
-                      <p className="text-xs lg:text-sm text-gray-600">Help & community</p>
+                  <div className="space-y-3 md:space-y-4 sm:col-span-2 lg:col-span-1">
+                    <div className="mb-3 md:mb-4">
+                      <h3 className="text-base md:text-lg font-bold text-[#143151] mb-2">Support</h3>
+                      <p className="text-xs md:text-sm text-gray-600">Help & community</p>
                     </div>
-                    <div className="space-y-2">
+                    <div className="space-y-1 md:space-y-2">
                       {resourcesDropdown.support.map((item, index) => (
                         <motion.div
                           key={item.title}
@@ -889,19 +892,20 @@ const AnimatedHeader = () => {
                         >
                           <Link 
                             to={item.href}
-                            className="flex items-center gap-3 p-2 lg:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                            className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                           >
                             <div className="group-hover:scale-110 transition-transform flex-shrink-0">
                               {item.icon}
                             </div>
-                            <div className="min-w-0">
-                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs lg:text-sm truncate">
+                            <div className="flex-1 min-w-0">
+                              <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs md:text-sm leading-tight">
                                 {item.title}
                               </div>
-                              <div className="text-xs text-gray-500 truncate">
+                              <div className="text-xs text-gray-500 leading-tight">
                                 {item.description}
                               </div>
                             </div>
+                            <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-gray-400 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all flex-shrink-0" />
                           </Link>
                         </motion.div>
                       ))}
@@ -942,9 +946,9 @@ const AnimatedHeader = () => {
                 )}
               </div>
             ) : (
-              <div className="grid grid-cols-1 gap-1">
+              <div className="grid grid-cols-1 gap-1 md:gap-2">
                 <div className="mb-3 pb-2 border-b border-gray-100">
-                  <h3 className="text-sm font-semibold text-[#143151]">
+                  <h3 className="text-sm md:text-base font-semibold text-[#143151]">
                     {type === 'about' ? 'Company' : 'Resources'}
                   </h3>
                 </div>
@@ -957,19 +961,20 @@ const AnimatedHeader = () => {
                   >
                     <Link 
                       to={item.href}
-                      className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                      className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                     >
-                      <div className="group-hover:scale-110 transition-transform">
+                      <div className="group-hover:scale-110 transition-transform flex-shrink-0">
                         {item.icon}
                       </div>
-                      <div>
-                        <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                      <div className="flex-1 min-w-0">
+                        <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs md:text-sm leading-tight">
                           {item.title}
                         </div>
-                        <div className="text-sm text-gray-500">
+                        <div className="text-xs md:text-sm text-gray-500 leading-tight">
                           {item.description}
                         </div>
                       </div>
+                      <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-gray-400 group-hover:text-[#387E89] group-hover:translate-x-1 transition-all flex-shrink-0" />
                     </Link>
                   </motion.div>
                 ))}
@@ -986,22 +991,22 @@ const AnimatedHeader = () => {
                     >
                       <Link 
                         to={cta.href}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
+                        className="flex items-center gap-2 md:gap-3 p-2 md:p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
                       >
-                        <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
+                        <div className="p-1.5 md:p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
                           <div className="text-white">
                             {cta.icon}
                           </div>
                         </div>
-                        <div className="flex-1">
-                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                        <div className="flex-1 min-w-0">
+                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-xs md:text-sm leading-tight">
                             {cta.title}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-xs md:text-sm text-gray-500 leading-tight">
                             {cta.description}
                           </div>
                         </div>
-                        <ArrowRight className="w-4 h-4 text-[#387E89] group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-[#387E89] group-hover:translate-x-1 transition-transform flex-shrink-0" />
                       </Link>
                     </motion.div>
                   </>
