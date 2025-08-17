@@ -188,6 +188,260 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   </div>
                 </DropdownMenuContent>
               </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger className="px-3 py-2 rounded-full font-medium hover:bg-tealBlueBright/10 hover:text-tealBlueBright transition-colors focus:outline-none flex items-center gap-1">
+                  Specialties
+                  <ChevronDown className="w-4 h-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent 
+                  className="w-[800px] bg-white border border-gray-200 shadow-xl rounded-lg p-6 z-[9999]"
+                  sideOffset={8}
+                  align="center"
+                >
+                  <div className="grid grid-cols-3 gap-6">
+                    <div>
+                      <h3 className="font-semibold text-lg text-gray-900 mb-4">BY ROLE</h3>
+                      <div className="space-y-2">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Specialists</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Nurses</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Allied Health</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Trainees</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Administrators / Executives</div>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-lg text-gray-900 mb-4">BY SPECIALTY</h3>
+                      <div className="space-y-2 max-h-80 overflow-y-auto">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Family Medicine</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Cardiology</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Orthopedics</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Internal Medicine</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Pediatrics</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">ENT</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Oncology</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Psychiatry</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Dentistry</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Veterinary Medicine</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Nutritionist</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Gastroenterology</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Dermatology</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Cardiac Rehab</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <div className="font-medium text-gray-900">Functional Medicine</div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/specialty"
+                            className="block p-2 rounded-lg hover:bg-tealBlueBright/10 transition-colors w-full text-left focus:bg-tealBlueBright/10 focus:outline-none border-t border-gray-200 mt-2 pt-4"
+                          >
+                            <div className="font-medium text-tealBlueBright">View more specialties →</div>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between items-center mb-4">
+                        <h3 className="font-semibold text-lg text-gray-900">SUCCESS STORIES</h3>
+                        <Link
+                          to="/case-studies"
+                          className="text-sm text-tealBlueBright hover:text-tealBlueBright/80 font-medium"
+                        >
+                          View all →
+                        </Link>
+                      </div>
+                      <div className="space-y-3">
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/case-studies/family-medicine"
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <img 
+                              src="/public/lovable-uploads/e821a788-6061-4aa5-b3c1-2fed12387b14.png" 
+                              alt="Family Medicine Success"
+                              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            />
+                            <div>
+                              <div className="font-medium text-gray-900 text-sm">Family Medicine Practice</div>
+                              <div className="text-xs text-gray-600">50% time savings with AI scribe</div>
+                            </div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/case-studies/functional-medicine"
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <img 
+                              src="/public/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png" 
+                              alt="Functional Medicine Success"
+                              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            />
+                            <div>
+                              <div className="font-medium text-gray-900 text-sm">Functional Medicine Clinic</div>
+                              <div className="text-xs text-gray-600">Enhanced patient care quality</div>
+                            </div>
+                          </Link>
+                        </DropdownMenuItem>
+                        <DropdownMenuItem asChild>
+                          <Link
+                            to="/case-studies/gastroenterology"
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors w-full text-left focus:bg-gray-50 focus:outline-none"
+                          >
+                            <img 
+                              src="/public/lovable-uploads/2ddb185a-4a0d-480a-a8cc-9934b8856753.png" 
+                              alt="Gastroenterology Success"
+                              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            />
+                            <div>
+                              <div className="font-medium text-gray-900 text-sm">Gastroenterology Practice</div>
+                              <div className="text-xs text-gray-600">Streamlined documentation</div>
+                            </div>
+                          </Link>
+                        </DropdownMenuItem>
+                      </div>
+                    </div>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
               
               <NavLink
                 to="/advantages"
@@ -359,6 +613,84 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
               Hospitals & health systems
+            </NavLink>
+
+            <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
+              <h4 className="font-semibold text-gray-900">By Role</h4>
+            </div>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Specialists
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Nurses
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Allied Health
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Trainees
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Administrators / Executives
+            </NavLink>
+
+            <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
+              <h4 className="font-semibold text-gray-900">By Specialty</h4>
+            </div>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Family Medicine
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Cardiology
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Orthopedics
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Internal Medicine
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              View more specialties
             </NavLink>
 
             <NavLink
