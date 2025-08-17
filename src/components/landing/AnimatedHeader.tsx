@@ -404,10 +404,12 @@ const AnimatedHeader = () => {
             className={`p-4 md:p-6 shadow-2xl border-0 backdrop-blur-xl ${
               type === 'solutions' 
                 ? 'w-[90vw] max-w-[800px]' 
+                : type === 'specialties'
+                ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[950px] xl:w-[1000px] max-w-[1000px]'
                 : type === 'resources'
                 ? 'w-[90vw] sm:w-[85vw] md:w-[80vw] lg:w-[850px] xl:w-[900px] max-w-[900px]'
                 : 'w-[90vw] max-w-[400px]'
-            }`} 
+            }`}
             style={{
               backdropFilter: 'blur(20px)',
               background: 'rgba(255, 255, 255, 0.95)',
