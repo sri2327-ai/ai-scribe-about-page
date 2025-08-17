@@ -584,28 +584,39 @@ const AnimatedHeader = () => {
                     <h3 className="text-lg font-bold text-[#143151] mb-2">Popular Features</h3>
                     <p className="text-sm text-gray-600">Most requested AI capabilities</p>
                   </div>
-                  <div className="space-y-1 max-h-[350px] md:max-h-[400px] overflow-y-auto pr-2">
-                    {solutionsDropdown.popularFeatures.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.03 }}
-                        className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
-                      >
-                        <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
-                          {item.icon}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
-                            {item.title}
+                  <div className="relative">
+                    <div className="space-y-1 max-h-[350px] md:max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                      {solutionsDropdown.popularFeatures.map((item, index) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.03 }}
+                          className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
+                            {item.icon}
                           </div>
-                          <div className="text-xs text-gray-500 mt-0.5 leading-tight">
-                            {item.description}
+                          <div className="min-w-0 flex-1">
+                            <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
+                              {item.title}
+                            </div>
+                            <div className="text-xs text-gray-500 mt-0.5 leading-tight">
+                              {item.description}
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    ))}
+                        </motion.div>
+                      ))}
+                    </div>
+                    
+                    {/* Scroll indicator gradient overlay */}
+                    <div className="absolute bottom-0 left-0 right-2 h-8 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none"></div>
+                    
+                    {/* Scroll hint */}
+                    <div className="absolute bottom-1 right-4 flex items-center gap-1 text-xs text-gray-400 pointer-events-none">
+                      <span className="animate-bounce">↓</span>
+                      <span className="text-xs">Scroll for more</span>
+                    </div>
                   </div>
                 </div>
 
