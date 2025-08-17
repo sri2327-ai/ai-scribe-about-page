@@ -616,7 +616,11 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
             </NavLink>
 
             <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
-              <h4 className="font-semibold text-gray-900">By Role</h4>
+              <h4 className="font-semibold text-gray-900">Specialties</h4>
+            </div>
+            
+            <div className="px-6 py-2 bg-gray-100 border-b border-gray-200">
+              <h5 className="font-medium text-gray-800 text-sm">By Role</h5>
             </div>
             <NavLink
               to="/specialty"
@@ -654,8 +658,8 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               Administrators / Executives
             </NavLink>
 
-            <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
-              <h4 className="font-semibold text-gray-900">By Specialty</h4>
+            <div className="px-6 py-2 bg-gray-100 border-b border-gray-200">
+              <h5 className="font-medium text-gray-800 text-sm">By Specialty</h5>
             </div>
             <NavLink
               to="/specialty"
@@ -690,7 +694,84 @@ const Header: React.FC<HeaderProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               onClick={closeMenu}
               className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
             >
-              View more specialties
+              Pediatrics
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              ENT
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Oncology
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Psychiatry
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Dentistry
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Veterinary Medicine
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Nutritionist
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Gastroenterology
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Dermatology
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Cardiac Rehab
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-gray-100 border-b border-gray-200"
+            >
+              Functional Medicine
+            </NavLink>
+            <NavLink
+              to="/specialty"
+              onClick={closeMenu}
+              className="block px-8 py-3 text-gray-700 hover:bg-tealBlueBright/10 border-b border-gray-200"
+            >
+              <span className="text-tealBlueBright font-medium">View more specialties →</span>
             </NavLink>
 
             <NavLink
