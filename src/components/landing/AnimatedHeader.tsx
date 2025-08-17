@@ -321,51 +321,51 @@ const AnimatedHeader = () => {
     byRole: [
       {
         title: 'Specialists',
-        description: 'Expert care with AI-powered documentation',
+        description: 'AI scribe for complex cases, phone agent for referrals',
         icon: <Stethoscope className="w-5 h-5 text-[#143151]" />,
         href: '/specialty'
       },
       {
         title: 'Nurses',
-        description: 'Streamlined workflows and care coordination',
+        description: 'AI chat for patient triage, scribe for care coordination',
         icon: <Users className="w-5 h-5 text-[#387E89]" />,
         href: '/specialty'
       },
       {
         title: 'Allied Health',
-        description: 'Enhanced therapy and rehabilitation notes',
+        description: 'AI documentation for therapy, phone scheduling automation',
         icon: <Shield className="w-5 h-5 text-[#5192AE]" />,
         href: '/specialty'
       },
       {
         title: 'Trainees',
-        description: 'Learn with AI-assisted documentation',
+        description: 'AI-guided documentation and phone etiquette training',
         icon: <BookOpen className="w-5 h-5 text-[#A5CCF3]" />,
         href: '/specialty'
       },
       {
         title: 'Administrators / Executives',
-        description: 'Insights and operational efficiency',
+        description: 'AI agents for operations, analytics, and call management',
         icon: <Building className="w-5 h-5 text-[#143151]" />,
         href: '/specialty'
       }
     ],
     bySpecialty: [
-      { title: 'Family Medicine', description: 'Comprehensive primary care documentation', icon: <Heart className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Cardiology', description: 'Heart health monitoring and records', icon: <Activity className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Orthopedics', description: 'Bone and joint treatment notes', icon: <Bone className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Internal Medicine', description: 'Adult disease management', icon: <Stethoscope className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Pediatrics', description: 'Child healthcare documentation', icon: <Baby className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'ENT', description: 'Ear, nose, and throat specialists', icon: <Ear className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Oncology', description: 'Cancer treatment and care plans', icon: <Shield className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Psychiatry', description: 'Mental health and therapy notes', icon: <Brain className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Dentistry', description: 'Oral health and dental procedures', icon: <Scissors className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Veterinary Medicine', description: 'Animal healthcare documentation', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Nutritionist', description: 'Dietary planning and wellness', icon: <Apple className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Gastroenterology', description: 'Digestive system specialists', icon: <Pill className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Dermatology', description: 'Skin condition treatment', icon: <Eye className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Cardiac Rehab', description: 'Heart recovery programs', icon: <CardiacIcon className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Functional Medicine', description: 'Holistic health approaches', icon: <Microscope className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' }
+      { title: 'Family Medicine', description: 'AI scribe for visits, phone agent for wellness calls', icon: <Heart className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Cardiology', description: 'AI documentation for heart procedures, automated follow-ups', icon: <Activity className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Orthopedics', description: 'AI scribe for surgical notes, phone scheduling for PT', icon: <Bone className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Internal Medicine', description: 'AI chat for symptom screening, scribe for diagnoses', icon: <Stethoscope className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Pediatrics', description: 'AI phone agent for parent calls, gentle chat interactions', icon: <Baby className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'ENT', description: 'AI scribe for procedures, phone reminders for hearing tests', icon: <Ear className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Oncology', description: 'AI documentation for treatment plans, supportive chat', icon: <Shield className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Psychiatry', description: 'AI scribe for therapy sessions, crisis phone support', icon: <Brain className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Dentistry', description: 'AI scribe for procedures, phone reminders for cleanings', icon: <Scissors className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Veterinary Medicine', description: 'AI scribe for animal care, phone scheduling for pets', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Nutritionist', description: 'AI chat for meal planning, phone coaching sessions', icon: <Apple className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Gastroenterology', description: 'AI scribe for endoscopies, phone prep instructions', icon: <Pill className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Dermatology', description: 'AI documentation for skin exams, photo consultations', icon: <Eye className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Cardiac Rehab', description: 'AI monitoring reports, motivational phone check-ins', icon: <CardiacIcon className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Functional Medicine', description: 'AI scribe for holistic plans, lifestyle coaching calls', icon: <Microscope className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' }
     ],
     successStories: [
       {
