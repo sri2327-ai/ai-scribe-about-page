@@ -154,6 +154,68 @@ const AnimatedHeader = () => {
         )
       }
     ],
+    popularFeatures: [
+      {
+        title: 'Transcribe & Dictate',
+        description: 'Voice-to-text conversion with medical accuracy',
+        icon: <Sparkles className="w-4 h-4 text-[#143151]" />
+      },
+      {
+        title: 'Contextual Reasoning',
+        description: 'AI understands clinical context and relationships',
+        icon: <Brain className="w-4 h-4 text-[#387E89]" />
+      },
+      {
+        title: 'Templates',
+        description: 'Customizable clinical documentation templates',
+        icon: <FileText className="w-4 h-4 text-[#5192AE]" />
+      },
+      {
+        title: 'Customisation',
+        description: 'Adapt AI workflows to your practice style',
+        icon: <Cpu className="w-4 h-4 text-[#A5CCF3]" />
+      },
+      {
+        title: 'Pre‑Charting',
+        description: 'Prepare charts before patient encounters',
+        icon: <BookOpen className="w-4 h-4 text-[#143151]" />
+      },
+      {
+        title: 'Coding',
+        description: 'Automated ICD-10 and CPT code suggestions',
+        icon: <Search className="w-4 h-4 text-[#387E89]" />
+      },
+      {
+        title: 'Workflows: Prescriptions & Lab Orders',
+        description: 'Streamlined ordering and prescription management',
+        icon: <Pill className="w-4 h-4 text-[#5192AE]" />
+      },
+      {
+        title: 'Calls',
+        description: 'AI-powered phone interactions and scheduling',
+        icon: <MessageSquare className="w-4 h-4 text-[#A5CCF3]" />
+      },
+      {
+        title: 'Chat',
+        description: 'Intelligent patient communication assistant',
+        icon: <MessageSquare className="w-4 h-4 text-[#143151]" />
+      },
+      {
+        title: 'Email',
+        description: 'AI-assisted email management and responses',
+        icon: <Mail className="w-4 h-4 text-[#387E89]" />
+      },
+      {
+        title: 'Universal EHR Integration',
+        description: 'Connect with any electronic health record system',
+        icon: <Layers className="w-4 h-4 text-[#5192AE]" />
+      },
+      {
+        title: 'Universal App Integrations',
+        description: 'Seamless connection with healthcare applications',
+        icon: <Globe className="w-4 h-4 text-[#A5CCF3]" />
+      }
+    ],
     whoWeAreFor: [
       {
         title: 'Independent clinicians',
@@ -191,7 +253,13 @@ const AnimatedHeader = () => {
         icon: <Building className="w-5 h-5 text-[#143151]" />,
         href: '/customer'
       }
-    ]
+    ],
+    cta: {
+      title: 'Take Product Tour',
+      description: 'Explore S10.AI features interactively',
+      icon: <Play className="w-4 h-4" />,
+      href: '#'
+    }
   };
 
   // About dropdown content with corrected labels
@@ -419,7 +487,7 @@ const AnimatedHeader = () => {
           <Card 
             className={`p-4 md:p-6 shadow-2xl border-0 backdrop-blur-xl ${
               type === 'solutions' 
-                ? 'w-[90vw] max-w-[800px]' 
+                ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[1100px] xl:w-[1200px] max-w-[1200px]' 
                 : type === 'specialties'
                 ? 'w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[950px] xl:w-[1000px] max-w-[1000px]'
                 : type === 'resources'
@@ -433,7 +501,7 @@ const AnimatedHeader = () => {
             }}
           >
             {type === 'solutions' ? (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
                 {/* Solutions Column */}
                 <div>
                   <div className="mb-4">
@@ -474,6 +542,64 @@ const AnimatedHeader = () => {
                             </div>
                           </Card>
                         </Link>
+                      </motion.div>
+                    ))}
+                    
+                    {/* Take Product Tour CTA */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="pt-2"
+                    >
+                      <Link to={solutionsDropdown.cta.href} className="block group">
+                        <Card className="p-4 hover:shadow-xl transition-all duration-300 border-0 bg-gradient-to-br from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 backdrop-blur-sm border border-[#143151]/10 hover:scale-[1.02]">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 bg-[#143151]/10 backdrop-blur-sm rounded-xl border border-[#143151]/20">
+                              {solutionsDropdown.cta.icon}
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="font-bold text-[#143151] text-sm mb-1">
+                                {solutionsDropdown.cta.title}
+                              </h3>
+                              <p className="text-gray-700 text-xs">
+                                {solutionsDropdown.cta.description}
+                              </p>
+                            </div>
+                            <ArrowRight className="w-4 h-4 text-gray-600 group-hover:translate-x-1 transition-transform" />
+                          </div>
+                        </Card>
+                      </Link>
+                    </motion.div>
+                  </div>
+                </div>
+
+                {/* Popular Features Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">Popular Features</h3>
+                    <p className="text-sm text-gray-600">Most requested AI capabilities</p>
+                  </div>
+                  <div className="space-y-2 max-h-[400px] overflow-y-auto pr-2">
+                    {solutionsDropdown.popularFeatures.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                      >
+                        <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div className="font-semibold text-[#143151] text-sm group-hover:text-[#387E89] transition-colors">
+                            {item.title}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-0.5">
+                            {item.description}
+                          </div>
+                        </div>
                       </motion.div>
                     ))}
                   </div>
