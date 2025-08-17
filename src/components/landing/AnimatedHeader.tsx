@@ -305,6 +305,74 @@ const AnimatedHeader = () => {
     }
   };
 
+  // Specialties dropdown content
+  const specialtiesDropdown = {
+    byRole: [
+      {
+        title: 'Specialists',
+        icon: <Stethoscope className="w-5 h-5 text-[#143151]" />,
+        href: '/specialty'
+      },
+      {
+        title: 'Nurses',
+        icon: <Users className="w-5 h-5 text-[#387E89]" />,
+        href: '/specialty'
+      },
+      {
+        title: 'Allied Health',
+        icon: <Shield className="w-5 h-5 text-[#5192AE]" />,
+        href: '/specialty'
+      },
+      {
+        title: 'Trainees',
+        icon: <BookOpen className="w-5 h-5 text-[#A5CCF3]" />,
+        href: '/specialty'
+      },
+      {
+        title: 'Administrators / Executives',
+        icon: <Building className="w-5 h-5 text-[#143151]" />,
+        href: '/specialty'
+      }
+    ],
+    bySpecialty: [
+      { title: 'Family Medicine', href: '/specialty' },
+      { title: 'Cardiology', href: '/specialty' },
+      { title: 'Orthopedics', href: '/specialty' },
+      { title: 'Internal Medicine', href: '/specialty' },
+      { title: 'Pediatrics', href: '/specialty' },
+      { title: 'ENT', href: '/specialty' },
+      { title: 'Oncology', href: '/specialty' },
+      { title: 'Psychiatry', href: '/specialty' },
+      { title: 'Dentistry', href: '/specialty' },
+      { title: 'Veterinary Medicine', href: '/specialty' },
+      { title: 'Nutritionist', href: '/specialty' },
+      { title: 'Gastroenterology', href: '/specialty' },
+      { title: 'Dermatology', href: '/specialty' },
+      { title: 'Cardiac Rehab', href: '/specialty' },
+      { title: 'Functional Medicine', href: '/specialty' }
+    ],
+    successStories: [
+      {
+        title: 'Family Medicine Practice',
+        description: '50% time savings with AI scribe',
+        image: '/lovable-uploads/e821a788-6061-4aa5-b3c1-2fed12387b14.png',
+        href: '/case-studies/family-medicine'
+      },
+      {
+        title: 'Functional Medicine Clinic', 
+        description: 'Enhanced patient care quality',
+        image: '/lovable-uploads/ba0495cd-1f3d-4b15-8fa6-bfd3655f8e9c.png',
+        href: '/case-studies/functional-medicine'
+      },
+      {
+        title: 'Gastroenterology Practice',
+        description: 'Streamlined documentation',
+        image: '/lovable-uploads/2ddb185a-4a0d-480a-a8cc-9934b8856753.png',
+        href: '/case-studies/gastroenterology'
+      }
+    ]
+  };
+
   // DropdownMenu component definition
   const DropdownMenu = ({ 
     items, 
@@ -314,8 +382,8 @@ const AnimatedHeader = () => {
   }: { 
     items: any[], 
     isOpen: boolean, 
-    type: 'solutions' | 'about' | 'resources',
-    cta?: any 
+    type: 'solutions' | 'about' | 'resources' | 'specialties',
+    cta?: any
   }) => (
     <AnimatePresence>
       {isOpen && (
@@ -419,6 +487,115 @@ const AnimatedHeader = () => {
                               {item.title}
                             </div>
                             <div className="text-sm text-gray-500">
+                              {item.description}
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : type === 'specialties' ? (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {/* By Role Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">BY ROLE</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {specialtiesDropdown.byRole.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-center gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="group-hover:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                            {item.title}
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* By Specialty Column */}
+                <div>
+                  <div className="mb-4">
+                    <h3 className="text-lg font-bold text-[#143151] mb-2">BY SPECIALTY</h3>
+                  </div>
+                  <div className="space-y-2 max-h-80 overflow-y-auto">
+                    {specialtiesDropdown.bySpecialty.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: 0 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="block p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors">
+                            {item.title}
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                    <div className="border-t border-gray-200 mt-2 pt-2">
+                      <Link 
+                        to="/specialty"
+                        className="block p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                      >
+                        <div className="font-medium text-[#387E89] group-hover:text-[#143151] transition-colors">
+                          View more specialties →
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Success Stories Column */}
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-bold text-[#143151]">SUCCESS STORIES</h3>
+                    <Link
+                      to="/case-studies"
+                      className="text-sm text-[#387E89] hover:text-[#143151] font-medium"
+                    >
+                      View all →
+                    </Link>
+                  </div>
+                  <div className="space-y-3">
+                    {specialtiesDropdown.successStories.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 + 0.3 }}
+                      >
+                        <Link 
+                          to={item.href}
+                          className="flex items-start gap-3 p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        >
+                          <img 
+                            src={item.image} 
+                            alt={`${item.title} Success`}
+                            className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                          />
+                          <div>
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                              {item.title}
+                            </div>
+                            <div className="text-xs text-gray-500">
                               {item.description}
                             </div>
                           </div>
@@ -702,6 +879,9 @@ const AnimatedHeader = () => {
             {dropdownType === 'about' && (
               <DropdownMenu items={aboutDropdown.items} isOpen={isActive} type="about" cta={aboutDropdown.cta} />
             )}
+            {dropdownType === 'specialties' && (
+              <DropdownMenu items={specialtiesDropdown.byRole} isOpen={isActive} type="specialties" />
+            )}
             {dropdownType === 'resources' && (
               <DropdownMenu items={resourcesDropdown.tools} isOpen={isActive} type="resources" cta={resourcesDropdown.cta} />
             )}
@@ -814,6 +994,91 @@ const AnimatedHeader = () => {
                                 {item.title}
                               </div>
                               <div className="text-sm text-gray-500">
+                                {item.description}
+                              </div>
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ) : sectionKey === 'specialties' ? (
+                  <div className="space-y-4">
+                    {/* By Role */}
+                    <div>
+                      <h4 className="font-semibold text-[#143151] mb-3">By Role</h4>
+                      <div className="space-y-2">
+                        {specialtiesDropdown.byRole.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform">
+                              {item.icon}
+                            </div>
+                            <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
+                              {item.title}
+                            </div>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* By Specialty */}
+                    <div className="border-t border-gray-200 pt-4">
+                      <h4 className="font-semibold text-[#143151] mb-3">By Specialty</h4>
+                      <div className="space-y-2 max-h-60 overflow-y-auto">
+                        {specialtiesDropdown.bySpecialty.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="block p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <div className="font-medium text-[#143151] group-hover:text-[#387E89] text-sm">
+                              {item.title}
+                            </div>
+                          </Link>
+                        ))}
+                        <Link 
+                          to="/specialty"
+                          className="block p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group border-t border-gray-200 mt-2 pt-2"
+                        >
+                          <div className="font-medium text-[#387E89] group-hover:text-[#143151] text-sm">
+                            View more specialties →
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
+
+                    {/* Success Stories */}
+                    <div className="border-t border-gray-200 pt-4">
+                      <div className="flex justify-between items-center mb-3">
+                        <h4 className="font-semibold text-[#143151]">Success Stories</h4>
+                        <Link
+                          to="/case-studies"
+                          className="text-sm text-[#387E89] hover:text-[#143151] font-medium"
+                        >
+                          View all →
+                        </Link>
+                      </div>
+                      <div className="space-y-3">
+                        {specialtiesDropdown.successStories.map((item) => (
+                          <Link
+                            key={item.title}
+                            to={item.href}
+                            className="flex items-start gap-3 p-3 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                          >
+                            <img 
+                              src={item.image} 
+                              alt={`${item.title} Success`}
+                              className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            />
+                            <div>
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89] text-sm">
+                                {item.title}
+                              </div>
+                              <div className="text-xs text-gray-500">
                                 {item.description}
                               </div>
                             </div>
@@ -1067,6 +1332,7 @@ const AnimatedHeader = () => {
             <nav className="hidden lg:flex items-center space-x-8">
               <NavItem label="Solutions" hasDropdown dropdownType="solutions" />
               <NavItem label="About" hasDropdown dropdownType="about" />
+              <NavItem label="Specialties" hasDropdown dropdownType="specialties" />
               <NavItem label="Resources" hasDropdown dropdownType="resources" />
               <NavItem label="Pricing" href="/pricing" />
             </nav>
@@ -1140,6 +1406,13 @@ const AnimatedHeader = () => {
                   items={aboutDropdown.items} 
                   sectionKey="about" 
                   cta={aboutDropdown.cta}
+                />
+
+                {/* Mobile Specialties Section */}
+                <MobileSectionToggle 
+                  title="Specialties" 
+                  items={specialtiesDropdown.byRole} 
+                  sectionKey="specialties" 
                 />
 
                 {/* Mobile Resources Section */}
