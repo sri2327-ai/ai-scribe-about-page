@@ -510,7 +510,7 @@ const AnimatedHeader = () => {
                 </div>
               </div>
             ) : type === 'specialties' ? (
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 {/* By Role Column */}
                 <div>
                   <div className="mb-4">
@@ -532,7 +532,7 @@ const AnimatedHeader = () => {
                           <div className="group-hover:scale-110 transition-transform">
                             {item.icon}
                           </div>
-                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
                             {item.title}
                           </div>
                         </Link>
@@ -547,48 +547,50 @@ const AnimatedHeader = () => {
                     <h3 className="text-lg font-bold text-[#143151] mb-2">BY SPECIALTY</h3>
                     <p className="text-sm text-gray-600">Medical specialties we support</p>
                   </div>
-                  <div className="space-y-1">
-                    {specialtiesDropdown.bySpecialty.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.04 }}
-                      >
-                        <Link 
-                          to={item.href}
-                          className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                  <div className="space-y-1 max-h-[420px] overflow-y-auto pr-2">
+                    <div className="space-y-1">
+                      {specialtiesDropdown.bySpecialty.slice(0, 10).map((item, index) => (
+                        <motion.div
+                          key={item.title}
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.04 }}
                         >
-                          <div className="group-hover:scale-110 transition-transform">
-                            {item.icon}
-                          </div>
-                          <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
-                            {item.title}
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
+                          <Link 
+                            to={item.href}
+                            className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform">
+                              {item.icon}
+                            </div>
+                            <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                              {item.title}
+                            </div>
+                          </Link>
+                        </motion.div>
+                      ))}
+                    </div>
                     
-                    {/* View More Specialties Button */}
-                    <div className="border-t border-gray-100 mt-3 pt-3">
+                    {/* Sticky View More Button at bottom */}
+                    <div className="sticky bottom-0 bg-white/95 backdrop-blur-sm border-t border-gray-100 mt-3 pt-3">
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: specialtiesDropdown.bySpecialty.length * 0.04 + 0.1 }}
+                        transition={{ delay: 0.5 }}
                       >
                         <Link 
                           to="/specialty"
-                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20"
+                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-all duration-200 group border border-[#387E89]/20 w-full"
                         >
                           <div className="p-2 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-lg group-hover:scale-110 transition-transform">
                             <ArrowRight className="w-4 h-4 text-white" />
                           </div>
                           <div className="flex-1">
-                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors">
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
                               View All Specialties
                             </div>
-                            <div className="text-sm text-gray-500">
-                              Explore our complete specialty coverage
+                            <div className="text-xs text-gray-500">
+                              +{specialtiesDropdown.bySpecialty.length - 10} more specialties
                             </div>
                           </div>
                         </Link>
@@ -599,17 +601,19 @@ const AnimatedHeader = () => {
 
                 {/* Success Stories Column */}
                 <div>
-                  <div className="flex justify-between items-center mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold text-[#143151] mb-2">SUCCESS STORIES</h3>
-                      <p className="text-sm text-gray-600">Real results from our clients</p>
+                  <div className="mb-4">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h3 className="text-lg font-bold text-[#143151] mb-2">SUCCESS STORIES</h3>
+                        <p className="text-sm text-gray-600">Real results from our clients</p>
+                      </div>
+                      <Link
+                        to="/case-studies"
+                        className="text-sm text-[#387E89] hover:text-[#143151] font-medium whitespace-nowrap"
+                      >
+                        View all →
+                      </Link>
                     </div>
-                    <Link
-                      to="/case-studies"
-                      className="text-sm text-[#387E89] hover:text-[#143151] font-medium"
-                    >
-                      View all →
-                    </Link>
                   </div>
                   <div className="space-y-3">
                     {specialtiesDropdown.successStories.map((item, index) => (
@@ -628,7 +632,7 @@ const AnimatedHeader = () => {
                             alt={`${item.title} Success`}
                             className="w-10 h-10 rounded-full object-cover flex-shrink-0"
                           />
-                          <div>
+                          <div className="flex-1 min-w-0">
                             <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
                               {item.title}
                             </div>
