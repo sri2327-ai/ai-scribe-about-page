@@ -28,7 +28,18 @@ import {
   Calculator,
   Search,
   Library,
-  DollarSign
+  DollarSign,
+  Heart,
+  Bone,
+  Baby,
+  Ear,
+  Activity,
+  Eye,
+  Pill,
+  PawPrint,
+  Apple,
+  Scissors,
+  Zap as CardiacIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -335,21 +346,21 @@ const AnimatedHeader = () => {
       }
     ],
     bySpecialty: [
-      { title: 'Family Medicine', href: '/specialty' },
-      { title: 'Cardiology', href: '/specialty' },
-      { title: 'Orthopedics', href: '/specialty' },
-      { title: 'Internal Medicine', href: '/specialty' },
-      { title: 'Pediatrics', href: '/specialty' },
-      { title: 'ENT', href: '/specialty' },
-      { title: 'Oncology', href: '/specialty' },
-      { title: 'Psychiatry', href: '/specialty' },
-      { title: 'Dentistry', href: '/specialty' },
-      { title: 'Veterinary Medicine', href: '/specialty' },
-      { title: 'Nutritionist', href: '/specialty' },
-      { title: 'Gastroenterology', href: '/specialty' },
-      { title: 'Dermatology', href: '/specialty' },
-      { title: 'Cardiac Rehab', href: '/specialty' },
-      { title: 'Functional Medicine', href: '/specialty' }
+      { title: 'Family Medicine', icon: <Heart className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Cardiology', icon: <Activity className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Orthopedics', icon: <Bone className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Internal Medicine', icon: <Stethoscope className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Pediatrics', icon: <Baby className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'ENT', icon: <Ear className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Oncology', icon: <Shield className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Psychiatry', icon: <Brain className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Dentistry', icon: <Scissors className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Veterinary Medicine', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Nutritionist', icon: <Apple className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Gastroenterology', icon: <Pill className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Dermatology', icon: <Eye className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Cardiac Rehab', icon: <CardiacIcon className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Functional Medicine', icon: <Microscope className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' }
     ],
     successStories: [
       {
@@ -533,31 +544,38 @@ const AnimatedHeader = () => {
                 <div>
                   <div className="mb-4">
                     <h3 className="text-lg font-bold text-[#143151] mb-2">BY SPECIALTY</h3>
+                    <p className="text-sm text-gray-600">Medical specialties we serve</p>
                   </div>
-                  <div className="space-y-2 max-h-80 overflow-y-auto">
+                  <div className="grid grid-cols-1 gap-1">
                     {specialtiesDropdown.bySpecialty.map((item, index) => (
                       <motion.div
                         key={item.title}
-                        initial={{ opacity: 0, x: 0 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.03 }}
                       >
                         <Link 
                           to={item.href}
-                          className="block p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          className="flex items-center gap-3 p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                         >
-                          <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors">
+                          <div className="group-hover:scale-110 transition-transform">
+                            {item.icon}
+                          </div>
+                          <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
                             {item.title}
                           </div>
                         </Link>
                       </motion.div>
                     ))}
-                    <div className="border-t border-gray-200 mt-2 pt-2">
+                    <div className="border-t border-gray-200 mt-3 pt-3">
                       <Link 
                         to="/specialty"
-                        className="block p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                        className="flex items-center gap-3 p-2 rounded-lg hover:bg-gradient-to-r hover:from-[#143151]/5 hover:to-[#387E89]/5 transition-all duration-200 group border border-[#387E89]/20 hover:border-[#387E89]/40"
                       >
-                        <div className="font-medium text-[#387E89] group-hover:text-[#143151] transition-colors">
+                        <div className="p-1.5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full group-hover:scale-110 transition-transform">
+                          <ArrowRight className="w-3 h-3 text-white" />
+                        </div>
+                        <div className="font-semibold text-[#387E89] group-hover:text-[#143151] transition-colors text-sm">
                           View more specialties →
                         </div>
                       </Link>
@@ -1030,23 +1048,31 @@ const AnimatedHeader = () => {
                     {/* By Specialty */}
                     <div className="border-t border-gray-200 pt-4">
                       <h4 className="font-semibold text-[#143151] mb-3">By Specialty</h4>
-                      <div className="space-y-2 max-h-60 overflow-y-auto">
+                      <div className="grid grid-cols-2 gap-2">
                         {specialtiesDropdown.bySpecialty.map((item) => (
                           <Link
                             key={item.title}
                             to={item.href}
-                            className="block p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
                           >
+                            <div className="group-hover:scale-110 transition-transform">
+                              {item.icon}
+                            </div>
                             <div className="font-medium text-[#143151] group-hover:text-[#387E89] text-sm">
                               {item.title}
                             </div>
                           </Link>
                         ))}
+                      </div>
+                      <div className="mt-3 pt-3 border-t border-gray-200">
                         <Link 
                           to="/specialty"
-                          className="block p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group border-t border-gray-200 mt-2 pt-2"
+                          className="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 hover:from-[#143151]/10 hover:to-[#387E89]/10 transition-colors group border border-[#387E89]/20"
                         >
-                          <div className="font-medium text-[#387E89] group-hover:text-[#143151] text-sm">
+                          <div className="p-1.5 bg-gradient-to-r from-[#143151] to-[#387E89] rounded-full group-hover:scale-110 transition-transform">
+                            <ArrowRight className="w-3 h-3 text-white" />
+                          </div>
+                          <div className="font-semibold text-[#387E89] group-hover:text-[#143151] text-sm">
                             View more specialties →
                           </div>
                         </Link>
