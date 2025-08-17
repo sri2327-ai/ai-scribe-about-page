@@ -321,46 +321,51 @@ const AnimatedHeader = () => {
     byRole: [
       {
         title: 'Specialists',
+        description: 'Expert care with AI-powered documentation',
         icon: <Stethoscope className="w-5 h-5 text-[#143151]" />,
         href: '/specialty'
       },
       {
         title: 'Nurses',
+        description: 'Streamlined workflows and care coordination',
         icon: <Users className="w-5 h-5 text-[#387E89]" />,
         href: '/specialty'
       },
       {
         title: 'Allied Health',
+        description: 'Enhanced therapy and rehabilitation notes',
         icon: <Shield className="w-5 h-5 text-[#5192AE]" />,
         href: '/specialty'
       },
       {
         title: 'Trainees',
+        description: 'Learn with AI-assisted documentation',
         icon: <BookOpen className="w-5 h-5 text-[#A5CCF3]" />,
         href: '/specialty'
       },
       {
         title: 'Administrators / Executives',
+        description: 'Insights and operational efficiency',
         icon: <Building className="w-5 h-5 text-[#143151]" />,
         href: '/specialty'
       }
     ],
     bySpecialty: [
-      { title: 'Family Medicine', icon: <Heart className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Cardiology', icon: <Activity className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Orthopedics', icon: <Bone className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Internal Medicine', icon: <Stethoscope className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Pediatrics', icon: <Baby className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'ENT', icon: <Ear className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Oncology', icon: <Shield className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Psychiatry', icon: <Brain className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Dentistry', icon: <Scissors className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Veterinary Medicine', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Nutritionist', icon: <Apple className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Gastroenterology', icon: <Pill className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Dermatology', icon: <Eye className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Cardiac Rehab', icon: <CardiacIcon className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Functional Medicine', icon: <Microscope className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' }
+      { title: 'Family Medicine', description: 'Comprehensive primary care documentation', icon: <Heart className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Cardiology', description: 'Heart health monitoring and records', icon: <Activity className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Orthopedics', description: 'Bone and joint treatment notes', icon: <Bone className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Internal Medicine', description: 'Adult disease management', icon: <Stethoscope className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Pediatrics', description: 'Child healthcare documentation', icon: <Baby className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'ENT', description: 'Ear, nose, and throat specialists', icon: <Ear className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Oncology', description: 'Cancer treatment and care plans', icon: <Shield className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Psychiatry', description: 'Mental health and therapy notes', icon: <Brain className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Dentistry', description: 'Oral health and dental procedures', icon: <Scissors className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Veterinary Medicine', description: 'Animal healthcare documentation', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Nutritionist', description: 'Dietary planning and wellness', icon: <Apple className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
+      { title: 'Gastroenterology', description: 'Digestive system specialists', icon: <Pill className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
+      { title: 'Dermatology', description: 'Skin condition treatment', icon: <Eye className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
+      { title: 'Cardiac Rehab', description: 'Heart recovery programs', icon: <CardiacIcon className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
+      { title: 'Functional Medicine', description: 'Holistic health approaches', icon: <Microscope className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' }
     ],
     successStories: [
       {
@@ -532,8 +537,13 @@ const AnimatedHeader = () => {
                           <div className="group-hover:scale-110 transition-transform">
                             {item.icon}
                           </div>
-                          <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
-                            {item.title}
+                          <div>
+                            <div className="font-semibold text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                              {item.title}
+                            </div>
+                            <div className="text-sm text-gray-500">
+                              {item.description}
+                            </div>
                           </div>
                         </Link>
                       </motion.div>
@@ -563,8 +573,13 @@ const AnimatedHeader = () => {
                             <div className="group-hover:scale-110 transition-transform">
                               {item.icon}
                             </div>
-                            <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
-                              {item.title}
+                            <div>
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89] transition-colors text-sm">
+                                {item.title}
+                              </div>
+                              <div className="text-xs text-gray-500">
+                                {item.description}
+                              </div>
                             </div>
                           </Link>
                         </motion.div>
@@ -590,7 +605,7 @@ const AnimatedHeader = () => {
                               View All Specialties
                             </div>
                             <div className="text-xs text-gray-500">
-                              +{specialtiesDropdown.bySpecialty.length - 10} more specialties
+                              Explore our complete specialty coverage
                             </div>
                           </div>
                         </Link>
@@ -1058,8 +1073,13 @@ const AnimatedHeader = () => {
                             <div className="group-hover:scale-110 transition-transform">
                               {item.icon}
                             </div>
-                            <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
-                              {item.title}
+                            <div>
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89]">
+                                {item.title}
+                              </div>
+                              <div className="text-sm text-gray-500">
+                                {item.description}
+                              </div>
                             </div>
                           </Link>
                         ))}
@@ -1074,13 +1094,18 @@ const AnimatedHeader = () => {
                           <Link
                             key={item.title}
                             to={item.href}
-                            className="flex items-center gap-2 p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
+                            className="flex items-start gap-2 p-2 rounded-lg hover:bg-white/80 backdrop-blur-sm transition-colors group"
                           >
-                            <div className="group-hover:scale-110 transition-transform">
+                            <div className="group-hover:scale-110 transition-transform mt-1">
                               {item.icon}
                             </div>
-                            <div className="font-medium text-[#143151] group-hover:text-[#387E89] text-sm">
-                              {item.title}
+                            <div className="flex-1 min-w-0">
+                              <div className="font-medium text-[#143151] group-hover:text-[#387E89] text-sm">
+                                {item.title}
+                              </div>
+                              <div className="text-xs text-gray-500 leading-tight">
+                                {item.description}
+                              </div>
                             </div>
                           </Link>
                         ))}
@@ -1094,7 +1119,7 @@ const AnimatedHeader = () => {
                             <ArrowRight className="w-3 h-3 text-white" />
                           </div>
                           <div className="font-semibold text-[#387E89] group-hover:text-[#143151] text-sm">
-                            View more specialties →
+                            View All Specialties →
                           </div>
                         </Link>
                       </div>
