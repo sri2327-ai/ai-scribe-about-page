@@ -428,12 +428,7 @@ const AnimatedHeader = () => {
       { title: 'Oncology', description: 'AI scribe for treatment plans, phone agent for care check-ins', icon: <Shield className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
       { title: 'Psychiatry', description: 'AI scribe for therapy notes, phone agent for crisis support', icon: <Brain className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
       { title: 'Dentistry', description: 'AI scribe for dental charts, phone agent for cleaning reminders', icon: <Scissors className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Veterinary Medicine', description: 'AI scribe for pet records, phone agent for visit scheduling', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Nutritionist', description: 'AI chat for meal planning, phone coaching sessions', icon: <Apple className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' },
-      { title: 'Gastroenterology', description: 'AI scribe for endoscopies, phone prep instructions', icon: <Pill className="w-4 h-4 text-[#A5CCF3]" />, href: '/specialty' },
-      { title: 'Dermatology', description: 'AI documentation for skin exams, photo consultations', icon: <Eye className="w-4 h-4 text-[#143151]" />, href: '/specialty' },
-      { title: 'Cardiac Rehab', description: 'AI monitoring reports, motivational phone check-ins', icon: <CardiacIcon className="w-4 h-4 text-[#387E89]" />, href: '/specialty' },
-      { title: 'Functional Medicine', description: 'AI scribe for holistic plans, lifestyle coaching calls', icon: <Microscope className="w-4 h-4 text-[#5192AE]" />, href: '/specialty' }
+      { title: 'Veterinary Medicine', description: 'AI scribe for pet records, phone agent for visit scheduling', icon: <PawPrint className="w-4 h-4 text-[#387E89]" />, href: '/specialty' }
     ],
     successStories: [
       {
