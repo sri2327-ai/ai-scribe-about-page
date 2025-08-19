@@ -71,8 +71,8 @@ const insights = [
 
 const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) => {
   return (
-    <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in md:h-[320px] lg:h-[340px]">
-      <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
+    <article className="group grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 items-stretch rounded-2xl sm:rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-4 sm:p-5 lg:p-6 animate-fade-in min-h-[280px] sm:min-h-[300px] lg:h-[340px]">
+      <div className="relative overflow-hidden rounded-xl sm:rounded-2xl aspect-[16/9] sm:aspect-[16/10] lg:aspect-auto lg:h-full">
         {cs.type === "video" ? (
           <YouTubeFacade
             videoId={(cs as any).videoId}
@@ -93,21 +93,21 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
 
       <div className="flex flex-col justify-between">
         <div>
-          <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2.5 line-clamp-2">
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground mb-2 sm:mb-2.5 line-clamp-2">
             {cs.title}
           </h3>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4">
+          <p className="text-sm sm:text-base lg:text-lg text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-4">
             {cs.quote}
           </p>
         </div>
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6">
           {cs.type === "video" ? (
-            <p className="text-sm text-muted-foreground">Watch the story</p>
+            <p className="text-xs sm:text-sm text-muted-foreground">Watch the story</p>
           ) : (
             cs.cta && (
-              <Button variant="outline" size="sm" className="rounded-full group">
+              <Button variant="outline" size="sm" className="rounded-full group text-xs sm:text-sm">
                 {cs.cta.label}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
             )
           )}
@@ -143,19 +143,19 @@ const CaseStudiesAndInsights: React.FC = () => {
   }, [api]);
 
   return (
-    <section aria-labelledby="tech-cs-insights-title" className="py-10 md:py-12 bg-gradient-to-b from-background via-muted/20 to-transparent">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-        <header className="mb-6 md:mb-8">
-          <h2 id="tech-cs-insights-title" className="text-2xl md:text-3xl font-extrabold tracking-tight">
+    <section aria-labelledby="tech-cs-insights-title" className="py-8 sm:py-10 lg:py-12 bg-gradient-to-b from-background via-muted/20 to-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <header className="mb-6 sm:mb-8 text-center sm:text-left">
+          <h2 id="tech-cs-insights-title" className="text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight">
             Real outcomes from modern AI workflows
           </h2>
-          <p className="mt-1.5 text-muted-foreground">
+          <p className="mt-2 text-sm sm:text-base text-muted-foreground max-w-3xl sm:mx-0 mx-auto">
             Explore case studies and timely insights for independent healthcare practices.
           </p>
         </header>
 
         {/* Case Study Carousel */}
-        <div aria-labelledby="case-studies-title" className="mb-6 md:mb-8">
+        <div aria-labelledby="case-studies-title" className="mb-8 sm:mb-10">
           <h3 id="case-studies-title" className="sr-only">Case studies</h3>
           <Carousel
             opts={{ align: "start", loop: true }}
@@ -163,18 +163,18 @@ const CaseStudiesAndInsights: React.FC = () => {
             setApi={setApi}
             className="w-full"
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-2 sm:-ml-4">
               {caseStudies.map((cs) => (
-                <CarouselItem key={cs.id} className="basis-full">
+                <CarouselItem key={cs.id} className="basis-full pl-2 sm:pl-4">
                   <SlideContent cs={cs} />
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:inline-flex" />
-            <CarouselNext className="hidden md:inline-flex" />
+            <CarouselPrevious className="hidden lg:inline-flex -left-12" />
+            <CarouselNext className="hidden lg:inline-flex -right-12" />
           </Carousel>
           {/* Dots */}
-          <div className="mt-4 flex items-center justify-center gap-2" role="tablist" aria-label="Select slide" aria-live="polite">
+          <div className="mt-6 flex items-center justify-center gap-2" role="tablist" aria-label="Select slide" aria-live="polite">
             {Array.from({ length: count }).map((_, i) => (
               <button
                 key={i}
@@ -183,8 +183,8 @@ const CaseStudiesAndInsights: React.FC = () => {
                 aria-selected={i === current}
                 onClick={() => api?.scrollTo(i)}
                 className={cn(
-                  "h-2 rounded-full transition-all",
-                  i === current ? "w-5 bg-primary" : "w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60"
+                  "h-2 rounded-full transition-all duration-200",
+                  i === current ? "w-6 bg-primary" : "w-2 bg-muted-foreground/40 hover:bg-muted-foreground/60"
                 )}
               />
             ))}
@@ -193,9 +193,11 @@ const CaseStudiesAndInsights: React.FC = () => {
 
         {/* Insights links */}
         <div aria-labelledby="insights-title">
-          <div className="flex items-center justify-between mb-4">
-            <h3 id="insights-title" className="text-xl md:text-2xl font-semibold">Insights for independent practices</h3>
-            <a href="/blog" className="text-sm text-primary inline-flex items-center gap-1">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-2">
+            <h3 id="insights-title" className="text-lg sm:text-xl lg:text-2xl font-semibold text-center sm:text-left">
+              Insights for independent practices
+            </h3>
+            <a href="/blog" className="text-sm text-primary inline-flex items-center gap-1 mx-auto sm:mx-0">
               The Intake <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -207,12 +209,13 @@ const CaseStudiesAndInsights: React.FC = () => {
                 href={i.href}
                 className={cn(
                   "rounded-full border border-border bg-background text-foreground px-4 py-3",
-                  "hover:bg-muted transition-colors inline-flex items-center justify-between gap-2"
+                  "hover:bg-muted transition-colors inline-flex items-center justify-between gap-2",
+                  "text-sm sm:text-base"
                 )}
                 aria-label={`${i.title} – read article`}
               >
-                <span className="line-clamp-1">{i.title}</span>
-                <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                <span className="line-clamp-1 flex-1">{i.title}</span>
+                <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0" />
               </a>
             ))}
           </div>
