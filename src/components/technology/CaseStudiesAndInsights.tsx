@@ -105,7 +105,12 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             <p className="text-xs sm:text-sm text-muted-foreground">Watch the story</p>
           ) : (
             cs.cta && (
-              <Button variant="outline" size="sm" className="rounded-full group text-xs sm:text-sm">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="rounded-full group text-xs sm:text-sm cursor-pointer"
+                onClick={() => window.open(cs.cta!.href, '_blank')}
+              >
                 {cs.cta.label}
                 <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-0.5" />
               </Button>
