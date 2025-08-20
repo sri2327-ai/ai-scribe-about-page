@@ -96,21 +96,46 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             playPosition="bottom-left"
           />
         ) : cs.type === "trustpilot" ? (
-          <div className="h-full w-full bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 flex flex-col items-center justify-center p-6 text-center">
+          <div className="h-full w-full bg-gray-100 dark:bg-gray-800 flex flex-col justify-between p-6">
+            {/* Trustpilot Header */}
             <div className="flex items-center gap-2 mb-4">
-              <svg className="h-8 w-8 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+              <svg className="h-6 w-6 text-green-600" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
               </svg>
-              <span className="text-green-600 font-bold text-xl">Trustpilot</span>
+              <span className="text-green-600 font-bold text-lg">Trustpilot</span>
             </div>
-            <div className="flex gap-1 mb-4">
-              {[...Array(5)].map((_, i) => (
-                <svg key={i} className="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
-                </svg>
-              ))}
+            
+            {/* Main Review Content */}
+            <div className="flex-1 flex flex-col justify-center">
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed italic mb-6">
+                "{cs.quote}"
+              </p>
+              
+              {/* Star Rating */}
+              <div className="flex gap-1 mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} className="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
+                  </svg>
+                ))}
+              </div>
+              
+              {/* Author Info */}
+              {(cs as any).author && (
+                <div className="text-gray-600 dark:text-gray-400 text-sm">
+                  <p className="font-semibold">{(cs as any).author}</p>
+                  <p>{(cs as any).org}</p>
+                </div>
+              )}
             </div>
-            <ExternalLink className="h-8 w-8 text-green-600/60" />
+            
+            {/* Bottom Right Link */}
+            <div className="flex justify-end mt-4">
+              <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
+                <span>Read more on Trustpilot</span>
+                <ExternalLink className="h-4 w-4" />
+              </div>
+            </div>
           </div>
         ) : (
           <OptimizedImage
