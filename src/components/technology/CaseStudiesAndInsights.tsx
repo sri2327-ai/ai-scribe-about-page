@@ -83,6 +83,60 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
     }
   };
 
+  // Full-width layout for Trustpilot slides
+  if (cs.type === "trustpilot") {
+    return (
+      <article className="group rounded-3xl bg-gray-100 dark:bg-gray-800 shadow-xl ring-1 ring-border/60 p-6 md:p-8 animate-fade-in md:h-[320px] lg:h-[340px] flex flex-col justify-between">
+        {/* Trustpilot Header */}
+        <div className="flex items-center gap-2 mb-6">
+          <svg className="h-6 w-6 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
+          </svg>
+          <span className="text-green-600 font-bold text-xl">Trustpilot</span>
+        </div>
+        
+        {/* Main Review Content */}
+        <div className="flex-1 flex flex-col justify-center text-center">
+          <p className="text-gray-700 dark:text-gray-300 text-xl md:text-2xl leading-relaxed italic mb-8 max-w-4xl mx-auto">
+            "{cs.quote}"
+          </p>
+          
+          {/* Star Rating */}
+          <div className="flex gap-1 justify-center mb-6">
+            {[...Array(5)].map((_, i) => (
+              <svg key={i} className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
+              </svg>
+            ))}
+          </div>
+          
+          {/* Author Info */}
+          {(cs as any).author && (
+            <div className="text-gray-600 dark:text-gray-400 text-base mb-8">
+              <p className="font-semibold">{(cs as any).author}</p>
+              <p>{(cs as any).org}</p>
+            </div>
+          )}
+        </div>
+        
+        {/* CTA Button */}
+        <div className="text-center">
+          {cs.cta && (
+            <Button 
+              variant="outline" 
+              size="default" 
+              className="rounded-full group cursor-pointer bg-green-600 text-white border-green-600 hover:bg-green-700 hover:border-green-700"
+              onClick={handleClick}
+            >
+              {cs.cta.label}
+              <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Button>
+          )}
+        </div>
+      </article>
+    );
+  }
+
   return (
     <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in md:h-[320px] lg:h-[340px]">
       <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
@@ -95,48 +149,6 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             imageClassName="object-cover"
             playPosition="bottom-left"
           />
-        ) : cs.type === "trustpilot" ? (
-          <div className="h-full w-full bg-gray-100 dark:bg-gray-800 flex flex-col justify-between p-6">
-            {/* Trustpilot Header */}
-            <div className="flex items-center gap-2 mb-4">
-              <svg className="h-6 w-6 text-green-600" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
-              </svg>
-              <span className="text-green-600 font-bold text-lg">Trustpilot</span>
-            </div>
-            
-            {/* Main Review Content */}
-            <div className="flex-1 flex flex-col justify-center">
-              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed italic mb-6">
-                "{cs.quote}"
-              </p>
-              
-              {/* Star Rating */}
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
-                  </svg>
-                ))}
-              </div>
-              
-              {/* Author Info */}
-              {(cs as any).author && (
-                <div className="text-gray-600 dark:text-gray-400 text-sm">
-                  <p className="font-semibold">{(cs as any).author}</p>
-                  <p>{(cs as any).org}</p>
-                </div>
-              )}
-            </div>
-            
-            {/* Bottom Right Link */}
-            <div className="flex justify-end mt-4">
-              <div className="flex items-center gap-2 text-gray-500 dark:text-gray-400 text-sm">
-                <span>Read more on Trustpilot</span>
-                <ExternalLink className="h-4 w-4" />
-              </div>
-            </div>
-          </div>
         ) : (
           <OptimizedImage
             src={(cs as any).image}
@@ -151,10 +163,7 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2.5 line-clamp-2">
             {cs.title}
           </h3>
-          <p className={cn(
-            "text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3",
-            cs.type === "trustpilot" && "italic"
-          )}>
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3">
             "{cs.quote}"
           </p>
           {(cs as any).author && (
