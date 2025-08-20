@@ -52,15 +52,23 @@ const insights = [
     href: "/blog",
   },
   {
-    title: "What MA risk-adjustment audits could mean",
+    title: "Cardiology-specific AI documentation challenges and solutions",
     href: "/blog",
   },
   {
-    title: "What’s holding practices back from using AI?",
+    title: "Pediatric EHR workflow optimization",
     href: "/blog",
   },
   {
-    title: "From burnout to breathing room with AI",
+    title: "Mental health AI applications and compliance considerations",
+    href: "/blog",
+  },
+  {
+    title: "Emergency medicine real-time documentation needs",
+    href: "/blog",
+  },
+  {
+    title: "Surgical specialty integration requirements",
     href: "/blog",
   },
 ];
@@ -257,13 +265,13 @@ const CaseStudiesAndInsights: React.FC = () => {
         {/* Insights links */}
         <div aria-labelledby="insights-title">
           <div className="flex items-center justify-between mb-4">
-            <h3 id="insights-title" className="text-xl md:text-2xl font-semibold">Insights for independent practices</h3>
+            <h3 id="insights-title" className="text-xl md:text-2xl font-semibold">Specialty-focused insights for healthcare providers</h3>
             <a href="/blog" className="text-sm text-primary inline-flex items-center gap-1">
-              The Intake <ExternalLink className="h-3.5 w-3.5" />
+              Specialty Hub <ExternalLink className="h-3.5 w-3.5" />
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3">
             {insights.map((i) => (
               <a
                 key={i.title}
