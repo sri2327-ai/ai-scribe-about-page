@@ -75,27 +75,27 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
   // Full-width layout for Trustpilot slides
   if (cs.type === "trustpilot") {
     return (
-      <article className="group rounded-3xl bg-gray-100 dark:bg-gray-800 shadow-xl ring-1 ring-border/60 p-6 md:p-8 animate-fade-in md:h-[320px] lg:h-[340px] flex flex-col justify-between">
+      <article className="group rounded-3xl bg-gray-100 dark:bg-gray-800 shadow-xl ring-1 ring-border/60 p-4 sm:p-6 md:p-8 animate-fade-in min-h-[360px] sm:min-h-[380px] md:min-h-[400px] lg:min-h-[420px] flex flex-col">
         {/* Trustpilot Header */}
-        <div className="flex items-center gap-3 mb-6">
+        <div className="flex items-center gap-3 mb-4 sm:mb-6">
           {/* Trustpilot Star */}
-          <svg className="h-7 w-7" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#00B67A' }}>
+          <svg className="h-6 w-6 sm:h-7 sm:w-7" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#00B67A' }}>
             <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
           </svg>
           {/* Trustpilot Text */}
-          <span className="text-black dark:text-white font-bold text-xl">Trustpilot</span>
+          <span className="text-black dark:text-white font-bold text-lg sm:text-xl">Trustpilot</span>
         </div>
         
         {/* Main Review Content */}
-        <div className="flex-1 flex flex-col justify-center text-center">
-          <p className="text-gray-700 dark:text-gray-300 text-xl md:text-2xl leading-relaxed italic mb-8 max-w-4xl mx-auto">
+        <div className="flex-1 flex flex-col justify-center text-center py-4">
+          <p className="text-gray-700 dark:text-gray-300 text-lg sm:text-xl md:text-2xl leading-relaxed italic mb-6 sm:mb-8 max-w-4xl mx-auto px-2">
             "{cs.quote}"
           </p>
           
           {/* Star Rating */}
-          <div className="flex gap-1 justify-center mb-6">
+          <div className="flex gap-1 justify-center mb-4 sm:mb-6">
             {[...Array(5)].map((_, i) => (
-              <svg key={i} className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#00B67A' }}>
+              <svg key={i} className="h-5 w-5 sm:h-6 sm:w-6" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#00B67A' }}>
                 <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
               </svg>
             ))}
@@ -103,20 +103,20 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           
           {/* Author Info */}
           {cs.author && (
-            <div className="text-gray-600 dark:text-gray-400 text-base mb-8">
+            <div className="text-gray-600 dark:text-gray-400 text-sm sm:text-base mb-6 sm:mb-8">
               <p className="font-semibold">{cs.author}</p>
               <p>{cs.org}</p>
             </div>
           )}
         </div>
         
-        {/* CTA Button */}
-        <div className="text-center">
+        {/* CTA Button - Fixed at bottom with proper spacing */}
+        <div className="text-center mt-auto pt-4">
           {cs.cta && (
             <Button 
               variant="outline" 
               size="default" 
-              className="rounded-full group cursor-pointer"
+              className="rounded-full group cursor-pointer px-6 py-2.5"
               onClick={handleClick}
             >
               {cs.cta.label}
@@ -130,7 +130,7 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
 
   // Video slide
   return (
-    <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in md:h-[320px] lg:h-[340px]">
+    <article className="group grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in min-h-[360px] sm:min-h-[380px] md:min-h-[400px] lg:min-h-[420px]">
       <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
         <YouTubeFacade
           videoId={(cs as any).videoId}
@@ -142,27 +142,27 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
         />
       </div>
 
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-between py-2 md:py-0">
         <div>
-          <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2.5 line-clamp-2">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2 sm:mb-2.5 line-clamp-2">
             {cs.title}
           </h3>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3 sm:mb-4">
             "{cs.quote}"
           </p>
           {cs.author && (
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xs sm:text-sm text-muted-foreground mb-4">
               <p className="font-semibold">{cs.author}</p>
               <p>{cs.org}</p>
             </div>
           )}
         </div>
-        <div className="mt-6">
+        <div className="mt-4 sm:mt-6">
           {cs.cta && (
             <Button 
               variant="outline" 
               size="sm" 
-              className="rounded-full group cursor-pointer"
+              className="rounded-full group cursor-pointer text-sm px-4 py-2"
               onClick={handleClick}
             >
               {cs.cta.label}
