@@ -20,8 +20,9 @@ const caseStudies = [
       "I've used over a dozen AI scribes and wasn't satisfied with any of them—until I started using S10.AI. It offers all the functionality I need in a single system. S10.AI has been the best experience by far.",
     author: "Dr. Brad Wainer",
     org: "DO Primary Care Associates",
-    posterUrl: "/lovable-uploads/e3cd847c-a393-4441-9ec8-c60b0ca1b578.png", // Provided by user
+    posterUrl: "/lovable-uploads/e3cd847c-a393-4441-9ec8-c60b0ca1b578.png",
     videoId: "ysz5S6PUM-U",
+    cta: { href: "/case-studies", label: "Read full case study" },
   },
   {
     id: "patient-care",
@@ -35,20 +36,24 @@ const caseStudies = [
     cta: { href: "/case-studies", label: "Read full case study" },
   },
   {
-    id: "revenue-growth",
-    type: "image" as const,
-    title: "Revenue Growth with Streamlined Coding",
-    quote: "Cleaner notes, better codes, 15% uplift in reimbursements.",
-    image: "/case-studies/revenue-growth.svg",
-    cta: { href: "/case-studies", label: "Read full case study" },
+    id: "trustpilot-1",
+    type: "trustpilot" as const,
+    title: "Exceptional AI Scribe Performance",
+    quote:
+      "I've tried several AI scribes—DeepScribe, Dragon Dax, Freed.ai, and Heidi—and S10.ai is by far the best. It's accurate, saves time, and I highly recommend it.",
+    author: "Sarah Johnson",
+    org: "Verified Trustpilot Reviewer",
+    cta: { href: "https://www.trustpilot.com/users/668b8b2047406e76e8d0362f", label: "Read more on Trustpilot" },
   },
   {
-    id: "cost-savings",
-    type: "image" as const,
-    title: "Cost Savings via Automation",
-    quote: "Saved hundreds of hours by automating routine admin work.",
-    image: "/case-studies/cost-savings-improved.svg",
-    cta: { href: "/case-studies", label: "Read full case study" },
+    id: "trustpilot-2",
+    type: "trustpilot" as const,
+    title: "Practice Transformation with S10.AI",
+    quote:
+      "The S10.ai AI medical scribe has truly transformed my practice — I highly recommend it!",
+    author: "Michael Thompson",
+    org: "Verified Trustpilot Reviewer",
+    cta: { href: "https://www.trustpilot.com/users/64572143efbe6d0015975d9f", label: "Read more on Trustpilot" },
   },
 ];
 
@@ -72,6 +77,12 @@ const insights = [
 ];
 
 const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) => {
+  const handleClick = () => {
+    if (cs.cta?.href) {
+      window.open(cs.cta.href, '_blank');
+    }
+  };
+
   return (
     <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in md:h-[320px] lg:h-[340px]">
       <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
@@ -84,6 +95,23 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             imageClassName="object-cover"
             playPosition="bottom-left"
           />
+        ) : cs.type === "trustpilot" ? (
+          <div className="h-full w-full bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 flex flex-col items-center justify-center p-6 text-center">
+            <div className="flex items-center gap-2 mb-4">
+              <svg className="h-8 w-8 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
+              </svg>
+              <span className="text-green-600 font-bold text-xl">Trustpilot</span>
+            </div>
+            <div className="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <svg key={i} className="h-5 w-5 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
+                </svg>
+              ))}
+            </div>
+            <ExternalLink className="h-8 w-8 text-green-600/60" />
+          </div>
         ) : (
           <OptimizedImage
             src={(cs as any).image}
@@ -98,7 +126,10 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2.5 line-clamp-2">
             {cs.title}
           </h3>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3">
+          <p className={cn(
+            "text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3",
+            cs.type === "trustpilot" && "italic"
+          )}>
             "{cs.quote}"
           </p>
           {(cs as any).author && (
@@ -109,15 +140,16 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           )}
         </div>
         <div className="mt-6">
-          {cs.type === "video" ? (
-            <p className="text-sm text-muted-foreground">Read case study</p>
-          ) : (
-            cs.cta && (
-              <Button variant="outline" size="sm" className="rounded-full group">
-                {cs.cta.label}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
-            )
+          {cs.cta && (
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="rounded-full group cursor-pointer"
+              onClick={handleClick}
+            >
+              {cs.cta.label}
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </Button>
           )}
         </div>
       </div>
