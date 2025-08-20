@@ -25,17 +25,6 @@ const caseStudies = [
     cta: { href: "/case-studies", label: "Read full case study" },
   },
   {
-    id: "patient-care",
-    type: "image" as const,
-    title: "Streamlined Workflow and Increased Patient Focus",
-    quote:
-      "S10.AI has definitely saved 2+ hours daily for me and has increased the time I can spend focusing on patient care, documentation accuracy, and even getting home earlier. It's streamlined my workflow in a way no other scribe or system has.",
-    author: "Dr. Choudhary",
-    org: "Primary Care Centre of Clear Lake",
-    image: "/case-studies/patient-care.svg",
-    cta: { href: "/case-studies", label: "Read full case study" },
-  },
-  {
     id: "trustpilot-1",
     type: "trustpilot" as const,
     title: "Exceptional AI Scribe Performance",
@@ -88,11 +77,13 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
     return (
       <article className="group rounded-3xl bg-gray-100 dark:bg-gray-800 shadow-xl ring-1 ring-border/60 p-6 md:p-8 animate-fade-in md:h-[320px] lg:h-[340px] flex flex-col justify-between">
         {/* Trustpilot Header */}
-        <div className="flex items-center gap-2 mb-6">
-          <svg className="h-6 w-6 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+        <div className="flex items-center gap-3 mb-6">
+          {/* Trustpilot Star */}
+          <svg className="h-7 w-7" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#00B67A' }}>
             <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
           </svg>
-          <span className="text-green-600 font-bold text-xl">Trustpilot</span>
+          {/* Trustpilot Text */}
+          <span className="text-black dark:text-white font-bold text-xl">Trustpilot</span>
         </div>
         
         {/* Main Review Content */}
@@ -104,17 +95,17 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           {/* Star Rating */}
           <div className="flex gap-1 justify-center mb-6">
             {[...Array(5)].map((_, i) => (
-              <svg key={i} className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+              <svg key={i} className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor" style={{ color: '#00B67A' }}>
                 <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
               </svg>
             ))}
           </div>
           
           {/* Author Info */}
-          {(cs as any).author && (
+          {cs.author && (
             <div className="text-gray-600 dark:text-gray-400 text-base mb-8">
-              <p className="font-semibold">{(cs as any).author}</p>
-              <p>{(cs as any).org}</p>
+              <p className="font-semibold">{cs.author}</p>
+              <p>{cs.org}</p>
             </div>
           )}
         </div>
@@ -125,7 +116,7 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             <Button 
               variant="outline" 
               size="default" 
-              className="rounded-full group cursor-pointer bg-green-600 text-white border-green-600 hover:bg-green-700 hover:border-green-700"
+              className="rounded-full group cursor-pointer"
               onClick={handleClick}
             >
               {cs.cta.label}
@@ -137,25 +128,18 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
     );
   }
 
+  // Video slide
   return (
     <article className="group grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6 items-stretch rounded-3xl bg-card/90 shadow-xl ring-1 ring-border/60 p-3 sm:p-5 md:p-6 animate-fade-in md:h-[320px] lg:h-[340px]">
       <div className="relative overflow-hidden rounded-2xl aspect-[16/10] sm:aspect-[4/3] md:aspect-auto md:h-full">
-        {cs.type === "video" ? (
-          <YouTubeFacade
-            videoId={(cs as any).videoId}
-            title={cs.title}
-            posterUrl={(cs as any).posterUrl}
-            className="h-full w-full"
-            imageClassName="object-cover"
-            playPosition="bottom-left"
-          />
-        ) : (
-          <OptimizedImage
-            src={(cs as any).image}
-            alt={cs.title}
-            className="w-full h-full object-cover"
-          />
-        )}
+        <YouTubeFacade
+          videoId={(cs as any).videoId}
+          title={cs.title}
+          posterUrl={(cs as any).posterUrl}
+          className="h-full w-full"
+          imageClassName="object-cover"
+          playPosition="bottom-left"
+        />
       </div>
 
       <div className="flex flex-col justify-between">
@@ -166,10 +150,10 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3">
             "{cs.quote}"
           </p>
-          {(cs as any).author && (
+          {cs.author && (
             <div className="text-sm text-muted-foreground">
-              <p className="font-semibold">{(cs as any).author}</p>
-              <p>{(cs as any).org}</p>
+              <p className="font-semibold">{cs.author}</p>
+              <p>{cs.org}</p>
             </div>
           )}
         </div>
