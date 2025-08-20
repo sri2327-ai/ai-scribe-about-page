@@ -45,16 +45,6 @@ const caseStudies = [
     org: "Verified Trustpilot Reviewer",
     cta: { href: "https://www.trustpilot.com/users/668b8b2047406e76e8d0362f", label: "Read more on Trustpilot" },
   },
-  {
-    id: "trustpilot-2",
-    type: "trustpilot" as const,
-    title: "Practice Transformation with S10.AI",
-    quote:
-      "The S10.ai AI medical scribe has truly transformed my practice — I highly recommend it!",
-    author: "Michael Thompson",
-    org: "Verified Trustpilot Reviewer",
-    cta: { href: "https://www.trustpilot.com/users/64572143efbe6d0015975d9f", label: "Read more on Trustpilot" },
-  },
 ];
 
 const insights = [
@@ -86,25 +76,25 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
   // Full-width layout for Trustpilot slides
   if (cs.type === "trustpilot") {
     return (
-      <article className="group rounded-3xl bg-gray-100 dark:bg-gray-800 shadow-xl ring-1 ring-border/60 p-6 md:p-8 animate-fade-in md:h-[320px] lg:h-[340px] flex flex-col justify-between">
+      <article className="group rounded-3xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-border/60 p-6 md:p-8 animate-fade-in md:h-[320px] lg:h-[340px] flex flex-col justify-between">
         {/* Trustpilot Header */}
-        <div className="flex items-center gap-2 mb-6">
-          <svg className="h-6 w-6 text-green-600" viewBox="0 0 24 24" fill="currentColor">
+        <div className="flex items-center gap-3 mb-6">
+          <svg className="h-7 w-7" viewBox="0 0 24 24" fill="#00B67A">
             <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
           </svg>
-          <span className="text-green-600 font-bold text-xl">Trustpilot</span>
+          <span className="text-black dark:text-white font-bold text-2xl" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>Trustpilot</span>
         </div>
         
         {/* Main Review Content */}
         <div className="flex-1 flex flex-col justify-center text-center">
-          <p className="text-gray-700 dark:text-gray-300 text-xl md:text-2xl leading-relaxed italic mb-8 max-w-4xl mx-auto">
+          <p className="text-gray-800 dark:text-gray-200 text-xl md:text-2xl leading-relaxed mb-8 max-w-4xl mx-auto">
             "{cs.quote}"
           </p>
           
           {/* Star Rating */}
           <div className="flex gap-1 justify-center mb-6">
             {[...Array(5)].map((_, i) => (
-              <svg key={i} className="h-6 w-6 text-green-500" viewBox="0 0 24 24" fill="currentColor">
+              <svg key={i} className="h-6 w-6" viewBox="0 0 24 24" fill="#00B67A">
                 <path d="M12 2L9.19 8.63L2 9.24L7.46 14.97L5.82 22L12 18.27L18.18 22L16.54 14.97L22 9.24L14.81 8.63L12 2Z"/>
               </svg>
             ))}
@@ -125,7 +115,7 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
             <Button 
               variant="outline" 
               size="default" 
-              className="rounded-full group cursor-pointer bg-green-600 text-white border-green-600 hover:bg-green-700 hover:border-green-700"
+              className="rounded-full group cursor-pointer"
               onClick={handleClick}
             >
               {cs.cta.label}
