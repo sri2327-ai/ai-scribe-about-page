@@ -1,7 +1,5 @@
-
 import React, { useState } from 'react';
 import { Play } from 'lucide-react';
-
 interface YouTubeFacadeProps {
   videoId: string;
   title: string;
@@ -11,7 +9,6 @@ interface YouTubeFacadeProps {
   playPosition?: 'center' | 'bottom-left' | 'bottom-right';
   imageClassName?: string; // allow custom object-position/fit
 }
-
 export const YouTubeFacade = ({
   videoId,
   title,
@@ -19,40 +16,22 @@ export const YouTubeFacade = ({
   className = '',
   posterUrl,
   playPosition = 'center',
-  imageClassName = '',
+  imageClassName = ''
 }: YouTubeFacadeProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  
+
   // Thumbnail: allow custom poster override, fallback to YouTube auto thumbnail
   const thumbnailUrl = posterUrl || `https://img.youtube.com/vi/${videoId}/${thumbnailQuality}.jpg`;
-  
-  const loadVideo = () => { setIsLoaded(true); };
-
-  const playPositionClass =
-    playPosition === 'bottom-left'
-      ? 'items-end justify-start p-4'
-      : playPosition === 'bottom-right'
-      ? 'items-end justify-end p-4'
-      : 'items-center justify-center';
-  return (
-    <div 
-      className={`w-full h-full overflow-hidden rounded-lg relative ${className}`}
-      aria-label={isLoaded ? undefined : `Click to load YouTube video: ${title}`}
-    >
-      {!isLoaded ? (
-        // Facade - lightweight placeholder with thumbnail
-        <button
-          onClick={loadVideo}
-          className="w-full h-full group relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          aria-label={`Play video: ${title}`}
-        >
+  const loadVideo = () => {
+    setIsLoaded(true);
+  };
+  const playPositionClass = playPosition === 'bottom-left' ? 'items-end justify-start p-4' : playPosition === 'bottom-right' ? 'items-end justify-end p-4' : 'items-center justify-center';
+  return <div className={`w-full h-full overflow-hidden rounded-lg relative ${className}`} aria-label={isLoaded ? undefined : `Click to load YouTube video: ${title}`}>
+      {!isLoaded ?
+    // Facade - lightweight placeholder with thumbnail
+    <button onClick={loadVideo} className="w-full h-full group relative focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2" aria-label={`Play video: ${title}`}>
           {/* Thumbnail image */}
-          <img 
-            src={thumbnailUrl} 
-            alt={`Thumbnail for ${title}`}
-            loading="lazy"
-            className={`w-full h-full object-cover ${imageClassName}`}
-          />
+          <img src={thumbnailUrl} alt={`Thumbnail for ${title}`} loading="lazy" className={`w-full h-full object-cover ${imageClassName}`} />
           
           {/* Play button overlay */}
           <div className={`absolute inset-0 flex ${playPositionClass} transition-all duration-300`}>
@@ -64,21 +43,11 @@ export const YouTubeFacade = ({
           
           {/* Video title overlay */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
-            <p className="text-sm sm:text-base font-medium truncate">{title}</p>
+            
           </div>
-        </button>
-      ) : (
-        // Actual YouTube embed - loaded only after user interaction
-        <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-          title={title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-          className="w-full h-full"
-        />
-      )}
-    </div>
-  );
+        </button> :
+    // Actual YouTube embed - loaded only after user interaction
+    <iframe src={`https://www.youtube.com/embed/${videoId}?autoplay=1`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="w-full h-full" />}
+    </div>;
 };
-
 export default YouTubeFacade;
