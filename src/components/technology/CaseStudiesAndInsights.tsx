@@ -269,12 +269,12 @@ const CaseStudiesAndInsights: React.FC = () => {
                 key={i.title}
                 href={i.href}
                 className={cn(
-                  "rounded-full border border-border bg-background text-foreground px-4 py-3",
-                  "hover:bg-muted transition-colors inline-flex items-center justify-between gap-2"
+                  "rounded-2xl border border-border bg-background text-foreground px-5 py-4",
+                  "hover:bg-muted transition-colors flex items-center justify-between gap-3 min-h-[72px]"
                 )}
                 aria-label={`${i.title} – read article`}
               >
-                <span className="line-clamp-1">{i.title}</span>
+                <span className="text-sm leading-tight line-clamp-2 flex-1">{i.title}</span>
                 <ExternalLink className="h-4 w-4 text-muted-foreground" />
               </a>
             ))}
