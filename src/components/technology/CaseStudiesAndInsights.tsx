@@ -166,10 +166,15 @@ const CaseStudiesAndInsights: React.FC = () => {
         <div aria-labelledby="case-studies-title" className="mb-6 md:mb-8">
           <h3 id="case-studies-title" className="sr-only">Case studies</h3>
           <Carousel
-            opts={{ align: "start", loop: true }}
-            plugins={[Autoplay({ delay: 5000, stopOnMouseEnter: true, stopOnInteraction: true })]}
+            opts={{ 
+              align: "start", 
+              loop: true,
+              skipSnaps: false,
+              dragFree: false
+            }}
+            plugins={[Autoplay({ delay: 5000, stopOnMouseEnter: true, stopOnInteraction: false })]}
             setApi={setApi}
-            className="w-full"
+            className="w-full relative"
           >
             <CarouselContent>
               {caseStudies.map((cs) => (
@@ -178,8 +183,8 @@ const CaseStudiesAndInsights: React.FC = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden md:inline-flex" />
-            <CarouselNext className="hidden md:inline-flex" />
+            <CarouselPrevious className="md:inline-flex -left-2 md:-left-4 z-10 bg-background/80 backdrop-blur-sm border-border hover:bg-background" />
+            <CarouselNext className="md:inline-flex -right-2 md:-right-4 z-10 bg-background/80 backdrop-blur-sm border-border hover:bg-background" />
           </Carousel>
           {/* Dots */}
           <div className="mt-4 flex items-center justify-center gap-2" role="tablist" aria-label="Select slide" aria-live="polite">
