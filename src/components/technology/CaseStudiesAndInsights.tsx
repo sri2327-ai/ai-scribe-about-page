@@ -205,7 +205,7 @@ const CaseStudiesAndInsights: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <header className="mb-6 md:mb-8">
           <h2 id="tech-cs-insights-title" className="text-2xl md:text-3xl font-extrabold tracking-tight">
-            Real outcomes from modern AI workflows
+            Real outcomes from modern ambient AI Workflows
           </h2>
           <p className="mt-1.5 text-muted-foreground">
             Explore case studies and timely insights for independent healthcare practices.
