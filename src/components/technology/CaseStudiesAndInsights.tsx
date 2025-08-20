@@ -17,18 +17,20 @@ const caseStudies = [
     type: "video" as const,
     title: "How AI-supercharged workflows improve provider experience",
     quote:
-      "I now have all the functionality I need in one system… it has been the best experience.",
-    author: "Practice Owner",
-    org: "Psychiatric Care",
+      "I've used over a dozen AI scribes and wasn't satisfied with any of them—until I started using S10.AI. It offers all the functionality I need in a single system. S10.AI has been the best experience by far.",
+    author: "Dr. Brad Wainer",
+    org: "DO Primary Care Associates",
     posterUrl: "/lovable-uploads/e3cd847c-a393-4441-9ec8-c60b0ca1b578.png", // Provided by user
     videoId: "ysz5S6PUM-U",
   },
   {
     id: "patient-care",
     type: "image" as const,
-    title: "Improved Patient Care and Clinician Satisfaction",
+    title: "Streamlined Workflow and Increased Patient Focus",
     quote:
-      "Documentation time reduced 60%, enabling more face time with patients.",
+      "S10.AI has definitely saved 2+ hours daily for me and has increased the time I can spend focusing on patient care, documentation accuracy, and even getting home earlier. It's streamlined my workflow in a way no other scribe or system has.",
+    author: "Dr. Choudhary",
+    org: "Primary Care Centre of Clear Lake",
     image: "/case-studies/patient-care.svg",
     cta: { href: "/case-studies", label: "Read full case study" },
   },
@@ -96,13 +98,19 @@ const SlideContent: React.FC<{ cs: (typeof caseStudies)[number] }> = ({ cs }) =>
           <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2.5 line-clamp-2">
             {cs.title}
           </h3>
-          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4">
-            {cs.quote}
+          <p className="text-base md:text-lg text-muted-foreground leading-relaxed line-clamp-3 md:line-clamp-4 mb-3">
+            "{cs.quote}"
           </p>
+          {(cs as any).author && (
+            <div className="text-sm text-muted-foreground">
+              <p className="font-semibold">{(cs as any).author}</p>
+              <p>{(cs as any).org}</p>
+            </div>
+          )}
         </div>
         <div className="mt-6">
           {cs.type === "video" ? (
-            <p className="text-sm text-muted-foreground">Watch the story</p>
+            <p className="text-sm text-muted-foreground">Read case study</p>
           ) : (
             cs.cta && (
               <Button variant="outline" size="sm" className="rounded-full group">
