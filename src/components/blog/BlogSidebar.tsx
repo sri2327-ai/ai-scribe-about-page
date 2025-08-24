@@ -7,12 +7,12 @@ const BlogSidebar = () => {
   return (
     <div className="space-y-6">
       {/* Main CTA */}
-      <Card className="p-6 bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-blue-200">
+      <Card className="p-6 bg-gradient-to-br from-tealBlue/10 to-tealBlueBright/20 border-2 border-tealBlue/30">
         <div className="text-center mb-6">
           <h3 className="text-2xl font-bold text-gray-800 mb-2">
             Do you want to save hours in documentation?
           </h3>
-          <div className="w-12 h-0.5 bg-orange-500 rounded-full mx-auto mb-4"></div>
+          <div className="w-12 h-0.5 bg-tealBlue rounded-full mx-auto mb-4"></div>
         </div>
         
         <div className="text-center mb-6">
@@ -24,7 +24,7 @@ const BlogSidebar = () => {
         </div>
         
         <div className="flex justify-center">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 text-lg font-semibold rounded-lg">
+          <Button className="bg-tealBlue hover:bg-tealBlueBright text-white px-6 py-3 text-lg font-semibold rounded-lg">
             Start your free assessment
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
@@ -35,7 +35,7 @@ const BlogSidebar = () => {
       <Card className="p-6 bg-gray-50">
         <div className="mb-4">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-tealBlue rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">S10</span>
             </div>
             <div>
@@ -49,9 +49,9 @@ const BlogSidebar = () => {
           </p>
         </div>
         
-        <div className="space-y-4">
+          <div className="space-y-4">
           <div className="flex items-center gap-3">
-            <Users className="h-5 w-5 text-orange-500" />
+            <Users className="h-5 w-5 text-tealBlue" />
             <div>
               <p className="font-semibold text-gray-800">+200 Specialists</p>
               <p className="text-sm text-gray-600">Employees</p>
@@ -59,7 +59,7 @@ const BlogSidebar = () => {
           </div>
           
           <div className="flex items-center gap-3">
-            <Globe className="h-5 w-5 text-orange-500" />
+            <Globe className="h-5 w-5 text-tealBlue" />
             <div>
               <p className="font-semibold text-gray-800">4 Countries</p>
               <p className="text-sm text-gray-600">Operating across the US, UK, Canada and Australia</p>
@@ -71,7 +71,7 @@ const BlogSidebar = () => {
       {/* Our Clients */}
       <Card className="p-6 bg-white">
         <div className="flex items-center gap-3 mb-4">
-          <Users className="h-6 w-6 text-orange-500" />
+          <Users className="h-6 w-6 text-tealBlue" />
           <h4 className="font-bold text-lg text-gray-800">Our Clients</h4>
         </div>
         
@@ -137,31 +137,34 @@ const BlogSidebar = () => {
             { icon: FileText, label: "Medical Prefixes, Suffixes, Root Words" },
             { icon: TrendingUp, label: "Charts & Timelines" },
             { icon: BookOpen, label: "Medical Phrases" }
-          ].map((tool, index) => (
-            <div key={index} className="flex items-center gap-2 py-1">
-              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-              <tool.icon className="h-4 w-4 text-gray-600" />
-              <span className="text-sm text-gray-700">{tool.label}</span>
-            </div>
-          ))}
+          ].map((tool, index) => {
+            const IconComponent = tool.icon;
+            return (
+              <div key={index} className="flex items-center gap-2 py-1">
+                <div className="w-2 h-2 bg-tealBlue rounded-full"></div>
+                <IconComponent className="h-4 w-4 text-gray-600" />
+                <span className="text-sm text-gray-700">{tool.label}</span>
+              </div>
+            );
+          })}
         </div>
         
-        <Button variant="outline" className="w-full mt-4 border-blue-300 text-blue-700 hover:bg-blue-100">
+        <Button variant="outline" className="w-full mt-4 border-tealBlue text-tealBlue hover:bg-tealBlue/10">
           Explore free tools
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </Card>
 
       {/* Contact Us */}
-      <Card className="p-6 bg-gradient-to-br from-orange-500 to-red-500 text-white">
+      <Card className="p-6 bg-gradient-to-br from-tealBlue to-tealBlueBright text-white">
         <div className="text-center">
           <Phone className="h-8 w-8 mx-auto mb-3" />
           <h4 className="font-bold text-lg mb-2">Contact Us</h4>
-          <p className="mb-4 text-orange-100">
+          <p className="mb-4 text-tealBlue-100">
             Ready to transform your workflow? Book a personalized demo today.
           </p>
           
-          <Button variant="secondary" className="w-full bg-white text-orange-600 hover:bg-gray-100">
+          <Button variant="secondary" className="w-full bg-white text-tealBlue hover:bg-gray-100">
             Schedule a demo
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
