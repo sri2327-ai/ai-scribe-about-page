@@ -9,6 +9,7 @@ import { BlogFAQ } from './BlogFAQ';
 import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import BlogSidebar from './BlogSidebar';
 
 interface BlogPost {
   id: number;
@@ -126,8 +127,11 @@ const BlogPost = () => {
     <>
       <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <div className="min-h-screen pt-24 pb-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <Card className="mb-8 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-2">
+              <Card className="mb-8 overflow-hidden">
             <div className="bg-gradient-to-b from-white to-blue-100 p-6 md:p-8">
               <div className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="md:w-1/2 mb-6 md:mb-0">
@@ -260,8 +264,17 @@ const BlogPost = () => {
                   controlsBelow={true}
                 />
               </div>
+              </div>
+            )}
             </div>
-          )}
+            
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <div className="sticky top-28">
+                <BlogSidebar />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <Footer />
