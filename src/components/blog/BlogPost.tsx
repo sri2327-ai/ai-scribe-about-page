@@ -274,9 +274,7 @@ const BlogPost = () => {
                 
                 {/* Sidebar */}
                 <div className="lg:col-span-1">
-                  <div className="sticky top-28">
-                    <BlogSidebar />
-                  </div>
+                  <BlogSidebar />
                 </div>
               </div>
             </div>
