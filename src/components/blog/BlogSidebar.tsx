@@ -17,9 +17,7 @@ const BlogSidebar = () => {
   ];
 
   return (
-    <>
-      {/* Non-sticky content */}
-      <div className="space-y-4 sm:space-y-6">
+    <div className="sticky top-4 space-y-4 sm:space-y-6 h-fit">
         {/* Main CTA */}
         <Card className="p-4 sm:p-6 bg-gradient-to-br from-[#143151]/10 to-[#387E89]/20 border-2 border-[#387E89]/30">
           <div className="text-center mb-4 sm:mb-6">
@@ -157,10 +155,7 @@ const BlogSidebar = () => {
             })}
           </div>
         </Card>
-      </div>
 
-      {/* Sticky section */}
-      <div className="sticky top-4 space-y-4 sm:space-y-6 mt-4 sm:mt-6">
         {/* Contact Us */}
         <Card className="p-4 sm:p-6 bg-gradient-to-br from-[#143151] to-[#387E89] text-white">
           <div className="text-center">
@@ -193,7 +188,6 @@ const BlogSidebar = () => {
           </div>
         </Card>
       </div>
-    </>
   );
 };
 
