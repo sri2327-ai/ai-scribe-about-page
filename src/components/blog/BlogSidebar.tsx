@@ -17,7 +17,9 @@ const BlogSidebar = () => {
   ];
 
   return (
-    <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto space-y-4 sm:space-y-6 pb-4">
+    <div className="space-y-4 sm:space-y-6">
+      {/* Non-sticky content */}
+      <div className="space-y-4 sm:space-y-6">
         {/* Main CTA */}
         <Card className="p-4 sm:p-6 bg-gradient-to-br from-[#143151]/10 to-[#387E89]/20 border-2 border-[#387E89]/30">
           <div className="text-center mb-4 sm:mb-6">
@@ -155,7 +157,10 @@ const BlogSidebar = () => {
             })}
           </div>
         </Card>
+      </div>
 
+      {/* Sticky sections - Contact Us and ROI Calculator */}
+      <div className="sticky top-4 space-y-4 sm:space-y-6">
         {/* Contact Us */}
         <Card className="p-4 sm:p-6 bg-gradient-to-br from-[#143151] to-[#387E89] text-white">
           <div className="text-center">
@@ -188,6 +193,7 @@ const BlogSidebar = () => {
           </div>
         </Card>
       </div>
+    </div>
   );
 };
 
