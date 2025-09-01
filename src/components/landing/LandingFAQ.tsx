@@ -79,15 +79,15 @@ export const LandingFAQ: React.FC = () => {
   };
   return <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 relative overflow-hidden">
       {/* Background decorative elements */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-100/40 to-purple-100/40 rounded-full blur-3xl -translate-x-48 -translate-y-48" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-green-100/40 to-blue-100/40 rounded-full blur-3xl translate-x-40 translate-y-40" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-blue-100/40 to-teal-100/40 rounded-full blur-3xl -translate-x-48 -translate-y-48" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-br from-teal-100/40 to-blue-100/40 rounded-full blur-3xl translate-x-40 translate-y-40" />
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative">
         <motion.div variants={headerVariants} initial="hidden" whileInView="visible" viewport={{
         once: true,
         margin: "-50px"
       }} className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-teal-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-6 shadow-sm">
             <Sparkles className="w-4 h-4" />
             Frequently Asked Questions
           </div>
@@ -107,15 +107,15 @@ export const LandingFAQ: React.FC = () => {
       }} className="space-y-4">
           <Accordion type="multiple" value={openItems} onValueChange={setOpenItems} className="space-y-4">
             {landingFAQs.map((faq, index) => <motion.div key={faq.id} variants={itemVariants}>
-                <AccordionItem value={faq.id} className={cn("border border-gray-200 rounded-2xl bg-white/80 backdrop-blur-sm overflow-hidden", "hover:shadow-lg hover:border-blue-200 transition-all duration-300", "group data-[state=open]:shadow-xl data-[state=open]:border-blue-300 data-[state=open]:bg-white")}>
+                <AccordionItem value={faq.id} className={cn("border border-gray-200 rounded-2xl bg-white/80 backdrop-blur-sm overflow-hidden", "hover:shadow-lg hover:border-teal-200 transition-all duration-300", "group data-[state=open]:shadow-xl data-[state=open]:border-teal-300 data-[state=open]:bg-white")}>
                   <AccordionTrigger className="px-6 py-6 hover:no-underline group">
                     <div className="flex items-center gap-4 w-full text-left">
-                      <div className={cn("flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300", "bg-gradient-to-br from-blue-100 to-purple-100 text-blue-600", "group-data-[state=open]:from-blue-500 group-data-[state=open]:to-purple-500 group-data-[state=open]:text-white", "group-hover:scale-110")}>
+                      <div className={cn("flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300", "bg-gradient-to-br from-blue-100 to-teal-100 text-tealBlue", "group-data-[state=open]:from-tealBlue group-data-[state=open]:to-tealBlueBright group-data-[state=open]:text-white", "group-hover:scale-110")}>
                         <Plus className="w-5 h-5 transition-transform duration-300 group-data-[state=open]:rotate-45" />
                       </div>
                       
                       <div className="flex-1">
-                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
+                        <h3 className="text-lg md:text-xl font-semibold text-gray-900 group-hover:text-tealBlue transition-colors duration-200">
                           {faq.question}
                         </h3>
                       </div>
@@ -124,7 +124,7 @@ export const LandingFAQ: React.FC = () => {
                   
                   <AccordionContent className="px-6 pb-6">
                     <div className="ml-14">
-                      <div className="p-4 bg-gradient-to-br from-blue-50/50 to-purple-50/50 rounded-xl border border-blue-100/50">
+                      <div className="p-4 bg-gradient-to-br from-blue-50/50 to-teal-50/50 rounded-xl border border-teal-100/50">
                         <p className="text-gray-700 leading-relaxed text-base md:text-lg">
                           {faq.answer}
                         </p>
