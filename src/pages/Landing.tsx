@@ -21,6 +21,7 @@ import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 import ConnectedPlatformSection from '@/components/landing/ConnectedPlatformSection';
 import ProviderInterviewSection from '@/components/landing/ProviderInterviewSection';
 import CaseStudiesAndInsights from '@/components/technology/CaseStudiesAndInsights';
+import { LandingFAQ } from '@/components/landing/LandingFAQ';
 
 // Lazy load heavier sections
 const SecondSection = React.lazy(() => import('@/components/landing/SecondSection'));
@@ -173,6 +174,9 @@ const Landing = () => {
         
         {/* Practice Health Check Section - Added above EleventhSection */}
         <PracticeHealthCheckSection />
+        
+        {/* Modern FAQ Section */}
+        <LandingFAQ />
         
         <Suspense fallback={<SectionLoader />}>
           <EleventhSection />
