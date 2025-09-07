@@ -99,46 +99,35 @@ export const BlogCards = () => {
         <div className="w-full bg-gradient-to-b from-white to-[#A5CCF3] rounded-lg border-2 border-gray-200 p-4 md:p-6 shadow-lg">
           <h1 className="text-3xl font-bold text-center mb-8">Blog</h1>
 
-          <div className="mb-8">
+          <div className="mb-8 flex justify-center">
             {showCTA ? (
-              <div className="relative p-8 bg-gradient-to-br from-blue-50 via-white to-teal-50 rounded-2xl border border-blue-200 shadow-lg overflow-hidden">
-                {/* Background decoration */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-400/20 to-blue-400/20 rounded-full blur-3xl -translate-y-16 translate-x-16" />
-                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-400/20 to-teal-400/20 rounded-full blur-2xl translate-y-12 -translate-x-12" />
-                
-                <div className="relative flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
-                  <div className="flex-shrink-0">
-                    <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl rotate-3 hover:rotate-0 transition-transform duration-300">
-                      <FileText className="w-10 h-10 text-white" />
-                    </div>
+              <div className="max-w-2xl w-full p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileText className="w-6 h-6 text-accent" />
                   </div>
                   
-                  <div className="flex-1 text-center md:text-left">
-                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                      Would you like S10.ai to handle your clinical documentation for you?
-                    </h2>
-                    <p className="text-gray-600 mb-6 text-lg">
-                      Join thousands of providers who trust S10.ai for accurate, efficient documentation
-                    </p>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-3">
+                    Would you like S10.ai to handle your clinical documentation for you?
+                  </h2>
+                  
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Button 
+                      onClick={() => {
+                        alert('Thank you! We will contact you shortly to discuss how S10.ai can help with your documentation needs.');
+                      }}
+                      className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
+                    >
+                      Yes — let S10.ai do my documentation
+                    </Button>
                     
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                      <Button 
-                        onClick={() => {
-                          alert('Thank you! We will contact you shortly to discuss how S10.ai can help with your documentation needs.');
-                        }}
-                        className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-base"
-                      >
-                        Yes — let S10.ai do my documentation
-                      </Button>
-                      
-                      <Button 
-                        variant="outline"
-                        onClick={() => setShowCTA(false)}
-                        className="border-2 border-teal-300 hover:border-teal-500 hover:bg-teal-50 hover:text-teal-700 text-teal-600 px-8 py-4 rounded-xl font-semibold transition-all duration-200 text-base"
-                      >
-                        No thanks — I'll document myself
-                      </Button>
-                    </div>
+                    <Button 
+                      variant="outline"
+                      onClick={() => setShowCTA(false)}
+                      className="border-accent/20 hover:bg-accent/5 hover:text-accent text-gray-600 px-6 py-2.5 rounded-lg font-medium transition-colors"
+                    >
+                      No thanks — I'll document myself
+                    </Button>
                   </div>
                 </div>
               </div>
