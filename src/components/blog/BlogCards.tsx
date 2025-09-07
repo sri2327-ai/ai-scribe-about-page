@@ -99,46 +99,44 @@ export const BlogCards = () => {
         <div className="w-full bg-gradient-to-b from-white to-[#A5CCF3] rounded-lg border-2 border-gray-200 p-4 md:p-6 shadow-lg">
           <h1 className="text-3xl font-bold text-center mb-8">Blog</h1>
 
-          {/* Call to Action Section */}
-          {showCTA && (
-            <div className="mb-8 p-6 md:p-8 bg-white rounded-2xl border-2 border-gray-200 shadow-sm">
-              <div className="flex flex-col md:flex-row items-center gap-6 max-w-4xl mx-auto">
-                <div className="flex-shrink-0">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
-                    <FileText className="w-8 h-8 md:w-10 md:h-10 text-white" />
+          <div className="mb-8">
+            {showCTA ? (
+              <div className="p-6 md:p-8 bg-white rounded-2xl border-2 border-gray-200 shadow-sm">
+                <div className="flex flex-col md:flex-row items-center gap-6 max-w-4xl mx-auto">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
+                      <FileText className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex-1 text-center md:text-left">
-                  <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">
-                    Would you like S10.ai to handle your clinical documentation for you?
-                  </h2>
                   
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <Button 
-                      onClick={() => navigate('/contact')}
-                      className="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-                    >
-                      Yes — let S10.ai do my documentation
-                    </Button>
+                  <div className="flex-1 text-center md:text-left">
+                    <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">
+                      Would you like S10.ai to handle your clinical documentation for you?
+                    </h2>
                     
-                    <Button 
-                      variant="outline"
-                      onClick={() => setShowCTA(false)}
-                      className="border-2 border-gray-300 hover:border-teal-400 hover:text-teal-600 px-6 py-3 rounded-xl font-medium transition-all duration-200"
-                    >
-                      No thanks — I'll document myself
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                      <Button 
+                        onClick={() => {
+                          alert('Thank you! We will contact you shortly to discuss how S10.ai can help with your documentation needs.');
+                        }}
+                        className="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                      >
+                        Yes — let S10.ai do my documentation
+                      </Button>
+                      
+                      <Button 
+                        variant="outline"
+                        onClick={() => setShowCTA(false)}
+                        className="border-2 border-gray-300 hover:border-teal-400 hover:text-teal-600 px-6 py-3 rounded-xl font-medium transition-all duration-200"
+                      >
+                        No thanks — I'll document myself
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-
-          {/* Filter and Content Section */}
-          {!showCTA && (
-            <>
-              <div className="mb-8 overflow-x-auto">
+            ) : (
+              <div className="overflow-x-auto">
                 <div className="w-full">
                   <Tabs defaultValue="All" className="w-full">
                     <TabsList className="w-full flex-wrap justify-start p-1">
@@ -159,7 +157,11 @@ export const BlogCards = () => {
                   </Tabs>
                 </div>
               </div>
+            )}
+          </div>
 
+          {!showCTA && (
+            <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {paginatedBlogs.map((blog) => (
                   <Card 
