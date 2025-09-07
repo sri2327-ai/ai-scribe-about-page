@@ -101,22 +101,30 @@ export const BlogCards = () => {
 
           <div className="mb-8 flex justify-center">
             {showCTA ? (
-              <div className="max-w-2xl w-full p-6 bg-white rounded-xl border border-gray-200 shadow-sm">
-                <div className="text-center">
-                  <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <FileText className="w-6 h-6 text-accent" />
+              <div className="max-w-xl w-full mx-auto p-6 md:p-8 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                {/* Subtle gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative text-center space-y-6">
+                  <div className="w-14 h-14 bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <FileText className="w-7 h-7 text-accent" />
                   </div>
                   
-                  <h2 className="text-xl font-semibold text-gray-900 mb-3">
-                    Would you like S10.ai to handle your clinical documentation for you?
-                  </h2>
+                  <div className="space-y-3">
+                    <h2 className="text-xl md:text-2xl font-semibold text-gray-900 leading-tight">
+                      Would you like S10.ai to handle your clinical documentation for you?
+                    </h2>
+                    <p className="text-gray-600 text-sm md:text-base max-w-md mx-auto">
+                      Join thousands of providers saving hours daily
+                    </p>
+                  </div>
                   
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <div className="flex flex-col xs:flex-row gap-3 justify-center pt-2">
                     <Button 
                       onClick={() => {
                         alert('Thank you! We will contact you shortly to discuss how S10.ai can help with your documentation needs.');
                       }}
-                      className="bg-accent hover:bg-accent/90 text-white px-6 py-2.5 rounded-lg font-medium transition-colors"
+                      className="bg-accent hover:bg-accent/90 text-white px-6 md:px-8 py-3 rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 text-sm md:text-base"
                     >
                       Yes — let S10.ai do my documentation
                     </Button>
@@ -124,7 +132,7 @@ export const BlogCards = () => {
                     <Button 
                       variant="outline"
                       onClick={() => setShowCTA(false)}
-                      className="border-accent/20 hover:bg-accent/5 hover:text-accent text-gray-600 px-6 py-2.5 rounded-lg font-medium transition-colors"
+                      className="border-gray-200 hover:bg-accent/5 hover:border-accent/30 hover:text-accent text-gray-600 px-6 md:px-8 py-3 rounded-xl font-medium transition-all duration-200 text-sm md:text-base"
                     >
                       No thanks — I'll document myself
                     </Button>
