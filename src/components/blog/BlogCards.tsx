@@ -101,25 +101,32 @@ export const BlogCards = () => {
 
           <div className="mb-8">
             {showCTA ? (
-              <div className="p-6 md:p-8 bg-white rounded-2xl border-2 border-gray-200 shadow-sm">
-                <div className="flex flex-col md:flex-row items-center gap-6 max-w-4xl mx-auto">
+              <div className="relative p-8 bg-gradient-to-br from-blue-50 via-white to-teal-50 rounded-2xl border border-blue-200 shadow-lg overflow-hidden">
+                {/* Background decoration */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-400/20 to-blue-400/20 rounded-full blur-3xl -translate-y-16 translate-x-16" />
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-400/20 to-teal-400/20 rounded-full blur-2xl translate-y-12 -translate-x-12" />
+                
+                <div className="relative flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
                   <div className="flex-shrink-0">
-                    <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-teal-400 to-teal-600 rounded-full flex items-center justify-center shadow-lg">
-                      <FileText className="w-8 h-8 md:w-10 md:h-10 text-white" />
+                    <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-xl rotate-3 hover:rotate-0 transition-transform duration-300">
+                      <FileText className="w-10 h-10 text-white" />
                     </div>
                   </div>
                   
                   <div className="flex-1 text-center md:text-left">
-                    <h2 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">
+                    <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
                       Would you like S10.ai to handle your clinical documentation for you?
                     </h2>
+                    <p className="text-gray-600 mb-6 text-lg">
+                      Join thousands of providers who trust S10.ai for accurate, efficient documentation
+                    </p>
                     
                     <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                       <Button 
                         onClick={() => {
                           alert('Thank you! We will contact you shortly to discuss how S10.ai can help with your documentation needs.');
                         }}
-                        className="bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white px-6 py-3 rounded-xl font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                        className="bg-gradient-to-r from-teal-500 to-blue-600 hover:from-teal-600 hover:to-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-base"
                       >
                         Yes — let S10.ai do my documentation
                       </Button>
@@ -127,7 +134,7 @@ export const BlogCards = () => {
                       <Button 
                         variant="outline"
                         onClick={() => setShowCTA(false)}
-                        className="border-2 border-gray-300 hover:border-teal-400 hover:text-teal-600 px-6 py-3 rounded-xl font-medium transition-all duration-200"
+                        className="border-2 border-teal-300 hover:border-teal-500 hover:bg-teal-50 hover:text-teal-700 text-teal-600 px-8 py-4 rounded-xl font-semibold transition-all duration-200 text-base"
                       >
                         No thanks — I'll document myself
                       </Button>
@@ -160,98 +167,94 @@ export const BlogCards = () => {
             )}
           </div>
 
-          {!showCTA && (
-            <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {paginatedBlogs.map((blog) => (
-                  <Card 
-                    key={blog.id}
-                    className="overflow-hidden hover:-translate-y-1 transition-transform duration-200 cursor-pointer bg-white"
-                    onClick={() => handleBlogClick(blog.url)}
-                  >
-                    <div className="h-[200px] w-full relative">
-                      <OptimizedImage
-                        src={blog.image}
-                        alt={blog.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-4">
-                      <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
-                        <Clock className="h-4 w-4" />
-                        <span>8 min read</span>
-                      </div>
-                      <h3 className="text-lg font-semibold line-clamp-2">{blog.title}</h3>
-                      <p className="text-gray-600 mt-2 line-clamp-2">
-                        Medical documentation has long been a challenge for healthcare providers...
-                      </p>
-                    </div>
-                  </Card>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {paginatedBlogs.map((blog) => (
+              <Card 
+                key={blog.id}
+                className="overflow-hidden hover:-translate-y-1 transition-transform duration-200 cursor-pointer bg-white"
+                onClick={() => handleBlogClick(blog.url)}
+              >
+                <div className="h-[200px] w-full relative">
+                  <OptimizedImage
+                    src={blog.image}
+                    alt={blog.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
+                    <Clock className="h-4 w-4" />
+                    <span>8 min read</span>
+                  </div>
+                  <h3 className="text-lg font-semibold line-clamp-2">{blog.title}</h3>
+                  <p className="text-gray-600 mt-2 line-clamp-2">
+                    Medical documentation has long been a challenge for healthcare providers...
+                  </p>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {totalPages > 1 && (
+            <Pagination className="mt-8">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (currentPage > 1) handlePageChange(currentPage - 1);
+                    }}
+                    className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
+                  />
+                </PaginationItem>
+
+                {getPageRange().map((page) => (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handlePageChange(page);
+                      }}
+                      isActive={currentPage === page}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
                 ))}
-              </div>
 
-              {totalPages > 1 && (
-                <Pagination className="mt-8">
-                  <PaginationContent>
+                {totalPages > getPageRange()[getPageRange().length - 1] && (
+                  <>
                     <PaginationItem>
-                      <PaginationPrevious
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink
                         href="#"
                         onClick={(e) => {
                           e.preventDefault();
-                          if (currentPage > 1) handlePageChange(currentPage - 1);
+                          handlePageChange(totalPages);
                         }}
-                        className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                      />
+                      >
+                        {totalPages}
+                      </PaginationLink>
                     </PaginationItem>
+                  </>
+                )}
 
-                    {getPageRange().map((page) => (
-                      <PaginationItem key={page}>
-                        <PaginationLink
-                          href="#"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handlePageChange(page);
-                          }}
-                          isActive={currentPage === page}
-                        >
-                          {page}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-
-                    {totalPages > getPageRange()[getPageRange().length - 1] && (
-                      <>
-                        <PaginationItem>
-                          <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                          <PaginationLink
-                            href="#"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handlePageChange(totalPages);
-                            }}
-                          >
-                            {totalPages}
-                          </PaginationLink>
-                        </PaginationItem>
-                      </>
-                    )}
-
-                    <PaginationItem>
-                      <PaginationNext
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          if (currentPage < totalPages) handlePageChange(currentPage + 1);
-                        }}
-                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              )}
-            </>
+                <PaginationItem>
+                  <PaginationNext
+                    href="#"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                    }}
+                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           )}
         </div>
       </div>
