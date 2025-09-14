@@ -145,7 +145,7 @@ const BlogPost = () => {
               </div>
             </div>
             <p style="color: #666; font-size: 14px; margin: 0;">AI-Powered Healthcare Solutions</p>
-            <p style="color: #888; font-size: 12px; margin: 5px 0 0 0;">Downloaded from: ${currentUrl}</p>
+            <p style="color: #888; font-size: 12px; margin: 5px 0 0 0;">Downloaded from: https://s10.ai/blog</p>
           </div>
           
           <!-- Article Content -->
@@ -196,7 +196,7 @@ const BlogPost = () => {
             <div style="border-top: 1px solid #d1d5db; padding-top: 15px; text-align: center;">
               <p style="color: #143151; font-size: 12px; font-weight: 600; margin: 0 0 5px 0;">Trusted by 10,000+ Healthcare Providers Worldwide</p>
               <p style="color: #888; font-size: 11px; margin: 0;">© ${new Date().getFullYear()} S10.AI. All rights reserved. | Transforming Healthcare Documentation with AI</p>
-              <p style="color: #999; font-size: 10px; margin: 5px 0 0 0;">This document was generated from: ${currentUrl}</p>
+              <p style="color: #999; font-size: 10px; margin: 5px 0 0 0;">This document was generated from: https://s10.ai/blog</p>
             </div>
           </div>
         </div>
