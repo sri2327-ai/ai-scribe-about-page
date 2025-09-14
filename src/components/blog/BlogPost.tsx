@@ -181,7 +181,7 @@ const BlogPost = () => {
             <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; font-size: 13px;">
               <div style="flex: 1; min-width: 200px;">
                 <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🌐 Website</p>
-                <p style="color: #666; margin: 0;">${currentUrl}</p>
+                <p style="color: #666; margin: 0;">https://s10.ai</p>
               </div>
               <div style="flex: 1; min-width: 200px;">
                 <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">📧 Contact</p>
