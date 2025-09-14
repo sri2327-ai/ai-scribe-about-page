@@ -128,173 +128,186 @@ const BlogPost = () => {
   };
 
   const downloadPDF = () => {
-    const currentUrl = window.location.href;
-    const printContent = document.createElement('div');
-    
-    // Dynamic content based on current post
-    printContent.innerHTML = `
-      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6;">
-        <!-- S10.AI Header -->
-        <div style="border-bottom: 3px solid #143151; padding-bottom: 20px; margin-bottom: 30px; text-align: center;">
-          <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px;">
-            <img src="/s10-logo.webp" alt="S10.AI Logo" style="height: 40px; width: auto;" />
-            <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 28px; font-weight: bold;">
-              S10.AI
+    try {
+      console.log('PDF download started');
+      const currentUrl = window.location.href;
+      const printContent = document.createElement('div');
+      
+      // Dynamic content based on current post
+      printContent.innerHTML = `
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+          <!-- S10.AI Header -->
+          <div style="border-bottom: 3px solid #143151; padding-bottom: 20px; margin-bottom: 30px; text-align: center;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px;">
+              <img src="/s10-logo.webp" alt="S10.AI Logo" style="height: 40px; width: auto;" />
+              <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 28px; font-weight: bold;">
+                S10.AI
+              </div>
             </div>
+            <p style="color: #666; font-size: 14px; margin: 0;">AI-Powered Healthcare Solutions</p>
+            <p style="color: #888; font-size: 12px; margin: 5px 0 0 0;">Downloaded from: ${currentUrl}</p>
           </div>
-          <p style="color: #666; font-size: 14px; margin: 0;">AI-Powered Healthcare Solutions</p>
-          <p style="color: #888; font-size: 12px; margin: 5px 0 0 0;">Downloaded from: ${currentUrl}</p>
-        </div>
-        
-        <!-- Article Content -->
-        <div style="margin-bottom: 30px;">
-          <h1 style="color: #143151; font-size: 32px; font-weight: bold; margin-bottom: 20px; line-height: 1.3;">${post?.title || ''}</h1>
           
-          <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #387E89;">
-            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-              <div style="flex: 1;">
-                <p style="margin: 0 0 8px 0; color: #143151; font-weight: 600; font-size: 16px;"><strong>Author:</strong> ${post?.author || ''}</p>
-                <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;"><strong>Published:</strong> ${post?.date || ''}</p>
-                <p style="margin: 0; color: #666; font-size: 14px;"><strong>Read Time:</strong> ${post?.readTime || ''}</p>
+          <!-- Article Content -->
+          <div style="margin-bottom: 30px;">
+            <h1 style="color: #143151; font-size: 32px; font-weight: bold; margin-bottom: 20px; line-height: 1.3;">${post?.title || ''}</h1>
+            
+            <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #387E89;">
+              <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+                <div style="flex: 1;">
+                  <p style="margin: 0 0 8px 0; color: #143151; font-weight: 600; font-size: 16px;"><strong>Author:</strong> ${post?.author || ''}</p>
+                  <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;"><strong>Published:</strong> ${post?.date || ''}</p>
+                  <p style="margin: 0; color: #666; font-size: 14px;"><strong>Read Time:</strong> ${post?.readTime || ''}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        
-        <!-- Article Body -->
-        <div style="color: #333; font-size: 16px;">
-          ${post?.content || ''}
-        </div>
-        
-        <!-- S10.AI Footer -->
-        <div style="margin-top: 40px; padding: 25px 20px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #e2e8f0;">
-          <div style="text-align: center; margin-bottom: 20px;">
-            <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 24px; font-weight: bold; margin-bottom: 8px;">
-              S10.AI
-            </div>
-            <p style="color: #143151; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">Revolutionizing Healthcare with AI</p>
-            <p style="color: #666; font-size: 14px; margin: 0 0 15px 0;">Leading AI-powered medical scribe and healthcare automation solutions</p>
+          
+          <!-- Article Body -->
+          <div style="color: #333; font-size: 16px;">
+            ${post?.content || ''}
           </div>
           
-          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; font-size: 13px;">
-            <div style="flex: 1; min-width: 200px;">
-              <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🌐 Website</p>
-              <p style="color: #666; margin: 0;">https://s10.ai</p>
+          <!-- S10.AI Footer -->
+          <div style="margin-top: 40px; padding: 25px 20px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #e2e8f0;">
+            <div style="text-align: center; margin-bottom: 20px;">
+              <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 24px; font-weight: bold; margin-bottom: 8px;">
+                S10.AI
+              </div>
+              <p style="color: #143151; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">Revolutionizing Healthcare with AI</p>
+              <p style="color: #666; font-size: 14px; margin: 0 0 15px 0;">Leading AI-powered medical scribe and healthcare automation solutions</p>
             </div>
-            <div style="flex: 1; min-width: 200px;">
-              <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">📧 Contact</p>
-              <p style="color: #666; margin: 0;">support@s10.ai</p>
+            
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; font-size: 13px;">
+              <div style="flex: 1; min-width: 200px;">
+                <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🌐 Website</p>
+                <p style="color: #666; margin: 0;">${currentUrl}</p>
+              </div>
+              <div style="flex: 1; min-width: 200px;">
+                <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">📧 Contact</p>
+                <p style="color: #666; margin: 0;">support@s10.ai</p>
+              </div>
+              <div style="flex: 1; min-width: 200px;">
+                <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🚀 Solutions</p>
+                <p style="color: #666; margin: 0;">AI Medical Scribe, AI Phone Agents, AI Chat Agents, Custom AI Agents</p>
+              </div>
             </div>
-            <div style="flex: 1; min-width: 200px;">
-              <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🚀 Solutions</p>
-              <p style="color: #666; margin: 0;">AI Medical Scribe, AI Phone Agents, AI Chat Agents, Custom AI Agents</p>
+            
+            <div style="border-top: 1px solid #d1d5db; padding-top: 15px; text-align: center;">
+              <p style="color: #143151; font-size: 12px; font-weight: 600; margin: 0 0 5px 0;">Trusted by 10,000+ Healthcare Providers Worldwide</p>
+              <p style="color: #888; font-size: 11px; margin: 0;">© ${new Date().getFullYear()} S10.AI. All rights reserved. | Transforming Healthcare Documentation with AI</p>
+              <p style="color: #999; font-size: 10px; margin: 5px 0 0 0;">This document was generated from: ${currentUrl}</p>
             </div>
-          </div>
-          
-          <div style="border-top: 1px solid #d1d5db; padding-top: 15px; text-align: center;">
-            <p style="color: #143151; font-size: 12px; font-weight: 600; margin: 0 0 5px 0;">Trusted by 10,000+ Healthcare Providers Worldwide</p>
-            <p style="color: #888; font-size: 11px; margin: 0;">© ${new Date().getFullYear()} S10.AI. All rights reserved. | Transforming Healthcare Documentation with AI</p>
-            <p style="color: #999; font-size: 10px; margin: 5px 0 0 0;">This document was generated from: ${currentUrl}</p>
           </div>
         </div>
-      </div>
-    `;
-    
-    // Create HTML content as a string
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-        <head>
-          <title>S10.AI - ${post?.title || 'Blog Post'} | Healthcare AI Solutions</title>
-          <meta charset="UTF-8">
-          <meta name="description" content="S10.AI - Leading AI-powered medical scribe and healthcare automation solutions">
-          <link rel="icon" href="/s10-logo.webp" type="image/webp">
-          <style>
-            @media print {
-              body { margin: 0; }
-              .no-print { display: none; }
-            }
-            body { 
-              margin: 0; 
-              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-              color: #333;
-              background: white;
-            }
-            h1 { 
-              color: #143151; 
-              font-weight: bold; 
-              margin-top: 30px; 
-              margin-bottom: 15px;
-              page-break-after: avoid;
-            }
-            h2 { 
-              color: #387E89; 
-              margin-top: 30px; 
-              margin-bottom: 15px;
-              font-weight: 600;
-              page-break-after: avoid;
-            }
-            h3, h4, h5, h6 {
-              color: #143151;
-              margin-top: 25px;
-              margin-bottom: 10px;
-              page-break-after: avoid;
-            }
-            p, li { 
-              line-height: 1.7; 
-              margin-bottom: 12px;
-              color: #333;
-            }
-            ul, ol { 
-              margin: 15px 0; 
-              padding-left: 25px; 
-            }
-            li {
-              margin-bottom: 8px;
-            }
-            strong, b {
-              color: #143151;
-              font-weight: 600;
-            }
-            blockquote {
-              border-left: 4px solid #387E89;
-              margin: 20px 0;
-              padding-left: 20px;
-              font-style: italic;
-              color: #555;
-            }
-            .page-break {
-              page-break-before: always;
-            }
-            .s10-watermark {
-              position: fixed;
-              bottom: 10px;
-              right: 10px;
-              opacity: 0.3;
-              font-size: 12px;
-              color: #143151;
-              pointer-events: none;
-              font-weight: 600;
-            }
-          </style>
-        </head>
-        <body>
-          <div class="s10-watermark">S10.AI - Revolutionizing Healthcare with AI</div>
-          ${printContent.innerHTML}
-        </body>
-      </html>
-    `;
+      `;
+      
+      console.log('HTML content prepared');
+      
+      // Create HTML content as a string
+      const htmlContent = `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>S10.AI - ${post?.title || 'Blog Post'} | Healthcare AI Solutions</title>
+            <meta charset="UTF-8">
+            <meta name="description" content="S10.AI - Leading AI-powered medical scribe and healthcare automation solutions">
+            <link rel="icon" href="/s10-logo.webp" type="image/webp">
+            <style>
+              @media print {
+                body { margin: 0; }
+                .no-print { display: none; }
+              }
+              body { 
+                margin: 0; 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #333;
+                background: white;
+              }
+              h1 { 
+                color: #143151; 
+                font-weight: bold; 
+                margin-top: 30px; 
+                margin-bottom: 15px;
+                page-break-after: avoid;
+              }
+              h2 { 
+                color: #387E89; 
+                margin-top: 30px; 
+                margin-bottom: 15px;
+                font-weight: 600;
+                page-break-after: avoid;
+              }
+              h3, h4, h5, h6 {
+                color: #143151;
+                margin-top: 25px;
+                margin-bottom: 10px;
+                page-break-after: avoid;
+              }
+              p, li { 
+                line-height: 1.7; 
+                margin-bottom: 12px;
+                color: #333;
+              }
+              ul, ol { 
+                margin: 15px 0; 
+                padding-left: 25px; 
+              }
+              li {
+                margin-bottom: 8px;
+              }
+              strong, b {
+                color: #143151;
+                font-weight: 600;
+              }
+              blockquote {
+                border-left: 4px solid #387E89;
+                margin: 20px 0;
+                padding-left: 20px;
+                font-style: italic;
+                color: #555;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+              .s10-watermark {
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                opacity: 0.3;
+                font-size: 12px;
+                color: #143151;
+                pointer-events: none;
+                font-weight: 600;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="s10-watermark">S10.AI - Revolutionizing Healthcare with AI</div>
+            ${printContent.innerHTML}
+          </body>
+        </html>
+      `;
 
-    // Create a data URL with the HTML content
-    const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
-    
-    // Open the new window with the data URL
-    const newWindow = window.open(dataUrl, '_blank');
-    if (newWindow) {
-      newWindow.focus();
-      setTimeout(() => {
-        newWindow.print();
-      }, 800);
+      console.log('Opening new window for PDF');
+      
+      // Simply open window with print dialog
+      const newWindow = window.open('', '_blank');
+      if (newWindow) {
+        newWindow.document.write(htmlContent);
+        newWindow.document.close();
+        newWindow.focus();
+        setTimeout(() => {
+          console.log('Triggering print dialog');
+          newWindow.print();
+        }, 500);
+      } else {
+        console.error('Failed to open new window - popup blocked?');
+        alert('Please allow popups for this site to download the PDF');
+      }
+    } catch (error) {
+      console.error('PDF download error:', error);
+      alert('Failed to generate PDF. Please try again.');
     }
   };
   
