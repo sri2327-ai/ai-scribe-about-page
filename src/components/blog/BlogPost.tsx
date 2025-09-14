@@ -164,13 +164,35 @@ const BlogPost = () => {
         </div>
         
         <!-- S10.AI Footer -->
-        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; text-align: center;">
-          <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 20px; font-weight: bold; margin-bottom: 10px;">
-            S10.AI
+        <div style="margin-top: 40px; padding: 25px 20px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 8px; border: 1px solid #e2e8f0;">
+          <div style="text-align: center; margin-bottom: 20px;">
+            <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 24px; font-weight: bold; margin-bottom: 8px;">
+              S10.AI
+            </div>
+            <p style="color: #143151; font-size: 16px; font-weight: 600; margin: 0 0 12px 0;">Revolutionizing Healthcare with AI</p>
+            <p style="color: #666; font-size: 14px; margin: 0 0 15px 0;">Leading AI-powered medical scribe and healthcare automation solutions</p>
           </div>
-          <p style="color: #666; font-size: 14px; margin: 0 0 8px 0;">Revolutionizing Healthcare with AI</p>
-          <p style="color: #888; font-size: 12px; margin: 0;">Visit us at: https://s10.ai</p>
-          <p style="color: #888; font-size: 11px; margin: 8px 0 0 0;">© ${new Date().getFullYear()} S10.AI. All rights reserved.</p>
+          
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 20px; font-size: 13px;">
+            <div style="flex: 1; min-width: 200px;">
+              <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🌐 Website</p>
+              <p style="color: #666; margin: 0;">https://s10.ai</p>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+              <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">📧 Contact</p>
+              <p style="color: #666; margin: 0;">info@s10.ai</p>
+            </div>
+            <div style="flex: 1; min-width: 200px;">
+              <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🚀 Solutions</p>
+              <p style="color: #666; margin: 0;">AI Medical Scribes, BRAVO, Custom AI</p>
+            </div>
+          </div>
+          
+          <div style="border-top: 1px solid #d1d5db; padding-top: 15px; text-align: center;">
+            <p style="color: #143151; font-size: 12px; font-weight: 600; margin: 0 0 5px 0;">Trusted by 10,000+ Healthcare Providers Worldwide</p>
+            <p style="color: #888; font-size: 11px; margin: 0;">© ${new Date().getFullYear()} S10.AI. All rights reserved. | Transforming Healthcare Documentation with AI</p>
+            <p style="color: #999; font-size: 10px; margin: 5px 0 0 0;">This document was generated from: ${currentUrl}</p>
+          </div>
         </div>
       </div>
     `;
