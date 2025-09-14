@@ -187,7 +187,7 @@ const BlogPost = () => {
             </div>
             <div style="flex: 1; min-width: 200px;">
               <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🚀 Solutions</p>
-              <p style="color: #666; margin: 0;">AI Medical Scribes, BRAVO, Custom AI</p>
+              <p style="color: #666; margin: 0;">AI Medical Scribe, AI Phone Agents, AI Chat Agents, Custom AI Agents</p>
             </div>
           </div>
           
@@ -285,20 +285,15 @@ const BlogPost = () => {
       </html>
     `;
 
-    // Create a Blob with the HTML content
-    const blob = new Blob([htmlContent], { type: 'text/html' });
-    const blobUrl = URL.createObjectURL(blob);
+    // Create a data URL with the HTML content
+    const dataUrl = 'data:text/html;charset=utf-8,' + encodeURIComponent(htmlContent);
     
-    // Open the new window with the blob URL
-    const newWindow = window.open(blobUrl, '_blank');
+    // Open the new window with the data URL
+    const newWindow = window.open(dataUrl, '_blank');
     if (newWindow) {
       newWindow.focus();
       setTimeout(() => {
         newWindow.print();
-        // Clean up the blob URL after printing
-        setTimeout(() => {
-          URL.revokeObjectURL(blobUrl);
-        }, 1000);
       }, 800);
     }
   };
