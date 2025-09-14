@@ -128,16 +128,50 @@ const BlogPost = () => {
   };
 
   const downloadPDF = () => {
-    // Simple PDF generation using browser's print to PDF
+    const currentUrl = window.location.href;
     const printContent = document.createElement('div');
+    
+    // Dynamic content based on current post
     printContent.innerHTML = `
-      <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 800px;">
-        <h1>${post?.title || ''}</h1>
-        <p><strong>Author:</strong> ${post?.author || ''}</p>
-        <p><strong>Date:</strong> ${post?.date || ''}</p>
-        <p><strong>Read Time:</strong> ${post?.readTime || ''}</p>
-        <hr style="margin: 20px 0;">
-        ${post?.content || ''}
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6;">
+        <!-- S10.AI Header -->
+        <div style="border-bottom: 3px solid #143151; padding-bottom: 20px; margin-bottom: 30px; text-align: center;">
+          <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 28px; font-weight: bold; margin-bottom: 8px;">
+            S10.AI
+          </div>
+          <p style="color: #666; font-size: 14px; margin: 0;">AI-Powered Healthcare Solutions</p>
+          <p style="color: #888; font-size: 12px; margin: 5px 0 0 0;">Downloaded from: ${currentUrl}</p>
+        </div>
+        
+        <!-- Article Content -->
+        <div style="margin-bottom: 30px;">
+          <h1 style="color: #143151; font-size: 32px; font-weight: bold; margin-bottom: 20px; line-height: 1.3;">${post?.title || ''}</h1>
+          
+          <div style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid #387E89;">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
+              <div style="flex: 1;">
+                <p style="margin: 0 0 8px 0; color: #143151; font-weight: 600; font-size: 16px;"><strong>Author:</strong> ${post?.author || ''}</p>
+                <p style="margin: 0 0 8px 0; color: #666; font-size: 14px;"><strong>Published:</strong> ${post?.date || ''}</p>
+                <p style="margin: 0; color: #666; font-size: 14px;"><strong>Read Time:</strong> ${post?.readTime || ''}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Article Body -->
+        <div style="color: #333; font-size: 16px;">
+          ${post?.content || ''}
+        </div>
+        
+        <!-- S10.AI Footer -->
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e2e8f0; text-align: center;">
+          <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 20px; font-weight: bold; margin-bottom: 10px;">
+            S10.AI
+          </div>
+          <p style="color: #666; font-size: 14px; margin: 0 0 8px 0;">Revolutionizing Healthcare with AI</p>
+          <p style="color: #888; font-size: 12px; margin: 0;">Visit us at: https://s10.ai</p>
+          <p style="color: #888; font-size: 11px; margin: 8px 0 0 0;">© ${new Date().getFullYear()} S10.AI. All rights reserved.</p>
+        </div>
       </div>
     `;
     
@@ -147,13 +181,65 @@ const BlogPost = () => {
         <!DOCTYPE html>
         <html>
           <head>
-            <title>${post?.title || 'Blog Post'}</title>
+            <title>${post?.title || 'Blog Post'} - S10.AI</title>
+            <meta charset="UTF-8">
             <style>
-              body { margin: 0; }
-              h1 { color: #143151; }
-              h2 { color: #387E89; margin-top: 30px; }
-              p, li { line-height: 1.6; }
-              ul { margin: 15px 0; padding-left: 25px; }
+              @media print {
+                body { margin: 0; }
+                .no-print { display: none; }
+              }
+              body { 
+                margin: 0; 
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                color: #333;
+                background: white;
+              }
+              h1 { 
+                color: #143151; 
+                font-weight: bold; 
+                margin-top: 30px; 
+                margin-bottom: 15px;
+                page-break-after: avoid;
+              }
+              h2 { 
+                color: #387E89; 
+                margin-top: 30px; 
+                margin-bottom: 15px;
+                font-weight: 600;
+                page-break-after: avoid;
+              }
+              h3, h4, h5, h6 {
+                color: #143151;
+                margin-top: 25px;
+                margin-bottom: 10px;
+                page-break-after: avoid;
+              }
+              p, li { 
+                line-height: 1.7; 
+                margin-bottom: 12px;
+                color: #333;
+              }
+              ul, ol { 
+                margin: 15px 0; 
+                padding-left: 25px; 
+              }
+              li {
+                margin-bottom: 8px;
+              }
+              strong, b {
+                color: #143151;
+                font-weight: 600;
+              }
+              blockquote {
+                border-left: 4px solid #387E89;
+                margin: 20px 0;
+                padding-left: 20px;
+                font-style: italic;
+                color: #555;
+              }
+              .page-break {
+                page-break-before: always;
+              }
             </style>
           </head>
           <body>
@@ -165,7 +251,7 @@ const BlogPost = () => {
       newWindow.focus();
       setTimeout(() => {
         newWindow.print();
-      }, 500);
+      }, 800);
     }
   };
   
