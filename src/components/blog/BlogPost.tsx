@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
 import { Facebook, Linkedin, X } from "lucide-react";
@@ -10,6 +10,7 @@ import { ResponsiveCarousel } from '@/components/ui/ResponsiveCarousel';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogSidebar from './BlogSidebar';
+import { BlogPopup } from './BlogPopup';
 
 interface BlogPost {
   id: number;
@@ -95,7 +96,17 @@ const mockBlogPosts: BlogPosts = {
 const BlogPost = () => {
   const { slug } = useParams();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const post = slug ? mockBlogPosts[slug] : null;
+
+  // Show popup after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
   
   if (!post) {
     return (
@@ -282,6 +293,10 @@ const BlogPost = () => {
         </div>
       </div>
       <Footer />
+      <BlogPopup 
+        isOpen={showPopup} 
+        onClose={() => setShowPopup(false)} 
+      />
     </>
   );
 };
