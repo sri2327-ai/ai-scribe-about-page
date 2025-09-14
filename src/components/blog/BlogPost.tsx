@@ -136,8 +136,11 @@ const BlogPost = () => {
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; line-height: 1.6;">
         <!-- S10.AI Header -->
         <div style="border-bottom: 3px solid #143151; padding-bottom: 20px; margin-bottom: 30px; text-align: center;">
-          <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 28px; font-weight: bold; margin-bottom: 8px;">
-            S10.AI
+          <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 10px;">
+            <img src="/s10-logo.webp" alt="S10.AI Logo" style="height: 40px; width: auto;" />
+            <div style="background: linear-gradient(135deg, #143151 0%, #387E89 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: #143151; font-size: 28px; font-weight: bold;">
+              S10.AI
+            </div>
           </div>
           <p style="color: #666; font-size: 14px; margin: 0;">AI-Powered Healthcare Solutions</p>
           <p style="color: #888; font-size: 12px; margin: 5px 0 0 0;">Downloaded from: ${currentUrl}</p>
@@ -203,8 +206,10 @@ const BlogPost = () => {
         <!DOCTYPE html>
         <html>
           <head>
-            <title>${post?.title || 'Blog Post'} - S10.AI</title>
+            <title>${post?.title || 'Blog Post'} - S10.AI Healthcare Solutions</title>
             <meta charset="UTF-8">
+            <meta name="description" content="S10.AI - Leading AI-powered medical scribe and healthcare automation solutions">
+            <link rel="icon" href="/s10-logo.webp" type="image/webp">
             <style>
               @media print {
                 body { margin: 0; }
@@ -262,9 +267,19 @@ const BlogPost = () => {
               .page-break {
                 page-break-before: always;
               }
+              .s10-watermark {
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                opacity: 0.1;
+                font-size: 12px;
+                color: #143151;
+                pointer-events: none;
+              }
             </style>
           </head>
           <body>
+            <div class="s10-watermark">S10.AI - Revolutionizing Healthcare with AI</div>
             ${printContent.innerHTML}
           </body>
         </html>
