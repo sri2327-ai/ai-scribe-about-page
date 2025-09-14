@@ -200,95 +200,105 @@ const BlogPost = () => {
       </div>
     `;
     
-    const newWindow = window.open('', '_blank');
+    // Create HTML content as a string
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>S10.AI - ${post?.title || 'Blog Post'} | Healthcare AI Solutions</title>
+          <meta charset="UTF-8">
+          <meta name="description" content="S10.AI - Leading AI-powered medical scribe and healthcare automation solutions">
+          <link rel="icon" href="/s10-logo.webp" type="image/webp">
+          <style>
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+            body { 
+              margin: 0; 
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              color: #333;
+              background: white;
+            }
+            h1 { 
+              color: #143151; 
+              font-weight: bold; 
+              margin-top: 30px; 
+              margin-bottom: 15px;
+              page-break-after: avoid;
+            }
+            h2 { 
+              color: #387E89; 
+              margin-top: 30px; 
+              margin-bottom: 15px;
+              font-weight: 600;
+              page-break-after: avoid;
+            }
+            h3, h4, h5, h6 {
+              color: #143151;
+              margin-top: 25px;
+              margin-bottom: 10px;
+              page-break-after: avoid;
+            }
+            p, li { 
+              line-height: 1.7; 
+              margin-bottom: 12px;
+              color: #333;
+            }
+            ul, ol { 
+              margin: 15px 0; 
+              padding-left: 25px; 
+            }
+            li {
+              margin-bottom: 8px;
+            }
+            strong, b {
+              color: #143151;
+              font-weight: 600;
+            }
+            blockquote {
+              border-left: 4px solid #387E89;
+              margin: 20px 0;
+              padding-left: 20px;
+              font-style: italic;
+              color: #555;
+            }
+            .page-break {
+              page-break-before: always;
+            }
+            .s10-watermark {
+              position: fixed;
+              bottom: 10px;
+              right: 10px;
+              opacity: 0.3;
+              font-size: 12px;
+              color: #143151;
+              pointer-events: none;
+              font-weight: 600;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="s10-watermark">S10.AI - Revolutionizing Healthcare with AI</div>
+          ${printContent.innerHTML}
+        </body>
+      </html>
+    `;
+
+    // Create a Blob with the HTML content
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const blobUrl = URL.createObjectURL(blob);
+    
+    // Open the new window with the blob URL
+    const newWindow = window.open(blobUrl, '_blank');
     if (newWindow) {
-      newWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>S10.AI - ${post?.title || 'Blog Post'} | Healthcare AI Solutions</title>
-            <meta charset="UTF-8">
-            <meta name="description" content="S10.AI - Leading AI-powered medical scribe and healthcare automation solutions">
-            <link rel="icon" href="/s10-logo.webp" type="image/webp">
-            <style>
-              @media print {
-                body { margin: 0; }
-                .no-print { display: none; }
-              }
-              body { 
-                margin: 0; 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                color: #333;
-                background: white;
-              }
-              h1 { 
-                color: #143151; 
-                font-weight: bold; 
-                margin-top: 30px; 
-                margin-bottom: 15px;
-                page-break-after: avoid;
-              }
-              h2 { 
-                color: #387E89; 
-                margin-top: 30px; 
-                margin-bottom: 15px;
-                font-weight: 600;
-                page-break-after: avoid;
-              }
-              h3, h4, h5, h6 {
-                color: #143151;
-                margin-top: 25px;
-                margin-bottom: 10px;
-                page-break-after: avoid;
-              }
-              p, li { 
-                line-height: 1.7; 
-                margin-bottom: 12px;
-                color: #333;
-              }
-              ul, ol { 
-                margin: 15px 0; 
-                padding-left: 25px; 
-              }
-              li {
-                margin-bottom: 8px;
-              }
-              strong, b {
-                color: #143151;
-                font-weight: 600;
-              }
-              blockquote {
-                border-left: 4px solid #387E89;
-                margin: 20px 0;
-                padding-left: 20px;
-                font-style: italic;
-                color: #555;
-              }
-              .page-break {
-                page-break-before: always;
-              }
-              .s10-watermark {
-                position: fixed;
-                bottom: 10px;
-                right: 10px;
-                opacity: 0.3;
-                font-size: 12px;
-                color: #143151;
-                pointer-events: none;
-                font-weight: 600;
-              }
-            </style>
-          </head>
-          <body>
-            <div class="s10-watermark">S10.AI - Revolutionizing Healthcare with AI</div>
-            ${printContent.innerHTML}
-          </body>
-        </html>
-      `);
-      newWindow.document.close();
       newWindow.focus();
       setTimeout(() => {
         newWindow.print();
+        // Clean up the blob URL after printing
+        setTimeout(() => {
+          URL.revokeObjectURL(blobUrl);
+        }, 1000);
       }, 800);
     }
   };
