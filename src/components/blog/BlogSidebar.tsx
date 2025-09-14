@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Globe, Award, TrendingUp, Clock, FileText, Calculator, BookOpen, Stethoscope, Phone } from "lucide-react";
+import { ArrowRight, Users, Globe, Award, TrendingUp, Clock, FileText, Calculator, BookOpen, Stethoscope, Phone, ArrowUp } from "lucide-react";
 
 const BlogSidebar = () => {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
   const tools = [
     { icon: FileText, label: "FAQs", href: "/faq" },
     { icon: BookOpen, label: "Resource Library", href: "/resource-library" },
@@ -15,6 +17,22 @@ const BlogSidebar = () => {
     { icon: TrendingUp, label: "Charts & Timelines", href: "/charts-timelines" },
     { icon: BookOpen, label: "Medical Phrases", href: "/medical-phrases" }
   ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
 
   return (
     <div className="space-y-4 sm:space-y-6">
@@ -159,8 +177,21 @@ const BlogSidebar = () => {
         </Card>
       </div>
 
-      {/* Sticky sections - Contact Us and ROI Calculator */}
+      {/* Sticky sections - Contact Us, ROI Calculator, and Scroll Up */}
       <div className="sticky top-4 space-y-4 sm:space-y-6">
+        {/* Scroll to Top Button */}
+        {showScrollTop && (
+          <div className="flex justify-end">
+            <Button 
+              onClick={scrollToTop}
+              size="sm"
+              className="bg-[#387E89] hover:bg-[#143151] text-white p-2 rounded-full shadow-lg transition-all duration-300"
+              aria-label="Scroll to top"
+            >
+              <ArrowUp className="h-4 w-4" />
+            </Button>
+          </div>
+        )}
         {/* Contact Us */}
         <Card className="p-4 sm:p-6 bg-gradient-to-br from-[#143151] to-[#387E89] text-white">
           <div className="text-center">
