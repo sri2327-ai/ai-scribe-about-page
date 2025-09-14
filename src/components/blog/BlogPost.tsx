@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card } from "@/components/ui/card";
 import OptimizedImage from "@/components/ui/optimized-image";
-import { Facebook, Linkedin, X } from "lucide-react";
+import { Facebook, Linkedin, X, ArrowUp, Download } from "lucide-react";
 import { useParams } from 'react-router-dom';
 import { Clock, Zap, Users, User, Calendar, Check } from "lucide-react";
 import { QuizSection } from './QuizSection';
@@ -11,6 +11,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import BlogSidebar from './BlogSidebar';
 import { BlogPopup } from './BlogPopup';
+import { Button } from "@/components/ui/button";
 
 interface BlogPost {
   id: number;
@@ -97,6 +98,7 @@ const BlogPost = () => {
   const { slug } = useParams();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const post = slug ? mockBlogPosts[slug] : null;
 
   // Show popup after 5 seconds
@@ -107,6 +109,65 @@ const BlogPost = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  // Handle scroll for sticky buttons
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
+  const downloadPDF = () => {
+    // Simple PDF generation using browser's print to PDF
+    const printContent = document.createElement('div');
+    printContent.innerHTML = `
+      <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 800px;">
+        <h1>${post?.title || ''}</h1>
+        <p><strong>Author:</strong> ${post?.author || ''}</p>
+        <p><strong>Date:</strong> ${post?.date || ''}</p>
+        <p><strong>Read Time:</strong> ${post?.readTime || ''}</p>
+        <hr style="margin: 20px 0;">
+        ${post?.content || ''}
+      </div>
+    `;
+    
+    const newWindow = window.open('', '_blank');
+    if (newWindow) {
+      newWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>${post?.title || 'Blog Post'}</title>
+            <style>
+              body { margin: 0; }
+              h1 { color: #143151; }
+              h2 { color: #387E89; margin-top: 30px; }
+              p, li { line-height: 1.6; }
+              ul { margin: 15px 0; padding-left: 25px; }
+            </style>
+          </head>
+          <body>
+            ${printContent.innerHTML}
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+      newWindow.focus();
+      setTimeout(() => {
+        newWindow.print();
+      }, 500);
+    }
+  };
   
   if (!post) {
     return (
@@ -186,6 +247,15 @@ const BlogPost = () => {
                           <button aria-label="Share on LinkedIn" className="p-2 rounded-full bg-white shadow-sm hover:bg-blue-50 transition-colors">
                             <Linkedin className="h-5 w-5" />
                           </button>
+                          <Button 
+                            onClick={downloadPDF}
+                            variant="outline"
+                            size="sm"
+                            className="p-2 rounded-full bg-white shadow-sm hover:bg-green-50 border-green-300 text-green-700"
+                            aria-label="Download as PDF"
+                          >
+                            <Download className="h-5 w-5" />
+                          </Button>
                         </div>
                         
                         <div className="inline-flex items-center gap-2 bg-green-50 px-3 py-2 rounded-full w-fit border border-green-200">
@@ -293,6 +363,18 @@ const BlogPost = () => {
         </div>
       </div>
       <Footer />
+      
+      {/* Sticky Scroll to Top Button */}
+      {showScrollTop && (
+        <Button 
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2d6b75] text-white p-3 rounded-full shadow-lg transition-all duration-300 animate-fade-in"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp className="h-5 w-5" />
+        </Button>
+      )}
+      
       <BlogPopup 
         isOpen={showPopup} 
         onClose={() => setShowPopup(false)} 
