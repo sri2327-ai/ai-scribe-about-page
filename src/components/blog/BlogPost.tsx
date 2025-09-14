@@ -183,7 +183,7 @@ const BlogPost = () => {
             </div>
             <div style="flex: 1; min-width: 200px;">
               <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">📧 Contact</p>
-              <p style="color: #666; margin: 0;">info@s10.ai</p>
+              <p style="color: #666; margin: 0;">support@s10.ai</p>
             </div>
             <div style="flex: 1; min-width: 200px;">
               <p style="color: #143151; font-weight: 600; margin: 0 0 8px 0;">🚀 Solutions</p>
@@ -206,7 +206,7 @@ const BlogPost = () => {
         <!DOCTYPE html>
         <html>
           <head>
-            <title>${post?.title || 'Blog Post'} - S10.AI Healthcare Solutions</title>
+            <title>S10.AI - ${post?.title || 'Blog Post'} | Healthcare AI Solutions</title>
             <meta charset="UTF-8">
             <meta name="description" content="S10.AI - Leading AI-powered medical scribe and healthcare automation solutions">
             <link rel="icon" href="/s10-logo.webp" type="image/webp">
@@ -271,10 +271,11 @@ const BlogPost = () => {
                 position: fixed;
                 bottom: 10px;
                 right: 10px;
-                opacity: 0.1;
+                opacity: 0.3;
                 font-size: 12px;
                 color: #143151;
                 pointer-events: none;
+                font-weight: 600;
               }
             </style>
           </head>
