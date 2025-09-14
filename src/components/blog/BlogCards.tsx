@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import {
   PaginationPrevious,
   PaginationEllipsis,
 } from "@/components/ui/pagination";
+import { BlogPopup } from "./BlogPopup";
 
 // Mock data - replace with actual API calls in production
 const mockBlogs = [
@@ -56,7 +57,17 @@ export const BlogCards = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [showCTA, setShowCTA] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   const navigate = useNavigate();
+
+  // Show popup after 5 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowPopup(true);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
   
   const itemsPerPage = 6;
   const filteredBlogs = selectedCategory === "All" 
@@ -247,6 +258,11 @@ export const BlogCards = () => {
           )}
         </div>
       </div>
+
+      <BlogPopup 
+        isOpen={showPopup} 
+        onClose={() => setShowPopup(false)} 
+      />
     </section>
   );
 };
