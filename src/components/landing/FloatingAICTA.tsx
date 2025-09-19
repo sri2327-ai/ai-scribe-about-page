@@ -143,22 +143,26 @@ The goal is to produce a summary that allows me to ask informed and specific que
       {/* Share Button */}
       <motion.button
         onClick={handleCopyLink}
-        className="relative group bg-gradient-to-r from-[#387E89] to-[#143151] text-white p-3 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/10 backdrop-blur-sm"
+        className="relative group p-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4, delay: 2.2 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Gradient border */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-[#387E89] to-[#143151] p-[2px] group-hover:p-[3px] transition-all duration-300">
+          <div className="w-full h-full bg-white rounded-full" />
+        </div>
         
         <motion.div
           key="share"
+          className="relative z-10"
           initial={{ rotate: 0, opacity: 1 }}
           animate={{ rotate: copied ? 360 : 0, opacity: 1 }}
           transition={{ duration: 0.3 }}
         >
-          {copied ? <Copy size={20} /> : <Share2 size={20} />}
+          {copied ? <Copy size={16} className="text-[#387E89]" /> : <Share2 size={16} className="text-[#387E89] group-hover:text-[#143151] transition-colors duration-300" />}
         </motion.div>
       </motion.button>
 
