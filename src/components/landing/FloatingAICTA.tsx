@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, Brain, Sparkles, Zap, ChevronRight, X, Search, Compass, Share2, Copy, Mail, Twitter, Linkedin, Facebook } from 'lucide-react';
+import { MessageSquare, Brain, Sparkles, Zap, ChevronRight, X, Search, Compass, Share2, Copy } from 'lucide-react';
 
 const FloatingAICTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isShareExpanded, setIsShareExpanded] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -129,48 +128,6 @@ The goal is to produce a summary that allows me to ask informed and specific que
     }
   };
 
-  const handleEmailShare = () => {
-    const subject = encodeURIComponent('Check out S10.AI - AI-Powered Healthcare Solutions');
-    const body = encodeURIComponent(`I found this interesting healthcare AI solution: ${currentUrl}`);
-    window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
-  };
-
-  const shareOptions = [
-    {
-      name: 'Copy Link',
-      icon: Copy,
-      action: handleCopyLink,
-      color: 'text-gray-600',
-      bgColor: 'bg-gray-50'
-    },
-    {
-      name: 'Email',
-      icon: Mail,
-      action: handleEmailShare,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50'
-    },
-    {
-      name: 'Twitter',
-      icon: Twitter,
-      action: () => {
-        const text = encodeURIComponent('Check out S10.AI - Revolutionary AI-powered healthcare solutions');
-        handleRedirect(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(currentUrl)}`);
-      },
-      color: 'text-sky-600',
-      bgColor: 'bg-sky-50'
-    },
-    {
-      name: 'LinkedIn',
-      icon: Linkedin,
-      action: () => {
-        handleRedirect(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`);
-      },
-      color: 'text-blue-700',
-      bgColor: 'bg-blue-50'
-    }
-  ];
-
   // Don't render anything until visible
   if (!isVisible) {
     return <div ref={containerRef} style={{ position: 'fixed', bottom: 0, left: 0, width: 1, height: 1, opacity: 0, pointerEvents: 'none' }} />;
@@ -185,7 +142,7 @@ The goal is to produce a summary that allows me to ask informed and specific que
     >
       {/* Share Button */}
       <motion.button
-        onClick={() => setIsShareExpanded(!isShareExpanded)}
+        onClick={handleCopyLink}
         className="relative group bg-gradient-to-r from-[#387E89] to-[#143151] text-white p-3 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 border border-white/10 backdrop-blur-sm"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
@@ -195,83 +152,16 @@ The goal is to produce a summary that allows me to ask informed and specific que
       >
         <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         
-        <AnimatePresence mode="wait">
-          {isShareExpanded ? (
-            <motion.div
-              key="close-share"
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <X size={20} />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="share"
-              initial={{ rotate: 90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              exit={{ rotate: -90, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Share2 size={20} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          key="share"
+          initial={{ rotate: 0, opacity: 1 }}
+          animate={{ rotate: copied ? 360 : 0, opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {copied ? <Copy size={20} /> : <Share2 size={20} />}
+        </motion.div>
       </motion.button>
 
-      {/* Share Panel */}
-      <AnimatePresence>
-        {isShareExpanded && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.8 }}
-            transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 25 }}
-            className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-4 min-w-[280px] max-w-[320px]"
-          >
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">Share S10.AI</h3>
-              <p className="text-sm text-gray-600">Spread the word about AI healthcare solutions</p>
-            </div>
-
-            <div className="space-y-2">
-              {shareOptions.map((option, index) => (
-                <motion.button
-                  key={option.name}
-                  onClick={option.action}
-                  className="w-full p-3 rounded-xl border border-gray-200/50 hover:border-gray-300/80 transition-all duration-200 group relative overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <div className="relative flex items-center gap-3">
-                    <div className={`p-2 rounded-lg ${option.bgColor} group-hover:scale-110 transition-transform duration-200`}>
-                      <option.icon 
-                        size={18} 
-                        className={`${option.color} group-hover:scale-110 transition-transform duration-200`}
-                      />
-                    </div>
-                    
-                    <div className="flex-1 text-left">
-                      <div className="font-medium text-gray-800 text-sm group-hover:text-gray-900 transition-colors">
-                        {option.name === 'Copy Link' && copied ? 'Copied!' : option.name}
-                      </div>
-                    </div>
-                    
-                    <ChevronRight 
-                      size={16} 
-                      className="text-gray-400 group-hover:text-gray-600 group-hover:translate-x-1 transition-all duration-200" 
-                    />
-                  </div>
-                </motion.button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
       {/* Main Toggle Button */}
       <motion.button
         onClick={() => setIsExpanded(!isExpanded)}
