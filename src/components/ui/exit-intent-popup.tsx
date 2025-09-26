@@ -82,26 +82,33 @@ const getVariantContent = (variant: string) => {
       };
     default:
       return {
-        title: "Before You Leave - See What Makes S10.AI Different",
-        subtitle: "No APIs Required - Works with Any EHR",
+        title: "Before You Leave – See Why Clinicians Choose S10.AI",
+        subtitle: "#1 Customization Leader • Built for Busy Providers",
         features: [
           {
             icon: Zap,
-            title: "No API Required",
-            description: "S10.AI uses cutting-edge RPA technology that integrates seamlessly without complex API setups.",
-            highlight: "Universal Compatibility",
+            title: "The Only Fully Customizable Platform",
+            description: "Adapts to your specialty, your workflow, your patients. No empty promises — S10.AI delivers what it claims.",
+            highlight: "Total Customization",
             color: "blue"
           },
           {
+            icon: Database,
+            title: "Works With Your Current EHR",
+            description: "Agentic technology integrates directly with Epic, Cerner, athenahealth, NextGen, and more — no APIs, no IT headaches.",
+            highlight: "No Disruption",
+            color: "purple"
+          },
+          {
             icon: Globe,
-            title: "60+ Languages Supported",
-            description: "Serve patients in their native language - from Spanish and Chinese to Welsh and Vietnamese.",
-            highlight: "All Languages Included",
+            title: "Serve Every Patient",
+            description: "60+ languages included out of the box, from Spanish and Chinese to Welsh and Vietnamese. Improve access instantly.",
+            highlight: "60+ Languages",
             color: "teal"
           }
         ],
-        cta: "Ready to transform your practice?",
-        ctaDescription: "Join providers using S10.AI with Epic, Cerner, athenahealth, NextGen, and all major EHR systems."
+        cta: "Join the thousands of clinicians already using S10.AI",
+        ctaDescription: "Save time, reduce clicks, and improve patient care. Start using it without disrupting your existing systems."
       };
   }
 };
