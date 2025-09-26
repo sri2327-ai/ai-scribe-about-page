@@ -102,10 +102,21 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
 }) => {
   const content = useMemo(() => getVariantContent(variant), [variant]);
 
+  // Debug logging
+  React.useEffect(() => {
+    console.log('ExitIntentPopup render:', { isOpen, variant });
+  }, [isOpen, variant]);
+
   const handleQuickTour = useCallback(() => {
+    console.log('handleQuickTour clicked');
     onClose();
     window.open('/#watch-demo', '_self');
   }, [onClose]);
+
+  const handleBookDemo = useCallback(() => {
+    console.log('handleBookDemo clicked');
+    onBookDemo();
+  }, [onBookDemo]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -180,7 +191,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
           <div className="flex-shrink-0 bg-white border-t border-gray-100 p-6 shadow-lg">
             <div className="flex flex-col gap-4">
               <Button
-                onClick={onBookDemo}
+                onClick={handleBookDemo}
                 size="lg"
                 className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-base"
               >

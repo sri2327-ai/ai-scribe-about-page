@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import rippleStyles from "@/styles/RippleEffect.module.css";
 import { ExitIntentPopup } from "@/components/ui/exit-intent-popup";
 import { useExitIntent } from "@/hooks/useExitIntent";
@@ -12,13 +13,23 @@ const Index = () => {
     enabled: true
   });
 
+  const [testShow, setTestShow] = useState(false);
+
+  // Test popup button (temporary for debugging)
+  const handleTestPopup = () => {
+    console.log('Testing popup manually');
+    setTestShow(true);
+  };
+
   const handleBookDemo = () => {
     markAsShown();
+    setTestShow(false);
     window.open('/contact', '_blank');
   };
 
   const handleClosePopup = () => {
     markAsShown();
+    setTestShow(false);
   };
 
   return (
@@ -31,6 +42,14 @@ const Index = () => {
       </div>
       
       <div className="text-center max-w-3xl px-4 relative z-10">
+        {/* Temporary test button */}
+        <button 
+          onClick={handleTestPopup}
+          className="bg-red-500 text-white px-4 py-2 rounded mb-4"
+        >
+          Test Popup
+        </button>
+        
         <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">Welcome to S10.AI</h1>
         <p className="text-xl text-gray-300 mb-8">
           Revolutionizing healthcare with cutting-edge AI technology. We're making life easier for clinicians with intelligent automation.
@@ -74,7 +93,7 @@ const Index = () => {
 
       {/* Exit Intent Popup */}
       <ExitIntentPopup
-        isOpen={shouldShow}
+        isOpen={shouldShow || testShow}
         onClose={handleClosePopup}
         onBookDemo={handleBookDemo}
         variant="general"
