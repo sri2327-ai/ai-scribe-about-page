@@ -63,7 +63,7 @@ const getVariantContent = (variant: string) => {
     default:
       return {
         title: "Before You Leave – See Why Clinicians Choose S10.AI",
-        subtitle: "#1 Customization Leader • Built for Busy Providers",
+        subtitle: "Built for Busy Providers",
         features: [
           {
             icon: Zap,
@@ -135,7 +135,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
       >
         {/* Trust Badge */}
         <div className="flex-shrink-0 bg-white px-4 py-3 border-b border-gray-100">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-between">
             <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-full px-4 py-2 flex items-center gap-3 border border-gray-200 shadow-sm">
               <div className="flex items-center gap-2">
                 <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs font-bold px-2 py-1 rounded-full">
@@ -149,21 +149,19 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                 <span className="text-sm font-semibold text-gray-700">Trusted by 1000+ Providers</span>
               </div>
             </div>
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-full bg-gray-100 hover:bg-gray-200 transition-all duration-200 hover:scale-110"
+            >
+              <X className="w-4 h-4 text-gray-600" />
+            </button>
           </div>
         </div>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-4 text-center relative flex-shrink-0">
-          <button
-            onClick={onClose}
-            className="absolute top-3 right-3 z-20 p-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
-          >
-            <X className="w-4 h-4 text-white" />
-          </button>
-          <div className="pr-10">
-            <h2 className="text-lg md:text-xl font-bold mb-1 leading-tight">{content.title}</h2>
-            <p className="text-blue-100 text-sm font-medium">{content.subtitle}</p>
-          </div>
+        <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-4 text-center flex-shrink-0">
+          <h2 className="text-lg md:text-xl font-bold mb-1 leading-tight">{content.title}</h2>
+          <p className="text-blue-100 text-sm font-medium">{content.subtitle}</p>
         </div>
 
         {/* Scrollable Content */}
