@@ -137,8 +137,8 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
             </div>
           </div>
 
-          {/* Content */}
-          <div className="flex-1 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-5 overflow-y-auto min-h-0">
+          {/* Scrollable Content */}
+          <div className="flex-1 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-5 overflow-y-auto min-h-0 pb-4">
             {/* Key features */}
             <div className="space-y-3 sm:space-y-4">
               {content.features.map((feature, index) => (
@@ -174,9 +174,11 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                 {content.ctaDescription}
               </p>
             </div>
+          </div>
 
-            {/* Actions */}
-            <div className="flex flex-col gap-2 sm:gap-3 pt-2">
+          {/* Sticky Bottom Actions */}
+          <div className="flex-shrink-0 bg-white border-t border-gray-100 p-3 sm:p-4 shadow-lg">
+            <div className="flex flex-col gap-2 sm:gap-3">
               <Button
                 onClick={onBookDemo}
                 size="lg"
