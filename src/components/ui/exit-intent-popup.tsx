@@ -110,7 +110,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="w-[95vw] max-w-sm sm:max-w-md lg:max-w-lg p-0 bg-white border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-2xl max-h-[90vh] sm:max-h-[85vh]"
+        className="w-[95vw] max-w-md sm:max-w-lg lg:max-w-2xl xl:max-w-3xl p-0 bg-white border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-2xl"
         hideCloseButton={true}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -122,7 +122,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
         }}
         style={{ outline: 'none' }}
       >
-        <div className="relative flex flex-col h-full max-h-[90vh] sm:max-h-[85vh]">
+        <div className="relative flex flex-col h-auto">
           {/* Header */}
           <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-3 sm:p-4 md:p-6 text-center relative flex-shrink-0">
             <button
@@ -137,8 +137,8 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
             </div>
           </div>
 
-          {/* Scrollable Content */}
-          <div className="flex-1 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-5 overflow-y-auto min-h-0 pb-4">
+          {/* Content */}
+          <div className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
             {/* Key features */}
             <div className="space-y-3 sm:space-y-4">
               {content.features.map((feature, index) => (
