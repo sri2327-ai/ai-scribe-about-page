@@ -35,7 +35,7 @@ const getVariantContent = (variant: string) => {
           }
         ],
         cta: "Ready to eliminate staffing and language barriers?",
-        ctaDescription: "See how BRAVO works with EHR, CRM, PMS, VOIP, and any software system while handling multilingual patient interactions."
+        ctaDescription: "See BRAVO in action with a personalized demo."
       };
     case 'crush':
       return {
@@ -58,7 +58,7 @@ const getVariantContent = (variant: string) => {
           }
         ],
         cta: "Ready to eliminate documentation burden?",
-        ctaDescription: "Join providers using CRUSH with Epic, Cerner, athenahealth, and other major EHR systems."
+        ctaDescription: "Experience CRUSH AI with a personalized demo."
       };
     default:
       return {
@@ -110,7 +110,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="w-[95vw] max-w-md lg:max-w-lg p-0 bg-white border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-2xl max-h-[85vh]"
+        className="w-[95vw] max-w-sm sm:max-w-md lg:max-w-lg p-0 bg-white border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-2xl max-h-[90vh] sm:max-h-[85vh]"
         hideCloseButton={true}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -122,43 +122,43 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
         }}
         style={{ outline: 'none' }}
       >
-        <div className="relative flex flex-col max-h-[85vh]">
+        <div className="relative flex flex-col h-full max-h-[90vh] sm:max-h-[85vh]">
           {/* Header */}
-          <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-4 sm:p-6 text-center relative flex-shrink-0">
+          <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-3 sm:p-4 md:p-6 text-center relative flex-shrink-0">
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 z-20 p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
+              className="absolute top-2 right-2 sm:top-3 sm:right-3 z-20 p-1.5 sm:p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
             >
-              <X className="w-4 h-4 text-white" />
+              <X className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
             </button>
-            <div className="pr-10">
-              <h2 className="text-lg sm:text-xl font-bold mb-2 leading-tight">{content.title}</h2>
-              <p className="text-blue-100 text-sm font-medium">{content.subtitle}</p>
+            <div className="pr-8 sm:pr-10">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold mb-1 sm:mb-2 leading-tight">{content.title}</h2>
+              <p className="text-blue-100 text-xs sm:text-sm font-medium">{content.subtitle}</p>
             </div>
           </div>
 
           {/* Content */}
-          <div className="flex-1 p-4 sm:p-6 space-y-5 overflow-y-auto">
+          <div className="flex-1 p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-5 overflow-y-auto min-h-0">
             {/* Key features */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {content.features.map((feature, index) => (
                 <div
                   key={feature.title}
-                  className="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:shadow-sm transition-all duration-200"
+                  className="bg-gray-50 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-100 hover:shadow-sm transition-all duration-200"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="flex items-start gap-3">
-                    <div className={`p-2.5 bg-${feature.color}-50 rounded-xl border border-${feature.color}-100 flex-shrink-0`}>
-                      <feature.icon className={`w-5 h-5 text-${feature.color}-600`} />
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <div className={`p-2 sm:p-2.5 bg-${feature.color}-50 rounded-lg sm:rounded-xl border border-${feature.color}-100 flex-shrink-0`}>
+                      <feature.icon className={`w-4 h-4 sm:w-5 sm:h-5 text-${feature.color}-600`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-bold text-base text-gray-900">{feature.title}</h3>
-                        <span className={`px-2 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-semibold rounded-full`}>
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 mb-2">
+                        <h3 className="font-bold text-sm sm:text-base text-gray-900">{feature.title}</h3>
+                        <span className={`px-2 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-semibold rounded-full self-start`}>
                           {feature.highlight}
                         </span>
                       </div>
-                      <p className="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
+                      <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">{feature.description}</p>
                     </div>
                   </div>
                 </div>
@@ -166,23 +166,23 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
             </div>
 
             {/* CTA Section */}
-            <div className="text-center bg-blue-50 rounded-xl p-4 border border-blue-100">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <div className="text-center bg-blue-50 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-blue-100">
+              <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2">
                 {content.cta}
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 text-xs sm:text-sm">
                 {content.ctaDescription}
               </p>
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 sm:gap-3 pt-2">
               <Button
                 onClick={onBookDemo}
                 size="lg"
-                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-3 sm:py-4 rounded-lg sm:rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
               >
-                <Calendar className="w-5 h-5 mr-2" />
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Book Your Demo
               </Button>
               
@@ -190,9 +190,9 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                 onClick={handleQuickTour}
                 variant="outline"
                 size="lg"
-                className="w-full py-4 rounded-xl border-2 border-gray-200 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-300 transition-all duration-300"
+                className="w-full py-3 sm:py-4 rounded-lg sm:rounded-xl border-2 border-gray-200 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-300 transition-all duration-300 text-sm sm:text-base"
               >
-                <PlayCircle className="w-5 h-5 mr-2" />
+                <PlayCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
                 Watch Quick Tour
               </Button>
             </div>
