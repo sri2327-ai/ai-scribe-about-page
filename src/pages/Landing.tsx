@@ -42,9 +42,9 @@ const Landing = () => {
   }, []);
 
   const { shouldShow, markAsShown } = useExitIntent({
-    threshold: 60, // no longer triggers popup
-    delay: 3000, // increased delay for less intrusion
-    inactivityTimeout: 45000, // increased to 45 seconds for better UX
+    threshold: 60,
+    delay: 2000,
+    inactivityTimeout: 25000,
     enabled: isClient // Only enable when client-side
   });
 

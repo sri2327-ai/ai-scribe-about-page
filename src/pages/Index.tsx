@@ -6,9 +6,9 @@ import { useExitIntent } from "@/hooks/useExitIntent";
 
 const Index = () => {
   const { shouldShow, markAsShown } = useExitIntent({
-    threshold: 70, // no longer triggers popup
-    delay: 3000, // increased delay for less intrusion 
-    inactivityTimeout: 45000, // increased to 45 seconds for better UX
+    threshold: 70,
+    delay: 2000,
+    inactivityTimeout: 25000,
     enabled: true
   });
 

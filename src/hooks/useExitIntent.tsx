@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface UseExitIntentOptions {
-  threshold?: number; // no longer used for triggering, kept for compatibility
+  threshold?: number; // scroll percentage to trigger
   delay?: number; // delay before showing popup
   inactivityTimeout?: number; // milliseconds of inactivity
   enabled?: boolean;
@@ -94,11 +94,35 @@ export const useExitIntent = (options: UseExitIntentOptions = {}) => {
     }
   }, [hasShown, enabled, delay]);
 
-  // Handle scroll (only for inactivity tracking, no popup trigger)
+  // Handle scroll (excessive scroll)
   const handleScroll = useCallback(() => {
-    // Only reset inactivity timer on scroll, don't trigger popup
+    if (!hasShown && !hasTriggered.current && !scrollTriggered.current && enabled) {
+      const scrollHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Calculate scroll percentage more accurately
+      const maxScrollTop = scrollHeight - windowHeight;
+      const scrolled = maxScrollTop > 0 ? (scrollTop / maxScrollTop) * 100 : 0;
+      
+      if (scrolled >= threshold) {
+        console.log('Scroll threshold reached:', Math.round(scrolled) + '%');
+        scrollTriggered.current = true;
+        
+        if (delayTimer.current) {
+          clearTimeout(delayTimer.current);
+        }
+        
+        hasTriggered.current = true;
+        delayTimer.current = window.setTimeout(() => {
+          setShouldShow(true);
+        }, delay);
+      }
+    }
+    
+    // Reset inactivity timer on scroll
     resetInactivityTimer();
-  }, [resetInactivityTimer]);
+  }, [hasShown, enabled, threshold, delay, resetInactivityTimer]);
 
   // Handle mouse movement with better tracking
   const handleMouseMove = useCallback((e: MouseEvent) => {
