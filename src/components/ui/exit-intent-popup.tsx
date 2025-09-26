@@ -121,7 +121,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent 
-        className="w-[95vw] max-w-4xl p-0 bg-white border-0 shadow-2xl overflow-hidden mx-auto flex flex-col rounded-2xl h-auto max-h-[90vh]"
+        className="w-[95vw] max-w-4xl p-0 bg-white border-0 shadow-2xl overflow-hidden mx-auto rounded-2xl"
         hideCloseButton={true}
         onOpenAutoFocus={(e) => e.preventDefault()}
         onCloseAutoFocus={(e) => e.preventDefault()}
@@ -131,84 +131,81 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
           e.preventDefault();
           onClose();
         }}
-        style={{ outline: 'none' }}
+        style={{ outline: 'none', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
       >
-        <div className="relative flex flex-col h-full">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-4 sm:p-5 md:p-6 lg:p-8 text-center relative flex-shrink-0">
-            <button
-              onClick={onClose}
-              className="absolute top-3 right-3 sm:top-4 sm:right-4 md:top-5 md:right-5 z-20 p-2 sm:p-2.5 md:p-3 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
-            >
-              <X className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-            </button>
-            <div className="pr-12 sm:pr-14 md:pr-16">
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-2 sm:mb-3 leading-tight">{content.title}</h2>
-              <p className="text-blue-100 text-sm sm:text-base md:text-lg font-medium">{content.subtitle}</p>
-            </div>
+        {/* Header */}
+        <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-4 sm:p-6 text-center relative flex-shrink-0">
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+          <div className="pr-12">
+            <h2 className="text-xl md:text-2xl font-bold mb-2 leading-tight">{content.title}</h2>
+            <p className="text-blue-100 text-sm md:text-base font-medium">{content.subtitle}</p>
           </div>
+        </div>
 
-          {/* Content */}
-          <div className="flex-1 p-6 space-y-6 overflow-y-auto">
-            {/* Key features */}
-            <div className="space-y-4">
-              {content.features.map((feature, index) => (
-                <div
-                  key={feature.title}
-                  className="bg-gray-50 rounded-xl p-5 border border-gray-100 hover:shadow-sm transition-all duration-200"
-                  style={{ animationDelay: `${index * 0.1}s` }}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={`p-3 bg-${feature.color}-50 rounded-xl border border-${feature.color}-100 flex-shrink-0`}>
-                      <feature.icon className={`w-6 h-6 text-${feature.color}-600`} />
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4" style={{ minHeight: 0 }}>
+          {/* Key features */}
+          <div className="space-y-4">
+            {content.features.map((feature, index) => (
+              <div
+                key={feature.title}
+                className="bg-gray-50 rounded-xl p-4 border border-gray-100 hover:shadow-sm transition-all duration-200"
+              >
+                <div className="flex items-start gap-4">
+                  <div className={`p-2 bg-${feature.color}-50 rounded-lg border border-${feature.color}-100 flex-shrink-0`}>
+                    <feature.icon className={`w-5 h-5 text-${feature.color}-600`} />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                      <h3 className="font-bold text-base text-gray-900">{feature.title}</h3>
+                      <span className={`px-2 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-semibold rounded-full self-start`}>
+                        {feature.highlight}
+                      </span>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-3">
-                        <h3 className="font-bold text-lg text-gray-900">{feature.title}</h3>
-                        <span className={`px-3 py-1.5 bg-${feature.color}-100 text-${feature.color}-700 text-sm font-semibold rounded-full self-start`}>
-                          {feature.highlight}
-                        </span>
-                      </div>
-                      <p className="text-base text-gray-600 leading-relaxed">{feature.description}</p>
-                    </div>
+                    <p className="text-sm text-gray-600 leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* CTA Section */}
-            <div className="text-center bg-blue-50 rounded-xl p-6 border border-blue-100">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                {content.cta}
-              </h3>
-              <p className="text-gray-600 text-base">
-                {content.ctaDescription}
-              </p>
-            </div>
+              </div>
+            ))}
           </div>
 
-          {/* Sticky Bottom Actions */}
-          <div className="flex-shrink-0 bg-white border-t border-gray-100 p-6 shadow-lg">
-            <div className="flex flex-col gap-4">
-              <Button
-                onClick={handleBookDemo}
-                size="lg"
-                className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-base"
-              >
-                <Calendar className="w-5 h-5 mr-3" />
-                Book Your Demo
-              </Button>
-              
-              <Button
-                onClick={handleQuickTour}
-                variant="outline"
-                size="lg"
-                className="w-full py-4 px-8 rounded-xl border-2 border-gray-200 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-300 transition-all duration-300 text-base"
-              >
-                <PlayCircle className="w-5 h-5 mr-3" />
-                Watch Quick Tour
-              </Button>
-            </div>
+          {/* CTA Section */}
+          <div className="text-center bg-blue-50 rounded-xl p-4 border border-blue-100">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">
+              {content.cta}
+            </h3>
+            <p className="text-gray-600 text-sm">
+              {content.ctaDescription}
+            </p>
+          </div>
+        </div>
+
+        {/* Fixed Bottom Actions */}
+        <div className="flex-shrink-0 bg-white border-t border-gray-200 p-4 sm:p-6">
+          <div className="flex flex-col gap-3">
+            <Button
+              onClick={handleBookDemo}
+              size="lg"
+              className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+            >
+              <Calendar className="w-5 h-5 mr-2" />
+              Book Your Demo
+            </Button>
+            
+            <Button
+              onClick={handleQuickTour}
+              variant="outline"
+              size="lg"
+              className="w-full py-3 px-6 rounded-xl border-2 border-gray-200 hover:bg-gray-50 font-semibold text-gray-700 hover:border-gray-300 transition-all duration-300"
+            >
+              <PlayCircle className="w-5 h-5 mr-2" />
+              Watch Quick Tour
+            </Button>
           </div>
         </div>
       </DialogContent>
