@@ -63,7 +63,7 @@ const getVariantContent = (variant: string) => {
     default:
       return {
         title: "Before You Leave – See Why Clinicians Choose S10.AI",
-        subtitle: "#1 Customization Leader • Built for Busy Providers",
+        subtitle: "Built for Busy Providers • Proven Results",
         features: [
           {
             icon: Zap,
@@ -134,26 +134,26 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
         style={{ outline: 'none', maxHeight: '85vh', display: 'flex', flexDirection: 'column' }}
       >
         {/* Trust Badge */}
-        <div className="flex-shrink-0 bg-white px-4 py-3 border-b border-gray-100">
+        <div className="flex-shrink-0 bg-gradient-to-r from-slate-50 to-blue-50 px-4 py-3 border-b border-blue-100">
           <div className="flex items-center justify-center">
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-full px-4 py-2 flex items-center gap-3 border border-gray-200 shadow-sm">
+            <div className="bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-3 border border-blue-200/50 shadow-sm">
               <div className="flex items-center gap-2">
-                <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white text-xs font-bold px-2 py-1 rounded-full">
+                <div className="bg-gradient-to-r from-blue-600 to-teal-600 text-white text-xs font-bold px-2 py-1 rounded-full shadow-sm">
                   #1
                 </div>
-                <span className="text-sm font-semibold text-gray-700">Customization Leader</span>
+                <span className="text-sm font-semibold text-slate-700">Customization Leader</span>
               </div>
-              <div className="w-px h-4 bg-gray-300"></div>
+              <div className="w-px h-4 bg-slate-300"></div>
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-[#387E89]" />
-                <span className="text-sm font-semibold text-gray-700">Trusted by 1000+ Providers</span>
+                <Users className="w-4 h-4 text-teal-600" />
+                <span className="text-sm font-semibold text-slate-700">Trusted by 1000+ Providers</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white p-4 text-center relative flex-shrink-0">
+        <div className="bg-gradient-to-br from-slate-800 via-blue-800 to-teal-700 text-white p-4 text-center relative flex-shrink-0">
           <button
             onClick={onClose}
             className="absolute top-3 right-3 z-20 p-1.5 rounded-full bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-110"
@@ -210,7 +210,7 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
             <Button
               onClick={handleBookDemo}
               size="default"
-              className="w-full bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white font-bold py-2.5 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+              className="w-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-white font-bold py-2.5 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Calendar className="w-4 h-4 mr-2" />
               Book Your Demo
