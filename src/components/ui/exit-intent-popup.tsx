@@ -1,8 +1,8 @@
 
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { X, Globe, Zap, Calendar, CheckCircle, Users, Shield, Database, MessageSquare, PlayCircle, ChevronDown, ChevronUp } from "lucide-react";
+import { X, Globe, Zap, Calendar, Users, Shield, Database, MessageSquare, PlayCircle } from "lucide-react";
 
 interface ExitIntentPopupProps {
   isOpen: boolean;
@@ -10,26 +10,6 @@ interface ExitIntentPopupProps {
   onBookDemo: () => void;
   variant?: 'general' | 'crush' | 'bravo';
 }
-
-const supportedLanguages = [
-  "Afrikaans", "Arabic", "Armenian", "Azerbaijani", "Belarusian", "Bosnian", 
-  "Bulgarian", "Catalan", "Chinese", "Croatian", "Czech", "Danish", "Dutch", 
-  "English", "Estonian", "Finnish", "French", "Galician", "German", "Greek", 
-  "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Italian", 
-  "Japanese", "Kannada", "Kazakh", "Korean", "Latvian", "Lithuanian", 
-  "Macedonian", "Malay", "Marathi", "Maori", "Nepali", "Norwegian", "Persian", 
-  "Polish", "Portuguese", "Romanian", "Russian", "Serbian", "Slovak", 
-  "Slovenian", "Spanish", "Swahili", "Swedish", "Tagalog", "Tamil", "Thai", 
-  "Turkish", "Ukrainian", "Urdu", "Vietnamese", "Welsh"
-];
-
-const popularEHRs = [
-  "Epic", "Cerner", "Allscripts", "athenahealth", "NextGen", "eClinicalWorks"
-];
-
-const bravoSoftwareSystems = [
-  "Epic EHR", "Cerner EHR", "Salesforce CRM", "RingCentral VOIP", "athenaCollector PMS", "Any Software"
-];
 
 // Memoized content generator for better performance
 const getVariantContent = (variant: string) => {
@@ -113,115 +93,6 @@ const getVariantContent = (variant: string) => {
   }
 };
 
-// Optimized language display component
-const LanguageShowcase = React.memo(() => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  const displayLanguages = useMemo(() => 
-    isExpanded ? supportedLanguages : supportedLanguages.slice(0, 12),
-    [isExpanded]
-  );
-  
-  const toggleExpanded = useCallback(() => {
-    setIsExpanded(prev => !prev);
-  }, []);
-  
-  return (
-    <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-xl p-2 sm:p-3 border border-blue-200 relative">
-      <div className="flex flex-col xs:flex-row xs:items-center justify-between mb-2 sm:mb-3 gap-1 sm:gap-2">
-        <h4 className="font-semibold text-gray-800 text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 min-w-0">
-          <Globe className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600 flex-shrink-0" />
-          <span className="truncate text-xs sm:text-sm">All 60+ Languages</span>
-        </h4>
-        <button
-          onClick={toggleExpanded}
-          className="flex items-center gap-1 text-blue-600 hover:text-blue-800 text-xs font-medium transition-colors bg-white px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full border border-blue-200 hover:border-blue-300 flex-shrink-0 self-start xs:self-auto"
-        >
-          <span className="hidden xs:inline text-xs">{isExpanded ? 'Less' : 'All'}</span>
-          {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-        </button>
-      </div>
-      
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-1.5">
-        {displayLanguages.map((lang) => (
-          <div
-            key={lang}
-            className="flex items-center gap-1 bg-white p-1 sm:p-1.5 rounded-md border border-gray-100 hover:border-blue-200 transition-all duration-200"
-          >
-            <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-green-500 flex-shrink-0" />
-            <span className="text-gray-700 font-medium text-xs truncate">{lang}</span>
-          </div>
-        ))}
-      </div>
-      
-      {!isExpanded && supportedLanguages.length > 12 && (
-        <div className="text-center mt-2">
-          <span className="text-xs text-blue-600 font-medium">
-            +{supportedLanguages.length - 12} more
-          </span>
-        </div>
-      )}
-    </div>
-  );
-});
-
-LanguageShowcase.displayName = 'LanguageShowcase';
-
-// Enhanced software systems showcase for Bravo
-const BravoSoftwareShowcase = React.memo(() => (
-  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-2 sm:p-3 border border-green-200">
-    <h4 className="font-semibold text-gray-800 text-xs sm:text-sm mb-2 sm:mb-3 flex items-center gap-1 sm:gap-1.5">
-      <Database className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-      <span className="truncate text-xs sm:text-sm">Compatible Systems</span>
-    </h4>
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-      {bravoSoftwareSystems.map((system) => (
-        <div
-          key={system}
-          className="flex items-center gap-1 sm:gap-1.5 bg-white p-1 sm:p-2 rounded-lg border border-gray-100 hover:border-green-200 transition-colors"
-        >
-          <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-green-500 flex-shrink-0" />
-          <span className="text-gray-700 font-medium text-xs truncate">{system}</span>
-        </div>
-      ))}
-    </div>
-    <div className="text-center">
-      <span className="text-xs text-green-600 font-medium bg-green-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
-        No API Required
-      </span>
-    </div>
-  </div>
-));
-
-BravoSoftwareShowcase.displayName = 'BravoSoftwareShowcase';
-
-// EHR compatibility showcase (for non-Bravo variants)
-const EHRShowcase = React.memo(() => (
-  <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-2 sm:p-3 border border-green-200">
-    <h4 className="font-semibold text-gray-800 text-xs sm:text-sm mb-2 sm:mb-3 flex items-center gap-1 sm:gap-1.5">
-      <Database className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-      <span className="truncate text-xs sm:text-sm">Compatible EHRs</span>
-    </h4>
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-      {popularEHRs.map((ehr) => (
-        <div
-          key={ehr}
-          className="flex items-center gap-1 sm:gap-1.5 bg-white p-1 sm:p-2 rounded-lg border border-gray-100 hover:border-green-200 transition-colors"
-        >
-          <CheckCircle className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-green-500 flex-shrink-0" />
-          <span className="text-gray-700 font-medium text-xs truncate">{ehr}</span>
-        </div>
-      ))}
-    </div>
-    <div className="text-center">
-      <span className="text-xs text-green-600 font-medium bg-green-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full">
-        + Any EHR System
-      </span>
-    </div>
-  </div>
-));
-
-EHRShowcase.displayName = 'EHRShowcase';
 
 export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   isOpen,
@@ -229,24 +100,12 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
   onBookDemo,
   variant = 'general'
 }) => {
-  const [activeTab, setActiveTab] = useState<'languages' | 'ehr'>('languages');
-  
   const content = useMemo(() => getVariantContent(variant), [variant]);
 
   const handleQuickTour = useCallback(() => {
     onClose();
     window.open('/#watch-demo', '_self');
   }, [onClose]);
-
-  const handleTabChange = useCallback((tab: 'languages' | 'ehr') => {
-    setActiveTab(tab);
-  }, []);
-
-  // Choose the right showcase component based on variant
-  const SystemsShowcase = useMemo(() => 
-    variant === 'bravo' ? BravoSoftwareShowcase : EHRShowcase, 
-    [variant]
-  );
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -305,36 +164,6 @@ export const ExitIntentPopup: React.FC<ExitIntentPopupProps> = ({
                   </div>
                 </div>
               ))}
-            </div>
-
-            {/* Interactive showcase tabs - Simplified for better scannability */}
-            <div className="bg-white rounded-2xl p-4 sm:p-5 border border-gray-200 shadow-sm">
-              <div className="flex bg-gray-50 rounded-xl p-1 mb-4">
-                <button
-                  onClick={() => handleTabChange('languages')}
-                  className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
-                    activeTab === 'languages' 
-                      ? 'bg-white text-blue-600 shadow-sm' 
-                      : 'text-gray-600 hover:text-gray-800'
-                  }`}
-                >
-                  <Globe className="w-4 h-4" />
-                  <span>Languages</span>
-                </button>
-                <button
-                  onClick={() => handleTabChange('ehr')}
-                  className={`flex-1 py-2.5 px-3 rounded-lg text-sm font-semibold transition-all duration-200 flex items-center justify-center gap-2 ${
-                    activeTab === 'ehr' 
-                      ? 'bg-white text-green-600 shadow-sm' 
-                      : 'text-gray-600 hover:text-gray-800'
-                  }`}
-                >
-                  <Database className="w-4 h-4" />
-                  <span>{variant === 'bravo' ? 'Systems' : 'EHRs'}</span>
-                </button>
-              </div>
-              
-              {activeTab === 'languages' ? <LanguageShowcase /> : <SystemsShowcase />}
             </div>
 
             {/* Value proposition - Enhanced for scannability */}
