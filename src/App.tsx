@@ -10,6 +10,7 @@ import Specialty from "@/pages/Specialty";
 import Technology from "@/pages/Technology";
 import Customer from "@/pages/Customer";
 import CustomAIAgent from "@/pages/CustomAIAgent";
+import Cheer from "@/pages/Cheer";
 import CrushAI from "@/pages/CrushAI";
 import Bravo from "@/pages/Bravo";
 import Integration from "@/pages/Integration";
@@ -41,6 +42,7 @@ function App() {
       <Route path="/technology" element={<Technology />} />
       <Route path="/customer" element={<Customer />} />
       <Route path="/custom-ai-agent" element={<CustomAIAgent />} />
+      <Route path="/cheer" element={<Cheer />} />
       <Route path="/crush-ai" element={<CrushAI />} />
       <Route path="/bravo" element={<Bravo />} />
       <Route path="/integration" element={<Integration />} />
