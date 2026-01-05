@@ -240,8 +240,25 @@ export const CheerHeroSection = () => {
         }} className="text-center lg:text-left">
             
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-3 md:mb-4 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
-              CHEER
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-3 md:mb-4 flex justify-center lg:justify-start">
+              {[
+                { letter: 'C', meaning: 'Click-to-Join Visits' },
+                { letter: 'H', meaning: 'Human-Centered Virtual Care' },
+                { letter: 'E', meaning: 'Engaging Waiting Rooms' },
+                { letter: 'E', meaning: 'Easy Mobile Access' },
+                { letter: 'R', meaning: 'Reliable Video Visits' },
+              ].map((item, index) => (
+                <span
+                  key={index}
+                  className="relative group cursor-pointer bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent hover:from-[#387E89] hover:to-[#143151] transition-all duration-300"
+                >
+                  {item.letter}
+                  <span className="absolute left-1/2 -translate-x-1/2 top-full mt-2 px-3 py-1.5 bg-[#143151] text-white text-xs md:text-sm font-normal rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-50 shadow-lg">
+                    <span className="font-semibold">{item.letter}</span> – {item.meaning}
+                    <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#143151] rotate-45" />
+                  </span>
+                </span>
+              ))}
             </h1>
             <p className="text-lg md:text-xl lg:text-2xl text-[#387E89] font-medium mb-6 md:mb-8">
               Telemedicine platform for modern clinicians
