@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import OptimizedImage from '@/components/ui/optimized-image';
 import { ChevronLeft } from 'lucide-react';
-import styles from '@/styles/casecontentpage.module.scss';
+import styles from '@/styles/casecontentpage.module.css';
 
 interface CaseStudyLayoutProps {
   title: string;

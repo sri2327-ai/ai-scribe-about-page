@@ -1,6 +1,6 @@
 
 import React from 'react';
-import styles from "@/styles/specialties.module.scss";
+import styles from "@/styles/specialties.module.css";
 import { motion } from 'framer-motion';
 
 const Testimonial = () => {

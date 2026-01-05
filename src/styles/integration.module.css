@@ -1,4 +1,3 @@
-
 .integrationWrapper {
   padding: 4rem 1rem;
   max-width: 1400px;
@@ -7,8 +6,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
+  .integrationWrapper {
     padding: 2rem 1rem;
   }
 }
@@ -36,8 +37,10 @@
   margin: 0 auto;
   padding: 1rem;
   min-height: auto;
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
+  .tabContentWrapper {
     padding: 2rem;
     min-height: 300px;
   }
@@ -46,18 +49,19 @@
 .tabLeft {
   width: 100%;
   text-align: center;
-  
-  h3, h4 {
-    margin-bottom: 1.5rem;
-    color: #143151;
-    text-align: center;
-  }
-  
-  p {
-    margin-bottom: 1.5rem;
-    line-height: 1.6;
-    text-align: center;
-  }
+}
+
+.tabLeft h3,
+.tabLeft h4 {
+  margin-bottom: 1.5rem;
+  color: #143151;
+  text-align: center;
+}
+
+.tabLeft p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .featureItem {
@@ -69,57 +73,59 @@
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
   transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(255, 255, 255, 0.8);
-    transform: translateY(-2px);
-  }
-  
-  .icon {
-    background: linear-gradient(to right, #143151, #387E89);
-    min-width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    transition: all 0.3s ease;
-  }
-  
-  div:last-child {
-    flex: 1;
-    text-align: left;
-    
-    strong {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: #143151;
-    }
-    
-    p {
-      margin: 0;
-      text-align: left;
-      color: #4a5568;
-    }
-  }
-  
-  @media (max-width: 768px) {
+}
+
+.featureItem:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+}
+
+.featureItem .icon {
+  background: linear-gradient(to right, #143151, #387E89);
+  min-width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.featureItem div:last-child {
+  flex: 1;
+  text-align: left;
+}
+
+.featureItem div:last-child strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #143151;
+}
+
+.featureItem div:last-child p {
+  margin: 0;
+  text-align: left;
+  color: #4a5568;
+}
+
+@media (max-width: 768px) {
+  .featureItem {
     flex-direction: column;
     text-align: center;
     padding: 1rem;
-    
-    .icon {
-      margin-bottom: 1rem;
-    }
-    
-    div:last-child {
-      text-align: center;
-      
-      p {
-        text-align: center;
-      }
-    }
+  }
+
+  .featureItem .icon {
+    margin-bottom: 1rem;
+  }
+
+  .featureItem div:last-child {
+    text-align: center;
+  }
+
+  .featureItem div:last-child p {
+    text-align: center;
   }
 }
 
@@ -130,20 +136,20 @@
   gap: 0.5rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
 
-  span {
-    background: linear-gradient(to right, #143151, #387E89);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 1rem;
-    font-size: 0.875rem;
-    display: inline-flex;
-    align-items: center;
+.ehrTags span {
+  background: linear-gradient(to right, #143151, #387E89);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+}
 
-    svg {
-      margin-right: 0.3rem;
-    }
-  }
+.ehrTags span svg {
+  margin-right: 0.3rem;
 }
 
 .scrollWrapper {
@@ -156,22 +162,22 @@
   display: flex;
   animation: scroll 20s linear infinite;
   padding-bottom: 1rem;
+}
 
-  span {
-    background-color: #e8f4ff;
-    color: #5192AE;
-    padding: 0.5rem 0.75rem;
-    border-radius: 1rem;
-    font-size: 0.875rem;
-    display: inline-flex;
-    align-items: center;
-    white-space: nowrap;
-    margin-right: 1rem;
+.ehrscroll span {
+  background-color: #e8f4ff;
+  color: #5192AE;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  margin-right: 1rem;
+}
 
-    svg {
-      margin-right: 0.3rem;
-    }
-  }
+.ehrscroll span svg {
+  margin-right: 0.3rem;
 }
 
 @keyframes scroll {
@@ -187,8 +193,10 @@
   max-width: 1200px;
   margin: 4rem auto;
   padding: 0 2rem;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .whyChooseContainer {
     padding: 0 1rem;
   }
 }
@@ -203,8 +211,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
+  .whyChooseGrid {
     grid-template-columns: 1fr;
   }
 }
@@ -215,10 +225,10 @@
   border-radius: 1rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
+}
 
-  &:hover {
-    transform: translateY(-5px);
-  }
+.whyChooseItem:hover {
+  transform: translateY(-5px);
 }
 
 .whyChooseIcon {
@@ -261,8 +271,8 @@
   font-size: 1.1rem;
   text-decoration: none;
   transition: background-color 0.3s ease;
+}
 
-  &:hover {
-    background-color: #3a6b8f;
-  }
+.lastScrollButton:hover {
+  background-color: #3a6b8f;
 }

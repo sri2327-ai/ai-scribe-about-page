@@ -3,7 +3,7 @@
 import React from "react";
 import { Card, CardContent, Typography, Avatar, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import styles from "@/styles/stunning.module.scss";
+import styles from "@/styles/stunning.module.css";
 
 const testimonialsRow1 = [
   {
