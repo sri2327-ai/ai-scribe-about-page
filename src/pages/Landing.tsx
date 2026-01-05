@@ -31,36 +31,33 @@ const FifthSection = React.lazy(() => import('@/components/landing/FifthSection'
 const SeventhSection = React.lazy(() => import('@/components/landing/SeventhSection'));
 const NinthSection = React.lazy(() => import('@/components/landing/NinthSection'));
 const EleventhSection = React.lazy(() => import('@/components/landing/EleventhSection'));
-
 const Landing = () => {
   console.log("Rendering Landing page");
-  
   const [isClient, setIsClient] = useState(false);
   const [showAnnouncement, setShowAnnouncement] = useState(true);
-  
+
   // Ensure client-side only features are properly hydrated
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  const { shouldShow, markAsShown } = useExitIntent({
+  const {
+    shouldShow,
+    markAsShown
+  } = useExitIntent({
     threshold: 60,
     delay: 2000,
     inactivityTimeout: 25000,
     enabled: isClient // Only enable when client-side
   });
-
   const handleBookDemo = () => {
     console.log('Book demo clicked from landing page');
     markAsShown();
     window.open('/contact', '_blank');
   };
-
   const handleClosePopup = () => {
     console.log('Landing page popup closed');
     markAsShown();
   };
-
   const schemaMarkup = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -68,10 +65,7 @@ const Landing = () => {
     "url": "https://s10.ai",
     "logo": "https://s10.ai/logo.png",
     "description": "S10.AI delivers innovative ambient AI solutions for healthcare providers, reducing administrative burden and improving patient care through AI medical scribes, documentation automation, and clinical workflow solutions.",
-    "sameAs": [
-      "https://linkedin.com/company/s10ai",
-      "https://twitter.com/s10ai"
-    ],
+    "sameAs": ["https://linkedin.com/company/s10ai", "https://twitter.com/s10ai"],
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "US"
@@ -82,42 +76,30 @@ const Landing = () => {
       "description": "Ambient AI solutions for healthcare documentation and workflow automation"
     }
   };
-
   const handlePracticeTypeSelect = (type: string) => {
     console.log("Practice type selected on landing page:", type);
   };
-
-  return (
-    <>
+  return <>
       {/* Announcement Banner */}
-      {showAnnouncement && (
-        <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
+      {showAnnouncement && <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm md:text-base">
             <Megaphone className="w-4 h-4 text-yellow-300" />
             <span className="font-medium">
-              <span className="hidden sm:inline">🎉 Introducing </span>
+              <span className="hidden sm:inline"> Introducing </span>
               <a href="/cheer" className="underline underline-offset-2 hover:text-yellow-200 transition-colors font-semibold">
                 CHEER
               </a>
               <span className="hidden sm:inline"> — Our New Telemedicine Platform!</span>
               <span className="sm:hidden"> — New Telemedicine Platform!</span>
             </span>
-            <a 
-              href="/cheer" 
-              className="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs font-medium transition-colors"
-            >
+            <a href="/cheer" className="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs font-medium transition-colors">
               Learn More
             </a>
           </div>
-          <button
-            onClick={() => setShowAnnouncement(false)}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full transition-colors"
-            aria-label="Close announcement"
-          >
+          <button onClick={() => setShowAnnouncement(false)} className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full transition-colors" aria-label="Close announcement">
             <X className="w-4 h-4" />
           </button>
-        </div>
-      )}
+        </div>}
       
       <AnimatedHeader />
       
@@ -155,12 +137,7 @@ const Landing = () => {
               </BreadcrumbItem>
             </BreadcrumbList>
             
-            <Button 
-              size="sm" 
-              variant="ghost" 
-              className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-1.5 rounded-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 group relative overflow-hidden"
-              onClick={() => window.open('#watch-demo', '_self')} 
-            >
+            <Button size="sm" variant="ghost" className="bg-gradient-to-r from-[#143151] to-[#387E89] text-white px-4 py-1.5 rounded-md hover:shadow-lg transform hover:scale-105 transition-all duration-300 group relative overflow-hidden" onClick={() => window.open('#watch-demo', '_self')}>
               <span className="absolute inset-0 bg-white/10 transform -skew-x-12 translate-x-full group-hover:translate-x-[-100%] transition-transform duration-700 ease-in-out"></span>
               <PlayCircle className="mr-2 w-4 h-4 text-white group-hover:text-white" />
               <span className="relative z-10">Watch Demo</span>
@@ -221,19 +198,10 @@ const Landing = () => {
         <FloatingAICTA />
         
         {/* Only render exit intent popup on client side */}
-        {isClient && (
-          <ExitIntentPopup
-            isOpen={shouldShow}
-            onClose={handleClosePopup}
-            onBookDemo={handleBookDemo}
-            variant="general"
-          />
-        )}
+        {isClient && <ExitIntentPopup isOpen={shouldShow} onClose={handleClosePopup} onBookDemo={handleBookDemo} variant="general" />}
       </main>
       
       <Footer />
-    </>
-  );
+    </>;
 };
-
 export default Landing;
