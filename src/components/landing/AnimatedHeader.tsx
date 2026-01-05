@@ -143,13 +143,25 @@ const AnimatedHeader = () => {
       {
         title: 'Custom AI Agents',
         description: 'Tailored AI Solutions',
-        label: 'New',
         icon: <Cpu className="w-6 h-6 text-[#5192AE]" />,
         href: '/custom-ai-agent',
         bgColor: 'bg-gradient-to-br from-rose-50/50 to-pink-50/50 backdrop-blur-sm border border-rose-100/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
             <Award className="w-8 h-8 text-[#5192AE]" />
+          </div>
+        )
+      },
+      {
+        title: 'CHEER',
+        description: 'Telemedicine Platform',
+        label: 'New',
+        icon: <Play className="w-6 h-6 text-[#387E89]" />,
+        href: '/cheer',
+        bgColor: 'bg-gradient-to-br from-teal-50/50 to-cyan-50/50 backdrop-blur-sm border border-teal-100/20',
+        illustration: (
+          <div className="absolute top-2 right-2 opacity-10">
+            <Play className="w-8 h-8 text-[#387E89]" />
           </div>
         )
       }
