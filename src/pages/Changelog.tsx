@@ -1,7 +1,7 @@
 
 "use client"
 import React, { useEffect, useState } from "react";
-import styles from "@/styles/changelog.module.scss";
+import styles from "@/styles/changelog.module.css";
 import { Cookie } from "lucide-react";
 
 const changelogs = [

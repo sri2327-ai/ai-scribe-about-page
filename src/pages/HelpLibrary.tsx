@@ -1,7 +1,7 @@
 
 "use client"
 import React, { useState, useEffect } from "react";
-import styles from "@/styles/changelog.module.scss"; // Reusing changelog styles
+import styles from "@/styles/changelog.module.css"; // Reusing changelog styles
 import { Cookie, Search, BookOpen, FileText, Settings, ChevronRight } from "lucide-react";
 
 interface Article {

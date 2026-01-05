@@ -45,14 +45,6 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        api: 'legacy',
-        silenceDeprecations: ['legacy-js-api']
-      }
-    }
-  },
   build: {
     rollupOptions: {
       external: [

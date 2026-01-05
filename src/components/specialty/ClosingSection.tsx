@@ -1,6 +1,6 @@
 
 import React from 'react';
-import styles from "@/styles/specialties.module.scss";
+import styles from "@/styles/specialties.module.css";
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 

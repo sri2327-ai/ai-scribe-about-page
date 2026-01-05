@@ -38,10 +38,10 @@
   align-items: center;
   transition: transform 0.2s ease;
   border-radius: 8px;
-  
-  &:hover {
-    transform: translateY(-5px);
-  }
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .circleIcon {
@@ -73,23 +73,23 @@
   background: #ffffff;
   padding: 40px 20px;
   text-align: center;
-  
-  footer p {
-    margin-bottom: 5px;
-    margin-top: 20px;
-  }
+}
+
+.testimonial footer p {
+  margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .closing {
   text-align: left;
   padding: 40px 20px;
-  
-  h2 {
-    margin-bottom: 10px;
-  }
-  
-  p {
-    margin-bottom: 20px;
-    color: #333;
-  }
+}
+
+.closing h2 {
+  margin-bottom: 10px;
+}
+
+.closing p {
+  margin-bottom: 20px;
+  color: #333;
 }

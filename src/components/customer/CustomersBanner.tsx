@@ -2,7 +2,7 @@
 import { Typography, Stack, Button } from "@mui/material";
 import { AlarmClock, Facebook, Linkedin, X } from "lucide-react";
 import OptimizedImage from "@/components/ui/optimized-image";
-import styles from "@/styles/casecontentpage.module.scss";
+import styles from "@/styles/casecontentpage.module.css";
 import { shadowStyles } from "@/lib/shadow-utils"; 
 import { cn } from "@/lib/utils";
 
