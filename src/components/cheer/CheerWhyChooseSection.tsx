@@ -13,9 +13,9 @@ const benefits = [
 ];
 
 const stats = [
-  { value: '10K+', label: 'Active Clinicians' },
-  { value: '500K+', label: 'Consultations' },
-  { value: '98%', label: 'Satisfaction Rate' },
+  { value: 'HIPAA', label: 'Compliant' },
+  { value: 'SOC 2', label: 'Certified' },
+  { value: '99.9%', label: 'Uptime SLA' },
 ];
 
 export const CheerWhyChooseSection = () => {
