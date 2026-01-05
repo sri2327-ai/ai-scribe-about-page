@@ -14,7 +14,7 @@ const benefits = [
 
 const stats = [
   { value: 'HIPAA', label: 'Compliant' },
-  { value: 'SOC 2', label: 'Certified' },
+  { value: '256-bit', label: 'Encryption' },
   { value: '99.9%', label: 'Uptime SLA' },
 ];
 
