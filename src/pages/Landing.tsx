@@ -2,6 +2,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { FourthSection } from '@/components/landing/FourthSection';
+import { X, Sparkles } from 'lucide-react';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
@@ -35,6 +36,7 @@ const Landing = () => {
   console.log("Rendering Landing page");
   
   const [isClient, setIsClient] = useState(false);
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
   
   // Ensure client-side only features are properly hydrated
   useEffect(() => {
@@ -87,6 +89,36 @@ const Landing = () => {
 
   return (
     <>
+      {/* Announcement Banner */}
+      {showAnnouncement && (
+        <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
+          <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm md:text-base">
+            <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
+            <span className="font-medium">
+              <span className="hidden sm:inline">🎉 Introducing </span>
+              <a href="/cheer" className="underline underline-offset-2 hover:text-yellow-200 transition-colors font-semibold">
+                CHEER
+              </a>
+              <span className="hidden sm:inline"> — Our New Telemedicine Platform!</span>
+              <span className="sm:hidden"> — New Telemedicine Platform!</span>
+            </span>
+            <a 
+              href="/cheer" 
+              className="ml-2 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full text-xs font-medium transition-colors"
+            >
+              Learn More
+            </a>
+          </div>
+          <button
+            onClick={() => setShowAnnouncement(false)}
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 p-1 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="Close announcement"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+      
       <AnimatedHeader />
       
       <main className="min-h-screen bg-white overflow-x-hidden">
