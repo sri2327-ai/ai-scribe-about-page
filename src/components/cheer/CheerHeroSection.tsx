@@ -236,13 +236,12 @@ export const CheerHeroSection = () => {
               <span className="text-sm font-medium text-[#143151]">Telemedicine Platform</span>
             </motion.div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6">
-              <span className="text-[#143151]">Virtual Care,</span>
-              <br />
-              <span className="bg-gradient-to-r from-[#387E89] to-[#5192AE] bg-clip-text text-transparent">
-                Real Connection
-              </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-3 md:mb-4 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
+              CHEER
             </h1>
+            <p className="text-lg md:text-xl lg:text-2xl text-[#387E89] font-medium mb-6 md:mb-8">
+              Telemedicine platform for modern clinicians
+            </p>
 
             <p className="text-base md:text-lg lg:text-xl text-[#387E89] mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
               CHEER brings seamless, secure telemedicine to clinicians and patients. 
