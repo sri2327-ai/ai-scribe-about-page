@@ -2,7 +2,7 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { FirstSection } from '@/components/landing/FirstSection';
 import { FourthSection } from '@/components/landing/FourthSection';
-import { X, Sparkles } from 'lucide-react';
+import { X, Megaphone } from 'lucide-react';
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import { SectionLoader } from '@/components/ui/section-loader';
 import { PracticeTypeSelector } from '@/components/landing/PracticeTypeSelector';
@@ -93,7 +93,7 @@ const Landing = () => {
       {showAnnouncement && (
         <div className="relative bg-gradient-to-r from-[#143151] via-[#387E89] to-[#143151] text-white py-2.5 px-4 text-center z-[60]">
           <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 text-sm md:text-base">
-            <Sparkles className="w-4 h-4 text-yellow-300 animate-pulse" />
+            <Megaphone className="w-4 h-4 text-yellow-300" />
             <span className="font-medium">
               <span className="hidden sm:inline">🎉 Introducing </span>
               <a href="/cheer" className="underline underline-offset-2 hover:text-yellow-200 transition-colors font-semibold">
