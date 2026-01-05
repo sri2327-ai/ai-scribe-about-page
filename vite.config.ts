@@ -48,7 +48,8 @@ export default defineConfig(({ mode }) => ({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'legacy'
+        api: 'legacy',
+        silenceDeprecations: ['legacy-js-api']
       }
     }
   },
