@@ -28,6 +28,7 @@ import {
   Calculator,
   Search,
   Library,
+  Video,
   DollarSign,
   Heart,
   Bone,
@@ -156,12 +157,12 @@ const AnimatedHeader = () => {
         title: 'CHEER',
         description: 'Telemedicine Platform',
         label: 'New',
-        icon: <Play className="w-6 h-6 text-[#387E89]" />,
+        icon: <Video className="w-6 h-6 text-[#387E89]" />,
         href: '/cheer',
         bgColor: 'bg-gradient-to-br from-teal-50/50 to-cyan-50/50 backdrop-blur-sm border border-teal-100/20',
         illustration: (
           <div className="absolute top-2 right-2 opacity-10">
-            <Play className="w-8 h-8 text-[#387E89]" />
+            <Video className="w-8 h-8 text-[#387E89]" />
           </div>
         )
       }
