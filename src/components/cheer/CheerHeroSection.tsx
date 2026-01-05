@@ -1,58 +1,70 @@
-
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Video, User, LayoutDashboard, Mic, VideoIcon, Pause, MessageSquare, Settings, BarChart3, HelpCircle, LogOut, Users } from "lucide-react";
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, Play, Video, Users, Monitor, Mic, Phone, MessageSquare, Settings, Calendar, FileText, Activity, User, LayoutDashboard, BarChart3, HelpCircle, LogOut } from 'lucide-react';
 import { cheerColors } from '@/theme/cheer-theme';
 
 type ViewType = 'patient' | 'dashboard' | 'clinician';
 
 const PatientViewAnimation = () => (
   <motion.div 
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    transition={{ duration: 0.4 }}
-    className="w-full h-full bg-[#1a2e3d] rounded-lg overflow-hidden relative"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="h-full flex flex-col bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden"
   >
-    {/* Video call interface - Patient View */}
-    <div className="flex h-full">
-      {/* Main video area - patient sees doctor */}
-      <div className="flex-1 relative bg-gradient-to-br from-[#1a2e3d] to-[#0f1c24]">
-        <div className="absolute inset-4 flex items-center justify-center">
-          {/* Doctor video placeholder */}
-          <div className="w-full h-full bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-24 h-24 mx-auto mb-3 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                <User className="w-12 h-12 text-gray-500" />
-              </div>
-              <p className="text-sm font-medium text-gray-600">Dr. Smith</p>
-              <p className="text-xs text-gray-500">Cardiologist</p>
+    {/* Video call interface */}
+    <div className="flex-1 relative p-3 md:p-4">
+      {/* Main doctor video */}
+      <div className="absolute inset-3 md:inset-4 rounded-xl overflow-hidden bg-gradient-to-br from-[#143151] to-[#387E89]">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center text-white">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white/20 mx-auto mb-2 md:mb-3 flex items-center justify-center backdrop-blur-sm">
+              <Users className="w-8 h-8 md:w-10 md:h-10 text-white" />
             </div>
+            <p className="font-semibold text-xs md:text-sm">Dr. Sarah Johnson</p>
+            <p className="text-[10px] md:text-xs text-white/70">Internal Medicine</p>
           </div>
         </div>
-        
-        {/* Call controls */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3">
-          <motion.button 
-            className="w-10 h-10 rounded-full bg-gray-700/80 flex items-center justify-center"
-            whileHover={{ scale: 1.1 }}
-          >
-            <Pause className="w-4 h-4 text-white" />
-          </motion.button>
-          <motion.button 
-            className="w-10 h-10 rounded-full bg-gray-700/80 flex items-center justify-center"
-            whileHover={{ scale: 1.1 }}
-          >
-            <VideoIcon className="w-4 h-4 text-white" />
-          </motion.button>
-          <motion.button 
-            className="w-10 h-10 rounded-full bg-gray-700/80 flex items-center justify-center"
-            whileHover={{ scale: 1.1 }}
-          >
-            <Mic className="w-4 h-4 text-white" />
-          </motion.button>
+        {/* Live indicator */}
+        <div className="absolute top-2 md:top-4 left-2 md:left-4 flex items-center gap-1.5 md:gap-2 bg-red-500/90 text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs font-medium">
+          <span className="w-1.5 h-1.5 md:w-2 md:h-2 bg-white rounded-full animate-pulse" />
+          LIVE
         </div>
+        {/* Duration */}
+        <div className="absolute top-2 md:top-4 right-2 md:right-4 bg-black/40 backdrop-blur-sm text-white px-2 md:px-3 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs">
+          12:34
+        </div>
+      </div>
+      
+      {/* Self view */}
+      <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 w-16 md:w-24 aspect-video rounded-lg overflow-hidden border-2 border-white/30 bg-gradient-to-br from-gray-700 to-gray-600 shadow-xl">
+        <div className="flex items-center justify-center h-full">
+          <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/20 flex items-center justify-center">
+            <Users className="w-3 h-3 md:w-4 md:h-4 text-white" />
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {/* Controls */}
+    <div className="p-3 md:p-4 bg-gray-900/80 backdrop-blur-sm">
+      <div className="flex items-center justify-center gap-2 md:gap-3">
+        <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <Mic className="w-4 h-4 md:w-5 md:h-5 text-white" />
+        </button>
+        <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <Video className="w-4 h-4 md:w-5 md:h-5 text-white" />
+        </button>
+        <button className="p-2.5 md:p-4 rounded-full bg-red-500 hover:bg-red-600 transition-colors">
+          <Phone className="w-4 h-4 md:w-5 md:h-5 text-white rotate-[135deg]" />
+        </button>
+        <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-white" />
+        </button>
+        <button className="p-2 md:p-3 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors">
+          <Settings className="w-4 h-4 md:w-5 md:h-5 text-white" />
+        </button>
       </div>
     </div>
   </motion.div>
@@ -60,68 +72,60 @@ const PatientViewAnimation = () => (
 
 const ClinicianDashboardAnimation = () => (
   <motion.div 
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    transition={{ duration: 0.4 }}
-    className="w-full h-full bg-[#1a2e3d] rounded-lg overflow-hidden relative"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="h-full flex bg-gray-50 rounded-lg overflow-hidden"
   >
-    <div className="flex h-full">
-      {/* Video call with patient */}
-      <div className="w-1/2 relative">
-        <div className="absolute inset-3 bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg">
-          <div className="absolute top-3 right-3 w-16 h-12 bg-gradient-to-br from-blue-100 to-blue-200 rounded-md flex items-center justify-center">
-            <span className="text-[10px] text-blue-600 font-medium">You</span>
-          </div>
-          <div className="flex h-full items-center justify-center">
-            <div className="text-center">
-              <div className="w-16 h-16 mx-auto mb-2 rounded-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                <User className="w-8 h-8 text-gray-500" />
-              </div>
-              <p className="text-xs font-medium text-gray-600">Dr. Smith</p>
+    {/* Main video area */}
+    <div className="flex-1 p-2 md:p-3">
+      <div className="h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#143151] to-[#387E89] relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center text-white">
+            <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/20 mx-auto mb-1 md:mb-2 flex items-center justify-center">
+              <Users className="w-6 h-6 md:w-8 md:h-8 text-white" />
             </div>
+            <p className="font-semibold text-xs md:text-sm">Patient: John Doe</p>
+            <p className="text-[10px] md:text-xs text-white/70">Consultation in progress</p>
           </div>
         </div>
-        
-        {/* Call controls */}
-        <div className="absolute bottom-3 left-3 flex gap-2">
-          <button className="w-7 h-7 rounded-full bg-[#387E89] flex items-center justify-center">
-            <ArrowRight className="w-3 h-3 text-white" />
-          </button>
-          <button className="w-7 h-7 rounded-full bg-red-500 flex items-center justify-center">
-            <Pause className="w-3 h-3 text-white" />
-          </button>
+        <div className="absolute top-2 md:top-3 left-2 md:left-3 flex items-center gap-1.5 md:gap-2 bg-green-500/90 text-white px-1.5 md:px-2 py-0.5 md:py-1 rounded-full text-[10px] md:text-xs">
+          <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
+          Connected
+        </div>
+      </div>
+    </div>
+    
+    {/* Side panel */}
+    <div className="w-48 md:w-64 bg-white border-l border-gray-200 p-2 md:p-3 flex flex-col">
+      <div className="flex items-center gap-2 pb-2 md:pb-3 border-b border-gray-100">
+        <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-[#143151] flex items-center justify-center">
+          <span className="text-white text-[10px] md:text-xs font-bold">JD</span>
+        </div>
+        <div>
+          <p className="text-[10px] md:text-xs font-semibold text-gray-900">John Doe</p>
+          <p className="text-[8px] md:text-[10px] text-gray-500">Male, 45 yrs</p>
         </div>
       </div>
       
-      {/* Chat panel */}
-      <div className="w-1/2 bg-white p-3 flex flex-col">
-        <div className="bg-[#387E89] text-white text-xs px-3 py-2 rounded-t-lg flex justify-between items-center">
-          <span>View chat with Dr. Weeks</span>
-          <span>▼</span>
-        </div>
-        <div className="flex-1 bg-gray-50 p-2 text-[10px] space-y-2 overflow-hidden">
-          <p className="text-gray-400 text-center">JANUARY 20, 2021 3:37 PM</p>
-          <div className="flex justify-end">
-            <div className="bg-[#387E89] text-white px-2 py-1 rounded-lg max-w-[80%]">
-              Hi Ann, I'll be with you shortly.
+      <div className="flex-1 py-2 md:py-3 space-y-1.5 md:space-y-2 overflow-hidden">
+        <p className="text-[8px] md:text-[10px] font-semibold text-gray-500 uppercase">Quick Notes</p>
+        <div className="space-y-1 md:space-y-1.5">
+          {['Chief complaint: Headache', 'Duration: 3 days', 'Severity: Moderate'].map((note, i) => (
+            <div key={i} className="text-[8px] md:text-[10px] text-gray-600 bg-gray-50 px-1.5 md:px-2 py-1 md:py-1.5 rounded">
+              {note}
             </div>
-          </div>
-          <div className="flex gap-1">
-            <div className="w-5 h-5 rounded-full bg-gray-200 flex-shrink-0"></div>
-            <div className="bg-gray-200 px-2 py-1 rounded-lg">
-              No problem!
-            </div>
-          </div>
+          ))}
         </div>
-        <div className="flex gap-1 mt-2">
-          <input 
-            type="text" 
-            placeholder="Type your message..." 
-            className="flex-1 text-[10px] px-2 py-1 border border-gray-300 rounded"
-          />
-          <button className="bg-[#387E89] text-white text-[10px] px-2 py-1 rounded">Send</button>
-        </div>
+      </div>
+      
+      <div className="pt-2 md:pt-3 border-t border-gray-100 flex gap-1.5 md:gap-2">
+        <button className="flex-1 text-[8px] md:text-[10px] bg-[#143151] text-white py-1.5 md:py-2 rounded-lg font-medium">
+          End Visit
+        </button>
+        <button className="flex-1 text-[8px] md:text-[10px] border border-gray-200 py-1.5 md:py-2 rounded-lg font-medium text-gray-700">
+          Add Note
+        </button>
       </div>
     </div>
   </motion.div>
@@ -129,81 +133,57 @@ const ClinicianDashboardAnimation = () => (
 
 const ClinicianViewAnimation = () => (
   <motion.div 
-    initial={{ opacity: 0, scale: 0.95 }}
-    animate={{ opacity: 1, scale: 1 }}
-    exit={{ opacity: 0, scale: 0.95 }}
-    transition={{ duration: 0.4 }}
-    className="w-full h-full bg-[#1a2e3d] rounded-lg overflow-hidden relative"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    className="h-full flex bg-white rounded-lg overflow-hidden"
   >
-    <div className="flex h-full">
-      {/* Dark video preview area */}
-      <div className="w-2/5 bg-gradient-to-br from-[#0f1c24] to-[#1a2e3d]"></div>
-      
-      {/* Dashboard sidebar */}
-      <div className="w-1/4 bg-white border-r border-gray-200 p-3 flex flex-col">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-6 h-6 bg-[#387E89] rounded flex items-center justify-center">
-            <span className="text-white text-xs font-bold">C</span>
-          </div>
-          <span className="text-xs font-bold text-[#387E89]">CHEER</span>
-          <span className="text-[10px] text-[#387E89] ml-auto">PRO</span>
+    {/* Sidebar */}
+    <div className="w-10 md:w-14 bg-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
+      <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/20 flex items-center justify-center">
+        <Activity className="w-3 h-3 md:w-4 md:h-4 text-white" />
+      </div>
+      {[Calendar, Users, FileText, Settings].map((Icon, i) => (
+        <button key={i} className={`w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center transition-colors ${i === 1 ? 'bg-white/20' : 'hover:bg-white/10'}`}>
+          <Icon className="w-3 h-3 md:w-4 md:h-4 text-white/80" />
+        </button>
+      ))}
+    </div>
+    
+    {/* Main content */}
+    <div className="flex-1 p-3 md:p-4">
+      <div className="flex items-center justify-between mb-3 md:mb-4">
+        <div>
+          <h3 className="text-xs md:text-sm font-bold text-[#143151]">Today's Schedule</h3>
+          <p className="text-[8px] md:text-[10px] text-gray-500">3 appointments remaining</p>
         </div>
-        
-        <div className="text-[10px] text-gray-500 mb-2 uppercase tracking-wider">Patient Queue</div>
-        <p className="text-[10px] text-[#387E89] italic mb-3">No one has checked in yet</p>
-        
-        <div className="text-[10px] text-gray-500 mb-2 uppercase tracking-wider">Account</div>
-        <div className="space-y-2">
-          {[
-            { icon: LayoutDashboard, label: 'Your Dashboard' },
-            { icon: Users, label: 'Edit Waiting Room' },
-            { icon: Settings, label: 'Account Settings' },
-            { icon: BarChart3, label: 'Analytics', badge: 'BETA' },
-            { icon: Video, label: 'Meeting History' },
-            { icon: HelpCircle, label: 'Help Center' },
-            { icon: LogOut, label: 'Logout' },
-          ].map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-[10px] text-gray-600 hover:text-[#387E89] cursor-pointer">
-              <item.icon className="w-3 h-3" />
-              <span>{item.label}</span>
-              {item.badge && <span className="text-[8px] bg-[#387E89] text-white px-1 rounded">{item.badge}</span>}
-            </div>
-          ))}
-        </div>
-        
-        <div className="mt-auto">
-          <button className="w-full bg-red-500 text-white text-[10px] py-1.5 rounded">Pre-call Test</button>
-          <p className="text-[8px] text-center text-gray-500 mt-1">5 tips for a great call</p>
-        </div>
+        <button className="text-[8px] md:text-[10px] bg-[#387E89] text-white px-2 md:px-3 py-1 md:py-1.5 rounded-full font-medium">
+          + New
+        </button>
       </div>
       
-      {/* Welcome panel */}
-      <div className="flex-1 bg-gray-50 p-4">
-        <h3 className="text-base font-bold text-gray-800 mb-1">Welcome, Dr. Boston!</h3>
-        <p className="text-[10px] text-gray-500 mb-3">To invite someone to your waiting room, share this link:</p>
-        
-        <div className="flex gap-1 mb-4">
-          <input 
-            type="text" 
-            value="https://cheer.s10.ai/drboston" 
-            readOnly 
-            className="flex-1 text-[10px] px-2 py-1.5 border border-gray-300 rounded bg-white"
-          />
-          <button className="bg-[#387E89] text-white text-[10px] px-3 py-1.5 rounded">Copy</button>
-        </div>
-        
-        <div className="grid grid-cols-3 gap-2">
-          {[
-            { icon: Users, label: 'Edit Waiting Room' },
-            { icon: Settings, label: 'Account Settings' },
-            { icon: User, label: 'User Controls' },
-          ].map((item, idx) => (
-            <div key={idx} className="bg-white p-2 rounded-lg text-center border border-gray-200 hover:border-[#387E89] cursor-pointer transition-colors">
-              <item.icon className="w-5 h-5 mx-auto mb-1 text-[#387E89]" />
-              <span className="text-[8px] text-gray-600">{item.label}</span>
+      <div className="space-y-1.5 md:space-y-2">
+        {[
+          { name: 'Sarah Miller', time: '2:00 PM', status: 'upcoming', type: 'Follow-up' },
+          { name: 'James Wilson', time: '2:30 PM', status: 'waiting', type: 'New Patient' },
+          { name: 'Emma Davis', time: '3:00 PM', status: 'upcoming', type: 'Consultation' },
+        ].map((apt, i) => (
+          <div key={i} className="flex items-center gap-2 md:gap-3 p-2 md:p-2.5 rounded-xl border border-gray-100 hover:border-[#387E89]/30 hover:bg-gray-50 transition-all cursor-pointer">
+            <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
+              <span className="text-white text-[8px] md:text-[10px] font-bold">{apt.name.split(' ').map(n => n[0]).join('')}</span>
             </div>
-          ))}
-        </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] md:text-xs font-semibold text-gray-900 truncate">{apt.name}</p>
+              <p className="text-[8px] md:text-[10px] text-gray-500">{apt.type}</p>
+            </div>
+            <div className="text-right">
+              <p className="text-[8px] md:text-[10px] font-medium text-gray-900">{apt.time}</p>
+              <span className={`text-[7px] md:text-[9px] px-1 md:px-1.5 py-0.5 rounded-full ${apt.status === 'waiting' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                {apt.status}
+              </span>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </motion.div>
@@ -211,12 +191,6 @@ const ClinicianViewAnimation = () => (
 
 export const CheerHeroSection = () => {
   const [activeView, setActiveView] = useState<ViewType>('patient');
-
-  const views = [
-    { id: 'patient' as ViewType, label: 'Patient View' },
-    { id: 'dashboard' as ViewType, label: 'Clinician Dashboard' },
-    { id: 'clinician' as ViewType, label: 'Clinician View' },
-  ];
 
   const renderAnimation = () => {
     switch (activeView) {
@@ -226,61 +200,104 @@ export const CheerHeroSection = () => {
         return <ClinicianDashboardAnimation />;
       case 'clinician':
         return <ClinicianViewAnimation />;
-      default:
-        return <PatientViewAnimation />;
     }
   };
 
+  const viewButtons: { id: ViewType; label: string; shortLabel: string; icon: React.ElementType }[] = [
+    { id: 'patient', label: 'Patient View', shortLabel: 'Patient', icon: Users },
+    { id: 'dashboard', label: 'Live Consultation', shortLabel: 'Live', icon: Video },
+    { id: 'clinician', label: 'Dashboard', shortLabel: 'Dashboard', icon: Monitor },
+  ];
+
   return (
-    <section className="relative min-h-[85vh] sm:min-h-[90vh] md:min-h-screen pt-16 sm:pt-20 md:pt-28 pb-8 sm:pb-12 md:pb-20 bg-white overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
+    <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#F5F9FF] via-white to-[#F5F9FF]">
+        <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full bg-[#387E89]/5 blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[300px] md:w-[400px] h-[300px] md:h-[400px] rounded-full bg-[#143151]/5 blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Left content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="order-1 lg:order-1"
+            transition={{ duration: 0.7 }}
+            className="text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#143151]/10 to-[#387E89]/10 mb-4">
-              <Video className="w-4 h-4 text-[#387E89]" />
-              <span className="text-sm font-medium text-[#143151]">CHEER Telemedicine</span>
-            </div>
-            
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6" style={{ color: cheerColors.primary }}>
-              CHEER
-            </h1>
-            
-            <p className="text-lg sm:text-xl md:text-2xl font-medium mb-3 text-[#387E89]">
-              Telemedicine platform for modern clinicians
-            </p>
-            
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-4 sm:mb-6 md:mb-8 leading-relaxed">
-              Deliver secure, seamless, and scalable virtual care across every setting.
-            </p>
-            
-            <Button 
-              size="lg"
-              className="rounded-full px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 text-sm sm:text-base md:text-lg bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#0d1f31] hover:to-[#2c6269] text-white shadow-xl w-full sm:w-auto font-semibold"
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#143151]/10 mb-6"
             >
-              Request a Demo
-              <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-            </Button>
+              <Video className="w-4 h-4 text-[#143151]" />
+              <span className="text-sm font-medium text-[#143151]">Telemedicine Platform</span>
+            </motion.div>
+
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6">
+              <span className="text-[#143151]">Virtual Care,</span>
+              <br />
+              <span className="bg-gradient-to-r from-[#387E89] to-[#5192AE] bg-clip-text text-transparent">
+                Real Connection
+              </span>
+            </h1>
+
+            <p className="text-base md:text-lg lg:text-xl text-[#387E89] mb-6 md:mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              CHEER brings seamless, secure telemedicine to clinicians and patients. 
+              No downloads, no hassle—just exceptional virtual care.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button 
+                size="lg"
+                className="rounded-full px-6 md:px-8 py-5 md:py-6 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#1a3d63] hover:to-[#438f9b] text-white font-semibold text-base md:text-lg shadow-xl shadow-[#143151]/20 transition-all hover:scale-105"
+              >
+                Start Free Trial
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="rounded-full px-6 md:px-8 py-5 md:py-6 border-2 border-[#387E89] text-[#387E89] hover:bg-[#387E89]/10 font-semibold text-base md:text-lg transition-all"
+              >
+                <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                Watch Demo
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-gray-200">
+              {[
+                { value: '99.9%', label: 'Uptime' },
+                { value: '50ms', label: 'Latency' },
+                { value: 'HIPAA', label: 'Compliant' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center lg:text-left">
+                  <p className="text-xl md:text-2xl lg:text-3xl font-bold text-[#143151]">{stat.value}</p>
+                  <p className="text-xs md:text-sm text-[#5192AE]">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
-          <motion.div 
-            initial={{ opacity: 0, x: 20 }}
+          {/* Right - Laptop mockup */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="order-2 lg:order-2 mt-6 md:mt-6 lg:mt-0"
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="relative"
           >
-            {/* Laptop Frame */}
-            <div className="relative mx-auto max-w-lg">
-              <div className="relative bg-gray-200 rounded-t-xl pt-4 pb-0 px-2">
-                {/* Laptop camera dot */}
-                <div className="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-2 h-2 rounded-full bg-gray-400"></div>
+            {/* Laptop frame */}
+            <div className="relative mx-auto max-w-[500px] lg:max-w-[600px]">
+              {/* Screen bezel */}
+              <div className="bg-gray-800 rounded-t-2xl p-2 pt-3 md:pt-4">
+                {/* Camera notch */}
+                <div className="absolute top-1 md:top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-gray-600" />
                 
                 {/* Screen content */}
-                <div className="bg-[#1a2e3d] rounded-lg overflow-hidden aspect-video">
+                <div className="bg-white rounded-lg overflow-hidden aspect-[16/10] shadow-inner">
                   <AnimatePresence mode="wait">
                     {renderAnimation()}
                   </AnimatePresence>
@@ -288,30 +305,27 @@ export const CheerHeroSection = () => {
               </div>
               
               {/* Laptop base */}
-              <div className="relative">
-                <div className="h-4 bg-gradient-to-b from-gray-200 to-gray-300 rounded-b-xl"></div>
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1/4 h-1 bg-gray-400 rounded-full"></div>
-              </div>
-              <div className="h-2 bg-gradient-to-b from-gray-300 to-gray-400 mx-4 rounded-b-xl"></div>
-              
-              {/* View toggle buttons */}
-              <div className="mt-6 flex justify-center">
-                <div className="inline-flex bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
-                  {views.map((view) => (
-                    <button
-                      key={view.id}
-                      onClick={() => setActiveView(view.id)}
-                      className={`px-4 py-3 text-sm font-medium transition-all duration-300 ${
-                        activeView === view.id
-                          ? 'bg-[#387E89] text-white'
-                          : 'bg-white text-gray-600 hover:bg-gray-50'
-                      }`}
-                    >
-                      {view.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <div className="bg-gradient-to-b from-gray-700 to-gray-800 h-3 md:h-4 rounded-b-xl mx-4" />
+              <div className="bg-gray-800 h-1.5 md:h-2 rounded-b-lg mx-16" />
+            </div>
+
+            {/* View toggle buttons */}
+            <div className="flex justify-center gap-1.5 md:gap-2 mt-4 md:mt-6">
+              {viewButtons.map((btn) => (
+                <button
+                  key={btn.id}
+                  onClick={() => setActiveView(btn.id)}
+                  className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
+                    activeView === btn.id
+                      ? 'bg-[#143151] text-white shadow-lg shadow-[#143151]/20'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <btn.icon className="w-3 h-3 md:w-4 md:h-4" />
+                  <span className="hidden sm:inline">{btn.label}</span>
+                  <span className="sm:hidden">{btn.shortLabel}</span>
+                </button>
+              ))}
             </div>
           </motion.div>
         </div>
