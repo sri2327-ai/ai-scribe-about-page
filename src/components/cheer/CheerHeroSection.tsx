@@ -3,16 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play, Video, Users, Monitor, Mic, Phone, MessageSquare, Settings, Calendar, FileText, Activity, User, LayoutDashboard, BarChart3, HelpCircle, LogOut } from 'lucide-react';
 import { cheerColors } from '@/theme/cheer-theme';
-
 type ViewType = 'patient' | 'dashboard' | 'clinician';
-
-const PatientViewAnimation = () => (
-  <motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="h-full flex flex-col bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden"
-  >
+const PatientViewAnimation = () => <motion.div initial={{
+  opacity: 0
+}} animate={{
+  opacity: 1
+}} exit={{
+  opacity: 0
+}} className="h-full flex flex-col bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg overflow-hidden">
     {/* Video call interface */}
     <div className="flex-1 relative p-3 md:p-4">
       {/* Main doctor video */}
@@ -67,16 +65,14 @@ const PatientViewAnimation = () => (
         </button>
       </div>
     </div>
-  </motion.div>
-);
-
-const ClinicianDashboardAnimation = () => (
-  <motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="h-full flex bg-gray-50 rounded-lg overflow-hidden"
-  >
+  </motion.div>;
+const ClinicianDashboardAnimation = () => <motion.div initial={{
+  opacity: 0
+}} animate={{
+  opacity: 1
+}} exit={{
+  opacity: 0
+}} className="h-full flex bg-gray-50 rounded-lg overflow-hidden">
     {/* Main video area */}
     <div className="flex-1 p-2 md:p-3">
       <div className="h-full rounded-xl overflow-hidden bg-gradient-to-br from-[#143151] to-[#387E89] relative">
@@ -111,11 +107,9 @@ const ClinicianDashboardAnimation = () => (
       <div className="flex-1 py-2 md:py-3 space-y-1.5 md:space-y-2 overflow-hidden">
         <p className="text-[8px] md:text-[10px] font-semibold text-gray-500 uppercase">Quick Notes</p>
         <div className="space-y-1 md:space-y-1.5">
-          {['Chief complaint: Headache', 'Duration: 3 days', 'Severity: Moderate'].map((note, i) => (
-            <div key={i} className="text-[8px] md:text-[10px] text-gray-600 bg-gray-50 px-1.5 md:px-2 py-1 md:py-1.5 rounded">
+          {['Chief complaint: Headache', 'Duration: 3 days', 'Severity: Moderate'].map((note, i) => <div key={i} className="text-[8px] md:text-[10px] text-gray-600 bg-gray-50 px-1.5 md:px-2 py-1 md:py-1.5 rounded">
               {note}
-            </div>
-          ))}
+            </div>)}
         </div>
       </div>
       
@@ -128,26 +122,22 @@ const ClinicianDashboardAnimation = () => (
         </button>
       </div>
     </div>
-  </motion.div>
-);
-
-const ClinicianViewAnimation = () => (
-  <motion.div 
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="h-full flex bg-white rounded-lg overflow-hidden"
-  >
+  </motion.div>;
+const ClinicianViewAnimation = () => <motion.div initial={{
+  opacity: 0
+}} animate={{
+  opacity: 1
+}} exit={{
+  opacity: 0
+}} className="h-full flex bg-white rounded-lg overflow-hidden">
     {/* Sidebar */}
     <div className="w-10 md:w-14 bg-[#143151] flex flex-col items-center py-3 md:py-4 gap-2 md:gap-4">
       <div className="w-6 h-6 md:w-8 md:h-8 rounded-lg bg-white/20 flex items-center justify-center">
         <Activity className="w-3 h-3 md:w-4 md:h-4 text-white" />
       </div>
-      {[Calendar, Users, FileText, Settings].map((Icon, i) => (
-        <button key={i} className={`w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center transition-colors ${i === 1 ? 'bg-white/20' : 'hover:bg-white/10'}`}>
+      {[Calendar, Users, FileText, Settings].map((Icon, i) => <button key={i} className={`w-6 h-6 md:w-8 md:h-8 rounded-lg flex items-center justify-center transition-colors ${i === 1 ? 'bg-white/20' : 'hover:bg-white/10'}`}>
           <Icon className="w-3 h-3 md:w-4 md:h-4 text-white/80" />
-        </button>
-      ))}
+        </button>)}
     </div>
     
     {/* Main content */}
@@ -163,12 +153,22 @@ const ClinicianViewAnimation = () => (
       </div>
       
       <div className="space-y-1.5 md:space-y-2">
-        {[
-          { name: 'Sarah Miller', time: '2:00 PM', status: 'upcoming', type: 'Follow-up' },
-          { name: 'James Wilson', time: '2:30 PM', status: 'waiting', type: 'New Patient' },
-          { name: 'Emma Davis', time: '3:00 PM', status: 'upcoming', type: 'Consultation' },
-        ].map((apt, i) => (
-          <div key={i} className="flex items-center gap-2 md:gap-3 p-2 md:p-2.5 rounded-xl border border-gray-100 hover:border-[#387E89]/30 hover:bg-gray-50 transition-all cursor-pointer">
+        {[{
+        name: 'Sarah Miller',
+        time: '2:00 PM',
+        status: 'upcoming',
+        type: 'Follow-up'
+      }, {
+        name: 'James Wilson',
+        time: '2:30 PM',
+        status: 'waiting',
+        type: 'New Patient'
+      }, {
+        name: 'Emma Davis',
+        time: '3:00 PM',
+        status: 'upcoming',
+        type: 'Consultation'
+      }].map((apt, i) => <div key={i} className="flex items-center gap-2 md:gap-3 p-2 md:p-2.5 rounded-xl border border-gray-100 hover:border-[#387E89]/30 hover:bg-gray-50 transition-all cursor-pointer">
             <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-[#143151] to-[#387E89] flex items-center justify-center">
               <span className="text-white text-[8px] md:text-[10px] font-bold">{apt.name.split(' ').map(n => n[0]).join('')}</span>
             </div>
@@ -182,16 +182,12 @@ const ClinicianViewAnimation = () => (
                 {apt.status}
               </span>
             </div>
-          </div>
-        ))}
+          </div>)}
       </div>
     </div>
-  </motion.div>
-);
-
+  </motion.div>;
 export const CheerHeroSection = () => {
   const [activeView, setActiveView] = useState<ViewType>('patient');
-
   const renderAnimation = () => {
     switch (activeView) {
       case 'patient':
@@ -202,15 +198,28 @@ export const CheerHeroSection = () => {
         return <ClinicianViewAnimation />;
     }
   };
-
-  const viewButtons: { id: ViewType; label: string; shortLabel: string; icon: React.ElementType }[] = [
-    { id: 'patient', label: 'Patient View', shortLabel: 'Patient', icon: Users },
-    { id: 'dashboard', label: 'Live Consultation', shortLabel: 'Live', icon: Video },
-    { id: 'clinician', label: 'Dashboard', shortLabel: 'Dashboard', icon: Monitor },
-  ];
-
-  return (
-    <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
+  const viewButtons: {
+    id: ViewType;
+    label: string;
+    shortLabel: string;
+    icon: React.ElementType;
+  }[] = [{
+    id: 'patient',
+    label: 'Patient View',
+    shortLabel: 'Patient',
+    icon: Users
+  }, {
+    id: 'dashboard',
+    label: 'Live Consultation',
+    shortLabel: 'Live',
+    icon: Video
+  }, {
+    id: 'clinician',
+    label: 'Dashboard',
+    shortLabel: 'Dashboard',
+    icon: Monitor
+  }];
+  return <section className="relative min-h-[85vh] md:min-h-[90vh] flex items-center overflow-hidden pt-20 md:pt-24">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#F5F9FF] via-white to-[#F5F9FF]">
         <div className="absolute top-0 right-0 w-[400px] md:w-[600px] h-[400px] md:h-[600px] rounded-full bg-[#387E89]/5 blur-3xl" />
@@ -220,21 +229,16 @@ export const CheerHeroSection = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left content */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-            className="text-center lg:text-left"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#143151]/10 mb-6"
-            >
-              <Video className="w-4 h-4 text-[#143151]" />
-              <span className="text-sm font-medium text-[#143151]">Telemedicine Platform</span>
-            </motion.div>
+          <motion.div initial={{
+          opacity: 0,
+          y: 30
+        }} animate={{
+          opacity: 1,
+          y: 0
+        }} transition={{
+          duration: 0.7
+        }} className="text-center lg:text-left">
+            
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-3 md:mb-4 bg-gradient-to-r from-[#143151] to-[#387E89] bg-clip-text text-transparent">
               CHEER
@@ -249,18 +253,11 @@ export const CheerHeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button 
-                size="lg"
-                className="rounded-full px-6 md:px-8 py-5 md:py-6 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#1a3d63] hover:to-[#438f9b] text-white font-semibold text-base md:text-lg shadow-xl shadow-[#143151]/20 transition-all hover:scale-105"
-              >
+              <Button size="lg" className="rounded-full px-6 md:px-8 py-5 md:py-6 bg-gradient-to-r from-[#143151] to-[#387E89] hover:from-[#1a3d63] hover:to-[#438f9b] text-white font-semibold text-base md:text-lg shadow-xl shadow-[#143151]/20 transition-all hover:scale-105">
                 Start Free Trial
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <Button 
-                size="lg"
-                variant="outline"
-                className="rounded-full px-6 md:px-8 py-5 md:py-6 border-2 border-[#387E89] text-[#387E89] hover:bg-[#387E89]/10 font-semibold text-base md:text-lg transition-all"
-              >
+              <Button size="lg" variant="outline" className="rounded-full px-6 md:px-8 py-5 md:py-6 border-2 border-[#387E89] text-[#387E89] hover:bg-[#387E89]/10 font-semibold text-base md:text-lg transition-all">
                 <Play className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                 Watch Demo
               </Button>
@@ -268,26 +265,33 @@ export const CheerHeroSection = () => {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-gray-200">
-              {[
-                { value: '99.9%', label: 'Uptime' },
-                { value: '50ms', label: 'Latency' },
-                { value: 'HIPAA', label: 'Compliant' },
-              ].map((stat, i) => (
-                <div key={i} className="text-center lg:text-left">
+              {[{
+              value: '99.9%',
+              label: 'Uptime'
+            }, {
+              value: '50ms',
+              label: 'Latency'
+            }, {
+              value: 'HIPAA',
+              label: 'Compliant'
+            }].map((stat, i) => <div key={i} className="text-center lg:text-left">
                   <p className="text-xl md:text-2xl lg:text-3xl font-bold text-[#143151]">{stat.value}</p>
                   <p className="text-xs md:text-sm text-[#5192AE]">{stat.label}</p>
-                </div>
-              ))}
+                </div>)}
             </div>
           </motion.div>
 
           {/* Right - Laptop mockup */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="relative"
-          >
+          <motion.div initial={{
+          opacity: 0,
+          x: 40
+        }} animate={{
+          opacity: 1,
+          x: 0
+        }} transition={{
+          duration: 0.7,
+          delay: 0.3
+        }} className="relative">
             {/* Laptop frame */}
             <div className="relative mx-auto max-w-[500px] lg:max-w-[600px]">
               {/* Screen bezel */}
@@ -310,25 +314,14 @@ export const CheerHeroSection = () => {
 
             {/* View toggle buttons */}
             <div className="flex justify-center gap-1.5 md:gap-2 mt-4 md:mt-6">
-              {viewButtons.map((btn) => (
-                <button
-                  key={btn.id}
-                  onClick={() => setActiveView(btn.id)}
-                  className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${
-                    activeView === btn.id
-                      ? 'bg-[#143151] text-white shadow-lg shadow-[#143151]/20'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
+              {viewButtons.map(btn => <button key={btn.id} onClick={() => setActiveView(btn.id)} className={`flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all ${activeView === btn.id ? 'bg-[#143151] text-white shadow-lg shadow-[#143151]/20' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                   <btn.icon className="w-3 h-3 md:w-4 md:h-4" />
                   <span className="hidden sm:inline">{btn.label}</span>
                   <span className="sm:hidden">{btn.shortLabel}</span>
-                </button>
-              ))}
+                </button>)}
             </div>
           </motion.div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
