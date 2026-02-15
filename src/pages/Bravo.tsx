@@ -76,6 +76,11 @@ const BravoTestimonialsSection = lazy(() => {
   return module;
 });
 
+const BravoAudioDemoSection = lazy(() => {
+  const module = import("@/components/bravo/sections/BravoAudioDemoSection").then(module => ({ default: module.BravoAudioDemoSection }));
+  return module;
+});
+
 // Memoized feature card to prevent unnecessary re-renders
 const FeatureCard = memo(({ feature, index }: { feature: typeof featuresData[0], index: number }) => {
   const [isClient, setIsClient] = useState(false);
@@ -351,6 +356,12 @@ const Bravo = () => {
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <Suspense fallback={<LoadingIndicator />}>
           <HowBravoWorksSection />
+        </Suspense>
+      </LazyLoad>
+      
+      <LazyLoad rootMargin="400px" threshold={0.01}>
+        <Suspense fallback={<LoadingIndicator />}>
+          <BravoAudioDemoSection />
         </Suspense>
       </LazyLoad>
       
