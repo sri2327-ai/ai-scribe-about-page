@@ -349,6 +349,12 @@ const Bravo = () => {
       
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <Suspense fallback={<LoadingIndicator />}>
+          <BravoAudioDemoSection />
+        </Suspense>
+      </LazyLoad>
+      
+      <LazyLoad rootMargin="400px" threshold={0.01}>
+        <Suspense fallback={<LoadingIndicator />}>
           <CompatibilitySection />
         </Suspense>
       </LazyLoad>
@@ -356,12 +362,6 @@ const Bravo = () => {
       <LazyLoad rootMargin="400px" threshold={0.01}>
         <Suspense fallback={<LoadingIndicator />}>
           <HowBravoWorksSection />
-        </Suspense>
-      </LazyLoad>
-      
-      <LazyLoad rootMargin="400px" threshold={0.01}>
-        <Suspense fallback={<LoadingIndicator />}>
-          <BravoAudioDemoSection />
         </Suspense>
       </LazyLoad>
       
