@@ -167,7 +167,7 @@ const AnimatedHeader = () => {
         )
       }
     ],
-    popularFeatures: [
+    scribeFeatures: [
       {
         title: 'Transcribe & Dictate',
         description: 'Voice-to-text conversion with medical accuracy',
@@ -204,6 +204,13 @@ const AnimatedHeader = () => {
         icon: <Pill className="w-4 h-4 text-[#5192AE]" />
       },
       {
+        title: 'Universal EHR Integration',
+        description: 'Connect with any electronic health record system',
+        icon: <Layers className="w-4 h-4 text-[#5192AE]" />
+      }
+    ],
+    phoneAgentFeatures: [
+      {
         title: 'Calls',
         description: 'AI-powered phone interactions and scheduling',
         icon: <MessageSquare className="w-4 h-4 text-[#A5CCF3]" />
@@ -217,11 +224,6 @@ const AnimatedHeader = () => {
         title: 'Email',
         description: 'AI-assisted email management and responses',
         icon: <Mail className="w-4 h-4 text-[#387E89]" />
-      },
-      {
-        title: 'Universal EHR Integration',
-        description: 'Connect with any electronic health record system',
-        icon: <Layers className="w-4 h-4 text-[#5192AE]" />
       },
       {
         title: 'Universal App Integrations',
@@ -587,18 +589,50 @@ const AnimatedHeader = () => {
                 </div>
 
                 {/* Popular Features Column */}
-                <div className="space-y-4">
+                <div className="space-y-2">
                   <div className="mb-4">
                     <h3 className="text-lg font-bold text-[#143151] mb-2">Popular Features</h3>
                     <p className="text-sm text-gray-600">Most requested AI capabilities</p>
                   </div>
                   <div className="space-y-1 max-h-[350px] md:max-h-[400px] overflow-y-auto pr-2">
-                    {solutionsDropdown.popularFeatures.map((item, index) => (
+                    {/* AI Medical Scribe Section */}
+                    <div className="px-2 pt-1 pb-1.5 mb-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#387E89]">AI Medical Scribe</span>
+                      <div className="h-px bg-gradient-to-r from-[#387E89]/30 to-transparent mt-1" />
+                    </div>
+                    {solutionsDropdown.scribeFeatures.map((item, index) => (
                       <motion.div
                         key={item.title}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.03 }}
+                        className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                      >
+                        <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
+                          {item.icon}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
+                            {item.title}
+                          </div>
+                          <div className="text-xs text-gray-500 mt-0.5 leading-tight">
+                            {item.description}
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+
+                    {/* AI Phone Agent Section */}
+                    <div className="px-2 pt-3 pb-1.5 mb-1">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#387E89]">AI Phone Agent</span>
+                      <div className="h-px bg-gradient-to-r from-[#387E89]/30 to-transparent mt-1" />
+                    </div>
+                    {solutionsDropdown.phoneAgentFeatures.map((item, index) => (
+                      <motion.div
+                        key={item.title}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: (index + 8) * 0.03 }}
                         className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
                       >
                         <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
