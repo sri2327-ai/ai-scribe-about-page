@@ -497,7 +497,7 @@ const AnimatedHeader = () => {
           <Card 
             className={`p-3 md:p-4 lg:p-6 shadow-2xl border-0 backdrop-blur-xl ${
               type === 'solutions' 
-                ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[900px] xl:w-[1000px] max-w-[1000px]' 
+                ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[1050px] xl:w-[1200px] max-w-[1200px]' 
                 : type === 'specialties'
                 ? 'w-[96vw] sm:w-[92vw] md:w-[88vw] lg:w-[900px] xl:w-[950px] max-w-[950px]'
                 : type === 'resources'
@@ -511,7 +511,7 @@ const AnimatedHeader = () => {
             }}
           >
             {type === 'solutions' ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 {/* Solutions Column */}
                 <div className="space-y-4">
                   <div className="mb-4">
@@ -588,66 +588,74 @@ const AnimatedHeader = () => {
                   </motion.div>
                 </div>
 
-                {/* Popular Features Column */}
-                <div className="space-y-2">
+                {/* Popular Features - Two Columns Side by Side */}
+                <div className="lg:col-span-2 space-y-2">
                   <div className="mb-4">
                     <h3 className="text-lg font-bold text-[#143151] mb-2">Popular Features</h3>
                     <p className="text-sm text-gray-600">Most requested AI capabilities</p>
                   </div>
-                  <div className="space-y-1 max-h-[350px] md:max-h-[400px] overflow-y-auto pr-2">
-                    {/* AI Medical Scribe Section */}
-                    <div className="px-2 pt-1 pb-1.5 mb-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#387E89]">AI Medical Scribe</span>
-                      <div className="h-px bg-gradient-to-r from-[#387E89]/30 to-transparent mt-1" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* AI Medical Scribe */}
+                    <div>
+                      <div className="px-2 pt-1 pb-1.5 mb-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#387E89]">AI Medical Scribe</span>
+                        <div className="h-px bg-gradient-to-r from-[#387E89]/30 to-transparent mt-1" />
+                      </div>
+                      <div className="space-y-0.5">
+                        {solutionsDropdown.scribeFeatures.map((item, index) => (
+                          <motion.div
+                            key={item.title}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.03 }}
+                            className="flex items-start gap-2 p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
+                              {item.icon}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
+                                {item.title}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-0.5 leading-tight">
+                                {item.description}
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
-                    {solutionsDropdown.scribeFeatures.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: index * 0.03 }}
-                        className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
-                      >
-                        <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
-                          {item.icon}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
-                            {item.title}
-                          </div>
-                          <div className="text-xs text-gray-500 mt-0.5 leading-tight">
-                            {item.description}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
 
-                    {/* AI Phone Agent Section */}
-                    <div className="px-2 pt-3 pb-1.5 mb-1">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#387E89]">AI Phone Agent</span>
-                      <div className="h-px bg-gradient-to-r from-[#387E89]/30 to-transparent mt-1" />
+                    {/* AI Phone Agent */}
+                    <div>
+                      <div className="px-2 pt-1 pb-1.5 mb-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#387E89]">AI Phone Agent</span>
+                        <div className="h-px bg-gradient-to-r from-[#387E89]/30 to-transparent mt-1" />
+                      </div>
+                      <div className="space-y-0.5">
+                        {solutionsDropdown.phoneAgentFeatures.map((item, index) => (
+                          <motion.div
+                            key={item.title}
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: (index + 8) * 0.03 }}
+                            className="flex items-start gap-2 p-2 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
+                          >
+                            <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
+                              {item.icon}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
+                                {item.title}
+                              </div>
+                              <div className="text-xs text-gray-500 mt-0.5 leading-tight">
+                                {item.description}
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
-                    {solutionsDropdown.phoneAgentFeatures.map((item, index) => (
-                      <motion.div
-                        key={item.title}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: (index + 8) * 0.03 }}
-                        className="flex items-start gap-2 md:gap-3 p-2 md:p-3 rounded-lg hover:bg-[#F5F9FF] transition-all duration-200 group"
-                      >
-                        <div className="group-hover:scale-110 transition-transform flex-shrink-0 mt-0.5">
-                          {item.icon}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-semibold text-[#143151] text-xs md:text-sm group-hover:text-[#387E89] transition-colors leading-tight">
-                            {item.title}
-                          </div>
-                          <div className="text-xs text-gray-500 mt-0.5 leading-tight">
-                            {item.description}
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
                   </div>
                 </div>
 
