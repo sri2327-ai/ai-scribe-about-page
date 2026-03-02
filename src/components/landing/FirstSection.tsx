@@ -98,7 +98,7 @@ const generatedNote: NoteItem[] = [
   { label: 'Plan',       abbr: 'P', value: 'CT Head + CBC + CMP ordered. F/U in 48h.', icon: '📋', color: S10.navy },
 ];
 
-const ScribeDemo = () => {
+export const ScribeDemo = () => {
   const [phase, setPhase] = useState<'idle' | 'recording' | 'generating' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
   const [noteLines, setNoteLines] = useState<NoteItem[]>([]);
@@ -394,7 +394,7 @@ const bravoConversation = [
   { speaker: 'bravo' as const, name: 'BRAVO', time: '0:31', text: "My pleasure, Sarah. Have a wonderful day!" },
 ];
 
-const ReceptionistDemo = () => {
+export const ReceptionistDemo = () => {
   const [phase, setPhase] = useState<'idle' | 'calling' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
   const [activeSpeaker, setActiveSpeaker] = useState<'bravo' | 'caller' | null>(null);
@@ -573,7 +573,7 @@ const agents = [
   { id: 'recall',  label: 'Patient Recall', icon: '📞', task: 'Scheduling outreach calls…',  done: '24 patients reached',   pct: 78, timeEst: '3.4s' },
 ];
 
-const CustomAgentsDemo = () => {
+export const CustomAgentsDemo = () => {
   const [progresses, setProgresses] = useState<Record<string, number>>(
     Object.fromEntries(agents.map(a => [a.id, 0]))
   );
