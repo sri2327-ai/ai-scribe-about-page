@@ -323,15 +323,53 @@ const IntegrationsDemo = () => {
 };
 
 // ─── Main Demo Panel ──────────────────────────────────────────────────────────
-const demoPanelTabs = [
-  { id: 'scribe', label: 'AI Medical Scribe', icon: FileText, color: '#3b82f6' },
-  { id: 'receptionist', label: 'AI Receptionist', icon: Phone, color: '#387E89' },
-  { id: 'agents', label: 'Custom AI Agents', icon: Bot, color: '#8b5cf6' },
-  { id: 'integrations', label: 'Integrations', icon: Plug, color: '#059669' },
+const accordionItems = [
+  {
+    id: 'scribe',
+    label: 'AI Medical Scribe & AI Coding',
+    subtitle: 'Advanced speech recognition and real-time coding capture clinician–patient conversations accurately, ensuring compliant, audit-ready documentation.',
+    badge: 'Save 2+ hrs. Ensure reimbursement.',
+    icon: FileText,
+    iconBg: 'bg-blue-100',
+    iconColor: '#3b82f6',
+    Demo: ScribeDemo,
+  },
+  {
+    id: 'receptionist',
+    label: 'AI Phone & Chat Agent',
+    subtitle: 'Handles inbound & outbound calls, appointment scheduling, prescription refills, and patient care — 24/7.',
+    badge: 'Zero hold times. Always available.',
+    icon: Phone,
+    iconBg: 'bg-teal-100',
+    iconColor: '#387E89',
+    Demo: ReceptionistDemo,
+  },
+  {
+    id: 'agents',
+    label: 'Custom AI Agents',
+    subtitle: 'Purpose-built agents that automate every repetitive task in your clinic — from prior auth to billing.',
+    badge: 'Cut admin workload by 40%.',
+    icon: Bot,
+    iconBg: 'bg-purple-100',
+    iconColor: '#8b5cf6',
+    Demo: CustomAgentsDemo,
+  },
+  {
+    id: 'integrations',
+    label: 'EHR Integrations',
+    subtitle: 'Connects with Epic, Cerner, Athenahealth, and 7,000+ apps instantly — no disruption to your workflow.',
+    badge: 'Works with every EHR.',
+    icon: Plug,
+    iconBg: 'bg-green-100',
+    iconColor: '#059669',
+    Demo: IntegrationsDemo,
+  },
 ];
 
 const HeroDemoPanel = () => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [openIndex, setOpenIndex] = useState(0);
+
+  const toggle = (i: number) => setOpenIndex(prev => (prev === i ? -1 : i));
 
   return (
     <motion.div
@@ -341,49 +379,81 @@ const HeroDemoPanel = () => {
       className="lg:col-span-5 relative order-2"
     >
       <div className="absolute -inset-8 bg-gradient-to-r from-[#387E89]/10 via-[#5192AE]/15 to-[#143151]/10 rounded-[2rem] blur-2xl opacity-70" />
-      <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl border border-white/50 shadow-2xl overflow-hidden">
+      <div className="relative bg-white/95 backdrop-blur-xl rounded-3xl border border-gray-200/60 shadow-2xl overflow-hidden">
+
         {/* Header */}
-        <div className="bg-gradient-to-br from-[#143151] via-[#387E89] to-[#5192AE] p-5 text-white">
-          <div className="flex items-center gap-2 mb-1">
-            <div className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center"><Zap className="w-4 h-4 text-white" /></div>
-            <span className="font-bold text-base">S10.AI Live Demo</span>
+        <div className="px-5 pt-5 pb-4 flex items-center justify-between border-b border-gray-100">
+          <div>
+            <p className="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-0.5">One AI Platform. Every Task Automated.</p>
           </div>
-          <p className="text-white/75 text-xs">Click a product to see it in action</p>
+          <span className="bg-pink-100 text-pink-600 text-[10px] font-bold px-2.5 py-1 rounded-full">Clinician-First</span>
         </div>
 
-        {/* Tab Bar */}
-        <div className="grid grid-cols-4 border-b border-gray-100">
-          {demoPanelTabs.map((tab, i) => {
-            const Icon = tab.icon;
+        {/* Accordion Items */}
+        <div className="divide-y divide-gray-100">
+          {accordionItems.map((item, i) => {
+            const Icon = item.icon;
+            const isOpen = openIndex === i;
             return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(i)}
-                className={`flex flex-col items-center gap-1 py-3 px-1 text-center transition-all border-b-2 ${activeTab === i ? 'border-[#387E89] bg-[#387E89]/5' : 'border-transparent hover:bg-gray-50'}`}
-              >
-                <Icon className="w-4 h-4" style={{ color: activeTab === i ? tab.color : '#9ca3af' }} />
-                <span className="text-[9px] font-semibold leading-tight" style={{ color: activeTab === i ? '#143151' : '#9ca3af' }}>
-                  {tab.label.split(' ').slice(1).join(' ')}
-                </span>
-              </button>
+              <div key={item.id}>
+                {/* Row */}
+                <button
+                  onClick={() => toggle(i)}
+                  className={`w-full flex items-center gap-3 px-5 py-4 text-left transition-all duration-200 ${isOpen ? 'bg-[#f0f8fa]' : 'hover:bg-gray-50/80'}`}
+                >
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 ${item.iconBg}`}>
+                    <Icon className="w-4 h-4" style={{ color: item.iconColor }} />
+                  </div>
+                  <span className={`text-sm font-semibold flex-1 text-left transition-colors ${isOpen ? 'text-[#143151]' : 'text-gray-700'}`}>
+                    {item.label}
+                  </span>
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <ArrowRight className="w-4 h-4 text-gray-400 rotate-90" />
+                  </motion.div>
+                </button>
+
+                {/* Expanded content */}
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      key="content"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.28, ease: 'easeInOut' }}
+                      className="overflow-hidden"
+                    >
+                      <div className="px-5 pb-4 pt-1 space-y-3">
+                        {/* Description */}
+                        <p className="text-xs text-gray-500 leading-relaxed">{item.subtitle}</p>
+                        {/* Badge */}
+                        <div className="flex items-center gap-2 bg-[#EEF6F7] rounded-lg px-3 py-2">
+                          <CheckCircle className="w-3.5 h-3.5 text-[#387E89] flex-shrink-0" />
+                          <span className="text-xs font-semibold text-[#143151]">{item.badge}</span>
+                        </div>
+                        {/* Demo content */}
+                        <item.Demo />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             );
           })}
         </div>
 
-        {/* Demo Content */}
-        <div className="p-4 min-h-[340px]">
-          <AnimatePresence mode="wait">
-            <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
-              <div className="flex items-center gap-2 mb-3">
-                {React.createElement(demoPanelTabs[activeTab].icon, { className: "w-4 h-4", style: { color: demoPanelTabs[activeTab].color } })}
-                <span className="text-sm font-bold text-gray-800">{demoPanelTabs[activeTab].label}</span>
-              </div>
-              {activeTab === 0 && <ScribeDemo />}
-              {activeTab === 1 && <ReceptionistDemo />}
-              {activeTab === 2 && <CustomAgentsDemo />}
-              {activeTab === 3 && <IntegrationsDemo />}
-            </motion.div>
-          </AnimatePresence>
+        {/* Dot indicators */}
+        <div className="flex items-center justify-center gap-2 py-4 border-t border-gray-100">
+          {accordionItems.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => toggle(i)}
+              className={`rounded-full transition-all duration-300 ${openIndex === i ? 'w-6 h-2 bg-[#143151]' : 'w-2 h-2 bg-gray-300 hover:bg-gray-400'}`}
+            />
+          ))}
         </div>
       </div>
     </motion.div>
