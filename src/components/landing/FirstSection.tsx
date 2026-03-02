@@ -636,107 +636,17 @@ const IntegrationsDemo = () => {
 };
 
 
-// ─── AI Node Graph Panel ─────────────────────────────────────────────────────
-
-const aiNodes = [
-  {
-    id: 'scribe',
-    label: 'AI Scribe',
-    color: '#143151',
-    gradientFrom: '#143151',
-    gradientTo: '#1e4a6e',
-    category: 'DOCUMENTATION',
-    features: ['Real-time transcription', 'Auto SOAP notes', 'Specialty templates'],
-    collaborates: ['EHR Systems', 'AI Agents'],
-    badge: '2+ hrs saved/day',
-    angle: 310,
-    radius: 155,
-  },
-  {
-    id: 'bravo',
-    label: 'BRAVO Agent',
-    color: '#387E89',
-    gradientFrom: '#387E89',
-    gradientTo: '#2d6872',
-    category: 'FRONT OFFICE',
-    features: ['24/7 call handling', 'Appointment booking', 'Prescription refills'],
-    collaborates: ['AI Scribe', 'EHR Systems'],
-    badge: '24/7 availability',
-    angle: 50,
-    radius: 155,
-  },
-  {
-    id: 'agents',
-    label: 'Custom Agents',
-    color: '#5192AE',
-    gradientFrom: '#5192AE',
-    gradientTo: '#3d7a96',
-    category: 'AUTOMATION',
-    features: ['Prior auth', 'Smart billing', 'Patient recall'],
-    collaborates: ['AI Scribe', 'BRAVO Agent'],
-    badge: '40% less admin',
-    angle: 170,
-    radius: 155,
-  },
-  {
-    id: 'ehr',
-    label: 'EHR Bridge',
-    color: '#2d6872',
-    gradientFrom: '#2d6872',
-    gradientTo: '#1a4f58',
-    category: 'INTEGRATIONS',
-    features: ['7,000+ app sync', 'Epic · Cerner · Athena', 'Zero disruption'],
-    collaborates: ['Custom Agents', 'AI Scribe'],
-    badge: 'Plug & play',
-    angle: 230,
-    radius: 155,
-  },
-  {
-    id: 'cheer',
-    label: 'CHEER',
-    color: '#9b59b6',
-    gradientFrom: '#9b59b6',
-    gradientTo: '#7d3c98',
-    category: 'TELEMEDICINE',
-    features: ['Video visits', 'Patient portal', 'Remote monitoring'],
-    collaborates: ['AI Scribe', 'EHR Bridge'],
-    badge: 'New',
-    angle: 100,
-    radius: 155,
-  },
-];
-
-// Live activity ticker
-const liveActivities = [
-  'AI Scribe generated SOAP note in 0.4s',
-  'BRAVO booked 3 appointments this hour',
-  'Prior Auth approved for patient #4821',
-  'Epic synced — chart updated in real-time',
-  'CHEER video visit completed — Dr. Chen',
+// ─── Main Demo Panel ──────────────────────────────────────────────────────────
+const tabItems = [
+  { id: 'scribe', label: 'AI Scribe',     shortLabel: 'Scribe',       subtitle: 'Live transcription → auto SOAP note',       badge: '2+ hrs saved/day',  color: '#143151', Demo: ScribeDemo },
+  { id: 'bravo',  label: 'BRAVO',         shortLabel: 'BRAVO',        subtitle: 'AI handles every inbound call 24/7',         badge: '24/7 availability', color: '#387E89', Demo: ReceptionistDemo },
+  { id: 'agents', label: 'AI Agents',     shortLabel: 'Agents',       subtitle: '5 autonomous agents run your clinic',        badge: '40% less admin',    color: '#143151', Demo: CustomAgentsDemo },
+  { id: 'ehr',    label: 'Integrations',  shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption',      badge: 'Plug & play',       color: '#387E89', Demo: IntegrationsDemo },
 ];
 
 const HeroDemoPanel = () => {
-  const [activeNode, setActiveNode] = useState(0);
-  const [activityIndex, setActivityIndex] = useState(0);
-  const [pulse, setPulse] = useState(true);
-
-  // Rotate through live activities
-  useEffect(() => {
-    const iv = setInterval(() => setActivityIndex(i => (i + 1) % liveActivities.length), 3000);
-    return () => clearInterval(iv);
-  }, []);
-
-  // Auto-cycle nodes
-  useEffect(() => {
-    const iv = setInterval(() => setActiveNode(i => (i + 1) % aiNodes.length), 4000);
-    return () => clearInterval(iv);
-  }, []);
-
-  const node = aiNodes[activeNode];
-
-  // SVG canvas size
-  const cx = 200; // center x
-  const cy = 200; // center y
+  const [activeTab, setActiveTab] = useState(0);
+  const tab = tabItems[activeTab];
 
   return (
     <motion.div
@@ -747,193 +657,68 @@ const HeroDemoPanel = () => {
     >
       {/* Ambient glow */}
       <div className="absolute -inset-6 rounded-[2.5rem] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(56,126,137,0.12) 0%, rgba(20,49,81,0.06) 50%, transparent 75%)', filter: 'blur(28px)' }} />
+        style={{ background: 'radial-gradient(ellipse at 50% 60%, rgba(56,126,137,0.10) 0%, rgba(59,130,246,0.06) 50%, transparent 75%)', filter: 'blur(24px)' }} />
 
       <div className="relative rounded-3xl overflow-hidden border"
-        style={{ background: '#f8f9fb', borderColor: '#e2e8ed', boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.09), 0 30px 60px rgba(20,49,81,0.08)' }}>
+        style={{ background: '#ffffff', borderColor: '#e8edf2', boxShadow: '0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.09), 0 30px 60px rgba(20,49,81,0.08)' }}>
 
-        {/* ── Top header bar with pink gradient ── */}
-        <div className="flex items-center justify-between px-5 py-3.5 border-b"
-          style={{ background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 40%, #f0f4fd 100%)', borderColor: '#e8ddef' }}>
+        {/* ── Top chrome bar ── */}
+        <div className="flex items-center justify-between px-5 py-3.5 border-b" style={{ background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 40%, #f0f4fd 100%)', borderColor: '#e8ddef' }}>
           <div className="flex items-center gap-1.5">
             <div className="w-3 h-3 rounded-full" style={{ background: '#143151', opacity: 0.25 }} />
             <div className="w-3 h-3 rounded-full" style={{ background: '#387E89', opacity: 0.4 }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#9b59b6', opacity: 0.55 }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: '#143151', opacity: 0.6 }} />
           </div>
           <div className="flex items-center gap-2">
-            <motion.div className="w-2 h-2 rounded-full" style={{ background: '#387E89' }}
-              animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 1.6 }} />
-            <span className="text-[11px] font-semibold tracking-wide" style={{ color: '#143151', opacity: 0.55 }}>S10.AI · Interactive Demo</span>
+            <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: '#387E89' }} />
+            <span className="text-[11px] font-semibold tracking-wide" style={{ color: '#143151', opacity: 0.45 }}>S10.AI · Interactive Demo</span>
           </div>
-          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border" style={{ color: '#387E89', background: '#387E8910', borderColor: '#387E8925' }}>Live</span>
+          <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border" style={{ color: '#387E89', background: '#387E89' + '10', borderColor: '#387E89' + '25' }}>Live</span>
         </div>
 
-        {/* ── Live activity bar ── */}
-        <div className="px-4 py-2 border-b flex items-center gap-2" style={{ background: '#ffffff', borderColor: '#edf0f4' }}>
-          <motion.div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: '#387E89' }}
-            animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 1 }} />
-          <span className="text-[10px] font-semibold uppercase tracking-wider flex-shrink-0" style={{ color: '#143151', opacity: 0.4 }}>Live</span>
-          <AnimatePresence mode="wait">
-            <motion.span key={activityIndex}
-              initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }}
-              transition={{ duration: 0.3 }}
-              className="text-[10.5px] font-medium truncate" style={{ color: '#387E89' }}>
-              {liveActivities[activityIndex]}
-            </motion.span>
-          </AnimatePresence>
-        </div>
-
-        {/* ── Node Graph ── */}
-        <div className="relative" style={{ background: '#f8f9fb' }}>
-          {/* SVG connection lines */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet">
-            <defs>
-              <radialGradient id="lineGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stopColor="#387E89" stopOpacity="0.3" />
-                <stop offset="100%" stopColor="#143151" stopOpacity="0.05" />
-              </radialGradient>
-            </defs>
-            {aiNodes.map((n, i) => {
-              const rad = (n.angle * Math.PI) / 180;
-              const nx = cx + n.radius * Math.cos(rad);
-              const ny = cy + n.radius * Math.sin(rad);
-              const isActive = i === activeNode;
+        {/* ── Tab pills bar ── */}
+        <div className="px-4 pt-3 pb-0 border-b" style={{ background: '#fafbfc', borderColor: '#edf0f4' }}>
+          <div className="flex gap-1 overflow-x-auto pb-3" style={{ scrollbarWidth: 'none' }}>
+            {tabItems.map((t, i) => {
+              const isActive = activeTab === i;
               return (
-                <motion.line key={n.id}
-                  x1={cx} y1={cy} x2={nx} y2={ny}
-                  stroke={isActive ? n.color : '#cbd5e1'}
-                  strokeWidth={isActive ? 1.5 : 1}
-                  strokeDasharray={isActive ? '0' : '4 4'}
-                  strokeOpacity={isActive ? 0.5 : 0.25}
-                  animate={{ strokeOpacity: isActive ? [0.5, 0.8, 0.5] : 0.2 }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                />
+                <motion.button key={t.id} onClick={() => setActiveTab(i)}
+                  whileTap={{ scale: 0.96 }}
+                  className={`relative flex-shrink-0 px-3.5 py-1.5 rounded-xl text-[11px] font-bold transition-all duration-200 ${isActive ? 'text-white shadow-sm' : 'hover:bg-white'}`}
+                  style={isActive ? { background: `linear-gradient(135deg, ${t.color}ee, ${t.color})`, boxShadow: `0 2px 10px ${t.color}30` } : { color: '#143151', opacity: 0.45 }}>
+                  {t.shortLabel}
+                </motion.button>
               );
             })}
-          </svg>
+          </div>
+        </div>
 
-          {/* Actual node graph using absolute positioning */}
-          <div className="relative mx-auto" style={{ width: 400, height: 400 }}>
-
-            {/* Center hub */}
-            <div className="absolute" style={{ left: cx - 36, top: cy - 36, width: 72, height: 72 }}>
-              <motion.div
-                className="w-full h-full rounded-2xl flex flex-col items-center justify-center shadow-lg cursor-pointer"
-                style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
-                animate={{ boxShadow: ['0 4px 20px rgba(20,49,81,0.3)', '0 8px 30px rgba(56,126,137,0.4)', '0 4px 20px rgba(20,49,81,0.3)'] }}
-                transition={{ repeat: Infinity, duration: 2.5 }}>
-                <span className="text-white text-[10px] font-black tracking-wider">S10</span>
-                <span className="text-white/70 text-[8px] font-semibold">.AI</span>
-              </motion.div>
+        {/* ── Tab context strip ── */}
+        <AnimatePresence mode="wait">
+          <motion.div key={tab.id + '-meta'}
+            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}
+            className="flex items-center justify-between px-5 py-2.5 border-b" style={{ borderColor: '#edf0f4' }}>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-6 rounded-full" style={{ background: `linear-gradient(180deg, ${tab.color}70, ${tab.color})` }} />
+              <div>
+                <p className="text-[12px] font-black leading-none" style={{ color: '#143151' }}>{tab.label}</p>
+                <p className="text-[10px] mt-0.5 leading-none" style={{ color: '#387E89', opacity: 0.7 }}>{tab.subtitle}</p>
+              </div>
             </div>
+            <span className="text-[9.5px] font-black px-2.5 py-1 rounded-full flex-shrink-0"
+              style={{ background: tab.color + '10', color: tab.color, border: `1.5px solid ${tab.color}25` }}>
+              {tab.badge}
+            </span>
+          </motion.div>
+        </AnimatePresence>
 
-            {/* Satellite nodes */}
-            {aiNodes.map((n, i) => {
-              const rad = (n.angle * Math.PI) / 180;
-              const nx = cx + n.radius * Math.cos(rad);
-              const ny = cy + n.radius * Math.sin(rad);
-              const isActive = i === activeNode;
-
-              return (
-                <motion.div
-                  key={n.id}
-                  className="absolute cursor-pointer"
-                  style={{ left: nx - 52, top: ny - 22, width: 104 }}
-                  onClick={() => setActiveNode(i)}
-                  whileHover={{ scale: 1.06 }}
-                  whileTap={{ scale: 0.96 }}>
-                  <motion.div
-                    className="flex items-center gap-2 px-3 py-2 rounded-2xl border shadow-sm"
-                    animate={isActive ? {
-                      background: ['#ffffff', '#f0f8fa', '#ffffff'],
-                      borderColor: n.color + '60',
-                      boxShadow: [`0 2px 12px ${n.color}25`, `0 4px 20px ${n.color}40`, `0 2px 12px ${n.color}25`],
-                    } : {
-                      background: '#ffffff',
-                      borderColor: '#e8edf2',
-                      boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-                    }}
-                    transition={{ repeat: isActive ? Infinity : 0, duration: 2 }}>
-                    {/* Color blob */}
-                    <div className="w-6 h-6 rounded-full flex-shrink-0 shadow-sm"
-                      style={{ background: `radial-gradient(circle at 35% 35%, ${n.gradientFrom}cc, ${n.gradientTo})` }} />
-                    <span className="text-[10.5px] font-bold leading-tight truncate" style={{ color: isActive ? n.color : '#143151' }}>
-                      {n.label}
-                    </span>
-                  </motion.div>
-
-                  {/* Active pulse ring */}
-                  {isActive && (
-                    <>
-                      <motion.span className="absolute inset-0 rounded-2xl border-2 pointer-events-none"
-                        style={{ borderColor: n.color }}
-                        animate={{ scale: [1, 1.12], opacity: [0.5, 0] }}
-                        transition={{ repeat: Infinity, duration: 1.3 }} />
-                    </>
-                  )}
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* ── Active node detail card ── */}
+        {/* ── Demo content ── */}
+        <div className="px-5 py-4">
           <AnimatePresence mode="wait">
-            <motion.div
-              key={node.id}
-              initial={{ opacity: 0, y: 10, scale: 0.97 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -6, scale: 0.97 }}
-              transition={{ duration: 0.22 }}
-              className="mx-4 mb-4 rounded-2xl border bg-white shadow-md overflow-hidden"
-              style={{ borderColor: node.color + '30' }}>
-
-              {/* Card header */}
-              <div className="px-4 py-3 flex items-center gap-3 border-b" style={{ borderColor: '#f1f5f9' }}>
-                <div className="w-9 h-9 rounded-xl flex items-center justify-center shadow-sm flex-shrink-0"
-                  style={{ background: `radial-gradient(circle at 35% 35%, ${node.gradientFrom}cc, ${node.gradientTo})` }} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-black leading-none" style={{ color: '#143151' }}>{node.label}</p>
-                  <p className="text-[9.5px] font-bold uppercase tracking-widest mt-0.5" style={{ color: node.color, opacity: 0.7 }}>{node.category}</p>
-                </div>
-                <span className="text-[9px] font-black px-2 py-0.5 rounded-full flex-shrink-0"
-                  style={{ background: node.color + '12', color: node.color, border: `1.5px solid ${node.color}25` }}>
-                  {node.badge}
-                </span>
-              </div>
-
-              {/* Features */}
-              <div className="px-4 pt-3 pb-2">
-                <p className="text-[9px] font-black uppercase tracking-widest mb-2" style={{ color: '#143151', opacity: 0.35 }}>CAPABILITIES</p>
-                <div className="space-y-1.5">
-                  {node.features.map((f, i) => (
-                    <motion.div key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.07 }}
-                      className="flex items-center gap-2">
-                      <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: node.color }} />
-                      <span className="text-[11px] font-medium" style={{ color: '#374151' }}>{f}</span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Collaborates with */}
-              <div className="px-4 pb-3">
-                <p className="text-[9px] font-black uppercase tracking-widest mb-1.5" style={{ color: '#143151', opacity: 0.35 }}>WORKS WITH</p>
-                <div className="flex flex-wrap gap-1">
-                  {node.collaborates.map((c, i) => (
-                    <span key={i} className="text-[10px] font-semibold px-2.5 py-1 rounded-full border" style={{ color: '#143151', borderColor: '#e2e8ed', background: '#f8f9fb' }}>{c}</span>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div className="px-4 pb-4">
-                <button
-                  className="w-full py-2.5 rounded-xl text-[11px] font-black text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98]"
-                  style={{ background: `linear-gradient(135deg, ${node.gradientFrom}, ${node.gradientTo})` }}
-                  onClick={() => window.open('/contact', '_blank')}>
-                  Explore {node.label} →
-                </button>
-              </div>
+            <motion.div key={tab.id}
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
+              <tab.Demo />
             </motion.div>
           </AnimatePresence>
         </div>
