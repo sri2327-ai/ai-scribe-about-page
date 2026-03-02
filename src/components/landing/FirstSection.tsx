@@ -63,16 +63,23 @@ const WaveformBars = ({ isActive, color = "#387E89", bars = 32 }: { isActive: bo
 
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
-// ─── Color palette (Bravo-inspired) ─────────────────────────────────────────
+// ─── S10 Brand colors (matching Bravo page exactly) ──────────────────────────
+const S10 = {
+  navy:  '#143151',
+  teal:  '#387E89',
+  mid:   '#5192AE',
+  light: '#A5CCF3',
+};
+
 const palette = {
-  blue:   { bg: '#eff6ff', border: '#bfdbfe', text: '#1d4ed8', icon: '#3b82f6' },
-  teal:   { bg: '#f0fdfa', border: '#99f6e4', text: '#0f766e', icon: '#14b8a6' },
-  violet: { bg: '#f5f3ff', border: '#ddd6fe', text: '#6d28d9', icon: '#8b5cf6' },
-  amber:  { bg: '#fffbeb', border: '#fde68a', text: '#b45309', icon: '#f59e0b' },
-  rose:   { bg: '#fff1f2', border: '#fecdd3', text: '#be123c', icon: '#f43f5e' },
-  emerald:{ bg: '#ecfdf5', border: '#a7f3d0', text: '#065f46', icon: '#10b981' },
-  sky:    { bg: '#f0f9ff', border: '#bae6fd', text: '#0369a1', icon: '#0ea5e9' },
-  indigo: { bg: '#eef2ff', border: '#c7d2fe', text: '#3730a3', icon: '#6366f1' },
+  blue:   { bg: '#EEF4FA', border: `${S10.mid}30`, text: S10.navy,  icon: S10.mid },
+  teal:   { bg: '#EBF5F6', border: `${S10.teal}35`, text: S10.teal, icon: S10.teal },
+  violet: { bg: '#EFF4FA', border: `${S10.navy}25`, text: S10.navy, icon: S10.navy },
+  amber:  { bg: '#F0F7F8', border: `${S10.teal}40`, text: S10.teal, icon: S10.teal },
+  rose:   { bg: '#EDF3F9', border: `${S10.mid}35`,  text: S10.mid,  icon: S10.mid },
+  emerald:{ bg: '#EBF5F6', border: `${S10.teal}30`, text: S10.teal, icon: S10.teal },
+  sky:    { bg: '#EFF6FC', border: `${S10.mid}30`,  text: S10.mid,  icon: S10.mid },
+  indigo: { bg: '#EEF3F9', border: `${S10.navy}20`, text: S10.navy, icon: S10.navy },
 };
 
 // ─── Scribe Demo ─────────────────────────────────────────────────────────────
@@ -126,9 +133,9 @@ const ScribeDemo = () => {
   useEffect(() => () => clearAll(), []);
 
   const phaseLabel = phase === 'idle' ? 'Ready' : phase === 'recording' ? 'Recording' : phase === 'generating' ? 'Generating' : 'Complete';
-  const accentColor = phase === 'idle' ? '#94a3b8' : '#387E89';
+  const accentColor = phase === 'idle' ? '#94a3b8' : S10.teal;
 
-  const noteTagColors = [palette.blue, palette.violet, palette.amber, palette.emerald];
+  const noteTagColors = [palette.teal, palette.blue, palette.violet, palette.emerald];
 
   return (
     <div className="space-y-2.5">
@@ -174,14 +181,14 @@ const ScribeDemo = () => {
           visibleLines.includes(i) && (
             <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}
               className={`flex items-end gap-1.5 ${line.speaker === 'patient' ? 'flex-row-reverse' : ''}`}>
-              <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[7px] font-black text-white shadow-sm"
-                style={{ background: line.speaker === 'clinician' ? 'linear-gradient(135deg,#143151,#1e4976)' : `linear-gradient(135deg,${palette.teal.icon},#387E89)` }}>
-                {line.speaker === 'clinician' ? 'DR' : 'P'}
-              </div>
-              <div className={`max-w-[78%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm`} style={{
-                background: line.speaker === 'clinician' ? '#ffffff' : `linear-gradient(135deg, ${palette.teal.icon}, #387E89)`,
-                border: line.speaker === 'clinician' ? `1px solid ${palette.sky.border}` : 'none',
-                color: line.speaker === 'clinician' ? '#374151' : '#fff',
+               <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[7px] font-black text-white shadow-sm"
+                 style={{ background: line.speaker === 'clinician' ? `linear-gradient(135deg,${S10.navy},${S10.teal})` : `${S10.mid}25` }}>
+                 <span style={{ color: line.speaker === 'clinician' ? '#fff' : S10.navy }}>{line.speaker === 'clinician' ? 'DR' : 'P'}</span>
+               </div>
+               <div className={`max-w-[78%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm`} style={{
+                 background: line.speaker === 'clinician' ? '#ffffff' : `linear-gradient(135deg, ${S10.teal}, ${S10.navy})`,
+                 border: line.speaker === 'clinician' ? `1px solid ${S10.mid}30` : 'none',
+                 color: line.speaker === 'clinician' ? '#374151' : '#fff',
                 borderRadius: line.speaker === 'clinician' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
               }}>
                 {line.text}
@@ -325,8 +332,8 @@ const ReceptionistDemo = () => {
   const outcomes = ['Appt · Thu 10:30 AM', 'Rx refill → Walgreens', 'SMS confirmation sent'];
 
   const outcomeChips = [
-    { text: 'Appt · Thu 10:30 AM', pal: palette.sky },
-    { text: 'Rx refill → Walgreens', pal: palette.amber },
+    { text: 'Appt · Thu 10:30 AM', pal: palette.teal },
+    { text: 'Rx refill → Walgreens', pal: palette.blue },
     { text: 'SMS confirmation sent', pal: palette.emerald },
   ];
 
@@ -366,8 +373,8 @@ const ReceptionistDemo = () => {
           </div>
           {phase === 'calling' && activeSpeaker && (
             <div className="flex flex-col items-center gap-0.5">
-              <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? palette.teal.icon : palette.violet.icon} />
-              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: activeSpeaker === 'bravo' ? palette.teal.bg : palette.violet.bg, color: activeSpeaker === 'bravo' ? palette.teal.text : palette.violet.text }}>
+              <WaveformBars isActive bars={10} color={activeSpeaker === 'bravo' ? S10.teal : S10.mid} />
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style={{ background: activeSpeaker === 'bravo' ? `${S10.teal}15` : `${S10.mid}15`, color: activeSpeaker === 'bravo' ? S10.teal : S10.navy }}>
                 {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
               </span>
             </div>
@@ -391,19 +398,19 @@ const ReceptionistDemo = () => {
               className={`flex items-end gap-1.5 ${line.speaker === 'caller' ? 'flex-row-reverse' : ''}`}>
               <div className="w-6 h-6 rounded-full flex-shrink-0 flex items-center justify-center text-[8px] font-black shadow-sm"
                 style={{
-                  background: line.speaker === 'bravo' ? palette.teal.bg : palette.violet.bg,
-                  color: line.speaker === 'bravo' ? palette.teal.text : palette.violet.text,
-                  border: `1.5px solid ${line.speaker === 'bravo' ? palette.teal.border : palette.violet.border}`
+                  background: line.speaker === 'bravo' ? `${S10.teal}20` : `${S10.navy}15`,
+                  color: line.speaker === 'bravo' ? S10.teal : S10.navy,
+                  border: `1.5px solid ${line.speaker === 'bravo' ? S10.teal + '40' : S10.navy + '30'}`
                 }}>
                 {line.speaker === 'bravo' ? 'B' : 'S'}
               </div>
               <div className="max-w-[80%] px-3 py-1.5 rounded-2xl text-[10.5px] leading-relaxed shadow-sm" style={{
-                background: line.speaker === 'bravo' ? '#fff' : `linear-gradient(135deg,${palette.violet.icon},#8b5cf6)`,
-                border: line.speaker === 'bravo' ? `1px solid ${palette.teal.border}` : 'none',
+                background: line.speaker === 'bravo' ? '#fff' : `linear-gradient(135deg,${S10.navy},${S10.teal})`,
+                border: line.speaker === 'bravo' ? `1px solid ${S10.teal}30` : 'none',
                 color: line.speaker === 'bravo' ? '#374151' : '#fff',
                 borderRadius: line.speaker === 'bravo' ? '1rem 1rem 1rem 0.25rem' : '1rem 1rem 0.25rem 1rem',
               }}>
-                <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? palette.teal.text : 'rgba(255,255,255,0.75)' }}>{line.name}</span>
+                <span className="block text-[9px] font-bold mb-0.5" style={{ color: line.speaker === 'bravo' ? S10.teal : 'rgba(255,255,255,0.75)' }}>{line.name}</span>
                 {line.text}
               </div>
             </motion.div>
@@ -489,8 +496,8 @@ const CustomAgentsDemo = () => {
 
   useEffect(() => () => timers.current.forEach(clearInterval), []);
 
-  // Per-agent color palette
-  const agentColors = [palette.sky, palette.violet, palette.emerald, palette.amber, palette.rose];
+  // Per-agent color palette — all S10 brand tones
+  const agentColors = [palette.teal, palette.blue, palette.violet, palette.sky, palette.emerald];
 
   return (
     <div className="space-y-2.5">
@@ -613,8 +620,8 @@ const IntegrationsDemo = () => {
     setTimeout(() => { setSyncing(false); setSyncedEHR(idx); }, 1500);
   };
 
-  const ehrColors = [palette.blue, palette.sky, palette.teal, palette.violet, palette.indigo, palette.emerald];
-  const appColors = [palette.sky, palette.violet, palette.amber, palette.rose, palette.emerald, palette.indigo, palette.teal, palette.blue];
+  const ehrColors = [palette.teal, palette.blue, palette.sky, palette.violet, palette.indigo, palette.emerald];
+  const appColors = [palette.teal, palette.blue, palette.sky, palette.violet, palette.emerald, palette.indigo, palette.teal, palette.blue];
 
   return (
     <div className="space-y-3">
@@ -703,10 +710,10 @@ const IntegrationsDemo = () => {
 
 // ─── Main Demo Panel ──────────────────────────────────────────────────────────
 const tabItems = [
-  { id: 'scribe', label: 'AI Scribe',     shortLabel: 'Scribe',       subtitle: 'Live transcription → auto SOAP note',       badge: '2+ hrs saved/day',  color: palette.sky.icon,    pal: palette.sky,    Demo: ScribeDemo },
-  { id: 'bravo',  label: 'BRAVO',         shortLabel: 'BRAVO',        subtitle: 'AI handles every inbound call 24/7',         badge: '24/7 availability', color: palette.violet.icon, pal: palette.violet, Demo: ReceptionistDemo },
-  { id: 'agents', label: 'AI Agents',     shortLabel: 'Agents',       subtitle: '5 autonomous agents run your clinic',        badge: '40% less admin',    color: palette.amber.icon,  pal: palette.amber,  Demo: CustomAgentsDemo },
-  { id: 'ehr',    label: 'Integrations',  shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption',      badge: 'Plug & play',       color: palette.emerald.icon,pal: palette.emerald,Demo: IntegrationsDemo },
+  { id: 'scribe', label: 'AI Scribe',     shortLabel: 'Scribe',       subtitle: 'Live transcription → auto SOAP note',   badge: '2+ hrs saved/day',  color: S10.teal,  pal: palette.teal,   Demo: ScribeDemo },
+  { id: 'bravo',  label: 'BRAVO',         shortLabel: 'BRAVO',        subtitle: 'AI handles every inbound call 24/7',    badge: '24/7 availability', color: S10.navy,  pal: palette.violet, Demo: ReceptionistDemo },
+  { id: 'agents', label: 'AI Agents',     shortLabel: 'Agents',       subtitle: '5 autonomous agents run your clinic',   badge: '40% less admin',    color: S10.mid,   pal: palette.blue,   Demo: CustomAgentsDemo },
+  { id: 'ehr',    label: 'Integrations',  shortLabel: 'Integrations', subtitle: 'Any EHR + 7,000 apps, zero disruption', badge: 'Plug & play',       color: S10.teal,  pal: palette.emerald,Demo: IntegrationsDemo },
 ];
 
 const HeroDemoPanel = () => {
@@ -725,33 +732,34 @@ const HeroDemoPanel = () => {
         style={{ background: 'radial-gradient(ellipse at 40% 60%, rgba(56,126,137,0.12) 0%, rgba(20,49,81,0.06) 50%, transparent 75%)', filter: 'blur(28px)' }} />
 
       <div className="relative rounded-3xl overflow-hidden border"
-        style={{ background: '#ffffff', borderColor: '#dde3ea', boxShadow: '0 4px 6px rgba(0,0,0,0.03), 0 16px 48px rgba(0,0,0,0.10), 0 32px 72px rgba(20,49,81,0.10)' }}>
+        style={{ background: '#ffffff', borderColor: `${S10.mid}30`, boxShadow: `0 4px 6px rgba(0,0,0,0.03), 0 16px 48px rgba(20,49,81,0.12), 0 32px 72px rgba(20,49,81,0.08)` }}>
 
-        {/* ── Top chrome bar (pink gradient only here) ── */}
-        <div className="flex items-center justify-between px-5 py-3 border-b" style={{ background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 40%, #f0f4fd 100%)', borderColor: '#e6d8ec' }}>
+        {/* ── Top chrome bar — Bravo-style navy/teal gradient ── */}
+        <div className="flex items-center justify-between px-5 py-3 border-b"
+          style={{ background: `linear-gradient(135deg, ${S10.navy} 0%, ${S10.teal} 100%)`, borderColor: `${S10.teal}` }}>
           {/* Traffic lights */}
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-full" style={{ background: '#f87171' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#fbbf24' }} />
-            <div className="w-3 h-3 rounded-full" style={{ background: '#34d399' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.3)' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.5)' }} />
+            <div className="w-3 h-3 rounded-full" style={{ background: 'rgba(255,255,255,0.7)' }} />
           </div>
           {/* Title */}
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#387E89] opacity-60" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#387E89]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
             </span>
-            <span className="text-[11.5px] font-bold tracking-wide" style={{ color: '#143151' }}>S10.AI · Interactive Demo</span>
+            <span className="text-[11.5px] font-bold tracking-wide text-white">S10.AI · Interactive Demo</span>
           </div>
           {/* Live badge */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: '#387E8915', border: '1px solid #387E8935' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#387E89] animate-pulse" />
-            <span className="text-[10px] font-bold" style={{ color: '#387E89' }}>LIVE</span>
+          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full" style={{ background: 'rgba(255,255,255,0.15)', border: '1px solid rgba(255,255,255,0.3)' }}>
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            <span className="text-[10px] font-bold text-white">LIVE</span>
           </div>
         </div>
 
-        {/* ── Tab bar — icon + label layout ── */}
-        <div className="px-4 pt-3.5 pb-0 border-b" style={{ background: '#f8fafc', borderColor: '#eaeff4' }}>
+        {/* ── Tab bar — Bravo-style clean white with navy active ── */}
+        <div className="px-4 pt-3.5 pb-0 border-b" style={{ background: '#ffffff', borderColor: `${S10.mid}20` }}>
           <div className="flex gap-0 overflow-x-auto" style={{ scrollbarWidth: 'none' }}>
             {tabItems.map((t, i) => {
               const isActive = activeTab === i;
@@ -760,18 +768,18 @@ const HeroDemoPanel = () => {
                   key={t.id}
                   onClick={() => setActiveTab(i)}
                   whileTap={{ scale: 0.97 }}
-                  className="relative flex-shrink-0 flex flex-col items-center gap-0.5 px-3.5 pb-3 pt-1.5 transition-all duration-200 focus:outline-none"
-                  style={{ color: isActive ? t.color : '#94a3b8' }}
+                  className="relative flex-shrink-0 flex flex-col items-center gap-0.5 px-4 pb-3 pt-2 transition-all duration-200 focus:outline-none"
+                  style={{ color: isActive ? S10.navy : '#9ca3af' }}
                 >
                   <span className="text-[11.5px] font-bold whitespace-nowrap transition-colors duration-200">
                     {t.shortLabel}
                   </span>
-                  {/* Active underline */}
+                  {/* Active underline — navy gradient like Bravo timeline */}
                   <motion.div
-                    className="absolute bottom-0 left-2 right-2 h-0.5 rounded-full"
+                    className="absolute bottom-0 left-2 right-2 h-[2.5px] rounded-full"
                     animate={{ opacity: isActive ? 1 : 0, scaleX: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.2 }}
-                    style={{ background: `linear-gradient(90deg, ${t.color}70, ${t.color})`, transformOrigin: 'center' }}
+                    transition={{ duration: 0.25 }}
+                    style={{ background: `linear-gradient(90deg, ${S10.teal}, ${S10.navy})`, transformOrigin: 'center' }}
                   />
                 </motion.button>
               );
@@ -786,17 +794,18 @@ const HeroDemoPanel = () => {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.15 }}
             className="flex items-center justify-between px-5 py-2.5 border-b"
-            style={{ background: tab.pal.bg, borderColor: tab.pal.border }}
+            style={{ background: `${S10.navy}08`, borderColor: `${S10.mid}20` }}
           >
             <div className="flex items-center gap-2.5">
-              <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: `linear-gradient(180deg, ${tab.color}50, ${tab.color})` }} />
+              {/* Bravo-style vertical color bar */}
+              <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: `linear-gradient(180deg, ${S10.teal}, ${S10.navy})` }} />
               <div>
-                <p className="text-[12.5px] font-black leading-none" style={{ color: '#143151' }}>{tab.label}</p>
-                <p className="text-[10.5px] mt-0.5 leading-none" style={{ color: tab.pal.text }}>{tab.subtitle}</p>
+                <p className="text-[12.5px] font-black leading-none" style={{ color: S10.navy }}>{tab.label}</p>
+                <p className="text-[10.5px] mt-0.5 leading-none" style={{ color: S10.teal }}>{tab.subtitle}</p>
               </div>
             </div>
-            <span className="text-[9.5px] font-black px-2.5 py-1 rounded-full flex-shrink-0"
-              style={{ background: '#ffffff', color: tab.pal.text, border: `1.5px solid ${tab.pal.border}` }}>
+            <span className="text-[9.5px] font-bold px-2.5 py-1 rounded-full flex-shrink-0"
+              style={{ background: '#ffffff', color: S10.teal, border: `1.5px solid ${S10.teal}40` }}>
               {tab.badge}
             </span>
           </motion.div>
