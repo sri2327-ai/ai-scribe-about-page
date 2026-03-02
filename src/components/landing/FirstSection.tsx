@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Box, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Marquee from "react-fast-marquee";
-import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Star, TrendingUp, Play, Pause, Phone, Bot, Plug, Square } from "lucide-react";
+import { ArrowRight, Zap, Users, Clock, FileText, Shield, MessageSquare, Database, CheckCircle, Star, TrendingUp, Play, Pause, Phone, Bot, Plug, Square, Mic, ChevronRight, Activity, Link2, Stethoscope } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 
@@ -31,345 +31,652 @@ const VoiceAnimation = ({
     </div>;
 };
 
+// ─── Waveform bars component ────────────────────────────────────────────────
+const WaveformBars = ({ isActive, color = "#387E89", bars = 32 }: { isActive: boolean; color?: string; bars?: number }) => {
+  const [heights, setHeights] = useState(() => Array(bars).fill(0).map(() => Math.random() * 60 + 20));
+  useEffect(() => {
+    if (!isActive) return;
+    const interval = setInterval(() => {
+      setHeights(Array(bars).fill(0).map(() => Math.random() * 60 + 20));
+    }, 120);
+    return () => clearInterval(interval);
+  }, [isActive, bars]);
+  return (
+    <div className="flex items-center gap-[2px] h-10">
+      {heights.map((h, i) => (
+        <div
+          key={i}
+          className="rounded-full transition-all duration-100"
+          style={{
+            width: 3,
+            height: isActive ? `${h}%` : '15%',
+            background: isActive
+              ? `linear-gradient(180deg, ${color}cc, ${color})`
+              : '#e5e7eb',
+            opacity: isActive ? 1 : 0.5,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const companyLogos = ["/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png", "/HeaderLogo.png"];
 
 // ─── Scribe Demo ─────────────────────────────────────────────────────────────
 const scribeConversation = [
   { speaker: 'clinician' as const, text: 'Good morning! What brings you in today?' },
-  { speaker: 'patient'  as const, text: "I've had a persistent headache for about three days and some neck stiffness." },
+  { speaker: 'patient' as const, text: "I've had a persistent headache for about three days and some neck stiffness." },
   { speaker: 'clinician' as const, text: 'Any fever, nausea, or sensitivity to light?' },
-  { speaker: 'patient'  as const, text: 'Yes, bright lights are really bothering me.' },
-  { speaker: 'clinician' as const, text: 'Okay, I\'m going to order a CT scan and some bloodwork to rule out anything serious.' },
+  { speaker: 'patient' as const, text: 'Yes, bright lights are really bothering me.' },
+  { speaker: 'clinician' as const, text: "Okay, I'm going to order a CT scan and some bloodwork to rule out anything serious." },
+];
+
+const generatedNote = [
+  'CC: Headache × 3 days, neck stiffness',
+  'HPI: Photophobia present. No vomiting reported.',
+  'Plan: CT Head, CBC, CMP ordered.',
+  'Disposition: Follow-up in 48 hrs.',
 ];
 
 const ScribeDemo = () => {
+  const [phase, setPhase] = useState<'idle' | 'recording' | 'generating' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
   const [noteLines, setNoteLines] = useState<string[]>([]);
   const [ehrSynced, setEhrSynced] = useState(false);
-  const [running, setRunning] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
-  const generatedNote = [
-    'CC: Headache × 3 days, neck stiffness',
-    'HPI: Photophobia present. No vomiting reported.',
-    'Plan: CT Head, CBC, CMP ordered.',
-    'Disposition: Follow-up in 48 hrs.',
-  ];
+  const clearAll = () => timers.current.forEach(clearTimeout);
 
-  const reset = () => {
-    setVisibleLines([]); setNoteLines([]); setEhrSynced(false); setRunning(false);
-    if (timerRef.current) clearTimeout(timerRef.current);
-  };
+  const startEncounter = useCallback(() => {
+    clearAll();
+    setPhase('recording');
+    setVisibleLines([]);
+    setNoteLines([]);
+    setEhrSynced(false);
 
-  const run = useCallback(() => {
-    reset();
-    setRunning(true);
+    // Auto-play conversation
     scribeConversation.forEach((_, i) => {
-      timerRef.current = setTimeout(() => setVisibleLines(p => [...p, i]), i * 1400);
+      timers.current.push(setTimeout(() => setVisibleLines(p => [...p, i]), i * 1500));
     });
-    const noteStart = scribeConversation.length * 1400 + 400;
+
+    // Transition to generating
+    const noteStart = scribeConversation.length * 1500 + 500;
+    timers.current.push(setTimeout(() => setPhase('generating'), noteStart - 400));
+
     generatedNote.forEach((line, i) => {
-      timerRef.current = setTimeout(() => setNoteLines(p => [...p, line]), noteStart + i * 600);
+      timers.current.push(setTimeout(() => setNoteLines(p => [...p, line]), noteStart + i * 700));
     });
-    timerRef.current = setTimeout(() => { setEhrSynced(true); setRunning(false); }, noteStart + generatedNote.length * 600 + 800);
+
+    const doneAt = noteStart + generatedNote.length * 700 + 600;
+    timers.current.push(setTimeout(() => setPhase('done'), doneAt));
   }, []);
 
-  useEffect(() => () => { if (timerRef.current) clearTimeout(timerRef.current); }, []);
+  const pushToEHR = useCallback(() => {
+    setEhrSynced(true);
+  }, []);
+
+  const reset = useCallback(() => {
+    clearAll();
+    setPhase('idle');
+    setVisibleLines([]);
+    setNoteLines([]);
+    setEhrSynced(false);
+  }, []);
+
+  useEffect(() => () => clearAll(), []);
 
   return (
     <div className="space-y-3">
-      {/* Conversation */}
-      <div className="bg-gray-50 rounded-xl p-3 space-y-2 max-h-[180px] overflow-y-auto">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-1">Live Conversation</p>
-        {scribeConversation.map((line, i) => (
-          <AnimatePresence key={i}>
-            {visibleLines.includes(i) && (
-              <motion.div
-                initial={{ opacity: 0, x: line.speaker === 'clinician' ? -10 : 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className={`flex gap-2 ${line.speaker === 'patient' ? 'justify-end' : ''}`}
-              >
-                <div className={`text-xs px-2.5 py-1.5 rounded-xl max-w-[85%] ${line.speaker === 'clinician' ? 'bg-white border border-gray-200 text-gray-700' : 'bg-[#387E89] text-white'}`}>
-                  <span className="block text-[10px] font-semibold mb-0.5 opacity-70">{line.speaker === 'clinician' ? '👨‍⚕️ Clinician' : '🧑 Patient'}</span>
-                  {line.text}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        ))}
+      {/* Status bar */}
+      <div className="flex items-center gap-2 px-3 py-2 rounded-xl" style={{ background: phase === 'recording' ? 'rgba(56,126,137,0.07)' : phase === 'generating' ? 'rgba(59,130,246,0.07)' : phase === 'done' ? 'rgba(34,197,94,0.07)' : '#f9fafb' }}>
+        {phase === 'recording' && (
+          <>
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
+            <span className="text-xs font-semibold text-gray-700">Recording encounter…</span>
+            <WaveformBars isActive bars={20} color="#387E89" />
+          </>
+        )}
+        {phase === 'generating' && (
+          <>
+            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}>
+              <Zap className="w-3.5 h-3.5 text-blue-500" />
+            </motion.div>
+            <span className="text-xs font-semibold text-blue-600">AI generating note…</span>
+          </>
+        )}
+        {phase === 'done' && (
+          <>
+            <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+            <span className="text-xs font-semibold text-green-700">Note ready</span>
+          </>
+        )}
+        {phase === 'idle' && (
+          <span className="text-xs text-gray-400">Click "Start Encounter" to begin</span>
+        )}
       </div>
-      {/* Note Generation */}
-      {noteLines.length > 0 && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-blue-50 border border-blue-100 rounded-xl p-3">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-blue-400 mb-1.5">📝 AI Note Generated</p>
-          {noteLines.map((l, i) => (
-            <motion.p key={i} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="text-xs text-gray-700 leading-relaxed">{l}</motion.p>
+
+      {/* Conversation transcript */}
+      {visibleLines.length > 0 && (
+        <div className="space-y-1.5 max-h-[140px] overflow-y-auto pr-1">
+          {scribeConversation.map((line, i) => (
+            <AnimatePresence key={i}>
+              {visibleLines.includes(i) && (
+                <motion.div
+                  initial={{ opacity: 0, x: line.speaker === 'clinician' ? -8 : 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className={`flex gap-1.5 ${line.speaker === 'patient' ? 'justify-end' : ''}`}
+                >
+                  <div className={`text-xs px-3 py-1.5 rounded-2xl max-w-[82%] ${line.speaker === 'clinician' ? 'bg-gray-100 text-gray-700' : 'text-white'}`}
+                    style={line.speaker === 'patient' ? { background: 'linear-gradient(135deg, #143151, #387E89)' } : {}}>
+                    <span className="block text-[9px] font-bold mb-0.5 opacity-60">{line.speaker === 'clinician' ? '👨‍⚕️ Dr. Chen' : '🧑 Patient'}</span>
+                    {line.text}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           ))}
+        </div>
+      )}
+
+      {/* AI Note */}
+      {noteLines.length > 0 && (
+        <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="rounded-xl border border-blue-100 overflow-hidden">
+          <div className="bg-blue-50 px-3 py-1.5 flex items-center gap-1.5">
+            <FileText className="w-3 h-3 text-blue-500" />
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-500">AI-Generated SOAP Note</span>
+          </div>
+          <div className="px-3 py-2 space-y-0.5 bg-white">
+            {noteLines.map((l, i) => (
+              <motion.p key={i} initial={{ opacity: 0, x: -6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="text-xs text-gray-700 font-mono leading-relaxed">{l}</motion.p>
+            ))}
+          </div>
         </motion.div>
       )}
-      {/* EHR Sync */}
+
+      {/* EHR synced */}
       {ehrSynced && (
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-xl p-2.5">
           <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-          <span className="text-xs font-semibold text-green-700">Note pushed to EHR ✓</span>
+          <div>
+            <span className="text-xs font-bold text-green-700">Note pushed to EHR ✓</span>
+            <p className="text-[10px] text-green-600">Synced to Epic • 0.3s</p>
+          </div>
         </motion.div>
       )}
-      <button
-        onClick={running ? reset : run}
-        className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold text-white transition-all"
-        style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
-      >
-        {running ? <><Square className="w-3.5 h-3.5" />Stop</> : <><Play className="w-3.5 h-3.5 ml-0.5" />Play Demo</>}
-      </button>
+
+      {/* Action buttons */}
+      <div className="flex gap-2">
+        {phase === 'idle' || phase === 'done' ? (
+          <>
+            <button
+              onClick={startEncounter}
+              className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95"
+              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
+            >
+              <Mic className="w-3.5 h-3.5" />
+              Start Encounter
+            </button>
+            {phase === 'done' && !ehrSynced && (
+              <button
+                onClick={pushToEHR}
+                className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-bold border-2 border-[#387E89] text-[#387E89] transition-all hover:bg-[#387E89]/5 active:scale-95"
+              >
+                <Database className="w-3.5 h-3.5" />
+                Auto EHR
+              </button>
+            )}
+            {phase === 'done' && (
+              <button onClick={reset} className="px-3 py-2 rounded-lg text-xs font-semibold text-gray-400 hover:text-gray-600 border border-gray-200 hover:border-gray-300 transition-all">
+                Reset
+              </button>
+            )}
+          </>
+        ) : (
+          <button
+            onClick={reset}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg text-xs font-semibold text-gray-500 border border-gray-200 hover:border-gray-300 transition-all"
+          >
+            <Square className="w-3 h-3" />
+            Stop
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
-// ─── Receptionist Audio Demo ─────────────────────────────────────────────────
-const receptionistTranscript = [
-  { speaker: 'bravo' as const, text: "Good morning! Thank you for calling Greenfield Medical. How can I help you today?" },
-  { speaker: 'caller' as const, text: "Hi, I'd like to schedule an appointment and also get a refill for my blood pressure medication." },
-  { speaker: 'bravo' as const, text: "Of course! I can see Dr. Patel has availability this Thursday at 10:30 AM. Shall I book that for you?" },
-  { speaker: 'caller' as const, text: "Yes, Thursday works great!" },
-  { speaker: 'bravo' as const, text: "Done! Appointment confirmed for Thursday at 10:30 AM. I've also sent a refill request to the pharmacy. Is there anything else I can help you with?" },
-  { speaker: 'caller' as const, text: "No, that's perfect. Thank you!" },
-  { speaker: 'bravo' as const, text: "You're all set! Have a wonderful day and take care." },
+// ─── BRAVO Receptionist Demo ─────────────────────────────────────────────────
+const bravoConversation = [
+  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:00', text: "Good morning! You've reached Greenfield Medical. This is BRAVO. How can I help you today?" },
+  { speaker: 'caller' as const, name: 'Sarah M.', time: '0:05', text: "Hi, I'd like to schedule an appointment and also get a refill for my blood pressure medication." },
+  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:11', text: "Of course, Sarah! Dr. Patel has Thursday at 10:30 AM or Friday at 2 PM available. Which works best?" },
+  { speaker: 'caller' as const, name: 'Sarah M.', time: '0:18', text: "Thursday at 10:30 sounds perfect." },
+  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:22', text: "Done! Appointment confirmed for Thursday at 10:30 AM. I've also sent your refill request to Walgreens on 5th Ave. You'll get a text confirmation shortly." },
+  { speaker: 'caller' as const, name: 'Sarah M.', time: '0:31', text: "That's amazing, thank you so much!" },
+  { speaker: 'bravo' as const, name: 'BRAVO AI', time: '0:35', text: "My pleasure! Is there anything else I can help you with today?" },
 ];
 
 const ReceptionistDemo = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentLine, setCurrentLine] = useState(-1);
-  const [progress, setProgress] = useState(0);
+  const [phase, setPhase] = useState<'idle' | 'calling' | 'done'>('idle');
+  const [visibleLines, setVisibleLines] = useState<number[]>([]);
+  const [currentSpeaker, setCurrentSpeaker] = useState<'bravo' | 'caller' | null>(null);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const isCancelledRef = useRef(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-  const stopSpeaking = useCallback(() => {
+  const stopAll = useCallback(() => {
     isCancelledRef.current = true;
     window.speechSynthesis.cancel();
-    setIsPlaying(false); setCurrentLine(-1); setProgress(0);
+    timers.current.forEach(clearTimeout);
+    setPhase('idle');
+    setVisibleLines([]);
+    setCurrentSpeaker(null);
   }, []);
 
-  useEffect(() => () => window.speechSynthesis.cancel(), []);
+  useEffect(() => () => { window.speechSynthesis.cancel(); timers.current.forEach(clearTimeout); }, []);
 
-  const speakLine = useCallback((index: number) => {
-    if (isCancelledRef.current || index >= receptionistTranscript.length) {
-      setIsPlaying(false); setCurrentLine(-1); setProgress(100); return;
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-    const line = receptionistTranscript[index];
+  }, [visibleLines]);
+
+  const speakLineSequential = useCallback((index: number) => {
+    if (isCancelledRef.current || index >= bravoConversation.length) {
+      setPhase('done');
+      setCurrentSpeaker(null);
+      return;
+    }
+    const line = bravoConversation[index];
+    setCurrentSpeaker(line.speaker);
+    setVisibleLines(p => [...p, index]);
+
     const utterance = new SpeechSynthesisUtterance(line.text);
-    utterance.rate = line.speaker === 'bravo' ? 1.0 : 0.95;
-    utterance.pitch = line.speaker === 'bravo' ? 1.1 : 0.9;
+    utterance.rate = line.speaker === 'bravo' ? 1.05 : 0.9;
+    utterance.pitch = line.speaker === 'bravo' ? 1.15 : 0.85;
+    utterance.volume = 1;
+
     const voices = window.speechSynthesis.getVoices();
-    if (voices.length > 1) {
-      const female = voices.find(v => v.name.includes('Female') || v.name.includes('Samantha') || v.name.includes('Google US English'));
-      const male = voices.find(v => v.name.includes('Male') || v.name.includes('Daniel'));
-      utterance.voice = line.speaker === 'bravo' ? (female || voices[0]) : (male || voices[1] || voices[0]);
+    if (voices.length > 0) {
+      if (line.speaker === 'bravo') {
+        const v = voices.find(v => v.name.includes('Samantha') || v.name.includes('Google US English') || v.name.includes('Female') || v.name.includes('Karen'));
+        if (v) utterance.voice = v;
+      } else {
+        const v = voices.find(v => v.name.includes('Daniel') || v.name.includes('Male') || v.name.includes('Google UK English Male') || v.name.includes('Alex'));
+        if (v) utterance.voice = v;
+      }
     }
-    setCurrentLine(index);
-    setProgress(Math.round(((index + 1) / receptionistTranscript.length) * 100));
-    utterance.onend = () => { if (!isCancelledRef.current) speakLine(index + 1); };
-    utterance.onerror = (e) => { if (e.error !== 'canceled') setIsPlaying(false); };
+
+    utterance.onend = () => {
+      if (!isCancelledRef.current) {
+        setTimeout(() => speakLineSequential(index + 1), 400);
+      }
+    };
+    utterance.onerror = () => {
+      if (!isCancelledRef.current) speakLineSequential(index + 1);
+    };
     window.speechSynthesis.speak(utterance);
   }, []);
 
-  const togglePlay = useCallback(() => {
-    if (isPlaying) { stopSpeaking(); return; }
+  const startCall = useCallback(() => {
     isCancelledRef.current = false;
-    setIsPlaying(true); setProgress(0);
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.onvoiceschanged = () => speakLine(0);
-    } else { speakLine(0); }
-  }, [isPlaying, speakLine, stopSpeaking]);
+    timers.current.forEach(clearTimeout);
+    setPhase('calling');
+    setVisibleLines([]);
+    setCurrentSpeaker(null);
+
+    // Small delay before first line
+    timers.current.push(setTimeout(() => speakLineSequential(0), 600));
+  }, [speakLineSequential]);
 
   return (
     <div className="space-y-3">
-      {/* Audio Player */}
-      <div className="bg-gradient-to-r from-[#143151]/5 to-[#387E89]/5 rounded-xl p-3">
-        <div className="flex items-center gap-3">
+      {/* Call UI header */}
+      <div className="rounded-xl overflow-hidden border border-gray-200">
+        <div className="flex items-center gap-3 px-3 py-2.5" style={{ background: 'linear-gradient(135deg, #143151 0%, #1e4976 100%)' }}>
+          <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+            <Phone className="w-4 h-4 text-white" />
+          </div>
+          <div className="flex-1">
+            <p className="text-xs font-bold text-white">BRAVO AI Receptionist</p>
+            <p className="text-[10px] text-white/60">
+              {phase === 'idle' ? 'Ready to answer calls' : phase === 'calling' ? (
+                <span className="flex items-center gap-1"><span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse inline-block" />Live call in progress</span>
+              ) : 'Call completed ✓'}
+            </p>
+          </div>
+          {phase === 'calling' && (
+            <WaveformBars isActive={currentSpeaker !== null} bars={16} color="#60d8e8" />
+          )}
+        </div>
+
+        {/* Transcript */}
+        <div ref={scrollRef} className="bg-gray-50 p-3 space-y-2 max-h-[180px] overflow-y-auto">
+          {visibleLines.length === 0 && (
+            <p className="text-[11px] text-gray-400 text-center py-4">Press "Start Call" to hear a live demo</p>
+          )}
+          {bravoConversation.map((line, i) => (
+            <AnimatePresence key={i}>
+              {visibleLines.includes(i) && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.25 }}
+                  className={`flex gap-2 ${line.speaker === 'caller' ? 'justify-end' : ''}`}
+                >
+                  {line.speaker === 'bravo' && (
+                    <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-white text-[10px] font-bold" style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>B</div>
+                  )}
+                  <div className={`max-w-[80%] rounded-2xl px-3 py-2 ${line.speaker === 'bravo' ? 'bg-white border border-gray-200' : 'text-white'} ${currentSpeaker === line.speaker && visibleLines[visibleLines.length - 1] === i ? 'ring-2 ring-[#387E89]/40' : ''}`}
+                    style={line.speaker === 'caller' ? { background: 'linear-gradient(135deg, #387E89, #5192AE)' } : {}}>
+                    <p className={`text-[9px] font-bold mb-0.5 ${line.speaker === 'bravo' ? 'text-[#387E89]' : 'text-white/70'}`}>{line.name} · {line.time}</p>
+                    <p className={`text-xs leading-relaxed ${line.speaker === 'bravo' ? 'text-gray-700' : 'text-white'}`}>{line.text}</p>
+                  </div>
+                  {line.speaker === 'caller' && (
+                    <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center flex-shrink-0 mt-0.5 text-[10px] font-bold text-gray-600">S</div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          ))}
+        </div>
+      </div>
+
+      {/* Outcome chips */}
+      {phase === 'done' && (
+        <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5">
+          {['✓ Appt booked: Thu 10:30AM', '✓ Rx refill sent', '✓ SMS confirmation'].map((t, i) => (
+            <span key={i} className="text-[10px] font-semibold bg-green-50 text-green-700 border border-green-200 rounded-full px-2.5 py-1">{t}</span>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Controls */}
+      <div className="flex gap-2">
+        {phase !== 'calling' ? (
           <button
-            onClick={togglePlay}
-            className="w-10 h-10 rounded-full flex items-center justify-center text-white flex-shrink-0 transition-all hover:scale-105"
+            onClick={startCall}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95"
             style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
           >
-            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
+            <Phone className="w-3.5 h-3.5" />
+            {phase === 'done' ? 'Replay Call' : 'Start Call'}
           </button>
-          <div className="flex-1">
-            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-              <div className="h-full rounded-full transition-all duration-300" style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #143151, #387E89)' }} />
-            </div>
-            <p className="text-[10px] text-gray-400 mt-1">{isPlaying ? `Speaking line ${currentLine + 1} of ${receptionistTranscript.length}` : '🔊 Click to hear BRAVO handle a real call'}</p>
-          </div>
-          {isPlaying && <button onClick={stopSpeaking}><Square className="w-3.5 h-3.5 text-gray-400 hover:text-gray-600" /></button>}
-        </div>
-        {/* Wave bars */}
-        {isPlaying && (
-          <div className="flex items-end gap-0.5 h-5 mt-2 justify-center">
-            {Array(24).fill(0).map((_, i) => (
-              <div key={i} className="w-0.5 rounded-full bg-[#387E89]/60 animate-pulse" style={{ height: `${30 + Math.random() * 70}%`, animationDelay: `${i * 60}ms` }} />
-            ))}
-          </div>
+        ) : (
+          <button
+            onClick={stopAll}
+            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition-all active:scale-95"
+          >
+            <Square className="w-3.5 h-3.5" />
+            End Call
+          </button>
         )}
-      </div>
-      {/* Transcript */}
-      <div className="space-y-1.5 max-h-[160px] overflow-y-auto pr-1">
-        {receptionistTranscript.map((line, i) => (
-          <div key={i} className={`flex gap-1.5 p-1.5 rounded-lg transition-all ${currentLine === i ? 'bg-[#387E89]/10' : ''}`}>
-            <span className="text-xs flex-shrink-0">{line.speaker === 'bravo' ? '🤖' : '👤'}</span>
-            <p className={`text-xs leading-relaxed ${line.speaker === 'bravo' ? 'text-gray-700' : 'text-gray-500'} ${currentLine === i ? 'font-medium' : ''}`}>{line.text}</p>
-          </div>
-        ))}
       </div>
     </div>
   );
 };
 
 // ─── Custom AI Agents Demo ────────────────────────────────────────────────────
-const agentTasks = [
-  { label: 'Prior Authorization', icon: '📋', status: 'done', delay: 0 },
-  { label: 'Lab Result Routing', icon: '🧪', status: 'done', delay: 600 },
-  { label: 'Billing Code Suggestion', icon: '💳', status: 'running', delay: 1200 },
-  { label: 'Referral Coordination', icon: '📨', status: 'queued', delay: 1800 },
-  { label: 'Patient Recall Outreach', icon: '📞', status: 'queued', delay: 2400 },
+const agentNodes = [
+  { id: 'scribe', label: 'AI Scribe', color: '#3b82f6', bg: '#EFF6FF', x: 50, y: 10, desc: 'Auto-documents visits' },
+  { id: 'receptionist', label: 'Receptionist', color: '#387E89', bg: '#F0FAFA', x: 85, y: 40, desc: 'Handles all calls' },
+  { id: 'billing', label: 'AI Billing', color: '#059669', bg: '#F0FDF4', x: 70, y: 80, desc: 'Suggests CPT codes' },
+  { id: 'prior', label: 'Prior Auth', color: '#7c3aed', bg: '#F5F3FF', x: 15, y: 75, desc: 'Handles auth requests' },
+  { id: 'labs', label: 'Lab Routing', color: '#ea580c', bg: '#FFF7ED', x: 5, y: 35, desc: 'Routes results' },
 ];
 
 const CustomAgentsDemo = () => {
-  const [taskStates, setTaskStates] = useState<string[]>(agentTasks.map(() => 'idle'));
-  const [running, setRunning] = useState(false);
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const [activeNode, setActiveNode] = useState<string | null>('receptionist');
+  const [pulseNodes, setPulseNodes] = useState<string[]>([]);
 
-  const runDemo = () => {
-    timers.current.forEach(clearTimeout);
-    setTaskStates(agentTasks.map(() => 'idle'));
-    setRunning(true);
-    agentTasks.forEach((task, i) => {
-      timers.current.push(setTimeout(() => setTaskStates(p => { const n = [...p]; n[i] = 'running'; return n; }), task.delay));
-      timers.current.push(setTimeout(() => {
-        setTaskStates(p => { const n = [...p]; n[i] = 'done'; return n; });
-        if (i === agentTasks.length - 1) setRunning(false);
-      }, task.delay + 900));
-    });
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const ids = agentNodes.map(n => n.id);
+      const randomId = ids[Math.floor(Math.random() * ids.length)];
+      setPulseNodes([randomId]);
+      setTimeout(() => setPulseNodes([]), 800);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
-  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+  const active = agentNodes.find(n => n.id === activeNode);
 
   return (
-    <div className="space-y-2">
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">Automated Clinic Tasks</p>
-      {agentTasks.map((task, i) => (
-        <div key={i} className={`flex items-center gap-2.5 p-2 rounded-lg border transition-all ${taskStates[i] === 'done' ? 'bg-green-50 border-green-200' : taskStates[i] === 'running' ? 'bg-blue-50 border-blue-200' : 'bg-gray-50 border-gray-100'}`}>
-          <span className="text-sm">{task.icon}</span>
-          <span className="text-xs font-medium text-gray-700 flex-1">{task.label}</span>
-          {taskStates[i] === 'done' && <CheckCircle className="w-3.5 h-3.5 text-green-500" />}
-          {taskStates[i] === 'running' && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}><Zap className="w-3.5 h-3.5 text-blue-500" /></motion.div>}
-          {taskStates[i] === 'idle' && <div className="w-3.5 h-3.5 rounded-full border-2 border-gray-300" />}
+    <div className="space-y-3">
+      <div className="relative rounded-xl overflow-hidden border border-gray-100" style={{ background: '#f8fafc', height: 200 }}>
+        {/* Central hub */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#143151]/20 flex items-center justify-center shadow-md z-10">
+          <div className="w-8 h-8 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+            <Stethoscope className="w-4 h-4 text-white" />
+          </div>
         </div>
-      ))}
-      <button
-        onClick={running ? undefined : runDemo}
-        disabled={running}
-        className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-semibold text-white transition-all disabled:opacity-60"
-        style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
-      >
-        {running ? 'Running...' : <><Play className="w-3.5 h-3.5 ml-0.5" />Run Agents</>}
-      </button>
+        {/* Connection lines SVG */}
+        <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 1 }}>
+          {agentNodes.map(node => (
+            <line
+              key={node.id}
+              x1="50%" y1="50%"
+              x2={`${node.x}%`} y2={`${node.y + 5}%`}
+              stroke={activeNode === node.id ? node.color : '#e2e8f0'}
+              strokeWidth={activeNode === node.id ? 2 : 1}
+              strokeDasharray={activeNode === node.id ? "4 3" : "3 4"}
+              className="transition-all duration-300"
+            />
+          ))}
+        </svg>
+        {/* Agent nodes */}
+        {agentNodes.map(node => (
+          <button
+            key={node.id}
+            onClick={() => setActiveNode(node.id)}
+            className="absolute flex items-center gap-1.5 px-2.5 py-1.5 rounded-full border-2 transition-all duration-200 cursor-pointer hover:scale-105 active:scale-95"
+            style={{
+              left: `${node.x}%`,
+              top: `${node.y}%`,
+              transform: 'translate(-50%, -50%)',
+              background: activeNode === node.id ? node.bg : 'white',
+              borderColor: activeNode === node.id ? node.color : '#e2e8f0',
+              zIndex: 10,
+              boxShadow: pulseNodes.includes(node.id) ? `0 0 0 4px ${node.color}33` : undefined,
+            }}
+          >
+            <div className="w-4 h-4 rounded-full flex-shrink-0" style={{ background: `radial-gradient(circle at 35% 35%, ${node.color}cc, ${node.color})` }} />
+            <span className="text-[10px] font-bold whitespace-nowrap" style={{ color: node.color }}>{node.label}</span>
+            {pulseNodes.includes(node.id) && (
+              <motion.span
+                initial={{ scale: 0.8, opacity: 1 }}
+                animate={{ scale: 1.4, opacity: 0 }}
+                transition={{ duration: 0.6 }}
+                className="absolute inset-0 rounded-full"
+                style={{ background: node.color, opacity: 0.2 }}
+              />
+            )}
+          </button>
+        ))}
+      </div>
+
+      {/* Active node detail */}
+      {active && (
+        <motion.div key={active.id} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-3 rounded-xl p-3 border" style={{ background: active.bg, borderColor: `${active.color}33` }}>
+          <div className="w-8 h-8 rounded-full flex-shrink-0" style={{ background: `radial-gradient(circle at 35% 35%, ${active.color}cc, ${active.color})` }} />
+          <div className="flex-1">
+            <p className="text-xs font-bold" style={{ color: active.color }}>{active.label}</p>
+            <p className="text-[11px] text-gray-500">{active.desc}</p>
+          </div>
+          <span className="text-[10px] font-semibold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Active</span>
+        </motion.div>
+      )}
     </div>
   );
 };
 
 // ─── Integrations Demo ────────────────────────────────────────────────────────
-const integrations = [
-  { name: 'Epic', category: 'EHR', color: '#e11d48' },
-  { name: 'Athenahealth', category: 'EHR', color: '#7c3aed' },
-  { name: 'Cerner', category: 'EHR', color: '#2563eb' },
-  { name: 'DrChrono', category: 'PMS', color: '#0891b2' },
-  { name: 'Kareo', category: 'Billing', color: '#059669' },
-  { name: 'Zoom', category: 'Telehealth', color: '#1d4ed8' },
-  { name: 'Doximity', category: 'Comms', color: '#0ea5e9' },
-  { name: 'Google Cal', category: 'Calendar', color: '#ea580c' },
+const ehrSystems = [
+  { name: 'Epic', abbr: 'E', color: '#e11d48', category: 'EHR' },
+  { name: 'Cerner', abbr: 'C', color: '#2563eb', category: 'EHR' },
+  { name: 'Athena', abbr: 'A', color: '#7c3aed', category: 'EHR' },
+  { name: 'DrChrono', abbr: 'D', color: '#0891b2', category: 'PMS' },
+];
+const otherApps = [
+  { name: 'Zoom', abbr: 'Z', color: '#1d4ed8', category: 'Telehealth' },
+  { name: 'Kareo', abbr: 'K', color: '#059669', category: 'Billing' },
+  { name: 'Doximity', abbr: 'Dx', color: '#0ea5e9', category: 'Comms' },
+  { name: 'G Cal', abbr: 'G', color: '#ea580c', category: 'Calendar' },
+  { name: 'Twilio', abbr: 'T', color: '#e11d48', category: 'SMS' },
+  { name: 'Stripe', abbr: 'S', color: '#5b21b6', category: 'Payments' },
 ];
 
 const IntegrationsDemo = () => {
-  const [connected, setConnected] = useState<number[]>([]);
-  const [connecting, setConnecting] = useState<number | null>(null);
+  const [activeEHR, setActiveEHR] = useState<number>(0);
+  const [syncing, setSyncing] = useState(false);
+  const [synced, setSynced] = useState(false);
 
-  const connect = (i: number) => {
-    if (connected.includes(i) || connecting !== null) return;
-    setConnecting(i);
-    setTimeout(() => { setConnected(p => [...p, i]); setConnecting(null); }, 1000);
+  const triggerSync = () => {
+    setSyncing(true);
+    setSynced(false);
+    setTimeout(() => { setSyncing(false); setSynced(true); }, 1800);
   };
 
   return (
-    <div className="space-y-2">
-      <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">Connect Your Stack — 7,000+ Apps</p>
-      <div className="grid grid-cols-2 gap-2">
-        {integrations.map((intg, i) => (
-          <button
-            key={i}
-            onClick={() => connect(i)}
-            className={`flex items-center gap-2 p-2 rounded-lg border text-left transition-all ${connected.includes(i) ? 'bg-green-50 border-green-300' : connecting === i ? 'bg-blue-50 border-blue-300' : 'bg-white border-gray-200 hover:border-[#387E89]/40'}`}
-          >
-            <div className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0" style={{ background: intg.color }}>{intg.name[0]}</div>
-            <div className="min-w-0">
-              <p className="text-xs font-semibold text-gray-800 truncate">{intg.name}</p>
-              <p className="text-[10px] text-gray-400">{intg.category}</p>
+    <div className="space-y-3">
+      {/* Central hub visual */}
+      <div className="rounded-xl border border-gray-100 p-3" style={{ background: '#f8fafc' }}>
+        <div className="flex items-center justify-center gap-0">
+          {/* Left apps */}
+          <div className="flex flex-col gap-1.5 mr-3">
+            {otherApps.slice(0, 3).map((app, i) => (
+              <div key={i} className="flex items-center gap-1.5 bg-white rounded-lg px-2 py-1 border border-gray-100 shadow-sm">
+                <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0" style={{ background: app.color }}>{app.abbr}</div>
+                <div>
+                  <p className="text-[10px] font-semibold text-gray-700">{app.name}</p>
+                  <p className="text-[8px] text-gray-400">{app.category}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Connection lines + hub */}
+          <div className="flex items-center">
+            <div className="w-8 h-px bg-gradient-to-r from-gray-200 to-[#387E89]/40" />
+            <div className="relative">
+              <div className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg" style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
+                <div className="text-center">
+                  <p className="text-white text-[8px] font-black leading-none">S10</p>
+                  <p className="text-white/70 text-[7px]">.AI</p>
+                </div>
+              </div>
+              {syncing && (
+                <motion.div className="absolute inset-0 rounded-2xl" animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0, 0.4] }} transition={{ repeat: Infinity, duration: 1 }} style={{ background: '#387E89', borderRadius: '1rem' }} />
+              )}
+              {synced && (
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="absolute -top-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                  <CheckCircle className="w-3 h-3 text-white" />
+                </motion.div>
+              )}
             </div>
-            {connected.includes(i) && <CheckCircle className="w-3 h-3 text-green-500 ml-auto flex-shrink-0" />}
-            {connecting === i && <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }} className="ml-auto"><Plug className="w-3 h-3 text-blue-500" /></motion.div>}
-          </button>
-        ))}
+            <div className="w-8 h-px bg-gradient-to-r from-[#387E89]/40 to-gray-200" />
+          </div>
+
+          {/* Right: EHR selection */}
+          <div className="flex flex-col gap-1.5 ml-3">
+            {ehrSystems.map((ehr, i) => (
+              <button
+                key={i}
+                onClick={() => { setActiveEHR(i); setSynced(false); }}
+                className={`flex items-center gap-1.5 rounded-lg px-2 py-1 border transition-all text-left ${activeEHR === i ? 'border-2 shadow-sm' : 'bg-white border-gray-100 shadow-sm'}`}
+                style={activeEHR === i ? { background: `${ehr.color}10`, borderColor: ehr.color } : {}}
+              >
+                <div className="w-5 h-5 rounded-md flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0" style={{ background: ehr.color }}>{ehr.abbr}</div>
+                <div>
+                  <p className="text-[10px] font-semibold text-gray-700">{ehr.name}</p>
+                  <p className="text-[8px] text-gray-400">{ehr.category}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
-      <p className="text-[10px] text-center text-gray-400">Click any app to simulate connection</p>
+
+      {/* More apps row */}
+      <div className="flex items-center gap-1.5">
+        <span className="text-[10px] text-gray-400">Also connects:</span>
+        <div className="flex gap-1">
+          {otherApps.slice(3).map((app, i) => (
+            <div key={i} className="w-6 h-6 rounded-md flex items-center justify-center text-white text-[9px] font-bold shadow-sm" style={{ background: app.color }} title={app.name}>{app.abbr}</div>
+          ))}
+        </div>
+        <span className="text-[10px] text-gray-400 ml-1">+ 7,000 more</span>
+      </div>
+
+      {/* Sync button */}
+      <button
+        onClick={triggerSync}
+        disabled={syncing}
+        className="w-full flex items-center justify-center gap-2 py-2 rounded-lg text-xs font-bold text-white transition-all hover:opacity-90 active:scale-95 disabled:opacity-70"
+        style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}
+      >
+        {syncing ? (
+          <><motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 0.8, ease: 'linear' }}><Link2 className="w-3.5 h-3.5" /></motion.div>Syncing with {ehrSystems[activeEHR].name}…</>
+        ) : synced ? (
+          <><CheckCircle className="w-3.5 h-3.5" />Synced with {ehrSystems[activeEHR].name} ✓</>
+        ) : (
+          <><Link2 className="w-3.5 h-3.5" />Test Sync with {ehrSystems[activeEHR].name}</>
+        )}
+      </button>
     </div>
   );
 };
 
 // ─── Main Demo Panel ──────────────────────────────────────────────────────────
-const accordionItems = [
+const tabItems = [
   {
     id: 'scribe',
-    label: 'AI Medical Scribe & AI Coding',
-    subtitle: 'Advanced speech recognition and real-time coding capture clinician–patient conversations accurately, ensuring compliant, audit-ready documentation.',
-    badge: 'Save 2+ hrs. Ensure reimbursement.',
+    label: 'AI Medical Scribe',
+    shortLabel: 'Scribe',
+    subtitle: 'Auto-documentation from conversations',
+    badge: 'Save 2+ hrs/day',
     icon: FileText,
-    iconBg: '#EFF6FF',
-    iconColor: '#3b82f6',
+    color: '#3b82f6',
     Demo: ScribeDemo,
   },
   {
     id: 'receptionist',
-    label: 'AI Phone & Chat Agent',
-    subtitle: 'Handles inbound & outbound calls, appointment scheduling, prescription refills, and patient care — 24/7.',
-    badge: 'Zero hold times. Always available.',
+    label: 'AI Phone Agent',
+    shortLabel: 'BRAVO',
+    subtitle: 'Live call handling, scheduling & refills',
+    badge: '24/7 availability',
     icon: Phone,
-    iconBg: '#F0FAFA',
-    iconColor: '#387E89',
+    color: '#387E89',
     Demo: ReceptionistDemo,
   },
   {
     id: 'agents',
     label: 'Custom AI Agents',
-    subtitle: 'Purpose-built agents that automate every repetitive task in your clinic — from prior auth to billing.',
-    badge: 'Cut admin workload by 40%.',
+    shortLabel: 'Agents',
+    subtitle: 'Automate every admin task',
+    badge: '40% less admin',
     icon: Bot,
-    iconBg: '#F5F3FF',
-    iconColor: '#7c3aed',
+    color: '#7c3aed',
     Demo: CustomAgentsDemo,
   },
   {
     id: 'integrations',
     label: 'EHR Integrations',
-    subtitle: 'Connects with Epic, Cerner, Athenahealth, and 7,000+ apps instantly — no disruption to your workflow.',
-    badge: 'Works with every EHR.',
+    shortLabel: 'EHR',
+    subtitle: 'Works with Epic, Cerner, Athena & 7k+ apps',
+    badge: 'Zero disruption',
     icon: Database,
-    iconBg: '#F0FDF4',
-    iconColor: '#059669',
+    color: '#059669',
     Demo: IntegrationsDemo,
   },
 ];
 
 const HeroDemoPanel = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
 
-  const toggle = (i: number) => setOpenIndex(prev => (prev === i ? -1 : i));
+  const tab = tabItems[activeTab];
 
   return (
     <motion.div
@@ -379,113 +686,65 @@ const HeroDemoPanel = () => {
       className="lg:col-span-5 relative order-2"
     >
       {/* Soft glow behind card */}
-      <div className="absolute -inset-6 bg-gradient-to-br from-[#387E89]/8 via-[#5192AE]/10 to-[#143151]/8 rounded-[2.5rem] blur-3xl" />
+      <div className="absolute -inset-6 bg-gradient-to-br from-[#387E89]/8 via-[#5192AE]/10 to-[#143151]/8 rounded-[2.5rem] blur-3xl pointer-events-none" />
 
       <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
-
-        {/* ── Header ── */}
-        <div className="px-6 pt-5 pb-4 flex items-center justify-between">
-          <p className="text-[11px] font-semibold text-gray-400 tracking-widest uppercase leading-none">
-            One AI Platform. Every Task Automated.
-          </p>
-          <span className="bg-pink-50 text-pink-500 border border-pink-200 text-[10px] font-bold px-3 py-1 rounded-full tracking-wide">
-            Clinician-First
-          </span>
+        {/* ── Header badge ── */}
+        <div className="px-5 pt-4 pb-3 flex items-center justify-between border-b border-gray-100">
+          <p className="text-[11px] font-bold text-gray-400 tracking-widest uppercase">One AI Platform. Every Task Automated.</p>
+          <span className="bg-pink-50 text-pink-500 border border-pink-200 text-[10px] font-bold px-2.5 py-1 rounded-full">Clinician-First</span>
         </div>
 
-        {/* thin separator */}
-        <div className="h-px bg-gray-100 mx-4" />
-
-        {/* ── Accordion Items ── */}
-        <div className="py-1">
-          {accordionItems.map((item, i) => {
-            const Icon = item.icon;
-            const isOpen = openIndex === i;
+        {/* ── Tab bar ── */}
+        <div className="flex border-b border-gray-100 bg-gray-50/70">
+          {tabItems.map((t, i) => {
+            const Icon = t.icon;
+            const isActive = activeTab === i;
             return (
-              <div key={item.id} className={`mx-3 my-1 rounded-xl overflow-hidden transition-all duration-200 ${isOpen ? 'bg-gray-50/80 border border-gray-200/60' : 'border border-transparent'}`}>
-                {/* Row trigger */}
-                <button
-                  onClick={() => toggle(i)}
-                  className="w-full flex items-center gap-3.5 px-4 py-3.5 text-left group"
-                >
-                  {/* Icon pill */}
-                  <div
-                    className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105"
-                    style={{ background: item.iconBg }}
-                  >
-                    <Icon className="w-[18px] h-[18px]" style={{ color: item.iconColor }} />
-                  </div>
-
-                  {/* Label */}
-                  <span className={`text-[13.5px] font-semibold flex-1 leading-snug transition-colors duration-150 ${isOpen ? 'text-[#143151]' : 'text-gray-700 group-hover:text-[#143151]'}`}>
-                    {item.label}
-                  </span>
-
-                  {/* Chevron */}
-                  <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ duration: 0.22, ease: 'easeInOut' }}
-                    className="flex-shrink-0"
-                  >
-                    <svg className={`w-4 h-4 transition-colors ${isOpen ? 'text-[#387E89]' : 'text-gray-300'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </motion.div>
-                </button>
-
-                {/* Expanded body */}
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      key="body"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-4 pb-4 space-y-3">
-                        {/* Divider */}
-                        <div className="h-px bg-gray-200/70" />
-
-                        {/* Description text */}
-                        <p className="text-[12.5px] text-gray-500 leading-relaxed">
-                          {item.subtitle}
-                        </p>
-
-                        {/* Benefit badge */}
-                        <div className="inline-flex items-center gap-2 bg-[#EBF5F6] rounded-lg px-3 py-2">
-                          <CheckCircle className="w-3.5 h-3.5 text-[#387E89] flex-shrink-0" />
-                          <span className="text-[11.5px] font-semibold text-[#143151]">{item.badge}</span>
-                        </div>
-
-                        {/* ── Demo Component ── */}
-                        <div className="mt-1">
-                          <item.Demo />
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+              <button
+                key={t.id}
+                onClick={() => setActiveTab(i)}
+                className={`flex-1 flex flex-col items-center gap-0.5 py-3 px-1 transition-all relative text-center ${isActive ? 'bg-white' : 'hover:bg-white/60'}`}
+              >
+                <Icon className="w-4 h-4" style={{ color: isActive ? t.color : '#9ca3af' }} />
+                <span className={`text-[10px] font-bold leading-none ${isActive ? 'text-gray-800' : 'text-gray-400'}`}>{t.shortLabel}</span>
+                {isActive && (
+                  <motion.div layoutId="tab-underline" className="absolute bottom-0 left-0 right-0 h-0.5 rounded-t" style={{ background: t.color }} />
+                )}
+              </button>
             );
           })}
         </div>
 
-        {/* ── Dot navigation ── */}
-        <div className="flex items-center justify-center gap-2 py-4 border-t border-gray-100 mt-1">
-          {accordionItems.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => toggle(i)}
-              aria-label={`Select demo ${i + 1}`}
-              className={`rounded-full transition-all duration-300 ${
-                openIndex === i
-                  ? 'w-7 h-2 bg-[#143151]'
-                  : 'w-2 h-2 bg-gray-200 hover:bg-gray-400'
-              }`}
-            />
-          ))}
+        {/* ── Active tab meta ── */}
+        <div className="px-5 pt-4 pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-gray-900">{tab.label}</h3>
+              <p className="text-[11px] text-gray-500 mt-0.5">{tab.subtitle}</p>
+            </div>
+            <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border flex-shrink-0 ml-2"
+              style={{ background: `${tab.color}12`, color: tab.color, borderColor: `${tab.color}30` }}>
+              {tab.badge}
+            </span>
+          </div>
+        </div>
+
+        <div className="h-px bg-gray-100 mx-5" />
+
+        {/* ── Demo content ── */}
+        <div className="px-5 py-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.22 }}
+            >
+              <tab.Demo />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </motion.div>
