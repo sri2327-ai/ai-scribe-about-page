@@ -71,17 +71,18 @@ const scribeConversation = [
   { speaker: 'patient' as const, text: 'Yes, bright lights really bother me.' },
   { speaker: 'clinician' as const, text: "Ordering a CT scan and bloodwork to rule out anything serious." },
 ];
-const generatedNote = [
-  'CC: Headache × 3 days, neck stiffness',
-  'HPI: Photophobia present. Afebrile.',
-  'Plan: CT Head, CBC, CMP ordered.',
-  'Disposition: Follow-up in 48 hrs.',
+type NoteItem = { label: string; value: string };
+const generatedNote: NoteItem[] = [
+  { label: 'CC', value: 'Headache × 3 days, neck stiffness' },
+  { label: 'HPI', value: 'Photophobia present. Afebrile.' },
+  { label: 'Plan', value: 'CT Head, CBC, CMP ordered.' },
+  { label: 'Dispo', value: 'Follow-up in 48 hrs.' },
 ];
 
 const ScribeDemo = () => {
   const [phase, setPhase] = useState<'idle' | 'recording' | 'generating' | 'done'>('idle');
   const [visibleLines, setVisibleLines] = useState<number[]>([]);
-  const [noteLines, setNoteLines] = useState<string[]>([]);
+  const [noteLines, setNoteLines] = useState<NoteItem[]>([]);
   const [ehrSynced, setEhrSynced] = useState(false);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const chatRef = useRef<HTMLDivElement>(null);
@@ -113,68 +114,90 @@ const ScribeDemo = () => {
   useEffect(() => () => clearAll(), []);
 
   return (
-    <div className="space-y-2.5">
-      {/* Live conversation */}
-      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923 0%, #1a2e3d 100%)' }}>
-        {/* Top bar */}
-        <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
-          <div className="flex items-center gap-2">
-            {phase === 'recording' && <span className="flex h-2 w-2"><span className="animate-ping absolute h-2 w-2 rounded-full bg-red-400 opacity-75" /><span className="relative rounded-full h-2 w-2 bg-red-500" /></span>}
-            {phase !== 'recording' && <span className="h-2 w-2 rounded-full bg-white/20" />}
-            <span className="text-[11px] font-semibold text-white/60 tracking-wide">
-              {phase === 'idle' ? 'Ready' : phase === 'recording' ? 'Recording encounter' : phase === 'generating' ? 'Generating note…' : 'Complete'}
+    <div className="space-y-3">
+      {/* Status bar */}
+      <div className="flex items-center justify-between rounded-xl px-3.5 py-2.5 border border-gray-100"
+        style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f1f7ff 100%)' }}>
+        <div className="flex items-center gap-2">
+          {phase === 'recording' ? (
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
             </span>
+          ) : phase === 'generating' ? (
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500" />
+            </span>
+          ) : (
+            <span className="h-2.5 w-2.5 rounded-full bg-gray-200" />
+          )}
+          <span className="text-[11px] font-semibold text-gray-500">
+            {phase === 'idle' ? 'Ready to record' : phase === 'recording' ? 'Live Recording…' : phase === 'generating' ? 'AI Generating Note…' : 'Encounter Complete'}
+          </span>
+        </div>
+        {phase === 'recording' && <WaveformBars isActive bars={16} color="#387E89" />}
+        {phase === 'generating' && (
+          <div className="flex gap-1">
+            {[0,1,2].map(i => (
+              <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-blue-400"
+                animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.15 }} />
+            ))}
           </div>
-          {phase === 'recording' && <WaveformBars isActive bars={18} color="#60d8e8" />}
-          {phase === 'generating' && (
-            <div className="flex gap-1">
-              {[0,1,2].map(i => (
-                <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-blue-400"
-                  animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.6, delay: i * 0.15 }} />
-              ))}
-            </div>
-          )}
-        </div>
+        )}
+        {phase === 'done' && <span className="text-[10px] font-bold text-emerald-600">✓ Done</span>}
+      </div>
 
-        {/* Chat messages */}
-        <div ref={chatRef} className="px-4 py-3 space-y-2 h-[130px] overflow-y-auto">
-          {visibleLines.length === 0 && phase === 'idle' && (
-            <div className="h-full flex items-center justify-center">
-              <p className="text-[11px] text-white/25 text-center">Press Start Encounter to begin live transcription</p>
-            </div>
-          )}
-          {scribeConversation.map((line, i) => (
-            <AnimatePresence key={i}>
-              {visibleLines.includes(i) && (
-                <motion.div initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}
-                  className={`flex gap-2 ${line.speaker === 'patient' ? 'justify-end' : ''}`}>
-                  <div className={`text-[11px] leading-relaxed px-3 py-1.5 rounded-2xl max-w-[85%] ${
-                    line.speaker === 'clinician'
-                      ? 'bg-white/8 text-white/80 rounded-tl-sm'
-                      : 'text-white rounded-tr-sm'
-                  }`} style={line.speaker === 'patient' ? { background: 'linear-gradient(135deg, #387E89cc, #5192AEcc)' } : {}}>
-                    <span className="block text-[9px] font-bold mb-0.5 opacity-50">{line.speaker === 'clinician' ? 'Dr. Chen' : 'Patient'}</span>
-                    {line.text}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          ))}
-        </div>
+      {/* Conversation */}
+      <div ref={chatRef} className="space-y-2 h-[120px] overflow-y-auto rounded-xl border border-gray-100 px-3 py-2.5 bg-white">
+        {visibleLines.length === 0 && phase === 'idle' && (
+          <div className="h-full flex items-center justify-center">
+            <p className="text-[11px] text-gray-300 text-center">Click Start Encounter to begin</p>
+          </div>
+        )}
+        {scribeConversation.map((line, i) => (
+          <AnimatePresence key={i}>
+            {visibleLines.includes(i) && (
+              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
+                className={`flex gap-2 ${line.speaker === 'patient' ? 'justify-end' : ''}`}>
+                {line.speaker === 'clinician' && (
+                  <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[8px] font-bold text-white"
+                    style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>Dr</div>
+                )}
+                <div className={`max-w-[82%] rounded-2xl px-3 py-1.5 text-[11px] leading-relaxed ${
+                  line.speaker === 'clinician'
+                    ? 'bg-gray-50 text-gray-700 rounded-tl-sm border border-gray-100'
+                    : 'text-white rounded-tr-sm'
+                }`} style={line.speaker === 'patient' ? { background: 'linear-gradient(135deg, #143151, #387E89)' } : {}}>
+                  <span className={`block text-[9px] font-bold mb-0.5 ${line.speaker === 'clinician' ? 'text-gray-400' : 'text-white/60'}`}>
+                    {line.speaker === 'clinician' ? 'Dr. Chen' : 'Patient'}
+                  </span>
+                  {line.text}
+                </div>
+                {line.speaker === 'patient' && (
+                  <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[8px] font-bold text-white bg-gray-300">P</div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        ))}
       </div>
 
       {/* AI Note */}
       {noteLines.length > 0 && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-          className="rounded-xl overflow-hidden border border-blue-100/60">
-          <div className="flex items-center justify-between px-3 py-1.5" style={{ background: 'linear-gradient(90deg, #eff6ff, #f0f9ff)' }}>
-            <span className="text-[9px] font-black uppercase tracking-widest text-blue-500">AI SOAP Note</span>
-            <span className="text-[9px] text-blue-400 font-medium">Auto-generated</span>
+          className="rounded-xl border border-blue-100 overflow-hidden">
+          <div className="px-3.5 py-2 flex items-center justify-between"
+            style={{ background: 'linear-gradient(135deg, #eff6ff, #f0f9ff)' }}>
+            <span className="text-[10px] font-black uppercase tracking-widest text-blue-500">AI SOAP Note</span>
+            <span className="text-[9px] text-blue-400 font-semibold bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">Auto-generated</span>
           </div>
-          <div className="px-3 py-2 bg-white space-y-0.5">
-            {noteLines.map((l, i) => (
-              <motion.p key={i} initial={{ opacity: 0, x: -4 }} animate={{ opacity: 1, x: 0 }}
-                className="text-[11px] text-gray-700 font-mono">{l}</motion.p>
+          <div className="px-3.5 py-2.5 bg-white grid grid-cols-2 gap-x-4 gap-y-1">
+            {noteLines.map((item, i) => (
+              <motion.div key={i} initial={{ opacity: 0, x: -4 }} animate={{ opacity: 1, x: 0 }} className="flex gap-1.5">
+                <span className="text-[9px] font-black text-blue-400 w-8 flex-shrink-0 pt-[1px]">{item.label}</span>
+                <span className="text-[10px] text-gray-600 font-mono">{item.value}</span>
+              </motion.div>
             ))}
           </div>
         </motion.div>
@@ -183,37 +206,35 @@ const ScribeDemo = () => {
       {/* EHR synced */}
       {ehrSynced && (
         <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
-          className="flex items-center gap-2.5 rounded-xl p-2.5"
-          style={{ background: 'linear-gradient(90deg, #f0fdf4, #dcfce7)', border: '1px solid #bbf7d0' }}>
-          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+          className="flex items-center gap-2.5 rounded-xl p-2.5 border border-emerald-100 bg-emerald-50">
+          <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
             <CheckCircle className="w-3.5 h-3.5 text-white" />
           </div>
           <div>
-            <p className="text-[11px] font-bold text-green-800">Pushed to Epic EHR</p>
-            <p className="text-[9px] text-green-600">Synced in 0.3s · Chart updated</p>
+            <p className="text-[11px] font-bold text-emerald-800">Pushed to Epic EHR</p>
+            <p className="text-[9px] text-emerald-600">Synced in 0.3s · Chart updated</p>
           </div>
         </motion.div>
       )}
 
-      {/* Buttons */}
       <div className="flex gap-2 pt-0.5">
         {(phase === 'idle' || phase === 'done') ? (
           <>
             <button onClick={startEncounter}
               className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98]"
               style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-              {phase === 'done' ? 'New Encounter' : 'Start Encounter'}
+              {phase === 'done' ? 'New Encounter' : '▶ Start Encounter'}
             </button>
             {phase === 'done' && !ehrSynced && (
               <button onClick={() => setEhrSynced(true)}
-                className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:opacity-90 active:scale-[0.98] border-2 border-[#387E89] text-[#387E89]">
+                className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all hover:opacity-90 active:scale-[0.98] bg-white border-2 border-[#387E89] text-[#387E89]">
                 Push to EHR
               </button>
             )}
           </>
         ) : (
           <button onClick={reset}
-            className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-gray-500 border border-gray-200 hover:border-gray-300 transition-all">
+            className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-gray-400 border border-gray-200 hover:border-gray-300 bg-white transition-all">
             Stop
           </button>
         )}
@@ -282,92 +303,95 @@ const ReceptionistDemo = () => {
   }, []);
 
   return (
-    <div className="space-y-2.5">
-      {/* Phone UI */}
-      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923, #1a2e3d)' }}>
-        {/* Caller header */}
-        <div className="px-4 pt-3 pb-2.5 border-b border-white/5">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                style={{ background: 'linear-gradient(135deg, #387E89, #5192AE)' }}>B</div>
-              {phase === 'calling' && (
-                <motion.div className="absolute inset-0 rounded-full border-2 border-[#387E89]"
-                  animate={{ scale: [1, 1.5], opacity: [0.6, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }} />
-              )}
-            </div>
-            <div className="flex-1">
-              <p className="text-xs font-bold text-white">BRAVO AI Receptionist</p>
-              <p className="text-[10px] text-white/40">
-                {phase === 'idle' ? 'Ready · 24/7 · All calls handled' :
-                 phase === 'calling' ? 'In call with Sarah M.' : 'Call complete · All tasks done ✓'}
-              </p>
-            </div>
-            {phase === 'calling' && activeSpeaker && (
-              <WaveformBars isActive bars={14} color={activeSpeaker === 'bravo' ? '#60d8e8' : '#a78bfa'} />
+    <div className="space-y-3">
+      {/* Call header card */}
+      <div className="rounded-xl border border-gray-100 overflow-hidden" style={{ background: 'linear-gradient(135deg, #f8fafc 0%, #f0f9ff 100%)' }}>
+        <div className="px-4 pt-3.5 pb-3 flex items-center gap-3">
+          <div className="relative">
+            <div className="w-11 h-11 rounded-full flex items-center justify-center text-sm font-black text-white shadow-md"
+              style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>B</div>
+            {phase === 'calling' && (
+              <>
+                <motion.div className="absolute inset-0 rounded-full border-2 border-[#387E89]/40"
+                  animate={{ scale: [1, 1.6], opacity: [0.5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }} />
+                <motion.div className="absolute inset-0 rounded-full border-2 border-[#387E89]/20"
+                  animate={{ scale: [1, 2], opacity: [0.3, 0] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }} />
+              </>
             )}
           </div>
-        </div>
-
-        {/* Transcript */}
-        <div ref={scrollRef} className="px-4 py-3 space-y-2 h-[150px] overflow-y-auto">
-          {visibleLines.length === 0 && (
-            <div className="h-full flex items-center justify-center">
-              <p className="text-[11px] text-white/25 text-center">Press Start Call to hear BRAVO in action</p>
+          <div className="flex-1">
+            <p className="text-[13px] font-black text-gray-800">BRAVO AI Receptionist</p>
+            <p className="text-[11px] text-gray-400 font-medium">
+              {phase === 'idle' ? '● Ready · 24/7 · All calls handled' :
+               phase === 'calling' ? '🔴 In call with Sarah M.' : '✓ Call complete · All tasks done'}
+            </p>
+          </div>
+          {phase === 'calling' && activeSpeaker && (
+            <div className="flex flex-col items-end gap-0.5">
+              <WaveformBars isActive bars={12} color={activeSpeaker === 'bravo' ? '#387E89' : '#8b5cf6'} />
+              <span className="text-[9px] font-semibold" style={{ color: activeSpeaker === 'bravo' ? '#387E89' : '#8b5cf6' }}>
+                {activeSpeaker === 'bravo' ? 'BRAVO' : 'Sarah'}
+              </span>
             </div>
           )}
-          {bravoConversation.map((line, i) => (
-            <AnimatePresence key={i}>
-              {visibleLines.includes(i) && (
-                <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
-                  className={`flex gap-2 ${line.speaker === 'caller' ? 'justify-end' : ''}`}>
-                  {line.speaker === 'bravo' && (
-                    <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[9px] font-bold text-white"
-                      style={{ background: 'linear-gradient(135deg, #387E89, #5192AE)' }}>B</div>
-                  )}
-                  <div className={`max-w-[82%] rounded-2xl px-3 py-1.5 ${
-                    activeSpeaker === line.speaker && visibleLines[visibleLines.length - 1] === i
-                      ? 'ring-1 ring-white/20' : ''
-                  } ${line.speaker === 'bravo' ? 'bg-white/8 rounded-tl-sm' : 'rounded-tr-sm'}`}
-                    style={line.speaker === 'caller' ? { background: 'linear-gradient(135deg, #4f46e5aa, #7c3aedaa)' } : {}}>
-                    <p className="text-[9px] font-bold mb-0.5 opacity-50 text-white">{line.name} · {line.time}</p>
-                    <p className="text-[11px] leading-relaxed text-white/85">{line.text}</p>
-                  </div>
-                  {line.speaker === 'caller' && (
-                    <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[9px] font-bold text-white bg-white/15">S</div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          ))}
         </div>
       </div>
 
-      {/* Outcomes */}
+      {/* Transcript */}
+      <div ref={scrollRef} className="space-y-2 h-[148px] overflow-y-auto rounded-xl border border-gray-100 px-3 py-2.5 bg-white">
+        {visibleLines.length === 0 && (
+          <div className="h-full flex items-center justify-center">
+            <p className="text-[11px] text-gray-300 text-center">Press Start Call to hear BRAVO in action</p>
+          </div>
+        )}
+        {bravoConversation.map((line, i) => (
+          <AnimatePresence key={i}>
+            {visibleLines.includes(i) && (
+              <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.2 }}
+                className={`flex gap-2 ${line.speaker === 'caller' ? 'justify-end' : ''}`}>
+                {line.speaker === 'bravo' && (
+                  <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[8px] font-black text-white"
+                    style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>B</div>
+                )}
+                <div className={`max-w-[80%] rounded-2xl px-3 py-1.5 ${
+                  line.speaker === 'bravo'
+                    ? 'bg-gray-50 text-gray-700 rounded-tl-sm border border-gray-100'
+                    : 'text-white rounded-tr-sm'
+                }`} style={line.speaker === 'caller' ? { background: 'linear-gradient(135deg, #7c3aed, #a78bfa)' } : {}}>
+                  <p className={`text-[9px] font-bold mb-0.5 ${line.speaker === 'bravo' ? 'text-gray-400' : 'text-white/60'}`}>
+                    {line.name} · {line.time}
+                  </p>
+                  <p className="text-[11px] leading-relaxed">{line.text}</p>
+                </div>
+                {line.speaker === 'caller' && (
+                  <div className="w-5 h-5 rounded-full flex-shrink-0 mt-0.5 flex items-center justify-center text-[8px] font-bold text-white bg-violet-300">S</div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        ))}
+      </div>
+
       {phase === 'done' && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap gap-1.5">
-          {['Appt booked · Thu 10:30', 'Rx refill sent', 'SMS sent'].map((t, i) => (
-            <span key={i} className="text-[10px] font-semibold px-2.5 py-1 rounded-full"
-              style={{ background: 'linear-gradient(90deg, #f0fdf4, #dcfce7)', color: '#15803d', border: '1px solid #bbf7d0' }}>
+          {['Appt · Thu 10:30', 'Rx refill sent', 'SMS sent'].map((t, i) => (
+            <span key={i} className="text-[10px] font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
               ✓ {t}
             </span>
           ))}
         </motion.div>
       )}
 
-      {/* CTA */}
       <div className="flex gap-2">
         {phase !== 'calling' ? (
           <button onClick={startCall}
             className="flex-1 py-2.5 rounded-xl text-xs font-bold text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98]"
             style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-            {phase === 'done' ? 'Replay Call' : 'Start Call'}
+            {phase === 'done' ? 'Replay Call' : '📞 Start Call'}
           </button>
         ) : (
           <button onClick={endCall}
-            className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.98]"
-            style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5' }}>
+            className="flex-1 py-2.5 rounded-xl text-xs font-bold transition-all active:scale-[0.98] bg-red-50 text-red-500 border border-red-100">
             End Call
           </button>
         )}
@@ -378,11 +402,11 @@ const ReceptionistDemo = () => {
 
 // ─── Custom AI Agents Demo ────────────────────────────────────────────────────
 const agents = [
-  { id: 'scribe',    label: 'AI Scribe',       task: 'Documenting visit…',   done: 'Note generated',     color: '#3b82f6', pct: 87 },
-  { id: 'billing',   label: 'AI Billing',       task: 'Coding encounter…',    done: 'CPT 99213 suggested', color: '#8b5cf6', pct: 62 },
-  { id: 'prior',     label: 'Prior Auth',        task: 'Submitting request…',  done: 'Auth approved',       color: '#ec4899', pct: 100 },
-  { id: 'labs',      label: 'Lab Routing',       task: 'Routing results…',     done: 'Sent to Dr. Chen',    color: '#f59e0b', pct: 45 },
-  { id: 'recall',    label: 'Patient Recall',    task: 'Scheduling outreach…', done: '24 patients contacted', color: '#10b981', pct: 78 },
+  { id: 'scribe',  label: 'AI Scribe',     task: 'Documenting visit…',   done: 'Note generated',      color: '#3b82f6', bg: '#eff6ff', pct: 87 },
+  { id: 'billing', label: 'AI Billing',    task: 'Coding encounter…',    done: 'CPT 99213 suggested', color: '#8b5cf6', bg: '#f5f3ff', pct: 62 },
+  { id: 'prior',   label: 'Prior Auth',    task: 'Submitting request…',  done: 'Auth approved',       color: '#ec4899', bg: '#fdf2f8', pct: 100 },
+  { id: 'labs',    label: 'Lab Routing',   task: 'Routing results…',     done: 'Sent to Dr. Chen',    color: '#f59e0b', bg: '#fffbeb', pct: 45 },
+  { id: 'recall',  label: 'Patient Recall',task: 'Scheduling outreach…', done: '24 patients reached', color: '#10b981', bg: '#f0fdf4', pct: 78 },
 ];
 
 const CustomAgentsDemo = () => {
@@ -398,7 +422,6 @@ const CustomAgentsDemo = () => {
     setRunning(true);
     setProgresses(Object.fromEntries(agents.map(a => [a.id, 0])));
     timers.current.forEach(clearInterval);
-
     agents.forEach((agent, idx) => {
       const delay = idx * 250;
       let current = 0;
@@ -409,9 +432,7 @@ const CustomAgentsDemo = () => {
             current = agent.pct;
             clearInterval(iv);
             setProgresses(p => ({ ...p, [agent.id]: agent.pct }));
-            if (idx === agents.length - 1) {
-              setTimeout(() => { setRunning(false); setDone(true); }, 400);
-            }
+            if (idx === agents.length - 1) setTimeout(() => { setRunning(false); setDone(true); }, 400);
           } else {
             setProgresses(p => ({ ...p, [agent.id]: Math.round(current) }));
           }
@@ -424,61 +445,65 @@ const CustomAgentsDemo = () => {
   useEffect(() => () => timers.current.forEach(clearInterval), []);
 
   return (
-    <div className="space-y-2.5">
-      {/* Dark container */}
-      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923, #1a2e3d)' }}>
-        <div className="flex items-center justify-between px-4 py-2.5 border-b border-white/5">
-          <span className="text-[11px] font-semibold text-white/50 tracking-wide">
-            {running ? 'Agents running…' : done ? '5 tasks completed' : '5 agents ready to deploy'}
-          </span>
-          {running && (
-            <div className="flex gap-1">
-              {[0,1,2].map(i => (
-                <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-emerald-400"
-                  animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }} />
-              ))}
-            </div>
-          )}
-          {done && <span className="text-[10px] font-bold text-emerald-400">All done ✓</span>}
+    <div className="space-y-3">
+      {/* Header */}
+      <div className="rounded-xl border border-gray-100 px-4 py-3 flex items-center justify-between"
+        style={{ background: 'linear-gradient(135deg, #f8fafc, #f0f9ff)' }}>
+        <div>
+          <p className="text-[12px] font-black text-gray-800">
+            {running ? '⚡ Agents running…' : done ? '✓ 5 tasks completed' : '5 agents ready'}
+          </p>
+          <p className="text-[10px] text-gray-400 mt-0.5">Autonomous clinical automation</p>
         </div>
-
-        <div className="px-4 py-3 space-y-3">
-          {agents.map(agent => {
-            const pct = progresses[agent.id];
-            const isDone = pct >= agent.pct && (running || done);
-            return (
-              <div key={agent.id}>
-                <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: agent.color }} />
-                    <span className="text-[11px] font-semibold text-white/80">{agent.label}</span>
-                  </div>
-                  <span className="text-[10px] font-medium" style={{ color: isDone ? agent.color : 'rgba(255,255,255,0.3)' }}>
-                    {(running || done) ? (isDone ? agent.done : agent.task) : 'Standby'}
-                  </span>
-                </div>
-                <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.06)' }}>
-                  <motion.div
-                    className="h-full rounded-full"
-                    style={{ background: `linear-gradient(90deg, ${agent.color}88, ${agent.color})` }}
-                    initial={{ width: '0%' }}
-                    animate={{ width: `${pct}%` }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        {running && (
+          <div className="flex gap-1 items-center">
+            {[0,1,2].map(i => (
+              <motion.div key={i} className="w-1.5 h-1.5 rounded-full bg-emerald-400"
+                animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1, delay: i * 0.2 }} />
+            ))}
+          </div>
+        )}
+        {done && <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full border border-emerald-100">All done ✓</span>}
       </div>
 
-      {/* Stats row */}
+      {/* Agent rows */}
+      <div className="space-y-1.5">
+        {agents.map(agent => {
+          const pct = progresses[agent.id];
+          const isDone = pct >= agent.pct && (running || done);
+          return (
+            <div key={agent.id} className="rounded-xl border px-3.5 py-2.5 transition-all"
+              style={{ background: isDone ? agent.bg : 'white', borderColor: isDone ? agent.color + '30' : '#f1f5f9' }}>
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center gap-2">
+                  <div className="w-5 h-5 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{ background: agent.color + '18' }}>
+                    <div className="w-2 h-2 rounded-full" style={{ background: agent.color }} />
+                  </div>
+                  <span className="text-[11px] font-bold text-gray-700">{agent.label}</span>
+                </div>
+                <span className="text-[10px] font-semibold" style={{ color: isDone ? agent.color : '#94a3b8' }}>
+                  {(running || done) ? (isDone ? agent.done : agent.task) : 'Standby'}
+                </span>
+              </div>
+              <div className="h-1.5 rounded-full bg-gray-100 overflow-hidden">
+                <motion.div className="h-full rounded-full"
+                  style={{ background: `linear-gradient(90deg, ${agent.color}88, ${agent.color})` }}
+                  initial={{ width: '0%' }}
+                  animate={{ width: `${pct}%` }}
+                  transition={{ duration: 0.3 }} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
       {done && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-3 gap-2">
-          {[['40%', 'Admin saved'], ['0.3s', 'Avg task time'], ['5', 'Agents active']].map(([val, label], i) => (
-            <div key={i} className="rounded-xl p-2.5 text-center" style={{ background: 'linear-gradient(145deg, #f8fafc, #f1f5f9)', border: '1px solid #e2e8f0' }}>
-              <p className="text-base font-black text-gray-900">{val}</p>
-              <p className="text-[9px] text-gray-500 font-medium leading-tight">{label}</p>
+          {[['40%', 'Admin saved'], ['0.3s', 'Avg task'], ['5', 'Active agents']].map(([val, label], i) => (
+            <div key={i} className="rounded-xl p-2.5 text-center border border-gray-100 bg-white shadow-sm">
+              <p className="text-base font-black text-gray-800">{val}</p>
+              <p className="text-[9px] text-gray-400 font-medium">{label}</p>
             </div>
           ))}
         </motion.div>
@@ -487,7 +512,7 @@ const CustomAgentsDemo = () => {
       <button onClick={running ? undefined : runAgents} disabled={running}
         className="w-full py-2.5 rounded-xl text-xs font-bold text-white tracking-wide transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60"
         style={{ background: 'linear-gradient(135deg, #143151, #387E89)' }}>
-        {running ? 'Running…' : done ? 'Run Again' : 'Deploy All Agents'}
+        {running ? 'Running…' : done ? '▶ Run Again' : '⚡ Deploy All Agents'}
       </button>
     </div>
   );
@@ -495,21 +520,21 @@ const CustomAgentsDemo = () => {
 
 // ─── Integrations Demo ────────────────────────────────────────────────────────
 const ehrList = [
-  { name: 'Epic',        color: '#dc2626', initial: 'E' },
-  { name: 'Cerner',      color: '#2563eb', initial: 'C' },
-  { name: 'Athena',      color: '#7c3aed', initial: 'A' },
-  { name: 'eClinicals',  color: '#0891b2', initial: 'eC' },
-  { name: 'DrChrono',    color: '#db2777', initial: 'DC' },
-  { name: 'Kareo',       color: '#059669', initial: 'K' },
+  { name: 'Epic',       color: '#dc2626', bg: '#fef2f2', initial: 'E',  desc: 'HL7 FHIR' },
+  { name: 'Cerner',     color: '#2563eb', bg: '#eff6ff', initial: 'C',  desc: 'SMART API' },
+  { name: 'Athena',     color: '#7c3aed', bg: '#f5f3ff', initial: 'A',  desc: 'REST API' },
+  { name: 'eClinicals', color: '#0891b2', bg: '#ecfeff', initial: 'eC', desc: 'HL7 v2' },
+  { name: 'DrChrono',   color: '#db2777', bg: '#fdf2f8', initial: 'DC', desc: 'OAuth 2' },
+  { name: 'Kareo',      color: '#059669', bg: '#f0fdf4', initial: 'K',  desc: 'REST API' },
 ];
 const appGrid = [
-  { name: 'Zoom',     color: '#1d4ed8', initial: 'Zm' },
-  { name: 'Doximity', color: '#0ea5e9', initial: 'Dx' },
-  { name: 'Twilio',   color: '#e11d48', initial: 'Tw' },
-  { name: 'Stripe',   color: '#5b21b6', initial: 'St' },
-  { name: 'G Suite',  color: '#ea580c', initial: 'GS' },
-  { name: 'Slack',    color: '#7c3aed', initial: 'Sl' },
-  { name: 'AWS',      color: '#f59e0b', initial: 'AW' },
+  { name: 'Zoom',       color: '#1d4ed8', initial: 'Z' },
+  { name: 'Doximity',   color: '#0ea5e9', initial: 'D' },
+  { name: 'Twilio',     color: '#e11d48', initial: 'T' },
+  { name: 'Stripe',     color: '#5b21b6', initial: 'S' },
+  { name: 'G Suite',    color: '#ea580c', initial: 'G' },
+  { name: 'Slack',      color: '#7c3aed', initial: 'Sl' },
+  { name: 'AWS',        color: '#f59e0b', initial: 'AW' },
   { name: 'Salesforce', color: '#0ea5e9', initial: 'SF' },
 ];
 
@@ -527,33 +552,31 @@ const IntegrationsDemo = () => {
   };
 
   return (
-    <div className="space-y-2.5">
-      {/* Dark header */}
-      <div className="rounded-xl overflow-hidden" style={{ background: 'linear-gradient(145deg, #0f1923, #1a2e3d)' }}>
-        <div className="px-4 py-2.5 border-b border-white/5">
-          <p className="text-[11px] font-semibold text-white/50 tracking-wide">Select an EHR to test sync</p>
-        </div>
-
-        {/* EHR grid */}
-        <div className="p-3 grid grid-cols-3 gap-2">
+    <div className="space-y-3">
+      <div>
+        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">EHR Systems · Click to Test Sync</p>
+        <div className="grid grid-cols-3 gap-1.5">
           {ehrList.map((ehr, i) => {
             const isActive = activeEHR === i;
             const isSynced = syncedEHR === i;
             return (
               <button key={i} onClick={() => handleSync(i)}
-                className="relative flex flex-col items-center gap-1.5 p-2.5 rounded-xl transition-all hover:scale-105 active:scale-95"
+                className="relative flex items-center gap-2 p-2.5 rounded-xl border transition-all text-left hover:scale-[1.02] active:scale-95"
                 style={{
-                  background: isActive ? `${ehr.color}22` : 'rgba(255,255,255,0.04)',
-                  border: `1.5px solid ${isActive ? ehr.color + '60' : 'rgba(255,255,255,0.06)'}`,
+                  background: isActive || isSynced ? ehr.bg : 'white',
+                  borderColor: isActive || isSynced ? ehr.color + '40' : '#f1f5f9',
                 }}>
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-[10px] font-black"
+                <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[9px] font-black flex-shrink-0 shadow-sm"
                   style={{ background: `linear-gradient(135deg, ${ehr.color}cc, ${ehr.color})` }}>
                   {ehr.initial}
                 </div>
-                <span className="text-[10px] font-semibold text-white/70">{ehr.name}</span>
+                <div className="min-w-0">
+                  <p className="text-[10px] font-bold text-gray-700 leading-none">{ehr.name}</p>
+                  <p className="text-[9px] text-gray-400 mt-0.5">{ehr.desc}</p>
+                </div>
                 {isSynced && (
                   <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}
-                    className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center">
+                    className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center shadow-sm">
                     <span className="text-white text-[8px] font-black">✓</span>
                   </motion.div>
                 )}
@@ -567,31 +590,28 @@ const IntegrationsDemo = () => {
         </div>
       </div>
 
-      {/* Sync result */}
       {syncedEHR !== null && (
         <motion.div initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-2.5 rounded-xl p-2.5"
-          style={{ background: 'linear-gradient(90deg, #f0fdf4, #dcfce7)', border: '1px solid #bbf7d0' }}>
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[11px] font-black flex-shrink-0"
+          className="flex items-center gap-2.5 rounded-xl p-2.5 border border-emerald-100 bg-emerald-50">
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center text-white text-[10px] font-black flex-shrink-0 shadow-sm"
             style={{ background: ehrList[syncedEHR].color }}>
             {ehrList[syncedEHR].initial}
           </div>
           <div className="flex-1">
-            <p className="text-[11px] font-bold text-green-800">Connected to {ehrList[syncedEHR].name}</p>
-            <p className="text-[9px] text-green-600">Notes sync · Orders sync · Charts sync · Real-time</p>
+            <p className="text-[11px] font-bold text-emerald-800">Connected to {ehrList[syncedEHR].name}</p>
+            <p className="text-[9px] text-emerald-600">Notes · Orders · Charts sync · Real-time ✓</p>
           </div>
         </motion.div>
       )}
 
-      {/* Other apps */}
       <div>
-        <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400 mb-2">Also connects with 7,000+ apps</p>
+        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">+ 7,000 more apps</p>
         <div className="flex flex-wrap gap-1.5">
           {appGrid.map((app, i) => (
-            <div key={i} className="flex items-center gap-1 bg-white border border-gray-100 rounded-lg px-2 py-1 shadow-sm">
-              <div className="w-4 h-4 rounded-md flex items-center justify-center text-white text-[8px] font-black flex-shrink-0"
+            <div key={i} className="flex items-center gap-1.5 bg-white border border-gray-100 rounded-lg px-2 py-1 shadow-sm hover:shadow transition-all">
+              <div className="w-4 h-4 rounded-md flex items-center justify-center text-white text-[7px] font-black flex-shrink-0"
                 style={{ background: app.color }}>{app.initial}</div>
-              <span className="text-[10px] font-medium text-gray-600">{app.name}</span>
+              <span className="text-[10px] font-semibold text-gray-600">{app.name}</span>
             </div>
           ))}
         </div>
