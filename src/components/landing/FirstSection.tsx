@@ -787,7 +787,7 @@ export const FirstSection = () => {
   };
   
   return <section id="ai-solutions-overview" aria-labelledby="hero-heading" className="min-h-screen relative overflow-hidden" ref={sectionRef} style={{
-    background: 'linear-gradient(135deg, #fafbfc 0%, #f8fafc 25%, #f1f8ff 50%, #ecf7f7 75%, #f0fdf4 100%)'
+    background: 'linear-gradient(135deg, #fdf6fb 0%, #f8f0f8 20%, #f0f4fd 50%, #eef6fb 80%, #f4f8fd 100%)'
   }}>
       {/* Enhanced SEO-friendly content for search engines - Comprehensive coverage */}
       <div className="sr-only">
